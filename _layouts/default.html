@@ -1,31 +1,54 @@
----
-layout: compress
----
-
-{% include base_path %}
-
 <!doctype html>
-<html lang="{{ site.locale | slice: 0,2 }}" class="no-js">
-  <head>
-    {% include head.html %}
-    {% include head/custom.html %}
-  </head>
-
-  <body>
-
-    {% include browser-upgrade.html %}
-    {% include masthead.html %}
-
-    {{ content }}
-
-    <div class="page__footer">
-      <footer>
-        {% include footer/custom.html %}
-        {% include footer.html %}
-      </footer>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}">
+  <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | relative_url }}">
+  <!-- DataTables + jQuery (for Data/Tools page) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-dt@2/css/jquery.dataTables.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/datatables.net@2/js/dataTables.min.js"></script>
+  <!-- bibtex-js (client-side BibTeX rendering) -->
+  <script defer src="https://cdn.jsdelivr.net/gh/pcooksey/bibtex-js@1.0.0/src/bibtex_js.min.js"></script>
+  <!-- Site JS -->
+  <script defer src="{{ '/assets/js/site.js' | relative_url }}"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/research/' | relative_url }}">Research</a>
+        <a href="{{ '/publications/' | relative_url }}">Publications</a>
+        <a href="{{ '/talks/' | relative_url }}">Talks</a>
+        <a href="{{ '/data-tools/' | relative_url }}">Data/Tools</a>
+        <a href="{{ '/cv/' | relative_url }}">CV</a>
+        <a href="{{ '/contact/' | relative_url }}">Contact</a>
+      </nav>
+      <div class="searchbox">
+        <input id="q" placeholder="Search site…" oninput="window.siteSearch(this.value)">
+        <div id="q-results" class="q-results"></div>
+      </div>
     </div>
+  </header>
 
-    {% include scripts.html %}
+  <main class="container content">
+    {{ content }}
+  </main>
 
-  </body>
+  <footer class="site-footer">
+    <div class="container">
+      <div>
+        © {{ "now" | date: "%Y" }} {{ site.title }} · 
+        <a href="https://github.com/msehabibur" target="_blank" rel="noopener">GitHub</a> ·
+        <a href="https://scholar.google.com/citations?user=vkAPzB0AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a> ·
+        <a href="https://www.linkedin.com/in/habibur-rahman-55a932120/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+</body>
 </html>
