@@ -1,0 +1,9 @@
+[
+  { "title": "Home", "url": "/", "summary": "Overview, highlights, news" },
+  { "title": "Research", "url": "/research/", "summary": "Active learning for defects; chalcogenide discovery; GNNs" },
+  { "title": "Publications", "url": "/publications/", "summary": "Papers list rendered from BibTeX" },
+  { "title": "Talks", "url": "/talks/", "summary": "APS, MRS, MS&T, AIMS presentations" },
+  { "title": "Data & Tools", "url": "/data-tools/", "summary": "Interactive tables, apps, datasets, downloads" },
+  { "title": "CV", "url": "/cv/", "summary": "Embedded curriculum vitae (PDF)" },
+  { "title": "Contact", "url": "/contact/", "summary": "Email and profiles" }
+]
