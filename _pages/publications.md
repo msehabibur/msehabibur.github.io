@@ -1,8 +1,15 @@
 ---
-layout: page
+layout: archive
 title: "Publications"
 permalink: /publications/
+author_profile: true     # Enables left sidebar
+# Do NOT add: classes: wide (that hides the sidebar)
+# Optional: if you want a left menu too:
+# sidebar:
+#   nav: main
 ---
+
+{% include base_path %}
 
 {% assign pubs = site.publications | sort: 'date' | reverse %}
 
