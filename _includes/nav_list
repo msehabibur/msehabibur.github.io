@@ -11,7 +11,7 @@
           {% if nav_url contains "://" %}
             {% assign resolved_nav_url = nav_url %}
           {% else %}
-            {% assign resolved_nav_url = baseurl | append: nav_url %}
+            {% assign resolved_nav_url = nav_url | relative_url %}
           {% endif %}
 
           <a href="{{ resolved_nav_url }}"><span class="nav__sub-title">{{ nav.title }}</span></a>
@@ -33,7 +33,7 @@
             {% if child_url contains "://" %}
               {% assign resolved_child_url = child_url %}
             {% else %}
-              {% assign resolved_child_url = baseurl | append: child_url %}
+              {% assign resolved_child_url = child_url | relative_url %}
             {% endif %}
 
             <li><a href="{{ resolved_child_url }}" class="{{ active }}">{{ child.title }}</a></li>
