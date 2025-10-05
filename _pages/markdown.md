@@ -1,10 +1,11 @@
 ---
-permalink: /markdown/
-title: "Markdown"
+permalink: /guide/
+title: "Guide"
 author_profile: true
-redirect_from: 
+redirect_from:
   - /md/
   - /markdown.html
+  - /markdown/
 ---
 
 {% include toc %}
