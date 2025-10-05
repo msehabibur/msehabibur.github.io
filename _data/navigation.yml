@@ -12,7 +12,7 @@ main:
     url: /academic/
 
   - title: "Publications"
-    url: /publications/
+    url: "{{ site.baseurl }}/publications/"
 
   - title: "Talks"
     url: /talks/
