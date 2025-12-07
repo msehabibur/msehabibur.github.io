@@ -9,10 +9,10 @@
 # Basic Site Settings
 locale                   : "en-US"
 site_theme               : "default" # Currently available options are "default", "air"
-title                    : "Your Name / Site Title"
+title                    : "Md Habibur Rahman"
 title_separator          : "-"
-name                     : &name "Your Name"
-description              : &description "Your Name's academic portfolio"   # Update this with a general description of your site, this is the default if not overridden by a page
+name                     : &name "Md Habibur Rahman"
+description              : &description "Md Habibur Rahman's academic portfolio"   # Update this with a general description of your site, this is the default if not overridden by a page
 # If this is a project page, set baseurl to "/<repo-name>"; if user site, leave empty
 url                      : https://msehabibur.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
                                                            # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
