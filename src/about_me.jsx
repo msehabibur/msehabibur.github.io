@@ -584,17 +584,17 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             {/* Top row: two input pillars */}
             <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", marginBottom: 0 }}>
               {[
-                { title: "First-Principles Simulations", color: T.blue, items: ["Density Functional Theory (VASP, QE)", "GGA and HSE06 Functionals"] },
-                { title: "Classical Simulations", color: T.green, items: ["Molecular Dynamics", "ReaxFF / EAM Potentials"] },
+                { title: "First-Principles Simulations", color: T.blue, items: ["Density Functional Theory (VASP)", "GGA and HSE06 Functionals"] },
+                { title: "Classical Simulations", color: T.green, items: ["Molecular Dynamics (LAMMPS)", "ReaxFF / EAM Potentials"] },
               ].map((block, i) => (
                 <div key={i} style={{
                   flex: "1 1 260px", maxWidth: 340, background: block.color + "08",
                   border: `2px solid ${block.color}30`, borderRadius: 12, padding: "16px 18px",
                 }}>
                   <div style={{ fontSize: 13, fontWeight: 800, color: block.color, marginBottom: 10, textAlign: "center" }}>{block.title}</div>
-                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 2.0, color: T.ink }}>
-                    {block.items.map((item, j) => <li key={j}>{item}</li>)}
-                  </ul>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+                    {block.items.map((item, j) => <div key={j}>{item}</div>)}
+                  </div>
                 </div>
               ))}
             </div>
