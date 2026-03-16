@@ -258,15 +258,6 @@ const PUBLICATIONS = [
   },
   {
     authors: "Rahman, Md Habibur, Mannodi-Kanakkithodi, A.",
-    title: "DefectDB: An Open Source Infrastructure for Defect Thermodynamics in II-VI Semiconductors",
-    journal: "nanoHUB",
-    year: "2025", me: true, citations: 0,
-    abstract: "We present DefectDB, an open-source web-based infrastructure deployed on nanoHUB for exploring defect thermodynamics in II-VI semiconductors. The platform provides an interactive interface for querying defect formation energies, charge transition levels, and migration barriers computed using high-throughput DFT calculations across Cd/Zn-S/Se/Te compounds.",
-    highlights: ["Open-source defect database on nanoHUB", "Interactive querying of defect properties", "High-throughput DFT data for II-VI semiconductors", "Accessible to the research community"],
-    link: "https://nanohub.org/tools/defectdatabase",
-  },
-  {
-    authors: "Rahman, Md Habibur, Mannodi-Kanakkithodi, A.",
     title: "Defect modeling in semiconductors: the role of first principles simulations and machine learning",
     journal: "Journal of Physics: Materials, 8 (2), 022001",
     year: "2025", me: true, citations: 16,
@@ -450,15 +441,6 @@ const PUBLICATIONS = [
     link: "https://doi.org/10.1039/D1RA04571G",
   },
   {
-    authors: "Redwan, D.A., Chowdhury, E.H., Rahman, Md Habibur, Prince, H.A.",
-    title: "Numerical investigation on the electronic components' cooling for different coolants by finite element method",
-    journal: "Heat Transfer 50 (5), 4643-4655",
-    year: "2021", me: false, citations: 5,
-    abstract: "We perform numerical investigation of electronic component cooling using different coolants by finite element method. The thermal performance of various coolant types including water, oil, and nanofluids is systematically compared, providing design guidelines for effective thermal management of electronic devices.",
-    highlights: ["FEM analysis of electronic component cooling", "Multiple coolant types compared", "Thermal performance optimization", "Design guidelines for thermal management"],
-    link: "https://doi.org/10.1002/htj.22089",
-  },
-  {
     authors: "Chowdhury, E.H., Rahman, Md Habibur, Bose, P., Jayan, R., Islam, M.M.",
     title: "Atomistic investigation on the mechanical properties and failure behavior of zinc-blende cadmium selenide (CdSe) nanowire",
     journal: "Computational Materials Science, 186, 110001",
@@ -494,14 +476,6 @@ const PUBLICATIONS = [
     abstract: "We perform atomic-scale analysis of the physical strength and phonon transport mechanisms of monolayer \u03B2-bismuthene using molecular dynamics simulations. The mechanical properties, thermal conductivity, and phonon dispersion are systematically characterized, providing fundamental understanding of this promising topological insulator material for thermoelectric and spintronic applications.",
     highlights: ["MD analysis of monolayer \u03B2-bismuthene", "Mechanical strength characterization", "Phonon transport mechanisms elucidated", "Insights for thermoelectric applications"],
     link: "https://doi.org/10.1039/D0CP04785F",
-  },
-  {
-    authors: "Rahman, Md Habibur, Chowdhury, E.H., Redwan, D.A., Prince, H.A., Amin, M.R.",
-    title: "Numerical Investigation of Convective Heat Transfer on a Dynamic Wall Heat Exchanger With Varying Amplitude and Frequency",
-    journal: "ASME International Mechanical Engineering Congress and Exposition 84591",
-    year: "2020", me: true, citations: 2,
-    abstract: "We perform numerical investigation of convective heat transfer on a dynamic wall heat exchanger with varying amplitude and frequency. The effects of wall oscillation parameters on heat transfer enhancement are systematically analyzed using computational fluid dynamics, providing design guidelines for improved thermal performance in heat exchanger applications.",
-    highlights: ["CFD study of dynamic wall heat exchanger", "Wall oscillation effects on heat transfer", "Amplitude and frequency parameter study", "Design guidelines for thermal enhancement"],
   },
 ];
 
