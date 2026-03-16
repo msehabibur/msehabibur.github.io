@@ -705,12 +705,12 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
         <div>
           <SectionTitle color={T.amber}>Awards & Honors</SectionTitle>
           {[
-            { title: "2025 MRS Graduate Student Award", org: "Materials Research Society, Boston", color: T.amber, link: "https://www.mrs.org/advancing-careers/award-central/spring-awards/graduate-student-awards/past-recipients" },
-            { title: "Vashti L. Magoon Research Excellence Award", org: "Purdue University", color: T.accent, link: "https://engineering.purdue.edu/Engr/People/Awards/Graduate/ptRecipientListing?group_id=237384&show_sub_groups=1" },
-            { title: "Materials Informatics Fellowship", org: "GE Aerospace, Summer 2025 Internship", color: T.blue },
             { title: "2025 AI/ML for Microscopy Hackathon Winner — Toyota Research Institute Prize", org: "DeepScan Pro", color: T.green, link: "https://kaliningroup.github.io/mic_hackathon_2/awards/", github: "https://github.com/msehabibur/mic-hackathon-25" },
-            { title: "2025 LLM Hackathon for Applications in Materials Science & Chemistry Winner — Abstrax Prize", org: "LLM Hackathon for Materials Science & Engineering", color: T.pink, link: "https://llmhackathon.github.io/awards/", github: "https://github.com/msehabibur/gcxgc_peakcards" },
             { title: "2025 NanoArtography Competition Winner", org: "Promoting nanoscience through art", color: T.red, link: "https://www.nanoartography.org/2025" },
+            { title: "2025 MRS Graduate Student Award", org: "Materials Research Society, Boston", color: T.amber, link: "https://www.mrs.org/advancing-careers/award-central/spring-awards/graduate-student-awards/past-recipients" },
+            { title: "2025 LLM Hackathon for Applications in Materials Science & Chemistry Winner — Abstrax Prize", org: "LLM Hackathon for Materials Science & Engineering", color: T.pink, link: "https://llmhackathon.github.io/awards/", github: "https://github.com/msehabibur/gcxgc_peakcards" },
+            { title: "2025 Vashti L. Magoon Research Excellence Award", org: "Purdue University", color: T.accent, link: "https://engineering.purdue.edu/Engr/People/Awards/Graduate/ptRecipientListing?group_id=237384&show_sub_groups=1" },
+            { title: "2025 Materials Informatics Fellowship", org: "GE Aerospace, Summer 2025 Internship", color: T.blue },
           ].map((award, i) => (
             <Card key={i} style={{ padding: "14px 16px", marginBottom: 10 }}>
               <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
