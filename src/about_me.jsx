@@ -496,14 +496,28 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
       {/* Tab nav + dark/light toggle */}
       <div style={{ display: "flex", gap: 6, marginBottom: 24, flexWrap: "wrap", alignItems: "center" }}>
         {TABS.map(t => (
-          <button key={t.id} onClick={() => setTab(t.id)} style={{
-            padding: "7px 16px", borderRadius: 8, fontSize: 12, cursor: "pointer",
-            background: tab === t.id ? T.accent + "15" : T.surface,
-            border: `1px solid ${tab === t.id ? T.accent : T.border}`,
-            color: tab === t.id ? T.accent : T.muted,
-            fontWeight: tab === t.id ? 700 : 500, fontFamily: "inherit",
-            transition: "all 0.15s",
-          }}>{t.label}</button>
+          t.id === "blog" ? (
+            <a key={t.id} href="/blog" style={{
+              padding: "7px 16px", borderRadius: 8, fontSize: 12, cursor: "pointer",
+              background: T.surface,
+              border: `1px solid ${T.border}`,
+              color: T.muted,
+              fontWeight: 500, fontFamily: "inherit",
+              transition: "all 0.15s",
+              textDecoration: "none", display: "inline-block",
+            }}>
+              {t.label} {"\u2197"}
+            </a>
+          ) : (
+            <button key={t.id} onClick={() => setTab(t.id)} style={{
+              padding: "7px 16px", borderRadius: 8, fontSize: 12, cursor: "pointer",
+              background: tab === t.id ? T.accent + "15" : T.surface,
+              border: `1px solid ${tab === t.id ? T.accent : T.border}`,
+              color: tab === t.id ? T.accent : T.muted,
+              fontWeight: tab === t.id ? 700 : 500, fontFamily: "inherit",
+              transition: "all 0.15s",
+            }}>{t.label}</button>
+          )
         ))}
         <div style={{ flex: 1 }} />
         {onToggleDark && (

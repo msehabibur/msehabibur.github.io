@@ -13920,8 +13920,8 @@ const T_DARK = {
   muted:   "#9ca3b4",
 };
 
-export default function MaterialsLab() {
-  const [module, setModule] = useState(null);
+export default function MaterialsLab({ initialModule = null, blogMode = false }) {
+  const [module, setModule] = useState(initialModule);
   const [dark, setDark] = useState(false);
 
   const shell = dark ? T_DARK : T; // shell colors for header/bg
@@ -13965,13 +13965,19 @@ export default function MaterialsLab() {
         top: 0,
         zIndex: 20,
       }}>
-        <button onClick={() => setModule(null)} style={{
+        <button onClick={() => {
+          if (blogMode) {
+            window.location.href = "/blog";
+          } else {
+            setModule(null);
+          }
+        }} style={{
           padding: "6px 14px", borderRadius: 8, fontSize: 12, cursor: "pointer",
           background: shell.surface, border: `1.5px solid ${shell.border}`,
           color: shell.ink, fontWeight: 700, fontFamily: "inherit",
           display: "flex", alignItems: "center", gap: 6,
         }}>
-          {"\u2190"} Home
+          {"\u2190"} {blogMode ? "Blog" : "Home"}
         </button>
 
         <div style={{
