@@ -196,13 +196,13 @@ function PubCard({ pub, index }) {
 // ═══════════════════════════════════════════════════════════
 const TABS = [
   { id: "overview",      label: "Overview" },
-  { id: "blog",          label: "Scientific Blog" },
   { id: "education",     label: "Education" },
+  { id: "research",      label: "Research" },
   { id: "publications",  label: "Publications" },
-  { id: "awards",        label: "Awards" },
   { id: "conferences",   label: "Conferences" },
+  { id: "awards",        label: "Awards" },
   { id: "software",      label: "Software" },
-  { id: "skills",        label: "Skills" },
+  { id: "blog",          label: "Scientific Blog" },
 ];
 
 const BLOG_CHAPTERS = [
@@ -482,41 +482,17 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             </ul>
           </Card>
 
-          <SectionTitle color={T.blue}>Research Interests</SectionTitle>
+          <SectionTitle color={T.blue}>Research Keywords</SectionTitle>
           <Card>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              <Tag color={T.blue}>Modelling & Simulations of Materials</Tag>
-              <Tag color={T.green}>AI/ML for Accelerated Materials Discovery</Tag>
-              <Tag color={T.amber}>Defect Engineering in Semiconductors</Tag>
-              <Tag color={T.teal}>Photovoltaics</Tag>
-              <Tag color={T.accent}>Machine Learning Force Fields</Tag>
-              <Tag color={T.red}>High-Throughput DFT</Tag>
-            </div>
+            <ul style={{ margin: 0, paddingLeft: 20, lineHeight: 2.0, fontSize: 14, listStyleType: "disc", color: T.ink }}>
+              <li>Modelling & Simulations of Materials</li>
+              <li>AI/ML for Accelerated Materials Discovery</li>
+              <li>Defect Engineering in Semiconductors</li>
+              <li>Photovoltaics</li>
+              <li>Machine Learning Force Fields</li>
+            </ul>
           </Card>
 
-          <SectionTitle color={T.green}>Research Experience</SectionTitle>
-          <Card>
-            <div style={{ marginBottom: 16 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
-                <strong style={{ fontSize: 14 }}>Material Informatics Fellow Intern, GE Aerospace</strong>
-                <span style={{ fontSize: 12, color: T.muted }}>May 2025 – Aug 2025</span>
-              </div>
-              <div style={{ fontSize: 13, color: T.muted, marginTop: 2 }}>
-                AI-Driven Discovery of Thermal Barrier Coatings and Coolants for Aerospace Applications
-              </div>
-              <div style={{ fontSize: 12, color: T.accent, marginTop: 2 }}>Niskayuna, New York</div>
-            </div>
-            <div>
-              <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
-                <strong style={{ fontSize: 14 }}>Graduate Research Assistant, Purdue University</strong>
-                <span style={{ fontSize: 12, color: T.muted }}>Aug 2022 – Present</span>
-              </div>
-              <div style={{ fontSize: 13, color: T.muted, marginTop: 2 }}>
-                Modeling and Simulations of Semiconductors for Photovoltaics
-              </div>
-              <div style={{ fontSize: 12, color: T.accent, marginTop: 2 }}>West Lafayette, Indiana</div>
-            </div>
-          </Card>
         </div>
       )}
 
@@ -577,9 +553,14 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               </div>
               <div style={{ fontSize: 13, color: T.muted }}>West Lafayette, Indiana, USA</div>
               <div style={{ fontSize: 14, marginTop: 4 }}>
-                PhD in Materials Engineering — Supervisor: <strong>Prof. Arun Mannodi-Kanakkithodi</strong>
+                PhD in Materials Engineering
               </div>
               <Tag color={T.green}>CGPA: 3.91 / 4.00</Tag>
+              <div style={{ marginTop: 6 }}>
+                <a href="https://engineering.purdue.edu/MSE/people/ptGradStudent?id=277454" target="_blank" rel="noopener noreferrer" style={{
+                  fontSize: 11, color: T.accent, textDecoration: "none", fontWeight: 600,
+                }}>View Purdue Profile {"\u2192"}</a>
+              </div>
             </div>
             <div style={{ borderTop: `1px solid ${T.border}`, paddingTop: 16 }}>
               <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
@@ -588,6 +569,97 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               </div>
               <div style={{ fontSize: 13, color: T.muted }}>Dhaka, Bangladesh</div>
               <div style={{ fontSize: 14, marginTop: 4 }}>Bachelor of Science in Mechanical Engineering</div>
+            </div>
+          </Card>
+        </div>
+      )}
+
+      {/* ─── RESEARCH ─── */}
+      {tab === "research" && (
+        <div>
+          <SectionTitle color={T.accent}>Atomistic Simulations & AI for Science</SectionTitle>
+
+          {/* Block diagram */}
+          <Card style={{ padding: 24 }}>
+            {/* Top row: two input pillars */}
+            <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", marginBottom: 0 }}>
+              {[
+                { title: "First-Principles Simulations", color: T.blue, items: ["DFT (VASP, QE)", "Hybrid Functionals (HSE06)", "NEB Migration Barriers", "Defect Thermodynamics"] },
+                { title: "Classical / ML Simulations", color: T.green, items: ["Molecular Dynamics (LAMMPS)", "ReaxFF / EAM Potentials", "Machine Learning Force Fields", "Monte Carlo Sampling"] },
+              ].map((block, i) => (
+                <div key={i} style={{
+                  flex: "1 1 260px", maxWidth: 340, background: block.color + "08",
+                  border: `2px solid ${block.color}30`, borderRadius: 12, padding: "16px 18px",
+                }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: block.color, marginBottom: 10, textAlign: "center" }}>{block.title}</div>
+                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 2.0, color: T.ink }}>
+                    {block.items.map((item, j) => <li key={j}>{item}</li>)}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            {/* Arrow down */}
+            <div style={{ textAlign: "center", fontSize: 24, color: T.muted, margin: "8px 0" }}>{"\u25BC"}</div>
+
+            {/* Middle: Data & Training */}
+            <div style={{
+              maxWidth: 500, margin: "0 auto", background: T.amber + "08",
+              border: `2px solid ${T.amber}30`, borderRadius: 12, padding: "16px 18px", marginBottom: 0,
+            }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: T.amber, marginBottom: 10, textAlign: "center" }}>Data-Driven Modeling & AI</div>
+              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 2.0, color: T.ink }}>
+                <li>High-Throughput DFT Databases</li>
+                <li>Graph Neural Networks (GNN)</li>
+                <li>Active Learning & Uncertainty Quantification</li>
+                <li>LLM-Based Data Mining (LangGraph)</li>
+              </ul>
+            </div>
+
+            {/* Arrow down */}
+            <div style={{ textAlign: "center", fontSize: 24, color: T.muted, margin: "8px 0" }}>{"\u25BC"}</div>
+
+            {/* Bottom row: applications */}
+            <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+              {[
+                { title: "Semiconductor Defect Engineering", color: T.accent, items: ["CdTe/CdSeTe Solar Cells", "II-VI & Perovskite Defects", "Dopant Optimization", "Ion Migration Pathways"] },
+                { title: "Materials Discovery", color: T.teal, items: ["Chalcogenide Photovoltaics", "Photocatalysts (ZnIn\u2082S\u2084)", "Lead-Free Perovskites", "Heterostructure Design"] },
+              ].map((block, i) => (
+                <div key={i} style={{
+                  flex: "1 1 260px", maxWidth: 340, background: block.color + "08",
+                  border: `2px solid ${block.color}30`, borderRadius: 12, padding: "16px 18px",
+                }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: block.color, marginBottom: 10, textAlign: "center" }}>{block.title}</div>
+                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 2.0, color: T.ink }}>
+                    {block.items.map((item, j) => <li key={j}>{item}</li>)}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          {/* Research Experience */}
+          <SectionTitle color={T.green}>Research Experience</SectionTitle>
+          <Card>
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
+                <strong style={{ fontSize: 14 }}>Material Informatics Fellow Intern, GE Aerospace</strong>
+                <span style={{ fontSize: 12, color: T.muted }}>May 2025 – Aug 2025</span>
+              </div>
+              <div style={{ fontSize: 13, color: T.muted, marginTop: 2 }}>
+                AI-Driven Discovery of Thermal Barrier Coatings and Coolants for Aerospace Applications
+              </div>
+              <div style={{ fontSize: 12, color: T.accent, marginTop: 2 }}>Niskayuna, New York</div>
+            </div>
+            <div>
+              <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
+                <strong style={{ fontSize: 14 }}>Graduate Research Assistant, Purdue University</strong>
+                <span style={{ fontSize: 12, color: T.muted }}>Aug 2022 – Present</span>
+              </div>
+              <div style={{ fontSize: 13, color: T.muted, marginTop: 2 }}>
+                Modeling and Simulations of Semiconductors for Photovoltaics
+              </div>
+              <div style={{ fontSize: 12, color: T.accent, marginTop: 2 }}>West Lafayette, Indiana</div>
             </div>
           </Card>
         </div>
@@ -645,7 +717,6 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             { title: "2025 MRS Graduate Student Award", org: "Materials Research Society, Boston", color: T.amber, link: "https://www.mrs.org/advancing-careers/award-central/spring-awards/graduate-student-awards/past-recipients" },
             { title: "Vashti L. Magoon Research Excellence Award", org: "Purdue University", color: T.accent, link: "https://engineering.purdue.edu/Engr/People/Awards/Graduate/ptRecipientListing?group_id=237384&show_sub_groups=1" },
             { title: "Materials Informatics Fellowship", org: "GE Aerospace, Summer 2025 Internship", color: T.blue },
-            { title: "NSF ACCESS & Argonne HPC Allocations", org: "High-performance computing for materials research", color: T.teal },
             { title: "2025 AI & ML for Microscopy Hackathon Winner", org: "Toyota Research Institute (TRI)", color: T.green, link: "https://kaliningroup.github.io/mic_hackathon_2/awards/" },
             { title: "2025 LLM Hackathon Winner", org: "LLM Hackathon for Materials Science & Engineering", color: T.pink, link: "https://llmhackathon.github.io/awards/" },
             { title: "2025 NanoArtography Competition Winner", org: "Promoting nanoscience through art", color: T.red, link: "https://www.nanoartography.org/2025" },
@@ -681,8 +752,8 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             <div style={{ fontSize: 13, fontWeight: 600, color: T.teal }}>10+ Conference and Seminar Presentations</div>
           </Card>
           {[
-            { title: "Data-Driven Discovery of Ternary and Quaternary Chalcogenide Semiconductors for Photovoltaics", venue: "2025 MRS Fall Meeting & Exhibit, Boston, MA", date: "Dec 2025" },
-            { title: "Learning Defect Thermodynamics in Chalcogenide Semiconductors Using a Graph Neural Network Force Field", venue: "2025 MRS Fall Meeting & Exhibit, Boston, MA", date: "Dec 2025" },
+            { title: "Data-Driven Discovery of Ternary and Quaternary Chalcogenide Semiconductors for Photovoltaics", venue: "2025 MRS Fall Meeting & Exhibit, Boston, MA", date: "Dec 2025", link: "https://www.mrs.org/meetings-events/annual-meetings/archive/meeting/presentations/view/2025-mrs-fall-meeting/2025-mrs-fall-meeting-4377025" },
+            { title: "Learning Defect Thermodynamics in Chalcogenide Semiconductors Using a Graph Neural Network Force Field", venue: "2025 MRS Fall Meeting & Exhibit, Boston, MA", date: "Dec 2025", link: "https://www.mrs.org/meetings-events/annual-meetings/archive/meeting/presentations/view/2025-mrs-fall-meeting/2025-mrs-fall-meeting-4376462" },
             { title: "Rational Computational Design of Next-Generation Semiconductors (Invited Talk)", venue: "Cyberinfrastructure Symposium, Purdue University", date: "Oct 2025", link: "https://www.rcac.purdue.edu/symposiums/cyberinfrastructure/wl-2025" },
             { title: "Tailoring Semiconductor Defect Properties using Multi-fidelity Graph Neural Networks and Active Learning", venue: "APS Global Physics Summit, Anaheim, CA", date: "Mar 2025", link: "https://summit.aps.org/events/MAR-C49/5" },
             { title: "Data-Driven Discovery of Novel Chalcogenides for Photovoltaics", venue: "2024 MRS Fall Meeting & Exhibit, Boston, MA", date: "Dec 2024", link: "https://www.mrs.org/meetings-events/annual-meetings/2024-mrs-fall-meeting/symposium-sessions/presentations/view/2024-fall-meeting/2024-fall-meeting-4149616" },
@@ -781,27 +852,6 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
         </div>
       )}
 
-      {/* ─── SKILLS ─── */}
-      {tab === "skills" && (
-        <div>
-          <SectionTitle color={T.blue}>Skills Summary</SectionTitle>
-          {[
-            { category: "Atomic Scale Simulation Tools", items: ["VASP", "LAMMPS"], color: T.red },
-            { category: "Data Preprocessing and Analysis", items: ["Pandas", "NumPy", "Matplotlib"], color: T.blue },
-            { category: "Machine Learning Frameworks", items: ["Scikit-learn", "PyTorch", "TensorFlow", "Keras"], color: T.green },
-            { category: "Generative AI", items: ["Fine-tuning generative AI models", "Deploying with Streamlit"], color: T.accent },
-          ].map((skill, i) => (
-            <Card key={i} style={{ padding: "14px 16px", marginBottom: 10 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 8, color: skill.color }}>{skill.category}</div>
-              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                {skill.items.map((item, j) => (
-                  <Tag key={j} color={skill.color}>{item}</Tag>
-                ))}
-              </div>
-            </Card>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
