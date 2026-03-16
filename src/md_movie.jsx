@@ -91,6 +91,7 @@ export default function MDMovieModule() {
 
   const t = progress;
 
+  const [ensemblePhase, setEnsemblePhase] = useState(0);
   const [visibleScene, setVisibleScene] = useState(sceneIdx);
   const [fadeOpacity, setFadeOpacity]   = useState(1);
   useEffect(() => {
@@ -792,18 +793,15 @@ export default function MDMovieModule() {
     // ── ENSEMBLES — NVE / NVT / NPT with analogies & animations ──────
     case "ensembles": {
       const tOp = ease(clamp01(t * 4));
-      const W_=W, H_=H;
 
-      // Sub-phase timing (3 ensembles, each ~1/3 of the scene)
-      const phase = t < 0.33 ? 0 : t < 0.66 ? 1 : 2; // NVE, NVT, NPT
-      const phaseT = t < 0.33 ? t / 0.33 : t < 0.66 ? (t - 0.33) / 0.33 : (t - 0.66) / 0.34;
+      const phase = ensemblePhase;
+      const phaseT = t; // full scene progress for animation
 
       const ensembles = [
         {
           name: "NVE", subtitle: "Microcanonical",
           color: P.green, fixed: "N, V, E", varies: "T, P",
           analogy: "A perfectly insulated thermos — no heat in or out, total energy stays constant.",
-          icon: "E",
           desc: [
             "No thermostat, no barostat",
             "Total energy E = KE + PE = const",
@@ -815,7 +813,6 @@ export default function MDMovieModule() {
           name: "NVT", subtitle: "Canonical",
           color: P.amber, fixed: "N, V, T", varies: "E, P",
           analogy: "A lab experiment in a water bath — the bath keeps temperature constant no matter what.",
-          icon: "T",
           desc: [
             "Thermostat controls temperature",
             "Nosé-Hoover: ṗᵢ = Fᵢ - ξ·pᵢ",
@@ -826,8 +823,7 @@ export default function MDMovieModule() {
         {
           name: "NPT", subtitle: "Isothermal-Isobaric",
           color: P.purple, fixed: "N, P, T", varies: "E, V",
-          analogy: "A balloon in a room — pressure and temperature match the surroundings, volume adjusts freely.",
-          icon: "P",
+          analogy: "A balloon in a room — pressure and temperature match the surroundings, volume adjusts.",
           desc: [
             "Thermostat + Barostat",
             "Box volume V changes to fix P",
@@ -840,181 +836,167 @@ export default function MDMovieModule() {
       const ens = ensembles[phase];
       const eOp = ease(clamp01(phaseT * 3));
 
-      // Atoms for animation — 15 atoms in a box
+      // Atoms — 12 atoms in box
       const baseAtoms = [];
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < 12; i++) {
         baseAtoms.push({
-          x: 470 + (i % 5) * 55 + 10,
-          y: 100 + Math.floor(i / 5) * 55 + 10,
+          x: 440 + (i % 4) * 50 + 15,
+          y: 120 + Math.floor(i / 4) * 50 + 15,
           color: [P.blue, P.red, P.green, P.amber, P.purple, P.teal, P.pink][i % 7],
         });
       }
 
-      // NVE: constant energy, atoms jiggle freely, box stays same
-      // NVT: atoms slow down/speed up, thermostat bar shown, box stays same
-      // NPT: box expands/contracts, atoms redistribute
+      // Right panel starts at x=390, simulation box inside
+      const boxX = 400, boxY = 100;
+      const boxBaseW = 220, boxBaseH = 190;
 
-      const boxX = 440, boxY = 75;
-      const boxBaseW = 280, boxBaseH = 250;
-
-      // NPT box breathing
       const boxScale = phase === 2 ? 1 + 0.06 * Math.sin(phaseT * Math.PI * 4) : 1;
       const boxW = boxBaseW * boxScale;
       const boxH = boxBaseH * boxScale;
       const boxOffX = (boxBaseW - boxW) / 2;
       const boxOffY = (boxBaseH - boxH) / 2;
 
-      // NVE: constant speed jiggle
-      // NVT: jiggle dampens then stabilizes (thermostat effect)
-      // NPT: jiggle + position shift with box
       const jiggleAmp = phase === 1
-        ? lerp(8, 4, ease(clamp01(phaseT * 2))) // NVT: dampens
-        : phase === 0 ? 6 : 5; // NVE: constant, NPT: moderate
+        ? lerp(8, 4, ease(clamp01(phaseT * 2)))
+        : phase === 0 ? 6 : 5;
 
-      // NVT temperature bar
       const nvtTemp = phase === 1
         ? lerp(450, 300, ease(clamp01(phaseT * 2))) + Math.sin(phaseT * 20) * lerp(30, 2, clamp01(phaseT * 2))
         : phase === 0
-          ? 300 + 40 * Math.sin(phaseT * 15) // NVE: fluctuates
-          : 300 + 5 * Math.sin(phaseT * 10); // NPT: stable
-
-      // Phase indicator pills
-      const pillY = 48;
+          ? 300 + 40 * Math.sin(phaseT * 15)
+          : 300 + 5 * Math.sin(phaseT * 10);
 
       return (
-        <svg viewBox={`0 0 ${W_} ${H_}`} style={{ width: "100%" }}>
-          <rect width={W_} height={H_} fill={P.bg} />
-          <text x={W_/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
+          <rect width={W} height={H} fill={P.bg} />
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Statistical Ensembles</text>
 
-          {/* Phase pills at top */}
+          {/* Clickable phase pills */}
           {ensembles.map((e, i) => {
             const active = i === phase;
-            const px = W_/2 + (i - 1) * 120 - 50;
+            const px = W/2 + (i - 1) * 100 - 42;
             return (
-              <g key={i} opacity={tOp}>
-                <rect x={px} y={pillY} width={100} height={24} rx={12}
+              <g key={i} opacity={tOp} style={{ cursor: "pointer" }} onClick={() => setEnsemblePhase(i)}>
+                <rect x={px} y={34} width={84} height={22} rx={11}
                   fill={active ? e.color + "30" : P.surface}
                   stroke={active ? e.color : P.border} strokeWidth={active ? 2 : 1} />
-                <text x={px + 50} y={pillY + 16} textAnchor="middle"
+                <text x={px + 42} y={49} textAnchor="middle"
                   fill={active ? e.color : P.muted} fontSize="10" fontWeight="700"
-                  fontFamily="'Inter',sans-serif">{e.name}</text>
+                  fontFamily="'Inter',sans-serif" style={{ pointerEvents: "none" }}>{e.name}</text>
               </g>
             );
           })}
 
-          <line x1={410} y1={78} x2={410} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp * 0.5} />
+          {/* Divider */}
+          <line x1={380} y1={62} x2={380} y2={410} stroke={P.border} strokeWidth="1" opacity={tOp * 0.5} />
 
-          {/* LEFT PANEL — Info */}
-          <rect x={LX} y={78} width={390} height={330} rx="7"
+          {/* LEFT PANEL — Info (narrower: width 360) */}
+          <rect x={LX} y={62} width={360} height={345} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
 
           {/* Ensemble name + subtitle */}
-          <text x={LX + 14} y={100} fill={ens.color} fontSize="16" fontWeight="800"
+          <text x={LX + 14} y={84} fill={ens.color} fontSize="15" fontWeight="800"
             fontFamily="'Inter',sans-serif" opacity={eOp}>{ens.name}</text>
-          <text x={LX + 14 + ens.name.length * 11} y={100} fill={P.muted} fontSize="11"
+          <text x={LX + 14 + ens.name.length * 10} y={84} fill={P.muted} fontSize="10"
             fontFamily="'Inter',sans-serif" opacity={eOp}> — {ens.subtitle}</text>
 
           {/* Fixed / Varies */}
           <g opacity={ease(clamp01((phaseT - 0.05) * 4))}>
-            <rect x={LX + 14} y={110} width={170} height={24} rx={5}
+            <rect x={LX + 14} y={94} width={155} height={22} rx={5}
               fill={ens.color + "15"} stroke={ens.color + "40"} strokeWidth="1" />
-            <text x={LX + 22} y={126} fill={ens.color} fontSize="10" fontWeight="700"
+            <text x={LX + 22} y={109} fill={ens.color} fontSize="9.5" fontWeight="700"
               fontFamily="'Fira Code','Consolas',monospace">Fixed: {ens.fixed}</text>
-            <rect x={LX + 195} y={110} width={170} height={24} rx={5}
+            <rect x={LX + 178} y={94} width={155} height={22} rx={5}
               fill={P.panel} stroke={P.border} strokeWidth="1" />
-            <text x={LX + 203} y={126} fill={P.muted} fontSize="10" fontWeight="600"
+            <text x={LX + 186} y={109} fill={P.muted} fontSize="9.5" fontWeight="600"
               fontFamily="'Fira Code','Consolas',monospace">Varies: {ens.varies}</text>
           </g>
 
           {/* Description lines */}
           {ens.desc.map((line, i) => (
-            <text key={i} x={LX + 20} y={158 + i * 20} fill={P.ink} fontSize="10"
+            <text key={i} x={LX + 20} y={138 + i * 19} fill={P.ink} fontSize="9.5"
               fontFamily="'Fira Code','Consolas',monospace"
               opacity={ease(clamp01((phaseT - 0.08 - i * 0.04) * 5))}>
-              • {line}
+              {"\u2022"} {line}
             </text>
           ))}
 
           {/* Analogy box */}
-          <g opacity={ease(clamp01((phaseT - 0.30) * 4))}>
-            <rect x={LX + 10} y={250} width={370} height={70} rx="8"
+          <g opacity={ease(clamp01((phaseT - 0.20) * 4))}>
+            <rect x={LX + 8} y={224} width={344} height={68} rx="8"
               fill={ens.color + "08"} stroke={ens.color + "35"} strokeWidth="1.5" />
-            <text x={LX + 24} y={270} fill={ens.color} fontSize="10" fontWeight="700"
-              fontFamily="'Inter',sans-serif">💡 Real-world analogy:</text>
-            <text x={LX + 24} y={290} fill={P.ink} fontSize="9.5"
-              fontFamily="'Inter',sans-serif" opacity={0.85}>{ens.analogy.substring(0, 55)}</text>
-            {ens.analogy.length > 55 && (
-              <text x={LX + 24} y={306} fill={P.ink} fontSize="9.5"
-                fontFamily="'Inter',sans-serif" opacity={0.85}>{ens.analogy.substring(55)}</text>
+            <text x={LX + 20} y={243} fill={ens.color} fontSize="9.5" fontWeight="700"
+              fontFamily="'Inter',sans-serif">Real-world analogy:</text>
+            <text x={LX + 20} y={261} fill={P.ink} fontSize="9"
+              fontFamily="'Inter',sans-serif" opacity={0.85}>{ens.analogy.substring(0, 52)}</text>
+            {ens.analogy.length > 52 && (
+              <text x={LX + 20} y={278} fill={P.ink} fontSize="9"
+                fontFamily="'Inter',sans-serif" opacity={0.85}>{ens.analogy.substring(52)}</text>
             )}
           </g>
 
           {/* Analogy icon */}
-          <g opacity={ease(clamp01((phaseT - 0.35) * 4))}>
+          <g opacity={ease(clamp01((phaseT - 0.25) * 4))}>
             {phase === 0 && (
               <g>
-                {/* Thermos icon for NVE */}
-                <rect x={LX + 320} y={340} width={40} height={55} rx="6"
+                <rect x={LX + 280} y={305} width={40} height={50} rx="6"
                   fill={P.green + "20"} stroke={P.green} strokeWidth="1.5" />
-                <rect x={LX + 326} y={336} width={28} height={8} rx="3"
+                <rect x={LX + 286} y={301} width={28} height={8} rx="3"
                   fill={P.green} opacity={0.6} />
-                <text x={LX + 340} y={374} textAnchor="middle" fill={P.green}
+                <text x={LX + 300} y={336} textAnchor="middle" fill={P.green}
                   fontSize="10" fontWeight="700">E</text>
-                <line x1={LX + 316} y1={355} x2={LX + 316} y2={385}
+                <line x1={LX + 274} y1={318} x2={LX + 274} y2={348}
                   stroke={P.red + "50"} strokeWidth="2" strokeDasharray="3,3" />
-                <text x={LX + 310} y={370} textAnchor="end" fill={P.red}
-                  fontSize="7" opacity={0.7}>✗ heat</text>
+                <text x={LX + 268} y={335} textAnchor="end" fill={P.red}
+                  fontSize="7" opacity={0.7}>no heat</text>
               </g>
             )}
             {phase === 1 && (
               <g>
-                {/* Water bath icon for NVT */}
-                <rect x={LX + 300} y={340} width={80} height={55} rx="6"
+                <rect x={LX + 260} y={305} width={80} height={50} rx="6"
                   fill={P.amber + "15"} stroke={P.amber} strokeWidth="1.5" />
-                <rect x={LX + 310} y={348} width={25} height={35} rx="4"
+                <rect x={LX + 270} y={313} width={22} height={30} rx="4"
                   fill={P.panel} stroke={P.amber + "60"} strokeWidth="1" />
-                <text x={LX + 322} y={370} textAnchor="middle" fill={P.amber}
-                  fontSize="8" fontWeight="700">sys</text>
-                {/* Wavy water lines */}
-                {[0, 1, 2].map(i => (
-                  <path key={i} d={`M${LX + 340} ${358 + i * 10} q5 ${3 * Math.sin(phaseT * 10 + i)} 10 0 q5 ${-3 * Math.sin(phaseT * 10 + i)} 10 0`}
+                <text x={LX + 281} y={332} textAnchor="middle" fill={P.amber}
+                  fontSize="7" fontWeight="700">sys</text>
+                {[0, 1, 2].map(j => (
+                  <path key={j} d={`M${LX + 298} ${316 + j * 10} q5 ${3 * Math.sin(phaseT * 10 + j)} 10 0 q5 ${-3 * Math.sin(phaseT * 10 + j)} 10 0`}
                     fill="none" stroke={P.amber} strokeWidth="1" opacity={0.5} />
                 ))}
-                <text x={LX + 360} y={370} fill={P.amber}
-                  fontSize="8" fontWeight="600">bath</text>
+                <text x={LX + 318} y={332} fill={P.amber}
+                  fontSize="7" fontWeight="600">bath</text>
               </g>
             )}
             {phase === 2 && (
               <g>
-                {/* Balloon icon for NPT */}
-                <ellipse cx={LX + 340} cy={360} rx={20 + 4 * Math.sin(phaseT * Math.PI * 4)}
-                  ry={25 + 5 * Math.sin(phaseT * Math.PI * 4)}
+                <ellipse cx={LX + 300} cy={328} rx={18 + 4 * Math.sin(phaseT * Math.PI * 4)}
+                  ry={22 + 5 * Math.sin(phaseT * Math.PI * 4)}
                   fill={P.purple + "20"} stroke={P.purple} strokeWidth="1.5" />
-                <line x1={LX + 340} y1={385 + 5 * Math.sin(phaseT * Math.PI * 4)}
-                  x2={LX + 340} y2={400}
+                <line x1={LX + 300} y1={350 + 5 * Math.sin(phaseT * Math.PI * 4)}
+                  x2={LX + 300} y2={365}
                   stroke={P.purple} strokeWidth="1.5" />
-                <text x={LX + 340} y={365} textAnchor="middle" fill={P.purple}
+                <text x={LX + 300} y={333} textAnchor="middle" fill={P.purple}
                   fontSize="9" fontWeight="700">V</text>
               </g>
             )}
           </g>
 
-          {/* RIGHT PANEL — Animated simulation box */}
-          <rect x={boxX + boxOffX - 4} y={boxY + boxOffY - 4} width={boxW + 8} height={boxH + 8} rx="8"
+          {/* RIGHT PANEL — Animated simulation box (pushed right) */}
+          <rect x={boxX - 6} y={boxY - 24} width={boxBaseW + 50} height={boxBaseH + 80} rx="8"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
+
+          {/* Box label */}
+          <text x={boxX + boxBaseW / 2 + 10} y={boxY - 6} textAnchor="middle"
+            fill={ens.color} fontSize="9.5" fontWeight="700" fontFamily="'Inter',sans-serif"
+            opacity={eOp}>
+            {phase === 0 ? "Isolated Box (no heat exchange)" : phase === 1 ? "Box + Thermostat (T control)" : "Flexible Box (V adjusts for P)"}
+          </text>
 
           {/* Simulation box */}
           <rect x={boxX + boxOffX} y={boxY + boxOffY} width={boxW} height={boxH} rx="4"
             fill="none" stroke={ens.color + "60"} strokeWidth={phase === 2 ? 2 : 1.5}
             strokeDasharray={phase === 2 ? "6,3" : "none"} opacity={eOp} />
-
-          {/* Box label */}
-          <text x={boxX + boxBaseW / 2} y={boxY + boxOffY - 10} textAnchor="middle"
-            fill={ens.color} fontSize="10" fontWeight="700" fontFamily="'Inter',sans-serif"
-            opacity={eOp}>
-            {phase === 0 ? "Isolated Box (no heat exchange)" : phase === 1 ? "Box + Thermostat (T controlled)" : "Flexible Box (V adjusts for P)"}
-          </text>
 
           {/* Atoms in box */}
           {baseAtoms.map((atom, i) => {
@@ -1024,97 +1006,90 @@ export default function MDMovieModule() {
             const ax = boxX + boxOffX + (atom.x - boxX) * sx + jx;
             const ay = boxY + boxOffY + (atom.y - boxY) * sx + jy;
             const atomOp = ease(clamp01((phaseT - 0.02 - i * 0.01) * 5));
-            // NVT: color shifts based on temperature control
             const atomColor = phase === 1
               ? (nvtTemp > 350 ? P.red : nvtTemp < 250 ? P.blue : P.amber)
               : atom.color;
             return (
               <g key={i} opacity={atomOp}>
-                {/* Velocity arrow */}
                 <line x1={ax} y1={ay}
                   x2={ax + jx * 1.5} y2={ay + jy * 1.5}
                   stroke={atomColor + "60"} strokeWidth="1" />
-                <circle cx={ax} cy={ay} r={9}
+                <circle cx={ax} cy={ay} r={8}
                   fill={atomColor + "25"} stroke={atomColor} strokeWidth="1.5" />
               </g>
             );
           })}
 
-          {/* NVE: energy bar (constant) */}
+          {/* NVE: energy bar */}
           {phase === 0 && (
             <g opacity={ease(clamp01((phaseT - 0.15) * 4))}>
-              <rect x={boxX + boxBaseW + 20} y={boxY + 20} width={16} height={200} rx="8"
+              <rect x={boxX + boxBaseW + 16} y={boxY + 10} width={14} height={170} rx="7"
                 fill={P.panel} stroke={P.border} strokeWidth="1" />
-              {/* KE portion */}
-              <rect x={boxX + boxBaseW + 22} y={boxY + 20 + 200 * (1 - 0.5 - 0.15 * Math.sin(phaseT * 12))}
-                width={12} height={200 * (0.5 + 0.15 * Math.sin(phaseT * 12))} rx="6"
+              <rect x={boxX + boxBaseW + 18} y={boxY + 10 + 170 * (1 - 0.5 - 0.15 * Math.sin(phaseT * 12))}
+                width={10} height={170 * (0.5 + 0.15 * Math.sin(phaseT * 12))} rx="5"
                 fill={P.red} opacity={0.7} />
-              {/* PE portion */}
-              <rect x={boxX + boxBaseW + 22} y={boxY + 22}
-                width={12} height={200 * (0.5 - 0.15 * Math.sin(phaseT * 12))} rx="6"
+              <rect x={boxX + boxBaseW + 18} y={boxY + 12}
+                width={10} height={170 * (0.5 - 0.15 * Math.sin(phaseT * 12))} rx="5"
                 fill={P.blue} opacity={0.7} />
-              <text x={boxX + boxBaseW + 28} y={boxY + 240} textAnchor="middle"
-                fill={P.green} fontSize="8" fontWeight="700">E=const</text>
-              <text x={boxX + boxBaseW + 44} y={boxY + 80} fill={P.blue}
-                fontSize="7" fontWeight="600">PE</text>
-              <text x={boxX + boxBaseW + 44} y={boxY + 180} fill={P.red}
-                fontSize="7" fontWeight="600">KE</text>
+              <text x={boxX + boxBaseW + 24} y={boxY + 195} textAnchor="middle"
+                fill={P.green} fontSize="7" fontWeight="700">E=const</text>
+              <text x={boxX + boxBaseW + 38} y={boxY + 60} fill={P.blue}
+                fontSize="6" fontWeight="600">PE</text>
+              <text x={boxX + boxBaseW + 38} y={boxY + 150} fill={P.red}
+                fontSize="6" fontWeight="600">KE</text>
             </g>
           )}
 
           {/* NVT: temperature gauge */}
           {phase === 1 && (
             <g opacity={ease(clamp01((phaseT - 0.10) * 4))}>
-              {/* Thermometer */}
-              <rect x={boxX + boxBaseW + 20} y={boxY + 20} width={16} height={180} rx="8"
+              <rect x={boxX + boxBaseW + 16} y={boxY + 10} width={14} height={150} rx="7"
                 fill={P.panel} stroke={P.border} strokeWidth="1" />
-              <rect x={boxX + boxBaseW + 22}
-                y={boxY + 20 + 180 * (1 - clamp01((nvtTemp - 100) / 500))}
-                width={12}
-                height={180 * clamp01((nvtTemp - 100) / 500)} rx="6"
+              <rect x={boxX + boxBaseW + 18}
+                y={boxY + 10 + 150 * (1 - clamp01((nvtTemp - 100) / 500))}
+                width={10}
+                height={150 * clamp01((nvtTemp - 100) / 500)} rx="5"
                 fill={nvtTemp > 350 ? P.red : nvtTemp < 250 ? P.blue : P.amber} opacity={0.7} />
-              <circle cx={boxX + boxBaseW + 28} cy={boxY + 210} r={10}
+              <circle cx={boxX + boxBaseW + 24} cy={boxY + 170} r={9}
                 fill={P.amber} opacity={0.8} />
-              <text x={boxX + boxBaseW + 28} y={boxY + 214} textAnchor="middle"
-                fill="#fff" fontSize="7" fontWeight="700">T</text>
-              {/* Target line */}
-              <line x1={boxX + boxBaseW + 16} y1={boxY + 20 + 180 * (1 - clamp01((300 - 100) / 500))}
-                x2={boxX + boxBaseW + 42} y2={boxY + 20 + 180 * (1 - clamp01((300 - 100) / 500))}
+              <text x={boxX + boxBaseW + 24} y={boxY + 174} textAnchor="middle"
+                fill="#fff" fontSize="6" fontWeight="700">T</text>
+              <line x1={boxX + boxBaseW + 12} y1={boxY + 10 + 150 * (1 - clamp01((300 - 100) / 500))}
+                x2={boxX + boxBaseW + 36} y2={boxY + 10 + 150 * (1 - clamp01((300 - 100) / 500))}
                 stroke={P.ok} strokeWidth="1.5" strokeDasharray="3,2" />
-              <text x={boxX + boxBaseW + 46} y={boxY + 20 + 180 * (1 - clamp01((300 - 100) / 500)) + 3}
-                fill={P.ok} fontSize="7">T₀=300K</text>
-              <text x={boxX + boxBaseW + 28} y={boxY + 240} textAnchor="middle"
-                fill={P.amber} fontSize="8" fontWeight="700">{Math.round(nvtTemp)}K</text>
+              <text x={boxX + boxBaseW + 40} y={boxY + 10 + 150 * (1 - clamp01((300 - 100) / 500)) + 3}
+                fill={P.ok} fontSize="6">T₀</text>
+              <text x={boxX + boxBaseW + 24} y={boxY + 195} textAnchor="middle"
+                fill={P.amber} fontSize="7" fontWeight="700">{Math.round(nvtTemp)}K</text>
             </g>
           )}
 
-          {/* NPT: pressure + volume indicators */}
+          {/* NPT: pressure arrows */}
           {phase === 2 && (
             <g opacity={ease(clamp01((phaseT - 0.10) * 4))}>
-              {/* Arrows showing box expansion/contraction */}
               {[
-                { x1: boxX + boxOffX - 10, y1: boxY + boxBaseH / 2, dx: -8, dy: 0 },
-                { x1: boxX + boxOffX + boxW + 10, y1: boxY + boxBaseH / 2, dx: 8, dy: 0 },
-                { x1: boxX + boxBaseW / 2, y1: boxY + boxOffY - 10, dx: 0, dy: -8 },
-                { x1: boxX + boxBaseW / 2, y1: boxY + boxOffY + boxH + 10, dx: 0, dy: 8 },
+                { x1: boxX + boxOffX - 8, y1: boxY + boxBaseH / 2, dx: -7, dy: 0 },
+                { x1: boxX + boxOffX + boxW + 8, y1: boxY + boxBaseH / 2, dx: 7, dy: 0 },
+                { x1: boxX + boxBaseW / 2, y1: boxY + boxOffY - 8, dx: 0, dy: -7 },
+                { x1: boxX + boxBaseW / 2, y1: boxY + boxOffY + boxH + 8, dx: 0, dy: 7 },
               ].map((arr, i) => (
                 <line key={i} x1={arr.x1} y1={arr.y1}
                   x2={arr.x1 + arr.dx * (1 + 0.5 * Math.sin(phaseT * Math.PI * 4))}
                   y2={arr.y1 + arr.dy * (1 + 0.5 * Math.sin(phaseT * Math.PI * 4))}
-                  stroke={P.purple} strokeWidth="2" markerEnd="none" opacity={0.6} />
+                  stroke={P.purple} strokeWidth="2" opacity={0.6} />
               ))}
-              <text x={boxX + boxBaseW / 2} y={boxY + boxBaseH + 30} textAnchor="middle"
-                fill={P.purple} fontSize="9" fontWeight="700">
+              <text x={boxX + boxBaseW / 2} y={boxY + boxBaseH + 25} textAnchor="middle"
+                fill={P.purple} fontSize="8" fontWeight="700">
                 V = {(boxScale * 100).toFixed(0)}% | P = const
               </text>
             </g>
           )}
 
           {/* Bottom comparison strip */}
-          <g opacity={ease(clamp01((phaseT - 0.50) * 3))}>
-            <rect x={LX} y={H_ - 18} width={W_ - 2 * LX} height={16} rx="4"
+          <g opacity={ease(clamp01((phaseT - 0.40) * 3))}>
+            <rect x={LX} y={H - 16} width={W - 2 * LX} height={14} rx="4"
               fill={P.panel} stroke={P.border} strokeWidth="0.5" />
-            <text x={W_/2} y={H_ - 7} textAnchor="middle" fill={P.muted} fontSize="7.5"
+            <text x={W/2} y={H - 6} textAnchor="middle" fill={P.muted} fontSize="7"
               fontFamily="'Inter',sans-serif">
               NVE = isolated thermos | NVT = water bath experiment | NPT = balloon in a room (closest to lab)
             </text>
