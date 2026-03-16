@@ -584,8 +584,8 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             {/* Top row: two input pillars */}
             <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", marginBottom: 0 }}>
               {[
-                { title: "First-Principles Simulations", color: T.blue, items: ["DFT (VASP, QE)", "Hybrid Functionals (HSE06)", "NEB Migration Barriers", "Defect Thermodynamics"] },
-                { title: "Classical / ML Simulations", color: T.green, items: ["Molecular Dynamics (LAMMPS)", "ReaxFF / EAM Potentials", "Machine Learning Force Fields", "Monte Carlo Sampling"] },
+                { title: "First-Principles Simulations", color: T.blue, items: ["Density Functional Theory (VASP, QE)", "GGA and HSE06 Functionals"] },
+                { title: "Classical Simulations", color: T.green, items: ["Molecular Dynamics", "ReaxFF / EAM Potentials"] },
               ].map((block, i) => (
                 <div key={i} style={{
                   flex: "1 1 260px", maxWidth: 340, background: block.color + "08",
@@ -608,9 +608,10 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               border: `2px solid ${T.amber}30`, borderRadius: 12, padding: "16px 18px", marginBottom: 0,
             }}>
               <div style={{ fontSize: 13, fontWeight: 800, color: T.amber, marginBottom: 10, textAlign: "center" }}>Data-Driven Modeling & AI</div>
-              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 2.0, color: T.ink }}>
+              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 2.0, color: T.ink, textAlign: "left" }}>
                 <li>High-Throughput DFT Databases</li>
                 <li>Graph Neural Networks (GNN)</li>
+                <li>Machine Learning Force Fields</li>
                 <li>Active Learning & Uncertainty Quantification</li>
                 <li>LLM-Based Data Mining (LangGraph)</li>
               </ul>
@@ -619,22 +620,12 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             {/* Arrow down */}
             <div style={{ textAlign: "center", fontSize: 24, color: T.muted, margin: "8px 0" }}>{"\u25BC"}</div>
 
-            {/* Bottom row: applications */}
-            <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-              {[
-                { title: "Semiconductor Defect Engineering", color: T.accent, items: ["CdTe/CdSeTe Solar Cells", "II-VI & Perovskite Defects", "Dopant Optimization", "Ion Migration Pathways"] },
-                { title: "Materials Discovery", color: T.teal, items: ["Chalcogenide Photovoltaics", "Photocatalysts (ZnIn\u2082S\u2084)", "Lead-Free Perovskites", "Heterostructure Design"] },
-              ].map((block, i) => (
-                <div key={i} style={{
-                  flex: "1 1 260px", maxWidth: 340, background: block.color + "08",
-                  border: `2px solid ${block.color}30`, borderRadius: 12, padding: "16px 18px",
-                }}>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: block.color, marginBottom: 10, textAlign: "center" }}>{block.title}</div>
-                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 2.0, color: T.ink }}>
-                    {block.items.map((item, j) => <li key={j}>{item}</li>)}
-                  </ul>
-                </div>
-              ))}
+            {/* Bottom: application */}
+            <div style={{
+              maxWidth: 500, margin: "0 auto", background: T.teal + "08",
+              border: `2px solid ${T.teal}30`, borderRadius: 12, padding: "16px 18px",
+            }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: T.teal, marginBottom: 0, textAlign: "center" }}>Data-Driven Materials Design</div>
             </div>
           </Card>
 
