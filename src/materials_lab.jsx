@@ -13910,20 +13910,33 @@ function LLMDataMiningModule() {
 // ═══════════════════════════════════════════════════════════════════════════
 // UNIFIED SHELL: MaterialsLab
 // ═══════════════════════════════════════════════════════════════════════════
+// Dark theme overrides for the main shell
+const T_DARK = {
+  bg:      "#0f1117",
+  panel:   "#1a1d2e",
+  surface: "#22263a",
+  border:  "#2e3348",
+  ink:     "#e4e6ef",
+  muted:   "#9ca3b4",
+};
+
 export default function MaterialsLab() {
   const [module, setModule] = useState(null);
+  const [dark, setDark] = useState(false);
+
+  const shell = dark ? T_DARK : T; // shell colors for header/bg
 
   // Landing page — About Me as homepage
   if (module === null) {
     return (
       <div style={{
         minHeight: "100vh",
-        background: T.bg,
+        background: dark ? T_DARK.bg : T.bg,
         fontFamily: "'Inter', -apple-system, sans-serif",
         display: "flex",
         flexDirection: "column",
       }}>
-        <AboutMeModule onNavigate={setModule} />
+        <AboutMeModule onNavigate={setModule} dark={dark} onToggleDark={() => setDark(d => !d)} />
       </div>
     );
   }
@@ -13934,17 +13947,17 @@ export default function MaterialsLab() {
   return (
     <div style={{
       minHeight: "100vh",
-      background: T.bg,
+      background: shell.bg,
       fontFamily: "'Inter', -apple-system, sans-serif",
-      color: T.ink,
+      color: shell.ink,
       display: "flex",
       flexDirection: "column",
     }}>
       {/* Compact header with back button */}
       <div style={{
-        borderBottom: `2px solid ${T.border}`,
+        borderBottom: `2px solid ${shell.border}`,
         padding: "8px 28px",
-        background: T.panel,
+        background: shell.panel,
         display: "flex",
         alignItems: "center",
         gap: 16,
@@ -13954,8 +13967,8 @@ export default function MaterialsLab() {
       }}>
         <button onClick={() => setModule(null)} style={{
           padding: "6px 14px", borderRadius: 8, fontSize: 12, cursor: "pointer",
-          background: T.surface, border: `1.5px solid ${T.border}`,
-          color: T.ink, fontWeight: 700, fontFamily: "inherit",
+          background: shell.surface, border: `1.5px solid ${shell.border}`,
+          color: shell.ink, fontWeight: 700, fontFamily: "inherit",
           display: "flex", alignItems: "center", gap: 6,
         }}>
           {"\u2190"} Home
@@ -13967,22 +13980,34 @@ export default function MaterialsLab() {
           Ch. {currentModule.chapter}
         </div>
 
-        <div style={{ fontSize: 15, fontWeight: 800, color: T.ink }}>
+        <div style={{ fontSize: 15, fontWeight: 800, color: shell.ink }}>
           {currentModule.label}
         </div>
 
         <div style={{ flex: 1 }} />
+
+        {/* Dark/light toggle */}
+        <button onClick={() => setDark(d => !d)} style={{
+          padding: "5px 10px", borderRadius: 8, fontSize: 13, cursor: "pointer",
+          background: shell.surface, border: `1px solid ${shell.border}`,
+          color: shell.muted, fontFamily: "inherit", display: "flex", alignItems: "center", gap: 5,
+        }}
+        title={dark ? "Switch to light mode" : "Switch to dark mode"}
+        >
+          {dark ? "\u2600\uFE0F" : "\u{1F319}"}
+          <span style={{ fontSize: 10, fontWeight: 600 }}>{dark ? "Light" : "Dark"}</span>
+        </button>
 
         {/* Quick nav pills */}
         <div style={{ display: "flex", gap: 4 }}>
           {MODULE_TABS.filter(m => m.id !== module).slice(0, 7).map(m => (
             <button key={m.id} onClick={() => setModule(m.id)} style={{
               padding: "4px 10px", borderRadius: 6, fontSize: 10, cursor: "pointer",
-              background: "transparent", border: `1px solid ${T.border}`,
-              color: T.muted, fontFamily: "inherit",
+              background: "transparent", border: `1px solid ${shell.border}`,
+              color: shell.muted, fontFamily: "inherit",
             }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = T.eo_e; e.currentTarget.style.color = T.eo_e; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.color = T.muted; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = shell.border; e.currentTarget.style.color = shell.muted; }}
             >{m.chapter}. {m.label}</button>
           ))}
         </div>
@@ -13991,13 +14016,13 @@ export default function MaterialsLab() {
       {/* Author bar */}
       <div style={{
         padding: "8px 28px",
-        background: T.panel,
-        borderBottom: `1px solid ${T.border}`,
+        background: shell.panel,
+        borderBottom: `1px solid ${shell.border}`,
         textAlign: "left",
         fontSize: 12,
-        color: T.muted,
+        color: shell.muted,
       }}>
-        Developed by <span style={{ fontWeight: 700, color: T.ink }}>Md Habibur Rahman</span> {"\u00B7"} School of Materials Engineering, Purdue University {"\u00B7"} West Lafayette, IN, USA {"\u00B7"} <a href="mailto:rahma103@purdue.edu" style={{ color: currentModule?.color || T.eo_e, textDecoration: "none" }}>rahma103@purdue.edu</a>
+        Developed by <span style={{ fontWeight: 700, color: shell.ink }}>Md Habibur Rahman</span> {"\u00B7"} School of Materials Engineering, Purdue University {"\u00B7"} West Lafayette, IN, USA {"\u00B7"} <a href="mailto:rahma103@purdue.edu" style={{ color: currentModule?.color || T.eo_e, textDecoration: "none" }}>rahma103@purdue.edu</a>
       </div>
 
       {/* Module content */}

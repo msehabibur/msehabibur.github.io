@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-// Theme — matches main app
-const T = {
+// Theme — light & dark variants
+const LIGHT = {
   bg:      "#f0f2f5",
   panel:   "#ffffff",
   surface: "#f7f8fa",
@@ -17,6 +17,25 @@ const T = {
   teal:    "#0891b2",
   pink:    "#ec4899",
 };
+const DARK = {
+  bg:      "#0f1117",
+  panel:   "#1a1d2e",
+  surface: "#22263a",
+  border:  "#2e3348",
+  ink:     "#e4e6ef",
+  muted:   "#9ca3b4",
+  dim:     "#3e4460",
+  accent:  "#a78bfa",
+  blue:    "#60a5fa",
+  green:   "#34d399",
+  amber:   "#fbbf24",
+  red:     "#f87171",
+  teal:    "#22d3ee",
+  pink:    "#f472b6",
+};
+
+// Mutable theme ref — set at render time
+let T = LIGHT;
 
 const SectionTitle = ({ children, color }) => (
   <div style={{
@@ -379,8 +398,11 @@ const PUBLICATIONS = [
   },
 ];
 
-export default function AboutMeModule({ onNavigate }) {
+export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
   const [tab, setTab] = useState("overview");
+
+  // Set the mutable theme so all sub-components pick it up
+  T = dark ? DARK : LIGHT;
 
   const totalCitations = PUBLICATIONS.reduce((s, p) => s + (p.citations || 0), 0);
 
@@ -390,8 +412,8 @@ export default function AboutMeModule({ onNavigate }) {
       fontFamily: "'Inter', -apple-system, sans-serif", color: T.ink,
       boxSizing: "border-box",
     }}>
-      {/* Tab nav */}
-      <div style={{ display: "flex", gap: 6, marginBottom: 24, flexWrap: "wrap" }}>
+      {/* Tab nav + dark/light toggle */}
+      <div style={{ display: "flex", gap: 6, marginBottom: 24, flexWrap: "wrap", alignItems: "center" }}>
         {TABS.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)} style={{
             padding: "7px 16px", borderRadius: 8, fontSize: 12, cursor: "pointer",
@@ -402,6 +424,20 @@ export default function AboutMeModule({ onNavigate }) {
             transition: "all 0.15s",
           }}>{t.label}</button>
         ))}
+        <div style={{ flex: 1 }} />
+        {onToggleDark && (
+          <button onClick={onToggleDark} style={{
+            padding: "7px 12px", borderRadius: 8, fontSize: 14, cursor: "pointer",
+            background: T.surface, border: `1px solid ${T.border}`,
+            color: T.muted, fontFamily: "inherit", transition: "all 0.15s",
+            display: "flex", alignItems: "center", gap: 6,
+          }}
+          title={dark ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {dark ? "\u2600\uFE0F" : "\u{1F319}"}
+            <span style={{ fontSize: 11, fontWeight: 600 }}>{dark ? "Light" : "Dark"}</span>
+          </button>
+        )}
       </div>
 
       {/* ─── OVERVIEW ─── */}
