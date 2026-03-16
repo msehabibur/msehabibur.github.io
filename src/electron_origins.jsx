@@ -93,7 +93,7 @@ function AtomicModelsSection() {
       case 0: {
         const pulse = 1 + 0.06 * Math.sin(t * 2);
         return (
-          <svg width={340} height={340} style={{ background: T.bg, borderRadius: 8 }}>
+          <svg viewBox="0 0 340 340" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
             <circle cx={cx} cy={cy} r={60 * pulse} fill={T.eo_core} opacity={0.7} />
             <circle cx={cx} cy={cy} r={60 * pulse} fill="none" stroke={T.ink} strokeWidth={2} />
             <text x={cx} y={cy - 5} textAnchor="middle" fill="#fff" fontSize={11} fontFamily="monospace" fontWeight="bold">Indivisible</text>
@@ -113,7 +113,7 @@ function AtomicModelsSection() {
           electrons.push({ x: cx + jx, y: cy + jy });
         }
         return (
-          <svg width={340} height={340} style={{ background: T.bg, borderRadius: 8 }}>
+          <svg viewBox="0 0 340 340" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
             <circle cx={cx} cy={cy} r={70} fill={T.eo_e} opacity={0.15} />
             <circle cx={cx} cy={cy} r={70} fill="none" stroke={T.eo_e} strokeWidth={1.5} strokeDasharray="4,3" />
             {[...Array(12)].map((_, i) => {
@@ -144,7 +144,7 @@ function AtomicModelsSection() {
           return { x: -30 + progress * 400, y: cy + yOff, vis: true, deflected: false };
         });
         return (
-          <svg width={340} height={340} style={{ background: T.bg, borderRadius: 8 }}>
+          <svg viewBox="0 0 340 340" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
             <circle cx={cx} cy={cy} r={100} fill="none" stroke={T.dim} strokeWidth={1} strokeDasharray="3,3" opacity={0.5} />
             <text x={cx + 75} y={cy - 75} textAnchor="middle" fill={T.dim} fontSize={8} fontFamily="monospace">mostly empty</text>
             <circle cx={cx} cy={cy} r={8} fill={T.eo_gap} />
@@ -198,7 +198,7 @@ function AtomicModelsSection() {
         const transColor = bohrTransition && bohrTransition.to === 2 ? (balmerColors[bohrTransition.from] || "#ca8a04") : "#ca8a04";
 
         return (
-          <svg width={340} height={340} style={{ background: T.bg, borderRadius: 8 }}>
+          <svg viewBox="0 0 340 340" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
             {orbitRadii.map((r, i) => (
               <g key={i}>
                 <circle cx={cx} cy={cy} r={r} fill="none" stroke={i + 1 === bohrLevel ? T.eo_e : T.dim} strokeWidth={i + 1 === bohrLevel ? 2 : 1} strokeDasharray={i + 1 === bohrLevel ? "none" : "4,3"} opacity={i + 1 === bohrLevel ? 1 : 0.5} />
@@ -259,7 +259,7 @@ function AtomicModelsSection() {
           { n: 3, l: 2, a: 93, b: 90, rot: 60 },
         ];
         return (
-          <svg width={340} height={340} style={{ background: T.bg, borderRadius: 8 }}>
+          <svg viewBox="0 0 340 340" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
             <circle cx={cx} cy={cy} r={6} fill={T.eo_gap} />
             {ellipses.map((el, i) => {
               const speed = 2.0 / el.n;
@@ -351,7 +351,7 @@ function AtomicModelsSection() {
         if (qmOrbital !== "all") {
           const dots = generateDots(qmOrbital);
           return (
-            <svg width={340} height={340} style={{ background: T.bg, borderRadius: 8 }}>
+            <svg viewBox="0 0 340 340" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
               {dots.map((d, i) => (
                 <circle key={i} cx={d.x} cy={d.y} r={2} fill={d.c} opacity={d.o} />
               ))}
@@ -380,7 +380,7 @@ function AtomicModelsSection() {
           ...generateDots("3d", cx, cy, 1, T.eo_gap),
         ];
         return (
-          <svg width={340} height={340} style={{ background: T.bg, borderRadius: 8 }}>
+          <svg viewBox="0 0 340 340" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
             {allDots.map((d, i) => (
               <circle key={i} cx={d.x} cy={d.y} r={1.8} fill={d.c} opacity={d.o * 0.8} />
             ))}
@@ -669,7 +669,7 @@ function AufbauPrincipleSection() {
     const arrowPts = orbitalOrder.map((_, i) => ({ x: 20, y: yStart - i * energyGap + 9 }));
 
     return (
-      <svg width={340} height={380} style={{ background: T.bg, borderRadius: 8 }}>
+      <svg viewBox="0 0 340 380" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
         <text x={170} y={15} textAnchor="middle" fill={T.ink} fontSize={11} fontFamily="monospace" fontWeight="bold">
           {elements[Z] || `Z=${Z}`} (Z={Z}) — Orbital Filling
         </text>
@@ -858,7 +858,7 @@ function ElectronOriginsZnTeSection() {
       ];
 
       return (
-        <svg width={340} height={320} style={{ background: T.bg, borderRadius: 8 }}>
+        <svg viewBox="0 0 340 320" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
           <text x={170} y={18} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">
             {stage === 0 ? "Isolated Atoms: Zn + Te" : "Bond Formation"}
           </text>
@@ -941,7 +941,7 @@ function ElectronOriginsZnTeSection() {
         { x: unitSize / 2, y: unitSize * 1.5, type: "Te" }, { x: unitSize * 1.5, y: unitSize * 1.5, type: "Zn" },
       ];
       return (
-        <svg width={340} height={320} style={{ background: T.bg, borderRadius: 8 }}>
+        <svg viewBox="0 0 340 320" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
           <text x={170} y={18} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">Unit Cell — 4 formula units</text>
           <rect x={ox} y={oy} width={unitSize * 2} height={unitSize * 2} fill="none" stroke={T.ink} strokeWidth={1.5} strokeDasharray="4,4" />
           {atoms.map((a, i) => {
@@ -975,7 +975,7 @@ function ElectronOriginsZnTeSection() {
         }
       }
       return (
-        <svg width={340} height={320} style={{ background: T.bg, borderRadius: 8 }}>
+        <svg viewBox="0 0 340 320" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
           <text x={170} y={15} textAnchor="middle" fill={T.ink} fontSize={9} fontFamily="monospace" fontWeight="bold">2×2×2 Supercell — 64 atoms</text>
           {dots.slice(0, 32).map((d, i) => {
             const col = d.type === "Zn" ? T.eo_e : T.eo_hole;
@@ -995,7 +995,7 @@ function ElectronOriginsZnTeSection() {
       const cbBot = bandY - 10;
       const kPoints = 12;
       return (
-        <svg width={340} height={320} style={{ background: T.bg, borderRadius: 8 }}>
+        <svg viewBox="0 0 340 320" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
           <text x={170} y={18} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">Band Structure from Electrons</text>
           <line x1={40} y1={30} x2={40} y2={280} stroke={T.ink} strokeWidth={1} />
           <text x={15} y={145} textAnchor="middle" fill={T.muted} fontSize={8} fontFamily="monospace" transform="rotate(-90,15,145)">Energy</text>
@@ -1353,7 +1353,7 @@ function WaveDualitySection() {
 
       {/* Animation */}
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 10, overflow: "hidden" }}>
-        <svg width={W} height={H} style={{ display: "block", background: "#0f172a" }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ display: "block", background: "#0f172a", width: "100%", maxWidth: W }}>
           <defs>
             <clipPath id="wdLeft"><rect x={0} y={0} width={barrX} height={H} /></clipPath>
             <clipPath id="wdRight"><rect x={barrX} y={0} width={W - barrX} height={H} /></clipPath>
@@ -1521,7 +1521,7 @@ function SchrodingerSection() {
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       {/* LEFT: SVG */}
       <div style={{ flexShrink: 0 }}>
-        <svg width={320} height={320} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+        <svg viewBox="0 0 320 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 320 }}>
           <text x={160} y={16} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight="bold">
             Hydrogen Atom {"\u2014"} {orb.name} orbital
           </text>
@@ -1835,7 +1835,7 @@ function QuantumNumbersSection() {
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       {/* LEFT: SVG */}
       <div style={{ flexShrink: 0 }}>
-        <svg width={320} height={320} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+        <svg viewBox="0 0 320 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 320 }}>
           {!showAll ? (
             <g>
               {/* Axes */}
@@ -2141,7 +2141,7 @@ function PeriodicTrendsSection() {
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       {/* LEFT: SVG */}
       <div style={{ flexShrink: 0 }}>
-        <svg width={340} height={320} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+        <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           {/* Title */}
           <text x={170} y={14} fontSize={10} fill={T.muted} textAnchor="middle" fontWeight="bold">
             {pc.label} Heatmap
@@ -2241,7 +2241,7 @@ function PeriodicTrendsSection() {
                 <div style={{ fontSize: 11, color: T.muted }}>Z = {selData[3]}</div>
               </div>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, fontSize: 11 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 6, fontSize: 11 }}>
               <div style={{ background: T.surface, padding: 6, borderRadius: 4 }}>
                 <div style={{ color: T.muted, fontSize: 9 }}>Electronegativity</div>
                 <strong>{selData[4].toFixed(2)}</strong>
@@ -2402,7 +2402,7 @@ function AtomSection() {
       </div>
 
       {/* Bohr model SVG */}
-      <svg width={320} height={320} style={{ flex: "0 0 320px" }}>
+      <svg viewBox="0 0 320 320" style={{ flex: "0 0 320px", width: "100%", maxWidth: 320 }}>
         <rect width={320} height={320} fill={T.bg} rx={12} />
         {/* Orbits */}
         {a.shells.map((_, i) => (
@@ -2574,7 +2574,7 @@ function ChemicalBondingSection() {
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       <div style={{ minWidth: 340 }}>
-        <svg width={340} height={320} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+        <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <defs>
             <marker id="arrowPolar" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill={T.muted} /></marker>
             <marker id="arrowIonic" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill={T.eo_gap} /></marker>
@@ -2782,6 +2782,7 @@ function ChemicalBondingSection() {
         </div>
 
         <div style={{ fontSize: 11, marginBottom: 6, fontWeight: 600 }}>Property Comparison</div>
+        <div style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", fontSize: 10, borderCollapse: "collapse", marginBottom: 12 }}>
           <thead>
             <tr style={{ borderBottom: `1px solid ${T.border}` }}>
@@ -2802,6 +2803,7 @@ function ChemicalBondingSection() {
             ))}
           </tbody>
         </table>
+        </div>
 
         <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
           <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
@@ -2915,7 +2917,7 @@ function HybridizationSection() {
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       <div style={{ minWidth: 340 }}>
-        <svg width={340} height={340} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+        <svg viewBox="0 0 340 340" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <text x={170} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
             {hybridType} Hybridization
           </text>
@@ -3017,6 +3019,7 @@ function HybridizationSection() {
           The resulting geometry minimizes electron repulsion (VSEPR).
         </div>
 
+        <div style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", fontSize: 10, borderCollapse: "collapse", marginBottom: 12 }}>
           <thead>
             <tr style={{ borderBottom: `2px solid ${T.border}` }}>
@@ -3046,6 +3049,7 @@ function HybridizationSection() {
             ))}
           </tbody>
         </table>
+        </div>
 
         <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
           <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4 }}>What is Hybridization?</div>
@@ -3147,7 +3151,7 @@ function MolecularOrbitalSection() {
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       <div style={{ minWidth: 340 }}>
-        <svg width={340} height={320} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+        <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <text x={170} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
             {info.title}
           </text>
@@ -3305,6 +3309,7 @@ function MolecularOrbitalSection() {
         </div>
 
         <div style={{ fontSize: 11, marginBottom: 8, fontWeight: 600 }}>Progression</div>
+        <div style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", fontSize: 10, borderCollapse: "collapse", marginBottom: 12 }}>
           <thead>
             <tr style={{ borderBottom: `2px solid ${T.border}` }}>
@@ -3334,6 +3339,7 @@ function MolecularOrbitalSection() {
             ))}
           </tbody>
         </table>
+        </div>
 
         <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
           <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.5 }}>
@@ -3445,7 +3451,7 @@ function CrystalSymmetrySection() {
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       <div style={{ minWidth: 340 }}>
-        <svg width={340} height={340} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+        <svg viewBox="0 0 340 340" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <text x={170} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
             {lattice} Structure
           </text>
@@ -3560,6 +3566,7 @@ function CrystalSymmetrySection() {
       <div style={{ flex: 1, minWidth: 280 }}>
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Crystal Symmetry</div>
 
+        <div style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", fontSize: 10, borderCollapse: "collapse", marginBottom: 12 }}>
           <tbody>
             {[
@@ -3576,6 +3583,7 @@ function CrystalSymmetrySection() {
             ))}
           </tbody>
         </table>
+        </div>
 
         <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
           <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4 }}>Bravais Lattice Comparison</div>
@@ -3702,7 +3710,7 @@ function ReciprocalSpaceSection() {
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       <div style={{ minWidth: 340 }}>
-        <svg width={340} height={320} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+        <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <text x={170} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
             {showReciprocal ? "Reciprocal Space" : "Real Space"} ({latticeType})
           </text>
@@ -3990,7 +3998,7 @@ function BandSection() {
     <div style={{ display: "flex", gap: 20 }}>
       {/* Band diagram */}
       <div style={{ flex: "0 0 340px" }}>
-        <svg width={320} height={320} style={{ display: "block" }}>
+        <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
           <rect width={320} height={320} fill={T.bg} rx={10} />
 
           {/* Valence band */}
@@ -4387,7 +4395,7 @@ function SemiconductorDopingSection() {
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
-        <svg width={W} height={H} style={{ background: T.surface, borderRadius: 6 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={bandL} y={Ev_y} width={bandR - bandL} height={50}
             fill={T.eo_valence} opacity={0.25} />
           <line x1={bandL} y1={Ev_y} x2={bandR} y2={Ev_y}
@@ -4610,7 +4618,7 @@ function CarrierTransportSection() {
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
-        <svg width={W} height={H} style={{ background: T.surface, borderRadius: 6 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           {Array.from({ length: nAtoms }, (_, i) => {
             const cx = 35 + i * atomSpacing;
             return (
@@ -4829,7 +4837,7 @@ function ThermodynamicsSection() {
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
-        <svg width={W} height={H} style={{ background: T.surface, borderRadius: 6 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <path d={curvePath} fill="none" stroke={T.eo_core} strokeWidth={2.5} />
 
           <line x1={xToSvg(0.25)} y1={yToSvg(Gval)} x2={xToSvg(0.75)} y2={yToSvg(Gval)}
@@ -5026,7 +5034,7 @@ function PhaseDiagramSection() {
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
-        <svg width={W} height={H} style={{ background: T.surface, borderRadius: 6 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={mL} y={mT} width={pW} height={toSY(solidusT) - mT}
             fill={T.eo_cond} opacity={0.06} />
 
@@ -5236,7 +5244,7 @@ function ChemicalPotentialSection() {
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
-        <svg width={W} height={H} style={{ background: T.surface, borderRadius: 6 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={mL} y={mT} width={toSX(-0.5) - mL} height={pH_}
             fill={T.eo_cond} opacity={0.06} />
           <rect x={mL} y={mT} width={pW} height={toSY(-0.5) - mT}
@@ -5435,7 +5443,7 @@ function DefectSection() {
     <div style={{ display: "flex", gap: 20 }}>
       {/* Diagram */}
       <div style={{ flex: "0 0 340px" }}>
-        <svg width={320} height={320} style={{ display: "block" }}>
+        <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
           <rect width={320} height={320} fill={T.bg} rx={10} />
 
           {/* Valence band */}
@@ -5545,7 +5553,7 @@ function DefectSection() {
             Zn normally bonds to 4 Te atoms, sharing its 2 electrons across 4 bonds (0.5e per bond from Zn side).
             Remove Zn → 4 Te atoms each have a half-bond pointing into empty space.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 8 }}>
             {[
               { label: "Normal Te-Zn bond", state: "Te ── Zn (shared electrons)", color: T.eo_valence },
               { label: "Dangling bond (V_Zn)", state: "Te ── [empty space]", color: T.eo_gap },
@@ -5844,8 +5852,8 @@ function PhononsSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
-      <svg width={svgW} height={svgH}
-        style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0 }}>
+      <svg viewBox={`0 0 ${svgW} ${svgH}`}
+        style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
 
         <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fontWeight="bold" fill={T.ink}>
           {mode === "acoustic" ? "Acoustic Mode" : "Optical Mode"}
@@ -6054,8 +6062,8 @@ function OpticalPropertiesSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
-      <svg width={svgW} height={svgH}
-        style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0 }}>
+      <svg viewBox={`0 0 ${svgW} ${svgH}`}
+        style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
 
         <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fontWeight="bold" fill={T.ink}>
           Photon Absorption ({gapType} gap)
@@ -6242,8 +6250,8 @@ function DielectricResponseSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
-      <svg width={svgW} height={svgH}
-        style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0 }}>
+      <svg viewBox={`0 0 ${svgW} ${svgH}`}
+        style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
 
         <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fontWeight="bold" fill={T.ink}>
           Dielectric Response
@@ -6466,8 +6474,8 @@ function RecombinationSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
-      <svg width={svgW} height={svgH}
-        style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0 }}>
+      <svg viewBox={`0 0 ${svgW} ${svgH}`}
+        style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
         <text x={svgW / 2} y={14} textAnchor="middle" fontSize={11} fontWeight="bold" fill={T.ink}>
           Recombination Mechanisms
         </text>
@@ -6645,8 +6653,8 @@ function AtomToDeviceSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
-      <svg width={svgW} height={svgH}
-        style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0 }}>
+      <svg viewBox={`0 0 ${svgW} ${svgH}`}
+        style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
 
         <text x={svgW / 2} y={20} textAnchor="middle" fontSize={13} fontWeight="bold" fill={T.ink}>
           From Atoms to Devices

@@ -66,7 +66,7 @@ function IntroSection() {
           </div>
         </div>
         <div>
-          <svg width={300} height={300}>
+          <svg viewBox="0 0 300 300" style={{ width: "100%", maxWidth: 300 }}>
             <rect width={300} height={300} fill={T.bg} rx={12} />
             {Array.from({ length: gridSize }, (_, r) =>
               Array.from({ length: gridSize }, (_, c) => {
@@ -143,7 +143,7 @@ function PointDefectsSection() {
             </div>
           </div>
         </div>
-        <svg width={290} height={290}>
+        <svg viewBox="0 0 290 290" style={{ width: "100%", maxWidth: 290 }}>
           <rect width={290} height={290} fill={T.bg} rx={12} />
           {Array.from({ length: gridSize }, (_, r) =>
             Array.from({ length: gridSize }, (_, c) => {
@@ -170,6 +170,7 @@ function PointDefectsSection() {
           )}
         </svg>
       </div>
+      <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", marginTop: 16, borderCollapse: "collapse", fontSize: 12 }}>
         <thead>
           <tr style={{ borderBottom: `2px solid ${T.border}` }}>
@@ -191,6 +192,7 @@ function PointDefectsSection() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
@@ -253,7 +255,7 @@ function SchottkyFrenkelSection() {
             </>
           )}
         </div>
-        <svg width={280} height={240}>
+        <svg viewBox="0 0 280 240" style={{ width: "100%", maxWidth: 280 }}>
           <rect width={280} height={240} fill={T.bg} rx={12} />
           {defectType === "schottky" ? (
             <>
@@ -304,6 +306,7 @@ function SchottkyFrenkelSection() {
           )}
         </svg>
       </div>
+      <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", marginTop: 16, borderCollapse: "collapse", fontSize: 12 }}>
         <thead>
           <tr style={{ borderBottom: `2px solid ${T.border}` }}>
@@ -326,6 +329,7 @@ function SchottkyFrenkelSection() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
@@ -354,6 +358,7 @@ function KrogerVinkSection() {
           </div>
         ))}
       </div>
+      <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", marginTop: 16, borderCollapse: "collapse", fontSize: 12 }}>
         <thead>
           <tr style={{ borderBottom: `2px solid ${T.border}` }}>
@@ -379,6 +384,7 @@ function KrogerVinkSection() {
           ))}
         </tbody>
       </table>
+      </div>
       <div style={{ background: T.surface, borderRadius: 8, padding: 14, marginTop: 16, border: `1px solid ${T.border}` }}>
         <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 8 }}>Balance Rules</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -420,7 +426,7 @@ function DefectChemistrySection() {
         <b> Brouwer diagrams</b> show log[defect] vs log(pO₂), revealing dominant defect regimes.
       </p>
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 12 }}>
-        <svg width={320} height={240}>
+        <svg viewBox="0 0 320 240" style={{ width: "100%", maxWidth: 320 }}>
           <rect width={320} height={240} fill={T.bg} rx={12} />
           {/* Axes */}
           <line x1={50} y1={200} x2={300} y2={200} stroke={T.ink} strokeWidth={1} />
@@ -482,7 +488,7 @@ function DislocationsSection() {
         ))}
       </div>
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
-        <svg width={300} height={260}>
+        <svg viewBox="0 0 300 260" style={{ width: "100%", maxWidth: 300 }}>
           <rect width={300} height={260} fill={T.bg} rx={12} />
           {dislType === "edge" ? (
             <>
@@ -564,7 +570,7 @@ function PlanarDefectsSection() {
     <div>
       <SectionTitle color={T.df_grain} icon={"\uD83D\uDCC4"}>Planar Defects</SectionTitle>
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
-        <svg width={300} height={240}>
+        <svg viewBox="0 0 300 240" style={{ width: "100%", maxWidth: 300 }}>
           <rect width={300} height={240} fill={T.bg} rx={12} />
           {/* Grain boundary visualization */}
           {/* Left grain */}
@@ -657,7 +663,7 @@ function DiffusionSection() {
           </div>
         </div>
         <div>
-          <svg width={280} height={220}>
+          <svg viewBox="0 0 280 220" style={{ width: "100%", maxWidth: 280 }}>
             <rect width={280} height={220} fill={T.bg} rx={12} />
             {/* Concentration profile */}
             <text x={140} y={18} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight={600}>Concentration Profile</text>
@@ -688,6 +694,7 @@ function DiffusionSection() {
           </svg>
         </div>
       </div>
+      <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", marginTop: 16, borderCollapse: "collapse", fontSize: 12 }}>
         <thead>
           <tr style={{ borderBottom: `2px solid ${T.border}` }}>
@@ -714,6 +721,7 @@ function DiffusionSection() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

@@ -221,7 +221,7 @@ function AtomSection() {
       </div>
 
       {/* Bohr model SVG */}
-      <svg width={320} height={320} style={{ flex: "0 0 320px" }}>
+      <svg viewBox="0 0 320 320" style={{ flex: "0 0 320px", width: "100%", maxWidth: 320 }}>
         <rect width={320} height={320} fill={T.bg} rx={12} />
         {a.shells.map((_, i) => (
           <circle key={i} cx={cx} cy={cy} r={radii[i]}
@@ -363,7 +363,7 @@ function CrystalSection() {
     <div>
     <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ flex: "0 0 340px" }}>
-        <svg width={320} height={320} style={{ display: "block" }}>
+        <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
           <rect width={320} height={320} fill={T.bg} rx={10} />
 
           {/* Bonds in stage 3+ */}
@@ -519,7 +519,7 @@ function SupercellSection() {
     <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ flex: "0 0 340px" }}>
         {/* 64-atom supercell visualization */}
-        <svg width={320} height={320} style={{ display: "block" }}>
+        <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
           <rect width={320} height={320} fill={T.bg} rx={10} />
           {/* Draw 64 atoms in an 8x8 grid with bonds */}
           {Array.from({ length: 64 }, (_, i) => {
@@ -886,7 +886,7 @@ function BandSection() {
         </div>
 
         {/* Animation SVG */}
-        <svg width={W} height={H} style={{ display: "block", background: T.bg }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ display: "block", background: T.bg, width: "100%", maxWidth: W }}>
           {renderAct()}
         </svg>
 
@@ -912,7 +912,7 @@ function BandSection() {
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 340px" }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: T.muted, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>Interactive Band Diagram</div>
-          <svg width={BW} height={320} style={{ display: "block" }}>
+          <svg viewBox={`0 0 ${BW} 320`} style={{ display: "block", width: "100%", maxWidth: BW }}>
             <rect width={BW} height={320} fill={T.bg} rx={10} />
             <rect x={20} y={VBtop} width={BW - 40} height={55} rx={4} fill={T.eo_valence + "22"} stroke={T.eo_valence} strokeWidth={1.5} />
             <text x={30} y={VBtop + 18} fill={T.eo_valence} fontSize={11} fontWeight="bold">Valence Band</text>
@@ -1039,7 +1039,7 @@ function BondNatureSection() {
     <div>
     <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ flex: "0 0 320px" }}>
-        <svg width={320} height={280} style={{ background: T.bg, borderRadius: 8 }}>
+        <svg viewBox="0 0 320 280" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 320 }}>
           {/* Cd atom (left) */}
           <circle cx={100} cy={140} r={30} fill={T.eo_valence + "33"} stroke={T.eo_valence} strokeWidth={2} />
           <text x={100} y={144} textAnchor="middle" fill={T.eo_valence} fontSize={14} fontWeight="bold">Cd</text>
@@ -1106,7 +1106,7 @@ function BondNatureSection() {
           <div style={{ textAlign: "center", fontSize: 13, fontWeight: 800, color: T.eo_e }}>
             CdTe: f_i = {ionicity.toFixed(2)} ({(ionicity * 100).toFixed(0)}% ionic)
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, marginTop: 10 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 6, marginTop: 10 }}>
             {[
               { name: "Si", fi: 0.0, color: T.eo_valence },
               { name: "GaAs", fi: 0.31, color: T.eo_cond },
@@ -1198,7 +1198,7 @@ function DefectSection() {
     <div>
     <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ flex: "0 0 340px" }}>
-        <svg width={320} height={320} style={{ display: "block" }}>
+        <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
           <rect width={320} height={320} fill={T.bg} rx={10} />
           <rect x={20} y={40} width={220} height={35} rx={4} fill={T.eo_cond + "11"} stroke={T.eo_cond} strokeWidth={1.5} />
           <text x={30} y={60} fill={T.eo_cond} fontSize={11} fontWeight="bold">Conduction Band</text>
@@ -1288,7 +1288,7 @@ function DefectSection() {
             has one sp³ orbital pointing into empty space. These 4 dangling bonds
             hybridize into 4 defect levels (D1-D4) inside the gap.
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 6 }}>
             {[
               { label: "Normal Te-Cd bond", state: "Te(sp³) — Cd(sp³)", color: T.eo_valence },
               { label: "Dangling bond (V_Cd)", state: "Te(sp³) — [vacancy]", color: T.eo_gap },
@@ -1380,7 +1380,7 @@ function DefectConfigSection() {
     <div>
     <div style={{ display: "flex", gap: 20 }}>
       <div style={{ flex: "0 0 340px" }}>
-        <svg width={320} height={320} style={{ display: "block" }}>
+        <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
           <rect width={320} height={320} fill={T.bg} rx={10} />
 
           {/* Bond lines */}
@@ -1536,6 +1536,7 @@ function DefectConfigSection() {
           <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, letterSpacing: 2, textTransform: "uppercase" }}>
             Defect type comparison
           </div>
+          <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead><tr>
               {["Type", "Extra atoms", "Missing atoms", "Effect"].map(h => (
@@ -1558,6 +1559,7 @@ function DefectConfigSection() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>
@@ -1657,7 +1659,7 @@ function DefectElectronsSection() {
     <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
       {/* ═══ Left: 64-atom supercell grid ═══ */}
       <div style={{ flex: "0 0 auto" }}>
-        <svg width={300} height={300} style={{ display: "block", borderRadius: 10, border: `1px solid ${T.border}` }}>
+        <svg viewBox="0 0 300 300" style={{ display: "block", borderRadius: 10, border: `1px solid ${T.border}`, width: "100%", maxWidth: 300 }}>
           <rect width={300} height={300} fill={T.bg} rx={10} />
 
           {/* Bond lines */}
@@ -1778,7 +1780,7 @@ function DefectElectronsSection() {
 
       {/* ═══ Middle: Band diagram ═══ */}
       <div style={{ flex: "0 0 auto" }}>
-        <svg width={bW} height={bH} style={{ display: "block", borderRadius: 10, border: `1px solid ${T.border}` }}>
+        <svg viewBox={`0 0 ${bW} ${bH}`} style={{ display: "block", borderRadius: 10, border: `1px solid ${T.border}`, width: "100%", maxWidth: bW }}>
           <rect width={bW} height={bH} fill={T.panel} rx={10} />
 
           {/* CB */}
@@ -1978,6 +1980,7 @@ function DefectElectronsSection() {
           <div style={{ fontSize: 10, color: T.muted, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 6 }}>
             Defect comparison in 64-atom cell
           </div>
+          <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11, fontFamily: "monospace" }}>
             <thead><tr>
               {["", "Perfect", "V_Cd", "Cd_i", "Cd_Te"].map((h, i) => (
@@ -2002,6 +2005,7 @@ function DefectElectronsSection() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>
@@ -2063,7 +2067,7 @@ function RecombinationSection() {
     <div>
     <div style={{ display: "flex", gap: 20 }}>
       <div style={{ flex: "0 0 340px" }}>
-        <svg width={320} height={320} style={{ display: "block" }}>
+        <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
           <rect width={320} height={320} fill={T.bg} rx={10} />
 
           {/* Conduction band */}
@@ -2260,7 +2264,7 @@ function RecombinationSection() {
           <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, letterSpacing: 2, textTransform: "uppercase" }}>
             Radiative vs Non-radiative
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 8 }}>
             {[
               { label: "Radiative", output: "Photon (light)", note: "Desired for LEDs/lasers", color: T.eo_photon },
               { label: "Non-radiative", output: "Phonon (heat)", note: "Unwanted loss mechanism", color: T.eo_gap },
@@ -2306,7 +2310,7 @@ function DefectThermoSection() {
     <div>
     <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ flex: "0 0 320px" }}>
-        <svg width={320} height={280} style={{ background: T.bg, borderRadius: 8 }}>
+        <svg viewBox="0 0 320 280" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 320 }}>
           <text x={160} y={20} textAnchor="middle" fill={T.ink} fontSize={11} fontWeight="bold">Defect Formation — Thermal Activation</text>
 
           {/* Energy landscape curve */}
@@ -2469,7 +2473,7 @@ function IVCurveSection() {
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
       {/* Left: plot + controls */}
       <div style={{ flexShrink: 0 }}>
-        <svg width={W} height={H} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, display: "block" }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", width: "100%", maxWidth: W }}>
           {/* Jsc × Voc outer rectangle */}
           <rect x={xV(0)} y={yJ(Jsc)} width={xV(Voc) - xV(0)} height={yJ(0) - yJ(Jsc)} fill={T.eo_e} opacity={0.05} />
           {/* MPP rectangle */}
@@ -2537,7 +2541,7 @@ function IVCurveSection() {
 
       {/* Right: metrics + explanation */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 10 }}>
           {[
             { label: "Voc",  value: `${Voc.toFixed(3)} V`,        desc: "Open-circuit voltage",       color: T.eo_hole,   tip: "When no current flows. Set by Fermi-level splitting under illumination. Reduced by recombination at defects (SRH)." },
             { label: "Jsc",  value: `${Jsc.toFixed(1)} mA/cm²`,   desc: "Short-circuit current",      color: T.eo_cond,   tip: "At zero voltage. One absorbed photon → one electron swept to contact. CdTe's direct gap gives Jsc ≈ 30 mA/cm² in just 2 µm." },
@@ -2624,7 +2628,7 @@ function MacroSection() {
           </div>
         </div>
 
-        <svg width={280} height={180} style={{ display: "block" }}>
+        <svg viewBox="0 0 280 180" style={{ display: "block", width: "100%", maxWidth: 280 }}>
           <rect width={280} height={180} fill={T.bg} rx={8} />
           {Array.from({ length: 64 }, (_, i) => {
             const row = Math.floor(i / 8);
@@ -2647,7 +2651,7 @@ function MacroSection() {
             64-atom CdTe cell: dashed circles = V_Cd vacancies
           </text>
         </svg>
-        <svg width={280} height={100} style={{ display: "block", marginTop: 8 }}>
+        <svg viewBox="0 0 280 100" style={{ display: "block", marginTop: 8, width: "100%", maxWidth: 280 }}>
           <rect width={280} height={100} fill={T.bg} rx={8} />
           <text x={140} y={14} textAnchor="middle" fill={T.muted} fontSize={9}>Carrier flow through crystal</text>
           {/* Moving electrons */}
@@ -2901,7 +2905,7 @@ function SolarCellDeviceSection() {
       <div style={{ display: "flex", gap: 20 }}>
         {/* SVG Animation */}
         <div style={{ flex: "0 0 auto" }}>
-          <svg width={svgW} height={svgH} style={{ background: T.bg, borderRadius: 10, border: `1px solid ${T.border}` }}>
+          <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ background: T.bg, borderRadius: 10, border: `1px solid ${T.border}`, width: "100%", maxWidth: svgW }}>
             <defs>
               <linearGradient id="sunGlow" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#fff7cc" />
@@ -3663,7 +3667,7 @@ function DopingModule({ initialTab }) {
           </div>
           <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
             <div style={{ flex: "0 0 auto" }}>
-              <svg width={svgW} height={svgH} style={{ background: T.surface, borderRadius: 10, border: `1px solid ${T.border}` }}>
+              <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ background: T.surface, borderRadius: 10, border: `1px solid ${T.border}`, width: "100%", maxWidth: svgW }}>
                 {renderNBand()}
               </svg>
             </div>
@@ -3739,7 +3743,7 @@ function DopingModule({ initialTab }) {
           </div>
           <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
             <div style={{ flex: "0 0 auto" }}>
-              <svg width={svgW} height={svgH} style={{ background: T.surface, borderRadius: 10, border: `1px solid ${T.border}` }}>
+              <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ background: T.surface, borderRadius: 10, border: `1px solid ${T.border}`, width: "100%", maxWidth: svgW }}>
                 {renderPBand()}
               </svg>
             </div>
@@ -3813,7 +3817,7 @@ function DopingModule({ initialTab }) {
           <div style={{ fontSize: 13, color: T.muted, marginBottom: 16, lineHeight: 1.6 }}>
             When p-type and n-type CdTe (or CdS/CdTe) are brought together, electrons diffuse from n→p and holes from p→n. This leaves behind fixed ionized charges forming a <b>depletion region</b> with a built-in electric field that drives carrier separation in the solar cell.
           </div>
-          <svg width={jW} height={jH} style={{ background: T.surface, borderRadius: 12, border: `1px solid ${T.border}`, display: "block" }}>
+          <svg viewBox={`0 0 ${jW} ${jH}`} style={{ background: T.surface, borderRadius: 12, border: `1px solid ${T.border}`, display: "block", width: "100%", maxWidth: jW }}>
             {renderJunction()}
           </svg>
           <div style={{ marginTop: 16, display: "flex", gap: 14, flexWrap: "wrap" }}>

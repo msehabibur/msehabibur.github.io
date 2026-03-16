@@ -102,7 +102,7 @@ function BravaisSection() {
         ))}
       </div>
       <Card title={s.name + " System"} color={s.color}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, fontSize: 12 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 8, fontSize: 12 }}>
           <div><strong>Lengths:</strong> {s.a}</div>
           <div><strong>Angles:</strong> {s.ang}</div>
           <div><strong>Lattice types:</strong> {s.types}</div>
@@ -260,6 +260,7 @@ function GroupsSection() {
           Uses numbers for rotation axes (2, 3, 4, 6), m for mirror planes, and bars for improper rotations (3̄, 4̄). Screw axes: 2₁, 3₁, 4₁, 6₁, etc. Glide planes: a, b, c, n, d.
         </p>
       </Card>
+      <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11, marginTop: 10 }}>
         <thead>
           <tr style={{ background: T.cs_miller + "15" }}>{["System", "Point Groups", "#", "Example"].map(h => <th key={h} style={{ padding: "8px 10px", textAlign: "left", borderBottom: `2px solid ${T.cs_miller}44`, color: T.cs_miller, fontWeight: 700 }}>{h}</th>)}</tr>
@@ -275,6 +276,7 @@ function GroupsSection() {
           ))}
         </tbody>
       </table>
+      </div>
       <p style={{ fontSize: 11, color: T.muted, marginTop: 8 }}>Total: 32 point groups → 230 space groups (with translations).</p>
     </div>
   );
@@ -384,6 +386,7 @@ function StructuresSection() {
           <text x={150} y={155} textAnchor="middle" fill={T.cs_struct} fontSize={11}>{structures[sel].examples}</text>
         </>)}
       </svg>
+      <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
         <thead>
           <tr style={{ background: T.cs_struct + "15" }}>{["Structure", "Coord #", "Packing", "Atoms/cell", "Examples"].map(h => <th key={h} style={{ padding: "7px 8px", textAlign: "left", borderBottom: `2px solid ${T.cs_struct}44`, color: T.cs_struct, fontWeight: 700 }}>{h}</th>)}</tr>
@@ -400,6 +403,7 @@ function StructuresSection() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
@@ -443,7 +447,7 @@ function PackingSection() {
         <text x={200} y={210} textAnchor="middle" fill={T.muted} fontSize={11}>{stacking === "fcc" ? "FCC: ...ABCABCABC... (Cu, Al, Au)" : "HCP: ...ABABAB... (Mg, Ti, Zn)"}</text>
       </svg>
       <Card title="Packing Efficiency Comparison" color={T.cs_pack}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, fontSize: 12 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 8, fontSize: 12 }}>
           {[
             ["FCC / HCP", "74.05%"],
             ["BCC", "68.02%"],

@@ -398,7 +398,7 @@ function Vec({ v, color, label }) {
 function MolSVG({ mol, edges, hlEdge = -1 }) {
   const sp = mol.svgPos;
   return (
-    <svg width={420} height={340} style={{ display: "block" }}>
+    <svg viewBox="0 0 420 340" style={{ display: "block", width: "100%", maxWidth: 420 }}>
       <rect width={420} height={340} fill={T.bg} rx={8} />
       {edges.map((e, i) => {
         const [sx, sy] = sp[e.src], [ex, ey] = sp[e.dst];
@@ -627,7 +627,7 @@ function SecCutoff({ edges, atoms }) {
         </Card>
 
         <Card title="Cutoff curve" color={T.dn6}>
-          <svg width={400} height={120}>
+          <svg viewBox="0 0 400 120" style={{ width: "100%", maxWidth: 400 }}>
             <rect width={400} height={120} fill={T.bg} rx={6} />
             <polyline fill="none" stroke={T.dn6} strokeWidth={2}
               points={Array.from({ length: 50 }, (_, i) => {
@@ -2150,7 +2150,7 @@ function SecAnimate({ atoms, edges, triplets, gnn, mol }) {
       <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
         {/* SVG molecule animation */}
         <div style={{ flex: "1 1 440px" }}>
-          <svg width={440} height={360} style={{ display: "block", borderRadius: 10, border: `1px solid ${T.border}` }}>
+          <svg viewBox="0 0 440 360" style={{ display: "block", borderRadius: 10, border: `1px solid ${T.border}`, width: "100%", maxWidth: 440 }}>
             <rect width={440} height={360} fill={T.bg} rx={10} />
 
             {/* Edges */}
@@ -3665,7 +3665,7 @@ function AngleSection() {
           <Plot data={energyCurve} xMin={30} xMax={180} yMin={0} yMax={Math.max(0.5, 0.5*kth*sq(toRad(30)-toRad(theta0)))}
             color={T.ff_angle} markerX={theta} width={340} height={170} xLabel="θ (degrees)" yLabel="U (eV)"/>
           {/* Molecule angle SVG */}
-          <svg width={340} height={130} style={{ marginTop:6, background:T.surface, borderRadius:8, border:`1px solid ${T.border}`, display:"block" }}>
+          <svg viewBox="0 0 340 130" style={{ marginTop:6, background:T.surface, borderRadius:8, border:`1px solid ${T.border}`, display:"block", width:"100%", maxWidth:340 }}>
             {/* Bonds */}
             <line x1={cx} y1={cy} x2={ax1} y2={ay1} stroke={T.ff_angle} strokeWidth={3}/>
             <line x1={cx} y1={cy} x2={ax2} y2={ay2} stroke={T.ff_angle} strokeWidth={3}/>
@@ -3947,7 +3947,7 @@ function DihedralSection() {
             color={T.ff_dih} markerX={phi} width={340} height={170} xLabel="ϕ (degrees)" yLabel="U (eV)"/>
 
           {/* 4-atom side + end view */}
-          <svg width={340} height={120} style={{ marginTop:6, background:T.surface, borderRadius:8, border:`1px solid ${T.border}`, display:"block" }}>
+          <svg viewBox="0 0 340 120" style={{ marginTop:6, background:T.surface, borderRadius:8, border:`1px solid ${T.border}`, display:"block", width:"100%", maxWidth:340 }}>
             {/* side view */}
             <text x={85} y={15} textAnchor="middle" fill={T.muted} fontSize={9}>Side view</text>
             <line x1={atom1[0]} y1={atom1[1]} x2={atom2[0]} y2={atom2[1]} stroke={T.ff_dih} strokeWidth={2}/>
@@ -4311,7 +4311,7 @@ function MLFFSection() {
       <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 380px" }}>
           {/* Pipeline diagram */}
-          <svg width={370} height={160} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+          <svg viewBox="0 0 370 160" style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 370 }}>
             {/* Pipeline boxes */}
             {boxes.map((b, i) => (
               <g key={i}>
@@ -4986,7 +4986,7 @@ function ReaxFFTrainingSection() {
       <div style={{ display:"flex", gap:18, flexWrap:"wrap" }}>
         <div style={{ flex:"0 0 350px" }}>
           <div style={{ fontSize:11, fontWeight:700, color:T.eo_cond, marginBottom:4 }}>C−C Bond Scan: ReaxFF vs DFT</div>
-          <svg width={340} height={200} style={{ display:"block", background:T.surface, borderRadius:8, border:`1px solid ${T.border}` }}>
+          <svg viewBox="0 0 340 200" style={{ display:"block", background:T.surface, borderRadius:8, border:`1px solid ${T.border}`, width:"100%", maxWidth:340 }}>
             <line x1={44} y1={12} x2={44} y2={170} stroke={T.dim} strokeWidth={1}/>
             <line x1={44} y1={170} x2={328} y2={170} stroke={T.dim} strokeWidth={1}/>
             <text x={186} y={192} textAnchor="middle" fill={T.muted} fontSize={10}>r (Å)</text>
@@ -5020,7 +5020,7 @@ function ReaxFFTrainingSection() {
 
           <div style={{ marginTop:10 }}>
             <div style={{ fontSize:11, fontWeight:700, color:T.eo_cond, marginBottom:4 }}>Training Pipeline</div>
-            <svg width={340} height={90} style={{ display:"block", background:T.surface, borderRadius:8, border:`1px solid ${T.border}` }}>
+            <svg viewBox="0 0 340 90" style={{ display:"block", background:T.surface, borderRadius:8, border:`1px solid ${T.border}`, width:"100%", maxWidth:340 }}>
               {[
                 { x:30, label:"DFT\nData", c:T.eo_e },
                 { x:115, label:"Objective\nFunction", c:T.eo_gap },
@@ -11920,7 +11920,7 @@ function EqConcentrationSection() {
       <div style={{ display:"flex", gap:18, flexWrap:"wrap" }}>
         <div style={{ flex:"0 0 350px" }}>
           <div style={{ fontSize:11, fontWeight:700, color:T.eo_e, marginBottom:4 }}>log₁₀(c_eq) vs Temperature</div>
-          <svg width={340} height={220} style={{ display:"block", background:T.surface, borderRadius:8, border:`1px solid ${T.border}` }}>
+          <svg viewBox="0 0 340 220" style={{ display:"block", background:T.surface, borderRadius:8, border:`1px solid ${T.border}`, width:"100%", maxWidth:340 }}>
             <line x1={50} y1={10} x2={50} y2={190} stroke={T.dim} strokeWidth={1}/>
             <line x1={50} y1={190} x2={330} y2={190} stroke={T.dim} strokeWidth={1}/>
             <text x={190} y={210} textAnchor="middle" fill={T.muted} fontSize={10}>T (K)</text>
@@ -12244,7 +12244,7 @@ function ElectronicEntropySection() {
         <div style={{ fontSize:10, fontWeight:700, color:T.eo_cond, marginBottom:8, fontFamily:"'IBM Plex Mono',monospace" }}>
           Energy Level Diagram — g<sub>e</sub> = {ge} degenerate states
         </div>
-        <svg width={400} height={140} style={{ display:"block", background:T.bg, borderRadius:8, border:`1px solid ${T.border}` }}>
+        <svg viewBox="0 0 400 140" style={{ display:"block", background:T.bg, borderRadius:8, border:`1px solid ${T.border}`, width:"100%", maxWidth:400 }}>
           {/* Band edges */}
           <rect x={30} y={10} width={340} height={25} fill={T.eo_cond+"15"} stroke={T.eo_cond+"44"} strokeWidth={1} rx={4}/>
           <text x={50} y={26} fill={T.eo_cond} fontSize={9} fontFamily="monospace" fontWeight="bold">CB</text>
@@ -12640,7 +12640,7 @@ function OrientationalEntropySection() {
         <div style={{ fontSize:10, fontWeight:700, color:T.eo_photon, marginBottom:8, fontFamily:"'IBM Plex Mono',monospace" }}>
           T<sub>d</sub> → C<sub>2v</sub> Distortion: 6 Equivalent Orientations
         </div>
-        <svg width={420} height={130} style={{ display:"block", background:T.bg, borderRadius:8, border:`1px solid ${T.border}` }}>
+        <svg viewBox="0 0 420 130" style={{ display:"block", background:T.bg, borderRadius:8, border:`1px solid ${T.border}`, width:"100%", maxWidth:420 }}>
           {/* Show 6 orientations of the distortion as small tetrahedral diagrams */}
           {Array.from({length:Math.min(6, nOrient)},(_,i)=>{
             const cx = 40 + i * 65, cy = 65;
@@ -12773,7 +12773,7 @@ function ChargeTransitionSection() {
       <div style={{ display:"flex", gap:18, flexWrap:"wrap" }}>
         <div style={{ flex:"0 0 380px" }}>
           <div style={{ fontSize:11, fontWeight:700, color:T.eo_gap, marginBottom:4 }}>Formation Energy vs Fermi Level</div>
-          <svg width={380} height={260} style={{ display:"block", background:T.surface, borderRadius:8, border:`1px solid ${T.border}` }}>
+          <svg viewBox="0 0 380 260" style={{ display:"block", background:T.surface, borderRadius:8, border:`1px solid ${T.border}`, width:"100%", maxWidth:380 }}>
             <line x1={50} y1={10} x2={50} y2={230} stroke={T.dim} strokeWidth={1}/>
             <line x1={50} y1={230} x2={360} y2={230} stroke={T.dim} strokeWidth={1}/>
             <text x={205} y={252} textAnchor="middle" fill={T.muted} fontSize={10}>E_F (eV)</text>
@@ -12946,7 +12946,7 @@ function DefectWorkflowSection() {
           phonopy (vibrational entropy), pymatgen (analysis), FNV (finite-size corrections).
         </div>
       </div>
-      <svg width={700} height={120} style={{ display:"block", background:T.surface, borderRadius:8, border:`1px solid ${T.border}`, maxWidth:"100%", overflow:"visible" }}>
+      <svg viewBox="0 0 700 120" style={{ display:"block", background:T.surface, borderRadius:8, border:`1px solid ${T.border}`, width:"100%", maxWidth:700, overflow:"visible" }}>
         {[
           { x:50,  label:"Choose\nHost",       c:T.eo_core, step:"1" },
           { x:150, label:"Identify\nDefects",   c:T.eo_e, step:"2" },
@@ -13970,7 +13970,7 @@ export default function MaterialsLab() {
         {/* Chapter grid */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
           gap: 16,
           padding: "0 40px 60px",
           maxWidth: 1100,

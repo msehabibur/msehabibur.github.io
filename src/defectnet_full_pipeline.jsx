@@ -234,7 +234,7 @@ function Vec({ v, color, label }) {
 function MolSVG({ mol, edges, hlEdge = -1 }) {
   const sp = mol.svgPos;
   return (
-    <svg width={420} height={340} style={{ display: "block" }}>
+    <svg viewBox="0 0 420 340" style={{ display: "block", width: "100%", maxWidth: 420 }}>
       <rect width={420} height={340} fill={C.bg} rx={8} />
       {edges.map((e, i) => {
         const [sx, sy] = sp[e.src], [ex, ey] = sp[e.dst];
@@ -402,6 +402,7 @@ function SecGauss({ edges, atoms }) {
 
       <div style={{ flex: "1 1 440px", display: "flex", flexDirection: "column", gap: 12 }}>
         <Card title={`Step-by-step for e${sel}: d = ${e.dist.toFixed(4)} Å`} color={C.accent1}>
+          <div style={{ overflowX: "auto" }}>
           <table style={{ fontSize: 12, width: "100%", borderCollapse: "collapse", fontFamily: "monospace" }}>
             <thead><tr style={{ color: C.muted }}>
               {["k", "μ_k", "d − μ", "(d−μ)²", "÷ σ²=0.64", "exp(−x)", "g_k"].map(h => (
@@ -428,6 +429,7 @@ function SecGauss({ edges, atoms }) {
               })}
             </tbody>
           </table>
+          </div>
         </Card>
 
         <Card title="Result: e_ij feature vector" color={C.accent3}>
@@ -463,7 +465,7 @@ function SecCutoff({ edges, atoms }) {
         </Card>
 
         <Card title="Cutoff curve" color={C.accent6}>
-          <svg width={400} height={120}>
+          <svg viewBox="0 0 400 120" style={{ width: "100%", maxWidth: 400 }}>
             <rect width={400} height={120} fill={C.bg} rx={6} />
             <polyline fill="none" stroke={C.accent6} strokeWidth={2}
               points={Array.from({ length: 50 }, (_, i) => {
@@ -483,6 +485,7 @@ function SecCutoff({ edges, atoms }) {
 
       <div style={{ flex: "1 1 400px", display: "flex", flexDirection: "column", gap: 12 }}>
         <Card title="Step-by-step for every edge" color={C.accent1}>
+          <div style={{ overflowX: "auto" }}>
           <table style={{ fontSize: 12, width: "100%", borderCollapse: "collapse", fontFamily: "monospace" }}>
             <thead><tr style={{ color: C.muted }}>
               {["edge", "d (Å)", "d×π/5", "cos(...)", "w(d)"].map(h => (
@@ -508,6 +511,7 @@ function SecCutoff({ edges, atoms }) {
               })}
             </tbody>
           </table>
+          </div>
         </Card>
 
         <Card title="Summary" color={C.accent3}>
@@ -564,6 +568,7 @@ function SecAngular({ edges, triplets, atoms }) {
           <MR label="σ =" eq="0.5" />
           <MR label="Centers:" eq="[-1.0, -0.33, 0.33, 1.0]" />
           <div style={{ height: 10 }} />
+          <div style={{ overflowX: "auto" }}>
           <table style={{ fontSize: 12, width: "100%", borderCollapse: "collapse", fontFamily: "monospace" }}>
             <thead><tr style={{ color: C.muted }}>
               {["k", "c_k", "cos θ − c_k", "(...)²/0.25", "a_k"].map(h => (
@@ -587,6 +592,7 @@ function SecAngular({ edges, triplets, atoms }) {
               })}
             </tbody>
           </table>
+          </div>
         </Card>
 
         <Card title="Result: angular feature vector" color={C.accent3}>

@@ -209,7 +209,7 @@ function BondSection() {
             <CalcRow eq={`F = −kᵦ(r−r₀)`} result={`${F.toFixed(3)} eV/Å`} color={F>0?C.vdw:C.bond}/>
           </div>
 
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8, marginTop:10 }}>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(280px, 1fr))", gap:8, marginTop:10 }}>
             <ResultBox label="Energy U" value={`${U.toFixed(3)} eV`} color={C.bond}/>
             <ResultBox label="Force F" value={`${F.toFixed(3)} eV/Å`} color={F>0?C.vdw:C.bond}
               sub={F>0?"← pushes outward":F<0?"→ pulls inward":"equilibrium"}/>
@@ -260,7 +260,7 @@ function AngleSection() {
           <Plot data={energyCurve} xMin={30} xMax={180} yMin={0} yMax={Math.max(0.5, 0.5*kth*sq(toRad(30)-toRad(theta0)))}
             color={C.angle} markerX={theta} width={340} height={170} xLabel="θ (degrees)" yLabel="U (eV)"/>
           {/* Molecule angle SVG */}
-          <svg width={340} height={130} style={{ marginTop:6, background:C.light, borderRadius:8, border:`1px solid ${C.border}`, display:"block" }}>
+          <svg viewBox="0 0 340 130" style={{ marginTop:6, background:C.light, borderRadius:8, border:`1px solid ${C.border}`, display:"block", width: "100%", maxWidth: 340 }}>
             {/* Bonds */}
             <line x1={cx} y1={cy} x2={ax1} y2={ay1} stroke={C.angle} strokeWidth={3}/>
             <line x1={cx} y1={cy} x2={ax2} y2={ay2} stroke={C.angle} strokeWidth={3}/>
@@ -294,7 +294,7 @@ function AngleSection() {
             <CalcRow eq={`½ × ${kth} × ${sq(dth).toFixed(5)}`} result={`${U.toFixed(5)} eV`} color={C.angle}/>
           </div>
 
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8, marginTop:10 }}>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(280px, 1fr))", gap:8, marginTop:10 }}>
             <ResultBox label="Energy U" value={`${U.toFixed(4)} eV`} color={C.angle}/>
             <ResultBox label="Δθ" value={`${(dth*180/Math.PI).toFixed(1)}°`} color={C.angle}
               sub={Math.abs(dth) < 0.01 ? "at equilibrium" : dth>0?"opened":"closed"}/>
@@ -393,7 +393,7 @@ function VdwSection() {
             <CalcRow eq={`r_min = 2^(1/6)×σ`} result={`${rMin.toFixed(3)} Å`} color={C.gold}/>
           </div>
 
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8, marginTop:10 }}>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(280px, 1fr))", gap:8, marginTop:10 }}>
             <ResultBox label="Energy U" value={`${U.toFixed(4)} eV`} color={U>0?C.bond:C.vdw}
               sub={U>0?"repulsive":"attractive"}/>
             <ResultBox label="r_min (energy minimum)" value={`${rMin.toFixed(2)} Å`} color={C.gold}
@@ -480,7 +480,7 @@ function CoulombSection() {
             <CalcRow eq={`U = 14.4 × ${qi*qj} / ${r.toFixed(2)}`} result={`${U.toFixed(3)} eV`} color={C.coul}/>
           </div>
 
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8, marginTop:10 }}>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(280px, 1fr))", gap:8, marginTop:10 }}>
             <ResultBox label="Energy U" value={`${U.toFixed(3)} eV`} color={U<0?C.vdw:U>0?C.bond:C.muted}
               sub={U<0?"attractive":U>0?"repulsive":"neutral (q=0)"}/>
             <ResultBox label="Interaction type" value={qi*qj<0?"Attract":qi*qj>0?"Repel":"None"}
@@ -542,7 +542,7 @@ function DihedralSection() {
             color={C.dih} markerX={phi} width={340} height={170} xLabel="ϕ (degrees)" yLabel="U (eV)"/>
 
           {/* 4-atom side + end view */}
-          <svg width={340} height={120} style={{ marginTop:6, background:C.light, borderRadius:8, border:`1px solid ${C.border}`, display:"block" }}>
+          <svg viewBox="0 0 340 120" style={{ marginTop:6, background:C.light, borderRadius:8, border:`1px solid ${C.border}`, display:"block", width: "100%", maxWidth: 340 }}>
             {/* side view */}
             <text x={85} y={15} textAnchor="middle" fill={C.muted} fontSize={9}>Side view</text>
             <line x1={atom1[0]} y1={atom1[1]} x2={atom2[0]} y2={atom2[1]} stroke={C.dih} strokeWidth={2}/>
@@ -598,7 +598,7 @@ function DihedralSection() {
             <CalcRow eq={`${kn} × ${(1+Math.cos(toRad(n*phi-delta))).toFixed(4)}`} result={`${U.toFixed(4)} eV`} color={C.dih}/>
           </div>
 
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8, marginTop:10 }}>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(280px, 1fr))", gap:8, marginTop:10 }}>
             <ResultBox label="Energy U" value={`${U.toFixed(4)} eV`} color={C.dih}/>
             <ResultBox label="n = hills per rotation" value={`${n}`} color={C.dih}
               sub={`valley every ${(360/n).toFixed(0)}°`}/>
@@ -673,7 +673,7 @@ function MorseSection() {
           {/* Asymmetry highlight */}
           <div style={{ marginTop:10, background:C.light, borderRadius:8, padding:10, border:`1px solid ${C.border}` }}>
             <div style={{ fontSize:10, color:C.muted, marginBottom:6, letterSpacing:2 }}>ASYMMETRY at ±0.5Å from r₀</div>
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:6 }}>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(280px, 1fr))", gap:6 }}>
               <div style={{ textAlign:"center", padding:8, background:C.bond+"11", borderRadius:6, border:`1px solid ${C.bond}33` }}>
                 <div style={{ fontSize:10, color:C.muted }}>Compress 0.5Å</div>
                 <div style={{ fontSize:14, fontWeight:800, color:C.bond, fontFamily:"monospace" }}>{morse(r0-0.5).toFixed(2)} eV</div>
@@ -710,7 +710,7 @@ function MorseSection() {
             <CalcRow eq={`Dₑ × [...]² = ${De} × ...`} result={`${U.toFixed(4)} eV`} color={C.morse}/>
           </div>
 
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8, marginTop:10 }}>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(280px, 1fr))", gap:8, marginTop:10 }}>
             <ResultBox label="Morse U" value={`${U.toFixed(3)} eV`} color={C.morse}
               sub={r>r0*2?"near broken":"bond intact"}/>
             <ResultBox label="At r→∞" value={`${De.toFixed(2)} eV`} color={C.gold}
@@ -946,7 +946,7 @@ export default function ForceFieldTerms() {
         </div>
 
         {/* Visual crystal with defects */}
-        <svg width={280} height={180} style={{ display: "block" }}>
+        <svg viewBox="0 0 280 180" style={{ display: "block", width: "100%", maxWidth: 280 }}>
           <rect width={280} height={180} fill={P.bg} rx={8} />
           {Array.from({ length: 100 }, (_, i) => {
             const row = Math.floor(i / 10);

@@ -174,7 +174,7 @@ function SecBZ() {
           of the reciprocal lattice — the region of <strong>k-space</strong> closest to the origin.
           Every electronic property (band structure, DOS) is defined within this zone.
         </div>
-        <div style={{ marginTop: 10, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+        <div style={{ marginTop: 10, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 8 }}>
           <InfoBox color={T.main}>
             <strong>Real space:</strong> atoms repeat with lattice vectors <strong>a₁, a₂, a₃</strong>
           </InfoBox>
@@ -462,7 +462,7 @@ function SecKpoints() {
       </Card>
 
       <Card title="KPOINTS Rules of Thumb" color={T.main}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 8 }}>
           {[
             { label: "Metals", val: "Dense mesh (≥12×12×12)", desc: "Fermi surface needs fine sampling", color: T.main },
             { label: "Semiconductors", val: "Moderate (6×6×6)", desc: "Smooth bands, converge faster", color: T.xc },
@@ -561,7 +561,7 @@ function SecEncut() {
           ψ<sub>nk</sub>(r) = Σ<sub>G</sub> c<sub>nk</sub>(G) e<sup>i(k+G)·r</sup>
           &nbsp;&nbsp;where&nbsp;&nbsp; |k+G|²/2 {"<"} E<sub>cut</sub>
         </div>
-        <div style={{ marginTop: 10, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
+        <div style={{ marginTop: 10, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 8 }}>
           <InfoBox color={T.basis}>
             <strong>Higher ENCUT</strong> → More plane waves → More accurate
           </InfoBox>
@@ -634,7 +634,7 @@ function SecEncut() {
         </svg>
 
         <div style={{
-          marginTop: 8, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8,
+          marginTop: 8, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 8,
         }}>
           <div style={{ textAlign: "center", padding: 10, borderRadius: 10, background: T.basis + "08" }}>
             <div style={{ fontSize: 11, color: T.muted }}>Plane waves</div>
@@ -831,7 +831,7 @@ function SecIsmear() {
       </Card>
 
       <Card title="Quick Guide" color={T.main}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 8 }}>
           {[
             { sys: "Semiconductor / Insulator", rec: "ISMEAR = 0, SIGMA = 0.05", why: "Clean gap, no states at E_F", color: T.xc },
             { sys: "Metal", rec: "ISMEAR = 1, SIGMA = 0.1-0.2", why: "States at E_F need smooth smearing", color: T.main },
@@ -894,7 +894,7 @@ function SecAlgo() {
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           DFT solves equations by guessing an answer, checking how wrong it is, and improving — over and over. <strong>ALGO</strong> controls <em>how</em> it improves each guess. Think of finding the lowest point in a valley while blindfolded:
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 8, marginTop: 10 }}>
           {[
             { algo: "Normal", analogy: "Take careful steps downhill. Before each step, feel the ground in many directions, pick the best. Slow steps but always goes downhill.", color: T.main },
             { algo: "Fast", analogy: "Start with careful steps, then switch to sliding downhill once you know the general direction. Faster but might overshoot on bumpy terrain.", color: T.xc },
@@ -1090,14 +1090,14 @@ function SecAlgo() {
           })}
         </svg>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 8, marginTop: 10 }}>
           <InfoBox color={T.xc}><strong>Pros:</strong> {sel.pros}</InfoBox>
           <InfoBox color={T.warn}><strong>Cons:</strong> {sel.cons}</InfoBox>
         </div>
       </Card>
 
       <Card title="Recommendation" color={T.main}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 8 }}>
           {[
             { label: "Default choice", val: "ALGO = Fast", desc: "Good balance of speed and stability for most calculations" },
             { label: "Difficult convergence", val: "ALGO = Normal", desc: "Switch if Fast fails to converge (magnetic, strongly correlated)" },
@@ -1181,7 +1181,7 @@ function SecEdiff() {
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           DFT has <strong>two nested loops</strong>:
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 8 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 10, marginTop: 8 }}>
           <div style={{
             background: T.main + "08", border: `2px solid ${T.main}30`,
             borderRadius: 12, padding: "14px 16px",
@@ -1245,7 +1245,7 @@ function SecEdiff() {
                 Math.abs(ediffg) <= 0.03 ? "Standard — OK for most relaxations" :
                 "Loose — fast screening only"} />
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 8 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 8, marginTop: 8 }}>
           {[
             { label: "Screening", val: "-0.05", desc: "Quick check", color: T.muted },
             { label: "Standard", val: "-0.02", desc: "Most calculations", color: T.accent },
@@ -1582,7 +1582,7 @@ function SecIncar() {
       </Card>
 
       <Card title="Parameter Summary" color={T.main}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 6 }}>
           {[
             { tag: "ENCUT", val: `${p.ENCUT} eV`, why: "Plane wave cutoff energy" },
             { tag: "EDIFF", val: p.EDIFF, why: "SCF convergence threshold" },
