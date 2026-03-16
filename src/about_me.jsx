@@ -476,8 +476,8 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               <li>Recipient of the Vashti L. Magoon Research Excellence Award from Purdue University.</li>
               <li>Recipient of high-performance computing allocations from NSF ACCESS and Argonne National Laboratory.</li>
               <li>Recipient of the Materials Informatics Fellowship from GE Aerospace for Summer 2025 internship.</li>
-              <li>Winner of the 2025 AI & ML for Microscopy Hackathon (Toyota Research Institute).</li>
-              <li>Winner of the 2025 LLM Hackathon for Applications in Materials Science and Engineering.</li>
+              <li>Winner of the 2025 AI/ML for Microscopy Hackathon — Toray Research Industries Prize (DeepScan Pro).</li>
+              <li>Winner of the 2025 LLM Hackathon for Applications in Materials Science & Chemistry — Abstrax Prize.</li>
               <li>Winner of the 2025 NanoArtography Competition — promoting nanoscience through art.</li>
             </ul>
           </Card>
@@ -708,8 +708,8 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             { title: "2025 MRS Graduate Student Award", org: "Materials Research Society, Boston", color: T.amber, link: "https://www.mrs.org/advancing-careers/award-central/spring-awards/graduate-student-awards/past-recipients" },
             { title: "Vashti L. Magoon Research Excellence Award", org: "Purdue University", color: T.accent, link: "https://engineering.purdue.edu/Engr/People/Awards/Graduate/ptRecipientListing?group_id=237384&show_sub_groups=1" },
             { title: "Materials Informatics Fellowship", org: "GE Aerospace, Summer 2025 Internship", color: T.blue },
-            { title: "2025 AI & ML for Microscopy Hackathon Winner", org: "Toyota Research Institute (TRI)", color: T.green, link: "https://kaliningroup.github.io/mic_hackathon_2/awards/" },
-            { title: "2025 LLM Hackathon Winner", org: "LLM Hackathon for Materials Science & Engineering", color: T.pink, link: "https://llmhackathon.github.io/awards/" },
+            { title: "2025 AI/ML for Microscopy Hackathon Winner — Toray Research Industries Prize", org: "DeepScan Pro", color: T.green, link: "https://kaliningroup.github.io/mic_hackathon_2/awards/", github: "https://github.com/msehabibur/mic-hackathon-25" },
+            { title: "2025 LLM Hackathon for Applications in Materials Science & Chemistry — Abstrax Prize", org: "LLM Hackathon for Materials Science & Engineering", color: T.pink, link: "https://llmhackathon.github.io/awards/", github: "https://github.com/msehabibur/gcxgc_peakcards" },
             { title: "2025 NanoArtography Competition Winner", org: "Promoting nanoscience through art", color: T.red, link: "https://www.nanoartography.org/2025" },
           ].map((award, i) => (
             <Card key={i} style={{ padding: "14px 16px", marginBottom: 10 }}>
@@ -723,11 +723,18 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
                 <div>
                   <div style={{ fontSize: 14, fontWeight: 700 }}>{award.title}</div>
                   <div style={{ fontSize: 12, color: T.muted }}>{award.org}</div>
-                  {award.link && (
-                    <a href={award.link} target="_blank" rel="noopener noreferrer" style={{
-                      fontSize: 11, color: award.color, textDecoration: "none", fontWeight: 600,
-                    }}>View details {"\u2192"}</a>
-                  )}
+                  <div style={{ display: "flex", gap: 10 }}>
+                    {award.link && (
+                      <a href={award.link} target="_blank" rel="noopener noreferrer" style={{
+                        fontSize: 11, color: award.color, textDecoration: "none", fontWeight: 600,
+                      }}>View details {"\u2192"}</a>
+                    )}
+                    {award.github && (
+                      <a href={award.github} target="_blank" rel="noopener noreferrer" style={{
+                        fontSize: 11, color: T.muted, textDecoration: "none", fontWeight: 600,
+                      }}>GitHub {"\u2192"}</a>
+                    )}
+                  </div>
                 </div>
               </div>
             </Card>
