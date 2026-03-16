@@ -793,7 +793,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             </div>
             {/* Flowchart */}
             <div style={{ display: "flex", flexDirection: "column", gap: 0, marginBottom: 12 }}>
-              {["High-throughput DFT defect calculations for Cd-Zn-Te-Se-S compounds", "Curated database of formation energies, transition levels, and migration barriers", "Interactive web interface for querying defect properties by composition", "Open-access deployment on nanoHUB for the research community"].map((h, i, arr) => (
+              {["Curated database of defect formation energies and transition levels using HSE+SOC level of theory", "High-throughput DFT defect calculations for Cd/Zn-S/Se/Te compounds", "Interactive web interface for querying defect properties by composition", "Open-access deployment on nanoHUB for the research community"].map((h, i, arr) => (
                 <div key={i} style={{ display: "flex", alignItems: "stretch", gap: 0 }}>
                   <div style={{ width: 24, display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
                     <div style={{
@@ -826,7 +826,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             </div>
             {/* Flowchart */}
             <div style={{ display: "flex", flexDirection: "column", gap: 0, marginBottom: 12 }}>
-              {["Comprehensive DFT dataset for ternary and quaternary chalcogenide semiconductors", "Band gap, formation energy, and stability predictions across compositions", "ML models for rapid property screening beyond the training set", "Interactive platform for materials selection and visualization"].map((h, i, arr) => (
+              {["Comprehensive DFT dataset for multinary chalcogenide semiconductors", "Band gap, formation energy, and stability predictions across compositions", "ML models for rapid property screening beyond the training set", "Interactive platform for materials selection and visualization"].map((h, i, arr) => (
                 <div key={i} style={{ display: "flex", alignItems: "stretch", gap: 0 }}>
                   <div style={{ width: 24, display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
                     <div style={{
