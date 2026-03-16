@@ -31,6 +31,101 @@ class ErrorBoundary extends React.Component {
   }
 }
 
+// ── CHAPTER REFERENCES ──
+const CHAPTER_REFERENCES = {
+  electrons: [
+    "Griffiths, D.J. Introduction to Quantum Mechanics, 3rd ed. Cambridge University Press (2018)",
+    "Kittel, C. Introduction to Solid State Physics, 8th ed. Wiley (2004)",
+    "Ashcroft, N.W. & Mermin, N.D. Solid State Physics. Cengage Learning (1976)",
+    "Martin, R.M. Electronic Structure: Basic Theory and Practical Methods. Cambridge University Press (2020)",
+    "Sakurai, J.J. & Napolitano, J.J. Modern Quantum Mechanics, 3rd ed. Cambridge University Press (2020)",
+  ],
+  dft: [
+    "Hohenberg, P. & Kohn, W. Inhomogeneous Electron Gas. Phys. Rev. 136, B864 (1964)",
+    "Kohn, W. & Sham, L.J. Self-Consistent Equations Including Exchange and Correlation Effects. Phys. Rev. 140, A1133 (1965)",
+    "Perdew, J.P., Burke, K. & Ernzerhof, M. Generalized Gradient Approximation Made Simple. Phys. Rev. Lett. 77, 3865 (1996)",
+    "Kresse, G. & Furthmüller, J. Efficient Iterative Schemes for Ab Initio Total-Energy Calculations. Phys. Rev. B 54, 11169 (1996)",
+    "Martin, R.M. Electronic Structure: Basic Theory and Practical Methods. Cambridge University Press (2020)",
+    "Blöchl, P.E. Projector Augmented-Wave Method. Phys. Rev. B 50, 17953 (1994)",
+  ],
+  convexhull: [
+    "Ong, S.P. et al. Python Materials Genomics (pymatgen): A Robust, Open-Source Python Library. Comput. Mater. Sci. 68, 314 (2013)",
+    "Jain, A. et al. Commentary: The Materials Project. APL Mater. 1, 011002 (2013)",
+    "Sun, W. et al. The Thermodynamic Scale of Inorganic Crystalline Metastability. Sci. Adv. 2, e1600225 (2016)",
+    "Bartel, C.J. et al. A Critical Examination of Compound Stability Predictions from Machine-Learned Formation Energies. npj Comput. Mater. 6, 97 (2020)",
+    "Curtarolo, S. et al. AFLOW: An Automatic Framework for High-Throughput Materials Discovery. Comput. Mater. Sci. 58, 218 (2012)",
+  ],
+  md: [
+    "Allen, M.P. & Tildesley, D.J. Computer Simulation of Liquids, 2nd ed. Oxford University Press (2017)",
+    "Frenkel, D. & Smit, B. Understanding Molecular Simulation, 3rd ed. Academic Press (2023)",
+    "Nosé, S. A Unified Formulation of the Constant Temperature Molecular Dynamics Methods. J. Chem. Phys. 81, 511 (1984)",
+    "Verlet, L. Computer Experiments on Classical Fluids. Phys. Rev. 159, 98 (1967)",
+    "Car, R. & Parrinello, M. Unified Approach for Molecular Dynamics and Density-Functional Theory. Phys. Rev. Lett. 55, 2471 (1985)",
+    "Swope, W.C. et al. A Computer Simulation Method for the Calculation of Equilibrium Constants. J. Chem. Phys. 76, 637 (1982)",
+  ],
+  defectsemi: [
+    "Freysoldt, C. et al. First-Principles Calculations for Point Defects in Solids. Rev. Mod. Phys. 86, 253 (2014)",
+    "Zhang, S.B. & Northrup, J.E. Chemical Potential Dependence of Defect Formation Energies in GaAs. Phys. Rev. Lett. 67, 2339 (1991)",
+    "Freysoldt, C., Neugebauer, J. & Van de Walle, C.G. Fully Ab Initio Finite-Size Corrections for Charged-Defect Supercell Calculations. Phys. Rev. Lett. 102, 016402 (2009)",
+    "Van de Walle, C.G. & Neugebauer, J. First-Principles Calculations for Defects and Impurities. J. Appl. Phys. 95, 3851 (2004)",
+    "Kumagai, Y. & Oba, F. Electrostatics-Based Finite-Size Corrections for First-Principles Point Defect Calculations. Phys. Rev. B 89, 195205 (2014)",
+    "PRX Energy 4, 032001 (2025) — A Beginner's Guide to Interpreting Defect and Defect Level Diagrams",
+  ],
+  cdtesolar: [
+    "Metzger, W.K. et al. Exceeding 20% Efficiency with In Situ Group V Doping in Polycrystalline CdTe Solar Cells. Nat. Energy 4, 837 (2019)",
+    "Green, M.A. et al. Solar Cell Efficiency Tables (Version 64). Prog. Photovolt. Res. Appl. 32, 425 (2024)",
+    "Wei, S.-H. & Zhang, S.B. Chemical Trends of Defect Formation and Doping Limits in II-VI Semiconductors. Phys. Rev. B 66, 155211 (2002)",
+    "Yang, J. et al. Review on First-Principles Study of Defect Properties of CdTe as a Solar Cell Absorber. Semicond. Sci. Technol. 31, 083002 (2016)",
+    "Burst, J.M. et al. CdTe Solar Cells with Open-Circuit Voltage Breaking the 1 V Barrier. Nat. Energy 1, 16015 (2016)",
+  ],
+  forcefield: [
+    "Tersoff, J. Modeling Solid-State Chemistry: Interatomic Potentials for Multicomponent Systems. Phys. Rev. B 39, 5566 (1989)",
+    "Daw, M.S. & Baskes, M.I. Embedded-Atom Method: Derivation and Application. Phys. Rev. B 29, 6443 (1984)",
+    "van Duin, A.C.T. et al. ReaxFF: A Reactive Force Field for Hydrocarbons. J. Phys. Chem. A 105, 9396 (2001)",
+    "Lennard-Jones, J.E. On the Determination of Molecular Fields. Proc. R. Soc. Lond. A 106, 463 (1924)",
+    "Stillinger, F.H. & Weber, T.A. Computer Simulation of Local Order in Condensed Phases of Silicon. Phys. Rev. B 31, 5262 (1985)",
+    "Buckingham, R.A. The Classical Equation of State of Gaseous Helium, Neon and Argon. Proc. R. Soc. Lond. A 168, 264 (1938)",
+  ],
+  pipeline: [
+    "Xie, T. & Grossman, J.C. Crystal Graph Convolutional Neural Networks for an Accurate and Interpretable Prediction of Material Properties. Phys. Rev. Lett. 120, 145301 (2018)",
+    "Batatia, I. et al. MACE: Higher Order Equivariant Message Passing Neural Networks for Fast and Accurate Force Fields. NeurIPS (2022)",
+    "Chen, C. & Ong, S.P. A Universal Graph Deep Learning Interatomic Potential for the Periodic Table. Nat. Comput. Sci. 2, 718 (2022)",
+    "Behler, J. & Parrinello, M. Generalized Neural-Network Representation of High-Dimensional Potential-Energy Surfaces. Phys. Rev. Lett. 98, 146401 (2007)",
+    "Schütt, K.T. et al. SchNet: A Continuous-Filter Convolutional Neural Network for Modeling Quantum Interactions. NeurIPS (2017)",
+    "Gasteiger, J. et al. GemNet: Universal Directional Graph Neural Networks for Molecules. NeurIPS (2021)",
+  ],
+  llmdatamining: [
+    "Brown, T.B. et al. Language Models Are Few-Shot Learners (GPT-3). NeurIPS (2020)",
+    "Tshitoyan, V. et al. Unsupervised Word Embeddings Capture Latent Knowledge from Materials Science Literature. Nature 571, 95 (2019)",
+    "Kim, E. et al. Materials Synthesis Insights from Scientific Literature via Text Mining. Sci. Data 4, 170127 (2017)",
+    "Jain, A. et al. Commentary: The Materials Project. APL Mater. 1, 011002 (2013)",
+    "Kononova, O. et al. Text-Mined Dataset of Inorganic Materials Synthesis Recipes. Sci. Data 6, 203 (2019)",
+    "Swain, M.C. & Cole, J.M. ChemDataExtractor: A Toolkit for Automated Extraction of Chemical Information. J. Chem. Inf. Model. 56, 1894 (2016)",
+  ],
+  chalcomovie: [
+    "Zakutayev, A. et al. Defect Tolerant Semiconductors for Solar Energy Conversion. J. Phys. Chem. Lett. 5, 1117 (2014)",
+    "Wuttig, M. & Yamada, N. Phase-Change Materials for Rewriteable Data Storage. Nat. Mater. 6, 824 (2007)",
+    "Todorov, T.K. et al. Beyond 11% Efficiency: Characteristics of State-of-the-Art Cu₂ZnSn(S,Se)₄ Solar Cells. Adv. Energy Mater. 3, 34 (2013)",
+    "Walsh, A. et al. Kesterite Thin-Film Solar Cells: Advances in Materials Modelling of Cu₂ZnSnS₄. Adv. Mater. 24, 5413 (2012)",
+    "Shi, T. et al. Multi-Scale Computational Screening of Defect-Tolerant Semiconductors. iScience 25, 104837 (2022)",
+  ],
+};
+
+function ChapterReferences({ chapterId }) {
+  const refs = CHAPTER_REFERENCES[chapterId];
+  if (!refs) return null;
+  return (
+    <div style={{ marginTop: 32, padding: "18px 20px", borderRadius: 12, background: T.panel, border: `1px solid ${T.border}` }}>
+      <div style={{ fontSize: 12, fontWeight: 800, color: T.ink, marginBottom: 12, letterSpacing: 0.5 }}>REFERENCES</div>
+      {refs.map((ref, i) => (
+        <div key={i} style={{ fontSize: 11, color: T.muted, lineHeight: 1.7, marginBottom: 6, paddingLeft: 16, textIndent: -16 }}>
+          [{i + 1}] {ref}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // UNIFIED THEME — Light gray, readable on any screen
 // ═══════════════════════════════════════════════════════════════════════════
 const T = {
@@ -3402,6 +3497,7 @@ function PipelineModule() {
 
         {render()}
         <NextTopicCard sections={PIPELINE_SECTIONS} activeId={active} />
+        <ChapterReferences chapterId="pipeline" />
       </div>
 
       {/* Bottom nav */}
@@ -3450,7 +3546,7 @@ function PipelineModule() {
 }
 
 function ElectronsModule() {
-  return <ElectronOriginsModule />;
+  return <div><ElectronOriginsModule /><div style={{ padding: "0 24px 24px" }}><ChapterReferences chapterId="electrons" /></div></div>;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -5292,6 +5388,7 @@ function ForceFieldModule() {
             </div>
           </div>
         )}
+        <ChapterReferences chapterId="forcefield" />
       </div>
 
       {/* Bottom nav */}
@@ -7255,6 +7352,7 @@ function DFTBasicsModule() {
             </div>
           </div>
         )}
+        <ChapterReferences chapterId="dft" />
       </div>
       {/* Bottom nav with dot indicators */}
       <div style={{ borderTop: `1px solid ${T.border}`, padding: "10px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", background: T.panel }}>
@@ -8614,6 +8712,7 @@ function MolecularDynamicsModule() {
             </div>
           </div>
         )}
+        <ChapterReferences chapterId="md" />
       </div>
       {/* Bottom nav with dot indicators */}
       <div style={{ borderTop: `1px solid ${T.border}`, padding: "10px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", background: T.panel }}>
@@ -10439,6 +10538,7 @@ function ConvexHullModule() {
             </div>
           </div>
         )}
+        <ChapterReferences chapterId="convexhull" />
       </div>
       {/* Bottom nav with dot indicators */}
       <div style={{ borderTop: `1px solid ${T.border}`, padding: "10px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", background: T.panel }}>
@@ -12988,8 +13088,7 @@ function DefectWorkflowSection() {
   );
 }
 
-// ── GORAI PAPER: DEFECT DIAGRAM INTERACTIVE SECTIONS ──
-// Ref: P. Gorai, "A Beginner's Guide to Interpreting Defect and Defect Level Diagrams," PRX Energy 4, 032001 (2025)
+// ── DEFECT DIAGRAM INTERACTIVE SECTIONS ──
 
 function DefectDiagramSection() {
   const [Eg, setEg] = useState(1.5);
@@ -13056,7 +13155,7 @@ function DefectDiagramSection() {
           The physically relevant portion is the <strong>lower envelope</strong> — the lowest-energy charge state at each E<sub>F</sub>.
         </div>
         <div style={{ fontSize:10, color:T.muted, lineHeight:1.9, marginTop:6 }}>
-          Ref: Gorai, PRX Energy 4, 032001 (2025) — "A Beginner's Guide to Interpreting Defect and Defect Level Diagrams"
+          PRX Energy 4, 032001 (2025) — "A Beginner's Guide to Interpreting Defect and Defect Level Diagrams"
         </div>
       </div>
 
@@ -13184,7 +13283,7 @@ function ChargTransitionLevelSection() {
           representing the band gap, with CTL positions marked relative to VBM and CBM.
         </div>
         <div style={{ fontSize:10, color:T.muted, lineHeight:1.9, marginTop:6 }}>
-          Ref: Gorai, PRX Energy 4, 032001 (2025)
+          PRX Energy 4, 032001 (2025)
         </div>
       </div>
 
@@ -13303,7 +13402,7 @@ function ShallowDeepSection() {
           Smaller ionization energy = more carriers freed at a given temperature.
         </div>
         <div style={{ fontSize:10, color:T.muted, lineHeight:1.9, marginTop:6 }}>
-          Ref: Gorai, PRX Energy 4, 032001 (2025)
+          PRX Energy 4, 032001 (2025)
         </div>
       </div>
 
@@ -13406,7 +13505,7 @@ function ChemPotEffectSection() {
           O-poor (Zn-rich) conditions do the opposite. The constraint is: Δμ<sub>Zn</sub> + Δμ<sub>O</sub> = ΔH<sub>f</sub>(ZnO).
         </div>
         <div style={{ fontSize:10, color:T.muted, lineHeight:1.9, marginTop:6 }}>
-          Ref: Gorai, PRX Energy 4, 032001 (2025)
+          PRX Energy 4, 032001 (2025)
         </div>
       </div>
 
@@ -13522,7 +13621,7 @@ function DopabilitySection() {
           spontaneous defect formation prevents the Fermi level from moving further.
         </div>
         <div style={{ fontSize:10, color:T.muted, lineHeight:1.9, marginTop:6 }}>
-          Ref: Gorai, PRX Energy 4, 032001 (2025)
+          PRX Energy 4, 032001 (2025)
         </div>
       </div>
 
@@ -13662,7 +13761,7 @@ function CarrierConcentrationSection() {
           the self-consistent E<sub>F,eq</sub> and the resulting carrier populations.
         </div>
         <div style={{ fontSize:10, color:T.muted, lineHeight:1.9, marginTop:6 }}>
-          Ref: Gorai, PRX Energy 4, 032001 (2025)
+          PRX Energy 4, 032001 (2025)
         </div>
       </div>
 
@@ -13748,7 +13847,7 @@ const DS_BLOCKS = [
   { id: "formation", label: "Formation Energy",         color: T.eo_e },
   { id: "entropy",   label: "Entropy Components",       color: T.eo_valence },
   { id: "workflow",  label: "Workflow & Transitions",    color: T.eo_cond },
-  { id: "diagrams", label: "Defect Diagrams (Gorai)",   color: T.fnv_accent },
+  { id: "diagrams", label: "Defect Diagrams",            color: T.fnv_accent },
   { id: "fnvcorr",  label: "FNV Correction",            color: T.fnv_main },
 ];
 
@@ -13824,6 +13923,7 @@ function DefectSemiModule() {
             </div>
           </div>
         )}
+        <ChapterReferences chapterId="defectsemi" />
       </div>
       <div style={{ borderTop:`1px solid ${T.border}`, padding:"10px 24px", display:"flex", justifyContent:"space-between", alignItems:"center", background:T.panel }}>
         <button onClick={() => { const i = DS_SECTIONS.findIndex(s => s.id === active); if (i > 0) { setActive(DS_SECTIONS[i-1].id); setActiveBlock(DS_SECTIONS[i-1].block); } }} disabled={active === DS_SECTIONS[0].id} style={{
@@ -13903,6 +14003,7 @@ function LLMDataMiningModule() {
       {activeMovie === "langgraph" && <LLMMovieModule />}
       {activeMovie === "synthesis" && <SSSynthesisMovieModule />}
       {activeMovie === "mongodb" && <MongoDBMovieModule />}
+      <div style={{ padding: "0 24px 24px" }}><ChapterReferences chapterId="llmdatamining" /></div>
     </div>
   );
 }

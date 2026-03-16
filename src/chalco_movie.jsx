@@ -1613,6 +1613,22 @@ export default function ChalcoMovieModule() {
           </button>
         ))}
       </div>
+
+      {/* References */}
+      <div style={{ marginTop: 32, padding: "18px 20px", borderRadius: 12, background: P.panel, border: `1px solid ${P.border}` }}>
+        <div style={{ fontSize: 12, fontWeight: 800, color: P.ink, marginBottom: 12, letterSpacing: 0.5 }}>REFERENCES</div>
+        {[
+          "Zakutayev, A. et al. Defect Tolerant Semiconductors for Solar Energy Conversion. J. Phys. Chem. Lett. 5, 1117 (2014)",
+          "Wuttig, M. & Yamada, N. Phase-Change Materials for Rewriteable Data Storage. Nat. Mater. 6, 824 (2007)",
+          "Todorov, T.K. et al. Beyond 11% Efficiency: Characteristics of State-of-the-Art Cu\u2082ZnSn(S,Se)\u2084 Solar Cells. Adv. Energy Mater. 3, 34 (2013)",
+          "Walsh, A. et al. Kesterite Thin-Film Solar Cells: Advances in Materials Modelling of Cu\u2082ZnSnS\u2084. Adv. Mater. 24, 5413 (2012)",
+          "Shi, T. et al. Multi-Scale Computational Screening of Defect-Tolerant Semiconductors. iScience 25, 104837 (2022)",
+        ].map((ref, i) => (
+          <div key={i} style={{ fontSize: 11, color: P.muted, lineHeight: 1.7, marginBottom: 6, paddingLeft: 16, textIndent: -16 }}>
+            [{i + 1}] {ref}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

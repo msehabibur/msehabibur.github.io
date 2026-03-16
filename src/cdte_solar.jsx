@@ -3835,6 +3835,21 @@ function DopingModule({ initialTab }) {
           </div>
         </div>
       )}
+      {/* References */}
+      <div style={{ marginTop: 32, padding: "18px 20px", borderRadius: 12, background: T.panel, border: `1px solid ${T.border}` }}>
+        <div style={{ fontSize: 12, fontWeight: 800, color: T.ink, marginBottom: 12, letterSpacing: 0.5 }}>REFERENCES</div>
+        {[
+          "Metzger, W.K. et al. Exceeding 20% Efficiency with In Situ Group V Doping in Polycrystalline CdTe Solar Cells. Nat. Energy 4, 837 (2019)",
+          "Green, M.A. et al. Solar Cell Efficiency Tables (Version 64). Prog. Photovolt. Res. Appl. 32, 425 (2024)",
+          "Wei, S.-H. & Zhang, S.B. Chemical Trends of Defect Formation and Doping Limits in II-VI Semiconductors. Phys. Rev. B 66, 155211 (2002)",
+          "Yang, J. et al. Review on First-Principles Study of Defect Properties of CdTe as a Solar Cell Absorber. Semicond. Sci. Technol. 31, 083002 (2016)",
+          "Burst, J.M. et al. CdTe Solar Cells with Open-Circuit Voltage Breaking the 1 V Barrier. Nat. Energy 1, 16015 (2016)",
+        ].map((ref, i) => (
+          <div key={i} style={{ fontSize: 11, color: T.muted, lineHeight: 1.7, marginBottom: 6, paddingLeft: 16, textIndent: -16 }}>
+            [{i + 1}] {ref}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
