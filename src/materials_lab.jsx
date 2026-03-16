@@ -13929,7 +13929,7 @@ export default function MaterialsLab() {
   }
 
   // Active module view
-  const currentModule = MODULE_TABS.find(m => m.id === module);
+  const currentModule = MODULE_TABS.find(m => m.id === module) || { id: module, chapter: "", label: module, color: T.eo_e };
 
   return (
     <div style={{
