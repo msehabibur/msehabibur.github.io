@@ -600,11 +600,6 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.boxShadow = "none"; }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-                  <div style={{
-                    width: 36, height: 36, borderRadius: 10,
-                    background: T.accent + "12", display: "flex", alignItems: "center",
-                    justifyContent: "center", fontSize: 18,
-                  }}>{ch.icon}</div>
                   <div>
                     <div style={{ fontSize: 10, color: T.accent, fontWeight: 700, letterSpacing: 1 }}>
                       CHAPTER {ch.chapter}
