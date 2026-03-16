@@ -200,6 +200,16 @@ const BLOG_CHAPTERS = [
 ];
 
 const PUBLICATIONS = [
+  // ── 2026 ──
+  {
+    authors: "Tenorio, M., Rahman, Md Habibur, Mannodi-Kanakkithodi, A., Chapman, J.",
+    title: "Out-of-distribution machine learning for materials discovery: challenges and opportunities",
+    journal: "Chemical Physics Reviews, Accepted",
+    year: "2026", me: true, citations: 0,
+    abstract: "This review examines the challenge of out-of-distribution (OOD) generalization in machine learning models for materials science. We survey methods for detecting and handling distribution shifts, discuss failure modes of ML models when extrapolating beyond training data, and highlight opportunities for robust materials discovery using uncertainty quantification, domain adaptation, and active learning strategies.",
+    highlights: ["Comprehensive review of OOD challenges in materials ML", "Taxonomy of distribution shift types in materials data", "Strategies for robust extrapolation beyond training domains", "Guidelines for reliable ML-driven materials discovery"],
+  },
+  // ── 2025 ──
   {
     authors: "Rahman, Md Habibur, & Mannodi-Kanakkithodi, A.",
     title: "DeFecT-FF: Accelerated Modeling of Defects in Cd-Zn-Te-Se-S Compounds Combining High-Throughput DFT and Machine Learning Force Fields",
@@ -208,14 +218,6 @@ const PUBLICATIONS = [
     abstract: "We present DeFecT-FF, a machine learning force field trained on high-throughput DFT data for modeling point defects in mixed II-VI semiconductor compounds (Cd-Zn-Te-Se-S). By combining systematic DFT calculations across multiple compositions with an equivariant graph neural network architecture, we achieve DFT-level accuracy at a fraction of the computational cost, enabling rapid screening of defect formation energies and migration barriers across the full compositional space.",
     highlights: ["Machine learning force field for 5-element II-VI compounds", "High-throughput DFT training data across compositions", "DFT-accuracy defect energies at 1000x speedup", "Enables compositional screening for defect engineering"],
     link: "https://arxiv.org/abs/2510.23514",
-  },
-  {
-    authors: "Tenorio, Miguel; Rahman, Md Habibur; Mannodi-Kanakkithodi, Arun; Chapman, James",
-    title: "Out-of-distribution machine learning for materials discovery: challenges and opportunities",
-    journal: "Chemical Physics Reviews, Accepted",
-    year: "2026", me: true, citations: 0,
-    abstract: "This review examines the challenge of out-of-distribution (OOD) generalization in machine learning models for materials science. We survey methods for detecting and handling distribution shifts, discuss failure modes of ML models when extrapolating beyond training data, and highlight opportunities for robust materials discovery using uncertainty quantification, domain adaptation, and active learning strategies.",
-    highlights: ["Comprehensive review of OOD challenges in materials ML", "Taxonomy of distribution shift types in materials data", "Strategies for robust extrapolation beyond training domains", "Guidelines for reliable ML-driven materials discovery"],
   },
   {
     authors: "Rahman, Md Habibur, Rojsatien, S., Krasikov, D., Chan, M.K.Y., Bertoni, M., Mannodi-Kanakkithodi, A.",
@@ -227,7 +229,7 @@ const PUBLICATIONS = [
     link: "https://doi.org/10.1016/j.solmat.2025.113857",
   },
   {
-    authors: "Rahman, Md Habibur, Mannodi-Kanakkithodi, Arun",
+    authors: "Rahman, Md Habibur, Mannodi-Kanakkithodi, A.",
     title: "Defect modeling in semiconductors: the role of first principles simulations and machine learning",
     journal: "Journal of Physics: Materials, 8 (2), 022001",
     year: "2025", me: true, citations: 12,
@@ -235,6 +237,7 @@ const PUBLICATIONS = [
     highlights: ["Comprehensive review of computational defect modeling", "DFT supercell methods and finite-size corrections", "Machine learning for accelerated defect predictions", "Bridge between first-principles and data-driven approaches"],
     link: "https://doi.org/10.1088/2515-7639/adb401",
   },
+  // ── 2024 ──
   {
     authors: "Rahman, Md Habibur, Biswas, M., Mannodi-Kanakkithodi, A.",
     title: "Understanding Defect-Mediated Ion Migration in Semiconductors using Atomistic Simulations and Machine Learning",
@@ -262,6 +265,7 @@ const PUBLICATIONS = [
     highlights: ["Graph neural network for defect property prediction", "Trained on multi-family semiconductor defect dataset", "Chemical accuracy at orders-of-magnitude speedup", "Rapid screening of defect-tolerant semiconductors"],
     link: "https://doi.org/10.1063/5.0176333",
   },
+  // ── 2023 ──
   {
     authors: "Han, C., Han, G., Rahman, Md Habibur, Mannodi-Kanakkithodi, A., Sun, Y.",
     title: "Photocatalytic Ketyl Radical Initiated C\u2013C Coupling on ZnIn\u2082S\u2084",
@@ -269,6 +273,7 @@ const PUBLICATIONS = [
     year: "2023", me: false, citations: 28,
     abstract: "We demonstrate a novel photocatalytic strategy for C-C bond formation via ketyl radical intermediates on ZnIn\u2082S\u2084 semiconductor photocatalysts. Combined experimental and DFT studies reveal the mechanism of radical generation and coupling, providing insights into selective organic transformations driven by visible light on earth-abundant catalysts.",
     highlights: ["Novel photocatalytic C-C coupling strategy", "Ketyl radical mechanism on ZnIn\u2082S\u2084", "Combined experimental and DFT mechanistic study", "Visible-light-driven selective organic transformation"],
+    link: "https://doi.org/10.1002/chem.202203785",
   },
   {
     authors: "Rahman, Md Habibur, Yang, J., Sun, Y., Mannodi-Kanakkithodi, A.",
@@ -286,7 +291,9 @@ const PUBLICATIONS = [
     year: "2023", me: false, citations: 42,
     abstract: "We report the first epitaxial heterostructures between 2D lead halide perovskites and lead-free double perovskites, achieving atomically sharp interfaces. Through a combination of advanced electron microscopy, spectroscopy, and DFT calculations, we characterize the interfacial band alignment and charge transfer properties, opening new possibilities for stable, efficient perovskite optoelectronic devices.",
     highlights: ["First epitaxial 2D perovskite heterostructures", "Atomically sharp interfaces characterized", "Band alignment and charge transfer mapped via DFT", "New platform for stable perovskite devices"],
+    link: "https://doi.org/10.1021/jacs.3c06127",
   },
+  // ── 2022 ──
   {
     authors: "Rahman, Md Habibur, Jubair, Md, Rahaman, M.Z., Ahasan, M.S., Ostrikov, K.K., Roknuzzaman, Md",
     title: "RbSnX\u2083 (X=Cl, Br, I): promising lead-free metal halide perovskites for photovoltaics and optoelectronics",
@@ -295,6 +302,80 @@ const PUBLICATIONS = [
     abstract: "We investigate RbSnX\u2083 (X = Cl, Br, I) as lead-free alternatives for perovskite photovoltaics using first-principles calculations. Comprehensive analysis of structural, electronic, optical, and mechanical properties reveals favorable band gaps, strong optical absorption, and good mechanical stability, establishing these materials as promising candidates for environmentally sustainable optoelectronic applications.",
     highlights: ["Lead-free perovskite alternatives investigated", "Band gaps suitable for photovoltaic applications", "Strong optical absorption in visible range", "Mechanically stable and environmentally sustainable"],
     link: "https://doi.org/10.1039/D1RA09113C",
+  },
+  {
+    authors: "Rahman, Md Habibur, Rahaman, M.Z., Chowdhury, E.H., Motalab, M., Hossain, A.K.M.A., Roknuzzaman, Md",
+    title: "Understanding the role of rare-earth metal doping on the electronic structure and optical characteristics of ZnO",
+    journal: "Molecular Systems Design & Engineering, 7, 1516-1528",
+    year: "2022", me: true, citations: 0,
+    abstract: "Using density functional theory, we investigate the effects of rare-earth metal doping on the electronic and optical properties of ZnO. All tested RE-doped samples exhibit negative formation energies and mechanical stability. Doping with Ce, Nd, Pm, Sm, Eu, and Gd substantially increases absorption and optical conductivity in the visible range, while electronic band structure analysis reveals reduced effective bandgaps facilitating photoelectron transfer.",
+    highlights: ["DFT study of rare-earth doped ZnO", "Enhanced visible light absorption and photoconductivity", "Negative formation energies confirm thermodynamic stability", "Band structure engineering for photovoltaic applications"],
+    link: "https://doi.org/10.1039/D2ME00093H",
+  },
+  // ── 2021 ──
+  {
+    authors: "Rahman, Md Habibur, Chowdhury, E.H., Hong, S.",
+    title: "High temperature oxidation of monolayer MoS\u2082 and its effect on mechanical properties: A ReaxFF molecular dynamics study",
+    journal: "Materials Today Communications, 27, 102284",
+    year: "2021", me: true, citations: 0,
+    abstract: "We investigate the oxidation kinetics of monolayer MoS\u2082 at elevated temperatures (1400\u20131800 K) using ReaxFF molecular dynamics. Oxidation starts by O\u2082 adsorption on S atoms and forms oxy-sulfide solid solution. Tensile simulations show oxidation notably degrades fracture strength, fracture strain, Young\u2019s modulus, and fracture toughness, with a phase transition from 2H to 1T phase observed in both pristine and oxidized MoS\u2082.",
+    highlights: ["ReaxFF MD of MoS\u2082 oxidation at high temperature", "Oxidation mechanism via O\u2082 adsorption on S atoms", "Mechanical property degradation quantified", "2H to 1T phase transition observed"],
+    link: "https://www.sciencedirect.com/science/article/pii/S246802302100448X",
+  },
+  {
+    authors: "Rahman, Md Habibur, Chowdhury, E.H., Redwan, D.A., Hong, S.",
+    title: "Computational characterization of thermal and mechanical properties of single and bilayer germanene nanoribbon",
+    journal: "Computational Materials Science, 190, 110272",
+    year: "2021", me: true, citations: 0,
+    abstract: "We employ equilibrium molecular dynamics simulations to reveal the mechanical strength, melting temperature, and phonon thermal conductivity of single-layer and bilayer germanene nanoribbon. Bilayer structures substantially reduce thermal conductivity compared to single-layer variants, while tensile strain increases phonon thermal conductivity. The study provides a comprehensive guideline for engineering the thermal conductivity of germanene for flexible nanoelectronics and thermoelectric devices.",
+    highlights: ["MD simulations of germanene nanoribbon properties", "Bilayer vs single-layer thermal conductivity compared", "Effects of strain, defects, and dimensions mapped", "Design guidelines for thermoelectric applications"],
+    link: "https://www.sciencedirect.com/science/article/abs/pii/S0927025620307229",
+  },
+  {
+    authors: "Rahman, Md Habibur, Chowdhury, E.H., Shahadat, M.R.B., Islam, M.M.",
+    title: "Engineered defects to modulate the phonon thermal conductivity of silicene: A nonequilibrium molecular dynamics study",
+    journal: "Computational Materials Science, 191, 110338",
+    year: "2021", me: true, citations: 0,
+    abstract: "We employ optimized Tersoff potential to extensively investigate the thermal conductivity of pristine and defective silicene using non-equilibrium molecular dynamics simulations, analyzing the influence of temperature, carbon doping, and monovacancy concentration on phonon thermal conductivity along armchair and zigzag directions. The study offers a comprehensive roadmap for engineering the thermal conductivity of silicene for the semiconductor industry.",
+    highlights: ["NEMD simulations of defective silicene", "Temperature and carbon doping effects on thermal conductivity", "Monovacancy concentration impact analyzed", "Roadmap for thermal conductivity engineering"],
+    link: "https://doi.org/10.1016/j.commatsci.2021.110338",
+  },
+  {
+    authors: "Rahman, Md Habibur, Chowdhury, E.H., Redwan, D.A., Mitra, S., Hong, S.",
+    title: "Nature of creep deformation in nanocrystalline cupronickel alloy: A molecular dynamics study",
+    journal: "Materialia, 20, 101248",
+    year: "2021", me: true, citations: 0,
+    abstract: "We use molecular dynamics to study the tensile, thermodynamic, and creep resistance of nanocrystalline cupronickel alloy. As copper content increases from 0 to 100%, the steady-state creep rate exhibits approximately a 12% increment, and the Cu\u2080.\u2085Ni\u2080.\u2085 alloy\u2019s creep rate increases dramatically under elevated stress, temperature, and decreasing grain size.",
+    highlights: ["MD study of nanocrystalline cupronickel creep", "Composition-dependent creep rate quantified", "Effects of stress, temperature, and grain size", "Tensile and thermodynamic properties characterized"],
+    link: "https://www.sciencedirect.com/science/article/pii/S2590048X21000248",
+  },
+  {
+    authors: "Rahman, Md Habibur, Islam, M.S., Islam, M.S., Chowdhury, E.H., Bose, P., Jayan, R., Islam, M.M.",
+    title: "Phonon thermal conductivity of the stanene/hBN van der Waals heterostructure",
+    journal: "Physical Chemistry Chemical Physics, 23 (18), 11028-11038",
+    year: "2021", me: true, citations: 0,
+    abstract: "We employ classical non-equilibrium molecular dynamics to examine phonon thermal conductivity in hexagonal boron nitride-supported stanene. The bulk thermal conductivities at room temperature are ~15.20, ~550, and ~232 W m\u207B\u00B9 K\u207B\u00B9 for bare stanene, hBN, and stanene/hBN respectively, indicating intermediate thermal properties between constituents with applications in nanoelectronic and thermoelectric devices.",
+    highlights: ["NEMD study of stanene/hBN heterostructure", "Room temperature thermal conductivities quantified", "Intermediate properties between constituent materials", "Applications in nanoelectronics and thermoelectrics"],
+    link: "https://doi.org/10.1039/D1CP00343G",
+  },
+  {
+    authors: "Rahman, Md Habibur, Chowdhury, E.H., Redwan, D.A., Mitra, S., Hong, S.",
+    title: "Characterization of the mechanical properties of van der Waals heterostructures of stanene adsorbed on graphene, hexagonal boron-nitride and silicon carbide",
+    journal: "Physical Chemistry Chemical Physics, 23 (9), 5244-5253",
+    year: "2021", me: true, citations: 0,
+    abstract: "We employ molecular dynamics simulations to investigate tensile strength in van der Waals heterostructures combining stanene with graphene, hexagonal boron nitride, and silicon carbide under armchair and zigzag loading at varying strain rates. The Sn/SiC heterostructure exhibits the lowest tensile strength while zigzag loading demonstrates superior strain tolerance, providing design insights for electronic, optoelectronic, and energy storage applications.",
+    highlights: ["MD simulations of stanene-based heterostructures", "Tensile behavior under armchair and zigzag loading", "Sn/graphene, Sn/hBN, and Sn/SiC compared", "Design insights for optoelectronic applications"],
+    link: "https://doi.org/10.1039/D0CP06426B",
+  },
+  // ── 2020 ──
+  {
+    authors: "Chowdhury, E.H., Rahman, Md Habibur, Bose, P., Jayan, R., Islam, M.M.",
+    title: "Atomistic investigation on the mechanical properties and failure behavior of zinc-blende cadmium selenide (CdSe) nanowire",
+    journal: "Computational Materials Science, 186, 110001",
+    year: "2020", me: false, citations: 0,
+    abstract: "We investigate the mechanical properties and failure mechanism of zinc-blende CdSe nanowire at the atomistic level using molecular dynamics simulations. The effects of temperature (100\u2013600 K), nanowire size, loading along different crystal directions, and vacancy defects on uniaxial tensile behavior are analyzed. Young\u2019s modulus and ultimate strength show inverse relationship with temperature and defects.",
+    highlights: ["MD simulations of CdSe nanowire mechanics", "Temperature and size effects on tensile behavior", "Crystal direction dependent loading response", "Vacancy defect impact on mechanical properties"],
+    link: "https://www.sciencedirect.com/science/article/abs/pii/S0927025620304924",
   },
 ];
 
@@ -595,31 +676,71 @@ export default function AboutMeModule({ onNavigate }) {
       {tab === "software" && (
         <div>
           <SectionTitle color={T.accent}>Open Source Software Developed</SectionTitle>
-          <Card>
-            <div style={{ marginBottom: 18 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}>DefectDB</div>
-              <div style={{ fontSize: 13, color: T.muted, lineHeight: 1.5 }}>
-                An Open-Source Infrastructure for Defect Thermodynamics in II–VI Semiconductors
-              </div>
-              <div style={{ fontSize: 12, color: T.muted, marginTop: 2 }}>
-                Rahman, Md Habibur & Mannodi-Kanakkithodi, A. · nanoHUB Tool (2026)
-              </div>
-              <a href="https://nanohub.org/tools/defectdatabase" target="_blank" rel="noopener noreferrer" style={{
-                fontSize: 12, color: T.accent, textDecoration: "none", fontWeight: 600,
-              }}>Visit on nanoHUB {"\u2192"}</a>
+
+          {/* DefectDB */}
+          <Card style={{ marginBottom: 14 }}>
+            <div style={{ fontSize: 16, fontWeight: 800, marginBottom: 4, color: T.accent }}>DefectDB</div>
+            <div style={{ fontSize: 13, color: T.muted, lineHeight: 1.5, marginBottom: 4 }}>
+              An Open-Source Infrastructure for Defect Thermodynamics in II–VI Semiconductors
             </div>
-            <div style={{ borderTop: `1px solid ${T.border}`, paddingTop: 16 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}>ChalcoDB</div>
-              <div style={{ fontSize: 13, color: T.muted, lineHeight: 1.5 }}>
-                An Open-Source Informatics Platform for Data-Driven Design of I–II–IV–VI and I–III–VI Semiconductors
-              </div>
-              <div style={{ fontSize: 12, color: T.muted, marginTop: 2 }}>
-                Rahman, Md Habibur & Mannodi-Kanakkithodi, A. · nanoHUB Tool (2026)
-              </div>
-              <a href="https://nanohub.org/resources/chalcodb" target="_blank" rel="noopener noreferrer" style={{
-                fontSize: 12, color: T.accent, textDecoration: "none", fontWeight: 600,
-              }}>Visit on nanoHUB {"\u2192"}</a>
+            <div style={{ fontSize: 12, color: T.muted, marginBottom: 10 }}>
+              Rahman, Md Habibur & Mannodi-Kanakkithodi, A. · nanoHUB Tool (2026)
             </div>
+            {/* Flowchart */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 0, marginBottom: 12 }}>
+              {["High-throughput DFT defect calculations for Cd-Zn-Te-Se-S compounds", "Curated database of formation energies, transition levels, and migration barriers", "Interactive web interface for querying defect properties by composition", "Open-access deployment on nanoHUB for the research community"].map((h, i, arr) => (
+                <div key={i} style={{ display: "flex", alignItems: "stretch", gap: 0 }}>
+                  <div style={{ width: 24, display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
+                    <div style={{
+                      width: 10, height: 10, borderRadius: "50%", background: T.accent,
+                      border: `2px solid ${T.panel}`, boxShadow: `0 0 0 2px ${T.accent}40`,
+                      flexShrink: 0, marginTop: 6,
+                    }} />
+                    {i < arr.length - 1 && <div style={{ width: 2, flex: 1, background: T.accent + "30" }} />}
+                  </div>
+                  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.5, padding: "4px 0 10px 8px" }}>{h}</div>
+                </div>
+              ))}
+            </div>
+            <a href="https://nanohub.org/tools/defectdatabase" target="_blank" rel="noopener noreferrer" style={{
+              display: "inline-flex", alignItems: "center", gap: 4,
+              padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 600,
+              background: T.accent + "10", color: T.accent, textDecoration: "none",
+              border: `1px solid ${T.accent}30`,
+            }}>Visit on nanoHUB {"\u2192"}</a>
+          </Card>
+
+          {/* ChalcoDB */}
+          <Card style={{ marginBottom: 14 }}>
+            <div style={{ fontSize: 16, fontWeight: 800, marginBottom: 4, color: T.green }}>ChalcoDB</div>
+            <div style={{ fontSize: 13, color: T.muted, lineHeight: 1.5, marginBottom: 4 }}>
+              An Open-Source Informatics Platform for Data-Driven Design of I–II–IV–VI and I–III–VI Semiconductors
+            </div>
+            <div style={{ fontSize: 12, color: T.muted, marginBottom: 10 }}>
+              Rahman, Md Habibur & Mannodi-Kanakkithodi, A. · nanoHUB Tool (2026)
+            </div>
+            {/* Flowchart */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 0, marginBottom: 12 }}>
+              {["Comprehensive DFT dataset for ternary and quaternary chalcogenide semiconductors", "Band gap, formation energy, and stability predictions across compositions", "ML models for rapid property screening beyond the training set", "Interactive platform for materials selection and visualization"].map((h, i, arr) => (
+                <div key={i} style={{ display: "flex", alignItems: "stretch", gap: 0 }}>
+                  <div style={{ width: 24, display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
+                    <div style={{
+                      width: 10, height: 10, borderRadius: "50%", background: T.green,
+                      border: `2px solid ${T.panel}`, boxShadow: `0 0 0 2px ${T.green}40`,
+                      flexShrink: 0, marginTop: 6,
+                    }} />
+                    {i < arr.length - 1 && <div style={{ width: 2, flex: 1, background: T.green + "30" }} />}
+                  </div>
+                  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.5, padding: "4px 0 10px 8px" }}>{h}</div>
+                </div>
+              ))}
+            </div>
+            <a href="https://nanohub.org/resources/chalcodb" target="_blank" rel="noopener noreferrer" style={{
+              display: "inline-flex", alignItems: "center", gap: 4,
+              padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 600,
+              background: T.green + "10", color: T.green, textDecoration: "none",
+              border: `1px solid ${T.green}30`,
+            }}>Visit on nanoHUB {"\u2192"}</a>
           </Card>
         </div>
       )}
