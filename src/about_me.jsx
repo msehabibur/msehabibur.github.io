@@ -471,7 +471,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
           <Card>
             <ul style={{ margin: 0, paddingLeft: 20, lineHeight: 2.0, fontSize: 14, listStyleType: "disc" }}>
               <li>4+ years of experience in data-driven materials discovery and atomistic modeling, with publications in top-tier journals.</li>
-              <li>3+ years developing and deploying AI models and open science tools (e.g., nanoHUB).</li>
+              <li>3+ years of developing and deploying AI models and open science tools (e.g., nanoHUB).</li>
               <li>Recipient of the 2025 MRS Graduate Student Award, Boston.</li>
               <li>Recipient of the Vashti L. Magoon Research Excellence Award from Purdue University.</li>
               <li>Recipient of high-performance computing allocations from NSF ACCESS and Argonne National Laboratory.</li>
