@@ -119,14 +119,11 @@ export default function ScientificBlog() {
               onMouseEnter={e => { e.currentTarget.style.borderColor = T.accent; e.currentTarget.style.boxShadow = `0 4px 16px ${T.accent}15`; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.boxShadow = "none"; }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-                <div style={{ fontSize: 22 }}>{ch.icon}</div>
-                <div>
-                  <div style={{ fontSize: 10, color: T.accent, fontWeight: 700, letterSpacing: 1 }}>
-                    CHAPTER {ch.chapter}
-                  </div>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: T.ink }}>{ch.label}</div>
+              <div style={{ marginBottom: 8 }}>
+                <div style={{ fontSize: 10, color: T.accent, fontWeight: 700, letterSpacing: 1 }}>
+                  CHAPTER {ch.chapter}
                 </div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: T.ink }}>{ch.label}</div>
               </div>
               <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.5 }}>{ch.desc}</div>
               <div style={{ marginTop: 10, fontSize: 11, color: T.accent, fontWeight: 600 }}>
