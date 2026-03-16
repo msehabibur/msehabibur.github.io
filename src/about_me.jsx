@@ -476,7 +476,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               <li>Recipient of the Vashti L. Magoon Research Excellence Award from Purdue University.</li>
               <li>Recipient of high-performance computing allocations from NSF ACCESS and Argonne National Laboratory.</li>
               <li>Recipient of the Materials Informatics Fellowship from GE Aerospace for Summer 2025 internship.</li>
-              <li>Winner of the 2025 AI & ML for Microscopy Hackathon — Toray Research Industries Prize.</li>
+              <li>Winner of the 2025 AI & ML for Microscopy Hackathon — Toyota Research Institute Prize.</li>
               <li>Winner of the 2025 LLM Hackathon for Applications in Materials Science and Engineering — Abstrax Prize.</li>
               <li>Winner of the 2025 NanoArtography Competition — promoting nanoscience through art.</li>
             </ul>
@@ -708,7 +708,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             { title: "2025 MRS Graduate Student Award", org: "Materials Research Society, Boston", color: T.amber, link: "https://www.mrs.org/advancing-careers/award-central/spring-awards/graduate-student-awards/past-recipients" },
             { title: "Vashti L. Magoon Research Excellence Award", org: "Purdue University", color: T.accent, link: "https://engineering.purdue.edu/Engr/People/Awards/Graduate/ptRecipientListing?group_id=237384&show_sub_groups=1" },
             { title: "Materials Informatics Fellowship", org: "GE Aerospace, Summer 2025 Internship", color: T.blue },
-            { title: "2025 AI/ML for Microscopy Hackathon Winner — Toray Research Industries Prize", org: "DeepScan Pro", color: T.green, link: "https://kaliningroup.github.io/mic_hackathon_2/awards/", github: "https://github.com/msehabibur/mic-hackathon-25" },
+            { title: "2025 AI/ML for Microscopy Hackathon Winner — Toyota Research Institute Prize", org: "DeepScan Pro", color: T.green, link: "https://kaliningroup.github.io/mic_hackathon_2/awards/", github: "https://github.com/msehabibur/mic-hackathon-25" },
             { title: "2025 LLM Hackathon for Applications in Materials Science & Chemistry Winner — Abstrax Prize", org: "LLM Hackathon for Materials Science & Engineering", color: T.pink, link: "https://llmhackathon.github.io/awards/", github: "https://github.com/msehabibur/gcxgc_peakcards" },
             { title: "2025 NanoArtography Competition Winner", org: "Promoting nanoscience through art", color: T.red, link: "https://www.nanoartography.org/2025" },
           ].map((award, i) => (
