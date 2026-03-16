@@ -89,12 +89,12 @@ export default function AboutMeModule() {
         <div>
           {/* Hero card */}
           <Card style={{ textAlign: "center", padding: "36px 24px" }}>
-            <div style={{
-              width: 80, height: 80, borderRadius: "50%",
-              background: `linear-gradient(135deg, ${T.accent}, ${T.blue})`,
-              margin: "0 auto 16px", display: "flex", alignItems: "center",
-              justifyContent: "center", fontSize: 32, fontWeight: 900, color: "#fff",
-            }}>MH</div>
+            <img src="/habibur.jpeg" alt="Md Habibur Rahman" style={{
+              width: 110, height: 110, borderRadius: "50%", objectFit: "cover",
+              margin: "0 auto 16px", display: "block",
+              border: `3px solid ${T.accent}`,
+              boxShadow: `0 4px 20px ${T.accent}25`,
+            }} />
             <div style={{ fontSize: 28, fontWeight: 900, marginBottom: 4 }}>Md Habibur Rahman</div>
             <div style={{ fontSize: 14, color: T.muted, marginBottom: 12 }}>
               PhD Candidate, School of Materials Engineering, Purdue University
