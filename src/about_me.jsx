@@ -88,12 +88,6 @@ function PubCard({ pub, index }) {
                   {pub.citations} citations
                 </span>
               )}
-              {pub.me && (
-                <span style={{
-                  fontSize: 9, fontWeight: 700, color: T.accent, letterSpacing: 1,
-                  textTransform: "uppercase",
-                }}>FIRST AUTHOR</span>
-              )}
             </div>
           </div>
           {/* Expand arrow */}
@@ -171,12 +165,6 @@ function PubCard({ pub, index }) {
                 border: `1px solid ${T.accent}30`,
               }}>View Paper {"\u2192"}</a>
             )}
-            <a href="https://scholar.google.com/citations?user=vkAPzB0AAAAJ&hl=en" target="_blank" rel="noopener noreferrer" style={{
-              display: "inline-flex", alignItems: "center", gap: 4,
-              padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 600,
-              background: T.blue + "10", color: T.blue, textDecoration: "none",
-              border: `1px solid ${T.blue}30`,
-            }}>Google Scholar {"\u2192"}</a>
           </div>
         </div>
       )}
@@ -514,21 +502,6 @@ export default function AboutMeModule({ onNavigate }) {
                 <div style={{ fontSize: 12, color: T.muted }}>h-index: 18 · i10-index: 18</div>
               </div>
             </a>
-            <div style={{
-              flex: "1 1 160px", padding: "16px 20px", borderRadius: 12,
-              background: T.green + "08", border: `1.5px solid ${T.green}30`,
-              display: "flex", alignItems: "center", gap: 14,
-            }}>
-              <div style={{
-                width: 48, height: 48, borderRadius: 12,
-                background: T.green + "20", display: "flex", alignItems: "center",
-                justifyContent: "center", fontSize: 20, fontWeight: 900, color: T.green, flexShrink: 0,
-              }}>{PUBLICATIONS.length}</div>
-              <div>
-                <div style={{ fontSize: 11, color: T.muted, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase" }}>Papers</div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: T.ink }}>{PUBLICATIONS.filter(p => p.me).length} First Author</div>
-              </div>
-            </div>
           </div>
 
           {/* Hint */}
