@@ -12,6 +12,7 @@ import SSSynthesisMovieModule from "./ss_synthesis_movie.jsx";
 import MongoDBMovieModule from "./mongodb_movie.jsx";
 import CdTeSolarCellModule from "./cdte_solar.jsx";
 import MDMovieModule from "./md_movie.jsx";
+import AboutMeModule from "./about_me.jsx";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // ERROR BOUNDARY — catches runtime errors and shows them on screen
@@ -13862,6 +13863,7 @@ const MODULE_TABS = [
   { id: "pipeline",     chapter: 8,  label: "MLFF Pipeline",             color: T.eo_e,       desc: "DefectNet force field: graph neural network step by step", topics: 14 },
   { id: "llmdatamining", chapter: 9, label: "LLM Data Mining",           color: T.eo_e,       desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", topics: 3 },
   { id: "chalcomovie",  chapter: 10, label: "Chalcogenide Movie",        color: T.eo_e,       desc: "Chalcogenide materials animation" },
+  { id: "aboutme",      chapter: 11, label: "About Me",                 color: T.dn5,        desc: "Md Habibur Rahman — publications, awards, research experience, and more", topics: 7 },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -14140,6 +14142,7 @@ export default function MaterialsLab() {
       {module === "mc" && <ErrorBoundary><MonteCarloModule /></ErrorBoundary>}
       {module === "chalcomovie" && <ChalcoMovieModule />}
       {module === "defectsemi" && <ErrorBoundary><DefectSemiModule /></ErrorBoundary>}
+      {module === "aboutme" && <AboutMeModule />}
     </div>
   );
 }
