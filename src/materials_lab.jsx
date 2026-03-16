@@ -13863,7 +13863,6 @@ const MODULE_TABS = [
   { id: "pipeline",     chapter: 8,  label: "MLFF Pipeline",             color: T.eo_e,       desc: "DefectNet force field: graph neural network step by step", topics: 14 },
   { id: "llmdatamining", chapter: 9, label: "LLM Data Mining",           color: T.eo_e,       desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", topics: 3 },
   { id: "chalcomovie",  chapter: 10, label: "Chalcogenide Movie",        color: T.eo_e,       desc: "Chalcogenide materials animation" },
-  { id: "aboutme",      chapter: 11, label: "About Me",                 color: T.dn5,        desc: "Md Habibur Rahman — publications, awards, research experience, and more", topics: 7 },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -13914,7 +13913,7 @@ function LLMDataMiningModule() {
 export default function MaterialsLab() {
   const [module, setModule] = useState(null);
 
-  // Landing page (chapter selection)
+  // Landing page — About Me as homepage
   if (module === null) {
     return (
       <div style={{
@@ -13924,136 +13923,7 @@ export default function MaterialsLab() {
         display: "flex",
         flexDirection: "column",
       }}>
-        {/* Hero */}
-        <div style={{
-          padding: "50px 40px 20px",
-          textAlign: "center",
-          background: T.panel,
-          borderBottom: `2px solid ${T.border}`,
-        }}>
-          <div style={{
-            fontSize: 12, letterSpacing: 6, color: T.muted, textTransform: "uppercase", marginBottom: 14,
-          }}>
-            Computational Materials Science
-          </div>
-          <div style={{
-            fontSize: 44, fontWeight: 900, color: T.ink,
-            letterSpacing: -1, marginBottom: 12,
-          }}>
-            MaterialStudio
-          </div>
-          <div style={{
-            fontSize: 16, color: T.muted, margin: "0 auto 20px", whiteSpace: "nowrap",
-          }}>
-            An interactive learning platform for computational materials science — from quantum mechanics to machine learning force fields.
-          </div>
-
-          {/* Divider */}
-          <div style={{
-            width: 80, height: 3, background: `linear-gradient(90deg, ${T.eo_e}, ${T.dft_xc})`,
-            margin: "0 auto 24px", borderRadius: 2,
-          }} />
-
-          {/* Author */}
-          <div style={{ fontSize: 14, color: T.muted }}>
-            Developed by <span style={{ fontWeight: 700, color: T.ink }}>Md Habibur Rahman</span> {"\u00B7"} School of Materials Engineering, Purdue University {"\u00B7"} West Lafayette, IN, USA {"\u00B7"} <a href="mailto:rahma103@purdue.edu" style={{ color: T.eo_e, textDecoration: "none", fontWeight: 600 }}>rahma103@purdue.edu</a>
-          </div>
-        </div>
-
-        {/* Section label */}
-        <div style={{
-          textAlign: "center", padding: "28px 0 18px",
-        }}>
-          <div style={{ fontSize: 11, letterSpacing: 4, color: T.muted, textTransform: "uppercase", fontWeight: 600 }}>
-            Select a chapter to begin
-          </div>
-        </div>
-
-        {/* Chapter grid */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: 16,
-          padding: "0 40px 60px",
-          maxWidth: 1100,
-          margin: "0 auto",
-          width: "100%",
-        }}>
-          {MODULE_TABS.map(m => (
-            <button key={m.id} onClick={() => setModule(m.id)} style={{
-              background: T.panel,
-              border: `1.5px solid ${T.border}`,
-              borderLeft: `5px solid ${T.border}`,
-              borderRadius: 12,
-              padding: "24px 22px",
-              cursor: "pointer",
-              textAlign: "left",
-              fontFamily: "inherit",
-              transition: "all 0.2s",
-              position: "relative",
-              overflow: "hidden",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = T.eo_e + "08";
-              e.currentTarget.style.borderColor = T.border;
-              e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = `0 4px 12px ${T.eo_e}18`;
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = T.panel;
-              e.currentTarget.style.borderColor = T.border;
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.04)";
-            }}
-            >
-              {/* Chapter number */}
-              <div style={{
-                position: "absolute", top: 12, right: 16,
-                fontSize: 52, fontWeight: 900, color: T.eo_e + "10",
-                lineHeight: 1, fontFamily: "monospace",
-              }}>
-                {String(m.chapter).padStart(2, "0")}
-              </div>
-
-              <div style={{
-                fontSize: 10, letterSpacing: 3, color: T.eo_e, textTransform: "uppercase",
-                fontWeight: 700, marginBottom: 8,
-              }}>
-                Chapter {m.chapter}
-              </div>
-
-              <div style={{
-                fontSize: 18, fontWeight: 800, color: T.ink, marginBottom: 8, lineHeight: 1.2,
-              }}>
-                {m.label}
-              </div>
-
-              <div style={{
-                fontSize: 12, color: T.muted, lineHeight: 1.6, marginBottom: 14,
-                minHeight: 38,
-              }}>
-                {m.desc}
-              </div>
-
-              <div style={{
-                display: "flex", alignItems: "center", justifyContent: "space-between",
-              }}>
-                {m.topics && (
-                  <div style={{
-                    fontSize: 10, color: T.eo_e, fontWeight: 600,
-                    background: T.eo_e + "12", padding: "3px 10px", borderRadius: 20,
-                  }}>
-                    {m.topics} topics
-                  </div>
-                )}
-                <div style={{
-                  fontSize: 12, color: T.eo_e, fontWeight: 700,
-                }}>{"\u2192"} Enter</div>
-              </div>
-            </button>
-          ))}
-        </div>
+        <AboutMeModule onNavigate={setModule} />
       </div>
     );
   }
@@ -14088,7 +13958,7 @@ export default function MaterialsLab() {
           color: T.ink, fontWeight: 700, fontFamily: "inherit",
           display: "flex", alignItems: "center", gap: 6,
         }}>
-          {"\u2190"} Chapters
+          {"\u2190"} Home
         </button>
 
         <div style={{
@@ -14142,7 +14012,6 @@ export default function MaterialsLab() {
       {module === "mc" && <ErrorBoundary><MonteCarloModule /></ErrorBoundary>}
       {module === "chalcomovie" && <ChalcoMovieModule />}
       {module === "defectsemi" && <ErrorBoundary><DefectSemiModule /></ErrorBoundary>}
-      {module === "aboutme" && <AboutMeModule onNavigate={setModule} />}
     </div>
   );
 }
