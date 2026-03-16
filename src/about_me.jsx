@@ -608,13 +608,13 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               border: `2px solid ${T.amber}30`, borderRadius: 12, padding: "16px 18px", marginBottom: 0,
             }}>
               <div style={{ fontSize: 13, fontWeight: 800, color: T.amber, marginBottom: 10, textAlign: "center" }}>Data-Driven Modeling & AI</div>
-              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 2.0, color: T.ink, textAlign: "left" }}>
-                <li>High-Throughput DFT Databases</li>
-                <li>Graph Neural Networks (GNN)</li>
-                <li>Machine Learning Force Fields</li>
-                <li>Active Learning & Uncertainty Quantification</li>
-                <li>LLM-Based Data Mining (LangGraph)</li>
-              </ul>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+                <div>High-Throughput DFT Databases</div>
+                <div>Graph Neural Networks (GNN)</div>
+                <div>Machine Learning Force Fields</div>
+                <div>Active Learning & Uncertainty Quantification</div>
+                <div>LLM-Based Data Mining (LangGraph)</div>
+              </div>
             </div>
 
             {/* Arrow down */}
