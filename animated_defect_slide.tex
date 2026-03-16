@@ -1,0 +1,241 @@
+% ============================================================
+%  Animated slide: Defects → DFT → Cost → MLFF Acceleration
+%  Insert this frame into your main .tex file
+%  Requires: \usepackage{tikz}, \usepackage{tcolorbox}
+%  Add to preamble:
+%    \usetikzlibrary{arrows.meta, positioning, calc, decorations.pathmorphing, shapes.geometric, fit, overlay-beamer-styles}
+%    \tcbuselibrary{skins, breakable}
+% ============================================================
+
+\begin{frame}[t]{From Defects to Fast Predictions: The MLFF Advantage}
+
+\vspace{-0.3em}
+
+% ── Step 1: Solar cell with defect ──────────────────────────
+\begin{columns}[T]
+
+% LEFT: Crystal + defect illustration
+\begin{column}{0.48\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.62, every node/.style={font=\scriptsize}]
+
+  % Draw perfect lattice
+  \foreach \x in {0,1,2,3,4} {
+    \foreach \y in {0,1,2,3} {
+      \pgfmathtruncatemacro{\isdefect}{ifthenelse(\x==2 && \y==2, 1, 0)}
+      \ifnum\isdefect=0
+        \node[circle, fill=blue!50, draw=blue!70, inner sep=2.5pt,
+              visible on=<1->] at (\x, \y) {};
+      \fi
+    }
+  }
+
+  % Defect site (vacancy) — appears on slide 1+
+  \only<1>{
+    \node[circle, fill=blue!50, draw=blue!70, inner sep=2.5pt] at (2,2) {};
+  }
+  \only<2->{
+    \node[circle, draw=red!80, dashed, line width=1pt, inner sep=2.5pt,
+          fill=red!10] (vac) at (2,2) {};
+    \node[above right=0.1cm, red!80, font=\footnotesize\bfseries] at (vac) {V};
+  }
+
+  % Bonds (faint)
+  \foreach \x in {0,1,2,3} {
+    \foreach \y in {0,1,2,3} {
+      \draw[gray!30, visible on=<1->] (\x,\y) -- (\x+1,\y);
+    }
+  }
+  \foreach \x in {0,1,2,3,4} {
+    \foreach \y in {0,1,2} {
+      \draw[gray!30, visible on=<1->] (\x,\y) -- (\x,\y+1);
+    }
+  }
+
+  % Band diagram inset (appears overlay 2+)
+  \only<2->{
+    \draw[thick, blue!70] (-0.3,-1.2) -- (4.3,-1.2) node[right, font=\tiny] {VB};
+    \draw[thick, orange!70] (-0.3, 4.2) -- (4.3, 4.2) node[right, font=\tiny] {CB};
+    \draw[thick, red, dashed] (1.0, 1.8) -- (3.0, 1.8)
+      node[right, font=\tiny, red] {Defect level};
+    \draw[-{Stealth}, red!60, thick, decorate,
+          decoration={snake, amplitude=1.5pt, segment length=6pt}]
+          (2.0, 4.2) -- (2.0, 1.8);
+    \node[font=\tiny, red!70, align=center] at (2.0, 3.2) {Non-rad.\\recomb.};
+    \draw[-{Stealth}, green!50!black, thick] (2.8, 1.8) -- (2.8, -1.2);
+    \node[font=\tiny, green!50!black] at (3.6, 0.3) {$\eta\!\downarrow$};
+  }
+
+\end{tikzpicture}
+\end{column}
+
+% RIGHT: Text explanation
+\begin{column}{0.50\textwidth}
+
+% Overlay 1: Perfect crystal
+\only<1>{
+  \begin{tcolorbox}[colback=blue!5, colframe=blue!60,
+    title={\small Perfect Crystal}, fonttitle=\bfseries,
+    boxrule=0.5pt, arc=2mm, left=2pt, right=2pt, top=2pt, bottom=2pt]
+  \small
+  Ideal lattice $\rightarrow$ clean bandgap \\
+  Carriers recombine radiatively \\
+  $\Rightarrow$ Maximum theoretical $\eta$
+  \end{tcolorbox}
+}
+
+% Overlay 2: Defects reduce efficiency
+\only<2>{
+  \begin{tcolorbox}[colback=red!5, colframe=red!70,
+    title={\small Defects Reduce Efficiency}, fonttitle=\bfseries,
+    boxrule=0.5pt, arc=2mm, left=2pt, right=2pt, top=2pt, bottom=2pt]
+  \small
+  Vacancies, antisites, impurities create \\
+  \textbf{deep levels} inside the bandgap. \\[3pt]
+  Carriers are \textbf{trapped} $\rightarrow$ nonradiative \\
+  recombination $\rightarrow$ \textcolor{red}{efficiency loss}.
+  \end{tcolorbox}
+}
+
+% Overlay 3: DFT across 5 charge states
+\only<3-4>{
+  \begin{tcolorbox}[colback=green!5, colframe=green!60!black,
+    title={\small DFT for Defect Energetics}, fonttitle=\bfseries,
+    boxrule=0.5pt, arc=2mm, left=2pt, right=2pt, top=2pt, bottom=2pt]
+  \small
+  Formation energy for charge state $q$: \\[2pt]
+  $E_f(q) = E_{\text{def}}^q - E_{\text{bulk}} + \sum n_i\mu_i + q\,E_F$ \\[4pt]
+  Must compute \textbf{5 charge states}: \\
+  $q \in \{+2, +1, 0, -1, -2\}$ \\[2pt]
+  $\Rightarrow$ Charge transition levels (CTLs) \\
+  $\Rightarrow$ Identify deep vs.\ shallow defects
+  \end{tcolorbox}
+}
+
+% Overlay 5: DFT is expensive
+\only<5>{
+  \begin{tcolorbox}[colback=orange!8, colframe=orange!80!black,
+    title={\small DFT Cost Bottleneck}, fonttitle=\bfseries,
+    boxrule=0.5pt, arc=2mm, left=2pt, right=2pt, top=2pt, bottom=2pt]
+  \small
+  Per defect configuration (HSE06): \\[2pt]
+  \textbf{512 cores $\times$ 8 h} = 4,096 core-h \\[3pt]
+  $\times$ 5 charge states = \textbf{20,480 core-h} \\
+  $\times$ 10 symmetry configs = \textbf{204,800 core-h} \\[4pt]
+  \textcolor{red!70!black}{$\Rightarrow$ Millions of defects are impractical!}
+  \end{tcolorbox}
+}
+
+% Overlay 6: MLFF solution
+\only<6>{
+  \begin{tcolorbox}[colback=violet!5, colframe=violet!70,
+    title={\small MLFF Acceleration}, fonttitle=\bfseries,
+    boxrule=0.5pt, arc=2mm, left=2pt, right=2pt, top=2pt, bottom=2pt]
+  \small
+  M3GNet-based force field trained on \\
+  DFT energies, forces, stresses. \\[3pt]
+  \textbf{Cost:} 0.5 core-h vs.\ 4,096 core-h \\[2pt]
+  $\Rightarrow$ \textcolor{violet}{\textbf{$\sim$8,000$\times$ speedup}} \\[3pt]
+  Accurate $E_f$ across all $q$ states \\
+  $\Rightarrow$ Enables \textbf{high-throughput screening}
+  \end{tcolorbox}
+}
+
+\end{column}
+\end{columns}
+
+\vspace{0.3em}
+
+% ── Step 2: Dynamic charge-state diagram (overlays 3-4) ────
+\only<3-4>{
+\centering
+\begin{tikzpicture}[scale=0.75, every node/.style={font=\scriptsize}]
+  % Axes
+  \draw[-{Stealth}, thick] (0,0) -- (8.5,0) node[below] {$E_F$ (eV)};
+  \draw[-{Stealth}, thick] (0,-0.5) -- (0,4.0) node[left, align=center] {$E_f$\\(eV)};
+
+  % VBM / CBM labels
+  \node[below, font=\tiny] at (0.2,0) {VBM};
+  \node[below, font=\tiny] at (7.8,0) {CBM};
+
+  % Charge state lines — appear sequentially on overlay 3, all on 4
+  \draw<3>[ultra thick, blue!80]   (0,3.5) -- (8,1.5)
+    node[right, font=\footnotesize] {$q=+2$};
+
+  \draw<4->[thick, blue!80]   (0,3.5) -- (8,1.5)
+    node[right, font=\footnotesize] {$q=+2$};
+  \draw<4->[thick, cyan!70]   (0,2.8) -- (8,1.8)
+    node[right, font=\footnotesize] {$q=+1$};
+  \draw<4->[thick, green!60!black] (0,2.2) -- (8,2.2)
+    node[right, font=\footnotesize] {$q=\;0$};
+  \draw<4->[thick, orange!80]  (0,1.5) -- (8,2.8)
+    node[right, font=\footnotesize] {$q=-1$};
+  \draw<4->[thick, red!70]    (0,0.8) -- (8,3.5)
+    node[right, font=\footnotesize] {$q=-2$};
+
+  % CTL markers on overlay 4
+  \only<4>{
+    \fill[black] (2.6, 2.1) circle (2.5pt);
+    \node[above, font=\tiny\bfseries] at (2.6, 2.15) {$(+2/+1)$};
+    \fill[black] (4.0, 2.2) circle (2.5pt);
+    \node[above, font=\tiny\bfseries] at (4.0, 2.25) {$(+1/0)$};
+    \fill[black] (5.2, 2.2) circle (2.5pt);
+    \node[below, font=\tiny\bfseries] at (5.2, 2.15) {$(0/-1)$};
+    \fill[black] (6.5, 2.6) circle (2.5pt);
+    \node[above, font=\tiny\bfseries] at (6.5, 2.65) {$(-1/-2)$};
+  }
+\end{tikzpicture}
+}
+
+% ── Step 3: Cost comparison bar chart (overlay 5) ──────────
+\only<5>{
+\centering
+\begin{tikzpicture}[scale=0.75, every node/.style={font=\scriptsize}]
+  \draw[-{Stealth}, thick] (0,0) -- (10,0) node[below] {};
+  \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[left, rotate=90, anchor=south,
+    font=\footnotesize] {Core-hours};
+
+  % DFT bars per charge state
+  \foreach \i/\q/\col in {1/+2/blue!70, 2.5/+1/cyan!60, 4/\;0/green!50,
+                           5.5/-1/orange!70, 7/-2/red!60} {
+    \fill[\col] (\i-0.4, 0) rectangle (\i+0.4, 3.5);
+    \node[above, font=\tiny\bfseries] at (\i, 3.5) {4,096};
+    \node[below, font=\tiny] at (\i, 0) {$q=\q$};
+  }
+
+  % Total
+  \node[font=\footnotesize\bfseries, red!80!black] at (5, 4.2)
+    {Total: 20,480 core-h per defect};
+\end{tikzpicture}
+}
+
+% ── Step 4: MLFF speedup visual (overlay 6) ────────────────
+\only<6>{
+\centering
+\begin{tikzpicture}[scale=0.75, every node/.style={font=\scriptsize}]
+  \draw[-{Stealth}, thick] (0,0) -- (10,0);
+  \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[left, rotate=90, anchor=south,
+    font=\footnotesize] {Core-hours};
+
+  % DFT bar
+  \fill[orange!40] (2.0-0.6, 0) rectangle (2.0+0.6, 4.0);
+  \node[above, font=\footnotesize\bfseries, orange!80!black] at (2.0, 4.0) {4,096};
+  \node[below, font=\small\bfseries] at (2.0, 0) {DFT};
+
+  % MLFF bar (tiny)
+  \fill[violet!60] (6.0-0.6, 0) rectangle (6.0+0.6, 0.05);
+  \node[above, font=\footnotesize\bfseries, violet!80!black] at (6.0, 0.15) {0.5};
+  \node[below, font=\small\bfseries] at (6.0, 0) {MLFF};
+
+  % Arrow
+  \draw[-{Stealth}, line width=1.5pt, green!60!black] (3.2, 2.0) -- (5.0, 0.5)
+    node[midway, above, sloped, font=\footnotesize\bfseries, green!40!black]
+    {$\sim$8,000$\times$};
+
+  % Label
+  \node[font=\footnotesize, align=center, violet!70!black] at (8.2, 2.5)
+    {Enables\\high-throughput\\defect screening};
+\end{tikzpicture}
+}
+
+\end{frame}
