@@ -14142,7 +14142,7 @@ export default function MaterialsLab() {
       {module === "mc" && <ErrorBoundary><MonteCarloModule /></ErrorBoundary>}
       {module === "chalcomovie" && <ChalcoMovieModule />}
       {module === "defectsemi" && <ErrorBoundary><DefectSemiModule /></ErrorBoundary>}
-      {module === "aboutme" && <AboutMeModule />}
+      {module === "aboutme" && <AboutMeModule onNavigate={setModule} />}
     </div>
   );
 }

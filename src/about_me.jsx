@@ -54,6 +54,7 @@ const LinkBtn = ({ href, children }) => (
 // ═══════════════════════════════════════════════════════════
 const TABS = [
   { id: "overview",      label: "Overview" },
+  { id: "blog",          label: "Scientific Blog" },
   { id: "education",     label: "Education" },
   { id: "publications",  label: "Publications" },
   { id: "awards",        label: "Awards" },
@@ -62,7 +63,20 @@ const TABS = [
   { id: "skills",        label: "Skills" },
 ];
 
-export default function AboutMeModule() {
+const BLOG_CHAPTERS = [
+  { id: "electrons",    chapter: 1,  label: "Atoms World",                desc: "From quantum foundations to crystal properties — the building blocks of all materials", icon: "\u269B" },
+  { id: "dft",          chapter: 2,  label: "DFT Basics",                 desc: "Density functional theory from first principles — Kohn-Sham equations, exchange-correlation, and self-consistency", icon: "\u2211" },
+  { id: "convexhull",   chapter: 3,  label: "Computational Phase Diagram", desc: "Phase stability, convex hull construction, and chemical potential diagrams", icon: "\u25B3" },
+  { id: "md",           chapter: 4,  label: "Molecular Dynamics",         desc: "Classical and ab initio molecular dynamics — ensembles, thermostats, and time integration", icon: "\u21BB" },
+  { id: "defectsemi",   chapter: 5,  label: "Defects in Semiconductors",  desc: "Point defect thermodynamics — formation energy, charge transitions, equilibrium concentrations, and FNV correction", icon: "\u26A1" },
+  { id: "cdtesolar",    chapter: 6,  label: "CdTe Solar Cell",            desc: "CdTe device physics, defect engineering, and photovoltaic performance optimization", icon: "\u2600" },
+  { id: "forcefield",   chapter: 7,  label: "Force Fields",               desc: "Classical and machine-learned interatomic potentials — from harmonic bonds to ReaxFF and EAM", icon: "\u2699" },
+  { id: "pipeline",     chapter: 8,  label: "MLFF Pipeline",              desc: "DefectNet force field: graph neural network architecture, training, and deployment", icon: "\u{1F9E0}" },
+  { id: "llmdatamining", chapter: 9, label: "LLM Data Mining",            desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", icon: "\u{1F4DA}" },
+  { id: "chalcomovie",  chapter: 10, label: "Chalcogenide Movie",         desc: "Animated walkthrough of chalcogenide semiconductor materials and their applications", icon: "\u{1F3AC}" },
+];
+
+export default function AboutMeModule({ onNavigate }) {
   const [tab, setTab] = useState("overview");
 
   return (
@@ -116,15 +130,15 @@ export default function AboutMeModule() {
           <SectionTitle>Summary</SectionTitle>
           <Card>
             <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.9, fontSize: 14 }}>
-              <li>4+ years of experience in <strong>data-driven materials discovery</strong> and atomistic modeling, with publications in top-tier journals.</li>
-              <li>3+ years developing and deploying <strong>AI models and open science tools</strong> (e.g., nanoHUB).</li>
-              <li>Recipient of the <strong>2025 MRS Graduate Student Award</strong>, Boston.</li>
-              <li>Recipient of the <strong>Vashti L. Magoon Research Excellence Award</strong> from Purdue University.</li>
-              <li>Recipient of high-performance computing allocations from NSF <strong>ACCESS</strong> and <strong>Argonne National Laboratory</strong>.</li>
-              <li>Recipient of the <strong>Materials Informatics Fellowship</strong> from GE Aerospace for Summer 2025 internship.</li>
-              <li>Winner of the <strong>2025 AI & ML for Microscopy Hackathon</strong> (Toyota Research Institute).</li>
-              <li>Winner of the <strong>2025 LLM Hackathon</strong> for Applications in Materials Science and Engineering.</li>
-              <li>Winner of the <strong>2025 NanoArtography Competition</strong> — promoting nanoscience through art.</li>
+              <li>4+ years of experience in data-driven materials discovery and atomistic modeling, with publications in top-tier journals.</li>
+              <li>3+ years developing and deploying AI models and open science tools (e.g., nanoHUB).</li>
+              <li>Recipient of the 2025 MRS Graduate Student Award, Boston.</li>
+              <li>Recipient of the Vashti L. Magoon Research Excellence Award from Purdue University.</li>
+              <li>Recipient of high-performance computing allocations from NSF ACCESS and Argonne National Laboratory.</li>
+              <li>Recipient of the Materials Informatics Fellowship from GE Aerospace for Summer 2025 internship.</li>
+              <li>Winner of the 2025 AI & ML for Microscopy Hackathon (Toyota Research Institute).</li>
+              <li>Winner of the 2025 LLM Hackathon for Applications in Materials Science and Engineering.</li>
+              <li>Winner of the 2025 NanoArtography Competition — promoting nanoscience through art.</li>
             </ul>
           </Card>
 
@@ -165,6 +179,51 @@ export default function AboutMeModule() {
               <div style={{ fontSize: 12, color: T.accent, marginTop: 2 }}>West Lafayette, Indiana</div>
             </div>
           </Card>
+        </div>
+      )}
+
+      {/* ─── SCIENTIFIC BLOG ─── */}
+      {tab === "blog" && (
+        <div>
+          <SectionTitle color={T.blue}>Computational Materials Science</SectionTitle>
+          <Card style={{ marginBottom: 16, padding: "16px 20px", background: T.blue + "06", border: `1px solid ${T.blue}25` }}>
+            <div style={{ fontSize: 14, lineHeight: 1.7, color: T.ink }}>
+              An interactive learning platform covering the full stack of computational materials science — from
+              quantum mechanics and density functional theory to machine learning force fields and data mining.
+              Each chapter is a self-contained, animated module with equations, visualizations, and hands-on examples.
+            </div>
+          </Card>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 12 }}>
+            {BLOG_CHAPTERS.map(ch => (
+              <div key={ch.id} onClick={() => onNavigate && onNavigate(ch.id)} style={{
+                background: T.panel, borderRadius: 12, border: `1px solid ${T.border}`,
+                padding: "18px 18px 14px", cursor: "pointer", transition: "all 0.2s",
+                position: "relative", overflow: "hidden",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = T.accent; e.currentTarget.style.boxShadow = `0 4px 16px ${T.accent}15`; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.boxShadow = "none"; }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                  <div style={{
+                    width: 36, height: 36, borderRadius: 10,
+                    background: T.accent + "12", display: "flex", alignItems: "center",
+                    justifyContent: "center", fontSize: 18,
+                  }}>{ch.icon}</div>
+                  <div>
+                    <div style={{ fontSize: 10, color: T.accent, fontWeight: 700, letterSpacing: 1 }}>
+                      CHAPTER {ch.chapter}
+                    </div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: T.ink }}>{ch.label}</div>
+                  </div>
+                </div>
+                <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.5 }}>{ch.desc}</div>
+                <div style={{
+                  marginTop: 10, fontSize: 11, color: T.accent, fontWeight: 600,
+                }}>Read chapter {"\u2192"}</div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
