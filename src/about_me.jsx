@@ -476,8 +476,8 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               <li>Recipient of the Vashti L. Magoon Research Excellence Award from Purdue University.</li>
               <li>Recipient of high-performance computing allocations from NSF ACCESS and Argonne National Laboratory.</li>
               <li>Recipient of the Materials Informatics Fellowship from GE Aerospace for Summer 2025 internship.</li>
-              <li>Winner of the 2025 AI/ML for Microscopy Hackathon — Toray Research Industries Prize (DeepScan Pro).</li>
-              <li>Winner of the 2025 LLM Hackathon for Applications in Materials Science & Chemistry — Abstrax Prize.</li>
+              <li>Winner of the 2025 AI & ML for Microscopy Hackathon — Toray Research Industries Prize.</li>
+              <li>Winner of the 2025 LLM Hackathon for Applications in Materials Science and Engineering — Abstrax Prize.</li>
               <li>Winner of the 2025 NanoArtography Competition — promoting nanoscience through art.</li>
             </ul>
           </Card>
