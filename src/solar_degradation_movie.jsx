@@ -1,698 +1,973 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Sun,
-  Droplets,
-  Thermometer,
-  Zap,
-  AlertTriangle,
-  Layers,
-  Activity,
-  ShieldAlert,
-  Pause,
-  Play,
-  SkipBack,
-  SkipForward,
-  Gauge,
-  Sigma,
-  BarChart3,
-  BookOpen,
-  TimerReset,
-  Sparkles,
-} from "lucide-react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 
 // ═══════════════════════════════════════════════════════════════════════════
-// CdTe SOLAR CELL DEGRADATION MOVIE
-// Themed for CdTe: Cd (blue-gray #5B8CA9), Te (amber #C4944A),
-// device layers use CdTe-specific colors
+// CdTe SOLAR CELL DEGRADATION — Interactive Module
+// Light theme, inline styles, SVG visualizations, sliders & toggles
 // ═══════════════════════════════════════════════════════════════════════════
 
-const timeline = [
-  {
-    id: 0,
-    title: "Healthy CdTe Solar Cell",
-    subtitle: "Initial operating condition",
-    icon: Sun,
-    color: "text-amber-300",
-    summary:
-      "The CdTe device starts in a healthy state. Sunlight enters through the glass superstrate, passes the CdS window layer, generates electron-hole pairs in the CdTe absorber (Eg = 1.44 eV), and current flows through the back contact.",
-    details: [
-      "Glass superstrate protects the device and transmits sunlight.",
-      "TCO (SnO\u2082:F or ITO) serves as the front contact with high transparency.",
-      "CdS window layer (~100 nm) forms the n-type side of the p-n junction.",
-      "CdTe absorber (~3\u20135 \u00B5m) converts photons into electron-hole pairs.",
-      "Back contact (Cu/Au or ZnTe:Cu) extracts holes from the p-type CdTe.",
-      "The built-in field at the CdS/CdTe junction separates carriers efficiently.",
-    ],
-    stress: "No degradation. Power output near 22% record efficiency.",
-    mechanism:
-      "Photons with E \u2265 1.44 eV are absorbed in the CdTe layer. The p-n junction field sweeps electrons to CdS and holes to the back contact. Low defect density means long carrier lifetime.",
-    equations: [
-      "PCE = (V\u2092\u0063 \u00D7 J\u209B\u0063 \u00D7 FF) / P\u1D62\u2099",
-      "E\u209A(CdTe) = 1.44 eV \u2014 ideal for single-junction",
-      "\u03B1(CdTe) > 10\u2074 cm\u207B\u00B9 \u2014 strong absorption",
-    ],
-    takeaway:
-      "CdTe's direct bandgap and high absorption coefficient make it ideal for thin-film solar cells. Only ~3 \u00B5m of material is needed.",
-  },
-  {
-    id: 1,
-    title: "Light-Induced Degradation",
-    subtitle: "Photo-induced metastable defects",
-    icon: Zap,
-    color: "text-yellow-300",
-    summary:
-      "Prolonged illumination creates metastable defect complexes in CdTe, particularly Cu migration from the back contact and changes in V\u0043\u0064 (cadmium vacancy) charge states.",
-    details: [
-      "Cu atoms from the back contact become mobile under illumination.",
-      "V\u0043\u0064 vacancies change charge state under light soaking.",
-      "Metastable A-center complexes (V\u0043\u0064\u2013Cl\u0054\u0065) can form.",
-      "Interface states at CdS/CdTe increase non-radiative recombination.",
-      "Light soaking can initially improve performance (light soaking effect).",
-      "Long-term exposure eventually creates deep traps in the bandgap.",
-    ],
-    stress: "Early V\u2092\u0063 loss from increased recombination at interfaces.",
-    mechanism:
-      "Photon energy breaks weak bonds and activates defect migration. Cu\u207A ions drift under the built-in field, creating donor-acceptor pair recombination centers.",
-    equations: [
-      "R\u209B\u1D63\u2095 \u221D (np \u2212 n\u1D62\u00B2) / [\u03C4\u209A(n+n\u2081) + \u03C4\u2099(p+p\u2081)]",
-      "V\u2092\u0063 loss \u2248 (nkT/q) ln(J\u2080,new / J\u2080,initial)",
-      "Cu\u207A drift: v = \u00B5E, D = D\u2080 exp(\u2212E\u2090/kT)",
-    ],
-    takeaway:
-      "Cu migration from the back contact is the primary light-induced degradation mechanism unique to CdTe technology.",
-  },
-  {
-    id: 2,
-    title: "Thermal Stress & Diffusion",
-    subtitle: "High-temperature interdiffusion",
-    icon: Thermometer,
-    color: "text-red-300",
-    summary:
-      "Elevated temperatures accelerate interdiffusion at the CdS/CdTe interface, Cu migration through the absorber, and Te out-diffusion from the back contact region.",
-    details: [
-      "CdS\u2093Te\u2081\u208B\u2093 intermixing at the junction changes the bandgap profile.",
-      "Cu diffusion coefficient in CdTe: D \u2248 10\u207B\u00B9\u00B2 cm\u00B2/s at 80\u00B0C.",
-      "Te-rich back surface can develop high-resistance oxide layers.",
-      "Thermal expansion mismatch between glass and CdTe creates stress.",
-      "Grain boundary diffusion is 100\u00D7 faster than bulk diffusion.",
-      "CdCl\u2082 treatment residues can become mobile at high temperature.",
-    ],
-    stress: "Series resistance rises, fill factor drops from contact degradation.",
-    mechanism:
-      "Thermally activated diffusion redistributes Cu, Cl, and S atoms. Grain boundaries act as fast diffusion paths, creating non-uniform doping profiles.",
-    equations: [
-      "D(Cu) = D\u2080 exp(\u2212E\u2090/kT), E\u2090 \u2248 0.67 eV",
-      "\u03C3\u209C\u2095 = E \u00D7 \u0394\u03B1 \u00D7 \u0394T",
-      "R\u209B(t) = R\u209B\u2080 + \u0394R \u00D7 (1 \u2212 exp(\u2212t/\u03C4))",
-    ],
-    takeaway:
-      "CdTe modules in hot climates degrade faster due to accelerated Cu and impurity diffusion through grain boundaries.",
-  },
-  {
-    id: 3,
-    title: "Moisture & Oxidation",
-    subtitle: "Environmental attack on contacts",
-    icon: Droplets,
-    color: "text-cyan-300",
-    summary:
-      "Moisture penetration through the back contact or edge seals oxidizes the Te-rich surface, corrodes the metal contact, and creates shunt paths through the absorber.",
-    details: [
-      "Water reacts with CdTe: CdTe + H\u2082O \u2192 CdO + TeO\u2082 + H\u2082.",
-      "Back contact Cu/Au layer corrodes forming CuO\u2093 compounds.",
-      "TeO\u2082 insulating layer increases back contact resistance.",
-      "Moisture along grain boundaries creates leakage paths (shunts).",
-      "Edge seal failure accelerates moisture ingress from module perimeter.",
-      "Delamination of encapsulant exposes more surface to moisture.",
-    ],
-    stress: "Shunt resistance drops, causing power loss and hot spots.",
-    mechanism:
-      "Water molecules diffuse along grain boundaries and react with CdTe surfaces. Oxidation products are insulating, blocking current flow and creating alternative leakage paths.",
-    equations: [
-      "J\u209B\u2095 = V / R\u209B\u2095 \u2014 shunt current increases",
-      "CdTe + O\u2082 \u2192 CdO + TeO\u2082",
-      "WVTR target < 10\u207B\u2074 g/m\u00B2/day for 25-year life",
-    ],
-    takeaway:
-      "Robust encapsulation and edge sealing are critical for CdTe module longevity, especially in humid climates.",
-  },
-  {
-    id: 4,
-    title: "Defect Evolution in CdTe",
-    subtitle: "Native defects control lifetime",
-    icon: Activity,
-    color: "text-fuchsia-300",
-    summary:
-      "CdTe's native defect landscape evolves under operation. Cd vacancies (V\u0043\u0064), Te antisites (Te\u0043\u0064), and Cu interstitials (Cu\u1D62) form deep traps that reduce carrier lifetime.",
-    details: [
-      "V\u0043\u0064 is the dominant p-type dopant but also a recombination center.",
-      "Te\u0043\u0064 antisite creates a deep level at E\u1D65 + 0.6 eV.",
-      "Cu\u0043\u0064 substitutional acts as a shallow acceptor (beneficial).",
-      "Cu\u1D62 interstitial is a fast-diffusing donor (harmful).",
-      "Defect complexes: (V\u0043\u0064\u2013Cl\u0054\u0065) A-center is amphoteric.",
-      "Grain boundaries accumulate defects and become recombination highways.",
-    ],
-    stress: "Carrier lifetime \u03C4 drops from >10 ns to <1 ns in degraded regions.",
-    mechanism:
-      "Under bias and illumination, defect formation energies shift with the Fermi level. This changes the equilibrium defect population, often increasing harmful deep-level concentrations.",
-    equations: [
-      "E\u1DA0(q) = E\u1DA0\u2070 + q(\u03B5\u1DA0 + \u0394V) + \u0394\u00B5",
-      "\u03C4 = 1 / (\u03C3 v\u209C\u2095 N\u209C)",
-      "SRH: R = \u03C3 v\u209C\u2095 N\u209C (np \u2212 n\u1D62\u00B2) / (n + p + 2n\u1D62 cosh(\u0394E/kT))",
-    ],
-    takeaway:
-      "Understanding the defect formation energy landscape is key to engineering more stable CdTe absorbers.",
-  },
-  {
-    id: 5,
-    title: "Mechanical Damage",
-    subtitle: "Cracks and delamination",
-    icon: Layers,
-    color: "text-orange-300",
-    summary:
-      "CdTe is brittle (fracture toughness ~0.5 MPa\u221Am). Thermal cycling, hail impact, and mounting stress can crack the absorber and delaminate the back contact.",
-    details: [
-      "CdTe grain boundaries are weak fracture paths.",
-      "Microcracks electrically isolate cell regions, reducing active area.",
-      "Delamination at CdTe/back-contact increases series resistance.",
-      "Glass breakage from hail is a leading field failure mode.",
-      "Current crowding around cracks creates local hot spots.",
-      "Crack tips concentrate stress and propagate under thermal cycling.",
-    ],
-    stress: "Active area loss and localized heating accelerate further damage.",
-    mechanism:
-      "Brittle fracture along grain boundaries and interfaces creates electrically dead zones. These zones force current through smaller cross-sections, increasing local heating.",
-    equations: [
-      "K\u1D6C = \u03C3\u221A(\u03C0a) \u2014 stress intensity factor",
-      "J\u209B\u0063 \u221D A\u2090\u0063\u209C\u1D62\u1D65\u0065",
-      "P\u2095\u2092\u209C = I\u00B2R\u209B(local) \u2014 hot spot power",
-    ],
-    takeaway:
-      "CdTe's brittleness requires careful module design, mounting, and qualification testing for mechanical resilience.",
-  },
-  {
-    id: 6,
-    title: "Performance Decline",
-    subtitle: "Coupled degradation effects",
-    icon: AlertTriangle,
-    color: "text-rose-300",
-    summary:
-      "All degradation pathways compound: Cu migration lowers V\u2092\u0063, moisture reduces R\u209B\u2095, thermal stress increases R\u209B, and defects kill carrier lifetime. The J-V curve degrades visibly.",
-    details: [
-      "J\u209B\u0063 falls from optical losses and reduced collection efficiency.",
-      "V\u2092\u0063 falls from increased J\u2080 due to higher recombination.",
-      "Fill factor drops from both higher R\u209B and lower R\u209B\u2095.",
-      "The J-V curve becomes more rounded and less rectangular.",
-      "Annual degradation rate for CdTe: typically 0.5\u20130.8%/year.",
-      "First Solar warranty: \u226498% Year 1, then \u22640.5%/year for 25 years.",
-    ],
-    stress: "Observable: 10\u201320% efficiency loss over 25-year lifetime.",
-    mechanism:
-      "The modified diode equation captures all loss mechanisms: increased J\u2080 (recombination), increased R\u209B (contacts), decreased R\u209B\u2095 (shunts), reduced J\u209A\u2095 (optical).",
-    equations: [
-      "J = J\u209A\u2095 \u2212 J\u2080[exp(q(V+JR\u209B)/nkT) \u2212 1] \u2212 (V+JR\u209B)/R\u209B\u2095",
-      "FF = (V\u2098\u209AJ\u2098\u209A) / (V\u2092\u0063J\u209B\u0063)",
-      "PCE(t) = PCE\u2080 \u00D7 (1 \u2212 r)\u1D57, r \u2248 0.5%/year",
-    ],
-    takeaway:
-      "CdTe degradation is manageable \u2014 modern modules routinely achieve 25+ year lifetimes with <15% total power loss.",
-  },
-  {
-    id: 7,
-    title: "CdTe-Specific Mitigation",
-    subtitle: "Engineering solutions for stability",
-    icon: ShieldAlert,
-    color: "text-emerald-300",
-    summary:
-      "CdTe stability is improved through Cu-free back contacts (ZnTe, MoO\u2093), Se alloying (CdSeTe), group V doping (As, P), improved encapsulation, and interface passivation.",
-    details: [
-      "Cu-free back contacts eliminate the primary degradation source.",
-      "CdSeTe graded absorber: lower V\u2092\u0063 deficit, better stability.",
-      "Group V doping (As\u0054\u0065) provides stable p-type doping without Cu.",
-      "MgZnO replaces CdS: wider gap, better lattice match, no intermixing.",
-      "Glass-glass encapsulation with edge seal for moisture barrier.",
-      "First Solar's Series 7 achieves 0.2%/year degradation rate.",
-    ],
-    stress: "Goal: <0.3%/year degradation for 30+ year module lifetime.",
-    mechanism:
-      "Removing Cu, controlling grain boundaries with Se, and using stable contacts address the root causes rather than symptoms of CdTe degradation.",
-    equations: [
-      "CdSe\u2093Te\u2081\u208B\u2093: E\u209A = 1.44 \u2212 0.74x + 0.28x\u00B2 eV",
-      "Target: d(PCE)/dt < 0.3%/year",
-      "WVTR < 10\u207B\u2074 g/m\u00B2/day with glass-glass design",
-    ],
-    takeaway:
-      "Modern CdTe technology has solved most historical stability issues. CdSeTe with Cu-free contacts represents the state of the art.",
-  },
-];
-
-// ── Layer colors matching CdTe device structure ──
-const LAYER = {
-  glass:    { bg: "rgba(186, 230, 253, 0.85)", border: "rgba(125, 211, 252, 0.7)", label: "Glass" },
-  tco:      { bg: "rgba(103, 232, 249, 0.65)", border: "rgba(34, 211, 238, 0.5)",  label: "TCO (SnO\u2082:F)" },
-  cds:      { bg: "rgba(253, 224, 71, 0.55)",  border: "rgba(250, 204, 21, 0.5)",  label: "CdS Window" },
-  cdte:     { bg: "linear-gradient(90deg, rgba(139, 92, 246, 0.65), rgba(168, 85, 247, 0.65), rgba(124, 58, 237, 0.65))", border: "rgba(139, 92, 246, 0.5)", label: "CdTe Absorber" },
-  buffer:   { bg: "rgba(180, 134, 11, 0.75)",  border: "rgba(161, 98, 7, 0.5)",    label: "Buffer" },
-  contact:  { bg: "rgba(161, 161, 170, 0.75)", border: "rgba(113, 113, 122, 0.5)", label: "Back Contact (Cu/Au)" },
+const T = {
+  bg:      "#f0f2f5",
+  panel:   "#ffffff",
+  surface: "#f7f8fa",
+  border:  "#d4d8e0",
+  ink:     "#1a1e2e",
+  muted:   "#6b7280",
+  dim:     "#c0c6d0",
 };
 
-function SunRays({ active }) {
+const C = {
+  glass:   "#93c5fd",
+  tco:     "#67e8f9",
+  cds:     "#fde047",
+  cdte:    "#a78bfa",
+  buffer:  "#d97706",
+  contact: "#9ca3af",
+  cu:      "#f59e0b",
+  defect:  "#ef4444",
+  electron:"#3b82f6",
+  hole:    "#f97316",
+  moisture:"#06b6d4",
+  crack:   "#dc2626",
+  healthy: "#22c55e",
+  degrad:  "#ef4444",
+  accent:  "#7c3aed",
+  mitigation: "#059669",
+};
+
+function Card({ children, style }) {
   return (
-    <div className="absolute inset-x-0 top-0 h-28 overflow-hidden pointer-events-none">
-      {[...Array(9)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute top-0 h-28 w-1 rounded-full bg-yellow-300/60"
-          style={{ left: `${10 + i * 9}%`, rotate: `${-25 + i * 6}deg` }}
-          animate={active ? { opacity: [0.2, 0.8, 0.2], y: [0, 10, 0] } : { opacity: 0.15 }}
-          transition={{ repeat: Infinity, duration: 1.8 + i * 0.08 }}
-        />
-      ))}
-    </div>
+    <div style={{
+      background: T.panel, borderRadius: 12, border: `1px solid ${T.border}`,
+      padding: "16px 18px", ...style,
+    }}>{children}</div>
   );
 }
 
-function LayerStack({ stage, paused }) {
-  const damage = stage.id;
-  const playState = paused ? "paused" : "running";
+function SliderRow({ label, value, min, max, step, onChange, color, unit = "", format }) {
+  const fmt = format || (v => v.toFixed(step < 1 ? (step < 0.1 ? 2 : 1) : 0));
   return (
-    <div className="relative mx-auto w-full max-w-2xl h-80 rounded-3xl border border-white/10 bg-slate-950/60 overflow-hidden shadow-2xl">
-      <div style={{ animationPlayState: playState }}>
-        <SunRays active={stage.id <= 2} />
+    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+      <div style={{ fontSize: 11, color: T.ink, fontWeight: 600, minWidth: 110 }}>{label}</div>
+      <input type="range" min={min} max={max} step={step} value={value}
+        onChange={e => onChange(+e.target.value)}
+        style={{ flex: 1, accentColor: color, height: 4 }} />
+      <div style={{ fontSize: 11, color, fontWeight: 700, minWidth: 55, textAlign: "right" }}>
+        {fmt(value)}{unit}
       </div>
-
-      {/* Glass superstrate */}
-      <div className="absolute left-10 right-10 top-16 h-6 rounded-xl border"
-        style={{ background: LAYER.glass.bg, borderColor: LAYER.glass.border }} />
-      {/* TCO */}
-      <div className="absolute left-12 right-12 top-24 h-5 rounded-lg"
-        style={{ background: LAYER.tco.bg }} />
-      {/* CdS window */}
-      <div className="absolute left-13 right-13 top-[7.5rem] h-3 rounded-lg"
-        style={{ background: LAYER.cds.bg }} />
-      {/* CdTe absorber */}
-      <div className="absolute left-14 right-14 top-[8.5rem] h-16 rounded-xl"
-        style={{ background: LAYER.cdte.bg }} />
-      {/* Buffer */}
-      <div className="absolute left-12 right-12 top-[12.5rem] h-5 rounded-lg"
-        style={{ background: LAYER.buffer.bg }} />
-      {/* Back contact */}
-      <div className="absolute left-10 right-10 top-[14.25rem] h-7 rounded-xl"
-        style={{ background: LAYER.contact.bg }} />
-
-      {/* Layer labels */}
-      <div className="absolute left-4 top-16 text-[11px] text-slate-300">{LAYER.glass.label}</div>
-      <div className="absolute left-4 top-24 text-[11px] text-slate-300">{LAYER.tco.label}</div>
-      <div className="absolute left-4 top-[7.5rem] text-[11px] text-cyan-200">{LAYER.cds.label}</div>
-      <div className="absolute left-4 top-[8.5rem] text-[11px] text-purple-200">{LAYER.cdte.label}</div>
-      <div className="absolute left-4 top-[12.5rem] text-[11px] text-slate-300">{LAYER.buffer.label}</div>
-      <div className="absolute left-4 top-[14.25rem] text-[11px] text-slate-300">{LAYER.contact.label}</div>
-
-      {/* Carrier flow animation */}
-      {[...Array(14)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute h-2.5 w-2.5 rounded-full bg-cyan-300 shadow-[0_0_10px_rgba(103,232,249,0.8)]"
-          style={{ left: `${18 + i * 5}%`, top: `${36 + (i % 3) * 6}%`, animationPlayState: playState }}
-          animate={{ x: [0, 14, 28], opacity: [0.3, 1, 0.2] }}
-          transition={{ repeat: Infinity, duration: 1.5 + (i % 4) * 0.3, delay: i * 0.05 }}
-        />
-      ))}
-
-      {/* Stage 1: Light-induced traps */}
-      {damage >= 1 && [...Array(5)].map((_, i) => (
-        <motion.div
-          key={`trap-${i}`}
-          className="absolute h-3 w-3 rounded-full bg-yellow-200/80 shadow-[0_0_14px_rgba(253,224,71,0.8)]"
-          style={{ left: `${28 + i * 12}%`, top: `${40 + (i % 2) * 8}%`, animationPlayState: playState }}
-          animate={{ opacity: [0.25, 0.9, 0.25], scale: [1, 1.15, 1] }}
-          transition={{ repeat: Infinity, duration: 1.6, delay: i * 0.12 }}
-        />
-      ))}
-
-      {/* Stage 2: Thermal stress */}
-      {damage >= 2 && [...Array(6)].map((_, i) => (
-        <motion.div
-          key={`heat-${i}`}
-          className="absolute text-red-300 text-xs"
-          style={{ left: `${20 + i * 12}%`, top: `${18 + (i % 2) * 6}%`, animationPlayState: playState }}
-          animate={{ y: [0, -12, -4], opacity: [0.2, 0.9, 0.2] }}
-          transition={{ repeat: Infinity, duration: 1.5 + i * 0.05 }}
-        >
-          ~
-        </motion.div>
-      ))}
-
-      {/* Stage 3: Moisture */}
-      {damage >= 3 && (
-        <>
-          {[...Array(10)].map((_, i) => (
-            <motion.div
-              key={`drop-${i}`}
-              className="absolute h-3 w-2 rounded-b-full rounded-t-full bg-cyan-300/80"
-              style={{ left: `${12 + i * 8}%`, top: `${5 + (i % 3) * 3}%`, animationPlayState: playState }}
-              animate={{ y: [0, 90, 170], opacity: [0, 1, 0] }}
-              transition={{ repeat: Infinity, duration: 2.4, delay: i * 0.12 }}
-            />
-          ))}
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={`corrosion-${i}`}
-              className="absolute h-4 w-8 rounded-full bg-emerald-400/40 blur-sm"
-              style={{ left: `${30 + i * 10}%`, top: `${54 + (i % 2) * 3}%`, animationPlayState: playState }}
-              animate={{ opacity: [0.2, 0.8, 0.2] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-            />
-          ))}
-        </>
-      )}
-
-      {/* Stage 4: Defect migration */}
-      {damage >= 4 && [...Array(8)].map((_, i) => (
-        <motion.div
-          key={`def-${i}`}
-          className="absolute h-2.5 w-2.5 rounded-full bg-fuchsia-300"
-          style={{ left: `${24 + i * 7}%`, top: `${43 + (i % 3) * 7}%`, animationPlayState: playState }}
-          animate={{ x: [0, 8, -6, 0], y: [0, -4, 4, 0] }}
-          transition={{ repeat: Infinity, duration: 2.2, delay: i * 0.07 }}
-        />
-      ))}
-
-      {/* Stage 5: Cracks */}
-      {damage >= 5 && (
-        <>
-          <motion.div
-            className="absolute left-[28%] top-[27%] h-32 w-[2px] bg-white/70"
-            style={{ animationPlayState: playState }}
-            animate={{ opacity: [0.2, 1, 0.5] }}
-            transition={{ repeat: Infinity, duration: 1.2 }}
-          />
-          <motion.div
-            className="absolute left-[56%] top-[20%] h-40 w-[2px] bg-white/70 rotate-12"
-            style={{ animationPlayState: playState }}
-            animate={{ opacity: [0.2, 1, 0.5] }}
-            transition={{ repeat: Infinity, duration: 1.2, delay: 0.3 }}
-          />
-        </>
-      )}
-
-      {/* Stage 6: Overall degradation overlay */}
-      {damage >= 6 && (
-        <motion.div
-          className="absolute inset-0 bg-rose-900/20"
-          style={{ animationPlayState: playState }}
-          animate={{ opacity: [0.15, 0.35, 0.15] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-        />
-      )}
     </div>
   );
 }
 
-function MetricBar({ label, value, color }) {
+function EqnBlock({ equations, color }) {
+  return (
+    <div style={{ marginTop: 12, padding: "10px 14px", borderRadius: 8, background: (color || C.accent) + "08", border: `1px solid ${(color || C.accent)}22` }}>
+      <div style={{ fontSize: 10, fontWeight: 700, color: color || C.accent, marginBottom: 6, letterSpacing: 1 }}>KEY EQUATIONS</div>
+      {equations.map((eq, i) => (
+        <div key={i} style={{ fontSize: 11, fontFamily: "'IBM Plex Mono', monospace", color: T.ink, lineHeight: 1.8, paddingLeft: 8, borderLeft: `2px solid ${(color || C.accent)}44`, marginBottom: 4 }}>
+          {eq}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ── SECTION 1: HEALTHY DEVICE ──────────────────────────────────────────
+function HealthyDeviceSection() {
+  const [tick, setTick] = useState(0);
+  useEffect(() => { const id = setInterval(() => setTick(t => t + 1), 60); return () => clearInterval(id); }, []);
+
+  const W = 520, H = 340;
+  const layers = [
+    { y: 30,  h: 28, color: C.glass,   label: "Glass Superstrate", labelColor: "#1e40af" },
+    { y: 62,  h: 22, color: C.tco,     label: "TCO (SnO₂:F)", labelColor: "#0e7490" },
+    { y: 88,  h: 14, color: C.cds,     label: "CdS Window (~100 nm)", labelColor: "#92400e" },
+    { y: 106, h: 80, color: C.cdte,    label: "CdTe Absorber (3–5 µm)", labelColor: "#5b21b6" },
+    { y: 190, h: 18, color: C.buffer,  label: "Buffer / ZnTe", labelColor: "#92400e" },
+    { y: 212, h: 28, color: C.contact, label: "Back Contact (Cu/Au)", labelColor: "#374151" },
+  ];
+
+  // Photon rays
+  const photons = Array.from({ length: 6 }, (_, i) => {
+    const x = 80 + i * 70;
+    const phase = (tick * 2 + i * 30) % 120;
+    const y = 0 + phase * 2.5;
+    const opacity = phase < 100 ? 0.8 : 0.8 - (phase - 100) * 0.04;
+    return { x, y: Math.min(y, 105), opacity: Math.max(0, opacity) };
+  });
+
+  // Electron-hole pairs in CdTe
+  const pairs = Array.from({ length: 8 }, (_, i) => {
+    const cx = 100 + i * 50;
+    const phase = (tick * 1.5 + i * 40) % 160;
+    const ey = 146 - (phase > 80 ? (phase - 80) * 1.2 : 0); // electron goes up
+    const hy = 146 + (phase > 80 ? (phase - 80) * 0.8 : 0); // hole goes down
+    const vis = phase > 40 ? Math.min(1, (phase - 40) / 30) : 0;
+    return { cx, ey: Math.max(62, ey), hy: Math.min(230, hy), vis };
+  });
+
   return (
     <div>
-      <div className="flex justify-between text-sm mb-1 text-slate-300">
-        <span>{label}</span>
-        <span>{value}%</span>
+      <div style={{ fontSize: 12, color: T.muted, marginBottom: 14, lineHeight: 1.7 }}>
+        In a healthy CdTe solar cell, sunlight enters through the glass superstrate, generates electron-hole pairs in the CdTe absorber
+        (E<sub>g</sub> = 1.44 eV), and the built-in junction field separates carriers for current extraction.
       </div>
-      <div className="h-3 rounded-full bg-white/10 overflow-hidden">
-        <motion.div
-          className={`h-full ${color}`}
-          initial={{ width: 0 }}
-          animate={{ width: `${value}%` }}
-          transition={{ duration: 0.8 }}
-        />
-      </div>
+
+      <Card>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", display: "block", borderRadius: 8 }}>
+          <rect width={W} height={H} fill={T.surface} rx={8} />
+
+          {/* Sun rays */}
+          {photons.map((p, i) => (
+            <g key={i} opacity={p.opacity}>
+              <line x1={p.x} y1={0} x2={p.x} y2={p.y} stroke={C.cu} strokeWidth={2.5} strokeDasharray="6 4" />
+              <circle cx={p.x} cy={p.y} r={4} fill={C.cu} />
+              <text x={p.x} y={p.y + 3} textAnchor="middle" fontSize={6} fill="#fff" fontWeight={700}>γ</text>
+            </g>
+          ))}
+
+          {/* Device layers */}
+          {layers.map((l, i) => (
+            <g key={i}>
+              <rect x={60} y={l.y} width={400} height={l.h} rx={4} fill={l.color} opacity={0.5} stroke={l.color} strokeWidth={1} />
+              <text x={468} y={l.y + l.h / 2 + 4} fontSize={9} fill={l.labelColor} fontWeight={600}>{l.label}</text>
+            </g>
+          ))}
+
+          {/* Junction label */}
+          <line x1={60} y1={102} x2={460} y2={102} stroke={C.degrad} strokeWidth={1.5} strokeDasharray="4 3" opacity={0.5} />
+          <text x={70} y={100} fontSize={8} fill={C.degrad} fontWeight={700}>p-n junction</text>
+
+          {/* Electron-hole pairs */}
+          {pairs.map((p, i) => p.vis > 0 && (
+            <g key={i} opacity={p.vis}>
+              <circle cx={p.cx} cy={p.ey} r={5} fill={C.electron} />
+              <text x={p.cx} y={p.ey + 3} textAnchor="middle" fontSize={6} fill="#fff" fontWeight={700}>e⁻</text>
+              <circle cx={p.cx} cy={p.hy} r={5} fill={C.hole} />
+              <text x={p.cx} y={p.hy + 3} textAnchor="middle" fontSize={6} fill="#fff" fontWeight={700}>h⁺</text>
+            </g>
+          ))}
+
+          {/* Labels */}
+          <text x={W / 2} y={H - 20} textAnchor="middle" fontSize={10} fill={T.muted}>
+            Photon absorption → e⁻/h⁺ generation → drift separation → current
+          </text>
+
+          {/* Band gap label */}
+          <rect x={60} y={255} width={400} height={30} rx={6} fill={C.healthy + "15"} stroke={C.healthy} strokeWidth={1} />
+          <text x={260} y={274} textAnchor="middle" fontSize={10} fill={C.healthy} fontWeight={700}>
+            PCE ≈ 22% · Eg = 1.44 eV · α {">"} 10⁴ cm⁻¹ · Only ~3 µm needed
+          </text>
+        </svg>
+      </Card>
+
+      <EqnBlock equations={[
+        "PCE = (Voc × Jsc × FF) / Pin",
+        "Eg(CdTe) = 1.44 eV — near-ideal for single-junction",
+        "α(CdTe) > 10⁴ cm⁻¹ — strong optical absorption",
+        "Jsc,max ≈ 30.5 mA/cm² (Shockley-Queisser limit at 1.44 eV)",
+      ]} color={C.healthy} />
     </div>
   );
 }
 
-function EquationCard({ equations }) {
+// ── SECTION 2: Cu MIGRATION ────────────────────────────────────────────
+function CuMigrationSection() {
+  const [years, setYears] = useState(0);
+  const [temp, setTemp] = useState(60);
+  const [tick, setTick] = useState(0);
+  useEffect(() => { const id = setInterval(() => setTick(t => t + 1), 80); return () => clearInterval(id); }, []);
+
+  const W = 520, H = 300;
+  const D0 = 3.7e-4; // cm²/s
+  const Ea = 0.67; // eV
+  const kB = 8.617e-5; // eV/K
+  const Tk = temp + 273.15;
+  const D = D0 * Math.exp(-Ea / (kB * Tk));
+  const diffLength = Math.sqrt(D * years * 365.25 * 24 * 3600) * 1e4; // µm
+
+  // Cu atoms migrating from back contact
+  const nCu = Math.min(20, Math.floor(years * 3 + 2));
+  const cuAtoms = Array.from({ length: nCu }, (_, i) => {
+    const progress = Math.min(1, (years / 15) * (1 + 0.3 * Math.sin(i * 1.7)));
+    const x = 100 + (i % 5) * 80 + Math.sin(tick * 0.03 + i) * 5;
+    const yStart = 220;
+    const yEnd = 100 + (i % 4) * 20;
+    const y = yStart - progress * (yStart - yEnd);
+    return { x, y, opacity: Math.min(1, years * 0.5 + 0.2) };
+  });
+
+  const vocLoss = Math.min(0.25, years * 0.01 * (1 + (temp - 25) * 0.02));
+
   return (
-    <div className="rounded-3xl border border-cyan-400/20 bg-slate-950/60 p-6 shadow-2xl">
-      <div className="flex items-center gap-2 mb-4">
-        <Sigma className="h-5 w-5 text-cyan-300" />
-        <h3 className="text-xl font-semibold">Key equations</h3>
+    <div>
+      <div style={{ fontSize: 12, color: T.muted, marginBottom: 14, lineHeight: 1.7 }}>
+        Prolonged illumination activates <strong>Cu migration</strong> from the back contact into the CdTe absorber.
+        Cu⁺ ions drift under the built-in field, creating donor-acceptor recombination centers and metastable defect complexes.
       </div>
-      <div className="space-y-3">
-        {equations.map((eq, i) => (
-          <div key={i} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-mono text-sm md:text-base text-cyan-200 overflow-x-auto">
-            {eq}
+
+      <SliderRow label="Operating years" value={years} min={0} max={25} step={1} onChange={setYears} color={C.cu} unit=" yr" />
+      <SliderRow label="Temperature" value={temp} min={25} max={100} step={5} onChange={setTemp} color={C.degrad} unit="°C" />
+
+      <Card style={{ marginTop: 8 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", display: "block", borderRadius: 8 }}>
+          <rect width={W} height={H} fill={T.surface} rx={8} />
+
+          {/* CdTe absorber */}
+          <rect x={50} y={60} width={420} height={130} rx={6} fill={C.cdte} opacity={0.3} stroke={C.cdte} strokeWidth={1} />
+          <text x={60} y={78} fontSize={10} fill="#5b21b6" fontWeight={700}>CdTe Absorber</text>
+
+          {/* Back contact */}
+          <rect x={50} y={200} width={420} height={40} rx={6} fill={C.contact} opacity={0.4} stroke={C.contact} strokeWidth={1} />
+          <text x={60} y={224} fontSize={10} fill="#374151" fontWeight={700}>Back Contact (Cu/Au)</text>
+
+          {/* Cu atoms migrating */}
+          {cuAtoms.map((a, i) => (
+            <g key={i} opacity={a.opacity}>
+              <circle cx={a.x} cy={a.y} r={7} fill={C.cu} stroke="#b45309" strokeWidth={1} />
+              <text x={a.x} y={a.y + 3.5} textAnchor="middle" fontSize={7} fill="#fff" fontWeight={800}>Cu</text>
+            </g>
+          ))}
+
+          {/* Arrows showing drift direction */}
+          {years > 0 && (
+            <g opacity={0.6}>
+              <defs><marker id="arrowCu" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill={C.cu} /></marker></defs>
+              {[150, 260, 370].map(x => (
+                <line key={x} x1={x} y1={195} x2={x} y2={110} stroke={C.cu} strokeWidth={1.5} markerEnd="url(#arrowCu)" strokeDasharray="4 3" />
+              ))}
+              <text x={260} y={160} textAnchor="middle" fontSize={9} fill={C.cu} fontWeight={600}>Cu⁺ drift under E-field</text>
+            </g>
+          )}
+
+          {/* Metrics */}
+          <rect x={50} y={255} width={200} height={30} rx={6} fill={C.cu + "15"} stroke={C.cu} strokeWidth={1} />
+          <text x={150} y={274} textAnchor="middle" fontSize={10} fill={C.cu} fontWeight={600}>
+            D(Cu) = {D.toExponential(1)} cm²/s
+          </text>
+
+          <rect x={270} y={255} width={200} height={30} rx={6} fill={C.degrad + "15"} stroke={C.degrad} strokeWidth={1} />
+          <text x={370} y={274} textAnchor="middle" fontSize={10} fill={C.degrad} fontWeight={600}>
+            Voc loss ≈ {(vocLoss * 1000).toFixed(0)} mV
+          </text>
+        </svg>
+      </Card>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
+        <Card style={{ padding: "10px 14px" }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.cu, marginBottom: 4 }}>Cu Diffusion Length</div>
+          <div style={{ fontSize: 18, fontWeight: 800, color: T.ink }}>{diffLength.toFixed(2)} µm</div>
+          <div style={{ fontSize: 10, color: T.muted }}>{diffLength > 3 ? "Exceeds absorber thickness!" : "Within absorber"}</div>
+        </Card>
+        <Card style={{ padding: "10px 14px" }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.degrad, marginBottom: 4 }}>Degradation Mechanism</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
+            Cu⁺ creates donor levels → compensates p-type doping → kills Voc
+          </div>
+        </Card>
+      </div>
+
+      <EqnBlock equations={[
+        "D(Cu) = D₀·exp(−Ea/kT),  D₀ = 3.7×10⁻⁴ cm²/s,  Ea = 0.67 eV",
+        "Diffusion length: L = √(D·t)",
+        "Cu⁺ interstitial → fast donor → compensates VCd acceptors",
+        "ΔVoc ≈ (nkT/q)·ln(J₀,new / J₀,initial)",
+      ]} color={C.cu} />
+    </div>
+  );
+}
+
+// ── SECTION 3: THERMAL STRESS ──────────────────────────────────────────
+function ThermalStressSection() {
+  const [temp, setTemp] = useState(60);
+  const [years, setYears] = useState(10);
+
+  const Tk = temp + 273.15;
+  const kB = 8.617e-5;
+  // Interdiffusion at CdS/CdTe interface
+  const Dinter = 1e-14 * Math.exp(-0.9 / (kB * Tk)); // approximate
+  const interLength = Math.sqrt(Dinter * years * 365.25 * 24 * 3600) * 1e7; // nm
+  // Thermal stress
+  const dalpha = 2.5e-6; // CTE mismatch /K
+  const stress = (70e9 * dalpha * (temp - 25)) / 1e6; // MPa approximate
+
+  // Grain boundary diffusion enhancement
+  const gbEnhance = 100;
+
+  const W = 480, H = 200;
+  const barMax = 120;
+  const tempBarWidth = Math.min(barMax, ((temp - 25) / 75) * barMax);
+
+  return (
+    <div>
+      <div style={{ fontSize: 12, color: T.muted, marginBottom: 14, lineHeight: 1.7 }}>
+        Elevated temperatures accelerate <strong>interdiffusion</strong> at the CdS/CdTe interface, Cu migration through the absorber,
+        and Te out-diffusion. Grain boundary diffusion is ~100× faster than bulk.
+      </div>
+
+      <SliderRow label="Temperature" value={temp} min={25} max={100} step={5} onChange={setTemp} color={C.degrad} unit="°C" />
+      <SliderRow label="Years" value={years} min={1} max={30} step={1} onChange={setYears} color={C.cu} unit=" yr" />
+
+      <Card style={{ marginTop: 8 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", display: "block", borderRadius: 8 }}>
+          <rect width={W} height={H} fill={T.surface} rx={8} />
+
+          {/* Temperature bar */}
+          <text x={20} y={30} fontSize={10} fill={T.ink} fontWeight={700}>Temperature Effects at {temp}°C</text>
+
+          {/* CdS/CdTe interface mixing */}
+          <rect x={20} y={50} width={200} height={50} rx={6} fill={C.cds} opacity={0.3} />
+          <rect x={220} y={50} width={220} height={50} rx={6} fill={C.cdte} opacity={0.3} />
+          {/* Mixing zone */}
+          {(() => {
+            const mixW = Math.min(100, interLength * 2);
+            return <rect x={220 - mixW / 2} y={50} width={mixW} height={50} rx={4} fill="#f59e0b" opacity={0.3} />;
+          })()}
+          <text x={220} y={70} textAnchor="middle" fontSize={9} fill={C.cu} fontWeight={600}>CdS₁₋ₓTeₓ mixing zone</text>
+          <text x={120} y={90} textAnchor="middle" fontSize={9} fill="#92400e">CdS</text>
+          <text x={340} y={90} textAnchor="middle" fontSize={9} fill="#5b21b6">CdTe</text>
+
+          {/* Stress bar */}
+          <text x={20} y={125} fontSize={9} fill={T.ink} fontWeight={600}>Thermal Stress</text>
+          <rect x={120} y={115} width={barMax} height={14} rx={4} fill={T.border} />
+          <rect x={120} y={115} width={tempBarWidth} height={14} rx={4} fill={stress > 50 ? C.degrad : C.cu} />
+          <text x={250} y={126} fontSize={9} fill={T.ink}>{stress.toFixed(1)} MPa</text>
+
+          {/* GB diffusion */}
+          <text x={20} y={155} fontSize={9} fill={T.ink} fontWeight={600}>GB vs Bulk Diffusion</text>
+          <rect x={120} y={145} width={barMax} height={14} rx={4} fill={C.electron + "33"} />
+          <rect x={120} y={145} width={Math.min(barMax, barMax * 0.01)} height={14} rx={4} fill={C.electron} />
+          <text x={250} y={156} fontSize={9} fill={C.electron}>Bulk</text>
+
+          <rect x={120} y={165} width={barMax} height={14} rx={4} fill={C.degrad + "33"} />
+          <rect x={120} y={165} width={barMax} height={14} rx={4} fill={C.degrad} opacity={0.6} />
+          <text x={250} y={176} fontSize={9} fill={C.degrad}>GB (100× faster)</text>
+        </svg>
+      </Card>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
+        <Card style={{ padding: "10px 12px" }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.cu, marginBottom: 3 }}>Intermixing</div>
+          <div style={{ fontSize: 16, fontWeight: 800, color: T.ink }}>{interLength.toFixed(1)} nm</div>
+        </Card>
+        <Card style={{ padding: "10px 12px" }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.degrad, marginBottom: 3 }}>Thermal Stress</div>
+          <div style={{ fontSize: 16, fontWeight: 800, color: T.ink }}>{stress.toFixed(0)} MPa</div>
+        </Card>
+        <Card style={{ padding: "10px 12px" }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.accent, marginBottom: 3 }}>Rs Increase</div>
+          <div style={{ fontSize: 16, fontWeight: 800, color: T.ink }}>{(years * temp * 0.001).toFixed(1)} Ω·cm²</div>
+        </Card>
+      </div>
+
+      <EqnBlock equations={[
+        "D_inter = D₀·exp(−Ea/kT),  Ea ≈ 0.9 eV for CdS-CdTe",
+        "σ_thermal = E × Δα × ΔT  (biaxial thermal stress)",
+        "D_GB ≈ 100 × D_bulk  (grain boundary fast path)",
+        "CdS₁₋ₓTeₓ intermixing changes local bandgap profile",
+      ]} color={C.degrad} />
+    </div>
+  );
+}
+
+// ── SECTION 4: MOISTURE & OXIDATION ────────────────────────────────────
+function MoistureSection() {
+  const [humidity, setHumidity] = useState(50);
+  const [showReactions, setShowReactions] = useState(true);
+  const [tick, setTick] = useState(0);
+  useEffect(() => { const id = setInterval(() => setTick(t => t + 1), 100); return () => clearInterval(id); }, []);
+
+  const W = 520, H = 260;
+  const nDrops = Math.floor(humidity / 10);
+
+  const reactions = [
+    { reactants: "CdTe + H₂O", products: "CdO + TeO₂ + H₂↑", color: C.moisture, desc: "Surface oxidation destroys absorber" },
+    { reactants: "Cu + O₂ + H₂O", products: "Cu(OH)₂ / CuOₓ", color: C.cu, desc: "Back contact corrosion" },
+    { reactants: "TeO₂ layer", products: "Insulating barrier", color: C.degrad, desc: "Increases series resistance" },
+    { reactants: "H₂O at grain boundaries", products: "Shunt paths", color: C.crack, desc: "Leakage current → hot spots" },
+  ];
+
+  return (
+    <div>
+      <div style={{ fontSize: 12, color: T.muted, marginBottom: 14, lineHeight: 1.7 }}>
+        Moisture penetrates through the back contact or edge seals, <strong>oxidizing the Te-rich surface</strong>,
+        corroding metal contacts, and creating shunt paths through the absorber.
+      </div>
+
+      <SliderRow label="Relative Humidity" value={humidity} min={10} max={95} step={5} onChange={setHumidity} color={C.moisture} unit="%" />
+
+      <Card style={{ marginTop: 8 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", display: "block", borderRadius: 8 }}>
+          <rect width={W} height={H} fill={T.surface} rx={8} />
+
+          {/* Device cross-section */}
+          <rect x={50} y={40} width={420} height={60} rx={4} fill={C.cdte} opacity={0.3} stroke={C.cdte} strokeWidth={1} />
+          <text x={260} y={65} textAnchor="middle" fontSize={10} fill="#5b21b6" fontWeight={600}>CdTe Absorber</text>
+          <rect x={50} y={104} width={420} height={30} rx={4} fill={C.contact} opacity={0.3} stroke={C.contact} strokeWidth={1} />
+          <text x={260} y={123} textAnchor="middle" fontSize={10} fill="#374151" fontWeight={600}>Back Contact</text>
+
+          {/* Water droplets falling */}
+          {Array.from({ length: nDrops }, (_, i) => {
+            const x = 80 + i * 40;
+            const phase = (tick * 3 + i * 25) % 200;
+            const y = 140 + phase * 0.5;
+            return (
+              <g key={i} opacity={phase < 160 ? 0.7 : 0.7 - (phase - 160) * 0.02}>
+                <ellipse cx={x} cy={Math.min(y, 230)} rx={4} ry={6} fill={C.moisture} opacity={0.6} />
+                <text x={x} y={Math.min(y, 230) + 3} textAnchor="middle" fontSize={5} fill="#fff" fontWeight={700}>H₂O</text>
+              </g>
+            );
+          })}
+
+          {/* Corrosion spots */}
+          {humidity > 40 && Array.from({ length: Math.floor((humidity - 40) / 10) }, (_, i) => (
+            <circle key={i} cx={100 + i * 80} cy={104} r={8 + Math.sin(tick * 0.05 + i) * 2}
+              fill={C.degrad} opacity={0.3} />
+          ))}
+
+          {/* Shunt paths */}
+          {humidity > 60 && (
+            <g opacity={0.5}>
+              {[180, 340].map(x => (
+                <line key={x} x1={x} y1={40} x2={x + 10} y2={134} stroke={C.crack} strokeWidth={2} strokeDasharray="3 2" />
+              ))}
+              <text x={260} y={85} textAnchor="middle" fontSize={8} fill={C.crack} fontWeight={600}>Shunt paths along GBs</text>
+            </g>
+          )}
+
+          {/* WVTR target */}
+          <rect x={50} y={H - 35} width={420} height={24} rx={6} fill={humidity > 70 ? C.degrad + "15" : C.healthy + "15"} stroke={humidity > 70 ? C.degrad : C.healthy} strokeWidth={1} />
+          <text x={260} y={H - 18} textAnchor="middle" fontSize={9} fill={humidity > 70 ? C.degrad : C.healthy} fontWeight={600}>
+            WVTR target: {"<"} 10⁻⁴ g/m²/day for 25-year life | RH = {humidity}%
+          </text>
+        </svg>
+      </Card>
+
+      {/* Reaction cards */}
+      <div style={{ fontSize: 11, fontWeight: 700, color: T.ink, marginTop: 14, marginBottom: 8 }}>CHEMICAL REACTIONS</div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+        {reactions.map((r, i) => (
+          <Card key={i} style={{ padding: "10px 12px", borderLeft: `3px solid ${r.color}` }}>
+            <div style={{ fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", color: r.color, fontWeight: 700, marginBottom: 4 }}>
+              {r.reactants} → {r.products}
+            </div>
+            <div style={{ fontSize: 10, color: T.muted }}>{r.desc}</div>
+          </Card>
+        ))}
+      </div>
+
+      <EqnBlock equations={[
+        "CdTe + H₂O → CdO + TeO₂ + H₂↑",
+        "Jshunt = V / Rsh — shunt current increases as Rsh drops",
+        "WVTR < 10⁻⁴ g/m²/day required for 25-year lifetime",
+      ]} color={C.moisture} />
+    </div>
+  );
+}
+
+// ── SECTION 5: DEFECT EVOLUTION ────────────────────────────────────────
+function DefectEvolutionSection() {
+  const [Ef, setEf] = useState(0.5);
+  const [years, setYears] = useState(0);
+
+  const Eg = 1.44;
+  const W = 500, H = 240;
+  const pad = { l: 55, r: 20, t: 20, b: 35 };
+  const pw = W - pad.l - pad.r, ph = H - pad.t - pad.b;
+
+  const defects = [
+    { label: "VCd²⁻", E0: 2.1, q: -2, color: "#7c3aed", type: "acceptor", desc: "Dominant p-type dopant" },
+    { label: "VCd⁻", E0: 1.8, q: -1, color: "#8b5cf6", type: "acceptor", desc: "Shallow acceptor" },
+    { label: "TeCd²⁺", E0: 1.4, q: 2, color: "#dc2626", type: "deep", desc: "Deep trap at Ev+0.6 eV" },
+    { label: "Cui⁺", E0: 0.8, q: 1, color: C.cu, type: "donor", desc: "Fast-diffusing donor (harmful)" },
+    { label: "CuCd⁰", E0: 1.0, q: 0, color: "#059669", type: "shallow", desc: "Shallow acceptor (beneficial)" },
+    { label: "ClTe⁺", E0: 1.5, q: 1, color: "#0284c7", type: "donor", desc: "Shallow donor from CdCl₂ treatment" },
+  ];
+
+  const toX = ef => pad.l + (ef / Eg) * pw;
+  const toY = e => pad.t + (1 - e / 3.5) * ph;
+
+  // Aging shifts some defect formation energies
+  const ageFactor = years / 25;
+
+  return (
+    <div>
+      <div style={{ fontSize: 12, color: T.muted, marginBottom: 14, lineHeight: 1.7 }}>
+        CdTe's native defect landscape evolves under operation. <strong>V<sub>Cd</sub></strong> is the dominant p-type dopant but also a recombination center.
+        Cu interstitials are fast-diffusing donors that compensate p-type doping over time.
+      </div>
+
+      <SliderRow label="Fermi Level" value={Ef} min={0} max={Eg} step={0.02} onChange={setEf} color={C.accent} unit=" eV" />
+      <SliderRow label="Operating Years" value={years} min={0} max={25} step={1} onChange={setYears} color={C.cu} unit=" yr" />
+
+      <Card style={{ marginTop: 8 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", display: "block", borderRadius: 8 }}>
+          <rect width={W} height={H} fill={T.surface} rx={8} />
+
+          {/* Axes */}
+          <line x1={pad.l} y1={pad.t} x2={pad.l} y2={H - pad.b} stroke={T.border} strokeWidth={1} />
+          <line x1={pad.l} y1={H - pad.b} x2={W - pad.r} y2={H - pad.b} stroke={T.border} strokeWidth={1} />
+          <text x={pad.l - 10} y={pad.t + ph / 2} textAnchor="middle" fontSize={9} fill={T.muted} transform={`rotate(-90, ${pad.l - 10}, ${pad.t + ph / 2})`}>ΔEf (eV)</text>
+          <text x={pad.l + pw / 2} y={H - 8} textAnchor="middle" fontSize={9} fill={T.muted}>Fermi Level (eV)</text>
+
+          {/* VBM and CBM labels */}
+          <text x={pad.l - 5} y={H - pad.b + 12} fontSize={8} fill={T.muted} textAnchor="end">VBM</text>
+          <text x={W - pad.r + 5} y={H - pad.b + 12} fontSize={8} fill={T.muted}>CBM</text>
+
+          {/* Defect lines */}
+          {defects.map((d, i) => {
+            const ageShift = d.type === "donor" ? -ageFactor * 0.3 : ageFactor * 0.1;
+            const y0 = toY(d.E0 + ageShift);
+            const y1 = toY(d.E0 + ageShift + d.q * Eg);
+            return (
+              <g key={i}>
+                <line x1={toX(0)} y1={y0} x2={toX(Eg)} y2={y1} stroke={d.color} strokeWidth={2} opacity={0.7} />
+                <text x={toX(Eg) + 3} y={y1 + 3} fontSize={8} fill={d.color} fontWeight={700}>{d.label}</text>
+              </g>
+            );
+          })}
+
+          {/* Fermi level marker */}
+          <line x1={toX(Ef)} y1={pad.t} x2={toX(Ef)} y2={H - pad.b} stroke={C.accent} strokeWidth={1.5} strokeDasharray="4 3" />
+          <text x={toX(Ef)} y={pad.t - 5} textAnchor="middle" fontSize={9} fill={C.accent} fontWeight={700}>EF = {Ef.toFixed(2)} eV</text>
+        </svg>
+      </Card>
+
+      {/* Defect legend */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, marginTop: 10 }}>
+        {defects.map((d, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 10px", borderRadius: 8, background: d.color + "0a", border: `1px solid ${d.color}22` }}>
+            <div style={{ width: 8, height: 8, borderRadius: 4, background: d.color }} />
+            <div>
+              <div style={{ fontSize: 10, fontWeight: 700, color: d.color }}>{d.label}</div>
+              <div style={{ fontSize: 9, color: T.muted }}>{d.desc}</div>
+            </div>
           </div>
         ))}
       </div>
+
+      <EqnBlock equations={[
+        "Ef(q) = Ef⁰ + q·(εF + ΔV) + Δµ",
+        "τ = 1 / (σ·vth·Nt) — carrier lifetime vs trap density",
+        "SRH: R = σ·vth·Nt·(np − ni²) / (n + p + 2ni·cosh(ΔE/kT))",
+      ]} color={C.accent} />
     </div>
   );
 }
 
-function ControlButton({ children, onClick, active = false }) {
+// ── SECTION 6: J-V CURVE DEGRADATION ───────────────────────────────────
+function JVDegradationSection() {
+  const [years, setYears] = useState(0);
+  const [showIdeal, setShowIdeal] = useState(true);
+
+  const W = 480, H = 280;
+  const pad = { l: 55, r: 20, t: 20, b: 40 };
+  const pw = W - pad.l - pad.r, ph = H - pad.t - pad.b;
+
+  // Solar cell parameters degrade over time
+  const rate = 0.006; // 0.6%/year
+  const factor = Math.pow(1 - rate, years);
+  const J0_ratio = Math.exp(years * 0.08);
+  const Jsc0 = 30.5, Voc0 = 0.88, n = 1.5, Rs0 = 1.0, Rsh0 = 1000;
+  const Jsc = Jsc0 * (1 - years * 0.002);
+  const Voc = Voc0 - 0.026 * n * Math.log(J0_ratio);
+  const Rs = Rs0 * (1 + years * 0.05);
+  const Rsh = Rsh0 / (1 + years * 0.03);
+
+  // J-V curve points
+  const jvPoints = (jsc, voc, rs, rsh, isIdeal) => {
+    const pts = [];
+    for (let v = 0; v <= voc * 1.05; v += 0.01) {
+      const jph = jsc;
+      const j0 = jsc / (Math.exp(voc / (0.026 * n)) - 1);
+      // Simplified single-diode: solve iteratively
+      let j = jph;
+      for (let iter = 0; iter < 5; iter++) {
+        const vd = v + j * rs * 0.001; // rs in Ω·cm²
+        j = jph - j0 * (Math.exp(vd / (0.026 * n)) - 1) - vd / rsh;
+      }
+      if (j < -2) break;
+      pts.push({ v, j: Math.max(-1, j) });
+    }
+    return pts;
+  };
+
+  const idealPts = jvPoints(Jsc0, Voc0, Rs0, Rsh0, true);
+  const degradPts = jvPoints(Jsc, Math.max(0.4, Voc), Rs, Rsh, false);
+
+  const toX = v => pad.l + (v / 1.0) * pw;
+  const toY = j => pad.t + (1 - j / 35) * ph;
+
+  const ptsToPath = pts => pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${toX(p.v).toFixed(1)},${toY(p.j).toFixed(1)}`).join(' ');
+
+  // Calculate FF and PCE
+  const calcPmax = (pts) => {
+    let pmax = 0;
+    pts.forEach(p => { const pw = p.v * p.j; if (pw > pmax) pmax = pw; });
+    return pmax;
+  };
+  const pce0 = (calcPmax(idealPts) / 100 * 100).toFixed(1);
+  const pceNow = (calcPmax(degradPts) / 100 * 100).toFixed(1);
+  const ff0 = (calcPmax(idealPts) / (Jsc0 * Voc0) * 100).toFixed(1);
+  const ffNow = degradPts.length > 0 ? (calcPmax(degradPts) / (Jsc * Math.max(0.4, Voc)) * 100).toFixed(1) : "0";
+
   return (
-    <button
-      onClick={onClick}
-      className={`rounded-2xl border px-4 py-3 transition ${active ? "border-cyan-300/50 bg-cyan-400/10" : "border-white/10 bg-white/5 hover:bg-white/10"}`}
-    >
-      {children}
-    </button>
+    <div>
+      <div style={{ fontSize: 12, color: T.muted, marginBottom: 14, lineHeight: 1.7 }}>
+        All degradation pathways compound: Cu migration lowers V<sub>oc</sub>, moisture reduces R<sub>sh</sub>,
+        thermal stress increases R<sub>s</sub>, and defects kill carrier lifetime. Watch the <strong>J-V curve degrade</strong> over time.
+      </div>
+
+      <SliderRow label="Operating Years" value={years} min={0} max={25} step={1} onChange={setYears} color={C.degrad} unit=" yr" />
+
+      <Card style={{ marginTop: 8 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", display: "block", borderRadius: 8 }}>
+          <rect width={W} height={H} fill={T.surface} rx={8} />
+
+          {/* Grid */}
+          {[0, 10, 20, 30].map(j => (
+            <g key={j}>
+              <line x1={pad.l} y1={toY(j)} x2={W - pad.r} y2={toY(j)} stroke={T.border} strokeWidth={0.5} />
+              <text x={pad.l - 8} y={toY(j) + 3} textAnchor="end" fontSize={8} fill={T.muted}>{j}</text>
+            </g>
+          ))}
+          {[0, 0.2, 0.4, 0.6, 0.8, 1.0].map(v => (
+            <g key={v}>
+              <line x1={toX(v)} y1={pad.t} x2={toX(v)} y2={H - pad.b} stroke={T.border} strokeWidth={0.5} />
+              <text x={toX(v)} y={H - pad.b + 14} textAnchor="middle" fontSize={8} fill={T.muted}>{v.toFixed(1)}</text>
+            </g>
+          ))}
+
+          {/* Axes labels */}
+          <text x={pad.l - 10} y={pad.t + ph / 2} textAnchor="middle" fontSize={9} fill={T.ink} fontWeight={600} transform={`rotate(-90, ${pad.l - 10}, ${pad.t + ph / 2})`}>J (mA/cm²)</text>
+          <text x={pad.l + pw / 2} y={H - 8} textAnchor="middle" fontSize={9} fill={T.ink} fontWeight={600}>Voltage (V)</text>
+
+          {/* Ideal J-V (year 0) */}
+          {showIdeal && idealPts.length > 1 && (
+            <path d={ptsToPath(idealPts)} fill="none" stroke={C.healthy} strokeWidth={2.5} strokeDasharray="6 4" opacity={0.6} />
+          )}
+
+          {/* Degraded J-V */}
+          {degradPts.length > 1 && (
+            <path d={ptsToPath(degradPts)} fill="none" stroke={years > 0 ? C.degrad : C.healthy} strokeWidth={2.5} />
+          )}
+
+          {/* Legend */}
+          {showIdeal && (
+            <g>
+              <line x1={W - 160} y1={30} x2={W - 140} y2={30} stroke={C.healthy} strokeWidth={2} strokeDasharray="4 3" />
+              <text x={W - 135} y={33} fontSize={9} fill={C.healthy}>Year 0</text>
+            </g>
+          )}
+          <line x1={W - 160} y1={45} x2={W - 140} y2={45} stroke={years > 0 ? C.degrad : C.healthy} strokeWidth={2} />
+          <text x={W - 135} y={48} fontSize={9} fill={years > 0 ? C.degrad : C.healthy}>Year {years}</text>
+        </svg>
+      </Card>
+
+      <div style={{ display: "flex", gap: 4, marginTop: 6, marginBottom: 6 }}>
+        <button onClick={() => setShowIdeal(!showIdeal)} style={{
+          padding: "4px 12px", borderRadius: 6, fontSize: 10, cursor: "pointer",
+          background: showIdeal ? C.healthy + "22" : T.bg, border: `1px solid ${showIdeal ? C.healthy : T.border}`,
+          color: showIdeal ? C.healthy : T.muted, fontWeight: 600, fontFamily: "inherit",
+        }}>Show Year 0 Reference</button>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 6, marginTop: 6 }}>
+        {[
+          { label: "Jsc", val: `${Jsc.toFixed(1)}`, unit: "mA/cm²", color: C.electron, init: Jsc0.toFixed(1) },
+          { label: "Voc", val: `${Math.max(0.4, Voc).toFixed(3)}`, unit: "V", color: C.accent, init: Voc0.toFixed(3) },
+          { label: "FF", val: `${ffNow}`, unit: "%", color: C.cu, init: ff0 },
+          { label: "PCE", val: `${pceNow}`, unit: "%", color: years > 10 ? C.degrad : C.healthy, init: pce0 },
+        ].map((m, i) => (
+          <Card key={i} style={{ padding: "8px 10px", textAlign: "center" }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: m.color }}>{m.label}</div>
+            <div style={{ fontSize: 16, fontWeight: 800, color: T.ink }}>{m.val}</div>
+            <div style={{ fontSize: 9, color: T.muted }}>{m.unit} (was {m.init})</div>
+          </Card>
+        ))}
+      </div>
+
+      <EqnBlock equations={[
+        "J = Jph − J₀[exp(q(V+J·Rs)/nkT) − 1] − (V+J·Rs)/Rsh",
+        "PCE(t) = PCE₀ × (1 − r)ᵗ,  r ≈ 0.5–0.8%/year",
+        "FF = (Vmp·Jmp) / (Voc·Jsc)",
+        "Annual degradation: First Solar warranty ≤0.5%/year for 25 yr",
+      ]} color={C.degrad} />
+    </div>
   );
 }
 
-function StatTile({ icon: Icon, label, value, tone }) {
+// ── SECTION 7: MECHANICAL DAMAGE ───────────────────────────────────────
+function MechanicalSection() {
+  const [stress, setStress] = useState(0);
+  const [tick, setTick] = useState(0);
+  useEffect(() => { const id = setInterval(() => setTick(t => t + 1), 80); return () => clearInterval(id); }, []);
+
+  const W = 500, H = 240;
+  const Kic = 0.5; // MPa√m
+  const crackLength = stress > 20 ? (stress - 20) * 0.15 : 0;
+
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="flex items-center gap-3">
-        <div className={`h-10 w-10 rounded-2xl border border-white/10 bg-slate-950/60 flex items-center justify-center ${tone}`}>
-          <Icon className="h-5 w-5" />
+    <div>
+      <div style={{ fontSize: 12, color: T.muted, marginBottom: 14, lineHeight: 1.7 }}>
+        CdTe is brittle (fracture toughness K<sub>IC</sub> ≈ 0.5 MPa√m). Thermal cycling, hail impact, and mounting stress can
+        <strong> crack the absorber</strong> and delaminate the back contact, creating electrically dead zones.
+      </div>
+
+      <SliderRow label="Applied Stress" value={stress} min={0} max={80} step={2} onChange={setStress} color={C.crack} unit=" MPa" />
+
+      <Card style={{ marginTop: 8 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", display: "block", borderRadius: 8 }}>
+          <rect width={W} height={H} fill={T.surface} rx={8} />
+
+          {/* CdTe absorber */}
+          <rect x={40} y={50} width={420} height={120} rx={6} fill={C.cdte} opacity={0.3} stroke={C.cdte} strokeWidth={1} />
+          <text x={50} y={68} fontSize={10} fill="#5b21b6" fontWeight={700}>CdTe Absorber</text>
+
+          {/* Grain boundaries */}
+          {[120, 200, 280, 360].map(x => (
+            <line key={x} x1={x} y1={52} x2={x + 5} y2={168} stroke={C.cdte} strokeWidth={1} strokeDasharray="3 4" opacity={0.5} />
+          ))}
+
+          {/* Cracks appear under stress */}
+          {stress > 20 && (
+            <g>
+              <line x1={180} y1={50} x2={185 + crackLength * 2} y2={50 + crackLength * 8}
+                stroke={C.crack} strokeWidth={2.5} opacity={Math.min(1, (stress - 20) / 30)} />
+              <line x1={320} y1={170} x2={315 - crackLength * 1.5} y2={170 - crackLength * 7}
+                stroke={C.crack} strokeWidth={2.5} opacity={Math.min(1, (stress - 20) / 30)} />
+            </g>
+          )}
+
+          {/* Hot spot at crack */}
+          {stress > 40 && (
+            <g>
+              <circle cx={185 + crackLength * 2} cy={50 + crackLength * 8} r={10 + Math.sin(tick * 0.1) * 3}
+                fill={C.degrad} opacity={0.3} />
+              <text x={185 + crackLength * 2 + 15} y={50 + crackLength * 8 + 3} fontSize={8} fill={C.degrad} fontWeight={600}>Hot spot</text>
+            </g>
+          )}
+
+          {/* Delamination at high stress */}
+          {stress > 50 && (
+            <g opacity={0.6}>
+              <rect x={100} y={168} width={150} height={6} rx={3} fill={C.cu} opacity={0.5} />
+              <text x={175} y={190} textAnchor="middle" fontSize={8} fill={C.cu} fontWeight={600}>Delamination gap</text>
+            </g>
+          )}
+
+          {/* Stress intensity factor */}
+          <rect x={40} y={H - 35} width={420} height={24} rx={6}
+            fill={stress > 30 ? C.degrad + "15" : C.healthy + "15"}
+            stroke={stress > 30 ? C.degrad : C.healthy} strokeWidth={1} />
+          <text x={250} y={H - 18} textAnchor="middle" fontSize={9}
+            fill={stress > 30 ? C.degrad : C.healthy} fontWeight={600}>
+            KI = σ√(πa) = {(stress * Math.sqrt(Math.PI * crackLength * 1e-6) * 1e3).toFixed(2)} MPa√m
+            {stress > 30 ? " — approaching KIC = 0.5 MPa√m!" : " — below KIC"}
+          </text>
+        </svg>
+      </Card>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
+        {[
+          { label: "Fracture Toughness", val: "0.5 MPa√m", desc: "CdTe is brittle", color: C.crack },
+          { label: "Crack Length", val: `${crackLength.toFixed(1)} µm`, desc: stress > 20 ? "Growing!" : "No cracks", color: stress > 20 ? C.degrad : C.healthy },
+          { label: "Area Loss", val: `${Math.min(30, crackLength * 2).toFixed(0)}%`, desc: "Electrically dead zones", color: C.accent },
+        ].map((m, i) => (
+          <Card key={i} style={{ padding: "10px 12px" }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: m.color, marginBottom: 3 }}>{m.label}</div>
+            <div style={{ fontSize: 16, fontWeight: 800, color: T.ink }}>{m.val}</div>
+            <div style={{ fontSize: 9, color: T.muted }}>{m.desc}</div>
+          </Card>
+        ))}
+      </div>
+
+      <EqnBlock equations={[
+        "KI = σ√(πa) — stress intensity factor",
+        "Fracture when KI ≥ KIC ≈ 0.5 MPa√m (CdTe)",
+        "Jsc ∝ A_active — active area loss reduces current",
+        "P_hot = I²·Rs(local) — current crowding at cracks",
+      ]} color={C.crack} />
+    </div>
+  );
+}
+
+// ── SECTION 8: MITIGATION STRATEGIES ───────────────────────────────────
+function MitigationSection() {
+  const [cuFree, setCuFree] = useState(false);
+  const [seAlloy, setSeAlloy] = useState(false);
+  const [groupV, setGroupV] = useState(false);
+  const [glassGlass, setGlassGlass] = useState(false);
+  const [mgzno, setMgzno] = useState(false);
+
+  const toggleBtn = (label, value, setter, color, desc) => (
+    <button onClick={() => setter(!value)} style={{
+      padding: "10px 14px", borderRadius: 10, cursor: "pointer", textAlign: "left", width: "100%",
+      background: value ? color + "15" : T.bg, border: `1.5px solid ${value ? color : T.border}`,
+      fontFamily: "inherit", transition: "all 0.15s",
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <div style={{ width: 20, height: 20, borderRadius: 6, background: value ? color : T.dim, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, color: "#fff", fontWeight: 800 }}>
+          {value ? "✓" : ""}
         </div>
         <div>
-          <div className="text-xs uppercase tracking-[0.18em] text-slate-400">{label}</div>
-          <div className="text-xl font-semibold text-white">{value}</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: value ? color : T.ink }}>{label}</div>
+          <div style={{ fontSize: 10, color: T.muted }}>{desc}</div>
         </div>
       </div>
-    </div>
+    </button>
   );
-}
 
-function CompactInfoCard({ title, icon: Icon, children }) {
+  const score = [cuFree, seAlloy, groupV, glassGlass, mgzno].filter(Boolean).length;
+  const degradRate = Math.max(0.1, 0.8 - score * 0.13);
+  const lifetime = Math.round(25 + score * 5);
+
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-5 shadow-2xl h-full">
-      <div className="flex items-center gap-2 mb-3">
-        <Icon className="h-5 w-5 text-cyan-300" />
-        <h3 className="text-lg font-semibold">{title}</h3>
+    <div>
+      <div style={{ fontSize: 12, color: T.muted, marginBottom: 14, lineHeight: 1.7 }}>
+        Modern CdTe technology has solved most historical stability issues. Toggle each mitigation strategy
+        to see its impact on device lifetime and degradation rate.
       </div>
-      <div className="text-slate-300 leading-7 text-sm md:text-base">{children}</div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 14 }}>
+        {toggleBtn("Cu-Free Back Contact", cuFree, setCuFree, C.mitigation, "ZnTe or MoOₓ replaces Cu/Au")}
+        {toggleBtn("CdSeTe Graded Absorber", seAlloy, setSeAlloy, "#2563eb", "Lower Voc deficit, better stability")}
+        {toggleBtn("Group V Doping (As/P)", groupV, setGroupV, C.accent, "Stable p-type without Cu")}
+        {toggleBtn("Glass-Glass Encapsulation", glassGlass, setGlassGlass, C.moisture, "Superior moisture barrier")}
+        {toggleBtn("MgZnO Window Layer", mgzno, setMgzno, C.cu, "Replaces CdS — wider gap, no intermixing")}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
+        <Card style={{ padding: "12px 14px", textAlign: "center", borderColor: score >= 3 ? C.mitigation : T.border }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.mitigation, marginBottom: 4 }}>Degradation Rate</div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: degradRate < 0.3 ? C.mitigation : degradRate < 0.5 ? C.cu : C.degrad }}>
+            {degradRate.toFixed(2)}%/yr
+          </div>
+          <div style={{ fontSize: 9, color: T.muted }}>Industry target: {"<"}0.3%/yr</div>
+        </Card>
+        <Card style={{ padding: "12px 14px", textAlign: "center", borderColor: score >= 3 ? C.mitigation : T.border }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.accent, marginBottom: 4 }}>Expected Lifetime</div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: T.ink }}>{lifetime} yr</div>
+          <div style={{ fontSize: 9, color: T.muted }}>With {score}/5 strategies</div>
+        </Card>
+        <Card style={{ padding: "12px 14px", textAlign: "center", borderColor: score >= 3 ? C.mitigation : T.border }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.electron, marginBottom: 4 }}>Total Power Loss</div>
+          <div style={{ fontSize: 22, fontWeight: 800, color: T.ink }}>
+            {(degradRate * lifetime).toFixed(0)}%
+          </div>
+          <div style={{ fontSize: 9, color: T.muted }}>Over {lifetime}-year life</div>
+        </Card>
+      </div>
+
+      <EqnBlock equations={[
+        "CdSe₁₋ₓTeₓ: Eg = 1.44 − 0.74x + 0.28x² eV (bowing)",
+        "Target: d(PCE)/dt < 0.3%/year for 30+ year life",
+        "WVTR < 10⁻⁴ g/m²/day with glass-glass design",
+        "First Solar Series 7: 0.2%/year demonstrated",
+      ]} color={C.mitigation} />
     </div>
   );
 }
 
+// ── SECTION DEFINITIONS ────────────────────────────────────────────────
+const DEGRAD_SECTIONS = [
+  { id: "healthy",     label: "Healthy Device",        color: C.healthy,    Component: HealthyDeviceSection },
+  { id: "cu",          label: "Cu Migration",           color: C.cu,         Component: CuMigrationSection },
+  { id: "thermal",     label: "Thermal Stress",         color: C.degrad,     Component: ThermalStressSection },
+  { id: "moisture",    label: "Moisture & Oxidation",   color: C.moisture,   Component: MoistureSection },
+  { id: "defects",     label: "Defect Evolution",       color: C.accent,     Component: DefectEvolutionSection },
+  { id: "jv",          label: "J-V Degradation",        color: C.degrad,     Component: JVDegradationSection },
+  { id: "mechanical",  label: "Mechanical Damage",      color: C.crack,      Component: MechanicalSection },
+  { id: "mitigation",  label: "Mitigation Strategies",  color: C.mitigation, Component: MitigationSection },
+];
+
+// ── MAIN EXPORT ────────────────────────────────────────────────────────
 export default function SolarCellDegradationMovie() {
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [sceneDuration, setSceneDuration] = useState(5000);
-  const stage = timeline[index];
-
-  useEffect(() => {
-    if (paused) return;
-    const id = setInterval(() => {
-      setIndex((prev) => (prev + 1) % timeline.length);
-    }, sceneDuration);
-    return () => clearInterval(id);
-  }, [paused, sceneDuration]);
-
-  const metrics = useMemo(() => {
-    const efficiency = Math.max(28, 100 - stage.id * 10);
-    const voltage = Math.max(35, 100 - stage.id * 8);
-    const stability = Math.max(20, 100 - stage.id * 11);
-    return { efficiency, voltage, stability };
-  }, [stage]);
-
-  const Icon = stage.icon;
-  const goPrev = () => setIndex((prev) => (prev - 1 + timeline.length) % timeline.length);
-  const goNext = () => setIndex((prev) => (prev + 1) % timeline.length);
+  const [active, setActive] = useState("healthy");
+  const sec = DEGRAD_SECTIONS.find(s => s.id === active) || DEGRAD_SECTIONS[0];
+  const { Component } = sec;
+  const secIdx = DEGRAD_SECTIONS.findIndex(s => s.id === active);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white p-4 md:p-6">
-      <div className="max-w-[1500px] mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl overflow-hidden"
-        >
-          {/* Header */}
-          <div className="border-b border-white/10 px-5 md:px-8 py-5 md:py-6 bg-gradient-to-r from-purple-500/10 via-transparent to-amber-500/10">
-            <div className="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-5">
-              <div className="max-w-4xl">
-                <div className="inline-flex items-center gap-2 rounded-full border border-purple-400/20 bg-purple-400/10 px-3 py-1 text-xs uppercase tracking-[0.22em] text-purple-200 mb-3">
-                  <Sparkles className="h-3.5 w-3.5" />
-                  CdTe degradation lesson
-                </div>
-                <h1 className="text-3xl md:text-5xl font-bold tracking-tight">CdTe Solar Cell Degradation</h1>
-                <p className="mt-3 text-slate-300 max-w-4xl leading-7 text-sm md:text-lg">
-                  How CdTe thin-film solar cells age under light, heat, moisture, and defect migration &mdash;
-                  from Cu back-contact diffusion to CdSeTe mitigation strategies.
-                </p>
-              </div>
+    <div style={{
+      minHeight: "60vh",
+      fontFamily: "'IBM Plex Mono', 'JetBrains Mono', 'Fira Code', monospace",
+      color: T.ink,
+    }}>
+      {/* Header */}
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 10, letterSpacing: 2, color: C.degrad, fontWeight: 700, textTransform: "uppercase" }}>
+          INTERACTIVE MODULE
+        </div>
+        <div style={{ fontSize: 16, fontWeight: 800, color: T.ink }}>
+          CdTe Solar Cell Degradation
+        </div>
+        <div style={{ fontSize: 11, color: T.muted, marginTop: 4 }}>
+          Explore how CdTe thin-film cells age under light, heat, moisture, defect migration, and mechanical stress.
+        </div>
+      </div>
 
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 min-w-full xl:min-w-[520px] xl:max-w-[620px]">
-                <StatTile icon={BarChart3} label="Scene" value={`${index + 1}/${timeline.length}`} tone="text-cyan-300" />
-                <StatTile icon={paused ? Pause : Play} label="Playback" value={paused ? "Paused" : "Running"} tone="text-emerald-300" />
-                <StatTile icon={Gauge} label="Duration" value={`${sceneDuration / 1000}s`} tone="text-amber-300" />
-                <StatTile icon={TimerReset} label="Trend" value={stage.id < 3 ? "Early" : stage.id < 6 ? "Mid" : "Late"} tone="text-fuchsia-300" />
-              </div>
-            </div>
-          </div>
+      {/* Section tabs */}
+      <div style={{
+        display: "flex", gap: 4, flexWrap: "wrap", marginBottom: 16,
+        padding: "8px 0", borderBottom: `1px solid ${T.border}`,
+      }}>
+        {DEGRAD_SECTIONS.map((s, i) => (
+          <button key={s.id} onClick={() => setActive(s.id)} style={{
+            padding: "6px 12px", borderRadius: 8, fontSize: 11,
+            border: `1px solid ${active === s.id ? s.color : T.border}`,
+            background: active === s.id ? s.color + "18" : T.bg,
+            color: active === s.id ? s.color : T.muted,
+            cursor: "pointer", fontFamily: "inherit", fontWeight: active === s.id ? 700 : 400,
+            display: "flex", alignItems: "center", gap: 5, whiteSpace: "nowrap",
+            transition: "all 0.15s",
+          }}>
+            <span style={{ fontSize: 9, color: active === s.id ? s.color : T.dim }}>{i + 1}.</span>
+            {s.label}
+          </button>
+        ))}
+      </div>
 
-          {/* Controls */}
-          <div className="px-5 md:px-8 py-5 border-b border-white/10 bg-slate-950/30">
-            <div className="grid xl:grid-cols-[1.1fr_0.9fr] gap-4 items-center">
-              <div className="flex flex-wrap items-center gap-3">
-                <ControlButton onClick={goPrev}>
-                  <span className="flex items-center gap-2"><SkipBack className="h-4 w-4" /> Previous</span>
-                </ControlButton>
-                <ControlButton onClick={() => setPaused((p) => !p)} active={paused}>
-                  <span className="flex items-center gap-2">{paused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}{paused ? "Play" : "Pause"}</span>
-                </ControlButton>
-                <ControlButton onClick={goNext}>
-                  <span className="flex items-center gap-2"><SkipForward className="h-4 w-4" /> Next</span>
-                </ControlButton>
-              </div>
+      {/* Active section content */}
+      <div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+          <div style={{ width: 4, height: 20, borderRadius: 2, background: sec.color }} />
+          <div style={{ fontSize: 14, fontWeight: 800, color: sec.color, letterSpacing: 0.5 }}>{sec.label}</div>
+        </div>
+        <Component />
+      </div>
 
-              <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 flex items-center gap-3">
-                <Gauge className="h-5 w-5 text-cyan-300 shrink-0" />
-                <span className="text-sm text-slate-300 whitespace-nowrap">Scene duration</span>
-                <input
-                  type="range"
-                  min="3000"
-                  max="12000"
-                  step="1000"
-                  value={sceneDuration}
-                  onChange={(e) => setSceneDuration(Number(e.target.value))}
-                  className="w-full"
-                />
-                <span className="text-sm text-slate-300 whitespace-nowrap">{sceneDuration / 1000}s</span>
-              </div>
-            </div>
-          </div>
+      {/* Bottom nav */}
+      <div style={{
+        marginTop: 20, paddingTop: 12, borderTop: `1px solid ${T.border}`,
+        display: "flex", justifyContent: "space-between", alignItems: "center",
+      }}>
+        <button onClick={() => { if (secIdx > 0) setActive(DEGRAD_SECTIONS[secIdx - 1].id); }}
+          disabled={secIdx === 0} style={{
+          padding: "6px 16px", borderRadius: 8, fontSize: 12,
+          background: secIdx === 0 ? T.surface : sec.color + "18",
+          border: `1px solid ${secIdx === 0 ? T.border : sec.color}`,
+          color: secIdx === 0 ? T.muted : sec.color,
+          cursor: secIdx === 0 ? "default" : "pointer", fontFamily: "inherit", fontWeight: 600,
+        }}>{"\u2190"} Previous</button>
 
-          {/* Main content */}
-          <div className="px-5 md:px-8 py-5 md:py-6 grid xl:grid-cols-[1.15fr_0.85fr] gap-6 items-start">
-            <div className="space-y-6">
-              <motion.div layout className="rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-md p-5 md:p-6 shadow-2xl">
-                <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-5 items-start">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className="h-12 w-12 rounded-2xl bg-white/10 flex items-center justify-center border border-white/10">
-                        <Icon className={`h-6 w-6 ${stage.color}`} />
-                      </div>
-                      <div>
-                        <h2 className="text-2xl md:text-3xl font-semibold leading-tight">{stage.title}</h2>
-                        <p className="text-slate-400">{stage.subtitle}</p>
-                      </div>
-                    </div>
+        <div style={{ display: "flex", gap: 4 }}>
+          {DEGRAD_SECTIONS.map((s, i) => (
+            <div key={s.id} onClick={() => setActive(s.id)} style={{
+              width: 7, height: 7, borderRadius: 4,
+              background: active === s.id ? s.color : T.dim,
+              cursor: "pointer", transition: "all 0.2s",
+            }} />
+          ))}
+        </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      <MetricBar label="Efficiency" value={metrics.efficiency} color="bg-emerald-400" />
-                      <MetricBar label="Voltage" value={metrics.voltage} color="bg-cyan-400" />
-                      <MetricBar label="Stability" value={metrics.stability} color="bg-fuchsia-400" />
-                    </div>
-
-                    <CompactInfoCard title="Scene summary" icon={BookOpen}>
-                      {stage.summary}
-                    </CompactInfoCard>
-                  </div>
-
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={stage.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <LayerStack stage={stage} paused={paused} />
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </motion.div>
-
-              <div className="grid lg:grid-cols-2 gap-6">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`text-${stage.id}`}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.45 }}
-                    className="rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-md p-6 shadow-2xl"
-                  >
-                    <h3 className="text-xl font-semibold mb-3">Detailed points</h3>
-                    <ul className="space-y-3 mb-5">
-                      {stage.details.map((item, i) => (
-                        <motion.li
-                          key={i}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: i * 0.06 }}
-                          className="flex gap-3 text-slate-300 leading-7"
-                        >
-                          <span className="mt-2 h-2.5 w-2.5 rounded-full bg-purple-400 shrink-0" />
-                          <span>{item}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                </AnimatePresence>
-
-                <div className="space-y-6">
-                  <CompactInfoCard title="Physical mechanism" icon={Activity}>
-                    {stage.mechanism}
-                  </CompactInfoCard>
-                  <CompactInfoCard title="Main lesson" icon={Sparkles}>
-                    {stage.takeaway}
-                  </CompactInfoCard>
-                  <CompactInfoCard title="Main degradation effect" icon={AlertTriangle}>
-                    {stage.stress}
-                  </CompactInfoCard>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-6 xl:sticky xl:top-6">
-              <EquationCard equations={stage.equations} />
-
-              <motion.div layout className="rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-md p-5 shadow-2xl">
-                <h3 className="text-xl font-semibold mb-4">Timeline navigator</h3>
-                <div className="grid gap-3 max-h-[620px] overflow-y-auto pr-1">
-                  {timeline.map((item, i) => {
-                    const ItemIcon = item.icon;
-                    const active = i === index;
-                    return (
-                      <button
-                        key={item.id}
-                        onClick={() => setIndex(i)}
-                        className={`w-full text-left rounded-2xl border px-4 py-3 transition ${
-                          active
-                            ? "bg-purple-400/10 border-purple-300/40"
-                            : "bg-white/5 border-white/10 hover:bg-white/10"
-                        }`}
-                      >
-                        <div className="flex items-start gap-3">
-                          <div className={`mt-0.5 h-10 w-10 rounded-2xl border border-white/10 bg-slate-950/60 flex items-center justify-center ${active ? "text-purple-300" : "text-slate-400"}`}>
-                            <ItemIcon className="h-5 w-5" />
-                          </div>
-                          <div className="min-w-0">
-                            <div className="font-medium leading-6">{item.title}</div>
-                            <div className="text-sm text-slate-400">{item.subtitle}</div>
-                          </div>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
+        <button onClick={() => { if (secIdx < DEGRAD_SECTIONS.length - 1) setActive(DEGRAD_SECTIONS[secIdx + 1].id); }}
+          disabled={secIdx === DEGRAD_SECTIONS.length - 1} style={{
+          padding: "6px 16px", borderRadius: 8, fontSize: 12,
+          background: secIdx === DEGRAD_SECTIONS.length - 1 ? T.surface : sec.color + "18",
+          border: `1px solid ${secIdx === DEGRAD_SECTIONS.length - 1 ? T.border : sec.color}`,
+          color: secIdx === DEGRAD_SECTIONS.length - 1 ? T.muted : sec.color,
+          cursor: secIdx === DEGRAD_SECTIONS.length - 1 ? "default" : "pointer", fontFamily: "inherit", fontWeight: 600,
+        }}>Next {"\u2192"}</button>
       </div>
     </div>
   );
