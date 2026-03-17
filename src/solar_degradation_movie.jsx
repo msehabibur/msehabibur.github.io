@@ -889,7 +889,8 @@ export default function SolarCellDegradationMovie() {
 
   return (
     <div style={{
-      minHeight: "60vh",
+      maxWidth: 700,
+      margin: "0 auto",
       fontFamily: "'IBM Plex Mono', 'JetBrains Mono', 'Fira Code', monospace",
       color: T.ink,
     }}>
