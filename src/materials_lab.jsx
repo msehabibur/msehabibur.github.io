@@ -3689,6 +3689,12 @@ function BondSection() {
 
   return (
     <Card color={T.ff_bond} title="Bond (Harmonic)" formula="U = ½ kᵦ(r − r₀)²">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Imagine two balls connected by a spring. Push them together or pull them apart {"\u2014"} the spring always fights back toward its natural length. The stiffer the spring (higher k), the harder it resists. That is exactly what the <strong>harmonic bond potential</strong> does: it treats every chemical bond as a tiny spring. Stretch a C{"\u2013"}C bond beyond its resting length and it pulls back; compress it and it pushes out. The catch? A real spring can snap, but this formula says the energy rises forever {"\u2014"} the bond never breaks.
+        </div>
+      </div>
       <div style={{ display:"flex", gap:18, flexWrap:"wrap" }}>
         <div style={{ flex:"0 0 350px" }}>
           <Plot data={energyCurve} xMin={0.5} xMax={4.5} yMin={0} yMax={Math.min(30, 0.5*kb*sq(4.5-r0))}
@@ -3757,6 +3763,12 @@ function AngleSection() {
 
   return (
     <Card color={T.ff_angle} title="Angle (Harmonic)" formula="U = ½ kθ(θ − θ₀)²">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Think of a door hinge with a built-in return spring. Open the door past its resting angle and the spring pulls it back; push it the other way and it resists equally. The <strong>angle potential</strong> works the same way: three atoms form a hinge, and the middle atom is the pivot. A stiff hinge (high k{"\u03B8"}) means the molecule is rigid like diamond; a loose hinge means it is floppy like a polymer chain. The formula is identical to the bond spring {"\u2014"} just swap distance for angle.
+        </div>
+      </div>
       <div style={{ display:"flex", gap:18, flexWrap:"wrap" }}>
         <div style={{ flex:"0 0 350px" }}>
           <Plot data={energyCurve} xMin={30} xMax={180} yMin={0} yMax={Math.max(0.5, 0.5*kth*sq(toRad(30)-toRad(theta0)))}
@@ -3864,6 +3876,12 @@ function VdwSection() {
 
   return (
     <Card color={T.ff_vdw} title="van der Waals (Lennard-Jones 12-6)" formula="U = 4ε[(σ/r)¹² − (σ/r)⁶]">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Imagine two people on a dance floor. From far away they gently attract each other (want to socialize). As they get close there is a comfortable personal-space distance where both are happiest {"\u2014"} that is the <strong>energy minimum</strong> ({"\u03C3"}). But if you shove them even closer, they push back hard because nobody likes their personal bubble invaded. The <strong>Lennard-Jones potential</strong> captures exactly this: gentle long-range attraction (London dispersion, the r{"\u2076"} term) and violent short-range repulsion when electron clouds overlap (the r{"\u00B9\u00B2"} wall).
+        </div>
+      </div>
       <div style={{ display:"flex", gap:18, flexWrap:"wrap" }}>
         <div style={{ flex:"0 0 350px" }}>
           <Plot data={curve} xMin={sig*0.85} xMax={sig*3.35} yMin={yMin} yMax={yMax}
@@ -3939,6 +3957,12 @@ function CoulombSection() {
 
   return (
     <Card color={T.ff_coul} title="Coulomb (Electrostatic)" formula="U = qᵢqⱼ / (4πε₀ rᵢⱼ)">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Think of two magnets. Opposite poles snap together from across the table; same poles push each other away. <strong>Coulomb{"\u2019"}s law</strong> is the atomic version: positive meets negative {"\u2192"} attraction (Na{"\u207A"} and Cl{"\u207B"} in table salt). Positive meets positive {"\u2192"} repulsion. The key difference from van der Waals? This force is like someone <strong>shouting</strong> across a room (1/r, slow decay) rather than whispering to a neighbor (1/r{"\u2076"}, fast decay). Even atoms 100 {"\u00C5"} apart still feel the Coulomb pull, which is why ionic crystals are so strongly bound.
+        </div>
+      </div>
       <div style={{ display:"flex", gap:18, flexWrap:"wrap" }}>
         <div style={{ flex:"0 0 350px" }}>
           <Plot data={curve} xMin={0.5} xMax={10} yMin={clamp(yMin,-20,0)-0.5} yMax={clamp(yMax,0,20)+0.5}
@@ -4038,6 +4062,12 @@ function DihedralSection() {
 
   return (
     <Card color={T.ff_dih} title="Dihedral (Torsion)" formula="U = Σₙ kₙ[1 + cos(nϕ − δₙ)]">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Picture a revolving door with notches. As you spin it, the door clicks into preferred positions (staggered) and resists stopping at awkward positions (eclipsed). The <strong>dihedral potential</strong> does the same for four atoms in a chain: it creates energy hills and valleys as one end rotates relative to the other around the central bond. The number of {"\u201C"}notches{"\u201D"} per full rotation is n {"\u2014"} for a C{"\u2013"}C bond n=3 gives three comfortable staggered positions and three uncomfortable eclipsed positions per 360{"\u00B0"}.
+        </div>
+      </div>
       <div style={{ display:"flex", gap:18, flexWrap:"wrap" }}>
         <div style={{ flex:"0 0 350px" }}>
           <Plot data={curve} xMin={-180} xMax={180} yMin={0} yMax={kn*2.1}
@@ -4163,6 +4193,12 @@ function MorseSection() {
 
   return (
     <Card color={T.ff_morse} title="Morse Potential (Anharmonic Bond)" formula="U = Dₑ[1 − e^{−a(r−r₀)}]²">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Imagine stretching a rubber band. A little stretch {"\u2014"} it snaps back easily (like the harmonic spring). But keep pulling and eventually it <strong>snaps</strong>: the bond breaks and costs a fixed amount of energy (D{"\u2091"}). Compressing it is much harder {"\u2014"} like trying to squeeze two bowling balls together. The <strong>Morse potential</strong> captures this real-world asymmetry: compression is a steep wall, stretching is a gentle slope that flattens out when the bond breaks. Unlike the harmonic spring, Morse knows that bonds can actually break {"\u2014"} the energy plateaus at D{"\u2091"} instead of rising to infinity.
+        </div>
+      </div>
       <div style={{ display:"flex", gap:18, flexWrap:"wrap" }}>
         <div style={{ flex:"0 0 350px" }}>
           <Plot data={morseCurve} xMin={r0*0.5} xMax={r0*3.0} yMin={yMin} yMax={yMax}
@@ -4275,6 +4311,12 @@ function FittingSection() {
 
   return (
     <Card color={T.ff_fit} title="Fitting Empirical Force Fields" formula="min Σᵢ [U_LJ(rᵢ; ε,σ) − E_DFT(rᵢ)]²">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Imagine fitting a curved ruler to a set of dots on a graph. You can slide the ruler up/down ({"\u03B5"}) and stretch it left/right ({"\u03C3"}), but its <strong>shape is fixed</strong> {"\u2014"} it is always the same S-curve. If the dots actually follow that shape, great {"\u2014"} you get a perfect fit. But if the real data has a bump or kink the ruler cannot bend to match, no amount of sliding will fix it. That is the fundamental limitation of empirical force field fitting: the <strong>functional form is chosen by humans</strong>, and the optimizer can only adjust the knobs (parameters) within that rigid template.
+        </div>
+      </div>
       <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 370px" }}>
           {/* Custom SVG with curve + DFT scatter points */}
@@ -4405,6 +4447,12 @@ function MLFFSection() {
 
   return (
     <Card color={T.ff_mlff} title="Machine Learning Force Fields (MLFF)" formula="E = NN(descriptors({rᵢ}))   F = −∂E/∂rᵢ">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          If empirical force fields are like fitting data with a <strong>pre-shaped ruler</strong>, MLFFs are like giving an artist a <strong>flexible spline</strong> that can bend into any shape. The neural network has no fixed formula {"\u2014"} it learns the energy surface from thousands of DFT examples, automatically discovering complex patterns that no human-designed equation could capture. The trade-off? The artist needs to see many examples to learn (thousands of DFT calculations), and drawing with a spline is slower than stamping with a ruler (10{"\u2013"}100{"\u00D7"} slower than classical FF). But the result is near-DFT accuracy at a fraction of DFT{"\u2019"}s computational cost.
+        </div>
+      </div>
       <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 380px" }}>
           {/* Pipeline diagram */}
@@ -4606,6 +4654,12 @@ function EAMSection() {
 
   return (
     <Card color={T.eo_core} title="Embedded Atom Method (EAM)" formula="E_total = Σᵢ F(ρ̄ᵢ) + ½ Σᵢ Σⱼ≠ᵢ φ(rᵢⱼ)">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Imagine you are at a crowded party. Standing alone in a corner feels lonely (high energy). Walking into a group of 12 friends feels great (low energy). But notice: the happiness boost from friend #2 is huge, while friend #12 barely adds anything {"\u2014"} <strong>diminishing returns</strong>. That is exactly how EAM works for metals: each atom is {"\u201C"}embedded{"\u201D"} in the electron cloud of its neighbors. More neighbors = more stable, but with a square-root law ({"\u221A\u03C1"}) so the benefit of each additional neighbor shrinks. This is why a surface atom (fewer neighbors) pulls inward to get closer to more friends {"\u2014"} surface relaxation.
+        </div>
+      </div>
 
       {/* ── MASTER EQUATION BREAKDOWN ── */}
       <div style={{ background:T.surface, borderRadius:8, padding:14, border:`1px solid ${T.border}`, marginBottom:16 }}>
@@ -4807,6 +4861,12 @@ function ReaxFFSection() {
 
   return (
     <Card color={T.eo_e} title="ReaxFF (Reactive Force Field)" formula="E_system = E_bond + E_over + E_under + E_lp + E_val + E_tor + E_vdW + E_Coul">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Classical force fields are like <strong>Lego instructions</strong> {"\u2014"} fixed connections that never change. ReaxFF is like <strong>magnetic building blocks</strong>: pieces snap together and pull apart dynamically based on how close they are. The secret is <strong>bond order</strong>, a smooth number from 0 (no bond) to 3 (triple bond) that updates every timestep based on distance. Bring two atoms close {"\u2192"} bond order rises {"\u2192"} bond forms. Pull them apart {"\u2192"} bond order falls to zero {"\u2192"} bond breaks. No predefined topology needed. This lets ReaxFF simulate chemical reactions {"\u2014"} combustion, corrosion, explosions {"\u2014"} that would be impossible with fixed-bond force fields.
+        </div>
+      </div>
 
       {/* ── MASTER EQUATION BREAKDOWN ── */}
       <div style={{ background:T.surface, borderRadius:8, padding:14, border:`1px solid ${T.border}`, marginBottom:16 }}>
@@ -4968,6 +5028,12 @@ function ReaxFFTrainingSection() {
 
   return (
     <Card color={T.eo_cond} title="ReaxFF Training" formula="min Σᵢ wᵢ [E_ReaxFF − E_DFT]²">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Training ReaxFF is like <strong>tuning a piano with 1000 strings</strong>. Each string (parameter) affects the sound (energy prediction). You play a reference piece (DFT data) and compare it to what the piano produces {"\u2014"} every wrong note is an error. The optimizer tightens and loosens strings until the piano sounds as close as possible to the reference. The tricky part? Tightening one string can detune three others (parameter correlation). And if you only practice classical music (hydrocarbons), the piano will sound terrible playing jazz (ionic crystals) {"\u2014"} that is the <strong>transferability problem</strong>.
+        </div>
+      </div>
 
       {/* ── TRAINING OBJECTIVE EXPLAINED ── */}
       <div style={{ background:T.surface, borderRadius:8, padding:14, border:`1px solid ${T.border}`, marginBottom:16 }}>
@@ -5205,6 +5271,12 @@ function CompareSection() {
 
   return (
     <div style={{ background:T.panel, border:`1.5px solid ${T.border}`, borderRadius:10, padding:18 }}>
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Building a force field is like assembling a <strong>toolkit for a mechanic</strong>. Bond stretching is the wrench (handles pull/push along a shaft). Angle bending is the protractor (measures and resists bending). vdW is the bumper (keeps non-touching parts from colliding). Coulomb is the magnet (long-range pull or push). Dihedral is the ratchet (controls rotation). Morse is the upgraded wrench that knows when a bolt snaps. No single tool does everything {"\u2014"} you need the whole toolkit together. And if you need to handle something exotic (like a chemical reaction), you upgrade to the power-tool version: ReaxFF or MLFF.
+        </div>
+      </div>
       <div style={{ fontSize:14, fontWeight:800, color:T.ink, marginBottom:14, letterSpacing:0.5 }}>
         All 6 terms — side by side
       </div>
