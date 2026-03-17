@@ -4342,7 +4342,367 @@ function DensityOfStatesSection() {
   );
 }
 
-// ─── Section 2: Semiconductor Doping ────────────────────────────────────────
+// ─── Section 2: Material Classes ────────────────────────────────────────────
+
+function MaterialClassesSection() {
+  const [frame, setFrame] = useState(0);
+  const [selected, setSelected] = useState("metal");
+
+  useEffect(() => {
+    const id = setInterval(() => setFrame(f => f + 1), 45);
+    return () => clearInterval(id);
+  }, []);
+
+  const matTypes = [
+    { id: "metal",        label: "Metal",         color: "#2563eb", bandGap: 0,    example: "Cu, Al, Fe",    conductivity: "10\u2076 \u2013 10\u2078 S/m" },
+    { id: "semiconductor", label: "Semiconductor", color: "#059669", bandGap: 0.5,  example: "Si, GaAs, CdTe", conductivity: "10\u207B\u2076 \u2013 10\u2074 S/m" },
+    { id: "insulator",    label: "Insulator",      color: "#dc2626", bandGap: 5.0,  example: "SiO\u2082, Diamond, Al\u2082O\u2083", conductivity: "< 10\u207B\u00B9\u2070 S/m" },
+    { id: "polymer",      label: "Polymer",        color: "#9333ea", bandGap: 3.5,  example: "PE, PMMA, Kevlar", conductivity: "10\u207B\u00B9\u2074 \u2013 10\u207B\u00B9\u2070 S/m" },
+    { id: "ceramic",      label: "Ceramic",        color: "#b45309", bandGap: 4.0,  example: "Al\u2082O\u2083, ZrO\u2082, SiC", conductivity: "10\u207B\u00B9\u00B2 \u2013 10\u00B2 S/m" },
+  ];
+
+  const sel = matTypes.find(m => m.id === selected);
+
+  // Detailed info for each material class
+  const info = {
+    metal: {
+      analogy: "A metal is like a \u201Cmosh pit\u201D at a concert. The fans (electrons) are not attached to any single person (atom) \u2014 they flow freely through the whole crowd. Push from one side (apply voltage) and the entire sea of fans surges in that direction. That is why metals conduct electricity so well: their outermost electrons are delocalized, shared by every atom in the crystal, forming an \u201Celectron sea.\u201D",
+      bonding: "Metallic bonding \u2014 positive ion cores sit in a sea of delocalized electrons. No directional preference.",
+      bandDesc: "Conduction band and valence band OVERLAP \u2014 there is no gap. Electrons can move freely with any tiny push of energy.",
+      properties: ["Excellent electrical & thermal conductor", "Ductile & malleable (electron sea allows planes to slide)", "Shiny / reflective (free electrons absorb & re-emit photons)", "High melting point (strong metallic bond in transition metals)"],
+      weakness: "Corrodes in oxidizing environments. Heavy. Cannot be transparent.",
+      animation: "freeElectrons",
+    },
+    semiconductor: {
+      analogy: "A semiconductor is like a library with a \u201Cquiet room\u201D (valence band) and a \u201Cwork room\u201D (conduction band) separated by a locked door (band gap). At zero temperature, everyone sits quietly \u2014 no current flows. But heat the room (add thermal energy) or shine a flashlight (photon) and some readers gain enough energy to jump through the door into the work room, where they can move freely. The bigger the gap, the harder the jump.",
+      bonding: "Covalent bonding \u2014 atoms share electron pairs in directional sp\u00B3 bonds (like diamond structure for Si).",
+      bandDesc: "Small band gap (0.1 \u2013 4 eV). At 0 K: insulator. At room temperature: some electrons thermally excited across the gap.",
+      properties: ["Conductivity tunable by doping (add impurities)", "Temperature-dependent conductivity (increases with T)", "Photosensitive (absorbs photons with E > E_gap)", "Foundation of all modern electronics (transistors, solar cells, LEDs)"],
+      weakness: "Pure form is a poor conductor. Requires extreme purity for device fabrication.",
+      animation: "gapJump",
+    },
+    insulator: {
+      analogy: "An insulator is like a prison with an impossibly high wall (huge band gap). The inmates (electrons) are locked in their cells (valence band) and no amount of room-temperature energy can help them escape over the wall into freedom (conduction band). You would need an enormous energy boost \u2014 like a lightning strike \u2014 to force electrons across. That is why glass, rubber, and diamond do not conduct electricity under normal conditions.",
+      bonding: "Strong ionic or covalent bonds lock electrons tightly to atoms. No free carriers available.",
+      bandDesc: "Very large band gap (> 4 eV). Virtually no electrons in conduction band at room temperature.",
+      properties: ["Excellent electrical insulator (used in capacitors, coatings)", "Often optically transparent (photon energy < band gap)", "High dielectric strength (resists breakdown)", "Thermally stable (strong bonds = high melting point)"],
+      weakness: "Brittle. Cannot conduct electricity (a feature, not a bug, for insulation).",
+      animation: "lockedElectrons",
+    },
+    polymer: {
+      analogy: "A polymer is like a bowl of cooked spaghetti. Each noodle (polymer chain) is made of thousands of repeating units (monomers) linked end-to-end by strong covalent bonds. But the noodles themselves are held together only by weak van der Waals forces \u2014 so the whole bowl is flexible and soft. Heat it up and the noodles slide past each other (melting). Pull a single noodle and it stretches before breaking (ductility). Most polymers are electrical insulators because electrons are locked within each chain.",
+      bonding: "Strong covalent bonds ALONG the chain. Weak van der Waals or hydrogen bonds BETWEEN chains.",
+      bandDesc: "Large band gap (3\u20138 eV for most). Conjugated polymers (polyacetylene) can have smaller gaps and conduct.",
+      properties: ["Lightweight and flexible", "Easy to process (injection molding, extrusion)", "Chemical resistance (PE resists acids, bases)", "Electrical insulator (used for wire coatings, plastic housings)"],
+      weakness: "Low melting point. Degrades under UV. Poor thermal conductor. Not recyclable (thermosets).",
+      animation: "chainWiggle",
+    },
+    ceramic: {
+      analogy: "A ceramic is like a brick wall \u2014 incredibly strong under compression (you can stack thousands of bricks) but shatter it with a sideways blow (brittle under tension). The atoms are locked in a rigid ionic or covalent network with no free electrons and no ability for planes to slide. This makes ceramics hard, heat-resistant, and electrically insulating \u2014 perfect for furnace linings, spark plugs, and thermal barrier coatings \u2014 but one crack propagates instantly because there is no electron sea to absorb the blow.",
+      bonding: "Mixed ionic + covalent bonds in a rigid 3D network. Highly directional and strong.",
+      bandDesc: "Large band gap (3\u20138 eV typically). Some exceptions: SiC (3.3 eV) is a wide-gap semiconductor.",
+      properties: ["Extremely hard and wear-resistant", "Very high melting point (Al\u2082O\u2083: 2072\u00B0C)", "Excellent thermal insulator (space shuttle tiles)", "Chemically inert (resists corrosion, oxidation)"],
+      weakness: "Brittle \u2014 catastrophic fracture with no warning. Difficult to machine or shape.",
+      animation: "rigidLattice",
+    },
+  };
+
+  const cur = info[selected];
+
+  // ── ANIMATED BAND DIAGRAM ──
+  const W = 340, H = 260;
+  const bandL = 30, bandR = 310;
+  const VBtop = 190, CBbot = selected === "metal" ? 190 : 190 - Math.min(140, sel.bandGap * 28);
+  const gapPx = VBtop - CBbot;
+
+  // Animated electrons
+  const nElectrons = selected === "metal" ? 12 : selected === "semiconductor" ? 4 : 1;
+  const electrons = Array.from({ length: nElectrons }, (_, i) => {
+    const seed = i * 137.5 + frame * 0.8;
+    const inCB = selected === "metal" || (selected === "semiconductor" && i < 2);
+    const baseY = inCB ? CBbot - 15 - (i % 3) * 14 : VBtop + 10 + (i % 3) * 14;
+    const wobbleX = bandL + 30 + ((seed * 1.3 + i * 47) % (bandR - bandL - 60));
+    const wobbleY = baseY + Math.sin(seed * 0.07 + i) * (selected === "metal" ? 6 : 3);
+    return { x: wobbleX, y: wobbleY, inCB };
+  });
+
+  // Animated polymer chain
+  const chainPts = selected === "polymer" ? Array.from({ length: 20 }, (_, i) => {
+    const baseX = 30 + i * 15;
+    const baseY = 130 + Math.sin(i * 0.8 + frame * 0.06) * 20 + Math.cos(i * 1.3 + frame * 0.04) * 10;
+    return [baseX, baseY];
+  }) : [];
+
+  // Animated ceramic lattice
+  const ceramicAtoms = selected === "ceramic" ? (() => {
+    const atoms = [];
+    for (let row = 0; row < 5; row++) {
+      for (let col = 0; col < 7; col++) {
+        const bx = 35 + col * 42;
+        const by = 60 + row * 42;
+        const vib = Math.sin(frame * 0.05 + row * 2 + col * 3) * 1.5;
+        atoms.push({ x: bx + vib, y: by + vib * 0.7, isIon: (row + col) % 2 === 0 });
+      }
+    }
+    return atoms;
+  })() : [];
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      {/* ── ANALOGY BOX ── */}
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          All materials are made of atoms, but they behave wildly differently because of <strong>how tightly they hold onto their electrons</strong>. A metal is a mosh pit (electrons roam free). A semiconductor is a library with a locked door (electrons need a push to move). An insulator is a prison with impossibly high walls (electrons are trapped). A polymer is a bowl of spaghetti (flexible chains, electrons stuck on each noodle). A ceramic is a brick wall (rigid, hard, brittle). Select each material below to see how its band structure, bonding, and properties differ.
+        </div>
+      </div>
+
+      {/* ── MATERIAL SELECTOR TABS ── */}
+      <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+        {matTypes.map(m => (
+          <button key={m.id} onClick={() => setSelected(m.id)} style={{
+            flex: "1 1 auto", padding: "8px 12px", borderRadius: 8, fontSize: 12, fontWeight: 700,
+            background: selected === m.id ? m.color + "18" : T.surface,
+            border: `1.5px solid ${selected === m.id ? m.color : T.border}`,
+            color: selected === m.id ? m.color : T.muted, cursor: "pointer",
+            transition: "all 0.2s",
+          }}>{m.label}</button>
+        ))}
+      </div>
+
+      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+        {/* ── LEFT: ANIMATED VISUALIZATION ── */}
+        <div style={{ flex: "0 0 350px" }}>
+          <svg viewBox={`0 0 ${W} ${H}`} style={{ display: "block", width: "100%", maxWidth: 350, background: T.surface, borderRadius: 10, border: `1.5px solid ${sel.color}33` }}>
+            {/* Title */}
+            <text x={W / 2} y={20} textAnchor="middle" fill={sel.color} fontSize={13} fontWeight="bold">{sel.label} Band Structure</text>
+
+            {/* Conduction band */}
+            <rect x={bandL} y={CBbot - 30} width={bandR - bandL} height={30} rx={4}
+              fill={T.eo_cond + "22"} stroke={T.eo_cond} strokeWidth={1.5} />
+            <text x={bandL + 6} y={CBbot - 12} fill={T.eo_cond} fontSize={10} fontWeight="bold">Conduction Band</text>
+
+            {/* Band gap label */}
+            {gapPx > 10 && <>
+              <line x1={bandR - 20} y1={CBbot + 2} x2={bandR - 20} y2={VBtop - 2} stroke={T.eo_gap} strokeWidth={1.5} strokeDasharray="4 3" />
+              <text x={bandR - 15} y={(CBbot + VBtop) / 2 + 4} fill={T.eo_gap} fontSize={11} fontWeight="bold" textAnchor="start">
+                {sel.bandGap > 0 ? `E_g = ${sel.bandGap} eV` : "No gap"}
+              </text>
+              {/* Gap shading */}
+              <rect x={bandL} y={CBbot} width={bandR - bandL} height={gapPx} fill={T.eo_gap + "08"} />
+            </>}
+
+            {/* Valence band */}
+            <rect x={bandL} y={VBtop} width={bandR - bandL} height={30} rx={4}
+              fill={T.eo_valence + "22"} stroke={T.eo_valence} strokeWidth={1.5} />
+            <text x={bandL + 6} y={VBtop + 18} fill={T.eo_valence} fontSize={10} fontWeight="bold">Valence Band</text>
+
+            {/* Overlap indicator for metals */}
+            {selected === "metal" && (
+              <text x={W / 2} y={VBtop + 6} textAnchor="middle" fill={T.eo_e} fontSize={10} fontWeight="bold">
+                \u2191 Bands OVERLAP \u2193
+              </text>
+            )}
+
+            {/* Animated electrons */}
+            {electrons.map((e, i) => (
+              <g key={i}>
+                <circle cx={e.x} cy={e.y} r={5} fill={e.inCB ? T.eo_e : T.eo_valence} opacity={0.85}>
+                  <animate attributeName="cx" values={`${e.x - 3};${e.x + 3};${e.x - 3}`} dur={`${1.2 + i * 0.15}s`} repeatCount="indefinite" />
+                </circle>
+                <text x={e.x} y={e.y + 3.5} textAnchor="middle" fill="white" fontSize={7} fontWeight="bold">e\u207B</text>
+              </g>
+            ))}
+
+            {/* Special animations per type */}
+            {selected === "semiconductor" && (
+              <g>
+                {/* Photon arrow exciting electron */}
+                <line x1={150} y1={VBtop + 15} x2={150} y2={CBbot - 5}
+                  stroke={T.eo_photon} strokeWidth={2} strokeDasharray="5 3" opacity={0.5 + 0.5 * Math.sin(frame * 0.1)}>
+                  <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2s" repeatCount="indefinite" />
+                </line>
+                <text x={155} y={(CBbot + VBtop) / 2} fill={T.eo_photon} fontSize={9} fontWeight="bold">h\u03BD \u2191</text>
+              </g>
+            )}
+
+            {selected === "insulator" && (
+              <g>
+                {/* Big X showing electrons can't cross */}
+                <text x={W / 2} y={(CBbot + VBtop) / 2 + 5} textAnchor="middle" fill={T.eo_gap} fontSize={20} fontWeight="bold" opacity={0.4 + 0.3 * Math.sin(frame * 0.08)}>
+                  \u2716 TOO WIDE
+                </text>
+              </g>
+            )}
+
+            {/* Polymer chain animation */}
+            {selected === "polymer" && chainPts.length > 1 && (
+              <g>
+                <polyline points={chainPts.map(([x, y]) => `${x},${y}`).join(" ")}
+                  fill="none" stroke={sel.color} strokeWidth={3} strokeLinecap="round" opacity={0.7} />
+                {chainPts.map(([x, y], i) => (
+                  <circle key={i} cx={x} cy={y} r={i % 3 === 0 ? 6 : 4}
+                    fill={i % 3 === 0 ? sel.color : sel.color + "66"} />
+                ))}
+                <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.muted} fontSize={9}>Wiggling polymer chain (weak inter-chain forces)</text>
+              </g>
+            )}
+
+            {/* Ceramic lattice animation */}
+            {selected === "ceramic" && ceramicAtoms.length > 0 && (
+              <g>
+                {/* Bonds */}
+                {ceramicAtoms.map((a, i) => {
+                  return ceramicAtoms.filter((b, j) => j > i && Math.abs(a.x - b.x) < 50 && Math.abs(a.y - b.y) < 50 && Math.hypot(a.x - b.x, a.y - b.y) < 50).map((b, k) => (
+                    <line key={`${i}-${k}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke={T.dim} strokeWidth={1} />
+                  ));
+                })}
+                {ceramicAtoms.map((a, i) => (
+                  <g key={i}>
+                    <circle cx={a.x} cy={a.y} r={a.isIon ? 10 : 7}
+                      fill={a.isIon ? sel.color + "33" : T.eo_gap + "33"}
+                      stroke={a.isIon ? sel.color : T.eo_gap} strokeWidth={1.5} />
+                    <text x={a.x} y={a.y + 3.5} textAnchor="middle" fill={a.isIon ? sel.color : T.eo_gap}
+                      fontSize={a.isIon ? 8 : 7} fontWeight="bold">{a.isIon ? "+" : "\u2013"}</text>
+                  </g>
+                ))}
+                <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.muted} fontSize={9}>Rigid ionic/covalent lattice (barely vibrating)</text>
+              </g>
+            )}
+
+            {/* Example label */}
+            <text x={W / 2} y={H - 2} textAnchor="middle" fill={T.muted} fontSize={9}>Examples: {sel.example}</text>
+          </svg>
+
+          {/* ── BAND GAP COMPARISON BAR ── */}
+          <div style={{ marginTop: 10, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>BAND GAP COMPARISON</div>
+            {matTypes.map(m => (
+              <div key={m.id} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                <div style={{ width: 85, fontSize: 10, fontWeight: selected === m.id ? 700 : 400, color: selected === m.id ? m.color : T.muted }}>{m.label}</div>
+                <div style={{ flex: 1, height: 12, background: T.bg, borderRadius: 6, overflow: "hidden", border: `1px solid ${T.border}` }}>
+                  <div style={{
+                    width: `${Math.min(100, m.bandGap * 12)}%`, height: "100%",
+                    background: m.color, borderRadius: 6, transition: "width 0.5s",
+                    opacity: selected === m.id ? 1 : 0.4,
+                  }} />
+                </div>
+                <div style={{ width: 50, fontSize: 10, color: m.color, fontWeight: 600, textAlign: "right" }}>
+                  {m.bandGap === 0 ? "0 eV" : `${m.bandGap} eV`}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── RIGHT: DETAILS ── */}
+        <div style={{ flex: 1, minWidth: 220 }}>
+          {/* Analogy for selected material */}
+          <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>{sel.label} Analogy</div>
+            <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>{cur.analogy}</div>
+          </div>
+
+          {/* Bonding */}
+          <div style={{ background: sel.color + "08", border: `1.5px solid ${sel.color}33`, borderRadius: 8, padding: "10px 14px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: sel.color, marginBottom: 4 }}>Bonding Type</div>
+            <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{cur.bonding}</div>
+          </div>
+
+          {/* Band structure explanation */}
+          <div style={{ background: T.surface, borderRadius: 8, padding: "10px 14px", border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Band Structure</div>
+            <div style={{ fontSize: 11, lineHeight: 1.7, color: T.muted }}>{cur.bandDesc}</div>
+            <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+              <div style={{ flex: 1, textAlign: "center", padding: "6px 8px", background: sel.color + "11", borderRadius: 6, border: `1px solid ${sel.color}33` }}>
+                <div style={{ fontSize: 10, color: T.muted }}>Band Gap</div>
+                <div style={{ fontSize: 16, fontWeight: 800, color: sel.color, fontFamily: "monospace" }}>{sel.bandGap} eV</div>
+              </div>
+              <div style={{ flex: 1, textAlign: "center", padding: "6px 8px", background: sel.color + "11", borderRadius: 6, border: `1px solid ${sel.color}33` }}>
+                <div style={{ fontSize: 10, color: T.muted }}>Conductivity</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: sel.color, fontFamily: "monospace" }}>{sel.conductivity}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Key properties */}
+          <div style={{ background: T.surface, borderRadius: 8, padding: "10px 14px", border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: T.ink, marginBottom: 6 }}>Key Properties</div>
+            {cur.properties.map((p, i) => (
+              <div key={i} style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, paddingLeft: 12, position: "relative" }}>
+                <span style={{ position: "absolute", left: 0, color: sel.color, fontWeight: 700 }}>\u2022</span>{p}
+              </div>
+            ))}
+          </div>
+
+          {/* Limitation */}
+          <div style={{ background: T.eo_gap + "08", border: `1px solid ${T.eo_gap}33`, borderRadius: 8, padding: "10px 14px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>Limitation</div>
+            <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{cur.weakness}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── COMPARISON TABLE ── */}
+      <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: `1.5px solid ${T.border}` }}>
+        <div style={{ fontSize: 13, fontWeight: 800, color: T.ink, marginBottom: 10 }}>Material Classes \u2014 Side by Side</div>
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+            <thead>
+              <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                {["Property", "Metal", "Semiconductor", "Insulator", "Polymer", "Ceramic"].map(h => (
+                  <th key={h} style={{ padding: "6px 8px", textAlign: "left", color: T.muted, fontWeight: 700, fontSize: 10 }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { prop: "Band Gap", vals: ["0 (overlap)", "0.1\u20134 eV", "> 4 eV", "3\u20138 eV", "3\u20138 eV"] },
+                { prop: "Bonding", vals: ["Metallic", "Covalent", "Ionic / Covalent", "Covalent + vdW", "Ionic + Covalent"] },
+                { prop: "Conductivity", vals: ["Very high", "Tunable (doping)", "Very low", "Very low", "Very low"] },
+                { prop: "Mechanical", vals: ["Ductile", "Brittle (crystal)", "Brittle", "Flexible", "Hard & brittle"] },
+                { prop: "Optical", vals: ["Opaque / shiny", "Absorbs > E_g", "Transparent", "Transparent/opaque", "Opaque (mostly)"] },
+                { prop: "Thermal Cond.", vals: ["High", "Moderate", "Low", "Very low", "Low (except SiC)"] },
+                { prop: "Melting Point", vals: ["Moderate\u2013High", "High", "Very high", "Low", "Very high"] },
+                { prop: "Density", vals: ["High", "Moderate", "Moderate", "Low", "Moderate\u2013High"] },
+                { prop: "Example Use", vals: ["Wires, beams", "Chips, solar cells", "Capacitors, glass", "Packaging, fibers", "Furnace tiles, armor"] },
+              ].map((row, i) => (
+                <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.surface : T.panel }}>
+                  <td style={{ padding: "5px 8px", fontWeight: 700, color: T.ink, fontSize: 10 }}>{row.prop}</td>
+                  {row.vals.map((v, j) => (
+                    <td key={j} style={{ padding: "5px 8px", color: matTypes[j].color, fontSize: 10 }}>{v}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* ── WHY THE DIFFERENCES? ── */}
+      <div style={{ background: T.surface, borderRadius: 10, padding: 14, border: `1.5px solid ${T.border}` }}>
+        <div style={{ fontSize: 13, fontWeight: 800, color: T.ink, marginBottom: 10 }}>Why Do They Differ? \u2014 It All Comes Down to Electrons</div>
+        <div style={{ fontSize: 11, lineHeight: 1.9, color: T.ink }}>
+          <strong style={{ color: T.eo_e }}>1. How tightly are electrons held?</strong> In metals, outer electrons are so loosely held they detach completely and form a shared electron sea. In insulators and ceramics, electrons are locked in strong ionic/covalent bonds.
+        </div>
+        <div style={{ fontSize: 11, lineHeight: 1.9, color: T.ink, marginTop: 6 }}>
+          <strong style={{ color: "#059669" }}>2. What is the band gap?</strong> The energy gap between filled (valence) and empty (conduction) states determines conductivity. Zero gap = metal. Small gap = semiconductor (tunable). Large gap = insulator.
+        </div>
+        <div style={{ fontSize: 11, lineHeight: 1.9, color: T.ink, marginTop: 6 }}>
+          <strong style={{ color: "#9333ea" }}>3. What type of bonding?</strong> Metallic bonds are non-directional (ductile). Covalent/ionic bonds are directional and strong (brittle). Polymer chains have strong intra-chain but weak inter-chain forces (flexible).
+        </div>
+        <div style={{ fontSize: 11, lineHeight: 1.9, color: T.ink, marginTop: 6 }}>
+          <strong style={{ color: "#b45309" }}>4. How is the structure organized?</strong> Metals pack efficiently (FCC/BCC). Ceramics form rigid lattices. Polymers form tangled chains. This controls density, melting point, and mechanical behavior.
+        </div>
+        <div style={{ marginTop: 10, fontSize: 11, lineHeight: 1.9, color: T.muted, background: "#fffbeb", padding: 12, borderRadius: 8, border: "1.5px solid #f59e0b33" }}>
+          <strong style={{ color: "#b45309" }}>The Big Picture:</strong> Every material property {"\u2014"} conductivity, hardness, transparency, melting point {"\u2014"} traces back to how atoms bond and how their electrons are arranged in energy bands. Understanding this one idea unlocks all of materials science.
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── (Legacy placeholder: SemiconductorDopingSection removed) ───────────────
 
 function SemiconductorDopingSection() {
   const [frame, setFrame] = useState(0);
@@ -6792,8 +7152,7 @@ const ELECTRON_SECTIONS = [
   // ── Act 4: Properties of the Crystal ──
   { id: "bands",           block: "properties", label: "Energy Bands",           icon: "\u{1F4CA}", color: T.eo_photon, Component: BandSection },
   { id: "dos",             block: "properties", label: "Density of States",      icon: "\u{1F4C8}", color: T.eo_photon, Component: DensityOfStatesSection },
-  { id: "doping",          block: "properties", label: "Semiconductor Doping",   icon: "\u{1F50C}", color: T.eo_photon, Component: SemiconductorDopingSection },
-  { id: "transport",       block: "properties", label: "Carrier Transport",      icon: "\u{26A1}",  color: T.eo_photon, Component: CarrierTransportSection },
+  { id: "materialClasses", block: "properties", label: "Material Classes",        icon: "\u{1F9F1}", color: T.eo_photon, Component: MaterialClassesSection },
 
   // ── Act 5: Can We Make It? ──
   { id: "thermoBasics",    block: "design", label: "Thermodynamics",         icon: "\u{1F525}", color: T.eo_e, Component: ThermodynamicsSection },
