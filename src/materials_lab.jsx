@@ -13962,7 +13962,7 @@ const MODULE_TABS = [
   { id: "forcefield",   chapter: 7,  label: "Force Fields",              color: T.eo_e,       desc: "Classical and machine-learned interatomic potentials — from harmonic bonds to ReaxFF and EAM", topics: 12 },
   { id: "pipeline",     chapter: 8,  label: "MLFF Pipeline",             color: T.eo_e,       desc: "DefectNet force field: graph neural network step by step", topics: 14 },
   { id: "llmdatamining", chapter: 9, label: "LLM Data Mining",           color: T.eo_e,       desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", topics: 3 },
-  { id: "chalcomovie",  chapter: 10, label: "Chalcogenide Movie",        color: T.eo_e,       desc: "Chalcogenide materials animation" },
+  // { id: "chalcomovie",  chapter: 10, label: "Chalcogenide Movie",        color: T.eo_e,       desc: "Chalcogenide materials animation" },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -14142,7 +14142,7 @@ export default function MaterialsLab({ initialModule = null, blogMode = false })
       {module === "dft" && <ErrorBoundary><DFTBasicsModule /></ErrorBoundary>}
       {module === "md" && <ErrorBoundary><MolecularDynamicsModule /></ErrorBoundary>}
       {module === "mc" && <ErrorBoundary><MonteCarloModule /></ErrorBoundary>}
-      {module === "chalcomovie" && <ChalcoMovieModule />}
+      {/* {module === "chalcomovie" && <ChalcoMovieModule />} */}
       {module === "defectsemi" && <ErrorBoundary><DefectSemiModule /></ErrorBoundary>}
     </div>
   );
