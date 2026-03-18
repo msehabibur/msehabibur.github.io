@@ -496,14 +496,26 @@ function AtomicModelsSection() {
           </div>
         </div>
 
+        <div style={{ background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`, borderRadius: 6, padding: 10 }}>
+          <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Why Wave-Particle Duality Comes Next {"→"}</div>
+          <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.5 }}>
+            The quantum model says electrons are <strong>waves</strong>, not particles on orbits.
+            But how do we know? The next section shows the experiment that proved it {"—"}
+            firing electrons through crystals and watching them <strong>diffract like light waves</strong>.
+            This is what forced physicists to abandon orbits and embrace wavefunctions.
+          </div>
+        </div>
+      </div>
+      </div>
+
         <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
           <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Experiment</div>
           <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
             {model === 0 && "Dalton measured the mass ratios of elements combining in chemical reactions. He found that elements always combine in fixed whole-number ratios, suggesting matter is made of indivisible atoms. This was purely chemical evidence — no one had yet probed inside an atom."}
-            {model === 1 && "Thomson applied high voltage across a glass tube with low-pressure gas. The mysterious 'cathode rays' were deflected by electric and magnetic fields, proving they were negatively charged particles. By measuring e/m, he showed these 'corpuscles' (electrons) were 1800x lighter than hydrogen — the first subatomic particle."}
-            {model === 2 && "Rutherford's team fired alpha particles at thin gold foil. Most passed straight through, but about 1 in 8000 bounced back at large angles. Rutherford said it was 'as if you fired a cannon shell at tissue paper and it came back.' This proved atoms have a tiny, dense, positive nucleus."}
+            {model === 1 && "Thomson applied high voltage across a glass tube with low-pressure gas. The mysterious ‘cathode rays’ were deflected by electric and magnetic fields, proving they were negatively charged particles. By measuring e/m, he showed these ‘corpuscles’ (electrons) were 1800x lighter than hydrogen — the first subatomic particle."}
+            {model === 2 && "Rutherford’s team fired alpha particles at thin gold foil. Most passed straight through, but about 1 in 8000 bounced back at large angles. Rutherford said it was ‘as if you fired a cannon shell at tissue paper and it came back.’ This proved atoms have a tiny, dense, positive nucleus."}
             {model === 3 && "Bohr studied the hydrogen emission spectrum — discrete colored lines, not a continuous rainbow. He postulated that electrons orbit only at specific radii where angular momentum is quantized (L = nh/2π). His formula Eₙ = -13.6/n² eV perfectly matched every observed hydrogen spectral line."}
-            {model === 4 && "Sommerfeld noticed that hydrogen spectral lines, when examined at high resolution, split into closely spaced doublets (fine structure). He extended Bohr's circular orbits to elliptical ones and added relativistic corrections, introducing the angular momentum quantum number l. This explained the fine splitting but still treated electrons as classical particles on paths."}
+            {model === 4 && "Sommerfeld noticed that hydrogen spectral lines, when examined at high resolution, split into closely spaced doublets (fine structure). He extended Bohr’s circular orbits to elliptical ones and added relativistic corrections, introducing the angular momentum quantum number l. This explained the fine splitting but still treated electrons as classical particles on paths."}
             {model === 5 && "In 1927, Davisson and Germer fired electrons at a nickel crystal and observed a diffraction pattern — proving electrons are waves. Schrödinger then formulated his wave equation, replacing orbits with probability clouds. This quantum mechanical model explains everything: multi-electron atoms, chemical bonding, and the behavior of semiconductors."}
           </div>
         </div>
@@ -516,18 +528,6 @@ function AtomicModelsSection() {
             For materials science, we use QM (DFT) for real calculations.
           </div>
         </div>
-
-        <div style={{ background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`, borderRadius: 6, padding: 10 }}>
-          <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Why Wave-Particle Duality Comes Next {"→"}</div>
-          <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.5 }}>
-            The quantum model says electrons are <strong>waves</strong>, not particles on orbits.
-            But how do we know? The next section shows the experiment that proved it {"—"}
-            firing electrons through crystals and watching them <strong>diffract like light waves</strong>.
-            This is what forced physicists to abandon orbits and embrace wavefunctions.
-          </div>
-        </div>
-      </div>
-      </div>
     </div>
   );
 }
@@ -1657,6 +1657,20 @@ function SchrodingerSection() {
           </div>
         </div>
 
+        <div style={{
+          background: `${T.eo_valence}11`, border: `1px solid ${T.eo_valence}44`,
+          borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+        }}>
+          <div style={{ fontWeight: "bold", color: T.eo_valence, marginBottom: 4 }}>Why This Leads to Quantum Numbers {"→"}</div>
+          <div style={{ color: T.ink }}>
+            Hydrogen has only <strong>one</strong> quantum number (n). But the full 3D solution reveals
+            <strong> three more</strong>: l (shape), m{"ₗ"} (orientation), m{"ₛ"} (spin).
+            Together they define every possible orbital {"—"} and explain the entire periodic table.
+          </div>
+        </div>
+      </div>
+      </div>
+
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 12, color: T.muted, marginBottom: 6 }}>Select energy level (click or use buttons):</div>
           <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
@@ -1692,20 +1706,6 @@ function SchrodingerSection() {
             Inspired by de Broglie{"'"}s 1924 thesis on matter waves, Erwin Schr{"ö"}dinger derived his famous wave equation during a Christmas vacation in 1925 at a villa in Arosa, Switzerland. Meanwhile, Werner Heisenberg independently developed an equivalent "matrix mechanics" approach in G{"ö"}ttingen. The two formulations were later shown to be mathematically identical. Max Born provided the crucial interpretation: the wavefunction {"ψ"} itself is not physical, but |{"ψ"}|{"²"} gives the probability of finding the electron at a given location — replacing deterministic orbits with probability clouds.
           </div>
         </div>
-
-        <div style={{
-          background: `${T.eo_valence}11`, border: `1px solid ${T.eo_valence}44`,
-          borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
-        }}>
-          <div style={{ fontWeight: "bold", color: T.eo_valence, marginBottom: 4 }}>Why This Leads to Quantum Numbers {"→"}</div>
-          <div style={{ color: T.ink }}>
-            Hydrogen has only <strong>one</strong> quantum number (n). But the full 3D solution reveals
-            <strong> three more</strong>: l (shape), m{"ₗ"} (orientation), m{"ₛ"} (spin).
-            Together they define every possible orbital {"—"} and explain the entire periodic table.
-          </div>
-        </div>
-      </div>
-      </div>
     </div>
   );
 }
@@ -2043,6 +2043,9 @@ function QuantumNumbersSection() {
           </div>
         </div>
 
+      </div>
+      </div>
+
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
           <div style={{ fontSize: 11, fontWeight: "bold", color: T.muted, marginBottom: 6 }}>
             Filling Order (Aufbau):
@@ -2088,8 +2091,6 @@ function QuantumNumbersSection() {
             Now that we know the four quantum numbers (n, l, m_l, m_s) define every possible orbital, we need rules for how electrons actually fill them. The Aufbau principle and Pauli exclusion principle tell us the filling order — and explain why elements have the electron configurations they do.
           </div>
         </div>
-      </div>
-      </div>
     </div>
   );
 }
@@ -2305,6 +2306,9 @@ function PeriodicTrendsSection() {
           </div>
         )}
 
+      </div>
+      </div>
+
         {/* Property definition */}
         <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
           <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_e }}>
@@ -2379,8 +2383,6 @@ function PeriodicTrendsSection() {
             Electronegativity differences between atoms determine how they share or transfer electrons — which is exactly what defines bond types. Understanding periodic trends lets us predict whether atoms will form covalent, ionic, or metallic bonds.
           </div>
         </div>
-      </div>
-      </div>
     </div>
   );
 }
@@ -6805,7 +6807,7 @@ function ChemicalPotentialSection() {
         </svg>
 
         {/* MBE Growth Animation — below stability polygon */}
-        <div style={{ marginTop: 8, fontSize: 13, fontWeight: 700, color: T.eo_valence, marginBottom: 4 }}>MBE Thin Film Growth</div>
+        <div style={{ marginTop: 8, fontSize: 13, fontWeight: 700, color: T.eo_valence, marginBottom: 4, textAlign: "center" }}>MBE Thin Film Growth</div>
         <svg viewBox="0 0 400 170" style={{ width: "100%", maxWidth: W, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
           {(() => {
             const t = frame * 0.05;
