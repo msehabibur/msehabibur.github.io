@@ -877,7 +877,7 @@ function ElectronOriginsZnTeSection() {
       ];
 
       return (
-        <svg viewBox="0 0 340 320" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
+        <svg viewBox="0 0 340 360" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
           <text x={170} y={18} textAnchor="middle" fill={T.ink} fontSize={12} fontFamily="monospace" fontWeight="bold">
             {stage === 0 ? "Isolated Atoms: Zn + Te" : "Bond Formation"}
           </text>
@@ -919,31 +919,31 @@ function ElectronOriginsZnTeSection() {
             </g>
           )}
 
-          <text x={znDraw} y={200} textAnchor="middle" fill={T.eo_e} fontSize={12} fontFamily="monospace">[Ar] 3d¹⁰ 4s²</text>
-          <text x={znDraw} y={212} textAnchor="middle" fill={T.eo_e} fontSize={12} fontFamily="monospace" fontWeight="bold">↑ valence: 4s²</text>
-          <text x={znDraw} y={224} textAnchor="middle" fill={T.eo_e} fontSize={12} fontFamily="monospace" fontWeight="bold">2 e⁻</text>
+          <text x={znDraw} y={210} textAnchor="middle" fill={T.eo_e} fontSize={12} fontFamily="monospace">[Ar] 3d¹⁰ 4s²</text>
+          <text x={znDraw} y={224} textAnchor="middle" fill={T.eo_e} fontSize={12} fontFamily="monospace" fontWeight="bold">↑ valence: 4s²</text>
+          <text x={znDraw} y={238} textAnchor="middle" fill={T.eo_e} fontSize={12} fontFamily="monospace" fontWeight="bold">2 e⁻</text>
 
-          <text x={teDraw} y={200} textAnchor="middle" fill={T.eo_hole} fontSize={12} fontFamily="monospace">[Kr] 4d¹⁰ 5s² 5p⁴</text>
-          <text x={teDraw} y={212} textAnchor="middle" fill={T.eo_hole} fontSize={12} fontFamily="monospace" fontWeight="bold">↑ valence: 5s²5p⁴</text>
-          <text x={teDraw} y={224} textAnchor="middle" fill={T.eo_hole} fontSize={12} fontFamily="monospace" fontWeight="bold">6 e⁻</text>
+          <text x={teDraw} y={210} textAnchor="middle" fill={T.eo_hole} fontSize={12} fontFamily="monospace">[Kr] 4d¹⁰ 5s² 5p⁴</text>
+          <text x={teDraw} y={224} textAnchor="middle" fill={T.eo_hole} fontSize={12} fontFamily="monospace" fontWeight="bold">↑ valence: 5s²5p⁴</text>
+          <text x={teDraw} y={238} textAnchor="middle" fill={T.eo_hole} fontSize={12} fontFamily="monospace" fontWeight="bold">6 e⁻</text>
 
           {stage === 1 && bondProgress < 0.01 && (
             <g onClick={() => setBonding(true)} style={{ cursor: "pointer" }}>
-              <rect x={130} y={260} width={80} height={24} rx={4} fill={T.eo_valence} />
-              <text x={170} y={276} textAnchor="middle" fill="#fff" fontSize={12} fontFamily="monospace" fontWeight="bold">Form Bond</text>
+              <rect x={130} y={290} width={80} height={24} rx={4} fill={T.eo_valence} />
+              <text x={170} y={306} textAnchor="middle" fill="#fff" fontSize={12} fontFamily="monospace" fontWeight="bold">Form Bond</text>
             </g>
           )}
 
           {bp >= 1 && (
             <g>
-              <rect x={30} y={250} width={280} height={60} rx={6} fill={T.panel} stroke={T.border} strokeWidth={1} />
-              <text x={170} y={267} textAnchor="middle" fill={T.ink} fontSize={13} fontFamily="monospace" fontWeight="bold">Band Formation</text>
-              <rect x={50} y={275} width={100} height={12} rx={3} fill={T.eo_valence} opacity={0.4} />
-              <text x={100} y={284} textAnchor="middle" fill={T.eo_valence} fontSize={12} fontFamily="monospace">Valence Band (4×↑↓=8e⁻)</text>
-              <rect x={190} y={275} width={100} height={12} rx={3} fill={T.eo_cond} opacity={0.2} stroke={T.eo_cond} strokeDasharray="3,2" />
-              <text x={240} y={284} textAnchor="middle" fill={T.eo_cond} fontSize={12} fontFamily="monospace">Conduction Band (empty)</text>
-              <line x1={155} y1={278} x2={185} y2={278} stroke={T.eo_gap} strokeWidth={2} />
-              <text x={170} y={300} textAnchor="middle" fill={T.eo_gap} fontSize={12} fontFamily="monospace">Eg = 2.26 eV</text>
+              <rect x={30} y={290} width={280} height={60} rx={6} fill={T.panel} stroke={T.border} strokeWidth={1} />
+              <text x={170} y={307} textAnchor="middle" fill={T.ink} fontSize={13} fontFamily="monospace" fontWeight="bold">Band Formation</text>
+              <rect x={50} y={315} width={100} height={12} rx={3} fill={T.eo_valence} opacity={0.4} />
+              <text x={100} y={324} textAnchor="middle" fill={T.eo_valence} fontSize={12} fontFamily="monospace">Valence Band (4×↑↓=8e⁻)</text>
+              <rect x={190} y={315} width={100} height={12} rx={3} fill={T.eo_cond} opacity={0.2} stroke={T.eo_cond} strokeDasharray="3,2" />
+              <text x={240} y={324} textAnchor="middle" fill={T.eo_cond} fontSize={12} fontFamily="monospace">Conduction Band (empty)</text>
+              <line x1={155} y1={318} x2={185} y2={318} stroke={T.eo_gap} strokeWidth={2} />
+              <text x={170} y={340} textAnchor="middle" fill={T.eo_gap} fontSize={12} fontFamily="monospace">Eg = 2.26 eV</text>
             </g>
           )}
         </svg>
