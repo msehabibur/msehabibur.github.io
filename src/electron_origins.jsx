@@ -447,16 +447,16 @@ function AtomicModelsSection() {
           </div>
         </div>
 
-        <div style={{ background: "#eef3ff", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 10, marginTop: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
-          <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.5 }}>
+      </div>
+      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 10 }}>
+        <div style={{ background: "#eef3ff", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 12 }}>
+          <div style={{ fontSize: 12, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
             Each model improved on the last. The quantum mechanical model is the correct one,
             but Bohr{"'"}s model gives the right energy levels for hydrogen and builds intuition.
             For materials science, we use QM (DFT) for real calculations.
           </div>
         </div>
-      </div>
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
           {models.map((md, i) => (
             <button key={i} onClick={() => setModel(i)} style={{
@@ -740,16 +740,16 @@ function AufbauPrincipleSection() {
           </div>
         </div>
 
-        <div style={{ background: "#eef3ff", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 10, marginTop: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
-          <div style={{ fontSize: 10, lineHeight: 1.5 }}>
+      </div>
+      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 8 }}>
+        <div style={{ background: "#eef3ff", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 12 }}>
+          <div style={{ fontSize: 12, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
+          <div style={{ fontSize: 11, lineHeight: 1.6 }}>
             Electron configuration determines chemical properties. Cu having 3d¹⁰4s¹ is why it's
             monovalent in kesterites. The Aufbau order (n+l rule) explains why 4s fills before 3d,
             and why the periodic table has the shape it does.
           </div>
         </div>
-      </div>
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 6, padding: 10 }}>
           <div style={{ fontSize: 11, fontWeight: "bold", marginBottom: 6 }}>Element: {elements[Z] || `Z=${Z}`} (Z={Z})</div>
           <input type="range" min={1} max={36} value={Math.min(Z, 36)} onChange={e => { setZ(+e.target.value); setAnimStep(999); }}
@@ -2255,7 +2255,11 @@ function PeriodicTrendsSection() {
           </div>
         </div>
 
-        <div style={{ background: `${T.eo_gap}11`, border: `1px solid ${T.eo_gap}44`, borderRadius: 8, padding: 12, marginTop: 8, fontSize: 12, lineHeight: 1.6 }}>
+      </div>
+
+      {/* RIGHT */}
+      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 10 }}>
+        <div style={{ background: `${T.eo_gap}11`, border: `1px solid ${T.eo_gap}44`, borderRadius: 8, padding: 12, fontSize: 12, lineHeight: 1.6 }}>
           <div style={{ fontWeight: "bold", color: T.eo_gap, marginBottom: 4 }}>Key Insight</div>
           <div style={{ color: T.ink, fontSize: 11 }}>
             Electronegativity difference predicts bond type. Radius determines crystal
@@ -2263,10 +2267,6 @@ function PeriodicTrendsSection() {
             doping (Si + P/B) to compound formation (GaAs, CdTe, InSb).
           </div>
         </div>
-      </div>
-
-      {/* RIGHT */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
         {/* Property toggle */}
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
           <div style={{ fontSize: 12, fontWeight: "bold", color: T.eo_gap, marginBottom: 8 }}>
@@ -2760,16 +2760,16 @@ function ChemicalBondingSection() {
           </div>
         </div>
 
-        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
-          <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
+      </div>
+
+      <div style={{ flex: 1, minWidth: 280 }}>
+        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 12, border: `1px solid ${T.eo_photon}`, marginBottom: 10 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
+          <div style={{ fontSize: 11, lineHeight: 1.6, color: T.ink }}>
             ZnTe has Dc ~ 0.6 -- polar covalent. This partial ionicity affects defect formation energies
             and is why compound semiconductors have different native defect landscapes than elemental Si.
           </div>
         </div>
-      </div>
-
-      <div style={{ flex: 1, minWidth: 280 }}>
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Chemical Bonding</div>
 
         <div style={{ display: "flex", gap: 4, flexWrap: "wrap", marginBottom: 10 }}>
@@ -3027,16 +3027,16 @@ function HybridizationSection() {
           </div>
         </div>
 
-        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
-          <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
+      </div>
+
+      <div style={{ flex: 1, minWidth: 280 }}>
+        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 12, border: `1px solid ${T.eo_photon}`, marginBottom: 10 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
+          <div style={{ fontSize: 11, lineHeight: 1.6, color: T.ink }}>
             sp{"³"} hybridization is WHY zincblende semiconductors (ZnTe, CdTe, GaAs, CZTS) form
             tetrahedral crystal structures. Each atom forms 4 equivalent bonds at 109.5 degrees.
           </div>
         </div>
-      </div>
-
-      <div style={{ flex: 1, minWidth: 280 }}>
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Hybridization</div>
         <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5, marginBottom: 10 }}>
           Atoms mix atomic orbitals (s, p, d) to form new <strong>hybrid orbitals</strong> optimized for bonding.
@@ -3319,16 +3319,16 @@ function MolecularOrbitalSection() {
           </div>
         </div>
 
-        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
-          <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
+      </div>
+
+      <div style={{ flex: 1, minWidth: 280 }}>
+        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 12, border: `1px solid ${T.eo_photon}`, marginBottom: 10 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
+          <div style={{ fontSize: 11, lineHeight: 1.6, color: T.ink }}>
             This is the origin of bands. Bonding orbitals {"→"} valence band. Antibonding {"→"} conduction band.
             The gap between them is the band gap E_g. For ZnTe, E_g = 2.26 eV.
           </div>
         </div>
-      </div>
-
-      <div style={{ flex: 1, minWidth: 280 }}>
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Molecular Orbital Theory</div>
 
         <div style={{ background: T.surface, borderRadius: 6, padding: 12, marginBottom: 10, border: `1px solid ${T.border}` }}>
@@ -3590,16 +3590,16 @@ function CrystalSymmetrySection() {
           </div>
         </div>
 
-        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
-          <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
+      </div>
+
+      <div style={{ flex: 1, minWidth: 280 }}>
+        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 12, border: `1px solid ${T.eo_photon}`, marginBottom: 10 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
+          <div style={{ fontSize: 11, lineHeight: 1.6, color: T.ink }}>
             Zincblende (F-43m) is THE structure for most important semiconductors: Si (diamond variant),
             GaAs, ZnTe, CdTe. The tetrahedral coordination arises directly from sp{"³"} hybridization.
           </div>
         </div>
-      </div>
-
-      <div style={{ flex: 1, minWidth: 280 }}>
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Crystal Symmetry</div>
 
         <div style={{ overflowX: "auto" }}>
@@ -3927,17 +3927,17 @@ function ReciprocalSpaceSection() {
           </div>
         </div>
 
-        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
-          <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
+      </div>
+
+      <div style={{ flex: 1, minWidth: 280 }}>
+        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 12, border: `1px solid ${T.eo_photon}`, marginBottom: 10 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
+          <div style={{ fontSize: 11, lineHeight: 1.6, color: T.ink }}>
             Direct vs indirect band gap is determined by whether VBM and CBM are at the same k-point.
             ZnTe: direct gap at {"Γ"} (good for optics). Si: indirect gap {"Γ"}{"→"}X (poor absorber).
             This controls optical absorption strength.
           </div>
         </div>
-      </div>
-
-      <div style={{ flex: 1, minWidth: 280 }}>
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Reciprocal Space</div>
 
         <div style={{ background: T.surface, borderRadius: 6, padding: 12, marginBottom: 10, border: `1px solid ${T.border}` }}>
@@ -5846,19 +5846,19 @@ function SemiconductorDopingSection() {
           </div>
         </div>
 
+      </div>
+
+      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ marginTop: 8, background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
             Key Insight
           </div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
             In ZnTe, Zn vacancies act as acceptors - p-type. This is
             intrinsic doping from defects! Native point defects control
             carrier type without external dopants.
           </div>
         </div>
-      </div>
-
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_core }}>
             Semiconductor Doping
@@ -6054,18 +6054,18 @@ function CarrierTransportSection() {
           </div>
         </div>
 
+      </div>
+
+      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ marginTop: 8, background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
             Key Insight
           </div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
             Mobility determines device speed. Defects scatter carriers
             - lower mobility - worse device performance.
           </div>
         </div>
-      </div>
-
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_e }}>
             Carrier Transport
@@ -6258,18 +6258,18 @@ function ThermodynamicsSection() {
           </div>
         </div>
 
+      </div>
+
+      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ marginTop: 8, background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
             Key Insight
           </div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
             Thermodynamics decides which phase is lowest in free energy.
             Kinetics decides whether you can actually make it on lab timescales.
           </div>
         </div>
-      </div>
-
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_core }}>
             Thermodynamics
@@ -6559,18 +6559,18 @@ function PhaseDiagramSection() {
           </div>
         </div>
 
+      </div>
+
+      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ marginTop: 8, background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
             Key Insight
           </div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
             Multinary compounds have complex phase spaces -
             competing phases - narrow stability windows.
           </div>
         </div>
-      </div>
-
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_e }}>
             Phase Diagram
@@ -6845,18 +6845,18 @@ function ChemicalPotentialSection() {
           </div>
         </div>
 
+      </div>
+
+      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ marginTop: 8, background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
             Key Insight
           </div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
             Growth conditions (Cu-rich vs Cu-poor) determine which
             defects form. This is how experimentalists control doping!
           </div>
         </div>
-      </div>
-
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_valence }}>
             Chemical Potentials
