@@ -5486,8 +5486,8 @@ function ThermodynamicsSection() {
       <AnalogyBox>
           Thermodynamics is like accounting for energy. The first law says energy is conserved {"—"} you can{"'"}t create money from nothing. The second law says entropy (disorder) always increases {"—"} a clean room naturally gets messy, never the reverse. Free energy (G = H - TS) is like your bank balance: reactions {"'"}spend{"'"} enthalpy (H) and {"'"}earn{"'"} from entropy (TS). At equilibrium, the account is balanced. Temperature is like the exchange rate {"—"} higher T makes entropy worth more.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-      <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "stretch" }}>
+      <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10, display: "flex", alignItems: "center" }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <path d={curvePath} fill="none" stroke={T.eo_core} strokeWidth={2.5} />
 
@@ -5532,40 +5532,6 @@ function ThermodynamicsSection() {
             fill={dgColor} fontFamily="monospace" fontWeight={700}>
             dG = {dG.toFixed(3)} eV {dG < 0 ? "(favorable)" : "(unfavorable)"}
           </text>
-        </svg>
-
-        {/* G = H - TS bar schematic */}
-        <svg viewBox="0 0 340 120" style={{ width: "100%", maxWidth: W, marginTop: 6, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
-          {(() => {
-            const barW = 40, gap = 20, baseY = 100, maxH = 70;
-            const hBar = 0.8, tsBar = tempK * 0.0012, gBar = hBar - tsBar;
-            const scale = maxH / 1.2;
-            const x1 = 60, x2 = x1 + barW + gap, x3 = x2 + barW + gap + 20;
-            return <g>
-              <text x={170} y={14} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight={700} fontFamily="monospace">
-                G = H - TS at {tempK} K
-              </text>
-              {/* H bar */}
-              <rect x={x1} y={baseY - hBar * scale} width={barW} height={hBar * scale} fill={T.eo_e} rx={3} opacity={0.8} />
-              <text x={x1 + barW / 2} y={baseY + 14} textAnchor="middle" fontSize={10} fill={T.eo_e} fontWeight={700} fontFamily="monospace">H</text>
-              <text x={x1 + barW / 2} y={baseY - hBar * scale - 4} textAnchor="middle" fontSize={9} fill={T.eo_e} fontFamily="monospace">{hBar.toFixed(2)}</text>
-              {/* minus sign */}
-              <text x={(x1 + barW + x2) / 2} y={baseY - 20} textAnchor="middle" fontSize={16} fill={T.ink} fontWeight={700}>-</text>
-              {/* TS bar */}
-              <rect x={x2} y={baseY - tsBar * scale} width={barW} height={Math.max(1, tsBar * scale)} fill={T.eo_photon} rx={3} opacity={0.8} />
-              <text x={x2 + barW / 2} y={baseY + 14} textAnchor="middle" fontSize={10} fill={T.eo_photon} fontWeight={700} fontFamily="monospace">TS</text>
-              <text x={x2 + barW / 2} y={baseY - tsBar * scale - 4} textAnchor="middle" fontSize={9} fill={T.eo_photon} fontFamily="monospace">{(tsBar).toFixed(2)}</text>
-              {/* equals sign */}
-              <text x={(x2 + barW + x3) / 2} y={baseY - 20} textAnchor="middle" fontSize={16} fill={T.ink} fontWeight={700}>=</text>
-              {/* G bar */}
-              <rect x={x3} y={gBar >= 0 ? baseY - gBar * scale : baseY} width={barW} height={Math.max(1, Math.abs(gBar) * scale)} fill={gBar < 0 ? T.eo_valence : T.eo_gap} rx={3} opacity={0.8} />
-              <text x={x3 + barW / 2} y={baseY + 14} textAnchor="middle" fontSize={10} fill={gBar < 0 ? T.eo_valence : T.eo_gap} fontWeight={700} fontFamily="monospace">G</text>
-              <text x={x3 + barW / 2} y={gBar >= 0 ? baseY - gBar * scale - 4 : baseY + Math.abs(gBar) * scale + 12} textAnchor="middle" fontSize={9} fill={gBar < 0 ? T.eo_valence : T.eo_gap} fontFamily="monospace">{gBar.toFixed(3)}</text>
-              {gBar < 0 && <text x={x3 + barW + 8} y={baseY - 5} fontSize={9} fill={T.eo_valence} fontFamily="monospace" fontWeight={700}>Favorable!</text>}
-              {/* baseline */}
-              <line x1={40} y1={baseY} x2={300} y2={baseY} stroke={T.border} strokeWidth={1} strokeDasharray="3,3" />
-            </g>;
-          })()}
         </svg>
       </div>
 
@@ -5722,8 +5688,8 @@ function PhaseDiagramSection() {
       <AnalogyBox>
           A phase diagram is like a weather map for materials. Instead of predicting rain or sunshine based on pressure and temperature, it predicts which crystal structure (phase) is stable. The boundaries between phases are like weather fronts {"—"} cross them and the material transforms. The eutectic point is like the perfect storm where multiple phases coexist. Engineers use phase diagrams the way pilots use weather charts: to navigate safely through processing conditions.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-      <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "stretch" }}>
+      <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10, display: "flex", alignItems: "center" }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={mL} y={mT} width={pW} height={toSY(solidusT) - mT}
             fill={T.eo_cond} opacity={0.06} />
@@ -5782,45 +5748,6 @@ function PhaseDiagramSection() {
           <text x={mL + pW - 10} y={H - mB - 4} fontSize={8} fill={T.dim} fontFamily="monospace">Te</text>
         </svg>
 
-        {/* Lever Rule Visual Schematic */}
-        <svg viewBox="0 0 340 130" style={{ width: "100%", maxWidth: W, marginTop: 6, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
-          {(() => {
-            const lx = 40, rx = 300, ty = 35, barY = 75, barH = 22;
-            const tieW = rx - lx;
-            const solidusX = lx + 0.3 * tieW;
-            const liquidusX = lx + 0.7 * tieW;
-            const compPos = lx + compX * tieW;
-            const inTP = tempK > 500 && tempK < 1200 && compX > 0.3 && compX < 0.7;
-            const fSolid = inTP ? (0.7 - compX) / 0.4 : (tempK <= 500 ? 1 : 0);
-            const fLiq = 1 - fSolid;
-            return <g>
-              <text x={170} y={16} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight={700} fontFamily="monospace">Lever Rule at {tempK.toFixed(0)} K</text>
-              {/* Tie line */}
-              <line x1={lx} y1={ty} x2={rx} y2={ty} stroke={T.border} strokeWidth={2} />
-              <line x1={solidusX} y1={ty - 8} x2={solidusX} y2={ty + 8} stroke={T.eo_valence} strokeWidth={2} />
-              <line x1={liquidusX} y1={ty - 8} x2={liquidusX} y2={ty + 8} stroke={T.eo_photon} strokeWidth={2} />
-              <text x={solidusX} y={ty - 12} textAnchor="middle" fontSize={9} fill={T.eo_valence} fontWeight={700} fontFamily="monospace">C_S</text>
-              <text x={liquidusX} y={ty - 12} textAnchor="middle" fontSize={9} fill={T.eo_photon} fontWeight={700} fontFamily="monospace">C_L</text>
-              {/* Composition marker */}
-              <polygon points={`${compPos},${ty + 4} ${compPos - 5},${ty + 12} ${compPos + 5},${ty + 12}`} fill={T.eo_e} />
-              <text x={compPos} y={ty + 22} textAnchor="middle" fontSize={9} fill={T.eo_e} fontWeight={700} fontFamily="monospace">C₀={( compX * 100).toFixed(0)}%</text>
-              {/* Phase fraction bar */}
-              <rect x={lx} y={barY} width={tieW * fSolid} height={barH} fill={T.eo_valence} rx={fSolid === 1 ? 4 : 0} opacity={0.8} />
-              <rect x={lx + tieW * fSolid} y={barY} width={tieW * fLiq} height={barH} fill={T.eo_photon} rx={fLiq === 1 ? 4 : 0} opacity={0.8} />
-              <rect x={lx} y={barY} width={tieW} height={barH} fill="none" stroke={T.border} strokeWidth={1} rx={4} />
-              <text x={lx + tieW * fSolid / 2} y={barY + barH / 2 + 4} textAnchor="middle" fontSize={10} fill="#fff" fontWeight={700} fontFamily="monospace">
-                {fSolid > 0.1 ? `Solid ${(fSolid * 100).toFixed(0)}%` : ""}
-              </text>
-              <text x={lx + tieW * fSolid + tieW * fLiq / 2} y={barY + barH / 2 + 4} textAnchor="middle" fontSize={10} fill="#fff" fontWeight={700} fontFamily="monospace">
-                {fLiq > 0.1 ? `Liquid ${(fLiq * 100).toFixed(0)}%` : ""}
-              </text>
-              {/* Status label */}
-              <text x={170} y={barY + barH + 18} textAnchor="middle" fontSize={10} fill={inTP ? T.eo_core : T.dim} fontFamily="monospace">
-                {inTP ? "Two-phase region" : tempK >= 1200 ? "Fully liquid" : tempK <= 500 ? "Fully solid" : "Adjust composition to 30-70%"}
-              </text>
-            </g>;
-          })()}
-        </svg>
       </div>
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
@@ -5977,8 +5904,8 @@ function ChemicalPotentialSection() {
       <AnalogyBox>
           Chemical potential is like water pressure in connected tanks. Each tank (phase or species) has a water level (chemical potential). At equilibrium, water flows until all connected tanks reach the same level. If you add atoms to a crystal, the chemical potential tells you how much the system{"'"}s energy changes {"—"} like how much the water level rises when you pour more in. In defect physics, it controls which defects form: change the {"'"}pressure{"'"} (growth conditions) and different defects become favorable.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-      <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "stretch" }}>
+      <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10, display: "flex", alignItems: "center" }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={mL} y={mT} width={toSX(-0.5) - mL} height={pH_}
             fill={T.eo_cond} opacity={0.06} />
@@ -6032,60 +5959,6 @@ function ChemicalPotentialSection() {
           ))}
         </svg>
 
-        {/* Defect Formation Energy — below the stability polygon */}
-        <div style={{ marginTop: 10, fontSize: 11, fontWeight: 700, color: T.eo_e, marginBottom: 4 }}>Defect Energy vs mu_A</div>
-        <svg viewBox="0 0 340 180" style={{ width: "100%", maxWidth: W, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
-          <line x1={45} y1={10} x2={45} y2={155} stroke={T.border} strokeWidth={1} />
-          <line x1={45} y1={155} x2={325} y2={155} stroke={T.border} strokeWidth={1} />
-          <text x={10} y={85} fontSize={10} fill={T.muted} fontFamily="monospace" transform="rotate(-90,10,85)">E_form (eV)</text>
-          <text x={185} y={175} textAnchor="middle" fontSize={10} fill={T.muted} fontFamily="monospace">mu_A (eV)</text>
-          {[0, 1, 2, 3, 4].map(v => (
-            <g key={v}>
-              <line x1={42} y1={155 - v * 35} x2={45} y2={155 - v * 35} stroke={T.border} />
-              <text x={38} y={155 - v * 35 + 3} textAnchor="end" fontSize={9} fill={T.dim} fontFamily="monospace">{v}</text>
-            </g>
-          ))}
-          {[-3, -2, -1, 0].map((v, i) => (
-            <text key={v} x={45 + i * 93.3} y={168} textAnchor="middle" fontSize={9} fill={T.dim} fontFamily="monospace">{v}</text>
-          ))}
-          {[
-            { label: "V_A", color: T.eo_e, base: 2.5, slope: 1 },
-            { label: "V_B", color: T.eo_hole || "#e74c3c", base: 1.0, slope: -1 },
-            { label: "A_i", color: T.eo_cond, base: 3.5, slope: -1.2 },
-            { label: "B_i", color: T.eo_photon, base: 2.0, slope: 0.8 },
-          ].map(d => {
-            const lx1 = 45, lx2 = 325, muRange = 3;
-            const e1 = d.base + d.slope * (-3), e2 = d.base + d.slope * 0;
-            const ly1 = 155 - Math.max(0, Math.min(4, e1)) * 35;
-            const ly2 = 155 - Math.max(0, Math.min(4, e2)) * 35;
-            const muNorm = (muA - (-3)) / muRange;
-            const cx = 45 + muNorm * 280;
-            const eAtMu = d.base + d.slope * muA;
-            const cy = 155 - Math.max(0, Math.min(4, eAtMu)) * 35;
-            return <g key={d.label}>
-              <line x1={lx1} y1={ly1} x2={lx2} y2={ly2} stroke={d.color} strokeWidth={1.5} opacity={0.7} />
-              <circle cx={cx} cy={cy} r={5} fill={d.color} />
-              <text x={lx2 + 3} y={ly2 + 4} fontSize={9} fill={d.color} fontWeight="bold" fontFamily="monospace">{d.label}</text>
-            </g>;
-          })}
-          {(() => {
-            const muNorm = (muA - (-3)) / 3;
-            const cx = 45 + muNorm * 280;
-            return <line x1={cx} y1={10} x2={cx} y2={155} stroke={T.eo_gap} strokeWidth={1} strokeDasharray="3,3" opacity={0.5} />;
-          })()}
-        </svg>
-        <div style={{ display: "flex", gap: 8, marginTop: 4, flexWrap: "wrap" }}>
-          {[
-            { label: "V_A", color: T.eo_e },
-            { label: "V_B", color: T.eo_hole || "#e74c3c" },
-            { label: "A_i", color: T.eo_cond },
-            { label: "B_i", color: T.eo_photon },
-          ].map(d => (
-            <div key={d.label} style={{ fontSize: 10, color: d.color, fontWeight: 600, fontFamily: "monospace" }}>
-              <span style={{ display: "inline-block", width: 10, height: 3, background: d.color, marginRight: 3, verticalAlign: "middle" }} />{d.label}
-            </div>
-          ))}
-        </div>
       </div>
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
