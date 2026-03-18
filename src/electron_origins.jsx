@@ -5747,6 +5747,46 @@ function PhaseDiagramSection() {
           <text x={mL + 4} y={H - mB - 4} fontSize={8} fill={T.dim} fontFamily="monospace">Zn</text>
           <text x={mL + pW - 10} y={H - mB - 4} fontSize={8} fill={T.dim} fontFamily="monospace">Te</text>
         </svg>
+
+        {/* Lever Rule Interactive — below the phase diagram */}
+        <div style={{ marginTop: 10, fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 4 }}>Lever Rule — Phase Fractions</div>
+        <div style={{ background: T.surface, borderRadius: 6, border: `1px solid ${T.border}`, padding: 10 }}>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6, marginBottom: 8 }}>
+            In a two-phase region, the lever rule tells you how much of each phase is present.
+          </div>
+          {(() => {
+            const compFrac = compX;
+            const solidusComp = 0.3;
+            const liquidusComp = 0.7;
+            const inTP = compFrac > solidusComp && compFrac < liquidusComp && tempK < 1200 && tempK > 600;
+            const fLiquid = inTP ? (compFrac - solidusComp) / (liquidusComp - solidusComp) : (tempK >= 1200 ? 1 : 0);
+            const fSolid = 1 - fLiquid;
+            return (
+              <div>
+                <div style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 8 }}>
+                  <div style={{ flex: 1, height: 20, borderRadius: 6, overflow: "hidden", display: "flex", border: `1px solid ${T.border}` }}>
+                    <div style={{ width: `${fSolid * 100}%`, background: T.eo_valence, height: "100%", transition: "width 0.3s" }} />
+                    <div style={{ width: `${fLiquid * 100}%`, background: T.eo_photon, height: "100%", transition: "width 0.3s" }} />
+                  </div>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11 }}>
+                  <span style={{ color: T.eo_valence, fontWeight: 700 }}>Solid: {(fSolid * 100).toFixed(0)}%</span>
+                  <span style={{ color: T.eo_photon, fontWeight: 700 }}>Liquid: {(fLiquid * 100).toFixed(0)}%</span>
+                </div>
+                {inTP && (
+                  <div style={{ marginTop: 8, fontSize: 11, color: T.muted, lineHeight: 1.6, background: T.panel, padding: 8, borderRadius: 6 }}>
+                    <strong>Lever Rule:</strong> f_solid = (C_L - C₀) / (C_L - C_S) = {(fSolid * 100).toFixed(1)}%
+                  </div>
+                )}
+                {!inTP && (
+                  <div style={{ marginTop: 8, fontSize: 11, color: T.muted, fontStyle: "italic" }}>
+                    {tempK >= 1200 ? "Above liquidus — fully liquid" : tempK <= 600 ? "Below solidus — fully solid" : "Move composition between 30–70% to see two-phase region"}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+        </div>
       </div>
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
@@ -5815,46 +5855,6 @@ function PhaseDiagramSection() {
             competing phases - narrow stability windows.
           </div>
         </div>
-
-          {/* Lever Rule Interactive */}
-          <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_photon, marginBottom: 8 }}>Lever Rule — Phase Fractions</div>
-            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6, marginBottom: 10 }}>
-              In a two-phase region, the lever rule tells you how much of each phase is present. The fraction depends on where your composition falls between the solidus and liquidus boundaries.
-            </div>
-            {(() => {
-              const compFrac = compX;
-              const solidusComp = 0.3;
-              const liquidusComp = 0.7;
-              const inTwoPhase = compFrac > solidusComp && compFrac < liquidusComp && tempK < 1200 && tempK > 600;
-              const fLiquid = inTwoPhase ? (compFrac - solidusComp) / (liquidusComp - solidusComp) : (tempK >= 1200 ? 1 : 0);
-              const fSolid = 1 - fLiquid;
-              return (
-                <div>
-                  <div style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 8 }}>
-                    <div style={{ flex: 1, height: 20, borderRadius: 6, overflow: "hidden", display: "flex", border: `1px solid ${T.border}` }}>
-                      <div style={{ width: `${fSolid * 100}%`, background: T.eo_valence, height: "100%", transition: "width 0.3s" }} />
-                      <div style={{ width: `${fLiquid * 100}%`, background: T.eo_photon, height: "100%", transition: "width 0.3s" }} />
-                    </div>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11 }}>
-                    <span style={{ color: T.eo_valence, fontWeight: 700 }}>Solid: {(fSolid * 100).toFixed(0)}%</span>
-                    <span style={{ color: T.eo_photon, fontWeight: 700 }}>Liquid: {(fLiquid * 100).toFixed(0)}%</span>
-                  </div>
-                  {inTwoPhase && (
-                    <div style={{ marginTop: 8, fontSize: 11, color: T.muted, lineHeight: 1.6, background: T.panel, padding: 8, borderRadius: 6 }}>
-                      <strong>Lever Rule:</strong> f_solid = (C_L - C₀) / (C_L - C_S) = ({(liquidusComp*100).toFixed(0)} - {(compX*100).toFixed(0)}) / ({(liquidusComp*100).toFixed(0)} - {(solidusComp*100).toFixed(0)}) = {(fSolid * 100).toFixed(1)}%
-                    </div>
-                  )}
-                  {!inTwoPhase && (
-                    <div style={{ marginTop: 8, fontSize: 11, color: T.muted, fontStyle: "italic" }}>
-                      {tempK >= 1200 ? "Above liquidus — fully liquid" : tempK <= 600 ? "Below solidus — fully solid" : `Move composition between ${(solidusComp*100).toFixed(0)}–${(liquidusComp*100).toFixed(0)}% to see two-phase region`}
-                    </div>
-                  )}
-                </div>
-              );
-            })()}
-          </div>
 
         <div style={{
           background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
@@ -5997,6 +5997,61 @@ function ChemicalPotentialSection() {
             </g>
           ))}
         </svg>
+
+        {/* Defect Formation Energy — below the stability polygon */}
+        <div style={{ marginTop: 10, fontSize: 11, fontWeight: 700, color: T.eo_e, marginBottom: 4 }}>Defect Energy vs mu_A</div>
+        <svg viewBox="0 0 340 180" style={{ width: "100%", maxWidth: W, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
+          <line x1={45} y1={10} x2={45} y2={155} stroke={T.border} strokeWidth={1} />
+          <line x1={45} y1={155} x2={325} y2={155} stroke={T.border} strokeWidth={1} />
+          <text x={10} y={85} fontSize={10} fill={T.muted} fontFamily="monospace" transform="rotate(-90,10,85)">E_form (eV)</text>
+          <text x={185} y={175} textAnchor="middle" fontSize={10} fill={T.muted} fontFamily="monospace">mu_A (eV)</text>
+          {[0, 1, 2, 3, 4].map(v => (
+            <g key={v}>
+              <line x1={42} y1={155 - v * 35} x2={45} y2={155 - v * 35} stroke={T.border} />
+              <text x={38} y={155 - v * 35 + 3} textAnchor="end" fontSize={9} fill={T.dim} fontFamily="monospace">{v}</text>
+            </g>
+          ))}
+          {[-3, -2, -1, 0].map((v, i) => (
+            <text key={v} x={45 + i * 93.3} y={168} textAnchor="middle" fontSize={9} fill={T.dim} fontFamily="monospace">{v}</text>
+          ))}
+          {[
+            { label: "V_A", color: T.eo_e, base: 2.5, slope: 1 },
+            { label: "V_B", color: T.eo_hole || "#e74c3c", base: 1.0, slope: -1 },
+            { label: "A_i", color: T.eo_cond, base: 3.5, slope: -1.2 },
+            { label: "B_i", color: T.eo_photon, base: 2.0, slope: 0.8 },
+          ].map(d => {
+            const lx1 = 45, lx2 = 325, muRange = 3;
+            const e1 = d.base + d.slope * (-3), e2 = d.base + d.slope * 0;
+            const ly1 = 155 - Math.max(0, Math.min(4, e1)) * 35;
+            const ly2 = 155 - Math.max(0, Math.min(4, e2)) * 35;
+            const muNorm = (muA - (-3)) / muRange;
+            const cx = 45 + muNorm * 280;
+            const eAtMu = d.base + d.slope * muA;
+            const cy = 155 - Math.max(0, Math.min(4, eAtMu)) * 35;
+            return <g key={d.label}>
+              <line x1={lx1} y1={ly1} x2={lx2} y2={ly2} stroke={d.color} strokeWidth={1.5} opacity={0.7} />
+              <circle cx={cx} cy={cy} r={5} fill={d.color} />
+              <text x={lx2 + 3} y={ly2 + 4} fontSize={9} fill={d.color} fontWeight="bold" fontFamily="monospace">{d.label}</text>
+            </g>;
+          })}
+          {(() => {
+            const muNorm = (muA - (-3)) / 3;
+            const cx = 45 + muNorm * 280;
+            return <line x1={cx} y1={10} x2={cx} y2={155} stroke={T.eo_gap} strokeWidth={1} strokeDasharray="3,3" opacity={0.5} />;
+          })()}
+        </svg>
+        <div style={{ display: "flex", gap: 8, marginTop: 4, flexWrap: "wrap" }}>
+          {[
+            { label: "V_A", color: T.eo_e },
+            { label: "V_B", color: T.eo_hole || "#e74c3c" },
+            { label: "A_i", color: T.eo_cond },
+            { label: "B_i", color: T.eo_photon },
+          ].map(d => (
+            <div key={d.label} style={{ fontSize: 10, color: d.color, fontWeight: 600, fontFamily: "monospace" }}>
+              <span style={{ display: "inline-block", width: 10, height: 3, background: d.color, marginRight: 3, verticalAlign: "middle" }} />{d.label}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
@@ -6066,76 +6121,6 @@ function ChemicalPotentialSection() {
             defects form. This is how experimentalists control doping!
           </div>
         </div>
-
-          {/* Defect Formation Energy Diagram */}
-          <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_e, marginBottom: 8 }}>Defect Formation Energy vs Growth Conditions</div>
-            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6, marginBottom: 8 }}>
-              As you move the chemical potentials above, defect formation energies change. Low formation energy = defect forms easily. This is how growth conditions control doping!
-            </div>
-            <svg viewBox="0 0 280 160" style={{ width: "100%", maxWidth: 280, background: T.panel, borderRadius: 6, border: `1px solid ${T.border}` }}>
-              {/* Axes */}
-              <line x1={40} y1={10} x2={40} y2={140} stroke={T.border} strokeWidth={1} />
-              <line x1={40} y1={140} x2={270} y2={140} stroke={T.border} strokeWidth={1} />
-              <text x={4} y={80} fontSize={9} fill={T.muted} fontFamily="monospace" transform="rotate(-90,4,80)">E_form (eV)</text>
-              <text x={155} y={156} textAnchor="middle" fontSize={9} fill={T.muted} fontFamily="monospace">mu_A (eV)</text>
-              {/* Y-axis ticks */}
-              {[0, 1, 2, 3, 4].map(v => {
-                const y = 140 - v * 30;
-                return <g key={v}>
-                  <line x1={37} y1={y} x2={40} y2={y} stroke={T.border} />
-                  <text x={34} y={y + 3} textAnchor="end" fontSize={8} fill={T.dim} fontFamily="monospace">{v}</text>
-                </g>;
-              })}
-              {/* X-axis ticks */}
-              {[-3, -2, -1, 0].map((v, i) => {
-                const x = 40 + i * 76.67;
-                return <text key={v} x={x} y={152} textAnchor="middle" fontSize={8} fill={T.dim} fontFamily="monospace">{v}</text>;
-              })}
-              {/* Defect lines — formation energy depends on chemical potential */}
-              {[
-                { label: "V_A", color: T.eo_e, base: 2.5, slope: 1 },
-                { label: "V_B", color: T.eo_hole, base: 1.0, slope: -1 },
-                { label: "A_i", color: T.eo_cond, base: 3.5, slope: -1.2 },
-                { label: "B_i", color: T.eo_photon, base: 2.0, slope: 0.8 },
-              ].map(d => {
-                const x1 = 40, x2 = 270;
-                const muRange = 3;
-                const e1 = d.base + d.slope * (-3);
-                const e2 = d.base + d.slope * 0;
-                const y1 = 140 - Math.max(0, Math.min(4, e1)) * 30;
-                const y2 = 140 - Math.max(0, Math.min(4, e2)) * 30;
-                // Current position marker
-                const muNorm = (muA - (-3)) / muRange;
-                const cx = 40 + muNorm * 230;
-                const eAtMu = d.base + d.slope * muA;
-                const cy = 140 - Math.max(0, Math.min(4, eAtMu)) * 30;
-                return <g key={d.label}>
-                  <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={d.color} strokeWidth={1.5} opacity={0.7} />
-                  <circle cx={cx} cy={cy} r={4} fill={d.color} />
-                  <text x={x2 + 2} y={y2 + 3} fontSize={8} fill={d.color} fontWeight="bold" fontFamily="monospace">{d.label}</text>
-                </g>;
-              })}
-              {/* Current mu_A vertical line */}
-              {(() => {
-                const muNorm = (muA - (-3)) / 3;
-                const cx = 40 + muNorm * 230;
-                return <line x1={cx} y1={10} x2={cx} y2={140} stroke={T.eo_gap} strokeWidth={1} strokeDasharray="3,3" opacity={0.5} />;
-              })()}
-            </svg>
-            <div style={{ display: "flex", gap: 10, marginTop: 6, flexWrap: "wrap" }}>
-              {[
-                { label: "V_A (vacancy)", color: T.eo_e },
-                { label: "V_B (vacancy)", color: T.eo_hole },
-                { label: "A_i (interstitial)", color: T.eo_cond },
-                { label: "B_i (interstitial)", color: T.eo_photon },
-              ].map(d => (
-                <div key={d.label} style={{ fontSize: 10, color: d.color, fontWeight: 600, fontFamily: "monospace" }}>
-                  <span style={{ display: "inline-block", width: 10, height: 3, background: d.color, marginRight: 4, verticalAlign: "middle" }} />{d.label}
-                </div>
-              ))}
-            </div>
-          </div>
 
         <div style={{
           background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
