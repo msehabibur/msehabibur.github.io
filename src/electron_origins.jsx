@@ -365,7 +365,7 @@ function AtomicModelsSection() {
                 <circle key={i} cx={d.x} cy={d.y} r={2} fill={d.c} opacity={d.o} />
               ))}
               <circle cx={cx} cy={cy} r={3} fill={T.eo_gap} opacity={0.5} />
-              <text x={cx} y={20} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">Quantum Mechanical — |{"\u03C8"}|{"\u00B2"} Probability</text>
+              <text x={cx} y={20} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">Quantum Mechanical — |{"ψ"}|{"²"} Probability</text>
               <text x={cx} y={cy + 140} textAnchor="middle" fill={T.muted} fontSize={9} fontFamily="monospace">Orbital: {qmOrbital}</text>
               <g>
                 {["1s", "2s", "2p", "3d", "all"].map((orb, i) => (
@@ -429,7 +429,7 @@ function AtomicModelsSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14, fontFamily: "monospace", color: T.ink }}>
       <AnalogyBox>
-          Imagine you are looking at an object through a series of increasingly powerful microscopes. <strong>Dalton</strong> saw a solid marble. <strong>Thomson</strong> cracked it open and found raisins in a pudding. <strong>Rutherford</strong> zoomed in and discovered the marble is 99.99% empty space with a tiny dense core. <strong>Bohr</strong> saw electrons orbiting like planets. Finally, <strong>quantum mechanics</strong> revealed there are no orbits at all {"\u2014"} just fuzzy probability clouds showing where the electron is <em>likely</em> to be. Each model did not destroy the last; it refined it.
+          Imagine you are looking at an object through a series of increasingly powerful microscopes. <strong>Dalton</strong> saw a solid marble. <strong>Thomson</strong> cracked it open and found raisins in a pudding. <strong>Rutherford</strong> zoomed in and discovered the marble is 99.99% empty space with a tiny dense core. <strong>Bohr</strong> saw electrons orbiting like planets. Finally, <strong>quantum mechanics</strong> revealed there are no orbits at all {"—"} just fuzzy probability clouds showing where the electron is <em>likely</em> to be. Each model did not destroy the last; it refined it.
         </AnalogyBox>
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ flexShrink: 0 }}>
@@ -512,16 +512,16 @@ function AtomicModelsSection() {
           <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
           <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.5 }}>
             Each model improved on the last. The quantum mechanical model is the correct one,
-            but Bohr{"\u2019"}s model gives the right energy levels for hydrogen and builds intuition.
+            but Bohr{"’"}s model gives the right energy levels for hydrogen and builds intuition.
             For materials science, we use QM (DFT) for real calculations.
           </div>
         </div>
 
         <div style={{ background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`, borderRadius: 6, padding: 10 }}>
-          <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Why Wave-Particle Duality Comes Next {"\u2192"}</div>
+          <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Why Wave-Particle Duality Comes Next {"→"}</div>
           <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.5 }}>
             The quantum model says electrons are <strong>waves</strong>, not particles on orbits.
-            But how do we know? The next section shows the experiment that proved it {"\u2014"}
+            But how do we know? The next section shows the experiment that proved it {"—"}
             firing electrons through crystals and watching them <strong>diffract like light waves</strong>.
             This is what forced physicists to abandon orbits and embrace wavefunctions.
           </div>
@@ -815,7 +815,7 @@ function AufbauPrincipleSection() {
           background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Coming Next: Periodic Trends {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Coming Next: Periodic Trends {"→"}</div>
           <div style={{ color: T.ink }}>
             Electron configurations explain the periodic table's structure. But they also determine each element's size, how tightly it holds electrons, and how eagerly it grabs more. These periodic trends govern everything from bonding behavior to material properties.
           </div>
@@ -1117,7 +1117,7 @@ function ElectronOriginsZnTeSection() {
           background: `${T.eo_valence}11`, border: `1px solid ${T.eo_valence}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_valence, marginBottom: 4 }}>Coming Next: Molecular Orbitals {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_valence, marginBottom: 4 }}>Coming Next: Molecular Orbitals {"→"}</div>
           <div style={{ color: T.ink }}>
             Individual atomic orbitals combine when atoms bond. Molecular orbital theory shows how atomic orbitals merge into bonding and antibonding states — the foundation for understanding electronic structure in solids.
           </div>
@@ -1476,7 +1476,7 @@ function WaveDualitySection() {
 }
 
 // ─────────────────────────────────────────────
-// Section 2: Schr{"\u00F6"}dinger Equation
+// Section 2: Schr{"ö"}dinger Equation
 // ─────────────────────────────────────────────
 
 function SchrodingerSection() {
@@ -1556,12 +1556,12 @@ function SchrodingerSection() {
       <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 320 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 320 }}>
           <text x={160} y={16} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight="bold">
-            Hydrogen Atom {"\u2014"} {orb.name} orbital
+            Hydrogen Atom {"—"} {orb.name} orbital
           </text>
 
           {/* Nucleus */}
           <circle cx={cx} cy={cy} r={5} fill={T.eo_hole} />
-          <text x={cx} y={cy + 3} textAnchor="middle" fill="#fff" fontSize={6} fontWeight="bold">H{"\u207A"}</text>
+          <text x={cx} y={cy + 3} textAnchor="middle" fill="#fff" fontSize={6} fontWeight="bold">H{"⁺"}</text>
 
           {/* Orbital shells (dashed circles for reference) */}
           {[1, 2, 3, 4].map(n => {
@@ -1579,11 +1579,11 @@ function SchrodingerSection() {
             <g>
               <line x1={40} y1={290} x2={280} y2={290} stroke={T.dim} strokeWidth={0.5} />
               <text x={280} y={300} fontSize={8} fill={T.muted}>r</text>
-              <text x={25} y={250} fontSize={8} fill={T.muted} transform="rotate(-90,25,250)">R(r){"\u00B2"}{"\u00B7"}r{"\u00B2"}</text>
+              <text x={25} y={250} fontSize={8} fill={T.muted} transform="rotate(-90,25,250)">R(r){"²"}{"·"}r{"²"}</text>
               <path d={radialCurve.join(" ")} fill="none" stroke={T.eo_valence} strokeWidth={2} />
               {/* Most probable radius marker (at actual peak) */}
               <line x1={40 + (orb.peakR / rMax) * 240} y1={195} x2={40 + (orb.peakR / rMax) * 240} y2={295} stroke={T.eo_gap} strokeWidth={1} strokeDasharray="3,2" />
-              <text x={40 + (orb.peakR / rMax) * 240} y={193} textAnchor="middle" fontSize={7} fill={T.eo_gap}>r{"\u2098\u2090\u2093"} = {orb.peakPm} pm</text>
+              <text x={40 + (orb.peakR / rMax) * 240} y={193} textAnchor="middle" fontSize={7} fill={T.eo_gap}>r{"ₘₐₓ"} = {orb.peakPm} pm</text>
               {/* Node markers (where probability = 0) */}
               {orb.nodes.map((nd, ni) => (
                 <g key={ni}>
@@ -1624,7 +1624,7 @@ function SchrodingerSection() {
               border: `1px solid ${T.eo_valence}`, borderRadius: 4, cursor: "pointer",
             }}
           >
-            {showPsi2 ? "|\u03C8|\u00B2 cloud" : "R(r) curve"}
+            {showPsi2 ? "|ψ|² cloud" : "R(r) curve"}
           </button>
         </div>
       </div>
@@ -1633,27 +1633,27 @@ function SchrodingerSection() {
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 14, fontWeight: "bold", marginBottom: 10, color: T.eo_valence }}>
-            The Schr{"\u00F6"}dinger Equation
+            The Schr{"ö"}dinger Equation
           </div>
           <div style={{ fontSize: 13, color: T.eo_valence, fontWeight: 700, marginBottom: 8, textAlign: "center" }}>
-            {"\u0124"}{"\u03C8"} = E{"\u03C8"}
+            {"Ĥ"}{"ψ"} = E{"ψ"}
           </div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, marginBottom: 6 }}>
-            <strong>{"\u0124"}</strong> (H-hat) is the <strong>Hamiltonian operator</strong> {"\u2014"} it represents the total energy of the system (kinetic + potential energy).
+            <strong>{"Ĥ"}</strong> (H-hat) is the <strong>Hamiltonian operator</strong> {"—"} it represents the total energy of the system (kinetic + potential energy).
           </div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, marginBottom: 6 }}>
-            <strong>{"\u03C8"}</strong> (psi) is the <strong>wavefunction</strong> {"\u2014"} it describes the quantum state of the electron. |{"\u03C8"}|{"\u00B2"} gives the probability of finding the electron at each position.
+            <strong>{"ψ"}</strong> (psi) is the <strong>wavefunction</strong> {"—"} it describes the quantum state of the electron. |{"ψ"}|{"²"} gives the probability of finding the electron at each position.
           </div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, marginBottom: 6 }}>
-            <strong>E</strong> is the <strong>energy eigenvalue</strong> {"\u2014"} only specific discrete energy values are allowed. These are the "energy levels."
+            <strong>E</strong> is the <strong>energy eigenvalue</strong> {"—"} only specific discrete energy values are allowed. These are the "energy levels."
           </div>
           <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, borderTop: `1px solid ${T.border}`, paddingTop: 8, marginTop: 6 }}>
-            <strong>For hydrogen:</strong> E{"\u2099"} = {"-"}13.6/n{"\u00B2"} eV {"\u2014"} the electron is bound by the Coulomb potential of the proton.
-            Higher n = larger orbit = less tightly bound. At n={"\u221E"}, E=0 and the electron is free.
+            <strong>For hydrogen:</strong> E{"ₙ"} = {"-"}13.6/n{"²"} eV {"—"} the electron is bound by the Coulomb potential of the proton.
+            Higher n = larger orbit = less tightly bound. At n={"∞"}, E=0 and the electron is free.
           </div>
           <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, marginTop: 4 }}>
-            <strong>Most probable radius:</strong> The electron is not at a fixed distance {"\u2014"} it forms a probability cloud.
-            The R(r){"\u00B2"}{"\u00B7"}r{"\u00B2"} curve shows where you are most likely to find the electron at each distance from the nucleus.
+            <strong>Most probable radius:</strong> The electron is not at a fixed distance {"—"} it forms a probability cloud.
+            The R(r){"²"}{"·"}r{"²"} curve shows where you are most likely to find the electron at each distance from the nucleus.
           </div>
         </div>
 
@@ -1671,17 +1671,17 @@ function SchrodingerSection() {
             ))}
           </div>
           <div style={{ background: T.surface, padding: 10, borderRadius: 6, fontSize: 12 }}>
-            <div><strong>E{"\u2099"}</strong> = {energyN(nQ).toFixed(2)} eV</div>
+            <div><strong>E{"ₙ"}</strong> = {energyN(nQ).toFixed(2)} eV</div>
             <div><strong>Most probable r</strong> = {orb.peakPm} pm</div>
-            <div><strong>Nodes</strong> = {orb.nodes.length} (n{"\u2212"}1 for s orbitals)</div>
+            <div><strong>Nodes</strong> = {orb.nodes.length} (n{"−"}1 for s orbitals)</div>
             <div style={{ fontSize: 11, color: T.muted, marginTop: 4 }}>{orb.desc}</div>
           </div>
 
           <div style={{ background: T.bg, padding: 10, borderRadius: 6, fontSize: 11, marginTop: 8, lineHeight: 1.7, color: T.ink }}>
-            <div style={{ fontWeight: 600, color: T.eo_core, marginBottom: 4 }}>How to read the R(r){"\u00B2"}{"\u00B7"}r{"\u00B2"} curve</div>
-            <div>This curve is the <strong>radial probability density</strong> {"\u2014"} the chance of finding the electron at distance r from the nucleus.</div>
-            <div style={{ marginTop: 4 }}><span style={{ color: T.eo_gap }}>{"\u25CF"}</span> <strong>Peaks</strong> = most likely distances (marked with dashed line)</div>
-            <div><span style={{ color: T.eo_hole }}>{"\u25CF"}</span> <strong>Nodes</strong> = zero probability {"\u2014"} the wavefunction crosses zero here. An ns orbital has (n{"\u2212"}1) nodes.</div>
+            <div style={{ fontWeight: 600, color: T.eo_core, marginBottom: 4 }}>How to read the R(r){"²"}{"·"}r{"²"} curve</div>
+            <div>This curve is the <strong>radial probability density</strong> {"—"} the chance of finding the electron at distance r from the nucleus.</div>
+            <div style={{ marginTop: 4 }}><span style={{ color: T.eo_gap }}>{"●"}</span> <strong>Peaks</strong> = most likely distances (marked with dashed line)</div>
+            <div><span style={{ color: T.eo_hole }}>{"●"}</span> <strong>Nodes</strong> = zero probability {"—"} the wavefunction crosses zero here. An ns orbital has (n{"−"}1) nodes.</div>
             <div style={{ marginTop: 4, color: T.muted }}>For n=1: one peak, no nodes. For n=2: two peaks separated by 1 node at 212 pm. The electron can be found on either side of the node but never at the node itself.</div>
           </div>
         </div>
@@ -1689,7 +1689,7 @@ function SchrodingerSection() {
         <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
           <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
           <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Inspired by de Broglie{"'"}s 1924 thesis on matter waves, Erwin Schr{"\u00F6"}dinger derived his famous wave equation during a Christmas vacation in 1925 at a villa in Arosa, Switzerland. Meanwhile, Werner Heisenberg independently developed an equivalent "matrix mechanics" approach in G{"\u00F6"}ttingen. The two formulations were later shown to be mathematically identical. Max Born provided the crucial interpretation: the wavefunction {"\u03C8"} itself is not physical, but |{"\u03C8"}|{"\u00B2"} gives the probability of finding the electron at a given location — replacing deterministic orbits with probability clouds.
+            Inspired by de Broglie{"'"}s 1924 thesis on matter waves, Erwin Schr{"ö"}dinger derived his famous wave equation during a Christmas vacation in 1925 at a villa in Arosa, Switzerland. Meanwhile, Werner Heisenberg independently developed an equivalent "matrix mechanics" approach in G{"ö"}ttingen. The two formulations were later shown to be mathematically identical. Max Born provided the crucial interpretation: the wavefunction {"ψ"} itself is not physical, but |{"ψ"}|{"²"} gives the probability of finding the electron at a given location — replacing deterministic orbits with probability clouds.
           </div>
         </div>
 
@@ -1697,11 +1697,11 @@ function SchrodingerSection() {
           background: `${T.eo_valence}11`, border: `1px solid ${T.eo_valence}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_valence, marginBottom: 4 }}>Why This Leads to Quantum Numbers {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_valence, marginBottom: 4 }}>Why This Leads to Quantum Numbers {"→"}</div>
           <div style={{ color: T.ink }}>
             Hydrogen has only <strong>one</strong> quantum number (n). But the full 3D solution reveals
-            <strong> three more</strong>: l (shape), m{"\u2097"} (orientation), m{"\u209B"} (spin).
-            Together they define every possible orbital {"\u2014"} and explain the entire periodic table.
+            <strong> three more</strong>: l (shape), m{"ₗ"} (orientation), m{"ₛ"} (spin).
+            Together they define every possible orbital {"—"} and explain the entire periodic table.
           </div>
         </div>
       </div>
@@ -1888,7 +1888,7 @@ function QuantumNumbersSection() {
               <rect x={10} y={10} width={10} height={10} fill={`${T.eo_e}99`} rx={2} />
               <text x={24} y={19} fontSize={9} fill={T.muted}>+ lobe</text>
               <rect x={10} y={24} width={10} height={10} fill={`${T.eo_hole}99`} rx={2} />
-              <text x={24} y={33} fontSize={9} fill={T.muted}>{"\u2212"} lobe</text>
+              <text x={24} y={33} fontSize={9} fill={T.muted}>{"−"} lobe</text>
             </g>
           ) : (
             <g>
@@ -1945,7 +1945,7 @@ function QuantumNumbersSection() {
                           )}
                           <circle cx={orbCx} cy={orbCy} r={2} fill={T.ink} />
                           <text x={orbCx} y={orbCy + orbSize + 12} textAnchor="middle" fontSize={7} fill={T.muted}>
-                            m{"\u2097"}={mlVal > 0 ? `+${mlVal}` : mlVal}
+                            m{"ₗ"}={mlVal > 0 ? `+${mlVal}` : mlVal}
                           </text>
                         </g>
                       );
@@ -2028,7 +2028,7 @@ function QuantumNumbersSection() {
                   minWidth: 36, height: 24, fontSize: 11, fontFamily: "monospace",
                   background: v === ms ? T.eo_hole : T.surface, color: v === ms ? "#fff" : T.ink,
                   border: `1px solid ${v === ms ? T.eo_hole : T.border}`, borderRadius: 3, cursor: "pointer",
-                }}>{v > 0 ? "+\u00BD" : "\u2212\u00BD"}</button>
+                }}>{v > 0 ? "+½" : "−½"}</button>
               ))}
             </div>
           </div>
@@ -2074,7 +2074,7 @@ function QuantumNumbersSection() {
             Periodic Table Connection
           </div>
           <div style={{ color: T.ink, fontSize: 11 }}>
-            s-block: groups 1{"\u20132"} | p-block: groups 13{"\u201318"} | d-block: groups 3{"\u201312"} | f-block: lanthanides/actinides.
+            s-block: groups 1{"–2"} | p-block: groups 13{"–18"} | d-block: groups 3{"–12"} | f-block: lanthanides/actinides.
             The filling of these orbitals gives the periodic table its shape.
           </div>
         </div>
@@ -2083,7 +2083,7 @@ function QuantumNumbersSection() {
           background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Coming Next: Aufbau & Pauli {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Coming Next: Aufbau & Pauli {"→"}</div>
           <div style={{ color: T.ink }}>
             Now that we know the four quantum numbers (n, l, m_l, m_s) define every possible orbital, we need rules for how electrons actually fill them. The Aufbau principle and Pauli exclusion principle tell us the filling order — and explain why elements have the electron configurations they do.
           </div>
@@ -2235,8 +2235,8 @@ function PeriodicTrendsSection() {
 
           {/* Trend arrows */}
           <g>
-            <text x={310} y={offsetY + 30} fontSize={9} fill={T.eo_gap} textAnchor="middle">{"\u2193"}</text>
-            <text x={170} y={offsetY + 168} fontSize={9} fill={T.eo_gap} textAnchor="middle">{"\u2192"}</text>
+            <text x={310} y={offsetY + 30} fontSize={9} fill={T.eo_gap} textAnchor="middle">{"↓"}</text>
+            <text x={170} y={offsetY + 168} fontSize={9} fill={T.eo_gap} textAnchor="middle">{"→"}</text>
           </g>
         </svg>
       </div>
@@ -2313,9 +2313,9 @@ function PeriodicTrendsSection() {
           <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
             {property === "en" && <span>
               <strong>Electronegativity</strong> measures how strongly an atom pulls shared electrons in a bond.
-              Pauling{"\u2019"}s scale (0.7{"\u2013"}4.0) uses bond energies. The <strong>difference</strong> ({"\u0394"}{"\u03C7"}) between bonded atoms predicts bond type:
-              {"\u0394"}{"\u03C7"} {"<"} 0.4 = covalent, 0.4{"\u2013"}1.7 = polar covalent, {">"} 1.7 = ionic.
-              Example: Zn (1.65) vs Te (2.10) {"\u2192"} {"\u0394"}{"\u03C7"} = 0.45 {"\u2192"} ZnTe is polar covalent.
+              Pauling{"’"}s scale (0.7{"–"}4.0) uses bond energies. The <strong>difference</strong> ({"Δ"}{"χ"}) between bonded atoms predicts bond type:
+              {"Δ"}{"χ"} {"<"} 0.4 = covalent, 0.4{"–"}1.7 = polar covalent, {">"} 1.7 = ionic.
+              Example: Zn (1.65) vs Te (2.10) {"→"} {"Δ"}{"χ"} = 0.45 {"→"} ZnTe is polar covalent.
             </span>}
             {property === "radius" && <span>
               <strong>Atomic radius</strong> = distance from nucleus to outermost electron shell.
@@ -2323,12 +2323,12 @@ function PeriodicTrendsSection() {
               Down a group, new shells make atoms larger. Radius controls crystal packing and lattice constants.
             </span>}
             {property === "ie" && <span>
-              <strong>Ionization energy</strong> = energy to remove one electron: A {"\u2192"} A{"\u207A"} + e{"\u207B"}.
+              <strong>Ionization energy</strong> = energy to remove one electron: A {"→"} A{"⁺"} + e{"⁻"}.
               High IE means the atom holds electrons tightly (noble gases). Low IE means it easily loses electrons (alkali metals).
               IE determines which elements form cations in ionic compounds and which are good electron donors.
             </span>}
             {property === "ea" && <span>
-              <strong>Electron affinity</strong> = energy released when atom gains an electron: A + e{"\u207B"} {"\u2192"} A{"\u207B"}.
+              <strong>Electron affinity</strong> = energy released when atom gains an electron: A + e{"⁻"} {"→"} A{"⁻"}.
               High EA means the atom wants electrons (halogens). Negative EA means it resists gaining electrons.
               EA determines which elements act as acceptors in semiconductor doping.
             </span>}
@@ -2340,7 +2340,7 @@ function PeriodicTrendsSection() {
           <div style={{ fontWeight: "bold", marginBottom: 6, color: T.eo_gap }}>Periodic Trends</div>
           <div style={{ display: "flex", gap: 16, marginBottom: 6 }}>
             <div>
-              <span style={{ color: T.eo_gap }}>{"\u2192"} Across period:</span>{" "}
+              <span style={{ color: T.eo_gap }}>{"→"} Across period:</span>{" "}
               {property === "en" && "EN increases (more protons, same shell)"}
               {property === "radius" && "Radius decreases (stronger nuclear pull)"}
               {property === "ie" && "IE increases (harder to remove electrons)"}
@@ -2349,7 +2349,7 @@ function PeriodicTrendsSection() {
           </div>
           <div style={{ display: "flex", gap: 16 }}>
             <div>
-              <span style={{ color: T.eo_gap }}>{"\u2193"} Down group:</span>{" "}
+              <span style={{ color: T.eo_gap }}>{"↓"} Down group:</span>{" "}
               {property === "en" && "EN decreases (electrons farther from nucleus)"}
               {property === "radius" && "Radius increases (more electron shells)"}
               {property === "ie" && "IE decreases (outer electrons easier to remove)"}
@@ -2365,7 +2365,7 @@ function PeriodicTrendsSection() {
           <div style={{ fontWeight: "bold", color: T.eo_gap, marginBottom: 4 }}>Key Insight</div>
           <div style={{ color: T.ink, fontSize: 11 }}>
             Electronegativity difference predicts bond type. Radius determines crystal
-            structure. These trends drive all of materials science {"\u2014"} from semiconductor
+            structure. These trends drive all of materials science {"—"} from semiconductor
             doping (Si + P/B) to compound formation (GaAs, CdTe, InSb).
           </div>
         </div>
@@ -2374,7 +2374,7 @@ function PeriodicTrendsSection() {
           background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Coming Next: Chemical Bonding {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Coming Next: Chemical Bonding {"→"}</div>
           <div style={{ color: T.ink }}>
             Electronegativity differences between atoms determine how they share or transfer electrons — which is exactly what defines bond types. Understanding periodic trends lets us predict whether atoms will form covalent, ionic, or metallic bonds.
           </div>
@@ -2660,8 +2660,8 @@ function ChemicalBondingSection() {
               <text x={110} y={125} textAnchor="middle" fontSize={12} fontWeight={700} fill="#fff">Zn</text>
               <circle cx={230} cy={120} r={31} fill={T.eo_core} opacity={0.85} />
               <text x={230} y={125} textAnchor="middle" fontSize={12} fontWeight={700} fill="#fff">Te</text>
-              <text x={110} y={92} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.eo_hole}>{"\u03B4+"}</text>
-              <text x={230} y={86} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.eo_e}>{"\u03B4\u2212"}</text>
+              <text x={110} y={92} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.eo_hole}>{"δ+"}</text>
+              <text x={230} y={86} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.eo_e}>{"δ−"}</text>
               <line x1={140} y1={155} x2={200} y2={155} stroke={T.muted} strokeWidth={1.5} markerEnd="url(#arrowPolar)" />
               <text x={170} y={168} textAnchor="middle" fontSize={11} fill={T.muted}>Dipole moment</text>
           </>)}
@@ -2676,9 +2676,9 @@ function ChemicalBondingSection() {
               <text x={100} y={90} textAnchor="middle" fontSize={18} fontWeight={700} fill={T.eo_hole}>+</text>
               <circle cx={240} cy={120} r={36} fill={T.eo_e} opacity={0.75} />
               <text x={240} y={125} textAnchor="middle" fontSize={12} fontWeight={700} fill="#fff">Cl</text>
-              <text x={240} y={82} textAnchor="middle" fontSize={18} fontWeight={700} fill={T.eo_e}>{"\u2212"}</text>
+              <text x={240} y={82} textAnchor="middle" fontSize={18} fontWeight={700} fill={T.eo_e}>{"−"}</text>
               <circle cx={240 + 10 * Math.sin(frame * 0.15)} cy={95 + 6 * Math.cos(frame * 0.2)} r={5 * pulse} fill={T.eo_e} opacity={0.6} />
-              <text x={240 + 10 * Math.sin(frame * 0.15)} y={95 + 6 * Math.cos(frame * 0.2) - 8} textAnchor="middle" fontSize={10} fill={T.muted}>{"e\u207B"}</text>
+              <text x={240 + 10 * Math.sin(frame * 0.15)} y={95 + 6 * Math.cos(frame * 0.2) - 8} textAnchor="middle" fontSize={10} fill={T.muted}>{"e⁻"}</text>
               <text x={170} y={170} textAnchor="middle" fontSize={11} fill={T.muted}>Complete electron transfer</text>
           </>)}
 
@@ -2714,8 +2714,8 @@ function ChemicalBondingSection() {
                 <line x1={95} y1={115} x2={105} y2={115} stroke="#fff" strokeWidth={3} />
                 <text x={80} y={119} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff">H</text>
                 <text x={120} y={119} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff">Cl</text>
-                <text x={80} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_hole} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"\u03B4+"}</text>
-                <text x={120} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_e} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"\u03B4\u2212"}</text>
+                <text x={80} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_hole} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"δ+"}</text>
+                <text x={120} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_e} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"δ−"}</text>
                 <ellipse cx={100 + dipoleShift} cy={115} rx={30 * pulse} ry={18 * pulse} fill={T.eo_e} opacity={0.1} stroke={T.eo_e} strokeWidth={0.8} strokeDasharray="3,3" />
                 <line x1={142} y1={115} x2={198} y2={115} stroke={T.muted} strokeWidth={1.5} strokeDasharray="3,4" opacity={0.5 + 0.3 * Math.sin(frame * 0.06)} />
                 <text x={170} y={108} textAnchor="middle" fontSize={10} fill={T.dim}>weak</text>
@@ -2724,8 +2724,8 @@ function ChemicalBondingSection() {
                 <line x1={235} y1={115} x2={245} y2={115} stroke="#fff" strokeWidth={3} />
                 <text x={220} y={119} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff">H</text>
                 <text x={260} y={119} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff">Cl</text>
-                <text x={220} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_e} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"\u03B4\u2212"}</text>
-                <text x={260} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_hole} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"\u03B4+"}</text>
+                <text x={220} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_e} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"δ−"}</text>
+                <text x={260} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_hole} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"δ+"}</text>
                 <ellipse cx={240 - dipoleShift} cy={115} rx={30 * pulse} ry={18 * pulse} fill={T.eo_e} opacity={0.1} stroke={T.eo_e} strokeWidth={0.8} strokeDasharray="3,3" />
                 <text x={170} y={155} textAnchor="middle" fontSize={11} fill={T.muted}>Fluctuating dipoles induce attraction</text>
             </>);
@@ -2877,7 +2877,7 @@ function ChemicalBondingSection() {
           background: `${T.eo_valence}11`, border: `1px solid ${T.eo_valence}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_valence, marginBottom: 4 }}>Coming Next: Hybridization {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_valence, marginBottom: 4 }}>Coming Next: Hybridization {"→"}</div>
           <div style={{ color: T.ink }}>
             We know atoms bond by sharing electrons, but how do atomic orbitals rearrange to form those bonds? Hybridization explains how s and p orbitals mix to create new shapes — giving molecules their 3D geometry.
           </div>
@@ -2971,7 +2971,7 @@ function HybridizationSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14, fontFamily: "monospace", color: T.ink }}>
       <AnalogyBox>
-          {`Hybridization is like mixing paint colors. A carbon atom has separate s and p orbitals (like separate red, blue, yellow paints). But when it bonds, it blends them into hybrid orbitals (like mixing paints to get new colors). sp\u00B3 hybridization mixes 1s + 3p to create 4 identical orbitals pointing to the corners of a tetrahedron \u2014 this is why methane (CH\u2084) and diamond have their specific shapes. The mixing happens because hybrid orbitals overlap better with neighbors, making stronger bonds.`}
+          {`Hybridization is like mixing paint colors. A carbon atom has separate s and p orbitals (like separate red, blue, yellow paints). But when it bonds, it blends them into hybrid orbitals (like mixing paints to get new colors). sp³ hybridization mixes 1s + 3p to create 4 identical orbitals pointing to the corners of a tetrahedron — this is why methane (CH₄) and diamond have their specific shapes. The mixing happens because hybrid orbitals overlap better with neighbors, making stronger bonds.`}
         </AnalogyBox>
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ minWidth: 340 }}>
@@ -3047,7 +3047,7 @@ function HybridizationSection() {
                 cursor: "pointer",
               }}
             >
-              {h === "sp2" ? "sp\u00B2" : h === "sp3" ? "sp\u00B3" : h}
+              {h === "sp2" ? "sp²" : h === "sp3" ? "sp³" : h}
             </button>
           ))}
         </div>
@@ -3088,15 +3088,15 @@ function HybridizationSection() {
           </thead>
           <tbody>
             {[
-              ["sp", "2", "Linear", "180\u00B0"],
-              ["sp\u00B2", "3", "Trigonal Planar", "120\u00B0"],
-              ["sp\u00B3", "4", "Tetrahedral", "109.5\u00B0"],
+              ["sp", "2", "Linear", "180°"],
+              ["sp²", "3", "Trigonal Planar", "120°"],
+              ["sp³", "4", "Tetrahedral", "109.5°"],
             ].map(([t, n, g, a]) => (
               <tr
                 key={t}
                 style={{
                   borderBottom: `1px solid ${T.border}`,
-                  background: (t === "sp" && hybridType === "sp") || (t === "sp\u00B2" && hybridType === "sp2") || (t === "sp\u00B3" && hybridType === "sp3") ? "#eff6ff" : "transparent",
+                  background: (t === "sp" && hybridType === "sp") || (t === "sp²" && hybridType === "sp2") || (t === "sp³" && hybridType === "sp3") ? "#eff6ff" : "transparent",
                 }}
               >
                 <td style={{ padding: "4px 6px", fontWeight: 600 }}>{t}</td>
@@ -3112,28 +3112,28 @@ function HybridizationSection() {
         <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
           <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4 }}>What is Hybridization?</div>
           <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.7 }}>
-            <strong>Problem:</strong> Atomic orbitals (s, p) have different shapes and energies. But in CH{"\u2084"}, all 4 bonds are identical at 109.5{"\u00B0"}. How?<br /><br />
+            <strong>Problem:</strong> Atomic orbitals (s, p) have different shapes and energies. But in CH{"₄"}, all 4 bonds are identical at 109.5{"°"}. How?<br /><br />
             <strong>Solution:</strong> Atoms mix their orbitals to create new <strong>equivalent</strong> hybrid orbitals optimized for bonding.<br /><br />
-            {hybridType === "sp" && <><span style={{ color: T.eo_e }}><strong>sp:</strong></span> 1s + 1p {"\u2192"} 2 hybrids at 180{"\u00B0"} (linear). Used in CO{"\u2082"}, acetylene. 2 leftover p orbitals form {"\u03C0"} bonds.</>}
-            {hybridType === "sp2" && <><span style={{ color: T.eo_e }}><strong>sp{"\u00B2"}:</strong></span> 1s + 2p {"\u2192"} 3 hybrids at 120{"\u00B0"} (planar). Used in graphene, ethylene. 1 leftover p forms {"\u03C0"} bond above/below.</>}
-            {hybridType === "sp3" && <><span style={{ color: T.eo_e }}><strong>sp{"\u00B3"}:</strong></span> 1s + 3p {"\u2192"} 4 hybrids at 109.5{"\u00B0"} (tetrahedral). Used in diamond, Si, ZnTe, GaAs. All form {"\u03C3"} bonds. This is the bonding in ALL zincblende semiconductors.</>}
+            {hybridType === "sp" && <><span style={{ color: T.eo_e }}><strong>sp:</strong></span> 1s + 1p {"→"} 2 hybrids at 180{"°"} (linear). Used in CO{"₂"}, acetylene. 2 leftover p orbitals form {"π"} bonds.</>}
+            {hybridType === "sp2" && <><span style={{ color: T.eo_e }}><strong>sp{"²"}:</strong></span> 1s + 2p {"→"} 3 hybrids at 120{"°"} (planar). Used in graphene, ethylene. 1 leftover p forms {"π"} bond above/below.</>}
+            {hybridType === "sp3" && <><span style={{ color: T.eo_e }}><strong>sp{"³"}:</strong></span> 1s + 3p {"→"} 4 hybrids at 109.5{"°"} (tetrahedral). Used in diamond, Si, ZnTe, GaAs. All form {"σ"} bonds. This is the bonding in ALL zincblende semiconductors.</>}
             <br /><br />
-            <strong>Before:</strong> s and p have different shapes {"\u2192"} <strong>After {hybridType}:</strong> {data.n} equivalent orbitals, each holding 1 electron for bonding.
-            The hybrid shape determines crystal structure: sp{"\u00B3"} {"\u2192"} tetrahedral, sp{"\u00B2"} {"\u2192"} planar, sp {"\u2192"} linear.
+            <strong>Before:</strong> s and p have different shapes {"→"} <strong>After {hybridType}:</strong> {data.n} equivalent orbitals, each holding 1 electron for bonding.
+            The hybrid shape determines crystal structure: sp{"³"} {"→"} tetrahedral, sp{"²"} {"→"} planar, sp {"→"} linear.
           </div>
         </div>
 
         <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
           <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
           <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            In 1931, Linus Pauling introduced the concept of hybridization to explain a puzzle: carbon has two 2s and two 2p electrons, yet methane (CH{"\u2084"}) has four identical bonds arranged tetrahedrally. Pauling showed that atomic orbitals can mathematically "mix" to form equivalent hybrid orbitals pointing in optimal directions. This idea was later applied to semiconductors — sp{"\u00B3"} hybridization explains why silicon, germanium, and zincblende compounds all adopt tetrahedral crystal structures with bond angles of 109.5{"\u00B0"}.
+            In 1931, Linus Pauling introduced the concept of hybridization to explain a puzzle: carbon has two 2s and two 2p electrons, yet methane (CH{"₄"}) has four identical bonds arranged tetrahedrally. Pauling showed that atomic orbitals can mathematically "mix" to form equivalent hybrid orbitals pointing in optimal directions. This idea was later applied to semiconductors — sp{"³"} hybridization explains why silicon, germanium, and zincblende compounds all adopt tetrahedral crystal structures with bond angles of 109.5{"°"}.
           </div>
         </div>
 
         <div style={{ background: "#fef9c3", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
           <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
-            sp{"\u00B3"} hybridization is WHY zincblende semiconductors (ZnTe, CdTe, GaAs, CZTS) form
+            sp{"³"} hybridization is WHY zincblende semiconductors (ZnTe, CdTe, GaAs, CZTS) form
             tetrahedral crystal structures. Each atom forms 4 equivalent bonds at 109.5 degrees.
           </div>
         </div>
@@ -3142,9 +3142,9 @@ function HybridizationSection() {
           background: `${T.eo_valence}11`, border: `1px solid ${T.eo_valence}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_valence, marginBottom: 4 }}>Coming Next: Electron Origins {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_valence, marginBottom: 4 }}>Coming Next: Electron Origins {"→"}</div>
           <div style={{ color: T.ink }}>
-            With bonding and orbital mixing understood, we can now trace where each electron in a real semiconductor comes from {"\u2014"} how each atom contributes its valence electrons to build the crystal{"'"}s electronic structure.
+            With bonding and orbital mixing understood, we can now trace where each electron in a real semiconductor comes from {"—"} how each atom contributes its valence electrons to build the crystal{"'"}s electronic structure.
           </div>
         </div>
       </div>
@@ -3192,10 +3192,10 @@ function MolecularOrbitalSection() {
       {filled && (
         <>
           <text x={x - 6} y={y - 5} fontSize={10} fill={color}>
-            {"\u2191"}
+            {"↑"}
           </text>
           <text x={x + 2} y={y - 5} fontSize={10} fill={color}>
-            {"\u2193"}
+            {"↓"}
           </text>
         </>
       )}
@@ -3225,7 +3225,7 @@ function MolecularOrbitalSection() {
             Energy
           </text>
           <text x={30} y={38} fontSize={8} fill={T.muted}>
-            {"\u2191"}
+            {"↑"}
           </text>
 
           {stage === 1 && (
@@ -3247,8 +3247,8 @@ function MolecularOrbitalSection() {
           {stage === 2 && (
             <>
               {/* Bonding + antibonding */}
-              {drawLevel(170, 210, 80, T.eo_valence, "\u03C3 (bonding)", true, "bond")}
-              {drawLevel(170, 100, 80, T.eo_gap, "\u03C3* (antibonding)", false, "antibond")}
+              {drawLevel(170, 210, 80, T.eo_valence, "σ (bonding)", true, "bond")}
+              {drawLevel(170, 100, 80, T.eo_gap, "σ* (antibonding)", false, "antibond")}
               <text x={280} y={214} fontSize={9} fill={T.eo_valence}>
                 HOMO
               </text>
@@ -3329,7 +3329,7 @@ function MolecularOrbitalSection() {
                   <line x1={170} y1={190} x2={170} y2={120} stroke={T.eo_photon} strokeWidth={1.5} strokeDasharray="4,2" />
                   <circle cx={170} cy={lerp(190, 120, (frame % 40) / 40)} r={4} fill={T.eo_photon} />
                   <text x={180} y={155} fontSize={8} fill={T.eo_photon}>
-                    h{"\u03BD"}
+                    h{"ν"}
                   </text>
                 </g>
               )}
@@ -3406,9 +3406,9 @@ function MolecularOrbitalSection() {
 
         <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
           <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.5 }}>
-            <strong>HOMO</strong> (Highest Occupied MO) {"\u2192"} becomes <strong>VBM</strong> (Valence Band Maximum)
+            <strong>HOMO</strong> (Highest Occupied MO) {"→"} becomes <strong>VBM</strong> (Valence Band Maximum)
             <br />
-            <strong>LUMO</strong> (Lowest Unoccupied MO) {"\u2192"} becomes <strong>CBM</strong> (Conduction Band Minimum)
+            <strong>LUMO</strong> (Lowest Unoccupied MO) {"→"} becomes <strong>CBM</strong> (Conduction Band Minimum)
           </div>
         </div>
 
@@ -3422,7 +3422,7 @@ function MolecularOrbitalSection() {
         <div style={{ background: "#fef9c3", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
           <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
-            This is the origin of bands. Bonding orbitals {"\u2192"} valence band. Antibonding {"\u2192"} conduction band.
+            This is the origin of bands. Bonding orbitals {"→"} valence band. Antibonding {"→"} conduction band.
             The gap between them is the band gap E_g. For ZnTe, E_g = 2.26 eV.
           </div>
         </div>
@@ -3431,7 +3431,7 @@ function MolecularOrbitalSection() {
           background: `${T.eo_cond}11`, border: `1px solid ${T.eo_cond}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_cond, marginBottom: 4 }}>Coming Next: Crystal Symmetry {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_cond, marginBottom: 4 }}>Coming Next: Crystal Symmetry {"→"}</div>
           <div style={{ color: T.ink }}>
             When billions of atoms arrange into a crystal, their molecular orbitals merge into bands. But the crystal's symmetry determines which orbital combinations are allowed — and symmetry operations define the repeating unit cell.
           </div>
@@ -3565,7 +3565,7 @@ function CrystalSymmetrySection() {
 
           {/* Lattice parameter labels */}
           <text x={170} y={310} textAnchor="middle" fontSize={10} fill={T.muted}>
-            a = b = c{lattice === "Simple Cubic" ? "" : " | \u03B1=\u03B2=\u03B3=90\u00B0"}
+            a = b = c{lattice === "Simple Cubic" ? "" : " | α=β=γ=90°"}
           </text>
 
           {/* Tetrahedral bonds for zincblende */}
@@ -3704,7 +3704,7 @@ function CrystalSymmetrySection() {
           <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
           <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
             Zincblende (F-43m) is THE structure for most important semiconductors: Si (diamond variant),
-            GaAs, ZnTe, CdTe. The tetrahedral coordination arises directly from sp{"\u00B3"} hybridization.
+            GaAs, ZnTe, CdTe. The tetrahedral coordination arises directly from sp{"³"} hybridization.
           </div>
         </div>
 
@@ -3712,7 +3712,7 @@ function CrystalSymmetrySection() {
           background: `${T.eo_cond}11`, border: `1px solid ${T.eo_cond}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_cond, marginBottom: 4 }}>Coming Next: Reciprocal Space {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_cond, marginBottom: 4 }}>Coming Next: Reciprocal Space {"→"}</div>
           <div style={{ color: T.ink }}>
             Crystal symmetry in real space has a mathematical mirror: reciprocal space. X-ray diffraction patterns directly reveal the reciprocal lattice, and the Brillouin zone defines where we calculate electronic band structures.
           </div>
@@ -3764,14 +3764,14 @@ function ReciprocalSpaceSection() {
 
   const highSymPts = latticeType === "FCC"
     ? [
-        { label: "\u0393", x: 0, y: 0 },
+        { label: "Γ", x: 0, y: 0 },
         { label: "X", x: 40, y: 0 },
         { label: "L", x: 20, y: -35 },
         { label: "K", x: 35, y: -18 },
         { label: "W", x: 40, y: -23 },
       ]
     : [
-        { label: "\u0393", x: 0, y: 0 },
+        { label: "Γ", x: 0, y: 0 },
         { label: "X", x: 25, y: 0 },
         { label: "M", x: 25, y: -25 },
       ];
@@ -3815,11 +3815,11 @@ function ReciprocalSpaceSection() {
             <>
               <line x1={ctrX} y1={ctrY} x2={ctrX + realA1[0]} y2={ctrY + realA1[1]} stroke={T.eo_hole} strokeWidth={2.5} markerEnd="url(#arrowRS)" />
               <text x={ctrX + realA1[0] + 8} y={ctrY + realA1[1] + 4} fontSize={11} fill={T.eo_hole} fontWeight={700}>
-                a{"\u2081"}
+                a{"₁"}
               </text>
               <line x1={ctrX} y1={ctrY} x2={ctrX + realA2actual[0]} y2={ctrY + realA2actual[1]} stroke={T.eo_valence} strokeWidth={2.5} markerEnd="url(#arrowRS2)" />
               <text x={ctrX + realA2actual[0] + 8} y={ctrY + realA2actual[1] + 4} fontSize={11} fill={T.eo_valence} fontWeight={700}>
-                a{"\u2082"}
+                a{"₂"}
               </text>
             </>
           )}
@@ -3879,11 +3879,11 @@ function ReciprocalSpaceSection() {
               {/* Basis vectors */}
               <line x1={ctrX} y1={ctrY} x2={ctrX + recipB1[0]} y2={ctrY - recipB1[1]} stroke={T.eo_hole} strokeWidth={2} markerEnd="url(#arrowRS)" />
               <text x={ctrX + recipB1[0] + 8} y={ctrY - recipB1[1] + 4} fontSize={11} fill={T.eo_hole} fontWeight={700}>
-                b{"\u2081"}
+                b{"₁"}
               </text>
               <line x1={ctrX} y1={ctrY} x2={ctrX + recipB2[0]} y2={ctrY - recipB2[1]} stroke={T.eo_valence} strokeWidth={2} markerEnd="url(#arrowRS2)" />
               <text x={ctrX + recipB2[0] + 8} y={ctrY - recipB2[1] + 4} fontSize={11} fill={T.eo_valence} fontWeight={700}>
-                b{"\u2082"}
+                b{"₂"}
               </text>
             </>
           )}
@@ -3899,7 +3899,7 @@ function ReciprocalSpaceSection() {
 
           {/* Relationship formula */}
           <text x={170} y={300} textAnchor="middle" fontSize={10} fill={T.muted}>
-            b{"\u1D62"} {"\u00B7"} a{"\u2C7C"} = 2{"\u03C0"}{"\u03B4"}{"\u1D62\u2C7C"}
+            b{"ᵢ"} {"·"} a{"ⱼ"} = 2{"π"}{"δ"}{"ᵢⱼ"}
           </text>
 
           <text x={170} y={315} textAnchor="middle" fontSize={9} fill={T.dim}>
@@ -3984,12 +3984,12 @@ function ReciprocalSpaceSection() {
             Band structure plots E(k) along high-symmetry paths in the BZ:
           </div>
           <div style={{ fontSize: 11, color: T.eo_e, fontWeight: 600, marginTop: 4 }}>
-            {"\u0393"} {"\u2192"} X {"\u2192"} L {"\u2192"} {"\u0393"} {"\u2192"} K
+            {"Γ"} {"→"} X {"→"} L {"→"} {"Γ"} {"→"} K
           </div>
           <div style={{ fontSize: 10, color: T.muted, marginTop: 4, lineHeight: 1.5 }}>
-            {"\u0393"} = (0,0,0) = zone center{"\n"}
-            X = (1,0,0){"\u00B7"}{"\u03C0"}/a = zone edge along [100]{"\n"}
-            L = ({"\u00BD"},{"\u00BD"},{"\u00BD"}){"\u00B7"}{"\u03C0"}/a = zone edge along [111]
+            {"Γ"} = (0,0,0) = zone center{"\n"}
+            X = (1,0,0){"·"}{"π"}/a = zone edge along [100]{"\n"}
+            L = ({"½"},{"½"},{"½"}){"·"}{"π"}/a = zone edge along [111]
           </div>
         </div>
 
@@ -3998,11 +3998,11 @@ function ReciprocalSpaceSection() {
           <table style={{ width: "100%", fontSize: 10, borderCollapse: "collapse" }}>
             <tbody>
               {[
-                ["\u0393", "(0,0,0)", "Zone center"],
-                ["X", "(1,0,0)\u03C0/a", "Square face center"],
-                ["L", "(\u00BD,\u00BD,\u00BD)\u03C0/a", "Hexagonal face center"],
-                ["K", "(\u00BE,\u00BE,0)\u03C0/a", "Edge midpoint"],
-                ["W", "(1,\u00BD,0)\u03C0/a", "Corner point"],
+                ["Γ", "(0,0,0)", "Zone center"],
+                ["X", "(1,0,0)π/a", "Square face center"],
+                ["L", "(½,½,½)π/a", "Hexagonal face center"],
+                ["K", "(¾,¾,0)π/a", "Edge midpoint"],
+                ["W", "(1,½,0)π/a", "Corner point"],
               ].map(([pt, coord, desc]) => (
                 <tr key={pt} style={{ borderBottom: `1px solid ${T.border}` }}>
                   <td style={{ padding: "3px 5px", fontWeight: 700, color: T.eo_gap }}>{pt}</td>
@@ -4025,7 +4025,7 @@ function ReciprocalSpaceSection() {
           <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
           <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
             Direct vs indirect band gap is determined by whether VBM and CBM are at the same k-point.
-            ZnTe: direct gap at {"\u0393"} (good for optics). Si: indirect gap {"\u0393"}{"\u2192"}X (poor absorber).
+            ZnTe: direct gap at {"Γ"} (good for optics). Si: indirect gap {"Γ"}{"→"}X (poor absorber).
             This controls optical absorption strength.
           </div>
         </div>
@@ -4034,7 +4034,7 @@ function ReciprocalSpaceSection() {
           background: `${T.eo_cond}11`, border: `1px solid ${T.eo_cond}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_cond, marginBottom: 4 }}>Coming Next: Energy Bands {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_cond, marginBottom: 4 }}>Coming Next: Energy Bands {"→"}</div>
           <div style={{ color: T.ink }}>
             The Brillouin zone gives us the stage. Now we calculate what happens on it — electrons moving through the periodic potential form energy bands, with allowed and forbidden energy ranges that define metals, semiconductors, and insulators.
           </div>
@@ -4071,7 +4071,7 @@ function BandSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox>
-          {`Energy bands are like floors in a building. In a single atom, electrons live on specific floors (discrete energy levels). But when trillions of atoms pack into a crystal, their floors merge into continuous ramps (bands). The valence band is the ground floor \u2014 full of residents (electrons). The conduction band is the upper floor \u2014 empty, with room to roam freely. The band gap is the staircase between them: easy to climb in semiconductors, impossible in insulators, nonexistent in metals.`}
+          {`Energy bands are like floors in a building. In a single atom, electrons live on specific floors (discrete energy levels). But when trillions of atoms pack into a crystal, their floors merge into continuous ramps (bands). The valence band is the ground floor — full of residents (electrons). The conduction band is the upper floor — empty, with room to roam freely. The band gap is the staircase between them: easy to climb in semiconductors, impossible in insulators, nonexistent in metals.`}
         </AnalogyBox>
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       {/* Band diagram */}
@@ -4216,7 +4216,7 @@ function BandSection() {
           background: `${T.eo_photon}11`, border: `1px solid ${T.eo_photon}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_photon, marginBottom: 4 }}>Coming Next: Density of States {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_photon, marginBottom: 4 }}>Coming Next: Density of States {"→"}</div>
           <div style={{ color: T.ink }}>
             Band structure shows energy vs. momentum. But to predict real properties (optical absorption, conductivity), we need to count how many states exist at each energy — that's the density of states.
           </div>
@@ -4523,11 +4523,11 @@ function MaterialClassesSection() {
   }, []);
 
   const matTypes = [
-    { id: "metal",        label: "Metal",         color: "#2563eb", bandGap: 0,    example: "Cu, Al, Fe",    conductivity: "10\u2076 \u2013 10\u2078 S/m" },
-    { id: "semiconductor", label: "Semiconductor", color: "#059669", bandGap: 0.5,  example: "Si, GaAs, CdTe", conductivity: "10\u207B\u2076 \u2013 10\u2074 S/m" },
-    { id: "insulator",    label: "Insulator",      color: "#dc2626", bandGap: 5.0,  example: "SiO\u2082, Diamond, Al\u2082O\u2083", conductivity: "< 10\u207B\u00B9\u2070 S/m" },
-    { id: "polymer",      label: "Polymer",        color: "#9333ea", bandGap: 3.5,  example: "PE, PMMA, Kevlar", conductivity: "10\u207B\u00B9\u2074 \u2013 10\u207B\u00B9\u2070 S/m" },
-    { id: "ceramic",      label: "Ceramic",        color: "#b45309", bandGap: 4.0,  example: "Al\u2082O\u2083, ZrO\u2082, SiC", conductivity: "10\u207B\u00B9\u00B2 \u2013 10\u00B2 S/m" },
+    { id: "metal",        label: "Metal",         color: "#2563eb", bandGap: 0,    example: "Cu, Al, Fe",    conductivity: "10⁶ – 10⁸ S/m" },
+    { id: "semiconductor", label: "Semiconductor", color: "#059669", bandGap: 0.5,  example: "Si, GaAs, CdTe", conductivity: "10⁻⁶ – 10⁴ S/m" },
+    { id: "insulator",    label: "Insulator",      color: "#dc2626", bandGap: 5.0,  example: "SiO₂, Diamond, Al₂O₃", conductivity: "< 10⁻¹⁰ S/m" },
+    { id: "polymer",      label: "Polymer",        color: "#9333ea", bandGap: 3.5,  example: "PE, PMMA, Kevlar", conductivity: "10⁻¹⁴ – 10⁻¹⁰ S/m" },
+    { id: "ceramic",      label: "Ceramic",        color: "#b45309", bandGap: 4.0,  example: "Al₂O₃, ZrO₂, SiC", conductivity: "10⁻¹² – 10² S/m" },
   ];
 
   const sel = matTypes.find(m => m.id === selected);
@@ -4535,23 +4535,23 @@ function MaterialClassesSection() {
   // Detailed info for each material class
   const info = {
     metal: {
-      analogy: "A metal is like a \u201Cmosh pit\u201D at a concert. The fans (electrons) are not attached to any single person (atom) \u2014 they flow freely through the whole crowd. Push from one side (apply voltage) and the entire sea of fans surges in that direction. That is why metals conduct electricity so well: their outermost electrons are delocalized, shared by every atom in the crystal, forming an \u201Celectron sea.\u201D",
-      bonding: "Metallic bonding \u2014 positive ion cores sit in a sea of delocalized electrons. No directional preference.",
-      bandDesc: "Conduction band and valence band OVERLAP \u2014 there is no gap. Electrons can move freely with any tiny push of energy.",
+      analogy: "A metal is like a “mosh pit” at a concert. The fans (electrons) are not attached to any single person (atom) — they flow freely through the whole crowd. Push from one side (apply voltage) and the entire sea of fans surges in that direction. That is why metals conduct electricity so well: their outermost electrons are delocalized, shared by every atom in the crystal, forming an “electron sea.”",
+      bonding: "Metallic bonding — positive ion cores sit in a sea of delocalized electrons. No directional preference.",
+      bandDesc: "Conduction band and valence band OVERLAP — there is no gap. Electrons can move freely with any tiny push of energy.",
       properties: ["Excellent electrical & thermal conductor", "Ductile & malleable (electron sea allows planes to slide)", "Shiny / reflective (free electrons absorb & re-emit photons)", "High melting point (strong metallic bond in transition metals)"],
       weakness: "Corrodes in oxidizing environments. Heavy. Cannot be transparent.",
       animation: "freeElectrons",
     },
     semiconductor: {
-      analogy: "A semiconductor is like a library with a \u201Cquiet room\u201D (valence band) and a \u201Cwork room\u201D (conduction band) separated by a locked door (band gap). At zero temperature, everyone sits quietly \u2014 no current flows. But heat the room (add thermal energy) or shine a flashlight (photon) and some readers gain enough energy to jump through the door into the work room, where they can move freely. The bigger the gap, the harder the jump.",
-      bonding: "Covalent bonding \u2014 atoms share electron pairs in directional sp\u00B3 bonds (like diamond structure for Si).",
-      bandDesc: "Small band gap (0.1 \u2013 4 eV). At 0 K: insulator. At room temperature: some electrons thermally excited across the gap.",
+      analogy: "A semiconductor is like a library with a “quiet room” (valence band) and a “work room” (conduction band) separated by a locked door (band gap). At zero temperature, everyone sits quietly — no current flows. But heat the room (add thermal energy) or shine a flashlight (photon) and some readers gain enough energy to jump through the door into the work room, where they can move freely. The bigger the gap, the harder the jump.",
+      bonding: "Covalent bonding — atoms share electron pairs in directional sp³ bonds (like diamond structure for Si).",
+      bandDesc: "Small band gap (0.1 – 4 eV). At 0 K: insulator. At room temperature: some electrons thermally excited across the gap.",
       properties: ["Conductivity tunable by doping (add impurities)", "Temperature-dependent conductivity (increases with T)", "Photosensitive (absorbs photons with E > E_gap)", "Foundation of all modern electronics (transistors, solar cells, LEDs)"],
       weakness: "Pure form is a poor conductor. Requires extreme purity for device fabrication.",
       animation: "gapJump",
     },
     insulator: {
-      analogy: "An insulator is like a prison with an impossibly high wall (huge band gap). The inmates (electrons) are locked in their cells (valence band) and no amount of room-temperature energy can help them escape over the wall into freedom (conduction band). You would need an enormous energy boost \u2014 like a lightning strike \u2014 to force electrons across. That is why glass, rubber, and diamond do not conduct electricity under normal conditions.",
+      analogy: "An insulator is like a prison with an impossibly high wall (huge band gap). The inmates (electrons) are locked in their cells (valence band) and no amount of room-temperature energy can help them escape over the wall into freedom (conduction band). You would need an enormous energy boost — like a lightning strike — to force electrons across. That is why glass, rubber, and diamond do not conduct electricity under normal conditions.",
       bonding: "Strong ionic or covalent bonds lock electrons tightly to atoms. No free carriers available.",
       bandDesc: "Very large band gap (> 4 eV). Virtually no electrons in conduction band at room temperature.",
       properties: ["Excellent electrical insulator (used in capacitors, coatings)", "Often optically transparent (photon energy < band gap)", "High dielectric strength (resists breakdown)", "Thermally stable (strong bonds = high melting point)"],
@@ -4559,19 +4559,19 @@ function MaterialClassesSection() {
       animation: "lockedElectrons",
     },
     polymer: {
-      analogy: "A polymer is like a bowl of cooked spaghetti. Each noodle (polymer chain) is made of thousands of repeating units (monomers) linked end-to-end by strong covalent bonds. But the noodles themselves are held together only by weak van der Waals forces \u2014 so the whole bowl is flexible and soft. Heat it up and the noodles slide past each other (melting). Pull a single noodle and it stretches before breaking (ductility). Most polymers are electrical insulators because electrons are locked within each chain.",
+      analogy: "A polymer is like a bowl of cooked spaghetti. Each noodle (polymer chain) is made of thousands of repeating units (monomers) linked end-to-end by strong covalent bonds. But the noodles themselves are held together only by weak van der Waals forces — so the whole bowl is flexible and soft. Heat it up and the noodles slide past each other (melting). Pull a single noodle and it stretches before breaking (ductility). Most polymers are electrical insulators because electrons are locked within each chain.",
       bonding: "Strong covalent bonds ALONG the chain. Weak van der Waals or hydrogen bonds BETWEEN chains.",
-      bandDesc: "Large band gap (3\u20138 eV for most). Conjugated polymers (polyacetylene) can have smaller gaps and conduct.",
+      bandDesc: "Large band gap (3–8 eV for most). Conjugated polymers (polyacetylene) can have smaller gaps and conduct.",
       properties: ["Lightweight and flexible", "Easy to process (injection molding, extrusion)", "Chemical resistance (PE resists acids, bases)", "Electrical insulator (used for wire coatings, plastic housings)"],
       weakness: "Low melting point. Degrades under UV. Poor thermal conductor. Not recyclable (thermosets).",
       animation: "chainWiggle",
     },
     ceramic: {
-      analogy: "A ceramic is like a brick wall \u2014 incredibly strong under compression (you can stack thousands of bricks) but shatter it with a sideways blow (brittle under tension). The atoms are locked in a rigid ionic or covalent network with no free electrons and no ability for planes to slide. This makes ceramics hard, heat-resistant, and electrically insulating \u2014 perfect for furnace linings, spark plugs, and thermal barrier coatings \u2014 but one crack propagates instantly because there is no electron sea to absorb the blow.",
+      analogy: "A ceramic is like a brick wall — incredibly strong under compression (you can stack thousands of bricks) but shatter it with a sideways blow (brittle under tension). The atoms are locked in a rigid ionic or covalent network with no free electrons and no ability for planes to slide. This makes ceramics hard, heat-resistant, and electrically insulating — perfect for furnace linings, spark plugs, and thermal barrier coatings — but one crack propagates instantly because there is no electron sea to absorb the blow.",
       bonding: "Mixed ionic + covalent bonds in a rigid 3D network. Highly directional and strong.",
-      bandDesc: "Large band gap (3\u20138 eV typically). Some exceptions: SiC (3.3 eV) is a wide-gap semiconductor.",
-      properties: ["Extremely hard and wear-resistant", "Very high melting point (Al\u2082O\u2083: 2072\u00B0C)", "Excellent thermal insulator (space shuttle tiles)", "Chemically inert (resists corrosion, oxidation)"],
-      weakness: "Brittle \u2014 catastrophic fracture with no warning. Difficult to machine or shape.",
+      bandDesc: "Large band gap (3–8 eV typically). Some exceptions: SiC (3.3 eV) is a wide-gap semiconductor.",
+      properties: ["Extremely hard and wear-resistant", "Very high melting point (Al₂O₃: 2072°C)", "Excellent thermal insulator (space shuttle tiles)", "Chemically inert (resists corrosion, oxidation)"],
+      weakness: "Brittle — catastrophic fracture with no warning. Difficult to machine or shape.",
       animation: "rigidLattice",
     },
   };
@@ -4602,13 +4602,18 @@ function MaterialClassesSection() {
     return [baseX, baseY];
   }) : [];
 
-  // Animated ceramic lattice
+  // Animated ceramic lattice — aligned between CB bottom edge and VB top edge
   const ceramicAtoms = selected === "ceramic" ? (() => {
     const atoms = [];
-    for (let row = 0; row < 5; row++) {
-      for (let col = 0; col < 7; col++) {
-        const bx = bandL + 10 + col * (bandW / 7);
-        const by = 60 + row * 42;
+    const latticeTop = CBbot;          // top edge = conduction band bottom
+    const latticeBot = VBtop + 30;     // bottom edge = valence band bottom
+    const nRows = 5, nCols = 7;
+    const rowSpacing = (latticeBot - latticeTop) / (nRows - 1);
+    const colSpacing = bandW / (nCols + 1);
+    for (let row = 0; row < nRows; row++) {
+      for (let col = 0; col < nCols; col++) {
+        const bx = bandL + colSpacing * (col + 1);
+        const by = latticeTop + row * rowSpacing;
         const vib = Math.sin(frame * 0.05 + row * 2 + col * 3) * 1.5;
         atoms.push({ x: bx + vib, y: by + vib * 0.7, isIon: (row + col) % 2 === 0 });
       }
@@ -4666,7 +4671,7 @@ function MaterialClassesSection() {
             {/* Overlap indicator for metals */}
             {selected === "metal" && (
               <text x={W / 2} y={VBtop - 5} textAnchor="middle" fill={T.eo_e} fontSize={10} fontWeight="bold">
-                \u2191 Bands OVERLAP \u2193
+                ↑ Bands OVERLAP ↓
               </text>
             )}
 
@@ -4676,7 +4681,7 @@ function MaterialClassesSection() {
                 <circle cx={e.x} cy={e.y} r={5} fill={e.inCB ? T.eo_e : T.eo_valence} opacity={0.85}>
                   <animate attributeName="cx" values={`${e.x - 3};${e.x + 3};${e.x - 3}`} dur={`${1.2 + i * 0.15}s`} repeatCount="indefinite" />
                 </circle>
-                <text x={e.x} y={e.y + 3.5} textAnchor="middle" fill="white" fontSize={9} fontWeight="bold">e\u207B</text>
+                <text x={e.x} y={e.y + 3.5} textAnchor="middle" fill="#1a1a2e" fontSize={9} fontWeight="bold">e⁻</text>
               </g>
             ))}
 
@@ -4688,7 +4693,7 @@ function MaterialClassesSection() {
                   stroke={T.eo_photon} strokeWidth={2} strokeDasharray="5 3" opacity={0.5 + 0.5 * Math.sin(frame * 0.1)}>
                   <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2s" repeatCount="indefinite" />
                 </line>
-                <text x={155} y={(CBbot + VBtop) / 2} fill={T.eo_photon} fontSize={9} fontWeight="bold">h\u03BD \u2191</text>
+                <text x={158} y={(CBbot + VBtop) / 2} fill={T.eo_photon} fontSize={11} fontWeight="bold">hν ↑</text>
               </g>
             )}
 
@@ -4696,7 +4701,7 @@ function MaterialClassesSection() {
               <g>
                 {/* Big X showing electrons can't cross */}
                 <text x={W / 2} y={(CBbot + VBtop) / 2 + 5} textAnchor="middle" fill={T.eo_gap} fontSize={20} fontWeight="bold" opacity={0.4 + 0.3 * Math.sin(frame * 0.08)}>
-                  \u2716 TOO WIDE
+                  ✖ TOO WIDE
                 </text>
               </g>
             )}
@@ -4729,7 +4734,7 @@ function MaterialClassesSection() {
                       fill={a.isIon ? sel.color + "33" : T.eo_gap + "33"}
                       stroke={a.isIon ? sel.color : T.eo_gap} strokeWidth={1.5} />
                     <text x={a.x} y={a.y + 3.5} textAnchor="middle" fill={a.isIon ? sel.color : T.eo_gap}
-                      fontSize={a.isIon ? 8 : 7} fontWeight="bold">{a.isIon ? "+" : "\u2013"}</text>
+                      fontSize={a.isIon ? 8 : 7} fontWeight="bold">{a.isIon ? "+" : "–"}</text>
                   </g>
                 ))}
                 <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.muted} fontSize={9}>Rigid ionic/covalent lattice (barely vibrating)</text>
@@ -4795,8 +4800,8 @@ function MaterialClassesSection() {
           <div style={{ background: T.surface, borderRadius: 8, padding: "10px 14px", border: `1px solid ${T.border}`, marginBottom: 10 }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: T.ink, marginBottom: 6 }}>Key Properties</div>
             {cur.properties.map((p, i) => (
-              <div key={i} style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, display: "flex", gap: 6 }}>
-                <span style={{ flexShrink: 0, color: sel.color, fontWeight: 700 }}>\u2022</span>{p}
+              <div key={i} style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+                <span style={{ color: sel.color, fontWeight: 700, marginRight: 6 }}>•</span>{p}
               </div>
             ))}
           </div>
@@ -4811,7 +4816,7 @@ function MaterialClassesSection() {
 
       {/* ── COMPARISON TABLE ── */}
       <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: `1.5px solid ${T.border}` }}>
-        <div style={{ fontSize: 13, fontWeight: 800, color: T.ink, marginBottom: 10 }}>Material Classes \u2014 Side by Side</div>
+        <div style={{ fontSize: 13, fontWeight: 800, color: T.ink, marginBottom: 10 }}>Material Classes — Side by Side</div>
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed", wordWrap: "break-word", fontSize: 10 }}>
             <thead>
@@ -4823,14 +4828,14 @@ function MaterialClassesSection() {
             </thead>
             <tbody>
               {[
-                { prop: "Band Gap", vals: ["0 (overlap)", "0.1\u20134 eV", "> 4 eV", "3\u20138 eV", "3\u20138 eV"] },
+                { prop: "Band Gap", vals: ["0 (overlap)", "0.1–4 eV", "> 4 eV", "3–8 eV", "3–8 eV"] },
                 { prop: "Bonding", vals: ["Metallic", "Covalent", "Ionic / Covalent", "Covalent + vdW", "Ionic + Covalent"] },
                 { prop: "Conductivity", vals: ["Very high", "Tunable (doping)", "Very low", "Very low", "Very low"] },
                 { prop: "Mechanical", vals: ["Ductile", "Brittle (crystal)", "Brittle", "Flexible", "Hard & brittle"] },
                 { prop: "Optical", vals: ["Opaque / shiny", "Absorbs > E_g", "Transparent", "Transparent/opaque", "Opaque (mostly)"] },
                 { prop: "Thermal Cond.", vals: ["High", "Moderate", "Low", "Very low", "Low (except SiC)"] },
-                { prop: "Melting Point", vals: ["Moderate\u2013High", "High", "Very high", "Low", "Very high"] },
-                { prop: "Density", vals: ["High", "Moderate", "Moderate", "Low", "Moderate\u2013High"] },
+                { prop: "Melting Point", vals: ["Moderate–High", "High", "Very high", "Low", "Very high"] },
+                { prop: "Density", vals: ["High", "Moderate", "Moderate", "Low", "Moderate–High"] },
                 { prop: "Example Use", vals: ["Wires, beams", "Chips, solar cells", "Capacitors, glass", "Packaging, fibers", "Furnace tiles, armor"] },
               ].map((row, i) => (
                 <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.surface : T.panel }}>
@@ -4845,25 +4850,6 @@ function MaterialClassesSection() {
         </div>
       </div>
 
-      {/* ── WHY THE DIFFERENCES? ── */}
-      <div style={{ background: T.surface, borderRadius: 10, padding: 14, border: `1.5px solid ${T.border}` }}>
-        <div style={{ fontSize: 13, fontWeight: 800, color: T.ink, marginBottom: 10 }}>Why Do They Differ? \u2014 It All Comes Down to Electrons</div>
-        <div style={{ fontSize: 11, lineHeight: 1.9, color: T.ink }}>
-          <strong style={{ color: T.eo_e }}>1. How tightly are electrons held?</strong> In metals, outer electrons are so loosely held they detach completely and form a shared electron sea. In insulators and ceramics, electrons are locked in strong ionic/covalent bonds.
-        </div>
-        <div style={{ fontSize: 11, lineHeight: 1.9, color: T.ink, marginTop: 6 }}>
-          <strong style={{ color: "#059669" }}>2. What is the band gap?</strong> The energy gap between filled (valence) and empty (conduction) states determines conductivity. Zero gap = metal. Small gap = semiconductor (tunable). Large gap = insulator.
-        </div>
-        <div style={{ fontSize: 11, lineHeight: 1.9, color: T.ink, marginTop: 6 }}>
-          <strong style={{ color: "#9333ea" }}>3. What type of bonding?</strong> Metallic bonds are non-directional (ductile). Covalent/ionic bonds are directional and strong (brittle). Polymer chains have strong intra-chain but weak inter-chain forces (flexible).
-        </div>
-        <div style={{ fontSize: 11, lineHeight: 1.9, color: T.ink, marginTop: 6 }}>
-          <strong style={{ color: "#b45309" }}>4. How is the structure organized?</strong> Metals pack efficiently (FCC/BCC). Ceramics form rigid lattices. Polymers form tangled chains. This controls density, melting point, and mechanical behavior.
-        </div>
-        <div style={{ marginTop: 10, fontSize: 11, lineHeight: 1.9, color: T.muted, background: "#fffbeb", padding: 12, borderRadius: 8, border: "1.5px solid #f59e0b33" }}>
-          <strong style={{ color: "#b45309" }}>The Big Picture:</strong> Every material property {"\u2014"} conductivity, hardness, transparency, melting point {"\u2014"} traces back to how atoms bond and how their electrons are arranged in energy bands. Understanding this one idea unlocks all of materials science.
-        </div>
-      </div>
     </div>
   );
 }
@@ -4921,7 +4907,7 @@ function SemiconductorDopingSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14, fontFamily: "monospace", color: T.ink }}>
       <AnalogyBox>
-          Doping a semiconductor is like adding a few VIP guests to a sold-out concert. In n-type doping, you add atoms with an extra electron (like a guest who brings an extra ticket) {"\u2014"} now there{"'"}s a free carrier in the conduction band. In p-type doping, you add atoms missing an electron (like a guest who needs a ticket) {"\u2014"} this creates a {"'"}hole{"'"} in the valence band. These tiny impurities (1 in a million atoms) dramatically change conductivity, like adding a single drop of dye to a glass of water.
+          Doping a semiconductor is like adding a few VIP guests to a sold-out concert. In n-type doping, you add atoms with an extra electron (like a guest who brings an extra ticket) {"—"} now there{"'"}s a free carrier in the conduction band. In p-type doping, you add atoms missing an electron (like a guest who needs a ticket) {"—"} this creates a {"'"}hole{"'"} in the valence band. These tiny impurities (1 in a million atoms) dramatically change conductivity, like adding a single drop of dye to a glass of water.
         </AnalogyBox>
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
@@ -5078,7 +5064,7 @@ function SemiconductorDopingSection() {
           background: `${T.eo_photon}11`, border: `1px solid ${T.eo_photon}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_photon, marginBottom: 4 }}>Coming Next: Carrier Transport {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_photon, marginBottom: 4 }}>Coming Next: Carrier Transport {"→"}</div>
           <div style={{ color: T.ink }}>
             Now that we have free carriers from doping, how do they move? Carrier transport — drift in electric fields and diffusion down concentration gradients — determines the current a device can carry.
           </div>
@@ -5149,7 +5135,7 @@ function CarrierTransportSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14, fontFamily: "monospace", color: T.ink }}>
       <AnalogyBox>
-          Carrier transport is like traffic flow on a highway. Electrons are cars, voltage is the slope of the road (makes cars roll), and resistance is traffic congestion. In drift, cars move because the road is tilted (electric field pushes them). In diffusion, cars spread from crowded areas to empty ones {"\u2014"} like people leaving a packed concert. Mobility is how fast a car can go in traffic {"\u2014"} higher in metals (empty highway) than in doped semiconductors (bumpy road with obstacles).
+          Carrier transport is like traffic flow on a highway. Electrons are cars, voltage is the slope of the road (makes cars roll), and resistance is traffic congestion. In drift, cars move because the road is tilted (electric field pushes them). In diffusion, cars spread from crowded areas to empty ones {"—"} like people leaving a packed concert. Mobility is how fast a car can go in traffic {"—"} higher in metals (empty highway) than in doped semiconductors (bumpy road with obstacles).
         </AnalogyBox>
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
@@ -5290,7 +5276,7 @@ function CarrierTransportSection() {
           background: `${T.eo_photon}11`, border: `1px solid ${T.eo_photon}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_photon, marginBottom: 4 }}>Coming Next: Thermodynamics {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_photon, marginBottom: 4 }}>Coming Next: Thermodynamics {"→"}</div>
           <div style={{ color: T.ink }}>
             Device performance depends on the material existing stably. Thermodynamics tells us which phases are stable, whether a compound will form or decompose, and the energy cost of defects.
           </div>
@@ -5373,7 +5359,7 @@ function ThermodynamicsSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14, fontFamily: "monospace", color: T.ink }}>
       <AnalogyBox>
-          Thermodynamics is like accounting for energy. The first law says energy is conserved {"\u2014"} you can{"'"}t create money from nothing. The second law says entropy (disorder) always increases {"\u2014"} a clean room naturally gets messy, never the reverse. Free energy (G = H - TS) is like your bank balance: reactions {"'"}spend{"'"} enthalpy (H) and {"'"}earn{"'"} from entropy (TS). At equilibrium, the account is balanced. Temperature is like the exchange rate {"\u2014"} higher T makes entropy worth more.
+          Thermodynamics is like accounting for energy. The first law says energy is conserved {"—"} you can{"'"}t create money from nothing. The second law says entropy (disorder) always increases {"—"} a clean room naturally gets messy, never the reverse. Free energy (G = H - TS) is like your bank balance: reactions {"'"}spend{"'"} enthalpy (H) and {"'"}earn{"'"} from entropy (TS). At equilibrium, the account is balanced. Temperature is like the exchange rate {"—"} higher T makes entropy worth more.
         </AnalogyBox>
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
@@ -5481,7 +5467,7 @@ function ThermodynamicsSection() {
           background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Coming Next: Phase Diagrams {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Coming Next: Phase Diagrams {"→"}</div>
           <div style={{ color: T.ink }}>
             Free energy determines stability, but real materials contain multiple elements at varying temperatures. Phase diagrams map out which phases exist under every condition — the recipe book for crystal growth.
           </div>
@@ -5575,7 +5561,7 @@ function PhaseDiagramSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14, fontFamily: "monospace", color: T.ink }}>
       <AnalogyBox>
-          A phase diagram is like a weather map for materials. Instead of predicting rain or sunshine based on pressure and temperature, it predicts which crystal structure (phase) is stable. The boundaries between phases are like weather fronts {"\u2014"} cross them and the material transforms. The eutectic point is like the perfect storm where multiple phases coexist. Engineers use phase diagrams the way pilots use weather charts: to navigate safely through processing conditions.
+          A phase diagram is like a weather map for materials. Instead of predicting rain or sunshine based on pressure and temperature, it predicts which crystal structure (phase) is stable. The boundaries between phases are like weather fronts {"—"} cross them and the material transforms. The eutectic point is like the perfect storm where multiple phases coexist. Engineers use phase diagrams the way pilots use weather charts: to navigate safely through processing conditions.
         </AnalogyBox>
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
@@ -5709,7 +5695,7 @@ function PhaseDiagramSection() {
           background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Coming Next: Chemical Potential {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Coming Next: Chemical Potential {"→"}</div>
           <div style={{ color: T.ink }}>
             Phase diagrams show bulk stability, but thin-film growth requires controlling individual element chemical potentials. The stability polygon tells us the narrow window of conditions where our desired phase forms without competing phases.
           </div>
@@ -5790,7 +5776,7 @@ function ChemicalPotentialSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14, fontFamily: "monospace", color: T.ink }}>
       <AnalogyBox>
-          Chemical potential is like water pressure in connected tanks. Each tank (phase or species) has a water level (chemical potential). At equilibrium, water flows until all connected tanks reach the same level. If you add atoms to a crystal, the chemical potential tells you how much the system{"'"}s energy changes {"\u2014"} like how much the water level rises when you pour more in. In defect physics, it controls which defects form: change the {"'"}pressure{"'"} (growth conditions) and different defects become favorable.
+          Chemical potential is like water pressure in connected tanks. Each tank (phase or species) has a water level (chemical potential). At equilibrium, water flows until all connected tanks reach the same level. If you add atoms to a crystal, the chemical potential tells you how much the system{"'"}s energy changes {"—"} like how much the water level rises when you pour more in. In defect physics, it controls which defects form: change the {"'"}pressure{"'"} (growth conditions) and different defects become favorable.
         </AnalogyBox>
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
@@ -5920,9 +5906,9 @@ function ChemicalPotentialSection() {
           background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Coming Next: From Atom to Device {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Coming Next: From Atom to Device {"→"}</div>
           <div style={{ color: T.ink }}>
-            We{"'"}ve traced electrons from atomic orbitals through crystal bands to doped semiconductors. Now we connect all the pieces {"\u2014"} from a single atom{"'"}s quantum states to a working solar cell or LED.
+            We{"'"}ve traced electrons from atomic orbitals through crystal bands to doped semiconductors. Now we connect all the pieces {"—"} from a single atom{"'"}s quantum states to a working solar cell or LED.
           </div>
         </div>
       </div>
@@ -5993,7 +5979,7 @@ function DefectSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox>
-          Crystal defects are like typos in a perfectly written book. A vacancy is a missing letter. An interstitial is an extra letter squeezed in. A substitution is the wrong letter in the right place. An antisite is two letters swapped. Just as typos can change the meaning of a sentence, defects change a crystal{"'"}s properties {"\u2014"} a single vacancy in ZnTe can turn an insulator into a p-type semiconductor. Defects aren{"'"}t mistakes; they{"'"}re features that engineers deliberately create.
+          Crystal defects are like typos in a perfectly written book. A vacancy is a missing letter. An interstitial is an extra letter squeezed in. A substitution is the wrong letter in the right place. An antisite is two letters swapped. Just as typos can change the meaning of a sentence, defects change a crystal{"'"}s properties {"—"} a single vacancy in ZnTe can turn an insulator into a p-type semiconductor. Defects aren{"'"}t mistakes; they{"'"}re features that engineers deliberately create.
         </AnalogyBox>
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       {/* Diagram */}
@@ -6219,7 +6205,7 @@ function DefectThermodynamicsSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14, fontFamily: "monospace", color: T.ink }}>
       <AnalogyBox>
-          Defect thermodynamics is like calculating the cost of leaving a seat empty in an airplane. The formation energy is the {"'"}ticket price{"'"} {"\u2014"} how much energy it costs to create the defect. But empty seats also increase entropy (disorder = more seating arrangements), which nature loves. At any temperature, there{"'"}s an equilibrium number of defects that minimizes the total cost (free energy). Higher temperature = more defects, just as a hotter economy tolerates more vacancies.
+          Defect thermodynamics is like calculating the cost of leaving a seat empty in an airplane. The formation energy is the {"'"}ticket price{"'"} {"—"} how much energy it costs to create the defect. But empty seats also increase entropy (disorder = more seating arrangements), which nature loves. At any temperature, there{"'"}s an equilibrium number of defects that minimizes the total cost (free energy). Higher temperature = more defects, just as a hotter economy tolerates more vacancies.
         </AnalogyBox>
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <svg
@@ -7332,7 +7318,7 @@ function AtomToDeviceSection() {
           background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Full Circle {"\u2192"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Full Circle {"→"}</div>
           <div style={{ color: T.ink }}>
             We started with a single atom and its quantum states. Through bonding, crystal structure, band theory, and thermodynamics, we've built a complete picture — from electron orbitals to working devices. Every property of a semiconductor traces back to the quantum mechanics of its atoms.
           </div>
@@ -7358,9 +7344,9 @@ const BLOCKS = [
 
 const ELECTRON_SECTIONS = [
   // ── Act 1: What is an Atom? ──
-  { id: "atomicModels",    block: "atom", label: "Atomic Models",          icon: "\u269B\uFE0F", color: T.eo_core,    Component: AtomicModelsSection },
+  { id: "atomicModels",    block: "atom", label: "Atomic Models",          icon: "⚛️", color: T.eo_core,    Component: AtomicModelsSection },
   { id: "waveDuality",     block: "atom", label: "Wave-Particle Duality",  icon: "\u{1F30A}", color: T.eo_core,    Component: WaveDualitySection },
-  { id: "schrodinger",     block: "atom", label: "Schr\u00F6dinger Equation", icon: "\u{1D6F9}",  color: T.eo_core,    Component: SchrodingerSection },
+  { id: "schrodinger",     block: "atom", label: "Schrödinger Equation", icon: "\u{1D6F9}",  color: T.eo_core,    Component: SchrodingerSection },
   { id: "quantumNums",     block: "atom", label: "Quantum Numbers",        icon: "\u{1F52E}", color: T.eo_core,    Component: QuantumNumbersSection },
   { id: "aufbau",          block: "atom", label: "Aufbau & Pauli",         icon: "\u{1F4DD}", color: T.eo_core,    Component: AufbauPrincipleSection },
   { id: "periodic",        block: "atom", label: "Periodic Trends",        icon: "\u{1F4CA}", color: T.eo_core,    Component: PeriodicTrendsSection },
@@ -7382,8 +7368,8 @@ const ELECTRON_SECTIONS = [
 
   // ── Act 5: Can We Make It? ──
   { id: "thermoBasics",    block: "design", label: "Thermodynamics",         icon: "\u{1F525}", color: T.eo_e, Component: ThermodynamicsSection },
-  { id: "phase",           block: "design", label: "Phase Diagrams",         icon: "\u{1F5FA}\uFE0F", color: T.eo_e, Component: PhaseDiagramSection },
-  { id: "chemPot",         block: "design", label: "Chemical Potential",     icon: "\u{2697}\uFE0F",  color: T.eo_e, Component: ChemicalPotentialSection },
+  { id: "phase",           block: "design", label: "Phase Diagrams",         icon: "\u{1F5FA}️", color: T.eo_e, Component: PhaseDiagramSection },
+  { id: "chemPot",         block: "design", label: "Chemical Potential",     icon: "\u{2697}️",  color: T.eo_e, Component: ChemicalPotentialSection },
   { id: "atomToDevice",    block: "design", label: "From Atom to Device",    icon: "\u{1F680}", color: T.eo_e, Component: AtomToDeviceSection },
 ];
 
@@ -7503,7 +7489,7 @@ export default function ElectronOriginsModule() {
           color: active === ELECTRON_SECTIONS[0].id ? T.muted : sec.color,
           cursor: active === ELECTRON_SECTIONS[0].id ? "default" : "pointer",
           fontFamily: "inherit", fontWeight: 600,
-        }}>{"\u2190"} Previous</button>
+        }}>{"←"} Previous</button>
 
         <div style={{ display: "flex", gap: 4, flexWrap: "wrap", justifyContent: "center" }}>
           {ELECTRON_SECTIONS.map(s => (
@@ -7529,7 +7515,7 @@ export default function ElectronOriginsModule() {
           color: active === ELECTRON_SECTIONS[ELECTRON_SECTIONS.length - 1].id ? T.muted : sec.color,
           cursor: active === ELECTRON_SECTIONS[ELECTRON_SECTIONS.length - 1].id ? "default" : "pointer",
           fontFamily: "inherit", fontWeight: 600,
-        }}>Next {"\u2192"}</button>
+        }}>Next {"→"}</button>
       </div>
     </div>
   );
