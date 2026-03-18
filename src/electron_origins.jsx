@@ -432,31 +432,10 @@ function AtomicModelsSection() {
           Imagine you are looking at an object through a series of increasingly powerful microscopes. <strong>Dalton</strong> saw a solid marble. <strong>Thomson</strong> cracked it open and found raisins in a pudding. <strong>Rutherford</strong> zoomed in and discovered the marble is 99.99% empty space with a tiny dense core. <strong>Bohr</strong> saw electrons orbiting like planets. Finally, <strong>quantum mechanics</strong> revealed there are no orbits at all {"—"} just fuzzy probability clouds showing where the electron is <em>likely</em> to be. Each model did not destroy the last; it refined it.
         </AnalogyBox>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-      <div style={{ flexShrink: 0, maxWidth: 340 }}>
+      <div style={{ flexShrink: 0 }}>
         {renderSVG()}
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Experiment</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            {model === 0 && "Dalton measured the mass ratios of elements combining in chemical reactions. He found that elements always combine in fixed whole-number ratios, suggesting matter is made of indivisible atoms. This was purely chemical evidence — no one had yet probed inside an atom."}
-            {model === 1 && "Thomson applied high voltage across a glass tube with low-pressure gas. The mysterious 'cathode rays' were deflected by electric and magnetic fields, proving they were negatively charged particles. By measuring e/m, he showed these 'corpuscles' (electrons) were 1800x lighter than hydrogen — the first subatomic particle."}
-            {model === 2 && "Rutherford's team fired alpha particles at thin gold foil. Most passed straight through, but about 1 in 8000 bounced back at large angles. Rutherford said it was 'as if you fired a cannon shell at tissue paper and it came back.' This proved atoms have a tiny, dense, positive nucleus."}
-            {model === 3 && "Bohr studied the hydrogen emission spectrum — discrete colored lines, not a continuous rainbow. He postulated that electrons orbit only at specific radii where angular momentum is quantized (L = nh/2π). His formula Eₙ = -13.6/n² eV perfectly matched every observed hydrogen spectral line."}
-            {model === 4 && "Sommerfeld noticed that hydrogen spectral lines, when examined at high resolution, split into closely spaced doublets (fine structure). He extended Bohr's circular orbits to elliptical ones and added relativistic corrections, introducing the angular momentum quantum number l. This explained the fine splitting but still treated electrons as classical particles on paths."}
-            {model === 5 && "In 1927, Davisson and Germer fired electrons at a nickel crystal and observed a diffraction pattern — proving electrons are waves. Schrödinger then formulated his wave equation, replacing orbits with probability clouds. This quantum mechanical model explains everything: multi-electron atoms, chemical bonding, and the behavior of semiconductors."}
-          </div>
-        </div>
-
       </div>
-      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 10 }}>
-        <div style={{ background: "#eef3ff", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 12 }}>
-          <div style={{ fontSize: 12, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Each model improved on the last. The quantum mechanical model is the correct one,
-            but Bohr{"'"}s model gives the right energy levels for hydrogen and builds intuition.
-            For materials science, we use QM (DFT) for real calculations.
-          </div>
-        </div>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
           {models.map((md, i) => (
             <button key={i} onClick={() => setModel(i)} style={{
@@ -517,6 +496,27 @@ function AtomicModelsSection() {
           </div>
         </div>
 
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Experiment</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            {model === 0 && "Dalton measured the mass ratios of elements combining in chemical reactions. He found that elements always combine in fixed whole-number ratios, suggesting matter is made of indivisible atoms. This was purely chemical evidence — no one had yet probed inside an atom."}
+            {model === 1 && "Thomson applied high voltage across a glass tube with low-pressure gas. The mysterious 'cathode rays' were deflected by electric and magnetic fields, proving they were negatively charged particles. By measuring e/m, he showed these 'corpuscles' (electrons) were 1800x lighter than hydrogen — the first subatomic particle."}
+            {model === 2 && "Rutherford's team fired alpha particles at thin gold foil. Most passed straight through, but about 1 in 8000 bounced back at large angles. Rutherford said it was 'as if you fired a cannon shell at tissue paper and it came back.' This proved atoms have a tiny, dense, positive nucleus."}
+            {model === 3 && "Bohr studied the hydrogen emission spectrum — discrete colored lines, not a continuous rainbow. He postulated that electrons orbit only at specific radii where angular momentum is quantized (L = nh/2π). His formula Eₙ = -13.6/n² eV perfectly matched every observed hydrogen spectral line."}
+            {model === 4 && "Sommerfeld noticed that hydrogen spectral lines, when examined at high resolution, split into closely spaced doublets (fine structure). He extended Bohr's circular orbits to elliptical ones and added relativistic corrections, introducing the angular momentum quantum number l. This explained the fine splitting but still treated electrons as classical particles on paths."}
+            {model === 5 && "In 1927, Davisson and Germer fired electrons at a nickel crystal and observed a diffraction pattern — proving electrons are waves. Schrödinger then formulated his wave equation, replacing orbits with probability clouds. This quantum mechanical model explains everything: multi-electron atoms, chemical bonding, and the behavior of semiconductors."}
+          </div>
+        </div>
+
+        <div style={{ background: "#eef3ff", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 10, marginBottom: 10 }}>
+          <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
+          <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.5 }}>
+            Each model improved on the last. The quantum mechanical model is the correct one,
+            but Bohr{"’"}s model gives the right energy levels for hydrogen and builds intuition.
+            For materials science, we use QM (DFT) for real calculations.
+          </div>
+        </div>
+
         <div style={{ background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`, borderRadius: 6, padding: 10 }}>
           <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Why Wave-Particle Duality Comes Next {"→"}</div>
           <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.5 }}>
@@ -533,6 +533,7 @@ function AtomicModelsSection() {
 }
 
 
+// --- Section 2: AufbauPrincipleSection ---
 // --- Section 2: AufbauPrincipleSection ---
 function AufbauPrincipleSection() {
   const [Z, setZ] = useState(14);
@@ -6551,26 +6552,9 @@ function PhaseDiagramSection() {
             </g>;
           })()}
         </svg>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_e }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Gibbs's phase rule F = C - P + 2 governs how many independent variables you can change without altering coexisting phases. Binary phase diagrams were historically determined by thermal analysis -- melting mixtures and recording cooling curves. Today, CALPHAD methods combine these measurements with DFT calculations to predict phase stability in complex multicomponent systems like CZTS.
-          </div>
-        </div>
-
       </div>
 
-      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 6 }}>
-        <div style={{ marginTop: 8, background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
-            Key Insight
-          </div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Multinary compounds have complex phase spaces -
-            competing phases - narrow stability windows.
-          </div>
-        </div>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_e }}>
             Phase Diagram
@@ -6620,6 +6604,22 @@ function PhaseDiagramSection() {
           </div>
         </div>
 
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_e }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            Gibbs's phase rule F = C - P + 2 governs how many independent variables you can change without altering coexisting phases. Binary phase diagrams were historically determined by thermal analysis -- melting mixtures and recording cooling curves. Today, CALPHAD methods combine these measurements with DFT calculations to predict phase stability in complex multicomponent systems like CZTS.
+          </div>
+        </div>
+
+        <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
+            Key Insight
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
+            Multinary compounds have complex phase spaces -
+            competing phases - narrow stability windows.
+          </div>
+        </div>
 
         <div style={{
           background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
