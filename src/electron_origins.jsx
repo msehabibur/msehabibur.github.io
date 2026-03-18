@@ -5482,11 +5482,11 @@ function ThermodynamicsSection() {
   const dgColor = dG < 0 ? T.eo_valence : T.eo_gap;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 8, fontFamily: "monospace", color: T.ink }}>
       <AnalogyBox>
           Thermodynamics is like accounting for energy. The first law says energy is conserved {"—"} you can{"'"}t create money from nothing. The second law says entropy (disorder) always increases {"—"} a clean room naturally gets messy, never the reverse. Free energy (G = H - TS) is like your bank balance: reactions {"'"}spend{"'"} enthalpy (H) and {"'"}earn{"'"} from entropy (TS). At equilibrium, the account is balanced. Temperature is like the exchange rate {"—"} higher T makes entropy worth more.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <path d={curvePath} fill="none" stroke={T.eo_core} strokeWidth={2.5} />
@@ -5533,9 +5533,43 @@ function ThermodynamicsSection() {
             dG = {dG.toFixed(3)} eV {dG < 0 ? "(favorable)" : "(unfavorable)"}
           </text>
         </svg>
+
+        {/* G = H - TS bar schematic */}
+        <svg viewBox="0 0 340 120" style={{ width: "100%", maxWidth: W, marginTop: 6, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
+          {(() => {
+            const barW = 40, gap = 20, baseY = 100, maxH = 70;
+            const hBar = 0.8, tsBar = tempK * 0.0012, gBar = hBar - tsBar;
+            const scale = maxH / 1.2;
+            const x1 = 60, x2 = x1 + barW + gap, x3 = x2 + barW + gap + 20;
+            return <g>
+              <text x={170} y={14} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight={700} fontFamily="monospace">
+                G = H - TS at {tempK} K
+              </text>
+              {/* H bar */}
+              <rect x={x1} y={baseY - hBar * scale} width={barW} height={hBar * scale} fill={T.eo_e} rx={3} opacity={0.8} />
+              <text x={x1 + barW / 2} y={baseY + 14} textAnchor="middle" fontSize={10} fill={T.eo_e} fontWeight={700} fontFamily="monospace">H</text>
+              <text x={x1 + barW / 2} y={baseY - hBar * scale - 4} textAnchor="middle" fontSize={9} fill={T.eo_e} fontFamily="monospace">{hBar.toFixed(2)}</text>
+              {/* minus sign */}
+              <text x={(x1 + barW + x2) / 2} y={baseY - 20} textAnchor="middle" fontSize={16} fill={T.ink} fontWeight={700}>-</text>
+              {/* TS bar */}
+              <rect x={x2} y={baseY - tsBar * scale} width={barW} height={Math.max(1, tsBar * scale)} fill={T.eo_photon} rx={3} opacity={0.8} />
+              <text x={x2 + barW / 2} y={baseY + 14} textAnchor="middle" fontSize={10} fill={T.eo_photon} fontWeight={700} fontFamily="monospace">TS</text>
+              <text x={x2 + barW / 2} y={baseY - tsBar * scale - 4} textAnchor="middle" fontSize={9} fill={T.eo_photon} fontFamily="monospace">{(tsBar).toFixed(2)}</text>
+              {/* equals sign */}
+              <text x={(x2 + barW + x3) / 2} y={baseY - 20} textAnchor="middle" fontSize={16} fill={T.ink} fontWeight={700}>=</text>
+              {/* G bar */}
+              <rect x={x3} y={gBar >= 0 ? baseY - gBar * scale : baseY} width={barW} height={Math.max(1, Math.abs(gBar) * scale)} fill={gBar < 0 ? T.eo_valence : T.eo_gap} rx={3} opacity={0.8} />
+              <text x={x3 + barW / 2} y={baseY + 14} textAnchor="middle" fontSize={10} fill={gBar < 0 ? T.eo_valence : T.eo_gap} fontWeight={700} fontFamily="monospace">G</text>
+              <text x={x3 + barW / 2} y={gBar >= 0 ? baseY - gBar * scale - 4 : baseY + Math.abs(gBar) * scale + 12} textAnchor="middle" fontSize={9} fill={gBar < 0 ? T.eo_valence : T.eo_gap} fontFamily="monospace">{gBar.toFixed(3)}</text>
+              {gBar < 0 && <text x={x3 + barW + 8} y={baseY - 5} fontSize={9} fill={T.eo_valence} fontFamily="monospace" fontWeight={700}>Favorable!</text>}
+              {/* baseline */}
+              <line x1={40} y1={baseY} x2={300} y2={baseY} stroke={T.border} strokeWidth={1} strokeDasharray="3,3" />
+            </g>;
+          })()}
+        </svg>
       </div>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_core }}>
             Thermodynamics
@@ -5684,11 +5718,11 @@ function PhaseDiagramSection() {
   const pulse = 0.5 + 0.3 * Math.sin(frame * 0.1);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 8, fontFamily: "monospace", color: T.ink }}>
       <AnalogyBox>
           A phase diagram is like a weather map for materials. Instead of predicting rain or sunshine based on pressure and temperature, it predicts which crystal structure (phase) is stable. The boundaries between phases are like weather fronts {"—"} cross them and the material transforms. The eutectic point is like the perfect storm where multiple phases coexist. Engineers use phase diagrams the way pilots use weather charts: to navigate safely through processing conditions.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={mL} y={mT} width={pW} height={toSY(solidusT) - mT}
@@ -5748,48 +5782,48 @@ function PhaseDiagramSection() {
           <text x={mL + pW - 10} y={H - mB - 4} fontSize={8} fill={T.dim} fontFamily="monospace">Te</text>
         </svg>
 
-        {/* Lever Rule Interactive — below the phase diagram */}
-        <div style={{ marginTop: 10, fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 4 }}>Lever Rule — Phase Fractions</div>
-        <div style={{ background: T.surface, borderRadius: 6, border: `1px solid ${T.border}`, padding: 10 }}>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6, marginBottom: 8 }}>
-            In a two-phase region, the lever rule tells you how much of each phase is present.
-          </div>
+        {/* Lever Rule Visual Schematic */}
+        <svg viewBox="0 0 340 130" style={{ width: "100%", maxWidth: W, marginTop: 6, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
           {(() => {
-            const compFrac = compX;
-            const solidusComp = 0.3;
-            const liquidusComp = 0.7;
-            const inTP = compFrac > solidusComp && compFrac < liquidusComp && tempK < 1200 && tempK > 600;
-            const fLiquid = inTP ? (compFrac - solidusComp) / (liquidusComp - solidusComp) : (tempK >= 1200 ? 1 : 0);
-            const fSolid = 1 - fLiquid;
-            return (
-              <div>
-                <div style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 8 }}>
-                  <div style={{ flex: 1, height: 20, borderRadius: 6, overflow: "hidden", display: "flex", border: `1px solid ${T.border}` }}>
-                    <div style={{ width: `${fSolid * 100}%`, background: T.eo_valence, height: "100%", transition: "width 0.3s" }} />
-                    <div style={{ width: `${fLiquid * 100}%`, background: T.eo_photon, height: "100%", transition: "width 0.3s" }} />
-                  </div>
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11 }}>
-                  <span style={{ color: T.eo_valence, fontWeight: 700 }}>Solid: {(fSolid * 100).toFixed(0)}%</span>
-                  <span style={{ color: T.eo_photon, fontWeight: 700 }}>Liquid: {(fLiquid * 100).toFixed(0)}%</span>
-                </div>
-                {inTP && (
-                  <div style={{ marginTop: 8, fontSize: 11, color: T.muted, lineHeight: 1.6, background: T.panel, padding: 8, borderRadius: 6 }}>
-                    <strong>Lever Rule:</strong> f_solid = (C_L - C₀) / (C_L - C_S) = {(fSolid * 100).toFixed(1)}%
-                  </div>
-                )}
-                {!inTP && (
-                  <div style={{ marginTop: 8, fontSize: 11, color: T.muted, fontStyle: "italic" }}>
-                    {tempK >= 1200 ? "Above liquidus — fully liquid" : tempK <= 600 ? "Below solidus — fully solid" : "Move composition between 30–70% to see two-phase region"}
-                  </div>
-                )}
-              </div>
-            );
+            const lx = 40, rx = 300, ty = 35, barY = 75, barH = 22;
+            const tieW = rx - lx;
+            const solidusX = lx + 0.3 * tieW;
+            const liquidusX = lx + 0.7 * tieW;
+            const compPos = lx + compX * tieW;
+            const inTP = tempK > 500 && tempK < 1200 && compX > 0.3 && compX < 0.7;
+            const fSolid = inTP ? (0.7 - compX) / 0.4 : (tempK <= 500 ? 1 : 0);
+            const fLiq = 1 - fSolid;
+            return <g>
+              <text x={170} y={16} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight={700} fontFamily="monospace">Lever Rule at {tempK.toFixed(0)} K</text>
+              {/* Tie line */}
+              <line x1={lx} y1={ty} x2={rx} y2={ty} stroke={T.border} strokeWidth={2} />
+              <line x1={solidusX} y1={ty - 8} x2={solidusX} y2={ty + 8} stroke={T.eo_valence} strokeWidth={2} />
+              <line x1={liquidusX} y1={ty - 8} x2={liquidusX} y2={ty + 8} stroke={T.eo_photon} strokeWidth={2} />
+              <text x={solidusX} y={ty - 12} textAnchor="middle" fontSize={9} fill={T.eo_valence} fontWeight={700} fontFamily="monospace">C_S</text>
+              <text x={liquidusX} y={ty - 12} textAnchor="middle" fontSize={9} fill={T.eo_photon} fontWeight={700} fontFamily="monospace">C_L</text>
+              {/* Composition marker */}
+              <polygon points={`${compPos},${ty + 4} ${compPos - 5},${ty + 12} ${compPos + 5},${ty + 12}`} fill={T.eo_e} />
+              <text x={compPos} y={ty + 22} textAnchor="middle" fontSize={9} fill={T.eo_e} fontWeight={700} fontFamily="monospace">C₀={( compX * 100).toFixed(0)}%</text>
+              {/* Phase fraction bar */}
+              <rect x={lx} y={barY} width={tieW * fSolid} height={barH} fill={T.eo_valence} rx={fSolid === 1 ? 4 : 0} opacity={0.8} />
+              <rect x={lx + tieW * fSolid} y={barY} width={tieW * fLiq} height={barH} fill={T.eo_photon} rx={fLiq === 1 ? 4 : 0} opacity={0.8} />
+              <rect x={lx} y={barY} width={tieW} height={barH} fill="none" stroke={T.border} strokeWidth={1} rx={4} />
+              <text x={lx + tieW * fSolid / 2} y={barY + barH / 2 + 4} textAnchor="middle" fontSize={10} fill="#fff" fontWeight={700} fontFamily="monospace">
+                {fSolid > 0.1 ? `Solid ${(fSolid * 100).toFixed(0)}%` : ""}
+              </text>
+              <text x={lx + tieW * fSolid + tieW * fLiq / 2} y={barY + barH / 2 + 4} textAnchor="middle" fontSize={10} fill="#fff" fontWeight={700} fontFamily="monospace">
+                {fLiq > 0.1 ? `Liquid ${(fLiq * 100).toFixed(0)}%` : ""}
+              </text>
+              {/* Status label */}
+              <text x={170} y={barY + barH + 18} textAnchor="middle" fontSize={10} fill={inTP ? T.eo_core : T.dim} fontFamily="monospace">
+                {inTP ? "Two-phase region" : tempK >= 1200 ? "Fully liquid" : tempK <= 500 ? "Fully solid" : "Adjust composition to 30-70%"}
+              </text>
+            </g>;
           })()}
-        </div>
+        </svg>
       </div>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_e }}>
             Phase Diagram
@@ -5939,11 +5973,11 @@ function ChemicalPotentialSection() {
   const pulse = 0.5 + 0.3 * Math.sin(frame * 0.12);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 8, fontFamily: "monospace", color: T.ink }}>
       <AnalogyBox>
           Chemical potential is like water pressure in connected tanks. Each tank (phase or species) has a water level (chemical potential). At equilibrium, water flows until all connected tanks reach the same level. If you add atoms to a crystal, the chemical potential tells you how much the system{"'"}s energy changes {"—"} like how much the water level rises when you pour more in. In defect physics, it controls which defects form: change the {"'"}pressure{"'"} (growth conditions) and different defects become favorable.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={mL} y={mT} width={toSX(-0.5) - mL} height={pH_}
@@ -6054,7 +6088,7 @@ function ChemicalPotentialSection() {
         </div>
       </div>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_valence }}>
             Chemical Potentials
