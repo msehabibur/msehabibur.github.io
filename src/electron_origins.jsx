@@ -42,9 +42,9 @@ function SectionTitle({ color, children }) {
 // ═══════════════════════════════════════════════════════════════════════════
 
 
-function AnalogyBox({ children, width }) {
+function AnalogyBox({ children }) {
   return (
-    <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "10px 16px", marginBottom: 12, width: width || "auto" }}>
+    <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "10px 16px", marginBottom: 12, width: "100%", flexShrink: 0, alignSelf: "flex-start" }}>
       <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
       <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>{children}</div>
     </div>
@@ -431,7 +431,7 @@ function AtomicModelsSection() {
       <AnalogyBox>
           Imagine you are looking at an object through a series of increasingly powerful microscopes. <strong>Dalton</strong> saw a solid marble. <strong>Thomson</strong> cracked it open and found raisins in a pudding. <strong>Rutherford</strong> zoomed in and discovered the marble is 99.99% empty space with a tiny dense core. <strong>Bohr</strong> saw electrons orbiting like planets. Finally, <strong>quantum mechanics</strong> revealed there are no orbits at all {"\u2014"} just fuzzy probability clouds showing where the electron is <em>likely</em> to be. Each model did not destroy the last; it refined it.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20 }}>
+      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ flexShrink: 0 }}>
         {renderSVG()}
       </div>
@@ -725,7 +725,7 @@ function AufbauPrincipleSection() {
   ];
 
   return (
-    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
       <AnalogyBox>
           Filling electron orbitals is like filling seats in a movie theater. Everyone wants the best seats (lowest energy) first. The front row fills before the back. But there's a twist — each seat can only hold two people (Pauli exclusion), and within each row, people spread out to separate seats before doubling up (Hund's rule). The order isn't always front-to-back either: sometimes the balcony (4s) fills before the back of the main floor (3d) because it's slightly more comfortable (lower energy).
         </AnalogyBox>
@@ -1068,7 +1068,7 @@ function ElectronOriginsZnTeSection() {
   };
 
   return (
-    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
       <AnalogyBox>
           Think of Zn and Te atoms as two people bringing ingredients to a potluck. Zinc brings 2 outer electrons (from its 4s orbital), and Tellurium brings 6 (from 5s and 5p). When they combine in a crystal, they pool their electrons into shared 'community bowls' — the valence and conduction bands. The valence band is the main dish everyone eats from (full), and the conduction band is dessert that nobody has reached yet (empty).
         </AnalogyBox>
@@ -1543,7 +1543,7 @@ function SchrodingerSection() {
   }
 
   return (
-    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
       <AnalogyBox>
           The Schr&ouml;dinger equation is like a recipe book for quantum mechanics. Give it the 'kitchen setup' (potential energy landscape) and it tells you every possible 'dish' (wavefunction) the electron can make, along with its 'calorie count' (energy). The wavefunction isn't the electron itself — it's a probability cloud showing where the electron is likely to be found, like a heat map of a cat's favorite napping spots in your house.
         </AnalogyBox>
@@ -1860,7 +1860,7 @@ function QuantumNumbersSection() {
   ];
 
   return (
-    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
       <AnalogyBox>
           Quantum numbers are like an address system for electrons. The principal quantum number (n) is the city (energy level). The angular momentum number (l) is the street (orbital shape: s, p, d, f). The magnetic number (ml) is the house number (orientation in space). The spin number (ms) is which side of the bed you sleep on (up or down). No two electrons can have the same full address — that's the Pauli exclusion principle.
         </AnalogyBox>
@@ -2169,7 +2169,7 @@ function PeriodicTrendsSection() {
   const selData = elements.find((e) => e[0] === selectedEl);
 
   return (
-    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
       <AnalogyBox>
           The periodic table is like a seating chart that reveals personality. Moving left to right across a row, atoms grip their electrons tighter (higher ionization energy) and shrink in size — like a crowd squeezing into fewer seats. Moving down a column, atoms get larger and hold electrons more loosely — like moving from a cramped apartment to a mansion where you lose track of your belongings. These trends predict how atoms will bond, react, and behave in materials.
         </AnalogyBox>
@@ -2610,7 +2610,7 @@ function ChemicalBondingSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
-      <AnalogyBox width="100%">
+      <AnalogyBox>
           Chemical bonding is like sharing or stealing toys. In an ionic bond (NaCl), one atom steals an electron from another — like a bully taking a toy, creating a positive and negative ion that attract. In a covalent bond (Si), atoms share electrons equally — like kids sharing toys nicely. In a metallic bond (Cu), everyone throws their toys into a communal pile that all atoms share — that's the electron sea. The type of sharing determines everything: hardness, conductivity, melting point.
         </AnalogyBox>
       <div style={{ minWidth: 340 }}>
@@ -2956,7 +2956,7 @@ function HybridizationSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
-      <AnalogyBox width="100%">
+      <AnalogyBox>
           {`Hybridization is like mixing paint colors. A carbon atom has separate s and p orbitals (like separate red, blue, yellow paints). But when it bonds, it blends them into hybrid orbitals (like mixing paints to get new colors). sp\u00B3 hybridization mixes 1s + 3p to create 4 identical orbitals pointing to the corners of a tetrahedron \u2014 this is why methane (CH\u2084) and diamond have their specific shapes. The mixing happens because hybrid orbitals overlap better with neighbors, making stronger bonds.`}
         </AnalogyBox>
       <div style={{ minWidth: 340 }}>
@@ -3193,7 +3193,7 @@ function MolecularOrbitalSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
-      <AnalogyBox width="100%">
+      <AnalogyBox>
           Molecular orbital theory is like what happens when two guitar strings vibrate near each other. They can vibrate in phase (both moving the same direction = bonding orbital, lower energy, stable) or out of phase (moving opposite = antibonding orbital, higher energy, unstable). When two atoms approach, their atomic orbitals combine the same way — creating bonding MOs that hold atoms together and antibonding MOs that push them apart. The net result determines if the molecule is stable.
         </AnalogyBox>
       <div style={{ minWidth: 340 }}>
@@ -3496,7 +3496,7 @@ function CrystalSymmetrySection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
-      <AnalogyBox width="100%">
+      <AnalogyBox>
           Crystal symmetry is like wallpaper patterns. Just as a wallpaper designer creates a beautiful pattern by repeating a small tile in a specific arrangement, nature builds crystals by stacking identical unit cells in 3D. The unit cell is the smallest 'tile' that contains all the information. The 14 Bravais lattices are like 14 fundamental tile shapes. Knowing the tile tells you everything about the full wall — that's why crystallographers obsess over unit cells.
         </AnalogyBox>
       <div style={{ minWidth: 340 }}>
@@ -3758,7 +3758,7 @@ function ReciprocalSpaceSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
-      <AnalogyBox width="100%">
+      <AnalogyBox>
           Reciprocal space is like sheet music for a crystal. Real space shows you the actual atoms and their positions (like seeing musicians on a stage). Reciprocal space shows you the 'frequencies' and 'wavelengths' that matter — the spatial periodicities of the crystal (like reading the musical score). X-ray diffraction patterns directly photograph reciprocal space. Brillouin zones are like octaves — they organize all possible wavelengths into a compact, repeating framework.
         </AnalogyBox>
       <div style={{ minWidth: 340 }}>
@@ -4048,7 +4048,7 @@ function BandSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
-      <AnalogyBox width="100%">
+      <AnalogyBox>
           {`Energy bands are like floors in a building. In a single atom, electrons live on specific floors (discrete energy levels). But when trillions of atoms pack into a crystal, their floors merge into continuous ramps (bands). The valence band is the ground floor \u2014 full of residents (electrons). The conduction band is the upper floor \u2014 empty, with room to roam freely. The band gap is the staircase between them: easy to climb in semiconductors, impossible in insulators, nonexistent in metals.`}
         </AnalogyBox>
       {/* Band diagram */}
@@ -4336,7 +4336,7 @@ function DensityOfStatesSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
-      <AnalogyBox width="100%">
+      <AnalogyBox>
           The density of states is like a histogram of apartment availability in a building. At each 'floor' (energy level), it counts how many 'rooms' (quantum states) exist for electrons. A tall bar means many states are available at that energy — electrons have lots of options. A gap (zero bar) means no states exist — electrons are forbidden there. The Fermi level is like the current waterline: all rooms below are occupied, rooms above are empty (at 0 K).
         </AnalogyBox>
 
@@ -4893,7 +4893,7 @@ function SemiconductorDopingSection() {
   const pvVal = dopingType === "p-type" ? 1e17 : dopingType === "n-type" ? 1e10 : 1e10;
 
   return (
-    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
       <AnalogyBox>
           Doping a semiconductor is like adding a few VIP guests to a sold-out concert. In n-type doping, you add atoms with an extra electron (like a guest who brings an extra ticket) {"\u2014"} now there{"'"}s a free carrier in the conduction band. In p-type doping, you add atoms missing an electron (like a guest who needs a ticket) {"\u2014"} this creates a {"'"}hole{"'"} in the valence band. These tiny impurities (1 in a million atoms) dramatically change conductivity, like adding a single drop of dye to a glass of water.
         </AnalogyBox>
@@ -5119,7 +5119,7 @@ function CarrierTransportSection() {
   ] : [];
 
   return (
-    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
       <AnalogyBox>
           Carrier transport is like traffic flow on a highway. Electrons are cars, voltage is the slope of the road (makes cars roll), and resistance is traffic congestion. In drift, cars move because the road is tilted (electric field pushes them). In diffusion, cars spread from crowded areas to empty ones {"\u2014"} like people leaving a packed concert. Mobility is how fast a car can go in traffic {"\u2014"} higher in metals (empty highway) than in doped semiconductors (bumpy road with obstacles).
         </AnalogyBox>
@@ -5341,7 +5341,7 @@ function ThermodynamicsSection() {
   const dgColor = dG < 0 ? T.eo_valence : T.eo_gap;
 
   return (
-    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
       <AnalogyBox>
           Thermodynamics is like accounting for energy. The first law says energy is conserved {"\u2014"} you can{"'"}t create money from nothing. The second law says entropy (disorder) always increases {"\u2014"} a clean room naturally gets messy, never the reverse. Free energy (G = H - TS) is like your bank balance: reactions {"'"}spend{"'"} enthalpy (H) and {"'"}earn{"'"} from entropy (TS). At equilibrium, the account is balanced. Temperature is like the exchange rate {"\u2014"} higher T makes entropy worth more.
         </AnalogyBox>
@@ -5541,7 +5541,7 @@ function PhaseDiagramSection() {
   const pulse = 0.5 + 0.3 * Math.sin(frame * 0.1);
 
   return (
-    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
       <AnalogyBox>
           A phase diagram is like a weather map for materials. Instead of predicting rain or sunshine based on pressure and temperature, it predicts which crystal structure (phase) is stable. The boundaries between phases are like weather fronts {"\u2014"} cross them and the material transforms. The eutectic point is like the perfect storm where multiple phases coexist. Engineers use phase diagrams the way pilots use weather charts: to navigate safely through processing conditions.
         </AnalogyBox>
@@ -5754,7 +5754,7 @@ function ChemicalPotentialSection() {
   const pulse = 0.5 + 0.3 * Math.sin(frame * 0.12);
 
   return (
-    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
       <AnalogyBox>
           Chemical potential is like water pressure in connected tanks. Each tank (phase or species) has a water level (chemical potential). At equilibrium, water flows until all connected tanks reach the same level. If you add atoms to a crystal, the chemical potential tells you how much the system{"'"}s energy changes {"\u2014"} like how much the water level rises when you pour more in. In defect physics, it controls which defects form: change the {"'"}pressure{"'"} (growth conditions) and different defects become favorable.
         </AnalogyBox>
@@ -5955,7 +5955,7 @@ function DefectSection() {
   const VBtop = 240, CBbot = 80, defY = [150, 168, 186, 204];
 
   return (
-    <div style={{ display: "flex", gap: 20 }}>
+    <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <AnalogyBox>
           Crystal defects are like typos in a perfectly written book. A vacancy is a missing letter. An interstitial is an extra letter squeezed in. A substitution is the wrong letter in the right place. An antisite is two letters swapped. Just as typos can change the meaning of a sentence, defects change a crystal{"'"}s properties {"\u2014"} a single vacancy in ZnTe can turn an insulator into a p-type semiconductor. Defects aren{"'"}t mistakes; they{"'"}re features that engineers deliberately create.
         </AnalogyBox>
@@ -6179,7 +6179,7 @@ function DefectThermodynamicsSection() {
   const pulse = Math.sin(frame * 0.12) * 0.5 + 0.5;
 
   return (
-    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
       <AnalogyBox>
           Defect thermodynamics is like calculating the cost of leaving a seat empty in an airplane. The formation energy is the {"'"}ticket price{"'"} {"\u2014"} how much energy it costs to create the defect. But empty seats also increase entropy (disorder = more seating arrangements), which nature loves. At any temperature, there{"'"}s an equilibrium number of defects that minimizes the total cost (free energy). Higher temperature = more defects, just as a hotter economy tolerates more vacancies.
         </AnalogyBox>
@@ -6373,7 +6373,7 @@ function PhononsSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
-      <AnalogyBox width="100%">
+      <AnalogyBox>
           Phonons are like 'the wave' in a stadium. When fans stand up and sit down in sequence, a wave travels through the crowd — but no individual fan moves far. Similarly, phonons are quantized vibrations traveling through a crystal lattice. Acoustic phonons are like bass notes (atoms move in sync, low frequency). Optical phonons are like treble notes (adjacent atoms move opposite, high frequency). Phonons carry heat, scatter electrons, and determine thermal conductivity.
         </AnalogyBox>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
@@ -6586,7 +6586,7 @@ function OpticalPropertiesSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
-      <AnalogyBox width="100%">
+      <AnalogyBox>
           Optical properties are like a bouncer at a club. When a photon (light particle) arrives at a material, the bouncer checks its energy. If the photon's energy matches the band gap, it gets absorbed — the material is opaque at that color. If the energy is too low, the photon passes through — the material is transparent. If it gets reflected, the material is shiny. This is why glass (big gap) is transparent to visible light, silicon (small gap) absorbs it, and metals reflect it.
         </AnalogyBox>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
@@ -6777,7 +6777,7 @@ function DielectricResponseSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
-      <AnalogyBox width="100%">
+      <AnalogyBox>
           Dielectric response is how a material 'answers the phone' when an electric field 'calls.' Apply a field, and the positive and negative charges inside shift slightly (polarize) — like people leaning when a bus brakes. The dielectric constant measures how strongly the material responds. A high dielectric constant means strong polarization (everyone leans a lot). This matters for capacitors, gate oxides in transistors, and screening of charged defects.
         </AnalogyBox>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
@@ -7004,7 +7004,7 @@ function RecombinationSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
-      <AnalogyBox width="100%">
+      <AnalogyBox>
           Recombination is like an excited kid who jumped onto a table (conduction band) falling back to the floor (valence band). The energy released can come out as light (radiative recombination — that's how LEDs work) or as heat (non-radiative — through defects acting like hidden slides). Shockley-Read-Hall recombination happens when a defect creates a 'stepping stone' in the band gap — the electron steps down in two hops instead of one big jump. This limits solar cell efficiency.
         </AnalogyBox>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
@@ -7186,7 +7186,7 @@ function AtomToDeviceSection() {
 
   return (
     <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink, flexWrap: "wrap" }}>
-      <AnalogyBox width="100%">
+      <AnalogyBox>
           Building a device from atoms is like constructing a skyscraper from individual bricks. First you understand the brick (atom: quantum mechanics). Then how bricks bond (chemical bonding). Then how stacked bricks form patterns (crystal structure). Then how electron highways emerge in the pattern (band structure). Then how imperfections change the highways (defects). Finally, you engineer all of this into a working device — a solar cell, transistor, or LED. Every chapter in this module is one floor of that skyscraper.
         </AnalogyBox>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
