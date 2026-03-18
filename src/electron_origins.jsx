@@ -6448,7 +6448,7 @@ function PhaseDiagramSection() {
           A phase diagram is like a weather map for materials. Instead of predicting rain or sunshine based on pressure and temperature, it predicts which crystal structure (phase) is stable. The boundaries between phases are like weather fronts {"—"} cross them and the material transforms. The eutectic point is like the perfect storm where multiple phases coexist. Engineers use phase diagrams the way pilots use weather charts: to navigate safely through processing conditions.
         </AnalogyBox>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "stretch" }}>
-      <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10, display: "flex", alignItems: "center" }}>
+      <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={mL} y={mT} width={pW} height={toSY(solidusT) - mT}
             fill={T.eo_cond} opacity={0.06} />
@@ -6507,6 +6507,91 @@ function PhaseDiagramSection() {
           <text x={mL + pW - 10} y={H - mB - 4} fontSize={13} fill={T.dim} fontFamily="monospace">Te</text>
         </svg>
 
+        {/* Synthesis Reaction Animation — below phase diagram */}
+        <div style={{ marginTop: 8, fontSize: 13, fontWeight: 700, color: T.eo_e, marginBottom: 4 }}>ZnTe Synthesis — Reaction Process</div>
+        <svg viewBox="0 0 400 180" style={{ width: "100%", maxWidth: W, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
+          {(() => {
+            const t = frame * 0.04;
+            const cycle = t % 12;
+            const stage = cycle < 2 ? 0 : cycle < 4 ? 1 : cycle < 7 ? 2 : cycle < 9 ? 3 : 4;
+            const stageProgress = stage === 0 ? cycle / 2 : stage === 1 ? (cycle - 2) / 2 : stage === 2 ? (cycle - 4) / 3 : stage === 3 ? (cycle - 7) / 2 : (cycle - 9) / 3;
+            const flaskX = 150, flaskY = 40, flaskW = 80, flaskH = 85;
+            const neckW = 24, neckH = 22;
+            const znX = 15, teX = 80, bottleY = 25;
+            const temp = stage === 0 ? 300 : stage === 1 ? 300 + stageProgress * 200 : stage === 2 ? 500 + stageProgress * 500 : stage === 3 ? 1000 - stageProgress * 700 : 300;
+            const tempColor = temp > 800 ? T.eo_gap : temp > 500 ? T.eo_photon : T.eo_cond;
+            const znAtoms = [], teAtoms = [];
+            if (stage >= 1) {
+              for (let i = 0; i < 4; i++) {
+                const ax = flaskX + 15 + (i % 2) * 25 + Math.sin(t + i) * (stage >= 2 ? 6 : 2);
+                const ay = stage >= 2 ? flaskY + 40 + Math.sin(t * 2 + i * 1.5) * 10 : flaskY + 15 + Math.min(1, stageProgress * 2 + i * 0.15) * 50;
+                znAtoms.push({ x: ax, y: ay });
+              }
+              for (let i = 0; i < 4; i++) {
+                const ax = flaskX + 25 + (i % 2) * 25 + Math.cos(t + i * 2) * (stage >= 2 ? 6 : 2);
+                const ay = stage >= 2 ? flaskY + 45 + Math.cos(t * 2 + i * 1.3) * 10 : flaskY + 20 + Math.min(1, stageProgress * 2 + i * 0.12) * 45;
+                teAtoms.push({ x: ax, y: ay });
+              }
+            }
+            const productX = 300, productY = 50;
+            return <g>
+              {/* Step labels */}
+              {["Precursors", "Mix", "Heat", "Cool", "Product"].map((s, i) => (
+                <text key={i} x={20 + i * 78} y={12} textAnchor="middle" fontSize={12} fontFamily="monospace"
+                  fill={stage === i ? T.eo_e : T.dim} fontWeight={stage === i ? 700 : 400}>{s}</text>
+              ))}
+              {/* Zn bottle */}
+              <rect x={znX} y={bottleY} width={30} height={40} rx={3} fill={T.eo_cond + "25"} stroke={T.eo_cond} strokeWidth={1} />
+              <text x={znX + 15} y={bottleY + 25} textAnchor="middle" fontSize={13} fill={T.eo_cond} fontWeight={700} fontFamily="monospace">Zn</text>
+              {/* Te bottle */}
+              <rect x={teX} y={bottleY} width={30} height={40} rx={3} fill={T.eo_photon + "25"} stroke={T.eo_photon} strokeWidth={1} />
+              <text x={teX + 15} y={bottleY + 25} textAnchor="middle" fontSize={13} fill={T.eo_photon} fontWeight={700} fontFamily="monospace">Te</text>
+              {/* Arrows */}
+              {stage >= 1 && <>
+                <line x1={znX + 32} y1={bottleY + 18} x2={flaskX + 5} y2={flaskY + 8} stroke={T.eo_cond} strokeWidth={1} strokeDasharray="3,2" opacity={0.5} />
+                <line x1={teX + 32} y1={bottleY + 18} x2={flaskX + 10} y2={flaskY + 12} stroke={T.eo_photon} strokeWidth={1} strokeDasharray="3,2" opacity={0.5} />
+              </>}
+              {/* Flask */}
+              <rect x={flaskX + (flaskW - neckW) / 2} y={flaskY - neckH} width={neckW} height={neckH} rx={2} fill="none" stroke={T.border} strokeWidth={1.5} />
+              <path d={`M${flaskX + (flaskW - neckW) / 2},${flaskY} L${flaskX},${flaskY + 20} L${flaskX},${flaskY + flaskH} L${flaskX + flaskW},${flaskY + flaskH} L${flaskX + flaskW},${flaskY + 20} L${flaskX + (flaskW + neckW) / 2},${flaskY} Z`}
+                fill={stage >= 2 ? (temp > 700 ? T.eo_gap + "12" : T.eo_photon + "08") : T.surface} stroke={T.border} strokeWidth={1.5} />
+              {/* Flames */}
+              {stage === 2 && [0, 1, 2].map(i => {
+                const fx = flaskX + 20 + i * 18;
+                const fh = 10 + Math.sin(t * 4 + i * 2) * 4;
+                return <ellipse key={i} cx={fx} cy={flaskY + flaskH + 5} rx={6} ry={fh} fill={T.eo_gap} opacity={0.35 + Math.sin(t * 3 + i) * 0.15} />;
+              })}
+              {/* Atoms in flask */}
+              {stage >= 1 && stage < 3 && znAtoms.map((a, i) => <circle key={`z${i}`} cx={a.x} cy={a.y} r={5} fill={T.eo_cond} opacity={0.8} />)}
+              {stage >= 1 && stage < 3 && teAtoms.map((a, i) => <circle key={`t${i}`} cx={a.x} cy={a.y} r={5} fill={T.eo_photon} opacity={0.8} />)}
+              {/* Bonding pairs */}
+              {stage >= 2 && stageProgress > 0.5 && [...Array(3)].map((_, i) => {
+                const px = flaskX + 15 + i * 22, py = flaskY + 42 + i * 10;
+                const bond = Math.min(1, (stageProgress - 0.5) * 3);
+                return <g key={`p${i}`}><circle cx={px} cy={py} r={4} fill={T.eo_cond} /><circle cx={px + 5 + (1 - bond) * 8} cy={py + 2} r={4} fill={T.eo_photon} />{bond > 0.5 && <line x1={px + 3} y1={py} x2={px + 6} y2={py + 1} stroke={T.ink} strokeWidth={1} />}</g>;
+              })}
+              {/* Product pairs cooling */}
+              {stage >= 3 && [0, 1, 2].map(i => {
+                const px = flaskX + 15 + i * 22, py = flaskY + 45 + (i % 2) * 14;
+                return <g key={`pr${i}`}><circle cx={px} cy={py} r={4} fill={T.eo_cond} /><line x1={px + 3} y1={py} x2={px + 7} y2={py} stroke={T.ink} strokeWidth={1} /><circle cx={px + 10} cy={py} r={4} fill={T.eo_photon} /></g>;
+              })}
+              {/* Arrow to product */}
+              {stage >= 4 && <line x1={flaskX + flaskW + 5} y1={flaskY + 45} x2={productX - 10} y2={productY + 15} stroke={T.dim} strokeWidth={1} strokeDasharray="4,3" />}
+              {/* Product dish */}
+              <ellipse cx={productX + 30} cy={productY + 35} rx={35} ry={10} fill="none" stroke={T.border} strokeWidth={1} />
+              <path d={`M${productX - 5},${productY + 35} Q${productX + 30},${productY + 55} ${productX + 65},${productY + 35}`} fill="none" stroke={T.border} strokeWidth={1} />
+              {stage >= 4 && <>
+                <ellipse cx={productX + 30} cy={productY + 30} rx={22} ry={6} fill={T.eo_valence + "40"} />
+                <text x={productX + 30} y={productY + 22} textAnchor="middle" fontSize={13} fill={T.eo_valence} fontWeight={700} fontFamily="monospace">ZnTe</text>
+              </>}
+              {/* Temp */}
+              <rect x={275} y={120} width={70} height={20} rx={3} fill={tempColor + "15"} stroke={tempColor} strokeWidth={1} />
+              <text x={310} y={134} textAnchor="middle" fontSize={12} fill={tempColor} fontWeight={700} fontFamily="monospace">{temp.toFixed(0)} K</text>
+              {/* Equation */}
+              <text x={200} y={170} textAnchor="middle" fontSize={13} fill={T.ink} fontFamily="monospace" fontWeight={700}>Zn + Te → ZnTe</text>
+            </g>;
+          })()}
+        </svg>
       </div>
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
@@ -6585,160 +6670,6 @@ function PhaseDiagramSection() {
             Phase diagrams show bulk stability, but thin-film growth requires controlling individual element chemical potentials. The stability polygon tells us the narrow window of conditions where our desired phase forms without competing phases.
           </div>
         </div>
-      </div>
-
-      {/* Synthesis Reaction Animation */}
-      <div style={{ background: T.panel, borderRadius: 10, padding: 12, border: `1.5px solid ${T.border}` }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_e, marginBottom: 8 }}>ZnTe Synthesis — Reaction Process</div>
-        <svg viewBox="0 0 560 200" style={{ width: "100%", maxWidth: 560, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-          {(() => {
-            const t = frame * 0.04;
-            const cycle = t % 12;
-            // Stage 0-2: precursors, 2-4: add to flask, 4-7: heat+react, 7-9: cool, 9-12: product
-            const stage = cycle < 2 ? 0 : cycle < 4 ? 1 : cycle < 7 ? 2 : cycle < 9 ? 3 : 4;
-            const stageProgress = stage === 0 ? cycle / 2 : stage === 1 ? (cycle - 2) / 2 : stage === 2 ? (cycle - 4) / 3 : stage === 3 ? (cycle - 7) / 2 : (cycle - 9) / 3;
-
-            // Flask shape
-            const flaskX = 230, flaskY = 55, flaskW = 100, flaskH = 110;
-            const neckW = 30, neckH = 30;
-
-            // Precursor bottles
-            const znX = 40, teX = 130, bottleY = 30;
-
-            // Temperature indicator
-            const temp = stage === 0 ? 300 : stage === 1 ? 300 + stageProgress * 200 : stage === 2 ? 500 + stageProgress * 500 : stage === 3 ? 1000 - stageProgress * 700 : 300;
-            const tempColor = temp > 800 ? T.eo_gap : temp > 500 ? T.eo_photon : T.eo_cond;
-
-            // Zn atoms falling into flask
-            const znAtoms = [];
-            const teAtoms = [];
-            if (stage >= 1) {
-              for (let i = 0; i < 5; i++) {
-                const fallP = Math.min(1, stageProgress * 2 + i * 0.15);
-                const ax = flaskX + 20 + (i % 3) * 20 + Math.sin(t + i) * (stage >= 2 ? 8 : 3);
-                const ay = stage >= 2 ? flaskY + 50 + Math.sin(t * 2 + i * 1.5) * 12 : flaskY + 20 + fallP * 60;
-                znAtoms.push({ x: ax, y: ay });
-              }
-              for (let i = 0; i < 5; i++) {
-                const fallP = Math.min(1, stageProgress * 2 + i * 0.12);
-                const ax = flaskX + 30 + (i % 3) * 20 + Math.cos(t + i * 2) * (stage >= 2 ? 8 : 3);
-                const ay = stage >= 2 ? flaskY + 55 + Math.cos(t * 2 + i * 1.3) * 12 : flaskY + 25 + fallP * 55;
-                teAtoms.push({ x: ax, y: ay });
-              }
-            }
-
-            // Product ZnTe pairs
-            const products = [];
-            if (stage >= 3) {
-              for (let i = 0; i < 4; i++) {
-                const px = flaskX + 15 + i * 22;
-                const py = flaskY + 60 + (i % 2) * 18;
-                products.push({ x: px, y: py });
-              }
-            }
-
-            // Final product in dish
-            const productX = 420, productY = 70;
-
-            return <g>
-              {/* Step labels */}
-              {[
-                { x: 60, label: "Precursors", active: stage === 0 },
-                { x: 180, label: "Add to flask", active: stage === 1 },
-                { x: 280, label: "Heat + React", active: stage === 2 },
-                { x: 380, label: "Cool", active: stage === 3 },
-                { x: 480, label: "Product", active: stage === 4 },
-              ].map((s, i) => (
-                <text key={i} x={s.x} y={14} textAnchor="middle" fontSize={12} fontFamily="monospace"
-                  fill={s.active ? T.eo_e : T.dim} fontWeight={s.active ? 700 : 400}>{s.label}</text>
-              ))}
-
-              {/* Precursor bottles */}
-              <rect x={znX} y={bottleY} width={40} height={55} rx={4} fill={T.eo_cond + "25"} stroke={T.eo_cond} strokeWidth={1.5} />
-              <rect x={znX + 10} y={bottleY - 12} width={20} height={14} rx={3} fill={T.eo_cond + "40"} stroke={T.eo_cond} strokeWidth={1} />
-              <text x={znX + 20} y={bottleY + 32} textAnchor="middle" fontSize={14} fill={T.eo_cond} fontWeight={700} fontFamily="monospace">Zn</text>
-              <text x={znX + 20} y={bottleY + 48} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">powder</text>
-
-              <rect x={teX} y={bottleY} width={40} height={55} rx={4} fill={T.eo_photon + "25"} stroke={T.eo_photon} strokeWidth={1.5} />
-              <rect x={teX + 10} y={bottleY - 12} width={20} height={14} rx={3} fill={T.eo_photon + "40"} stroke={T.eo_photon} strokeWidth={1} />
-              <text x={teX + 20} y={bottleY + 32} textAnchor="middle" fontSize={14} fill={T.eo_photon} fontWeight={700} fontFamily="monospace">Te</text>
-              <text x={teX + 20} y={bottleY + 48} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">powder</text>
-
-              {/* Arrows from bottles to flask */}
-              {stage >= 1 && <>
-                <line x1={znX + 42} y1={bottleY + 25} x2={flaskX + 10} y2={flaskY + 10} stroke={T.eo_cond} strokeWidth={1.5} strokeDasharray="4,3" opacity={0.6} />
-                <line x1={teX + 42} y1={bottleY + 25} x2={flaskX + 15} y2={flaskY + 15} stroke={T.eo_photon} strokeWidth={1.5} strokeDasharray="4,3" opacity={0.6} />
-              </>}
-
-              {/* Flask */}
-              <rect x={flaskX + (flaskW - neckW) / 2} y={flaskY - neckH} width={neckW} height={neckH} rx={3} fill="none" stroke={T.border} strokeWidth={2} />
-              <path d={`M${flaskX + (flaskW - neckW) / 2},${flaskY} L${flaskX},${flaskY + 30} L${flaskX},${flaskY + flaskH} L${flaskX + flaskW},${flaskY + flaskH} L${flaskX + flaskW},${flaskY + 30} L${flaskX + (flaskW + neckW) / 2},${flaskY} Z`}
-                fill={stage >= 2 ? (temp > 700 ? T.eo_gap + "15" : T.eo_photon + "10") : T.surface}
-                stroke={T.border} strokeWidth={2} />
-
-              {/* Flame / heater under flask */}
-              {stage === 2 && <>
-                {[0, 1, 2].map(i => {
-                  const fx = flaskX + 30 + i * 20;
-                  const fh = 12 + Math.sin(t * 4 + i * 2) * 5;
-                  return <ellipse key={i} cx={fx} cy={flaskY + flaskH + 8} rx={8} ry={fh}
-                    fill={T.eo_gap} opacity={0.4 + Math.sin(t * 3 + i) * 0.2} />;
-                })}
-                <text x={flaskX + flaskW / 2} y={flaskY + flaskH + 28} textAnchor="middle" fontSize={12} fill={T.eo_gap} fontFamily="monospace" fontWeight={700}>Heating</text>
-              </>}
-
-              {/* Atoms inside flask */}
-              {stage >= 1 && stage < 3 && znAtoms.map((a, i) => (
-                <circle key={`zn${i}`} cx={a.x} cy={a.y} r={6} fill={T.eo_cond} opacity={0.8} />
-              ))}
-              {stage >= 1 && stage < 3 && teAtoms.map((a, i) => (
-                <circle key={`te${i}`} cx={a.x} cy={a.y} r={6} fill={T.eo_photon} opacity={0.8} />
-              ))}
-
-              {/* Reaction: Zn + Te → ZnTe pairs forming */}
-              {stage >= 2 && stageProgress > 0.5 && [...Array(3)].map((_, i) => {
-                const px = flaskX + 20 + i * 25;
-                const py = flaskY + 50 + i * 12;
-                const bond = Math.min(1, (stageProgress - 0.5) * 3);
-                return <g key={`pair${i}`}>
-                  <circle cx={px} cy={py} r={5} fill={T.eo_cond} />
-                  <circle cx={px + 6 + (1 - bond) * 10} cy={py + 3} r={5} fill={T.eo_photon} />
-                  {bond > 0.5 && <line x1={px + 4} y1={py + 1} x2={px + 8} y2={py + 2} stroke={T.ink} strokeWidth={1.5} />}
-                </g>;
-              })}
-
-              {/* Product pairs in flask (cooling) */}
-              {stage >= 3 && products.map((p, i) => (
-                <g key={`prod${i}`}>
-                  <circle cx={p.x} cy={p.y} r={5} fill={T.eo_cond} />
-                  <line x1={p.x + 4} y1={p.y} x2={p.x + 8} y2={p.y + 1} stroke={T.ink} strokeWidth={1.5} />
-                  <circle cx={p.x + 12} cy={p.y + 1} r={5} fill={T.eo_photon} />
-                </g>
-              ))}
-
-              {/* Arrow to product */}
-              {stage >= 4 && <line x1={flaskX + flaskW + 5} y1={flaskY + 60} x2={productX - 20} y2={productY + 20} stroke={T.dim} strokeWidth={1.5} strokeDasharray="5,3" />}
-
-              {/* Final product dish */}
-              <ellipse cx={productX + 40} cy={productY + 50} rx={45} ry={12} fill="none" stroke={T.border} strokeWidth={1.5} />
-              <path d={`M${productX - 5},${productY + 50} Q${productX + 40},${productY + 80} ${productX + 85},${productY + 50}`} fill="none" stroke={T.border} strokeWidth={1.5} />
-              {stage >= 4 && <>
-                <ellipse cx={productX + 40} cy={productY + 45} rx={30} ry={8} fill={T.eo_valence + "40"} />
-                <text x={productX + 40} y={productY + 35} textAnchor="middle" fontSize={14} fill={T.eo_valence} fontWeight={700} fontFamily="monospace">ZnTe</text>
-                <text x={productX + 40} y={productY + 48} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">crystal</text>
-              </>}
-
-              {/* Temperature readout */}
-              <rect x={360} y={140} width={80} height={24} rx={4} fill={tempColor + "20"} stroke={tempColor} strokeWidth={1} />
-              <text x={400} y={156} textAnchor="middle" fontSize={13} fill={tempColor} fontWeight={700} fontFamily="monospace">{temp.toFixed(0)} K</text>
-
-              {/* Reaction equation */}
-              <text x={280} y={190} textAnchor="middle" fontSize={13} fill={T.ink} fontFamily="monospace" fontWeight={700}>
-                Zn + Te → ZnTe (ΔH {"<"} 0)
-              </text>
-            </g>;
-          })()}
-        </svg>
       </div>
 
       </div>
