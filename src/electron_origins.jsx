@@ -879,11 +879,11 @@ function ElectronOriginsZnTeSection() {
 
           <circle cx={znDraw} cy={atomY} r={28} fill={T.eo_e} opacity={0.15} stroke={T.eo_e} strokeWidth={2} />
           <text x={znDraw} y={atomY + 4} textAnchor="middle" fill={T.eo_e} fontSize={12} fontFamily="monospace" fontWeight="bold">Zn</text>
-          <text x={znDraw} y={atomY + 18} textAnchor="middle" fill={T.muted} fontSize={7} fontFamily="monospace">30e⁻</text>
+          <text x={znDraw} y={atomY + 18} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">30e⁻</text>
 
           <circle cx={teDraw} cy={atomY} r={32} fill={T.eo_hole} opacity={0.15} stroke={T.eo_hole} strokeWidth={2} />
           <text x={teDraw} y={atomY + 4} textAnchor="middle" fill={T.eo_hole} fontSize={12} fontFamily="monospace" fontWeight="bold">Te</text>
-          <text x={teDraw} y={atomY + 18} textAnchor="middle" fill={T.muted} fontSize={7} fontFamily="monospace">52e⁻</text>
+          <text x={teDraw} y={atomY + 18} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">52e⁻</text>
 
           {znValenceElectrons.map((e, i) => {
             const ex = lerp(e.baseX, midX + (i - 0.5) * 8, bp);
@@ -891,7 +891,7 @@ function ElectronOriginsZnTeSection() {
             return (
               <g key={`zv${i}`}>
                 <circle cx={ex} cy={ey} r={5} fill={T.eo_e} opacity={0.8 + 0.2 * Math.sin(t + i)} />
-                <text x={ex} y={ey + 3} textAnchor="middle" fill="#fff" fontSize={5} fontFamily="monospace">e⁻</text>
+                <text x={ex} y={ey + 3} textAnchor="middle" fill="#fff" fontSize={9} fontFamily="monospace">e⁻</text>
               </g>
             );
           })}
@@ -901,7 +901,7 @@ function ElectronOriginsZnTeSection() {
             return (
               <g key={`tv${i}`}>
                 <circle cx={ex} cy={ey} r={5} fill={T.eo_hole} opacity={0.8 + 0.2 * Math.sin(t + i)} />
-                <text x={ex} y={ey + 3} textAnchor="middle" fill="#fff" fontSize={5} fontFamily="monospace">e⁻</text>
+                <text x={ex} y={ey + 3} textAnchor="middle" fill="#fff" fontSize={9} fontFamily="monospace">e⁻</text>
               </g>
             );
           })}
@@ -909,18 +909,18 @@ function ElectronOriginsZnTeSection() {
           {bp > 0.5 && (
             <g opacity={(bp - 0.5) * 2}>
               <ellipse cx={midX} cy={atomY} rx={35} ry={55} fill="none" stroke={T.eo_valence} strokeWidth={1.5} strokeDasharray="4,3" />
-              <text x={midX} y={atomY + 68} textAnchor="middle" fill={T.eo_valence} fontSize={8} fontFamily="monospace" fontWeight="bold">sp³ hybrid</text>
-              <text x={midX} y={atomY + 80} textAnchor="middle" fill={T.eo_valence} fontSize={8} fontFamily="monospace">2 + 6 = 8 valence e⁻</text>
+              <text x={midX} y={atomY + 68} textAnchor="middle" fill={T.eo_valence} fontSize={10} fontFamily="monospace" fontWeight="bold">sp³ hybrid</text>
+              <text x={midX} y={atomY + 80} textAnchor="middle" fill={T.eo_valence} fontSize={10} fontFamily="monospace">2 + 6 = 8 valence e⁻</text>
             </g>
           )}
 
-          <text x={znDraw} y={200} textAnchor="middle" fill={T.eo_e} fontSize={7} fontFamily="monospace">[Ar] 3d¹⁰ 4s²</text>
-          <text x={znDraw} y={212} textAnchor="middle" fill={T.eo_e} fontSize={7} fontFamily="monospace" fontWeight="bold">↑ valence: 4s²</text>
-          <text x={znDraw} y={224} textAnchor="middle" fill={T.eo_e} fontSize={8} fontFamily="monospace" fontWeight="bold">2 e⁻</text>
+          <text x={znDraw} y={200} textAnchor="middle" fill={T.eo_e} fontSize={10} fontFamily="monospace">[Ar] 3d¹⁰ 4s²</text>
+          <text x={znDraw} y={212} textAnchor="middle" fill={T.eo_e} fontSize={10} fontFamily="monospace" fontWeight="bold">↑ valence: 4s²</text>
+          <text x={znDraw} y={224} textAnchor="middle" fill={T.eo_e} fontSize={10} fontFamily="monospace" fontWeight="bold">2 e⁻</text>
 
-          <text x={teDraw} y={200} textAnchor="middle" fill={T.eo_hole} fontSize={7} fontFamily="monospace">[Kr] 4d¹⁰ 5s² 5p⁴</text>
-          <text x={teDraw} y={212} textAnchor="middle" fill={T.eo_hole} fontSize={7} fontFamily="monospace" fontWeight="bold">↑ valence: 5s²5p⁴</text>
-          <text x={teDraw} y={224} textAnchor="middle" fill={T.eo_hole} fontSize={8} fontFamily="monospace" fontWeight="bold">6 e⁻</text>
+          <text x={teDraw} y={200} textAnchor="middle" fill={T.eo_hole} fontSize={10} fontFamily="monospace">[Kr] 4d¹⁰ 5s² 5p⁴</text>
+          <text x={teDraw} y={212} textAnchor="middle" fill={T.eo_hole} fontSize={10} fontFamily="monospace" fontWeight="bold">↑ valence: 5s²5p⁴</text>
+          <text x={teDraw} y={224} textAnchor="middle" fill={T.eo_hole} fontSize={10} fontFamily="monospace" fontWeight="bold">6 e⁻</text>
 
           {stage === 1 && bondProgress < 0.01 && (
             <g onClick={() => setBonding(true)} style={{ cursor: "pointer" }}>
@@ -932,13 +932,13 @@ function ElectronOriginsZnTeSection() {
           {bp >= 1 && (
             <g>
               <rect x={30} y={250} width={280} height={60} rx={6} fill={T.panel} stroke={T.border} strokeWidth={1} />
-              <text x={170} y={267} textAnchor="middle" fill={T.ink} fontSize={9} fontFamily="monospace" fontWeight="bold">Band Formation</text>
+              <text x={170} y={267} textAnchor="middle" fill={T.ink} fontSize={11} fontFamily="monospace" fontWeight="bold">Band Formation</text>
               <rect x={50} y={275} width={100} height={12} rx={3} fill={T.eo_valence} opacity={0.4} />
-              <text x={100} y={284} textAnchor="middle" fill={T.eo_valence} fontSize={7} fontFamily="monospace">Valence Band (4×↑↓=8e⁻)</text>
+              <text x={100} y={284} textAnchor="middle" fill={T.eo_valence} fontSize={10} fontFamily="monospace">Valence Band (4×↑↓=8e⁻)</text>
               <rect x={190} y={275} width={100} height={12} rx={3} fill={T.eo_cond} opacity={0.2} stroke={T.eo_cond} strokeDasharray="3,2" />
-              <text x={240} y={284} textAnchor="middle" fill={T.eo_cond} fontSize={7} fontFamily="monospace">Conduction Band (empty)</text>
+              <text x={240} y={284} textAnchor="middle" fill={T.eo_cond} fontSize={10} fontFamily="monospace">Conduction Band (empty)</text>
               <line x1={155} y1={278} x2={185} y2={278} stroke={T.eo_gap} strokeWidth={2} />
-              <text x={170} y={300} textAnchor="middle" fill={T.eo_gap} fontSize={7} fontFamily="monospace">Eg = 2.26 eV</text>
+              <text x={170} y={300} textAnchor="middle" fill={T.eo_gap} fontSize={10} fontFamily="monospace">Eg = 2.26 eV</text>
             </g>
           )}
         </svg>
@@ -965,14 +965,14 @@ function ElectronOriginsZnTeSection() {
               <g key={i}>
                 <circle cx={ox + a.x} cy={oy + a.y} r={14 * pulse} fill={col} opacity={0.2} />
                 <circle cx={ox + a.x} cy={oy + a.y} r={10 * pulse} fill={col} opacity={0.6} />
-                <text x={ox + a.x} y={oy + a.y + 3.5} textAnchor="middle" fill="#fff" fontSize={8} fontFamily="monospace" fontWeight="bold">{a.type}</text>
+                <text x={ox + a.x} y={oy + a.y + 3.5} textAnchor="middle" fill="#fff" fontSize={10} fontFamily="monospace" fontWeight="bold">{a.type}</text>
               </g>
             );
           })}
           <text x={170} y={230} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">4 Zn + 4 Te = 4 formula units</text>
           <text x={170} y={248} textAnchor="middle" fill={T.eo_valence} fontSize={10} fontFamily="monospace">4 × 8 = 32 valence electrons</text>
-          <text x={170} y={268} textAnchor="middle" fill={T.muted} fontSize={9} fontFamily="monospace">Each formula unit contributes 8 e⁻ to bands</text>
-          <text x={170} y={288} textAnchor="middle" fill={T.eo_e} fontSize={8} fontFamily="monospace">Zn: 4×2=8 e⁻ | Te: 4×6=24 e⁻ | Total=32</text>
+          <text x={170} y={268} textAnchor="middle" fill={T.muted} fontSize={11} fontFamily="monospace">Each formula unit contributes 8 e⁻ to bands</text>
+          <text x={170} y={288} textAnchor="middle" fill={T.eo_e} fontSize={10} fontFamily="monospace">Zn: 4×2=8 e⁻ | Te: 4×6=24 e⁻ | Total=32</text>
         </svg>
       );
     }
@@ -990,7 +990,9 @@ function ElectronOriginsZnTeSection() {
       }
       return (
         <svg viewBox="0 0 340 320" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
-          <text x={170} y={15} textAnchor="middle" fill={T.ink} fontSize={9} fontFamily="monospace" fontWeight="bold">2×2×2 Supercell — 64 atoms</text>
+          <text x={170} y={15} textAnchor="middle" fill={T.ink} fontSize={11} fontFamily="monospace" fontWeight="bold">2×2×2 Supercell — 64 atoms</text>
+          <rect x={10} y={15} width={320} height={245} fill="none" stroke={T.ink} strokeWidth={1.5} strokeDasharray="6,4" rx={4} />
+          <text x={24} y={27} fill={T.muted} fontSize={8} fontFamily="monospace">2×2×2</text>
           {dots.slice(0, 32).map((d, i) => {
             const col = d.type === "Zn" ? T.eo_e : T.eo_hole;
             const o = 0.5 + 0.3 * Math.sin(t + i * 0.5);
@@ -998,7 +1000,7 @@ function ElectronOriginsZnTeSection() {
           })}
           <text x={170} y={270} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">32 Zn + 32 Te = 64 atoms</text>
           <text x={170} y={288} textAnchor="middle" fill={T.eo_valence} fontSize={10} fontFamily="monospace">32×2 + 32×6 = 256 valence e⁻</text>
-          <text x={170} y={306} textAnchor="middle" fill={T.muted} fontSize={8} fontFamily="monospace">Total valence electrons = 256</text>
+          <text x={170} y={306} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">Total valence electrons = 256</text>
         </svg>
       );
     }
@@ -1012,7 +1014,7 @@ function ElectronOriginsZnTeSection() {
         <svg viewBox="0 0 340 320" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
           <text x={170} y={18} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">Band Structure from Electrons</text>
           <line x1={40} y1={30} x2={40} y2={280} stroke={T.ink} strokeWidth={1} />
-          <text x={15} y={145} textAnchor="middle" fill={T.muted} fontSize={8} fontFamily="monospace" transform="rotate(-90,15,145)">Energy</text>
+          <text x={15} y={145} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace" transform="rotate(-90,15,145)">Energy</text>
           <line x1={40} y1={280} x2={310} y2={280} stroke={T.ink} strokeWidth={1} />
 
           {[...Array(4)].map((_, band) => {
@@ -1036,12 +1038,12 @@ function ElectronOriginsZnTeSection() {
           })}
 
           <rect x={50} y={vbTop} width={240} height={90} fill={T.eo_valence} opacity={0.06} />
-          <text x={300} y={vbTop + 50} textAnchor="end" fill={T.eo_valence} fontSize={8} fontFamily="monospace">VB (filled)</text>
+          <text x={300} y={vbTop + 50} textAnchor="end" fill={T.eo_valence} fontSize={10} fontFamily="monospace">VB (filled)</text>
           <rect x={50} y={cbBot - 80} width={240} height={80} fill={T.eo_cond} opacity={0.04} />
-          <text x={300} y={cbBot - 40} textAnchor="end" fill={T.eo_cond} fontSize={8} fontFamily="monospace">CB (empty)</text>
+          <text x={300} y={cbBot - 40} textAnchor="end" fill={T.eo_cond} fontSize={10} fontFamily="monospace">CB (empty)</text>
 
           <line x1={160} y1={vbTop} x2={160} y2={cbBot} stroke={T.eo_gap} strokeWidth={2} />
-          <text x={170} y={bandY + 3} textAnchor="start" fill={T.eo_gap} fontSize={9} fontFamily="monospace" fontWeight="bold">Eg</text>
+          <text x={170} y={bandY + 3} textAnchor="start" fill={T.eo_gap} fontSize={11} fontFamily="monospace" fontWeight="bold">Eg</text>
 
           {[...Array(8)].map((_, i) => {
             const eky = vbTop + 20 + Math.sin(t + i) * 8;
@@ -1049,10 +1051,10 @@ function ElectronOriginsZnTeSection() {
             return <circle key={i} cx={ekx} cy={eky} r={2.5} fill={T.eo_e} opacity={0.6 + 0.3 * Math.sin(t + i)} />;
           })}
 
-          <text x={170} y={295} textAnchor="middle" fill={T.muted} fontSize={8} fontFamily="monospace">
+          <text x={170} y={295} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">
             Each dot = electron from Zn or Te atom
           </text>
-          <text x={170} y={310} textAnchor="middle" fill={T.ink} fontSize={8} fontFamily="monospace" fontWeight="bold">
+          <text x={170} y={310} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">
             ALL band electrons came from atoms!
           </text>
         </svg>
@@ -2651,7 +2653,7 @@ function ChemicalBondingSection() {
               <text x={120} y={125} textAnchor="middle" fontSize={12} fontWeight={700} fill="#fff">Si</text>
               <circle cx={220} cy={120} r={28} fill={T.eo_valence} opacity={0.85} />
               <text x={220} y={125} textAnchor="middle" fontSize={12} fontWeight={700} fill="#fff">Si</text>
-              <text x={170} y={170} textAnchor="middle" fontSize={9} fill={T.muted}>Equal sharing</text>
+              <text x={170} y={170} textAnchor="middle" fontSize={11} fill={T.muted}>Equal sharing</text>
           </>)}
 
           {/* === POLAR COVALENT === */}
@@ -2666,14 +2668,14 @@ function ChemicalBondingSection() {
               <text x={110} y={92} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.eo_hole}>{"\u03B4+"}</text>
               <text x={230} y={86} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.eo_e}>{"\u03B4\u2212"}</text>
               <line x1={140} y1={155} x2={200} y2={155} stroke={T.muted} strokeWidth={1.5} markerEnd="url(#arrowPolar)" />
-              <text x={170} y={168} textAnchor="middle" fontSize={9} fill={T.muted}>Dipole moment</text>
+              <text x={170} y={168} textAnchor="middle" fontSize={11} fill={T.muted}>Dipole moment</text>
           </>)}
 
           {/* === IONIC === */}
           {bondType === "Ionic" && (<>
               <line x1={140} y1={120} x2={190} y2={120} stroke={T.eo_gap} strokeWidth={2} strokeDasharray="6,3" markerEnd="url(#arrowIonic)" />
               <line x1={200} y1={120} x2={150} y2={120} stroke={T.eo_gap} strokeWidth={2} strokeDasharray="6,3" markerEnd="url(#arrowIonic)" />
-              <text x={170} y={112} textAnchor="middle" fontSize={8} fill={T.eo_gap}>Coulomb</text>
+              <text x={170} y={112} textAnchor="middle" fontSize={10} fill={T.eo_gap}>Coulomb</text>
               <circle cx={100} cy={120} r={20} fill={T.eo_hole} opacity={0.85} />
               <text x={100} y={125} textAnchor="middle" fontSize={12} fontWeight={700} fill="#fff">Na</text>
               <text x={100} y={90} textAnchor="middle" fontSize={18} fontWeight={700} fill={T.eo_hole}>+</text>
@@ -2681,8 +2683,8 @@ function ChemicalBondingSection() {
               <text x={240} y={125} textAnchor="middle" fontSize={12} fontWeight={700} fill="#fff">Cl</text>
               <text x={240} y={82} textAnchor="middle" fontSize={18} fontWeight={700} fill={T.eo_e}>{"\u2212"}</text>
               <circle cx={240 + 10 * Math.sin(frame * 0.15)} cy={95 + 6 * Math.cos(frame * 0.2)} r={5 * pulse} fill={T.eo_e} opacity={0.6} />
-              <text x={240 + 10 * Math.sin(frame * 0.15)} y={95 + 6 * Math.cos(frame * 0.2) - 8} textAnchor="middle" fontSize={7} fill={T.muted}>{"e\u207B"}</text>
-              <text x={170} y={170} textAnchor="middle" fontSize={9} fill={T.muted}>Complete electron transfer</text>
+              <text x={240 + 10 * Math.sin(frame * 0.15)} y={95 + 6 * Math.cos(frame * 0.2) - 8} textAnchor="middle" fontSize={10} fill={T.muted}>{"e\u207B"}</text>
+              <text x={170} y={170} textAnchor="middle" fontSize={11} fill={T.muted}>Complete electron transfer</text>
           </>)}
 
           {/* === METALLIC === */}
@@ -2703,8 +2705,8 @@ function ChemicalBondingSection() {
                   const ey = 135 + 10 * Math.sin(frame * 0.08 + i * 1.2);
                   return <circle key={i} cx={ex} cy={ey} r={3.5} fill={T.eo_e} opacity={0.7} />;
                 })}
-                <text x={170} y={80} textAnchor="middle" fontSize={9} fill={T.muted}>Positive ion cores</text>
-                <text x={170} y={178} textAnchor="middle" fontSize={9} fill={T.eo_e}>Delocalized electron sea</text>
+                <text x={170} y={80} textAnchor="middle" fontSize={11} fill={T.muted}>Positive ion cores</text>
+                <text x={170} y={178} textAnchor="middle" fontSize={11} fill={T.eo_e}>Delocalized electron sea</text>
             </>);
           })()}
 
@@ -2715,22 +2717,22 @@ function ChemicalBondingSection() {
                 <circle cx={80} cy={115} r={20} fill={T.eo_valence} opacity={0.8} />
                 <circle cx={120} cy={115} r={20} fill={T.eo_core} opacity={0.8} />
                 <line x1={95} y1={115} x2={105} y2={115} stroke="#fff" strokeWidth={3} />
-                <text x={80} y={119} textAnchor="middle" fontSize={9} fontWeight={700} fill="#fff">H</text>
-                <text x={120} y={119} textAnchor="middle" fontSize={9} fontWeight={700} fill="#fff">Cl</text>
+                <text x={80} y={119} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff">H</text>
+                <text x={120} y={119} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff">Cl</text>
                 <text x={80} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_hole} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"\u03B4+"}</text>
                 <text x={120} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_e} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"\u03B4\u2212"}</text>
                 <ellipse cx={100 + dipoleShift} cy={115} rx={30 * pulse} ry={18 * pulse} fill={T.eo_e} opacity={0.1} stroke={T.eo_e} strokeWidth={0.8} strokeDasharray="3,3" />
                 <line x1={142} y1={115} x2={198} y2={115} stroke={T.muted} strokeWidth={1.5} strokeDasharray="3,4" opacity={0.5 + 0.3 * Math.sin(frame * 0.06)} />
-                <text x={170} y={108} textAnchor="middle" fontSize={7} fill={T.dim}>weak</text>
+                <text x={170} y={108} textAnchor="middle" fontSize={10} fill={T.dim}>weak</text>
                 <circle cx={220} cy={115} r={20} fill={T.eo_valence} opacity={0.8} />
                 <circle cx={260} cy={115} r={20} fill={T.eo_core} opacity={0.8} />
                 <line x1={235} y1={115} x2={245} y2={115} stroke="#fff" strokeWidth={3} />
-                <text x={220} y={119} textAnchor="middle" fontSize={9} fontWeight={700} fill="#fff">H</text>
-                <text x={260} y={119} textAnchor="middle" fontSize={9} fontWeight={700} fill="#fff">Cl</text>
+                <text x={220} y={119} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff">H</text>
+                <text x={260} y={119} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff">Cl</text>
                 <text x={220} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_e} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"\u03B4\u2212"}</text>
                 <text x={260} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_hole} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"\u03B4+"}</text>
                 <ellipse cx={240 - dipoleShift} cy={115} rx={30 * pulse} ry={18 * pulse} fill={T.eo_e} opacity={0.1} stroke={T.eo_e} strokeWidth={0.8} strokeDasharray="3,3" />
-                <text x={170} y={155} textAnchor="middle" fontSize={9} fill={T.muted}>Fluctuating dipoles induce attraction</text>
+                <text x={170} y={155} textAnchor="middle" fontSize={11} fill={T.muted}>Fluctuating dipoles induce attraction</text>
             </>);
           })()}
 
@@ -2740,10 +2742,10 @@ function ChemicalBondingSection() {
           </text>
           <line x1={40} y1={210} x2={40} y2={300} stroke={T.muted} strokeWidth={1} />
           <line x1={40} y1={300} x2={310} y2={300} stroke={T.muted} strokeWidth={1} />
-          <text x={15} y={255} fontSize={9} fill={T.muted} transform="rotate(-90,15,255)">
+          <text x={15} y={255} fontSize={11} fill={T.muted} transform="rotate(-90,15,255)">
             E (eV)
           </text>
-          <text x={175} y={315} fontSize={9} fill={T.muted} textAnchor="middle">
+          <text x={175} y={315} fontSize={11} fill={T.muted} textAnchor="middle">
             Distance (A)
           </text>
 
@@ -2761,7 +2763,7 @@ function ChemicalBondingSection() {
             return <path d={pts.join(" ")} fill="none" stroke={T.eo_e} strokeWidth={2} />;
           })()}
 
-          <text x={100} y={295} fontSize={9} fill={T.eo_gap}>
+          <text x={100} y={295} fontSize={11} fill={T.eo_gap}>
             E_bond = {bondEnergy.toFixed(1)} eV
           </text>
         </svg>
@@ -2779,7 +2781,7 @@ function ChemicalBondingSection() {
             onChange={(e) => setDChi(parseFloat(e.target.value))}
             style={{ width: "100%" }}
           />
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: T.dim }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: T.dim }}>
             <span>0 (Covalent)</span>
             <span>1 (Polar)</span>
             <span>2+ (Ionic)</span>
@@ -4398,20 +4400,20 @@ function DensityOfStatesSection() {
           <path d={dOrbPath} fill="none" stroke="#e67e22" strokeWidth={1.3} opacity={0.85} />
 
           {/* PDOS Legend */}
-          <rect x={marginL + 4} y={marginT + 2} width={68} height={52} rx={3}
+          <rect x={marginL + 4} y={marginT + 2} width={80} height={60} rx={3}
             fill={T.surface} stroke={T.border} strokeWidth={0.5} opacity={0.92} />
           <line x1={marginL + 8} y1={marginT + 12} x2={marginL + 22} y2={marginT + 12}
             stroke={T.eo_e} strokeWidth={2} />
-          <text x={marginL + 25} y={marginT + 15} fontSize={7} fill={T.muted} fontFamily="monospace">Total</text>
-          <line x1={marginL + 8} y1={marginT + 22} x2={marginL + 22} y2={marginT + 22}
+          <text x={marginL + 25} y={marginT + 15} fontSize={10} fill={T.muted} fontFamily="monospace">Total</text>
+          <line x1={marginL + 8} y1={marginT + 24} x2={marginL + 22} y2={marginT + 24}
             stroke="#4a9eff" strokeWidth={1.3} />
-          <text x={marginL + 25} y={marginT + 25} fontSize={7} fill="#4a9eff" fontFamily="monospace">s-orb</text>
-          <line x1={marginL + 8} y1={marginT + 32} x2={marginL + 22} y2={marginT + 32}
+          <text x={marginL + 25} y={marginT + 27} fontSize={10} fill="#4a9eff" fontFamily="monospace">s-orb</text>
+          <line x1={marginL + 8} y1={marginT + 36} x2={marginL + 22} y2={marginT + 36}
             stroke="#2ecc71" strokeWidth={1.3} />
-          <text x={marginL + 25} y={marginT + 35} fontSize={7} fill="#2ecc71" fontFamily="monospace">p-orb</text>
-          <line x1={marginL + 8} y1={marginT + 42} x2={marginL + 22} y2={marginT + 42}
+          <text x={marginL + 25} y={marginT + 39} fontSize={10} fill="#2ecc71" fontFamily="monospace">p-orb</text>
+          <line x1={marginL + 8} y1={marginT + 48} x2={marginL + 22} y2={marginT + 48}
             stroke="#e67e22" strokeWidth={1.3} />
-          <text x={marginL + 25} y={marginT + 45} fontSize={7} fill="#e67e22" fontFamily="monospace">d-orb</text>
+          <text x={marginL + 25} y={marginT + 51} fontSize={10} fill="#e67e22" fontFamily="monospace">d-orb</text>
 
           <path d={fermiPath} fill="none" stroke={T.eo_photon} strokeWidth={1.5}
             strokeDasharray="4,3" opacity={0.8} />
@@ -4419,17 +4421,17 @@ function DensityOfStatesSection() {
           <line x1={marginL} y1={eToY(eFermiActual)} x2={marginL + plotW} y2={eToY(eFermiActual)}
             stroke={T.eo_hole} strokeWidth={2} strokeDasharray="6,4" />
           <text x={marginL + plotW + 2} y={eToY(eFermiActual) + 4}
-            fontSize={9} fill={T.eo_hole} fontFamily="monospace">E_F</text>
+            fontSize={10} fill={T.eo_hole} fontFamily="monospace">E_F</text>
 
           <line x1={marginL} y1={eToY(Ev)} x2={marginL + plotW} y2={eToY(Ev)}
             stroke={T.eo_valence} strokeWidth={1} opacity={0.5} />
           <text x={marginL - 4} y={eToY(Ev) + 4} textAnchor="end"
-            fontSize={9} fill={T.eo_valence} fontFamily="monospace">E_v</text>
+            fontSize={10} fill={T.eo_valence} fontFamily="monospace">E_v</text>
 
           <line x1={marginL} y1={eToY(Ec)} x2={marginL + plotW} y2={eToY(Ec)}
             stroke={T.eo_cond} strokeWidth={1} opacity={0.5} />
           <text x={marginL - 4} y={eToY(Ec) + 4} textAnchor="end"
-            fontSize={9} fill={T.eo_cond} fontFamily="monospace">E_c</text>
+            fontSize={10} fill={T.eo_cond} fontFamily="monospace">E_c</text>
 
           <line x1={marginL} y1={marginT} x2={marginL} y2={H - marginB}
             stroke={T.border} strokeWidth={1} />
@@ -4443,7 +4445,7 @@ function DensityOfStatesSection() {
 
           {[Emin, 0, 2, Emax].map((e, i) => (
             <text key={i} x={marginL - 6} y={eToY(e) + 3} textAnchor="end"
-              fontSize={8} fill={T.dim} fontFamily="monospace">{e.toFixed(1)}</text>
+              fontSize={10} fill={T.dim} fontFamily="monospace">{e.toFixed(1)}</text>
           ))}
 
           {temperature > 100 && (
