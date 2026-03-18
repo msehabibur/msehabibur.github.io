@@ -4691,37 +4691,46 @@ function MaterialClassesSection() {
   const cur = info[selected];
 
   // ── ANIMATED BAND DIAGRAM ──
-  const W = 340, H = 260;
-  const bandW = 200, bandL = (W - bandW) / 2, bandR = bandL + bandW;
-  const VBtop = 140, CBbot = selected === "metal" ? 140 : 140 - Math.min(100, sel.bandGap * 20);
+  const W = 380, H = 260;
+  const bandW = 200, bandL = (W - bandW) / 2 - 20, bandR = bandL + bandW;
+  const bandH = 28;
+  // Center the band diagram vertically: compute gap in pixels, then place symmetrically
+  const gapPxRaw = selected === "metal" ? 0 : Math.min(100, sel.bandGap * 20);
+  const centerY = H / 2 + 5; // vertical center (slightly below for title space)
+  const VBtop = centerY + gapPxRaw / 2;
+  const CBbot = centerY - gapPxRaw / 2;
   const gapPx = VBtop - CBbot;
 
-  // Animated electrons
-  const nElectrons = selected === "metal" ? 12 : selected === "semiconductor" ? 4 : 1;
-  const electrons = Array.from({ length: nElectrons }, (_, i) => {
-    const seed = i * 137.5 + frame * 0.8;
-    const inCB = selected === "metal" || (selected === "semiconductor" && i < 2);
-    const baseY = inCB ? CBbot - 15 - (i % 3) * 14 : VBtop + 10 + (i % 3) * 14;
-    const wobbleX = bandL + 30 + ((seed * 1.3 + i * 47) % (bandR - bandL - 60));
-    const wobbleY = baseY + Math.sin(seed * 0.07 + i) * (selected === "metal" ? 6 : 3);
-    return { x: wobbleX, y: wobbleY, inCB };
-  });
+  // Systematic electrons: evenly spaced, drifting left-to-right in CB, oscillating in VB
+  const nCB = selected === "metal" ? 6 : selected === "semiconductor" ? 2 : 0;
+  const nVB = selected === "metal" ? 4 : selected === "semiconductor" ? 3 : selected === "insulator" ? 5 : selected === "polymer" ? 4 : 3;
+  const electrons = [];
+  // CB electrons: drift systematically left to right
+  for (let i = 0; i < nCB; i++) {
+    const t = (frame * 0.8 + i * (bandW / nCB)) % bandW;
+    electrons.push({ x: bandL + t, y: CBbot - bandH / 2 + Math.sin(frame * 0.05 + i * 1.5) * 4, inCB: true });
+  }
+  // VB electrons: sit in evenly spaced positions, gently oscillating
+  for (let i = 0; i < nVB; i++) {
+    const baseX = bandL + (i + 0.5) * (bandW / nVB);
+    electrons.push({ x: baseX + Math.sin(frame * 0.03 + i * 2) * 3, y: VBtop + bandH / 2 + Math.sin(frame * 0.04 + i) * 2, inCB: false });
+  }
 
-  // Animated polymer chain — positioned between CB and VB bands without overlap
+  // Animated polymer chain — centered in the gap between CB and VB
   const chainYCenter = (CBbot + VBtop) / 2;
-  const chainAmplitude = Math.max(8, (gapPx - 20) / 3);
-  const chainPts = selected === "polymer" ? Array.from({ length: 20 }, (_, i) => {
-    const baseX = bandL + i * (bandW / 20);
-    const baseY = chainYCenter + Math.sin(i * 0.8 + frame * 0.06) * chainAmplitude + Math.cos(i * 1.3 + frame * 0.04) * (chainAmplitude * 0.5);
+  const chainAmplitude = gapPx > 30 ? Math.min(12, (gapPx - 20) / 3) : 6;
+  const chainPts = selected === "polymer" ? Array.from({ length: 16 }, (_, i) => {
+    const baseX = bandL + i * (bandW / 15);
+    const baseY = chainYCenter + Math.sin(i * 0.8 + frame * 0.06) * chainAmplitude + Math.cos(i * 1.3 + frame * 0.04) * (chainAmplitude * 0.4);
     return [baseX, baseY];
   }) : [];
 
   // Animated ceramic lattice — aligned between CB bottom edge and VB top edge
   const ceramicAtoms = selected === "ceramic" ? (() => {
     const atoms = [];
-    const latticeTop = CBbot;          // top edge = conduction band bottom
-    const latticeBot = VBtop + 30;     // bottom edge = valence band bottom
-    const nRows = 5, nCols = 7;
+    const latticeTop = CBbot + 4;
+    const latticeBot = VBtop - 4;
+    const nRows = 4, nCols = 6;
     const rowSpacing = (latticeBot - latticeTop) / (nRows - 1);
     const colSpacing = bandW / (nCols + 1);
     for (let row = 0; row < nRows; row++) {
@@ -4763,39 +4772,36 @@ function MaterialClassesSection() {
             <text x={W / 2} y={20} textAnchor="middle" fill={sel.color} fontSize={13} fontWeight="bold">{sel.label} Band Structure</text>
 
             {/* Conduction band */}
-            <rect x={bandL} y={CBbot - 30} width={bandR - bandL} height={30} rx={4}
+            <rect x={bandL} y={CBbot - bandH} width={bandW} height={bandH} rx={4}
               fill={T.eo_cond + "22"} stroke={T.eo_cond} strokeWidth={1.5} />
-            <text x={W / 2} y={CBbot - 10} textAnchor="middle" fill={T.eo_cond} fontSize={12} fontWeight="bold">Conduction Band (CBM)</text>
+            <text x={W / 2} y={CBbot - bandH / 2 + 4} textAnchor="middle" fill={T.eo_cond} fontSize={12} fontWeight="bold">Conduction Band (CBM)</text>
 
             {/* Band gap label */}
             {gapPx > 10 && <>
-              <line x1={bandR - 20} y1={CBbot + 2} x2={bandR - 20} y2={VBtop - 2} stroke={T.eo_gap} strokeWidth={1.5} strokeDasharray="4 3" />
-              <text x={bandR - 15} y={(CBbot + VBtop) / 2 + 4} fill={T.eo_gap} fontSize={11} fontWeight="bold" textAnchor="start">
-                {sel.bandGap > 0 ? `E_g = ${sel.bandGap} eV` : "No gap"}
+              <rect x={bandL} y={CBbot} width={bandW} height={gapPx} fill={T.eo_gap + "08"} />
+              <line x1={bandR + 8} y1={CBbot} x2={bandR + 8} y2={VBtop} stroke={T.eo_gap} strokeWidth={1.5} markerStart="url(#arrowUp)" markerEnd="url(#arrowDown)" />
+              <text x={bandR + 14} y={(CBbot + VBtop) / 2 + 4} fill={T.eo_gap} fontSize={11} fontWeight="bold" textAnchor="start">
+                E_g = {sel.bandGap} eV
               </text>
-              {/* Gap shading */}
-              <rect x={bandL} y={CBbot} width={bandR - bandL} height={gapPx} fill={T.eo_gap + "08"} />
             </>}
 
             {/* Valence band */}
-            <rect x={bandL} y={VBtop} width={bandR - bandL} height={30} rx={4}
+            <rect x={bandL} y={VBtop} width={bandW} height={bandH} rx={4}
               fill={T.eo_valence + "22"} stroke={T.eo_valence} strokeWidth={1.5} />
-            <text x={W / 2} y={VBtop + 20} textAnchor="middle" fill={T.eo_valence} fontSize={12} fontWeight="bold">Valence Band (VBM)</text>
+            <text x={W / 2} y={VBtop + bandH / 2 + 4} textAnchor="middle" fill={T.eo_valence} fontSize={12} fontWeight="bold">Valence Band (VBM)</text>
 
             {/* Overlap indicator for metals */}
             {selected === "metal" && (
-              <text x={W / 2} y={VBtop - 5} textAnchor="middle" fill={T.eo_e} fontSize={10} fontWeight="bold">
-                ↑ Bands OVERLAP ↓
+              <text x={W / 2} y={VBtop + bandH + 16} textAnchor="middle" fill={T.eo_e} fontSize={11} fontWeight="bold">
+                ↑ Bands OVERLAP ↓ No Gap
               </text>
             )}
 
-            {/* Animated electrons */}
+            {/* Animated electrons — systematic placement */}
             {electrons.map((e, i) => (
               <g key={i}>
-                <circle cx={e.x} cy={e.y} r={5} fill={e.inCB ? T.eo_e : T.eo_valence} opacity={0.85}>
-                  <animate attributeName="cx" values={`${e.x - 3};${e.x + 3};${e.x - 3}`} dur={`${1.2 + i * 0.15}s`} repeatCount="indefinite" />
-                </circle>
-                <text x={e.x} y={e.y + 3.5} textAnchor="middle" fill="#1a1a2e" fontSize={9} fontWeight="bold">e⁻</text>
+                <circle cx={e.x} cy={e.y} r={6} fill={e.inCB ? T.eo_e : T.eo_valence} opacity={0.9} />
+                <text x={e.x} y={e.y + 3.5} textAnchor="middle" fill="white" fontSize={8} fontWeight="bold">e⁻</text>
               </g>
             ))}
 
@@ -4829,7 +4835,7 @@ function MaterialClassesSection() {
                   <circle key={i} cx={x} cy={y} r={i % 3 === 0 ? 6 : 4}
                     fill={i % 3 === 0 ? sel.color : sel.color + "66"} />
                 ))}
-                <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.muted} fontSize={11}>Wiggling polymer chain (weak inter-chain forces)</text>
+                <text x={W / 2} y={VBtop + bandH + 18} textAnchor="middle" fill={T.muted} fontSize={11}>Wiggling polymer chain (weak inter-chain forces)</text>
               </g>
             )}
 
