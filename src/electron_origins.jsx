@@ -432,8 +432,29 @@ function AtomicModelsSection() {
           Imagine you are looking at an object through a series of increasingly powerful microscopes. <strong>Dalton</strong> saw a solid marble. <strong>Thomson</strong> cracked it open and found raisins in a pudding. <strong>Rutherford</strong> zoomed in and discovered the marble is 99.99% empty space with a tiny dense core. <strong>Bohr</strong> saw electrons orbiting like planets. Finally, <strong>quantum mechanics</strong> revealed there are no orbits at all {"—"} just fuzzy probability clouds showing where the electron is <em>likely</em> to be. Each model did not destroy the last; it refined it.
         </AnalogyBox>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-      <div style={{ flexShrink: 0 }}>
+      <div style={{ flexShrink: 0, maxWidth: 340 }}>
         {renderSVG()}
+
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Experiment</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            {model === 0 && "Dalton measured the mass ratios of elements combining in chemical reactions. He found that elements always combine in fixed whole-number ratios, suggesting matter is made of indivisible atoms. This was purely chemical evidence — no one had yet probed inside an atom."}
+            {model === 1 && "Thomson applied high voltage across a glass tube with low-pressure gas. The mysterious 'cathode rays' were deflected by electric and magnetic fields, proving they were negatively charged particles. By measuring e/m, he showed these 'corpuscles' (electrons) were 1800x lighter than hydrogen — the first subatomic particle."}
+            {model === 2 && "Rutherford's team fired alpha particles at thin gold foil. Most passed straight through, but about 1 in 8000 bounced back at large angles. Rutherford said it was 'as if you fired a cannon shell at tissue paper and it came back.' This proved atoms have a tiny, dense, positive nucleus."}
+            {model === 3 && "Bohr studied the hydrogen emission spectrum — discrete colored lines, not a continuous rainbow. He postulated that electrons orbit only at specific radii where angular momentum is quantized (L = nh/2π). His formula Eₙ = -13.6/n² eV perfectly matched every observed hydrogen spectral line."}
+            {model === 4 && "Sommerfeld noticed that hydrogen spectral lines, when examined at high resolution, split into closely spaced doublets (fine structure). He extended Bohr's circular orbits to elliptical ones and added relativistic corrections, introducing the angular momentum quantum number l. This explained the fine splitting but still treated electrons as classical particles on paths."}
+            {model === 5 && "In 1927, Davisson and Germer fired electrons at a nickel crystal and observed a diffraction pattern — proving electrons are waves. Schrödinger then formulated his wave equation, replacing orbits with probability clouds. This quantum mechanical model explains everything: multi-electron atoms, chemical bonding, and the behavior of semiconductors."}
+          </div>
+        </div>
+
+        <div style={{ background: "#eef3ff", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 10, marginTop: 8 }}>
+          <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
+          <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.5 }}>
+            Each model improved on the last. The quantum mechanical model is the correct one,
+            but Bohr{"'"}s model gives the right energy levels for hydrogen and builds intuition.
+            For materials science, we use QM (DFT) for real calculations.
+          </div>
+        </div>
       </div>
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
@@ -507,27 +528,6 @@ function AtomicModelsSection() {
         </div>
       </div>
       </div>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Experiment</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            {model === 0 && "Dalton measured the mass ratios of elements combining in chemical reactions. He found that elements always combine in fixed whole-number ratios, suggesting matter is made of indivisible atoms. This was purely chemical evidence — no one had yet probed inside an atom."}
-            {model === 1 && "Thomson applied high voltage across a glass tube with low-pressure gas. The mysterious ‘cathode rays’ were deflected by electric and magnetic fields, proving they were negatively charged particles. By measuring e/m, he showed these ‘corpuscles’ (electrons) were 1800x lighter than hydrogen — the first subatomic particle."}
-            {model === 2 && "Rutherford’s team fired alpha particles at thin gold foil. Most passed straight through, but about 1 in 8000 bounced back at large angles. Rutherford said it was ‘as if you fired a cannon shell at tissue paper and it came back.’ This proved atoms have a tiny, dense, positive nucleus."}
-            {model === 3 && "Bohr studied the hydrogen emission spectrum — discrete colored lines, not a continuous rainbow. He postulated that electrons orbit only at specific radii where angular momentum is quantized (L = nh/2π). His formula Eₙ = -13.6/n² eV perfectly matched every observed hydrogen spectral line."}
-            {model === 4 && "Sommerfeld noticed that hydrogen spectral lines, when examined at high resolution, split into closely spaced doublets (fine structure). He extended Bohr’s circular orbits to elliptical ones and added relativistic corrections, introducing the angular momentum quantum number l. This explained the fine splitting but still treated electrons as classical particles on paths."}
-            {model === 5 && "In 1927, Davisson and Germer fired electrons at a nickel crystal and observed a diffraction pattern — proving electrons are waves. Schrödinger then formulated his wave equation, replacing orbits with probability clouds. This quantum mechanical model explains everything: multi-electron atoms, chemical bonding, and the behavior of semiconductors."}
-          </div>
-        </div>
-
-        <div style={{ background: "#eef3ff", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 10, marginBottom: 10 }}>
-          <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
-          <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.5 }}>
-            Each model improved on the last. The quantum mechanical model is the correct one,
-            but Bohr{"’"}s model gives the right energy levels for hydrogen and builds intuition.
-            For materials science, we use QM (DFT) for real calculations.
-          </div>
-        </div>
     </div>
   );
 }
@@ -730,8 +730,24 @@ function AufbauPrincipleSection() {
           Filling electron orbitals is like filling seats in a movie theater. Everyone wants the best seats (lowest energy) first. The front row fills before the back. But there's a twist — each seat can only hold two people (Pauli exclusion), and within each row, people spread out to separate seats before doubling up (Hund's rule). The order isn't always front-to-back either: sometimes the balcony (4s) fills before the back of the main floor (3d) because it's slightly more comfortable (lower energy).
         </AnalogyBox>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-      <div style={{ flexShrink: 0 }}>
+      <div style={{ flexShrink: 0, maxWidth: 340 }}>
         {renderSVG()}
+
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            Niels Bohr and Wolfgang Pauli developed the Aufbau ("building up" in German) principle in the 1920s to explain why the periodic table has its characteristic shape. Pauli's exclusion principle (1925) established that no two electrons can share the same quantum state, limiting each orbital to two electrons. Friedrich Hund formulated his rule of maximum multiplicity in 1925, explaining why electrons spread out across orbitals before pairing up. Together, these rules let physicists predict the electron configuration of every element and finally understand chemical behavior from first principles.
+          </div>
+        </div>
+
+        <div style={{ background: "#eef3ff", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 10, marginTop: 8 }}>
+          <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
+          <div style={{ fontSize: 10, lineHeight: 1.5 }}>
+            Electron configuration determines chemical properties. Cu having 3d¹⁰4s¹ is why it's
+            monovalent in kesterites. The Aufbau order (n+l rule) explains why 4s fills before 3d,
+            and why the periodic table has the shape it does.
+          </div>
+        </div>
       </div>
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 6, padding: 10 }}>
@@ -795,31 +811,6 @@ function AufbauPrincipleSection() {
           </div>
         )}
 
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Niels Bohr and Wolfgang Pauli developed the Aufbau ("building up" in German) principle in the 1920s to explain why the periodic table has its characteristic shape. Pauli's exclusion principle (1925) established that no two electrons can share the same quantum state, limiting each orbital to two electrons. Friedrich Hund formulated his rule of maximum multiplicity in 1925, explaining why electrons spread out across orbitals before pairing up. Together, these rules let physicists predict the electron configuration of every element and finally understand chemical behavior from first principles.
-          </div>
-        </div>
-
-        <div style={{ background: "#eef3ff", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 10 }}>
-          <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
-          <div style={{ fontSize: 10, lineHeight: 1.5 }}>
-            Electron configuration determines chemical properties. Cu having 3d¹⁰4s¹ is why it's
-            monovalent in kesterites. The Aufbau order (n+l rule) explains why 4s fills before 3d,
-            and why the periodic table has the shape it does.
-          </div>
-        </div>
-
-        <div style={{
-          background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
-          borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
-        }}>
-          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Coming Next: Periodic Trends {"→"}</div>
-          <div style={{ color: T.ink }}>
-            Electron configurations explain the periodic table's structure. But they also determine each element's size, how tightly it holds electrons, and how eagerly it grabs more. These periodic trends govern everything from bonding behavior to material properties.
-          </div>
-        </div>
       </div>
       </div>
     </div>
@@ -1553,7 +1544,7 @@ function SchrodingerSection() {
         </AnalogyBox>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       {/* LEFT: SVG */}
-      <div style={{ flexShrink: 0 }}>
+      <div style={{ flexShrink: 0, maxWidth: 340 }}>
         <svg viewBox="0 0 320 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 320 }}>
           <text x={160} y={16} textAnchor="middle" fontSize={13} fill={T.ink} fontWeight="bold">
             Hydrogen Atom {"—"} {orb.name} orbital
@@ -1627,6 +1618,41 @@ function SchrodingerSection() {
             {showPsi2 ? "|ψ|² cloud" : "R(r) curve"}
           </button>
         </div>
+
+        <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14, marginTop: 8 }}>
+          <div style={{ fontSize: 12, color: T.muted, marginBottom: 6 }}>Select energy level (click or use buttons):</div>
+          <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
+            {[1, 2, 3, 4].map((n) => (
+              <button key={n} onClick={() => setNQ(n)} style={{
+                flex: 1, height: 32, fontFamily: "monospace", fontSize: 12,
+                background: n === nQ ? T.eo_valence : T.surface,
+                color: n === nQ ? "#fff" : T.ink,
+                border: `1px solid ${n === nQ ? T.eo_valence : T.border}`,
+                borderRadius: 4, cursor: "pointer",
+              }}>n={n}</button>
+            ))}
+          </div>
+          <div style={{ background: T.surface, padding: 10, borderRadius: 6, fontSize: 12 }}>
+            <div><strong>E{"ₙ"}</strong> = {energyN(nQ).toFixed(2)} eV</div>
+            <div><strong>Most probable r</strong> = {orb.peakPm} pm</div>
+            <div><strong>Nodes</strong> = {orb.nodes.length} (n{"−"}1 for s orbitals)</div>
+            <div style={{ fontSize: 11, color: T.muted, marginTop: 4 }}>{orb.desc}</div>
+          </div>
+          <div style={{ background: T.bg, padding: 10, borderRadius: 6, fontSize: 11, marginTop: 8, lineHeight: 1.7, color: T.ink }}>
+            <div style={{ fontWeight: 600, color: T.eo_core, marginBottom: 4 }}>How to read the R(r){"²"}{"·"}r{"²"} curve</div>
+            <div>This curve is the <strong>radial probability density</strong> {"—"} the chance of finding the electron at distance r from the nucleus.</div>
+            <div style={{ marginTop: 4 }}><span style={{ color: T.eo_gap }}>{"●"}</span> <strong>Peaks</strong> = most likely distances (marked with dashed line)</div>
+            <div><span style={{ color: T.eo_hole }}>{"●"}</span> <strong>Nodes</strong> = zero probability {"—"} the wavefunction crosses zero here. An ns orbital has (n{"−"}1) nodes.</div>
+            <div style={{ marginTop: 4, color: T.muted }}>For n=1: one peak, no nodes. For n=2: two peaks separated by 1 node at 212 pm. The electron can be found on either side of the node but never at the node itself.</div>
+          </div>
+        </div>
+
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            Inspired by de Broglie{"'"}s 1924 thesis on matter waves, Erwin Schr{"ö"}dinger derived his famous wave equation during a Christmas vacation in 1925 at a villa in Arosa, Switzerland. Meanwhile, Werner Heisenberg independently developed an equivalent "matrix mechanics" approach in G{"ö"}ttingen. The two formulations were later shown to be mathematically identical. Max Born provided the crucial interpretation: the wavefunction {"ψ"} itself is not physical, but |{"ψ"}|{"²"} gives the probability of finding the electron at a given location — replacing deterministic orbits with probability clouds.
+          </div>
+        </div>
       </div>
 
       {/* RIGHT: Info */}
@@ -1670,42 +1696,6 @@ function SchrodingerSection() {
         </div>
       </div>
       </div>
-
-        <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
-          <div style={{ fontSize: 12, color: T.muted, marginBottom: 6 }}>Select energy level (click or use buttons):</div>
-          <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
-            {[1, 2, 3, 4].map((n) => (
-              <button key={n} onClick={() => setNQ(n)} style={{
-                flex: 1, height: 32, fontFamily: "monospace", fontSize: 12,
-                background: n === nQ ? T.eo_valence : T.surface,
-                color: n === nQ ? "#fff" : T.ink,
-                border: `1px solid ${n === nQ ? T.eo_valence : T.border}`,
-                borderRadius: 4, cursor: "pointer",
-              }}>n={n}</button>
-            ))}
-          </div>
-          <div style={{ background: T.surface, padding: 10, borderRadius: 6, fontSize: 12 }}>
-            <div><strong>E{"ₙ"}</strong> = {energyN(nQ).toFixed(2)} eV</div>
-            <div><strong>Most probable r</strong> = {orb.peakPm} pm</div>
-            <div><strong>Nodes</strong> = {orb.nodes.length} (n{"−"}1 for s orbitals)</div>
-            <div style={{ fontSize: 11, color: T.muted, marginTop: 4 }}>{orb.desc}</div>
-          </div>
-
-          <div style={{ background: T.bg, padding: 10, borderRadius: 6, fontSize: 11, marginTop: 8, lineHeight: 1.7, color: T.ink }}>
-            <div style={{ fontWeight: 600, color: T.eo_core, marginBottom: 4 }}>How to read the R(r){"²"}{"·"}r{"²"} curve</div>
-            <div>This curve is the <strong>radial probability density</strong> {"—"} the chance of finding the electron at distance r from the nucleus.</div>
-            <div style={{ marginTop: 4 }}><span style={{ color: T.eo_gap }}>{"●"}</span> <strong>Peaks</strong> = most likely distances (marked with dashed line)</div>
-            <div><span style={{ color: T.eo_hole }}>{"●"}</span> <strong>Nodes</strong> = zero probability {"—"} the wavefunction crosses zero here. An ns orbital has (n{"−"}1) nodes.</div>
-            <div style={{ marginTop: 4, color: T.muted }}>For n=1: one peak, no nodes. For n=2: two peaks separated by 1 node at 212 pm. The electron can be found on either side of the node but never at the node itself.</div>
-          </div>
-        </div>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Inspired by de Broglie{"'"}s 1924 thesis on matter waves, Erwin Schr{"ö"}dinger derived his famous wave equation during a Christmas vacation in 1925 at a villa in Arosa, Switzerland. Meanwhile, Werner Heisenberg independently developed an equivalent "matrix mechanics" approach in G{"ö"}ttingen. The two formulations were later shown to be mathematically identical. Max Born provided the crucial interpretation: the wavefunction {"ψ"} itself is not physical, but |{"ψ"}|{"²"} gives the probability of finding the electron at a given location — replacing deterministic orbits with probability clouds.
-          </div>
-        </div>
     </div>
   );
 }
@@ -1872,7 +1862,7 @@ function QuantumNumbersSection() {
         </AnalogyBox>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       {/* LEFT: SVG */}
-      <div style={{ flexShrink: 0 }}>
+      <div style={{ flexShrink: 0, maxWidth: 340 }}>
         <svg viewBox="0 0 320 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 320 }}>
           {!showAll ? (
             <g>
@@ -1966,6 +1956,29 @@ function QuantumNumbersSection() {
             {showAll ? "Single Orbital View" : "Show All Orbitals"}
           </button>
         </div>
+
+        <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12, marginTop: 8 }}>
+          <div style={{ fontSize: 11, fontWeight: "bold", color: T.muted, marginBottom: 6 }}>
+            Filling Order (Aufbau):
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
+            {fillingOrder.map((orb) => (
+              <span key={orb} style={{
+                fontSize: 10, padding: "2px 5px", borderRadius: 3,
+                background: orb === orbitalName ? T.eo_e : T.surface,
+                color: orb === orbitalName ? "#fff" : T.muted,
+                border: `1px solid ${orb === orbitalName ? T.eo_e : T.border}`,
+              }}>{orb}</span>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            Spectroscopists in the late 1800s noticed that spectral lines split when atoms were placed in a magnetic field (the Zeeman effect), hinting that electrons have additional quantum properties beyond energy level. In 1922, Otto Stern and Walther Gerlach fired silver atoms through an inhomogeneous magnetic field and observed the beam split into exactly two spots — direct proof that angular momentum is quantized and that electrons possess an intrinsic "spin." These experiments revealed the four quantum numbers (n, l, m_l, m_s) needed to fully describe each electron in an atom.
+          </div>
+        </div>
       </div>
 
       {/* RIGHT */}
@@ -2045,52 +2058,6 @@ function QuantumNumbersSection() {
 
       </div>
       </div>
-
-        <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
-          <div style={{ fontSize: 11, fontWeight: "bold", color: T.muted, marginBottom: 6 }}>
-            Filling Order (Aufbau):
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
-            {fillingOrder.map((orb) => (
-              <span key={orb} style={{
-                fontSize: 10, padding: "2px 5px", borderRadius: 3,
-                background: orb === orbitalName ? T.eo_e : T.surface,
-                color: orb === orbitalName ? "#fff" : T.muted,
-                border: `1px solid ${orb === orbitalName ? T.eo_e : T.border}`,
-              }}>{orb}</span>
-            ))}
-          </div>
-        </div>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Spectroscopists in the late 1800s noticed that spectral lines split when atoms were placed in a magnetic field (the Zeeman effect), hinting that electrons have additional quantum properties beyond energy level. In 1922, Otto Stern and Walther Gerlach fired silver atoms through an inhomogeneous magnetic field and observed the beam split into exactly two spots — direct proof that angular momentum is quantized and that electrons possess an intrinsic "spin." These experiments revealed the four quantum numbers (n, l, m_l, m_s) needed to fully describe each electron in an atom.
-          </div>
-        </div>
-
-        <div style={{
-          background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
-          borderRadius: 8, padding: 12, fontSize: 12, lineHeight: 1.6,
-        }}>
-          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>
-            Periodic Table Connection
-          </div>
-          <div style={{ color: T.ink, fontSize: 11 }}>
-            s-block: groups 1{"–2"} | p-block: groups 13{"–18"} | d-block: groups 3{"–12"} | f-block: lanthanides/actinides.
-            The filling of these orbitals gives the periodic table its shape.
-          </div>
-        </div>
-
-        <div style={{
-          background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
-          borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
-        }}>
-          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Coming Next: Aufbau & Pauli {"→"}</div>
-          <div style={{ color: T.ink }}>
-            Now that we know the four quantum numbers (n, l, m_l, m_s) define every possible orbital, we need rules for how electrons actually fill them. The Aufbau principle and Pauli exclusion principle tell us the filling order — and explain why elements have the electron configurations they do.
-          </div>
-        </div>
     </div>
   );
 }
@@ -2184,7 +2151,7 @@ function PeriodicTrendsSection() {
         </AnalogyBox>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       {/* LEFT: SVG */}
-      <div style={{ flexShrink: 0 }}>
+      <div style={{ flexShrink: 0, maxWidth: 340 }}>
         <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           {/* Title */}
           <text x={170} y={14} fontSize={12} fill={T.muted} textAnchor="middle" fontWeight="bold">
@@ -2240,6 +2207,62 @@ function PeriodicTrendsSection() {
             <text x={170} y={offsetY + 168} fontSize={13} fill={T.eo_gap} textAnchor="middle">{"→"}</text>
           </g>
         </svg>
+
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_e }}>
+            {property === "en" ? "What is Electronegativity?" : property === "radius" ? "What is Atomic Radius?" : property === "ie" ? "What is Ionization Energy?" : "What is Electron Affinity?"}
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
+            {property === "en" && <span>
+              <strong>Electronegativity</strong> measures how strongly an atom pulls shared electrons in a bond.
+              Pauling{"'"}s scale (0.7{"–"}4.0) uses bond energies. The <strong>difference</strong> ({"Δ"}{"χ"}) between bonded atoms predicts bond type:
+              {"Δ"}{"χ"} {"<"} 0.4 = covalent, 0.4{"–"}1.7 = polar covalent, {">"} 1.7 = ionic.
+              Example: Zn (1.65) vs Te (2.10) {"→"} {"Δ"}{"χ"} = 0.45 {"→"} ZnTe is polar covalent.
+            </span>}
+            {property === "radius" && <span>
+              <strong>Atomic radius</strong> = distance from nucleus to outermost electron shell.
+              Smaller atoms hold electrons more tightly. Across a period, more protons pull electrons inward.
+              Down a group, new shells make atoms larger. Radius controls crystal packing and lattice constants.
+            </span>}
+            {property === "ie" && <span>
+              <strong>Ionization energy</strong> = energy to remove one electron: A {"→"} A{"⁺"} + e{"⁻"}.
+              High IE means the atom holds electrons tightly (noble gases). Low IE means it easily loses electrons (alkali metals).
+              IE determines which elements form cations in ionic compounds and which are good electron donors.
+            </span>}
+            {property === "ea" && <span>
+              <strong>Electron affinity</strong> = energy released when atom gains an electron: A + e{"⁻"} {"→"} A{"⁻"}.
+              High EA means the atom wants electrons (halogens). Negative EA means it resists gaining electrons.
+              EA determines which elements act as acceptors in semiconductor doping.
+            </span>}
+          </div>
+        </div>
+
+        <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12, marginTop: 8, fontSize: 11, lineHeight: 1.6 }}>
+          <div style={{ fontWeight: "bold", marginBottom: 6, color: T.eo_gap }}>Periodic Trends</div>
+          <div style={{ marginBottom: 6 }}>
+            <span style={{ color: T.eo_gap }}>{"→"} Across period:</span>{" "}
+            {property === "en" && "EN increases (more protons, same shell)"}
+            {property === "radius" && "Radius decreases (stronger nuclear pull)"}
+            {property === "ie" && "IE increases (harder to remove electrons)"}
+            {property === "ea" && "EA generally increases (atoms want electrons)"}
+          </div>
+          <div>
+            <span style={{ color: T.eo_gap }}>{"↓"} Down group:</span>{" "}
+            {property === "en" && "EN decreases (electrons farther from nucleus)"}
+            {property === "radius" && "Radius increases (more electron shells)"}
+            {property === "ie" && "IE decreases (outer electrons easier to remove)"}
+            {property === "ea" && "EA generally decreases (larger atoms, weaker pull)"}
+          </div>
+        </div>
+
+        <div style={{ background: `${T.eo_gap}11`, border: `1px solid ${T.eo_gap}44`, borderRadius: 8, padding: 12, marginTop: 8, fontSize: 12, lineHeight: 1.6 }}>
+          <div style={{ fontWeight: "bold", color: T.eo_gap, marginBottom: 4 }}>Key Insight</div>
+          <div style={{ color: T.ink, fontSize: 11 }}>
+            Electronegativity difference predicts bond type. Radius determines crystal
+            structure. These trends drive all of materials science {"—"} from semiconductor
+            doping (Si + P/B) to compound formation (GaAs, CdTe, InSb).
+          </div>
+        </div>
       </div>
 
       {/* RIGHT */}
@@ -2308,81 +2331,6 @@ function PeriodicTrendsSection() {
 
       </div>
       </div>
-
-        {/* Property definition */}
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_e }}>
-            {property === "en" ? "What is Electronegativity?" : property === "radius" ? "What is Atomic Radius?" : property === "ie" ? "What is Ionization Energy?" : "What is Electron Affinity?"}
-          </div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
-            {property === "en" && <span>
-              <strong>Electronegativity</strong> measures how strongly an atom pulls shared electrons in a bond.
-              Pauling{"’"}s scale (0.7{"–"}4.0) uses bond energies. The <strong>difference</strong> ({"Δ"}{"χ"}) between bonded atoms predicts bond type:
-              {"Δ"}{"χ"} {"<"} 0.4 = covalent, 0.4{"–"}1.7 = polar covalent, {">"} 1.7 = ionic.
-              Example: Zn (1.65) vs Te (2.10) {"→"} {"Δ"}{"χ"} = 0.45 {"→"} ZnTe is polar covalent.
-            </span>}
-            {property === "radius" && <span>
-              <strong>Atomic radius</strong> = distance from nucleus to outermost electron shell.
-              Smaller atoms hold electrons more tightly. Across a period, more protons pull electrons inward.
-              Down a group, new shells make atoms larger. Radius controls crystal packing and lattice constants.
-            </span>}
-            {property === "ie" && <span>
-              <strong>Ionization energy</strong> = energy to remove one electron: A {"→"} A{"⁺"} + e{"⁻"}.
-              High IE means the atom holds electrons tightly (noble gases). Low IE means it easily loses electrons (alkali metals).
-              IE determines which elements form cations in ionic compounds and which are good electron donors.
-            </span>}
-            {property === "ea" && <span>
-              <strong>Electron affinity</strong> = energy released when atom gains an electron: A + e{"⁻"} {"→"} A{"⁻"}.
-              High EA means the atom wants electrons (halogens). Negative EA means it resists gaining electrons.
-              EA determines which elements act as acceptors in semiconductor doping.
-            </span>}
-          </div>
-        </div>
-
-        {/* Trend explanation */}
-        <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12, fontSize: 11, lineHeight: 1.6 }}>
-          <div style={{ fontWeight: "bold", marginBottom: 6, color: T.eo_gap }}>Periodic Trends</div>
-          <div style={{ display: "flex", gap: 16, marginBottom: 6 }}>
-            <div>
-              <span style={{ color: T.eo_gap }}>{"→"} Across period:</span>{" "}
-              {property === "en" && "EN increases (more protons, same shell)"}
-              {property === "radius" && "Radius decreases (stronger nuclear pull)"}
-              {property === "ie" && "IE increases (harder to remove electrons)"}
-              {property === "ea" && "EA generally increases (atoms want electrons)"}
-            </div>
-          </div>
-          <div style={{ display: "flex", gap: 16 }}>
-            <div>
-              <span style={{ color: T.eo_gap }}>{"↓"} Down group:</span>{" "}
-              {property === "en" && "EN decreases (electrons farther from nucleus)"}
-              {property === "radius" && "Radius increases (more electron shells)"}
-              {property === "ie" && "IE decreases (outer electrons easier to remove)"}
-              {property === "ea" && "EA generally decreases (larger atoms, weaker pull)"}
-            </div>
-          </div>
-        </div>
-
-        <div style={{
-          background: `${T.eo_gap}11`, border: `1px solid ${T.eo_gap}44`,
-          borderRadius: 8, padding: 12, fontSize: 12, lineHeight: 1.6,
-        }}>
-          <div style={{ fontWeight: "bold", color: T.eo_gap, marginBottom: 4 }}>Key Insight</div>
-          <div style={{ color: T.ink, fontSize: 11 }}>
-            Electronegativity difference predicts bond type. Radius determines crystal
-            structure. These trends drive all of materials science {"—"} from semiconductor
-            doping (Si + P/B) to compound formation (GaAs, CdTe, InSb).
-          </div>
-        </div>
-
-        <div style={{
-          background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
-          borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
-        }}>
-          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Coming Next: Chemical Bonding {"→"}</div>
-          <div style={{ color: T.ink }}>
-            Electronegativity differences between atoms determine how they share or transfer electrons — which is exactly what defines bond types. Understanding periodic trends lets us predict whether atoms will form covalent, ionic, or metallic bonds.
-          </div>
-        </div>
     </div>
   );
 }
