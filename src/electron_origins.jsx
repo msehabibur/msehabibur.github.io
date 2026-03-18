@@ -6813,11 +6813,13 @@ function ChemicalPotentialSection() {
             const subY = chY + chH - 18;
             const srcAx = chX + 20, srcBx = chX + chW - 60;
             const srcY = chY + chH - 38;
-            const isARich = muA > -0.8;
-            const isBRich = muA < -1.8;
+            const isARich = muA > -0.8 || muB < -2.0;
+            const isBRich = muB > -0.8 || muA < -2.0;
             const isBalanced = !isARich && !isBRich;
-            const nA = isARich ? 6 : isBalanced ? 4 : 2;
-            const nB = isBRich ? 6 : isBalanced ? 4 : 2;
+            const aFrac = (muA - muMin) / (muMax - muMin);
+            const bFrac = (muB - muMin) / (muMax - muMin);
+            const nA = Math.round(2 + aFrac * 5);
+            const nB = Math.round(2 + bFrac * 5);
             return <g>
               {/* Chamber */}
               <rect x={chX} y={chY} width={chW} height={chH} rx={5} fill={T.ink + "06"} stroke={T.border} strokeWidth={1.5} />
@@ -6825,11 +6827,11 @@ function ChemicalPotentialSection() {
               {/* Source A */}
               <path d={`M${srcAx},${srcY + 16} L${srcAx},${srcY} L${srcAx + 30},${srcY} L${srcAx + 30},${srcY + 16}`} fill={T.eo_cond + "25"} stroke={T.eo_cond} strokeWidth={1} />
               <text x={srcAx + 15} y={srcY + 11} textAnchor="middle" fontSize={12} fill={T.eo_cond} fontWeight={700} fontFamily="monospace">Cu</text>
-              <ellipse cx={srcAx + 15} cy={srcY + 18} rx={13} ry={3} fill={T.eo_gap} opacity={isARich ? 0.35 : 0.1} />
+              <ellipse cx={srcAx + 15} cy={srcY + 18} rx={13} ry={3} fill={T.eo_gap} opacity={0.1 + aFrac * 0.35} />
               {/* Source B */}
               <path d={`M${srcBx},${srcY + 16} L${srcBx},${srcY} L${srcBx + 30},${srcY} L${srcBx + 30},${srcY + 16}`} fill={T.eo_photon + "25"} stroke={T.eo_photon} strokeWidth={1} />
               <text x={srcBx + 15} y={srcY + 11} textAnchor="middle" fontSize={12} fill={T.eo_photon} fontWeight={700} fontFamily="monospace">Zn</text>
-              <ellipse cx={srcBx + 15} cy={srcY + 18} rx={13} ry={3} fill={T.eo_gap} opacity={isBRich ? 0.35 : 0.1} />
+              <ellipse cx={srcBx + 15} cy={srcY + 18} rx={13} ry={3} fill={T.eo_gap} opacity={0.1 + bFrac * 0.35} />
               {/* Substrate */}
               <rect x={chX + 30} y={subY} width={chW - 60} height={6} rx={2} fill={T.eo_core} />
               <text x={chX + chW / 2} y={subY + 16} textAnchor="middle" fontSize={12} fill={T.eo_core} fontFamily="monospace">Substrate</text>
@@ -6852,9 +6854,9 @@ function ChemicalPotentialSection() {
               {/* Right info panel */}
               <text x={220} y={28} fontSize={12} fill={T.ink} fontWeight={700} fontFamily="monospace">Growth Conditions</text>
               <text x={220} y={48} fontSize={12} fill={T.eo_cond} fontFamily="monospace">Cu flux:</text>
-              <rect x={280} y={38} width={Math.max(4, (1 - (muA - muMin) / (muMax - muMin)) * 100)} height={12} rx={2} fill={T.eo_cond} opacity={0.7} />
+              <rect x={280} y={38} width={Math.max(4, aFrac * 100)} height={12} rx={2} fill={T.eo_cond} opacity={0.7} />
               <text x={220} y={68} fontSize={12} fill={T.eo_photon} fontFamily="monospace">Zn flux:</text>
-              <rect x={280} y={58} width={Math.max(4, ((muA - muMin) / (muMax - muMin)) * 100)} height={12} rx={2} fill={T.eo_photon} opacity={0.7} />
+              <rect x={280} y={58} width={Math.max(4, bFrac * 100)} height={12} rx={2} fill={T.eo_photon} opacity={0.7} />
               <text x={220} y={90} fontSize={12} fill={T.muted} fontFamily="monospace">T_sub: 600 K</text>
               <rect x={215} y={100} width={170} height={22} rx={5}
                 fill={isBalanced ? T.eo_valence + "18" : isARich ? T.eo_cond + "18" : T.eo_photon + "18"}
