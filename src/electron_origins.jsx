@@ -534,7 +534,6 @@ function AtomicModelsSection() {
 
 
 // --- Section 2: AufbauPrincipleSection ---
-// --- Section 2: AufbauPrincipleSection ---
 function AufbauPrincipleSection() {
   const [Z, setZ] = useState(14);
   const [animStep, setAnimStep] = useState(999);
@@ -731,26 +730,10 @@ function AufbauPrincipleSection() {
           Filling electron orbitals is like filling seats in a movie theater. Everyone wants the best seats (lowest energy) first. The front row fills before the back. But there's a twist — each seat can only hold two people (Pauli exclusion), and within each row, people spread out to separate seats before doubling up (Hund's rule). The order isn't always front-to-back either: sometimes the balcony (4s) fills before the back of the main floor (3d) because it's slightly more comfortable (lower energy).
         </AnalogyBox>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-      <div style={{ flexShrink: 0, maxWidth: 340 }}>
+      <div style={{ flexShrink: 0 }}>
         {renderSVG()}
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Niels Bohr and Wolfgang Pauli developed the Aufbau ("building up" in German) principle in the 1920s to explain why the periodic table has its characteristic shape. Pauli's exclusion principle (1925) established that no two electrons can share the same quantum state, limiting each orbital to two electrons. Friedrich Hund formulated his rule of maximum multiplicity in 1925, explaining why electrons spread out across orbitals before pairing up. Together, these rules let physicists predict the electron configuration of every element and finally understand chemical behavior from first principles.
-          </div>
-        </div>
-
       </div>
-      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 8 }}>
-        <div style={{ background: "#eef3ff", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 12 }}>
-          <div style={{ fontSize: 12, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
-          <div style={{ fontSize: 11, lineHeight: 1.6 }}>
-            Electron configuration determines chemical properties. Cu having 3d¹⁰4s¹ is why it's
-            monovalent in kesterites. The Aufbau order (n+l rule) explains why 4s fills before 3d,
-            and why the periodic table has the shape it does.
-          </div>
-        </div>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 6, padding: 10 }}>
           <div style={{ fontSize: 11, fontWeight: "bold", marginBottom: 6 }}>Element: {elements[Z] || `Z=${Z}`} (Z={Z})</div>
           <input type="range" min={1} max={36} value={Math.min(Z, 36)} onChange={e => { setZ(+e.target.value); setAnimStep(999); }}
@@ -812,6 +795,31 @@ function AufbauPrincipleSection() {
           </div>
         )}
 
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            Niels Bohr and Wolfgang Pauli developed the Aufbau ("building up" in German) principle in the 1920s to explain why the periodic table has its characteristic shape. Pauli's exclusion principle (1925) established that no two electrons can share the same quantum state, limiting each orbital to two electrons. Friedrich Hund formulated his rule of maximum multiplicity in 1925, explaining why electrons spread out across orbitals before pairing up. Together, these rules let physicists predict the electron configuration of every element and finally understand chemical behavior from first principles.
+          </div>
+        </div>
+
+        <div style={{ background: "#eef3ff", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 10 }}>
+          <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
+          <div style={{ fontSize: 10, lineHeight: 1.5 }}>
+            Electron configuration determines chemical properties. Cu having 3d¹⁰4s¹ is why it's
+            monovalent in kesterites. The Aufbau order (n+l rule) explains why 4s fills before 3d,
+            and why the periodic table has the shape it does.
+          </div>
+        </div>
+
+        <div style={{
+          background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
+          borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+        }}>
+          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Coming Next: Periodic Trends {"→"}</div>
+          <div style={{ color: T.ink }}>
+            Electron configurations explain the periodic table's structure. But they also determine each element's size, how tightly it holds electrons, and how eagerly it grabs more. These periodic trends govern everything from bonding behavior to material properties.
+          </div>
+        </div>
       </div>
       </div>
     </div>
@@ -1545,7 +1553,7 @@ function SchrodingerSection() {
         </AnalogyBox>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       {/* LEFT: SVG */}
-      <div style={{ flexShrink: 0, maxWidth: 340 }}>
+      <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 320 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 320 }}>
           <text x={160} y={16} textAnchor="middle" fontSize={13} fill={T.ink} fontWeight="bold">
             Hydrogen Atom {"—"} {orb.name} orbital
@@ -1619,41 +1627,6 @@ function SchrodingerSection() {
             {showPsi2 ? "|ψ|² cloud" : "R(r) curve"}
           </button>
         </div>
-
-        <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14, marginTop: 8 }}>
-          <div style={{ fontSize: 12, color: T.muted, marginBottom: 6 }}>Select energy level (click or use buttons):</div>
-          <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
-            {[1, 2, 3, 4].map((n) => (
-              <button key={n} onClick={() => setNQ(n)} style={{
-                flex: 1, height: 32, fontFamily: "monospace", fontSize: 12,
-                background: n === nQ ? T.eo_valence : T.surface,
-                color: n === nQ ? "#fff" : T.ink,
-                border: `1px solid ${n === nQ ? T.eo_valence : T.border}`,
-                borderRadius: 4, cursor: "pointer",
-              }}>n={n}</button>
-            ))}
-          </div>
-          <div style={{ background: T.surface, padding: 10, borderRadius: 6, fontSize: 12 }}>
-            <div><strong>E{"ₙ"}</strong> = {energyN(nQ).toFixed(2)} eV</div>
-            <div><strong>Most probable r</strong> = {orb.peakPm} pm</div>
-            <div><strong>Nodes</strong> = {orb.nodes.length} (n{"−"}1 for s orbitals)</div>
-            <div style={{ fontSize: 11, color: T.muted, marginTop: 4 }}>{orb.desc}</div>
-          </div>
-          <div style={{ background: T.bg, padding: 10, borderRadius: 6, fontSize: 11, marginTop: 8, lineHeight: 1.7, color: T.ink }}>
-            <div style={{ fontWeight: 600, color: T.eo_core, marginBottom: 4 }}>How to read the R(r){"²"}{"·"}r{"²"} curve</div>
-            <div>This curve is the <strong>radial probability density</strong> {"—"} the chance of finding the electron at distance r from the nucleus.</div>
-            <div style={{ marginTop: 4 }}><span style={{ color: T.eo_gap }}>{"●"}</span> <strong>Peaks</strong> = most likely distances (marked with dashed line)</div>
-            <div><span style={{ color: T.eo_hole }}>{"●"}</span> <strong>Nodes</strong> = zero probability {"—"} the wavefunction crosses zero here. An ns orbital has (n{"−"}1) nodes.</div>
-            <div style={{ marginTop: 4, color: T.muted }}>For n=1: one peak, no nodes. For n=2: two peaks separated by 1 node at 212 pm. The electron can be found on either side of the node but never at the node itself.</div>
-          </div>
-        </div>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Inspired by de Broglie{"'"}s 1924 thesis on matter waves, Erwin Schr{"ö"}dinger derived his famous wave equation during a Christmas vacation in 1925 at a villa in Arosa, Switzerland. Meanwhile, Werner Heisenberg independently developed an equivalent "matrix mechanics" approach in G{"ö"}ttingen. The two formulations were later shown to be mathematically identical. Max Born provided the crucial interpretation: the wavefunction {"ψ"} itself is not physical, but |{"ψ"}|{"²"} gives the probability of finding the electron at a given location — replacing deterministic orbits with probability clouds.
-          </div>
-        </div>
       </div>
 
       {/* RIGHT: Info */}
@@ -1681,6 +1654,42 @@ function SchrodingerSection() {
           <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, marginTop: 4 }}>
             <strong>Most probable radius:</strong> The electron is not at a fixed distance {"—"} it forms a probability cloud.
             The R(r){"²"}{"·"}r{"²"} curve shows where you are most likely to find the electron at each distance from the nucleus.
+          </div>
+        </div>
+
+        <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
+          <div style={{ fontSize: 12, color: T.muted, marginBottom: 6 }}>Select energy level (click or use buttons):</div>
+          <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
+            {[1, 2, 3, 4].map((n) => (
+              <button key={n} onClick={() => setNQ(n)} style={{
+                flex: 1, height: 32, fontFamily: "monospace", fontSize: 12,
+                background: n === nQ ? T.eo_valence : T.surface,
+                color: n === nQ ? "#fff" : T.ink,
+                border: `1px solid ${n === nQ ? T.eo_valence : T.border}`,
+                borderRadius: 4, cursor: "pointer",
+              }}>n={n}</button>
+            ))}
+          </div>
+          <div style={{ background: T.surface, padding: 10, borderRadius: 6, fontSize: 12 }}>
+            <div><strong>E{"ₙ"}</strong> = {energyN(nQ).toFixed(2)} eV</div>
+            <div><strong>Most probable r</strong> = {orb.peakPm} pm</div>
+            <div><strong>Nodes</strong> = {orb.nodes.length} (n{"−"}1 for s orbitals)</div>
+            <div style={{ fontSize: 11, color: T.muted, marginTop: 4 }}>{orb.desc}</div>
+          </div>
+
+          <div style={{ background: T.bg, padding: 10, borderRadius: 6, fontSize: 11, marginTop: 8, lineHeight: 1.7, color: T.ink }}>
+            <div style={{ fontWeight: 600, color: T.eo_core, marginBottom: 4 }}>How to read the R(r){"²"}{"·"}r{"²"} curve</div>
+            <div>This curve is the <strong>radial probability density</strong> {"—"} the chance of finding the electron at distance r from the nucleus.</div>
+            <div style={{ marginTop: 4 }}><span style={{ color: T.eo_gap }}>{"●"}</span> <strong>Peaks</strong> = most likely distances (marked with dashed line)</div>
+            <div><span style={{ color: T.eo_hole }}>{"●"}</span> <strong>Nodes</strong> = zero probability {"—"} the wavefunction crosses zero here. An ns orbital has (n{"−"}1) nodes.</div>
+            <div style={{ marginTop: 4, color: T.muted }}>For n=1: one peak, no nodes. For n=2: two peaks separated by 1 node at 212 pm. The electron can be found on either side of the node but never at the node itself.</div>
+          </div>
+        </div>
+
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            Inspired by de Broglie{"'"}s 1924 thesis on matter waves, Erwin Schr{"ö"}dinger derived his famous wave equation during a Christmas vacation in 1925 at a villa in Arosa, Switzerland. Meanwhile, Werner Heisenberg independently developed an equivalent "matrix mechanics" approach in G{"ö"}ttingen. The two formulations were later shown to be mathematically identical. Max Born provided the crucial interpretation: the wavefunction {"ψ"} itself is not physical, but |{"ψ"}|{"²"} gives the probability of finding the electron at a given location — replacing deterministic orbits with probability clouds.
           </div>
         </div>
 
@@ -1863,7 +1872,7 @@ function QuantumNumbersSection() {
         </AnalogyBox>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       {/* LEFT: SVG */}
-      <div style={{ flexShrink: 0, maxWidth: 340 }}>
+      <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 320 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 320 }}>
           {!showAll ? (
             <g>
@@ -1957,29 +1966,6 @@ function QuantumNumbersSection() {
             {showAll ? "Single Orbital View" : "Show All Orbitals"}
           </button>
         </div>
-
-        <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12, marginTop: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: "bold", color: T.muted, marginBottom: 6 }}>
-            Filling Order (Aufbau):
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
-            {fillingOrder.map((orb) => (
-              <span key={orb} style={{
-                fontSize: 10, padding: "2px 5px", borderRadius: 3,
-                background: orb === orbitalName ? T.eo_e : T.surface,
-                color: orb === orbitalName ? "#fff" : T.muted,
-                border: `1px solid ${orb === orbitalName ? T.eo_e : T.border}`,
-              }}>{orb}</span>
-            ))}
-          </div>
-        </div>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Spectroscopists in the late 1800s noticed that spectral lines split when atoms were placed in a magnetic field (the Zeeman effect), hinting that electrons have additional quantum properties beyond energy level. In 1922, Otto Stern and Walther Gerlach fired silver atoms through an inhomogeneous magnetic field and observed the beam split into exactly two spots — direct proof that angular momentum is quantized and that electrons possess an intrinsic "spin." These experiments revealed the four quantum numbers (n, l, m_l, m_s) needed to fully describe each electron in an atom.
-          </div>
-        </div>
       </div>
 
       {/* RIGHT */}
@@ -2057,6 +2043,51 @@ function QuantumNumbersSection() {
           </div>
         </div>
 
+        <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
+          <div style={{ fontSize: 11, fontWeight: "bold", color: T.muted, marginBottom: 6 }}>
+            Filling Order (Aufbau):
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
+            {fillingOrder.map((orb) => (
+              <span key={orb} style={{
+                fontSize: 10, padding: "2px 5px", borderRadius: 3,
+                background: orb === orbitalName ? T.eo_e : T.surface,
+                color: orb === orbitalName ? "#fff" : T.muted,
+                border: `1px solid ${orb === orbitalName ? T.eo_e : T.border}`,
+              }}>{orb}</span>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            Spectroscopists in the late 1800s noticed that spectral lines split when atoms were placed in a magnetic field (the Zeeman effect), hinting that electrons have additional quantum properties beyond energy level. In 1922, Otto Stern and Walther Gerlach fired silver atoms through an inhomogeneous magnetic field and observed the beam split into exactly two spots — direct proof that angular momentum is quantized and that electrons possess an intrinsic "spin." These experiments revealed the four quantum numbers (n, l, m_l, m_s) needed to fully describe each electron in an atom.
+          </div>
+        </div>
+
+        <div style={{
+          background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
+          borderRadius: 8, padding: 12, fontSize: 12, lineHeight: 1.6,
+        }}>
+          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>
+            Periodic Table Connection
+          </div>
+          <div style={{ color: T.ink, fontSize: 11 }}>
+            s-block: groups 1{"–2"} | p-block: groups 13{"–18"} | d-block: groups 3{"–12"} | f-block: lanthanides/actinides.
+            The filling of these orbitals gives the periodic table its shape.
+          </div>
+        </div>
+
+        <div style={{
+          background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
+          borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+        }}>
+          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Coming Next: Aufbau & Pauli {"→"}</div>
+          <div style={{ color: T.ink }}>
+            Now that we know the four quantum numbers (n, l, m_l, m_s) define every possible orbital, we need rules for how electrons actually fill them. The Aufbau principle and Pauli exclusion principle tell us the filling order — and explain why elements have the electron configurations they do.
+          </div>
+        </div>
       </div>
       </div>
     </div>
@@ -2152,7 +2183,7 @@ function PeriodicTrendsSection() {
         </AnalogyBox>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       {/* LEFT: SVG */}
-      <div style={{ flexShrink: 0, maxWidth: 340 }}>
+      <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           {/* Title */}
           <text x={170} y={14} fontSize={12} fill={T.muted} textAnchor="middle" fontWeight="bold">
@@ -2208,66 +2239,10 @@ function PeriodicTrendsSection() {
             <text x={170} y={offsetY + 168} fontSize={13} fill={T.eo_gap} textAnchor="middle">{"→"}</text>
           </g>
         </svg>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_e }}>
-            {property === "en" ? "What is Electronegativity?" : property === "radius" ? "What is Atomic Radius?" : property === "ie" ? "What is Ionization Energy?" : "What is Electron Affinity?"}
-          </div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
-            {property === "en" && <span>
-              <strong>Electronegativity</strong> measures how strongly an atom pulls shared electrons in a bond.
-              Pauling{"'"}s scale (0.7{"–"}4.0) uses bond energies. The <strong>difference</strong> ({"Δ"}{"χ"}) between bonded atoms predicts bond type:
-              {"Δ"}{"χ"} {"<"} 0.4 = covalent, 0.4{"–"}1.7 = polar covalent, {">"} 1.7 = ionic.
-              Example: Zn (1.65) vs Te (2.10) {"→"} {"Δ"}{"χ"} = 0.45 {"→"} ZnTe is polar covalent.
-            </span>}
-            {property === "radius" && <span>
-              <strong>Atomic radius</strong> = distance from nucleus to outermost electron shell.
-              Smaller atoms hold electrons more tightly. Across a period, more protons pull electrons inward.
-              Down a group, new shells make atoms larger. Radius controls crystal packing and lattice constants.
-            </span>}
-            {property === "ie" && <span>
-              <strong>Ionization energy</strong> = energy to remove one electron: A {"→"} A{"⁺"} + e{"⁻"}.
-              High IE means the atom holds electrons tightly (noble gases). Low IE means it easily loses electrons (alkali metals).
-              IE determines which elements form cations in ionic compounds and which are good electron donors.
-            </span>}
-            {property === "ea" && <span>
-              <strong>Electron affinity</strong> = energy released when atom gains an electron: A + e{"⁻"} {"→"} A{"⁻"}.
-              High EA means the atom wants electrons (halogens). Negative EA means it resists gaining electrons.
-              EA determines which elements act as acceptors in semiconductor doping.
-            </span>}
-          </div>
-        </div>
-
-        <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12, marginTop: 8, fontSize: 11, lineHeight: 1.6 }}>
-          <div style={{ fontWeight: "bold", marginBottom: 6, color: T.eo_gap }}>Periodic Trends</div>
-          <div style={{ marginBottom: 6 }}>
-            <span style={{ color: T.eo_gap }}>{"→"} Across period:</span>{" "}
-            {property === "en" && "EN increases (more protons, same shell)"}
-            {property === "radius" && "Radius decreases (stronger nuclear pull)"}
-            {property === "ie" && "IE increases (harder to remove electrons)"}
-            {property === "ea" && "EA generally increases (atoms want electrons)"}
-          </div>
-          <div>
-            <span style={{ color: T.eo_gap }}>{"↓"} Down group:</span>{" "}
-            {property === "en" && "EN decreases (electrons farther from nucleus)"}
-            {property === "radius" && "Radius increases (more electron shells)"}
-            {property === "ie" && "IE decreases (outer electrons easier to remove)"}
-            {property === "ea" && "EA generally decreases (larger atoms, weaker pull)"}
-          </div>
-        </div>
-
       </div>
 
       {/* RIGHT */}
-      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 10 }}>
-        <div style={{ background: `${T.eo_gap}11`, border: `1px solid ${T.eo_gap}44`, borderRadius: 8, padding: 12, fontSize: 12, lineHeight: 1.6 }}>
-          <div style={{ fontWeight: "bold", color: T.eo_gap, marginBottom: 4 }}>Key Insight</div>
-          <div style={{ color: T.ink, fontSize: 11 }}>
-            Electronegativity difference predicts bond type. Radius determines crystal
-            structure. These trends drive all of materials science {"—"} from semiconductor
-            doping (Si + P/B) to compound formation (GaAs, CdTe, InSb).
-          </div>
-        </div>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
         {/* Property toggle */}
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
           <div style={{ fontSize: 12, fontWeight: "bold", color: T.eo_gap, marginBottom: 8 }}>
@@ -2330,6 +2305,80 @@ function PeriodicTrendsSection() {
           </div>
         )}
 
+        {/* Property definition */}
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_e }}>
+            {property === "en" ? "What is Electronegativity?" : property === "radius" ? "What is Atomic Radius?" : property === "ie" ? "What is Ionization Energy?" : "What is Electron Affinity?"}
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
+            {property === "en" && <span>
+              <strong>Electronegativity</strong> measures how strongly an atom pulls shared electrons in a bond.
+              Pauling{"’"}s scale (0.7{"–"}4.0) uses bond energies. The <strong>difference</strong> ({"Δ"}{"χ"}) between bonded atoms predicts bond type:
+              {"Δ"}{"χ"} {"<"} 0.4 = covalent, 0.4{"–"}1.7 = polar covalent, {">"} 1.7 = ionic.
+              Example: Zn (1.65) vs Te (2.10) {"→"} {"Δ"}{"χ"} = 0.45 {"→"} ZnTe is polar covalent.
+            </span>}
+            {property === "radius" && <span>
+              <strong>Atomic radius</strong> = distance from nucleus to outermost electron shell.
+              Smaller atoms hold electrons more tightly. Across a period, more protons pull electrons inward.
+              Down a group, new shells make atoms larger. Radius controls crystal packing and lattice constants.
+            </span>}
+            {property === "ie" && <span>
+              <strong>Ionization energy</strong> = energy to remove one electron: A {"→"} A{"⁺"} + e{"⁻"}.
+              High IE means the atom holds electrons tightly (noble gases). Low IE means it easily loses electrons (alkali metals).
+              IE determines which elements form cations in ionic compounds and which are good electron donors.
+            </span>}
+            {property === "ea" && <span>
+              <strong>Electron affinity</strong> = energy released when atom gains an electron: A + e{"⁻"} {"→"} A{"⁻"}.
+              High EA means the atom wants electrons (halogens). Negative EA means it resists gaining electrons.
+              EA determines which elements act as acceptors in semiconductor doping.
+            </span>}
+          </div>
+        </div>
+
+        {/* Trend explanation */}
+        <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12, fontSize: 11, lineHeight: 1.6 }}>
+          <div style={{ fontWeight: "bold", marginBottom: 6, color: T.eo_gap }}>Periodic Trends</div>
+          <div style={{ display: "flex", gap: 16, marginBottom: 6 }}>
+            <div>
+              <span style={{ color: T.eo_gap }}>{"→"} Across period:</span>{" "}
+              {property === "en" && "EN increases (more protons, same shell)"}
+              {property === "radius" && "Radius decreases (stronger nuclear pull)"}
+              {property === "ie" && "IE increases (harder to remove electrons)"}
+              {property === "ea" && "EA generally increases (atoms want electrons)"}
+            </div>
+          </div>
+          <div style={{ display: "flex", gap: 16 }}>
+            <div>
+              <span style={{ color: T.eo_gap }}>{"↓"} Down group:</span>{" "}
+              {property === "en" && "EN decreases (electrons farther from nucleus)"}
+              {property === "radius" && "Radius increases (more electron shells)"}
+              {property === "ie" && "IE decreases (outer electrons easier to remove)"}
+              {property === "ea" && "EA generally decreases (larger atoms, weaker pull)"}
+            </div>
+          </div>
+        </div>
+
+        <div style={{
+          background: `${T.eo_gap}11`, border: `1px solid ${T.eo_gap}44`,
+          borderRadius: 8, padding: 12, fontSize: 12, lineHeight: 1.6,
+        }}>
+          <div style={{ fontWeight: "bold", color: T.eo_gap, marginBottom: 4 }}>Key Insight</div>
+          <div style={{ color: T.ink, fontSize: 11 }}>
+            Electronegativity difference predicts bond type. Radius determines crystal
+            structure. These trends drive all of materials science {"—"} from semiconductor
+            doping (Si + P/B) to compound formation (GaAs, CdTe, InSb).
+          </div>
+        </div>
+
+        <div style={{
+          background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
+          borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+        }}>
+          <div style={{ fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Coming Next: Chemical Bonding {"→"}</div>
+          <div style={{ color: T.ink }}>
+            Electronegativity differences between atoms determine how they share or transfer electrons — which is exactly what defines bond types. Understanding periodic trends lets us predict whether atoms will form covalent, ionic, or metallic bonds.
+          </div>
+        </div>
       </div>
       </div>
     </div>
@@ -2753,24 +2802,9 @@ function ChemicalBondingSection() {
             </button>
           ))}
         </div>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            In 1916, Gilbert N. Lewis proposed that atoms form bonds by sharing pairs of electrons, introducing the concept of the covalent bond using simple dot diagrams. Two decades later, Linus Pauling developed the electronegativity scale and published his landmark book "The Nature of the Chemical Bond" (1939), which unified ionic and covalent bonding into a single spectrum based on electronegativity difference. Pauling{"'"}s insight that bond character is a continuum — not a sharp binary — is essential for understanding why compound semiconductors like ZnTe and GaAs have partially ionic character.
-          </div>
-        </div>
-
       </div>
 
       <div style={{ flex: 1, minWidth: 280 }}>
-        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 12, border: `1px solid ${T.eo_photon}`, marginBottom: 10 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
-          <div style={{ fontSize: 11, lineHeight: 1.6, color: T.ink }}>
-            ZnTe has Dc ~ 0.6 -- polar covalent. This partial ionicity affects defect formation energies
-            and is why compound semiconductors have different native defect landscapes than elemental Si.
-          </div>
-        </div>
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Chemical Bonding</div>
 
         <div style={{ display: "flex", gap: 4, flexWrap: "wrap", marginBottom: 10 }}>
@@ -2824,6 +2858,20 @@ function ChemicalBondingSection() {
         </table>
         </div>
 
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            In 1916, Gilbert N. Lewis proposed that atoms form bonds by sharing pairs of electrons, introducing the concept of the covalent bond using simple dot diagrams. Two decades later, Linus Pauling developed the electronegativity scale and published his landmark book "The Nature of the Chemical Bond" (1939), which unified ionic and covalent bonding into a single spectrum based on electronegativity difference. Pauling{"'"}s insight that bond character is a continuum — not a sharp binary — is essential for understanding why compound semiconductors like ZnTe and GaAs have partially ionic character.
+          </div>
+        </div>
+
+        <div style={{ background: "#fef9c3", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
+          <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
+            ZnTe has Dc ~ 0.6 -- polar covalent. This partial ionicity affects defect formation energies
+            and is why compound semiconductors have different native defect landscapes than elemental Si.
+          </div>
+        </div>
 
         <div style={{
           background: `${T.eo_valence}11`, border: `1px solid ${T.eo_valence}44`,
@@ -3020,24 +3068,9 @@ function HybridizationSection() {
         >
           {showMixing ? "Stop Mixing Animation" : "Animate Orbital Mixing"}
         </button>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            In 1931, Linus Pauling introduced the concept of hybridization to explain a puzzle: carbon has two 2s and two 2p electrons, yet methane (CH{"₄"}) has four identical bonds arranged tetrahedrally. Pauling showed that atomic orbitals can mathematically "mix" to form equivalent hybrid orbitals pointing in optimal directions. This idea was later applied to semiconductors — sp{"³"} hybridization explains why silicon, germanium, and zincblende compounds all adopt tetrahedral crystal structures with bond angles of 109.5{"°"}.
-          </div>
-        </div>
-
       </div>
 
       <div style={{ flex: 1, minWidth: 280 }}>
-        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 12, border: `1px solid ${T.eo_photon}`, marginBottom: 10 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
-          <div style={{ fontSize: 11, lineHeight: 1.6, color: T.ink }}>
-            sp{"³"} hybridization is WHY zincblende semiconductors (ZnTe, CdTe, GaAs, CZTS) form
-            tetrahedral crystal structures. Each atom forms 4 equivalent bonds at 109.5 degrees.
-          </div>
-        </div>
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Hybridization</div>
         <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5, marginBottom: 10 }}>
           Atoms mix atomic orbitals (s, p, d) to form new <strong>hybrid orbitals</strong> optimized for bonding.
@@ -3090,6 +3123,20 @@ function HybridizationSection() {
           </div>
         </div>
 
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_core }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            In 1931, Linus Pauling introduced the concept of hybridization to explain a puzzle: carbon has two 2s and two 2p electrons, yet methane (CH{"₄"}) has four identical bonds arranged tetrahedrally. Pauling showed that atomic orbitals can mathematically "mix" to form equivalent hybrid orbitals pointing in optimal directions. This idea was later applied to semiconductors — sp{"³"} hybridization explains why silicon, germanium, and zincblende compounds all adopt tetrahedral crystal structures with bond angles of 109.5{"°"}.
+          </div>
+        </div>
+
+        <div style={{ background: "#fef9c3", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
+          <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
+            sp{"³"} hybridization is WHY zincblende semiconductors (ZnTe, CdTe, GaAs, CZTS) form
+            tetrahedral crystal structures. Each atom forms 4 equivalent bonds at 109.5 degrees.
+          </div>
+        </div>
 
         <div style={{
           background: `${T.eo_valence}11`, border: `1px solid ${T.eo_valence}44`,
@@ -3312,24 +3359,9 @@ function MolecularOrbitalSection() {
             </button>
           ))}
         </div>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_cond }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            In the 1920s-30s, Robert Mulliken and Friedrich Hund developed molecular orbital theory, challenging G.N. Lewis's picture of electrons localized between atoms. They showed that electrons belong to the entire molecule, not individual bonds. This was controversial but explained spectra that Lewis's model could not. When extended from molecules to infinite crystals, MO theory naturally becomes band theory -- the foundation of all semiconductor physics.
-          </div>
-        </div>
-
       </div>
 
       <div style={{ flex: 1, minWidth: 280 }}>
-        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 12, border: `1px solid ${T.eo_photon}`, marginBottom: 10 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
-          <div style={{ fontSize: 11, lineHeight: 1.6, color: T.ink }}>
-            This is the origin of bands. Bonding orbitals {"→"} valence band. Antibonding {"→"} conduction band.
-            The gap between them is the band gap E_g. For ZnTe, E_g = 2.26 eV.
-          </div>
-        </div>
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Molecular Orbital Theory</div>
 
         <div style={{ background: T.surface, borderRadius: 6, padding: 12, marginBottom: 10, border: `1px solid ${T.border}` }}>
@@ -3380,6 +3412,20 @@ function MolecularOrbitalSection() {
           </div>
         </div>
 
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_cond }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            In the 1920s-30s, Robert Mulliken and Friedrich Hund developed molecular orbital theory, challenging G.N. Lewis's picture of electrons localized between atoms. They showed that electrons belong to the entire molecule, not individual bonds. This was controversial but explained spectra that Lewis's model could not. When extended from molecules to infinite crystals, MO theory naturally becomes band theory -- the foundation of all semiconductor physics.
+          </div>
+        </div>
+
+        <div style={{ background: "#fef9c3", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
+          <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
+            This is the origin of bands. Bonding orbitals {"→"} valence band. Antibonding {"→"} conduction band.
+            The gap between them is the band gap E_g. For ZnTe, E_g = 2.26 eV.
+          </div>
+        </div>
 
         <div style={{
           background: `${T.eo_cond}11`, border: `1px solid ${T.eo_cond}44`,
@@ -3583,24 +3629,9 @@ function CrystalSymmetrySection() {
             </button>
           ))}
         </div>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_cond }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            In 1850, Auguste Bravais classified all 14 possible lattice types in three dimensions -- a purely mathematical achievement. Decades later, in 1913, the Braggs used X-ray diffraction to reveal actual crystal structures for the first time. The zincblende structure of ZnS was among the earliest solved, confirming tetrahedral atomic arrangement.
-          </div>
-        </div>
-
       </div>
 
       <div style={{ flex: 1, minWidth: 280 }}>
-        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 12, border: `1px solid ${T.eo_photon}`, marginBottom: 10 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
-          <div style={{ fontSize: 11, lineHeight: 1.6, color: T.ink }}>
-            Zincblende (F-43m) is THE structure for most important semiconductors: Si (diamond variant),
-            GaAs, ZnTe, CdTe. The tetrahedral coordination arises directly from sp{"³"} hybridization.
-          </div>
-        </div>
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Crystal Symmetry</div>
 
         <div style={{ overflowX: "auto" }}>
@@ -3662,6 +3693,20 @@ function CrystalSymmetrySection() {
           </table>
         </div>
 
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_cond }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            In 1850, Auguste Bravais classified all 14 possible lattice types in three dimensions -- a purely mathematical achievement. Decades later, in 1913, the Braggs used X-ray diffraction to reveal actual crystal structures for the first time. The zincblende structure of ZnS was among the earliest solved, confirming tetrahedral atomic arrangement.
+          </div>
+        </div>
+
+        <div style={{ background: "#fef9c3", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
+          <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
+            Zincblende (F-43m) is THE structure for most important semiconductors: Si (diamond variant),
+            GaAs, ZnTe, CdTe. The tetrahedral coordination arises directly from sp{"³"} hybridization.
+          </div>
+        </div>
 
         <div style={{
           background: `${T.eo_cond}11`, border: `1px solid ${T.eo_cond}44`,
@@ -3920,25 +3965,9 @@ function ReciprocalSpaceSection() {
             </button>
           ))}
         </div>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_cond }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Max von Laue's 1912 X-ray diffraction experiment proved that crystals are periodic arrays of atoms. Leon Brillouin (1930) introduced zones in reciprocal space, showing that a crystal's Fourier transform determines its electronic properties. The Brillouin zone boundaries are where electron waves undergo Bragg reflection, opening up band gaps -- connecting diffraction physics directly to electronic structure.
-          </div>
-        </div>
-
       </div>
 
       <div style={{ flex: 1, minWidth: 280 }}>
-        <div style={{ marginTop: 8, background: "#fef9c3", borderRadius: 6, padding: 12, border: `1px solid ${T.eo_photon}`, marginBottom: 10 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
-          <div style={{ fontSize: 11, lineHeight: 1.6, color: T.ink }}>
-            Direct vs indirect band gap is determined by whether VBM and CBM are at the same k-point.
-            ZnTe: direct gap at {"Γ"} (good for optics). Si: indirect gap {"Γ"}{"→"}X (poor absorber).
-            This controls optical absorption strength.
-          </div>
-        </div>
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Reciprocal Space</div>
 
         <div style={{ background: T.surface, borderRadius: 6, padding: 12, marginBottom: 10, border: `1px solid ${T.border}` }}>
@@ -3985,6 +4014,21 @@ function ReciprocalSpaceSection() {
           </table>
         </div>
 
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_cond }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            Max von Laue's 1912 X-ray diffraction experiment proved that crystals are periodic arrays of atoms. Leon Brillouin (1930) introduced zones in reciprocal space, showing that a crystal's Fourier transform determines its electronic properties. The Brillouin zone boundaries are where electron waves undergo Bragg reflection, opening up band gaps -- connecting diffraction physics directly to electronic structure.
+          </div>
+        </div>
+
+        <div style={{ background: "#fef9c3", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
+          <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
+            Direct vs indirect band gap is determined by whether VBM and CBM are at the same k-point.
+            ZnTe: direct gap at {"Γ"} (good for optics). Si: indirect gap {"Γ"}{"→"}X (poor absorber).
+            This controls optical absorption strength.
+          </div>
+        </div>
 
         <div style={{
           background: `${T.eo_cond}11`, border: `1px solid ${T.eo_cond}44`,
@@ -4122,13 +4166,6 @@ function BandSection() {
             {light ? "☀️ Light ON (photons hitting)" : "🌑 Light OFF"}
           </button>
         </div>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_photon }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            In 1928, Felix Bloch solved the Schrodinger equation for electrons in a periodic potential, proving that electrons in crystals form continuous energy bands rather than discrete levels. Alan Wilson (1931) then used band theory to explain why some materials are metals, some insulators, and some -- semiconductors -- fall in between. This framework made the transistor revolution possible.
-          </div>
-        </div>
       </div>
 
       {/* Explanation */}
@@ -4168,6 +4205,12 @@ function BandSection() {
           ))}
         </div>
 
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_photon }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            In 1928, Felix Bloch solved the Schrodinger equation for electrons in a periodic potential, proving that electrons in crystals form continuous energy bands rather than discrete levels. Alan Wilson (1931) then used band theory to explain why some materials are metals, some insulators, and some -- semiconductors -- fall in between. This framework made the transistor revolution possible.
+          </div>
+        </div>
 
         <div style={{
           background: `${T.eo_photon}11`, border: `1px solid ${T.eo_photon}44`,
@@ -5839,27 +5882,9 @@ function SemiconductorDopingSection() {
             {dopingType === "intrinsic" ? "Intrinsic" : dopingType === "n-type" ? "n-type Doped" : "p-type Doped"}
           </text>
         </svg>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_photon }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            In 1942, Karl Lark-Horovitz at Purdue discovered that adding minute impurities to germanium dramatically changed its electrical conductivity. This insight -- that parts per million of the right element could switch a material from insulating to conducting -- enabled Bardeen, Brattain, and Shockley to invent the transistor in 1947, launching the semiconductor revolution.
-          </div>
-        </div>
-
       </div>
 
-      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 10 }}>
-        <div style={{ marginTop: 8, background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
-            Key Insight
-          </div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            In ZnTe, Zn vacancies act as acceptors - p-type. This is
-            intrinsic doping from defects! Native point defects control
-            carrier type without external dopants.
-          </div>
-        </div>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_core }}>
             Semiconductor Doping
@@ -5901,6 +5926,23 @@ function SemiconductorDopingSection() {
           </div>
         </div>
 
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_photon }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            In 1942, Karl Lark-Horovitz at Purdue discovered that adding minute impurities to germanium dramatically changed its electrical conductivity. This insight -- that parts per million of the right element could switch a material from insulating to conducting -- enabled Bardeen, Brattain, and Shockley to invent the transistor in 1947, launching the semiconductor revolution.
+          </div>
+        </div>
+
+        <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
+            Key Insight
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
+            In ZnTe, Zn vacancies act as acceptors - p-type. This is
+            intrinsic doping from defects! Native point defects control
+            carrier type without external dopants.
+          </div>
+        </div>
 
         <div style={{
           background: `${T.eo_photon}11`, border: `1px solid ${T.eo_photon}44`,
@@ -6047,26 +6089,9 @@ function CarrierTransportSection() {
               fontFamily="monospace">Random thermal motion (no net drift)</text>
           )}
         </svg>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_photon }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Paul Drude (1900) first explained electrical conductivity by treating electrons as a classical gas bouncing off atoms. Arnold Sommerfeld then applied Fermi-Dirac statistics (1928), and Felix Bloch added quantum scattering theory. Together they showed that transport depends only on electrons near the Fermi level -- a profound insight that classical physics could never explain.
-          </div>
-        </div>
-
       </div>
 
-      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 10 }}>
-        <div style={{ marginTop: 8, background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
-            Key Insight
-          </div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Mobility determines device speed. Defects scatter carriers
-            - lower mobility - worse device performance.
-          </div>
-        </div>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_e }}>
             Carrier Transport
@@ -6114,6 +6139,22 @@ function CarrierTransportSection() {
           </div>
         </div>
 
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_photon }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            Paul Drude (1900) first explained electrical conductivity by treating electrons as a classical gas bouncing off atoms. Arnold Sommerfeld then applied Fermi-Dirac statistics (1928), and Felix Bloch added quantum scattering theory. Together they showed that transport depends only on electrons near the Fermi level -- a profound insight that classical physics could never explain.
+          </div>
+        </div>
+
+        <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
+            Key Insight
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
+            Mobility determines device speed. Defects scatter carriers
+            - lower mobility - worse device performance.
+          </div>
+        </div>
 
         <div style={{
           background: `${T.eo_photon}11`, border: `1px solid ${T.eo_photon}44`,
@@ -6251,26 +6292,9 @@ function ThermodynamicsSection() {
             dG = {dG.toFixed(3)} eV {dG < 0 ? "(favorable)" : "(unfavorable)"}
           </text>
         </svg>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_e }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            J. Willard Gibbs, working in relative obscurity at Yale in the 1870s, developed the concept of free energy -- the quantity that determines whether a reaction occurs spontaneously. His insight that G = H - TS captures the competition between energy minimization and entropy maximization. Today, DFT calculations of Gibbs free energy predict which semiconductor compounds are thermodynamically stable before anyone steps into the lab.
-          </div>
-        </div>
-
       </div>
 
-      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 6 }}>
-        <div style={{ marginTop: 8, background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
-            Key Insight
-          </div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Thermodynamics decides which phase is lowest in free energy.
-            Kinetics decides whether you can actually make it on lab timescales.
-          </div>
-        </div>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_core }}>
             Thermodynamics
@@ -6306,6 +6330,22 @@ function ThermodynamicsSection() {
           </div>
         </div>
 
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_e }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            J. Willard Gibbs, working in relative obscurity at Yale in the 1870s, developed the concept of free energy -- the quantity that determines whether a reaction occurs spontaneously. His insight that G = H - TS captures the competition between energy minimization and entropy maximization. Today, DFT calculations of Gibbs free energy predict which semiconductor compounds are thermodynamically stable before anyone steps into the lab.
+          </div>
+        </div>
+
+        <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
+            Key Insight
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
+            Thermodynamics decides which phase is lowest in free energy.
+            Kinetics decides whether you can actually make it on lab timescales.
+          </div>
+        </div>
 
         <div style={{
           background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
@@ -6765,7 +6805,7 @@ function ChemicalPotentialSection() {
         </svg>
 
         {/* MBE Growth Animation — below stability polygon */}
-        <div style={{ marginTop: 8, fontSize: 13, fontWeight: 700, color: T.eo_valence, marginBottom: 4, textAlign: "center" }}>MBE Thin Film Growth</div>
+        <div style={{ marginTop: 8, fontSize: 13, fontWeight: 700, color: T.eo_valence, marginBottom: 4 }}>MBE Thin Film Growth</div>
         <svg viewBox="0 0 400 170" style={{ width: "100%", maxWidth: W, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
           {(() => {
             const t = frame * 0.05;
@@ -6837,26 +6877,9 @@ function ChemicalPotentialSection() {
             </g>;
           })()}
         </svg>
-
-        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginTop: 8, marginBottom: 10, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_e }}>The Story</div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Computational materials scientists use chemical potential diagrams (stability polygons) to predict growth conditions for defect-free semiconductors. By mapping which phases are stable at each combination of elemental chemical potentials, researchers can identify the narrow window of conditions where the desired compound forms without harmful secondary phases or excessive point defects.
-          </div>
-        </div>
-
       </div>
 
-      <div style={{ flex: 1, minWidth: 280, display: "flex", flexDirection: "column", gap: 6 }}>
-        <div style={{ marginTop: 8, background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
-            Key Insight
-          </div>
-          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-            Growth conditions (Cu-rich vs Cu-poor) determine which
-            defects form. This is how experimentalists control doping!
-          </div>
-        </div>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_valence }}>
             Chemical Potentials
@@ -6907,6 +6930,22 @@ function ChemicalPotentialSection() {
           </div>
         </div>
 
+        <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_e }}>The Story</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            Computational materials scientists use chemical potential diagrams (stability polygons) to predict growth conditions for defect-free semiconductors. By mapping which phases are stable at each combination of elemental chemical potentials, researchers can identify the narrow window of conditions where the desired compound forms without harmful secondary phases or excessive point defects.
+          </div>
+        </div>
+
+        <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>
+            Key Insight
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
+            Growth conditions (Cu-rich vs Cu-poor) determine which
+            defects form. This is how experimentalists control doping!
+          </div>
+        </div>
 
         <div style={{
           background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
