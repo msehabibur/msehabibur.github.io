@@ -43,14 +43,10 @@ function SectionTitle({ color, children }) {
 
 
 function AnalogyBox({ children, width }) {
-  const [open, setOpen] = useState(false);
   return (
-    <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: open ? "10px 16px" : "8px 16px", marginBottom: 12, width: width || "auto", cursor: "pointer" }} onClick={() => setOpen(o => !o)}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309" }}>Simple Analogy</div>
-        <div style={{ fontSize: 11, color: "#b45309", fontWeight: 600 }}>{open ? "Show less" : "Show more"}</div>
-      </div>
-      {open && <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginTop: 6 }}>{children}</div>}
+    <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "10px 16px", marginBottom: 12, width: width || "auto" }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>{children}</div>
     </div>
   );
 }
