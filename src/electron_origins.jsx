@@ -4504,7 +4504,7 @@ function MaterialClassesSection() {
 
   // ── ANIMATED BAND DIAGRAM ──
   const W = 340, H = 260;
-  const bandL = 30, bandR = 310;
+  const bandW = 200, bandL = (W - bandW) / 2, bandR = bandL + bandW;
   const VBtop = 190, CBbot = selected === "metal" ? 190 : 190 - Math.min(140, sel.bandGap * 28);
   const gapPx = VBtop - CBbot;
 
@@ -4521,7 +4521,7 @@ function MaterialClassesSection() {
 
   // Animated polymer chain
   const chainPts = selected === "polymer" ? Array.from({ length: 20 }, (_, i) => {
-    const baseX = 30 + i * 15;
+    const baseX = bandL + i * (bandW / 20);
     const baseY = 130 + Math.sin(i * 0.8 + frame * 0.06) * 20 + Math.cos(i * 1.3 + frame * 0.04) * 10;
     return [baseX, baseY];
   }) : [];
@@ -4531,7 +4531,7 @@ function MaterialClassesSection() {
     const atoms = [];
     for (let row = 0; row < 5; row++) {
       for (let col = 0; col < 7; col++) {
-        const bx = 35 + col * 42;
+        const bx = bandL + 10 + col * (bandW / 7);
         const by = 60 + row * 42;
         const vib = Math.sin(frame * 0.05 + row * 2 + col * 3) * 1.5;
         atoms.push({ x: bx + vib, y: by + vib * 0.7, isIon: (row + col) % 2 === 0 });
@@ -4563,7 +4563,7 @@ function MaterialClassesSection() {
         ))}
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
+      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
         {/* ── LEFT: ANIMATED VISUALIZATION ── */}
         <div style={{ flex: "0 0 350px" }}>
           <svg viewBox={`0 0 ${W} ${H}`} style={{ display: "block", width: "100%", maxWidth: 350, margin: "0 auto", background: T.surface, borderRadius: 10, border: `1.5px solid ${sel.color}33` }}>
@@ -4689,7 +4689,7 @@ function MaterialClassesSection() {
         </div>
 
         {/* ── RIGHT: DETAILS ── */}
-        <div style={{ flex: 1, minWidth: 220 }}>
+        <div style={{ flex: 1, minWidth: 280, overflow: "hidden" }}>
           {/* Analogy for selected material */}
           <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
             <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>{sel.label} Analogy</div>
@@ -4722,8 +4722,8 @@ function MaterialClassesSection() {
           <div style={{ background: T.surface, borderRadius: 8, padding: "10px 14px", border: `1px solid ${T.border}`, marginBottom: 10 }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: T.ink, marginBottom: 6 }}>Key Properties</div>
             {cur.properties.map((p, i) => (
-              <div key={i} style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, paddingLeft: 12, position: "relative" }}>
-                <span style={{ position: "absolute", left: 0, color: sel.color, fontWeight: 700 }}>\u2022</span>{p}
+              <div key={i} style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, display: "flex", gap: 6 }}>
+                <span style={{ flexShrink: 0, color: sel.color, fontWeight: 700 }}>\u2022</span>{p}
               </div>
             ))}
           </div>
