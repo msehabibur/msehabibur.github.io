@@ -6587,41 +6587,155 @@ function PhaseDiagramSection() {
         </div>
       </div>
 
-      {/* Cooling / Solidification Animation */}
+      {/* Synthesis Reaction Animation */}
       <div style={{ background: T.panel, borderRadius: 10, padding: 12, border: `1.5px solid ${T.border}` }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_e, marginBottom: 8 }}>Solidification Animation — Cooling from Liquid</div>
-        <svg viewBox="0 0 500 120" style={{ width: "100%", maxWidth: 500, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_e, marginBottom: 8 }}>ZnTe Synthesis — Reaction Process</div>
+        <svg viewBox="0 0 560 200" style={{ width: "100%", maxWidth: 560, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
           {(() => {
-            const stages = [
-              { label: "All Liquid", tRange: "T > T_liq", bg: T.eo_cond + "30" },
-              { label: "Nucleation", tRange: "T = T_liq", bg: T.eo_photon + "25" },
-              { label: "L + S coexist", tRange: "T_sol < T < T_liq", bg: T.eo_photon + "20" },
-              { label: "Eutectic rxn", tRange: "T = T_eut", bg: T.eo_gap + "25" },
-              { label: "All Solid", tRange: "T < T_sol", bg: T.eo_core + "30" },
-            ];
-            const stgW = 90, gap = 8, startX = 15;
-            const t = frame * 0.06;
+            const t = frame * 0.04;
+            const cycle = t % 12;
+            // Stage 0-2: precursors, 2-4: add to flask, 4-7: heat+react, 7-9: cool, 9-12: product
+            const stage = cycle < 2 ? 0 : cycle < 4 ? 1 : cycle < 7 ? 2 : cycle < 9 ? 3 : 4;
+            const stageProgress = stage === 0 ? cycle / 2 : stage === 1 ? (cycle - 2) / 2 : stage === 2 ? (cycle - 4) / 3 : stage === 3 ? (cycle - 7) / 2 : (cycle - 9) / 3;
+
+            // Flask shape
+            const flaskX = 230, flaskY = 55, flaskW = 100, flaskH = 110;
+            const neckW = 30, neckH = 30;
+
+            // Precursor bottles
+            const znX = 40, teX = 130, bottleY = 30;
+
+            // Temperature indicator
+            const temp = stage === 0 ? 300 : stage === 1 ? 300 + stageProgress * 200 : stage === 2 ? 500 + stageProgress * 500 : stage === 3 ? 1000 - stageProgress * 700 : 300;
+            const tempColor = temp > 800 ? T.eo_gap : temp > 500 ? T.eo_photon : T.eo_cond;
+
+            // Zn atoms falling into flask
+            const znAtoms = [];
+            const teAtoms = [];
+            if (stage >= 1) {
+              for (let i = 0; i < 5; i++) {
+                const fallP = Math.min(1, stageProgress * 2 + i * 0.15);
+                const ax = flaskX + 20 + (i % 3) * 20 + Math.sin(t + i) * (stage >= 2 ? 8 : 3);
+                const ay = stage >= 2 ? flaskY + 50 + Math.sin(t * 2 + i * 1.5) * 12 : flaskY + 20 + fallP * 60;
+                znAtoms.push({ x: ax, y: ay });
+              }
+              for (let i = 0; i < 5; i++) {
+                const fallP = Math.min(1, stageProgress * 2 + i * 0.12);
+                const ax = flaskX + 30 + (i % 3) * 20 + Math.cos(t + i * 2) * (stage >= 2 ? 8 : 3);
+                const ay = stage >= 2 ? flaskY + 55 + Math.cos(t * 2 + i * 1.3) * 12 : flaskY + 25 + fallP * 55;
+                teAtoms.push({ x: ax, y: ay });
+              }
+            }
+
+            // Product ZnTe pairs
+            const products = [];
+            if (stage >= 3) {
+              for (let i = 0; i < 4; i++) {
+                const px = flaskX + 15 + i * 22;
+                const py = flaskY + 60 + (i % 2) * 18;
+                products.push({ x: px, y: py });
+              }
+            }
+
+            // Final product in dish
+            const productX = 420, productY = 70;
+
             return <g>
-              {stages.map((s, i) => {
-                const sx = startX + i * (stgW + gap);
-                const active = Math.floor((t % 10) / 2) === i;
-                return <g key={i}>
-                  <rect x={sx} y={10} width={stgW} height={70} rx={8} fill={s.bg} stroke={active ? T.eo_e : T.border} strokeWidth={active ? 2.5 : 1} />
-                  {/* atoms / particles inside */}
-                  {[...Array(8)].map((_, j) => {
-                    const ax = sx + 10 + (j % 4) * 20;
-                    const baseY = 28 + Math.floor(j / 4) * 24;
-                    const isLiquid = i < 2 || (i === 2 && j < 4);
-                    const jitter = isLiquid ? Math.sin(t * 3 + j * 2 + i) * 5 : 0;
-                    const jitterX = isLiquid ? Math.cos(t * 2.5 + j * 1.7 + i) * 4 : 0;
-                    return <circle key={j} cx={ax + jitterX} cy={baseY + jitter} r={5}
-                      fill={isLiquid ? T.eo_cond : T.eo_core} opacity={0.8} />;
-                  })}
-                  <text x={sx + stgW / 2} y={92} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={active ? 700 : 500} fontFamily="monospace">{s.label}</text>
-                  <text x={sx + stgW / 2} y={108} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">{s.tRange}</text>
-                  {i < 4 && <text x={sx + stgW + gap / 2} y={50} textAnchor="middle" fontSize={16} fill={T.dim}>→</text>}
+              {/* Step labels */}
+              {[
+                { x: 60, label: "Precursors", active: stage === 0 },
+                { x: 180, label: "Add to flask", active: stage === 1 },
+                { x: 280, label: "Heat + React", active: stage === 2 },
+                { x: 380, label: "Cool", active: stage === 3 },
+                { x: 480, label: "Product", active: stage === 4 },
+              ].map((s, i) => (
+                <text key={i} x={s.x} y={14} textAnchor="middle" fontSize={12} fontFamily="monospace"
+                  fill={s.active ? T.eo_e : T.dim} fontWeight={s.active ? 700 : 400}>{s.label}</text>
+              ))}
+
+              {/* Precursor bottles */}
+              <rect x={znX} y={bottleY} width={40} height={55} rx={4} fill={T.eo_cond + "25"} stroke={T.eo_cond} strokeWidth={1.5} />
+              <rect x={znX + 10} y={bottleY - 12} width={20} height={14} rx={3} fill={T.eo_cond + "40"} stroke={T.eo_cond} strokeWidth={1} />
+              <text x={znX + 20} y={bottleY + 32} textAnchor="middle" fontSize={14} fill={T.eo_cond} fontWeight={700} fontFamily="monospace">Zn</text>
+              <text x={znX + 20} y={bottleY + 48} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">powder</text>
+
+              <rect x={teX} y={bottleY} width={40} height={55} rx={4} fill={T.eo_photon + "25"} stroke={T.eo_photon} strokeWidth={1.5} />
+              <rect x={teX + 10} y={bottleY - 12} width={20} height={14} rx={3} fill={T.eo_photon + "40"} stroke={T.eo_photon} strokeWidth={1} />
+              <text x={teX + 20} y={bottleY + 32} textAnchor="middle" fontSize={14} fill={T.eo_photon} fontWeight={700} fontFamily="monospace">Te</text>
+              <text x={teX + 20} y={bottleY + 48} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">powder</text>
+
+              {/* Arrows from bottles to flask */}
+              {stage >= 1 && <>
+                <line x1={znX + 42} y1={bottleY + 25} x2={flaskX + 10} y2={flaskY + 10} stroke={T.eo_cond} strokeWidth={1.5} strokeDasharray="4,3" opacity={0.6} />
+                <line x1={teX + 42} y1={bottleY + 25} x2={flaskX + 15} y2={flaskY + 15} stroke={T.eo_photon} strokeWidth={1.5} strokeDasharray="4,3" opacity={0.6} />
+              </>}
+
+              {/* Flask */}
+              <rect x={flaskX + (flaskW - neckW) / 2} y={flaskY - neckH} width={neckW} height={neckH} rx={3} fill="none" stroke={T.border} strokeWidth={2} />
+              <path d={`M${flaskX + (flaskW - neckW) / 2},${flaskY} L${flaskX},${flaskY + 30} L${flaskX},${flaskY + flaskH} L${flaskX + flaskW},${flaskY + flaskH} L${flaskX + flaskW},${flaskY + 30} L${flaskX + (flaskW + neckW) / 2},${flaskY} Z`}
+                fill={stage >= 2 ? (temp > 700 ? T.eo_gap + "15" : T.eo_photon + "10") : T.surface}
+                stroke={T.border} strokeWidth={2} />
+
+              {/* Flame / heater under flask */}
+              {stage === 2 && <>
+                {[0, 1, 2].map(i => {
+                  const fx = flaskX + 30 + i * 20;
+                  const fh = 12 + Math.sin(t * 4 + i * 2) * 5;
+                  return <ellipse key={i} cx={fx} cy={flaskY + flaskH + 8} rx={8} ry={fh}
+                    fill={T.eo_gap} opacity={0.4 + Math.sin(t * 3 + i) * 0.2} />;
+                })}
+                <text x={flaskX + flaskW / 2} y={flaskY + flaskH + 28} textAnchor="middle" fontSize={12} fill={T.eo_gap} fontFamily="monospace" fontWeight={700}>Heating</text>
+              </>}
+
+              {/* Atoms inside flask */}
+              {stage >= 1 && stage < 3 && znAtoms.map((a, i) => (
+                <circle key={`zn${i}`} cx={a.x} cy={a.y} r={6} fill={T.eo_cond} opacity={0.8} />
+              ))}
+              {stage >= 1 && stage < 3 && teAtoms.map((a, i) => (
+                <circle key={`te${i}`} cx={a.x} cy={a.y} r={6} fill={T.eo_photon} opacity={0.8} />
+              ))}
+
+              {/* Reaction: Zn + Te → ZnTe pairs forming */}
+              {stage >= 2 && stageProgress > 0.5 && [...Array(3)].map((_, i) => {
+                const px = flaskX + 20 + i * 25;
+                const py = flaskY + 50 + i * 12;
+                const bond = Math.min(1, (stageProgress - 0.5) * 3);
+                return <g key={`pair${i}`}>
+                  <circle cx={px} cy={py} r={5} fill={T.eo_cond} />
+                  <circle cx={px + 6 + (1 - bond) * 10} cy={py + 3} r={5} fill={T.eo_photon} />
+                  {bond > 0.5 && <line x1={px + 4} y1={py + 1} x2={px + 8} y2={py + 2} stroke={T.ink} strokeWidth={1.5} />}
                 </g>;
               })}
+
+              {/* Product pairs in flask (cooling) */}
+              {stage >= 3 && products.map((p, i) => (
+                <g key={`prod${i}`}>
+                  <circle cx={p.x} cy={p.y} r={5} fill={T.eo_cond} />
+                  <line x1={p.x + 4} y1={p.y} x2={p.x + 8} y2={p.y + 1} stroke={T.ink} strokeWidth={1.5} />
+                  <circle cx={p.x + 12} cy={p.y + 1} r={5} fill={T.eo_photon} />
+                </g>
+              ))}
+
+              {/* Arrow to product */}
+              {stage >= 4 && <line x1={flaskX + flaskW + 5} y1={flaskY + 60} x2={productX - 20} y2={productY + 20} stroke={T.dim} strokeWidth={1.5} strokeDasharray="5,3" />}
+
+              {/* Final product dish */}
+              <ellipse cx={productX + 40} cy={productY + 50} rx={45} ry={12} fill="none" stroke={T.border} strokeWidth={1.5} />
+              <path d={`M${productX - 5},${productY + 50} Q${productX + 40},${productY + 80} ${productX + 85},${productY + 50}`} fill="none" stroke={T.border} strokeWidth={1.5} />
+              {stage >= 4 && <>
+                <ellipse cx={productX + 40} cy={productY + 45} rx={30} ry={8} fill={T.eo_valence + "40"} />
+                <text x={productX + 40} y={productY + 35} textAnchor="middle" fontSize={14} fill={T.eo_valence} fontWeight={700} fontFamily="monospace">ZnTe</text>
+                <text x={productX + 40} y={productY + 48} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">crystal</text>
+              </>}
+
+              {/* Temperature readout */}
+              <rect x={360} y={140} width={80} height={24} rx={4} fill={tempColor + "20"} stroke={tempColor} strokeWidth={1} />
+              <text x={400} y={156} textAnchor="middle" fontSize={13} fill={tempColor} fontWeight={700} fontFamily="monospace">{temp.toFixed(0)} K</text>
+
+              {/* Reaction equation */}
+              <text x={280} y={190} textAnchor="middle" fontSize={13} fill={T.ink} fontFamily="monospace" fontWeight={700}>
+                Zn + Te → ZnTe (ΔH {"<"} 0)
+              </text>
             </g>;
           })()}
         </svg>
@@ -6840,52 +6954,116 @@ function ChemicalPotentialSection() {
         </div>
       </div>
 
-      {/* Defect Formation Animation */}
+      {/* Thin Film Growth Reaction Animation */}
       <div style={{ background: T.panel, borderRadius: 10, padding: 12, border: `1.5px solid ${T.border}` }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_valence, marginBottom: 8 }}>Defect Formation under Different Growth Conditions</div>
-        <svg viewBox="0 0 500 130" style={{ width: "100%", maxWidth: 500, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_valence, marginBottom: 8 }}>Thin Film Growth — Controlling Chemical Potential</div>
+        <svg viewBox="0 0 560 210" style={{ width: "100%", maxWidth: 560, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
           {(() => {
             const t = frame * 0.05;
-            const conditions = [
-              { label: "A-rich", sub: "(Cu-rich)", defect: "V_B", defColor: T.eo_gap, desc: "B vacancies form" },
-              { label: "Stoichiometric", sub: "(balanced)", defect: "Low defects", defColor: T.eo_valence, desc: "Fewest defects" },
-              { label: "B-rich", sub: "(Zn-rich)", defect: "V_A", defColor: T.eo_e, desc: "A vacancies form" },
-            ];
-            const boxW = 140, gap = 20, startX = 25;
+            // Growth chamber
+            const chX = 30, chY = 25, chW = 200, chH = 140;
+            // Substrate at bottom of chamber
+            const subY = chY + chH - 20;
+            // Source crucibles
+            const srcAx = chX + 30, srcBx = chX + chW - 70;
+            const srcY = chY + chH - 45;
+            // Condition based on muA slider
+            const isARich = muA > -0.8;
+            const isBRich = muA < -1.8;
+            const isBalanced = !isARich && !isBRich;
+            // Evaporating atoms from sources
+            const nAatoms = isARich ? 8 : isBalanced ? 5 : 2;
+            const nBatoms = isBRich ? 8 : isBalanced ? 5 : 2;
+
             return <g>
-              {conditions.map((c, i) => {
-                const bx = startX + i * (boxW + gap);
-                const isActive = Math.abs(muA - (i === 0 ? -0.3 : i === 1 ? -1.25 : -2.2)) < 0.5;
-                // 3x3 lattice
-                const atoms = [];
-                for (let r = 0; r < 3; r++) {
-                  for (let col = 0; col < 3; col++) {
-                    const ax = bx + 30 + col * 28;
-                    const ay = 20 + r * 22;
-                    const isDefect = r === 1 && col === 1;
-                    if (isDefect && i !== 1) {
-                      // vacancy - dashed circle
-                      atoms.push(<circle key={`${r}${col}`} cx={ax} cy={ay} r={8} fill="none" stroke={c.defColor} strokeWidth={1.5} strokeDasharray="3,2" />);
-                      atoms.push(<text key={`t${r}${col}`} x={ax} y={ay + 4} textAnchor="middle" fontSize={12} fill={c.defColor} fontFamily="monospace">V</text>);
-                    } else {
-                      const jitter = Math.sin(t * 2 + r * 3 + col * 5 + i) * 2;
-                      atoms.push(<circle key={`${r}${col}`} cx={ax + jitter} cy={ay} r={8} fill={(r + col) % 2 === 0 ? T.eo_cond : T.eo_photon} opacity={0.7} />);
-                      atoms.push(<text key={`t${r}${col}`} x={ax + jitter} y={ay + 4} textAnchor="middle" fontSize={12} fill="#fff" fontFamily="monospace" fontWeight="bold">{(r + col) % 2 === 0 ? "A" : "B"}</text>);
-                    }
-                  }
-                }
-                return <g key={i}>
-                  <rect x={bx} y={3} width={boxW} height={90} rx={8} fill={isActive ? c.defColor + "15" : "transparent"} stroke={isActive ? c.defColor : T.border} strokeWidth={isActive ? 2 : 1} />
-                  {atoms}
-                  <text x={bx + boxW / 2} y={105} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={700} fontFamily="monospace">{c.label}</text>
-                  <text x={bx + boxW / 2} y={120} textAnchor="middle" fontSize={12} fill={c.defColor} fontFamily="monospace">{c.defect}</text>
-                </g>;
+              {/* Chamber walls */}
+              <rect x={chX} y={chY} width={chW} height={chH} rx={6} fill={T.ink + "08"} stroke={T.border} strokeWidth={2} />
+              <text x={chX + chW / 2} y={chY - 6} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">MBE Growth Chamber</text>
+
+              {/* Vacuum label */}
+              <text x={chX + chW / 2} y={chY + 18} textAnchor="middle" fontSize={12} fill={T.dim} fontFamily="monospace">Ultra-high vacuum</text>
+
+              {/* Source A crucible */}
+              <path d={`M${srcAx},${srcY + 20} L${srcAx},${srcY} L${srcAx + 40},${srcY} L${srcAx + 40},${srcY + 20}`}
+                fill={T.eo_cond + "30"} stroke={T.eo_cond} strokeWidth={1.5} />
+              <text x={srcAx + 20} y={srcY + 14} textAnchor="middle" fontSize={13} fill={T.eo_cond} fontWeight={700} fontFamily="monospace">Cu</text>
+              {/* Heat glow */}
+              <ellipse cx={srcAx + 20} cy={srcY + 22} rx={18} ry={4} fill={T.eo_gap} opacity={isARich ? 0.4 : 0.15} />
+
+              {/* Source B crucible */}
+              <path d={`M${srcBx},${srcY + 20} L${srcBx},${srcY} L${srcBx + 40},${srcY} L${srcBx + 40},${srcY + 20}`}
+                fill={T.eo_photon + "30"} stroke={T.eo_photon} strokeWidth={1.5} />
+              <text x={srcBx + 20} y={srcY + 14} textAnchor="middle" fontSize={13} fill={T.eo_photon} fontWeight={700} fontFamily="monospace">Zn</text>
+              <ellipse cx={srcBx + 20} cy={srcY + 22} rx={18} ry={4} fill={T.eo_gap} opacity={isBRich ? 0.4 : 0.15} />
+
+              {/* Substrate */}
+              <rect x={chX + 40} y={subY} width={chW - 80} height={8} rx={2} fill={T.eo_core} stroke={T.eo_core} strokeWidth={1} />
+              <text x={chX + chW / 2} y={subY + 20} textAnchor="middle" fontSize={12} fill={T.eo_core} fontFamily="monospace">Substrate</text>
+
+              {/* Evaporating A atoms */}
+              {[...Array(nAatoms)].map((_, i) => {
+                const progress = ((t * 0.8 + i * 1.2) % 4) / 4;
+                const startX2 = srcAx + 15 + Math.sin(i * 2.3) * 10;
+                const endX = chX + 60 + (i % 4) * 20;
+                const ax = startX2 + (endX - startX2) * progress;
+                const ay = srcY - 5 - progress * (srcY - subY - 15);
+                return <circle key={`a${i}`} cx={ax} cy={ay} r={4} fill={T.eo_cond} opacity={0.7 - progress * 0.3} />;
               })}
+
+              {/* Evaporating B atoms */}
+              {[...Array(nBatoms)].map((_, i) => {
+                const progress = ((t * 0.7 + i * 1.4 + 0.5) % 4) / 4;
+                const startX2 = srcBx + 15 + Math.sin(i * 1.7) * 10;
+                const endX = chX + 70 + (i % 4) * 18;
+                const bx = startX2 + (endX - startX2) * progress;
+                const by = srcY - 5 - progress * (srcY - subY - 15);
+                return <circle key={`b${i}`} cx={bx} cy={by} r={4} fill={T.eo_photon} opacity={0.7 - progress * 0.3} />;
+              })}
+
+              {/* Growing film on substrate */}
+              <rect x={chX + 42} y={subY - 6} width={chW - 84} height={6} rx={1}
+                fill={isBalanced ? T.eo_valence : isARich ? T.eo_cond + "80" : T.eo_photon + "80"} />
+
+              {/* Right side: condition readout */}
+              <rect x={270} y={30} width={270} height={170} rx={8} fill={T.panel} stroke={T.border} strokeWidth={1} />
+              <text x={405} y={52} textAnchor="middle" fontSize={13} fill={T.ink} fontWeight={700} fontFamily="monospace">Growth Conditions</text>
+
+              {/* Flux bars */}
+              <text x={290} y={78} fontSize={12} fill={T.eo_cond} fontFamily="monospace" fontWeight={600}>Cu flux:</text>
+              <rect x={360} y={67} width={Math.max(5, (1 - (muA - muMin) / (muMax - muMin)) * 150)} height={14} rx={3} fill={T.eo_cond} opacity={0.7} />
+
+              <text x={290} y={102} fontSize={12} fill={T.eo_photon} fontFamily="monospace" fontWeight={600}>Zn flux:</text>
+              <rect x={360} y={91} width={Math.max(5, ((muA - muMin) / (muMax - muMin)) * 150)} height={14} rx={3} fill={T.eo_photon} opacity={0.7} />
+
+              {/* Temperature */}
+              <text x={290} y={126} fontSize={12} fill={T.muted} fontFamily="monospace">Substrate T:</text>
+              <text x={390} y={126} fontSize={13} fill={T.eo_gap} fontWeight={700} fontFamily="monospace">600 K</text>
+
+              {/* Resulting condition */}
+              <rect x={285} y={138} width={240} height={28} rx={6}
+                fill={isBalanced ? T.eo_valence + "20" : isARich ? T.eo_cond + "20" : T.eo_photon + "20"}
+                stroke={isBalanced ? T.eo_valence : isARich ? T.eo_cond : T.eo_photon} strokeWidth={1.5} />
+              <text x={405} y={157} textAnchor="middle" fontSize={13}
+                fill={isBalanced ? T.eo_valence : isARich ? T.eo_cond : T.eo_photon}
+                fontWeight={700} fontFamily="monospace">
+                {isARich ? "Cu-rich → V_Zn defects" : isBRich ? "Zn-rich → V_Cu defects (p-type)" : "Balanced → Stoichiometric CuZn"}
+              </text>
+
+              {/* Result quality */}
+              <text x={405} y={185} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">
+                {isBalanced ? "Best crystal quality!" : isARich ? "Metallic secondary phases risk" : "Optimal for p-type doping"}
+              </text>
+
+              {/* Legend */}
+              <circle cx={290} cy={200} r={4} fill={T.eo_cond} />
+              <text x={300} y={204} fontSize={12} fill={T.muted} fontFamily="monospace">Cu atom</text>
+              <circle cx={370} cy={200} r={4} fill={T.eo_photon} />
+              <text x={380} y={204} fontSize={12} fill={T.muted} fontFamily="monospace">Zn atom</text>
             </g>;
           })()}
         </svg>
         <div style={{ fontSize: 12, color: T.muted, marginTop: 6, lineHeight: 1.6 }}>
-          Adjust mu_A slider above to see which growth condition you are in. A-rich conditions create B-vacancies; B-rich conditions create A-vacancies.
+          Adjust the mu_A slider above to change growth conditions. Watch how the atom flux changes and see which defects form in the film.
         </div>
       </div>
 
