@@ -105,10 +105,10 @@ function AtomicModelsSection() {
           <svg viewBox="0 0 340 340" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
             <circle cx={cx} cy={cy} r={60 * pulse} fill={T.eo_core} opacity={0.7} />
             <circle cx={cx} cy={cy} r={60 * pulse} fill="none" stroke={T.ink} strokeWidth={2} />
-            <text x={cx} y={cy - 5} textAnchor="middle" fill="#fff" fontSize={11} fontFamily="monospace" fontWeight="bold">Indivisible</text>
-            <text x={cx} y={cy + 10} textAnchor="middle" fill="#fff" fontSize={11} fontFamily="monospace" fontWeight="bold">Atom</text>
-            <text x={cx} y={cy + 80} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">Dalton 1803</text>
-            <text x={cx} y={cy + 95} textAnchor="middle" fill={T.muted} fontSize={11} fontFamily="monospace">"Atoms are solid, indivisible spheres"</text>
+            <text x={cx} y={cy - 5} textAnchor="middle" fill="#fff" fontSize={13} fontFamily="monospace" fontWeight="bold">Indivisible</text>
+            <text x={cx} y={cy + 10} textAnchor="middle" fill="#fff" fontSize={13} fontFamily="monospace" fontWeight="bold">Atom</text>
+            <text x={cx} y={cy + 80} textAnchor="middle" fill={T.muted} fontSize={12} fontFamily="monospace">Dalton 1803</text>
+            <text x={cx} y={cy + 95} textAnchor="middle" fill={T.muted} fontSize={13} fontFamily="monospace">"Atoms are solid, indivisible spheres"</text>
           </svg>
         );
       }
@@ -128,16 +128,16 @@ function AtomicModelsSection() {
             {[...Array(12)].map((_, i) => {
               const a2 = (Math.PI * 2 * i) / 12;
               const pr = 20 + 30 * ((i * 7 + 3) % 5) / 5;
-              return <text key={i} x={cx + Math.cos(a2) * pr} y={cy + Math.sin(a2) * pr + 4} textAnchor="middle" fill={T.eo_e} fontSize={10} fontFamily="monospace" opacity={0.4}>+</text>;
+              return <text key={i} x={cx + Math.cos(a2) * pr} y={cy + Math.sin(a2) * pr + 4} textAnchor="middle" fill={T.eo_e} fontSize={12} fontFamily="monospace" opacity={0.4}>+</text>;
             })}
             {electrons.map((e, i) => (
               <g key={i}>
                 <circle cx={e.x} cy={e.y} r={6} fill={T.eo_hole} />
-                <text x={e.x} y={e.y + 3.5} textAnchor="middle" fill="#fff" fontSize={11} fontFamily="monospace" fontWeight="bold">−</text>
+                <text x={e.x} y={e.y + 3.5} textAnchor="middle" fill="#fff" fontSize={13} fontFamily="monospace" fontWeight="bold">−</text>
               </g>
             ))}
-            <text x={cx} y={cy + 90} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">"Plum Pudding" — Thomson 1897</text>
-            <text x={cx} y={cy + 105} textAnchor="middle" fill={T.eo_e} fontSize={11} fontFamily="monospace">+ positive dough, − electron plums</text>
+            <text x={cx} y={cy + 90} textAnchor="middle" fill={T.muted} fontSize={12} fontFamily="monospace">"Plum Pudding" — Thomson 1897</text>
+            <text x={cx} y={cy + 105} textAnchor="middle" fill={T.eo_e} fontSize={13} fontFamily="monospace">+ positive dough, − electron plums</text>
           </svg>
         );
       }
@@ -155,10 +155,10 @@ function AtomicModelsSection() {
         return (
           <svg viewBox="0 0 340 340" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
             <circle cx={cx} cy={cy} r={100} fill="none" stroke={T.dim} strokeWidth={1} strokeDasharray="3,3" opacity={0.5} />
-            <text x={cx + 75} y={cy - 75} textAnchor="middle" fill={T.dim} fontSize={11} fontFamily="monospace">mostly empty</text>
+            <text x={cx + 75} y={cy - 75} textAnchor="middle" fill={T.dim} fontSize={13} fontFamily="monospace">mostly empty</text>
             <circle cx={cx} cy={cy} r={8} fill={T.eo_gap} />
-            <text x={cx} y={cy + 3} textAnchor="middle" fill="#fff" fontSize={10} fontFamily="monospace" fontWeight="bold">+</text>
-            <text x={cx} y={cy + 22} textAnchor="middle" fill={T.eo_gap} fontSize={11} fontFamily="monospace">nucleus</text>
+            <text x={cx} y={cy + 3} textAnchor="middle" fill="#fff" fontSize={12} fontFamily="monospace" fontWeight="bold">+</text>
+            <text x={cx} y={cy + 22} textAnchor="middle" fill={T.eo_gap} fontSize={13} fontFamily="monospace">nucleus</text>
             {[...Array(5)].map((_, i) => {
               const ea = t * 0.4 + i * 1.26;
               const er = 40 + i * 18;
@@ -167,16 +167,16 @@ function AtomicModelsSection() {
             {alphas.map((a, i) => a.vis && (
               <g key={i}>
                 <circle cx={a.x} cy={a.y} r={4} fill={T.eo_photon} />
-                <text x={a.x} y={a.y + 3} textAnchor="middle" fill="#fff" fontSize={10} fontFamily="monospace">α</text>
+                <text x={a.x} y={a.y + 3} textAnchor="middle" fill="#fff" fontSize={12} fontFamily="monospace">α</text>
               </g>
             ))}
-            <text x={20} y={cy - 50} textAnchor="start" fill={T.eo_photon} fontSize={11} fontFamily="monospace">α beam →</text>
+            <text x={20} y={cy - 50} textAnchor="start" fill={T.eo_photon} fontSize={13} fontFamily="monospace">α beam →</text>
             {alphas[2] && alphas[2].deflected && (
-              <text x={cx - 80} y={cy - 80} textAnchor="middle" fill={T.eo_gap} fontSize={11} fontFamily="monospace" fontWeight="bold">← bounced back!</text>
+              <text x={cx - 80} y={cy - 80} textAnchor="middle" fill={T.eo_gap} fontSize={13} fontFamily="monospace" fontWeight="bold">← bounced back!</text>
             )}
             <rect x={cx - 5} y={30} width={10} height={280} fill={T.eo_photon} opacity={0.07} />
-            <text x={cx} y={25} textAnchor="middle" fill={T.eo_photon} fontSize={11} fontFamily="monospace">gold foil</text>
-            <text x={cx} y={cy + 130} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">Rutherford 1911 — Gold Foil Experiment</text>
+            <text x={cx} y={25} textAnchor="middle" fill={T.eo_photon} fontSize={13} fontFamily="monospace">gold foil</text>
+            <text x={cx} y={cy + 130} textAnchor="middle" fill={T.muted} fontSize={12} fontFamily="monospace">Rutherford 1911 — Gold Foil Experiment</text>
           </svg>
         );
       }
@@ -211,7 +211,7 @@ function AtomicModelsSection() {
             {orbitRadii.map((r, i) => (
               <g key={i}>
                 <circle cx={cx} cy={cy} r={r} fill="none" stroke={i + 1 === bohrLevel ? T.eo_e : T.dim} strokeWidth={i + 1 === bohrLevel ? 2 : 1} strokeDasharray={i + 1 === bohrLevel ? "none" : "4,3"} opacity={i + 1 === bohrLevel ? 1 : 0.5} />
-                <text x={cx + r + 4} y={cy - 5} fill={T.muted} fontSize={10} fontFamily="monospace">n={i + 1}</text>
+                <text x={cx + r + 4} y={cy - 5} fill={T.muted} fontSize={12} fontFamily="monospace">n={i + 1}</text>
                 <circle cx={cx + r} cy={cy - 16} r={8} fill="transparent" stroke="none" style={{ cursor: "pointer" }} onClick={() => {
                   if (i + 1 !== bohrLevel && !bohrTransition) {
                     setBohrTransition({ from: bohrLevel, to: i + 1 });
@@ -220,9 +220,9 @@ function AtomicModelsSection() {
               </g>
             ))}
             <circle cx={cx} cy={cy} r={10} fill={T.eo_gap} />
-            <text x={cx} y={cy + 3.5} textAnchor="middle" fill="#fff" fontSize={11} fontFamily="monospace" fontWeight="bold">+</text>
+            <text x={cx} y={cy + 3.5} textAnchor="middle" fill="#fff" fontSize={13} fontFamily="monospace" fontWeight="bold">+</text>
             <circle cx={eX} cy={eY} r={6} fill={T.eo_e} />
-            <text x={eX} y={eY + 3} textAnchor="middle" fill="#fff" fontSize={10} fontFamily="monospace">e⁻</text>
+            <text x={eX} y={eY + 3} textAnchor="middle" fill="#fff" fontSize={12} fontFamily="monospace">e⁻</text>
             {photonVis && (
               <g>
                 {[...Array(5)].map((_, wi) => {
@@ -230,7 +230,7 @@ function AtomicModelsSection() {
                   const wy = photonY + Math.sin((transitionAnim * 10) + wi) * 4;
                   return <circle key={wi} cx={wx} cy={wy} r={2} fill={transColor} opacity={0.7 - wi * 0.1} />;
                 })}
-                <text x={photonX + 10} y={photonY - 5} fill={transColor} fontSize={10} fontFamily="monospace">γ</text>
+                <text x={photonX + 10} y={photonY - 5} fill={transColor} fontSize={12} fontFamily="monospace">γ</text>
               </g>
             )}
             {orbitRadii.map((_, i) => {
@@ -241,18 +241,18 @@ function AtomicModelsSection() {
                   if (i + 1 !== bohrLevel && !bohrTransition) setBohrTransition({ from: bohrLevel, to: i + 1 });
                 }} style={{ cursor: "pointer" }}>
                   <line x1={lvlX - 20} y1={lvlY} x2={lvlX + 20} y2={lvlY} stroke={isCurrent ? T.eo_e : T.dim} strokeWidth={isCurrent ? 2.5 : 1.5} />
-                  <text x={lvlX + 25} y={lvlY + 3} fill={isCurrent ? T.eo_e : T.muted} fontSize={10} fontFamily="monospace">{energies[i]} eV</text>
+                  <text x={lvlX + 25} y={lvlY + 3} fill={isCurrent ? T.eo_e : T.muted} fontSize={12} fontFamily="monospace">{energies[i]} eV</text>
                   {isCurrent && <circle cx={lvlX} cy={lvlY - 5} r={3} fill={T.eo_e} />}
                 </g>
               );
             })}
-            <text x={295} y={38} textAnchor="middle" fill={T.ink} fontSize={11} fontFamily="monospace" fontWeight="bold">Energy</text>
+            <text x={295} y={38} textAnchor="middle" fill={T.ink} fontSize={13} fontFamily="monospace" fontWeight="bold">Energy</text>
             {bohrTransition && bohrTransition.to === 2 && transitionAnim > 0.1 && (
-              <text x={cx} y={cy + 148} textAnchor="middle" fill={transColor} fontSize={11} fontFamily="monospace" fontWeight="bold">
+              <text x={cx} y={cy + 148} textAnchor="middle" fill={transColor} fontSize={13} fontFamily="monospace" fontWeight="bold">
                 Balmer: n={bohrTransition.from}→2
               </text>
             )}
-            <text x={cx} y={cy + 155} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">
+            <text x={cx} y={cy + 155} textAnchor="middle" fill={T.muted} fontSize={12} fontFamily="monospace">
               E = {energies[bohrLevel - 1]} eV | r = {((bohrLevel * bohrLevel) * 0.529).toFixed(2)} Å
             </text>
           </svg>
@@ -285,15 +285,15 @@ function AtomicModelsSection() {
                 <g key={i}>
                   <ellipse cx={cx} cy={cy} rx={el.a} ry={el.b} fill="none" stroke={hue} strokeWidth={1} opacity={0.4} transform={`rotate(${el.rot},${cx},${cy})`} strokeDasharray="3,3" />
                   <circle cx={cx + rx} cy={cy + ry} r={3.5} fill={hue} opacity={0.8} />
-                  <text x={cx + el.a + 8} y={cy - el.b + 8} fill={hue} fontSize={10} fontFamily="monospace" transform={`rotate(${el.rot},${cx},${cy})`} opacity={0.7}>
+                  <text x={cx + el.a + 8} y={cy - el.b + 8} fill={hue} fontSize={12} fontFamily="monospace" transform={`rotate(${el.rot},${cx},${cy})`} opacity={0.7}>
                     n={el.n},l={el.l}
                   </text>
                 </g>
               );
             })}
-            <text x={cx} y={20} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">Sommerfeld Elliptical Orbits</text>
-            <text x={cx} y={315} textAnchor="middle" fill={T.muted} fontSize={11} fontFamily="monospace">l=0: very elliptical | l=n-1: circular</text>
-            <text x={cx} y={330} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">Faster at perihelion, slower at aphelion (Kepler)</text>
+            <text x={cx} y={20} textAnchor="middle" fill={T.ink} fontSize={12} fontFamily="monospace" fontWeight="bold">Sommerfeld Elliptical Orbits</text>
+            <text x={cx} y={315} textAnchor="middle" fill={T.muted} fontSize={13} fontFamily="monospace">l=0: very elliptical | l=n-1: circular</text>
+            <text x={cx} y={330} textAnchor="middle" fill={T.muted} fontSize={12} fontFamily="monospace">Faster at perihelion, slower at aphelion (Kepler)</text>
           </svg>
         );
       }
@@ -365,13 +365,13 @@ function AtomicModelsSection() {
                 <circle key={i} cx={d.x} cy={d.y} r={2} fill={d.c} opacity={d.o} />
               ))}
               <circle cx={cx} cy={cy} r={3} fill={T.eo_gap} opacity={0.5} />
-              <text x={cx} y={20} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">Quantum Mechanical — |{"ψ"}|{"²"} Probability</text>
-              <text x={cx} y={cy + 140} textAnchor="middle" fill={T.muted} fontSize={11} fontFamily="monospace">Orbital: {qmOrbital}</text>
+              <text x={cx} y={20} textAnchor="middle" fill={T.ink} fontSize={12} fontFamily="monospace" fontWeight="bold">Quantum Mechanical — |{"ψ"}|{"²"} Probability</text>
+              <text x={cx} y={cy + 140} textAnchor="middle" fill={T.muted} fontSize={13} fontFamily="monospace">Orbital: {qmOrbital}</text>
               <g>
                 {["1s", "2s", "2p", "3d", "all"].map((orb, i) => (
                   <g key={orb} onClick={() => setQmOrbital(orb)} style={{ cursor: "pointer" }}>
                     <rect x={28 + i * 58} y={300} width={52} height={22} rx={4} fill={qmOrbital === orb ? T.eo_e : T.surface} stroke={qmOrbital === orb ? T.eo_e : T.border} strokeWidth={1} />
-                    <text x={54 + i * 58} y={314} textAnchor="middle" fill={qmOrbital === orb ? "#fff" : T.ink} fontSize={11} fontFamily="monospace">{orb === "all" ? "All" : orb}</text>
+                    <text x={54 + i * 58} y={314} textAnchor="middle" fill={qmOrbital === orb ? "#fff" : T.ink} fontSize={13} fontFamily="monospace">{orb === "all" ? "All" : orb}</text>
                   </g>
                 ))}
               </g>
@@ -395,7 +395,7 @@ function AtomicModelsSection() {
             ))}
             <circle cx={cx} cy={cy} r={4} fill={T.ink} />
             <text x={cx} y={cy + 3} textAnchor="middle" fill="#fff" fontSize={5} fontWeight="bold">Z</text>
-            <text x={cx} y={18} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">All Orbitals — Probability Clouds</text>
+            <text x={cx} y={18} textAnchor="middle" fill={T.ink} fontSize={12} fontFamily="monospace" fontWeight="bold">All Orbitals — Probability Clouds</text>
             {/* Color legend */}
             {[
               { c: T.eo_e, l: "1s" }, { c: T.eo_cond, l: "2s" }, { c: T.eo_valence, l: "2p" },
@@ -403,17 +403,17 @@ function AtomicModelsSection() {
             ].map((item, i) => (
               <g key={i}>
                 <circle cx={25 + i * 52} cy={275} r={4} fill={item.c} opacity={0.8} />
-                <text x={33 + i * 52} y={278} fontSize={11} fill={T.muted} fontFamily="monospace">{item.l}</text>
+                <text x={33 + i * 52} y={278} fontSize={13} fill={T.muted} fontFamily="monospace">{item.l}</text>
               </g>
             ))}
-            <text x={cx} y={295} textAnchor="middle" fill={T.muted} fontSize={11} fontFamily="monospace">
+            <text x={cx} y={295} textAnchor="middle" fill={T.muted} fontSize={13} fontFamily="monospace">
               Each color = different orbital shape and energy
             </text>
             <g>
               {["1s", "2s", "2p", "3d", "all"].map((orb, i) => (
                 <g key={orb} onClick={() => setQmOrbital(orb)} style={{ cursor: "pointer" }}>
                   <rect x={28 + i * 58} y={305} width={52} height={22} rx={4} fill={qmOrbital === orb ? T.eo_e : T.surface} stroke={qmOrbital === orb ? T.eo_e : T.border} strokeWidth={1} />
-                  <text x={54 + i * 58} y={319} textAnchor="middle" fill={qmOrbital === orb ? "#fff" : T.ink} fontSize={11} fontFamily="monospace">{orb === "all" ? "All" : orb}</text>
+                  <text x={54 + i * 58} y={319} textAnchor="middle" fill={qmOrbital === orb ? "#fff" : T.ink} fontSize={13} fontFamily="monospace">{orb === "all" ? "All" : orb}</text>
                 </g>
               ))}
             </g>
@@ -431,7 +431,7 @@ function AtomicModelsSection() {
       <AnalogyBox>
           Imagine you are looking at an object through a series of increasingly powerful microscopes. <strong>Dalton</strong> saw a solid marble. <strong>Thomson</strong> cracked it open and found raisins in a pudding. <strong>Rutherford</strong> zoomed in and discovered the marble is 99.99% empty space with a tiny dense core. <strong>Bohr</strong> saw electrons orbiting like planets. Finally, <strong>quantum mechanics</strong> revealed there are no orbits at all {"—"} just fuzzy probability clouds showing where the electron is <em>likely</em> to be. Each model did not destroy the last; it refined it.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <div style={{ flexShrink: 0 }}>
         {renderSVG()}
       </div>
@@ -675,7 +675,7 @@ function AufbauPrincipleSection() {
       levels.push(
         <g key={oi}>
           {boxes}
-          <text x={xStart - 22} y={y + 13} fill={col} fontSize={11} fontFamily="monospace" fontWeight="bold">{orb.name}</text>
+          <text x={xStart - 22} y={y + 13} fill={col} fontSize={13} fontFamily="monospace" fontWeight="bold">{orb.name}</text>
         </g>
       );
     });
@@ -684,7 +684,7 @@ function AufbauPrincipleSection() {
 
     return (
       <svg viewBox="0 0 340 380" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
-        <text x={170} y={15} textAnchor="middle" fill={T.ink} fontSize={11} fontFamily="monospace" fontWeight="bold">
+        <text x={170} y={15} textAnchor="middle" fill={T.ink} fontSize={13} fontFamily="monospace" fontWeight="bold">
           {elements[Z] || `Z=${Z}`} (Z={Z}) — Orbital Filling
         </text>
         {levels}
@@ -697,11 +697,11 @@ function AufbauPrincipleSection() {
           </marker>
         </defs>
         <rect x={5} y={yStart + 10} width={12} height={12} fill={T.eo_e} rx={2} opacity={0.6} />
-        <text x={20} y={yStart + 19} fill={T.muted} fontSize={10} fontFamily="monospace">s</text>
+        <text x={20} y={yStart + 19} fill={T.muted} fontSize={12} fontFamily="monospace">s</text>
         <rect x={35} y={yStart + 10} width={12} height={12} fill={T.eo_valence} rx={2} opacity={0.6} />
-        <text x={50} y={yStart + 19} fill={T.muted} fontSize={10} fontFamily="monospace">p</text>
+        <text x={50} y={yStart + 19} fill={T.muted} fontSize={12} fontFamily="monospace">p</text>
         <rect x={65} y={yStart + 10} width={12} height={12} fill={T.eo_core} rx={2} opacity={0.6} />
-        <text x={80} y={yStart + 19} fill={T.muted} fontSize={10} fontFamily="monospace">d</text>
+        <text x={80} y={yStart + 19} fill={T.muted} fontSize={12} fontFamily="monospace">d</text>
       </svg>
     );
   };
@@ -729,7 +729,7 @@ function AufbauPrincipleSection() {
       <AnalogyBox>
           Filling electron orbitals is like filling seats in a movie theater. Everyone wants the best seats (lowest energy) first. The front row fills before the back. But there's a twist — each seat can only hold two people (Pauli exclusion), and within each row, people spread out to separate seats before doubling up (Hund's rule). The order isn't always front-to-back either: sometimes the balcony (4s) fills before the back of the main floor (3d) because it's slightly more comfortable (lower energy).
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <div style={{ flexShrink: 0 }}>
         {renderSVG()}
       </div>
@@ -878,17 +878,17 @@ function ElectronOriginsZnTeSection() {
 
       return (
         <svg viewBox="0 0 340 320" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
-          <text x={170} y={18} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">
+          <text x={170} y={18} textAnchor="middle" fill={T.ink} fontSize={12} fontFamily="monospace" fontWeight="bold">
             {stage === 0 ? "Isolated Atoms: Zn + Te" : "Bond Formation"}
           </text>
 
           <circle cx={znDraw} cy={atomY} r={28} fill={T.eo_e} opacity={0.15} stroke={T.eo_e} strokeWidth={2} />
           <text x={znDraw} y={atomY + 4} textAnchor="middle" fill={T.eo_e} fontSize={12} fontFamily="monospace" fontWeight="bold">Zn</text>
-          <text x={znDraw} y={atomY + 18} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">30e⁻</text>
+          <text x={znDraw} y={atomY + 18} textAnchor="middle" fill={T.muted} fontSize={12} fontFamily="monospace">30e⁻</text>
 
           <circle cx={teDraw} cy={atomY} r={32} fill={T.eo_hole} opacity={0.15} stroke={T.eo_hole} strokeWidth={2} />
           <text x={teDraw} y={atomY + 4} textAnchor="middle" fill={T.eo_hole} fontSize={12} fontFamily="monospace" fontWeight="bold">Te</text>
-          <text x={teDraw} y={atomY + 18} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">52e⁻</text>
+          <text x={teDraw} y={atomY + 18} textAnchor="middle" fill={T.muted} fontSize={12} fontFamily="monospace">52e⁻</text>
 
           {znValenceElectrons.map((e, i) => {
             const ex = lerp(e.baseX, midX + (i - 0.5) * 8, bp);
@@ -896,7 +896,7 @@ function ElectronOriginsZnTeSection() {
             return (
               <g key={`zv${i}`}>
                 <circle cx={ex} cy={ey} r={5} fill={T.eo_e} opacity={0.8 + 0.2 * Math.sin(t + i)} />
-                <text x={ex} y={ey + 3} textAnchor="middle" fill="#fff" fontSize={11} fontFamily="monospace">e⁻</text>
+                <text x={ex} y={ey + 3} textAnchor="middle" fill="#fff" fontSize={13} fontFamily="monospace">e⁻</text>
               </g>
             );
           })}
@@ -906,7 +906,7 @@ function ElectronOriginsZnTeSection() {
             return (
               <g key={`tv${i}`}>
                 <circle cx={ex} cy={ey} r={5} fill={T.eo_hole} opacity={0.8 + 0.2 * Math.sin(t + i)} />
-                <text x={ex} y={ey + 3} textAnchor="middle" fill="#fff" fontSize={11} fontFamily="monospace">e⁻</text>
+                <text x={ex} y={ey + 3} textAnchor="middle" fill="#fff" fontSize={13} fontFamily="monospace">e⁻</text>
               </g>
             );
           })}
@@ -914,36 +914,36 @@ function ElectronOriginsZnTeSection() {
           {bp > 0.5 && (
             <g opacity={(bp - 0.5) * 2}>
               <ellipse cx={midX} cy={atomY} rx={35} ry={55} fill="none" stroke={T.eo_valence} strokeWidth={1.5} strokeDasharray="4,3" />
-              <text x={midX} y={atomY + 68} textAnchor="middle" fill={T.eo_valence} fontSize={10} fontFamily="monospace" fontWeight="bold">sp³ hybrid</text>
-              <text x={midX} y={atomY + 80} textAnchor="middle" fill={T.eo_valence} fontSize={10} fontFamily="monospace">2 + 6 = 8 valence e⁻</text>
+              <text x={midX} y={atomY + 68} textAnchor="middle" fill={T.eo_valence} fontSize={12} fontFamily="monospace" fontWeight="bold">sp³ hybrid</text>
+              <text x={midX} y={atomY + 80} textAnchor="middle" fill={T.eo_valence} fontSize={12} fontFamily="monospace">2 + 6 = 8 valence e⁻</text>
             </g>
           )}
 
-          <text x={znDraw} y={200} textAnchor="middle" fill={T.eo_e} fontSize={10} fontFamily="monospace">[Ar] 3d¹⁰ 4s²</text>
-          <text x={znDraw} y={212} textAnchor="middle" fill={T.eo_e} fontSize={10} fontFamily="monospace" fontWeight="bold">↑ valence: 4s²</text>
-          <text x={znDraw} y={224} textAnchor="middle" fill={T.eo_e} fontSize={10} fontFamily="monospace" fontWeight="bold">2 e⁻</text>
+          <text x={znDraw} y={200} textAnchor="middle" fill={T.eo_e} fontSize={12} fontFamily="monospace">[Ar] 3d¹⁰ 4s²</text>
+          <text x={znDraw} y={212} textAnchor="middle" fill={T.eo_e} fontSize={12} fontFamily="monospace" fontWeight="bold">↑ valence: 4s²</text>
+          <text x={znDraw} y={224} textAnchor="middle" fill={T.eo_e} fontSize={12} fontFamily="monospace" fontWeight="bold">2 e⁻</text>
 
-          <text x={teDraw} y={200} textAnchor="middle" fill={T.eo_hole} fontSize={10} fontFamily="monospace">[Kr] 4d¹⁰ 5s² 5p⁴</text>
-          <text x={teDraw} y={212} textAnchor="middle" fill={T.eo_hole} fontSize={10} fontFamily="monospace" fontWeight="bold">↑ valence: 5s²5p⁴</text>
-          <text x={teDraw} y={224} textAnchor="middle" fill={T.eo_hole} fontSize={10} fontFamily="monospace" fontWeight="bold">6 e⁻</text>
+          <text x={teDraw} y={200} textAnchor="middle" fill={T.eo_hole} fontSize={12} fontFamily="monospace">[Kr] 4d¹⁰ 5s² 5p⁴</text>
+          <text x={teDraw} y={212} textAnchor="middle" fill={T.eo_hole} fontSize={12} fontFamily="monospace" fontWeight="bold">↑ valence: 5s²5p⁴</text>
+          <text x={teDraw} y={224} textAnchor="middle" fill={T.eo_hole} fontSize={12} fontFamily="monospace" fontWeight="bold">6 e⁻</text>
 
           {stage === 1 && bondProgress < 0.01 && (
             <g onClick={() => setBonding(true)} style={{ cursor: "pointer" }}>
               <rect x={130} y={260} width={80} height={24} rx={4} fill={T.eo_valence} />
-              <text x={170} y={276} textAnchor="middle" fill="#fff" fontSize={10} fontFamily="monospace" fontWeight="bold">Form Bond</text>
+              <text x={170} y={276} textAnchor="middle" fill="#fff" fontSize={12} fontFamily="monospace" fontWeight="bold">Form Bond</text>
             </g>
           )}
 
           {bp >= 1 && (
             <g>
               <rect x={30} y={250} width={280} height={60} rx={6} fill={T.panel} stroke={T.border} strokeWidth={1} />
-              <text x={170} y={267} textAnchor="middle" fill={T.ink} fontSize={11} fontFamily="monospace" fontWeight="bold">Band Formation</text>
+              <text x={170} y={267} textAnchor="middle" fill={T.ink} fontSize={13} fontFamily="monospace" fontWeight="bold">Band Formation</text>
               <rect x={50} y={275} width={100} height={12} rx={3} fill={T.eo_valence} opacity={0.4} />
-              <text x={100} y={284} textAnchor="middle" fill={T.eo_valence} fontSize={10} fontFamily="monospace">Valence Band (4×↑↓=8e⁻)</text>
+              <text x={100} y={284} textAnchor="middle" fill={T.eo_valence} fontSize={12} fontFamily="monospace">Valence Band (4×↑↓=8e⁻)</text>
               <rect x={190} y={275} width={100} height={12} rx={3} fill={T.eo_cond} opacity={0.2} stroke={T.eo_cond} strokeDasharray="3,2" />
-              <text x={240} y={284} textAnchor="middle" fill={T.eo_cond} fontSize={10} fontFamily="monospace">Conduction Band (empty)</text>
+              <text x={240} y={284} textAnchor="middle" fill={T.eo_cond} fontSize={12} fontFamily="monospace">Conduction Band (empty)</text>
               <line x1={155} y1={278} x2={185} y2={278} stroke={T.eo_gap} strokeWidth={2} />
-              <text x={170} y={300} textAnchor="middle" fill={T.eo_gap} fontSize={10} fontFamily="monospace">Eg = 2.26 eV</text>
+              <text x={170} y={300} textAnchor="middle" fill={T.eo_gap} fontSize={12} fontFamily="monospace">Eg = 2.26 eV</text>
             </g>
           )}
         </svg>
@@ -961,7 +961,7 @@ function ElectronOriginsZnTeSection() {
       ];
       return (
         <svg viewBox="0 0 340 320" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
-          <text x={170} y={18} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">Unit Cell — 4 formula units</text>
+          <text x={170} y={18} textAnchor="middle" fill={T.ink} fontSize={12} fontFamily="monospace" fontWeight="bold">Unit Cell — 4 formula units</text>
           <rect x={ox} y={oy} width={unitSize * 2} height={unitSize * 2} fill="none" stroke={T.ink} strokeWidth={1.5} strokeDasharray="4,4" />
           {atoms.map((a, i) => {
             const col = a.type === "Zn" ? T.eo_e : T.eo_hole;
@@ -970,14 +970,14 @@ function ElectronOriginsZnTeSection() {
               <g key={i}>
                 <circle cx={ox + a.x} cy={oy + a.y} r={14 * pulse} fill={col} opacity={0.2} />
                 <circle cx={ox + a.x} cy={oy + a.y} r={10 * pulse} fill={col} opacity={0.6} />
-                <text x={ox + a.x} y={oy + a.y + 3.5} textAnchor="middle" fill="#fff" fontSize={10} fontFamily="monospace" fontWeight="bold">{a.type}</text>
+                <text x={ox + a.x} y={oy + a.y + 3.5} textAnchor="middle" fill="#fff" fontSize={12} fontFamily="monospace" fontWeight="bold">{a.type}</text>
               </g>
             );
           })}
-          <text x={170} y={230} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">4 Zn + 4 Te = 4 formula units</text>
-          <text x={170} y={248} textAnchor="middle" fill={T.eo_valence} fontSize={10} fontFamily="monospace">4 × 8 = 32 valence electrons</text>
-          <text x={170} y={268} textAnchor="middle" fill={T.muted} fontSize={11} fontFamily="monospace">Each formula unit contributes 8 e⁻ to bands</text>
-          <text x={170} y={288} textAnchor="middle" fill={T.eo_e} fontSize={10} fontFamily="monospace">Zn: 4×2=8 e⁻ | Te: 4×6=24 e⁻ | Total=32</text>
+          <text x={170} y={230} textAnchor="middle" fill={T.ink} fontSize={12} fontFamily="monospace" fontWeight="bold">4 Zn + 4 Te = 4 formula units</text>
+          <text x={170} y={248} textAnchor="middle" fill={T.eo_valence} fontSize={12} fontFamily="monospace">4 × 8 = 32 valence electrons</text>
+          <text x={170} y={268} textAnchor="middle" fill={T.muted} fontSize={13} fontFamily="monospace">Each formula unit contributes 8 e⁻ to bands</text>
+          <text x={170} y={288} textAnchor="middle" fill={T.eo_e} fontSize={12} fontFamily="monospace">Zn: 4×2=8 e⁻ | Te: 4×6=24 e⁻ | Total=32</text>
         </svg>
       );
     }
@@ -995,17 +995,17 @@ function ElectronOriginsZnTeSection() {
       }
       return (
         <svg viewBox="0 0 340 320" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
-          <text x={170} y={15} textAnchor="middle" fill={T.ink} fontSize={11} fontFamily="monospace" fontWeight="bold">2×2×2 Supercell — 64 atoms</text>
+          <text x={170} y={15} textAnchor="middle" fill={T.ink} fontSize={13} fontFamily="monospace" fontWeight="bold">2×2×2 Supercell — 64 atoms</text>
           <rect x={10} y={15} width={320} height={245} fill="none" stroke={T.ink} strokeWidth={1.5} strokeDasharray="6,4" rx={4} />
-          <text x={24} y={27} fill={T.muted} fontSize={11} fontFamily="monospace">2×2×2</text>
+          <text x={24} y={27} fill={T.muted} fontSize={13} fontFamily="monospace">2×2×2</text>
           {dots.slice(0, 32).map((d, i) => {
             const col = d.type === "Zn" ? T.eo_e : T.eo_hole;
             const o = 0.5 + 0.3 * Math.sin(t + i * 0.5);
             return <circle key={i} cx={d.x} cy={d.y + 10} r={5} fill={col} opacity={o} />;
           })}
-          <text x={170} y={270} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">32 Zn + 32 Te = 64 atoms</text>
-          <text x={170} y={288} textAnchor="middle" fill={T.eo_valence} fontSize={10} fontFamily="monospace">32×2 + 32×6 = 256 valence e⁻</text>
-          <text x={170} y={306} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">Total valence electrons = 256</text>
+          <text x={170} y={270} textAnchor="middle" fill={T.ink} fontSize={12} fontFamily="monospace" fontWeight="bold">32 Zn + 32 Te = 64 atoms</text>
+          <text x={170} y={288} textAnchor="middle" fill={T.eo_valence} fontSize={12} fontFamily="monospace">32×2 + 32×6 = 256 valence e⁻</text>
+          <text x={170} y={306} textAnchor="middle" fill={T.muted} fontSize={12} fontFamily="monospace">Total valence electrons = 256</text>
         </svg>
       );
     }
@@ -1017,9 +1017,9 @@ function ElectronOriginsZnTeSection() {
       const kPoints = 12;
       return (
         <svg viewBox="0 0 340 320" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
-          <text x={170} y={18} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">Band Structure from Electrons</text>
+          <text x={170} y={18} textAnchor="middle" fill={T.ink} fontSize={12} fontFamily="monospace" fontWeight="bold">Band Structure from Electrons</text>
           <line x1={40} y1={30} x2={40} y2={280} stroke={T.ink} strokeWidth={1} />
-          <text x={15} y={145} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace" transform="rotate(-90,15,145)">Energy</text>
+          <text x={15} y={145} textAnchor="middle" fill={T.muted} fontSize={12} fontFamily="monospace" transform="rotate(-90,15,145)">Energy</text>
           <line x1={40} y1={280} x2={310} y2={280} stroke={T.ink} strokeWidth={1} />
 
           {[...Array(4)].map((_, band) => {
@@ -1043,12 +1043,12 @@ function ElectronOriginsZnTeSection() {
           })}
 
           <rect x={50} y={vbTop} width={240} height={90} fill={T.eo_valence} opacity={0.06} />
-          <text x={300} y={vbTop + 50} textAnchor="end" fill={T.eo_valence} fontSize={10} fontFamily="monospace">VB (filled)</text>
+          <text x={300} y={vbTop + 50} textAnchor="end" fill={T.eo_valence} fontSize={12} fontFamily="monospace">VB (filled)</text>
           <rect x={50} y={cbBot - 80} width={240} height={80} fill={T.eo_cond} opacity={0.04} />
-          <text x={300} y={cbBot - 40} textAnchor="end" fill={T.eo_cond} fontSize={10} fontFamily="monospace">CB (empty)</text>
+          <text x={300} y={cbBot - 40} textAnchor="end" fill={T.eo_cond} fontSize={12} fontFamily="monospace">CB (empty)</text>
 
           <line x1={160} y1={vbTop} x2={160} y2={cbBot} stroke={T.eo_gap} strokeWidth={2} />
-          <text x={170} y={bandY + 3} textAnchor="start" fill={T.eo_gap} fontSize={11} fontFamily="monospace" fontWeight="bold">Eg</text>
+          <text x={170} y={bandY + 3} textAnchor="start" fill={T.eo_gap} fontSize={13} fontFamily="monospace" fontWeight="bold">Eg</text>
 
           {[...Array(8)].map((_, i) => {
             const eky = vbTop + 20 + Math.sin(t + i) * 8;
@@ -1056,10 +1056,10 @@ function ElectronOriginsZnTeSection() {
             return <circle key={i} cx={ekx} cy={eky} r={2.5} fill={T.eo_e} opacity={0.6 + 0.3 * Math.sin(t + i)} />;
           })}
 
-          <text x={170} y={295} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">
+          <text x={170} y={295} textAnchor="middle" fill={T.muted} fontSize={12} fontFamily="monospace">
             Each dot = electron from Zn or Te atom
           </text>
-          <text x={170} y={310} textAnchor="middle" fill={T.ink} fontSize={10} fontFamily="monospace" fontWeight="bold">
+          <text x={170} y={310} textAnchor="middle" fill={T.ink} fontSize={12} fontFamily="monospace" fontWeight="bold">
             ALL band electrons came from atoms!
           </text>
         </svg>
@@ -1074,7 +1074,7 @@ function ElectronOriginsZnTeSection() {
       <AnalogyBox>
           Think of Zn and Te atoms as two people bringing ingredients to a potluck. Zinc brings 2 outer electrons (from its 4s orbital), and Tellurium brings 6 (from 5s and 5p). When they combine in a crystal, they pool their electrons into shared 'community bowls' — the valence and conduction bands. The valence band is the main dish everyone eats from (full), and the conduction band is dessert that nobody has reached yet (empty).
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <div style={{ flexShrink: 0 }}>
         {renderSVG()}
       </div>
@@ -1219,14 +1219,14 @@ function WaveDualitySection() {
       <rect key="b1" x={barrX - 4} y={0}          width={8} height={s1Y - 8}        fill="#334155" />,
       <rect key="b2" x={barrX - 4} y={s1Y + 8}    width={8} height={s2Y - s1Y - 16} fill="#334155" />,
       <rect key="b3" x={barrX - 4} y={s2Y + 8}    width={8} height={H - s2Y - 8}    fill="#334155" />,
-      <text key="blbl" x={barrX} y={16} textAnchor="middle" fontSize={11} fill="#64748b">barrier</text>,
-      <text key="s1l"  x={barrX + 14} y={s1Y + 3}  fontSize={10} fill="#94a3b8">slit 1</text>,
-      <text key="s2l"  x={barrX + 14} y={s2Y + 3}  fontSize={10} fill="#94a3b8">slit 2</text>,
+      <text key="blbl" x={barrX} y={16} textAnchor="middle" fontSize={13} fill="#64748b">barrier</text>,
+      <text key="s1l"  x={barrX + 14} y={s1Y + 3}  fontSize={12} fill="#94a3b8">slit 1</text>,
+      <text key="s2l"  x={barrX + 14} y={s2Y + 3}  fontSize={12} fill="#94a3b8">slit 2</text>,
     );
 
     // Screen + label
     els.push(
-      <text key="scrlbl" x={scrX + 5} y={16} textAnchor="middle" fontSize={11} fill="#64748b">screen</text>,
+      <text key="scrlbl" x={scrX + 5} y={16} textAnchor="middle" fontSize={13} fill="#64748b">screen</text>,
     );
 
     const interfProb = (y) => {
@@ -1277,7 +1277,7 @@ function WaveDualitySection() {
             <circle key="glow2" cx={gx} cy={gy} r={18} fill="#3b82f6" opacity={0.05} />,
             <circle key="glow1" cx={gx} cy={gy} r={10} fill="#3b82f6" opacity={0.12} />,
             <circle key="ghost" cx={gx} cy={gy} r={5}  fill="#3b82f6" opacity={0.45} />,
-            <text key="psi" x={gx} y={gy - 14} textAnchor="middle" fontSize={11} fill="#3b82f6" opacity={0.8}>ψ</text>,
+            <text key="psi" x={gx} y={gy - 14} textAnchor="middle" fontSize={13} fill="#3b82f6" opacity={0.8}>ψ</text>,
           );
           // Trail
           for (let k = 1; k <= 5; k++) {
@@ -1325,7 +1325,7 @@ function WaveDualitySection() {
     // Source
     els.push(
       <circle key="src"    cx={srcX} cy={srcY} r={9} fill="#3b82f6" opacity={0.85} />,
-      <text   key="srclbl" x={srcX}  y={srcY + 20} textAnchor="middle" fontSize={11} fill="#64748b">gun</text>,
+      <text   key="srclbl" x={srcX}  y={srcY + 20} textAnchor="middle" fontSize={13} fill="#64748b">gun</text>,
     );
 
     return els;
@@ -1551,17 +1551,17 @@ function SchrodingerSection() {
       <AnalogyBox>
           The Schr&ouml;dinger equation is like a recipe book for quantum mechanics. Give it the 'kitchen setup' (potential energy landscape) and it tells you every possible 'dish' (wavefunction) the electron can make, along with its 'calorie count' (energy). The wavefunction isn't the electron itself — it's a probability cloud showing where the electron is likely to be found, like a heat map of a cat's favorite napping spots in your house.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       {/* LEFT: SVG */}
       <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 320 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 320 }}>
-          <text x={160} y={16} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight="bold">
+          <text x={160} y={16} textAnchor="middle" fontSize={13} fill={T.ink} fontWeight="bold">
             Hydrogen Atom {"—"} {orb.name} orbital
           </text>
 
           {/* Nucleus */}
           <circle cx={cx} cy={cy} r={5} fill={T.eo_hole} />
-          <text x={cx} y={cy + 3} textAnchor="middle" fill="#fff" fontSize={10} fontWeight="bold">H{"⁺"}</text>
+          <text x={cx} y={cy + 3} textAnchor="middle" fill="#fff" fontSize={12} fontWeight="bold">H{"⁺"}</text>
 
           {/* Orbital shells (dashed circles for reference) */}
           {[1, 2, 3, 4].map(n => {
@@ -1578,17 +1578,17 @@ function SchrodingerSection() {
           {!showPsi2 && (
             <g>
               <line x1={40} y1={290} x2={280} y2={290} stroke={T.dim} strokeWidth={0.5} />
-              <text x={280} y={300} fontSize={11} fill={T.muted}>r</text>
-              <text x={25} y={250} fontSize={11} fill={T.muted} transform="rotate(-90,25,250)">R(r){"²"}{"·"}r{"²"}</text>
+              <text x={280} y={300} fontSize={13} fill={T.muted}>r</text>
+              <text x={25} y={250} fontSize={13} fill={T.muted} transform="rotate(-90,25,250)">R(r){"²"}{"·"}r{"²"}</text>
               <path d={radialCurve.join(" ")} fill="none" stroke={T.eo_valence} strokeWidth={2} />
               {/* Most probable radius marker (at actual peak) */}
               <line x1={40 + (orb.peakR / rMax) * 240} y1={195} x2={40 + (orb.peakR / rMax) * 240} y2={295} stroke={T.eo_gap} strokeWidth={1} strokeDasharray="3,2" />
-              <text x={40 + (orb.peakR / rMax) * 240} y={193} textAnchor="middle" fontSize={10} fill={T.eo_gap}>r{"ₘₐₓ"} = {orb.peakPm} pm</text>
+              <text x={40 + (orb.peakR / rMax) * 240} y={193} textAnchor="middle" fontSize={12} fill={T.eo_gap}>r{"ₘₐₓ"} = {orb.peakPm} pm</text>
               {/* Node markers (where probability = 0) */}
               {orb.nodes.map((nd, ni) => (
                 <g key={ni}>
                   <line x1={40 + (nd.r / rMax) * 240} y1={280} x2={40 + (nd.r / rMax) * 240} y2={295} stroke={T.eo_hole} strokeWidth={1} opacity={0.7} />
-                  <text x={40 + (nd.r / rMax) * 240} y={278} textAnchor="middle" fontSize={10} fill={T.eo_hole}>node</text>
+                  <text x={40 + (nd.r / rMax) * 240} y={278} textAnchor="middle" fontSize={12} fill={T.eo_hole}>node</text>
                 </g>
               ))}
             </g>
@@ -1596,7 +1596,7 @@ function SchrodingerSection() {
 
           {/* Energy level diagram (right side) */}
           <rect x={255} y={22} width={60} height={200} rx={4} fill={T.bg} stroke={T.border} strokeWidth={0.5} />
-          <text x={285} y={34} textAnchor="middle" fontSize={10} fill={T.muted}>Energy (eV)</text>
+          <text x={285} y={34} textAnchor="middle" fontSize={12} fill={T.muted}>Energy (eV)</text>
           {[1, 2, 3, 4].map(n => {
             const eN = energyN(n);
             const yE = 42 + (1 - (eN + 13.6) / 13.6) * 160;
@@ -1604,14 +1604,14 @@ function SchrodingerSection() {
             return (
               <g key={n} onClick={() => setNQ(n)} style={{ cursor: "pointer" }}>
                 <line x1={261} y1={yE} x2={305} y2={yE} stroke={isSel ? T.eo_valence : T.dim} strokeWidth={isSel ? 2 : 1} />
-                <text x={309} y={yE + 3} fontSize={10} fill={isSel ? T.eo_valence : T.muted}>n={n}</text>
-                <text x={259} y={yE + 3} textAnchor="end" fontSize={10} fill={isSel ? T.eo_valence : T.muted}>{eN.toFixed(1)}</text>
+                <text x={309} y={yE + 3} fontSize={12} fill={isSel ? T.eo_valence : T.muted}>n={n}</text>
+                <text x={259} y={yE + 3} textAnchor="end" fontSize={12} fill={isSel ? T.eo_valence : T.muted}>{eN.toFixed(1)}</text>
               </g>
             );
           })}
-          <text x={259} y={213} textAnchor="end" fontSize={10} fill={T.muted}>0 eV</text>
+          <text x={259} y={213} textAnchor="end" fontSize={12} fill={T.muted}>0 eV</text>
           <line x1={261} y1={208} x2={305} y2={208} stroke={T.dim} strokeWidth={0.5} strokeDasharray="2,2" />
-          <text x={285} y={218} textAnchor="middle" fontSize={10} fill={T.eo_gap}>free</text>
+          <text x={285} y={218} textAnchor="middle" fontSize={12} fill={T.eo_gap}>free</text>
         </svg>
 
         <div style={{ marginTop: 8, display: "flex", gap: 8, justifyContent: "center" }}>
@@ -1870,7 +1870,7 @@ function QuantumNumbersSection() {
       <AnalogyBox>
           Quantum numbers are like an address system for electrons. The principal quantum number (n) is the city (energy level). The angular momentum number (l) is the street (orbital shape: s, p, d, f). The magnetic number (ml) is the house number (orientation in space). The spin number (ms) is which side of the bed you sleep on (up or down). No two electrons can have the same full address — that's the Pauli exclusion principle.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       {/* LEFT: SVG */}
       <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 320 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 320 }}>
@@ -1879,21 +1879,21 @@ function QuantumNumbersSection() {
               {/* Axes */}
               <line x1={cx} y1={30} x2={cx} y2={290} stroke={T.dim} strokeWidth={0.5} strokeDasharray="3,3" />
               <line x1={30} y1={cy} x2={290} y2={cy} stroke={T.dim} strokeWidth={0.5} strokeDasharray="3,3" />
-              <text x={cx + 4} y={28} fontSize={11} fill={T.muted}>z</text>
-              <text x={292} y={cy - 4} fontSize={11} fill={T.muted}>x</text>
+              <text x={cx + 4} y={28} fontSize={13} fill={T.muted}>z</text>
+              <text x={292} y={cy - 4} fontSize={13} fill={T.muted}>x</text>
               {drawOrbital()}
               <text x={cx} y={308} fontSize={14} fill={T.eo_e} textAnchor="middle" fontWeight="bold">
                 {orbitalName} (m_l={ml})
               </text>
               <rect x={10} y={10} width={10} height={10} fill={`${T.eo_e}99`} rx={2} />
-              <text x={24} y={19} fontSize={11} fill={T.muted}>+ lobe</text>
+              <text x={24} y={19} fontSize={13} fill={T.muted}>+ lobe</text>
               <rect x={10} y={24} width={10} height={10} fill={`${T.eo_hole}99`} rx={2} />
-              <text x={24} y={33} fontSize={11} fill={T.muted}>{"−"} lobe</text>
+              <text x={24} y={33} fontSize={13} fill={T.muted}>{"−"} lobe</text>
             </g>
           ) : (
             <g>
               {/* Show all orbitals for selected n */}
-              <text x={160} y={16} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight="bold">
+              <text x={160} y={16} textAnchor="middle" fontSize={13} fill={T.ink} fontWeight="bold">
                 All orbitals for n={n}
               </text>
               {Array.from({ length: n }, (_, li) => {
@@ -1903,7 +1903,7 @@ function QuantumNumbersSection() {
                 const rowY = 40 + li * 72;
                 return (
                   <g key={li}>
-                    <text x={10} y={rowY + 30} fontSize={10} fill={[T.eo_e, T.eo_valence, T.eo_core, T.eo_photon][li]} fontWeight="bold">
+                    <text x={10} y={rowY + 30} fontSize={12} fill={[T.eo_e, T.eo_valence, T.eo_core, T.eo_photon][li]} fontWeight="bold">
                       {n}{subName}
                     </text>
                     {Array.from({ length: mlCount }, (_, mi) => {
@@ -1944,7 +1944,7 @@ function QuantumNumbersSection() {
                             </g>
                           )}
                           <circle cx={orbCx} cy={orbCy} r={2} fill={T.ink} />
-                          <text x={orbCx} y={orbCy + orbSize + 12} textAnchor="middle" fontSize={10} fill={T.muted}>
+                          <text x={orbCx} y={orbCy + orbSize + 12} textAnchor="middle" fontSize={12} fill={T.muted}>
                             m{"ₗ"}={mlVal > 0 ? `+${mlVal}` : mlVal}
                           </text>
                         </g>
@@ -2181,19 +2181,19 @@ function PeriodicTrendsSection() {
       <AnalogyBox>
           The periodic table is like a seating chart that reveals personality. Moving left to right across a row, atoms grip their electrons tighter (higher ionization energy) and shrink in size — like a crowd squeezing into fewer seats. Moving down a column, atoms get larger and hold electrons more loosely — like moving from a cramped apartment to a mansion where you lose track of your belongings. These trends predict how atoms will bond, react, and behave in materials.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       {/* LEFT: SVG */}
       <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           {/* Title */}
-          <text x={170} y={14} fontSize={10} fill={T.muted} textAnchor="middle" fontWeight="bold">
+          <text x={170} y={14} fontSize={12} fill={T.muted} textAnchor="middle" fontWeight="bold">
             {pc.label} Heatmap
           </text>
 
           {/* Column headers (group labels) */}
           {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((c) => (
             <text key={`ch-${c}`} x={offsetX + c * cellW + cellW / 2} y={offsetY + 8}
-              fontSize={10} fill={T.dim} textAnchor="middle">
+              fontSize={12} fill={T.dim} textAnchor="middle">
               {c <= 1 ? c + 1 : c + 11}
             </text>
           ))}
@@ -2212,7 +2212,7 @@ function PeriodicTrendsSection() {
                 <rect x={x} y={y} width={cellW - 2} height={cellH - 2} rx={3}
                   fill={color} stroke={isSel ? T.ink : T.border} strokeWidth={isSel ? 2 : 0.5} />
                 <text x={x + (cellW - 2) / 2} y={y + (cellH - 2) / 2 + 1}
-                  fontSize={11} fill={T.ink} textAnchor="middle" dominantBaseline="middle"
+                  fontSize={13} fill={T.ink} textAnchor="middle" dominantBaseline="middle"
                   fontWeight={isSel ? "bold" : "normal"}>
                   {sym}
                 </text>
@@ -2229,14 +2229,14 @@ function PeriodicTrendsSection() {
             </linearGradient>
           </defs>
           <rect x={60} y={285} width={220} height={10} rx={3} fill="url(#heatGrad)" stroke={T.border} strokeWidth={0.5} />
-          <text x={60} y={308} fontSize={11} fill={T.muted}>{pc.min.toFixed(1)}</text>
-          <text x={280} y={308} fontSize={11} fill={T.muted} textAnchor="end">{pc.max.toFixed(1)}</text>
-          <text x={170} y={308} fontSize={11} fill={T.muted} textAnchor="middle">{pc.unit}</text>
+          <text x={60} y={308} fontSize={13} fill={T.muted}>{pc.min.toFixed(1)}</text>
+          <text x={280} y={308} fontSize={13} fill={T.muted} textAnchor="end">{pc.max.toFixed(1)}</text>
+          <text x={170} y={308} fontSize={13} fill={T.muted} textAnchor="middle">{pc.unit}</text>
 
           {/* Trend arrows */}
           <g>
-            <text x={310} y={offsetY + 30} fontSize={11} fill={T.eo_gap} textAnchor="middle">{"↓"}</text>
-            <text x={170} y={offsetY + 168} fontSize={11} fill={T.eo_gap} textAnchor="middle">{"→"}</text>
+            <text x={310} y={offsetY + 30} fontSize={13} fill={T.eo_gap} textAnchor="middle">{"↓"}</text>
+            <text x={170} y={offsetY + 168} fontSize={13} fill={T.eo_gap} textAnchor="middle">{"→"}</text>
           </g>
         </svg>
       </div>
@@ -2432,7 +2432,7 @@ function AtomSection() {
       <AnalogyBox>
           An atom is like a tiny solar system — but weirder. The nucleus (sun) contains nearly all the mass, and electrons (planets) orbit around it. But unlike planets, electrons don't have fixed orbits. Instead, they exist as fuzzy probability clouds — imagine a blurred long-exposure photo of a firefly. The electron could be anywhere in that cloud, but some regions are much more likely than others. Those likely regions are what we call orbitals.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       {/* Atom selector */}
       <div style={{ display: "flex", flexDirection: "column", gap: 8, minWidth: 80 }}>
         {atoms.map((at, i) => (
@@ -2462,7 +2462,7 @@ function AtomSection() {
         {/* Nucleus */}
         <circle cx={cx} cy={cy} r={20} fill={a.color + "33"} stroke={a.color} strokeWidth={2} />
         <text x={cx} y={cy - 4} textAnchor="middle" fill={a.color} fontSize={13} fontWeight="bold">{a.sym}</text>
-        <text x={cx} y={cy + 10} textAnchor="middle" fill={T.muted} fontSize={10}>Z={a.Z}</text>
+        <text x={cx} y={cy + 10} textAnchor="middle" fill={T.muted} fontSize={12}>Z={a.Z}</text>
         {/* Electrons on each shell */}
         {a.shells.map((count, si) => {
           const r = radii[si];
@@ -2489,7 +2489,7 @@ function AtomSection() {
         {a.shells.map((_, i) => (
           <text key={i} x={cx + radii[i] + 4} y={cy - 4}
             fill={i === a.shells.length - 1 ? a.color : T.muted}
-            fontSize={11} fontWeight={i === a.shells.length - 1 ? 700 : 400}>
+            fontSize={13} fontWeight={i === a.shells.length - 1 ? 700 : 400}>
             {a.labels[i]}
           </text>
         ))}
@@ -2625,7 +2625,7 @@ function ChemicalBondingSection() {
       <AnalogyBox>
           Chemical bonding is like sharing or stealing toys. In an ionic bond (NaCl), one atom steals an electron from another — like a bully taking a toy, creating a positive and negative ion that attract. In a covalent bond (Si), atoms share electrons equally — like kids sharing toys nicely. In a metallic bond (Cu), everyone throws their toys into a communal pile that all atoms share — that's the electron sea. The type of sharing determines everything: hardness, conductivity, melting point.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <div style={{ minWidth: 340 }}>
         <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <defs>
@@ -2648,7 +2648,7 @@ function ChemicalBondingSection() {
               <text x={120} y={125} textAnchor="middle" fontSize={12} fontWeight={700} fill="#fff">Si</text>
               <circle cx={220} cy={120} r={28} fill={T.eo_valence} opacity={0.85} />
               <text x={220} y={125} textAnchor="middle" fontSize={12} fontWeight={700} fill="#fff">Si</text>
-              <text x={170} y={170} textAnchor="middle" fontSize={11} fill={T.muted}>Equal sharing</text>
+              <text x={170} y={170} textAnchor="middle" fontSize={13} fill={T.muted}>Equal sharing</text>
           </>)}
 
           {/* === POLAR COVALENT === */}
@@ -2663,14 +2663,14 @@ function ChemicalBondingSection() {
               <text x={110} y={92} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.eo_hole}>{"δ+"}</text>
               <text x={230} y={86} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.eo_e}>{"δ−"}</text>
               <line x1={140} y1={155} x2={200} y2={155} stroke={T.muted} strokeWidth={1.5} markerEnd="url(#arrowPolar)" />
-              <text x={170} y={168} textAnchor="middle" fontSize={11} fill={T.muted}>Dipole moment</text>
+              <text x={170} y={168} textAnchor="middle" fontSize={13} fill={T.muted}>Dipole moment</text>
           </>)}
 
           {/* === IONIC === */}
           {bondType === "Ionic" && (<>
               <line x1={140} y1={120} x2={190} y2={120} stroke={T.eo_gap} strokeWidth={2} strokeDasharray="6,3" markerEnd="url(#arrowIonic)" />
               <line x1={200} y1={120} x2={150} y2={120} stroke={T.eo_gap} strokeWidth={2} strokeDasharray="6,3" markerEnd="url(#arrowIonic)" />
-              <text x={170} y={112} textAnchor="middle" fontSize={10} fill={T.eo_gap}>Coulomb</text>
+              <text x={170} y={112} textAnchor="middle" fontSize={12} fill={T.eo_gap}>Coulomb</text>
               <circle cx={100} cy={120} r={20} fill={T.eo_hole} opacity={0.85} />
               <text x={100} y={125} textAnchor="middle" fontSize={12} fontWeight={700} fill="#fff">Na</text>
               <text x={100} y={90} textAnchor="middle" fontSize={18} fontWeight={700} fill={T.eo_hole}>+</text>
@@ -2678,8 +2678,8 @@ function ChemicalBondingSection() {
               <text x={240} y={125} textAnchor="middle" fontSize={12} fontWeight={700} fill="#fff">Cl</text>
               <text x={240} y={82} textAnchor="middle" fontSize={18} fontWeight={700} fill={T.eo_e}>{"−"}</text>
               <circle cx={240 + 10 * Math.sin(frame * 0.15)} cy={95 + 6 * Math.cos(frame * 0.2)} r={5 * pulse} fill={T.eo_e} opacity={0.6} />
-              <text x={240 + 10 * Math.sin(frame * 0.15)} y={95 + 6 * Math.cos(frame * 0.2) - 8} textAnchor="middle" fontSize={10} fill={T.muted}>{"e⁻"}</text>
-              <text x={170} y={170} textAnchor="middle" fontSize={11} fill={T.muted}>Complete electron transfer</text>
+              <text x={240 + 10 * Math.sin(frame * 0.15)} y={95 + 6 * Math.cos(frame * 0.2) - 8} textAnchor="middle" fontSize={12} fill={T.muted}>{"e⁻"}</text>
+              <text x={170} y={170} textAnchor="middle" fontSize={13} fill={T.muted}>Complete electron transfer</text>
           </>)}
 
           {/* === METALLIC === */}
@@ -2691,8 +2691,8 @@ function ChemicalBondingSection() {
                 {metalAtoms.map((ax, i) => (
                   <g key={i}>
                     <circle cx={ax} cy={110} r={22} fill={T.eo_core} opacity={0.8} />
-                    <text x={ax} y={115} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff">Cu</text>
-                    <text x={ax} y={90} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_core}>+</text>
+                    <text x={ax} y={115} textAnchor="middle" fontSize={13} fontWeight={700} fill="#fff">Cu</text>
+                    <text x={ax} y={90} textAnchor="middle" fontSize={12} fontWeight={600} fill={T.eo_core}>+</text>
                   </g>
                 ))}
                 {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
@@ -2700,8 +2700,8 @@ function ChemicalBondingSection() {
                   const ey = 135 + 10 * Math.sin(frame * 0.08 + i * 1.2);
                   return <circle key={i} cx={ex} cy={ey} r={3.5} fill={T.eo_e} opacity={0.7} />;
                 })}
-                <text x={170} y={80} textAnchor="middle" fontSize={11} fill={T.muted}>Positive ion cores</text>
-                <text x={170} y={178} textAnchor="middle" fontSize={11} fill={T.eo_e}>Delocalized electron sea</text>
+                <text x={170} y={80} textAnchor="middle" fontSize={13} fill={T.muted}>Positive ion cores</text>
+                <text x={170} y={178} textAnchor="middle" fontSize={13} fill={T.eo_e}>Delocalized electron sea</text>
             </>);
           })()}
 
@@ -2712,35 +2712,35 @@ function ChemicalBondingSection() {
                 <circle cx={80} cy={115} r={20} fill={T.eo_valence} opacity={0.8} />
                 <circle cx={120} cy={115} r={20} fill={T.eo_core} opacity={0.8} />
                 <line x1={95} y1={115} x2={105} y2={115} stroke="#fff" strokeWidth={3} />
-                <text x={80} y={119} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff">H</text>
-                <text x={120} y={119} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff">Cl</text>
-                <text x={80} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_hole} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"δ+"}</text>
-                <text x={120} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_e} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"δ−"}</text>
+                <text x={80} y={119} textAnchor="middle" fontSize={13} fontWeight={700} fill="#fff">H</text>
+                <text x={120} y={119} textAnchor="middle" fontSize={13} fontWeight={700} fill="#fff">Cl</text>
+                <text x={80} y={95} textAnchor="middle" fontSize={12} fontWeight={600} fill={T.eo_hole} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"δ+"}</text>
+                <text x={120} y={95} textAnchor="middle" fontSize={12} fontWeight={600} fill={T.eo_e} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"δ−"}</text>
                 <ellipse cx={100 + dipoleShift} cy={115} rx={30 * pulse} ry={18 * pulse} fill={T.eo_e} opacity={0.1} stroke={T.eo_e} strokeWidth={0.8} strokeDasharray="3,3" />
                 <line x1={142} y1={115} x2={198} y2={115} stroke={T.muted} strokeWidth={1.5} strokeDasharray="3,4" opacity={0.5 + 0.3 * Math.sin(frame * 0.06)} />
-                <text x={170} y={108} textAnchor="middle" fontSize={10} fill={T.dim}>weak</text>
+                <text x={170} y={108} textAnchor="middle" fontSize={12} fill={T.dim}>weak</text>
                 <circle cx={220} cy={115} r={20} fill={T.eo_valence} opacity={0.8} />
                 <circle cx={260} cy={115} r={20} fill={T.eo_core} opacity={0.8} />
                 <line x1={235} y1={115} x2={245} y2={115} stroke="#fff" strokeWidth={3} />
-                <text x={220} y={119} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff">H</text>
-                <text x={260} y={119} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff">Cl</text>
-                <text x={220} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_e} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"δ−"}</text>
-                <text x={260} y={95} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_hole} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"δ+"}</text>
+                <text x={220} y={119} textAnchor="middle" fontSize={13} fontWeight={700} fill="#fff">H</text>
+                <text x={260} y={119} textAnchor="middle" fontSize={13} fontWeight={700} fill="#fff">Cl</text>
+                <text x={220} y={95} textAnchor="middle" fontSize={12} fontWeight={600} fill={T.eo_e} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"δ−"}</text>
+                <text x={260} y={95} textAnchor="middle" fontSize={12} fontWeight={600} fill={T.eo_hole} opacity={0.5 + 0.3 * Math.sin(frame * 0.08)}>{"δ+"}</text>
                 <ellipse cx={240 - dipoleShift} cy={115} rx={30 * pulse} ry={18 * pulse} fill={T.eo_e} opacity={0.1} stroke={T.eo_e} strokeWidth={0.8} strokeDasharray="3,3" />
-                <text x={170} y={155} textAnchor="middle" fontSize={11} fill={T.muted}>Fluctuating dipoles induce attraction</text>
+                <text x={170} y={155} textAnchor="middle" fontSize={13} fill={T.muted}>Fluctuating dipoles induce attraction</text>
             </>);
           })()}
 
           {/* Bond energy diagram */}
-          <text x={20} y={200} fontSize={11} fontWeight={600} fill={T.ink}>
+          <text x={20} y={200} fontSize={13} fontWeight={600} fill={T.ink}>
             Bond Energy Diagram
           </text>
           <line x1={40} y1={210} x2={40} y2={300} stroke={T.muted} strokeWidth={1} />
           <line x1={40} y1={300} x2={310} y2={300} stroke={T.muted} strokeWidth={1} />
-          <text x={15} y={255} fontSize={11} fill={T.muted} transform="rotate(-90,15,255)">
+          <text x={15} y={255} fontSize={13} fill={T.muted} transform="rotate(-90,15,255)">
             E (eV)
           </text>
-          <text x={175} y={315} fontSize={11} fill={T.muted} textAnchor="middle">
+          <text x={175} y={315} fontSize={13} fill={T.muted} textAnchor="middle">
             Distance (A)
           </text>
 
@@ -2758,7 +2758,7 @@ function ChemicalBondingSection() {
             return <path d={pts.join(" ")} fill="none" stroke={T.eo_e} strokeWidth={2} />;
           })()}
 
-          <text x={100} y={295} fontSize={11} fill={T.eo_gap}>
+          <text x={100} y={295} fontSize={13} fill={T.eo_gap}>
             E_bond = {bondEnergy.toFixed(1)} eV
           </text>
         </svg>
@@ -2973,7 +2973,7 @@ function HybridizationSection() {
       <AnalogyBox>
           {`Hybridization is like mixing paint colors. A carbon atom has separate s and p orbitals (like separate red, blue, yellow paints). But when it bonds, it blends them into hybrid orbitals (like mixing paints to get new colors). sp³ hybridization mixes 1s + 3p to create 4 identical orbitals pointing to the corners of a tetrahedron — this is why methane (CH₄) and diamond have their specific shapes. The mixing happens because hybrid orbitals overlap better with neighbors, making stronger bonds.`}
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <div style={{ minWidth: 340 }}>
         <svg viewBox="0 0 340 340" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <text x={170} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
@@ -3005,7 +3005,7 @@ function HybridizationSection() {
                 />
                 <line x1={ctrX} y1={ctrY} x2={ex} y2={ey} stroke={data.colors[i]} strokeWidth={2} opacity={0.6 * mixT} />
                 {mixT > 0.8 && (
-                  <text x={ex + Math.cos(rad) * 12} y={ey + Math.sin(rad) * 12} textAnchor="middle" fontSize={11} fill={data.colors[i]}>
+                  <text x={ex + Math.cos(rad) * 12} y={ey + Math.sin(rad) * 12} textAnchor="middle" fontSize={13} fill={data.colors[i]}>
                     {hybridType}
                   </text>
                 )}
@@ -3018,13 +3018,13 @@ function HybridizationSection() {
 
           {/* Angle label */}
           {mixT > 0.8 && lobeAngles[hybridType].length >= 2 && (
-            <text x={ctrX + 35} y={ctrY - 5} fontSize={10} fill={T.eo_gap} fontWeight={600}>
+            <text x={ctrX + 35} y={ctrY - 5} fontSize={12} fill={T.eo_gap} fontWeight={600}>
               {data.angle}
             </text>
           )}
 
           {/* Geometry label */}
-          <text x={170} y={330} textAnchor="middle" fontSize={11} fill={T.muted}>
+          <text x={170} y={330} textAnchor="middle" fontSize={13} fill={T.muted}>
             Geometry: {data.geometry}
           </text>
         </svg>
@@ -3191,16 +3191,16 @@ function MolecularOrbitalSection() {
       <line x1={x - w / 2} y1={y} x2={x + w / 2} y2={y} stroke={color} strokeWidth={2.5} />
       {filled && (
         <>
-          <text x={x - 6} y={y - 5} fontSize={10} fill={color}>
+          <text x={x - 6} y={y - 5} fontSize={12} fill={color}>
             {"↑"}
           </text>
-          <text x={x + 2} y={y - 5} fontSize={10} fill={color}>
+          <text x={x + 2} y={y - 5} fontSize={12} fill={color}>
             {"↓"}
           </text>
         </>
       )}
       {label && (
-        <text x={x + w / 2 + 5} y={y + 4} fontSize={11} fill={T.muted}>
+        <text x={x + w / 2 + 5} y={y + 4} fontSize={13} fill={T.muted}>
           {label}
         </text>
       )}
@@ -3212,7 +3212,7 @@ function MolecularOrbitalSection() {
       <AnalogyBox>
           Molecular orbital theory is like what happens when two guitar strings vibrate near each other. They can vibrate in phase (both moving the same direction = bonding orbital, lower energy, stable) or out of phase (moving opposite = antibonding orbital, higher energy, unstable). When two atoms approach, their atomic orbitals combine the same way — creating bonding MOs that hold atoms together and antibonding MOs that push them apart. The net result determines if the molecule is stable.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <div style={{ minWidth: 340 }}>
         <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <text x={170} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
@@ -3221,10 +3221,10 @@ function MolecularOrbitalSection() {
 
           {/* Energy axis */}
           <line x1={30} y1={40} x2={30} y2={280} stroke={T.muted} strokeWidth={1} />
-          <text x={12} y={160} fontSize={11} fill={T.muted} transform="rotate(-90,12,160)">
+          <text x={12} y={160} fontSize={13} fill={T.muted} transform="rotate(-90,12,160)">
             Energy
           </text>
-          <text x={30} y={38} fontSize={11} fill={T.muted}>
+          <text x={30} y={38} fontSize={13} fill={T.muted}>
             {"↑"}
           </text>
 
@@ -3233,10 +3233,10 @@ function MolecularOrbitalSection() {
               {/* Two isolated atoms with same energy level */}
               <circle cx={120} cy={160} r={22 * pulse} fill={T.eo_e} opacity={0.2} stroke={T.eo_e} strokeWidth={1.5} />
               <circle cx={220} cy={160} r={22 * pulse} fill={T.eo_hole} opacity={0.2} stroke={T.eo_hole} strokeWidth={1.5} />
-              <text x={120} y={164} textAnchor="middle" fontSize={11} fontWeight={600} fill={T.eo_e}>
+              <text x={120} y={164} textAnchor="middle" fontSize={13} fontWeight={600} fill={T.eo_e}>
                 A
               </text>
-              <text x={220} y={164} textAnchor="middle" fontSize={11} fontWeight={600} fill={T.eo_hole}>
+              <text x={220} y={164} textAnchor="middle" fontSize={13} fontWeight={600} fill={T.eo_hole}>
                 B
               </text>
               {drawLevel(120, 160, 50, T.eo_e, "E_atom", true, "l1")}
@@ -3249,10 +3249,10 @@ function MolecularOrbitalSection() {
               {/* Bonding + antibonding */}
               {drawLevel(170, 210, 80, T.eo_valence, "σ (bonding)", true, "bond")}
               {drawLevel(170, 100, 80, T.eo_gap, "σ* (antibonding)", false, "antibond")}
-              <text x={280} y={214} fontSize={11} fill={T.eo_valence}>
+              <text x={280} y={214} fontSize={13} fill={T.eo_valence}>
                 HOMO
               </text>
-              <text x={280} y={104} fontSize={11} fill={T.eo_gap}>
+              <text x={280} y={104} fontSize={13} fill={T.eo_gap}>
                 LUMO
               </text>
               {/* Dashed lines connecting to atomic levels */}
@@ -3264,7 +3264,7 @@ function MolecularOrbitalSection() {
               {drawLevel(260, 160, 40, T.eo_hole, "", true, "ar")}
               {/* Gap arrow */}
               <line x1={155} y1={200} x2={155} y2={110} stroke={T.eo_gap} strokeWidth={1.5} markerEnd="url(#arrowMO)" />
-              <text x={137} y={158} fontSize={11} fill={T.eo_gap} fontWeight={600}>
+              <text x={137} y={158} fontSize={13} fill={T.eo_gap} fontWeight={600}>
                 Gap
               </text>
               <defs>
@@ -3286,7 +3286,7 @@ function MolecularOrbitalSection() {
               <rect x={140} y={215} width={60} height={30} fill={T.eo_valence} opacity={0.08} />
               {/* Gap label */}
               <line x1={220} y1={215} x2={220} y2={105} stroke={T.eo_gap} strokeDasharray="3,3" />
-              <text x={228} y={160} fontSize={11} fill={T.eo_gap}>
+              <text x={228} y={160} fontSize={13} fill={T.eo_gap}>
                 Gap
               </text>
             </>
@@ -3304,23 +3304,23 @@ function MolecularOrbitalSection() {
               {Array.from({ length: 9 }).map((_, i) => (
                 <line key={`cb${i}`} x1={108} y1={65 + i * 6} x2={232} y2={65 + i * 6} stroke={T.eo_cond} strokeWidth={0.7} opacity={0.3} />
               ))}
-              <text x={170} y={230} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_valence}>
+              <text x={170} y={230} textAnchor="middle" fontSize={12} fontWeight={600} fill={T.eo_valence}>
                 Valence Band
               </text>
-              <text x={170} y={55} textAnchor="middle" fontSize={10} fontWeight={600} fill={T.eo_cond}>
+              <text x={170} y={55} textAnchor="middle" fontSize={12} fontWeight={600} fill={T.eo_cond}>
                 Conduction Band
               </text>
-              <text x={260} y={260} fontSize={11} fill={T.eo_valence}>
+              <text x={260} y={260} fontSize={13} fill={T.eo_valence}>
                 VBM
               </text>
-              <text x={260} y={72} fontSize={11} fill={T.eo_cond}>
+              <text x={260} y={72} fontSize={13} fill={T.eo_cond}>
                 CBM
               </text>
               {/* Band gap */}
               <line x1={80} y1={190} x2={80} y2={120} stroke={T.eo_gap} strokeWidth={2} />
               <line x1={75} y1={190} x2={85} y2={190} stroke={T.eo_gap} strokeWidth={2} />
               <line x1={75} y1={120} x2={85} y2={120} stroke={T.eo_gap} strokeWidth={2} />
-              <text x={58} y={158} fontSize={11} fill={T.eo_gap} fontWeight={700}>
+              <text x={58} y={158} fontSize={13} fill={T.eo_gap} fontWeight={700}>
                 E_g
               </text>
               {/* Photon excitation */}
@@ -3328,7 +3328,7 @@ function MolecularOrbitalSection() {
                 <g>
                   <line x1={170} y1={190} x2={170} y2={120} stroke={T.eo_photon} strokeWidth={1.5} strokeDasharray="4,2" />
                   <circle cx={170} cy={lerp(190, 120, (frame % 40) / 40)} r={4} fill={T.eo_photon} />
-                  <text x={180} y={155} fontSize={11} fill={T.eo_photon}>
+                  <text x={180} y={155} fontSize={13} fill={T.eo_photon}>
                     h{"ν"}
                   </text>
                 </g>
@@ -3517,7 +3517,7 @@ function CrystalSymmetrySection() {
       <AnalogyBox>
           Crystal symmetry is like wallpaper patterns. Just as a wallpaper designer creates a beautiful pattern by repeating a small tile in a specific arrangement, nature builds crystals by stacking identical unit cells in 3D. The unit cell is the smallest 'tile' that contains all the information. The 14 Bravais lattices are like 14 fundamental tile shapes. Knowing the tile tells you everything about the full wall — that's why crystallographers obsess over unit cells.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <div style={{ minWidth: 340 }}>
         <svg viewBox="0 0 340 340" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <text x={170} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
@@ -3564,7 +3564,7 @@ function CrystalSymmetrySection() {
             })}
 
           {/* Lattice parameter labels */}
-          <text x={170} y={310} textAnchor="middle" fontSize={10} fill={T.muted}>
+          <text x={170} y={310} textAnchor="middle" fontSize={12} fill={T.muted}>
             a = b = c{lattice === "Simple Cubic" ? "" : " | α=β=γ=90°"}
           </text>
 
@@ -3595,11 +3595,11 @@ function CrystalSymmetrySection() {
           {lattice === "Zincblende" && (
             <>
               <circle cx={30} cy={330} r={5} fill={T.eo_e} />
-              <text x={40} y={334} fontSize={11} fill={T.muted}>
+              <text x={40} y={334} fontSize={13} fill={T.muted}>
                 Anion (Te)
               </text>
               <circle cx={110} cy={330} r={5} fill={T.eo_hole} />
-              <text x={120} y={334} fontSize={11} fill={T.muted}>
+              <text x={120} y={334} fontSize={13} fill={T.muted}>
                 Cation (Zn)
               </text>
             </>
@@ -3781,7 +3781,7 @@ function ReciprocalSpaceSection() {
       <AnalogyBox>
           Reciprocal space is like sheet music for a crystal. Real space shows you the actual atoms and their positions (like seeing musicians on a stage). Reciprocal space shows you the 'frequencies' and 'wavelengths' that matter — the spatial periodicities of the crystal (like reading the musical score). X-ray diffraction patterns directly photograph reciprocal space. Brillouin zones are like octaves — they organize all possible wavelengths into a compact, repeating framework.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <div style={{ minWidth: 340 }}>
         <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <text x={170} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
@@ -3814,11 +3814,11 @@ function ReciprocalSpaceSection() {
           {!showReciprocal && (
             <>
               <line x1={ctrX} y1={ctrY} x2={ctrX + realA1[0]} y2={ctrY + realA1[1]} stroke={T.eo_hole} strokeWidth={2.5} markerEnd="url(#arrowRS)" />
-              <text x={ctrX + realA1[0] + 8} y={ctrY + realA1[1] + 4} fontSize={11} fill={T.eo_hole} fontWeight={700}>
+              <text x={ctrX + realA1[0] + 8} y={ctrY + realA1[1] + 4} fontSize={13} fill={T.eo_hole} fontWeight={700}>
                 a{"₁"}
               </text>
               <line x1={ctrX} y1={ctrY} x2={ctrX + realA2actual[0]} y2={ctrY + realA2actual[1]} stroke={T.eo_valence} strokeWidth={2.5} markerEnd="url(#arrowRS2)" />
-              <text x={ctrX + realA2actual[0] + 8} y={ctrY + realA2actual[1] + 4} fontSize={11} fill={T.eo_valence} fontWeight={700}>
+              <text x={ctrX + realA2actual[0] + 8} y={ctrY + realA2actual[1] + 4} fontSize={13} fill={T.eo_valence} fontWeight={700}>
                 a{"₂"}
               </text>
             </>
@@ -3861,7 +3861,7 @@ function ReciprocalSpaceSection() {
               {highSymPts.map((pt) => (
                 <g key={pt.label}>
                   <circle cx={ctrX + pt.x} cy={ctrY + pt.y} r={5} fill={T.eo_gap} opacity={0.8} />
-                  <text x={ctrX + pt.x + 8} y={ctrY + pt.y + 4} fontSize={10} fontWeight={700} fill={T.eo_gap}>
+                  <text x={ctrX + pt.x + 8} y={ctrY + pt.y + 4} fontSize={12} fontWeight={700} fill={T.eo_gap}>
                     {pt.label}
                   </text>
                 </g>
@@ -3878,11 +3878,11 @@ function ReciprocalSpaceSection() {
 
               {/* Basis vectors */}
               <line x1={ctrX} y1={ctrY} x2={ctrX + recipB1[0]} y2={ctrY - recipB1[1]} stroke={T.eo_hole} strokeWidth={2} markerEnd="url(#arrowRS)" />
-              <text x={ctrX + recipB1[0] + 8} y={ctrY - recipB1[1] + 4} fontSize={11} fill={T.eo_hole} fontWeight={700}>
+              <text x={ctrX + recipB1[0] + 8} y={ctrY - recipB1[1] + 4} fontSize={13} fill={T.eo_hole} fontWeight={700}>
                 b{"₁"}
               </text>
               <line x1={ctrX} y1={ctrY} x2={ctrX + recipB2[0]} y2={ctrY - recipB2[1]} stroke={T.eo_valence} strokeWidth={2} markerEnd="url(#arrowRS2)" />
-              <text x={ctrX + recipB2[0] + 8} y={ctrY - recipB2[1] + 4} fontSize={11} fill={T.eo_valence} fontWeight={700}>
+              <text x={ctrX + recipB2[0] + 8} y={ctrY - recipB2[1] + 4} fontSize={13} fill={T.eo_valence} fontWeight={700}>
                 b{"₂"}
               </text>
             </>
@@ -3898,11 +3898,11 @@ function ReciprocalSpaceSection() {
           </defs>
 
           {/* Relationship formula */}
-          <text x={170} y={300} textAnchor="middle" fontSize={10} fill={T.muted}>
+          <text x={170} y={300} textAnchor="middle" fontSize={12} fill={T.muted}>
             b{"ᵢ"} {"·"} a{"ⱼ"} = 2{"π"}{"δ"}{"ᵢⱼ"}
           </text>
 
-          <text x={170} y={315} textAnchor="middle" fontSize={11} fill={T.dim}>
+          <text x={170} y={315} textAnchor="middle" fontSize={13} fill={T.dim}>
             (Reciprocal lattice vectors are orthogonal to real-space planes)
           </text>
         </svg>
@@ -4073,7 +4073,7 @@ function BandSection() {
       <AnalogyBox>
           {`Energy bands are like floors in a building. In a single atom, electrons live on specific floors (discrete energy levels). But when trillions of atoms pack into a crystal, their floors merge into continuous ramps (bands). The valence band is the ground floor — full of residents (electrons). The conduction band is the upper floor — empty, with room to roam freely. The band gap is the staircase between them: easy to climb in semiconductors, impossible in insulators, nonexistent in metals.`}
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       {/* Band diagram */}
       <div style={{ flex: "0 0 340px" }}>
         <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
@@ -4083,28 +4083,28 @@ function BandSection() {
           <rect x={20} y={VBtop} width={W - 40} height={60} rx={4}
             fill={T.eo_valence + "22"} stroke={T.eo_valence} strokeWidth={1.5} />
           <text x={30} y={VBtop + 22} fill={T.eo_valence} fontSize={12} fontWeight="bold">Valence Band</text>
-          <text x={30} y={VBtop + 38} fill={T.muted} fontSize={10}>All states filled with electrons</text>
-          <text x={30} y={VBtop + 52} fill={T.muted} fontSize={10}>from Zn and Te atoms</text>
+          <text x={30} y={VBtop + 38} fill={T.muted} fontSize={12}>All states filled with electrons</text>
+          <text x={30} y={VBtop + 52} fill={T.muted} fontSize={12}>from Zn and Te atoms</text>
 
           {/* Conduction band */}
           <rect x={20} y={40} width={W - 40} height={55} rx={4}
             fill={T.eo_cond + "11"} stroke={T.eo_cond} strokeWidth={1.5} />
           <text x={30} y={60} fill={T.eo_cond} fontSize={12} fontWeight="bold">Conduction Band</text>
-          <text x={30} y={76} fill={T.muted} fontSize={10}>Empty in pure crystal</text>
-          <text x={30} y={90} fill={T.muted} fontSize={10}>Free electrons here = conductivity</text>
+          <text x={30} y={76} fill={T.muted} fontSize={12}>Empty in pure crystal</text>
+          <text x={30} y={90} fill={T.muted} fontSize={12}>Free electrons here = conductivity</text>
 
           {/* Band gap */}
           <rect x={20} y={CBbot} width={W - 40} height={VBtop - CBbot} rx={0}
             fill={T.bg} />
           <line x1={20} y1={(CBbot + VBtop) / 2} x2={280} y2={(CBbot + VBtop) / 2}
             stroke={T.border} strokeDasharray="4 4" />
-          <text x={W / 2} y={(CBbot + VBtop) / 2 + 4} textAnchor="middle" fill={T.eo_gap} fontSize={11} fontWeight="bold">GAP</text>
-          <text x={W / 2} y={(CBbot + VBtop) / 2 + 18} textAnchor="middle" fill={T.muted} fontSize={10} fontWeight="bold">E = {Egap} eV</text>
+          <text x={W / 2} y={(CBbot + VBtop) / 2 + 4} textAnchor="middle" fill={T.eo_gap} fontSize={13} fontWeight="bold">GAP</text>
+          <text x={W / 2} y={(CBbot + VBtop) / 2 + 18} textAnchor="middle" fill={T.muted} fontSize={12} fontWeight="bold">E = {Egap} eV</text>
 
           {/* Gap label with arrow */}
           <line x1={W / 2 + 60} y1={CBbot + 2} x2={W / 2 + 60} y2={VBtop - 2}
             stroke={T.eo_gap} strokeWidth={1.5} />
-          <text x={170} y={(CBbot + VBtop) / 2 - 6} textAnchor="middle" fill={T.eo_gap} fontSize={10}>
+          <text x={170} y={(CBbot + VBtop) / 2 - 6} textAnchor="middle" fill={T.eo_gap} fontSize={12}>
             2.26 eV forbidden zone
           </text>
 
@@ -4363,7 +4363,7 @@ function DensityOfStatesSection() {
       <AnalogyBox>
           The density of states is like a histogram of apartment availability in a building. At each 'floor' (energy level), it counts how many 'rooms' (quantum states) exist for electrons. A tall bar means many states are available at that energy — electrons have lots of options. A gap (zero bar) means no states exist — electrons are forbidden there. The Fermi level is like the current waterline: all rooms below are occupied, rooms above are empty (at 0 K).
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
 
       {/* Left: smaller SVG + controls */}
       <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: 10 }}>
@@ -4434,7 +4434,7 @@ function DensityOfStatesSection() {
 
           {[Emin, 0, 2, Emax].map((e, i) => (
             <text key={i} x={marginL - 6} y={eToY(e) + 3} textAnchor="end"
-              fontSize={11} fill={T.dim} fontFamily="monospace">{e.toFixed(1)}</text>
+              fontSize={13} fill={T.dim} fontFamily="monospace">{e.toFixed(1)}</text>
           ))}
 
           {temperature > 100 && (
@@ -4576,15 +4576,15 @@ function PolymerBuilder() {
                 <line x1={x + 8} y1={y} x2={nextX - 8} y2={nextY} stroke={m.color} strokeWidth={2.5} opacity={0.6} />
               )}
               <circle cx={x} cy={y} r={10} fill={m.color + "33"} stroke={m.color} strokeWidth={1.5} />
-              <text x={x} y={y + 3.5} textAnchor="middle" fill={m.color} fontSize={10} fontWeight="bold">
+              <text x={x} y={y + 3.5} textAnchor="middle" fill={m.color} fontSize={12} fontWeight="bold">
                 {m.id === "ethylene" ? "PE" : m.id === "propylene" ? "PP" : m.id === "styrene" ? "PS" : m.id === "vinylchloride" ? "PVC" : m.id === "tetrafluoroethylene" ? "PTFE" : "PA"}
               </text>
             </g>
           );
         })}
         {chain.length > 0 && <>
-          <text x={10} y={15} fill={T.muted} fontSize={10}>n = {chain.length} units</text>
-          <text x={svgW - 10} y={15} textAnchor="end" fill="#9333ea" fontSize={10} fontWeight="bold">
+          <text x={10} y={15} fill={T.muted} fontSize={12}>n = {chain.length} units</text>
+          <text x={svgW - 10} y={15} textAnchor="end" fill="#9333ea" fontSize={12} fontWeight="bold">
             {chain.length >= 3 ? "Polymer!" : chain.length >= 2 ? "Oligomer" : "Monomer"}
           </text>
         </>}
@@ -4780,7 +4780,7 @@ function MaterialClassesSection() {
             {gapPx > 10 && <>
               <rect x={bandL} y={CBbot} width={bandW} height={gapPx} fill={T.eo_gap + "08"} />
               <line x1={bandR + 8} y1={CBbot} x2={bandR + 8} y2={VBtop} stroke={T.eo_gap} strokeWidth={1.5} markerStart="url(#arrowUp)" markerEnd="url(#arrowDown)" />
-              <text x={bandR + 14} y={(CBbot + VBtop) / 2 + 4} fill={T.eo_gap} fontSize={11} fontWeight="bold" textAnchor="start">
+              <text x={bandR + 14} y={(CBbot + VBtop) / 2 + 4} fill={T.eo_gap} fontSize={13} fontWeight="bold" textAnchor="start">
                 E_g = {sel.bandGap} eV
               </text>
             </>}
@@ -4792,7 +4792,7 @@ function MaterialClassesSection() {
 
             {/* Overlap indicator for metals */}
             {selected === "metal" && (
-              <text x={W / 2} y={VBtop + bandH + 16} textAnchor="middle" fill={T.eo_e} fontSize={11} fontWeight="bold">
+              <text x={W / 2} y={VBtop + bandH + 16} textAnchor="middle" fill={T.eo_e} fontSize={13} fontWeight="bold">
                 ↑ Bands OVERLAP ↓ No Gap
               </text>
             )}
@@ -4801,7 +4801,7 @@ function MaterialClassesSection() {
             {electrons.map((e, i) => (
               <g key={i}>
                 <circle cx={e.x} cy={e.y} r={6} fill={e.inCB ? T.eo_e : T.eo_valence} opacity={0.9} />
-                <text x={e.x} y={e.y + 3.5} textAnchor="middle" fill="white" fontSize={11} fontWeight="bold">e⁻</text>
+                <text x={e.x} y={e.y + 3.5} textAnchor="middle" fill="white" fontSize={13} fontWeight="bold">e⁻</text>
               </g>
             ))}
 
@@ -4813,7 +4813,7 @@ function MaterialClassesSection() {
                   stroke={T.eo_photon} strokeWidth={2} strokeDasharray="5 3" opacity={0.5 + 0.5 * Math.sin(frame * 0.1)}>
                   <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2s" repeatCount="indefinite" />
                 </line>
-                <text x={158} y={(CBbot + VBtop) / 2} fill={T.eo_photon} fontSize={11} fontWeight="bold">hν ↑</text>
+                <text x={158} y={(CBbot + VBtop) / 2} fill={T.eo_photon} fontSize={13} fontWeight="bold">hν ↑</text>
               </g>
             )}
 
@@ -4835,7 +4835,7 @@ function MaterialClassesSection() {
                   <circle key={i} cx={x} cy={y} r={i % 3 === 0 ? 6 : 4}
                     fill={i % 3 === 0 ? sel.color : sel.color + "66"} />
                 ))}
-                <text x={W / 2} y={VBtop + bandH + 18} textAnchor="middle" fill={T.muted} fontSize={11}>Wiggling polymer chain (weak inter-chain forces)</text>
+                <text x={W / 2} y={VBtop + bandH + 18} textAnchor="middle" fill={T.muted} fontSize={13}>Wiggling polymer chain (weak inter-chain forces)</text>
               </g>
             )}
 
@@ -4857,12 +4857,12 @@ function MaterialClassesSection() {
                       fontSize={a.isIon ? 8 : 7} fontWeight="bold">{a.isIon ? "+" : "–"}</text>
                   </g>
                 ))}
-                <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.muted} fontSize={11}>Rigid ionic/covalent lattice (barely vibrating)</text>
+                <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.muted} fontSize={13}>Rigid ionic/covalent lattice (barely vibrating)</text>
               </g>
             )}
 
             {/* Example label */}
-            <text x={W / 2} y={H - 2} textAnchor="middle" fill={T.muted} fontSize={11}>Examples: {sel.example}</text>
+            <text x={W / 2} y={H - 2} textAnchor="middle" fill={T.muted} fontSize={13}>Examples: {sel.example}</text>
           </svg>
 
           {/* ── BAND GAP COMPARISON BAR ── */}
@@ -5034,31 +5034,31 @@ function SemiconductorDopingSection() {
       <AnalogyBox>
           Doping a semiconductor is like adding a few VIP guests to a sold-out concert. In n-type doping, you add atoms with an extra electron (like a guest who brings an extra ticket) {"—"} now there{"'"}s a free carrier in the conduction band. In p-type doping, you add atoms missing an electron (like a guest who needs a ticket) {"—"} this creates a {"'"}hole{"'"} in the valence band. These tiny impurities (1 in a million atoms) dramatically change conductivity, like adding a single drop of dye to a glass of water.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={bandL} y={Ev_y} width={bandR - bandL} height={50}
             fill={T.eo_valence} opacity={0.25} />
           <line x1={bandL} y1={Ev_y} x2={bandR} y2={Ev_y}
             stroke={T.eo_valence} strokeWidth={2.5} />
-          <text x={bandR + 4} y={Ev_y + 4} fontSize={10} fill={T.eo_valence}
+          <text x={bandR + 4} y={Ev_y + 4} fontSize={12} fill={T.eo_valence}
             fontFamily="monospace">E_v</text>
-          <text x={bandL + 5} y={Ev_y + 18} fontSize={11} fill={T.eo_valence}
+          <text x={bandL + 5} y={Ev_y + 18} fontSize={13} fill={T.eo_valence}
             fontFamily="monospace" opacity={0.7}>Valence Band</text>
 
           <rect x={bandL} y={Ec_y - 50} width={bandR - bandL} height={50}
             fill={T.eo_cond} opacity={0.12} />
           <line x1={bandL} y1={Ec_y} x2={bandR} y2={Ec_y}
             stroke={T.eo_cond} strokeWidth={2.5} />
-          <text x={bandR + 4} y={Ec_y + 4} fontSize={10} fill={T.eo_cond}
+          <text x={bandR + 4} y={Ec_y + 4} fontSize={12} fill={T.eo_cond}
             fontFamily="monospace">E_c</text>
-          <text x={bandL + 5} y={Ec_y - 10} fontSize={11} fill={T.eo_cond}
+          <text x={bandL + 5} y={Ec_y - 10} fontSize={13} fill={T.eo_cond}
             fontFamily="monospace" opacity={0.7}>Conduction Band</text>
 
           <rect x={bandL} y={Ec_y} width={bandR - bandL} height={Ev_y - Ec_y}
             fill={T.eo_gap} opacity={0.04} />
           <text x={(bandL + bandR) / 2} y={(Ec_y + Ev_y) / 2 + 4}
-            textAnchor="middle" fontSize={10} fill={T.eo_gap}
+            textAnchor="middle" fontSize={12} fill={T.eo_gap}
             fontFamily="monospace" opacity={0.6}>
             E_g = {Eg} eV
           </text>
@@ -5067,7 +5067,7 @@ function SemiconductorDopingSection() {
             <>
               <line x1={bandL + 40} y1={donorY} x2={bandR - 40} y2={donorY}
                 stroke={T.eo_e} strokeWidth={1.5} strokeDasharray="5,3" />
-              <text x={bandR - 38} y={donorY + 4} fontSize={11} fill={T.eo_e}
+              <text x={bandR - 38} y={donorY + 4} fontSize={13} fill={T.eo_e}
                 fontFamily="monospace">E_d</text>
               {[0, 1, 2].map(i => {
                 const px = bandL + 70 + i * 60;
@@ -5090,7 +5090,7 @@ function SemiconductorDopingSection() {
             <>
               <line x1={bandL + 40} y1={acceptorY} x2={bandR - 40} y2={acceptorY}
                 stroke={T.eo_hole} strokeWidth={1.5} strokeDasharray="5,3" />
-              <text x={bandR - 38} y={acceptorY + 4} fontSize={11} fill={T.eo_hole}
+              <text x={bandR - 38} y={acceptorY + 4} fontSize={13} fill={T.eo_hole}
                 fontFamily="monospace">E_a</text>
               {[0, 1, 2].map(i => {
                 const px = bandL + 70 + i * 60;
@@ -5106,7 +5106,7 @@ function SemiconductorDopingSection() {
 
           <line x1={bandL} y1={fermiY} x2={bandR} y2={fermiY}
             stroke={T.eo_hole} strokeWidth={2} strokeDasharray="8,5" />
-          <text x={bandR + 4} y={fermiY + 4} fontSize={10} fill={T.eo_hole}
+          <text x={bandR + 4} y={fermiY + 4} fontSize={12} fill={T.eo_hole}
             fontFamily="monospace" fontWeight={700}>E_F</text>
 
           {electrons.map((el, i) => (
@@ -5118,7 +5118,7 @@ function SemiconductorDopingSection() {
               fill="none" stroke={T.eo_hole} strokeWidth={2} opacity={0.8} />
           ))}
 
-          <text x={W / 2} y={H - 8} textAnchor="middle" fontSize={10} fill={T.muted}
+          <text x={W / 2} y={H - 8} textAnchor="middle" fontSize={12} fill={T.muted}
             fontFamily="monospace">
             {dopingType === "intrinsic" ? "Intrinsic" : dopingType === "n-type" ? "n-type Doped" : "p-type Doped"}
           </text>
@@ -5262,7 +5262,7 @@ function CarrierTransportSection() {
       <AnalogyBox>
           Carrier transport is like traffic flow on a highway. Electrons are cars, voltage is the slope of the road (makes cars roll), and resistance is traffic congestion. In drift, cars move because the road is tilted (electric field pushes them). In diffusion, cars spread from crowded areas to empty ones {"—"} like people leaving a packed concert. Mobility is how fast a car can go in traffic {"—"} higher in metals (empty highway) than in doped semiconductors (bumpy road with obstacles).
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           {Array.from({ length: nAtoms }, (_, i) => {
@@ -5295,7 +5295,7 @@ function CarrierTransportSection() {
               </defs>
               <line x1={60} y1={30} x2={280} y2={30} stroke={T.eo_gap} strokeWidth={2}
                 markerEnd="url(#arrowE)" />
-              <text x={170} y={22} textAnchor="middle" fontSize={11} fill={T.eo_gap}
+              <text x={170} y={22} textAnchor="middle" fontSize={13} fill={T.eo_gap}
                 fontFamily="monospace" fontWeight={700}>E-field</text>
             </g>
           )}
@@ -5305,7 +5305,7 @@ function CarrierTransportSection() {
             return (
               <g key={i}>
                 <circle cx={sp.x} cy={sp.y} r={10 + pulse} fill={T.eo_photon} opacity={0.12} />
-                <text x={sp.x} y={sp.y + 3} textAnchor="middle" fontSize={11} fill={T.eo_photon}
+                <text x={sp.x} y={sp.y + 3} textAnchor="middle" fontSize={13} fill={T.eo_photon}
                   fontFamily="monospace">~</text>
               </g>
             );
@@ -5320,13 +5320,13 @@ function CarrierTransportSection() {
           ))}
 
           {mode !== "none" && (
-            <text x={170} y={H - 10} textAnchor="middle" fontSize={10} fill={T.muted}
+            <text x={170} y={H - 10} textAnchor="middle" fontSize={12} fill={T.muted}
               fontFamily="monospace">
               J = {J.toExponential(1)} A/m² | v_d = {vDrift.toFixed(0)} cm/s
             </text>
           )}
           {mode === "none" && (
-            <text x={170} y={H - 10} textAnchor="middle" fontSize={10} fill={T.muted}
+            <text x={170} y={H - 10} textAnchor="middle" fontSize={12} fill={T.muted}
               fontFamily="monospace">Random thermal motion (no net drift)</text>
           )}
         </svg>
@@ -5486,7 +5486,7 @@ function ThermodynamicsSection() {
       <AnalogyBox>
           Thermodynamics is like accounting for energy. The first law says energy is conserved {"—"} you can{"'"}t create money from nothing. The second law says entropy (disorder) always increases {"—"} a clean room naturally gets messy, never the reverse. Free energy (G = H - TS) is like your bank balance: reactions {"'"}spend{"'"} enthalpy (H) and {"'"}earn{"'"} from entropy (TS). At equilibrium, the account is balanced. Temperature is like the exchange rate {"—"} higher T makes entropy worth more.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "stretch" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "stretch" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10, display: "flex", alignItems: "center" }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <path d={curvePath} fill="none" stroke={T.eo_core} strokeWidth={2.5} />
@@ -5496,24 +5496,24 @@ function ThermodynamicsSection() {
           <line x1={xToSvg(0.75)} y1={yToSvg(Gval)} x2={xToSvg(0.75)} y2={yToSvg(Gprod)}
             stroke={dgColor} strokeWidth={2} />
           <text x={xToSvg(0.78)} y={(yToSvg(Gval) + yToSvg(Gprod)) / 2 + 4}
-            fontSize={10} fill={dgColor} fontFamily="monospace" fontWeight={700}>
+            fontSize={12} fill={dgColor} fontFamily="monospace" fontWeight={700}>
             dG
           </text>
 
           <line x1={xToSvg(0.25)} y1={yToSvg(Gval)} x2={xToSvg(0.25)} y2={yToSvg(landscape(0.5))}
             stroke={T.eo_photon} strokeWidth={1.5} strokeDasharray="3,2" />
           <text x={xToSvg(0.18)} y={(yToSvg(Gval) + yToSvg(landscape(0.5))) / 2}
-            fontSize={11} fill={T.eo_photon} fontFamily="monospace">E_a</text>
+            fontSize={13} fill={T.eo_photon} fontFamily="monospace">E_a</text>
 
           <rect x={xToSvg(0.1)} y={yToSvg(Gval) - 22} width={60} height={16}
             rx={3} fill={T.eo_cond} opacity={0.15} />
           <text x={xToSvg(0.1) + 30} y={yToSvg(Gval) - 10} textAnchor="middle"
-            fontSize={11} fill={T.eo_cond} fontFamily="monospace">Reactants</text>
+            fontSize={13} fill={T.eo_cond} fontFamily="monospace">Reactants</text>
 
           <rect x={xToSvg(0.6)} y={yToSvg(Gprod) - 22} width={60} height={16}
             rx={3} fill={T.eo_valence} opacity={0.15} />
           <text x={xToSvg(0.6) + 30} y={yToSvg(Gprod) - 10} textAnchor="middle"
-            fontSize={11} fill={T.eo_valence} fontFamily="monospace">Products</text>
+            fontSize={13} fill={T.eo_valence} fontFamily="monospace">Products</text>
 
           <circle cx={ballSvgX} cy={ballSvgY} r={6}
             fill={T.eo_photon} stroke={T.eo_hole} strokeWidth={1.5} />
@@ -5523,12 +5523,12 @@ function ThermodynamicsSection() {
           <line x1={marginL} y1={marginT} x2={marginL} y2={H - marginB}
             stroke={T.border} strokeWidth={1} />
 
-          <text x={W / 2} y={H - 5} textAnchor="middle" fontSize={10} fill={T.muted}
+          <text x={W / 2} y={H - 5} textAnchor="middle" fontSize={12} fill={T.muted}
             fontFamily="monospace">Reaction Coordinate</text>
-          <text x={10} y={H / 2} textAnchor="middle" fontSize={10} fill={T.muted}
+          <text x={10} y={H / 2} textAnchor="middle" fontSize={12} fill={T.muted}
             fontFamily="monospace" transform={`rotate(-90,10,${H / 2})`}>G (eV)</text>
 
-          <text x={marginL + plotW / 2} y={marginT - 12} textAnchor="middle" fontSize={11}
+          <text x={marginL + plotW / 2} y={marginT - 12} textAnchor="middle" fontSize={13}
             fill={dgColor} fontFamily="monospace" fontWeight={700}>
             dG = {dG.toFixed(3)} eV {dG < 0 ? "(favorable)" : "(unfavorable)"}
           </text>
@@ -5688,7 +5688,7 @@ function PhaseDiagramSection() {
       <AnalogyBox>
           A phase diagram is like a weather map for materials. Instead of predicting rain or sunshine based on pressure and temperature, it predicts which crystal structure (phase) is stable. The boundaries between phases are like weather fronts {"—"} cross them and the material transforms. The eutectic point is like the perfect storm where multiple phases coexist. Engineers use phase diagrams the way pilots use weather charts: to navigate safely through processing conditions.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "stretch" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "stretch" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10, display: "flex", alignItems: "center" }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={mL} y={mT} width={pW} height={toSY(solidusT) - mT}
@@ -5707,16 +5707,16 @@ function PhaseDiagramSection() {
           <circle cx={toSX(eutecticX)} cy={toSY(eutecticT)} r={5}
             fill={T.eo_gap} stroke="#fff" strokeWidth={1.5} />
           <text x={toSX(eutecticX) + 8} y={toSY(eutecticT) - 6}
-            fontSize={11} fill={T.eo_gap} fontFamily="monospace" fontWeight={700}>
+            fontSize={13} fill={T.eo_gap} fontFamily="monospace" fontWeight={700}>
             Eutectic
           </text>
 
           <text x={mL + pW / 2} y={mT + 15} textAnchor="middle"
-            fontSize={10} fill={T.eo_cond} fontFamily="monospace" opacity={0.7}>Liquid</text>
+            fontSize={12} fill={T.eo_cond} fontFamily="monospace" opacity={0.7}>Liquid</text>
           <text x={mL + pW * 0.2} y={toSY((solidusT + liqT) / 2)}
-            fontSize={11} fill={T.eo_photon} fontFamily="monospace" opacity={0.6}>L+S</text>
+            fontSize={13} fill={T.eo_photon} fontFamily="monospace" opacity={0.6}>L+S</text>
           <text x={mL + pW / 2} y={toSY(solidusT) + 20} textAnchor="middle"
-            fontSize={10} fill={T.eo_core} fontFamily="monospace" opacity={0.7}>
+            fontSize={12} fill={T.eo_core} fontFamily="monospace" opacity={0.7}>
             Solid (alpha + beta)
           </text>
 
@@ -5730,22 +5730,22 @@ function PhaseDiagramSection() {
           <line x1={mL} y1={mT} x2={mL} y2={H - mB} stroke={T.border} strokeWidth={1} />
           <line x1={mL} y1={H - mB} x2={W - mR} y2={H - mB} stroke={T.border} strokeWidth={1} />
 
-          <text x={W / 2} y={H - 5} textAnchor="middle" fontSize={10} fill={T.muted}
+          <text x={W / 2} y={H - 5} textAnchor="middle" fontSize={12} fill={T.muted}
             fontFamily="monospace">Composition (% B)</text>
-          <text x={mL - 5} y={H - mB + 3} textAnchor="end" fontSize={11} fill={T.dim}
+          <text x={mL - 5} y={H - mB + 3} textAnchor="end" fontSize={13} fill={T.dim}
             fontFamily="monospace">0%</text>
-          <text x={mL + pW + 2} y={H - mB + 3} fontSize={11} fill={T.dim}
+          <text x={mL + pW + 2} y={H - mB + 3} fontSize={13} fill={T.dim}
             fontFamily="monospace">100%</text>
 
-          <text x={8} y={H / 2} textAnchor="middle" fontSize={10} fill={T.muted}
+          <text x={8} y={H / 2} textAnchor="middle" fontSize={12} fill={T.muted}
             fontFamily="monospace" transform={`rotate(-90,8,${H / 2})`}>Temperature (K)</text>
           {[Tmin, 500, 800, Tmax].map((tv, i) => (
             <text key={i} x={mL - 6} y={toSY(tv) + 3} textAnchor="end"
-              fontSize={11} fill={T.dim} fontFamily="monospace">{tv}</text>
+              fontSize={13} fill={T.dim} fontFamily="monospace">{tv}</text>
           ))}
 
-          <text x={mL + 4} y={H - mB - 4} fontSize={11} fill={T.dim} fontFamily="monospace">Zn</text>
-          <text x={mL + pW - 10} y={H - mB - 4} fontSize={11} fill={T.dim} fontFamily="monospace">Te</text>
+          <text x={mL + 4} y={H - mB - 4} fontSize={13} fill={T.dim} fontFamily="monospace">Zn</text>
+          <text x={mL + pW - 10} y={H - mB - 4} fontSize={13} fill={T.dim} fontFamily="monospace">Te</text>
         </svg>
 
       </div>
@@ -5904,7 +5904,7 @@ function ChemicalPotentialSection() {
       <AnalogyBox>
           Chemical potential is like water pressure in connected tanks. Each tank (phase or species) has a water level (chemical potential). At equilibrium, water flows until all connected tanks reach the same level. If you add atoms to a crystal, the chemical potential tells you how much the system{"'"}s energy changes {"—"} like how much the water level rises when you pour more in. In defect physics, it controls which defects form: change the {"'"}pressure{"'"} (growth conditions) and different defects become favorable.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "stretch" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "stretch" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10, display: "flex", alignItems: "center" }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={mL} y={mT} width={toSX(-0.5) - mL} height={pH_}
@@ -5918,7 +5918,7 @@ function ChemicalPotentialSection() {
           <line x1={toSX(0)} y1={toSY(dHf)} x2={toSX(dHf)} y2={toSY(0)}
             stroke={T.eo_core} strokeWidth={1.5} strokeDasharray="6,4" />
           <text x={toSX(dHf / 2) + 8} y={toSY(dHf / 2) - 8}
-            fontSize={11} fill={T.eo_core} fontFamily="monospace">
+            fontSize={13} fill={T.eo_core} fontFamily="monospace">
             mu_A + mu_B = dH_f
           </text>
 
@@ -5930,11 +5930,11 @@ function ChemicalPotentialSection() {
             );
           })}
 
-          <text x={toSX(-0.3)} y={toSY(-0.3) + 15} fontSize={11} fill={T.eo_cond}
+          <text x={toSX(-0.3)} y={toSY(-0.3) + 15} fontSize={13} fill={T.eo_cond}
             fontFamily="monospace">A-rich</text>
-          <text x={toSX(dHf + 0.3)} y={toSY(dHf + 0.3) - 20} fontSize={11} fill={T.eo_gap}
+          <text x={toSX(dHf + 0.3)} y={toSY(dHf + 0.3) - 20} fontSize={13} fill={T.eo_gap}
             fontFamily="monospace">B-rich</text>
-          <text x={toSX(dHf / 2) - 15} y={toSY(dHf / 2) + 15} fontSize={11}
+          <text x={toSX(dHf / 2) - 15} y={toSY(dHf / 2) + 15} fontSize={13}
             fill={T.eo_valence} fontFamily="monospace" fontWeight={700}>Stable</text>
 
           <circle cx={ptX} cy={ptY} r={7} fill={regionColor} opacity={pulse}
@@ -5944,17 +5944,17 @@ function ChemicalPotentialSection() {
           <line x1={mL} y1={mT} x2={mL} y2={H - mB} stroke={T.border} strokeWidth={1} />
           <line x1={mL} y1={H - mB} x2={W - mR} y2={H - mB} stroke={T.border} strokeWidth={1} />
 
-          <text x={W / 2} y={H - 5} textAnchor="middle" fontSize={10} fill={T.muted}
+          <text x={W / 2} y={H - 5} textAnchor="middle" fontSize={12} fill={T.muted}
             fontFamily="monospace">mu_A (eV)</text>
-          <text x={8} y={H / 2} textAnchor="middle" fontSize={10} fill={T.muted}
+          <text x={8} y={H / 2} textAnchor="middle" fontSize={12} fill={T.muted}
             fontFamily="monospace" transform={`rotate(-90,8,${H / 2})`}>mu_B (eV)</text>
 
           {[-3, -2, -1, 0].map((v, i) => (
             <g key={i}>
               <text x={toSX(v)} y={H - mB + 14} textAnchor="middle"
-                fontSize={11} fill={T.dim} fontFamily="monospace">{v}</text>
+                fontSize={13} fill={T.dim} fontFamily="monospace">{v}</text>
               <text x={mL - 6} y={toSY(v) + 3} textAnchor="end"
-                fontSize={11} fill={T.dim} fontFamily="monospace">{v}</text>
+                fontSize={13} fill={T.dim} fontFamily="monospace">{v}</text>
             </g>
           ))}
         </svg>
@@ -6108,7 +6108,7 @@ function DefectSection() {
       <AnalogyBox>
           Crystal defects are like typos in a perfectly written book. A vacancy is a missing letter. An interstitial is an extra letter squeezed in. A substitution is the wrong letter in the right place. An antisite is two letters swapped. Just as typos can change the meaning of a sentence, defects change a crystal{"'"}s properties {"—"} a single vacancy in ZnTe can turn an insulator into a p-type semiconductor. Defects aren{"'"}t mistakes; they{"'"}re features that engineers deliberately create.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       {/* Diagram */}
       <div style={{ flex: "0 0 340px" }}>
         <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
@@ -6118,7 +6118,7 @@ function DefectSection() {
           <rect x={20} y={VBtop} width={220} height={50} rx={4}
             fill={T.eo_valence + "22"} stroke={T.eo_valence} strokeWidth={1.5} />
           <text x={30} y={VBtop + 22} fill={T.eo_valence} fontSize={12} fontWeight="bold">Valence Band</text>
-          <text x={30} y={VBtop + 38} fill={T.muted} fontSize={10}>fully occupied (from Zn+Te atoms)</text>
+          <text x={30} y={VBtop + 38} fill={T.muted} fontSize={12}>fully occupied (from Zn+Te atoms)</text>
 
           {/* Conduction band */}
           <rect x={20} y={40} width={220} height={35} rx={4}
@@ -6126,8 +6126,8 @@ function DefectSection() {
           <text x={30} y={60} fill={T.eo_cond} fontSize={12} fontWeight="bold">Conduction Band</text>
 
           {/* Gap label */}
-          <text x={250} y={170} fill={T.eo_gap} fontSize={10} fontWeight="bold">GAP</text>
-          <text x={250} y={184} fill={T.muted} fontSize={11}>2.26 eV</text>
+          <text x={250} y={170} fill={T.eo_gap} fontSize={12} fontWeight="bold">GAP</text>
+          <text x={250} y={184} fill={T.muted} fontSize={13}>2.26 eV</text>
 
           {/* Defect levels */}
           {defY.map((y, i) => {
@@ -6136,7 +6136,7 @@ function DefectSection() {
               <g key={i}>
                 <line x1={50} y1={y} x2={220} y2={y}
                   stroke={cs.color} strokeWidth={2} opacity={0.6} />
-                <text x={30} y={y + 4} textAnchor="middle" fill={T.muted} fontSize={11}>
+                <text x={30} y={y + 4} textAnchor="middle" fill={T.muted} fontSize={13}>
                   D{i + 1}
                 </text>
                 {/* Electron filling */}
@@ -6171,15 +6171,15 @@ function DefectSection() {
           {/* Vacancy site */}
           <rect x={60} y={260} width={160} height={50} rx={8}
             fill={cs.color + "11"} stroke={cs.color} strokeWidth={1.5} strokeDasharray="4 3" />
-          <text x={140} y={281} textAnchor="middle" fill={cs.color} fontSize={11} fontWeight="bold">
+          <text x={140} y={281} textAnchor="middle" fill={cs.color} fontSize={13} fontWeight="bold">
             V_Zn vacancy
           </text>
-          <text x={140} y={297} textAnchor="middle" fill={T.muted} fontSize={10}>
+          <text x={140} y={297} textAnchor="middle" fill={T.muted} fontSize={12}>
             Te-vacancy: {cs.te_dist}
           </text>
 
           {/* NELECT label */}
-          <text x={160} y={20} textAnchor="middle" fill={T.muted} fontSize={10}>
+          <text x={160} y={20} textAnchor="middle" fill={T.muted} fontSize={12}>
             NELECT = {cs.nelect}
           </text>
         </svg>
@@ -6334,7 +6334,7 @@ function DefectThermodynamicsSection() {
       <AnalogyBox>
           Defect thermodynamics is like calculating the cost of leaving a seat empty in an airplane. The formation energy is the {"'"}ticket price{"'"} {"—"} how much energy it costs to create the defect. But empty seats also increase entropy (disorder = more seating arrangements), which nature loves. At any temperature, there{"'"}s an equilibrium number of defects that minimizes the total cost (free energy). Higher temperature = more defects, just as a hotter economy tolerates more vacancies.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <svg
         width={340} height={320}
         style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, cursor: dragging ? "grabbing" : "default" }}
@@ -6347,21 +6347,21 @@ function DefectThermodynamicsSection() {
         {[0, 1, 2, 3, 4].map(i => (
           <g key={i}>
             <line x1={margin.l} y1={toY(i)} x2={margin.l + plotW} y2={toY(i)} stroke={T.dim} strokeWidth={0.5} />
-            <text x={margin.l - 5} y={toY(i) + 4} textAnchor="end" fontSize={10} fill={T.muted}>{i}</text>
+            <text x={margin.l - 5} y={toY(i) + 4} textAnchor="end" fontSize={12} fill={T.muted}>{i}</text>
           </g>
         ))}
 
         {[0, 0.5, 1.0, 1.5, 2.0].map(v => (
           <g key={v}>
             <line x1={toX(v)} y1={margin.t} x2={toX(v)} y2={margin.t + plotH} stroke={T.dim} strokeWidth={0.5} />
-            <text x={toX(v)} y={margin.t + plotH + 14} textAnchor="middle" fontSize={10} fill={T.muted}>{v.toFixed(1)}</text>
+            <text x={toX(v)} y={margin.t + plotH + 14} textAnchor="middle" fontSize={12} fill={T.muted}>{v.toFixed(1)}</text>
           </g>
         ))}
 
         <line x1={toX(0)} y1={margin.t} x2={toX(0)} y2={margin.t + plotH} stroke={T.eo_valence} strokeWidth={2} strokeDasharray="6,3" />
-        <text x={toX(0) + 3} y={margin.t + 12} fontSize={11} fill={T.eo_valence}>VBM</text>
+        <text x={toX(0) + 3} y={margin.t + 12} fontSize={13} fill={T.eo_valence}>VBM</text>
         <line x1={toX(bandGap)} y1={margin.t} x2={toX(bandGap)} y2={margin.t + plotH} stroke={T.eo_cond} strokeWidth={2} strokeDasharray="6,3" />
-        <text x={toX(bandGap) - 3} y={margin.t + 12} textAnchor="end" fontSize={11} fill={T.eo_cond}>CBM</text>
+        <text x={toX(bandGap) - 3} y={margin.t + 12} textAnchor="end" fontSize={13} fill={T.eo_cond}>CBM</text>
 
         {charges.map((c, i) => {
           const x1 = toX(0), y1 = toY(formE(c, 0));
@@ -6369,7 +6369,7 @@ function DefectThermodynamicsSection() {
           return (
             <g key={i}>
               <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={c.color} strokeWidth={1.5} strokeDasharray="4,3" opacity={0.6} />
-              <text x={x2 + 3} y={y2 + 4} fontSize={11} fill={c.color}>{c.label}</text>
+              <text x={x2 + 3} y={y2 + 4} fontSize={13} fill={c.color}>{c.label}</text>
             </g>
           );
         })}
@@ -6379,7 +6379,7 @@ function DefectThermodynamicsSection() {
         {ctls.map((ctl, i) => (
           <g key={i}>
             <circle cx={toX(ctl.ef)} cy={toY(ctl.e)} r={5} fill={T.eo_gap} opacity={0.8 + pulse * 0.2} />
-            <text x={toX(ctl.ef)} y={toY(ctl.e) - 8} textAnchor="middle" fontSize={11} fill={T.eo_gap}>
+            <text x={toX(ctl.ef)} y={toY(ctl.e) - 8} textAnchor="middle" fontSize={13} fill={T.eo_gap}>
               ε({ctl.labelA}/{ctl.labelB})
             </text>
           </g>
@@ -6395,14 +6395,14 @@ function DefectThermodynamicsSection() {
           style={{ cursor: "grab" }}
           onMouseDown={() => setDragging(true)}
         />
-        <text x={toX(fermiLevel)} y={margin.t - 5} textAnchor="middle" fontSize={11} fill={T.eo_e}>
+        <text x={toX(fermiLevel)} y={margin.t - 5} textAnchor="middle" fontSize={13} fill={T.eo_e}>
           E_F={fermiLevel.toFixed(2)} eV
         </text>
 
-        <text x={margin.l + plotW / 2} y={margin.t + plotH + 35} textAnchor="middle" fontSize={11} fill={T.ink}>
+        <text x={margin.l + plotW / 2} y={margin.t + plotH + 35} textAnchor="middle" fontSize={13} fill={T.ink}>
           Fermi Level (eV)
         </text>
-        <text x={15} y={margin.t + plotH / 2} textAnchor="middle" fontSize={11} fill={T.ink}
+        <text x={15} y={margin.t + plotH / 2} textAnchor="middle" fontSize={13} fill={T.ink}
           transform={`rotate(-90,15,${margin.t + plotH / 2})`}>
           Formation Energy (eV)
         </text>
@@ -6529,7 +6529,7 @@ function PhononsSection() {
       <AnalogyBox>
           Phonons are like 'the wave' in a stadium. When fans stand up and sit down in sequence, a wave travels through the crowd — but no individual fan moves far. Similarly, phonons are quantized vibrations traveling through a crystal lattice. Acoustic phonons are like bass notes (atoms move in sync, low frequency). Optical phonons are like treble notes (adjacent atoms move opposite, high frequency). Phonons carry heat, scatter electrons, and determine thermal conductivity.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
         style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
 
@@ -6552,7 +6552,7 @@ function PhononsSection() {
           <g key={i}>
             <circle cx={at.x} cy={at.y} r={at.r} fill={at.color} stroke={T.ink} strokeWidth={1} />
             {i < 2 && (
-              <text x={at.x} y={at.y + at.r + 14} textAnchor="middle" fontSize={11} fill={T.muted}>
+              <text x={at.x} y={at.y + at.r + 14} textAnchor="middle" fontSize={13} fill={T.muted}>
                 {at.isHeavy ? "M" : "m"}
               </text>
             )}
@@ -6575,23 +6575,23 @@ function PhononsSection() {
           </marker>
         </defs>
 
-        <text x={svgW / 2} y={dispY0 - 5} textAnchor="middle" fontSize={10} fontWeight="bold" fill={T.ink}>Dispersion: ω vs k</text>
+        <text x={svgW / 2} y={dispY0 - 5} textAnchor="middle" fontSize={12} fontWeight="bold" fill={T.ink}>Dispersion: ω vs k</text>
         <rect x={dispMargin.l} y={dispY0} width={dispW} height={dispH} fill={T.surface} stroke={T.border} />
 
         <path d={acousticPath.join(" ")} fill="none" stroke={T.eo_e} strokeWidth={2} />
         <path d={opticalPath.join(" ")} fill="none" stroke={T.eo_hole} strokeWidth={2} />
 
-        <text x={dispMargin.l + dispW + 2} y={currentAcousticY + 3} fontSize={11} fill={T.eo_e}>LA</text>
-        <text x={dispMargin.l + dispW + 2} y={dispY0 + dispH - opticalBranch(Math.PI) * dispH + 3} fontSize={11} fill={T.eo_hole}>LO</text>
+        <text x={dispMargin.l + dispW + 2} y={currentAcousticY + 3} fontSize={13} fill={T.eo_e}>LA</text>
+        <text x={dispMargin.l + dispW + 2} y={dispY0 + dispH - opticalBranch(Math.PI) * dispH + 3} fontSize={13} fill={T.eo_hole}>LO</text>
 
         <line x1={currentKx} y1={dispY0} x2={currentKx} y2={dispY0 + dispH} stroke={T.eo_photon} strokeWidth={1.5} strokeDasharray="3,2" />
         <circle cx={currentKx} cy={mode === "acoustic" ? currentAcousticY : currentOpticalY}
           r={5} fill={mode === "acoustic" ? T.eo_e : T.eo_hole} stroke={T.ink} strokeWidth={1.5} />
 
-        <text x={dispMargin.l} y={dispY0 + dispH + 12} fontSize={11} fill={T.muted}>0</text>
-        <text x={dispMargin.l + dispW} y={dispY0 + dispH + 12} textAnchor="end" fontSize={11} fill={T.muted}>π/a</text>
-        <text x={dispMargin.l - 5} y={dispY0 + 8} textAnchor="end" fontSize={11} fill={T.muted}>ω</text>
-        <text x={dispMargin.l + dispW / 2} y={dispY0 + dispH + 12} textAnchor="middle" fontSize={11} fill={T.muted}>k</text>
+        <text x={dispMargin.l} y={dispY0 + dispH + 12} fontSize={13} fill={T.muted}>0</text>
+        <text x={dispMargin.l + dispW} y={dispY0 + dispH + 12} textAnchor="end" fontSize={13} fill={T.muted}>π/a</text>
+        <text x={dispMargin.l - 5} y={dispY0 + 8} textAnchor="end" fontSize={13} fill={T.muted}>ω</text>
+        <text x={dispMargin.l + dispW / 2} y={dispY0 + dispH + 12} textAnchor="middle" fontSize={13} fill={T.muted}>k</text>
       </svg>
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
@@ -6744,7 +6744,7 @@ function OpticalPropertiesSection() {
       <AnalogyBox>
           Optical properties are like a bouncer at a club. When a photon (light particle) arrives at a material, the bouncer checks its energy. If the photon's energy matches the band gap, it gets absorbed — the material is opaque at that color. If the energy is too low, the photon passes through — the material is transparent. If it gets reflected, the material is shiny. This is why glass (big gap) is transparent to visible light, silicon (small gap) absorbs it, and metals reflect it.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
         style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
 
@@ -6753,12 +6753,12 @@ function OpticalPropertiesSection() {
         </text>
 
         <rect x={bandLeft} y={25} width={bandRight - bandLeft} height={bandTop - 25} rx={4} fill="#e0f0ff" stroke={T.eo_cond} strokeWidth={1.5} />
-        <text x={(bandLeft + bandRight) / 2} y={bandTop - 8} textAnchor="middle" fontSize={10} fill={T.eo_cond}>Conduction Band</text>
+        <text x={(bandLeft + bandRight) / 2} y={bandTop - 8} textAnchor="middle" fontSize={12} fill={T.eo_cond}>Conduction Band</text>
 
         <rect x={bandLeft} y={vbTop} width={bandRight - bandLeft} height={35} rx={4} fill="#e8f5e9" stroke={T.eo_valence} strokeWidth={1.5} />
-        <text x={(bandLeft + bandRight) / 2} y={vbTop + 22} textAnchor="middle" fontSize={10} fill={T.eo_valence}>Valence Band</text>
+        <text x={(bandLeft + bandRight) / 2} y={vbTop + 22} textAnchor="middle" fontSize={12} fill={T.eo_valence}>Valence Band</text>
 
-        <text x={(bandLeft + bandRight) / 2} y={(cbBottom + vbTop) / 2 + 4} textAnchor="middle" fontSize={10} fill={T.eo_gap}>
+        <text x={(bandLeft + bandRight) / 2} y={(cbBottom + vbTop) / 2 + 4} textAnchor="middle" fontSize={12} fill={T.eo_gap}>
           E_g = {bandGap} eV
         </text>
         <line x1={bandRight - 10} y1={cbBottom} x2={bandRight - 10} y2={vbTop} stroke={T.eo_gap} strokeWidth={1} strokeDasharray="3,2" />
@@ -6774,7 +6774,7 @@ function OpticalPropertiesSection() {
           <g opacity={0.4}>
             <path d={wavyPath(photonX, photonY, waveLen)} fill="none" stroke={photonColor} strokeWidth={2} />
             <polygon points={`${photonX + waveLen * 2 + 4},${photonY} ${photonX + waveLen * 2 - 2},${photonY - 4} ${photonX + waveLen * 2 - 2},${photonY + 4}`} fill={photonColor} />
-            <text x={photonX + waveLen} y={photonY - 12} textAnchor="middle" fontSize={11} fill={T.muted}>transparent</text>
+            <text x={photonX + waveLen} y={photonY - 12} textAnchor="middle" fontSize={13} fill={T.muted}>transparent</text>
           </g>
         )}
 
@@ -6786,20 +6786,20 @@ function OpticalPropertiesSection() {
           </g>
         )}
 
-        <text x={specLeft} y={specTop - 2} fontSize={10} fontWeight="bold" fill={T.ink}>α(E) Absorption</text>
+        <text x={specLeft} y={specTop - 2} fontSize={12} fontWeight="bold" fill={T.ink}>α(E) Absorption</text>
         <rect x={specLeft} y={specTop} width={specW} height={specBot - specTop} fill={T.surface} stroke={T.border} />
         <path d={specPath.join(" ")} fill="none" stroke={T.eo_gap} strokeWidth={2} />
 
         <line x1={specLeft + ((bandGap - 0.5) / 3.5) * specW} y1={specTop} x2={specLeft + ((bandGap - 0.5) / 3.5) * specW} y2={specBot}
           stroke={T.eo_gap} strokeWidth={1} strokeDasharray="3,2" />
-        <text x={specLeft + ((bandGap - 0.5) / 3.5) * specW} y={specBot + 10} textAnchor="middle" fontSize={11} fill={T.eo_gap}>E_g</text>
+        <text x={specLeft + ((bandGap - 0.5) / 3.5) * specW} y={specBot + 10} textAnchor="middle" fontSize={13} fill={T.eo_gap}>E_g</text>
 
         {indicatorX >= specLeft && indicatorX <= specRight && (
           <circle cx={indicatorX} cy={specBot - Math.min(1, currentAlpha) * (specBot - specTop - 15)} r={4} fill={photonColor} stroke={T.ink} strokeWidth={1} />
         )}
 
-        <text x={specLeft} y={specBot + 10} fontSize={11} fill={T.muted}>0.5</text>
-        <text x={specRight} y={specBot + 10} textAnchor="end" fontSize={11} fill={T.muted}>4.0 eV</text>
+        <text x={specLeft} y={specBot + 10} fontSize={13} fill={T.muted}>0.5</text>
+        <text x={specRight} y={specBot + 10} textAnchor="end" fontSize={13} fill={T.muted}>4.0 eV</text>
       </svg>
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
@@ -6937,7 +6937,7 @@ function DielectricResponseSection() {
       <AnalogyBox>
           Dielectric response is how a material 'answers the phone' when an electric field 'calls.' Apply a field, and the positive and negative charges inside shift slightly (polarize) — like people leaning when a bus brakes. The dielectric constant measures how strongly the material responds. A high dielectric constant means strong polarization (everyone leans a lot). This matters for capacitors, gate oxides in transistors, and screening of charged defects.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
         style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
 
@@ -6971,34 +6971,34 @@ function DielectricResponseSection() {
             </defs>
             <line x1={gridX0 - 15} y1={gridY0 + gridRows * cellSize + 22} x2={gridX0 + 55} y2={gridY0 + gridRows * cellSize + 22}
               stroke={T.eo_gap} strokeWidth={2.5} markerEnd="url(#arrowE)" />
-            <text x={gridX0 + 60} y={gridY0 + gridRows * cellSize + 26} fontSize={11} fontWeight="bold" fill={T.eo_gap}>E</text>
+            <text x={gridX0 + 60} y={gridY0 + gridRows * cellSize + 26} fontSize={13} fontWeight="bold" fill={T.eo_gap}>E</text>
 
             {pArrowLen > 5 && (
               <>
                 <line x1={svgW / 2 - pArrowLen / 2} y1={gridY0 + gridRows * cellSize + 38}
                   x2={svgW / 2 + pArrowLen / 2} y2={gridY0 + gridRows * cellSize + 38}
                   stroke={T.eo_valence} strokeWidth={2} markerEnd="url(#arrowP)" />
-                <text x={svgW / 2 + pArrowLen / 2 + 8} y={gridY0 + gridRows * cellSize + 42} fontSize={11} fontWeight="bold" fill={T.eo_valence}>P</text>
+                <text x={svgW / 2 + pArrowLen / 2 + 8} y={gridY0 + gridRows * cellSize + 42} fontSize={13} fontWeight="bold" fill={T.eo_valence}>P</text>
               </>
             )}
           </g>
         )}
 
-        <text x={specLeft - 2} y={specY0 - 5} fontSize={10} fontWeight="bold" fill={T.ink}>ε(ω)</text>
+        <text x={specLeft - 2} y={specY0 - 5} fontSize={12} fontWeight="bold" fill={T.ink}>ε(ω)</text>
         <rect x={specLeft} y={specY0} width={specW} height={specH} fill={T.surface} stroke={T.border} />
         <path d={epsPlotPath.join(" ")} fill="none" stroke={T.eo_core} strokeWidth={2} />
 
         <line x1={specLeft} y1={specY0 + specH - (epsTotal / 14) * specH} x2={specLeft + specW * 0.25}
           y2={specY0 + specH - (epsTotal / 14) * specH} stroke={T.eo_e} strokeWidth={1} strokeDasharray="3,2" />
-        <text x={specLeft + 2} y={specY0 + specH - (epsTotal / 14) * specH - 3} fontSize={11} fill={T.eo_e}>ε₀={epsTotal.toFixed(1)}</text>
+        <text x={specLeft + 2} y={specY0 + specH - (epsTotal / 14) * specH - 3} fontSize={13} fill={T.eo_e}>ε₀={epsTotal.toFixed(1)}</text>
 
         <line x1={specLeft + specW * 0.35} y1={specY0 + specH - (epsElectronic / 14) * specH} x2={specLeft + specW * 0.7}
           y2={specY0 + specH - (epsElectronic / 14) * specH} stroke={T.eo_cond} strokeWidth={1} strokeDasharray="3,2" />
-        <text x={specLeft + specW * 0.5} y={specY0 + specH - (epsElectronic / 14) * specH - 3} fontSize={11} fill={T.eo_cond}>ε∞={epsElectronic.toFixed(1)}</text>
+        <text x={specLeft + specW * 0.5} y={specY0 + specH - (epsElectronic / 14) * specH - 3} fontSize={13} fill={T.eo_cond}>ε∞={epsElectronic.toFixed(1)}</text>
 
-        <text x={specLeft + specW * 0.15} y={specY0 + specH + 10} textAnchor="middle" fontSize={11} fill={T.eo_hole}>IR (ionic)</text>
-        <text x={specLeft + specW * 0.55} y={specY0 + specH + 10} textAnchor="middle" fontSize={11} fill={T.eo_cond}>UV (electronic)</text>
-        <text x={specLeft + specW / 2} y={specY0 + specH + 10} textAnchor="middle" fontSize={11} fill={T.muted}>ω →</text>
+        <text x={specLeft + specW * 0.15} y={specY0 + specH + 10} textAnchor="middle" fontSize={13} fill={T.eo_hole}>IR (ionic)</text>
+        <text x={specLeft + specW * 0.55} y={specY0 + specH + 10} textAnchor="middle" fontSize={13} fill={T.eo_cond}>UV (electronic)</text>
+        <text x={specLeft + specW / 2} y={specY0 + specH + 10} textAnchor="middle" fontSize={13} fill={T.muted}>ω →</text>
       </svg>
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
@@ -7092,12 +7092,12 @@ function RecombinationSection() {
           fill={isActive ? "#fafbff" : T.surface} stroke={isActive ? colors[mech] : T.border} strokeWidth={isActive ? 2 : 1} />
 
         <rect x={panelX + 10} y={cbY} width={panelW - 80} height={8} rx={2} fill="#dbeafe" stroke={T.eo_cond} strokeWidth={0.8} />
-        <text x={panelX + panelW - 65} y={cbY + 7} fontSize={11} fill={T.eo_cond}>CB</text>
+        <text x={panelX + panelW - 65} y={cbY + 7} fontSize={13} fill={T.eo_cond}>CB</text>
 
         <rect x={panelX + 10} y={vbY - 4} width={panelW - 80} height={8} rx={2} fill="#dcfce7" stroke={T.eo_valence} strokeWidth={0.8} />
-        <text x={panelX + panelW - 65} y={vbY + 3} fontSize={11} fill={T.eo_valence}>VB</text>
+        <text x={panelX + panelW - 65} y={vbY + 3} fontSize={13} fill={T.eo_valence}>VB</text>
 
-        <text x={panelX + panelW - 60} y={midY + 4} fontSize={11} fontWeight="bold" fill={colors[mech]}>
+        <text x={panelX + panelW - 60} y={midY + 4} fontSize={13} fontWeight="bold" fill={colors[mech]}>
           {labels[mech]}
         </text>
 
@@ -7113,7 +7113,7 @@ function RecombinationSection() {
                       <path d={`M${cx + 8},${midY} Q${cx + 18},${midY - 8} ${cx + 28},${midY} Q${cx + 38},${midY + 8} ${cx + 48},${midY}`}
                         fill="none" stroke={T.eo_photon} strokeWidth={2} />
                       <polygon points={`${cx + 52},${midY} ${cx + 47},${midY - 3} ${cx + 47},${midY + 3}`} fill={T.eo_photon} />
-                      <text x={cx + 30} y={midY - 10} fontSize={10} fill={T.eo_photon}>hν</text>
+                      <text x={cx + 30} y={midY - 10} fontSize={12} fill={T.eo_photon}>hν</text>
                     </g>
                   )}
                 </>
@@ -7125,7 +7125,7 @@ function RecombinationSection() {
         {mech === "srh" && (
           <g>
             <rect x={cx - 20} y={midY - 2} width={40} height={4} rx={1} fill={T.eo_gap} opacity={0.5} />
-            <text x={cx + 25} y={midY + 3} fontSize={10} fill={T.eo_gap}>trap</text>
+            <text x={cx + 25} y={midY + 3} fontSize={12} fill={T.eo_gap}>trap</text>
             {(() => {
               const phase1 = Math.min(1, t * 2);
               const phase2 = Math.max(0, t * 2 - 1);
@@ -7149,7 +7149,7 @@ function RecombinationSection() {
                     <line x1={cx - 5} y1={midY} x2={cx + 12} y2={el2Y + 4}
                       stroke={T.eo_core} strokeWidth={1.5} strokeDasharray="2,2" opacity={0.6} />
                   )}
-                  <text x={cx + 25} y={el2Y - 5} fontSize={10} fill={T.eo_core}>
+                  <text x={cx + 25} y={el2Y - 5} fontSize={12} fill={T.eo_core}>
                     {t > 0.4 && t < 0.8 ? "↑ KE" : ""}
                   </text>
                 </>
@@ -7166,10 +7166,10 @@ function RecombinationSection() {
       <AnalogyBox>
           Recombination is like an excited kid who jumped onto a table (conduction band) falling back to the floor (valence band). The energy released can come out as light (radiative recombination — that's how LEDs work) or as heat (non-radiative — through defects acting like hidden slides). Shockley-Read-Hall recombination happens when a defect creates a 'stepping stone' in the band gap — the electron steps down in two hops instead of one big jump. This limits solar cell efficiency.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
         style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
-        <text x={svgW / 2} y={14} textAnchor="middle" fontSize={11} fontWeight="bold" fill={T.ink}>
+        <text x={svgW / 2} y={14} textAnchor="middle" fontSize={13} fontWeight="bold" fill={T.ink}>
           Recombination Mechanisms
         </text>
         {mechanisms.map((m, i) => drawPanel(m, i))}
@@ -7308,7 +7308,7 @@ function AtomToDeviceSection() {
     <g opacity={active ? 1 : 0.4}>
       <rect x={cx - 18} y={cy + 5} width={36} height={10} rx={2} fill="#dcfce7" stroke={T.eo_valence} strokeWidth={1} />
       <rect x={cx - 18} y={cy - 18} width={36} height={10} rx={2} fill="#dbeafe" stroke={T.eo_cond} strokeWidth={1} />
-      <text x={cx} y={cy + 2} textAnchor="middle" fontSize={10} fill={T.eo_gap}>gap</text>
+      <text x={cx} y={cy + 2} textAnchor="middle" fontSize={12} fill={T.eo_gap}>gap</text>
     </g>
   );
 
@@ -7335,8 +7335,8 @@ function AtomToDeviceSection() {
     <g opacity={active ? 1 : 0.4}>
       <rect x={cx - 18} y={cy - 16} width={18} height={32} rx={2} fill="#dbeafe" stroke={T.eo_cond} strokeWidth={1} />
       <rect x={cx} y={cy - 16} width={18} height={32} rx={2} fill="#fee2e2" stroke={T.eo_hole} strokeWidth={1} />
-      <text x={cx - 9} y={cy + 3} textAnchor="middle" fontSize={11} fontWeight="bold" fill={T.eo_cond}>n</text>
-      <text x={cx + 9} y={cy + 3} textAnchor="middle" fontSize={11} fontWeight="bold" fill={T.eo_hole}>p</text>
+      <text x={cx - 9} y={cy + 3} textAnchor="middle" fontSize={13} fontWeight="bold" fill={T.eo_cond}>n</text>
+      <text x={cx + 9} y={cy + 3} textAnchor="middle" fontSize={13} fontWeight="bold" fill={T.eo_hole}>p</text>
       <path d={`M${cx - 28},${cy - 8} Q${cx - 24},${cy - 14} ${cx - 20},${cy - 8}`} fill="none" stroke={T.eo_photon} strokeWidth={1.5} />
       <polygon points={`${cx - 18},${cy - 8} ${cx - 22},${cy - 11} ${cx - 22},${cy - 5}`} fill={T.eo_photon} />
     </g>
@@ -7350,7 +7350,7 @@ function AtomToDeviceSection() {
       <AnalogyBox>
           Building a device from atoms is like constructing a skyscraper from individual bricks. First you understand the brick (atom: quantum mechanics). Then how bricks bond (chemical bonding). Then how stacked bricks form patterns (crystal structure). Then how electron highways emerge in the pattern (band structure). Then how imperfections change the highways (defects). Finally, you engineer all of this into a working device — a solar cell, transistor, or LED. Every chapter in this module is one floor of that skyscraper.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
         style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
 
@@ -7374,7 +7374,7 @@ function AtomToDeviceSection() {
             <circle cx={s.x} cy={iconY} r={26} fill={i <= activeStage ? "#f0f4ff" : T.surface}
               stroke={i <= activeStage ? s.color : T.border} strokeWidth={i === activeStage ? 2.5 : 1} />
             {drawFns[i](s.x, iconY, i <= activeStage)}
-            <text x={s.x} y={iconY + 38} textAnchor="middle" fontSize={11}
+            <text x={s.x} y={iconY + 38} textAnchor="middle" fontSize={13}
               fontWeight={i === activeStage ? "bold" : "normal"}
               fill={i === activeStage ? s.color : T.muted}>
               {s.label}
@@ -7388,7 +7388,7 @@ function AtomToDeviceSection() {
           opacity={0.3 + 0.2 * Math.sin(frame * 0.15)} />
 
         <rect x={20} y={210} width={svgW - 40} height={100} rx={8} fill={T.surface} stroke={T.border} />
-        <text x={svgW / 2} y={230} textAnchor="middle" fontSize={11} fontWeight="bold"
+        <text x={svgW / 2} y={230} textAnchor="middle" fontSize={13} fontWeight="bold"
           fill={stages[activeStage].color}>
           Stage {activeStage + 1}: {stages[activeStage].label}
         </text>
@@ -7408,7 +7408,7 @@ function AtomToDeviceSection() {
           });
           if (current) lines.push(current);
           return lines.map((line, i) => (
-            <text key={i} x={svgW / 2} y={248 + i * 14} textAnchor="middle" fontSize={10} fill={T.muted}>
+            <text key={i} x={svgW / 2} y={248 + i * 14} textAnchor="middle" fontSize={12} fill={T.muted}>
               {line}
             </text>
           ));
