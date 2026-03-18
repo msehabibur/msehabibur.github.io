@@ -4511,6 +4511,118 @@ function DensityOfStatesSection() {
   );
 }
 
+// ─── Interactive Polymer Builder ─────────────────────────────────────────────
+
+function PolymerBuilder() {
+  const monomers = [
+    { id: "ethylene", label: "Ethylene (PE)", formula: "CH₂=CH₂", color: "#9333ea", repeat: "–CH₂–CH₂–", bandGap: "8.8 eV", use: "Bags, bottles, pipes" },
+    { id: "propylene", label: "Propylene (PP)", formula: "CH₂=CHCH₃", color: "#7c3aed", repeat: "–CH₂–CH(CH₃)–", bandGap: "8.0 eV", use: "Containers, fibers, car parts" },
+    { id: "styrene", label: "Styrene (PS)", formula: "CH₂=CHC₆H₅", color: "#6d28d9", repeat: "–CH₂–CH(C₆H₅)–", bandGap: "4.5 eV", use: "Foam cups, insulation" },
+    { id: "vinylchloride", label: "Vinyl Chloride (PVC)", formula: "CH₂=CHCl", color: "#5b21b6", repeat: "–CH₂–CHCl–", bandGap: "6.2 eV", use: "Pipes, flooring, cables" },
+    { id: "tetrafluoroethylene", label: "Tetrafluoroethylene (PTFE)", formula: "CF₂=CF₂", color: "#4c1d95", repeat: "–CF₂–CF₂–", bandGap: "10.0 eV", use: "Non-stick (Teflon), seals" },
+    { id: "acetylene", label: "Acetylene (PA)", formula: "CH≡CH", color: "#dc2626", repeat: "–CH=CH–", bandGap: "1.5 eV", use: "Conducting polymer!" },
+  ];
+
+  const [chain, setChain] = useState([]);
+  const [frame, setFrame] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setFrame(f => f + 1), 50);
+    return () => clearInterval(id);
+  }, []);
+
+  const addMonomer = (m) => { if (chain.length < 12) setChain(c => [...c, m]); };
+  const clearChain = () => setChain([]);
+
+  const svgW = 500, svgH = 120;
+  const spacing = chain.length > 0 ? Math.min(40, (svgW - 40) / chain.length) : 40;
+
+  return (
+    <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: "1.5px solid #9333ea33" }}>
+      <div style={{ fontSize: 13, fontWeight: 800, color: "#9333ea", marginBottom: 10 }}>Interactive Polymer Builder</div>
+      <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, lineHeight: 1.6 }}>
+        Click monomers below to build a polymer chain. Each monomer links end-to-end through addition polymerization. Watch how the chain grows and properties change!
+      </div>
+
+      {/* Monomer buttons */}
+      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
+        {monomers.map(m => (
+          <button key={m.id} onClick={() => addMonomer(m)} style={{
+            padding: "6px 10px", borderRadius: 6, fontSize: 11, fontWeight: 600,
+            background: m.color + "15", border: `1.5px solid ${m.color}44`,
+            color: m.color, cursor: "pointer",
+          }}>+ {m.label}</button>
+        ))}
+        <button onClick={clearChain} style={{
+          padding: "6px 10px", borderRadius: 6, fontSize: 11, fontWeight: 600,
+          background: T.eo_gap + "15", border: `1.5px solid ${T.eo_gap}44`,
+          color: T.eo_gap, cursor: "pointer",
+        }}>Clear</button>
+      </div>
+
+      {/* Chain visualization */}
+      <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ width: "100%", maxWidth: svgW, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+        {chain.length === 0 && (
+          <text x={svgW / 2} y={svgH / 2 + 4} textAnchor="middle" fill={T.muted} fontSize={12}>Click a monomer to start building</text>
+        )}
+        {chain.map((m, i) => {
+          const x = 20 + i * spacing;
+          const y = svgH / 2 + Math.sin(frame * 0.04 + i * 0.8) * 8;
+          const nextX = 20 + (i + 1) * spacing;
+          const nextY = i < chain.length - 1 ? svgH / 2 + Math.sin(frame * 0.04 + (i + 1) * 0.8) * 8 : y;
+          return (
+            <g key={i}>
+              {i < chain.length - 1 && (
+                <line x1={x + 8} y1={y} x2={nextX - 8} y2={nextY} stroke={m.color} strokeWidth={2.5} opacity={0.6} />
+              )}
+              <circle cx={x} cy={y} r={10} fill={m.color + "33"} stroke={m.color} strokeWidth={1.5} />
+              <text x={x} y={y + 3.5} textAnchor="middle" fill={m.color} fontSize={7} fontWeight="bold">
+                {m.id === "ethylene" ? "PE" : m.id === "propylene" ? "PP" : m.id === "styrene" ? "PS" : m.id === "vinylchloride" ? "PVC" : m.id === "tetrafluoroethylene" ? "PTFE" : "PA"}
+              </text>
+            </g>
+          );
+        })}
+        {chain.length > 0 && <>
+          <text x={10} y={15} fill={T.muted} fontSize={10}>n = {chain.length} units</text>
+          <text x={svgW - 10} y={15} textAnchor="end" fill="#9333ea" fontSize={10} fontWeight="bold">
+            {chain.length >= 3 ? "Polymer!" : chain.length >= 2 ? "Oligomer" : "Monomer"}
+          </text>
+        </>}
+      </svg>
+
+      {/* Chain info */}
+      {chain.length > 0 && (() => {
+        const last = chain[chain.length - 1];
+        const isConjugated = chain.some(m => m.id === "acetylene");
+        return (
+          <div style={{ marginTop: 10, display: "flex", gap: 10, flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 150, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 4 }}>Repeat Unit</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: last.color, fontFamily: "monospace" }}>{last.repeat}</div>
+            </div>
+            <div style={{ flex: 1, minWidth: 150, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 4 }}>Band Gap</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: last.color, fontFamily: "monospace" }}>{last.bandGap}</div>
+            </div>
+            <div style={{ flex: 1, minWidth: 150, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 4 }}>Application</div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: T.ink }}>{last.use}</div>
+            </div>
+            {isConjugated && (
+              <div style={{ width: "100%", background: "#dc262611", borderRadius: 8, padding: 10, border: "1px solid #dc262633" }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "#dc2626", marginBottom: 4 }}>Conjugated Polymer Detected!</div>
+                <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
+                  Polyacetylene has alternating single and double bonds (conjugation). This creates delocalized electrons along the chain, dramatically reducing the band gap to ~1.5 eV. Shirakawa, MacDiarmid, and Heeger won the 2000 Nobel Prize for discovering that doping conjugated polymers makes them conductive like metals!
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })()}
+    </div>
+  );
+}
+
 // ─── Section 2: Material Classes ────────────────────────────────────────────
 
 function MaterialClassesSection() {
@@ -4595,10 +4707,12 @@ function MaterialClassesSection() {
     return { x: wobbleX, y: wobbleY, inCB };
   });
 
-  // Animated polymer chain
+  // Animated polymer chain — positioned between CB and VB bands without overlap
+  const chainYCenter = (CBbot + VBtop) / 2;
+  const chainAmplitude = Math.max(8, (gapPx - 20) / 3);
   const chainPts = selected === "polymer" ? Array.from({ length: 20 }, (_, i) => {
     const baseX = bandL + i * (bandW / 20);
-    const baseY = 130 + Math.sin(i * 0.8 + frame * 0.06) * 20 + Math.cos(i * 1.3 + frame * 0.04) * 10;
+    const baseY = chainYCenter + Math.sin(i * 0.8 + frame * 0.06) * chainAmplitude + Math.cos(i * 1.3 + frame * 0.04) * (chainAmplitude * 0.5);
     return [baseX, baseY];
   }) : [];
 
@@ -4651,7 +4765,7 @@ function MaterialClassesSection() {
             {/* Conduction band */}
             <rect x={bandL} y={CBbot - 30} width={bandR - bandL} height={30} rx={4}
               fill={T.eo_cond + "22"} stroke={T.eo_cond} strokeWidth={1.5} />
-            <text x={bandL + 6} y={CBbot - 12} fill={T.eo_cond} fontSize={10} fontWeight="bold">Conduction Band</text>
+            <text x={W / 2} y={CBbot - 10} textAnchor="middle" fill={T.eo_cond} fontSize={12} fontWeight="bold">Conduction Band (CBM)</text>
 
             {/* Band gap label */}
             {gapPx > 10 && <>
@@ -4666,7 +4780,7 @@ function MaterialClassesSection() {
             {/* Valence band */}
             <rect x={bandL} y={VBtop} width={bandR - bandL} height={30} rx={4}
               fill={T.eo_valence + "22"} stroke={T.eo_valence} strokeWidth={1.5} />
-            <text x={bandL + 6} y={VBtop + 18} fill={T.eo_valence} fontSize={10} fontWeight="bold">Valence Band</text>
+            <text x={W / 2} y={VBtop + 20} textAnchor="middle" fill={T.eo_valence} fontSize={12} fontWeight="bold">Valence Band (VBM)</text>
 
             {/* Overlap indicator for metals */}
             {selected === "metal" && (
@@ -4715,7 +4829,7 @@ function MaterialClassesSection() {
                   <circle key={i} cx={x} cy={y} r={i % 3 === 0 ? 6 : 4}
                     fill={i % 3 === 0 ? sel.color : sel.color + "66"} />
                 ))}
-                <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.muted} fontSize={9}>Wiggling polymer chain (weak inter-chain forces)</text>
+                <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.muted} fontSize={11}>Wiggling polymer chain (weak inter-chain forces)</text>
               </g>
             )}
 
@@ -4737,12 +4851,12 @@ function MaterialClassesSection() {
                       fontSize={a.isIon ? 8 : 7} fontWeight="bold">{a.isIon ? "+" : "–"}</text>
                   </g>
                 ))}
-                <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.muted} fontSize={9}>Rigid ionic/covalent lattice (barely vibrating)</text>
+                <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.muted} fontSize={11}>Rigid ionic/covalent lattice (barely vibrating)</text>
               </g>
             )}
 
             {/* Example label */}
-            <text x={W / 2} y={H - 2} textAnchor="middle" fill={T.muted} fontSize={9}>Examples: {sel.example}</text>
+            <text x={W / 2} y={H - 2} textAnchor="middle" fill={T.muted} fontSize={11}>Examples: {sel.example}</text>
           </svg>
 
           {/* ── BAND GAP COMPARISON BAR ── */}
@@ -4813,6 +4927,11 @@ function MaterialClassesSection() {
           </div>
         </div>
       </div>
+
+      {/* ── INTERACTIVE POLYMER BUILDER ── */}
+      {selected === "polymer" && (
+        <PolymerBuilder />
+      )}
 
       {/* ── COMPARISON TABLE ── */}
       <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: `1.5px solid ${T.border}` }}>
