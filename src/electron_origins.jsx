@@ -418,7 +418,14 @@ function AtomicModelsSection() {
   const m = models[model];
 
   return (
-    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 14, fontFamily: "monospace", color: T.ink }}>
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Imagine you are looking at an object through a series of increasingly powerful microscopes. <strong>Dalton</strong> saw a solid marble. <strong>Thomson</strong> cracked it open and found raisins in a pudding. <strong>Rutherford</strong> zoomed in and discovered the marble is 99.99% empty space with a tiny dense core. <strong>Bohr</strong> saw electrons orbiting like planets. Finally, <strong>quantum mechanics</strong> revealed there are no orbits at all {"\u2014"} just fuzzy probability clouds showing where the electron is <em>likely</em> to be. Each model did not destroy the last; it refined it.
+        </div>
+      </div>
+      <div style={{ display: "flex", gap: 20 }}>
       <div style={{ flexShrink: 0 }}>
         {renderSVG()}
       </div>
@@ -513,6 +520,7 @@ function AtomicModelsSection() {
             This is what forced physicists to abandon orbits and embrace wavefunctions.
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
@@ -4020,12 +4028,12 @@ function BandSection() {
             fill={T.bg} />
           <line x1={20} y1={(CBbot + VBtop) / 2} x2={280} y2={(CBbot + VBtop) / 2}
             stroke={T.border} strokeDasharray="4 4" />
-          <text x={290} y={(CBbot + VBtop) / 2 + 4} fill={T.eo_gap} fontSize={11} fontWeight="bold">GAP</text>
-          <text x={290} y={CBbot + 8} fill={T.muted} fontSize={9}>E={Egap}eV</text>
+          <text x={W / 2} y={(CBbot + VBtop) / 2 + 4} textAnchor="middle" fill={T.eo_gap} fontSize={11} fontWeight="bold">GAP</text>
+          <text x={W / 2} y={(CBbot + VBtop) / 2 + 18} textAnchor="middle" fill={T.muted} fontSize={10} fontWeight="bold">E = {Egap} eV</text>
 
           {/* Gap label with arrow */}
-          <line x1={285} y1={CBbot + 2} x2={285} y2={VBtop - 2}
-            stroke={T.eo_gap} strokeWidth={1} />
+          <line x1={W / 2 + 60} y1={CBbot + 2} x2={W / 2 + 60} y2={VBtop - 2}
+            stroke={T.eo_gap} strokeWidth={1.5} />
           <text x={170} y={(CBbot + VBtop) / 2 - 6} textAnchor="middle" fill={T.eo_gap} fontSize={10}>
             2.26 eV forbidden zone
           </text>
@@ -4196,10 +4204,49 @@ function DensityOfStatesSection() {
 
   const totalDos = (E) => dosVB(E) + dosCB(E);
 
+  // Orbital-projected DOS (PDOS) for ZnTe-like material
+  const dos_s = (E) => {
+    if (E > Ev && E < Ec) return 0;
+    if (E <= Ev && E >= Emin) {
+      const d = Ev - E;
+      return Math.min(0.12 * Math.pow(d, 0.8) * Math.exp(-0.3 * d), dosMax);
+    }
+    if (E >= Ec && E <= Emax) {
+      const a = E - Ec;
+      return Math.min(0.35 * Math.sqrt(a) * Math.exp(-0.5 * a), dosMax);
+    }
+    return 0;
+  };
+  const dos_p = (E) => {
+    if (E > Ev && E < Ec) return 0;
+    if (E <= Ev && E >= Emin) {
+      const d = Ev - E;
+      return Math.min(0.45 * Math.sqrt(d) * Math.exp(-0.15 * d), dosMax);
+    }
+    if (E >= Ec && E <= Emax) {
+      const a = E - Ec;
+      return Math.min(0.18 * Math.pow(a, 0.7), dosMax);
+    }
+    return 0;
+  };
+  const dos_d = (E) => {
+    if (E > Ev && E < Ec) return 0;
+    if (E <= Ev && E >= Emin) {
+      const d = Ev - E;
+      return Math.min(0.25 * Math.exp(-3.0 * Math.pow(d - 1.5, 2)), dosMax);
+    }
+    if (E >= Ec && E <= Emax) {
+      const a = E - Ec;
+      return Math.min(0.04 * a, dosMax);
+    }
+    return 0;
+  };
+
   const steps = 120;
   let dosPath = "";
   let filledPath = "";
   let fermiPath = "";
+  let sOrbPath = "", pOrbPath = "", dOrbPath = "";
 
   const eFermiActual = Emin + eFermi * (Emax - Emin);
 
@@ -4209,6 +4256,13 @@ function DensityOfStatesSection() {
     const x = dosToX(d / dosMax);
     const y = eToY(E);
     dosPath += (i === 0 ? "M" : "L") + x.toFixed(1) + "," + y.toFixed(1);
+    // orbital paths
+    const sx = dosToX(dos_s(E) / dosMax);
+    const px = dosToX(dos_p(E) / dosMax);
+    const dx = dosToX(dos_d(E) / dosMax);
+    sOrbPath += (i === 0 ? "M" : "L") + sx.toFixed(1) + "," + y.toFixed(1);
+    pOrbPath += (i === 0 ? "M" : "L") + px.toFixed(1) + "," + y.toFixed(1);
+    dOrbPath += (i === 0 ? "M" : "L") + dx.toFixed(1) + "," + y.toFixed(1);
   }
 
   let filledPts = [];
@@ -4253,6 +4307,27 @@ function DensityOfStatesSection() {
             fill="none" stroke={T.eo_e} strokeWidth={2} />
           <path d={dosPath + "L" + dosToX(0).toFixed(1) + "," + eToY(Emax).toFixed(1) + "Z"}
             fill={T.eo_e} opacity={0.08} />
+
+          {/* Orbital-resolved DOS curves */}
+          <path d={sOrbPath} fill="none" stroke="#4a9eff" strokeWidth={1.3} opacity={0.85} />
+          <path d={pOrbPath} fill="none" stroke="#2ecc71" strokeWidth={1.3} opacity={0.85} />
+          <path d={dOrbPath} fill="none" stroke="#e67e22" strokeWidth={1.3} opacity={0.85} />
+
+          {/* PDOS Legend */}
+          <rect x={marginL + 4} y={marginT + 2} width={68} height={52} rx={3}
+            fill={T.surface} stroke={T.border} strokeWidth={0.5} opacity={0.92} />
+          <line x1={marginL + 8} y1={marginT + 12} x2={marginL + 22} y2={marginT + 12}
+            stroke={T.eo_e} strokeWidth={2} />
+          <text x={marginL + 25} y={marginT + 15} fontSize={7} fill={T.muted} fontFamily="monospace">Total</text>
+          <line x1={marginL + 8} y1={marginT + 22} x2={marginL + 22} y2={marginT + 22}
+            stroke="#4a9eff" strokeWidth={1.3} />
+          <text x={marginL + 25} y={marginT + 25} fontSize={7} fill="#4a9eff" fontFamily="monospace">s-orb</text>
+          <line x1={marginL + 8} y1={marginT + 32} x2={marginL + 22} y2={marginT + 32}
+            stroke="#2ecc71" strokeWidth={1.3} />
+          <text x={marginL + 25} y={marginT + 35} fontSize={7} fill="#2ecc71" fontFamily="monospace">p-orb</text>
+          <line x1={marginL + 8} y1={marginT + 42} x2={marginL + 22} y2={marginT + 42}
+            stroke="#e67e22" strokeWidth={1.3} />
+          <text x={marginL + 25} y={marginT + 45} fontSize={7} fill="#e67e22" fontFamily="monospace">d-orb</text>
 
           <path d={fermiPath} fill="none" stroke={T.eo_photon} strokeWidth={1.5}
             strokeDasharray="4,3" opacity={0.8} />
@@ -4311,7 +4386,8 @@ function DensityOfStatesSection() {
             onChange={e => setTemperature(+e.target.value)} style={{ width: "100%" }} />
           <div style={{ fontSize: 10, color: T.muted, marginTop: 8, lineHeight: 1.6 }}>
             <span style={{ color: T.eo_photon }}>--- dashed</span>: Fermi-Dirac f(E)<br />
-            <span style={{ color: T.eo_valence }}>shaded</span>: occupied g(E)·f(E)
+            <span style={{ color: T.eo_valence }}>shaded</span>: occupied g(E)·f(E)<br />
+            <span style={{ color: "#4a9eff" }}>s</span> / <span style={{ color: "#2ecc71" }}>p</span> / <span style={{ color: "#e67e22" }}>d</span>: orbital-projected DOS
           </div>
         </div>
       </div>
@@ -4334,7 +4410,24 @@ function DensityOfStatesSection() {
         <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_gap, marginBottom: 4 }}>Key Insight</div>
           <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
-            In DFT output, DOS tells you where electrons can exist. Peaks = many states. Gap = forbidden. Defect states appear as peaks inside the gap.
+            In DFT output, DOS tells you where electrons can exist. <b>Peaks</b> mean many states bunched at that energy (flat bands, Van Hove singularities). A <b>gap</b> means no allowed states. <b>Defect states</b> appear as narrow peaks inside the gap, acting as traps or recombination centers.
+          </div>
+        </div>
+        <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, marginBottom: 6, color: "#2ecc71" }}>Orbital-Projected DOS (PDOS)</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            The total DOS can be decomposed into contributions from each atomic orbital type — this is the <b>Projected DOS (PDOS)</b>. It reveals <em>which orbitals</em> contribute states at each energy:
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7, marginTop: 6 }}>
+            <span style={{ color: "#4a9eff", fontWeight: 600 }}>s-orbital</span>: Spherically symmetric. In ZnTe, Zn 4s dominates the <b>conduction band minimum</b> (CBM). Deeper VB has Te 5s.<br />
+            <span style={{ color: "#2ecc71", fontWeight: 600 }}>p-orbital</span>: Directional (px, py, pz). Te 5p states dominate the <b>valence band maximum</b> (VBM) — the topmost occupied states.<br />
+            <span style={{ color: "#e67e22", fontWeight: 600 }}>d-orbital</span>: Zn 3d states form a <b>narrow peak</b> deep in the VB (~1.5 eV below VBM). Their sharpness reflects localized, atom-like character.
+          </div>
+        </div>
+        <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, marginBottom: 4, color: T.eo_photon }}>DFT Connection: Computing PDOS</div>
+          <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+            In VASP, set <code style={{ background: T.panel, padding: "1px 4px", borderRadius: 3 }}>LORBIT=11</code> to project DOS onto atomic orbitals. The output <b>DOSCAR</b> contains total + atom/orbital-resolved DOS. Tools like <b>pymatgen</b>, <b>VASPKIT</b>, and <b>sumo</b> parse and plot PDOS. This reveals the orbital character of each band — essential for understanding optical transitions, bonding, and defect levels.
           </div>
         </div>
       </div>
@@ -4470,10 +4563,10 @@ function MaterialClassesSection() {
         ))}
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
         {/* ── LEFT: ANIMATED VISUALIZATION ── */}
         <div style={{ flex: "0 0 350px" }}>
-          <svg viewBox={`0 0 ${W} ${H}`} style={{ display: "block", width: "100%", maxWidth: 350, background: T.surface, borderRadius: 10, border: `1.5px solid ${sel.color}33` }}>
+          <svg viewBox={`0 0 ${W} ${H}`} style={{ display: "block", width: "100%", maxWidth: 350, margin: "0 auto", background: T.surface, borderRadius: 10, border: `1.5px solid ${sel.color}33` }}>
             {/* Title */}
             <text x={W / 2} y={20} textAnchor="middle" fill={sel.color} fontSize={13} fontWeight="bold">{sel.label} Band Structure</text>
 
@@ -4499,7 +4592,7 @@ function MaterialClassesSection() {
 
             {/* Overlap indicator for metals */}
             {selected === "metal" && (
-              <text x={W / 2} y={VBtop + 6} textAnchor="middle" fill={T.eo_e} fontSize={10} fontWeight="bold">
+              <text x={W / 2} y={VBtop + 42} textAnchor="middle" fill={T.eo_e} fontSize={10} fontWeight="bold">
                 \u2191 Bands OVERLAP \u2193
               </text>
             )}
@@ -4647,7 +4740,7 @@ function MaterialClassesSection() {
       <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: `1.5px solid ${T.border}` }}>
         <div style={{ fontSize: 13, fontWeight: 800, color: T.ink, marginBottom: 10 }}>Material Classes \u2014 Side by Side</div>
         <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed", wordWrap: "break-word", fontSize: 10 }}>
             <thead>
               <tr style={{ borderBottom: `2px solid ${T.border}` }}>
                 {["Property", "Metal", "Semiconductor", "Insulator", "Polymer", "Ceramic"].map(h => (
