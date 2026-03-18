@@ -6750,7 +6750,7 @@ function ChemicalPotentialSection() {
           Chemical potential is like water pressure in connected tanks. Each tank (phase or species) has a water level (chemical potential). At equilibrium, water flows until all connected tanks reach the same level. If you add atoms to a crystal, the chemical potential tells you how much the system{"'"}s energy changes {"—"} like how much the water level rises when you pour more in. In defect physics, it controls which defects form: change the {"'"}pressure{"'"} (growth conditions) and different defects become favorable.
         </AnalogyBox>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "stretch" }}>
-      <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10, display: "flex", alignItems: "center" }}>
+      <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={mL} y={mT} width={toSX(-0.5) - mL} height={pH_}
             fill={T.eo_cond} opacity={0.06} />
@@ -6804,6 +6804,77 @@ function ChemicalPotentialSection() {
           ))}
         </svg>
 
+        {/* MBE Growth Animation — below stability polygon */}
+        <div style={{ marginTop: 8, fontSize: 13, fontWeight: 700, color: T.eo_valence, marginBottom: 4 }}>MBE Thin Film Growth</div>
+        <svg viewBox="0 0 400 170" style={{ width: "100%", maxWidth: W, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
+          {(() => {
+            const t = frame * 0.05;
+            const chX = 20, chY = 15, chW = 170, chH = 110;
+            const subY = chY + chH - 18;
+            const srcAx = chX + 20, srcBx = chX + chW - 60;
+            const srcY = chY + chH - 38;
+            const isARich = muA > -0.8;
+            const isBRich = muA < -1.8;
+            const isBalanced = !isARich && !isBRich;
+            const nA = isARich ? 6 : isBalanced ? 4 : 2;
+            const nB = isBRich ? 6 : isBalanced ? 4 : 2;
+            return <g>
+              {/* Chamber */}
+              <rect x={chX} y={chY} width={chW} height={chH} rx={5} fill={T.ink + "06"} stroke={T.border} strokeWidth={1.5} />
+              <text x={chX + chW / 2} y={chY - 3} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">MBE Chamber</text>
+              {/* Source A */}
+              <path d={`M${srcAx},${srcY + 16} L${srcAx},${srcY} L${srcAx + 30},${srcY} L${srcAx + 30},${srcY + 16}`} fill={T.eo_cond + "25"} stroke={T.eo_cond} strokeWidth={1} />
+              <text x={srcAx + 15} y={srcY + 11} textAnchor="middle" fontSize={12} fill={T.eo_cond} fontWeight={700} fontFamily="monospace">Cu</text>
+              <ellipse cx={srcAx + 15} cy={srcY + 18} rx={13} ry={3} fill={T.eo_gap} opacity={isARich ? 0.35 : 0.1} />
+              {/* Source B */}
+              <path d={`M${srcBx},${srcY + 16} L${srcBx},${srcY} L${srcBx + 30},${srcY} L${srcBx + 30},${srcY + 16}`} fill={T.eo_photon + "25"} stroke={T.eo_photon} strokeWidth={1} />
+              <text x={srcBx + 15} y={srcY + 11} textAnchor="middle" fontSize={12} fill={T.eo_photon} fontWeight={700} fontFamily="monospace">Zn</text>
+              <ellipse cx={srcBx + 15} cy={srcY + 18} rx={13} ry={3} fill={T.eo_gap} opacity={isBRich ? 0.35 : 0.1} />
+              {/* Substrate */}
+              <rect x={chX + 30} y={subY} width={chW - 60} height={6} rx={2} fill={T.eo_core} />
+              <text x={chX + chW / 2} y={subY + 16} textAnchor="middle" fontSize={12} fill={T.eo_core} fontFamily="monospace">Substrate</text>
+              {/* Film */}
+              <rect x={chX + 32} y={subY - 4} width={chW - 64} height={4} rx={1} fill={isBalanced ? T.eo_valence : isARich ? T.eo_cond + "80" : T.eo_photon + "80"} />
+              {/* A atoms */}
+              {[...Array(nA)].map((_, i) => {
+                const p = ((t * 0.8 + i * 1.2) % 4) / 4;
+                const ax = srcAx + 10 + Math.sin(i * 2.3) * 8 + (chX + 50 + (i % 3) * 18 - srcAx - 10) * p;
+                const ay = srcY - 3 - p * (srcY - subY - 10);
+                return <circle key={`a${i}`} cx={ax} cy={ay} r={3.5} fill={T.eo_cond} opacity={0.7 - p * 0.3} />;
+              })}
+              {/* B atoms */}
+              {[...Array(nB)].map((_, i) => {
+                const p = ((t * 0.7 + i * 1.4 + 0.5) % 4) / 4;
+                const bx = srcBx + 10 + Math.sin(i * 1.7) * 8 + (chX + 55 + (i % 3) * 16 - srcBx - 10) * p;
+                const by = srcY - 3 - p * (srcY - subY - 10);
+                return <circle key={`b${i}`} cx={bx} cy={by} r={3.5} fill={T.eo_photon} opacity={0.7 - p * 0.3} />;
+              })}
+              {/* Right info panel */}
+              <text x={220} y={28} fontSize={12} fill={T.ink} fontWeight={700} fontFamily="monospace">Growth Conditions</text>
+              <text x={220} y={48} fontSize={12} fill={T.eo_cond} fontFamily="monospace">Cu flux:</text>
+              <rect x={280} y={38} width={Math.max(4, (1 - (muA - muMin) / (muMax - muMin)) * 100)} height={12} rx={2} fill={T.eo_cond} opacity={0.7} />
+              <text x={220} y={68} fontSize={12} fill={T.eo_photon} fontFamily="monospace">Zn flux:</text>
+              <rect x={280} y={58} width={Math.max(4, ((muA - muMin) / (muMax - muMin)) * 100)} height={12} rx={2} fill={T.eo_photon} opacity={0.7} />
+              <text x={220} y={90} fontSize={12} fill={T.muted} fontFamily="monospace">T_sub: 600 K</text>
+              <rect x={215} y={100} width={170} height={22} rx={5}
+                fill={isBalanced ? T.eo_valence + "18" : isARich ? T.eo_cond + "18" : T.eo_photon + "18"}
+                stroke={isBalanced ? T.eo_valence : isARich ? T.eo_cond : T.eo_photon} strokeWidth={1} />
+              <text x={300} y={115} textAnchor="middle" fontSize={12}
+                fill={isBalanced ? T.eo_valence : isARich ? T.eo_cond : T.eo_photon}
+                fontWeight={700} fontFamily="monospace">
+                {isARich ? "Cu-rich → V_Zn" : isBRich ? "Zn-rich → V_Cu (p)" : "Balanced → CuZn"}
+              </text>
+              <text x={300} y={135} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">
+                {isBalanced ? "Best quality!" : isARich ? "Secondary phases" : "p-type doping"}
+              </text>
+              {/* Legend */}
+              <circle cx={220} cy={155} r={3} fill={T.eo_cond} />
+              <text x={228} y={158} fontSize={12} fill={T.muted} fontFamily="monospace">Cu</text>
+              <circle cx={260} cy={155} r={3} fill={T.eo_photon} />
+              <text x={268} y={158} fontSize={12} fill={T.muted} fontFamily="monospace">Zn</text>
+            </g>;
+          })()}
+        </svg>
       </div>
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
@@ -6882,119 +6953,6 @@ function ChemicalPotentialSection() {
           <div style={{ color: T.ink }}>
             We{"'"}ve traced electrons from atomic orbitals through crystal bands to doped semiconductors. Now we connect all the pieces {"—"} from a single atom{"'"}s quantum states to a working solar cell or LED.
           </div>
-        </div>
-      </div>
-
-      {/* Thin Film Growth Reaction Animation */}
-      <div style={{ background: T.panel, borderRadius: 10, padding: 12, border: `1.5px solid ${T.border}` }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_valence, marginBottom: 8 }}>Thin Film Growth — Controlling Chemical Potential</div>
-        <svg viewBox="0 0 560 210" style={{ width: "100%", maxWidth: 560, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-          {(() => {
-            const t = frame * 0.05;
-            // Growth chamber
-            const chX = 30, chY = 25, chW = 200, chH = 140;
-            // Substrate at bottom of chamber
-            const subY = chY + chH - 20;
-            // Source crucibles
-            const srcAx = chX + 30, srcBx = chX + chW - 70;
-            const srcY = chY + chH - 45;
-            // Condition based on muA slider
-            const isARich = muA > -0.8;
-            const isBRich = muA < -1.8;
-            const isBalanced = !isARich && !isBRich;
-            // Evaporating atoms from sources
-            const nAatoms = isARich ? 8 : isBalanced ? 5 : 2;
-            const nBatoms = isBRich ? 8 : isBalanced ? 5 : 2;
-
-            return <g>
-              {/* Chamber walls */}
-              <rect x={chX} y={chY} width={chW} height={chH} rx={6} fill={T.ink + "08"} stroke={T.border} strokeWidth={2} />
-              <text x={chX + chW / 2} y={chY - 6} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">MBE Growth Chamber</text>
-
-              {/* Vacuum label */}
-              <text x={chX + chW / 2} y={chY + 18} textAnchor="middle" fontSize={12} fill={T.dim} fontFamily="monospace">Ultra-high vacuum</text>
-
-              {/* Source A crucible */}
-              <path d={`M${srcAx},${srcY + 20} L${srcAx},${srcY} L${srcAx + 40},${srcY} L${srcAx + 40},${srcY + 20}`}
-                fill={T.eo_cond + "30"} stroke={T.eo_cond} strokeWidth={1.5} />
-              <text x={srcAx + 20} y={srcY + 14} textAnchor="middle" fontSize={13} fill={T.eo_cond} fontWeight={700} fontFamily="monospace">Cu</text>
-              {/* Heat glow */}
-              <ellipse cx={srcAx + 20} cy={srcY + 22} rx={18} ry={4} fill={T.eo_gap} opacity={isARich ? 0.4 : 0.15} />
-
-              {/* Source B crucible */}
-              <path d={`M${srcBx},${srcY + 20} L${srcBx},${srcY} L${srcBx + 40},${srcY} L${srcBx + 40},${srcY + 20}`}
-                fill={T.eo_photon + "30"} stroke={T.eo_photon} strokeWidth={1.5} />
-              <text x={srcBx + 20} y={srcY + 14} textAnchor="middle" fontSize={13} fill={T.eo_photon} fontWeight={700} fontFamily="monospace">Zn</text>
-              <ellipse cx={srcBx + 20} cy={srcY + 22} rx={18} ry={4} fill={T.eo_gap} opacity={isBRich ? 0.4 : 0.15} />
-
-              {/* Substrate */}
-              <rect x={chX + 40} y={subY} width={chW - 80} height={8} rx={2} fill={T.eo_core} stroke={T.eo_core} strokeWidth={1} />
-              <text x={chX + chW / 2} y={subY + 20} textAnchor="middle" fontSize={12} fill={T.eo_core} fontFamily="monospace">Substrate</text>
-
-              {/* Evaporating A atoms */}
-              {[...Array(nAatoms)].map((_, i) => {
-                const progress = ((t * 0.8 + i * 1.2) % 4) / 4;
-                const startX2 = srcAx + 15 + Math.sin(i * 2.3) * 10;
-                const endX = chX + 60 + (i % 4) * 20;
-                const ax = startX2 + (endX - startX2) * progress;
-                const ay = srcY - 5 - progress * (srcY - subY - 15);
-                return <circle key={`a${i}`} cx={ax} cy={ay} r={4} fill={T.eo_cond} opacity={0.7 - progress * 0.3} />;
-              })}
-
-              {/* Evaporating B atoms */}
-              {[...Array(nBatoms)].map((_, i) => {
-                const progress = ((t * 0.7 + i * 1.4 + 0.5) % 4) / 4;
-                const startX2 = srcBx + 15 + Math.sin(i * 1.7) * 10;
-                const endX = chX + 70 + (i % 4) * 18;
-                const bx = startX2 + (endX - startX2) * progress;
-                const by = srcY - 5 - progress * (srcY - subY - 15);
-                return <circle key={`b${i}`} cx={bx} cy={by} r={4} fill={T.eo_photon} opacity={0.7 - progress * 0.3} />;
-              })}
-
-              {/* Growing film on substrate */}
-              <rect x={chX + 42} y={subY - 6} width={chW - 84} height={6} rx={1}
-                fill={isBalanced ? T.eo_valence : isARich ? T.eo_cond + "80" : T.eo_photon + "80"} />
-
-              {/* Right side: condition readout */}
-              <rect x={270} y={30} width={270} height={170} rx={8} fill={T.panel} stroke={T.border} strokeWidth={1} />
-              <text x={405} y={52} textAnchor="middle" fontSize={13} fill={T.ink} fontWeight={700} fontFamily="monospace">Growth Conditions</text>
-
-              {/* Flux bars */}
-              <text x={290} y={78} fontSize={12} fill={T.eo_cond} fontFamily="monospace" fontWeight={600}>Cu flux:</text>
-              <rect x={360} y={67} width={Math.max(5, (1 - (muA - muMin) / (muMax - muMin)) * 150)} height={14} rx={3} fill={T.eo_cond} opacity={0.7} />
-
-              <text x={290} y={102} fontSize={12} fill={T.eo_photon} fontFamily="monospace" fontWeight={600}>Zn flux:</text>
-              <rect x={360} y={91} width={Math.max(5, ((muA - muMin) / (muMax - muMin)) * 150)} height={14} rx={3} fill={T.eo_photon} opacity={0.7} />
-
-              {/* Temperature */}
-              <text x={290} y={126} fontSize={12} fill={T.muted} fontFamily="monospace">Substrate T:</text>
-              <text x={390} y={126} fontSize={13} fill={T.eo_gap} fontWeight={700} fontFamily="monospace">600 K</text>
-
-              {/* Resulting condition */}
-              <rect x={285} y={138} width={240} height={28} rx={6}
-                fill={isBalanced ? T.eo_valence + "20" : isARich ? T.eo_cond + "20" : T.eo_photon + "20"}
-                stroke={isBalanced ? T.eo_valence : isARich ? T.eo_cond : T.eo_photon} strokeWidth={1.5} />
-              <text x={405} y={157} textAnchor="middle" fontSize={13}
-                fill={isBalanced ? T.eo_valence : isARich ? T.eo_cond : T.eo_photon}
-                fontWeight={700} fontFamily="monospace">
-                {isARich ? "Cu-rich → V_Zn defects" : isBRich ? "Zn-rich → V_Cu defects (p-type)" : "Balanced → Stoichiometric CuZn"}
-              </text>
-
-              {/* Result quality */}
-              <text x={405} y={185} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">
-                {isBalanced ? "Best crystal quality!" : isARich ? "Metallic secondary phases risk" : "Optimal for p-type doping"}
-              </text>
-
-              {/* Legend */}
-              <circle cx={290} cy={200} r={4} fill={T.eo_cond} />
-              <text x={300} y={204} fontSize={12} fill={T.muted} fontFamily="monospace">Cu atom</text>
-              <circle cx={370} cy={200} r={4} fill={T.eo_photon} />
-              <text x={380} y={204} fontSize={12} fill={T.muted} fontFamily="monospace">Zn atom</text>
-            </g>;
-          })()}
-        </svg>
-        <div style={{ fontSize: 12, color: T.muted, marginTop: 6, lineHeight: 1.6 }}>
-          Adjust the mu_A slider above to change growth conditions. Watch how the atom flux changes and see which defects form in the film.
         </div>
       </div>
 
