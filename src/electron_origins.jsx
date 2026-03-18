@@ -6179,8 +6179,8 @@ function ThermodynamicsSection() {
   const [ballX, setBallX] = useState(0.2);
   const ballVelRef = useRef(0);
 
-  const W = 340, H = 320;
-  const marginL = 45, marginR = 15, marginT = 40, marginB = 35;
+  const W = 400, H = 340;
+  const marginL = 55, marginR = 25, marginT = 40, marginB = 45;
   const plotW = W - marginL - marginR;
   const plotH = H - marginT - marginB;
 
@@ -6282,10 +6282,10 @@ function ThermodynamicsSection() {
           <line x1={marginL} y1={marginT} x2={marginL} y2={H - marginB}
             stroke={T.border} strokeWidth={1} />
 
-          <text x={W / 2} y={H - 5} textAnchor="middle" fontSize={12} fill={T.muted}
+          <text x={W / 2} y={H - 8} textAnchor="middle" fontSize={13} fill={T.muted}
             fontFamily="monospace">Reaction Coordinate</text>
-          <text x={10} y={H / 2} textAnchor="middle" fontSize={12} fill={T.muted}
-            fontFamily="monospace" transform={`rotate(-90,10,${H / 2})`}>G (eV)</text>
+          <text x={16} y={H / 2} textAnchor="middle" fontSize={13} fill={T.muted}
+            fontFamily="monospace" transform={`rotate(-90,16,${H / 2})`}>G (eV)</text>
 
           <text x={marginL + plotW / 2} y={marginT - 12} textAnchor="middle" fontSize={13}
             fill={dgColor} fontFamily="monospace" fontWeight={700}>
@@ -6374,8 +6374,8 @@ function PhaseDiagramSection() {
     return () => clearInterval(id);
   }, []);
 
-  const W = 340, H = 320;
-  const mL = 50, mR = 20, mT = 25, mB = 40;
+  const W = 400, H = 340;
+  const mL = 55, mR = 25, mT = 25, mB = 50;
   const pW = W - mL - mR;
   const pH_ = H - mT - mB;
 
@@ -6489,15 +6489,15 @@ function PhaseDiagramSection() {
           <line x1={mL} y1={mT} x2={mL} y2={H - mB} stroke={T.border} strokeWidth={1} />
           <line x1={mL} y1={H - mB} x2={W - mR} y2={H - mB} stroke={T.border} strokeWidth={1} />
 
-          <text x={W / 2} y={H - 5} textAnchor="middle" fontSize={12} fill={T.muted}
+          <text x={W / 2} y={H - 8} textAnchor="middle" fontSize={13} fill={T.muted}
             fontFamily="monospace">Composition (% B)</text>
-          <text x={mL - 5} y={H - mB + 3} textAnchor="end" fontSize={13} fill={T.dim}
+          <text x={mL - 5} y={H - mB + 16} textAnchor="end" fontSize={13} fill={T.dim}
             fontFamily="monospace">0%</text>
-          <text x={mL + pW + 2} y={H - mB + 3} fontSize={13} fill={T.dim}
+          <text x={mL + pW + 2} y={H - mB + 16} fontSize={13} fill={T.dim}
             fontFamily="monospace">100%</text>
 
-          <text x={8} y={H / 2} textAnchor="middle" fontSize={12} fill={T.muted}
-            fontFamily="monospace" transform={`rotate(-90,8,${H / 2})`}>Temperature (K)</text>
+          <text x={14} y={H / 2} textAnchor="middle" fontSize={13} fill={T.muted}
+            fontFamily="monospace" transform={`rotate(-90,14,${H / 2})`}>Temperature (K)</text>
           {[Tmin, 500, 800, Tmax].map((tv, i) => (
             <text key={i} x={mL - 6} y={toSY(tv) + 3} textAnchor="end"
               fontSize={13} fill={T.dim} fontFamily="monospace">{tv}</text>
@@ -6586,6 +6586,47 @@ function PhaseDiagramSection() {
           </div>
         </div>
       </div>
+
+      {/* Cooling / Solidification Animation */}
+      <div style={{ background: T.panel, borderRadius: 10, padding: 12, border: `1.5px solid ${T.border}` }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_e, marginBottom: 8 }}>Solidification Animation — Cooling from Liquid</div>
+        <svg viewBox="0 0 500 120" style={{ width: "100%", maxWidth: 500, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+          {(() => {
+            const stages = [
+              { label: "All Liquid", tRange: "T > T_liq", bg: T.eo_cond + "30" },
+              { label: "Nucleation", tRange: "T = T_liq", bg: T.eo_photon + "25" },
+              { label: "L + S coexist", tRange: "T_sol < T < T_liq", bg: T.eo_photon + "20" },
+              { label: "Eutectic rxn", tRange: "T = T_eut", bg: T.eo_gap + "25" },
+              { label: "All Solid", tRange: "T < T_sol", bg: T.eo_core + "30" },
+            ];
+            const stgW = 90, gap = 8, startX = 15;
+            const t = frame * 0.06;
+            return <g>
+              {stages.map((s, i) => {
+                const sx = startX + i * (stgW + gap);
+                const active = Math.floor((t % 10) / 2) === i;
+                return <g key={i}>
+                  <rect x={sx} y={10} width={stgW} height={70} rx={8} fill={s.bg} stroke={active ? T.eo_e : T.border} strokeWidth={active ? 2.5 : 1} />
+                  {/* atoms / particles inside */}
+                  {[...Array(8)].map((_, j) => {
+                    const ax = sx + 10 + (j % 4) * 20;
+                    const baseY = 28 + Math.floor(j / 4) * 24;
+                    const isLiquid = i < 2 || (i === 2 && j < 4);
+                    const jitter = isLiquid ? Math.sin(t * 3 + j * 2 + i) * 5 : 0;
+                    const jitterX = isLiquid ? Math.cos(t * 2.5 + j * 1.7 + i) * 4 : 0;
+                    return <circle key={j} cx={ax + jitterX} cy={baseY + jitter} r={5}
+                      fill={isLiquid ? T.eo_cond : T.eo_core} opacity={0.8} />;
+                  })}
+                  <text x={sx + stgW / 2} y={92} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={active ? 700 : 500} fontFamily="monospace">{s.label}</text>
+                  <text x={sx + stgW / 2} y={108} textAnchor="middle" fontSize={12} fill={T.muted} fontFamily="monospace">{s.tRange}</text>
+                  {i < 4 && <text x={sx + stgW + gap / 2} y={50} textAnchor="middle" fontSize={16} fill={T.dim}>→</text>}
+                </g>;
+              })}
+            </g>;
+          })()}
+        </svg>
+      </div>
+
       </div>
     </div>
   );
@@ -6603,8 +6644,8 @@ function ChemicalPotentialSection() {
     return () => clearInterval(id);
   }, []);
 
-  const W = 340, H = 320;
-  const mL = 45, mR = 15, mT = 20, mB = 40;
+  const W = 400, H = 340;
+  const mL = 55, mR = 25, mT = 25, mB = 50;
   const pW = W - mL - mR;
   const pH_ = H - mT - mB;
 
@@ -6703,16 +6744,16 @@ function ChemicalPotentialSection() {
           <line x1={mL} y1={mT} x2={mL} y2={H - mB} stroke={T.border} strokeWidth={1} />
           <line x1={mL} y1={H - mB} x2={W - mR} y2={H - mB} stroke={T.border} strokeWidth={1} />
 
-          <text x={W / 2} y={H - 5} textAnchor="middle" fontSize={12} fill={T.muted}
+          <text x={W / 2} y={H - 8} textAnchor="middle" fontSize={13} fill={T.muted}
             fontFamily="monospace">mu_A (eV)</text>
-          <text x={8} y={H / 2} textAnchor="middle" fontSize={12} fill={T.muted}
-            fontFamily="monospace" transform={`rotate(-90,8,${H / 2})`}>mu_B (eV)</text>
+          <text x={14} y={H / 2} textAnchor="middle" fontSize={13} fill={T.muted}
+            fontFamily="monospace" transform={`rotate(-90,14,${H / 2})`}>mu_B (eV)</text>
 
           {[-3, -2, -1, 0].map((v, i) => (
             <g key={i}>
-              <text x={toSX(v)} y={H - mB + 14} textAnchor="middle"
+              <text x={toSX(v)} y={H - mB + 18} textAnchor="middle"
                 fontSize={13} fill={T.dim} fontFamily="monospace">{v}</text>
-              <text x={mL - 6} y={toSY(v) + 3} textAnchor="end"
+              <text x={mL - 8} y={toSY(v) + 4} textAnchor="end"
                 fontSize={13} fill={T.dim} fontFamily="monospace">{v}</text>
             </g>
           ))}
@@ -6798,6 +6839,56 @@ function ChemicalPotentialSection() {
           </div>
         </div>
       </div>
+
+      {/* Defect Formation Animation */}
+      <div style={{ background: T.panel, borderRadius: 10, padding: 12, border: `1.5px solid ${T.border}` }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_valence, marginBottom: 8 }}>Defect Formation under Different Growth Conditions</div>
+        <svg viewBox="0 0 500 130" style={{ width: "100%", maxWidth: 500, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+          {(() => {
+            const t = frame * 0.05;
+            const conditions = [
+              { label: "A-rich", sub: "(Cu-rich)", defect: "V_B", defColor: T.eo_gap, desc: "B vacancies form" },
+              { label: "Stoichiometric", sub: "(balanced)", defect: "Low defects", defColor: T.eo_valence, desc: "Fewest defects" },
+              { label: "B-rich", sub: "(Zn-rich)", defect: "V_A", defColor: T.eo_e, desc: "A vacancies form" },
+            ];
+            const boxW = 140, gap = 20, startX = 25;
+            return <g>
+              {conditions.map((c, i) => {
+                const bx = startX + i * (boxW + gap);
+                const isActive = Math.abs(muA - (i === 0 ? -0.3 : i === 1 ? -1.25 : -2.2)) < 0.5;
+                // 3x3 lattice
+                const atoms = [];
+                for (let r = 0; r < 3; r++) {
+                  for (let col = 0; col < 3; col++) {
+                    const ax = bx + 30 + col * 28;
+                    const ay = 20 + r * 22;
+                    const isDefect = r === 1 && col === 1;
+                    if (isDefect && i !== 1) {
+                      // vacancy - dashed circle
+                      atoms.push(<circle key={`${r}${col}`} cx={ax} cy={ay} r={8} fill="none" stroke={c.defColor} strokeWidth={1.5} strokeDasharray="3,2" />);
+                      atoms.push(<text key={`t${r}${col}`} x={ax} y={ay + 4} textAnchor="middle" fontSize={12} fill={c.defColor} fontFamily="monospace">V</text>);
+                    } else {
+                      const jitter = Math.sin(t * 2 + r * 3 + col * 5 + i) * 2;
+                      atoms.push(<circle key={`${r}${col}`} cx={ax + jitter} cy={ay} r={8} fill={(r + col) % 2 === 0 ? T.eo_cond : T.eo_photon} opacity={0.7} />);
+                      atoms.push(<text key={`t${r}${col}`} x={ax + jitter} y={ay + 4} textAnchor="middle" fontSize={12} fill="#fff" fontFamily="monospace" fontWeight="bold">{(r + col) % 2 === 0 ? "A" : "B"}</text>);
+                    }
+                  }
+                }
+                return <g key={i}>
+                  <rect x={bx} y={3} width={boxW} height={90} rx={8} fill={isActive ? c.defColor + "15" : "transparent"} stroke={isActive ? c.defColor : T.border} strokeWidth={isActive ? 2 : 1} />
+                  {atoms}
+                  <text x={bx + boxW / 2} y={105} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={700} fontFamily="monospace">{c.label}</text>
+                  <text x={bx + boxW / 2} y={120} textAnchor="middle" fontSize={12} fill={c.defColor} fontFamily="monospace">{c.defect}</text>
+                </g>;
+              })}
+            </g>;
+          })()}
+        </svg>
+        <div style={{ fontSize: 12, color: T.muted, marginTop: 6, lineHeight: 1.6 }}>
+          Adjust mu_A slider above to see which growth condition you are in. A-rich conditions create B-vacancies; B-rich conditions create A-vacancies.
+        </div>
+      </div>
+
       </div>
     </div>
   );
