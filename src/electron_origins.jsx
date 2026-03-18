@@ -4623,6 +4623,498 @@ function PolymerBuilder() {
   );
 }
 
+// ─── Interactive Metal Alloy Explorer ────────────────────────────────────────
+
+function MetalAlloyExplorer() {
+  const [base, setBase] = useState("Cu");
+  const [alloyElement, setAlloyElement] = useState("Zn");
+  const [percentage, setPercentage] = useState(10);
+
+  const bases = ["Cu", "Al", "Fe", "Ti"];
+  const alloys = ["Zn", "Sn", "Ni", "Cr", "C"];
+
+  const alloyNames = {
+    "Cu+Zn": "Brass", "Cu+Sn": "Bronze", "Cu+Ni": "Cupronickel", "Cu+Cr": "Cu-Cr Alloy", "Cu+C": "Cu-C Composite",
+    "Al+Zn": "Al-Zn Alloy", "Al+Sn": "Al-Sn Alloy", "Al+Ni": "Al-Ni Alloy", "Al+Cr": "Al-Cr Alloy", "Al+Cu": "Duralumin",
+    "Fe+Zn": "Galvanized Steel", "Fe+Sn": "Tinplate Steel", "Fe+Ni": "Invar", "Fe+Cr": "Stainless Steel", "Fe+C": "Steel",
+    "Ti+Zn": "Ti-Zn Alloy", "Ti+Sn": "Ti-Sn Alloy", "Ti+Ni": "Nitinol", "Ti+Cr": "Ti-Cr Alloy", "Ti+C": "Ti-C Composite",
+  };
+
+  const alloyProps = {
+    "Cu+Zn": { strength: 60, conductivity: 55, corrosion: 65 },
+    "Cu+Sn": { strength: 70, conductivity: 40, corrosion: 80 },
+    "Cu+Ni": { strength: 55, conductivity: 30, corrosion: 85 },
+    "Cu+Cr": { strength: 65, conductivity: 60, corrosion: 70 },
+    "Cu+C": { strength: 50, conductivity: 65, corrosion: 50 },
+    "Al+Zn": { strength: 65, conductivity: 50, corrosion: 40 },
+    "Al+Sn": { strength: 40, conductivity: 55, corrosion: 45 },
+    "Al+Ni": { strength: 60, conductivity: 45, corrosion: 55 },
+    "Al+Cr": { strength: 55, conductivity: 48, corrosion: 65 },
+    "Al+Cu": { strength: 80, conductivity: 45, corrosion: 50 },
+    "Fe+Zn": { strength: 55, conductivity: 35, corrosion: 75 },
+    "Fe+Sn": { strength: 50, conductivity: 30, corrosion: 70 },
+    "Fe+Ni": { strength: 60, conductivity: 25, corrosion: 65 },
+    "Fe+Cr": { strength: 70, conductivity: 20, corrosion: 95 },
+    "Fe+C": { strength: 90, conductivity: 15, corrosion: 30 },
+    "Ti+Zn": { strength: 65, conductivity: 15, corrosion: 80 },
+    "Ti+Sn": { strength: 60, conductivity: 12, corrosion: 85 },
+    "Ti+Ni": { strength: 75, conductivity: 10, corrosion: 90 },
+    "Ti+Cr": { strength: 70, conductivity: 12, corrosion: 88 },
+    "Ti+C": { strength: 85, conductivity: 8, corrosion: 92 },
+  };
+
+  const key = `${base}+${alloyElement}`;
+  const name = alloyNames[key] || `${base}-${alloyElement} Alloy`;
+  const props = alloyProps[key] || { strength: 50, conductivity: 50, corrosion: 50 };
+  const baseColor = "#2563eb";
+  const alloyColor = "#f59e0b";
+
+  // Generate lattice positions with some alloy atoms
+  const gridSize = 8;
+  const atoms = [];
+  for (let row = 0; row < gridSize; row++) {
+    for (let col = 0; col < gridSize; col++) {
+      const isAlloy = ((row * 7 + col * 13 + row * col * 3) % 100) < percentage;
+      atoms.push({ x: 30 + col * 35, y: 30 + row * 35, isAlloy });
+    }
+  }
+
+  return (
+    <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: "1.5px solid #2563eb33" }}>
+      <div style={{ fontSize: 13, fontWeight: 800, color: "#2563eb", marginBottom: 10 }}>Interactive Metal Alloy Explorer</div>
+      <div style={{ fontSize: 12, color: T.muted, marginBottom: 10, lineHeight: 1.6 }}>
+        Pick a base metal and alloying element to see how alloys form. Adjust the percentage and watch the crystal lattice change!
+      </div>
+
+      {/* Controls */}
+      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Base Metal</div>
+          <div style={{ display: "flex", gap: 4 }}>
+            {bases.map(b => (
+              <button key={b} onClick={() => setBase(b)} style={{
+                padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 600,
+                background: b === base ? baseColor + "22" : T.surface,
+                border: `1.5px solid ${b === base ? baseColor : T.border}`,
+                color: b === base ? baseColor : T.muted, cursor: "pointer",
+              }}>{b}</button>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Alloying Element</div>
+          <div style={{ display: "flex", gap: 4 }}>
+            {alloys.map(a => (
+              <button key={a} onClick={() => setAlloyElement(a)} style={{
+                padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 600,
+                background: a === alloyElement ? alloyColor + "22" : T.surface,
+                border: `1.5px solid ${a === alloyElement ? alloyColor : T.border}`,
+                color: a === alloyElement ? alloyColor : T.muted, cursor: "pointer",
+              }}>{a}</button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Percentage slider */}
+      <div style={{ marginBottom: 12 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Alloy Percentage: {percentage}%</div>
+        <input type="range" min={0} max={30} value={percentage} onChange={e => setPercentage(Number(e.target.value))}
+          style={{ width: "100%", accentColor: baseColor }} />
+      </div>
+
+      {/* Lattice SVG */}
+      <svg viewBox="0 0 340 340" style={{ width: "100%", maxWidth: 340, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, marginBottom: 12 }}>
+        {atoms.map((a, i) => (
+          <g key={i}>
+            <circle cx={a.x} cy={a.y} r={12} fill={a.isAlloy ? alloyColor + "33" : baseColor + "33"} stroke={a.isAlloy ? alloyColor : baseColor} strokeWidth={1.5} />
+            <text x={a.x} y={a.y + 4} textAnchor="middle" fill={a.isAlloy ? alloyColor : baseColor} fontSize={12} fontWeight="bold" fontFamily="monospace">
+              {a.isAlloy ? alloyElement : base}
+            </text>
+          </g>
+        ))}
+        <text x={170} y={330} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight="bold" fontFamily="monospace">
+          {name} ({percentage}% {alloyElement})
+        </text>
+      </svg>
+
+      {/* Property bars */}
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        {[
+          { label: "Strength", value: props.strength, color: "#dc2626" },
+          { label: "Conductivity", value: props.conductivity, color: "#2563eb" },
+          { label: "Corrosion Resistance", value: props.corrosion, color: "#059669" },
+        ].map(p => (
+          <div key={p.label} style={{ flex: 1, minWidth: 90, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 12, color: T.muted, marginBottom: 4 }}>{p.label}</div>
+            <div style={{ height: 8, background: T.border, borderRadius: 4, overflow: "hidden" }}>
+              <div style={{ width: `${p.value}%`, height: "100%", background: p.color, borderRadius: 4, transition: "width 0.3s" }} />
+            </div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: p.color, marginTop: 4 }}>{p.value}%</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Interactive Semiconductor Doping Tool ──────────────────────────────────
+
+function SemiconductorDopingTool() {
+  const [host, setHost] = useState("Si");
+  const [dopantType, setDopantType] = useState("n-type");
+  const [concentration, setConcentration] = useState(16);
+  const [frame, setFrame] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setFrame(f => f + 1), 60);
+    return () => clearInterval(id);
+  }, []);
+
+  const hosts = ["Si", "GaAs", "CdTe"];
+  const dopant = dopantType === "n-type" ? "P" : "B";
+  const carrierLabel = dopantType === "n-type" ? "Electron (e⁻)" : "Hole (h⁺)";
+  const carrierColor = dopantType === "n-type" ? "#2563eb" : "#dc2626";
+  const fermiShift = dopantType === "n-type" ? "Shifts UP toward conduction band" : "Shifts DOWN toward valence band";
+
+  const concDisplay = `10^${concentration} cm⁻³`;
+  const conductivityChange = concentration <= 15 ? "Low" : concentration <= 16 ? "Moderate" : concentration <= 17 ? "High" : "Very High";
+
+  // 5x5 grid, dopant at (2,2)
+  const gridN = 5;
+  const spacing = 56;
+  const offset = 30;
+  const dopantRow = 2, dopantCol = 2;
+
+  // Bouncing carrier animation
+  const bx = offset + dopantCol * spacing + Math.sin(frame * 0.08) * 20;
+  const by = offset + dopantRow * spacing - 20 + Math.cos(frame * 0.06) * 15;
+
+  return (
+    <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: "1.5px solid #05966933" }}>
+      <div style={{ fontSize: 13, fontWeight: 800, color: "#059669", marginBottom: 10 }}>Interactive Semiconductor Doping Simulator</div>
+      <div style={{ fontSize: 12, color: T.muted, marginBottom: 10, lineHeight: 1.6 }}>
+        Select a host semiconductor and dopant type to see how doping creates free carriers. Watch the extra electron or hole bounce around!
+      </div>
+
+      {/* Controls */}
+      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Host Material</div>
+          <div style={{ display: "flex", gap: 4 }}>
+            {hosts.map(h => (
+              <button key={h} onClick={() => setHost(h)} style={{
+                padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 600,
+                background: h === host ? "#059669" + "22" : T.surface,
+                border: `1.5px solid ${h === host ? "#059669" : T.border}`,
+                color: h === host ? "#059669" : T.muted, cursor: "pointer",
+              }}>{h}</button>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Dopant Type</div>
+          <div style={{ display: "flex", gap: 4 }}>
+            {["n-type", "p-type"].map(d => (
+              <button key={d} onClick={() => setDopantType(d)} style={{
+                padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 600,
+                background: d === dopantType ? carrierColor + "22" : T.surface,
+                border: `1.5px solid ${d === dopantType ? carrierColor : T.border}`,
+                color: d === dopantType ? carrierColor : T.muted, cursor: "pointer",
+              }}>{d}</button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Concentration slider */}
+      <div style={{ marginBottom: 12 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Dopant Concentration: {concDisplay}</div>
+        <input type="range" min={14} max={18} step={0.5} value={concentration} onChange={e => setConcentration(Number(e.target.value))}
+          style={{ width: "100%", accentColor: "#059669" }} />
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: T.muted }}>
+          <span>10^14</span><span>10^18</span>
+        </div>
+      </div>
+
+      {/* Lattice SVG */}
+      <svg viewBox="0 0 340 340" style={{ width: "100%", maxWidth: 340, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, marginBottom: 12 }}>
+        {Array.from({ length: gridN }, (_, row) =>
+          Array.from({ length: gridN }, (_, col) => {
+            const x = offset + col * spacing;
+            const y = offset + row * spacing;
+            const isDopant = row === dopantRow && col === dopantCol;
+            const atomColor = isDopant ? carrierColor : "#6b7280";
+            const atomLabel = isDopant ? dopant : (host === "Si" ? "Si" : host === "GaAs" ? ((row + col) % 2 === 0 ? "Ga" : "As") : ((row + col) % 2 === 0 ? "Cd" : "Te"));
+            return (
+              <g key={`${row}-${col}`}>
+                {col < gridN - 1 && <line x1={x + 14} y1={y} x2={x + spacing - 14} y2={y} stroke={T.border} strokeWidth={1.5} />}
+                {row < gridN - 1 && <line x1={x} y1={y + 14} x2={x} y2={y + spacing - 14} stroke={T.border} strokeWidth={1.5} />}
+                <circle cx={x} cy={y} r={14} fill={isDopant ? carrierColor + "22" : "#6b728022"} stroke={atomColor} strokeWidth={isDopant ? 2.5 : 1.5} />
+                <text x={x} y={y + 4} textAnchor="middle" fill={atomColor} fontSize={12} fontWeight={isDopant ? "bold" : "normal"} fontFamily="monospace">{atomLabel}</text>
+              </g>
+            );
+          })
+        )}
+        {/* Bouncing carrier */}
+        <circle cx={bx} cy={by} r={6} fill={carrierColor} opacity={0.8}>
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" />
+        </circle>
+        <text x={bx} y={by - 10} textAnchor="middle" fill={carrierColor} fontSize={12} fontWeight="bold" fontFamily="monospace">
+          {dopantType === "n-type" ? "e⁻" : "h⁺"}
+        </text>
+        <text x={170} y={330} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight="bold" fontFamily="monospace">
+          {host} doped with {dopant} ({dopantType})
+        </text>
+      </svg>
+
+      {/* Info panels */}
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        {[
+          { label: "Carrier Type", value: carrierLabel, color: carrierColor },
+          { label: "Conductivity", value: conductivityChange, color: "#059669" },
+          { label: "Fermi Level", value: fermiShift, color: "#7c3aed" },
+        ].map(p => (
+          <div key={p.label} style={{ flex: 1, minWidth: 90, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 12, color: T.muted, marginBottom: 4 }}>{p.label}</div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: p.color, fontFamily: "monospace" }}>{p.value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Interactive Insulator Breakdown Explorer ───────────────────────────────
+
+function InsulatorExplorer() {
+  const [material, setMaterial] = useState("SiO2");
+  const [voltage, setVoltage] = useState(0);
+  const [frame, setFrame] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setFrame(f => f + 1), 50);
+    return () => clearInterval(id);
+  }, []);
+
+  const materials = {
+    SiO2: { label: "SiO₂", breakdownV: 30, gap: 9.0, color: "#2563eb", dielectric: 30 },
+    Diamond: { label: "Diamond", breakdownV: 20, gap: 5.5, color: "#059669", dielectric: 20 },
+    Al2O3: { label: "Al₂O₃", breakdownV: 17, gap: 8.8, color: "#dc2626", dielectric: 17 },
+    Glass: { label: "Glass", breakdownV: 12, gap: 7.0, color: "#9333ea", dielectric: 12 },
+  };
+
+  const mat = materials[material];
+  const isBreakdown = voltage >= mat.breakdownV;
+  const voltageRatio = voltage / mat.breakdownV;
+
+  // Band diagram coordinates
+  const bandL = 40, bandR = 300;
+  const Ev_y = 250, Ec_y = 80;
+  const gapMid = (Ev_y + Ec_y) / 2;
+
+  return (
+    <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: `1.5px solid ${mat.color}33` }}>
+      <div style={{ fontSize: 13, fontWeight: 800, color: "#dc2626", marginBottom: 10 }}>Interactive Insulator Breakdown Simulator</div>
+      <div style={{ fontSize: 12, color: T.muted, marginBottom: 10, lineHeight: 1.6 }}>
+        Pick an insulator and increase the voltage. Watch what happens when the electric field exceeds the dielectric strength!
+      </div>
+
+      {/* Material selector */}
+      <div style={{ display: "flex", gap: 4, marginBottom: 12, flexWrap: "wrap" }}>
+        {Object.entries(materials).map(([id, m]) => (
+          <button key={id} onClick={() => { setMaterial(id); setVoltage(0); }} style={{
+            padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 600,
+            background: id === material ? m.color + "22" : T.surface,
+            border: `1.5px solid ${id === material ? m.color : T.border}`,
+            color: id === material ? m.color : T.muted, cursor: "pointer",
+          }}>{m.label}</button>
+        ))}
+      </div>
+
+      {/* Voltage slider */}
+      <div style={{ marginBottom: 12 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: isBreakdown ? "#dc2626" : T.ink, marginBottom: 4 }}>
+          Applied Voltage: {voltage} MV/m {isBreakdown ? " — BREAKDOWN!" : ""}
+        </div>
+        <input type="range" min={0} max={Math.round(mat.breakdownV * 1.2)} value={voltage} onChange={e => setVoltage(Number(e.target.value))}
+          style={{ width: "100%", accentColor: isBreakdown ? "#dc2626" : mat.color }} />
+      </div>
+
+      {/* Band diagram SVG */}
+      <svg viewBox="0 0 340 340" style={{ width: "100%", maxWidth: 340, background: T.surface, borderRadius: 8, border: `1px solid ${isBreakdown ? "#dc2626" : T.border}`, marginBottom: 12 }}>
+        {/* Conduction band */}
+        <rect x={bandL} y={Ec_y - 10} width={bandR - bandL} height={20} fill={mat.color + "22"} stroke={mat.color} strokeWidth={1.5} rx={4} />
+        <text x={bandL - 5} y={Ec_y + 5} textAnchor="end" fill={mat.color} fontSize={12} fontFamily="monospace">CB</text>
+
+        {/* Valence band */}
+        <rect x={bandL} y={Ev_y - 10} width={bandR - bandL} height={20} fill={mat.color + "22"} stroke={mat.color} strokeWidth={1.5} rx={4} />
+        <text x={bandL - 5} y={Ev_y + 5} textAnchor="end" fill={mat.color} fontSize={12} fontFamily="monospace">VB</text>
+
+        {/* Band gap label */}
+        <line x1={30} y1={Ec_y + 10} x2={30} y2={Ev_y - 10} stroke={T.muted} strokeWidth={1} strokeDasharray="3,3" />
+        <text x={20} y={gapMid + 4} textAnchor="middle" fill={T.muted} fontSize={12} fontFamily="monospace" transform={`rotate(-90, 20, ${gapMid})`}>
+          {mat.gap} eV
+        </text>
+
+        {/* Arrows trying to push electrons across */}
+        {Array.from({ length: Math.min(Math.floor(voltageRatio * 8), 8) }, (_, i) => {
+          const ax = bandL + 20 + i * 30;
+          const arrowLen = Math.min(voltageRatio * (Ev_y - Ec_y - 30), Ev_y - Ec_y - 30);
+          return (
+            <g key={i} opacity={0.4 + voltageRatio * 0.6}>
+              <line x1={ax} y1={Ev_y - 15} x2={ax} y2={Ev_y - 15 - arrowLen} stroke="#f59e0b" strokeWidth={2} />
+              <polygon points={`${ax},${Ev_y - 15 - arrowLen - 5} ${ax - 4},${Ev_y - 15 - arrowLen + 3} ${ax + 4},${Ev_y - 15 - arrowLen + 3}`} fill="#f59e0b" />
+            </g>
+          );
+        })}
+
+        {/* Breakdown effect */}
+        {isBreakdown && Array.from({ length: 12 }, (_, i) => {
+          const ex = bandL + 20 + (i * 23) % (bandR - bandL - 40);
+          const ey = Ec_y + 10 + ((frame * 3 + i * 17) % (Ev_y - Ec_y - 20));
+          return <circle key={i} cx={ex} cy={ey} r={4} fill="#dc2626" opacity={0.6 + 0.4 * Math.sin(frame * 0.1 + i)}>
+            <animate attributeName="r" values="3;6;3" dur="0.5s" repeatCount="indefinite" />
+          </circle>;
+        })}
+
+        {isBreakdown && (
+          <text x={170} y={gapMid} textAnchor="middle" fill="#dc2626" fontSize={18} fontWeight="bold" fontFamily="monospace">
+            BREAKDOWN!
+          </text>
+        )}
+
+        <text x={170} y={330} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight="bold" fontFamily="monospace">
+          {mat.label} Band Diagram
+        </text>
+      </svg>
+
+      {/* Dielectric strength comparison */}
+      <div style={{ background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 8 }}>Dielectric Strength Comparison (MV/m)</div>
+        {Object.entries(materials).map(([id, m]) => (
+          <div key={id} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+            <div style={{ width: 50, fontSize: 12, fontWeight: 600, color: m.color, fontFamily: "monospace" }}>{m.label}</div>
+            <div style={{ flex: 1, height: 10, background: T.border, borderRadius: 4, overflow: "hidden" }}>
+              <div style={{ width: `${(m.dielectric / 35) * 100}%`, height: "100%", background: m.color, borderRadius: 4 }} />
+            </div>
+            <div style={{ fontSize: 12, fontWeight: 600, color: m.color, width: 30, textAlign: "right" }}>{m.dielectric}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Interactive Ceramic Property Explorer ──────────────────────────────────
+
+function CeramicExplorer() {
+  const [selected, setSelected] = useState("Al2O3");
+
+  const ceramics = {
+    Al2O3: { label: "Al₂O₃", crystal: "Corundum (hexagonal)", app: "Abrasives, spark plugs, biomedical implants",
+      hardness: 90, melting: 85, thermalCond: 30, fracture: 35, cost: 30 },
+    ZrO2: { label: "ZrO₂", crystal: "Monoclinic / Tetragonal (stabilized)", app: "Dental crowns, thermal barriers, oxygen sensors",
+      hardness: 75, melting: 80, thermalCond: 15, fracture: 70, cost: 55 },
+    SiC: { label: "SiC", crystal: "Zinc blende / Wurtzite", app: "Brake discs, armor, power electronics (wide-gap semiconductor)",
+      hardness: 95, melting: 90, thermalCond: 85, fracture: 30, cost: 65 },
+    BN: { label: "BN", crystal: "Hexagonal (like graphite) or cubic", app: "Cutting tools (cBN), lubricant (hBN), cosmetics",
+      hardness: 85, melting: 75, thermalCond: 70, fracture: 25, cost: 80 },
+    Si3N4: { label: "Si₃N₄", crystal: "Hexagonal", app: "Bearings, turbocharger rotors, engine parts",
+      hardness: 80, melting: 70, thermalCond: 25, fracture: 60, cost: 70 },
+  };
+
+  const cer = ceramics[selected];
+  const mainColor = "#b45309";
+
+  // Radar chart
+  const stats = [
+    { label: "Hardness", value: cer.hardness },
+    { label: "Melt Pt", value: cer.melting },
+    { label: "Therm.K", value: cer.thermalCond },
+    { label: "Toughness", value: cer.fracture },
+    { label: "Cost", value: cer.cost },
+  ];
+  const cx = 170, cy = 150, maxR = 100;
+  const angleStep = (2 * Math.PI) / stats.length;
+
+  const radarPoints = stats.map((s, i) => {
+    const angle = -Math.PI / 2 + i * angleStep;
+    const r = (s.value / 100) * maxR;
+    return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
+  });
+  const radarPath = radarPoints.map((p, i) => `${i === 0 ? "M" : "L"}${p.x},${p.y}`).join(" ") + "Z";
+
+  return (
+    <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: `1.5px solid ${mainColor}33` }}>
+      <div style={{ fontSize: 13, fontWeight: 800, color: mainColor, marginBottom: 10 }}>Interactive Ceramic Property Explorer</div>
+      <div style={{ fontSize: 12, color: T.muted, marginBottom: 10, lineHeight: 1.6 }}>
+        Select a ceramic to compare properties on the radar chart. Each axis represents a normalized property (0-100 scale).
+      </div>
+
+      {/* Selector */}
+      <div style={{ display: "flex", gap: 4, marginBottom: 12, flexWrap: "wrap" }}>
+        {Object.entries(ceramics).map(([id, c]) => (
+          <button key={id} onClick={() => setSelected(id)} style={{
+            padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 600,
+            background: id === selected ? mainColor + "22" : T.surface,
+            border: `1.5px solid ${id === selected ? mainColor : T.border}`,
+            color: id === selected ? mainColor : T.muted, cursor: "pointer",
+          }}>{c.label}</button>
+        ))}
+      </div>
+
+      {/* Radar chart SVG */}
+      <svg viewBox="0 0 340 340" style={{ width: "100%", maxWidth: 340, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, marginBottom: 12 }}>
+        {/* Grid rings */}
+        {[20, 40, 60, 80, 100].map(pct => {
+          const r = (pct / 100) * maxR;
+          const pts = stats.map((_, i) => {
+            const angle = -Math.PI / 2 + i * angleStep;
+            return `${cx + r * Math.cos(angle)},${cy + r * Math.sin(angle)}`;
+          }).join(" ");
+          return <polygon key={pct} points={pts} fill="none" stroke={T.border} strokeWidth={1} />;
+        })}
+
+        {/* Axis lines and labels */}
+        {stats.map((s, i) => {
+          const angle = -Math.PI / 2 + i * angleStep;
+          const lx = cx + (maxR + 20) * Math.cos(angle);
+          const ly = cy + (maxR + 20) * Math.sin(angle);
+          return (
+            <g key={i}>
+              <line x1={cx} y1={cy} x2={cx + maxR * Math.cos(angle)} y2={cy + maxR * Math.sin(angle)} stroke={T.border} strokeWidth={1} />
+              <text x={lx} y={ly + 4} textAnchor="middle" fill={T.muted} fontSize={12} fontFamily="monospace">{s.label}</text>
+            </g>
+          );
+        })}
+
+        {/* Data polygon */}
+        <path d={radarPath} fill={mainColor + "22"} stroke={mainColor} strokeWidth={2} />
+        {radarPoints.map((p, i) => (
+          <circle key={i} cx={p.x} cy={p.y} r={4} fill={mainColor} />
+        ))}
+
+        <text x={170} y={330} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight="bold" fontFamily="monospace">
+          {cer.label} Properties
+        </text>
+      </svg>
+
+      {/* Info panels */}
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        <div style={{ flex: 1, minWidth: 140, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 12, color: T.muted, marginBottom: 4 }}>Crystal Structure</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: mainColor, fontFamily: "monospace" }}>{cer.crystal}</div>
+        </div>
+        <div style={{ flex: 1, minWidth: 140, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 12, color: T.muted, marginBottom: 4 }}>Key Application</div>
+          <div style={{ fontSize: 12, fontWeight: 600, color: T.ink }}>{cer.app}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Section 2: Material Classes ────────────────────────────────────────────
 
 function MaterialClassesSection() {
@@ -4934,10 +5426,12 @@ function MaterialClassesSection() {
         </div>
       </div>
 
-      {/* ── INTERACTIVE POLYMER BUILDER ── */}
-      {selected === "polymer" && (
-        <PolymerBuilder />
-      )}
+      {/* ── INTERACTIVE BUILDERS ── */}
+      {selected === "polymer" && <PolymerBuilder />}
+      {selected === "metal" && <MetalAlloyExplorer />}
+      {selected === "semiconductor" && <SemiconductorDopingTool />}
+      {selected === "insulator" && <InsulatorExplorer />}
+      {selected === "ceramic" && <CeramicExplorer />}
 
       {/* ── COMPARISON TABLE ── */}
       <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: `1.5px solid ${T.border}` }}>
@@ -4975,6 +5469,271 @@ function MaterialClassesSection() {
         </div>
       </div>
 
+    </div>
+  );
+}
+
+// ─── Section: 2D Materials & Thin Films ─────────────────────────────────────
+
+function TwoDMaterialsSection() {
+  const [selected, setSelected] = useState("graphene");
+  const [layers, setLayers] = useState(1);
+
+  const materials2D = {
+    graphene: {
+      label: "Graphene", formula: "C", year: "2004 (isolated by Geim & Novoselov)",
+      bandGap: 0, gapType: "Zero (semimetal)", color: "#6b7280",
+      atomColors: { C: "#6b7280" },
+      properties: ["Highest known electrical conductivity", "Strongest material ever measured (130 GPa)", "Extremely high thermal conductivity (~5000 W/mK)", "Optically transparent (97.7%)"],
+      applications: "Flexible electronics, sensors, composites, batteries",
+      synthesis: "Mechanical exfoliation, CVD on Cu foil, epitaxial growth on SiC",
+      gapVsLayers: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    },
+    MoS2: {
+      label: "MoS₂", formula: "MoS₂", year: "2011 (monolayer transistor demonstrated)",
+      bandGap: 1.8, gapType: "Direct (monolayer)", color: "#0d9488",
+      atomColors: { Mo: "#0d9488", S: "#eab308" },
+      properties: ["Direct band gap in monolayer (1.8 eV)", "Strong photoluminescence", "High on/off ratio in transistors", "Valley polarization for valleytronics"],
+      applications: "Photodetectors, transistors, catalysis (HER), flexible optoelectronics",
+      synthesis: "Mechanical exfoliation, CVD, liquid-phase exfoliation",
+      gapVsLayers: [1.8, 1.6, 1.5, 1.4, 1.35, 1.3, 1.28, 1.25, 1.23, 1.2],
+    },
+    hBN: {
+      label: "hBN", formula: "BN", year: "2004 (2D form studied alongside graphene)",
+      bandGap: 6.0, gapType: "Indirect", color: "#ec4899",
+      atomColors: { B: "#ec4899", N: "#3b82f6" },
+      properties: ["Ultrawide band gap insulator (6 eV)", "Atomically flat surface — ideal substrate", "Chemically inert and thermally stable", "Deep UV emitter"],
+      applications: "Substrate/encapsulant for 2D devices, deep UV LEDs, tunneling barriers",
+      synthesis: "CVD, mechanical exfoliation, high-pressure synthesis",
+      gapVsLayers: [6.0, 5.95, 5.9, 5.87, 5.85, 5.83, 5.82, 5.81, 5.8, 5.8],
+    },
+    WS2: {
+      label: "WS₂", formula: "WS₂", year: "2012 (monolayer PL demonstrated)",
+      bandGap: 2.1, gapType: "Direct (monolayer)", color: "#1d4ed8",
+      atomColors: { W: "#1d4ed8", S: "#eab308" },
+      properties: ["Largest direct band gap among TMDs (2.1 eV)", "Strong spin-orbit coupling", "Excellent valley coherence", "High quantum yield PL"],
+      applications: "LEDs, photodetectors, spintronic devices, sensors",
+      synthesis: "CVD, mechanical exfoliation, MOCVD",
+      gapVsLayers: [2.1, 1.8, 1.65, 1.55, 1.5, 1.45, 1.42, 1.4, 1.38, 1.35],
+    },
+    blackP: {
+      label: "Black Phosphorus", formula: "P", year: "2014 (FET demonstrated)",
+      bandGap: 2.0, gapType: "Direct (tunable)", color: "#7c3aed",
+      atomColors: { P: "#7c3aed" },
+      properties: ["Tunable band gap: 0.3 eV (bulk) to 2.0 eV (monolayer)", "High carrier mobility (~1000 cm²/Vs)", "Anisotropic electrical/optical properties", "Puckered structure gives unique mechanics"],
+      applications: "IR photodetectors, flexible electronics, thermoelectrics",
+      synthesis: "Mechanical exfoliation, CVD (challenging), liquid exfoliation",
+      gapVsLayers: [2.0, 1.2, 0.8, 0.6, 0.5, 0.45, 0.4, 0.37, 0.35, 0.3],
+    },
+  };
+
+  const mat = materials2D[selected];
+  const currentGap = mat.gapVsLayers[Math.min(layers - 1, 9)];
+
+  // Hexagonal lattice drawing helper
+  const drawHexLattice = () => {
+    const elements = [];
+    const hexR = 20;
+    const rows = 5, cols = 5;
+    const dx = hexR * 1.8;
+    const dy = hexR * 1.55;
+    const ox = 40, oy = 40;
+
+    if (selected === "graphene") {
+      // Single layer hexagonal - all carbon
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const x = ox + c * dx + (r % 2) * dx * 0.5;
+          const y = oy + r * dy;
+          if (x > 320 || y > 300) continue;
+          elements.push(
+            <g key={`${r}-${c}`}>
+              <circle cx={x} cy={y} r={10} fill="#6b728033" stroke="#6b7280" strokeWidth={1.5} />
+              <text x={x} y={y + 4} textAnchor="middle" fill="#6b7280" fontSize={12} fontWeight="bold" fontFamily="monospace">C</text>
+              {c < cols - 1 && <line x1={x + 10} y1={y} x2={x + dx - 10} y2={y} stroke="#6b728066" strokeWidth={1} />}
+              {r < rows - 1 && <line x1={x} y1={y + 10} x2={ox + c * dx + ((r + 1) % 2) * dx * 0.5} y2={oy + (r + 1) * dy - 10} stroke="#6b728066" strokeWidth={1} />}
+            </g>
+          );
+        }
+      }
+    } else if (selected === "MoS2" || selected === "WS2") {
+      // TMD: 3-layer sandwich S-M-S (side view representation)
+      const metalLabel = selected === "MoS2" ? "Mo" : "W";
+      const metalColor = mat.atomColors[metalLabel];
+      const sColor = "#eab308";
+      for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 6; c++) {
+          const x = 30 + c * 50;
+          const y = 80 + r * 70;
+          const isS = r === 0 || r === 2;
+          const col = isS ? sColor : metalColor;
+          const label = isS ? "S" : metalLabel;
+          elements.push(
+            <g key={`${r}-${c}`}>
+              <circle cx={x} cy={y} r={12} fill={col + "33"} stroke={col} strokeWidth={1.5} />
+              <text x={x} y={y + 4} textAnchor="middle" fill={col} fontSize={12} fontWeight="bold" fontFamily="monospace">{label}</text>
+            </g>
+          );
+        }
+      }
+      elements.push(<text key="layer-top" x={320} y={84} textAnchor="end" fill={sColor} fontSize={12} fontFamily="monospace">S layer</text>);
+      elements.push(<text key="layer-mid" x={320} y={154} textAnchor="end" fill={metalColor} fontSize={12} fontFamily="monospace">{metalLabel} layer</text>);
+      elements.push(<text key="layer-bot" x={320} y={224} textAnchor="end" fill={sColor} fontSize={12} fontFamily="monospace">S layer</text>);
+    } else if (selected === "hBN") {
+      // Alternating B and N in hexagonal
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const x = ox + c * dx + (r % 2) * dx * 0.5;
+          const y = oy + r * dy;
+          if (x > 320 || y > 300) continue;
+          const isB = (r + c) % 2 === 0;
+          const col = isB ? "#ec4899" : "#3b82f6";
+          const label = isB ? "B" : "N";
+          elements.push(
+            <g key={`${r}-${c}`}>
+              <circle cx={x} cy={y} r={10} fill={col + "33"} stroke={col} strokeWidth={1.5} />
+              <text x={x} y={y + 4} textAnchor="middle" fill={col} fontSize={12} fontWeight="bold" fontFamily="monospace">{label}</text>
+              {c < cols - 1 && <line x1={x + 10} y1={y} x2={x + dx - 10} y2={y} stroke={T.border} strokeWidth={1} />}
+            </g>
+          );
+        }
+      }
+    } else if (selected === "blackP") {
+      // Puckered structure: two offset rows
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 5; c++) {
+          const x = 40 + c * 60;
+          const yBase = 60 + r * 65;
+          const y = yBase + (c % 2 === 0 ? 0 : 15); // puckered offset
+          elements.push(
+            <g key={`${r}-${c}`}>
+              <circle cx={x} cy={y} r={12} fill="#7c3aed33" stroke="#7c3aed" strokeWidth={1.5} />
+              <text x={x} y={y + 4} textAnchor="middle" fill="#7c3aed" fontSize={12} fontWeight="bold" fontFamily="monospace">P</text>
+              {c < 4 && <line x1={x + 12} y1={y} x2={x + 60 - 12} y2={yBase + ((c + 1) % 2 === 0 ? 0 : 15)} stroke="#7c3aed44" strokeWidth={1} />}
+            </g>
+          );
+        }
+      }
+    }
+    return elements;
+  };
+
+  return (
+    <div style={{ padding: 0 }}>
+      <AnalogyBox>
+        2D materials are like single sheets of paper peeled from a thick book. A single sheet of graphene is one atom thick — the thinnest material possible — yet it is stronger than steel and conducts electricity better than copper. By stacking different 2D "pages" (graphene, MoS₂, hBN), scientists build "van der Waals heterostructures" — designer sandwiches with properties impossible in any single bulk material.
+      </AnalogyBox>
+
+      {/* Material selector */}
+      <div style={{ display: "flex", gap: 4, marginBottom: 14, flexWrap: "wrap" }}>
+        {Object.entries(materials2D).map(([id, m]) => (
+          <button key={id} onClick={() => setSelected(id)} style={{
+            padding: "6px 12px", borderRadius: 8, fontSize: 12, fontWeight: 700,
+            background: id === selected ? m.color + "22" : T.surface,
+            border: `1.5px solid ${id === selected ? m.color : T.border}`,
+            color: id === selected ? m.color : T.muted, cursor: "pointer",
+          }}>{m.label}</button>
+        ))}
+      </div>
+
+      {/* Main content: SVG left, info right */}
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 14 }}>
+        {/* Left: Structure SVG */}
+        <div style={{ flex: "1 1 340px", minWidth: 280 }}>
+          <svg viewBox="0 0 340 340" style={{ width: "100%", background: T.surface, borderRadius: 10, border: `1.5px solid ${mat.color}33` }}>
+            {drawHexLattice()}
+            <text x={170} y={330} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight="bold" fontFamily="monospace">
+              {mat.label} Structure
+            </text>
+          </svg>
+        </div>
+
+        {/* Right: Info panels */}
+        <div style={{ flex: "1 1 300px", minWidth: 250, display: "flex", flexDirection: "column", gap: 10 }}>
+          {/* Basic info */}
+          <div style={{ background: T.panel, borderRadius: 10, padding: 12, border: `1.5px solid ${mat.color}33` }}>
+            <div style={{ fontSize: 14, fontWeight: 800, color: mat.color, marginBottom: 6 }}>{mat.label}</div>
+            <div style={{ fontSize: 12, color: T.muted, marginBottom: 2, fontFamily: "monospace" }}>Formula: {mat.formula}</div>
+            <div style={{ fontSize: 12, color: T.muted, marginBottom: 2 }}>Isolated: {mat.year}</div>
+            <div style={{ fontSize: 12, color: T.muted, marginBottom: 2 }}>Band Gap: <span style={{ color: mat.color, fontWeight: 700 }}>{mat.bandGap} eV</span> ({mat.gapType})</div>
+          </div>
+
+          {/* Key properties */}
+          <div style={{ background: T.surface, borderRadius: 8, padding: "10px 14px", border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 6 }}>Key Properties</div>
+            {mat.properties.map((p, i) => (
+              <div key={i} style={{ fontSize: 12, color: T.ink, lineHeight: 1.8 }}>
+                <span style={{ color: mat.color, fontWeight: 700, marginRight: 6 }}>&#8226;</span>{p}
+              </div>
+            ))}
+          </div>
+
+          {/* Applications */}
+          <div style={{ background: T.surface, borderRadius: 8, padding: "10px 14px", border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Applications</div>
+            <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.6 }}>{mat.applications}</div>
+          </div>
+
+          {/* Synthesis */}
+          <div style={{ background: T.surface, borderRadius: 8, padding: "10px 14px", border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Synthesis Methods</div>
+            <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.6 }}>{mat.synthesis}</div>
+          </div>
+
+          {/* Thin Film Growth mini-panel */}
+          <div style={{ background: T.panel, borderRadius: 10, padding: 12, border: `1.5px solid ${mat.color}33` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: mat.color, marginBottom: 6 }}>Thin Film Growth — Band Gap vs Thickness</div>
+            <div style={{ fontSize: 12, color: T.muted, marginBottom: 6 }}>Layers: {layers}</div>
+            <input type="range" min={1} max={10} value={layers} onChange={e => setLayers(Number(e.target.value))}
+              style={{ width: "100%", accentColor: mat.color, marginBottom: 6 }} />
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: T.muted, marginBottom: 6 }}>
+              <span>1 layer</span><span>10 layers (bulk-like)</span>
+            </div>
+            <div style={{ fontSize: 13, fontWeight: 800, color: mat.color, fontFamily: "monospace" }}>
+              Band Gap at {layers}L: {currentGap.toFixed(2)} eV
+            </div>
+            {/* Mini bar showing gap */}
+            <div style={{ height: 10, background: T.border, borderRadius: 4, overflow: "hidden", marginTop: 6 }}>
+              <div style={{ width: `${Math.min((currentGap / 6.5) * 100, 100)}%`, height: "100%", background: mat.color, borderRadius: 4, transition: "width 0.3s" }} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Comparison table */}
+      <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: `1.5px solid ${T.border}` }}>
+        <div style={{ fontSize: 13, fontWeight: 800, color: T.ink, marginBottom: 10 }}>2D Materials — Side by Side</div>
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed", wordWrap: "break-word", fontSize: 12 }}>
+            <thead>
+              <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                {["Property", "Graphene", "MoS₂", "hBN", "WS₂", "Black P"].map(h => (
+                  <th key={h} style={{ padding: "6px 8px", textAlign: "left", color: T.muted, fontWeight: 700, fontSize: 12 }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { prop: "Band Gap", vals: ["0 eV", "1.8 eV (direct)", "6.0 eV", "2.1 eV (direct)", "0.3–2.0 eV"] },
+                { prop: "Type", vals: ["Semimetal", "Semiconductor", "Insulator", "Semiconductor", "Semiconductor"] },
+                { prop: "Mobility", vals: ["200,000 cm²/Vs", "200 cm²/Vs", "N/A (insulator)", "50 cm²/Vs", "1,000 cm²/Vs"] },
+                { prop: "Strength", vals: ["130 GPa", "23 GPa", "~30 GPa", "~22 GPa", "~18 GPa"] },
+                { prop: "Key Use", vals: ["Electronics", "Transistors", "Substrate", "LEDs", "IR detectors"] },
+              ].map((row, i) => {
+                const colors = ["#6b7280", "#0d9488", "#ec4899", "#1d4ed8", "#7c3aed"];
+                return (
+                  <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.surface : T.panel }}>
+                    <td style={{ padding: "5px 8px", fontWeight: 700, color: T.ink, fontSize: 12 }}>{row.prop}</td>
+                    {row.vals.map((v, j) => (
+                      <td key={j} style={{ padding: "5px 8px", color: colors[j], fontSize: 12 }}>{v}</td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
@@ -7492,6 +8251,7 @@ const ELECTRON_SECTIONS = [
   { id: "bands",           block: "properties", label: "Energy Bands",           icon: "\u{1F4CA}", color: T.eo_photon, Component: BandSection },
   { id: "dos",             block: "properties", label: "Density of States",      icon: "\u{1F4C8}", color: T.eo_photon, Component: DensityOfStatesSection },
   { id: "materialClasses", block: "properties", label: "Material Classes",        icon: "\u{1F9F1}", color: T.eo_photon, Component: MaterialClassesSection },
+  { id: "twoDMaterials",   block: "properties", label: "2D Materials",            icon: "\u{1F4D0}", color: T.eo_photon, Component: TwoDMaterialsSection },
 
   // ── Act 5: Can We Make It? ──
   { id: "thermoBasics",    block: "design", label: "Thermodynamics",         icon: "\u{1F525}", color: T.eo_e, Component: ThermodynamicsSection },
