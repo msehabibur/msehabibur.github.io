@@ -10433,6 +10433,287 @@ function CHChemDiagramSection() {
   );
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// CZTS Animated Synthesis — connecting chemical potential to experiment
+// ─────────────────────────────────────────────────────────────────────────────
+function CZTSSynthesisAnimation() {
+  const [condition, setCondition] = useState("optimal");
+  const [animFrame, setAnimFrame] = useState(0);
+  const [showReaction, setShowReaction] = useState(false);
+
+  useEffect(() => {
+    const id = setInterval(() => setAnimFrame(f => (f + 1) % 600), 35);
+    return () => clearInterval(id);
+  }, []);
+
+  // Conditions map to chemical potentials and outcomes
+  const conditions = {
+    cuRich:  { label: "Cu-rich", muCu: -0.10, muZn: -1.25, muS: -0.43, outcome: "Cu\u2082S forms", color: "#dc2626", products: ["Cu\u2082S", "CZTS", "Cu\u2082S"], efficiency: "3%", icon: "\u2716" },
+    optimal: { label: "Optimal (Cu-poor, Zn-rich)", muCu: -0.32, muZn: -0.70, muS: -0.45, outcome: "Pure CZTS", color: "#16a34a", products: ["CZTS", "CZTS", "CZTS"], efficiency: "12.6%", icon: "\u2714" },
+    znRich:  { label: "Zn-rich extreme", muCu: -0.55, muZn: -0.15, muS: -0.48, outcome: "ZnS inclusions", color: "#d97706", products: ["CZTS", "ZnS", "CZTS"], efficiency: "8%", icon: "\u25CB" },
+    snPoor:  { label: "Sn-poor (no SnS\u2082 cap)", muCu: -0.20, muZn: -0.60, muS: -0.55, outcome: "SnS evaporates", color: "#9333ea", products: ["CZTS", "SnS\u2191", "Cu\u2082S"], efficiency: "2%", icon: "\u2716" },
+  };
+  const cond = conditions[condition];
+
+  // Chemical potential diagram coordinates (simplified 2D: muCu vs muZn)
+  const DW = 200, DH = 200, dp = 30;
+  const toX = v => dp + (v + 1.5) * (DW - 2 * dp) / 1.5;
+  const toY = v => DH - dp - (v + 1.5) * (DH - 2 * dp) / 1.5;
+
+  // CZTS stability polygon vertices (simplified projection)
+  const polyPts = [
+    { cu: -0.10, zn: -1.25 },
+    { cu: -0.32, zn: -0.70 },
+    { cu: -0.55, zn: -0.15 },
+    { cu: -0.60, zn: -0.40 },
+    { cu: -0.35, zn: -1.10 },
+  ];
+  const polyStr = polyPts.map(p => `${toX(p.cu)},${toY(p.zn)}`).join(" ");
+
+  // Atom colors
+  const atomColors = { Cu: "#b87333", Zn: "#7f8c8d", Sn: "#95a5a6", S: "#f1c40f" };
+
+  // Animated atoms in the furnace
+  const furnaceAtoms = [];
+  const nAtoms = 20;
+  for (let i = 0; i < nAtoms; i++) {
+    const t = (animFrame + i * 30) % 600;
+    const species = ["Cu", "Zn", "Sn", "S"][i % 4];
+    const baseX = 30 + (i % 5) * 55;
+    const baseY = 20 + Math.floor(i / 5) * 35;
+    const dx = Math.sin(t * 0.02 + i) * 12;
+    const dy = Math.cos(t * 0.025 + i * 1.3) * 8;
+    const isEvaporating = condition === "snPoor" && species === "Sn" && t > 300;
+    furnaceAtoms.push({
+      x: baseX + dx, y: isEvaporating ? baseY + dy - (t - 300) * 0.3 : baseY + dy,
+      species, opacity: isEvaporating ? Math.max(0, 1 - (t - 300) / 200) : 0.85,
+      r: species === "S" ? 4 : 5,
+    });
+  }
+
+  // Product crystals after reaction
+  const productColors = {
+    "CZTS": "#16a34a", "Cu\u2082S": "#dc2626", "ZnS": "#d97706",
+    "SnS\u2191": "#9333ea", "Cu": "#b87333",
+  };
+
+  return (
+    <Card title={"Animated Synthesis: From \u03BC to Experiment"} color={CH.accent}>
+      <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 12 }}>
+        <strong style={{ color: CH.accent }}>The bridge between theory and experiment:</strong> the chemical potential
+        diagram tells you <em>what to set in the lab</em>. Each point ({"\u03BC"}_Cu, {"\u03BC"}_Zn) corresponds
+        to real experimental knobs {"\u2014"} precursor ratios, annealing atmosphere, and temperature.
+        Choose a growth condition below and watch what happens in the furnace.
+      </div>
+
+      {/* Condition selector */}
+      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 14 }}>
+        {Object.entries(conditions).map(([id, c]) => (
+          <button key={id} onClick={() => { setCondition(id); setShowReaction(false); }} style={{
+            padding: "7px 14px", borderRadius: 8, fontSize: 11, fontWeight: 600,
+            background: condition === id ? c.color + "18" : T.surface,
+            border: `1.5px solid ${condition === id ? c.color : T.border}`,
+            color: condition === id ? c.color : T.muted,
+            cursor: "pointer", fontFamily: "inherit",
+          }}>{c.label}</button>
+        ))}
+      </div>
+
+      <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+        {/* LEFT: Chemical potential diagram with animated point */}
+        <div style={{ flex: "0 0 210px" }}>
+          <div style={{ fontSize: 10, color: T.muted, marginBottom: 4, letterSpacing: 1 }}>CHEMICAL POTENTIAL SPACE</div>
+          <svg width={DW} height={DH} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+            {/* Axes */}
+            <line x1={dp} y1={DH - dp} x2={DW - dp} y2={DH - dp} stroke={T.dim} strokeWidth={1} />
+            <line x1={dp} y1={dp} x2={dp} y2={DH - dp} stroke={T.dim} strokeWidth={1} />
+            <text x={DW / 2} y={DH - 6} textAnchor="middle" fill={T.muted} fontSize={8}>{"\u03BC"}_Cu (eV)</text>
+            <text x={8} y={DH / 2} textAnchor="middle" fill={T.muted} fontSize={8} transform={`rotate(-90,8,${DH / 2})`}>{"\u03BC"}_Zn (eV)</text>
+            {/* Tick labels */}
+            {[-1.2, -0.8, -0.4, 0].map(v => (
+              <g key={v}>
+                <text x={toX(v)} y={DH - dp + 12} textAnchor="middle" fill={T.muted} fontSize={7}>{v.toFixed(1)}</text>
+                <text x={dp - 4} y={toY(v) + 3} textAnchor="end" fill={T.muted} fontSize={7}>{v.toFixed(1)}</text>
+              </g>
+            ))}
+            {/* CZTS stability polygon */}
+            <polygon points={polyStr} fill="#16a34a18" stroke="#16a34a" strokeWidth={1.5} />
+            <text x={toX(-0.35)} y={toY(-0.65)} textAnchor="middle" fill="#16a34a" fontSize={8} fontWeight={700}>CZTS</text>
+            {/* Competing phase labels */}
+            <text x={toX(-0.05)} y={toY(-1.35)} fill="#dc2626" fontSize={7} opacity={0.7}>Cu{"\u2082"}S</text>
+            <text x={toX(-0.65)} y={toY(-0.05)} fill="#d97706" fontSize={7} opacity={0.7}>ZnS</text>
+            {/* Current operating point - pulsing */}
+            <circle cx={toX(cond.muCu)} cy={toY(cond.muZn)} r={6 + Math.sin(animFrame * 0.06) * 2}
+              fill={cond.color} opacity={0.7} />
+            <circle cx={toX(cond.muCu)} cy={toY(cond.muZn)} r={3} fill="white" />
+            {/* Arrow from point to label */}
+            <text x={toX(cond.muCu) + 12} y={toY(cond.muZn) - 8} fill={cond.color} fontSize={7} fontWeight={700}>
+              ({cond.muCu.toFixed(2)}, {cond.muZn.toFixed(2)})
+            </text>
+          </svg>
+          <div style={{ marginTop: 6, fontSize: 9, color: cond.color, fontWeight: 700, textAlign: "center" }}>
+            {cond.icon} {cond.outcome}
+          </div>
+        </div>
+
+        {/* MIDDLE: Animated furnace */}
+        <div style={{ flex: "0 0 300px" }}>
+          <div style={{ fontSize: 10, color: T.muted, marginBottom: 4, letterSpacing: 1 }}>ANNEALING FURNACE (550{"\u00B0"}C)</div>
+          <svg viewBox="0 0 300 160" style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%" }}>
+            {/* Furnace walls */}
+            <rect x={5} y={5} width={290} height={150} rx={10} fill="none" stroke="#b4530933" strokeWidth={3} />
+            <rect x={5} y={5} width={290} height={150} rx={10} fill="#b4530908" />
+            {/* Temperature gradient */}
+            <linearGradient id="heatGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ef4444" stopOpacity={0.05} />
+              <stop offset="100%" stopColor="#ef4444" stopOpacity={0.15} />
+            </linearGradient>
+            <rect x={8} y={8} width={284} height={144} rx={8} fill="url(#heatGrad)" />
+            {/* Atmosphere label */}
+            <text x={150} y={155} textAnchor="middle" fill={T.muted} fontSize={7}>
+              {condition === "snPoor" ? "N\u2082 atmosphere (no SnS\u2082 cap)" : "SnS\u2082 + S\u2082 atmosphere"}
+            </text>
+            {/* Atoms */}
+            {furnaceAtoms.map((a, i) => (
+              <g key={i}>
+                <circle cx={a.x} cy={a.y} r={a.r} fill={atomColors[a.species]} opacity={a.opacity}
+                  stroke={a.species === "S" ? "#e6b800" : "none"} strokeWidth={0.5} />
+                <text x={a.x} y={a.y + 3} textAnchor="middle" fill="white" fontSize={5} fontWeight="bold">
+                  {a.species}
+                </text>
+              </g>
+            ))}
+            {/* Evaporation arrows for Sn-poor */}
+            {condition === "snPoor" && animFrame > 200 && (
+              <g>
+                <text x={150} y={18} textAnchor="middle" fill="#9333ea" fontSize={9} fontWeight={700}>SnS evaporating {"\u2191"}</text>
+                {[0, 1, 2].map(i => {
+                  const ax = 100 + i * 50;
+                  const ay = 25 - Math.sin(animFrame * 0.05 + i) * 5;
+                  return <text key={i} x={ax} y={ay} textAnchor="middle" fill="#9333ea" fontSize={12} opacity={0.5 + Math.sin(animFrame * 0.03 + i) * 0.3}>{"\u2191"}</text>;
+                })}
+              </g>
+            )}
+            {/* Cu₂S precipitate indicators for Cu-rich */}
+            {condition === "cuRich" && animFrame > 150 && (
+              <g>
+                {[{ x: 60, y: 80 }, { x: 200, y: 60 }, { x: 250, y: 100 }].map((p, i) => (
+                  <g key={i}>
+                    <rect x={p.x - 12} y={p.y - 8} width={24} height={16} rx={3} fill="#dc262644" stroke="#dc2626" strokeWidth={1} />
+                    <text x={p.x} y={p.y + 3} textAnchor="middle" fill="#dc2626" fontSize={6} fontWeight={700}>Cu{"\u2082"}S</text>
+                  </g>
+                ))}
+              </g>
+            )}
+            {/* ZnS inclusions for Zn-rich */}
+            {condition === "znRich" && animFrame > 150 && (
+              <g>
+                {[{ x: 130, y: 70 }, { x: 220, y: 100 }].map((p, i) => (
+                  <g key={i}>
+                    <rect x={p.x - 10} y={p.y - 7} width={20} height={14} rx={3} fill="#d9770644" stroke="#d97706" strokeWidth={1} />
+                    <text x={p.x} y={p.y + 3} textAnchor="middle" fill="#d97706" fontSize={6} fontWeight={700}>ZnS</text>
+                  </g>
+                ))}
+              </g>
+            )}
+            {/* Perfect CZTS crystal for optimal */}
+            {condition === "optimal" && animFrame > 200 && (
+              <g>
+                <rect x={115} y={55} width={70} height={50} rx={6} fill="#16a34a22" stroke="#16a34a" strokeWidth={2} />
+                <text x={150} y={75} textAnchor="middle" fill="#16a34a" fontSize={10} fontWeight={800}>CZTS</text>
+                <text x={150} y={90} textAnchor="middle" fill="#16a34a" fontSize={7}>kesterite</text>
+              </g>
+            )}
+          </svg>
+
+          {/* React button */}
+          <button onClick={() => setShowReaction(true)} style={{
+            width: "100%", marginTop: 8, padding: "8px", borderRadius: 8, fontSize: 12,
+            fontWeight: 700, cursor: "pointer", fontFamily: "inherit",
+            background: cond.color + "15", border: `1.5px solid ${cond.color}`,
+            color: cond.color,
+          }}>
+            {showReaction ? "Reaction Complete" : "Anneal at 550\u00B0C \u2192 See Products"}
+          </button>
+
+          {/* Products after reaction */}
+          {showReaction && (
+            <div style={{ marginTop: 10, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 1 }}>PRODUCTS</div>
+              <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+                {cond.products.map((p, i) => (
+                  <div key={i} style={{
+                    flex: 1, padding: "8px 6px", borderRadius: 6, textAlign: "center",
+                    background: (productColors[p] || "#888") + "15",
+                    border: `1.5px solid ${productColors[p] || "#888"}`,
+                  }}>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: productColors[p] || "#888" }}>{p}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: "flex", gap: 8 }}>
+                <div style={{ flex: 1, padding: "6px 8px", borderRadius: 6, background: cond.color + "08", border: `1px solid ${cond.color}22` }}>
+                  <div style={{ fontSize: 9, color: T.muted }}>Solar Cell Efficiency</div>
+                  <div style={{ fontSize: 16, fontWeight: 800, color: cond.color }}>{cond.efficiency}</div>
+                </div>
+                <div style={{ flex: 1, padding: "6px 8px", borderRadius: 6, background: T.surface, border: `1px solid ${T.border}` }}>
+                  <div style={{ fontSize: 9, color: T.muted }}>Verdict</div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: cond.color }}>{cond.outcome}</div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* RIGHT: Experimental knobs */}
+        <div style={{ flex: 1, minWidth: 180 }}>
+          <div style={{ fontSize: 10, color: T.muted, marginBottom: 4, letterSpacing: 1 }}>{"\u03BC"} {"\u2194"} EXPERIMENTAL KNOBS</div>
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            {[
+              { mu: `\u03BC_Cu = ${cond.muCu.toFixed(2)} eV`, knob: "Cu precursor amount", how: condition === "cuRich" ? "Cu/(Zn+Sn) = 1.1 (too high)" : condition === "optimal" ? "Cu/(Zn+Sn) = 0.8 (optimal)" : "Cu/(Zn+Sn) = 0.7", color: atomColors.Cu },
+              { mu: `\u03BC_Zn = ${cond.muZn.toFixed(2)} eV`, knob: "Zn precursor amount", how: condition === "znRich" ? "Zn/Sn = 1.6 (excess Zn)" : "Zn/Sn = 1.2", color: atomColors.Zn },
+              { mu: `\u03BC_S = ${cond.muS.toFixed(2)} eV`, knob: "S\u2082 partial pressure", how: condition === "snPoor" ? "Low S\u2082 + no SnS\u2082 cap" : "SnS\u2082 + S\u2082 overpressure", color: atomColors.S },
+            ].map((item, i) => (
+              <div key={i} style={{ marginBottom: i < 2 ? 10 : 0 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: 11, fontFamily: "monospace", color: T.ink, fontWeight: 700 }}>{item.mu}</span>
+                  <span style={{ fontSize: 9, color: item.color, fontWeight: 600 }}>{"\u2194"}</span>
+                  <span style={{ fontSize: 10, color: T.muted }}>{item.knob}</span>
+                </div>
+                <div style={{ fontSize: 9, color: cond.color, marginTop: 2, fontStyle: "italic" }}>{item.how}</div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 1 }}>THE REACTION</div>
+            <div style={{ fontFamily: "monospace", fontSize: 11, color: T.ink, lineHeight: 2 }}>
+              2Cu + Zn + Sn + 4S {"\u2192"} Cu{"\u2082"}ZnSnS{"\u2084"}
+            </div>
+            <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.6, marginTop: 6 }}>
+              {"\u0394"}H_f = -3.47 eV/f.u.
+              <br/>= 2{"\u03BC"}_Cu + {"\u03BC"}_Zn + {"\u03BC"}_Sn + 4{"\u03BC"}_S
+              <br/><br/>The diagram constrains WHERE this reaction produces <strong>only CZTS</strong> without any secondary phases precipitating.
+            </div>
+          </div>
+
+          <div style={{ background: cond.color + "08", borderRadius: 8, padding: 12, border: `1px solid ${cond.color}22` }}>
+            <div style={{ fontSize: 10, color: cond.color, fontWeight: 700, marginBottom: 4 }}>
+              {condition === "optimal" ? "INSIDE STABILITY POLYGON" : "OUTSIDE STABILITY POLYGON"}
+            </div>
+            <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.8 }}>
+              {condition === "cuRich" && "Cu is too abundant \u2192 Cu\u2082S precipitates as metallic inclusions that short-circuit the solar cell. Move to more Cu-poor conditions (lower \u03BC_Cu)."}
+              {condition === "optimal" && "Operating point is inside the CZTS stability polygon. All competing phases are thermodynamically suppressed. This is the sweet spot for high-efficiency solar cells."}
+              {condition === "znRich" && "Excess Zn pushes the system toward ZnS formation. ZnS is less harmful than Cu\u2082S (insulating vs metallic), but still reduces CZTS volume fraction and efficiency."}
+              {condition === "snPoor" && "Without SnS\u2082 overpressure, Sn evaporates as SnS gas at 550\u00B0C. The film becomes Sn-poor, Cu-rich \u2192 Cu\u2082S forms. Always anneal under SnS\u2082 + S\u2082."}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
 function CHCZTSSection() {
   const [selectedRegion, setSelectedRegion] = useState("czts");
   const regions = {
@@ -10680,6 +10961,8 @@ function CHCZTSSection() {
           ))}
         </div>
       </Card>
+
+      <CZTSSynthesisAnimation />
     </div>
   );
 }
