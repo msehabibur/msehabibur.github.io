@@ -9,6 +9,7 @@ import DFTMovieModule from "./dft_movie.jsx";
 import DFTParamsMovieModule from "./dft_params_movie.jsx";
 import DFTParamsInteractive from "./dft_params_interactive.jsx";
 import CharacterizationModule from "./characterization.jsx";
+import MLIntroModule from "./ml_intro.jsx";
 import SSSynthesisMovieModule from "./ss_synthesis_movie.jsx";
 import MongoDBMovieModule from "./mongodb_movie.jsx";
 import CdTeSolarCellModule from "./cdte_solar.jsx";
@@ -15281,6 +15282,7 @@ const MODULE_TABS = [
   { id: "pipeline",     chapter: 8,  label: "MLFF Pipeline",             color: T.eo_e,       desc: "DefectNet force field: graph neural network step by step", topics: 14 },
   { id: "llmdatamining", chapter: 9, label: "LLM Data Mining",           color: T.eo_e,       desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", topics: 3 },
   { id: "characterization", chapter: 10, label: "Materials Characterization", color: T.eo_e, desc: "XRD, XPS, SEM, TEM, AFM, STM, Raman, XANES \u2014 interactive guides to every major characterization technique", topics: 18 },
+  { id: "mlintro", chapter: 11, label: "Introduction to ML", color: T.eo_e, desc: "Machine learning foundations, algorithms, neural networks, and applications in materials science", topics: 20 },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -15463,6 +15465,7 @@ export default function MaterialsLab({ initialModule = null, blogMode = false })
       {/* {module === "chalcomovie" && <ChalcoMovieModule />} */}
       {module === "defectsemi" && <ErrorBoundary><DefectSemiModule /></ErrorBoundary>}
       {module === "characterization" && <ErrorBoundary><CharacterizationModule /></ErrorBoundary>}
+      {module === "mlintro" && <ErrorBoundary><MLIntroModule /></ErrorBoundary>}
     </div>
   );
 }

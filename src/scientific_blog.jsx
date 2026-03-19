@@ -29,6 +29,7 @@ const BLOG_CHAPTERS = [
   { id: "pipeline",     chapter: 8,  label: "MLFF Pipeline",              desc: "DefectNet force field: graph neural network architecture, training, and deployment", icon: "\u{1F9E0}" },
   { id: "llmdatamining", chapter: 9, label: "LLM Data Mining",            desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", icon: "\u{1F4DA}" },
   { id: "characterization", chapter: 10, label: "Materials Characterization", desc: "XRD, XPS, SEM, TEM, AFM, STM, Raman, XANES \u2014 interactive guides to every major characterization technique", icon: "\u{1F52C}" },
+  { id: "mlintro", chapter: 11, label: "Introduction to ML", desc: "Machine learning foundations, algorithms, neural networks, and applications in materials science", icon: "\u{1F916}" },
 ];
 
 const T = LIGHT;
