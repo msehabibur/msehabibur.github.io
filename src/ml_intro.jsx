@@ -114,6 +114,7 @@ const ML_BLOCKS = [
   { id: "foundations", label: "Foundations", color: M.found },
   { id: "algorithms", label: "Core Algorithms", color: M.algo },
   { id: "neuralnet", label: "Neural Networks", color: M.nn },
+  { id: "generative", label: "Generative & Advanced", color: "#9333ea" },
   { id: "matsci", label: "ML for Materials", color: M.mat },
   { id: "practical", label: "Practical Guide", color: M.prac },
 ];
@@ -338,7 +339,7 @@ function LinearRegressionSection() {
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={10} x2={40} y2={svgH - 30} stroke={T.border} />
             <text x={svgW / 2} y={svgH - 2} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={600}>Atomic Radius (Å)</text>
-            <text x={10} y={svgH / 2} fontSize={12} fill={T.muted} fontWeight={600} transform={`rotate(-90,10,${svgH / 2})`}>Lattice Const (Å)</text>
+            <text x={12} y={svgH / 2 + 20} fontSize={12} fill={T.muted} fontWeight={600} transform={`rotate(-90,12,${svgH / 2 + 20})`}>Lattice Const (Å)</text>
             {/* Ticks */}
             {[1.15, 1.25, 1.35, 1.45].map(v => (
               <g key={v}>
@@ -587,41 +588,29 @@ function OverfittingSection() {
    ════════════════════════════════════════════════════════════════ */
 function CrossValidationSection() {
   const C = M.found;
-  const [K, setK] = useState(3);
+  const K = 5;
+
+  const foldMAEs = [0.12, 0.15, 0.09, 0.18, 0.11];
+  const meanMAE = foldMAEs.reduce((a, v) => a + v, 0) / K;
+  const stdMAE = Math.sqrt(foldMAEs.reduce((a, v) => a + (v - meanMAE) ** 2, 0) / K);
 
   const dataPoints = useMemo(() => {
-    const r = seededRandom(77);
-    return Array.from({ length: 10 }, (_, i) => ({
-      id: i + 1,
-      x: 1 + r() * 4,
-      y: 2 + r() * 3,
-      val: (2 + r() * 3).toFixed(1),
-    }));
+    return Array.from({ length: 10 }, (_, i) => ({ id: i + 1 }));
   }, []);
-
-  const folds = useMemo(() => {
-    const result = [];
-    const size = Math.floor(10 / K);
-    for (let f = 0; f < K; f++) {
-      const testStart = f * size;
-      const testEnd = f === K - 1 ? 10 : (f + 1) * size;
-      const testIds = dataPoints.slice(testStart, testEnd).map(d => d.id);
-      const trainIds = dataPoints.filter(d => !testIds.includes(d.id)).map(d => d.id);
-      const score = 0.75 + seededRandom(f * 13 + 7)() * 0.2;
-      result.push({ fold: f + 1, testIds, trainIds, score: score.toFixed(3) });
-    }
-    return result;
-  }, [K, dataPoints]);
-
-  const scores = folds.map(f => parseFloat(f.score));
-  const mean = scores.reduce((a, v) => a + v, 0) / scores.length;
-  const std = Math.sqrt(scores.reduce((a, v) => a + (v - mean) ** 2, 0) / scores.length);
 
   const foldColors = ["#2563eb", "#059669", "#dc2626", "#7c3aed", "#d97706"];
   const svgW = 500, svgH = 240;
 
+  const foldAssignments = [
+    [1, 2],
+    [3, 4],
+    [5, 6],
+    [7, 8],
+    [9, 10],
+  ];
+
   return (
-    <Card color={C} title="K-Fold Cross-Validation" formula="Score = mean ± std over K folds">
+    <Card color={C} title="K-Fold Cross-Validation" formula="Mean Absolute Error (MAE) = mean ± std over K folds">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
@@ -633,87 +622,91 @@ function CrossValidationSection() {
       </div>
 
       <HowItWorks color={C} steps={[
-        "Divide your dataset into K equal-sized subsets (folds). Common choices are K = 5 or K = 10.",
-        "For fold 1: train on folds 2–K, test on fold 1, record the score.",
-        "For fold 2: train on folds 1, 3–K, test on fold 2, record the score.",
-        "Repeat for all K folds — each fold gets exactly one turn as the test set.",
-        "Report the mean and standard deviation of all K scores. The mean estimates true performance; the std estimates how stable your model is."
+        "Divide your dataset into K = 5 equal-sized subsets (folds).",
+        "For fold 1: train on folds 2–5, test on fold 1, record the Mean Absolute Error (MAE).",
+        "For fold 2: train on folds 1, 3–5, test on fold 2, record MAE.",
+        "Repeat for all 5 folds — each fold gets exactly one turn as the test set.",
+        "Report mean MAE ± std over all 5 folds. The mean estimates true performance; the std estimates how stable your model is."
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>{K}-Fold Split Visualization</text>
+            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>5-Fold Cross-Validation — Each Fold Takes a Turn as Test Set</text>
             {/* Show each fold as a row */}
-            {folds.map((f, fi) => {
-              const rowY = 30 + fi * ((svgH - 50) / K);
-              const rowH = Math.max(14, ((svgH - 50) / K) - 4);
+            {foldAssignments.map((testIds, fi) => {
+              const rowY = 28 + fi * 34;
+              const rowH = 28;
               return (
                 <g key={fi}>
-                  <text x={8} y={rowY + rowH / 2 + 3} fontSize={9} fill={T.muted} fontWeight={600}>F{f.fold}</text>
+                  <text x={8} y={rowY + rowH / 2 + 3} fontSize={9} fill={T.muted} fontWeight={600}>F{fi + 1}</text>
                   {dataPoints.map((d, di) => {
-                    const cellW = (svgW - 50) / 10;
+                    const cellW = (svgW - 80) / 10;
                     const cx = 30 + di * cellW;
-                    const isTest = f.testIds.includes(d.id);
+                    const isTest = testIds.includes(d.id);
                     return (
-                      <rect key={di} x={cx} y={rowY} width={cellW - 2} height={rowH} rx={3}
-                        fill={isTest ? foldColors[fi % 5] + "55" : T.panel}
-                        stroke={isTest ? foldColors[fi % 5] : T.border} strokeWidth={isTest ? 1.5 : 0.5} />
+                      <g key={di}>
+                        <rect x={cx} y={rowY} width={cellW - 2} height={rowH} rx={3}
+                          fill={isTest ? foldColors[fi] + "55" : T.panel}
+                          stroke={isTest ? foldColors[fi] : T.border} strokeWidth={isTest ? 1.5 : 0.5} />
+                        <text x={cx + cellW / 2 - 1} y={rowY + rowH / 2 + 3} textAnchor="middle" fontSize={7} fill={isTest ? foldColors[fi] : T.dim} fontWeight={isTest ? 700 : 400}>
+                          {isTest ? "TEST" : "train"}
+                        </text>
+                      </g>
                     );
                   })}
-                  <text x={svgW - 5} y={rowY + rowH / 2 + 3} textAnchor="end" fontSize={8} fill={foldColors[fi % 5]} fontWeight={700}>
-                    {f.score}
+                  <text x={svgW - 5} y={rowY + rowH / 2 + 3} textAnchor="end" fontSize={9} fill={foldColors[fi]} fontWeight={700}>
+                    MAE={foldMAEs[fi].toFixed(2)}
                   </text>
                 </g>
               );
             })}
             {/* Point labels at bottom */}
             {dataPoints.map((d, di) => {
-              const cellW = (svgW - 50) / 10;
+              const cellW = (svgW - 80) / 10;
               return (
                 <text key={di} x={30 + di * cellW + cellW / 2 - 1} y={svgH - 8} textAnchor="middle" fontSize={7} fill={T.dim}>
                   {d.id}
                 </text>
               );
             })}
-            <rect x={30} y={svgH - 18} width={10} height={8} rx={2} fill={C + "55"} stroke={C} strokeWidth={1} />
-            <text x={44} y={svgH - 11} fontSize={8} fill={T.muted}>= Test fold</text>
-            <rect x={110} y={svgH - 18} width={10} height={8} rx={2} fill={T.panel} stroke={T.border} strokeWidth={0.5} />
-            <text x={124} y={svgH - 11} fontSize={8} fill={T.muted}>= Train fold</text>
+            <rect x={30} y={svgH - 22} width={10} height={8} rx={2} fill={C + "55"} stroke={C} strokeWidth={1} />
+            <text x={44} y={svgH - 15} fontSize={8} fill={T.muted}>= Test fold</text>
+            <rect x={110} y={svgH - 22} width={10} height={8} rx={2} fill={T.panel} stroke={T.border} strokeWidth={0.5} />
+            <text x={124} y={svgH - 15} fontSize={8} fill={T.muted}>= Train fold</text>
           </svg>
         </div>
 
         <div style={{ flex: 1, minWidth: 200 }}>
-          <SliderRow label="K (number of folds)" value={K} min={2} max={5} step={1}
-            onChange={setK} color={C} format={v => v.toString()} />
-
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>K-FOLD VALIDATION SCORES (K=5)</div>
             <CalcRow eq="Total data points" result="10" color={C} />
-            <CalcRow eq={`Points per fold ≈ 10 / ${K}`} result={Math.floor(10 / K).toString()} color={C} />
-            {folds.map((f, i) => (
-              <CalcRow key={i} eq={`Fold ${f.fold} score`} result={f.score} color={foldColors[i % 5]} />
+            <CalcRow eq="Points per fold = 10 / 5" result="2" color={C} />
+            {foldMAEs.map((mae, i) => (
+              <CalcRow key={i} eq={`Fold ${i + 1} MAE`} result={mae.toFixed(2)} color={foldColors[i]} />
             ))}
-            <CalcRow eq={`Mean = (${scores.map(s => s.toFixed(3)).join(" + ")}) / ${K}`} result={mean.toFixed(3)} color={C} />
-            <CalcRow eq="Std deviation" result={std.toFixed(3)} color={M.accent} />
+            <CalcRow eq={`Mean MAE = (${foldMAEs.map(v => v.toFixed(2)).join(" + ")}) / 5`} result={meanMAE.toFixed(2)} color={C} />
+            <CalcRow eq={`Std = √[ Σ(MAEᵢ − ${meanMAE.toFixed(2)})² / 5 ]`} result={stdMAE.toFixed(4)} color={M.accent} />
+            <CalcRow eq="Final reported score" result={`${meanMAE.toFixed(2)} ± ${stdMAE.toFixed(3)}`} color={C} />
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="MEAN SCORE" value={mean.toFixed(3)} color={C} />
-            <ResultBox label="± STD" value={std.toFixed(3)} color={M.accent} />
+            <ResultBox label="MEAN MAE" value={meanMAE.toFixed(3)} color={C} />
+            <ResultBox label="± STD" value={stdMAE.toFixed(4)} color={M.accent} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> Cross-validation uses every data point for both
-            training and testing. Higher K means each test set is smaller but more folds provide better estimates.
-            The standard deviation tells you how stable your model is — low std means reliable performance.
+            training and testing. With K=5, each of the 5 folds takes exactly one turn as the test set, producing 5 independent MAE scores.
+            The mean estimates true performance; the standard deviation tells you how stable your model is — low std means reliable performance.
+            Fold 3 has the lowest MAE (0.09) and Fold 4 the highest (0.18), showing some variability.
           </div>
 
           <CommonMistakes mistakes={[
             "Performing feature engineering (scaling, selection) before the split — this leaks test information into training, giving falsely optimistic results.",
             "Using K = 2 on small datasets — each fold only trains on half the data, giving a pessimistic estimate.",
-            "Ignoring the standard deviation — a model with mean score 0.90 but std 0.15 is much less reliable than one with mean 0.88 but std 0.02.",
+            "Ignoring the standard deviation — a model with mean MAE 0.13 but std 0.04 is much less reliable than one with mean 0.14 but std 0.01.",
             "Shuffling time-series data randomly — for temporal data, use time-based splits to avoid leaking future information into the past."
           ]} />
 
@@ -725,150 +718,151 @@ function CrossValidationSection() {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   SECTION 5 — Decision Trees
+   SECTION 5 — Decision Trees (Regression)
    ════════════════════════════════════════════════════════════════ */
 function DecisionTreeSection() {
   const C = M.algo;
-  const [splitX, setSplitX] = useState(2.0);
-  const [splitAxis, setSplitAxis] = useState(0);
+  const [splitThreshold, setSplitThreshold] = useState(2.0);
 
-  const points = [
-    { en: 1.61, r: 1.43, label: 1, name: "Al" },
-    { en: 1.83, r: 1.24, label: 1, name: "Fe" },
-    { en: 1.90, r: 1.28, label: 1, name: "Cu" },
-    { en: 1.90, r: 1.17, label: 0, name: "Si" },
-    { en: 2.01, r: 1.22, label: 0, name: "Ge" },
-    { en: 2.18, r: 1.26, label: 0, name: "GaAs" },
-    { en: 2.55, r: 0.77, label: 0, name: "C" },
-    { en: 1.65, r: 1.54, label: 1, name: "Mg" },
+  const materials = [
+    { name: "Si",   en: 1.90, bg: 1.12 },
+    { name: "Ge",   en: 2.01, bg: 0.67 },
+    { name: "GaAs", en: 2.00, bg: 1.42 },
+    { name: "CdTe", en: 1.90, bg: 1.50 },
+    { name: "ZnO",  en: 2.55, bg: 3.37 },
+    { name: "InP",  en: 2.00, bg: 1.35 },
   ];
 
-  const featureName = splitAxis === 0 ? "Electronegativity" : "Radius";
-  const getVal = (p) => splitAxis === 0 ? p.en : p.r;
+  const leftPts = materials.filter(m => m.en <= splitThreshold);
+  const rightPts = materials.filter(m => m.en > splitThreshold);
 
-  const leftPts = points.filter(p => getVal(p) <= splitX);
-  const rightPts = points.filter(p => getVal(p) > splitX);
-
-  const gini = (pts) => {
+  const meanBg = (pts) => pts.length > 0 ? pts.reduce((s, p) => s + p.bg, 0) / pts.length : 0;
+  const mse = (pts) => {
     if (pts.length === 0) return 0;
-    const p0 = pts.filter(p => p.label === 0).length / pts.length;
-    const p1 = 1 - p0;
-    return 1 - p0 * p0 - p1 * p1;
+    const avg = meanBg(pts);
+    return pts.reduce((s, p) => s + (p.bg - avg) ** 2, 0) / pts.length;
   };
 
-  const giniParent = gini(points);
-  const giniLeft = gini(leftPts);
-  const giniRight = gini(rightPts);
-  const giniWeighted = (leftPts.length / points.length) * giniLeft + (rightPts.length / points.length) * giniRight;
-  const infoGain = giniParent - giniWeighted;
+  const allMean = meanBg(materials);
+  const mseBefore = mse(materials);
+  const mseLeft = mse(leftPts);
+  const mseRight = mse(rightPts);
+  const mseAfter = (leftPts.length / materials.length) * mseLeft + (rightPts.length / materials.length) * mseRight;
+  const mseReduction = mseBefore - mseAfter;
+
+  const leftPred = meanBg(leftPts);
+  const rightPred = meanBg(rightPts);
 
   const svgW = 500, svgH = 240;
-  const enMin = 1.5, enMax = 2.7, rMin = 0.7, rMax = 1.6;
+  const enMin = 1.7, enMax = 2.7, bgMin = 0, bgMax = 4;
   const sx = (v) => 40 + (v - enMin) / (enMax - enMin) * (svgW - 60);
-  const sy = (v) => svgH - 30 - (v - rMin) / (rMax - rMin) * (svgH - 50);
+  const sy = (v) => svgH - 30 - (v - bgMin) / (bgMax - bgMin) * (svgH - 50);
 
   return (
-    <Card color={C} title="Decision Trees" formula="Gini = 1 − Σ pᵢ²">
+    <Card color={C} title="Decision Tree Regression" formula="MSE = (1/N) Σ(yᵢ − ȳ)²">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
-          A game of 20 Questions. Each question splits the possibilities into two groups. The best question
-          creates the purest groups — one group mostly "yes", the other mostly "no". Gini impurity measures how mixed a group is.
-          A bad question like "Is it heavier than 1 kg?" might split things 50/50, giving no useful information. A great question like "Is it a living thing?" might perfectly separate animals from objects.
-          <br/><br/><strong>Another way to think about it:</strong> Think of a flowchart at a doctor's office: "Do you have a fever? Yes → go to room A. No → is there pain? Yes → room B. No → room C." Each branching question splits patients into more specific groups until each room treats one condition. A decision tree does exactly this for data classification.
+          A game of 20 Questions, but instead of guessing a category, you are guessing a number. Each question splits possibilities into two groups.
+          The best question makes each group's values as similar as possible — measured by Mean Squared Error (MSE).
+          At each leaf, the prediction is simply the average of the samples in that leaf.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine sorting materials into bins by a property threshold. In each bin, you predict "the average bandgap of everything in this bin." The tree finds the threshold that makes each bin's values most uniform.
         </div>
       </div>
 
       <HowItWorks color={C} steps={[
-        "Start with all data points in one node (the root). Calculate the Gini impurity of this mixed group.",
-        "For every possible feature and every possible threshold, compute: what would the Gini impurity be if we split here?",
-        "Pick the feature and threshold that gives the largest drop in impurity (highest information gain).",
-        "Create two child nodes: left (feature <= threshold) and right (feature > threshold).",
-        "Recursively repeat for each child node until nodes are pure (Gini = 0) or a stopping criterion is met (max depth, min samples)."
+        "Start with all 6 materials in one node. Compute MSE of all bandgaps around their mean.",
+        "For every possible feature and threshold, compute: what would the weighted MSE be if we split here?",
+        "Pick the split that gives the largest reduction in MSE.",
+        "Each leaf predicts the mean bandgap of samples in that leaf.",
+        "Recursively repeat for each child node until a stopping criterion is met."
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Split on {featureName} ≤ {splitX.toFixed(2)}</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Split on Mean Electronegativity ≤ {splitThreshold.toFixed(2)}</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={10} x2={40} y2={svgH - 30} stroke={T.border} />
-            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={9} fill={T.muted}>Electronegativity</text>
+            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={9} fill={T.muted}>Mean Electronegativity</text>
+            <text x={12} y={svgH / 2} fontSize={9} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Bandgap (eV)</text>
             {/* Split line */}
-            {splitAxis === 0 ? (
-              <line x1={sx(splitX)} y1={18} x2={sx(splitX)} y2={svgH - 30} stroke={C} strokeWidth={2} strokeDasharray="5,3" />
-            ) : (
-              <line x1={40} y1={sy(splitX)} x2={svgW - 10} y2={sy(splitX)} stroke={C} strokeWidth={2} strokeDasharray="5,3" />
-            )}
+            <line x1={sx(splitThreshold)} y1={18} x2={sx(splitThreshold)} y2={svgH - 30} stroke={C} strokeWidth={2} strokeDasharray="5,3" />
             {/* Shaded regions */}
-            {splitAxis === 0 && (
-              <>
-                <rect x={40} y={18} width={sx(splitX) - 40} height={svgH - 48} fill="#059669" opacity={0.05} />
-                <rect x={sx(splitX)} y={18} width={svgW - 10 - sx(splitX)} height={svgH - 48} fill="#dc2626" opacity={0.05} />
-              </>
+            <rect x={40} y={18} width={Math.max(0, sx(splitThreshold) - 40)} height={svgH - 48} fill="#059669" opacity={0.05} />
+            <rect x={sx(splitThreshold)} y={18} width={Math.max(0, svgW - 10 - sx(splitThreshold))} height={svgH - 48} fill="#dc2626" opacity={0.05} />
+            {/* Prediction lines (mean of each side) */}
+            {leftPts.length > 0 && (
+              <line x1={40} y1={sy(leftPred)} x2={sx(splitThreshold)} y2={sy(leftPred)}
+                stroke="#059669" strokeWidth={2} strokeDasharray="6,3" />
+            )}
+            {rightPts.length > 0 && (
+              <line x1={sx(splitThreshold)} y1={sy(rightPred)} x2={svgW - 10} y2={sy(rightPred)}
+                stroke="#dc2626" strokeWidth={2} strokeDasharray="6,3" />
             )}
             {/* Data points */}
-            {points.map((p, i) => (
+            {materials.map((m, i) => (
               <g key={i}>
-                <circle cx={sx(p.en)} cy={sy(p.r)} r={6}
-                  fill={p.label === 0 ? "#2563eb33" : "#ea580c33"}
-                  stroke={p.label === 0 ? "#2563eb" : "#ea580c"} strokeWidth={1.5} />
-                <text x={sx(p.en)} y={sy(p.r) - 8} textAnchor="middle" fontSize={7} fill={T.ink} fontWeight={600}>{p.name}</text>
+                <circle cx={sx(m.en)} cy={sy(m.bg)} r={6}
+                  fill={m.en <= splitThreshold ? "#05966933" : "#dc262633"}
+                  stroke={m.en <= splitThreshold ? "#059669" : "#dc2626"} strokeWidth={1.5} />
+                <text x={sx(m.en)} y={sy(m.bg) - 9} textAnchor="middle" fontSize={7} fill={T.ink} fontWeight={600}>{m.name}</text>
+                <text x={sx(m.en)} y={sy(m.bg) + 14} textAnchor="middle" fontSize={7} fill={T.muted}>{m.bg} eV</text>
               </g>
             ))}
-            <circle cx={230} cy={svgH - 15} r={4} fill="#2563eb33" stroke="#2563eb" />
-            <text x={238} y={svgH - 12} fontSize={8} fill={T.muted}>Semi</text>
-            <circle cx={275} cy={svgH - 15} r={4} fill="#ea580c33" stroke="#ea580c" />
-            <text x={283} y={svgH - 12} fontSize={8} fill={T.muted}>Metal</text>
+            {/* Axis ticks */}
+            {[1.8, 2.0, 2.2, 2.4, 2.6].map(v => (
+              <g key={v}>
+                <line x1={sx(v)} y1={svgH - 30} x2={sx(v)} y2={svgH - 25} stroke={T.dim} />
+                <text x={sx(v)} y={svgH - 16} textAnchor="middle" fontSize={8} fill={T.dim}>{v.toFixed(1)}</text>
+              </g>
+            ))}
+            {[0, 1, 2, 3, 4].map(v => (
+              <g key={v}>
+                <line x1={35} y1={sy(v)} x2={40} y2={sy(v)} stroke={T.dim} />
+                <text x={32} y={sy(v) + 3} textAnchor="end" fontSize={8} fill={T.dim}>{v}</text>
+              </g>
+            ))}
           </svg>
         </div>
 
         <div style={{ flex: 1, minWidth: 200 }}>
-          <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
-            {["Electronegativity", "Radius"].map((lbl, i) => (
-              <button key={i} onClick={() => setSplitAxis(i)}
-                style={{ padding: "3px 10px", fontSize: 10, borderRadius: 5, cursor: "pointer",
-                  background: splitAxis === i ? C : T.surface, color: splitAxis === i ? "#fff" : T.muted,
-                  border: `1px solid ${splitAxis === i ? C : T.border}`, fontWeight: 600 }}>{lbl}</button>
-            ))}
-          </div>
-          <SliderRow label={`Split threshold (${featureName})`} value={splitX}
-            min={splitAxis === 0 ? 1.5 : 0.7} max={splitAxis === 0 ? 2.6 : 1.6} step={0.01}
-            onChange={setSplitX} color={C} />
+          <SliderRow label="Split threshold (Mean EN)" value={splitThreshold}
+            min={1.8} max={2.6} step={0.01}
+            onChange={setSplitThreshold} color={C} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
-            <CalcRow eq="Parent: 4 semi + 4 metal in 8" result={`Gini = ${giniParent.toFixed(3)}`} color={C} />
-            <CalcRow eq={`Left (≤ ${splitX.toFixed(2)}): ${leftPts.filter(p => p.label === 0).length}S + ${leftPts.filter(p => p.label === 1).length}M in ${leftPts.length}`}
-              result={`Gini = ${giniLeft.toFixed(3)}`} color="#059669" />
-            <CalcRow eq={`Right (> ${splitX.toFixed(2)}): ${rightPts.filter(p => p.label === 0).length}S + ${rightPts.filter(p => p.label === 1).length}M in ${rightPts.length}`}
-              result={`Gini = ${giniRight.toFixed(3)}`} color="#dc2626" />
-            <CalcRow eq={`Weighted = (${leftPts.length}/8)×${giniLeft.toFixed(3)} + (${rightPts.length}/8)×${giniRight.toFixed(3)}`}
-              result={giniWeighted.toFixed(3)} color={C} />
-            <CalcRow eq={`Info Gain = ${giniParent.toFixed(3)} − ${giniWeighted.toFixed(3)}`}
-              result={infoGain.toFixed(3)} color={M.accent} />
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>MSE CALCULATION</div>
+            <CalcRow eq={`All 6 materials: mean bandgap ȳ`} result={`${allMean.toFixed(3)} eV`} color={C} />
+            <CalcRow eq={`MSE before split = (1/6)Σ(yᵢ − ${allMean.toFixed(2)})²`} result={mseBefore.toFixed(4)} color={C} />
+            <CalcRow eq={`Left (≤ ${splitThreshold.toFixed(2)}): ${leftPts.length} materials`} result={`ȳ = ${leftPred.toFixed(3)} eV`} color="#059669" />
+            <CalcRow eq={`Left MSE = (1/${leftPts.length})Σ(yᵢ − ${leftPred.toFixed(2)})²`} result={mseLeft.toFixed(4)} color="#059669" />
+            <CalcRow eq={`Right (> ${splitThreshold.toFixed(2)}): ${rightPts.length} materials`} result={`ȳ = ${rightPred.toFixed(3)} eV`} color="#dc2626" />
+            <CalcRow eq={`Right MSE = (1/${rightPts.length})Σ(yᵢ − ${rightPred.toFixed(2)})²`} result={mseRight.toFixed(4)} color="#dc2626" />
+            <CalcRow eq={`Weighted MSE = (${leftPts.length}/6)×${mseLeft.toFixed(3)} + (${rightPts.length}/6)×${mseRight.toFixed(3)}`} result={mseAfter.toFixed(4)} color={C} />
+            <CalcRow eq={`MSE Reduction = ${mseBefore.toFixed(4)} − ${mseAfter.toFixed(4)}`} result={mseReduction.toFixed(4)} color={M.accent} />
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="GINI (WEIGHTED)" value={giniWeighted.toFixed(3)} color={C} />
-            <ResultBox label="INFO GAIN" value={infoGain.toFixed(3)} color={M.accent} />
+            <ResultBox label="WEIGHTED MSE" value={mseAfter.toFixed(4)} color={C} />
+            <ResultBox label="MSE REDUCTION" value={mseReduction.toFixed(4)} color={M.accent} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <strong style={{ color: T.ink }}>Key insight.</strong> A Gini of 0 means a perfectly pure node (all one class).
-            A Gini of 0.5 means maximum impurity (50-50 split). The tree picks the split with the highest information gain —
-            the biggest drop in impurity.
+            <strong style={{ color: T.ink }}>Key insight.</strong> In regression trees, each leaf predicts the mean of its samples.
+            The tree picks the split that maximizes MSE reduction. A low MSE means samples in each leaf have similar bandgaps.
+            Try moving the threshold — watch how the left/right predictions (dashed lines) change.
           </div>
 
           <CommonMistakes mistakes={[
             "Growing the tree too deep — a fully grown tree memorizes training data (overfitting). Use max_depth or min_samples_leaf to limit growth.",
-            "Assuming trees handle feature scaling — actually trees do NOT need scaled features, unlike SVM or neural networks. This is an advantage.",
+            "Assuming trees handle feature scaling — actually trees do NOT need scaled features, unlike Support Vector Machines or neural networks. This is an advantage.",
             "Forgetting that single trees are unstable — small changes in data can produce very different trees. Random forests fix this.",
-            "Using entropy vs Gini without understanding the difference — in practice, both give nearly identical results. Gini is faster to compute."
+            "Confusing classification trees (Gini) with regression trees (MSE) — for predicting continuous values like bandgap, always use MSE-based splits."
           ]} />
 
-          <MatSciExample text="Decision trees are used in materials science to classify crystal structures. For example, a tree might split on tolerance factor > 0.9 (first node) and octahedral factor > 0.41 (second node) to predict whether an ABX3 composition will form a perovskite structure or not." />
+          <MatSciExample text="Regression trees are used in materials science to predict continuous properties like formation energy. A tree might split on electronegativity difference > 1.5 (first node) and mean atomic mass > 60 (second node) to predict bandgap values, with each leaf outputting the average bandgap of the materials in that partition." />
         </div>
       </div>
     </Card>
@@ -876,114 +870,111 @@ function DecisionTreeSection() {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   SECTION 6 — Random Forest
+   SECTION 6 — Random Forest (Regression)
    ════════════════════════════════════════════════════════════════ */
 function RandomForestSection() {
   const C = M.algo;
-  const [nTrees, setNTrees] = useState(3);
 
-  const testSample = { en: 2.10, r: 1.20, name: "Unknown" };
+  const allMaterials = [
+    { name: "Si",   en: 1.90, bg: 1.12 },
+    { name: "Ge",   en: 2.01, bg: 0.67 },
+    { name: "GaAs", en: 2.00, bg: 1.42 },
+    { name: "CdTe", en: 1.90, bg: 1.50 },
+    { name: "ZnO",  en: 2.55, bg: 3.37 },
+    { name: "InP",  en: 2.00, bg: 1.35 },
+  ];
 
-  const treeResults = useMemo(() => {
-    const trees = [];
-    for (let t = 0; t < nTrees; t++) {
-      const rng = seededRandom(t * 31 + 17);
-      const subset = [0, 1, 2, 3, 4, 5, 6, 7].filter(() => rng() > 0.35);
-      const threshold = 1.85 + (rng() - 0.5) * 0.4;
-      const prediction = testSample.en > threshold ? 0 : 1;
-      const confidence = 0.6 + rng() * 0.35;
-      trees.push({ id: t + 1, subsetSize: subset.length, threshold: threshold.toFixed(2), prediction, confidence: confidence.toFixed(2) });
-    }
-    return trees;
-  }, [nTrees]);
+  const testMaterial = allMaterials[5]; // InP
 
-  const votes0 = treeResults.filter(t => t.prediction === 0).length;
-  const votes1 = treeResults.filter(t => t.prediction === 1).length;
-  const ensemblePred = votes0 >= votes1 ? "Semiconductor" : "Metal";
+  const treeSubsets = [
+    { id: 1, indices: [0, 1, 3, 4], pred: 1.28 },
+    { id: 2, indices: [0, 2, 3, 4], pred: 1.40 },
+    { id: 3, indices: [1, 2, 3, 4], pred: 1.35 },
+  ];
+
+  const preds = treeSubsets.map(t => t.pred);
+  const rfPred = preds.reduce((a, v) => a + v, 0) / preds.length;
+  const actual = testMaterial.bg;
+  const error = Math.abs(rfPred - actual);
 
   const svgW = 500, svgH = 240;
+  const treeColors = ["#2563eb", "#059669", "#d97706"];
 
   return (
-    <Card color={C} title="Random Forest" formula="Ensemble = majority vote of N trees">
+    <Card color={C} title="Random Forest Regression" formula="Prediction = (1/N) Σ tree predictions">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A panel of judges scoring a gymnastics routine. Each judge sees the routine from a slightly different angle
           and has different expertise. The average score is more reliable than any single judge's opinion.
-          Even if one judge is biased or makes a mistake, the collective average washes out individual errors, giving a fairer overall score.
+          Even if one judge is biased, the collective average washes out individual errors.
           <br/><br/><strong>Another way to think about it:</strong> Imagine asking 100 people to guess the number of jellybeans in a jar. Most individuals will be off, but the average of all 100 guesses is remarkably close to the true number. This is the "wisdom of crowds" effect, and random forests exploit exactly this principle with decision trees.
         </div>
       </div>
 
       <HowItWorks color={C} steps={[
-        "Create N decision trees (typically 100–1000). Each tree is trained on a random bootstrap sample (sampling with replacement) of the original data.",
-        "At each split in each tree, only consider a random subset of features (not all features). This decorrelates the trees.",
-        "Grow each tree fully (or to a specified depth). Individual trees will overfit, and that is okay.",
-        "To make a prediction, pass the new sample through ALL N trees and collect their individual predictions.",
-        "For classification: take a majority vote. For regression: take the average. The ensemble prediction is much more stable and accurate than any single tree."
+        "Create N regression trees (here N=3). Each tree trains on a random subset of the 6 materials (bootstrap sampling).",
+        "At each split in each tree, only consider a random subset of features. This decorrelates the trees.",
+        "Each tree independently predicts the bandgap for InP based on its own learned splits.",
+        "The Random Forest prediction = average of all tree predictions: (1.28 + 1.40 + 1.35) / 3 = 1.343 eV.",
+        "Compare to actual InP bandgap = 1.35 eV. Error = |1.343 − 1.35| = 0.007 eV — excellent!"
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Random Forest: {nTrees} Trees Voting</text>
-            {/* Draw each tree as a simple diagram */}
-            {treeResults.map((tree, i) => {
-              const treeW = Math.min(100, (svgW - 40) / nTrees);
-              const tx = 20 + i * treeW + treeW / 2;
+            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Random Forest Regression: 3 Trees Predict InP Bandgap</text>
+            {/* Draw each tree */}
+            {treeSubsets.map((tree, i) => {
+              const tx = 60 + i * 150;
               const ty = 35;
-              const predColor = tree.prediction === 0 ? "#2563eb" : "#ea580c";
               return (
                 <g key={i}>
-                  {/* Tree trunk */}
-                  <rect x={tx - 15} y={ty} width={30} height={60} rx={4} fill={C + "15"} stroke={C} strokeWidth={1} />
-                  <text x={tx} y={ty + 14} textAnchor="middle" fontSize={8} fill={C} fontWeight={700}>Tree {tree.id}</text>
-                  <text x={tx} y={ty + 28} textAnchor="middle" fontSize={7} fill={T.muted}>n={tree.subsetSize}</text>
-                  <text x={tx} y={ty + 42} textAnchor="middle" fontSize={7} fill={T.muted}>θ={tree.threshold}</text>
-                  <text x={tx} y={ty + 55} textAnchor="middle" fontSize={8} fill={predColor} fontWeight={700}>
-                    {tree.prediction === 0 ? "Semi" : "Metal"}
+                  <rect x={tx - 55} y={ty} width={110} height={90} rx={6} fill={treeColors[i] + "10"} stroke={treeColors[i]} strokeWidth={1} />
+                  <text x={tx} y={ty + 14} textAnchor="middle" fontSize={9} fill={treeColors[i]} fontWeight={700}>Tree {tree.id}</text>
+                  <text x={tx} y={ty + 28} textAnchor="middle" fontSize={8} fill={T.muted}>
+                    Subset: {tree.indices.map(j => allMaterials[j].name).join(", ")}
                   </text>
-                  {/* Arrow to vote */}
-                  <line x1={tx} y1={ty + 62} x2={svgW / 2} y2={145} stroke={predColor + "66"} strokeWidth={1} />
+                  <text x={tx} y={ty + 48} textAnchor="middle" fontSize={8} fill={T.muted}>Predicts InP →</text>
+                  <text x={tx} y={ty + 68} textAnchor="middle" fontSize={14} fill={treeColors[i]} fontWeight={800}>
+                    {tree.pred.toFixed(2)} eV
+                  </text>
+                  {/* Arrow to average */}
+                  <line x1={tx} y1={ty + 92} x2={svgW / 2} y2={170} stroke={treeColors[i] + "66"} strokeWidth={1.5} />
                 </g>
               );
             })}
-            {/* Ensemble vote box */}
-            <rect x={svgW / 2 - 55} y={145} width={110} height={30} rx={6} fill={votes0 >= votes1 ? "#2563eb15" : "#ea580c15"}
-              stroke={votes0 >= votes1 ? "#2563eb" : "#ea580c"} strokeWidth={1.5} />
-            <text x={svgW / 2} y={157} textAnchor="middle" fontSize={8} fill={T.muted}>Ensemble Vote:</text>
-            <text x={svgW / 2} y={170} textAnchor="middle" fontSize={10} fill={votes0 >= votes1 ? "#2563eb" : "#ea580c"} fontWeight={800}>
-              {ensemblePred}
+            {/* Average box */}
+            <rect x={svgW / 2 - 70} y={170} width={140} height={35} rx={6} fill={C + "15"} stroke={C} strokeWidth={1.5} />
+            <text x={svgW / 2} y={183} textAnchor="middle" fontSize={8} fill={T.muted}>Random Forest Average:</text>
+            <text x={svgW / 2} y={198} textAnchor="middle" fontSize={12} fill={C} fontWeight={800}>
+              {rfPred.toFixed(3)} eV (actual: {actual} eV)
             </text>
           </svg>
         </div>
 
         <div style={{ flex: 1, minWidth: 200 }}>
-          <SliderRow label="Number of Trees" value={nTrees} min={1} max={7} step={1}
-            onChange={setNTrees} color={C} format={v => v.toString()} />
-
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
-            <CalcRow eq="Test sample: EN = 2.10, R = 1.20" result="Unknown" color={C} />
-            {treeResults.map((t, i) => (
-              <CalcRow key={i} eq={`Tree ${t.id}: EN ${testSample.en} > ${t.threshold}?`}
-                result={t.prediction === 0 ? "Semi" : "Metal"} color={t.prediction === 0 ? "#2563eb" : "#ea580c"} />
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>REGRESSION CALCULATION</div>
+            <CalcRow eq="Test material" result="InP (actual = 1.35 eV)" color={C} />
+            {treeSubsets.map((t, i) => (
+              <CalcRow key={i} eq={`Tree ${t.id} (subset: ${t.indices.map(j => allMaterials[j].name).join(",")})`}
+                result={`predicts ${t.pred.toFixed(2)} eV`} color={treeColors[i]} />
             ))}
-            <CalcRow eq={`Votes for Semiconductor`} result={votes0.toString()} color="#2563eb" />
-            <CalcRow eq={`Votes for Metal`} result={votes1.toString()} color="#ea580c" />
-            <CalcRow eq="Majority vote" result={ensemblePred} color={C} />
+            <CalcRow eq={`RF prediction = (${preds.map(p => p.toFixed(2)).join(" + ")}) / 3`} result={`${rfPred.toFixed(3)} eV`} color={C} />
+            <CalcRow eq={`Error = |${rfPred.toFixed(3)} − ${actual}|`} result={`${error.toFixed(3)} eV`} color={M.accent} />
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="PREDICTION" value={ensemblePred} color={C} />
-            <ResultBox label="TREES" value={nTrees.toString()} color={C} sub="voting" />
+            <ResultBox label="RF PREDICTION" value={rfPred.toFixed(3) + " eV"} color={C} sub="InP bandgap" />
+            <ResultBox label="ERROR" value={error.toFixed(3) + " eV"} color={M.accent} sub={`actual = ${actual} eV`} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <strong style={{ color: T.ink }}>Key insight.</strong> Each tree trains on a random subset of data and features.
-            This "randomness" makes individual trees different. Combining their votes (bagging) reduces overfitting and
-            increases robustness. More trees usually means better performance up to a point.
+            <strong style={{ color: T.ink }}>Key insight.</strong> Each tree trains on a different random subset of data and features.
+            This "randomness" makes individual trees different. Averaging their predictions (bagging) reduces overfitting and
+            increases robustness. The error of 0.007 eV is much smaller than any single tree's likely error.
           </div>
 
           <CommonMistakes mistakes={[
@@ -1001,135 +992,147 @@ function RandomForestSection() {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   SECTION 7 — Support Vector Machine (SVM)
+   SECTION 7 — Support Vector Regression (SVR)
    ════════════════════════════════════════════════════════════════ */
 function SVMSection() {
   const C = M.algo;
-  const [cParam, setCParam] = useState(1.0);
+  const [epsilon, setEpsilon] = useState(0.3);
 
-  const pts = [
-    { x: 1.0, y: 2.0, cls: 0 }, { x: 1.5, y: 2.5, cls: 0 }, { x: 1.2, y: 3.0, cls: 0 },
-    { x: 3.0, y: 1.5, cls: 1 }, { x: 3.5, y: 2.0, cls: 1 }, { x: 3.2, y: 2.8, cls: 1 },
+  const materials = [
+    { name: "Si",   en: 1.90, bg: 1.12, yhat: 1.20 },
+    { name: "Ge",   en: 2.01, bg: 0.67, yhat: 0.80 },
+    { name: "GaAs", en: 2.00, bg: 1.42, yhat: 1.35 },
+    { name: "CdTe", en: 1.90, bg: 1.50, yhat: 1.40 },
+    { name: "ZnO",  en: 2.55, bg: 3.37, yhat: 3.10 },
+    { name: "InP",  en: 2.00, bg: 1.35, yhat: 1.30 },
   ];
 
-  const c0 = pts.filter(p => p.cls === 0);
-  const c1 = pts.filter(p => p.cls === 1);
-  const cx0 = c0.reduce((s, p) => s + p.x, 0) / c0.length;
-  const cy0 = c0.reduce((s, p) => s + p.y, 0) / c0.length;
-  const cx1 = c1.reduce((s, p) => s + p.x, 0) / c1.length;
-  const cy1 = c1.reduce((s, p) => s + p.y, 0) / c1.length;
+  const losses = materials.map(m => ({
+    ...m,
+    residual: Math.abs(m.bg - m.yhat),
+    loss: Math.max(0, Math.abs(m.bg - m.yhat) - epsilon),
+    isSV: Math.abs(m.bg - m.yhat) > epsilon,
+  }));
 
-  const midX = (cx0 + cx1) / 2;
-  const midY = (cy0 + cy1) / 2;
-  const wX = cx1 - cx0;
-  const wY = cy1 - cy0;
-  const wNorm = Math.sqrt(wX * wX + wY * wY);
-
-  const marginWidth = 2.0 / (wNorm * cParam);
-  const marginHalf = marginWidth / 2;
+  const totalLoss = losses.reduce((s, l) => s + l.loss, 0);
+  const nSV = losses.filter(l => l.isSV).length;
 
   const svgW = 500, svgH = 240;
-  const xMin = 0, xMax = 4.5, yMin = 0.5, yMax = 3.8;
-  const sx = (v) => 40 + (v - xMin) / (xMax - xMin) * (svgW - 60);
-  const sy = (v) => svgH - 30 - (v - yMin) / (yMax - yMin) * (svgH - 50);
-
-  const perpX = -wY / wNorm;
-  const perpY = wX / wNorm;
+  const enMin = 1.7, enMax = 2.7, bgMin = 0, bgMax = 4;
+  const sx = (v) => 40 + (v - enMin) / (enMax - enMin) * (svgW - 60);
+  const sy = (v) => svgH - 30 - (v - bgMin) / (bgMax - bgMin) * (svgH - 50);
 
   return (
-    <Card color={C} title="Support Vector Machine" formula="Maximize margin = 2 / ||w||">
+    <Card color={C} title="Support Vector Regression" formula="Loss = max(0, |y − ŷ| − ε)">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
-          Parking a car in the middle of a lane. You want equal space on both sides — that is the maximum margin.
-          SVM finds the line that leaves the widest "lane" between two classes. The wider the lane, the more confident we are that a new data point falling on one side truly belongs to that class.
-          The edge of the lane is defined by the closest data points from each class — these are the "support vectors" that literally support the boundary's position.
-          <br/><br/><strong>Another way to think about it:</strong> Imagine two groups of students sitting on opposite sides of a cafeteria. You want to draw a line on the floor separating them. The best line is not just any separator — it is the one that leaves the maximum gap so that even if someone moves slightly, they still stay on their side.
+          Imagine a tube around a regression line. Predictions within the tube are "close enough" — they incur zero penalty.
+          Only points outside the tube (where the error exceeds ε) are penalized. The tube width ε controls your tolerance.
+          A wide tube ignores small errors and focuses only on large deviations. A narrow tube demands near-perfect predictions.
+          <br/><br/><strong>Another way to think about it:</strong> A teacher grading with a tolerance zone: answers within ε of the correct value get full marks (zero loss). Only answers outside this zone lose points, and the penalty is proportional to how far they are beyond the tolerance. Points outside the tube are called "support vectors" — they are the only ones that influence the model.
         </div>
       </div>
 
       <HowItWorks color={C} steps={[
-        "Find the decision boundary (hyperplane) that separates the two classes in feature space.",
-        "Among all possible separating boundaries, choose the one that maximizes the margin — the distance between the boundary and the nearest data points from each class.",
-        "The nearest points that define the margin are called support vectors. Only these points matter; all other points could be removed without changing the boundary.",
-        "The C parameter controls the trade-off: high C means fewer misclassifications (hard margin, narrow lane); low C allows some misclassifications for a wider, more generalizable margin.",
-        "For non-linearly separable data, the kernel trick maps data to a higher-dimensional space where a linear boundary can separate the classes."
+        "Fit a regression function ŷ = f(x) to the data, but instead of minimizing squared error, use the ε-insensitive loss.",
+        "Define an ε-tube around the prediction: any data point with |y − ŷ| ≤ ε incurs zero loss.",
+        "Points outside the tube have loss = |y − ŷ| − ε. These are the support vectors.",
+        "The ε parameter controls the tube width: larger ε means more points inside the tube (simpler model, more tolerance).",
+        "Support vectors (points outside the tube) are the only data points that influence the regression function."
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Maximum Margin Classifier</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Support Vector Regression: ε-Tube (ε = {epsilon.toFixed(2)})</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={10} x2={40} y2={svgH - 30} stroke={T.border} />
-            {/* Decision boundary (perpendicular to w, through midpoint) */}
-            <line
-              x1={sx(midX + perpX * 3)} y1={sy(midY + perpY * 3)}
-              x2={sx(midX - perpX * 3)} y2={sy(midY - perpY * 3)}
-              stroke={C} strokeWidth={2} />
-            {/* Margin lines */}
-            <line
-              x1={sx(midX + marginHalf * wX / wNorm + perpX * 3)} y1={sy(midY + marginHalf * wY / wNorm + perpY * 3)}
-              x2={sx(midX + marginHalf * wX / wNorm - perpX * 3)} y2={sy(midY + marginHalf * wY / wNorm - perpY * 3)}
-              stroke={C} strokeWidth={1} strokeDasharray="4,3" opacity={0.5} />
-            <line
-              x1={sx(midX - marginHalf * wX / wNorm + perpX * 3)} y1={sy(midY - marginHalf * wY / wNorm + perpY * 3)}
-              x2={sx(midX - marginHalf * wX / wNorm - perpX * 3)} y2={sy(midY - marginHalf * wY / wNorm - perpY * 3)}
-              stroke={C} strokeWidth={1} strokeDasharray="4,3" opacity={0.5} />
-            {/* Margin shading */}
-            <rect
-              x={sx(midX - marginHalf * wX / wNorm - 1.5)} y={20}
-              width={Math.abs(sx(midX + marginHalf * wX / wNorm) - sx(midX - marginHalf * wX / wNorm))}
-              height={svgH - 52} fill={C} opacity={0.05} rx={4} />
-            {/* Data points */}
-            {pts.map((p, i) => (
-              <g key={i}>
-                <circle cx={sx(p.x)} cy={sy(p.y)} r={6}
-                  fill={p.cls === 0 ? "#2563eb33" : "#ea580c33"}
-                  stroke={p.cls === 0 ? "#2563eb" : "#ea580c"} strokeWidth={2} />
+            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={9} fill={T.muted}>Mean Electronegativity</text>
+            <text x={12} y={svgH / 2} fontSize={9} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Bandgap (eV)</text>
+            {/* ε-tube around each prediction */}
+            {materials.map((m, i) => (
+              <g key={`tube${i}`}>
+                <rect x={sx(m.en) - 8} y={sy(m.yhat + epsilon)} width={16}
+                  height={sy(m.yhat - epsilon) - sy(m.yhat + epsilon)}
+                  rx={2} fill={C} opacity={0.08} />
+                <line x1={sx(m.en) - 8} y1={sy(m.yhat + epsilon)} x2={sx(m.en) + 8} y2={sy(m.yhat + epsilon)}
+                  stroke={C} strokeWidth={0.5} strokeDasharray="2,2" />
+                <line x1={sx(m.en) - 8} y1={sy(m.yhat - epsilon)} x2={sx(m.en) + 8} y2={sy(m.yhat - epsilon)}
+                  stroke={C} strokeWidth={0.5} strokeDasharray="2,2" />
               </g>
             ))}
-            <circle cx={240} cy={svgH - 15} r={4} fill="#2563eb33" stroke="#2563eb" />
-            <text x={248} y={svgH - 12} fontSize={8} fill={T.muted}>Class 0</text>
-            <circle cx={290} cy={svgH - 15} r={4} fill="#ea580c33" stroke="#ea580c" />
-            <text x={298} y={svgH - 12} fontSize={8} fill={T.muted}>Class 1</text>
+            {/* Prediction markers */}
+            {materials.map((m, i) => (
+              <line key={`pred${i}`} x1={sx(m.en) - 6} y1={sy(m.yhat)} x2={sx(m.en) + 6} y2={sy(m.yhat)}
+                stroke={C} strokeWidth={2} />
+            ))}
+            {/* Data points */}
+            {losses.map((m, i) => (
+              <g key={i}>
+                <circle cx={sx(m.en)} cy={sy(m.bg)} r={6}
+                  fill={m.isSV ? "#dc262644" : "#05966944"}
+                  stroke={m.isSV ? "#dc2626" : "#059669"} strokeWidth={2} />
+                <text x={sx(m.en)} y={sy(m.bg) - 9} textAnchor="middle" fontSize={7} fill={T.ink} fontWeight={600}>
+                  {m.name}{m.isSV ? " (SV)" : ""}
+                </text>
+              </g>
+            ))}
+            {/* Axis ticks */}
+            {[1.8, 2.0, 2.2, 2.4, 2.6].map(v => (
+              <g key={v}>
+                <line x1={sx(v)} y1={svgH - 30} x2={sx(v)} y2={svgH - 25} stroke={T.dim} />
+                <text x={sx(v)} y={svgH - 16} textAnchor="middle" fontSize={8} fill={T.dim}>{v.toFixed(1)}</text>
+              </g>
+            ))}
+            {[0, 1, 2, 3, 4].map(v => (
+              <g key={v}>
+                <line x1={35} y1={sy(v)} x2={40} y2={sy(v)} stroke={T.dim} />
+                <text x={32} y={sy(v) + 3} textAnchor="end" fontSize={8} fill={T.dim}>{v}</text>
+              </g>
+            ))}
+            {/* Legend */}
+            <circle cx={350} cy={25} r={4} fill="#05966944" stroke="#059669" strokeWidth={1.5} />
+            <text x={358} y={28} fontSize={8} fill={T.muted}>Inside tube</text>
+            <circle cx={350} cy={40} r={4} fill="#dc262644" stroke="#dc2626" strokeWidth={1.5} />
+            <text x={358} y={43} fontSize={8} fill={T.muted}>Support vector</text>
           </svg>
         </div>
 
         <div style={{ flex: 1, minWidth: 200 }}>
-          <SliderRow label="C (regularization)" value={cParam} min={0.1} max={5.0} step={0.1}
-            onChange={setCParam} color={C} />
+          <SliderRow label="ε (epsilon — tube half-width)" value={epsilon} min={0.05} max={1.0} step={0.05}
+            onChange={setEpsilon} color={C} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
-            <CalcRow eq={`w = (c1_center − c0_center)`} result={`(${wX.toFixed(2)}, ${wY.toFixed(2)})`} color={C} />
-            <CalcRow eq={`||w|| = √(${wX.toFixed(2)}² + ${wY.toFixed(2)}²)`} result={wNorm.toFixed(3)} color={C} />
-            <CalcRow eq={`Margin = 2 / (||w|| × C)`} result={marginWidth.toFixed(3)} color={C} />
-            <CalcRow eq={`C = ${cParam.toFixed(1)} (higher → narrower margin)`} result={cParam > 1 ? "Hard" : "Soft"} color={M.accent} />
-            <CalcRow eq={`Midpoint = ((${cx0.toFixed(1)}+${cx1.toFixed(1)})/2, ...)`} result={`(${midX.toFixed(2)}, ${midY.toFixed(2)})`} color={C} />
-            <CalcRow eq="Support vectors (closest points)" result="on margin lines" color={C} />
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ε-INSENSITIVE LOSS</div>
+            {losses.map((m, i) => (
+              <CalcRow key={i} eq={`${m.name}: |${m.bg.toFixed(2)} − ${m.yhat.toFixed(2)}| = ${m.residual.toFixed(2)}, loss = max(0, ${m.residual.toFixed(2)} − ${epsilon.toFixed(2)})`}
+                result={m.loss.toFixed(3) + (m.isSV ? " (SV)" : "")} color={m.isSV ? "#dc2626" : "#059669"} />
+            ))}
+            <CalcRow eq="Total ε-insensitive loss" result={totalLoss.toFixed(3)} color={C} />
+            <CalcRow eq="Support vectors (outside tube)" result={`${nSV} of 6`} color={M.accent} />
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="MARGIN WIDTH" value={marginWidth.toFixed(3)} color={C} />
-            <ResultBox label="C PARAM" value={cParam.toFixed(1)} color={M.accent} />
+            <ResultBox label="TOTAL LOSS" value={totalLoss.toFixed(3)} color={C} />
+            <ResultBox label="SUPPORT VECTORS" value={`${nSV} / 6`} color={M.accent} sub="outside ε-tube" />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <strong style={{ color: T.ink }}>Key insight.</strong> High C penalizes misclassification heavily (hard margin,
-            narrow lane). Low C allows some misclassification (soft margin, wider lane). The support vectors are
-            the critical points closest to the decision boundary — they define the margin.
+            <strong style={{ color: T.ink }}>Key insight.</strong> Larger ε means a wider tube — more points fall inside and incur zero loss,
+            giving a simpler model. Smaller ε demands tighter predictions, making more points become support vectors.
+            Only support vectors influence the model; all other points could be removed without changing the result.
           </div>
 
           <CommonMistakes mistakes={[
-            "Forgetting to scale features — SVM is sensitive to feature magnitudes. Always standardize features (mean 0, std 1) before using SVM.",
-            "Using a linear kernel when classes are not linearly separable — try RBF or polynomial kernels for complex boundaries.",
-            "Setting C too high on noisy data — this forces the model to fit every point, including noise, leading to overfitting.",
-            "Not understanding support vectors — removing a non-support-vector point changes nothing. Only support vectors matter."
+            "Forgetting to scale features — Support Vector Machines are sensitive to feature magnitudes. Always standardize features (mean 0, std 1) before using SVR.",
+            "Using a linear kernel when the relationship is nonlinear — try RBF or polynomial kernels for curved relationships.",
+            "Setting ε too small — this forces the model to fit every point tightly, leading to overfitting. Choose ε based on your acceptable error tolerance.",
+            "Not understanding support vectors — removing a non-support-vector point changes nothing. Only points outside the ε-tube matter."
           ]} />
 
-          <MatSciExample text="SVM with radial basis function (RBF) kernel has been used to classify crystal stability: given a set of compositional descriptors, SVM can predict whether a hypothetical compound will form a stable crystal structure or decompose. The kernel trick allows SVM to find nonlinear decision boundaries in the high-dimensional feature space of elemental properties." />
+          <MatSciExample text="Support Vector Regression with radial basis function (RBF) kernel has been used to predict bandgap values from compositional descriptors. The ε-tube naturally handles the inherent measurement uncertainty in experimental bandgap values (typically ±0.1 eV), making SVR well-suited for noisy materials data." />
         </div>
       </div>
     </Card>
@@ -1137,7 +1140,7 @@ function SVMSection() {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   SECTION 8 — PCA (Principal Component Analysis)
+   SECTION 8 — Principal Component Analysis (PCA)
    ════════════════════════════════════════════════════════════════ */
 function PCASection() {
   const C = M.algo;
@@ -1436,7 +1439,7 @@ function PerceptronSection() {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   SECTION 10 — Deep Neural Network
+   SECTION 10 — Deep Neural Network (DNN)
    ════════════════════════════════════════════════════════════════ */
 function DNNSection() {
   const C = M.nn;
@@ -1463,7 +1466,7 @@ function DNNSection() {
   const svgW = 500, svgH = 240;
 
   return (
-    <Card color={C} title="Deep Neural Network" formula="output = σ(W₂ · σ(W₁ · x + b₁) + b₂)">
+    <Card color={C} title="Deep Neural Network (DNN)" formula="output = σ(W₂ · σ(W₁ · x + b₁) + b₂)">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
@@ -1710,21 +1713,121 @@ function BackpropSection() {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   SECTION 12 — CNN & Transformer
+   SECTION 12 — Convolutional Neural Network (CNN)
    ════════════════════════════════════════════════════════════════ */
-function CNNTransformerSection() {
+function CNNSection() {
   const C = M.nn;
-  const [showCNN, setShowCNN] = useState(true);
 
   const kernel = [[1, 0, -1], [1, 0, -1], [1, 0, -1]];
   const inputPatch = [[2, 1, 0], [3, 2, 1], [4, 3, 2]];
   const convResult = inputPatch.reduce((s, row, i) =>
     s + row.reduce((rs, v, j) => rs + v * kernel[i][j], 0), 0);
 
+  const svgW = 500, svgH = 240;
+
+  return (
+    <Card color={C} title="Convolutional Neural Network (CNN)" formula="Conv: Σ(input × kernel)">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+          A Convolutional Neural Network (CNN) is like a magnifying glass sliding across a page, examining small patches one at a time.
+          The magnifying glass (kernel) detects local patterns like edges, textures, and shapes. By stacking many layers, the network combines local patterns into global understanding: edges become shapes, shapes become objects.
+          <br/><br/><strong>Another way to think about it:</strong> A CNN is like a quality inspector examining a circuit board with a small flashlight, checking each region systematically. The inspector uses the same flashlight (kernel) at every position, looking for the same pattern. Multiple inspectors with different flashlights detect different patterns (vertical edges, horizontal edges, textures). Stacking layers of inspectors builds up from local to global understanding.
+        </div>
+      </div>
+
+      <HowItWorks color={C} steps={[
+        "A small kernel (e.g., 3x3 matrix of learnable weights) slides across the input, computing element-wise multiply-and-sum at each position.",
+        "Each kernel detects one pattern (vertical edge, horizontal edge, etc.). Multiple kernels detect multiple patterns. The output is a 'feature map' showing where each pattern occurs.",
+        "Stacking convolutional layers creates a hierarchy: first layer detects edges, second detects textures, third detects shapes, deeper layers detect complex structures.",
+        "Pooling layers (e.g., max pooling) downsample the feature maps, making the representation more compact and translation-invariant.",
+        "Final fully-connected layers combine all detected features to make predictions (e.g., classifying a crystal structure image or predicting a property)."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 510px" }}>
+          <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>3×3 Convolution Operation</text>
+            {/* Input patch */}
+            <text x={70} y={35} textAnchor="middle" fontSize={9} fill={T.muted} fontWeight={600}>Input Patch</text>
+            {inputPatch.map((row, i) => row.map((v, j) => (
+              <g key={`i${i}${j}`}>
+                <rect x={30 + j * 28} y={40 + i * 28} width={26} height={26} rx={3} fill="#2563eb11" stroke="#2563eb44" />
+                <text x={43 + j * 28} y={57 + i * 28} textAnchor="middle" fontSize={11} fill="#2563eb" fontWeight={600}>{v}</text>
+              </g>
+            )))}
+            {/* Multiply sign */}
+            <text x={130} y={75} fontSize={16} fill={T.muted}>×</text>
+            {/* Kernel */}
+            <text x={200} y={35} textAnchor="middle" fontSize={9} fill={T.muted} fontWeight={600}>Kernel</text>
+            {kernel.map((row, i) => row.map((v, j) => (
+              <g key={`k${i}${j}`}>
+                <rect x={160 + j * 28} y={40 + i * 28} width={26} height={26} rx={3} fill={C + "11"} stroke={C + "44"} />
+                <text x={173 + j * 28} y={57 + i * 28} textAnchor="middle" fontSize={11} fill={C} fontWeight={600}>{v}</text>
+              </g>
+            )))}
+            {/* Equals */}
+            <text x={260} y={75} fontSize={16} fill={T.muted}>=</text>
+            {/* Result */}
+            <rect x={275} y={52} width={45} height={35} rx={6} fill={C + "22"} stroke={C} strokeWidth={1.5} />
+            <text x={297} y={75} textAnchor="middle" fontSize={16} fill={C} fontWeight={800}>{convResult}</text>
+            {/* Element-wise detail */}
+            <text x={svgW / 2} y={140} textAnchor="middle" fontSize={9} fill={T.muted}>Element-wise multiply then sum:</text>
+            <text x={svgW / 2} y={155} textAnchor="middle" fontSize={8} fill={T.ink} fontFamily="monospace">
+              2×1 + 1×0 + 0×(−1) + 3×1 + 2×0 + 1×(−1) + 4×1 + 3×0 + 2×(−1)
+            </text>
+            <text x={svgW / 2} y={170} textAnchor="middle" fontSize={9} fill={C} fontWeight={700}>
+              = 2 + 0 + 0 + 3 + 0 − 1 + 4 + 0 − 2 = {convResult}
+            </text>
+          </svg>
+        </div>
+
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <div style={{ marginTop: 0, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CNN CALCULATION</div>
+            <CalcRow eq="Kernel size" result="3 × 3 = 9 params" color={C} />
+            <CalcRow eq="2×1 + 1×0 + 0×(−1)" result="2" color={C} />
+            <CalcRow eq="3×1 + 2×0 + 1×(−1)" result="2" color={C} />
+            <CalcRow eq="4×1 + 3×0 + 2×(−1)" result="2" color={C} />
+            <CalcRow eq="Total sum = 2 + 2 + 2" result={convResult.toString()} color={C} />
+            <CalcRow eq="This kernel detects" result="vertical edges" color={M.accent} />
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
+            <ResultBox label="CONVOLUTION" value="Local" color={C} sub="spatial patterns" />
+            <ResultBox label="PARAMS" value="9" color={C} sub="per 3×3 kernel" />
+          </div>
+
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
+            background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
+            <strong style={{ color: T.ink }}>Key insight.</strong> Convolutional Neural Networks excel at local patterns (crystal structure images,
+            electron density maps) by sliding small filters. Weight sharing (same kernel everywhere) makes CNNs parameter-efficient
+            and translation-equivariant — a pattern detected at one location is recognized everywhere.
+          </div>
+
+          <CommonMistakes mistakes={[
+            "Using CNNs when data has no spatial structure — CNNs assume local spatial correlations. For tabular materials data, use tree-based models or feedforward networks instead.",
+            "Using kernels that are too large — large kernels capture global patterns but lose locality. Start with 3x3 kernels and stack layers for larger receptive fields.",
+            "Forgetting pooling layers — without pooling, the network has too many parameters and is not translation-invariant.",
+            "Not using pre-trained models when available — foundation models pre-trained on ImageNet or materials images can be fine-tuned for specific tasks with very little data."
+          ]} />
+
+          <MatSciExample text="ALIGNN (Atomistic Line Graph Neural Network) uses graph convolutions (similar to CNN) on crystal structure graphs where atoms are nodes and bonds are edges. Crystal structure images analyzed with 2D CNNs can classify phases, detect grain boundaries, and predict mechanical properties from microstructure images." />
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Transformer Section
+   ════════════════════════════════════════════════════════════════ */
+function TransformerSection() {
+  const C = "#9333ea";
+
   const attnTokens = ["Fe", "O", "forms", "rust"];
   const queryKey = [[0.9, 0.1, 0.0, 0.0], [0.1, 0.7, 0.1, 0.1], [0.0, 0.1, 0.8, 0.1], [0.0, 0.1, 0.1, 0.8]];
 
-  /* ── Self-attention numerical example: Fe-O-Fe in FeO ── */
   const Q = [[1.0, 0.5], [0.3, 0.8], [0.9, 0.4]];
   const K = [[0.8, 0.6], [0.4, 0.9], [0.7, 0.5]];
   const V = [[0.2, 1.0], [0.9, 0.3], [0.3, 0.8]];
@@ -1748,214 +1851,80 @@ function CNNTransformerSection() {
 
   return (
     <>
-    <Card color={C} title="CNN & Transformer" formula="Conv: Σ(input × kernel) | Attn: softmax(QK^T/√d)V">
+    <Card color={C} title="Transformer" formula="Attention(Q,K,V) = softmax(QK^T/√d_k)V">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
-          CNN = a magnifying glass sliding across a page, examining small patches one at a time.
-          The magnifying glass (kernel) detects local patterns like edges, textures, and shapes. By stacking many layers, the network combines local patterns into global understanding: edges become shapes, shapes become objects.
-          Transformer = reading the whole page at once and deciding which words relate to each other, no matter how far apart they are.
-          <br/><br/><strong>Another way to think about it:</strong> A CNN is like a quality inspector examining a circuit board with a small flashlight, checking each region systematically. A Transformer is like taking a photograph of the entire board at once and using AI to highlight which regions relate to each other (e.g., a crack near component A affects component B on the other side). CNNs are great for local patterns; Transformers excel at long-range relationships.
+          A Transformer reads the whole page at once and decides which words relate to each other, no matter how far apart they are.
+          Unlike a CNN that examines small patches sequentially, the Transformer computes attention scores between every pair of tokens simultaneously.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine a meeting where every participant can talk to every other participant at the same time. Each person decides who to listen to most (attention weights). The result is that every person has a context-aware understanding of the entire discussion, not just what their neighbor said.
         </div>
       </div>
 
       <HowItWorks color={C} steps={[
-        "CNN: A small kernel (e.g., 3x3 matrix of learnable weights) slides across the input, computing element-wise multiply-and-sum at each position.",
-        "CNN: Each kernel detects one pattern (vertical edge, horizontal edge, etc.). Multiple kernels detect multiple patterns. The output is a 'feature map' showing where each pattern occurs.",
-        "CNN: Stacking convolutional layers creates a hierarchy: first layer detects edges, second detects textures, third detects shapes, deeper layers detect objects.",
-        "Transformer: For each token, compute Query, Key, and Value vectors. Attention weight = softmax(Q * K^T / sqrt(d)). This lets every token attend to every other token.",
-        "Transformer: High attention weight between two tokens means they are strongly related. The output for each token is a weighted sum of all Value vectors, where weights come from the attention mechanism."
+        "For each token, compute Query, Key, and Value vectors by multiplying the embedding with learned weight matrices.",
+        "Compute attention scores: dot product of each Query with all Keys, then scale by √d_k.",
+        "Apply softmax to get attention weights — a probability distribution over all tokens.",
+        "Multiply attention weights by Value vectors and sum to get the output for each token.",
+        "Stack multiple layers and use multi-head attention to capture different relationship types."
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
-          <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
-            {["CNN (Convolution)", "Transformer (Attention)"].map((lbl, i) => (
-              <button key={i} onClick={() => setShowCNN(i === 0)}
-                style={{ padding: "3px 10px", fontSize: 10, borderRadius: 5, cursor: "pointer",
-                  background: (showCNN && i === 0) || (!showCNN && i === 1) ? C : T.surface,
-                  color: (showCNN && i === 0) || (!showCNN && i === 1) ? "#fff" : T.muted,
-                  border: `1px solid ${(showCNN && i === 0) || (!showCNN && i === 1) ? C : T.border}`, fontWeight: 600 }}>{lbl}</button>
-            ))}
-          </div>
-
-          {showCNN ? (
-            <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-              <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>3×3 Convolution Operation</text>
-              {/* Input patch */}
-              <text x={70} y={35} textAnchor="middle" fontSize={9} fill={T.muted} fontWeight={600}>Input Patch</text>
-              {inputPatch.map((row, i) => row.map((v, j) => (
-                <g key={`i${i}${j}`}>
-                  <rect x={30 + j * 28} y={40 + i * 28} width={26} height={26} rx={3} fill="#2563eb11" stroke="#2563eb44" />
-                  <text x={43 + j * 28} y={57 + i * 28} textAnchor="middle" fontSize={11} fill="#2563eb" fontWeight={600}>{v}</text>
-                </g>
-              )))}
-              {/* Multiply sign */}
-              <text x={130} y={75} fontSize={16} fill={T.muted}>×</text>
-              {/* Kernel */}
-              <text x={200} y={35} textAnchor="middle" fontSize={9} fill={T.muted} fontWeight={600}>Kernel</text>
-              {kernel.map((row, i) => row.map((v, j) => (
-                <g key={`k${i}${j}`}>
-                  <rect x={160 + j * 28} y={40 + i * 28} width={26} height={26} rx={3} fill={C + "11"} stroke={C + "44"} />
-                  <text x={173 + j * 28} y={57 + i * 28} textAnchor="middle" fontSize={11} fill={C} fontWeight={600}>{v}</text>
-                </g>
-              )))}
-              {/* Equals */}
-              <text x={260} y={75} fontSize={16} fill={T.muted}>=</text>
-              {/* Result */}
-              <rect x={275} y={52} width={45} height={35} rx={6} fill={C + "22"} stroke={C} strokeWidth={1.5} />
-              <text x={297} y={75} textAnchor="middle" fontSize={16} fill={C} fontWeight={800}>{convResult}</text>
-              {/* Element-wise detail */}
-              <text x={svgW / 2} y={140} textAnchor="middle" fontSize={9} fill={T.muted}>Element-wise multiply then sum:</text>
-              <text x={svgW / 2} y={155} textAnchor="middle" fontSize={8} fill={T.ink} fontFamily="monospace">
-                2×1 + 1×0 + 0×(−1) + 3×1 + 2×0 + 1×(−1) + 4×1 + 3×0 + 2×(−1)
-              </text>
-              <text x={svgW / 2} y={170} textAnchor="middle" fontSize={9} fill={C} fontWeight={700}>
-                = 2 + 0 + 0 + 3 + 0 − 1 + 4 + 0 − 2 = {convResult}
-              </text>
-            </svg>
-          ) : (
-            <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-              <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Self-Attention Weights</text>
-              {/* Token labels */}
-              {attnTokens.map((t, i) => (
-                <g key={i}>
-                  <text x={90 + i * 55} y={38} textAnchor="middle" fontSize={9} fill={C} fontWeight={600}>{t}</text>
-                  <text x={30} y={58 + i * 35} textAnchor="end" fontSize={9} fill={C} fontWeight={600}>{t}</text>
-                </g>
-              ))}
-              {/* Attention matrix */}
-              {queryKey.map((row, i) => row.map((v, j) => {
-                const intensity = Math.floor(v * 255);
-                return (
-                  <g key={`a${i}${j}`}>
-                    <rect x={65 + j * 55} y={44 + i * 35} width={50} height={30} rx={3}
-                      fill={`rgba(220,38,38,${v * 0.5})`} stroke={T.border} />
-                    <text x={90 + j * 55} y={63 + i * 35} textAnchor="middle" fontSize={10} fill={T.ink} fontWeight={600}>
-                      {v.toFixed(1)}
-                    </text>
-                  </g>
-                );
-              }))}
-              <text x={svgW / 2} y={svgH - 10} textAnchor="middle" fontSize={9} fill={T.muted}>
-                Each row shows how much one token "attends" to others
-              </text>
-            </svg>
-          )}
-        </div>
-
-        <div style={{ flex: 1, minWidth: 200 }}>
-          <div style={{ marginTop: 0, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>
-              {showCNN ? "CNN CALCULATION" : "ATTENTION CALCULATION"}
-            </div>
-            {showCNN ? (
-              <>
-                <CalcRow eq="Kernel size" result="3 × 3 = 9 params" color={C} />
-                <CalcRow eq="2×1 + 1×0 + 0×(−1)" result="2" color={C} />
-                <CalcRow eq="3×1 + 2×0 + 1×(−1)" result="2" color={C} />
-                <CalcRow eq="4×1 + 3×0 + 2×(−1)" result="2" color={C} />
-                <CalcRow eq="Total sum = 2 + 2 + 2" result={convResult.toString()} color={C} />
-                <CalcRow eq="This kernel detects" result="vertical edges" color={M.accent} />
-              </>
-            ) : (
-              <>
-                <CalcRow eq="Tokens in sequence" result="4" color={C} />
-                <CalcRow eq="Attention(Fe, Fe) = 0.9" result="strong self" color={C} />
-                <CalcRow eq="Attention(Fe, O) = 0.1" result="weak" color={C} />
-                <CalcRow eq="Attention(O, O) = 0.7" result="strong self" color={C} />
-                <CalcRow eq="Each row sums to" result="1.0 (softmax)" color={M.accent} />
-                <CalcRow eq="Complexity" result="O(n²) in seq length" color={C} />
-              </>
-            )}
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="CNN" value="Local" color={C} sub="spatial patterns" />
-            <ResultBox label="TRANSFORMER" value="Global" color={C} sub="any-to-any attention" />
-          </div>
-
-          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
-            background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <strong style={{ color: T.ink }}>Key insight.</strong> CNNs excel at local patterns (crystal structure images,
-            electron density maps) by sliding small filters. Transformers excel at long-range relationships
-            (atom-atom interactions across a molecule). Modern materials ML often combines both.
-          </div>
-
-          <CommonMistakes mistakes={[
-            "Using CNNs when data has no spatial structure — CNNs assume local spatial correlations. For tabular materials data, use tree-based models or feedforward networks instead.",
-            "Ignoring computational cost of Transformers — attention is O(n^2) in sequence length. For very large crystal structures (1000+ atoms), this becomes expensive.",
-            "Not using pre-trained models when available — foundation models like MatBERT are pre-trained on millions of materials papers and can be fine-tuned for specific tasks with very little data.",
-            "Confusing self-attention with cross-attention — self-attention relates tokens within the same sequence; cross-attention relates tokens between two different sequences (e.g., question and context)."
-          ]} />
-
-          <MatSciExample text="ALIGNN (Atomistic Line Graph Neural Network) uses graph convolutions (similar to CNN) on crystal structure graphs where atoms are nodes and bonds are edges. The Crystal Transformer applies self-attention to atomic environments, allowing each atom to attend to every other atom regardless of distance — capturing long-range electrostatic and strain interactions that local GNNs miss." />
-        </div>
-      </div>
-    </Card>
-
-    {/* ── Transformer Architecture Deep Dive ── */}
-    <Card color={C} title="Transformer Architecture — Encoder-Decoder" formula="Input → Encoder → Context → Decoder → Output">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Encoder-Decoder Structure</div>
-        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
-          The original Transformer has two halves: an <strong>encoder</strong> that reads the input and builds a rich representation, and a <strong>decoder</strong> that uses that representation to produce output step by step.
-          Think of it like a translator: the encoder reads the entire French sentence and understands its meaning (context). The decoder then writes the English sentence word by word, constantly referring back to the encoder's understanding.
-          <br/><br/>In materials science, the encoder might read a crystal structure (list of atoms and coordinates), and the decoder might output predicted properties or generate a new structure.
-        </div>
-      </div>
-
-      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 510px" }}>
-          {/* Encoder-Decoder Diagram */}
-          <svg width={380} height={260} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={190} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Transformer Encoder-Decoder Architecture</text>
-            {/* Encoder side */}
-            <rect x={20} y={30} width={150} height={210} rx={8} fill="#2563eb08" stroke="#2563eb44" />
-            <text x={95} y={48} textAnchor="middle" fontSize={10} fill="#2563eb" fontWeight={700}>ENCODER</text>
-            {["Input Embedding", "Positional Encoding", "Multi-Head Attention", "Add & Normalize", "Feed Forward", "Add & Normalize"].map((label, i) => (
-              <g key={`enc${i}`}>
-                <rect x={30} y={55 + i * 28} width={130} height={22} rx={4} fill={i === 2 ? "#dc262622" : "#2563eb11"} stroke={i === 2 ? "#dc262666" : "#2563eb33"} />
-                <text x={95} y={70 + i * 28} textAnchor="middle" fontSize={8} fill={T.ink} fontWeight={i === 2 ? 700 : 500}>{label}</text>
+          <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Self-Attention Weights</text>
+            {attnTokens.map((t, i) => (
+              <g key={i}>
+                <text x={90 + i * 55} y={38} textAnchor="middle" fontSize={9} fill={C} fontWeight={600}>{t}</text>
+                <text x={30} y={58 + i * 35} textAnchor="end" fontSize={9} fill={C} fontWeight={600}>{t}</text>
               </g>
             ))}
-            <text x={95} y={235} textAnchor="middle" fontSize={8} fill="#2563eb" fontWeight={600}>× N layers (typically 6–12)</text>
-
-            {/* Arrow from encoder to decoder */}
-            <line x1={170} y1={135} x2={200} y2={135} stroke={T.dim} strokeWidth={1.5} markerEnd="url(#arrowhead)" />
-            <text x={185} y={128} textAnchor="middle" fontSize={7} fill={T.muted}>context</text>
-
-            {/* Decoder side */}
-            <rect x={200} y={30} width={160} height={210} rx={8} fill="#05966908" stroke="#05966944" />
-            <text x={280} y={48} textAnchor="middle" fontSize={10} fill="#059669" fontWeight={700}>DECODER</text>
-            {["Output Embedding", "Positional Encoding", "Masked Self-Attn", "Add & Normalize", "Cross-Attention", "Add & Normalize", "Feed Forward", "Add & Normalize"].map((label, i) => (
-              <g key={`dec${i}`}>
-                <rect x={210} y={55 + i * 23} width={140} height={18} rx={4}
-                  fill={i === 2 ? "#dc262622" : i === 4 ? "#d9770622" : "#05966911"}
-                  stroke={i === 2 ? "#dc262666" : i === 4 ? "#d9770666" : "#05966933"} />
-                <text x={280} y={67 + i * 23} textAnchor="middle" fontSize={7} fill={T.ink} fontWeight={(i === 2 || i === 4) ? 700 : 500}>{label}</text>
+            {queryKey.map((row, i) => row.map((v, j) => (
+              <g key={`a${i}${j}`}>
+                <rect x={65 + j * 55} y={44 + i * 35} width={50} height={30} rx={3}
+                  fill={`rgba(147,51,234,${v * 0.5})`} stroke={T.border} />
+                <text x={90 + j * 55} y={63 + i * 35} textAnchor="middle" fontSize={10} fill={T.ink} fontWeight={600}>
+                  {v.toFixed(1)}
+                </text>
               </g>
-            ))}
-            <text x={280} y={249} textAnchor="middle" fontSize={8} fill="#059669" fontWeight={600}>× N layers → Linear → Softmax</text>
-
-            <defs>
-              <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-                <polygon points="0 0, 8 3, 0 6" fill={T.dim} />
-              </marker>
-            </defs>
+            )))}
+            <text x={svgW / 2} y={svgH - 10} textAnchor="middle" fontSize={9} fill={T.muted}>
+              Each row shows how much one token "attends" to others
+            </text>
           </svg>
         </div>
 
         <div style={{ flex: 1, minWidth: 200 }}>
-          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, marginBottom: 10 }}>
-            <strong style={{ color: C }}>Encoder</strong> processes the input sequence in parallel. Each layer has two sub-layers: (1) multi-head self-attention that lets each token look at all other tokens, and (2) a feed-forward network that processes each position independently. Residual connections and layer normalization stabilize training.
+          <div style={{ marginTop: 0, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ATTENTION CALCULATION</div>
+            <CalcRow eq="Tokens in sequence" result="4" color={C} />
+            <CalcRow eq="Attention(Fe, Fe) = 0.9" result="strong self" color={C} />
+            <CalcRow eq="Attention(Fe, O) = 0.1" result="weak" color={C} />
+            <CalcRow eq="Attention(O, O) = 0.7" result="strong self" color={C} />
+            <CalcRow eq="Each row sums to" result="1.0 (softmax)" color={M.accent} />
+            <CalcRow eq="Complexity" result="O(n²) in seq length" color={C} />
           </div>
-          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, marginBottom: 10 }}>
-            <strong style={{ color: "#059669" }}>Decoder</strong> generates the output one step at a time. It has three sub-layers: (1) masked self-attention (can only look at previous outputs, not future ones), (2) cross-attention (attends to the encoder output — this is how the decoder "reads" the input), and (3) a feed-forward network.
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
+            <ResultBox label="ATTENTION" value="Global" color={C} sub="any-to-any" />
+            <ResultBox label="COMPLEXITY" value="O(n²)" color={C} sub="in sequence length" />
           </div>
-          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <strong style={{ color: T.ink }}>Variants in materials science:</strong> BERT-style models (encoder only) are used for MatBERT — they read materials text and produce embeddings. GPT-style models (decoder only) generate text autoregressively. Full encoder-decoder models are used for sequence-to-sequence tasks like translating crystal structures to property predictions.
+
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
+            background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
+            <strong style={{ color: T.ink }}>Key insight.</strong> Transformers excel at long-range relationships
+            (atom-atom interactions across a molecule). Unlike CNNs that have limited receptive fields,
+            every token can attend to every other token directly.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Ignoring computational cost — attention is O(n²) in sequence length. For very large crystal structures (1000+ atoms), this becomes expensive.",
+            "Not using pre-trained models when available — foundation models like MatBERT are pre-trained on millions of materials papers and can be fine-tuned with very little data.",
+            "Confusing self-attention with cross-attention — self-attention relates tokens within the same sequence; cross-attention relates tokens between two different sequences.",
+            "Assuming Transformers are always better than GNNs — for small crystal datasets (< 10k structures), simpler GNNs often outperform Transformers."
+          ]} />
+
+          <MatSciExample text="The Crystal Transformer applies self-attention to atomic environments, allowing each atom to attend to every other atom regardless of distance — capturing long-range electrostatic and strain interactions that local GNNs miss. MatBERT, a BERT-based Transformer, processes materials science text for named entity recognition and classification." />
         </div>
       </div>
     </Card>
@@ -1973,7 +1942,6 @@ function CNNTransformerSection() {
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
-          {/* Q, K, V matrices */}
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 1: Q, K, V MATRICES</div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
@@ -1992,7 +1960,6 @@ function CNNTransformerSection() {
             </div>
           </div>
 
-          {/* QK^T computation */}
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 2: QK^T (DOT PRODUCTS)</div>
             <div style={{ fontFamily: "monospace", fontSize: 11, lineHeight: 1.8, color: T.ink }}>
@@ -2012,19 +1979,14 @@ function CNNTransformerSection() {
         </div>
 
         <div style={{ flex: 1, minWidth: 200 }}>
-          {/* Scaling */}
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 3: SCALE BY √d_k = √2 = {scale.toFixed(3)}</div>
             {Q.map((_, i) => (
               <CalcRow key={i} eq={`Row ${i + 1}: [${QKt[i].map(v => v.toFixed(2)).join(", ")}] / ${scale.toFixed(3)}`}
                 result={`[${QKt_scaled[i].map(v => v.toFixed(3)).join(", ")}]`} color={C} />
             ))}
-            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.muted, marginTop: 6 }}>
-              Scaling prevents dot products from becoming too large, which would push softmax into regions where gradients are tiny (vanishing gradient problem).
-            </div>
           </div>
 
-          {/* Softmax */}
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 4: SOFTMAX (EACH ROW)</div>
             {attnWeights.map((row, i) => (
@@ -2032,21 +1994,14 @@ function CNNTransformerSection() {
                 result={`[${row.map(v => v.toFixed(3)).join(", ")}]`} color={C} />
             ))}
             <CalcRow eq="Each row sums to" result="1.000" color={M.accent} />
-            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.muted, marginTop: 6 }}>
-              The softmax converts raw scores into a probability distribution. High values get most of the weight. For Fe₁, the highest attention is to {attnWeights[0][0] > attnWeights[0][1] && attnWeights[0][0] > attnWeights[0][2] ? "itself (Fe₁)" : "another atom"} — this is typical in self-attention.
-            </div>
           </div>
 
-          {/* Final output */}
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 5: MULTIPLY BY V</div>
             {attnOutput.map((row, i) => (
               <CalcRow key={i} eq={`Output atom ${i + 1} = Σ(attn × V)`}
                 result={`[${row.map(v => v.toFixed(3)).join(", ")}]`} color={C} />
             ))}
-            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.muted, marginTop: 6 }}>
-              Each atom's output is a weighted combination of all Value vectors. The weights come from the attention scores. An atom that strongly attends to oxygen will have its output pulled toward V(O) = [{V[1].join(", ")}].
-            </div>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
@@ -2054,126 +2009,6 @@ function CNNTransformerSection() {
             <ResultBox label="Fe₁ → O" value={attnWeights[0][1].toFixed(2)} color={M.accent} sub="cross-atom" />
             <ResultBox label="O → Fe₂" value={attnWeights[1][2].toFixed(2)} color={C} sub="cross-atom" />
           </div>
-        </div>
-      </div>
-    </Card>
-
-    {/* ── Multi-Head Attention & Positional Encoding ── */}
-    <Card color={C} title="Multi-Head Attention & Positional Encoding" formula="MultiHead = Concat(head₁,...,head_h)W^O">
-      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 510px" }}>
-          <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Multi-Head Attention</div>
-            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
-              Instead of computing one set of attention weights, we run multiple attention "heads" in parallel, each with its own Q, K, V weight matrices. Each head can learn to focus on different types of relationships.
-              <br/><br/><strong>Example with 4 heads on a crystal:</strong>
-              <br/>Head 1: focuses on nearest-neighbor bonds (short-range)
-              <br/>Head 2: focuses on same-element relationships (Fe-Fe interactions)
-              <br/>Head 3: focuses on charge transfer patterns (Fe-O interactions)
-              <br/>Head 4: focuses on long-range electrostatic interactions
-              <br/><br/>The outputs of all heads are concatenated and projected through a linear layer to produce the final output.
-            </div>
-          </div>
-
-          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>MULTI-HEAD CALCULATION</div>
-            <CalcRow eq="Model dimension d_model" result="256" color={C} />
-            <CalcRow eq="Number of heads h" result="8" color={C} />
-            <CalcRow eq="d_k = d_v = d_model / h" result="32" color={C} />
-            <CalcRow eq="Params per head: 3 × d × d_k" result="3 × 256 × 32 = 24,576" color={C} />
-            <CalcRow eq="Total attention params (8 heads)" result="196,608" color={C} />
-            <CalcRow eq="Output projection W^O: d_model × d_model" result="65,536" color={C} />
-            <CalcRow eq="Total multi-head params" result="262,144" color={M.accent} />
-          </div>
-        </div>
-
-        <div style={{ flex: 1, minWidth: 200 }}>
-          <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Positional Encoding for Crystals</div>
-            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
-              Transformers have no built-in notion of order or position — they see a "bag of tokens." We must explicitly inject position information. For text, sinusoidal encodings work:
-              <br/><strong>PE(pos, 2i) = sin(pos / 10000^(2i/d))</strong>
-              <br/><strong>PE(pos, 2i+1) = cos(pos / 10000^(2i/d))</strong>
-              <br/><br/>For crystal structures, positional encoding is different because atoms exist in 3D space, not a 1D sequence. Common strategies:
-            </div>
-          </div>
-
-          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CRYSTAL POSITIONAL ENCODING STRATEGIES</div>
-            <CalcRow eq="1. Fractional coordinates (a, b, c)" result="periodic-aware" color={C} />
-            <CalcRow eq="2. Pairwise distances d_ij" result="rotation invariant" color={C} />
-            <CalcRow eq="3. Gaussian basis: exp(−(d−μ)²/σ²)" result="smooth encoding" color={C} />
-            <CalcRow eq="4. Spherical harmonics Y_l^m(θ,φ)" result="angular info" color={C} />
-            <CalcRow eq="5. Random walk PE on crystal graph" result="topological info" color={M.accent} />
-          </div>
-
-          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.muted, background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <strong style={{ color: T.ink }}>Key insight.</strong> The choice of positional encoding determines what geometric information the Transformer can learn. Gaussian distance expansions (used in DimeNet, SchNet) encode how far atoms are. Spherical harmonics (used in MACE, NequIP) also encode angular relationships, which is critical for capturing bond angles and crystal symmetry.
-          </div>
-        </div>
-      </div>
-    </Card>
-
-    {/* ── Materials Transformer Models Comparison ── */}
-    <Card color={C} title="Materials Transformer Models" formula="MatBERT | Crystal Transformer | ALIGNN">
-      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 510px" }}>
-          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>MODEL COMPARISON TABLE</div>
-            <table style={{ width: "100%", fontSize: 11, borderCollapse: "collapse" }}>
-              <thead>
-                <tr style={{ borderBottom: `2px solid ${T.border}` }}>
-                  {["Model", "Input", "Attention", "Use Case"].map(h => (
-                    <th key={h} style={{ padding: "4px 6px", textAlign: "left", color: C, fontWeight: 700, fontSize: 9 }}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ["MatBERT", "Text (abstracts)", "Token-to-token", "NER, classification"],
-                  ["CrystalXformer", "Atom sequences", "Atom-to-atom", "Property prediction"],
-                  ["ALIGNN", "Graph + line graph", "Edge-aware GNN", "Formation energy"],
-                  ["Uni-MOF", "MOF structures", "Atom + building block", "Gas adsorption"],
-                  ["MoLFormer", "SMILES strings", "Token-to-token", "Molecular properties"],
-                ].map((row, i) => (
-                  <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.surface : T.panel }}>
-                    {row.map((cell, j) => (
-                      <td key={j} style={{ padding: "4px 6px", fontSize: 10, color: j === 0 ? C : T.ink, fontWeight: j === 0 ? 700 : 400 }}>{cell}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>PERFORMANCE BENCHMARKS (JARVIS)</div>
-            <CalcRow eq="ALIGNN formation energy MAE" result="0.022 eV/atom" color={C} />
-            <CalcRow eq="CGCNN formation energy MAE" result="0.039 eV/atom" color={C} />
-            <CalcRow eq="SchNet formation energy MAE" result="0.035 eV/atom" color={C} />
-            <CalcRow eq="MatBERT NER F1 score" result="0.89" color={C} />
-            <CalcRow eq="ALIGNN bandgap MAE" result="0.14 eV" color={M.accent} />
-          </div>
-        </div>
-
-        <div style={{ flex: 1, minWidth: 200 }}>
-          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, marginBottom: 10 }}>
-            <strong style={{ color: C }}>MatBERT</strong> is a BERT model pre-trained on 2 million materials science abstracts. It learns contextual embeddings for materials terms: "perovskite" near "solar cell" gets a different embedding than "perovskite" near "ferroelectric." Fine-tuning on small labeled datasets achieves state-of-the-art named entity recognition and text classification for materials literature.
-          </div>
-          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, marginBottom: 10 }}>
-            <strong style={{ color: C }}>Crystal Transformer</strong> treats a crystal as a sequence of atoms and applies self-attention directly. Each atom attends to every other atom, weighted by learned compatibility. Unlike GNNs that only pass messages along bonds (local neighbors), the Transformer captures long-range interactions — important for ionic crystals where electrostatic forces span the entire structure.
-          </div>
-          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, marginBottom: 10 }}>
-            <strong style={{ color: C }}>ALIGNN</strong> operates on two graphs simultaneously: the atom graph (atoms = nodes, bonds = edges) and the line graph (bonds = nodes, bond angles = edges). This dual-graph approach captures both distance and angular information without needing spherical harmonics. It achieves top performance on the JARVIS-DFT benchmark across 55+ properties.
-          </div>
-
-          <CommonMistakes mistakes={[
-            "Assuming Transformers are always better than GNNs — for small crystal datasets (< 10k structures), simpler GNNs like CGCNN often outperform Transformers, which need more data to learn effective attention patterns.",
-            "Ignoring equivariance — Transformers are not inherently equivariant to rotations. If you rotate a crystal, the predictions should not change. Models like MACE build equivariance into the architecture; standard Transformers need data augmentation.",
-            "Using MatBERT for structure prediction — MatBERT is a text model. It excels at NLP tasks on materials papers but cannot predict properties from crystal structures. Use ALIGNN or Crystal Transformer for structure-based predictions."
-          ]} />
-
-          <MatSciExample text="A study compared ALIGNN, CGCNN, SchNet, and a Crystal Transformer on predicting formation energies of 55,000 materials from the JARVIS database. ALIGNN achieved the lowest MAE (0.022 eV/atom) because its line graph captures bond angles critical for distinguishing polymorphs. The Crystal Transformer performed comparably (0.025 eV/atom) but required 3× more training time due to O(n²) attention complexity." />
         </div>
       </div>
     </Card>
@@ -2432,13 +2267,12 @@ function PropertyPredictionSection() {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   SECTION 15 — Generative Models (VAE, Diffusion, GAN)
+   Autoencoder (Variational) Section
    ════════════════════════════════════════════════════════════════ */
-function GenerativeModelsSection() {
+function AutoencoderSection() {
   const C = M.mat;
   const [latentX, setLatentX] = useState(0.0);
   const [latentY, setLatentY] = useState(0.0);
-  const [diffStep, setDiffStep] = useState(0);
 
   const knownMaterials = [
     { name: "CdTe", lx: -1.2, ly: 0.8, bg: 1.50 },
@@ -2471,28 +2305,13 @@ function GenerativeModelsSection() {
   const klTotal = klTerms.reduce((a, b) => a + b, 0);
   const elboLoss = reconLoss + klTotal;
 
-  /* ── Diffusion model example ── */
-  const x0 = [0.50, 0.25, 0.25];
-  const diffSteps = [0, 10, 50, 100];
-  const noiseAtStep = (t) => {
-    const beta = 0.0001 + (0.02 - 0.0001) * (t / 100);
-    const alpha_bar = Math.exp(-0.5 * beta * t);
-    const noise_scale = Math.sqrt(1 - alpha_bar);
-    const rng = seededRandom(t * 137 + 42);
-    return x0.map(v => {
-      const noise = (rng() - 0.5) * 2 * noise_scale;
-      return Math.sqrt(alpha_bar) * v + noise;
-    });
-  };
-  const diffusionSnapshots = diffSteps.map(t => ({ t, values: t === 0 ? [...x0] : noiseAtStep(t) }));
-
   const svgW = 500, svgH = 240;
   const sx = (v) => svgW / 2 + v * 60;
   const sy = (v) => svgH / 2 - v * 55;
 
   return (
     <>
-    <Card color={C} title="Generative Models (VAE)" formula="Encoder → Latent z → Decoder">
+    <Card color={C} title="Variational Autoencoder (VAE)" formula="Encoder → Latent z → Decoder">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
@@ -2584,7 +2403,7 @@ function GenerativeModelsSection() {
     </Card>
 
     {/* ── VAE ELBO Loss Deep Dive ── */}
-    <Card color={C} title="VAE Loss Function — ELBO" formula="L = Reconstruction + KL Divergence">
+    <Card color={C} title="Variational Autoencoder Loss — ELBO" formula="L = Reconstruction + KL Divergence">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>The ELBO (Evidence Lower Bound)</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
@@ -2669,8 +2488,34 @@ function GenerativeModelsSection() {
         </div>
       </div>
     </Card>
+    </>
+  );
+}
 
-    {/* ── Diffusion Models ── */}
+/* ════════════════════════════════════════════════════════════════
+   Diffusion Model Section
+   ════════════════════════════════════════════════════════════════ */
+function DiffusionModelSection() {
+  const C = "#9333ea";
+
+  const [diffStep, setDiffStep] = useState(0);
+
+  const x0 = [0.50, 0.25, 0.25];
+  const diffSteps = [0, 10, 50, 100];
+  const noiseAtStep = (t) => {
+    const beta = 0.0001 + (0.02 - 0.0001) * (t / 100);
+    const alpha_bar = Math.exp(-0.5 * beta * t);
+    const noise_scale = Math.sqrt(1 - alpha_bar);
+    const rng = seededRandom(t * 137 + 42);
+    return x0.map(v => {
+      const noise = (rng() - 0.5) * 2 * noise_scale;
+      return Math.sqrt(alpha_bar) * v + noise;
+    });
+  };
+  const diffusionSnapshots = diffSteps.map(t => ({ t, values: t === 0 ? [...x0] : noiseAtStep(t) }));
+
+  return (
+    <>
     <Card color={C} title="Diffusion Models for Materials" formula="x_t = √ᾱ_t·x₀ + √(1−ᾱ_t)·ε">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
@@ -2766,11 +2611,11 @@ function GenerativeModelsSection() {
     </Card>
 
     {/* ── GAN Brief + Comparison Table ── */}
-    <Card color={C} title="GANs & Generative Model Comparison" formula="VAE vs GAN vs Diffusion">
+    <Card color={C} title="Generative Adversarial Networks & Model Comparison" formula="VAE vs GAN vs Diffusion">
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>GANs (Generative Adversarial Networks)</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Generative Adversarial Networks (GANs)</div>
             <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
               A GAN is a two-player game between a <strong>Generator</strong> (G) and a <strong>Discriminator</strong> (D):
               <br/>G takes random noise z and generates a fake material.
@@ -2855,22 +2700,21 @@ function GenerativeModelsSection() {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   SECTION 16 — Active Learning
+   Active Learning — Al-Cu Alloy Optimization
    ════════════════════════════════════════════════════════════════ */
 function ActiveLearningSection() {
-  const C = M.mat;
+  const C = "#9333ea";
   const [known, setKnown] = useState([
-    { x: 0.1, y: -0.5 },
-    { x: 0.5, y: 0.2 },
-    { x: 0.9, y: 1.5 },
+    { x: 0, y: 30 },
+    { x: 4, y: 95 },
+    { x: 10, y: 60 },
+    { x: 50, y: 45 },
   ]);
-
-  const trueF = (x) => 3 * x * x - 2 * x - 0.5;
 
   const predict = (xq) => {
     let wSum = 0, wTot = 0;
     known.forEach(p => {
-      const d = Math.max(0.05, Math.abs(xq - p.x));
+      const d = Math.max(0.5, Math.abs(xq - p.x));
       const w = 1 / (d * d);
       wSum += w * p.y;
       wTot += w;
@@ -2880,99 +2724,125 @@ function ActiveLearningSection() {
 
   const uncertainty = (xq) => {
     const minDist = Math.min(...known.map(p => Math.abs(xq - p.x)));
-    return minDist * 2;
+    return minDist * 1.5;
   };
 
-  const candidates = Array.from({ length: 20 }, (_, i) => {
-    const x = i / 19;
-    return { x, acq: uncertainty(x) };
+  const candidates = Array.from({ length: 50 }, (_, i) => {
+    const x = i * 2;
+    return { x, acq: uncertainty(x), pred: predict(x), unc: uncertainty(x) };
   });
   const bestCandidate = candidates.reduce((best, c) => c.acq > best.acq ? c : best, candidates[0]);
 
+  const trueHardness = (x) => {
+    return 30 + 70 * Math.exp(-0.5 * ((x - 4) / 2.5) ** 2) - 0.2 * x;
+  };
+
   const addPoint = () => {
     const x = bestCandidate.x;
-    const y = trueF(x) + (seededRandom(known.length * 7 + 3)() - 0.5) * 0.3;
-    setKnown(prev => [...prev, { x, y }]);
+    const y = trueHardness(x) + (seededRandom(known.length * 7 + 3)() - 0.5) * 5;
+    setKnown(prev => [...prev, { x, y: Math.round(y) }]);
   };
 
   const resetPoints = () => {
     setKnown([
-      { x: 0.1, y: -0.5 },
-      { x: 0.5, y: 0.2 },
-      { x: 0.9, y: 1.5 },
+      { x: 0, y: 30 },
+      { x: 4, y: 95 },
+      { x: 10, y: 60 },
+      { x: 50, y: 45 },
     ]);
   };
 
   const svgW = 500, svgH = 240;
-  const xMin = 0, xMax = 1, yMin = -1.5, yMax = 2.5;
+  const xMin = 0, xMax = 100, yMin = 0, yMax = 120;
   const sx = (v) => 40 + (v - xMin) / (xMax - xMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - yMin) / (yMax - yMin) * (svgH - 50);
 
+  const gpPred = predict(bestCandidate.x);
+  const gpUnc = uncertainty(bestCandidate.x);
+
   return (
-    <Card color={C} title="Active Learning" formula="Next = argmax uncertainty(x)">
+    <Card color={C} title="Active Learning" formula="Next = argmax acquisition(x)">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy — Bayesian Optimization for Alloy Design</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
-          A chef strategically tasting combinations instead of trying all 1000 possibilities. Instead of random experiments,
-          active learning picks the most informative experiment next — where the model is most uncertain.
-          If the chef already knows that salt levels between 1–3 tsp taste good, there is no need to test 1.5 tsp, 2 tsp, and 2.5 tsp. Instead, test 5 tsp (unexplored territory) to learn something genuinely new.
-          <br/><br/><strong>Another way to think about it:</strong> Imagine searching for buried treasure with limited digs. Random digging wastes effort. A smart strategy uses each dig result to update your treasure map, then digs where the map is most uncertain. After just 10 strategic digs, you might have a better map than 100 random digs. Active learning applies this strategy to expensive experiments or simulations.
+          Goal: find the Al-Cu alloy composition (0–100% Cu) that maximizes hardness. Experiments are expensive — each hardness test takes days.
+          Instead of testing all compositions, we use a Gaussian Process (GP) surrogate model that predicts hardness ± uncertainty at untested compositions,
+          then pick the most informative composition to test next.
+          <br/><br/><strong>Known data:</strong> 0% Cu → hardness 30, 4% Cu → hardness 95, 10% Cu → hardness 60, 50% Cu → hardness 45.
+          The GP sees high uncertainty near ~6% Cu (between the peak at 4% and the drop at 10%) — suggesting it next.
         </div>
       </div>
 
       <HowItWorks color={C} steps={[
-        "Start with a small initial dataset (e.g., 3 measured data points) and train a surrogate model.",
-        "The surrogate model makes predictions across the entire search space and estimates its own uncertainty at each point.",
-        "The acquisition function scores each unmeasured point — typically by uncertainty (explore where the model is least confident) or expected improvement (explore where a better result is likely).",
-        "Select the point with the highest acquisition score and perform the expensive experiment/simulation at that point.",
-        "Add the new result to the dataset, retrain the model, and repeat. Each iteration makes the model smarter and more focused on the most promising regions."
+        "Start with 4 measured Al-Cu alloy compositions and their hardness values.",
+        "Train a Gaussian Process (GP) surrogate that predicts hardness ± uncertainty at every composition.",
+        "The acquisition function scores each untested composition — high uncertainty near the peak at 4% Cu suggests ~6% Cu as the next experiment.",
+        "Test the suggested composition, add the result, and retrain the GP.",
+        "Repeat until the optimum is found — typically in 8–15 iterations instead of 100+ random experiments."
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Active Learning: {known.length} known points</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Al-Cu Alloy Optimization: {known.length} experiments</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={20} x2={40} y2={svgH - 30} stroke={T.border} />
-            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={9} fill={T.muted}>Composition x</text>
-            {/* True function */}
+            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={9} fill={T.muted}>Cu content (%)</text>
+            <text x={12} y={svgH / 2} fontSize={9} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Hardness (HV)</text>
+            {/* True function (hidden from model) */}
             {Array.from({ length: 50 }, (_, i) => {
-              const x1 = i / 49;
-              const x2 = (i + 1) / 49;
-              return <line key={`t${i}`} x1={sx(x1)} y1={sy(trueF(x1))} x2={sx(x2)} y2={sy(trueF(x2))} stroke={T.dim} strokeWidth={1} strokeDasharray="3,3" />;
+              const x1 = i * 2;
+              const x2 = (i + 1) * 2;
+              return <line key={`t${i}`} x1={sx(x1)} y1={sy(trueHardness(x1))} x2={sx(x2)} y2={sy(trueHardness(x2))} stroke={T.dim} strokeWidth={1} strokeDasharray="3,3" />;
             })}
-            {/* Prediction + uncertainty band */}
+            {/* GP prediction + uncertainty band */}
             {Array.from({ length: 50 }, (_, i) => {
-              const xv = i / 49;
+              const xv = i * 2;
               const pred = predict(xv);
               const unc = uncertainty(xv);
               return (
                 <g key={`p${i}`}>
                   <line x1={sx(xv)} y1={sy(pred - unc)} x2={sx(xv)} y2={sy(pred + unc)}
-                    stroke={C} strokeWidth={1} opacity={0.15} />
+                    stroke={C} strokeWidth={2} opacity={0.12} />
                 </g>
               );
             })}
             {Array.from({ length: 49 }, (_, i) => {
-              const x1 = i / 49, x2 = (i + 1) / 49;
+              const x1 = i * 2, x2 = (i + 1) * 2;
               return <line key={`pr${i}`} x1={sx(x1)} y1={sy(predict(x1))} x2={sx(x2)} y2={sy(predict(x2))} stroke={C} strokeWidth={2} />;
             })}
             {/* Known points */}
             {known.map((p, i) => (
-              <circle key={i} cx={sx(p.x)} cy={sy(p.y)} r={5} fill={C + "44"} stroke={C} strokeWidth={2} />
+              <g key={i}>
+                <circle cx={sx(p.x)} cy={sy(p.y)} r={5} fill={C + "44"} stroke={C} strokeWidth={2} />
+                <text x={sx(p.x)} y={sy(p.y) - 8} textAnchor="middle" fontSize={7} fill={C} fontWeight={600}>{p.x}%→{p.y}</text>
+              </g>
             ))}
             {/* Suggested next point */}
             <circle cx={sx(bestCandidate.x)} cy={sy(predict(bestCandidate.x))} r={6}
               fill="#dc262644" stroke="#dc2626" strokeWidth={2} />
             <text x={sx(bestCandidate.x)} y={sy(predict(bestCandidate.x)) - 10}
-              textAnchor="middle" fontSize={8} fill="#dc2626" fontWeight={700}>Next?</text>
+              textAnchor="middle" fontSize={8} fill="#dc2626" fontWeight={700}>Next? ({bestCandidate.x}% Cu)</text>
+            {/* Axis ticks */}
+            {[0, 20, 40, 60, 80, 100].map(v => (
+              <g key={v}>
+                <line x1={sx(v)} y1={svgH - 30} x2={sx(v)} y2={svgH - 25} stroke={T.dim} />
+                <text x={sx(v)} y={svgH - 16} textAnchor="middle" fontSize={8} fill={T.dim}>{v}</text>
+              </g>
+            ))}
+            {[0, 30, 60, 90, 120].map(v => (
+              <g key={v}>
+                <line x1={35} y1={sy(v)} x2={40} y2={sy(v)} stroke={T.dim} />
+                <text x={32} y={sy(v) + 3} textAnchor="end" fontSize={8} fill={T.dim}>{v}</text>
+              </g>
+            ))}
           </svg>
 
           <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
             <button onClick={addPoint}
               style={{ padding: "4px 12px", fontSize: 10, borderRadius: 5, cursor: "pointer",
                 background: C, color: "#fff", border: "none", fontWeight: 700 }}>
-              Add Suggested Point
+              Test Suggested Composition
             </button>
             <button onClick={resetPoints}
               style={{ padding: "4px 12px", fontSize: 10, borderRadius: 5, cursor: "pointer",
@@ -2984,32 +2854,33 @@ function ActiveLearningSection() {
 
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ marginTop: 0, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ACQUISITION FUNCTION</div>
-            <CalcRow eq="Known data points" result={known.length.toString()} color={C} />
-            <CalcRow eq={`Suggested x = ${bestCandidate.x.toFixed(2)}`} result={`unc = ${bestCandidate.acq.toFixed(3)}`} color="#dc2626" />
-            <CalcRow eq={`Min distance to known`} result={(bestCandidate.acq / 2).toFixed(3)} color={C} />
-            <CalcRow eq={`Predicted y at x = ${bestCandidate.x.toFixed(2)}`} result={predict(bestCandidate.x).toFixed(3)} color={C} />
-            <CalcRow eq={`True y at x = ${bestCandidate.x.toFixed(2)}`} result={trueF(bestCandidate.x).toFixed(3)} color={T.muted} />
-            <CalcRow eq="Strategy" result="Max uncertainty" color={M.accent} />
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>GAUSSIAN PROCESS PREDICTION</div>
+            <CalcRow eq="Known experiments" result={known.length.toString()} color={C} />
+            {known.map((p, i) => (
+              <CalcRow key={i} eq={`${p.x}% Cu → hardness`} result={`${p.y} HV`} color={C} />
+            ))}
+            <CalcRow eq={`Suggested next: ${bestCandidate.x}% Cu`} result={`unc = ${gpUnc.toFixed(1)}`} color="#dc2626" />
+            <CalcRow eq={`GP prediction at ${bestCandidate.x}% Cu`} result={`${gpPred.toFixed(1)} ± ${gpUnc.toFixed(1)} HV`} color={C} />
+            <CalcRow eq="Strategy" result="Max uncertainty (explore)" color={M.accent} />
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="KNOWN POINTS" value={known.length.toString()} color={C} />
-            <ResultBox label="NEXT x" value={bestCandidate.x.toFixed(2)} color="#dc2626" sub="highest uncertainty" />
+            <ResultBox label="EXPERIMENTS" value={known.length.toString()} color={C} sub="of ~100 possible" />
+            <ResultBox label="NEXT TEST" value={`${bestCandidate.x}% Cu`} color="#dc2626" sub="highest uncertainty" />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <strong style={{ color: T.ink }}>Key insight.</strong> Active learning reduces the number of expensive experiments
-            (DFT calculations, lab synthesis) needed. Instead of 1000 random experiments, you might only need 50 well-chosen
-            ones. The uncertainty band shows where the model is least confident — that is where new data helps most.
+            <strong style={{ color: T.ink }}>Key insight.</strong> Active learning with Bayesian optimization reduces the number of expensive experiments
+            needed. The GP uncertainty band (shaded) shows where the model is least confident — near 6% Cu, there is high uncertainty
+            close to the peak at 4% Cu. Testing there is the most informative experiment. After 8–15 strategic experiments, the optimal composition is found.
           </div>
 
           <CommonMistakes mistakes={[
             "Always exploring (high uncertainty) without exploiting (high predicted value) — a good acquisition function balances exploration and exploitation.",
-            "Using a model that does not provide uncertainty estimates — random forests, Gaussian processes, and ensemble methods provide uncertainty; a single neural network does not (without special techniques).",
+            "Using a model that does not provide uncertainty estimates — Gaussian processes, random forests, and ensemble methods provide uncertainty; a single neural network does not (without special techniques).",
             "Running too few iterations — active learning is iterative. If you only do 2 rounds, you have barely improved over random sampling.",
-            "Ignoring batch active learning — in practice, you often want to run several experiments in parallel. Selecting the top-K most uncertain points is suboptimal; use batch-aware acquisition functions."
+            "Ignoring batch active learning — in practice, you often want to run several experiments in parallel. Use batch-aware acquisition functions."
           ]} />
 
           <MatSciExample text="Researchers at NIST used Bayesian active learning to optimize the composition of NiTi-based shape memory alloys. Starting with only 10 experimental measurements, the active learning loop identified compositions with optimal transformation temperatures in just 25 iterations — a task that would have required hundreds of random experiments. This approach is now standard in high-throughput experimental materials discovery." />
@@ -3306,7 +3177,7 @@ function InterpretabilitySection() {
   const centerX = svgW / 2;
 
   return (
-    <Card color={C} title="Interpretability (SHAP)" formula="Prediction = Base + Σ SHAP values">
+    <Card color={C} title="Interpretability (SHapley Additive exPlanations)" formula="Prediction = Base + Σ SHAP values">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
@@ -3550,31 +3421,36 @@ const ML_SECTIONS = [
   { id: "crossval", block: "foundations", title: "Cross-Validation", component: CrossValidationSection,
     nextReason: "With evaluation tools in hand, let's learn powerful algorithms — starting with decision trees." },
 
-  { id: "dtree", block: "algorithms", title: "Decision Trees", component: DecisionTreeSection,
+  { id: "dtree", block: "algorithms", title: "Decision Tree Regression", component: DecisionTreeSection,
     nextReason: "Single trees overfit easily. Random forests fix this by combining many trees — let's see how." },
-  { id: "rforest", block: "algorithms", title: "Random Forest", component: RandomForestSection,
-    nextReason: "Another powerful classifier is SVM, which finds the widest possible separation margin." },
-  { id: "svm", block: "algorithms", title: "SVM", component: SVMSection,
-    nextReason: "With many features, we need dimensionality reduction. PCA finds the most important directions." },
-  { id: "pca", block: "algorithms", title: "PCA", component: PCASection,
+  { id: "rforest", block: "algorithms", title: "Random Forest Regression", component: RandomForestSection,
+    nextReason: "Another powerful algorithm is Support Vector Regression, which uses an epsilon-insensitive tube." },
+  { id: "svm", block: "algorithms", title: "Support Vector Regression", component: SVMSection,
+    nextReason: "With many features, we need dimensionality reduction. Principal Component Analysis finds the most important directions." },
+  { id: "pca", block: "algorithms", title: "Principal Component Analysis", component: PCASection,
     nextReason: "Now let's go deeper — neural networks can learn any function. Starting with a single neuron." },
 
   { id: "perceptron", block: "neuralnet", title: "Perceptron", component: PerceptronSection,
     nextReason: "One neuron is limited. Stacking layers into deep networks unlocks immense power." },
-  { id: "dnn", block: "neuralnet", title: "Deep Networks", component: DNNSection,
+  { id: "dnn", block: "neuralnet", title: "Deep Neural Network", component: DNNSection,
     nextReason: "But how do deep networks learn? Through backpropagation — the engine of modern ML." },
   { id: "backprop", block: "neuralnet", title: "Backpropagation", component: BackpropSection,
-    nextReason: "Beyond feedforward nets, CNNs and Transformers handle images and sequences." },
-  { id: "cnntransformer", block: "neuralnet", title: "CNN & Transformer", component: CNNTransformerSection,
+    nextReason: "Beyond feedforward nets, Convolutional Neural Networks handle images and spatial data." },
+  { id: "cnn", block: "neuralnet", title: "Convolutional Neural Network", component: CNNSection,
+    nextReason: "Now let's explore Transformers and generative models that power cutting-edge materials design." },
+
+  { id: "transformer", block: "generative", title: "Transformer", component: TransformerSection,
+    nextReason: "Transformers capture long-range relationships. Now let's see how Variational Autoencoders generate new materials." },
+  { id: "autoencoder", block: "generative", title: "Variational Autoencoder", component: AutoencoderSection,
+    nextReason: "VAEs generate by decoding latent space. Diffusion models take a different approach — denoising." },
+  { id: "diffusion", block: "generative", title: "Diffusion Model", component: DiffusionModelSection,
+    nextReason: "With generative models understood, let's see how active learning optimizes expensive experiments." },
+  { id: "activelearn", block: "generative", title: "Active Learning", component: ActiveLearningSection,
     nextReason: "Now let's apply all this to materials science — starting with how we represent materials as features." },
 
   { id: "features", block: "matsci", title: "Feature Engineering", component: FeatureEngineeringSection,
     nextReason: "With features defined, let's train a model to predict bandgaps from composition." },
   { id: "prediction", block: "matsci", title: "Property Prediction", component: PropertyPredictionSection,
-    nextReason: "Beyond prediction, generative models can design entirely new materials." },
-  { id: "generative", block: "matsci", title: "Generative Models", component: GenerativeModelsSection,
-    nextReason: "Active learning optimizes expensive experiments — let's see Bayesian optimization in action." },
-  { id: "activelearn", block: "matsci", title: "Active Learning", component: ActiveLearningSection,
     nextReason: "Let's tie it all together with practical workflow guidance." },
 
   { id: "pipeline", block: "practical", title: "Data Pipeline", component: DataPipelineSection,
