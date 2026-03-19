@@ -11347,11 +11347,24 @@ function CHKineticsSection() {
   const [time, setTime] = useState(0);
   const [animFrame, setAnimFrame] = useState(0);
   const [selectedBarrier, setSelectedBarrier] = useState("czts");
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => setAnimFrame(f => (f + 1) % 600), 35);
     return () => clearInterval(id);
   }, []);
+
+  // Auto-play time evolution
+  useEffect(() => {
+    if (!playing) return;
+    const id = setInterval(() => {
+      setTime(t => {
+        if (t >= 50) { setPlaying(false); return 50; }
+        return t + 0.3;
+      });
+    }, 60);
+    return () => clearInterval(id);
+  }, [playing]);
 
   // Arrhenius rate: k = A * exp(-Ea / kT), kT in eV, T in K
   const kB = 8.617e-5; // eV/K
@@ -11370,33 +11383,41 @@ function CHKineticsSection() {
   };
   const ph = phases[selectedBarrier];
 
-  // Effective rate: accounts for both kinetic barrier AND thermodynamic driving force
-  // Large |ΔG| means more stable product → higher effective rate at high T
-  // Prefactor for CZTS is larger because 4 elements cooperating = more reaction channels
-  const effRate = (p) => {
-    const kinetic = arrRate(p.ea);
-    const thermoBoost = Math.abs(p.dG); // deeper well = stronger drive
-    return p.prefactor * kinetic * thermoBoost;
-  };
+  // Effective rate for display
+  const effRate = (p) => p.prefactor * arrRate(p.ea) * Math.abs(p.dG);
 
-  // Phase fraction evolution: f(t) = 1 - exp(-k*t^n) (JMAK / Avrami)
-  // n = 2 for 2D nucleation + growth (thin film)
-  const avramiN = 2;
-  const phaseFractions = Object.entries(phases).map(([id, p]) => {
-    const k = effRate(p) * 0.001; // scale for slider range
-    const f = 1 - Math.exp(-k * Math.pow(time, avramiN));
-    return { id, ...p, fraction: Math.min(f, 1.0), rate: k };
-  });
+  // ── Phase fraction model ──
+  // Simple physically-motivated model:
+  //   1. Each phase nucleates with Avrami: f_raw = 1 - exp(-k * t^2)
+  //   2. Metastable phases (Cu₂S, SnS, ZnS) dissolve at long times as CZTS grows
+  //   3. CZTS consumes metastable phases → its fraction increases beyond its own nucleation rate
+  // Temperature scaling: higher T → everything faster
+  const tempScale = Math.exp((temp - 400) / 80); // exponential T scaling centered at 400°C
 
-  // Normalize: at equilibrium (long time), weight by |ΔG| (thermodynamic stability)
-  // This ensures CZTS dominates at long times as metastable phases dissolve
-  const eqWeight = (p) => Math.pow(Math.abs(p.dG), 2); // squared: strong preference for most stable
-  const phaseFractionsWeighted = phaseFractions.map(p => ({
-    ...p,
-    fraction: p.fraction * (0.3 + 0.7 * eqWeight(p) / eqWeight(phases.czts)),
-  }));
-  const totalF = phaseFractionsWeighted.reduce((s, p) => s + p.fraction, 0) || 1;
-  const normalizedFractions = phaseFractionsWeighted.map(p => ({ ...p, norm: p.fraction / totalF }));
+  const cztsFraw = 1 - Math.exp(-0.003 * tempScale * Math.pow(time, 2));
+  const cu2sFraw = 1 - Math.exp(-0.08 * tempScale * Math.pow(time, 2));
+  const znsFraw  = 1 - Math.exp(-0.02 * tempScale * Math.pow(time, 2));
+  const snsFraw  = 1 - Math.exp(-0.12 * tempScale * Math.pow(time, 2));
+
+  // Metastable phases dissolve as CZTS grows (Ostwald ripening / reaction)
+  // dissolution = how much of metastable phase converts to CZTS
+  const dissolution = Math.min(1, Math.pow(Math.max(0, time - 5) / 20, 1.5) * tempScale * 0.15);
+
+  const cztsF = Math.min(1, cztsFraw + dissolution * (cu2sFraw + znsFraw + snsFraw) * 0.4);
+  const cu2sF = Math.max(0, cu2sFraw * (1 - dissolution * 1.2));
+  const znsF  = Math.max(0, znsFraw * (1 - dissolution * 0.8));
+  const snsF  = Math.max(0, snsFraw * (1 - dissolution * 1.5));
+
+  const avramiN = 2; // for display in rate table
+
+  const rawFracs = [
+    { id: "czts", ...phases.czts, fraction: cztsF },
+    { id: "cu2s", ...phases.cu2s, fraction: cu2sF },
+    { id: "zns",  ...phases.zns,  fraction: znsF },
+    { id: "sns",  ...phases.sns,  fraction: snsF },
+  ];
+  const totalF = rawFracs.reduce((s, p) => s + p.fraction, 0) || 1;
+  const normalizedFractions = rawFracs.map(p => ({ ...p, norm: p.fraction / totalF }));
 
   // Free energy landscape SVG
   const LW = 360, LH = 180, lp = { l: 44, r: 14, t: 14, b: 30 };
@@ -11520,13 +11541,27 @@ function CHKineticsSection() {
       <Card title="Phase Evolution: Avrami (JMAK) Transformation Kinetics" color={CH.hull}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           The <strong>Johnson-Mehl-Avrami-Kolmogorov</strong> equation models how phase fractions evolve during annealing:
-          <span style={{ fontFamily: "'Georgia',serif", color: CH.hull }}> f(t) = 1 {"\u2212"} exp({"\u2212"}k{"\u00B7"}t<sup>n</sup>)</span>, where n = 3 for 3D nucleation + growth.
+          <span style={{ fontFamily: "'Georgia',serif", color: CH.hull }}> f(t) = 1 {"\u2212"} exp({"\u2212"}k{"\u00B7"}t<sup>n</sup>)</span>, where n = 2 for 2D nucleation + growth in thin films. Press <strong>Play</strong> to watch CZTS grow over time.
         </div>
 
         <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
           <div style={{ flex: 1, minWidth: 280 }}>
             <SliderRow label="Temperature" value={temp} min={300} max={800} step={10} onChange={setTemp} color={CH.accent} unit={"\u00B0C"} format={v => v.toFixed(0)} />
-            <SliderRow label="Annealing time (a.u.)" value={time} min={0} max={50} step={0.5} onChange={setTime} color={CH.hull} unit="" format={v => v.toFixed(1)} />
+            <SliderRow label="Annealing time (min)" value={time} min={0} max={50} step={0.5} onChange={v => { setTime(v); setPlaying(false); }} color={CH.hull} unit="" format={v => v.toFixed(1)} />
+            <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+              <button onClick={() => { if (time >= 50) setTime(0); setPlaying(!playing); }} style={{
+                flex: 1, padding: "8px", borderRadius: 8, fontSize: 12, fontWeight: 700,
+                cursor: "pointer", fontFamily: "inherit",
+                background: playing ? "#dc262618" : "#16a34a18",
+                border: `1.5px solid ${playing ? "#dc2626" : "#16a34a"}`,
+                color: playing ? "#dc2626" : "#16a34a",
+              }}>{playing ? "\u23F8 Pause" : "\u25B6 Play Annealing"}</button>
+              <button onClick={() => { setTime(0); setPlaying(false); }} style={{
+                padding: "8px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700,
+                cursor: "pointer", fontFamily: "inherit",
+                background: T.surface, border: `1.5px solid ${T.border}`, color: T.muted,
+              }}>Reset</button>
+            </div>
 
             {/* Phase fraction bars */}
             <div style={{ marginTop: 12, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
@@ -11647,18 +11682,19 @@ function CHKineticsSection() {
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10 }}>
                 <thead>
                   <tr style={{ borderBottom: `2px solid ${T.border}` }}>
-                    {["Phase", "E_a (eV)", "\u0394G (eV)", "Rel. Rate", "t_{50%}"].map(h => (
+                    {["Phase", "E_a (eV)", "\u0394G (eV)", "Rel. Rate", "t\u2080.\u2085 (min)"].map(h => (
                       <th key={h} style={{ padding: "4px 5px", textAlign: "left", color: T.muted, fontWeight: 700, fontSize: 9 }}>{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {Object.entries(phases).map(([id, p], i) => {
-                    const rate = effRate(p);
-                    const maxRate = Math.max(...Object.values(phases).map(pp => effRate(pp)));
-                    const relRate = rate / maxRate;
-                    const k = rate * 0.001;
-                    const t50 = k > 0 ? Math.pow(Math.log(2) / k, 1 / avramiN) : 999;
+                    // Use the actual nucleation rates from the model
+                    const kVals = { czts: 0.003, cu2s: 0.08, zns: 0.02, sns: 0.12 };
+                    const k = (kVals[id] || 0.01) * tempScale;
+                    const t50 = k > 0 ? Math.sqrt(Math.log(2) / k) : 999;
+                    const maxK = Math.max(...Object.values(kVals)) * tempScale;
+                    const relRate = k / maxK;
                     return (
                       <tr key={id} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
                         <td style={{ padding: "4px 5px", color: p.color, fontWeight: 700, fontSize: 10 }}>{p.label}</td>
