@@ -2578,114 +2578,131 @@ const ML_SECTIONS = [
    MAIN MODULE SHELL
    ════════════════════════════════════════════════════════════════ */
 function MLIntroModule() {
-  const [activeBlock, setActiveBlock] = useState("foundations");
-  const [activeSection, setActiveSection] = useState(0);
-
+  const [active, setActive] = useState(ML_SECTIONS[0].id);
+  const [activeBlock, setActiveBlock] = useState(ML_BLOCKS[0].id);
+  const sec = ML_SECTIONS.find(s => s.id === active) || ML_SECTIONS[0];
+  const Component = sec.component;
   const blockSections = ML_SECTIONS.filter(s => s.block === activeBlock);
-  const allIdx = ML_SECTIONS.findIndex(s => s.id === blockSections[activeSection]?.id);
-  const CurrentComponent = blockSections[activeSection]?.component;
-
-  const goTo = (globalIdx) => {
-    const sec = ML_SECTIONS[globalIdx];
-    if (!sec) return;
-    setActiveBlock(sec.block);
-    const localIdx = ML_SECTIONS.filter(s => s.block === sec.block).findIndex(s => s.id === sec.id);
-    setActiveSection(localIdx);
-  };
-
-  const handlePrev = () => { if (allIdx > 0) goTo(allIdx - 1); };
-  const handleNext = () => { if (allIdx < ML_SECTIONS.length - 1) goTo(allIdx + 1); };
+  const blockColor = ML_BLOCKS.find(b => b.id === activeBlock)?.color || M.found;
 
   return (
-    <div style={{ maxWidth: 720, margin: "0 auto", padding: "18px 4px", fontFamily: "'Inter','Segoe UI',system-ui,sans-serif", background: T.bg, minHeight: "100vh" }}>
-      {/* Header */}
-      <div style={{ textAlign: "center", marginBottom: 18 }}>
-        <div style={{ fontSize: 20, fontWeight: 800, color: T.ink, letterSpacing: 1 }}>
-          Introduction to Machine Learning
-        </div>
-        <div style={{ fontSize: 12, color: T.muted, marginTop: 4 }}>for Materials Science</div>
-      </div>
-
+    <div style={{
+      minHeight: "100vh",
+      background: T.bg,
+      fontFamily: "'IBM Plex Mono', 'JetBrains Mono', 'Fira Code', monospace",
+      color: T.ink,
+      display: "flex",
+      flexDirection: "column",
+    }}>
       {/* Block tabs */}
-      <div style={{ display: "flex", gap: 4, marginBottom: 10, overflowX: "auto", padding: "0 2px" }}>
+      <div style={{
+        display: "flex", padding: "8px 24px", gap: 6,
+        borderBottom: `1px solid ${T.border}`, background: T.panel, overflowX: "auto",
+      }}>
         {ML_BLOCKS.map(b => (
-          <button key={b.id} onClick={() => { setActiveBlock(b.id); setActiveSection(0); }}
-            style={{
-              padding: "6px 12px", fontSize: 10, borderRadius: 8, cursor: "pointer", whiteSpace: "nowrap",
-              background: activeBlock === b.id ? b.color + "18" : T.panel,
-              color: activeBlock === b.id ? b.color : T.muted,
-              border: `1.5px solid ${activeBlock === b.id ? b.color : T.border}`,
-              fontWeight: activeBlock === b.id ? 700 : 500,
-            }}>{b.label}</button>
+          <button key={b.id} onClick={() => {
+            setActiveBlock(b.id);
+            const first = ML_SECTIONS.find(s => s.block === b.id);
+            if (first) setActive(first.id);
+          }} style={{
+            padding: "6px 14px", borderRadius: 8,
+            border: `1.5px solid ${activeBlock === b.id ? b.color : T.border}`,
+            background: activeBlock === b.id ? b.color + "22" : T.bg,
+            color: activeBlock === b.id ? b.color : T.muted,
+            cursor: "pointer", fontSize: 11, fontFamily: "inherit",
+            fontWeight: activeBlock === b.id ? 700 : 400,
+            letterSpacing: 0.5, whiteSpace: "nowrap",
+          }}>{b.label}</button>
         ))}
       </div>
 
       {/* Section tabs */}
-      <div style={{ display: "flex", gap: 3, marginBottom: 14, overflowX: "auto", padding: "0 2px" }}>
-        {blockSections.map((s, i) => {
-          const blockColor = ML_BLOCKS.find(b => b.id === activeBlock)?.color || T.eo_e;
+      <div style={{
+        display: "flex", padding: "6px 24px", gap: 6,
+        borderBottom: `1px solid ${T.border}`, background: T.panel,
+        overflowX: "auto", flexWrap: "wrap",
+      }}>
+        {blockSections.map(s => {
+          const globalIdx = ML_SECTIONS.findIndex(x => x.id === s.id);
           return (
-            <button key={s.id} onClick={() => setActiveSection(i)}
-              style={{
-                padding: "4px 10px", fontSize: 9, borderRadius: 6, cursor: "pointer", whiteSpace: "nowrap",
-                background: activeSection === i ? blockColor : "transparent",
-                color: activeSection === i ? "#fff" : T.muted,
-                border: `1px solid ${activeSection === i ? blockColor : T.border}`,
-                fontWeight: activeSection === i ? 700 : 400,
-              }}>{s.title}</button>
+            <button key={s.id} onClick={() => setActive(s.id)} style={{
+              padding: "6px 12px", borderRadius: 8,
+              border: `1px solid ${active === s.id ? blockColor : T.border}`,
+              background: active === s.id ? blockColor + "22" : T.bg,
+              color: active === s.id ? blockColor : T.muted,
+              cursor: "pointer", fontSize: 11, fontFamily: "inherit",
+              fontWeight: active === s.id ? 700 : 400,
+              display: "flex", alignItems: "center", gap: 5, whiteSpace: "nowrap",
+            }}>
+              <span style={{ fontSize: 9, color: active === s.id ? blockColor : T.dim }}>{globalIdx + 1}.</span>
+              {s.title}
+            </button>
           );
         })}
       </div>
 
-      {/* Content */}
-      <div style={{ minHeight: 400 }}>
-        {CurrentComponent && <CurrentComponent />}
+      {/* Main content */}
+      <div style={{ flex: 1, padding: "20px 24px", overflowY: "auto" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: blockColor, letterSpacing: 0.5 }}>{sec.title}</div>
+        </div>
+        <Component />
+        {sec.nextReason && (
+          <div style={{
+            marginTop: 28, padding: "14px 18px", borderRadius: 10,
+            background: blockColor + "0a", border: `1.5px solid ${blockColor}22`,
+            borderLeft: `4px solid ${blockColor}`,
+          }}>
+            <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.8 }}>
+              {sec.nextReason}
+              {(() => {
+                const idx = ML_SECTIONS.findIndex(s => s.id === active);
+                const next = ML_SECTIONS[idx + 1];
+                return next ? <span> Up next: <span style={{ fontWeight: 700, color: ML_BLOCKS.find(b => b.id === next.block)?.color || M.found }}>{next.title}</span>.</span> : null;
+              })()}
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Transition reason */}
-      {allIdx < ML_SECTIONS.length - 1 && ML_SECTIONS[allIdx]?.nextReason && (
-        <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: "10px 14px", marginTop: 14, fontSize: 11, color: T.muted, fontStyle: "italic" }}>
-          <b>Next:</b> {ML_SECTIONS[allIdx].nextReason}
-        </div>
-      )}
+      {/* Bottom nav */}
+      <div style={{
+        borderTop: `1px solid ${T.border}`, padding: "10px 24px",
+        display: "flex", justifyContent: "space-between", alignItems: "center", background: T.panel,
+      }}>
+        <button onClick={() => {
+          const i = ML_SECTIONS.findIndex(s => s.id === active);
+          if (i > 0) { setActive(ML_SECTIONS[i - 1].id); setActiveBlock(ML_SECTIONS[i - 1].block); }
+        }} disabled={active === ML_SECTIONS[0].id} style={{
+          padding: "8px 20px", borderRadius: 8, fontSize: 13,
+          background: active === ML_SECTIONS[0].id ? T.surface : blockColor + "22",
+          border: `1px solid ${active === ML_SECTIONS[0].id ? T.border : blockColor}`,
+          color: active === ML_SECTIONS[0].id ? T.muted : blockColor,
+          cursor: active === ML_SECTIONS[0].id ? "default" : "pointer",
+          fontFamily: "inherit", fontWeight: 600,
+        }}>← Previous</button>
 
-      {/* Navigation */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 16, padding: "0 4px" }}>
-        <button onClick={handlePrev} disabled={allIdx <= 0}
-          style={{
-            padding: "6px 16px", fontSize: 11, borderRadius: 8, cursor: allIdx > 0 ? "pointer" : "default",
-            background: allIdx > 0 ? T.panel : T.surface, color: allIdx > 0 ? T.ink : T.dim,
-            border: `1px solid ${T.border}`, fontWeight: 600, opacity: allIdx > 0 ? 1 : 0.4,
-          }}>← Prev</button>
-
-        {/* Dots */}
-        <div style={{ display: "flex", gap: 4, flexWrap: "wrap", justifyContent: "center", maxWidth: 300 }}>
-          {ML_SECTIONS.map((s, i) => {
-            const bColor = ML_BLOCKS.find(b => b.id === s.block)?.color || T.dim;
-            return (
-              <div key={i} onClick={() => goTo(i)}
-                style={{
-                  width: i === allIdx ? 16 : 6, height: 6, borderRadius: 3, cursor: "pointer",
-                  background: i === allIdx ? bColor : bColor + "44",
-                  transition: "all 0.2s",
-                }} title={s.title} />
-            );
-          })}
+        <div style={{ display: "flex", gap: 4, flexWrap: "wrap", justifyContent: "center" }}>
+          {ML_SECTIONS.map(s => (
+            <div key={s.id} onClick={() => { setActive(s.id); setActiveBlock(s.block); }} style={{
+              width: active === s.id ? 16 : 6, height: 6, borderRadius: 3, cursor: "pointer",
+              background: active === s.id ? (ML_BLOCKS.find(b => b.id === s.block)?.color || M.found) : T.dim,
+              transition: "all 0.2s",
+            }} />
+          ))}
         </div>
 
-        <button onClick={handleNext} disabled={allIdx >= ML_SECTIONS.length - 1}
-          style={{
-            padding: "6px 16px", fontSize: 11, borderRadius: 8, cursor: allIdx < ML_SECTIONS.length - 1 ? "pointer" : "default",
-            background: allIdx < ML_SECTIONS.length - 1 ? T.panel : T.surface,
-            color: allIdx < ML_SECTIONS.length - 1 ? T.ink : T.dim,
-            border: `1px solid ${T.border}`, fontWeight: 600,
-            opacity: allIdx < ML_SECTIONS.length - 1 ? 1 : 0.4,
-          }}>Next →</button>
-      </div>
-
-      {/* Footer */}
-      <div style={{ textAlign: "center", marginTop: 20, fontSize: 10, color: T.dim }}>
-        Section {allIdx + 1} of {ML_SECTIONS.length} — ML for Materials Science
+        <button onClick={() => {
+          const i = ML_SECTIONS.findIndex(s => s.id === active);
+          if (i < ML_SECTIONS.length - 1) { setActive(ML_SECTIONS[i + 1].id); setActiveBlock(ML_SECTIONS[i + 1].block); }
+        }} disabled={active === ML_SECTIONS[ML_SECTIONS.length - 1].id} style={{
+          padding: "8px 20px", borderRadius: 8, fontSize: 13,
+          background: active === ML_SECTIONS[ML_SECTIONS.length - 1].id ? T.surface : blockColor + "22",
+          border: `1px solid ${active === ML_SECTIONS[ML_SECTIONS.length - 1].id ? T.border : blockColor}`,
+          color: active === ML_SECTIONS[ML_SECTIONS.length - 1].id ? T.muted : blockColor,
+          cursor: active === ML_SECTIONS[ML_SECTIONS.length - 1].id ? "default" : "pointer",
+          fontFamily: "inherit", fontWeight: 600,
+        }}>Next →</button>
       </div>
     </div>
   );
