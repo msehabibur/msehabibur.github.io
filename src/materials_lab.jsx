@@ -3293,65 +3293,6 @@ function SecDefectNet() {
           </div>
         </Card>
 
-        <Card title={"Training Data: Cd-Zn-X System"} color={T.dn1}>
-          <div style={{ fontSize: 11, lineHeight: 1.8, color: T.ink }}>
-            <p style={{ margin: "0 0 8px" }}>
-              DefectNet is trained on DFT data for <strong style={{ color: T.dn1 }}>CdTe, CdSe, CdS, ZnTe, ZnSe, ZnS</strong> semiconductors
-              with point defects at multiple charge states:
-            </p>
-            {[
-              { data: "Bulk structures (neutral)", count: "~2,000", func: "HSE + PBE", color: T.dn1 },
-              { data: "Defect structures (neutral)", count: "~3,500", func: "HSE + PBE", color: T.dn3 },
-              { data: "Defect structures (charged)", count: "~4,800", func: "HSE + PBE", color: T.dn5 },
-              { data: "Charge states covered", count: "-2, -1, 0, +1, +2", func: "\u2014", color: T.dn4 },
-            ].map(d => (
-              <div key={d.data} style={{
-                marginBottom: 4, padding: "4px 8px", borderRadius: 4,
-                background: d.color + "08", border: `1px solid ${d.color}12`,
-                display: "flex", gap: 8, fontSize: 10,
-              }}>
-                <span style={{ color: d.color, fontWeight: 600, flex: "0 0 180px" }}>{d.data}</span>
-                <span style={{ color: T.ink }}>{d.count}</span>
-                <span style={{ color: T.muted }}>{d.func}</span>
-              </div>
-            ))}
-            <div style={{ fontSize: 10, color: T.muted, marginTop: 6 }}>
-              Loss is force-dominated (95% weight) because forces are the primary MD driver.
-              Energy contributes 5% to ensure thermodynamic consistency.
-            </div>
-          </div>
-        </Card>
-
-        <Card title={"Performance"} color={T.dn6}>
-          <div style={{ fontSize: 11, lineHeight: 1.8, color: T.ink }}>
-            <div style={{ overflowX: "auto" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10 }}>
-                <thead>
-                  <tr style={{ borderBottom: `2px solid ${T.dn6}` }}>
-                    {["Metric", "DefectNet", "M3GNet", "CHGNet"].map(h => (
-                      <th key={h} style={{ padding: "4px 6px", textAlign: "left", color: T.dn6, fontWeight: 700 }}>{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    { metric: "Energy MAE (meV/atom)", dn: "4.2", m3: "12.8", chg: "8.1" },
-                    { metric: "Force MAE (meV/\u00C5)", dn: "28", m3: "71", chg: "45" },
-                    { metric: "Charged defect E (meV)", dn: "18", m3: "52", chg: "34" },
-                    { metric: "Parameters", dn: "1.2M", m3: "0.4M", chg: "2.8M" },
-                  ].map(row => (
-                    <tr key={row.metric} style={{ borderBottom: `1px solid ${T.border}` }}>
-                      <td style={{ padding: "4px 6px" }}>{row.metric}</td>
-                      <td style={{ padding: "4px 6px", fontFamily: "monospace", color: "#16a34a", fontWeight: 700 }}>{row.dn}</td>
-                      <td style={{ padding: "4px 6px", fontFamily: "monospace" }}>{row.m3}</td>
-                      <td style={{ padding: "4px 6px", fontFamily: "monospace" }}>{row.chg}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </Card>
       </div>
     </div>
     </div>
@@ -5257,16 +5198,328 @@ function ReaxFFTrainingSection() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// COMPARISON TABLE
+// SNAP / MTP / ACE SECTION
+// ─────────────────────────────────────────────────────────────────────────────
+function SNAPMTPACESection() {
+  const [activeTab, setActiveTab] = useState("snap");
+  const [snapJ, setSnapJ] = useState(3);
+  const [mtpLevel, setMtpLevel] = useState(16);
+  const [aceCorr, setAceCorr] = useState(3);
+  const [animFrame, setAnimFrame] = useState(0);
+
+  // Animation: rotate a local atomic environment
+  useEffect(() => {
+    const id = setInterval(() => setAnimFrame(f => (f + 1) % 360), 40);
+    return () => clearInterval(id);
+  }, []);
+
+  const tabs = [
+    { id: "snap", label: "SNAP", color: "#2563eb", full: "Spectral Neighbor Analysis Potential" },
+    { id: "mtp",  label: "MTP",  color: "#7c3aed", full: "Moment Tensor Potential" },
+    { id: "ace",  label: "ACE",  color: "#059669", full: "Atomic Cluster Expansion" },
+  ];
+  const activeInfo = tabs.find(t => t.id === activeTab);
+
+  // SNAP: bispectrum components grow as (2J+1)^3 / ...
+  const snapComponents = (j) => {
+    let count = 0;
+    for (let j1 = 0; j1 <= j; j1++)
+      for (let j2 = 0; j2 <= j1; j2++)
+        for (let j12 = Math.abs(j1 - j2); j12 <= Math.min(j1 + j2, j); j12++)
+          count++;
+    return count;
+  };
+  const nSnap = snapComponents(snapJ);
+
+  // MTP: basis size grows combinatorially
+  const mtpBasis = Math.round(mtpLevel * 1.8 + 5);
+
+  // ACE: body-order descriptors
+  const aceDesc = aceCorr <= 2 ? "pair (2-body)" : aceCorr === 3 ? "triplet (3-body)" : aceCorr === 4 ? "quadruplet (4-body)" : "5-body+";
+  const aceBasis = Math.round(Math.pow(aceCorr, 2.2) * 12);
+
+  // Animated neighbor environment SVG
+  const nNeighbors = 8;
+  const cx0 = 90, cy0 = 90;
+
+  return (
+    <Card color={activeInfo.color} title="Descriptor-Based ML Potentials" formula="E = Σᵢ F(descriptors(ρᵢ))">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          If neural network potentials (NNPs) are like training a <strong>black-box artist</strong> to draw energy surfaces, descriptor-based potentials are like giving the artist a <strong>precise ruler set</strong> {"\u2014"} mathematical templates (bispectrum, moments, or cluster expansions) that systematically measure every geometric feature of an atom{"'"}s neighborhood. The artist still learns weights from DFT data, but the features are <strong>mathematically complete</strong> and <strong>exactly invariant</strong> to rotation/translation by construction, not learned.
+        </div>
+      </div>
+
+      {/* Tab bar */}
+      <div style={{ display: "flex", gap: 0, marginBottom: 16, borderRadius: 8, overflow: "hidden", border: `1.5px solid ${T.border}` }}>
+        {tabs.map(t => (
+          <button key={t.id} onClick={() => setActiveTab(t.id)} style={{
+            flex: 1, padding: "10px 8px", cursor: "pointer", border: "none",
+            background: activeTab === t.id ? t.color + "18" : T.surface,
+            borderBottom: activeTab === t.id ? `3px solid ${t.color}` : `3px solid transparent`,
+            color: activeTab === t.id ? t.color : T.muted, fontSize: 12, fontWeight: 700,
+            fontFamily: "'IBM Plex Mono', monospace", transition: "all 0.2s",
+          }}>
+            <div>{t.label}</div>
+            <div style={{ fontSize: 8, fontWeight: 400, marginTop: 2, opacity: 0.8 }}>{t.full}</div>
+          </button>
+        ))}
+      </div>
+
+      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+        {/* Left: animated local environment */}
+        <div style={{ flex: "0 0 200px" }}>
+          <div style={{ fontSize: 10, color: T.muted, marginBottom: 4, letterSpacing: 1 }}>LOCAL ATOMIC ENVIRONMENT</div>
+          <svg viewBox="0 0 180 180" style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 200 }}>
+            {/* Cutoff circle */}
+            <circle cx={cx0} cy={cy0} r={70} fill="none" stroke={activeInfo.color} strokeWidth={1} strokeDasharray="4 3" opacity={0.4} />
+            <text x={cx0 + 50} y={cy0 - 60} fill={T.muted} fontSize={7}>r_cut</text>
+            {/* Neighbor atoms rotating */}
+            {Array.from({ length: nNeighbors }, (_, k) => {
+              const baseAngle = (k / nNeighbors) * 2 * Math.PI;
+              const wobble = Math.sin(animFrame * 0.03 + k * 1.5) * 0.15;
+              const angle = baseAngle + animFrame * Math.PI / 180 * 0.3 + wobble;
+              const rr = 28 + 25 * Math.abs(Math.sin(k * 1.1 + 0.5));
+              const nx = cx0 + rr * Math.cos(angle);
+              const ny = cy0 + rr * Math.sin(angle);
+              return (
+                <g key={k}>
+                  <line x1={cx0} y1={cy0} x2={nx} y2={ny} stroke={activeInfo.color} strokeWidth={1} opacity={0.25} />
+                  <circle cx={nx} cy={ny} r={5 + Math.sin(k) * 1.5} fill={activeInfo.color} opacity={0.6 + Math.sin(k * 0.7) * 0.2} />
+                </g>
+              );
+            })}
+            {/* Angle arcs for 3-body */}
+            {(activeTab === "ace" && aceCorr >= 3 || activeTab === "snap") && (() => {
+              const a1 = animFrame * Math.PI / 180 * 0.3;
+              const a2 = a1 + Math.PI * 0.6;
+              const r1 = 40, r2 = 45;
+              const arcPts = Array.from({ length: 12 }, (_, i) => {
+                const a = a1 + (a2 - a1) * i / 11;
+                return `${cx0 + 20 * Math.cos(a)},${cy0 + 20 * Math.sin(a)}`;
+              }).join(" ");
+              return <polyline points={arcPts} fill="none" stroke={T.gold} strokeWidth={1.5} opacity={0.5} />;
+            })()}
+            {/* Central atom */}
+            <circle cx={cx0} cy={cy0} r={8} fill={activeInfo.color} stroke={T.panel} strokeWidth={2} />
+            <text x={cx0} y={cy0 + 3} textAnchor="middle" fill="white" fontSize={7} fontWeight="bold">i</text>
+            {/* Label */}
+            <text x={cx0} y={170} textAnchor="middle" fill={T.muted} fontSize={8}>
+              {activeTab === "snap" ? "Bispectrum expansion" : activeTab === "mtp" ? "Moment tensors" : `${aceCorr}-body correlations`}
+            </text>
+          </svg>
+
+          {/* Method comparison mini-table */}
+          <div style={{ marginTop: 10, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 9, color: T.muted, marginBottom: 6, letterSpacing: 1 }}>QUICK COMPARISON</div>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 9 }}>
+              <thead>
+                <tr style={{ borderBottom: `1.5px solid ${T.border}` }}>
+                  {["", "SNAP", "MTP", "ACE"].map(h => (
+                    <th key={h} style={{ padding: "3px 4px", textAlign: "left", color: T.muted, fontWeight: 700 }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Speed", "Fast", "Fast", "Medium"],
+                  ["Accuracy", "Good", "Very good", "Excellent"],
+                  ["Body order", "All (via SO3)", `${"\u2264"}4`, "Systematic"],
+                  ["Linear?", "Yes", "Yes", "Yes/No"],
+                  ["Software", "LAMMPS", "MLIP", "PACE"],
+                ].map(([label, ...vals], i) => (
+                  <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
+                    <td style={{ padding: "3px 4px", color: T.ink, fontWeight: 600 }}>{label}</td>
+                    {vals.map((v, j) => (
+                      <td key={j} style={{ padding: "3px 4px", color: tabs[j].color, fontSize: 8 }}>{v}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Right: tab-specific content */}
+        <div style={{ flex: 1, minWidth: 240 }}>
+          {activeTab === "snap" && (<>
+            <div style={{ background: "#2563eb11", border: "1px solid #2563eb33", borderRadius: 8, padding: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#2563eb", marginBottom: 6 }}>SNAP {"\u2014"} Spectral Neighbor Analysis Potential</div>
+              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+                SNAP expands the local atomic density onto <strong>4D hyperspherical harmonics</strong> (Wigner D-matrices), then contracts them into <strong>bispectrum components</strong> B that are exactly invariant to 3D rotation. Energy is a <strong>linear function</strong> of these descriptors:
+              </div>
+              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#2563eb", marginTop: 8, lineHeight: 2 }}>
+                E<sub>i</sub> = {"\u03B2"}<sub>0</sub> + {"\u03A3"}<sub>k</sub> {"\u03B2"}<sub>k</sub> B<sub>k</sub>({"\u03C1"}<sub>i</sub>)
+              </div>
+            </div>
+            <SliderRow label={`J_max (angular resolution)`} value={snapJ} min={1} max={6} step={1} onChange={setSnapJ} color="#2563eb" unit="" format={v => v.toFixed(0)} />
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 4, marginBottom: 12 }}>
+              <ResultBox label="J_max" value={snapJ} color="#2563eb" sub="angular resolution" />
+              <ResultBox label="Bispectrum" value={nSnap} color="#2563eb" sub="components" />
+              <ResultBox label="Parameters" value={nSnap + 1} color="#2563eb" sub={`${"\u03B2"} coefficients`} />
+            </div>
+            <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>HOW BISPECTRUM WORKS</div>
+              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+                1. Map 3D neighbor positions onto the <strong>surface of a 4D hypersphere</strong> (radius = neighbor distance)
+                <br/>2. Expand the density in <strong>Wigner D-matrices</strong> U<sup>j</sup><sub>m,m{"'"}</sub> up to J<sub>max</sub>={snapJ}
+                <br/>3. Contract into <strong>bispectrum</strong>: B<sub>j1,j2,j</sub> = {"\u03A3"}<sub>m</sub> U<sup>j1</sup> {"\u2297"} U<sup>j2</sup> {"\u2297"} (U<sup>j</sup>)*
+                <br/>4. B is invariant to SO(3) by Clebsch-Gordan coupling {"\u2014"} no data augmentation needed
+              </div>
+            </div>
+            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, background: "#2563eb08", padding: 10, borderRadius: 8, border: "1px solid #2563eb33" }}>
+              <strong style={{ color: "#2563eb" }}>Key strengths:</strong> Linear model {"\u2192"} fast training (least squares), fast evaluation (~10{"\u00D7"} slower than EAM). Built into LAMMPS. Used for W, Ta, Mo, Be, InP by Thompson et al. (Sandia).
+              <br/><strong style={{ color: "#2563eb" }}>Limitation:</strong> Increasing J<sub>max</sub> adds many components ({nSnap} at J={snapJ}). High body-order effects captured implicitly but not systematically.
+            </div>
+          </>)}
+
+          {activeTab === "mtp" && (<>
+            <div style={{ background: "#7c3aed11", border: "1px solid #7c3aed33", borderRadius: 8, padding: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#7c3aed", marginBottom: 6 }}>MTP {"\u2014"} Moment Tensor Potential</div>
+              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+                MTP constructs <strong>moment tensors</strong> M<sub>{"\u03BC"},{"\u03BD"}</sub> by contracting neighbor vectors with radial basis functions, then takes invariant combinations (traces, products). Energy is linear in these invariants:
+              </div>
+              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#7c3aed", marginTop: 8, lineHeight: 2 }}>
+                M<sub>{"\u03BC"},{"\u03BD"}</sub> = {"\u03A3"}<sub>j</sub> f<sub>{"\u03BC"}</sub>(r<sub>ij</sub>) {"\u2297"} r<sub>ij</sub><sup>{"\u2297\u03BD"}</sup>
+              </div>
+            </div>
+            <SliderRow label="MTP level (complexity)" value={mtpLevel} min={6} max={28} step={2} onChange={setMtpLevel} color="#7c3aed" unit="" format={v => v.toFixed(0)} />
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 4, marginBottom: 12 }}>
+              <ResultBox label="Level" value={mtpLevel} color="#7c3aed" sub="complexity" />
+              <ResultBox label="Basis" value={mtpBasis} color="#7c3aed" sub="functions" />
+              <ResultBox label="Body order" value={mtpLevel <= 10 ? "2-3" : mtpLevel <= 20 ? "2-4" : "2-5"} color="#7c3aed" sub="interactions" />
+            </div>
+            <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>KEY INNOVATION: ACTIVE LEARNING</div>
+              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+                MTP introduced <strong>D-optimality active learning</strong>: during MD simulation, the potential detects when it encounters a configuration far from its training data (high extrapolation grade). It pauses, runs DFT on that configuration, retrains, and continues. This <strong>on-the-fly</strong> approach builds the training set automatically.
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6, marginTop: 8 }}>
+                {["Run MD", "Detect\nextrapolation", "Run DFT", "Retrain\nMTP"].map((step, i) => (
+                  <div key={i} style={{ background: "#7c3aed11", border: "1px solid #7c3aed33", borderRadius: 6, padding: "6px 4px", textAlign: "center" }}>
+                    <div style={{ fontSize: 9, fontWeight: 700, color: "#7c3aed", whiteSpace: "pre-line" }}>{step}</div>
+                    {i < 3 && <div style={{ fontSize: 14, color: T.dim, marginTop: 2 }}>{"\u2192"}</div>}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, background: "#7c3aed08", padding: 10, borderRadius: 8, border: "1px solid #7c3aed33" }}>
+              <strong style={{ color: "#7c3aed" }}>Key strengths:</strong> Very fast (competitive with EAM). Built-in active learning. Systematically improvable via level parameter. Implemented in MLIP package and LAMMPS.
+              <br/><strong style={{ color: "#7c3aed" }}>Used for:</strong> Li, Al, Cu, W, organic molecules, alloys. Shapeev group (Skoltech).
+            </div>
+          </>)}
+
+          {activeTab === "ace" && (<>
+            <div style={{ background: "#05966911", border: "1px solid #05966933", borderRadius: 8, padding: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#059669", marginBottom: 6 }}>ACE {"\u2014"} Atomic Cluster Expansion</div>
+              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+                ACE provides a <strong>complete, systematic basis</strong> for representing atomic properties as a function of the local environment. It builds N-body correlations by taking <strong>tensor products of 1-particle basis</strong> and symmetrizing:
+              </div>
+              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#059669", marginTop: 8, lineHeight: 2 }}>
+                E<sub>i</sub> = {"\u03A3"}<sub>{"\u03BD"}</sub> c<sub>{"\u03BD"}</sub> A<sub>i,{"\u03BD"}</sub> = {"\u03A3"}<sub>{"\u03BD"}</sub> c<sub>{"\u03BD"}</sub> {"\u03A3"} {"\u220F"}<sub>t=1</sub><sup>{"\u03BD"}</sup> {"\u03C6"}<sub>nlm</sub>(r<sub>ij_t</sub>, {"\u0072\u0302"}<sub>ij_t</sub>)
+              </div>
+            </div>
+            <SliderRow label={`Correlation order (body order)`} value={aceCorr} min={2} max={5} step={1} onChange={setAceCorr} color="#059669" unit="" format={v => v.toFixed(0)} />
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 4, marginBottom: 12 }}>
+              <ResultBox label="Correlation" value={aceCorr} color="#059669" sub={aceDesc} />
+              <ResultBox label="Basis size" value={`~${aceBasis}`} color="#059669" sub="per element" />
+              <ResultBox label="Completeness" value={aceCorr >= 4 ? "High" : "Medium"} color="#059669" sub={aceCorr >= 4 ? "captures 4-body" : "add more orders"} />
+            </div>
+            <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>WHY ACE IS SPECIAL</div>
+              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+                ACE is a <strong>unifying framework</strong> {"\u2014"} it has been shown that SNAP, MTP, and even message-passing NNPs can all be viewed as special cases or approximations of ACE. Key properties:
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 8 }}>
+                {[
+                  { label: "Complete", desc: "Any invariant property can be represented with enough basis functions", color: "#059669" },
+                  { label: "Systematic", desc: "Increase correlation order to add higher body-order interactions", color: "#059669" },
+                  { label: "Efficient", desc: "N-correlations computed as products of 1-particle basis (not N-body sums)", color: "#059669" },
+                  { label: "Unifying", desc: "SNAP, MTP are subsets of the ACE framework", color: "#059669" },
+                ].map(item => (
+                  <div key={item.label} style={{ padding: "6px 8px", borderRadius: 6, background: "#05966911", border: "1px solid #05966933" }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: item.color }}>{item.label}</div>
+                    <div style={{ fontSize: 9, color: T.muted, lineHeight: 1.5, marginTop: 2 }}>{item.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, background: "#05966908", padding: 10, borderRadius: 8, border: "1px solid #05966933" }}>
+              <strong style={{ color: "#059669" }}>Key strengths:</strong> Most accurate descriptor-based potential. Mathematically complete basis. Convergeable with respect to body order. Can match MACE-level accuracy.
+              <br/><strong style={{ color: "#059669" }}>Implementations:</strong> PACE (Julia/C++), pacemaker (Python), integrated into LAMMPS. Drautz (Bochum), Ortner group.
+            </div>
+          </>)}
+        </div>
+      </div>
+
+      {/* Bottom: all three methods comparison */}
+      <div style={{ marginTop: 16, background: T.surface, borderRadius: 8, padding: 14, border: `1px solid ${T.border}` }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 8 }}>Descriptor-Based vs Neural Network Potentials</div>
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10 }}>
+            <thead>
+              <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                {["", "SNAP", "MTP", "ACE", "NNP (Behler-Parrinello)", "GNN (MACE, NequIP)"].map(h => (
+                  <th key={h} style={{ padding: "5px 6px", textAlign: "left", color: T.muted, fontWeight: 700, fontSize: 9 }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ["Descriptors", "Bispectrum B_k", "Moment tensors M", "N-correlations A", "Symmetry functions G", "Learned (message passing)"],
+                ["Model", "Linear", "Linear", "Linear / nonlinear", "Feed-forward NN", "Equivariant GNN"],
+                ["Training", "Least squares", "Least squares", "Least squares / NN", "Backpropagation", "Backpropagation"],
+                ["Speed (vs DFT)", "~1000\u00D7", "~1000\u00D7", "~500\u00D7", "~100\u00D7", "~50\u00D7"],
+                ["Body order", "All (implicitly)", "\u22644", "Systematic", "2-body descriptors", "Iterative message passing"],
+                ["Active learning", "No", "Yes (built-in)", "Yes", "Possible", "Possible"],
+              ].map(([label, ...vals], i) => (
+                <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
+                  <td style={{ padding: "4px 6px", color: T.ink, fontWeight: 600 }}>{label}</td>
+                  {vals.map((v, j) => (
+                    <td key={j} style={{ padding: "4px 6px", color: j < 3 ? tabs[j].color : j === 3 ? T.ff_mlff : T.ff_fit, fontSize: 9 }}>{v}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// COMPARISON TABLE (COMPREHENSIVE SUMMARY)
 // ─────────────────────────────────────────────────────────────────────────────
 function CompareSection() {
-  const rows = [
+  const [viewTab, setViewTab] = useState("terms");
+
+  const termRows = [
     { name:"Bond harmonic", formula:"½kᵦ(r−r₀)²", atoms:"2 bonded", captures:"stretch/compress", fails:"never breaks", color:T.ff_bond },
     { name:"Angle harmonic", formula:"½kθ(θ−θ₀)²", atoms:"3 bonded", captures:"bending", fails:"never stiffens at extremes", color:T.ff_angle },
     { name:"vdW (LJ 12-6)", formula:"4ε[(σ/r)¹²−(σ/r)⁶]", atoms:"2 any", captures:"non-bonded attract/repel", fails:"short-range only", color:T.ff_vdw },
     { name:"Coulomb", formula:"qᵢqⱼ/4πε₀r", atoms:"2 charged", captures:"long-range electrostatics", fails:"needs special treatment (Ewald)", color:T.ff_coul },
     { name:"Dihedral", formula:"kₙ[1+cos(nϕ−δ)]", atoms:"4 bonded", captures:"rotation barrier", fails:"complex profiles need many n terms", color:T.ff_dih },
     { name:"Morse", formula:"Dₑ[1−e^{−a(r−r₀)}]²", atoms:"2 bonded", captures:"asymmetry + bond breaking", fails:"needs De parameter per pair", color:T.ff_morse },
+  ];
+
+  const ffCompRows = [
+    { name: "LJ / Morse", type: "Pair", body: "2", speed: "~ns/day", accuracy: "Qualitative", reactive: "No", systems: "Noble gases, simple organics", color: T.ff_vdw },
+    { name: "Tersoff", type: "Many-body", body: "3", speed: "~10\u00D7 slower", accuracy: "Semi-quantitative", reactive: "Yes (covalent)", systems: "Si, C, SiC, BN, GaN", color: T.ff_bond },
+    { name: "Stillinger-Weber", type: "Many-body", body: "3", speed: "~10\u00D7 slower", accuracy: "Semi-quantitative", reactive: "Partial", systems: "Si, Ge, GaAs (tetrahedral)", color: T.ff_angle },
+    { name: "EAM", type: "Many-body", body: "N-body (density)", speed: "Fast", accuracy: "Good for metals", reactive: "No", systems: "FCC/BCC metals, alloys", color: T.eo_valence },
+    { name: "ReaxFF", type: "Bond-order", body: "N-body", speed: "~50\u00D7 slower", accuracy: "Semi-quantitative", reactive: "Yes", systems: "C/H/O/N, metals + oxides", color: T.eo_gap },
+    { name: "SNAP", type: "ML (linear)", body: "All (bispectrum)", speed: "~100\u00D7 slower", accuracy: "Near-DFT", reactive: "Yes", systems: "W, Ta, Mo, InP", color: "#2563eb" },
+    { name: "MTP", type: "ML (linear)", body: "\u22644", speed: "~100\u00D7 slower", accuracy: "Near-DFT", reactive: "Yes", systems: "Li, Cu, Al, organics", color: "#7c3aed" },
+    { name: "ACE", type: "ML (linear/NN)", body: "Systematic", speed: "~200\u00D7 slower", accuracy: "Near-DFT", reactive: "Yes", systems: "Multi-element, alloys", color: "#059669" },
+    { name: "NNP (Behler)", type: "ML (NN)", body: "2-body desc.", speed: "~500\u00D7 slower", accuracy: "Near-DFT", reactive: "Yes", systems: "Water, Cu, ZnO", color: T.ff_mlff },
+    { name: "GNN (MACE)", type: "ML (equivariant)", body: "Message passing", speed: "~1000\u00D7 slower", accuracy: "DFT-level", reactive: "Yes", systems: "Universal, defects", color: T.ff_fit },
+  ];
+
+  const viewTabs = [
+    { id: "terms", label: "Classical Terms" },
+    { id: "potentials", label: "Force Field Comparison" },
   ];
 
   return (
@@ -5277,31 +5530,112 @@ function CompareSection() {
           Building a force field is like assembling a <strong>toolkit for a mechanic</strong>. Bond stretching is the wrench (handles pull/push along a shaft). Angle bending is the protractor (measures and resists bending). vdW is the bumper (keeps non-touching parts from colliding). Coulomb is the magnet (long-range pull or push). Dihedral is the ratchet (controls rotation). Morse is the upgraded wrench that knows when a bolt snaps. No single tool does everything {"\u2014"} you need the whole toolkit together. And if you need to handle something exotic (like a chemical reaction), you upgrade to the power-tool version: ReaxFF or MLFF.
         </div>
       </div>
-      <div style={{ fontSize:14, fontWeight:800, color:T.ink, marginBottom:14, letterSpacing:0.5 }}>
-        All 6 terms — side by side
+
+      {/* View toggle */}
+      <div style={{ display: "flex", gap: 0, marginBottom: 14, borderRadius: 8, overflow: "hidden", border: `1.5px solid ${T.border}` }}>
+        {viewTabs.map(t => (
+          <button key={t.id} onClick={() => setViewTab(t.id)} style={{
+            flex: 1, padding: "8px 12px", cursor: "pointer", border: "none",
+            background: viewTab === t.id ? T.eo_cond + "18" : T.surface,
+            borderBottom: viewTab === t.id ? `3px solid ${T.eo_cond}` : "3px solid transparent",
+            color: viewTab === t.id ? T.eo_cond : T.muted, fontSize: 12, fontWeight: 700,
+            fontFamily: "'IBM Plex Mono', monospace",
+          }}>
+            {t.label}
+          </button>
+        ))}
       </div>
-      <div style={{ overflowX:"auto" }}>
-        <table style={{ width:"100%", borderCollapse:"collapse", fontSize:12 }}>
-          <thead>
-            <tr style={{ borderBottom:`2px solid ${T.border}` }}>
-              {["Term","Formula","Atoms needed","What it captures","Where it fails"].map(h=>(
-                <th key={h} style={{ padding:"6px 10px", textAlign:"left", color:T.muted, fontWeight:700, fontSize:11, letterSpacing:0.5 }}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row,i)=>(
-              <tr key={i} style={{ borderBottom:`1px solid ${T.border}`, background: i%2===0?T.surface:T.panel }}>
-                <td style={{ padding:"8px 10px", color:row.color, fontWeight:700 }}>{row.name}</td>
-                <td style={{ padding:"8px 10px", fontFamily:"'Georgia',serif", color:T.ink, fontSize:11 }}>{row.formula}</td>
-                <td style={{ padding:"8px 10px", color:T.muted }}>{row.atoms}</td>
-                <td style={{ padding:"8px 10px", color:T.ink }}>{row.captures}</td>
-                <td style={{ padding:"8px 10px", color:T.muted, fontStyle:"italic" }}>{row.fails}</td>
+
+      {viewTab === "terms" && (<>
+        <div style={{ fontSize:14, fontWeight:800, color:T.ink, marginBottom:14, letterSpacing:0.5 }}>
+          All 6 classical terms {"\u2014"} side by side
+        </div>
+        <div style={{ overflowX:"auto" }}>
+          <table style={{ width:"100%", borderCollapse:"collapse", fontSize:12 }}>
+            <thead>
+              <tr style={{ borderBottom:`2px solid ${T.border}` }}>
+                {["Term","Formula","Atoms needed","What it captures","Where it fails"].map(h=>(
+                  <th key={h} style={{ padding:"6px 10px", textAlign:"left", color:T.muted, fontWeight:700, fontSize:11, letterSpacing:0.5 }}>{h}</th>
+                ))}
               </tr>
+            </thead>
+            <tbody>
+              {termRows.map((row,i)=>(
+                <tr key={i} style={{ borderBottom:`1px solid ${T.border}`, background: i%2===0?T.surface:T.panel }}>
+                  <td style={{ padding:"8px 10px", color:row.color, fontWeight:700 }}>{row.name}</td>
+                  <td style={{ padding:"8px 10px", fontFamily:"'Georgia',serif", color:T.ink, fontSize:11 }}>{row.formula}</td>
+                  <td style={{ padding:"8px 10px", color:T.muted }}>{row.atoms}</td>
+                  <td style={{ padding:"8px 10px", color:T.ink }}>{row.captures}</td>
+                  <td style={{ padding:"8px 10px", color:T.muted, fontStyle:"italic" }}>{row.fails}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </>)}
+
+      {viewTab === "potentials" && (<>
+        <div style={{ fontSize:14, fontWeight:800, color:T.ink, marginBottom:14, letterSpacing:0.5 }}>
+          Force Field Landscape {"\u2014"} Classical to Machine Learning
+        </div>
+        <div style={{ overflowX:"auto" }}>
+          <table style={{ width:"100%", borderCollapse:"collapse", fontSize:11 }}>
+            <thead>
+              <tr style={{ borderBottom:`2px solid ${T.border}` }}>
+                {["Potential","Type","Body Order","Speed","Accuracy","Reactive?","Best for"].map(h=>(
+                  <th key={h} style={{ padding:"6px 8px", textAlign:"left", color:T.muted, fontWeight:700, fontSize:10, letterSpacing:0.5 }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {ffCompRows.map((row,i)=>(
+                <tr key={i} style={{ borderBottom:`1px solid ${T.border}`, background: i%2===0?T.surface:T.panel }}>
+                  <td style={{ padding:"6px 8px", color:row.color, fontWeight:700, fontSize:11 }}>{row.name}</td>
+                  <td style={{ padding:"6px 8px", color:T.ink, fontSize:10 }}>{row.type}</td>
+                  <td style={{ padding:"6px 8px", color:T.muted, fontSize:10 }}>{row.body}</td>
+                  <td style={{ padding:"6px 8px", color:T.ink, fontSize:10 }}>{row.speed}</td>
+                  <td style={{ padding:"6px 8px", color:T.ink, fontSize:10 }}>{row.accuracy}</td>
+                  <td style={{ padding:"6px 8px", color: row.reactive === "Yes" ? "#059669" : row.reactive === "No" ? T.muted : "#b45309", fontSize:10 }}>{row.reactive}</td>
+                  <td style={{ padding:"6px 8px", color:T.muted, fontSize:10 }}>{row.systems}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Visual speed-accuracy trade-off */}
+        <div style={{ marginTop: 16 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.ink, marginBottom: 8 }}>Speed vs Accuracy Trade-off</div>
+          <svg viewBox="0 0 500 180" style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%" }}>
+            {/* Axes */}
+            <line x1={60} y1={20} x2={60} y2={150} stroke={T.dim} strokeWidth={1} />
+            <line x1={60} y1={150} x2={480} y2={150} stroke={T.dim} strokeWidth={1} />
+            <text x={270} y={172} textAnchor="middle" fill={T.muted} fontSize={9}>Accuracy {"\u2192"}</text>
+            <text x={15} y={90} textAnchor="middle" fill={T.muted} fontSize={9} transform="rotate(-90,15,90)">Speed {"\u2192"}</text>
+            {/* Data points */}
+            {[
+              { x: 100, y: 30,  label: "LJ/Morse",  color: T.ff_vdw },
+              { x: 140, y: 40,  label: "EAM",        color: T.eo_valence },
+              { x: 170, y: 50,  label: "Tersoff",    color: T.ff_bond },
+              { x: 160, y: 55,  label: "SW",          color: T.ff_angle },
+              { x: 230, y: 80,  label: "ReaxFF",     color: T.eo_gap },
+              { x: 360, y: 90,  label: "SNAP",       color: "#2563eb" },
+              { x: 370, y: 85,  label: "MTP",        color: "#7c3aed" },
+              { x: 400, y: 100, label: "ACE",        color: "#059669" },
+              { x: 410, y: 110, label: "NNP",        color: T.ff_mlff },
+              { x: 440, y: 130, label: "GNN",        color: T.ff_fit },
+              { x: 470, y: 145, label: "DFT",        color: T.eo_e },
+            ].map((pt, i) => (
+              <g key={i}>
+                <circle cx={pt.x} cy={pt.y} r={6} fill={pt.color} opacity={0.7} />
+                <text x={pt.x} y={pt.y - 10} textAnchor="middle" fill={pt.color} fontSize={8} fontWeight="bold">{pt.label}</text>
+              </g>
             ))}
-          </tbody>
-        </table>
-      </div>
+            {/* Trend arrow */}
+            <path d="M 90 35 Q 250 60 460 140" fill="none" stroke={T.dim} strokeWidth={1} strokeDasharray="4 3" />
+          </svg>
+        </div>
+      </>)}
 
       <div style={{ marginTop:16, background:T.surface, borderRadius:8, padding:14, border:`1px solid ${T.border}` }}>
         <div style={{ fontSize:12, fontWeight:700, color:T.ink, marginBottom:8 }}>
@@ -5311,10 +5645,7 @@ function CompareSection() {
           U<sub>total</sub> = U<sub style={{color:T.ff_bond}}>bonds</sub> + U<sub style={{color:T.ff_angle}}>angles</sub> + U<sub style={{color:T.ff_dih}}>dihedrals</sub> + U<sub style={{color:T.ff_vdw}}>vdW</sub> + U<sub style={{color:T.ff_coul}}>Coulomb</sub>
         </div>
         <div style={{ marginTop:10, fontSize:11, color:T.muted, lineHeight:1.8 }}>
-          <strong style={{color:T.ff_morse}}>DefectNet replaces ALL of this</strong> with a single GNN that learns the true
-          energy surface directly from DFT — no assumed formulas, no manual parameter fitting.
-          It automatically captures bonding, angles, long-range effects, and charge state dependence
-          that classical force fields cannot handle.
+          <strong style={{color:T.ff_morse}}>ML force fields (GNN, ACE, SNAP, MTP)</strong> replace ALL of this with learned representations that capture the true energy surface directly from DFT {"\u2014"} no assumed formulas, no manual parameter fitting. They automatically capture bonding, angles, long-range effects, and many-body interactions that classical force fields cannot handle.
         </div>
       </div>
     </div>
@@ -5341,11 +5672,12 @@ const FF_SECTIONS = [
   { id:"morse",    block:"classical", label:"Morse Potential",     color: T.eo_core,    Component: MorseSection,    nextReason:"Classical pair potentials cannot capture many-body metallic bonding. EAM adds an embedding function that depends on the local electron density." },
   // Advanced Force Fields
   { id:"eam",      block:"advanced",  label:"EAM (Metals)",        color: T.eo_valence, Component: EAMSection,      nextReason:"EAM works for metals but not for reactive chemistry. ReaxFF introduces bond-order-dependent potentials that allow bonds to form and break dynamically." },
-  { id:"reaxff",   block:"advanced",  label:"ReaxFF (Reactive)",   color: T.eo_valence, Component: ReaxFFSection,   nextReason:"ReaxFF has thousands of parameters that must be optimized. Understanding how ReaxFF is trained reveals the challenges of reactive force field development." },
+  { id:"reaxff",   block:"advanced",  label:"ReaxFF (Reactive)",   color: T.eo_valence, Component: ReaxFFSection,   nextReason:"ReaxFF predicts energies but how do we get the parameters? Fitting a force field to DFT data reveals the core challenge: matching a rigid functional form to quantum-mechanical reality." },
+  { id:"fit",      block:"advanced",  label:"FF Fitting",          color: T.eo_valence, Component: FittingSection,  nextReason:"Fitting shows the limitation of fixed functional forms. ReaxFF training takes this further with thousands of parameters optimized simultaneously." },
   { id:"reaxfftrain", block:"advanced", label:"ReaxFF Training",   color: T.eo_valence, Component: ReaxFFTrainingSection, nextReason:"Classical FF fitting requires manually chosen functional forms. Machine-learning force fields learn the potential energy surface directly from data." },
   // Fitting & ML
-  { id:"fit",      block:"learning",  label:"FF Fitting",          color: T.eo_cond,    Component: FittingSection,  nextReason:"Classical fitting is limited by the assumed functional form. Machine-learning force fields automatically capture complex many-body interactions." },
-  { id:"mlff",     block:"learning",  label:"MLFF",                color: T.eo_cond,    Component: MLFFSection,     nextReason:"Every approach makes trade-offs. The summary compares classical FF, EAM, ReaxFF, and MLFF side-by-side." },
+  { id:"mlff",     block:"learning",  label:"MLFF",                color: T.eo_cond,    Component: MLFFSection,     nextReason:"Neural network potentials are one family of MLFFs. SNAP, MTP, and ACE use explicit atomic descriptors instead of neural networks — with different trade-offs in speed, accuracy, and interpretability." },
+  { id:"snapmtpace", block:"learning", label:"SNAP / MTP / ACE",   color: T.eo_cond,    Component: SNAPMTPACESection, nextReason:"Every approach makes trade-offs. The summary compares classical FF, EAM, Tersoff, SW, ReaxFF, and all MLFF flavors side-by-side." },
   { id:"compare",  block:"learning",  label:"Summary",             color: T.eo_cond,    Component: CompareSection,  nextReason:"Force fields model the interactions. Molecular Dynamics uses these potentials to integrate Newton's equations and simulate real atomic trajectories." },
 ];
 
