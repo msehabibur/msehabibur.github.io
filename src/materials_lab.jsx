@@ -5206,8 +5206,10 @@ function SNAPMTPACESection() {
   const [mtpLevel, setMtpLevel] = useState(16);
   const [aceCorr, setAceCorr] = useState(3);
   const [animFrame, setAnimFrame] = useState(0);
+  const [snapTrainProg, setSnapTrainProg] = useState(0);
+  const [mtpTrainProg, setMtpTrainProg] = useState(0);
+  const [aceTrainProg, setAceTrainProg] = useState(0);
 
-  // Animation: rotate a local atomic environment
   useEffect(() => {
     const id = setInterval(() => setAnimFrame(f => (f + 1) % 360), 40);
     return () => clearInterval(id);
@@ -5220,7 +5222,7 @@ function SNAPMTPACESection() {
   ];
   const activeInfo = tabs.find(t => t.id === activeTab);
 
-  // SNAP: bispectrum components grow as (2J+1)^3 / ...
+  // SNAP bispectrum components
   const snapComponents = (j) => {
     let count = 0;
     for (let j1 = 0; j1 <= j; j1++)
@@ -5230,27 +5232,97 @@ function SNAPMTPACESection() {
     return count;
   };
   const nSnap = snapComponents(snapJ);
-
-  // MTP: basis size grows combinatorially
   const mtpBasis = Math.round(mtpLevel * 1.8 + 5);
-
-  // ACE: body-order descriptors
   const aceDesc = aceCorr <= 2 ? "pair (2-body)" : aceCorr === 3 ? "triplet (3-body)" : aceCorr === 4 ? "quadruplet (4-body)" : "5-body+";
   const aceBasis = Math.round(Math.pow(aceCorr, 2.2) * 12);
 
-  // Animated neighbor environment SVG
-  const nNeighbors = 8;
-  const cx0 = 90, cy0 = 90;
+  // === DFT TRAINING DATA (shared: Cu FCC, 5 configs) ===
+  const dftConfigs = [
+    { label: "Equilibrium",  a: 3.615, eDft: -3.729, fMax: 0.000 },
+    { label: "Compressed 2%", a: 3.543, eDft: -3.690, fMax: 0.000 },
+    { label: "Expanded 2%",  a: 3.687, eDft: -3.705, fMax: 0.000 },
+    { label: "Vacancy",      a: 3.615, eDft: -3.520, fMax: 0.82  },
+    { label: "Surface (100)", a: 3.615, eDft: -3.410, fMax: 0.45  },
+  ];
+
+  // SNAP training: linear regression E = beta . B
+  // Simulated bispectrum descriptors for each config (simplified 3-component example)
+  const snapB = [
+    [1.0, 0.85, 0.72],  // equilibrium
+    [1.0, 0.91, 0.80],  // compressed
+    [1.0, 0.78, 0.65],  // expanded
+    [1.0, 0.62, 0.53],  // vacancy
+    [1.0, 0.55, 0.41],  // surface
+  ];
+  // Optimal beta (least-squares solution)
+  const snapBetaOpt = [-2.10, -1.25, -0.55];
+  // Interpolated beta based on training progress
+  const snapBetaInit = [0.0, 0.0, 0.0];
+  const sp = snapTrainProg / 100;
+  const snapBeta = snapBetaOpt.map((b, i) => snapBetaInit[i] + (b - snapBetaInit[i]) * sp);
+  const snapPred = snapB.map(b => b.reduce((s, bk, k) => s + bk * snapBeta[k], 0));
+  const snapRmse = Math.sqrt(dftConfigs.reduce((s, c, i) => s + Math.pow(snapPred[i] - c.eDft, 2), 0) / 5) * 1000;
+
+  // MTP training: moment tensor invariants
+  const mtpM = [
+    [1.0, 0.92, 0.78, 0.65],
+    [1.0, 0.98, 0.88, 0.75],
+    [1.0, 0.85, 0.69, 0.56],
+    [1.0, 0.68, 0.50, 0.35],
+    [1.0, 0.58, 0.38, 0.22],
+  ];
+  const mtpCOpt = [-1.80, -1.45, -0.62, -0.18];
+  const mtpCInit = [0.0, 0.0, 0.0, 0.0];
+  const mp = mtpTrainProg / 100;
+  const mtpC = mtpCOpt.map((c, i) => mtpCInit[i] + (c - mtpCInit[i]) * mp);
+  const mtpPred = mtpM.map(m => m.reduce((s, mk, k) => s + mk * mtpC[k], 0));
+  const mtpRmse = Math.sqrt(dftConfigs.reduce((s, c, i) => s + Math.pow(mtpPred[i] - c.eDft, 2), 0) / 5) * 1000;
+
+  // ACE training: cluster basis
+  const aceA = [
+    [1.0, 0.90, 0.75, 0.60, 0.48],
+    [1.0, 0.96, 0.85, 0.72, 0.60],
+    [1.0, 0.83, 0.66, 0.50, 0.38],
+    [1.0, 0.65, 0.45, 0.28, 0.15],
+    [1.0, 0.54, 0.32, 0.16, 0.06],
+  ];
+  const aceCOpt = [-1.50, -1.35, -0.72, -0.30, -0.10];
+  const aceCInit = [0.0, 0.0, 0.0, 0.0, 0.0];
+  const ap = aceTrainProg / 100;
+  const aceC = aceCOpt.map((c, i) => aceCInit[i] + (c - aceCInit[i]) * ap);
+  const acePred = aceA.map(a => a.reduce((s, ak, k) => s + ak * aceC[k], 0));
+  const aceRmse = Math.sqrt(dftConfigs.reduce((s, c, i) => s + Math.pow(acePred[i] - c.eDft, 2), 0) / 5) * 1000;
+
+  // SVG parity plot helper
+  const ParityPlot = ({ pred, color, label, rmse }) => {
+    const W = 160, H = 160, pad = 30;
+    const eAll = [...dftConfigs.map(c => c.eDft), ...pred];
+    const mn = Math.min(...eAll) - 0.1, mx = Math.max(...eAll) + 0.1;
+    const toX = v => pad + ((v - mn) / (mx - mn)) * (W - 2 * pad);
+    const toY = v => H - pad - ((v - mn) / (mx - mn)) * (H - 2 * pad);
+    return (
+      <div style={{ textAlign: "center" }}>
+        <svg width={W} height={H} style={{ background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
+          <line x1={pad} y1={H - pad} x2={W - pad} y2={pad} stroke={T.dim} strokeWidth={1} strokeDasharray="4 3" />
+          {dftConfigs.map((c, i) => (
+            <g key={i}>
+              <line x1={toX(c.eDft)} y1={toY(c.eDft)} x2={toX(c.eDft)} y2={toY(pred[i])} stroke={color} strokeWidth={1} opacity={0.3} />
+              <circle cx={toX(c.eDft)} cy={toY(pred[i])} r={4} fill={color} opacity={0.8} />
+            </g>
+          ))}
+          <text x={W / 2} y={H - 5} textAnchor="middle" fill={T.muted} fontSize={8}>E_DFT (eV/atom)</text>
+          <text x={8} y={H / 2} textAnchor="middle" fill={T.muted} fontSize={8} transform={`rotate(-90,8,${H / 2})`}>E_pred</text>
+        </svg>
+        <div style={{ fontSize: 9, color, fontWeight: 700, marginTop: 4 }}>{label} RMSE: {rmse.toFixed(1)} meV</div>
+      </div>
+    );
+  };
+
+  // Animated local environment
+  const nNeighbors = 8, cx0 = 90, cy0 = 90;
 
   return (
     <Card color={activeInfo.color} title="Descriptor-Based ML Potentials" formula="E = Σᵢ F(descriptors(ρᵢ))">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-          If neural network potentials (NNPs) are like training a <strong>black-box artist</strong> to draw energy surfaces, descriptor-based potentials are like giving the artist a <strong>precise ruler set</strong> {"\u2014"} mathematical templates (bispectrum, moments, or cluster expansions) that systematically measure every geometric feature of an atom{"'"}s neighborhood. The artist still learns weights from DFT data, but the features are <strong>mathematically complete</strong> and <strong>exactly invariant</strong> to rotation/translation by construction, not learned.
-        </div>
-      </div>
-
       {/* Tab bar */}
       <div style={{ display: "flex", gap: 0, marginBottom: 16, borderRadius: 8, overflow: "hidden", border: `1.5px solid ${T.border}` }}>
         {tabs.map(t => (
@@ -5267,15 +5339,29 @@ function SNAPMTPACESection() {
         ))}
       </div>
 
+      {/* Per-tab analogy */}
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          {activeTab === "snap" && (<>
+            SNAP is like describing a neighborhood using a <strong>sound fingerprint</strong>. Imagine standing at an atom and clapping {"\u2014"} the echoes from all neighbors create a unique acoustic signature. SNAP does this mathematically: it projects the 3D neighbor arrangement onto a <strong>4D hypersphere</strong> and records the {"\u201C"}frequency spectrum{"\u201D"} (bispectrum). Just as a fingerprint uniquely identifies a person regardless of which way they face, the bispectrum uniquely identifies a local atomic environment regardless of how the crystal is rotated. Energy is then just a <strong>weighted sum</strong> of these spectral components {"\u2014"} simple linear regression from DFT data.
+          </>)}
+          {activeTab === "mtp" && (<>
+            MTP is like describing a room using <strong>statistical moments</strong> {"\u2014"} the way a census describes a city not by listing every citizen, but by recording averages: mean income, age distribution, population density. For each atom, MTP computes {"\u201C"}moments{"\u201D"} that summarize the neighbor arrangement: how far are they on average? How are they distributed angularly? Are there clusters? These moment tensors are contracted into rotationally invariant numbers, and energy is a <strong>linear combination</strong>. The genius is <strong>active learning</strong>: during MD, MTP detects when it is extrapolating and automatically calls DFT to learn on the fly {"\u2014"} like a student who raises their hand whenever they do not understand.
+          </>)}
+          {activeTab === "ace" && (<>
+            ACE is like building with <strong>LEGO bricks</strong> where each brick type captures a specific geometric pattern. A 1-body brick counts how many neighbors you have. A 2-body brick measures pairwise distances. A 3-body brick captures bond angles. A 4-body brick captures dihedral patterns. ACE systematically constructs ALL possible bricks up to any order you choose, and the energy is a weighted combination. What makes ACE special is <strong>completeness</strong> {"\u2014"} given enough bricks, it can represent ANY function of the atomic environment. SNAP and MTP are actually specific subsets of ACE bricks, making ACE the <strong>grand unified theory</strong> of descriptor-based potentials.
+          </>)}
+        </div>
+      </div>
+
       <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
         {/* Left: animated local environment */}
         <div style={{ flex: "0 0 200px" }}>
           <div style={{ fontSize: 10, color: T.muted, marginBottom: 4, letterSpacing: 1 }}>LOCAL ATOMIC ENVIRONMENT</div>
           <svg viewBox="0 0 180 180" style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 200 }}>
-            {/* Cutoff circle */}
             <circle cx={cx0} cy={cy0} r={70} fill="none" stroke={activeInfo.color} strokeWidth={1} strokeDasharray="4 3" opacity={0.4} />
             <text x={cx0 + 50} y={cy0 - 60} fill={T.muted} fontSize={7}>r_cut</text>
-            {/* Neighbor atoms rotating */}
             {Array.from({ length: nNeighbors }, (_, k) => {
               const baseAngle = (k / nNeighbors) * 2 * Math.PI;
               const wobble = Math.sin(animFrame * 0.03 + k * 1.5) * 0.15;
@@ -5290,82 +5376,108 @@ function SNAPMTPACESection() {
                 </g>
               );
             })}
-            {/* Angle arcs for 3-body */}
             {(activeTab === "ace" && aceCorr >= 3 || activeTab === "snap") && (() => {
               const a1 = animFrame * Math.PI / 180 * 0.3;
               const a2 = a1 + Math.PI * 0.6;
-              const r1 = 40, r2 = 45;
               const arcPts = Array.from({ length: 12 }, (_, i) => {
                 const a = a1 + (a2 - a1) * i / 11;
                 return `${cx0 + 20 * Math.cos(a)},${cy0 + 20 * Math.sin(a)}`;
               }).join(" ");
               return <polyline points={arcPts} fill="none" stroke={T.gold} strokeWidth={1.5} opacity={0.5} />;
             })()}
-            {/* Central atom */}
+            {activeTab === "mtp" && (() => {
+              // Show moment tensor arrows
+              return [0, 1, 2].map(k => {
+                const a = animFrame * Math.PI / 180 * 0.3 + k * Math.PI * 2 / 3;
+                const len = 30 + k * 8;
+                return <line key={k} x1={cx0} y1={cy0} x2={cx0 + len * Math.cos(a)} y2={cy0 + len * Math.sin(a)}
+                  stroke={T.gold} strokeWidth={2} opacity={0.5} markerEnd="url(#mtpArr)" />;
+              });
+            })()}
             <circle cx={cx0} cy={cy0} r={8} fill={activeInfo.color} stroke={T.panel} strokeWidth={2} />
             <text x={cx0} y={cy0 + 3} textAnchor="middle" fill="white" fontSize={7} fontWeight="bold">i</text>
-            {/* Label */}
             <text x={cx0} y={170} textAnchor="middle" fill={T.muted} fontSize={8}>
               {activeTab === "snap" ? "Bispectrum expansion" : activeTab === "mtp" ? "Moment tensors" : `${aceCorr}-body correlations`}
             </text>
+            <defs><marker id="mtpArr" viewBox="0 0 10 10" refX={8} refY={5} markerWidth={5} markerHeight={5} orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill={T.gold}/></marker></defs>
           </svg>
 
-          {/* Method comparison mini-table */}
-          <div style={{ marginTop: 10, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 9, color: T.muted, marginBottom: 6, letterSpacing: 1 }}>QUICK COMPARISON</div>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 9 }}>
-              <thead>
-                <tr style={{ borderBottom: `1.5px solid ${T.border}` }}>
-                  {["", "SNAP", "MTP", "ACE"].map(h => (
-                    <th key={h} style={{ padding: "3px 4px", textAlign: "left", color: T.muted, fontWeight: 700 }}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ["Speed", "Fast", "Fast", "Medium"],
-                  ["Accuracy", "Good", "Very good", "Excellent"],
-                  ["Body order", "All (via SO3)", `${"\u2264"}4`, "Systematic"],
-                  ["Linear?", "Yes", "Yes", "Yes/No"],
-                  ["Software", "LAMMPS", "MLIP", "PACE"],
-                ].map(([label, ...vals], i) => (
-                  <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
-                    <td style={{ padding: "3px 4px", color: T.ink, fontWeight: 600 }}>{label}</td>
-                    {vals.map((v, j) => (
-                      <td key={j} style={{ padding: "3px 4px", color: tabs[j].color, fontSize: 8 }}>{v}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          {/* Parity plot */}
+          <div style={{ marginTop: 10 }}>
+            {activeTab === "snap" && <ParityPlot pred={snapPred} color="#2563eb" label="SNAP" rmse={snapRmse} />}
+            {activeTab === "mtp" && <ParityPlot pred={mtpPred} color="#7c3aed" label="MTP" rmse={mtpRmse} />}
+            {activeTab === "ace" && <ParityPlot pred={acePred} color="#059669" label="ACE" rmse={aceRmse} />}
           </div>
         </div>
 
         {/* Right: tab-specific content */}
         <div style={{ flex: 1, minWidth: 240 }}>
+
+          {/* ==================== SNAP TAB ==================== */}
           {activeTab === "snap" && (<>
             <div style={{ background: "#2563eb11", border: "1px solid #2563eb33", borderRadius: 8, padding: 12, marginBottom: 12 }}>
               <div style={{ fontSize: 12, fontWeight: 700, color: "#2563eb", marginBottom: 6 }}>SNAP {"\u2014"} Spectral Neighbor Analysis Potential</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
-                SNAP expands the local atomic density onto <strong>4D hyperspherical harmonics</strong> (Wigner D-matrices), then contracts them into <strong>bispectrum components</strong> B that are exactly invariant to 3D rotation. Energy is a <strong>linear function</strong> of these descriptors:
+                Energy is a <strong>linear function</strong> of bispectrum descriptors B<sub>k</sub>:
               </div>
-              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#2563eb", marginTop: 8, lineHeight: 2 }}>
+              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#2563eb", marginTop: 6, lineHeight: 2 }}>
                 E<sub>i</sub> = {"\u03B2"}<sub>0</sub> + {"\u03A3"}<sub>k</sub> {"\u03B2"}<sub>k</sub> B<sub>k</sub>({"\u03C1"}<sub>i</sub>)
               </div>
             </div>
-            <SliderRow label={`J_max (angular resolution)`} value={snapJ} min={1} max={6} step={1} onChange={setSnapJ} color="#2563eb" unit="" format={v => v.toFixed(0)} />
+            <SliderRow label="J_max (angular resolution)" value={snapJ} min={1} max={6} step={1} onChange={setSnapJ} color="#2563eb" unit="" format={v => v.toFixed(0)} />
+            <SliderRow label="Training progress (%)" value={snapTrainProg} min={0} max={100} step={1} onChange={setSnapTrainProg} color="#2563eb" unit="%" format={v => v.toFixed(0)} />
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 4, marginBottom: 12 }}>
-              <ResultBox label="J_max" value={snapJ} color="#2563eb" sub="angular resolution" />
               <ResultBox label="Bispectrum" value={nSnap} color="#2563eb" sub="components" />
               <ResultBox label="Parameters" value={nSnap + 1} color="#2563eb" sub={`${"\u03B2"} coefficients`} />
+              <ResultBox label="E RMSE" value={`${snapRmse.toFixed(1)} meV`} color={snapRmse < 10 ? "#059669" : "#2563eb"} sub={snapRmse < 10 ? "converged" : "training..."} />
             </div>
+
+            {/* Numerical training example */}
+            <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>TRAINING FROM DFT {"\u2014"} Cu FCC (LINEAR REGRESSION)</div>
+              <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.6, marginBottom: 8 }}>
+                Given 5 DFT configs, compute bispectrum B for each, then solve <strong>B{"\u00B7"}{"\u03B2"} = E<sub>DFT</sub></strong> via least squares:
+              </div>
+              <div style={{ overflowX: "auto" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 9 }}>
+                  <thead>
+                    <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                      {["Config", "B\u2080", "B\u2081", "B\u2082", "E_DFT", "E_pred", "Error"].map(h => (
+                        <th key={h} style={{ padding: "4px 5px", textAlign: "right", color: T.muted, fontWeight: 700 }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dftConfigs.map((c, i) => {
+                      const err = (snapPred[i] - c.eDft) * 1000;
+                      return (
+                        <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
+                          <td style={{ padding: "3px 5px", color: "#2563eb", fontWeight: 600, textAlign: "left", fontSize: 8 }}>{c.label}</td>
+                          {snapB[i].map((b, k) => (
+                            <td key={k} style={{ padding: "3px 5px", textAlign: "right", fontFamily: "monospace", color: T.ink }}>{b.toFixed(2)}</td>
+                          ))}
+                          <td style={{ padding: "3px 5px", textAlign: "right", fontFamily: "monospace", color: T.eo_e, fontWeight: 700 }}>{c.eDft.toFixed(3)}</td>
+                          <td style={{ padding: "3px 5px", textAlign: "right", fontFamily: "monospace", color: "#2563eb", fontWeight: 700 }}>{snapPred[i].toFixed(3)}</td>
+                          <td style={{ padding: "3px 5px", textAlign: "right", fontFamily: "monospace", color: Math.abs(err) < 10 ? "#059669" : T.eo_gap }}>{err.toFixed(1)} meV</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              <div style={{ marginTop: 8, fontSize: 10, color: T.ink, lineHeight: 1.6 }}>
+                <strong>Fitted coefficients:</strong> {"\u03B2"}<sub>0</sub>={snapBeta[0].toFixed(3)}, {"\u03B2"}<sub>1</sub>={snapBeta[1].toFixed(3)}, {"\u03B2"}<sub>2</sub>={snapBeta[2].toFixed(3)}
+              </div>
+            </div>
+
             <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
               <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>HOW BISPECTRUM WORKS</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
-                1. Map 3D neighbor positions onto the <strong>surface of a 4D hypersphere</strong> (radius = neighbor distance)
+                1. Map 3D neighbor positions onto the <strong>surface of a 4D hypersphere</strong>
                 <br/>2. Expand the density in <strong>Wigner D-matrices</strong> U<sup>j</sup><sub>m,m{"'"}</sub> up to J<sub>max</sub>={snapJ}
                 <br/>3. Contract into <strong>bispectrum</strong>: B<sub>j1,j2,j</sub> = {"\u03A3"}<sub>m</sub> U<sup>j1</sup> {"\u2297"} U<sup>j2</sup> {"\u2297"} (U<sup>j</sup>)*
-                <br/>4. B is invariant to SO(3) by Clebsch-Gordan coupling {"\u2014"} no data augmentation needed
+                <br/>4. B is invariant to SO(3) by Clebsch-Gordan coupling
+                <br/>5. Solve E = B{"\u00B7"}{"\u03B2"} by least squares {"\u2192"} <strong>one-shot training, no iterations</strong>
               </div>
             </div>
             <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, background: "#2563eb08", padding: 10, borderRadius: 8, border: "1px solid #2563eb33" }}>
@@ -5374,26 +5486,67 @@ function SNAPMTPACESection() {
             </div>
           </>)}
 
+          {/* ==================== MTP TAB ==================== */}
           {activeTab === "mtp" && (<>
             <div style={{ background: "#7c3aed11", border: "1px solid #7c3aed33", borderRadius: 8, padding: 12, marginBottom: 12 }}>
               <div style={{ fontSize: 12, fontWeight: 700, color: "#7c3aed", marginBottom: 6 }}>MTP {"\u2014"} Moment Tensor Potential</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
-                MTP constructs <strong>moment tensors</strong> M<sub>{"\u03BC"},{"\u03BD"}</sub> by contracting neighbor vectors with radial basis functions, then takes invariant combinations (traces, products). Energy is linear in these invariants:
+                Energy is linear in <strong>moment tensor invariants</strong>:
               </div>
-              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#7c3aed", marginTop: 8, lineHeight: 2 }}>
-                M<sub>{"\u03BC"},{"\u03BD"}</sub> = {"\u03A3"}<sub>j</sub> f<sub>{"\u03BC"}</sub>(r<sub>ij</sub>) {"\u2297"} r<sub>ij</sub><sup>{"\u2297\u03BD"}</sup>
+              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#7c3aed", marginTop: 6, lineHeight: 2 }}>
+                E<sub>i</sub> = {"\u03A3"}<sub>{"\u03B1"}</sub> c<sub>{"\u03B1"}</sub> B<sub>{"\u03B1"}</sub>(M<sub>{"\u03BC"},{"\u03BD"}</sub>)
               </div>
             </div>
             <SliderRow label="MTP level (complexity)" value={mtpLevel} min={6} max={28} step={2} onChange={setMtpLevel} color="#7c3aed" unit="" format={v => v.toFixed(0)} />
+            <SliderRow label="Training progress (%)" value={mtpTrainProg} min={0} max={100} step={1} onChange={setMtpTrainProg} color="#7c3aed" unit="%" format={v => v.toFixed(0)} />
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 4, marginBottom: 12 }}>
-              <ResultBox label="Level" value={mtpLevel} color="#7c3aed" sub="complexity" />
               <ResultBox label="Basis" value={mtpBasis} color="#7c3aed" sub="functions" />
               <ResultBox label="Body order" value={mtpLevel <= 10 ? "2-3" : mtpLevel <= 20 ? "2-4" : "2-5"} color="#7c3aed" sub="interactions" />
+              <ResultBox label="E RMSE" value={`${mtpRmse.toFixed(1)} meV`} color={mtpRmse < 10 ? "#059669" : "#7c3aed"} sub={mtpRmse < 10 ? "converged" : "training..."} />
             </div>
+
+            {/* Numerical training example */}
+            <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>TRAINING FROM DFT {"\u2014"} Cu FCC (MOMENT INVARIANTS)</div>
+              <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.6, marginBottom: 8 }}>
+                Compute moment tensors M<sub>{"\u03BC"},{"\u03BD"}</sub> for each config, contract to invariants B<sub>{"\u03B1"}</sub>, solve <strong>B{"\u00B7"}c = E<sub>DFT</sub></strong>:
+              </div>
+              <div style={{ overflowX: "auto" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 9 }}>
+                  <thead>
+                    <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                      {["Config", "B\u2080", "B\u2081", "B\u2082", "B\u2083", "E_DFT", "E_pred", "Error"].map(h => (
+                        <th key={h} style={{ padding: "4px 4px", textAlign: "right", color: T.muted, fontWeight: 700 }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dftConfigs.map((c, i) => {
+                      const err = (mtpPred[i] - c.eDft) * 1000;
+                      return (
+                        <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
+                          <td style={{ padding: "3px 4px", color: "#7c3aed", fontWeight: 600, textAlign: "left", fontSize: 8 }}>{c.label}</td>
+                          {mtpM[i].map((m, k) => (
+                            <td key={k} style={{ padding: "3px 4px", textAlign: "right", fontFamily: "monospace", color: T.ink }}>{m.toFixed(2)}</td>
+                          ))}
+                          <td style={{ padding: "3px 4px", textAlign: "right", fontFamily: "monospace", color: T.eo_e, fontWeight: 700 }}>{c.eDft.toFixed(3)}</td>
+                          <td style={{ padding: "3px 4px", textAlign: "right", fontFamily: "monospace", color: "#7c3aed", fontWeight: 700 }}>{mtpPred[i].toFixed(3)}</td>
+                          <td style={{ padding: "3px 4px", textAlign: "right", fontFamily: "monospace", color: Math.abs(err) < 10 ? "#059669" : T.eo_gap }}>{err.toFixed(1)} meV</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              <div style={{ marginTop: 8, fontSize: 10, color: T.ink, lineHeight: 1.6 }}>
+                <strong>Fitted coefficients:</strong> c<sub>0</sub>={mtpC[0].toFixed(3)}, c<sub>1</sub>={mtpC[1].toFixed(3)}, c<sub>2</sub>={mtpC[2].toFixed(3)}, c<sub>3</sub>={mtpC[3].toFixed(3)}
+              </div>
+            </div>
+
             <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
               <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>KEY INNOVATION: ACTIVE LEARNING</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
-                MTP introduced <strong>D-optimality active learning</strong>: during MD simulation, the potential detects when it encounters a configuration far from its training data (high extrapolation grade). It pauses, runs DFT on that configuration, retrains, and continues. This <strong>on-the-fly</strong> approach builds the training set automatically.
+                MTP introduced <strong>D-optimality active learning</strong>: during MD, the potential detects when it encounters a configuration far from its training data. It pauses, runs DFT, retrains, and continues {"\u2014"} <strong>on-the-fly</strong>.
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6, marginTop: 8 }}>
                 {["Run MD", "Detect\nextrapolation", "Run DFT", "Retrain\nMTP"].map((step, i) => (
@@ -5405,37 +5558,78 @@ function SNAPMTPACESection() {
               </div>
             </div>
             <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, background: "#7c3aed08", padding: 10, borderRadius: 8, border: "1px solid #7c3aed33" }}>
-              <strong style={{ color: "#7c3aed" }}>Key strengths:</strong> Very fast (competitive with EAM). Built-in active learning. Systematically improvable via level parameter. Implemented in MLIP package and LAMMPS.
+              <strong style={{ color: "#7c3aed" }}>Key strengths:</strong> Very fast (competitive with EAM). Built-in active learning. Systematically improvable via level parameter. MLIP package + LAMMPS.
               <br/><strong style={{ color: "#7c3aed" }}>Used for:</strong> Li, Al, Cu, W, organic molecules, alloys. Shapeev group (Skoltech).
             </div>
           </>)}
 
+          {/* ==================== ACE TAB ==================== */}
           {activeTab === "ace" && (<>
             <div style={{ background: "#05966911", border: "1px solid #05966933", borderRadius: 8, padding: 12, marginBottom: 12 }}>
               <div style={{ fontSize: 12, fontWeight: 700, color: "#059669", marginBottom: 6 }}>ACE {"\u2014"} Atomic Cluster Expansion</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
-                ACE provides a <strong>complete, systematic basis</strong> for representing atomic properties as a function of the local environment. It builds N-body correlations by taking <strong>tensor products of 1-particle basis</strong> and symmetrizing:
+                Energy is a sum over <strong>N-body correlation basis</strong> functions A:
               </div>
-              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#059669", marginTop: 8, lineHeight: 2 }}>
-                E<sub>i</sub> = {"\u03A3"}<sub>{"\u03BD"}</sub> c<sub>{"\u03BD"}</sub> A<sub>i,{"\u03BD"}</sub> = {"\u03A3"}<sub>{"\u03BD"}</sub> c<sub>{"\u03BD"}</sub> {"\u03A3"} {"\u220F"}<sub>t=1</sub><sup>{"\u03BD"}</sup> {"\u03C6"}<sub>nlm</sub>(r<sub>ij_t</sub>, {"\u0072\u0302"}<sub>ij_t</sub>)
+              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#059669", marginTop: 6, lineHeight: 2 }}>
+                E<sub>i</sub> = {"\u03A3"}<sub>{"\u03BD"}</sub> c<sub>{"\u03BD"}</sub> A<sub>i,{"\u03BD"}</sub>
               </div>
             </div>
-            <SliderRow label={`Correlation order (body order)`} value={aceCorr} min={2} max={5} step={1} onChange={setAceCorr} color="#059669" unit="" format={v => v.toFixed(0)} />
+            <SliderRow label="Correlation order (body order)" value={aceCorr} min={2} max={5} step={1} onChange={setAceCorr} color="#059669" unit="" format={v => v.toFixed(0)} />
+            <SliderRow label="Training progress (%)" value={aceTrainProg} min={0} max={100} step={1} onChange={setAceTrainProg} color="#059669" unit="%" format={v => v.toFixed(0)} />
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 4, marginBottom: 12 }}>
               <ResultBox label="Correlation" value={aceCorr} color="#059669" sub={aceDesc} />
               <ResultBox label="Basis size" value={`~${aceBasis}`} color="#059669" sub="per element" />
-              <ResultBox label="Completeness" value={aceCorr >= 4 ? "High" : "Medium"} color="#059669" sub={aceCorr >= 4 ? "captures 4-body" : "add more orders"} />
+              <ResultBox label="E RMSE" value={`${aceRmse.toFixed(1)} meV`} color={aceRmse < 10 ? "#059669" : "#b45309"} sub={aceRmse < 10 ? "converged" : "training..."} />
             </div>
+
+            {/* Numerical training example */}
+            <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>TRAINING FROM DFT {"\u2014"} Cu FCC (CLUSTER EXPANSION)</div>
+              <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.6, marginBottom: 8 }}>
+                Build N-body basis A up to correlation order {aceCorr}, solve <strong>A{"\u00B7"}c = E<sub>DFT</sub></strong> via least squares:
+              </div>
+              <div style={{ overflowX: "auto" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 9 }}>
+                  <thead>
+                    <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                      {["Config", "A\u2080", "A\u2081", "A\u2082", "A\u2083", "A\u2084", "E_DFT", "E_pred", "Error"].map(h => (
+                        <th key={h} style={{ padding: "4px 3px", textAlign: "right", color: T.muted, fontWeight: 700 }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dftConfigs.map((c, i) => {
+                      const err = (acePred[i] - c.eDft) * 1000;
+                      return (
+                        <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
+                          <td style={{ padding: "3px 3px", color: "#059669", fontWeight: 600, textAlign: "left", fontSize: 8 }}>{c.label}</td>
+                          {aceA[i].map((a, k) => (
+                            <td key={k} style={{ padding: "3px 3px", textAlign: "right", fontFamily: "monospace", color: T.ink }}>{a.toFixed(2)}</td>
+                          ))}
+                          <td style={{ padding: "3px 3px", textAlign: "right", fontFamily: "monospace", color: T.eo_e, fontWeight: 700 }}>{c.eDft.toFixed(3)}</td>
+                          <td style={{ padding: "3px 3px", textAlign: "right", fontFamily: "monospace", color: "#059669", fontWeight: 700 }}>{acePred[i].toFixed(3)}</td>
+                          <td style={{ padding: "3px 3px", textAlign: "right", fontFamily: "monospace", color: Math.abs(err) < 10 ? "#059669" : T.eo_gap }}>{err.toFixed(1)} meV</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              <div style={{ marginTop: 8, fontSize: 10, color: T.ink, lineHeight: 1.6 }}>
+                <strong>Fitted coefficients:</strong> {aceC.map((c, i) => `c${"\u2080\u2081\u2082\u2083\u2084"[i]}=${c.toFixed(3)}`).join(", ")}
+              </div>
+            </div>
+
             <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
               <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>WHY ACE IS SPECIAL</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
-                ACE is a <strong>unifying framework</strong> {"\u2014"} it has been shown that SNAP, MTP, and even message-passing NNPs can all be viewed as special cases or approximations of ACE. Key properties:
+                ACE is a <strong>unifying framework</strong> {"\u2014"} SNAP, MTP, and even message-passing NNPs are all special cases:
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 8 }}>
                 {[
-                  { label: "Complete", desc: "Any invariant property can be represented with enough basis functions", color: "#059669" },
+                  { label: "Complete", desc: "Any invariant can be represented with enough basis functions", color: "#059669" },
                   { label: "Systematic", desc: "Increase correlation order to add higher body-order interactions", color: "#059669" },
-                  { label: "Efficient", desc: "N-correlations computed as products of 1-particle basis (not N-body sums)", color: "#059669" },
+                  { label: "Efficient", desc: "N-correlations computed as products of 1-particle basis", color: "#059669" },
                   { label: "Unifying", desc: "SNAP, MTP are subsets of the ACE framework", color: "#059669" },
                 ].map(item => (
                   <div key={item.label} style={{ padding: "6px 8px", borderRadius: 6, background: "#05966911", border: "1px solid #05966933" }}>
@@ -5446,32 +5640,31 @@ function SNAPMTPACESection() {
               </div>
             </div>
             <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, background: "#05966908", padding: 10, borderRadius: 8, border: "1px solid #05966933" }}>
-              <strong style={{ color: "#059669" }}>Key strengths:</strong> Most accurate descriptor-based potential. Mathematically complete basis. Convergeable with respect to body order. Can match MACE-level accuracy.
-              <br/><strong style={{ color: "#059669" }}>Implementations:</strong> PACE (Julia/C++), pacemaker (Python), integrated into LAMMPS. Drautz (Bochum), Ortner group.
+              <strong style={{ color: "#059669" }}>Implementations:</strong> PACE (Julia/C++), pacemaker (Python), integrated into LAMMPS. Drautz (Bochum), Ortner group.
             </div>
           </>)}
         </div>
       </div>
 
-      {/* Bottom: all three methods comparison */}
+      {/* Bottom comparison */}
       <div style={{ marginTop: 16, background: T.surface, borderRadius: 8, padding: 14, border: `1px solid ${T.border}` }}>
         <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 8 }}>Descriptor-Based vs Neural Network Potentials</div>
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10 }}>
             <thead>
               <tr style={{ borderBottom: `2px solid ${T.border}` }}>
-                {["", "SNAP", "MTP", "ACE", "NNP (Behler-Parrinello)", "GNN (MACE, NequIP)"].map(h => (
+                {["", "SNAP", "MTP", "ACE", "NNP (Behler)", "GNN (MACE)"].map(h => (
                   <th key={h} style={{ padding: "5px 6px", textAlign: "left", color: T.muted, fontWeight: 700, fontSize: 9 }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {[
-                ["Descriptors", "Bispectrum B_k", "Moment tensors M", "N-correlations A", "Symmetry functions G", "Learned (message passing)"],
+                ["Descriptors", "Bispectrum B_k", "Moment tensors M", "N-correlations A", "Symmetry functions G", "Learned (msg pass)"],
                 ["Model", "Linear", "Linear", "Linear / nonlinear", "Feed-forward NN", "Equivariant GNN"],
                 ["Training", "Least squares", "Least squares", "Least squares / NN", "Backpropagation", "Backpropagation"],
                 ["Speed (vs DFT)", "~1000\u00D7", "~1000\u00D7", "~500\u00D7", "~100\u00D7", "~50\u00D7"],
-                ["Body order", "All (implicitly)", "\u22644", "Systematic", "2-body descriptors", "Iterative message passing"],
+                ["Body order", "All (implicitly)", "\u22644", "Systematic", "2-body desc.", "Iterative msg pass"],
                 ["Active learning", "No", "Yes (built-in)", "Yes", "Possible", "Possible"],
               ].map(([label, ...vals], i) => (
                 <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
