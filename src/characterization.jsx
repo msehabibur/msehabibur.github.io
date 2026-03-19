@@ -110,10 +110,10 @@ function XRDSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text="Tennis balls bouncing off a picket fence at specific angles -- only at certain angles do they all bounce back in sync (constructive interference)." />
 
-      <Card title="Bragg's Law" color={C.struct} formula="n\u03BB = 2d\u00B7sin(\u03B8)">
+      <Card title="Bragg's Law" color={C.struct} formula="nλ = 2d·sin(θ)">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
           X-ray diffraction measures the spacing between crystal planes. When X-rays hit parallel planes of atoms,
-          they reflect. Constructive interference happens only when the extra path length (2d sin\u03B8) equals an
+          they reflect. Constructive interference happens only when the extra path length (2d sinθ) equals an
           integer number of wavelengths.
         </div>
 
@@ -205,48 +205,48 @@ function XRDSection() {
                 {/* Angle arc */}
                 <path d={`M ${hitX + 30} ${hitY} A 30 30 0 0 0 ${hitX + 30 * Math.cos(angle)} ${hitY - 30 * Math.sin(angle)}`}
                   fill="none" stroke={C.accent} strokeWidth={1} />
-                <text x={hitX + 36} y={hitY - 8} fontSize={9} fill={C.accent}>\u03B8</text>
+                <text x={hitX + 36} y={hitY - 8} fontSize={9} fill={C.accent}>θ</text>
               </g>
             );
           })()}
 
           {!valid && (
             <text x={210} y={60} textAnchor="middle" fontSize={12} fill={T.eo_gap}>
-              n\u03BB {">"} 2d: no diffraction possible
+              nλ {">"} 2d: no diffraction possible
             </text>
           )}
 
           <text x={210} y={230} textAnchor="middle" fontSize={10} fill={T.muted}>
-            Bragg diffraction from crystal planes (d = {d.toFixed(2)} \u00C5)
+            Bragg diffraction from crystal planes (d = {d.toFixed(2)} Å)
           </text>
         </svg>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 10 }}>
           <div>
-            <SliderRow label="d-spacing" value={d} min={1.0} max={5.0} step={0.01} onChange={setD} color={C.struct} unit=" \u00C5" />
-            <SliderRow label="Wavelength \u03BB" value={lam} min={0.5} max={2.3} step={0.001} onChange={setLam} color={C.accent}
-              unit=" \u00C5" format={v => v === 1.5406 ? "1.5406 (Cu K\u03B1)" : v === 0.7107 ? "0.7107 (Mo K\u03B1)" : v.toFixed(4)} />
+            <SliderRow label="d-spacing" value={d} min={1.0} max={5.0} step={0.01} onChange={setD} color={C.struct} unit=" Å" />
+            <SliderRow label="Wavelength λ" value={lam} min={0.5} max={2.3} step={0.001} onChange={setLam} color={C.accent}
+              unit=" Å" format={v => v === 1.5406 ? "1.5406 (Cu Kα)" : v === 0.7107 ? "0.7107 (Mo Kα)" : v.toFixed(4)} />
             <SliderRow label="Order n" value={n} min={1} max={5} step={1} onChange={setN} color={C.struct} format={v => v.toString()} />
           </div>
           <div>
-            <CalcRow eq={`n\u03BB = ${n} \u00D7 ${lam.toFixed(4)}`} result={`${(n * lam).toFixed(4)} \u00C5`} color={C.struct} />
-            <CalcRow eq={`2d = 2 \u00D7 ${d.toFixed(2)}`} result={`${(2 * d).toFixed(2)} \u00C5`} color={C.struct} />
-            <CalcRow eq={`sin(\u03B8) = ${(n * lam).toFixed(4)} / ${(2 * d).toFixed(2)}`}
+            <CalcRow eq={`nλ = ${n} × ${lam.toFixed(4)}`} result={`${(n * lam).toFixed(4)} Å`} color={C.struct} />
+            <CalcRow eq={`2d = 2 × ${d.toFixed(2)}`} result={`${(2 * d).toFixed(2)} Å`} color={C.struct} />
+            <CalcRow eq={`sin(θ) = ${(n * lam).toFixed(4)} / ${(2 * d).toFixed(2)}`}
               result={valid ? (Math.sin(theta)).toFixed(4) : "N/A"} color={C.struct} />
-            <CalcRow eq={`\u03B8 (Bragg angle)`} result={valid ? `${thetaDeg.toFixed(2)}\u00B0` : "No solution"} color={C.accent} />
-            <CalcRow eq={`2\u03B8 (measured)`} result={valid ? `${twoTheta.toFixed(2)}\u00B0` : "No solution"} color={C.accent} />
+            <CalcRow eq={`θ (Bragg angle)`} result={valid ? `${thetaDeg.toFixed(2)}°` : "No solution"} color={C.accent} />
+            <CalcRow eq={`2θ (measured)`} result={valid ? `${twoTheta.toFixed(2)}°` : "No solution"} color={C.accent} />
           </div>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="BRAGG ANGLE \u03B8" value={valid ? `${thetaDeg.toFixed(2)}\u00B0` : "---"} color={C.struct} sub="angle of incidence" />
-          <ResultBox label="2\u03B8 POSITION" value={valid ? `${twoTheta.toFixed(2)}\u00B0` : "---"} color={C.accent} sub="detector angle" />
-          <ResultBox label="PLANE SPACING" value={`${d.toFixed(3)} \u00C5`} color={C.struct} sub="crystal lattice" />
+          <ResultBox label="BRAGG ANGLE θ" value={valid ? `${thetaDeg.toFixed(2)}°` : "---"} color={C.struct} sub="angle of incidence" />
+          <ResultBox label="2θ POSITION" value={valid ? `${twoTheta.toFixed(2)}°` : "---"} color={C.accent} sub="detector angle" />
+          <ResultBox label="PLANE SPACING" value={`${d.toFixed(3)} Å`} color={C.struct} sub="crystal lattice" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
           <InfoRow label="What it measures" value="Crystal structure, phase ID, lattice parameters" />
-          <InfoRow label="Resolution" value="~0.01\u00B0 2\u03B8 (high-res), d-spacing to 0.001 \u00C5" />
+          <InfoRow label="Resolution" value="~0.01° 2θ (high-res), d-spacing to 0.001 Å" />
           <InfoRow label="Sample" value="Powders, thin films, single crystals" />
           <InfoRow label="Limitation" value="Needs crystalline material; amorphous gives broad humps" />
         </div>
@@ -296,9 +296,9 @@ function EBSDSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text="Each crystal grain has a unique fingerprint -- like a thumbprint, the Kikuchi pattern reveals its exact orientation. EBSD reads these fingerprints across the entire surface." />
 
-      <Card title="Electron Backscatter Diffraction" color={C.struct} formula="Kikuchi pattern \u2192 Euler angles (\u03C61, \u03A6, \u03C62)">
+      <Card title="Electron Backscatter Diffraction" color={C.struct} formula="Kikuchi pattern → Euler angles (φ1, Φ, φ2)">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          A focused electron beam hits a tilted (70\u00B0) sample. Backscattered electrons diffract from crystal planes, forming
+          A focused electron beam hits a tilted (70°) sample. Backscattered electrons diffract from crystal planes, forming
           Kikuchi bands on a phosphor screen. Indexing these bands gives the crystal orientation at each pixel, building an
           orientation map (IPF = Inverse Pole Figure).
         </div>
@@ -315,7 +315,7 @@ function EBSDSection() {
                   fill={g.col + "55"} stroke={g.col} strokeWidth={1.5}
                   transform={`rotate(${g.euler[0] * 0.5}, ${g.x}, ${g.y})`} />
                 <text x={g.x} y={g.y + 3} textAnchor="middle" fontSize={7} fill={T.ink}>
-                  {g.euler[0]}\u00B0
+                  {g.euler[0]}°
                 </text>
               </g>
             );
@@ -367,16 +367,16 @@ function EBSDSection() {
           </g>
 
           <text x={210} y={232} textAnchor="middle" fontSize={10} fill={T.muted}>
-            Grain orientation map (misorientation threshold: {misor}\u00B0)
+            Grain orientation map (misorientation threshold: {misor}°)
           </text>
         </svg>
 
-        <SliderRow label="Misorientation threshold" value={misor} min={2} max={60} step={1} onChange={setMisor} color={C.struct} unit="\u00B0" format={v => v.toString()} />
+        <SliderRow label="Misorientation threshold" value={misor} min={2} max={60} step={1} onChange={setMisor} color={C.struct} unit="°" format={v => v.toString()} />
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 8 }}>
           <ResultBox label="GRAINS" value={grains.length} color={C.struct} sub="mapped" />
-          <ResultBox label="HIGH-ANGLE GBs" value={gbCount} color={C.accent} sub={`>\u00A0${misor}\u00B0`} />
-          <ResultBox label="ANGULAR RES." value="~0.5\u00B0" color={C.struct} sub="typical" />
+          <ResultBox label="HIGH-ANGLE GBs" value={gbCount} color={C.accent} sub={`> ${misor}°`} />
+          <ResultBox label="ANGULAR RES." value="~0.5°" color={C.struct} sub="typical" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -409,11 +409,11 @@ function TEMDiffractionSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text="Like a projector shining through an ultra-thin slide -- the electrons pass through and form a pattern of dots on the screen, each dot revealing a set of crystal planes." />
 
-      <Card title="Selected Area Electron Diffraction" color={C.struct} formula="Rd = \u03BBL (camera equation)">
+      <Card title="Selected Area Electron Diffraction" color={C.struct} formula="Rd = λL (camera equation)">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
           In SAED, a parallel electron beam passes through a thin specimen. The diffracted beams form spots on the
-          screen at distance R from the central beam. The reciprocal lattice is directly imaged: Rd = \u03BBL where
-          R = spot distance, d = plane spacing, \u03BB = electron wavelength, L = camera length.
+          screen at distance R from the central beam. The reciprocal lattice is directly imaged: Rd = λL where
+          R = spot distance, d = plane spacing, λ = electron wavelength, L = camera length.
         </div>
 
         {/* SVG: Diffraction pattern */}
@@ -477,7 +477,7 @@ function TEMDiffractionSection() {
           </g>
 
           <text x={250} y={248} textAnchor="middle" fontSize={9} fill={T.muted}>
-            SAED pattern (R = {R.toFixed(1)} mm for d = {d} \u00C5)
+            SAED pattern (R = {R.toFixed(1)} mm for d = {d} Å)
           </text>
         </svg>
 
@@ -487,15 +487,15 @@ function TEMDiffractionSection() {
             <SliderRow label="Accelerating voltage" value={voltage} min={80} max={300} step={10} onChange={setVoltage} color={C.accent} unit=" kV" format={v => v.toString()} />
           </div>
           <div>
-            <CalcRow eq={`\u03BB (rel.) = 12.264/\u221A(eV*(1+...))`} result={`${(lam * 1000).toFixed(4)} pm`} color={C.struct} />
-            <CalcRow eq={`R = \u03BBL/d = ${(lam).toFixed(5)}\u00D7${camL}/${d}`} result={`${R.toFixed(2)} mm`} color={C.accent} />
-            <CalcRow eq={`d from R: d = \u03BBL/R`} result={`${d.toFixed(2)} \u00C5`} color={C.struct} />
+            <CalcRow eq={`λ (rel.) = 12.264/√(eV*(1+...))`} result={`${(lam * 1000).toFixed(4)} pm`} color={C.struct} />
+            <CalcRow eq={`R = λL/d = ${(lam).toFixed(5)}×${camL}/${d}`} result={`${R.toFixed(2)} mm`} color={C.accent} />
+            <CalcRow eq={`d from R: d = λL/R`} result={`${d.toFixed(2)} Å`} color={C.struct} />
           </div>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="\u03BB ELECTRON" value={`${(lam * 1000).toFixed(3)} pm`} color={C.struct} sub={`at ${voltage} kV`} />
-          <ResultBox label="SPOT DISTANCE R" value={`${R.toFixed(1)} mm`} color={C.accent} sub={`d = ${d} \u00C5`} />
+          <ResultBox label="λ ELECTRON" value={`${(lam * 1000).toFixed(3)} pm`} color={C.struct} sub={`at ${voltage} kV`} />
+          <ResultBox label="SPOT DISTANCE R" value={`${R.toFixed(1)} mm`} color={C.accent} sub={`d = ${d} Å`} />
           <ResultBox label="CAMERA LENGTH" value={`${camL} mm`} color={C.struct} sub="adjustable" />
         </div>
 
@@ -533,10 +533,10 @@ function XPSSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text="Einstein's photoelectric effect with X-rays -- shine X-rays on a surface, knock out core electrons, and measure their kinetic energy to figure out which elements are there and their chemical state." />
 
-      <Card title="X-ray Photoelectron Spectroscopy" color={C.surface} formula="E_bind = h\u03BD - E_kin - \u03C6">
+      <Card title="X-ray Photoelectron Spectroscopy" color={C.surface} formula="E_bind = hν - E_kin - φ">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
           XPS irradiates a surface with monochromatic X-rays. Core electrons are ejected with kinetic energy
-          E_kin = h\u03BD - E_bind - \u03C6 (work function). By measuring E_kin, we determine binding energy,
+          E_kin = hν - E_bind - φ (work function). By measuring E_kin, we determine binding energy,
           identifying elements and their oxidation states. Surface-sensitive: top ~5-10 nm.
         </div>
 
@@ -590,7 +590,7 @@ function XPSSection() {
                     const off = Math.sin(i * 2 + animFrame * 0.3) * 4;
                     return <circle key={i} cx={px + off} cy={py} r={2} fill={C.accent} opacity={0.7 - i * 0.15} />;
                   })}
-                  <text x={startX + 5} y={startY - 5} fontSize={9} fill={C.accent} fontWeight={700}>h\u03BD = {source} eV</text>
+                  <text x={startX + 5} y={startY - 5} fontSize={9} fill={C.accent} fontWeight={700}>hν = {source} eV</text>
                 </g>
               );
             }
@@ -608,7 +608,7 @@ function XPSSection() {
                 <g>
                   <circle cx={ex} cy={ey} r={3} fill={C.surface} />
                   <line x1={90} y1={130} x2={ex} y2={ey} stroke={C.surface} strokeWidth={1} strokeDasharray="2,2" opacity={0.5} />
-                  <text x={ex + 5} y={ey - 5} fontSize={8} fill={C.surface}>e\u207B (E_kin = {eKin.toFixed(1)} eV)</text>
+                  <text x={ex + 5} y={ey - 5} fontSize={8} fill={C.surface}>e⁻ (E_kin = {eKin.toFixed(1)} eV)</text>
                 </g>
               );
             }
@@ -655,7 +655,7 @@ function XPSSection() {
             <text x={128} y={28} fontSize={7} fill={C.accent}>E_F</text>
             {/* phi arrow */}
             <line x1={40} y1={15} x2={40} y2={25} stroke={C.accent} strokeWidth={0.8} />
-            <text x={28} y={22} fontSize={6} fill={C.accent}>\u03C6</text>
+            <text x={28} y={22} fontSize={6} fill={C.accent}>φ</text>
             {/* Core level */}
             <line x1={35} y1={85} x2={125} y2={85} stroke={C.surface} strokeWidth={1.2} />
             <text x={128} y={88} fontSize={7} fill={C.surface}>core</text>
@@ -664,7 +664,7 @@ function XPSSection() {
             <text x={50} y={58} fontSize={7} fill={C.surface} transform="rotate(-90,50,58)">E_bind</text>
             {/* hv arrow */}
             <line x1={80} y1={85} x2={80} y2={15} stroke={C.accent} strokeWidth={1} markerEnd="url(#arrow)" />
-            <text x={85} y={50} fontSize={7} fill={C.accent}>h\u03BD</text>
+            <text x={85} y={50} fontSize={7} fill={C.accent}>hν</text>
             {/* E_kin arrow */}
             <line x1={100} y1={15} x2={100} y2={25} stroke={C.spec} strokeWidth={1} />
             <text x={105} y={22} fontSize={6} fill={C.spec}>E_kin</text>
@@ -673,13 +673,13 @@ function XPSSection() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 10 }}>
           <div>
-            <SliderRow label="X-ray source h\u03BD" value={source} min={1000} max={1500} step={0.1} onChange={setSource} color={C.accent}
-              unit=" eV" format={v => v === 1486.6 ? "1486.6 (Al K\u03B1)" : v === 1253.6 ? "1253.6 (Mg K\u03B1)" : v.toFixed(1)} />
+            <SliderRow label="X-ray source hν" value={source} min={1000} max={1500} step={0.1} onChange={setSource} color={C.accent}
+              unit=" eV" format={v => v === 1486.6 ? "1486.6 (Al Kα)" : v === 1253.6 ? "1253.6 (Mg Kα)" : v.toFixed(1)} />
             <SliderRow label="Binding energy E_bind" value={eBind} min={0} max={1200} step={0.5} onChange={setEBind} color={C.surface} unit=" eV" />
-            <SliderRow label="Work function \u03C6" value={phi} min={3.0} max={6.0} step={0.1} onChange={setPhi} color={T.muted} unit=" eV" />
+            <SliderRow label="Work function φ" value={phi} min={3.0} max={6.0} step={0.1} onChange={setPhi} color={T.muted} unit=" eV" />
           </div>
           <div>
-            <CalcRow eq={`E_kin = h\u03BD - E_bind - \u03C6`} result={valid ? `${eKin.toFixed(1)} eV` : "< 0 (no emission)"} color={C.surface} />
+            <CalcRow eq={`E_kin = hν - E_bind - φ`} result={valid ? `${eKin.toFixed(1)} eV` : "< 0 (no emission)"} color={C.surface} />
             <CalcRow eq={`= ${source} - ${eBind} - ${phi}`} result={`${(source - eBind - phi).toFixed(1)} eV`} color={C.surface} />
             <CalcRow eq="Depth probed" result="~5-10 nm" color={T.muted} />
             <CalcRow eq="Energy resolution" result="~0.1-0.5 eV" color={T.muted} />
@@ -694,7 +694,7 @@ function XPSSection() {
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
           <InfoRow label="What it measures" value="Elemental composition, oxidation state, bonding" />
-          <InfoRow label="Resolution" value="~0.1-0.5 eV energy; ~10 \u03BCm spatial" />
+          <InfoRow label="Resolution" value="~0.1-0.5 eV energy; ~10 μm spatial" />
           <InfoRow label="Sample" value="UHV compatible solids; conductive or charge-neutralized" />
           <InfoRow label="Limitation" value="Cannot detect H/He; surface only; needs UHV" />
         </div>
@@ -764,7 +764,7 @@ function AESSection() {
             {step === 1 && (
               <g>
                 <line x1={50} y1={220} x2={50} y2={195} stroke={C.accent} strokeWidth={2} markerEnd="url(#arrow)" />
-                <text x={55} y={215} fontSize={8} fill={C.accent}>e\u207B (primary)</text>
+                <text x={55} y={215} fontSize={8} fill={C.accent}>e⁻ (primary)</text>
                 {/* Ejected core e */}
                 {animFrame > 25 && (
                   <g>
@@ -780,8 +780,8 @@ function AESSection() {
             {step === 2 && (
               <g>
                 <line x1={50} y1={110} x2={50} y2={190} stroke={C.spec} strokeWidth={2} markerEnd="url(#arrow)" />
-                <text x={55} y={155} fontSize={8} fill={C.spec}>L1 \u2192 K</text>
-                <text x={55} y={167} fontSize={7} fill={C.accent}>\u0394E released</text>
+                <text x={55} y={155} fontSize={8} fill={C.spec}>L1 → K</text>
+                <text x={55} y={167} fontSize={7} fill={C.accent}>ΔE released</text>
                 {/* Wavy arrow showing energy */}
                 {[0, 1, 2, 3].map(i => (
                   <circle key={i} cx={90 + Math.sin(i * 2 + animFrame * 0.1) * 5} cy={130 + i * 10}
@@ -799,7 +799,7 @@ function AESSection() {
                   r={4} fill={C.surface} />
                 <text x={50 + Math.min(50, (animFrame - 100) * 1.5) + 5}
                   y={80 - Math.min(50, (animFrame - 100) * 1.2) - 5}
-                  fontSize={8} fill={C.surface} fontWeight={700}>Auger e\u207B</text>
+                  fontSize={8} fill={C.surface} fontWeight={700}>Auger e⁻</text>
                 <text x={55} y={95} fontSize={7} fill={C.accent}>E = E_K - E_L1 - E_L2</text>
               </g>
             )}
@@ -982,14 +982,14 @@ function SIMSSection() {
           </div>
           <div>
             <CalcRow eq={`Depth after 10 min`} result={`${depth.toFixed(1)} nm`} color={C.surface} />
-            <CalcRow eq={`Mass resolution (M/\u0394M)`} result={`~${massRes.toFixed(0)}`} color={C.accent} />
+            <CalcRow eq={`Mass resolution (M/ΔM)`} result={`~${massRes.toFixed(0)}`} color={C.accent} />
             <CalcRow eq="Detection limit" result="ppb - ppm" color={T.muted} />
           </div>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
           <ResultBox label="DEPTH (10 min)" value={`${depth.toFixed(0)} nm`} color={C.surface} sub="sputtered" />
-          <ResultBox label="MASS RES." value={`${massRes.toFixed(0)}`} color={C.accent} sub="M/\u0394M (TOF)" />
+          <ResultBox label="MASS RES." value={`${massRes.toFixed(0)}`} color={C.accent} sub="M/ΔM (TOF)" />
           <ResultBox label="SENSITIVITY" value="ppb" color={C.surface} sub="best case" />
         </div>
 
@@ -1025,10 +1025,10 @@ function EDSSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text="Each element sings its own note -- when a high-energy electron knocks out an inner electron, the atom emits an X-ray at a characteristic frequency unique to that element, like a musical fingerprint." />
 
-      <Card title="Energy Dispersive X-ray Spectroscopy" color={C.surface} formula="E \u221D (Z - \u03C3)\u00B2 (Moseley's law)">
+      <Card title="Energy Dispersive X-ray Spectroscopy" color={C.surface} formula="E ∝ (Z - σ)² (Moseley's law)">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
           EDS detects characteristic X-rays emitted when an electron beam ionizes inner-shell electrons.
-          The emitted X-ray energy follows Moseley's law: E \u221D (Z-\u03C3)\u00B2. Typically coupled with SEM or TEM
+          The emitted X-ray energy follows Moseley's law: E ∝ (Z-σ)². Typically coupled with SEM or TEM
           for elemental mapping. K, L, M line series correspond to which shell was ionized.
         </div>
 
@@ -1091,7 +1091,7 @@ function EDSSection() {
                           r={2} fill={C.accent} opacity={0.8 - i * 0.2} />
                       ))}
                       <text x={xr + 5} y={yr - 5} fontSize={8} fill={C.accent} fontWeight={700}>
-                        K\u03B1 X-ray ({eKalpha.toFixed(2)} keV)
+                        Kα X-ray ({eKalpha.toFixed(2)} keV)
                       </text>
                     </g>
                   );
@@ -1113,8 +1113,8 @@ function EDSSection() {
               { e: 0.277, h: 30, label: "C K" },
               { e: 0.525, h: 40, label: "O K" },
               { e: 1.74, h: 35, label: "Si K" },
-              { e: eKalpha, h: 55, label: `Z=${zElement} K\u03B1`, highlight: true },
-              { e: eLalpha, h: eLalpha > 0 ? 25 : 0, label: `L\u03B1` },
+              { e: eKalpha, h: 55, label: `Z=${zElement} Kα`, highlight: true },
+              { e: eLalpha, h: eLalpha > 0 ? 25 : 0, label: `Lα` },
             ].filter(p => p.h > 0 && p.e > 0 && p.e < 20).map((pk, i) => {
               const x = 20 + (pk.e / 20) * 135;
               if (x > 160) return null;
@@ -1153,7 +1153,7 @@ function EDSSection() {
               format={v => `${v} (${elements[v] || "?"})`} />
           </div>
           <div>
-            <CalcRow eq={`E_K\u03B1 \u2248 0.0136(Z-\u03C3)\u00B2`} result={`${eKalpha.toFixed(2)} keV`} color={C.surface} />
+            <CalcRow eq={`E_Kα ≈ 0.0136(Z-σ)²`} result={`${eKalpha.toFixed(2)} keV`} color={C.surface} />
             <CalcRow eq={`Overvoltage = V/E_K`} result={overvoltage > 0 ? `${overvoltage.toFixed(1)}x` : "---"} color={C.accent} />
             <CalcRow eq="Need overvoltage" result="> 2x for good signal" color={T.muted} />
             <CalcRow eq="Energy resolution" result="~130 eV (SDD)" color={T.muted} />
@@ -1161,14 +1161,14 @@ function EDSSection() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="K\u03B1 ENERGY" value={`${eKalpha.toFixed(2)} keV`} color={C.surface} sub={`Z = ${zElement}`} />
+          <ResultBox label="Kα ENERGY" value={`${eKalpha.toFixed(2)} keV`} color={C.surface} sub={`Z = ${zElement}`} />
           <ResultBox label="OVERVOLTAGE" value={`${overvoltage.toFixed(1)}x`} color={overvoltage >= 2 ? C.spec : C.adv} sub={overvoltage >= 2 ? "sufficient" : "too low!"} />
           <ResultBox label="DETECTION" value="~0.1 wt%" color={C.surface} sub="typical" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
           <InfoRow label="What it measures" value="Elemental composition, mapping" />
-          <InfoRow label="Resolution" value="~130 eV energy; ~1 \u03BCm spatial (SEM-EDS)" />
+          <InfoRow label="Resolution" value="~130 eV energy; ~1 μm spatial (SEM-EDS)" />
           <InfoRow label="Sample" value="Bulk or thin; conductive preferred" />
           <InfoRow label="Limitation" value="Cannot detect H-Be; overlapping peaks; light element issues" />
         </div>
@@ -1199,11 +1199,11 @@ function XANESSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text="Tuning a radio past a station -- the signal wobbles because the outgoing photoelectron wave bounces off neighboring atoms and interferes with itself, creating oscillations (EXAFS) that encode neighbor distances." />
 
-      <Card title="X-ray Absorption Spectroscopy" color={C.spec} formula="\u03C7(k) = \u03A3 N\u00B7sin(2kR+\u03C6) / kR\u00B2">
+      <Card title="X-ray Absorption Spectroscopy" color={C.spec} formula="χ(k) = Σ N·sin(2kR+φ) / kR²">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
           XAS measures X-ray absorption vs energy near an absorption edge. XANES (near-edge) gives oxidation state
           and coordination geometry. EXAFS (extended fine structure) oscillations arise from photoelectron scattering
-          off neighbors, encoding bond distances R, coordination N, and disorder \u03C3\u00B2.
+          off neighbors, encoding bond distances R, coordination N, and disorder σ².
         </div>
 
         <svg viewBox="0 0 420 260" style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
@@ -1214,7 +1214,7 @@ function XANESSection() {
             <line x1={20} y1={95} x2={370} y2={95} stroke={T.ink} strokeWidth={0.8} />
             <line x1={20} y1={95} x2={20} y2={18} stroke={T.ink} strokeWidth={0.8} />
             <text x={190} y={115} textAnchor="middle" fontSize={7} fill={T.muted}>Energy (eV)</text>
-            <text x={8} y={55} fontSize={7} fill={T.muted} transform="rotate(-90,8,55)">\u03BC(E)</text>
+            <text x={8} y={55} fontSize={7} fill={T.muted} transform="rotate(-90,8,55)">μ(E)</text>
 
             {/* Pre-edge */}
             <polyline points={Array.from({ length: 40 }, (_, i) => {
@@ -1278,41 +1278,41 @@ function XANESSection() {
             })()}
             {/* R label */}
             <line x1={12} y1={0} x2={R * 25 - 9} y2={0} stroke={C.accent} strokeWidth={0.8} strokeDasharray="2,2" />
-            <text x={R * 12.5} y={-5} textAnchor="middle" fontSize={7} fill={C.accent}>R = {R.toFixed(1)} \u00C5</text>
+            <text x={R * 12.5} y={-5} textAnchor="middle" fontSize={7} fill={C.accent}>R = {R.toFixed(1)} Å</text>
           </g>
 
           <text x={320} y={200} fontSize={8} fill={T.muted}>N = {N} neighbors</text>
-          <text x={320} y={215} fontSize={8} fill={T.muted}>\u03C3\u00B2 = {sigma2.toFixed(3)} \u00C5\u00B2</text>
-          <text x={320} y={230} fontSize={8} fill={T.muted}>R = {R.toFixed(2)} \u00C5</text>
+          <text x={320} y={215} fontSize={8} fill={T.muted}>σ² = {sigma2.toFixed(3)} Å²</text>
+          <text x={320} y={230} fontSize={8} fill={T.muted}>R = {R.toFixed(2)} Å</text>
 
           <text x={210} y={255} textAnchor="middle" fontSize={10} fill={T.muted}>
-            EXAFS: photoelectron backscattering from {N} neighbors at R = {R.toFixed(2)} \u00C5
+            EXAFS: photoelectron backscattering from {N} neighbors at R = {R.toFixed(2)} Å
           </text>
         </svg>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 10 }}>
           <div>
-            <SliderRow label="Neighbor distance R" value={R} min={1.5} max={5.0} step={0.05} onChange={setR} color={C.spec} unit=" \u00C5" />
+            <SliderRow label="Neighbor distance R" value={R} min={1.5} max={5.0} step={0.05} onChange={setR} color={C.spec} unit=" Å" />
             <SliderRow label="Coordination number N" value={N} min={1} max={12} step={1} onChange={setN} color={C.accent} format={v => v.toString()} />
-            <SliderRow label="Debye-Waller \u03C3\u00B2" value={sigma2} min={0.001} max={0.03} step={0.001} onChange={setSigma2} color={C.spec} unit=" \u00C5\u00B2" format={v => v.toFixed(3)} />
+            <SliderRow label="Debye-Waller σ²" value={sigma2} min={0.001} max={0.03} step={0.001} onChange={setSigma2} color={C.spec} unit=" Å²" format={v => v.toFixed(3)} />
           </div>
           <div>
-            <CalcRow eq={`\u03C7(k=5) \u2248 N\u00B7sin(2kR)/kR\u00B2`} result={`${(N * Math.sin(2 * 5 * R) * Math.exp(-50 * sigma2) / (5 * R * R)).toFixed(4)}`} color={C.spec} />
-            <CalcRow eq={`exp(-2k\u00B2\u03C3\u00B2) at k=5`} result={Math.exp(-50 * sigma2).toFixed(4)} color={C.accent} />
+            <CalcRow eq={`χ(k=5) ≈ N·sin(2kR)/kR²`} result={`${(N * Math.sin(2 * 5 * R) * Math.exp(-50 * sigma2) / (5 * R * R)).toFixed(4)}`} color={C.spec} />
+            <CalcRow eq={`exp(-2k²σ²) at k=5`} result={Math.exp(-50 * sigma2).toFixed(4)} color={C.accent} />
             <CalcRow eq="XANES gives" result="oxidation state, symmetry" color={T.muted} />
-            <CalcRow eq="EXAFS gives" result="R, N, \u03C3\u00B2" color={T.muted} />
+            <CalcRow eq="EXAFS gives" result="R, N, σ²" color={T.muted} />
           </div>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="BOND DISTANCE" value={`${R.toFixed(2)} \u00C5`} color={C.spec} sub="from EXAFS" />
+          <ResultBox label="BOND DISTANCE" value={`${R.toFixed(2)} Å`} color={C.spec} sub="from EXAFS" />
           <ResultBox label="COORDINATION" value={N.toString()} color={C.accent} sub="nearest neighbors" />
-          <ResultBox label="\u03C3\u00B2 DISORDER" value={`${(sigma2 * 1000).toFixed(1)} \u00D710\u207B\u00B3 \u00C5\u00B2`} color={C.spec} sub="thermal + static" />
+          <ResultBox label="σ² DISORDER" value={`${(sigma2 * 1000).toFixed(1)} ×10⁻³ Å²`} color={C.spec} sub="thermal + static" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
           <InfoRow label="What it measures" value="Oxidation state, local structure, bond distances" />
-          <InfoRow label="Resolution" value="\u00B10.01 \u00C5 for distances" />
+          <InfoRow label="Resolution" value="±0.01 Å for distances" />
           <InfoRow label="Source" value="Synchrotron radiation (tunable)" />
           <InfoRow label="Limitation" value="Needs synchrotron; element-specific; no long-range order" />
         </div>
@@ -1343,7 +1343,7 @@ function RamanSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text="A rubber ball bouncing off a vibrating wall -- most photons bounce back unchanged (Rayleigh), but a few gain or lose energy from molecular vibrations (Raman scattering), revealing the molecule's fingerprint." />
 
-      <Card title="Raman Spectroscopy" color={C.spec} formula="\u0394\u03BD = 1/\u03BB_in - 1/\u03BB_out">
+      <Card title="Raman Spectroscopy" color={C.spec} formula="Δν = 1/λ_in - 1/λ_out">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
           Raman spectroscopy measures inelastic light scattering. A laser photon excites a molecule to a virtual state;
           it then relaxes emitting a photon shifted in energy. Stokes (lower E) and anti-Stokes (higher E) shifts
@@ -1380,7 +1380,7 @@ function RamanSection() {
               <line x1={0} y1={60} x2={0} y2={175} stroke="#dc2626" strokeWidth={1.5} strokeDasharray="4,2" />
               <circle cx={0} cy={60 + Math.min(115, (animFrame % 40) * 3.5)} r={3} fill={C.accent} opacity={0.6} />
               <text x={0} y={215} textAnchor="middle" fontSize={7} fill={C.accent}>Stokes</text>
-              <text x={0} y={225} textAnchor="middle" fontSize={6} fill={T.muted}>(-\u0394E)</text>
+              <text x={0} y={225} textAnchor="middle" fontSize={6} fill={T.muted}>(-ΔE)</text>
             </g>
 
             {/* Anti-Stokes */}
@@ -1389,7 +1389,7 @@ function RamanSection() {
               <line x1={0} y1={60} x2={0} y2={200} stroke="#059669" strokeWidth={1.5} strokeDasharray="4,2" />
               <circle cx={0} cy={Math.max(60, 175 - (animFrame % 40) * 3.5)} r={3} fill="#2563eb" opacity={0.6} />
               <text x={0} y={215} textAnchor="middle" fontSize={7} fill="#2563eb">Anti-Stokes</text>
-              <text x={0} y={225} textAnchor="middle" fontSize={6} fill={T.muted}>(+\u0394E)</text>
+              <text x={0} y={225} textAnchor="middle" fontSize={6} fill={T.muted}>(+ΔE)</text>
             </g>
           </g>
 
@@ -1399,7 +1399,7 @@ function RamanSection() {
             <rect x={0} y={8} width={180} height={110} fill={T.panel} stroke={T.border} strokeWidth={1} rx={4} />
             <line x1={90} y1={105} x2={90} y2={20} stroke={T.ink} strokeWidth={1.5} />
             <line x1={15} y1={105} x2={170} y2={105} stroke={T.ink} strokeWidth={0.8} />
-            <text x={90} y={126} textAnchor="middle" fontSize={7} fill={T.muted}>Raman Shift (cm\u207B\u00B9)</text>
+            <text x={90} y={126} textAnchor="middle" fontSize={7} fill={T.muted}>Raman Shift (cm⁻¹)</text>
 
             {/* Rayleigh peak (center) */}
             <path d={`M85 105 Q90 30 95 105`} fill={C.spec + "22"} stroke={C.spec} strokeWidth={1} />
@@ -1414,7 +1414,7 @@ function RamanSection() {
                 <g key={`s${i}`}>
                   <path d={`M${x - 3} 105 Q${x} ${105 - h} ${x + 3} 105`}
                     fill={C.accent + "22"} stroke={C.accent} strokeWidth={i === 0 ? 1.2 : 0.8} />
-                  {i === 0 && <text x={x} y={105 - h - 4} textAnchor="middle" fontSize={6} fill={C.accent}>{shift} cm\u207B\u00B9</text>}
+                  {i === 0 && <text x={x} y={105 - h - 4} textAnchor="middle" fontSize={6} fill={C.accent}>{shift} cm⁻¹</text>}
                 </g>
               );
             })}
@@ -1452,7 +1452,7 @@ function RamanSection() {
           </g>
 
           <text x={210} y={252} textAnchor="middle" fontSize={10} fill={T.muted}>
-            Raman: {ramanShift} cm\u207B\u00B9 shift, \u03BB = {laserWL} nm, T = {temp} K
+            Raman: {ramanShift} cm⁻¹ shift, λ = {laserWL} nm, T = {temp} K
           </text>
         </svg>
 
@@ -1460,27 +1460,27 @@ function RamanSection() {
           <div>
             <SliderRow label="Laser wavelength" value={laserWL} min={325} max={1064} step={1} onChange={setLaserWL} color={C.spec} unit=" nm" format={v => v.toString()} />
             <SliderRow label="Temperature" value={temp} min={77} max={1000} step={5} onChange={setTemp} color={C.accent} unit=" K" format={v => v.toString()} />
-            <SliderRow label="Raman shift" value={ramanShift} min={100} max={1600} step={10} onChange={setRamanShift} color={C.spec} unit=" cm\u207B\u00B9" format={v => v.toString()} />
+            <SliderRow label="Raman shift" value={ramanShift} min={100} max={1600} step={10} onChange={setRamanShift} color={C.spec} unit=" cm⁻¹" format={v => v.toString()} />
           </div>
           <div>
             <CalcRow eq={`Laser energy = 1240/${laserWL}`} result={`${laserE.toFixed(3)} eV`} color={C.spec} />
-            <CalcRow eq={`Stokes \u03BB = 1/(1/${laserWL}-\u0394\u03BD)`} result={`${stokesWL.toFixed(1)} nm`} color={C.accent} />
+            <CalcRow eq={`Stokes λ = 1/(1/${laserWL}-Δν)`} result={`${stokesWL.toFixed(1)} nm`} color={C.accent} />
             <CalcRow eq={`Anti-Stokes/Stokes ratio`} result={ratio.toFixed(4)} color={C.spec} />
-            <CalcRow eq={`= exp(-h\u03BD/kT) at ${temp}K`} result={ratio.toFixed(4)} color={T.muted} />
+            <CalcRow eq={`= exp(-hν/kT) at ${temp}K`} result={ratio.toFixed(4)} color={T.muted} />
           </div>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="RAMAN SHIFT" value={`${ramanShift} cm\u207B\u00B9`} color={C.spec} sub="vibration frequency" />
-          <ResultBox label="STOKES \u03BB" value={`${stokesWL.toFixed(1)} nm`} color={C.accent} sub="scattered light" />
+          <ResultBox label="RAMAN SHIFT" value={`${ramanShift} cm⁻¹`} color={C.spec} sub="vibration frequency" />
+          <ResultBox label="STOKES λ" value={`${stokesWL.toFixed(1)} nm`} color={C.accent} sub="scattered light" />
           <ResultBox label="AS/S RATIO" value={ratio.toFixed(4)} color={C.spec} sub={`T = ${temp} K`} />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
           <InfoRow label="What it measures" value="Vibrational modes, phase ID, stress/strain" />
-          <InfoRow label="Resolution" value="~1 cm\u207B\u00B9; ~1 \u03BCm spatial (confocal)" />
+          <InfoRow label="Resolution" value="~1 cm⁻¹; ~1 μm spatial (confocal)" />
           <InfoRow label="Sample" value="Non-destructive; liquids, solids, gases" />
-          <InfoRow label="Limitation" value="Fluorescence interference; weak signal (1 in 10\u2078 photons)" />
+          <InfoRow label="Limitation" value="Fluorescence interference; weak signal (1 in 10⁸ photons)" />
         </div>
       </Card>
     </div>
@@ -1511,7 +1511,7 @@ function PLSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text='A UV flashlight on a white T-shirt -- the shirt absorbs UV (invisible) and re-emits visible light (glows). Similarly, PL excites above the bandgap and captures emission at the bandgap energy.' />
 
-      <Card title="Photoluminescence" color={C.spec} formula="Excite above Eg \u2192 Emit at Eg">
+      <Card title="Photoluminescence" color={C.spec} formula="Excite above Eg → Emit at Eg">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
           PL excites electrons above the bandgap with a laser. Electrons thermalize to the conduction band edge,
           then recombine radiatively, emitting photons at the bandgap energy. Defect emissions appear at sub-bandgap
@@ -1544,7 +1544,7 @@ function PLSection() {
             {canExcite && (
               <g>
                 <line x1={40} y1={134} x2={40} y2={25} stroke={C.surface} strokeWidth={1.5} markerEnd="url(#arrow)" />
-                <text x={25} y={80} fontSize={7} fill={C.surface}>h\u03BD_exc</text>
+                <text x={25} y={80} fontSize={7} fill={C.surface}>hν_exc</text>
               </g>
             )}
 
@@ -1648,7 +1648,7 @@ function PLSection() {
               const y = 50 - inten * 35;
               return `${x},${y}`;
             }).join(" ")} fill="none" stroke={C.spec} strokeWidth={1} />
-            <text x={80} y={62} textAnchor="middle" fontSize={6} fill={T.muted}>77 K \u2192 1000 K</text>
+            <text x={80} y={62} textAnchor="middle" fontSize={6} fill={T.muted}>77 K → 1000 K</text>
             {/* Current T marker */}
             {(() => {
               const x = 10 + ((temperature - 77) / (1000 - 77)) * 150;
@@ -1670,21 +1670,21 @@ function PLSection() {
           </div>
           <div>
             <CalcRow eq={`Exc. energy = 1240/${excWL}`} result={`${excE.toFixed(3)} eV`} color={C.surface} />
-            <CalcRow eq={`Emission \u03BB = 1240/${bandgap}`} result={canExcite ? `${emWL.toFixed(0)} nm` : "no PL"} color={C.spec} />
-            <CalcRow eq={`Defect emission \u03BB`} result={`${defectWL.toFixed(0)} nm`} color={C.adv} />
+            <CalcRow eq={`Emission λ = 1240/${bandgap}`} result={canExcite ? `${emWL.toFixed(0)} nm` : "no PL"} color={C.spec} />
+            <CalcRow eq={`Defect emission λ`} result={`${defectWL.toFixed(0)} nm`} color={C.adv} />
             <CalcRow eq={`PL intensity (norm.)`} result={plIntensity} color={C.accent} />
           </div>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="EMISSION \u03BB" value={canExcite ? `${emWL.toFixed(0)} nm` : "---"} color={C.spec} sub="band-edge" />
+          <ResultBox label="EMISSION λ" value={canExcite ? `${emWL.toFixed(0)} nm` : "---"} color={C.spec} sub="band-edge" />
           <ResultBox label="DEFECT EMISSION" value={`${defectWL.toFixed(0)} nm`} color={C.adv} sub={`${defectLvl} eV below CB`} />
           <ResultBox label="PL INTENSITY" value={`${(parseFloat(plIntensity) * 100).toFixed(0)}%`} color={C.accent} sub={`T = ${temperature} K`} />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
           <InfoRow label="What it measures" value="Bandgap, defect states, recombination dynamics" />
-          <InfoRow label="Resolution" value="~1 meV (low-T); ~1 \u03BCm spatial" />
+          <InfoRow label="Resolution" value="~1 meV (low-T); ~1 μm spatial" />
           <InfoRow label="Sample" value="Semiconductors, quantum dots, phosphors" />
           <InfoRow label="Limitation" value="Non-radiative paths invisible; temp-dependent quenching" />
         </div>
@@ -1715,10 +1715,10 @@ function UVVisSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text="Colored glass filtering white light -- the glass absorbs certain wavelengths and transmits others. UV-Vis measures which wavelengths are absorbed and by how much, revealing concentration (Beer-Lambert) or bandgap (Tauc)." />
 
-      <Card title="UV-Vis Spectroscopy" color={C.spec} formula="A = \u03B5cl (Beer-Lambert)">
+      <Card title="UV-Vis Spectroscopy" color={C.spec} formula="A = εcl (Beer-Lambert)">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
           UV-Vis measures absorption/transmission of light (200-800 nm). Beer-Lambert law relates absorbance to
-          concentration. For semiconductors, the Tauc plot extracts the bandgap: (\u03B1h\u03BD)^n vs h\u03BD,
+          concentration. For semiconductors, the Tauc plot extracts the bandgap: (αhν)^n vs hν,
           where n = 2 (direct) or 1/2 (indirect).
         </div>
 
@@ -1729,7 +1729,7 @@ function UVVisSection() {
 
             {/* Light source */}
             <circle cx={0} cy={60} r={12} fill={C.accent + "44"} stroke={C.accent} strokeWidth={1} />
-            <text x={0} y={63} textAnchor="middle" fontSize={7} fill={C.accent}>I\u2080</text>
+            <text x={0} y={63} textAnchor="middle" fontSize={7} fill={C.accent}>I₀</text>
 
             {/* Light beam going in */}
             {[0, 1, 2, 3].map(i => {
@@ -1762,8 +1762,8 @@ function UVVisSection() {
             <rect x={0} y={8} width={180} height={110} fill={T.panel} stroke={T.border} strokeWidth={1} rx={4} />
             <line x1={20} y1={105} x2={170} y2={105} stroke={T.ink} strokeWidth={0.8} />
             <line x1={20} y1={105} x2={20} y2={18} stroke={T.ink} strokeWidth={0.8} />
-            <text x={95} y={126} textAnchor="middle" fontSize={7} fill={T.muted}>h\u03BD (eV)</text>
-            <text x={8} y={60} fontSize={7} fill={T.muted} transform="rotate(-90,8,60)">(\u03B1h\u03BD)^n</text>
+            <text x={95} y={126} textAnchor="middle" fontSize={7} fill={T.muted}>hν (eV)</text>
+            <text x={8} y={60} fontSize={7} fill={T.muted} transform="rotate(-90,8,60)">(αhν)^n</text>
 
             {/* Tauc curve */}
             <polyline points={Array.from({ length: 80 }, (_, i) => {
@@ -1829,16 +1829,16 @@ function UVVisSection() {
             <SliderRow label="Bandgap (Tauc)" value={bg} min={0.5} max={5.0} step={0.05} onChange={setBg} color={C.spec} unit=" eV" />
           </div>
           <div>
-            <CalcRow eq={`A = \u03B5cl = ${epsilon}\u00D7${conc.toFixed(3)}\u00D7${pathLen}`} result={absorbance.toFixed(3)} color={C.spec} />
-            <CalcRow eq={`T = 10^(-A) \u00D7 100`} result={`${transmittance.toFixed(1)}%`} color={C.accent} />
+            <CalcRow eq={`A = εcl = ${epsilon}×${conc.toFixed(3)}×${pathLen}`} result={absorbance.toFixed(3)} color={C.spec} />
+            <CalcRow eq={`T = 10^(-A) × 100`} result={`${transmittance.toFixed(1)}%`} color={C.accent} />
             <CalcRow eq={`Tauc: n = ${n} (${isDirect ? "direct" : "indirect"})`} result={`Eg = ${bg} eV`} color={C.spec} />
-            <CalcRow eq={`\u03BB_edge = 1240/Eg`} result={`${(1240 / bg).toFixed(0)} nm`} color={T.muted} />
+            <CalcRow eq={`λ_edge = 1240/Eg`} result={`${(1240 / bg).toFixed(0)} nm`} color={T.muted} />
           </div>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="ABSORBANCE" value={absorbance.toFixed(3)} color={C.spec} sub="A = \u03B5cl" />
-          <ResultBox label="TRANSMITTANCE" value={`${transmittance.toFixed(1)}%`} color={C.accent} sub="I/I\u2080" />
+          <ResultBox label="ABSORBANCE" value={absorbance.toFixed(3)} color={C.spec} sub="A = εcl" />
+          <ResultBox label="TRANSMITTANCE" value={`${transmittance.toFixed(1)}%`} color={C.accent} sub="I/I₀" />
           <ResultBox label="BANDGAP" value={`${bg} eV`} color={C.spec} sub={isDirect ? "direct" : "indirect"} />
         </div>
 
@@ -1876,7 +1876,7 @@ function SEMSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text="Fingertip scanning in the dark -- just as your fingertip feels surface texture by touch, the SEM's electron beam 'feels' the surface topography by collecting secondary electrons from each point, building a 3D-like image." />
 
-      <Card title="Scanning Electron Microscopy" color={C.micro} formula="Resolution \u221D beam size, WD, voltage">
+      <Card title="Scanning Electron Microscopy" color={C.micro} formula="Resolution ∝ beam size, WD, voltage">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
           SEM rasters a focused electron beam across the surface. Secondary electrons (SE, &lt;50 eV) give topographic
           contrast from edges and ridges. Backscattered electrons (BSE) give atomic number contrast.
@@ -1975,7 +1975,7 @@ function SEMSection() {
           </g>
 
           <text x={210} y={262} textAnchor="middle" fontSize={10} fill={T.muted}>
-            SEM: {voltage} kV, WD = {wd} mm, resolution \u2248 {resolution.toFixed(1)} nm
+            SEM: {voltage} kV, WD = {wd} mm, resolution ≈ {resolution.toFixed(1)} nm
           </text>
         </svg>
 
@@ -1987,7 +1987,7 @@ function SEMSection() {
           <div>
             <CalcRow eq="Resolution estimate" result={`~${resolution.toFixed(1)} nm`} color={C.micro} />
             <CalcRow eq="Interaction depth" result={`~${(interactionDepth * 1000).toFixed(0)} nm`} color={C.accent} />
-            <CalcRow eq="SE yield" result={`~${seYield.toFixed(1)} e\u207B/e\u207B`} color={C.spec} />
+            <CalcRow eq="SE yield" result={`~${seYield.toFixed(1)} e⁻/e⁻`} color={C.spec} />
           </div>
         </div>
 
@@ -2027,7 +2027,7 @@ function TEMImagingSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text="A slide projector with electrons -- instead of light passing through a transparency, electrons pass through an ultra-thin sample, and magnetic lenses focus them into a magnified image showing atomic structure." />
 
-      <Card title="TEM Imaging" color={C.micro} formula="\u03BB = h / \u221A(2meV)">
+      <Card title="TEM Imaging" color={C.micro} formula="λ = h / √(2meV)">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
           TEM transmits electrons through thin (&lt;100 nm) samples. De Broglie wavelength at 200 kV is ~2.5 pm,
           enabling atomic resolution. Bright-field/dark-field modes, phase contrast (HRTEM), and mass-thickness
@@ -2110,7 +2110,7 @@ function TEMImagingSection() {
               { label: "Bright Field (BF)", desc: "Direct beam only", col: C.micro },
               { label: "Dark Field (DF)", desc: "Diffracted beam only", col: C.accent },
               { label: "Phase Contrast (HRTEM)", desc: "Interference of multiple beams", col: C.spec },
-              { label: "HAADF-STEM", desc: "Z-contrast (Z\u00B2 dependence)", col: C.surface },
+              { label: "HAADF-STEM", desc: "Z-contrast (Z² dependence)", col: C.surface },
             ].map((m, i) => (
               <g key={i} transform={`translate(0, ${15 + i * 20})`}>
                 <circle cx={8} cy={0} r={3} fill={m.col} />
@@ -2121,7 +2121,7 @@ function TEMImagingSection() {
           </g>
 
           <text x={210} y={272} textAnchor="middle" fontSize={10} fill={T.muted}>
-            TEM at {voltage} kV: \u03BB = {lambdaPm.toFixed(2)} pm, defocus = {defocus} nm
+            TEM at {voltage} kV: λ = {lambdaPm.toFixed(2)} pm, defocus = {defocus} nm
           </text>
         </svg>
 
@@ -2131,21 +2131,21 @@ function TEMImagingSection() {
             <SliderRow label="Defocus" value={defocus} min={-100} max={100} step={5} onChange={setDefocus} color={C.accent} unit=" nm" format={v => v.toString()} />
           </div>
           <div>
-            <CalcRow eq={`\u03BB = h/\u221A(2meV*(1+eV/2mc\u00B2))`} result={`${lambdaPm.toFixed(3)} pm`} color={C.micro} />
-            <CalcRow eq={`Point resolution \u2248 0.61\u03BB/\u03B1`} result={`~${resolution.toFixed(2)} \u00C5`} color={C.accent} />
-            <CalcRow eq="Scherzer defocus" result={`\u2248 -${Math.sqrt(1.2 * lambda * 1e6).toFixed(0)} nm`} color={T.muted} />
+            <CalcRow eq={`λ = h/√(2meV*(1+eV/2mc²))`} result={`${lambdaPm.toFixed(3)} pm`} color={C.micro} />
+            <CalcRow eq={`Point resolution ≈ 0.61λ/α`} result={`~${resolution.toFixed(2)} Å`} color={C.accent} />
+            <CalcRow eq="Scherzer defocus" result={`≈ -${Math.sqrt(1.2 * lambda * 1e6).toFixed(0)} nm`} color={T.muted} />
           </div>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="\u03BB ELECTRON" value={`${lambdaPm.toFixed(2)} pm`} color={C.micro} sub={`at ${voltage} kV`} />
-          <ResultBox label="RESOLUTION" value={`~${resolution.toFixed(1)} \u00C5`} color={C.accent} sub="point resolution" />
+          <ResultBox label="λ ELECTRON" value={`${lambdaPm.toFixed(2)} pm`} color={C.micro} sub={`at ${voltage} kV`} />
+          <ResultBox label="RESOLUTION" value={`~${resolution.toFixed(1)} Å`} color={C.accent} sub="point resolution" />
           <ResultBox label="MAGNIFICATION" value="50x-1.5Mx" color={C.micro} sub="typical" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
           <InfoRow label="What it measures" value="Atomic structure, defects, interfaces, nanoparticles" />
-          <InfoRow label="Resolution" value="~0.5 \u00C5 (aberration-corrected STEM)" />
+          <InfoRow label="Resolution" value="~0.5 Å (aberration-corrected STEM)" />
           <InfoRow label="Sample" value="<100 nm thin foil (FIB, ion milling)" />
           <InfoRow label="Limitation" value="Extremely thin sample needed; beam damage; costly" />
         </div>
@@ -2217,7 +2217,7 @@ function AFMSection() {
 
                   {/* Scan direction */}
                   <line x1={-10} y1={tipY + 35} x2={220} y2={tipY + 35} stroke={T.muted} strokeWidth={0.5} />
-                  <text x={100} y={tipY + 45} textAnchor="middle" fontSize={7} fill={T.muted}>scan direction \u2192</text>
+                  <text x={100} y={tipY + 45} textAnchor="middle" fontSize={7} fill={T.muted}>scan direction →</text>
                 </g>
               );
             })()}
@@ -2286,7 +2286,7 @@ function AFMSection() {
             <SliderRow label="Oscillation amplitude" value={amplitude} min={1} max={100} step={1} onChange={setAmplitude} color={C.spec} unit=" nm" format={v => v.toString()} />
           </div>
           <div>
-            <CalcRow eq={`F_vdW \u221D -1/d\u00B2`} result={`${vdW.toFixed(3)} nN`} color={C.micro} />
+            <CalcRow eq={`F_vdW ∝ -1/d²`} result={`${vdW.toFixed(3)} nN`} color={C.micro} />
             <CalcRow eq={`F_repulsive (d<1.5)`} result={`${repulsive.toFixed(3)} nN`} color={C.adv} />
             <CalcRow eq={`F_net = F_vdW + F_rep`} result={`${force.toFixed(3)} nN`} color={C.accent} />
             <CalcRow eq={`Deflection = F/k`} result={`${deflection.toFixed(3)} nm`} color={C.micro} />
@@ -2331,9 +2331,9 @@ function STMSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text="Two magnets almost touching -- electrons quantum tunnel across the tiny vacuum gap between the tip and sample. The tunneling current drops exponentially with distance, so even a fraction of an angstrom changes the signal dramatically." />
 
-      <Card title="Scanning Tunneling Microscopy" color={C.micro} formula="I \u221D V\u00B7exp(-2\u03BAd), \u03BA = \u221A(2m\u03C6)/\u210F">
+      <Card title="Scanning Tunneling Microscopy" color={C.micro} formula="I ∝ V·exp(-2κd), κ = √(2mφ)/ℏ">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          STM exploits quantum tunneling: a sharp metallic tip is brought within ~5-10 \u00C5 of a conducting surface.
+          STM exploits quantum tunneling: a sharp metallic tip is brought within ~5-10 Å of a conducting surface.
           Applying a bias V causes electrons to tunnel across the gap. The current decays exponentially with distance d,
           giving atomic-resolution topography and electronic structure (LDOS).
         </div>
@@ -2347,7 +2347,7 @@ function STMSection() {
 
             {/* Gap */}
             <line x1={10} y1={75} x2={30} y2={75} stroke={C.accent} strokeWidth={0.5} strokeDasharray="2,2" />
-            <text x={35} y={78} fontSize={7} fill={C.accent}>d = {dist} \u00C5</text>
+            <text x={35} y={78} fontSize={7} fill={C.accent}>d = {dist} Å</text>
 
             {/* Tunneling wavefunction */}
             <polyline points={Array.from({ length: 40 }, (_, i) => {
@@ -2381,7 +2381,7 @@ function STMSection() {
             <rect x={0} y={8} width={170} height={100} fill={T.panel} stroke={T.border} strokeWidth={1} rx={4} />
             <line x1={20} y1={95} x2={160} y2={95} stroke={T.ink} strokeWidth={0.8} />
             <line x1={20} y1={95} x2={20} y2={18} stroke={T.ink} strokeWidth={0.8} />
-            <text x={90} y={113} textAnchor="middle" fontSize={7} fill={T.muted}>d (\u00C5)</text>
+            <text x={90} y={113} textAnchor="middle" fontSize={7} fill={T.muted}>d (Å)</text>
             <text x={8} y={55} fontSize={7} fill={T.muted} transform="rotate(-90,8,55)">I (a.u.)</text>
 
             {/* Exponential curve */}
@@ -2409,10 +2409,10 @@ function STMSection() {
             {/* Constant current - tip follows surface */}
             <polyline points="15,35 30,25 45,30 60,20 75,28 90,22 105,35 120,30 135,25 150,32"
               fill="none" stroke={C.micro} strokeWidth={1.2} />
-            <text x={85} y={50} textAnchor="middle" fontSize={7} fill={C.micro}>Constant current \u2192 topography</text>
+            <text x={85} y={50} textAnchor="middle" fontSize={7} fill={C.micro}>Constant current → topography</text>
 
             {/* dI/dV */}
-            <text x={85} y={75} textAnchor="middle" fontSize={7} fill={C.accent}>dI/dV spectroscopy \u2192 LDOS</text>
+            <text x={85} y={75} textAnchor="middle" fontSize={7} fill={C.accent}>dI/dV spectroscopy → LDOS</text>
           </g>
 
           {/* Energy diagram */}
@@ -2423,7 +2423,7 @@ function STMSection() {
             <text x={20} y={80} textAnchor="middle" fontSize={6} fill={C.micro}>tip</text>
             {/* Barrier */}
             <rect x={40} y={15} width={dist * 5} height={60} fill={C.accent + "08"} stroke={C.accent} strokeWidth={0.5} strokeDasharray="2,2" />
-            <text x={40 + dist * 2.5} y={12} textAnchor="middle" fontSize={6} fill={C.accent}>\u03C6 = {phi} eV</text>
+            <text x={40 + dist * 2.5} y={12} textAnchor="middle" fontSize={6} fill={C.accent}>φ = {phi} eV</text>
             {/* Sample */}
             <rect x={40 + dist * 5} y={15 + bias * 15} width={40} height={60 - bias * 15} fill={C.spec + "11"} stroke={C.spec} strokeWidth={1} />
             <text x={60 + dist * 5} y={80} textAnchor="middle" fontSize={6} fill={C.spec}>sample</text>
@@ -2437,27 +2437,27 @@ function STMSection() {
           </g>
 
           <text x={210} y={252} textAnchor="middle" fontSize={10} fill={T.muted}>
-            STM: d = {dist} \u00C5, \u03C6 = {phi} eV, V = {bias} V
+            STM: d = {dist} Å, φ = {phi} eV, V = {bias} V
           </text>
         </svg>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 10 }}>
           <div>
-            <SliderRow label="Tip-surface distance d" value={dist} min={3} max={10} step={0.1} onChange={setDist} color={C.micro} unit=" \u00C5" />
-            <SliderRow label="Work function \u03C6" value={phi} min={3.0} max={5.5} step={0.1} onChange={setPhi} color={C.accent} unit=" eV" />
+            <SliderRow label="Tip-surface distance d" value={dist} min={3} max={10} step={0.1} onChange={setDist} color={C.micro} unit=" Å" />
+            <SliderRow label="Work function φ" value={phi} min={3.0} max={5.5} step={0.1} onChange={setPhi} color={C.accent} unit=" eV" />
             <SliderRow label="Bias voltage V" value={bias} min={0.01} max={3.0} step={0.01} onChange={setBias} color={C.micro} unit=" V" />
           </div>
           <div>
-            <CalcRow eq={`\u03BA = \u221A(2m\u03C6)/\u210F`} result={`${(kappaInvAng).toFixed(3)} \u00C5\u207B\u00B9`} color={C.micro} />
-            <CalcRow eq={`exp(-2\u03BAd) = exp(-${(2 * kappaInvAng * dist).toFixed(2)})`} result={Math.exp(-2 * kappaInvAng * dist).toExponential(2)} color={C.accent} />
-            <CalcRow eq={`I \u221D V\u00B7exp(-2\u03BAd)`} result={`${currentNorm.toExponential(2)} a.u.`} color={C.micro} />
-            <CalcRow eq="\u0394d = 1\u00C5 \u2192 I change" result={`${(Math.exp(2 * kappaInvAng)).toFixed(0)}x`} color={C.accent} />
+            <CalcRow eq={`κ = √(2mφ)/ℏ`} result={`${(kappaInvAng).toFixed(3)} Å⁻¹`} color={C.micro} />
+            <CalcRow eq={`exp(-2κd) = exp(-${(2 * kappaInvAng * dist).toFixed(2)})`} result={Math.exp(-2 * kappaInvAng * dist).toExponential(2)} color={C.accent} />
+            <CalcRow eq={`I ∝ V·exp(-2κd)`} result={`${currentNorm.toExponential(2)} a.u.`} color={C.micro} />
+            <CalcRow eq="Δd = 1Å → I change" result={`${(Math.exp(2 * kappaInvAng)).toFixed(0)}x`} color={C.accent} />
           </div>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
           <ResultBox label="TUNNEL CURRENT" value={currentNorm.toExponential(2)} color={C.micro} sub="arb. units" />
-          <ResultBox label="DECAY CONST \u03BA" value={`${kappaInvAng.toFixed(2)} \u00C5\u207B\u00B9`} color={C.accent} sub="inv. decay length" />
+          <ResultBox label="DECAY CONST κ" value={`${kappaInvAng.toFixed(2)} Å⁻¹`} color={C.accent} sub="inv. decay length" />
           <ResultBox label="RESOLUTION" value="~0.1 nm" color={C.micro} sub="atomic" />
         </div>
 
@@ -2493,7 +2493,7 @@ function SynchrotronSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text="Flashlight vs laser searchlight -- a synchrotron is millions of times brighter than an X-ray tube, like comparing a laser to a candle. It produces tunable, polarized, pulsed X-rays for every technique imaginable." />
 
-      <Card title="Synchrotron Radiation" color={C.adv} formula="E_c = 0.665 \u00D7 E\u00B2 \u00D7 B (keV)">
+      <Card title="Synchrotron Radiation" color={C.adv} formula="E_c = 0.665 × E² × B (keV)">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
           Synchrotrons accelerate electrons to near light-speed in a storage ring. When bent by magnets,
           they emit extremely bright, collimated X-rays across a broad spectrum. Insertion devices (undulators,
@@ -2570,7 +2570,7 @@ function SynchrotronSection() {
                 <text x={0} y={25} fontSize={6} fill={T.muted}>{s.label}</text>
               </g>
             ))}
-            <text x={55} y={208} textAnchor="middle" fontSize={7} fill={T.muted}>ph/s/mm\u00B2/mrad\u00B2/0.1%BW</text>
+            <text x={55} y={208} textAnchor="middle" fontSize={7} fill={T.muted}>ph/s/mm²/mrad²/0.1%BW</text>
           </g>
 
           <text x={130} y={252} textAnchor="middle" fontSize={10} fill={T.muted}>
@@ -2582,8 +2582,8 @@ function SynchrotronSection() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 8 }}>
           <div>
-            <CalcRow eq={`E_c = 0.665 \u00D7 ${electronE}\u00B2 \u00D7 1.5T`} result={`${criticalE.toFixed(1)} keV`} color={C.adv} />
-            <CalcRow eq="Brilliance (undulator)" result={`~10\u00B2\u2070 ph/s/...`} color={C.accent} />
+            <CalcRow eq={`E_c = 0.665 × ${electronE}² × 1.5T`} result={`${criticalE.toFixed(1)} keV`} color={C.adv} />
+            <CalcRow eq="Brilliance (undulator)" result={`~10²⁰ ph/s/...`} color={C.accent} />
           </div>
           <div>
             <CalcRow eq="Pulse length" result="~100 ps" color={T.muted} />
@@ -2593,13 +2593,13 @@ function SynchrotronSection() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
           <ResultBox label="CRITICAL ENERGY" value={`${criticalE.toFixed(1)} keV`} color={C.adv} sub={`at ${electronE} GeV`} />
-          <ResultBox label="BRILLIANCE" value={`~10\u00B2\u2070`} color={C.accent} sub="undulator peak" />
-          <ResultBox label="TUNABILITY" value="Continuous" color={C.adv} sub="IR \u2192 hard X-ray" />
+          <ResultBox label="BRILLIANCE" value={`~10²⁰`} color={C.accent} sub="undulator peak" />
+          <ResultBox label="TUNABILITY" value="Continuous" color={C.adv} sub="IR → hard X-ray" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
           <InfoRow label="What it enables" value="XAS, diffraction, imaging, ptychography, SAXS/WAXS" />
-          <InfoRow label="Advantage" value="10\u00B9-10\u00B9\u2070x brighter than lab sources" />
+          <InfoRow label="Advantage" value="10¹-10¹⁰x brighter than lab sources" />
           <InfoRow label="Facilities" value="APS, ESRF, SPring-8, Diamond, NSLS-II" />
           <InfoRow label="Limitation" value="Requires facility access; beamtime allocation" />
         </div>
@@ -2629,7 +2629,7 @@ function InSituTEMSection() {
       <Card title="In-situ TEM" color={C.adv} formula="Real-time observation at atomic scale">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
           In-situ TEM uses specialized holders (heating, biasing, gas cell, liquid cell) to observe dynamic processes
-          inside the TEM. Environmental TEM (ETEM) allows gas-phase reactions. MEMS-based heaters reach &gt;1000\u00B0C with
+          inside the TEM. Environmental TEM (ETEM) allows gas-phase reactions. MEMS-based heaters reach &gt;1000°C with
           minimal drift. Captures nucleation, growth, phase transitions, sintering, catalysis in real time.
         </div>
 
@@ -2710,7 +2710,7 @@ function InSituTEMSection() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 8 }}>
           <div>
-            <CalcRow eq="Nucleation rate \u221D exp(-Q/kT)" result={nucleationRate.toExponential(1)} color={C.adv} />
+            <CalcRow eq="Nucleation rate ∝ exp(-Q/kT)" result={nucleationRate.toExponential(1)} color={C.adv} />
             <CalcRow eq="Growth rate" result={`${growthRate.toFixed(2)} nm/s`} color={C.accent} />
           </div>
           <div>
@@ -2727,7 +2727,7 @@ function InSituTEMSection() {
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
           <InfoRow label="What it measures" value="Dynamic processes: nucleation, growth, sintering" />
-          <InfoRow label="Capabilities" value="Heating (1200\u00B0C), gas (1 bar), liquid, biasing" />
+          <InfoRow label="Capabilities" value="Heating (1200°C), gas (1 bar), liquid, biasing" />
           <InfoRow label="Resolution" value="Atomic (with aberration correction)" />
           <InfoRow label="Limitation" value="Electron beam effects; thin sample limits; drift" />
         </div>
@@ -2757,10 +2757,10 @@ function APTSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <AnalogyBox text="Peeling an onion atom by atom -- APT rips individual atoms from a needle-shaped specimen using an enormous electric field, then identifies each one by mass and maps its original 3D position. It's the only technique that gives true 3D atomic-scale chemistry." />
 
-      <Card title="Atom Probe Tomography" color={C.adv} formula="m/q = 2eV(t/d)\u00B2">
+      <Card title="Atom Probe Tomography" color={C.adv} formula="m/q = 2eV(t/d)²">
         <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
           APT applies a high voltage (+ laser pulse) to a needle specimen (&lt;100 nm tip radius). Atoms are field-evaporated
-          as ions and fly to a position-sensitive detector. Time-of-flight gives mass-to-charge ratio: m/q = 2eV(t/d)\u00B2.
+          as ions and fly to a position-sensitive detector. Time-of-flight gives mass-to-charge ratio: m/q = 2eV(t/d)².
           Hit positions + sequence = 3D atomic reconstruction.
         </div>
 
@@ -2860,8 +2860,8 @@ function APTSection() {
             {/* Peaks */}
             {[
               { m: 12, h: 25, label: "C" },
-              { m: 28, h: 40, label: "Fe\u00B2\u207A" },
-              { m: 56, h: 50, label: "Fe\u207A" },
+              { m: 28, h: 40, label: "Fe²⁺" },
+              { m: 56, h: 50, label: "Fe⁺" },
               { m: 63, h: 20, label: "Cu" },
             ].map((pk, i) => {
               const x = 10 + (pk.m / 80) * 120;
@@ -2888,7 +2888,7 @@ function APTSection() {
           </div>
           <div>
             <CalcRow eq={`TOF (Fe, d=0.1m)`} result={`${tof.toFixed(1)} ns`} color={C.adv} />
-            <CalcRow eq={`m/q = 2eV(t/d)\u00B2`} result={`56 Da (Fe\u207A)`} color={C.accent} />
+            <CalcRow eq={`m/q = 2eV(t/d)²`} result={`56 Da (Fe⁺)`} color={C.accent} />
             <CalcRow eq={`Atoms detected (1M total)`} result={`${atomsDetected.toLocaleString()}`} color={C.adv} />
             <CalcRow eq="Spatial resolution" result="~0.2 nm (depth)" color={T.muted} />
           </div>
@@ -2897,7 +2897,7 @@ function APTSection() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
           <ResultBox label="TOF (Fe)" value={`${tof.toFixed(1)} ns`} color={C.adv} sub="time of flight" />
           <ResultBox label="DETECTION" value={`${(detEff * 100).toFixed(0)}%`} color={C.accent} sub="of evaporated ions" />
-          <ResultBox label="VOLUME" value="~100\u00D7100\u00D7300 nm" color={C.adv} sub="typical tip" />
+          <ResultBox label="VOLUME" value="~100×100×300 nm" color={C.adv} sub="typical tip" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -3028,7 +3028,7 @@ function CharacterizationModule() {
             padding: "8px 20px", borderRadius: 8, fontSize: 13, background: active === CHAR_SECTIONS[0].id ? T.surface : sec.color + "22",
             border: `1px solid ${active === CHAR_SECTIONS[0].id ? T.border : sec.color}`, color: active === CHAR_SECTIONS[0].id ? T.muted : sec.color,
             cursor: active === CHAR_SECTIONS[0].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 600,
-          }}>{"\u2190"} Prev</button>
+          }}>{"←"} Prev</button>
           <div style={{ display: "flex", gap: 4 }}>
             {CHAR_SECTIONS.map(s => (
               <div key={s.id} onClick={() => { setActive(s.id); setActiveBlock(s.block); }} style={{ width: 8, height: 8, borderRadius: 4, background: active === s.id ? sec.color : T.dim, cursor: "pointer" }} />
@@ -3038,7 +3038,7 @@ function CharacterizationModule() {
             padding: "8px 20px", borderRadius: 8, fontSize: 13, background: active === CHAR_SECTIONS[CHAR_SECTIONS.length-1].id ? T.surface : sec.color + "22",
             border: `1px solid ${active === CHAR_SECTIONS[CHAR_SECTIONS.length-1].id ? T.border : sec.color}`, color: active === CHAR_SECTIONS[CHAR_SECTIONS.length-1].id ? T.muted : sec.color,
             cursor: active === CHAR_SECTIONS[CHAR_SECTIONS.length-1].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 600,
-          }}>Next {"\u2192"}</button>
+          }}>Next {"→"}</button>
         </div>
       </div>
     </div>
