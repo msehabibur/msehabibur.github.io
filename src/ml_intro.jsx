@@ -165,8 +165,8 @@ function WhatIsMLSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
-          <svg width={380} height={200} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+        <div style={{ flex: "0 0 510px" }}>
+          <svg width={500} height={240} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={170} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Materials Classification Dataset</text>
             {/* Axes */}
             <line x1={30} y1={180} x2={330} y2={180} stroke={T.border} strokeWidth={1} />
@@ -305,7 +305,7 @@ function LinearRegressionSection() {
 
   const snapBest = () => { setM(Math.round(bestM * 100) / 100); setB(Math.round(bestB * 100) / 100); };
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
   const xMin = 1.1, xMax = 1.5, yMin = 3.5, yMax = 6.5;
   const sx = (v) => 40 + (v - xMin) / (xMax - xMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - yMin) / (yMax - yMin) * (svgH - 50);
@@ -331,7 +331,7 @@ function LinearRegressionSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Atomic Radius → Lattice Constant</text>
             {/* Axes */}
@@ -477,7 +477,7 @@ function OverfittingSection() {
   const trainRMSE = Math.sqrt(trainPts.reduce((s, p) => s + Math.pow(p.y - evalPoly(p.x), 2), 0) / trainPts.length);
   const testRMSE = Math.sqrt(testPts.reduce((s, p) => s + Math.pow(p.y - evalPoly(p.x), 2), 0) / testPts.length);
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
   const xMin = 0, xMax = 5, yMin = -2, yMax = 22;
   const sx = (v) => 40 + (v - xMin) / (xMax - xMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - yMin) / (yMax - yMin) * (svgH - 50);
@@ -509,7 +509,7 @@ function OverfittingSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Polynomial Degree {degree} Fit</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
@@ -618,7 +618,7 @@ function CrossValidationSection() {
   const std = Math.sqrt(scores.reduce((a, v) => a + (v - mean) ** 2, 0) / scores.length);
 
   const foldColors = ["#2563eb", "#059669", "#dc2626", "#7c3aed", "#d97706"];
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
 
   return (
     <Card color={C} title="K-Fold Cross-Validation" formula="Score = mean ± std over K folds">
@@ -641,7 +641,7 @@ function CrossValidationSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>{K}-Fold Split Visualization</text>
             {/* Show each fold as a row */}
@@ -762,7 +762,7 @@ function DecisionTreeSection() {
   const giniWeighted = (leftPts.length / points.length) * giniLeft + (rightPts.length / points.length) * giniRight;
   const infoGain = giniParent - giniWeighted;
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
   const enMin = 1.5, enMax = 2.7, rMin = 0.7, rMax = 1.6;
   const sx = (v) => 40 + (v - enMin) / (enMax - enMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - rMin) / (rMax - rMin) * (svgH - 50);
@@ -788,7 +788,7 @@ function DecisionTreeSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Split on {featureName} ≤ {splitX.toFixed(2)}</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
@@ -901,7 +901,7 @@ function RandomForestSection() {
   const votes1 = treeResults.filter(t => t.prediction === 1).length;
   const ensemblePred = votes0 >= votes1 ? "Semiconductor" : "Metal";
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
 
   return (
     <Card color={C} title="Random Forest" formula="Ensemble = majority vote of N trees">
@@ -924,7 +924,7 @@ function RandomForestSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Random Forest: {nTrees} Trees Voting</text>
             {/* Draw each tree as a simple diagram */}
@@ -1028,7 +1028,7 @@ function SVMSection() {
   const marginWidth = 2.0 / (wNorm * cParam);
   const marginHalf = marginWidth / 2;
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
   const xMin = 0, xMax = 4.5, yMin = 0.5, yMax = 3.8;
   const sx = (v) => 40 + (v - xMin) / (xMax - xMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - yMin) / (yMax - yMin) * (svgH - 50);
@@ -1057,7 +1057,7 @@ function SVMSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Maximum Margin Classifier</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
@@ -1178,7 +1178,7 @@ function PCASection() {
     return acc;
   }, []);
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
 
   return (
     <Card color={C} title="Principal Component Analysis" formula="Cov(X) → eigenvalues, eigenvectors">
@@ -1201,7 +1201,7 @@ function PCASection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Explained Variance by Component</text>
             {/* Bar chart */}
@@ -1315,7 +1315,7 @@ function PerceptronSection() {
   const output = actFn === "sigmoid" ? sigmoid(z) : relu(z);
   const actName = actFn === "sigmoid" ? "σ" : "ReLU";
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
 
   return (
     <Card color={C} title="Perceptron (Single Neuron)" formula={`output = ${actName}(w₁x₁ + w₂x₂ + b)`}>
@@ -1338,7 +1338,7 @@ function PerceptronSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Single Neuron Diagram</text>
             {/* Input nodes */}
@@ -1460,7 +1460,7 @@ function DNNSection() {
   const zO = w.o1 * h1 + w.o2 * h2 + w.bo;
   const output = sigmoid(zO);
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
 
   return (
     <Card color={C} title="Deep Neural Network" formula="output = σ(W₂ · σ(W₁ · x + b₁) + b₂)">
@@ -1483,7 +1483,7 @@ function DNNSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>2-Layer Network: Forward Pass</text>
             {/* Input layer */}
@@ -1612,7 +1612,7 @@ function BackpropSection() {
   }, [lr]);
 
   const cur = history[Math.min(step, history.length - 1)];
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
 
   return (
     <Card color={C} title="Backpropagation" formula="w_new = w_old − η × ∂L/∂w">
@@ -1635,7 +1635,7 @@ function BackpropSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Loss Over Training Steps</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
@@ -1744,7 +1744,7 @@ function CNNTransformerSection() {
     V[0].map((_, j) => row.reduce((s, w, k) => s + w * V[k][j], 0))
   );
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
 
   return (
     <>
@@ -1768,7 +1768,7 @@ function CNNTransformerSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
             {["CNN (Convolution)", "Transformer (Attention)"].map((lbl, i) => (
               <button key={i} onClick={() => setShowCNN(i === 0)}
@@ -1906,7 +1906,7 @@ function CNNTransformerSection() {
       </div>
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           {/* Encoder-Decoder Diagram */}
           <svg width={380} height={260} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={190} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Transformer Encoder-Decoder Architecture</text>
@@ -1972,7 +1972,7 @@ function CNNTransformerSection() {
       </div>
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           {/* Q, K, V matrices */}
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 1: Q, K, V MATRICES</div>
@@ -2061,7 +2061,7 @@ function CNNTransformerSection() {
     {/* ── Multi-Head Attention & Positional Encoding ── */}
     <Card color={C} title="Multi-Head Attention & Positional Encoding" formula="MultiHead = Concat(head₁,...,head_h)W^O">
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
             <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Multi-Head Attention</div>
             <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
@@ -2117,7 +2117,7 @@ function CNNTransformerSection() {
     {/* ── Materials Transformer Models Comparison ── */}
     <Card color={C} title="Materials Transformer Models" formula="MatBERT | Crystal Transformer | ALIGNN">
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>MODEL COMPARISON TABLE</div>
             <table style={{ width: "100%", fontSize: 11, borderCollapse: "collapse" }}>
@@ -2214,7 +2214,7 @@ function FeatureEngineeringSection() {
   const diffRadius = Math.abs(c.ra - c.rb);
   const meanZ = (c.Za + c.Zb) / 2;
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
 
   return (
     <Card color={C} title="Feature Engineering" formula="Material → numerical feature vector">
@@ -2237,7 +2237,7 @@ function FeatureEngineeringSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
             {compounds.map((comp, i) => (
               <button key={i} onClick={() => setCompound(i)}
@@ -2337,7 +2337,7 @@ function PropertyPredictionSection() {
   const ssTot = predicted.reduce((a, p) => a + (p.actual - meanActual) ** 2, 0);
   const r2 = 1 - ssRes / ssTot;
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
   const axMin = 0, axMax = 4;
   const sx = (v) => 40 + (v - axMin) / (axMax - axMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - axMin) / (axMax - axMin) * (svgH - 50);
@@ -2363,7 +2363,7 @@ function PropertyPredictionSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Parity Plot: Predicted vs Actual Bandgap</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
@@ -2486,7 +2486,7 @@ function GenerativeModelsSection() {
   };
   const diffusionSnapshots = diffSteps.map(t => ({ t, values: t === 0 ? [...x0] : noiseAtStep(t) }));
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
   const sx = (v) => svgW / 2 + v * 60;
   const sy = (v) => svgH / 2 - v * 55;
 
@@ -2513,7 +2513,7 @@ function GenerativeModelsSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>2D Latent Space</text>
             {/* Axes */}
@@ -2596,7 +2596,7 @@ function GenerativeModelsSection() {
       </div>
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ENCODER ARCHITECTURE (TYPICAL)</div>
             <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
@@ -2689,7 +2689,7 @@ function GenerativeModelsSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           {/* Diffusion visualization */}
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>FORWARD PROCESS: NOISING Cu₂ZnSnS₄-LIKE VECTOR</div>
@@ -2768,7 +2768,7 @@ function GenerativeModelsSection() {
     {/* ── GAN Brief + Comparison Table ── */}
     <Card color={C} title="GANs & Generative Model Comparison" formula="VAE vs GAN vs Diffusion">
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
             <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>GANs (Generative Adversarial Networks)</div>
             <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
@@ -2903,7 +2903,7 @@ function ActiveLearningSection() {
     ]);
   };
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
   const xMin = 0, xMax = 1, yMin = -1.5, yMax = 2.5;
   const sx = (v) => 40 + (v - xMin) / (xMax - xMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - yMin) / (yMax - yMin) * (svgH - 50);
@@ -2929,7 +2929,7 @@ function ActiveLearningSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Active Learning: {known.length} known points</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
@@ -3036,7 +3036,7 @@ function DataPipelineSection() {
   ];
 
   const cur = stages[stage];
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
 
   return (
     <Card color={C} title="ML Data Pipeline" formula="Data → Clean → Feature → Split → Train → Evaluate">
@@ -3059,7 +3059,7 @@ function DataPipelineSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Pipeline Flow</text>
             {stages.map((s, i) => {
@@ -3163,7 +3163,7 @@ function HyperparamSection() {
     return { i: 0, j: 0 };
   })();
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
 
   return (
     <Card color={C} title="Hyperparameter Tuning" formula="Grid Search: try all (lr, hidden_size) pairs">
@@ -3186,7 +3186,7 @@ function HyperparamSection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Validation Error Heatmap</text>
             <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={9} fill={T.muted}>Hidden Size</text>
@@ -3302,7 +3302,7 @@ function InterpretabilitySection() {
   const totalShap = m.features.reduce((s, f) => s + f.shap, 0);
   const prediction = m.base + totalShap;
 
-  const svgW = 380, svgH = 200;
+  const svgW = 500, svgH = 240;
   const centerX = svgW / 2;
 
   return (
@@ -3326,7 +3326,7 @@ function InterpretabilitySection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
             {materials.map((mat, i) => (
               <button key={i} onClick={() => setMaterial(i)}
@@ -3459,7 +3459,7 @@ function MLSummarySection() {
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 380px" }}>
+        <div style={{ flex: "0 0 510px" }}>
           {/* Comparison table */}
           <div style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, overflow: "hidden" }}>
             <div style={{ display: "grid", gridTemplateColumns: "110px 60px 55px 55px 55px", fontSize: 8, fontWeight: 700, color: T.muted,
