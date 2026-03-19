@@ -93,11 +93,53 @@ function XRDSection() {
   const [lam, setLam] = useState(1.5406);
   const [n, setN] = useState(1);
   const [animFrame, setAnimFrame] = useState(0);
+  const [xrdPreset, setXrdPreset] = useState("Si");
+
+  const xrdMaterials = useMemo(() => ({
+    Si: { label: "Silicon", color: "#2563eb", peaks: [
+      { twoTheta: 28.44, hkl: "(111)", intensity: 100, d: 3.135 },
+      { twoTheta: 47.30, hkl: "(220)", intensity: 55, d: 1.920 },
+      { twoTheta: 56.12, hkl: "(311)", intensity: 30, d: 1.637 },
+      { twoTheta: 69.13, hkl: "(400)", intensity: 6, d: 1.358 },
+      { twoTheta: 76.38, hkl: "(331)", intensity: 11, d: 1.246 },
+      { twoTheta: 88.03, hkl: "(422)", intensity: 12, d: 1.109 },
+    ]},
+    Cu: { label: "Copper", color: "#d97706", peaks: [
+      { twoTheta: 43.30, hkl: "(111)", intensity: 100, d: 2.088 },
+      { twoTheta: 50.43, hkl: "(200)", intensity: 46, d: 1.808 },
+      { twoTheta: 74.13, hkl: "(220)", intensity: 20, d: 1.278 },
+      { twoTheta: 89.93, hkl: "(311)", intensity: 17, d: 1.090 },
+      { twoTheta: 95.14, hkl: "(222)", intensity: 5, d: 1.044 },
+    ]},
+    NaCl: { label: "NaCl", color: "#059669", peaks: [
+      { twoTheta: 27.37, hkl: "(111)", intensity: 13, d: 3.258 },
+      { twoTheta: 31.70, hkl: "(200)", intensity: 100, d: 2.821 },
+      { twoTheta: 45.45, hkl: "(220)", intensity: 55, d: 1.994 },
+      { twoTheta: 53.87, hkl: "(311)", intensity: 2, d: 1.701 },
+      { twoTheta: 56.49, hkl: "(222)", intensity: 15, d: 1.628 },
+      { twoTheta: 66.23, hkl: "(400)", intensity: 12, d: 1.410 },
+      { twoTheta: 75.30, hkl: "(420)", intensity: 8, d: 1.261 },
+    ]},
+    CdTe: { label: "CdTe", color: "#dc2626", peaks: [
+      { twoTheta: 23.76, hkl: "(111)", intensity: 100, d: 3.742 },
+      { twoTheta: 39.31, hkl: "(220)", intensity: 60, d: 2.290 },
+      { twoTheta: 46.43, hkl: "(311)", intensity: 30, d: 1.954 },
+      { twoTheta: 56.83, hkl: "(400)", intensity: 5, d: 1.619 },
+      { twoTheta: 62.41, hkl: "(331)", intensity: 10, d: 1.487 },
+      { twoTheta: 71.23, hkl: "(422)", intensity: 12, d: 1.323 },
+    ]},
+  }), []);
 
   useEffect(() => {
     const id = setInterval(() => setAnimFrame(f => (f + 1) % 120), 50);
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    if (xrdMaterials[xrdPreset]) {
+      setD(xrdMaterials[xrdPreset].peaks[0].d);
+    }
+  }, [xrdPreset, xrdMaterials]);
 
   const theta = Math.asin((n * lam) / (2 * d));
   const thetaDeg = (theta * 180) / Math.PI;
@@ -249,6 +291,94 @@ function XRDSection() {
           <InfoRow label="Resolution" value="~0.01° 2θ (high-res), d-spacing to 0.001 Å" />
           <InfoRow label="Sample" value="Powders, thin films, single crystals" />
           <InfoRow label="Limitation" value="Needs crystalline material; amorphous gives broad humps" />
+        </div>
+      </Card>
+
+      {/* ─── Live XRD Pattern with Material Presets ─── */}
+      <Card title="Live XRD Pattern" color={C.struct} formula="2θ vs Intensity">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
+          Select a material to see its realistic multi-peak diffraction pattern with Miller index labels.
+        </div>
+        {/* Material preset buttons */}
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
+          {Object.entries(xrdMaterials).map(([key, mat]) => (
+            <button key={key} onClick={() => setXrdPreset(key)} style={{
+              padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+              background: xrdPreset === key ? mat.color + "18" : T.surface,
+              border: xrdPreset === key ? `1.5px solid ${mat.color}` : `1px solid ${T.border}`,
+              color: xrdPreset === key ? mat.color : T.muted,
+            }}>{mat.label}</button>
+          ))}
+        </div>
+
+        {/* XRD Pattern SVG */}
+        <svg viewBox="0 0 500 220" style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+          {/* Axes */}
+          <line x1={50} y1={180} x2={480} y2={180} stroke={T.ink} strokeWidth={1} />
+          <line x1={50} y1={180} x2={50} y2={20} stroke={T.ink} strokeWidth={1} />
+          <text x={265} y={205} textAnchor="middle" fontSize={10} fill={T.muted}>2θ (degrees)</text>
+          <text x={15} y={100} fontSize={9} fill={T.muted} transform="rotate(-90,15,100)">Intensity (a.u.)</text>
+
+          {/* 2theta scale labels */}
+          {[20, 30, 40, 50, 60, 70, 80, 90].map(deg => {
+            const x = 50 + (deg - 15) / 85 * 430;
+            return (
+              <g key={deg}>
+                <line x1={x} y1={180} x2={x} y2={183} stroke={T.ink} strokeWidth={0.5} />
+                <text x={x} y={195} textAnchor="middle" fontSize={8} fill={T.dim}>{deg}°</text>
+              </g>
+            );
+          })}
+
+          {/* Diffraction peaks */}
+          {xrdMaterials[xrdPreset].peaks.map((pk, i) => {
+            const x = 50 + (pk.twoTheta - 15) / 85 * 430;
+            const peakH = (pk.intensity / 100) * 140;
+            const w = 5;
+            const matCol = xrdMaterials[xrdPreset].color;
+            if (x < 50 || x > 480) return null;
+            return (
+              <g key={i}>
+                {/* Peak shape (Gaussian-like) */}
+                <path d={`M${x - w * 2.5} 180 Q${x - w} ${180 - peakH * 0.3} ${x} ${180 - peakH} Q${x + w} ${180 - peakH * 0.3} ${x + w * 2.5} 180`}
+                  fill={matCol + "33"} stroke={matCol} strokeWidth={1.5} />
+                {/* hkl label */}
+                <text x={x} y={180 - peakH - 8} textAnchor="middle" fontSize={8} fill={matCol} fontWeight={700}>{pk.hkl}</text>
+                {/* 2theta value */}
+                <text x={x} y={180 - peakH - 18} textAnchor="middle" fontSize={7} fill={T.muted}>{pk.twoTheta.toFixed(1)}°</text>
+              </g>
+            );
+          })}
+
+          {/* Animated scan line */}
+          {(() => {
+            const scanX = 50 + (animFrame / 120) * 430;
+            return <line x1={scanX} y1={20} x2={scanX} y2={180} stroke={C.accent + "44"} strokeWidth={1} />;
+          })()}
+
+          <text x={265} y={15} textAnchor="middle" fontSize={11} fill={xrdMaterials[xrdPreset].color} fontWeight={700}>
+            {xrdMaterials[xrdPreset].label} — XRD Pattern (Cu Kα, λ = 1.5406 Å)
+          </text>
+        </svg>
+
+        {/* Peak table */}
+        <div style={{ marginTop: 8, fontSize: 10, color: T.muted }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))", gap: 4 }}>
+            {xrdMaterials[xrdPreset].peaks.map((pk, i) => (
+              <div key={i} style={{ background: xrdMaterials[xrdPreset].color + "08", border: `1px solid ${xrdMaterials[xrdPreset].color}22`, borderRadius: 6, padding: "4px 6px", textAlign: "center" }}>
+                <div style={{ fontWeight: 700, color: xrdMaterials[xrdPreset].color }}>{pk.hkl}</div>
+                <div>2θ = {pk.twoTheta.toFixed(1)}°</div>
+                <div>d = {pk.d.toFixed(3)} Å</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Key Insight</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
+            Each crystal structure produces a unique set of peak positions and intensities -- like a fingerprint. The peak positions come from Bragg's law (plane spacings), while intensities depend on what atoms sit on those planes and where. This is why XRD is the gold standard for phase identification.
+          </div>
         </div>
       </Card>
     </div>
@@ -520,11 +650,37 @@ function XPSSection() {
   const [eBind, setEBind] = useState(284.6);
   const [phi, setPhi] = useState(4.5);
   const [animFrame, setAnimFrame] = useState(0);
+  const [xpsElement, setXpsElement] = useState("C");
+  const [showChemShift, setShowChemShift] = useState(false);
+
+  const xpsElements = useMemo(() => ({
+    C: { be: 284.6, label: "C 1s", color: "#1a1e2e", peaks: [{ be: 284.6, label: "C 1s" }] },
+    O: { be: 531.0, label: "O 1s", color: "#dc2626", peaks: [{ be: 531.0, label: "O 1s" }] },
+    Si: { be: 99.3, label: "Si 2p", color: "#2563eb", peaks: [{ be: 99.3, label: "Si 2p" }, { be: 103.3, label: "SiO₂" }] },
+    Cu: { be: 932.7, label: "Cu 2p₃/₂", color: "#d97706", peaks: [{ be: 932.7, label: "Cu 2p₃/₂" }, { be: 952.5, label: "Cu 2p₁/₂" }] },
+    Zn: { be: 1021.8, label: "Zn 2p₃/₂", color: "#6b7280", peaks: [{ be: 1021.8, label: "Zn 2p₃/₂" }, { be: 1044.9, label: "Zn 2p₁/₂" }] },
+    Cd: { be: 405.0, label: "Cd 3d₅/₂", color: "#7c3aed", peaks: [{ be: 405.0, label: "Cd 3d₅/₂" }, { be: 411.7, label: "Cd 3d₃/₂" }] },
+    Te: { be: 572.9, label: "Te 3d₅/₂", color: "#059669", peaks: [{ be: 572.9, label: "Te 3d₅/₂" }, { be: 583.3, label: "Te 3d₃/₂" }] },
+    S: { be: 162.0, label: "S 2p", color: "#ca8a04", peaks: [{ be: 162.0, label: "S 2p" }] },
+  }), []);
+
+  const chemShiftPeaks = useMemo(() => [
+    { be: 284.6, label: "C-C", color: "#1a1e2e", desc: "sp³ carbon" },
+    { be: 286.5, label: "C-O", color: "#2563eb", desc: "alcohol/ether" },
+    { be: 288.0, label: "C=O", color: "#d97706", desc: "carbonyl" },
+    { be: 289.5, label: "O-C=O", color: "#dc2626", desc: "carboxyl" },
+  ], []);
 
   useEffect(() => {
     const id = setInterval(() => setAnimFrame(f => (f + 1) % 120), 50);
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    if (xpsElements[xpsElement]) {
+      setEBind(xpsElements[xpsElement].be);
+    }
+  }, [xpsElement, xpsElements]);
 
   const eKin = source - eBind - phi;
   const valid = eKin > 0;
@@ -697,6 +853,121 @@ function XPSSection() {
           <InfoRow label="Resolution" value="~0.1-0.5 eV energy; ~10 μm spatial" />
           <InfoRow label="Sample" value="UHV compatible solids; conductive or charge-neutralized" />
           <InfoRow label="Limitation" value="Cannot detect H/He; surface only; needs UHV" />
+        </div>
+      </Card>
+
+      {/* ─── Element Selector & Chemical Shift ─── */}
+      <Card title="Element Explorer" color={C.surface} formula="Binding Energy Lookup">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
+          Click an element to see its core-level binding energy and where the peak appears in the XPS spectrum.
+        </div>
+        {/* Element buttons */}
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
+          {Object.entries(xpsElements).map(([key, el]) => (
+            <button key={key} onClick={() => setXpsElement(key)} style={{
+              padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+              background: xpsElement === key ? C.surface + "18" : T.surface,
+              border: xpsElement === key ? `1.5px solid ${C.surface}` : `1px solid ${T.border}`,
+              color: xpsElement === key ? C.surface : T.muted,
+            }}>{key} ({el.label})</button>
+          ))}
+        </div>
+
+        {/* XPS Survey Spectrum with selected element highlighted */}
+        <svg viewBox="0 0 500 180" style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+          <text x={250} y={15} textAnchor="middle" fontSize={10} fill={C.surface} fontWeight={700}>XPS Survey — {xpsElements[xpsElement].label} highlighted</text>
+          <line x1={40} y1={155} x2={470} y2={155} stroke={T.ink} strokeWidth={1} />
+          <line x1={40} y1={155} x2={40} y2={25} stroke={T.ink} strokeWidth={1} />
+          <text x={250} y={175} textAnchor="middle" fontSize={9} fill={T.muted}>Binding Energy (eV)</text>
+          {/* Scale: 0 to 1200 eV, note XPS plots right-to-left */}
+          {[0, 200, 400, 600, 800, 1000, 1200].map(e => {
+            const x = 40 + (1 - e / 1200) * 430;
+            return <text key={e} x={x} y={167} textAnchor="middle" fontSize={7} fill={T.dim}>{e}</text>;
+          })}
+          {/* Background peaks */}
+          {[
+            { be: 284.6, h: 40, label: "C 1s", w: 6 },
+            { be: 531, h: 35, label: "O 1s", w: 7 },
+            { be: 99.3, h: 20, label: "Si 2p", w: 5 },
+          ].map((pk, i) => {
+            const x = 40 + (1 - pk.be / 1200) * 430;
+            return (
+              <g key={`bg${i}`}>
+                <path d={`M${x - pk.w} 155 Q${x} ${155 - pk.h} ${x + pk.w} 155`}
+                  fill={C.surface + "15"} stroke={C.surface + "44"} strokeWidth={0.8} />
+                <text x={x} y={150 - pk.h} textAnchor="middle" fontSize={6} fill={T.muted}>{pk.label}</text>
+              </g>
+            );
+          })}
+          {/* Selected element peaks */}
+          {xpsElements[xpsElement].peaks.map((pk, i) => {
+            const x = 40 + (1 - pk.be / 1200) * 430;
+            const h = i === 0 ? 60 : 40;
+            if (x < 40 || x > 470) return null;
+            return (
+              <g key={`sel${i}`}>
+                <path d={`M${x - 8} 155 Q${x} ${155 - h} ${x + 8} 155`}
+                  fill={C.surface + "33"} stroke={C.surface} strokeWidth={1.5} />
+                <text x={x} y={148 - h} textAnchor="middle" fontSize={8} fill={C.surface} fontWeight={700}>{pk.label}</text>
+                <text x={x} y={138 - h} textAnchor="middle" fontSize={7} fill={T.muted}>{pk.be} eV</text>
+              </g>
+            );
+          })}
+        </svg>
+
+        {/* Chemical Shift Toggle */}
+        <div style={{ marginTop: 12 }}>
+          <button onClick={() => setShowChemShift(!showChemShift)} style={{
+            padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+            background: showChemShift ? C.accent + "18" : T.surface,
+            border: showChemShift ? `1.5px solid ${C.accent}` : `1px solid ${T.border}`,
+            color: showChemShift ? C.accent : T.muted,
+          }}>
+            {showChemShift ? "Hide" : "Show"} C 1s Chemical Shift Example
+          </button>
+        </div>
+
+        {showChemShift && (
+          <div style={{ marginTop: 10 }}>
+            <div style={{ fontSize: 11, color: T.ink, marginBottom: 6 }}>
+              The C 1s peak shifts depending on the chemical environment. More electronegative neighbors pull electron density away, increasing binding energy:
+            </div>
+            <svg viewBox="0 0 500 160" style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+              <text x={250} y={15} textAnchor="middle" fontSize={10} fill={C.accent} fontWeight={700}>C 1s Chemical Shift</text>
+              <line x1={40} y1={130} x2={470} y2={130} stroke={T.ink} strokeWidth={1} />
+              <line x1={40} y1={130} x2={40} y2={25} stroke={T.ink} strokeWidth={1} />
+              <text x={250} y={150} textAnchor="middle" fontSize={9} fill={T.muted}>Binding Energy (eV)</text>
+              {/* Scale 282 to 292 */}
+              {[282, 284, 286, 288, 290, 292].map(e => {
+                const x = 40 + (1 - (e - 282) / 10) * 430;
+                return <text key={e} x={x} y={142} textAnchor="middle" fontSize={7} fill={T.dim}>{e}</text>;
+              })}
+              {/* Chemical shift peaks */}
+              {chemShiftPeaks.map((pk, i) => {
+                const x = 40 + (1 - (pk.be - 282) / 10) * 430;
+                const h = 70 - i * 12;
+                return (
+                  <g key={i}>
+                    <path d={`M${x - 12} 130 Q${x} ${130 - h} ${x + 12} 130`}
+                      fill={pk.color + "22"} stroke={pk.color} strokeWidth={1.5} />
+                    <text x={x} y={122 - h} textAnchor="middle" fontSize={8} fill={pk.color} fontWeight={700}>{pk.label}</text>
+                    <text x={x} y={112 - h} textAnchor="middle" fontSize={7} fill={T.muted}>{pk.be} eV</text>
+                    <text x={x} y={102 - h} textAnchor="middle" fontSize={6} fill={T.muted}>{pk.desc}</text>
+                  </g>
+                );
+              })}
+              {/* Arrow showing shift direction */}
+              <line x1={380} y1={35} x2={100} y2={35} stroke={C.accent} strokeWidth={1} markerEnd="url(#arrow)" />
+              <text x={240} y={30} textAnchor="middle" fontSize={8} fill={C.accent}>increasing oxidation →</text>
+            </svg>
+          </div>
+        )}
+
+        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Did You Know?</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
+            XPS can distinguish between the same element in different chemical environments. For example, carbon bonded to oxygen (C-O at 286.5 eV) has a higher binding energy than carbon bonded to carbon (C-C at 284.6 eV) because oxygen's electronegativity pulls electron density away from the carbon atom, making its core electrons harder to eject.
+          </div>
         </div>
       </Card>
     </div>
@@ -1187,11 +1458,27 @@ function XANESSection() {
   const [N, setN] = useState(4);
   const [sigma2, setSigma2] = useState(0.005);
   const [animFrame, setAnimFrame] = useState(0);
+  const [xanesEdge, setXanesEdge] = useState("Cu_K");
+  const [showOxComparison, setShowOxComparison] = useState(false);
+
+  const xanesEdges = useMemo(() => ({
+    Cu_K: { label: "Cu K-edge", energy: 8979, color: "#d97706", R: 2.55, N: 4 },
+    Fe_K: { label: "Fe K-edge", energy: 7112, color: "#dc2626", R: 2.48, N: 6 },
+    Ti_K: { label: "Ti K-edge", energy: 4966, color: "#2563eb", R: 1.96, N: 6 },
+    Zn_K: { label: "Zn K-edge", energy: 9659, color: "#6b7280", R: 2.35, N: 4 },
+  }), []);
 
   useEffect(() => {
     const id = setInterval(() => setAnimFrame(f => (f + 1) % 120), 50);
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    if (xanesEdges[xanesEdge]) {
+      setR(xanesEdges[xanesEdge].R);
+      setN(xanesEdges[xanesEdge].N);
+    }
+  }, [xanesEdge, xanesEdges]);
 
   const kMax = 12;
 
@@ -1317,6 +1604,126 @@ function XANESSection() {
           <InfoRow label="Limitation" value="Needs synchrotron; element-specific; no long-range order" />
         </div>
       </Card>
+
+      {/* ─── XANES Edge Selector & Oxidation State ─── */}
+      <Card title="XANES Edge Explorer" color={C.spec} formula="Absorption edge position → element & oxidation state">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
+          Select an element edge to see its absorption energy. The XANES region is extremely sensitive to oxidation state and local coordination.
+        </div>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
+          {Object.entries(xanesEdges).map(([key, edge]) => (
+            <button key={key} onClick={() => setXanesEdge(key)} style={{
+              padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+              background: xanesEdge === key ? edge.color + "18" : T.surface,
+              border: xanesEdge === key ? `1.5px solid ${edge.color}` : `1px solid ${T.border}`,
+              color: xanesEdge === key ? edge.color : T.muted,
+            }}>{edge.label} ({edge.energy} eV)</button>
+          ))}
+        </div>
+
+        <svg viewBox="0 0 500 200" style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+          <text x={250} y={18} textAnchor="middle" fontSize={11} fill={xanesEdges[xanesEdge].color} fontWeight={700}>
+            {xanesEdges[xanesEdge].label} — XANES Region ({xanesEdges[xanesEdge].energy} eV)
+          </text>
+          <line x1={50} y1={170} x2={470} y2={170} stroke={T.ink} strokeWidth={1} />
+          <line x1={50} y1={170} x2={50} y2={30} stroke={T.ink} strokeWidth={1} />
+          <text x={260} y={193} textAnchor="middle" fontSize={9} fill={T.muted}>Energy (eV)</text>
+          <text x={15} y={100} fontSize={8} fill={T.muted} transform="rotate(-90,15,100)">μ(E)</text>
+
+          {/* XANES spectrum */}
+          {(() => {
+            const e0 = xanesEdges[xanesEdge].energy;
+            const col = xanesEdges[xanesEdge].color;
+            return (
+              <g>
+                <polyline points={Array.from({ length: 200 }, (_, i) => {
+                  const e = e0 - 30 + i * 0.6;
+                  const x = 50 + (i / 200) * 420;
+                  const rel = e - e0;
+                  let mu;
+                  if (rel < -5) mu = 0.1 + rel * 0.001;
+                  else if (rel < 0) mu = 0.1 + (rel + 5) * 0.15;
+                  else if (rel < 5) mu = 0.85 + 0.15 * Math.sin(rel * 1.2) * Math.exp(-rel * 0.1);
+                  else mu = 0.85 + 0.1 * Math.sin(rel * 0.3) * Math.exp(-rel * 0.05);
+                  const y = 170 - mu * 130;
+                  return `${x},${Math.max(30, y)}`;
+                }).join(" ")} fill="none" stroke={col} strokeWidth={2} />
+                {/* Edge position marker */}
+                <line x1={50 + (30 / 120) * 420} y1={30} x2={50 + (30 / 120) * 420} y2={170} stroke={col + "44"} strokeWidth={1} strokeDasharray="3,3" />
+                <text x={50 + (30 / 120) * 420} y={28} textAnchor="middle" fontSize={8} fill={col}>E₀ = {e0} eV</text>
+                {/* Pre-edge feature */}
+                <text x={80} y={155} fontSize={7} fill={T.muted}>pre-edge</text>
+                <text x={50 + (30 / 120) * 420 - 15} y={65} fontSize={7} fill={col}>white line</text>
+                <text x={350} y={60} fontSize={7} fill={T.muted}>post-edge (EXAFS)</text>
+              </g>
+            );
+          })()}
+        </svg>
+
+        {/* Oxidation state comparison */}
+        <div style={{ marginTop: 10 }}>
+          <button onClick={() => setShowOxComparison(!showOxComparison)} style={{
+            padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+            background: showOxComparison ? C.adv + "18" : T.surface,
+            border: showOxComparison ? `1.5px solid ${C.adv}` : `1px solid ${T.border}`,
+            color: showOxComparison ? C.adv : T.muted,
+          }}>
+            {showOxComparison ? "Hide" : "Show"} Fe²⁺ vs Fe³⁺ Oxidation State Comparison
+          </button>
+        </div>
+
+        {showOxComparison && (
+          <svg viewBox="0 0 500 180" style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, marginTop: 8 }}>
+            <text x={250} y={18} textAnchor="middle" fontSize={11} fill={C.adv} fontWeight={700}>
+              Fe K-edge: Fe²⁺ vs Fe³⁺ Oxidation State Shift
+            </text>
+            <line x1={50} y1={150} x2={470} y2={150} stroke={T.ink} strokeWidth={1} />
+            <line x1={50} y1={150} x2={50} y2={30} stroke={T.ink} strokeWidth={1} />
+            <text x={260} y={173} textAnchor="middle" fontSize={9} fill={T.muted}>Energy (eV)</text>
+            {/* Fe2+ spectrum */}
+            <polyline points={Array.from({ length: 150 }, (_, i) => {
+              const e = 7100 + i * 0.5;
+              const x = 50 + (i / 150) * 420;
+              const e0 = 7112;
+              const rel = e - e0;
+              let mu;
+              if (rel < -3) mu = 0.1;
+              else if (rel < 0) mu = 0.1 + (rel + 3) * 0.2;
+              else if (rel < 5) mu = 0.7 + 0.15 * Math.sin(rel * 1.0);
+              else mu = 0.75 + 0.08 * Math.sin(rel * 0.3) * Math.exp(-rel * 0.05);
+              return `${x},${150 - mu * 110}`;
+            }).join(" ")} fill="none" stroke="#2563eb" strokeWidth={1.8} />
+            {/* Fe3+ spectrum (shifted ~3 eV higher) */}
+            <polyline points={Array.from({ length: 150 }, (_, i) => {
+              const e = 7100 + i * 0.5;
+              const x = 50 + (i / 150) * 420;
+              const e0 = 7115;
+              const rel = e - e0;
+              let mu;
+              if (rel < -3) mu = 0.1;
+              else if (rel < 0) mu = 0.1 + (rel + 3) * 0.25;
+              else if (rel < 5) mu = 0.85 + 0.2 * Math.sin(rel * 1.2);
+              else mu = 0.85 + 0.08 * Math.sin(rel * 0.3) * Math.exp(-rel * 0.05);
+              return `${x},${150 - mu * 110}`;
+            }).join(" ")} fill="none" stroke="#dc2626" strokeWidth={1.8} />
+            {/* Legend */}
+            <line x1={350} y1={40} x2={380} y2={40} stroke="#2563eb" strokeWidth={2} />
+            <text x={385} y={43} fontSize={8} fill="#2563eb">Fe²⁺ (7112 eV)</text>
+            <line x1={350} y1={55} x2={380} y2={55} stroke="#dc2626" strokeWidth={2} />
+            <text x={385} y={58} fontSize={8} fill="#dc2626">Fe³⁺ (7115 eV)</text>
+            {/* Shift arrow */}
+            <line x1={50 + (12 / 75) * 420} y1={130} x2={50 + (15 / 75) * 420} y2={130} stroke={C.accent} strokeWidth={2} markerEnd="url(#arrow)" />
+            <text x={50 + (13.5 / 75) * 420} y={126} textAnchor="middle" fontSize={7} fill={C.accent}>~3 eV shift</text>
+          </svg>
+        )}
+
+        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Did You Know?</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
+            The XANES edge shifts ~1-3 eV per oxidation state change. Fe²⁺ absorbs at ~7112 eV while Fe³⁺ absorbs at ~7115 eV. This makes XANES one of the most reliable ways to determine oxidation state in complex materials, even in amorphous or nanocrystalline samples where XRD fails.
+          </div>
+        </div>
+      </Card>
     </div>
   );
 }
@@ -1327,11 +1734,34 @@ function RamanSection() {
   const [temp, setTemp] = useState(300);
   const [ramanShift, setRamanShift] = useState(520);
   const [animFrame, setAnimFrame] = useState(0);
+  const [ramanPreset, setRamanPreset] = useState("Si");
+
+  const ramanMaterials = useMemo(() => ({
+    Si: { label: "Silicon", color: "#2563eb", peaks: [{ shift: 520, label: "Si-Si", intensity: 100 }] },
+    Diamond: { label: "Diamond", color: "#6b7280", peaks: [{ shift: 1332, label: "sp³ C", intensity: 100 }] },
+    Graphene: { label: "Graphene", color: "#059669", peaks: [
+      { shift: 1350, label: "D", intensity: 10 },
+      { shift: 1580, label: "G", intensity: 70 },
+      { shift: 2680, label: "2D", intensity: 100 },
+    ]},
+    CdS: { label: "CdS", color: "#d97706", peaks: [
+      { shift: 300, label: "1LO", intensity: 100 },
+      { shift: 600, label: "2LO", intensity: 35 },
+      { shift: 900, label: "3LO", intensity: 10 },
+    ]},
+  }), []);
 
   useEffect(() => {
     const id = setInterval(() => setAnimFrame(f => (f + 1) % 100), 50);
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    if (ramanMaterials[ramanPreset]) {
+      const mainPeak = ramanMaterials[ramanPreset].peaks.find(p => p.intensity === 100);
+      if (mainPeak) setRamanShift(mainPeak.shift);
+    }
+  }, [ramanPreset, ramanMaterials]);
 
   const laserE = 1240 / laserWL;
   const hv = ramanShift * 0.000124;
@@ -1483,6 +1913,83 @@ function RamanSection() {
           <InfoRow label="Limitation" value="Fluorescence interference; weak signal (1 in 10⁸ photons)" />
         </div>
       </Card>
+
+      {/* ─── Raman Material Presets ─── */}
+      <Card title="Material Raman Spectra" color={C.spec} formula="Characteristic peaks for common materials">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
+          Select a material to see its characteristic Raman spectrum with labeled peaks.
+        </div>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
+          {Object.entries(ramanMaterials).map(([key, mat]) => (
+            <button key={key} onClick={() => setRamanPreset(key)} style={{
+              padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+              background: ramanPreset === key ? mat.color + "18" : T.surface,
+              border: ramanPreset === key ? `1.5px solid ${mat.color}` : `1px solid ${T.border}`,
+              color: ramanPreset === key ? mat.color : T.muted,
+            }}>{mat.label}</button>
+          ))}
+        </div>
+
+        <svg viewBox="0 0 500 200" style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+          <text x={250} y={15} textAnchor="middle" fontSize={11} fill={ramanMaterials[ramanPreset].color} fontWeight={700}>
+            {ramanMaterials[ramanPreset].label} — Raman Spectrum
+          </text>
+          {/* Axes */}
+          <line x1={50} y1={170} x2={470} y2={170} stroke={T.ink} strokeWidth={1} />
+          <line x1={50} y1={170} x2={50} y2={25} stroke={T.ink} strokeWidth={1} />
+          <text x={260} y={193} textAnchor="middle" fontSize={9} fill={T.muted}>Raman Shift (cm⁻¹)</text>
+          <text x={15} y={100} fontSize={8} fill={T.muted} transform="rotate(-90,15,100)">Intensity</text>
+          {/* Scale */}
+          {[0, 500, 1000, 1500, 2000, 2500, 3000].map(s => {
+            const x = 50 + (s / 3000) * 420;
+            return (
+              <g key={s}>
+                <line x1={x} y1={170} x2={x} y2={173} stroke={T.ink} strokeWidth={0.5} />
+                <text x={x} y={183} textAnchor="middle" fontSize={7} fill={T.dim}>{s}</text>
+              </g>
+            );
+          })}
+          {/* Rayleigh line */}
+          <path d="M50 170 Q53 60 56 170" fill={C.spec + "11"} stroke={C.spec + "44"} strokeWidth={0.8} />
+          <text x={53} y={55} textAnchor="middle" fontSize={6} fill={T.dim}>Rayleigh</text>
+          {/* Material peaks */}
+          {ramanMaterials[ramanPreset].peaks.map((pk, i) => {
+            const x = 50 + (pk.shift / 3000) * 420;
+            const h = (pk.intensity / 100) * 120;
+            const w = 8 + (pk.shift > 2000 ? 4 : 0);
+            const matCol = ramanMaterials[ramanPreset].color;
+            return (
+              <g key={i}>
+                <path d={`M${x - w} 170 Q${x} ${170 - h} ${x + w} 170`}
+                  fill={matCol + "33"} stroke={matCol} strokeWidth={1.5} />
+                <text x={x} y={170 - h - 8} textAnchor="middle" fontSize={9} fill={matCol} fontWeight={700}>{pk.label}</text>
+                <text x={x} y={170 - h - 18} textAnchor="middle" fontSize={7} fill={T.muted}>{pk.shift} cm⁻¹</text>
+              </g>
+            );
+          })}
+        </svg>
+
+        {/* Peak info boxes */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))", gap: 4, marginTop: 8 }}>
+          {ramanMaterials[ramanPreset].peaks.map((pk, i) => (
+            <div key={i} style={{ background: ramanMaterials[ramanPreset].color + "08", border: `1px solid ${ramanMaterials[ramanPreset].color}22`, borderRadius: 6, padding: "6px 8px", textAlign: "center" }}>
+              <div style={{ fontWeight: 700, color: ramanMaterials[ramanPreset].color, fontSize: 11 }}>{pk.label}</div>
+              <div style={{ fontSize: 10, color: T.ink }}>{pk.shift} cm⁻¹</div>
+              <div style={{ fontSize: 9, color: T.muted }}>I = {pk.intensity}%</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Key Insight</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
+            {ramanPreset === "Si" && "The 520 cm\u207B\u00B9 peak of silicon is the most commonly used calibration standard in Raman spectroscopy. Stress in thin films shifts this peak: compressive stress shifts it up, tensile stress shifts it down."}
+            {ramanPreset === "Diamond" && "Diamond's sharp 1332 cm\u207B\u00B9 peak distinguishes it from graphite. The sp\u00B3 bonding gives a single strong peak, making Raman the gold standard for verifying diamond quality."}
+            {ramanPreset === "Graphene" && "The 2D/G peak ratio identifies the number of graphene layers: monolayer has I(2D)/I(G) > 2. The D peak only appears with defects -- a pristine graphene sheet has no D peak at all."}
+            {ramanPreset === "CdS" && "CdS shows longitudinal optical (LO) phonon modes with clear overtones (2LO, 3LO). The ratio of overtone to fundamental intensity is related to electron-phonon coupling strength."}
+          </div>
+        </div>
+      </Card>
     </div>
   );
 }
@@ -1494,6 +2001,8 @@ function PLSection() {
   const [defectLvl, setDefectLvl] = useState(0.3);
   const [temperature, setTemperature] = useState(300);
   const [animFrame, setAnimFrame] = useState(0);
+  const [showDefectPL, setShowDefectPL] = useState(true);
+  const [plTempDemo, setPlTempDemo] = useState(300);
 
   useEffect(() => {
     const id = setInterval(() => setAnimFrame(f => (f + 1) % 120), 50);
@@ -1689,6 +2198,103 @@ function PLSection() {
           <InfoRow label="Limitation" value="Non-radiative paths invisible; temp-dependent quenching" />
         </div>
       </Card>
+
+      {/* ─── Temperature-Dependent PL & Defect Toggle ─── */}
+      <Card title="Temperature-Dependent PL" color={C.spec} formula="Peak broadening, shift & quenching with T">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
+          Observe how the PL spectrum changes with temperature: peak broadens, red-shifts, and quenches. Toggle the defect emission to see sub-bandgap luminescence.
+        </div>
+        <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+          <button onClick={() => setShowDefectPL(!showDefectPL)} style={{
+            padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+            background: showDefectPL ? C.adv + "18" : T.surface,
+            border: showDefectPL ? `1.5px solid ${C.adv}` : `1px solid ${T.border}`,
+            color: showDefectPL ? C.adv : T.muted,
+          }}>{showDefectPL ? "Defect Peak: ON" : "Defect Peak: OFF"}</button>
+        </div>
+
+        <SliderRow label="Temperature" value={plTempDemo} min={10} max={600} step={5} onChange={setPlTempDemo} color={C.accent} unit=" K" format={v => v.toString()} />
+
+        <svg viewBox="0 0 500 220" style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+          <text x={250} y={18} textAnchor="middle" fontSize={11} fill={C.spec} fontWeight={700}>
+            PL Spectrum at {plTempDemo} K (Eg = {bandgap} eV)
+          </text>
+          <line x1={50} y1={190} x2={470} y2={190} stroke={T.ink} strokeWidth={1} />
+          <line x1={50} y1={190} x2={50} y2={30} stroke={T.ink} strokeWidth={1} />
+          <text x={260} y={210} textAnchor="middle" fontSize={9} fill={T.muted}>Energy (eV)</text>
+          <text x={15} y={110} fontSize={8} fill={T.muted} transform="rotate(-90,15,110)">PL Intensity</text>
+          {/* Energy scale */}
+          {[0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5].map(e => {
+            const x = 50 + (e - 0.3) / 3.7 * 420;
+            return x <= 470 ? <text key={e} x={x} y={203} textAnchor="middle" fontSize={7} fill={T.dim}>{e}</text> : null;
+          })}
+
+          {/* Band-edge PL peak */}
+          {(() => {
+            const thermalShift = -0.0004 * plTempDemo;
+            const peakE = bandgap + thermalShift;
+            const fwhm = 0.02 + plTempDemo * 0.0003;
+            const intensity = Math.max(0.05, 1 - 0.5 * (1 - Math.exp(-500 / plTempDemo)));
+            const peakX = 50 + (peakE - 0.3) / 3.7 * 420;
+            const peakH = intensity * 140;
+            const peakW = fwhm * 420 / 3.7;
+
+            return (
+              <g>
+                <path d={Array.from({ length: 80 }, (_, i) => {
+                  const e = peakE - fwhm * 3 + i * fwhm * 6 / 80;
+                  const x = 50 + (e - 0.3) / 3.7 * 420;
+                  const gauss = intensity * Math.exp(-0.5 * Math.pow((e - peakE) / (fwhm * 0.5), 2));
+                  const y = 190 - gauss * 140;
+                  return (i === 0 ? "M" : "L") + `${x},${y}`;
+                }).join(" ")} fill={C.spec + "33"} stroke={C.spec} strokeWidth={1.5} />
+                <text x={peakX} y={190 - peakH - 8} textAnchor="middle" fontSize={8} fill={C.spec} fontWeight={700}>
+                  Band-edge: {peakE.toFixed(3)} eV
+                </text>
+                <text x={peakX} y={190 - peakH - 18} textAnchor="middle" fontSize={7} fill={T.muted}>
+                  FWHM: {(fwhm * 1000).toFixed(0)} meV
+                </text>
+              </g>
+            );
+          })()}
+
+          {/* Defect peak */}
+          {showDefectPL && (() => {
+            const defE = bandgap - defectLvl;
+            const defX = 50 + (defE - 0.3) / 3.7 * 420;
+            const defFwhm = 0.08 + plTempDemo * 0.0002;
+            const defInt = 0.3 * Math.exp(-plTempDemo * 0.002);
+            if (defX < 50 || defX > 470) return null;
+            return (
+              <g>
+                <path d={Array.from({ length: 60 }, (_, i) => {
+                  const e = defE - defFwhm * 3 + i * defFwhm * 6 / 60;
+                  const x = 50 + (e - 0.3) / 3.7 * 420;
+                  const gauss = defInt * Math.exp(-0.5 * Math.pow((e - defE) / (defFwhm * 0.5), 2));
+                  const y = 190 - gauss * 140;
+                  return (i === 0 ? "M" : "L") + `${x},${y}`;
+                }).join(" ")} fill={C.adv + "22"} stroke={C.adv} strokeWidth={1.2} />
+                <text x={defX} y={190 - defInt * 140 - 8} textAnchor="middle" fontSize={8} fill={C.adv}>Defect: {defE.toFixed(2)} eV</text>
+              </g>
+            );
+          })()}
+
+          {/* Temperature indicators */}
+          <g transform="translate(380, 40)">
+            <text x={0} y={0} fontSize={8} fill={T.ink} fontWeight={600}>Effects at {plTempDemo} K:</text>
+            <text x={0} y={15} fontSize={7} fill={C.spec}>Peak shift: {(-0.0004 * plTempDemo * 1000).toFixed(0)} meV</text>
+            <text x={0} y={28} fontSize={7} fill={C.accent}>Broadening: {(20 + plTempDemo * 0.3).toFixed(0)} meV</text>
+            <text x={0} y={41} fontSize={7} fill={C.adv}>Quenching: {((1 - Math.max(0.05, 1 - 0.5 * (1 - Math.exp(-500 / plTempDemo)))) * 100).toFixed(0)}%</text>
+          </g>
+        </svg>
+
+        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Key Insight</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
+            Low-temperature PL (4-10 K) is a powerful diagnostic: sharp peaks reveal bound excitons, donor-acceptor pairs, and specific defect identities. At room temperature, thermal broadening washes out these details. The defect peak often dominates at low T because non-radiative pathways are frozen out.
+          </div>
+        </div>
+      </Card>
     </div>
   );
 }
@@ -1697,6 +2303,8 @@ function PLSection() {
 function UVVisSection() {
   const [conc, setConc] = useState(0.01);
   const [pathLen, setPathLen] = useState(1.0);
+  const [uvPreset, setUvPreset] = useState(null);
+  const [taucLineX, setTaucLineX] = useState(null);
   const [bg, setBg] = useState(2.5);
   const [isDirect, setIsDirect] = useState(true);
   const [animFrame, setAnimFrame] = useState(0);
@@ -1849,6 +2457,121 @@ function UVVisSection() {
           <InfoRow label="Limitation" value="Scattering effects; Beer-Lambert fails at high conc." />
         </div>
       </Card>
+
+      {/* ─── Material Presets & Interactive Tauc ─── */}
+      <Card title="Interactive Tauc Plot" color={C.spec} formula="Extrapolate (αhν)^n → bandgap">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
+          Select a material preset or adjust the bandgap slider. Click on the Tauc plot to place an extrapolation line and determine the bandgap.
+        </div>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
+          {[
+            { id: "CdTe", label: "CdTe", eg: 1.5, direct: true, color: "#dc2626" },
+            { id: "Si", label: "Si", eg: 1.1, direct: false, color: "#2563eb" },
+            { id: "ZnO", label: "ZnO", eg: 3.3, direct: true, color: "#059669" },
+            { id: "TiO2", label: "TiO₂", eg: 3.2, direct: false, color: "#7c3aed" },
+          ].map(m => (
+            <button key={m.id} onClick={() => { setUvPreset(m.id); setBg(m.eg); setIsDirect(m.direct); setTaucLineX(null); }} style={{
+              padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+              background: uvPreset === m.id ? m.color + "18" : T.surface,
+              border: uvPreset === m.id ? `1.5px solid ${m.color}` : `1px solid ${T.border}`,
+              color: uvPreset === m.id ? m.color : T.muted,
+            }}>{m.label} ({m.eg} eV, {m.direct ? "direct" : "indirect"})</button>
+          ))}
+        </div>
+
+        {/* Interactive Tauc Plot */}
+        <svg viewBox="0 0 500 250" style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, cursor: "crosshair" }}
+          onClick={(e) => {
+            const svg = e.currentTarget;
+            const rect = svg.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 500;
+            if (x >= 50 && x <= 470) setTaucLineX(x);
+          }}>
+          <text x={250} y={18} textAnchor="middle" fontSize={11} fill={C.spec} fontWeight={700}>
+            Tauc Plot — {uvPreset || "Custom"} ({isDirect ? "Direct" : "Indirect"}, n = {isDirect ? 2 : 0.5})
+          </text>
+          {/* Axes */}
+          <line x1={50} y1={220} x2={470} y2={220} stroke={T.ink} strokeWidth={1} />
+          <line x1={50} y1={220} x2={50} y2={30} stroke={T.ink} strokeWidth={1} />
+          <text x={260} y={245} textAnchor="middle" fontSize={9} fill={T.muted}>hν (eV)</text>
+          <text x={15} y={125} fontSize={9} fill={T.muted} transform="rotate(-90,15,125)">(αhν){isDirect ? "²" : "^½"}</text>
+          {/* Energy scale */}
+          {[1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0].map(e => {
+            const x = 50 + (e - 0.5) / 5.0 * 420;
+            return x <= 470 ? (
+              <g key={e}>
+                <line x1={x} y1={220} x2={x} y2={223} stroke={T.ink} strokeWidth={0.5} />
+                <text x={x} y={234} textAnchor="middle" fontSize={7} fill={T.dim}>{e}</text>
+              </g>
+            ) : null;
+          })}
+          {/* Tauc curve */}
+          <polyline points={Array.from({ length: 120 }, (_, i) => {
+            const hv = 0.5 + i * 0.04;
+            const x = 50 + (hv - 0.5) / 5.0 * 420;
+            const alpha = hv > bg ? Math.pow(hv - bg, 1 / n) * 80 : 0;
+            const y = 220 - Math.min(185, alpha);
+            return `${x},${y}`;
+          }).join(" ")} fill="none" stroke={C.spec} strokeWidth={2} />
+
+          {/* Bandgap marker */}
+          {(() => {
+            const bgx = 50 + (bg - 0.5) / 5.0 * 420;
+            return (
+              <g>
+                <line x1={bgx} y1={220} x2={bgx} y2={30} stroke={C.adv + "44"} strokeWidth={1} strokeDasharray="4,4" />
+                <circle cx={bgx} cy={220} r={5} fill={C.adv} />
+                <text x={bgx} y={215} textAnchor="middle" fontSize={9} fill={C.adv} fontWeight={700}>Eg = {bg} eV</text>
+              </g>
+            );
+          })()}
+
+          {/* User extrapolation line */}
+          {taucLineX !== null && (() => {
+            const clickHv = 0.5 + ((taucLineX - 50) / 420) * 5.0;
+            const alpha = clickHv > bg ? Math.pow(clickHv - bg, 1 / n) * 80 : 0;
+            const clickY = 220 - Math.min(185, alpha);
+            const bgx = 50 + (bg - 0.5) / 5.0 * 420;
+            return (
+              <g>
+                <line x1={bgx} y1={220} x2={taucLineX + 30} y2={clickY - 30}
+                  stroke={C.accent} strokeWidth={2} strokeDasharray="5,3" />
+                <circle cx={taucLineX} cy={clickY} r={4} fill={C.accent} />
+                <text x={taucLineX + 8} y={clickY - 8} fontSize={8} fill={C.accent}>
+                  hν = {clickHv.toFixed(2)} eV
+                </text>
+              </g>
+            );
+          })()}
+
+          <text x={400} y={45} fontSize={8} fill={T.muted}>Click to extrapolate</text>
+
+          {/* Wavelength edge */}
+          <text x={100} y={45} fontSize={8} fill={C.spec}>λ_edge = {(1240 / bg).toFixed(0)} nm</text>
+        </svg>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 6, marginTop: 8 }}>
+          {[
+            { label: "CdTe", eg: "1.5 eV", lam: "827 nm", type: "Direct" },
+            { label: "Si", eg: "1.1 eV", lam: "1127 nm", type: "Indirect" },
+            { label: "ZnO", eg: "3.3 eV", lam: "376 nm", type: "Direct" },
+            { label: "TiO₂", eg: "3.2 eV", lam: "388 nm", type: "Indirect" },
+          ].map((m, i) => (
+            <div key={i} style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 6, padding: "6px 8px", textAlign: "center" }}>
+              <div style={{ fontWeight: 700, color: C.spec, fontSize: 11 }}>{m.label}</div>
+              <div style={{ fontSize: 10, color: T.ink }}>{m.eg}</div>
+              <div style={{ fontSize: 9, color: T.muted }}>{m.lam} | {m.type}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Key Insight</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
+            The Tauc plot method is the standard way to extract semiconductor bandgaps from UV-Vis data. The key is choosing the right exponent: n=2 for direct bandgap materials (like CdTe, GaAs, ZnO) and n=1/2 for indirect bandgap materials (like Si, TiO2). The bandgap is where the linear portion extrapolates to zero on the x-axis.
+          </div>
+        </div>
+      </Card>
     </div>
   );
 }
@@ -1862,6 +2585,7 @@ function SEMSection() {
   const [voltage, setVoltage] = useState(15);
   const [wd, setWd] = useState(10);
   const [animFrame, setAnimFrame] = useState(0);
+  const [semMode, setSemMode] = useState("SE");
 
   useEffect(() => {
     const id = setInterval(() => setAnimFrame(f => (f + 1) % 100), 50);
@@ -2002,6 +2726,85 @@ function SEMSection() {
           <InfoRow label="Resolution" value="~1 nm (FEG-SEM)" />
           <InfoRow label="Sample" value="Conductive or coated; vacuum compatible" />
           <InfoRow label="Limitation" value="Surface only; charging on insulators; vacuum needed" />
+        </div>
+      </Card>
+
+      {/* ─── SE vs BSE Mode & Simulated SEM Image ─── */}
+      <Card title="Imaging Mode Comparison" color={C.micro} formula="SE vs BSE Contrast">
+        <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+          {["SE", "BSE"].map(mode => (
+            <button key={mode} onClick={() => setSemMode(mode)} style={{
+              padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+              background: semMode === mode ? C.micro + "18" : T.surface,
+              border: semMode === mode ? `1.5px solid ${C.micro}` : `1px solid ${T.border}`,
+              color: semMode === mode ? C.micro : T.muted,
+            }}>{mode === "SE" ? "Secondary Electron (SE)" : "Backscatter Electron (BSE)"}</button>
+          ))}
+        </div>
+
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
+          {semMode === "SE"
+            ? "SE imaging (<50 eV electrons) provides topographic contrast. Edges and ridges appear bright because more SEs escape from tilted surfaces. Best for surface morphology at high resolution."
+            : "BSE imaging (high-energy reflected electrons) provides Z-contrast: heavier elements appear brighter. Useful for compositional mapping. Resolution is slightly lower than SE due to larger interaction volume."}
+        </div>
+
+        {/* Simulated SEM image */}
+        <svg viewBox="0 0 500 200" style={{ width: "100%", background: "#111", borderRadius: 8, border: `1px solid ${T.border}` }}>
+          <text x={250} y={15} textAnchor="middle" fontSize={10} fill="#ccc" fontWeight={700}>
+            Simulated {semMode} Image — {voltage} kV
+          </text>
+          {/* Generate simulated grain structure */}
+          {(() => {
+            const rects = [];
+            const seed = 42;
+            for (let i = 0; i < 12; i++) {
+              for (let j = 0; j < 8; j++) {
+                const gx = 30 + i * 38 + Math.sin(i * 3.7 + j * 2.1) * 8;
+                const gy = 25 + j * 20 + Math.cos(i * 2.3 + j * 1.7) * 5;
+                const z = ((i * 7 + j * 13 + seed) % 5) + 1;
+                rects.push({ x: gx, y: gy, z, i, j });
+              }
+            }
+            return rects;
+          })().map((r, idx) => {
+            const edgeBright = semMode === "SE"
+              ? 0.3 + 0.5 * Math.abs(Math.sin(r.i * 0.8 + r.j * 0.6)) + (r.i % 3 === 0 ? 0.2 : 0)
+              : 0.15 + (r.z / 5) * 0.7;
+            const noiseV = Math.sin(r.i * 5.3 + r.j * 3.1 + voltage * 0.1) * 0.08;
+            const bright = Math.max(0, Math.min(1, edgeBright + noiseV));
+            const gray = Math.floor(bright * 255);
+            return (
+              <rect key={idx} x={r.x} y={r.y} width={34} height={18} rx={1}
+                fill={`rgb(${gray},${gray},${gray})`} stroke={`rgba(255,255,255,${semMode === "SE" ? 0.12 : 0.06})`} strokeWidth={0.5} />
+            );
+          })}
+          {/* Scale bar */}
+          <line x1={380} y1={185} x2={450} y2={185} stroke="#fff" strokeWidth={2} />
+          <text x={415} y={180} textAnchor="middle" fontSize={8} fill="#fff">10 μm</text>
+          {/* Info overlay */}
+          <text x={30} y={195} fontSize={8} fill="#999">
+            {semMode === "SE" ? "Topographic contrast — edges bright" : "Z-contrast — heavy elements bright"}
+          </text>
+          <text x={470} y={195} textAnchor="end" fontSize={8} fill="#999">{voltage} kV</text>
+        </svg>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
+          <div style={{ background: (semMode === "SE" ? C.spec : C.accent) + "08", border: `1px solid ${semMode === "SE" ? C.spec : C.accent}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: semMode === "SE" ? C.spec : C.accent, marginBottom: 4 }}>
+              {semMode === "SE" ? "SE Mode Details" : "BSE Mode Details"}
+            </div>
+            <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.6 }}>
+              {semMode === "SE"
+                ? "Energy: <50 eV | Depth: ~5-50 nm | Contrast: topography, edges | Best for: morphology, fracture surfaces, nanostructures"
+                : "Energy: >50 eV to beam energy | Depth: ~100 nm-1 μm | Contrast: atomic number (Z) | Best for: phase identification, compositional mapping"}
+            </div>
+          </div>
+          <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Key Insight</div>
+            <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.6 }}>
+              Lower voltage (1-5 kV) improves surface sensitivity and reduces charging on insulators, but decreases BSE signal. Higher voltage (15-30 kV) gives better BSE contrast and EDS signal but worse surface detail.
+            </div>
+          </div>
         </div>
       </Card>
     </div>
@@ -2160,11 +2963,18 @@ function AFMSection() {
   const [tipDist, setTipDist] = useState(2.0);
   const [amplitude, setAmplitude] = useState(20);
   const [animFrame, setAnimFrame] = useState(0);
+  const [afmMode, setAfmMode] = useState("tapping");
 
   useEffect(() => {
     const id = setInterval(() => setAnimFrame(f => (f + 1) % 100), 50);
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    if (afmMode === "contact") { setK(0.1); setTipDist(0.8); setAmplitude(0); }
+    else if (afmMode === "tapping") { setK(40); setTipDist(2.0); setAmplitude(20); }
+    else { setK(40); setTipDist(5.0); setAmplitude(5); }
+  }, [afmMode]);
 
   const vdW = -1.0 / (tipDist * tipDist);
   const repulsive = tipDist < 1.5 ? 50 / Math.pow(tipDist, 12) : 0;
@@ -2306,6 +3116,127 @@ function AFMSection() {
           <InfoRow label="Limitation" value="Slow scanning; tip convolution; limited scan area" />
         </div>
       </Card>
+
+      {/* ─── AFM Mode Selector ─── */}
+      <Card title="AFM Operating Modes" color={C.micro} formula="Contact | Tapping | Non-contact">
+        <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+          {[
+            { id: "contact", label: "Contact Mode", col: C.micro },
+            { id: "tapping", label: "Tapping Mode", col: C.accent },
+            { id: "noncontact", label: "Non-contact Mode", col: C.spec },
+          ].map(m => (
+            <button key={m.id} onClick={() => setAfmMode(m.id)} style={{
+              padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+              background: afmMode === m.id ? m.col + "18" : T.surface,
+              border: afmMode === m.id ? `1.5px solid ${m.col}` : `1px solid ${T.border}`,
+              color: afmMode === m.id ? m.col : T.muted,
+            }}>{m.label}</button>
+          ))}
+        </div>
+
+        {/* Mode-specific animation and force curve region */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+          {/* Cantilever animation */}
+          <svg viewBox="0 0 240 180" style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+            <text x={120} y={15} textAnchor="middle" fontSize={9} fill={afmMode === "contact" ? C.micro : afmMode === "tapping" ? C.accent : C.spec} fontWeight={700}>
+              {afmMode === "contact" ? "Contact Mode" : afmMode === "tapping" ? "Tapping Mode" : "Non-contact Mode"}
+            </text>
+            {/* Cantilever */}
+            {(() => {
+              const modeCol = afmMode === "contact" ? C.micro : afmMode === "tapping" ? C.accent : C.spec;
+              const osc = afmMode === "contact" ? 0 : afmMode === "tapping" ? Math.sin(animFrame * 0.4) * 15 : Math.sin(animFrame * 0.6) * 4;
+              const tipY = afmMode === "contact" ? 105 : 90 + osc;
+              const surfY = 110;
+              return (
+                <g>
+                  <rect x={20} y={55} width={25} height={8} fill={T.ink + "44"} stroke={T.ink} strokeWidth={1} />
+                  <line x1={45} y1={59} x2={120} y2={59 + osc * 0.2} stroke={modeCol} strokeWidth={2} />
+                  <polygon points={`115,${59 + osc * 0.2} 120,${tipY} 125,${59 + osc * 0.2}`}
+                    fill={modeCol + "44"} stroke={modeCol} strokeWidth={1} />
+                  {/* Surface */}
+                  <path d={"M 10,110 " + Array.from({ length: 25 }, (_, i) => `L${10 + i * 9},${110 + Math.sin(i * 0.9) * 4}`).join(" ")}
+                    fill={T.ink + "11"} stroke={T.ink} strokeWidth={1.5} />
+                  {/* Force arrow */}
+                  {afmMode === "contact" && (
+                    <g>
+                      <line x1={120} y1={tipY} x2={120} y2={surfY} stroke={C.adv} strokeWidth={1.5} />
+                      <text x={130} y={surfY - 2} fontSize={7} fill={C.adv}>F (repulsive)</text>
+                    </g>
+                  )}
+                  {afmMode === "tapping" && (
+                    <g>
+                      <line x1={120} y1={75} x2={120} y2={105} stroke={modeCol} strokeWidth={0.8} strokeDasharray="2,2" />
+                      <text x={130} y={92} fontSize={7} fill={modeCol}>A = {amplitude} nm</text>
+                    </g>
+                  )}
+                  {afmMode === "noncontact" && (
+                    <g>
+                      <line x1={120} y1={80} x2={120} y2={95} stroke={modeCol} strokeWidth={0.8} strokeDasharray="2,2" />
+                      <text x={130} y={90} fontSize={7} fill={modeCol}>small osc.</text>
+                      <text x={130} y={100} fontSize={6} fill={T.muted}>freq. shift → F</text>
+                    </g>
+                  )}
+                  {/* Feedback label */}
+                  <text x={120} y={145} textAnchor="middle" fontSize={7} fill={T.muted}>
+                    {afmMode === "contact" ? "Feedback: constant deflection" : afmMode === "tapping" ? "Feedback: constant amplitude" : "Feedback: frequency shift (Δf)"}
+                  </text>
+                  <text x={120} y={160} textAnchor="middle" fontSize={7} fill={T.muted}>
+                    {afmMode === "contact" ? "k ~ 0.01-1 N/m (soft)" : afmMode === "tapping" ? "k ~ 10-50 N/m (stiff)" : "k ~ 10-50 N/m (stiff)"}
+                  </text>
+                  <text x={120} y={175} textAnchor="middle" fontSize={7} fill={modeCol} fontWeight={600}>
+                    {afmMode === "contact" ? "Best: hard surfaces, friction" : afmMode === "tapping" ? "Best: soft/bio samples" : "Best: true atomic res. (UHV)"}
+                  </text>
+                </g>
+              );
+            })()}
+          </svg>
+
+          {/* Force curve with highlighted region */}
+          <svg viewBox="0 0 240 180" style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+            <text x={120} y={15} textAnchor="middle" fontSize={9} fill={T.ink} fontWeight={600}>Force-Distance Regime</text>
+            <rect x={20} y={25} width={200} height={130} fill={T.panel} stroke={T.border} strokeWidth={1} rx={4} />
+            <line x1={40} y1={90} x2={200} y2={90} stroke={T.ink} strokeWidth={0.8} />
+            <line x1={100} y1={145} x2={100} y2={30} stroke={T.ink} strokeWidth={0.8} />
+            <text x={200} y={86} fontSize={7} fill={T.muted}>d</text>
+            <text x={104} y={35} fontSize={7} fill={T.muted}>F</text>
+
+            {/* Highlight the active region */}
+            {afmMode === "contact" && (
+              <rect x={40} y={30} width={55} height={60} fill={C.micro + "15"} stroke={C.micro} strokeWidth={1} strokeDasharray="3,3" rx={3} />
+            )}
+            {afmMode === "tapping" && (
+              <rect x={60} y={55} width={50} height={80} fill={C.accent + "15"} stroke={C.accent} strokeWidth={1} strokeDasharray="3,3" rx={3} />
+            )}
+            {afmMode === "noncontact" && (
+              <rect x={100} y={90} width={80} height={45} fill={C.spec + "15"} stroke={C.spec} strokeWidth={1} strokeDasharray="3,3" rx={3} />
+            )}
+
+            {/* Force curve */}
+            <polyline points={Array.from({ length: 60 }, (_, i) => {
+              const d_val = 0.5 + i * 0.15;
+              const fvdw = -1 / (d_val * d_val);
+              const frep = d_val < 1.5 ? 50 / Math.pow(d_val, 12) : 0;
+              const f = fvdw + frep;
+              const x = 40 + i * 2.7;
+              const y = 90 - f * 8;
+              return `${x},${Math.max(30, Math.min(140, y))}`;
+            }).join(" ")} fill="none" stroke={T.ink} strokeWidth={1.5} />
+
+            <text x={55} y={148} fontSize={7} fill={C.micro} fontWeight={600}>contact</text>
+            <text x={90} y={148} fontSize={7} fill={C.accent} fontWeight={600}>tapping</text>
+            <text x={135} y={148} fontSize={7} fill={C.spec} fontWeight={600}>non-contact</text>
+            <text x={55} y={42} fontSize={7} fill={C.adv}>repulsive</text>
+            <text x={145} y={105} fontSize={7} fill={C.micro}>attractive</text>
+          </svg>
+        </div>
+
+        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Did You Know?</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
+            Tapping mode AFM was a game-changer for biology -- it allows imaging of soft, delicate samples like DNA, proteins, and living cells without dragging and damaging them. The cantilever "taps" the surface briefly at each pixel, reducing lateral forces by orders of magnitude compared to contact mode.
+          </div>
+        </div>
+      </Card>
     </div>
   );
 }
@@ -2316,11 +3247,34 @@ function STMSection() {
   const [phi, setPhi] = useState(4.5);
   const [bias, setBias] = useState(0.5);
   const [animFrame, setAnimFrame] = useState(0);
+  const [stmScanning, setStmScanning] = useState(false);
+  const [stmScanLine, setStmScanLine] = useState(0);
+  const [stmScanData, setStmScanData] = useState([]);
 
   useEffect(() => {
     const id = setInterval(() => setAnimFrame(f => (f + 1) % 100), 50);
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    if (!stmScanning) return;
+    const id = setInterval(() => {
+      setStmScanLine(prev => {
+        if (prev >= 19) { setStmScanning(false); return 19; }
+        return prev + 1;
+      });
+      setStmScanData(prev => {
+        const line = Array.from({ length: 20 }, (_, i) => {
+          const atomX = i % 4;
+          const atomY = (prev.length) % 4;
+          const onAtom = (atomX === 1 || atomX === 3) && (atomY === 1 || atomY === 3);
+          return onAtom ? 0.8 + Math.random() * 0.2 : 0.15 + Math.random() * 0.15;
+        });
+        return [...prev, line];
+      });
+    }, 200);
+    return () => clearInterval(id);
+  }, [stmScanning]);
 
   const kappa = Math.sqrt(2 * 9.109e-31 * phi * 1.602e-19) / (1.055e-34);
   const kappaInvAng = kappa * 1e-10;
@@ -2466,6 +3420,93 @@ function STMSection() {
           <InfoRow label="Resolution" value="~0.01 nm vertical, ~0.1 nm lateral" />
           <InfoRow label="Sample" value="Conductive/semiconducting; UHV or ambient" />
           <InfoRow label="Limitation" value="Needs conducting sample; vibration-sensitive; UHV preferred" />
+        </div>
+      </Card>
+
+      {/* ─── Simulated STM Scan ─── */}
+      <Card title="Simulated STM Scan" color={C.micro} formula="Line-by-line image acquisition">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
+          Watch the STM tip scan across a surface with atomic corrugation. Each scan line measures tunneling current variations that map to atom positions.
+        </div>
+        <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
+          <button onClick={() => { setStmScanning(true); setStmScanLine(0); setStmScanData([]); }} style={{
+            padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+            background: stmScanning ? C.micro + "18" : C.micro + "08",
+            border: `1.5px solid ${C.micro}`, color: C.micro,
+          }}>{stmScanning ? "Scanning..." : "Run Scan"}</button>
+          <button onClick={() => { setStmScanning(false); setStmScanLine(0); setStmScanData([]); }} style={{
+            padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+            background: T.surface, border: `1px solid ${T.border}`, color: T.muted,
+          }}>Reset</button>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+          {/* STM Image building up */}
+          <div>
+            <div style={{ fontSize: 10, color: T.muted, marginBottom: 4 }}>STM Topography Image</div>
+            <svg viewBox="0 0 220 220" style={{ width: "100%", background: "#111", borderRadius: 8, border: `1px solid ${T.border}` }}>
+              {/* Built up scan lines */}
+              {stmScanData.map((line, row) =>
+                line.map((val, col) => {
+                  const gray = Math.floor(val * 255);
+                  return (
+                    <rect key={`${row}-${col}`} x={10 + col * 10} y={10 + row * 10} width={10} height={10}
+                      fill={`rgb(${Math.floor(gray * 0.7)},${gray},${Math.floor(gray * 0.8)})`} />
+                  );
+                })
+              )}
+              {/* Scanning tip indicator */}
+              {stmScanning && stmScanLine < 20 && (
+                <g>
+                  <line x1={10} y1={10 + stmScanLine * 10 + 5} x2={210} y2={10 + stmScanLine * 10 + 5}
+                    stroke={C.accent} strokeWidth={1} opacity={0.8} />
+                  <polygon points={`${10 + (animFrame % 20) * 10},${10 + stmScanLine * 10 - 5} ${10 + (animFrame % 20) * 10 - 3},${10 + stmScanLine * 10 - 12} ${10 + (animFrame % 20) * 10 + 3},${10 + stmScanLine * 10 - 12}`}
+                    fill={C.micro} />
+                </g>
+              )}
+              {/* Atom grid overlay (expected positions) */}
+              {stmScanData.length >= 19 && Array.from({ length: 5 }, (_, i) =>
+                Array.from({ length: 5 }, (_, j) => (
+                  <circle key={`a${i}-${j}`} cx={20 + i * 40 + 20} cy={20 + j * 40 + 20} r={12}
+                    fill="none" stroke={C.accent + "33"} strokeWidth={0.5} strokeDasharray="2,2" />
+                ))
+              )}
+              <text x={110} y={215} textAnchor="middle" fontSize={8} fill="#666">
+                {stmScanData.length}/20 lines scanned
+              </text>
+            </svg>
+          </div>
+
+          {/* Tunneling current trace */}
+          <div>
+            <div style={{ fontSize: 10, color: T.muted, marginBottom: 4 }}>Tunneling Current (last scan line)</div>
+            <svg viewBox="0 0 220 220" style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+              <line x1={20} y1={190} x2={210} y2={190} stroke={T.ink} strokeWidth={0.8} />
+              <line x1={20} y1={190} x2={20} y2={20} stroke={T.ink} strokeWidth={0.8} />
+              <text x={115} y={210} textAnchor="middle" fontSize={8} fill={T.muted}>Position (Å)</text>
+              <text x={8} y={105} fontSize={7} fill={T.muted} transform="rotate(-90,8,105)">I_t (nA)</text>
+              {/* Current trace from last line */}
+              {stmScanData.length > 0 && (() => {
+                const lastLine = stmScanData[stmScanData.length - 1];
+                const points = lastLine.map((val, i) => `${20 + i * 9.5},${190 - val * 150}`).join(" ");
+                return <polyline points={points} fill="none" stroke={C.micro} strokeWidth={1.5} />;
+              })()}
+              {/* Atom markers */}
+              {stmScanData.length > 0 && stmScanData[stmScanData.length - 1].map((val, i) => (
+                val > 0.5 ? <circle key={i} cx={20 + i * 9.5} cy={190 - val * 150} r={3} fill={C.accent} opacity={0.7} /> : null
+              ))}
+              <text x={115} y={15} textAnchor="middle" fontSize={9} fill={C.micro} fontWeight={600}>
+                Line {stmScanData.length} / 20
+              </text>
+            </svg>
+          </div>
+        </div>
+
+        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Did You Know?</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
+            The STM was invented in 1981 by Gerd Binnig and Heinrich Rohrer at IBM Zurich, earning them the 1986 Nobel Prize. It was the first instrument to directly image individual atoms on a surface. A typical STM scan takes minutes to hours -- each pixel requires precise positioning of the tip to sub-angstrom accuracy.
+          </div>
         </div>
       </Card>
     </div>
@@ -2741,6 +3782,10 @@ function APTSection() {
   const [voltage, setVoltage] = useState(5000);
   const [detEff, setDetEff] = useState(0.57);
   const [animFrame, setAnimFrame] = useState(0);
+  const [aptShowFe, setAptShowFe] = useState(true);
+  const [aptShowCu, setAptShowCu] = useState(true);
+  const [aptShowC, setAptShowC] = useState(true);
+  const [aptSlicePos, setAptSlicePos] = useState(50);
 
   useEffect(() => {
     const id = setInterval(() => setAnimFrame(f => (f + 1) % 120), 50);
@@ -2905,6 +3950,143 @@ function APTSection() {
           <InfoRow label="Resolution" value="~0.1-0.3 nm depth; ~0.3-0.5 nm lateral" />
           <InfoRow label="Sample" value="Needle <100 nm tip; FIB prepared" />
           <InfoRow label="Limitation" value="Small volume; reconstruction artifacts; complex prep" />
+        </div>
+      </Card>
+
+      {/* ─── Interactive 3D Reconstruction & Composition Profile ─── */}
+      <Card title="Interactive 3D Reconstruction" color={C.adv} formula="Element filters & composition profile">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
+          Toggle element visibility to isolate specific species in the reconstruction. Move the slice position to see how composition changes through the volume.
+        </div>
+        {/* Element filter buttons */}
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
+          {[
+            { id: "Fe", show: aptShowFe, set: setAptShowFe, color: C.adv, label: "Fe (matrix)" },
+            { id: "Cu", show: aptShowCu, set: setAptShowCu, color: C.micro, label: "Cu (precipitate)" },
+            { id: "C", show: aptShowC, set: setAptShowC, color: C.accent, label: "C (segregation)" },
+          ].map(el => (
+            <button key={el.id} onClick={() => el.set(!el.show)} style={{
+              padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+              background: el.show ? el.color + "18" : T.surface,
+              border: el.show ? `1.5px solid ${el.color}` : `1px solid ${T.border}`,
+              color: el.show ? el.color : T.muted,
+            }}>{el.show ? "\u2713 " : ""}{el.label}</button>
+          ))}
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+          {/* 3D Reconstruction */}
+          <div>
+            <div style={{ fontSize: 10, color: T.muted, marginBottom: 4 }}>3D Atom Map</div>
+            <svg viewBox="0 0 220 240" style={{ width: "100%", background: T.panel, borderRadius: 8, border: `1px solid ${T.border}` }}>
+              <rect x={10} y={10} width={200} height={200} fill={T.surface} stroke={T.border} strokeWidth={1} rx={4} />
+              {/* Atoms */}
+              {(() => {
+                const atoms = [];
+                for (let i = 0; i < 120; i++) {
+                  const x = 15 + (i * 37 + Math.sin(i * 3.7) * 30) % 190;
+                  const y = 15 + (i * 23 + Math.cos(i * 2.1) * 20) % 190;
+                  const depthZ = (i * 17) % 100;
+                  const isCu = (depthZ > 30 && depthZ < 70) && (x > 80 && x < 150) && (y > 60 && y < 140);
+                  const isC = depthZ > 45 && depthZ < 55 && !isCu;
+                  const type = isCu ? "Cu" : isC ? "C" : "Fe";
+                  atoms.push({ x, y, depthZ, type });
+                }
+                return atoms;
+              })().map((atom, i) => {
+                const show = (atom.type === "Fe" && aptShowFe) || (atom.type === "Cu" && aptShowCu) || (atom.type === "C" && aptShowC);
+                if (!show) return null;
+                const col = atom.type === "Fe" ? C.adv : atom.type === "Cu" ? C.micro : C.accent;
+                const r = atom.type === "Cu" ? 3 : atom.type === "C" ? 2.5 : 2;
+                const nearSlice = Math.abs(atom.depthZ - aptSlicePos) < 5;
+                return (
+                  <circle key={i} cx={atom.x} cy={atom.y} r={nearSlice ? r + 1 : r}
+                    fill={col} opacity={nearSlice ? 0.9 : 0.3 + atom.depthZ * 0.005}
+                    stroke={nearSlice ? "#fff" : "none"} strokeWidth={nearSlice ? 0.5 : 0} />
+                );
+              })}
+              {/* Slice indicator */}
+              <line x1={10} y1={10 + aptSlicePos * 2} x2={210} y2={10 + aptSlicePos * 2}
+                stroke={C.accent} strokeWidth={1} strokeDasharray="4,4" opacity={0.6} />
+              <text x={215} y={14 + aptSlicePos * 2} fontSize={7} fill={C.accent}>z = {aptSlicePos}%</text>
+              {/* Legend */}
+              <g transform="translate(15, 218)">
+                {aptShowFe && <><circle cx={5} cy={0} r={2} fill={C.adv} /><text x={10} y={3} fontSize={6} fill={T.muted}>Fe</text></>}
+                {aptShowCu && <><circle cx={35} cy={0} r={3} fill={C.micro} /><text x={40} y={3} fontSize={6} fill={T.muted}>Cu</text></>}
+                {aptShowC && <><circle cx={65} cy={0} r={2.5} fill={C.accent} /><text x={70} y={3} fontSize={6} fill={T.muted}>C</text></>}
+              </g>
+            </svg>
+          </div>
+
+          {/* Composition profile */}
+          <div>
+            <div style={{ fontSize: 10, color: T.muted, marginBottom: 4 }}>1D Composition Profile</div>
+            <svg viewBox="0 0 220 240" style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+              <text x={110} y={15} textAnchor="middle" fontSize={9} fill={T.ink} fontWeight={600}>Composition vs Depth</text>
+              <line x1={30} y1={210} x2={200} y2={210} stroke={T.ink} strokeWidth={0.8} />
+              <line x1={30} y1={210} x2={30} y2={25} stroke={T.ink} strokeWidth={0.8} />
+              <text x={115} y={230} textAnchor="middle" fontSize={8} fill={T.muted}>Depth (%)</text>
+              <text x={10} y={120} fontSize={7} fill={T.muted} transform="rotate(-90,10,120)">at%</text>
+              {/* Fe profile */}
+              {aptShowFe && (
+                <polyline points={Array.from({ length: 50 }, (_, i) => {
+                  const z = i * 2;
+                  const x = 30 + (z / 100) * 170;
+                  const fePct = (z > 30 && z < 70) ? 60 : 90;
+                  const y = 210 - (fePct / 100) * 180;
+                  return `${x},${y}`;
+                }).join(" ")} fill="none" stroke={C.adv} strokeWidth={1.5} />
+              )}
+              {/* Cu profile */}
+              {aptShowCu && (
+                <polyline points={Array.from({ length: 50 }, (_, i) => {
+                  const z = i * 2;
+                  const x = 30 + (z / 100) * 170;
+                  const cuPct = (z > 30 && z < 70) ? 30 * Math.exp(-0.01 * (z - 50) * (z - 50)) + 5 : 2;
+                  const y = 210 - (cuPct / 100) * 180;
+                  return `${x},${y}`;
+                }).join(" ")} fill="none" stroke={C.micro} strokeWidth={1.5} />
+              )}
+              {/* C profile */}
+              {aptShowC && (
+                <polyline points={Array.from({ length: 50 }, (_, i) => {
+                  const z = i * 2;
+                  const x = 30 + (z / 100) * 170;
+                  const cPct = (z > 45 && z < 55) ? 8 * Math.exp(-0.05 * (z - 50) * (z - 50)) + 1 : 1;
+                  const y = 210 - (cPct / 100) * 180;
+                  return `${x},${y}`;
+                }).join(" ")} fill="none" stroke={C.accent} strokeWidth={1.5} />
+              )}
+              {/* Slice position marker */}
+              <line x1={30 + (aptSlicePos / 100) * 170} y1={25} x2={30 + (aptSlicePos / 100) * 170} y2={210}
+                stroke={C.accent + "66"} strokeWidth={1} strokeDasharray="3,3" />
+              {/* Legend */}
+              <g transform="translate(130, 30)">
+                {aptShowFe && <><line x1={0} y1={0} x2={15} y2={0} stroke={C.adv} strokeWidth={2} /><text x={18} y={3} fontSize={7} fill={C.adv}>Fe</text></>}
+                {aptShowCu && <><line x1={0} y1={12} x2={15} y2={12} stroke={C.micro} strokeWidth={2} /><text x={18} y={15} fontSize={7} fill={C.micro}>Cu</text></>}
+                {aptShowC && <><line x1={0} y1={24} x2={15} y2={24} stroke={C.accent} strokeWidth={2} /><text x={18} y={27} fontSize={7} fill={C.accent}>C</text></>}
+              </g>
+              {/* Region labels */}
+              <text x={70} y={40} fontSize={7} fill={T.muted}>matrix</text>
+              <text x={115} y={40} textAnchor="middle" fontSize={7} fill={C.micro} fontWeight={600}>Cu precipitate</text>
+              <text x={165} y={40} fontSize={7} fill={T.muted}>matrix</text>
+            </svg>
+          </div>
+        </div>
+
+        <SliderRow label="Slice position (depth)" value={aptSlicePos} min={0} max={100} step={1} onChange={setAptSlicePos} color={C.accent} unit="%" format={v => v.toString()} />
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6, marginTop: 8 }}>
+          <ResultBox label="Fe at slice" value={`${aptSlicePos > 30 && aptSlicePos < 70 ? "60" : "90"} at%`} color={C.adv} sub="matrix" />
+          <ResultBox label="Cu at slice" value={`${aptSlicePos > 30 && aptSlicePos < 70 ? (30 * Math.exp(-0.01 * (aptSlicePos - 50) * (aptSlicePos - 50)) + 5).toFixed(0) : "2"} at%`} color={C.micro} sub="precipitate" />
+          <ResultBox label="C at slice" value={`${aptSlicePos > 45 && aptSlicePos < 55 ? (8 * Math.exp(-0.05 * (aptSlicePos - 50) * (aptSlicePos - 50)) + 1).toFixed(1) : "1.0"} at%`} color={C.accent} sub="segregation" />
+        </div>
+
+        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Key Insight</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
+            APT is the only technique that provides true 3D atomic-scale chemical information. It can detect individual atoms with near-equal sensitivity for all elements (unlike EDS or EELS). The Cu precipitate shown here is typical in reactor pressure vessel steels -- these nm-scale precipitates cause embrittlement, and APT is the only way to directly observe them.
+          </div>
         </div>
       </Card>
     </div>
