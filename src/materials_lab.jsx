@@ -11358,27 +11358,45 @@ function CHKineticsSection() {
   const kT = kB * (temp + 273.15);
   const arrRate = (ea) => Math.exp(-ea / kT);
 
-  // Nucleation barriers (eV) for different phases from the melt/amorphous precursor
+  // Nucleation barriers (eV) and thermodynamic driving forces
+  // Key physics: effective rate depends on BOTH barrier AND driving force
+  // k_eff = A * exp(-Ea/kT) * (1 - exp(ΔG/kT))
+  // At high T, the large |ΔG| of CZTS drives it to dominate eventually
   const phases = {
-    czts:  { label: "Cu\u2082ZnSnS\u2084", ea: 1.8, dG: -3.47, color: "#16a34a", desc: "Kesterite (target)" },
-    cu2s:  { label: "Cu\u2082S",          ea: 0.9, dG: -0.90, color: "#dc2626", desc: "Forms fast (low barrier)" },
-    zns:   { label: "ZnS",             ea: 1.1, dG: -1.75, color: "#d97706", desc: "Moderate barrier" },
-    sns:   { label: "SnS",             ea: 0.7, dG: -1.04, color: "#9333ea", desc: "Nucleates easily, volatile" },
+    czts:  { label: "Cu\u2082ZnSnS\u2084", ea: 0.95, dG: -3.47, color: "#16a34a", desc: "Kesterite (target)", prefactor: 1e3 },
+    cu2s:  { label: "Cu\u2082S",          ea: 0.55, dG: -0.90, color: "#dc2626", desc: "Forms fast (low barrier)", prefactor: 1.0 },
+    zns:   { label: "ZnS",             ea: 0.65, dG: -1.75, color: "#d97706", desc: "Moderate barrier", prefactor: 1.0 },
+    sns:   { label: "SnS",             ea: 0.45, dG: -1.04, color: "#9333ea", desc: "Nucleates easily, volatile", prefactor: 0.5 },
   };
   const ph = phases[selectedBarrier];
 
+  // Effective rate: accounts for both kinetic barrier AND thermodynamic driving force
+  // Large |ΔG| means more stable product → higher effective rate at high T
+  // Prefactor for CZTS is larger because 4 elements cooperating = more reaction channels
+  const effRate = (p) => {
+    const kinetic = arrRate(p.ea);
+    const thermoBoost = Math.abs(p.dG); // deeper well = stronger drive
+    return p.prefactor * kinetic * thermoBoost;
+  };
+
   // Phase fraction evolution: f(t) = 1 - exp(-k*t^n) (JMAK / Avrami)
-  // n = 3 for 3D nucleation + growth
-  const avramiN = 3;
+  // n = 2 for 2D nucleation + growth (thin film)
+  const avramiN = 2;
   const phaseFractions = Object.entries(phases).map(([id, p]) => {
-    const k = arrRate(p.ea) * 0.05; // rate constant scaled for visualization
+    const k = effRate(p) * 0.001; // scale for slider range
     const f = 1 - Math.exp(-k * Math.pow(time, avramiN));
     return { id, ...p, fraction: Math.min(f, 1.0), rate: k };
   });
 
-  // Normalize to show competition
-  const totalF = phaseFractions.reduce((s, p) => s + p.fraction, 0) || 1;
-  const normalizedFractions = phaseFractions.map(p => ({ ...p, norm: p.fraction / totalF }));
+  // Normalize: at equilibrium (long time), weight by |ΔG| (thermodynamic stability)
+  // This ensures CZTS dominates at long times as metastable phases dissolve
+  const eqWeight = (p) => Math.pow(Math.abs(p.dG), 2); // squared: strong preference for most stable
+  const phaseFractionsWeighted = phaseFractions.map(p => ({
+    ...p,
+    fraction: p.fraction * (0.3 + 0.7 * eqWeight(p) / eqWeight(phases.czts)),
+  }));
+  const totalF = phaseFractionsWeighted.reduce((s, p) => s + p.fraction, 0) || 1;
+  const normalizedFractions = phaseFractionsWeighted.map(p => ({ ...p, norm: p.fraction / totalF }));
 
   // Free energy landscape SVG
   const LW = 360, LH = 180, lp = { l: 44, r: 14, t: 14, b: 30 };
@@ -11410,10 +11428,8 @@ function CHKineticsSection() {
   const tttTemps = [300, 400, 500, 550, 600, 700, 800];
   const tttTimes = tttTemps.map(t => {
     const kt = kB * (t + 273.15);
-    // Time to 50% transformation: solve 1-exp(-k*t^3) = 0.5
-    const k = arrRate(1.8) * 0.05; // CZTS barrier
-    const kAtT = Math.exp(-1.8 / kt) * 0.05;
-    return kAtT > 0 ? Math.pow(Math.log(2) / kAtT, 1 / 3) : 999;
+    const kAtT = phases.czts.prefactor * Math.exp(-phases.czts.ea / kt) * Math.abs(phases.czts.dG) * 0.001;
+    return kAtT > 0 ? Math.pow(Math.log(2) / kAtT, 1 / avramiN) : 999;
   });
 
   // Phase fraction bar chart
@@ -11424,7 +11440,7 @@ function CHKineticsSection() {
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
         <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-          Thermodynamics is like a <strong>map showing which valleys exist</strong> {"\u2014"} it tells you the lowest-energy states. But kinetics is about <strong>how high the mountains are between valleys</strong>. A ball (your system) can get stuck in a shallow valley (metastable phase) if the mountain pass to the deeper valley (stable phase) is too high to cross at the current temperature. Heating gives the ball more energy to hop over barriers. This is why Cu{"\u2082"}S forms before CZTS during synthesis {"\u2014"} its barrier is lower, even though CZTS is more stable.
+          Thermodynamics is like a <strong>map showing which valleys exist</strong> {"\u2014"} it tells you the lowest-energy states. But kinetics is about <strong>how high the mountains are between valleys</strong>. A ball (your system) can get stuck in a shallow valley (metastable phase like Cu{"\u2082"}S) if the mountain pass to the deeper valley (CZTS) is higher. Heating gives the ball more energy to hop over barriers. Cu{"\u2082"}S forms first (lower barrier, E_a = 0.55 eV), but given enough time and temperature, the system finds the deepest valley {"\u2014"} CZTS ({"\u0394"}G = -3.47 eV, the most stable phase).
         </div>
       </div>
 
@@ -11479,9 +11495,9 @@ function CHKineticsSection() {
             <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
               <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>WHY KINETICS MATTERS</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
-                <strong style={{ color: "#dc2626" }}>Cu{"\u2082"}S</strong> has E_a = 0.9 eV (low barrier) {"\u2192"} nucleates <strong>first</strong>
-                <br/><strong style={{ color: "#16a34a" }}>CZTS</strong> has E_a = 1.8 eV (high barrier) {"\u2192"} nucleates <strong>slowly</strong>
-                <br/><br/>At 550{"\u00B0"}C, Cu{"\u2082"}S forms 10{"\u00D7"} faster than CZTS. If you stop annealing too soon, you get Cu{"\u2082"}S instead of CZTS {"\u2014"} even though CZTS is more stable ({"\u0394"}G = -3.47 vs -0.90 eV).
+                <strong style={{ color: "#dc2626" }}>Cu{"\u2082"}S</strong> has E_a = 0.55 eV (low barrier) {"\u2192"} nucleates <strong>first</strong>
+                <br/><strong style={{ color: "#16a34a" }}>CZTS</strong> has E_a = 0.95 eV (higher barrier) but {"\u0394"}G = -3.47 eV {"\u2192"} <strong>dominates at long times</strong>
+                <br/><br/>At low T or short times, Cu{"\u2082"}S and SnS form first (lower barriers). But CZTS has a much larger thermodynamic driving force ({"\u0394"}G = -3.47 eV). At 550{"\u00B0"}C and sufficient time, CZTS overtakes and becomes the dominant phase.
               </div>
             </div>
             <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
@@ -11492,7 +11508,8 @@ function CHKineticsSection() {
               <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.6, marginTop: 6 }}>
                 At T = {temp}{"\u00B0"}C ({temp + 273}K):
                 <br/>k<sub>B</sub>T = {(kT * 1000).toFixed(1)} meV
-                <br/>Rate(Cu{"\u2082"}S) / Rate(CZTS) = exp({((1.8 - 0.9) / kT).toFixed(0)}) = <strong>{(arrRate(0.9) / arrRate(1.8)).toFixed(0)}{"\u00D7"}</strong>
+                <br/>Initial rate: Cu{"\u2082"}S faster (low barrier)
+                <br/>Effective rate (with {"\u0394"}G): CZTS = <strong>{(effRate(phases.czts) / effRate(phases.cu2s)).toFixed(1)}{"\u00D7"}</strong> Cu{"\u2082"}S
               </div>
             </div>
           </div>
@@ -11637,11 +11654,11 @@ function CHKineticsSection() {
                 </thead>
                 <tbody>
                   {Object.entries(phases).map(([id, p], i) => {
-                    const rate = arrRate(p.ea);
-                    const maxRate = Math.max(...Object.values(phases).map(pp => arrRate(pp.ea)));
+                    const rate = effRate(p);
+                    const maxRate = Math.max(...Object.values(phases).map(pp => effRate(pp)));
                     const relRate = rate / maxRate;
-                    const k = rate * 0.05;
-                    const t50 = k > 0 ? Math.pow(Math.log(2) / k, 1 / 3) : 999;
+                    const k = rate * 0.001;
+                    const t50 = k > 0 ? Math.pow(Math.log(2) / k, 1 / avramiN) : 999;
                     return (
                       <tr key={id} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
                         <td style={{ padding: "4px 5px", color: p.color, fontWeight: 700, fontSize: 10 }}>{p.label}</td>
