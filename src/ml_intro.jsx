@@ -57,10 +57,45 @@ function ResultBox({ label, value, color, sub }) {
 
 function CalcRow({ eq, result, color }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, fontSize: 12 }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, fontSize: 13 }}>
       <span style={{ color: T.muted, fontFamily: "monospace", flex: 1 }}>{eq}</span>
       <span style={{ color: T.dim }}>=</span>
       <span style={{ color: color || T.ink, fontWeight: 700, fontFamily: "monospace", minWidth: 70, textAlign: "right" }}>{result}</span>
+    </div>
+  );
+}
+
+function HowItWorks({ steps, color }) {
+  return (
+    <div style={{ background: "#f0fdf4", border: "1.5px solid #05966933", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: "#059669", marginBottom: 6 }}>How It Works — Step by Step</div>
+      <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+        {steps.map((step, i) => (
+          <div key={i} style={{ marginBottom: 2 }}><strong style={{ color: color || "#059669" }}>{i + 1}.</strong> {step}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function CommonMistakes({ mistakes, color }) {
+  return (
+    <div style={{ marginTop: 10, background: "#fef2f2", border: "1.5px solid #dc262633", borderRadius: 10, padding: "12px 16px" }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: "#dc2626", marginBottom: 6 }}>Common Mistakes — Watch Out!</div>
+      <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+        {mistakes.map((m, i) => (
+          <div key={i} style={{ marginBottom: 2 }}>&#x2717; {m}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MatSciExample({ text, color }) {
+  return (
+    <div style={{ marginTop: 10, background: "#eff6ff", border: "1.5px solid #2563eb33", borderRadius: 10, padding: "12px 16px" }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: "#2563eb", marginBottom: 4 }}>Materials Science Example</div>
+      <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>{text}</div>
     </div>
   );
 }
@@ -111,16 +146,27 @@ function WhatIsMLSection() {
   return (
     <Card color={C} title="What Is Machine Learning?" formula="f(features) → prediction">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Teaching a child to sort toys: show examples with labels like "this is a car, this is a block" (supervised),
           let them group by similarity on their own (unsupervised), or reward with a sticker for correct guesses (reinforcement).
+          The child does not need to know the physics of why a car rolls — they learn from patterns in the examples you show them.
+          Over time, with enough examples, the child can classify new toys they have never seen before.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine a librarian organizing books. In supervised learning, someone gives them a labeled catalog; in unsupervised learning, they group books by similarity (thickness, cover color, topic) without any catalog; in reinforcement learning, they try different shelving strategies and keep the ones that get the most reader checkouts.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
-          <svg width={340} height={200} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+      <HowItWorks color={C} steps={[
+        "Collect data: gather measurements (features) and outcomes (labels) for many materials.",
+        "Choose features: decide which properties (electronegativity, radius, mass) to use as inputs.",
+        "Pick a model type: supervised (if you have labels), unsupervised (if you want to discover groupings), or reinforcement (if you want to optimize a process).",
+        "Train the model: feed the data to the algorithm so it learns the pattern linking features to outcomes.",
+        "Evaluate: test the trained model on new data it has never seen to check if it truly learned generalizable patterns."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
+          <svg width={380} height={200} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={170} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Materials Classification Dataset</text>
             {/* Axes */}
             <line x1={30} y1={180} x2={330} y2={180} stroke={T.border} strokeWidth={1} />
@@ -158,9 +204,9 @@ function WhatIsMLSection() {
 
           {/* Type comparison table */}
           <div style={{ marginTop: 10, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>THREE TYPES OF ML</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>THREE TYPES OF ML</div>
             {types.map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: 8, padding: "4px 0", borderBottom: i < 2 ? `1px solid ${T.border}` : "none", fontSize: 11 }}>
+              <div key={i} style={{ display: "flex", gap: 8, padding: "4px 0", borderBottom: i < 2 ? `1px solid ${T.border}` : "none", fontSize: 13 }}>
                 <span style={{ fontWeight: 700, color: C, minWidth: 95 }}>{t.name}</span>
                 <span style={{ color: T.muted, flex: 1 }}>{t.desc}</span>
               </div>
@@ -170,7 +216,7 @@ function WhatIsMLSection() {
 
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ marginTop: 0, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>DATASET STATISTICS</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>DATASET STATISTICS</div>
             <CalcRow eq="Total samples" result="6" color={C} />
             <CalcRow eq="Features per sample" result="2" color={C} />
             <CalcRow eq="Feature 1: Electronegativity range" result="1.61 – 2.18" color={C} />
@@ -178,10 +224,11 @@ function WhatIsMLSection() {
             <CalcRow eq="Class 0 (Semiconductor) count" result="3" color="#2563eb" />
             <CalcRow eq="Class 1 (Metal) count" result="3" color="#ea580c" />
             <CalcRow eq="Class balance ratio" result="1.00" color={C} />
+            <CalcRow eq="Dimensionality of feature space" result="2D" color={C} />
           </div>
 
           <div style={{ marginTop: 10, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ML FINDS THE PATTERN</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ML FINDS THE PATTERN</div>
             <CalcRow eq="Mean EN (Semiconductors)" result={((1.90 + 2.01 + 2.18) / 3).toFixed(2)} color="#2563eb" />
             <CalcRow eq="Mean EN (Metals)" result={((1.83 + 1.90 + 1.61) / 3).toFixed(2)} color="#ea580c" />
             <CalcRow eq="Mean Radius (Semiconductors)" result={((1.17 + 1.22 + 1.26) / 3).toFixed(2) + " Å"} color="#2563eb" />
@@ -194,12 +241,21 @@ function WhatIsMLSection() {
             <ResultBox label="FEATURES" value="2" color={C} sub="per sample" />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> Machine learning does not "know" physics.
             It finds statistical patterns in data — correlations between features (like electronegativity, radius) and
             properties (like metal vs semiconductor). The more relevant features and data you provide, the better it learns.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Thinking ML understands physics — it only finds statistical correlations, not causal mechanisms.",
+            "Using too few features — if the relevant information is not in the input, no algorithm can learn the pattern.",
+            "Ignoring class imbalance — if 95% of samples are metals, the model can get 95% accuracy by always guessing 'metal'.",
+            "Confusing correlation with causation — ML finds that electronegativity correlates with classification, but it does not prove EN causes a material to be a semiconductor."
+          ]} />
+
+          <MatSciExample text="The Materials Project database contains DFT-computed properties for over 150,000 inorganic compounds. ML models trained on this data can predict formation energies, bandgaps, and elastic moduli for hypothetical new compounds — screening millions of candidates in seconds instead of running expensive DFT calculations for each one." />
         </div>
       </div>
     </Card>
@@ -249,7 +305,7 @@ function LinearRegressionSection() {
 
   const snapBest = () => { setM(Math.round(bestM * 100) / 100); setB(Math.round(bestB * 100) / 100); };
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
   const xMin = 1.1, xMax = 1.5, yMin = 3.5, yMax = 6.5;
   const sx = (v) => 40 + (v - xMin) / (xMax - xMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - yMin) / (yMax - yMin) * (svgH - 50);
@@ -257,15 +313,25 @@ function LinearRegressionSection() {
   return (
     <Card color={C} title="Linear Regression" formula="y = mx + b">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Drawing the best straight line through dots on a graph. The line should be as close as possible to all
           the data points. "Best" means the total squared distance from each point to the line is minimized.
+          Imagine stretching a rubber band from each data point to the line — the best fit line is the one that minimizes the total tension in all rubber bands.
+          <br/><br/><strong>Another way to think about it:</strong> If you scatter rice grains on a table and try to place a ruler so that every grain is as close as possible to the ruler's edge, you are doing linear regression by hand. The ruler is your model, the rice grains are your data, and the distances from each grain to the ruler are your errors.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Plot each data point in feature space — here, atomic radius (x-axis) vs. lattice constant (y-axis).",
+        "Guess an initial line y = mx + b with some slope m and intercept b.",
+        "For every data point, compute the vertical distance (error) between the actual y and the predicted y on the line.",
+        "Square each error and sum them all up — this is the Sum of Squared Errors (SSE), our loss function.",
+        "Adjust m and b to minimize SSE. The analytical solution uses calculus (normal equation), or you can use gradient descent iteratively."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Atomic Radius → Lattice Constant</text>
             {/* Axes */}
@@ -314,7 +380,7 @@ function LinearRegressionSection() {
           </button>
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
             {predictions.map((p, i) => (
               <CalcRow key={i} eq={`ŷ${i + 1} = ${m.toFixed(1)} × ${p.x.toFixed(2)} + ${b.toFixed(1)}`}
                 result={p.yhat.toFixed(2)} color={C} />
@@ -335,12 +401,21 @@ function LinearRegressionSection() {
             <ResultBox label="RMSE" value={rmse.toFixed(3)} color={C} />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> The "best fit" line minimizes the total squared error
             (SSE). Try the sliders — watch how error changes. Click "Snap to Best Fit" to see the optimal m and b values
             found by the ordinary least squares formula.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Using linear regression when the relationship is nonlinear — always plot your data first to check for curvature.",
+            "Extrapolating far beyond the data range — a line fit from x = 1 to 1.5 may be wildly wrong at x = 10.",
+            "Ignoring outliers — a single extreme point can dramatically tilt the best-fit line because errors are squared.",
+            "Confusing R-squared with correctness — a high R-squared on training data does not guarantee good predictions on new data."
+          ]} />
+
+          <MatSciExample text="Vegard's law predicts that the lattice constant of a binary alloy A₁₋ₓBₓ varies linearly between the lattice constants of the pure components: a(x) = (1−x)·aA + x·aB. This is exactly a linear regression model! Deviations from Vegard's law (bowing parameters) indicate where nonlinear models might be needed." />
         </div>
       </div>
     </Card>
@@ -402,7 +477,7 @@ function OverfittingSection() {
   const trainRMSE = Math.sqrt(trainPts.reduce((s, p) => s + Math.pow(p.y - evalPoly(p.x), 2), 0) / trainPts.length);
   const testRMSE = Math.sqrt(testPts.reduce((s, p) => s + Math.pow(p.y - evalPoly(p.x), 2), 0) / testPts.length);
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
   const xMin = 0, xMax = 5, yMin = -2, yMax = 22;
   const sx = (v) => 40 + (v - xMin) / (xMax - xMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - yMin) / (yMax - yMin) * (svgH - 50);
@@ -415,15 +490,26 @@ function OverfittingSection() {
   return (
     <Card color={C} title="Overfitting" formula="Train error ↓ ≠ Test error ↓">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A student who memorizes answers word-for-word passes practice exams but fails new ones.
           Overfitting is the same — the model "memorizes" training data instead of learning general patterns.
+          The memorizing student can recite every practice question perfectly, but when the wording changes even slightly on the real exam, they are lost.
+          A truly understanding student grasps the underlying concepts and can handle novel questions.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine tracing the outline of a cloud with hundreds of tiny line segments versus drawing a simple oval shape. The detailed tracing fits that one cloud perfectly but is useless for describing other clouds. The simple oval captures the essential "cloud shape" and generalizes to new clouds.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Start with a simple model (low polynomial degree) and fit it to training data.",
+        "Measure error on both training data and separate test data that the model has never seen.",
+        "Gradually increase model complexity (higher polynomial degree) and watch both errors.",
+        "At first, both errors decrease — the model is learning the true pattern (underfitting regime).",
+        "Past a certain complexity, training error keeps dropping but test error starts rising — the model is memorizing noise (overfitting regime). The optimal complexity is at the 'elbow' where test error is minimized."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Polynomial Degree {degree} Fit</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
@@ -460,7 +546,7 @@ function OverfittingSection() {
             onChange={setDegree} color={C} format={v => v.toString()} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
             <CalcRow eq="Train data points" result="8" color={C} />
             <CalcRow eq="Test data points" result="4" color="#dc2626" />
             <CalcRow eq="Model parameters (degree+1)" result={(Math.min(degree, 7) + 1).toString()} color={C} />
@@ -475,12 +561,21 @@ function OverfittingSection() {
             <ResultBox label="TEST RMSE" value={testRMSE.toFixed(3)} color="#dc2626" sub="lower is better" />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> At low degree, both errors are high (underfitting).
             Around degree 2, the model matches the true y = x² well. At high degrees, train error drops near zero
             but test error explodes — that is overfitting. The sweet spot balances complexity and generalization.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Only looking at training error — a model with zero training error is almost certainly overfit.",
+            "Adding more features without more data — each new feature increases the risk of overfitting unless you have enough samples.",
+            "Assuming a complex model is always better — a 7th-degree polynomial has more parameters but usually performs worse than a 2nd-degree one on this data.",
+            "Forgetting regularization — techniques like L1/L2 penalty, dropout, or early stopping explicitly fight overfitting."
+          ]} />
+
+          <MatSciExample text="In materials informatics, datasets are often small (50–500 samples). A neural network with thousands of parameters will easily overfit such data. That is why random forests or regularized linear models often outperform deep learning on small materials datasets. The CGCNN (Crystal Graph CNN) paper showed that even for structure-based predictions, overfitting is a major risk with fewer than ~10,000 training structures." />
         </div>
       </div>
     </Card>
@@ -523,20 +618,30 @@ function CrossValidationSection() {
   const std = Math.sqrt(scores.reduce((a, v) => a + (v - mean) ** 2, 0) / scores.length);
 
   const foldColors = ["#2563eb", "#059669", "#dc2626", "#7c3aed", "#d97706"];
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
 
   return (
     <Card color={C} title="K-Fold Cross-Validation" formula="Score = mean ± std over K folds">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A restaurant critic visits 5 times on different days to give a fair review. Each visit tests
           a different aspect. The average of all visits is more reliable than a single visit.
+          If the critic only visited once on a great day, they might give 5 stars to a 3-star restaurant. Multiple visits reveal the true average quality.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine a teacher who gives 5 different quizzes on the same topic instead of one big exam. Each quiz uses different questions, so a student who got lucky on one quiz will not fool the system. The average quiz score is a much fairer measure of true understanding.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Divide your dataset into K equal-sized subsets (folds). Common choices are K = 5 or K = 10.",
+        "For fold 1: train on folds 2–K, test on fold 1, record the score.",
+        "For fold 2: train on folds 1, 3–K, test on fold 2, record the score.",
+        "Repeat for all K folds — each fold gets exactly one turn as the test set.",
+        "Report the mean and standard deviation of all K scores. The mean estimates true performance; the std estimates how stable your model is."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>{K}-Fold Split Visualization</text>
             {/* Show each fold as a row */}
@@ -583,7 +688,7 @@ function CrossValidationSection() {
             onChange={setK} color={C} format={v => v.toString()} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
             <CalcRow eq="Total data points" result="10" color={C} />
             <CalcRow eq={`Points per fold ≈ 10 / ${K}`} result={Math.floor(10 / K).toString()} color={C} />
             {folds.map((f, i) => (
@@ -598,12 +703,21 @@ function CrossValidationSection() {
             <ResultBox label="± STD" value={std.toFixed(3)} color={M.accent} />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> Cross-validation uses every data point for both
             training and testing. Higher K means each test set is smaller but more folds provide better estimates.
             The standard deviation tells you how stable your model is — low std means reliable performance.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Performing feature engineering (scaling, selection) before the split — this leaks test information into training, giving falsely optimistic results.",
+            "Using K = 2 on small datasets — each fold only trains on half the data, giving a pessimistic estimate.",
+            "Ignoring the standard deviation — a model with mean score 0.90 but std 0.15 is much less reliable than one with mean 0.88 but std 0.02.",
+            "Shuffling time-series data randomly — for temporal data, use time-based splits to avoid leaking future information into the past."
+          ]} />
+
+          <MatSciExample text="In the Matbench benchmark suite, all models are evaluated using nested cross-validation with specific fold assignments. This ensures fair comparison across different ML approaches for materials property prediction tasks like predicting formation energy, bandgap, and bulk modulus." />
         </div>
       </div>
     </Card>
@@ -648,7 +762,7 @@ function DecisionTreeSection() {
   const giniWeighted = (leftPts.length / points.length) * giniLeft + (rightPts.length / points.length) * giniRight;
   const infoGain = giniParent - giniWeighted;
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
   const enMin = 1.5, enMax = 2.7, rMin = 0.7, rMax = 1.6;
   const sx = (v) => 40 + (v - enMin) / (enMax - enMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - rMin) / (rMax - rMin) * (svgH - 50);
@@ -656,15 +770,25 @@ function DecisionTreeSection() {
   return (
     <Card color={C} title="Decision Trees" formula="Gini = 1 − Σ pᵢ²">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A game of 20 Questions. Each question splits the possibilities into two groups. The best question
           creates the purest groups — one group mostly "yes", the other mostly "no". Gini impurity measures how mixed a group is.
+          A bad question like "Is it heavier than 1 kg?" might split things 50/50, giving no useful information. A great question like "Is it a living thing?" might perfectly separate animals from objects.
+          <br/><br/><strong>Another way to think about it:</strong> Think of a flowchart at a doctor's office: "Do you have a fever? Yes → go to room A. No → is there pain? Yes → room B. No → room C." Each branching question splits patients into more specific groups until each room treats one condition. A decision tree does exactly this for data classification.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Start with all data points in one node (the root). Calculate the Gini impurity of this mixed group.",
+        "For every possible feature and every possible threshold, compute: what would the Gini impurity be if we split here?",
+        "Pick the feature and threshold that gives the largest drop in impurity (highest information gain).",
+        "Create two child nodes: left (feature <= threshold) and right (feature > threshold).",
+        "Recursively repeat for each child node until nodes are pure (Gini = 0) or a stopping criterion is met (max depth, min samples)."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Split on {featureName} ≤ {splitX.toFixed(2)}</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
@@ -713,7 +837,7 @@ function DecisionTreeSection() {
             onChange={setSplitX} color={C} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
             <CalcRow eq="Parent: 4 semi + 4 metal in 8" result={`Gini = ${giniParent.toFixed(3)}`} color={C} />
             <CalcRow eq={`Left (≤ ${splitX.toFixed(2)}): ${leftPts.filter(p => p.label === 0).length}S + ${leftPts.filter(p => p.label === 1).length}M in ${leftPts.length}`}
               result={`Gini = ${giniLeft.toFixed(3)}`} color="#059669" />
@@ -730,12 +854,21 @@ function DecisionTreeSection() {
             <ResultBox label="INFO GAIN" value={infoGain.toFixed(3)} color={M.accent} />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> A Gini of 0 means a perfectly pure node (all one class).
             A Gini of 0.5 means maximum impurity (50-50 split). The tree picks the split with the highest information gain —
             the biggest drop in impurity.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Growing the tree too deep — a fully grown tree memorizes training data (overfitting). Use max_depth or min_samples_leaf to limit growth.",
+            "Assuming trees handle feature scaling — actually trees do NOT need scaled features, unlike SVM or neural networks. This is an advantage.",
+            "Forgetting that single trees are unstable — small changes in data can produce very different trees. Random forests fix this.",
+            "Using entropy vs Gini without understanding the difference — in practice, both give nearly identical results. Gini is faster to compute."
+          ]} />
+
+          <MatSciExample text="Decision trees are used in materials science to classify crystal structures. For example, a tree might split on tolerance factor > 0.9 (first node) and octahedral factor > 0.41 (second node) to predict whether an ABX3 composition will form a perovskite structure or not." />
         </div>
       </div>
     </Card>
@@ -768,20 +901,30 @@ function RandomForestSection() {
   const votes1 = treeResults.filter(t => t.prediction === 1).length;
   const ensemblePred = votes0 >= votes1 ? "Semiconductor" : "Metal";
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
 
   return (
     <Card color={C} title="Random Forest" formula="Ensemble = majority vote of N trees">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A panel of judges scoring a gymnastics routine. Each judge sees the routine from a slightly different angle
           and has different expertise. The average score is more reliable than any single judge's opinion.
+          Even if one judge is biased or makes a mistake, the collective average washes out individual errors, giving a fairer overall score.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine asking 100 people to guess the number of jellybeans in a jar. Most individuals will be off, but the average of all 100 guesses is remarkably close to the true number. This is the "wisdom of crowds" effect, and random forests exploit exactly this principle with decision trees.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Create N decision trees (typically 100–1000). Each tree is trained on a random bootstrap sample (sampling with replacement) of the original data.",
+        "At each split in each tree, only consider a random subset of features (not all features). This decorrelates the trees.",
+        "Grow each tree fully (or to a specified depth). Individual trees will overfit, and that is okay.",
+        "To make a prediction, pass the new sample through ALL N trees and collect their individual predictions.",
+        "For classification: take a majority vote. For regression: take the average. The ensemble prediction is much more stable and accurate than any single tree."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Random Forest: {nTrees} Trees Voting</text>
             {/* Draw each tree as a simple diagram */}
@@ -820,7 +963,7 @@ function RandomForestSection() {
             onChange={setNTrees} color={C} format={v => v.toString()} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
             <CalcRow eq="Test sample: EN = 2.10, R = 1.20" result="Unknown" color={C} />
             {treeResults.map((t, i) => (
               <CalcRow key={i} eq={`Tree ${t.id}: EN ${testSample.en} > ${t.threshold}?`}
@@ -836,12 +979,21 @@ function RandomForestSection() {
             <ResultBox label="TREES" value={nTrees.toString()} color={C} sub="voting" />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> Each tree trains on a random subset of data and features.
             This "randomness" makes individual trees different. Combining their votes (bagging) reduces overfitting and
             increases robustness. More trees usually means better performance up to a point.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Using too few trees — 10 trees is not a forest. Use at least 100; diminishing returns typically start around 300–500.",
+            "Setting max_features too high — if every tree considers all features, the trees become correlated and the ensemble benefit is lost.",
+            "Assuming random forests cannot overfit — they can, especially with very deep trees on noisy data. Use out-of-bag (OOB) error to monitor.",
+            "Ignoring feature importances — random forests provide built-in feature importance rankings; always check which features the model relies on."
+          ]} />
+
+          <MatSciExample text="Random forests are the workhorse of materials informatics. The Automatminer pipeline uses gradient-boosted trees (a close cousin) as its default model. In the 2019 Matbench study, random forests achieved competitive performance on 8 out of 13 materials prediction tasks, often rivaling much more complex deep learning models." />
         </div>
       </div>
     </Card>
@@ -876,7 +1028,7 @@ function SVMSection() {
   const marginWidth = 2.0 / (wNorm * cParam);
   const marginHalf = marginWidth / 2;
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
   const xMin = 0, xMax = 4.5, yMin = 0.5, yMax = 3.8;
   const sx = (v) => 40 + (v - xMin) / (xMax - xMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - yMin) / (yMax - yMin) * (svgH - 50);
@@ -887,15 +1039,25 @@ function SVMSection() {
   return (
     <Card color={C} title="Support Vector Machine" formula="Maximize margin = 2 / ||w||">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Parking a car in the middle of a lane. You want equal space on both sides — that is the maximum margin.
-          SVM finds the line that leaves the widest "lane" between two classes.
+          SVM finds the line that leaves the widest "lane" between two classes. The wider the lane, the more confident we are that a new data point falling on one side truly belongs to that class.
+          The edge of the lane is defined by the closest data points from each class — these are the "support vectors" that literally support the boundary's position.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine two groups of students sitting on opposite sides of a cafeteria. You want to draw a line on the floor separating them. The best line is not just any separator — it is the one that leaves the maximum gap so that even if someone moves slightly, they still stay on their side.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Find the decision boundary (hyperplane) that separates the two classes in feature space.",
+        "Among all possible separating boundaries, choose the one that maximizes the margin — the distance between the boundary and the nearest data points from each class.",
+        "The nearest points that define the margin are called support vectors. Only these points matter; all other points could be removed without changing the boundary.",
+        "The C parameter controls the trade-off: high C means fewer misclassifications (hard margin, narrow lane); low C allows some misclassifications for a wider, more generalizable margin.",
+        "For non-linearly separable data, the kernel trick maps data to a higher-dimensional space where a linear boundary can separate the classes."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Maximum Margin Classifier</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
@@ -939,7 +1101,7 @@ function SVMSection() {
             onChange={setCParam} color={C} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
             <CalcRow eq={`w = (c1_center − c0_center)`} result={`(${wX.toFixed(2)}, ${wY.toFixed(2)})`} color={C} />
             <CalcRow eq={`||w|| = √(${wX.toFixed(2)}² + ${wY.toFixed(2)}²)`} result={wNorm.toFixed(3)} color={C} />
             <CalcRow eq={`Margin = 2 / (||w|| × C)`} result={marginWidth.toFixed(3)} color={C} />
@@ -953,12 +1115,21 @@ function SVMSection() {
             <ResultBox label="C PARAM" value={cParam.toFixed(1)} color={M.accent} />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> High C penalizes misclassification heavily (hard margin,
             narrow lane). Low C allows some misclassification (soft margin, wider lane). The support vectors are
             the critical points closest to the decision boundary — they define the margin.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Forgetting to scale features — SVM is sensitive to feature magnitudes. Always standardize features (mean 0, std 1) before using SVM.",
+            "Using a linear kernel when classes are not linearly separable — try RBF or polynomial kernels for complex boundaries.",
+            "Setting C too high on noisy data — this forces the model to fit every point, including noise, leading to overfitting.",
+            "Not understanding support vectors — removing a non-support-vector point changes nothing. Only support vectors matter."
+          ]} />
+
+          <MatSciExample text="SVM with radial basis function (RBF) kernel has been used to classify crystal stability: given a set of compositional descriptors, SVM can predict whether a hypothetical compound will form a stable crystal structure or decompose. The kernel trick allows SVM to find nonlinear decision boundaries in the high-dimensional feature space of elemental properties." />
         </div>
       </div>
     </Card>
@@ -1007,20 +1178,30 @@ function PCASection() {
     return acc;
   }, []);
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
 
   return (
     <Card color={C} title="Principal Component Analysis" formula="Cov(X) → eigenvalues, eigenvectors">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Photographing a 3D object — find the best camera angle that captures the most information in a flat 2D picture.
           PCA finds the directions (principal components) along which data varies the most.
+          If you photograph a long, thin pencil from the side, you see its full length. Photograph it head-on, and it looks like a dot. PCA automatically finds the "side view" that preserves the most information.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine a spreadsheet with 50 columns of material properties. Many columns are correlated (atomic mass and atomic number move together). PCA discovers these correlations and compresses the 50 columns into, say, 5 "super-columns" that capture 95% of all the variation. You lose only 5% of information but reduce complexity by 10x.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Standardize each feature to mean = 0 and std = 1, so no single feature dominates due to its scale.",
+        "Compute the covariance matrix — this captures how every pair of features varies together.",
+        "Find the eigenvalues and eigenvectors of the covariance matrix. Each eigenvector is a principal component direction; its eigenvalue tells how much variance lies along that direction.",
+        "Sort components by eigenvalue (largest first). The first PC captures the most variance, the second captures the most remaining variance orthogonal to the first, and so on.",
+        "Choose how many PCs to keep — typically enough to capture 90–95% of total variance. Project all data onto these PCs to get a reduced-dimensional representation."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Explained Variance by Component</text>
             {/* Bar chart */}
@@ -1061,7 +1242,7 @@ function PCASection() {
 
           {/* Covariance matrix */}
           <div style={{ marginTop: 8, background: T.surface, borderRadius: 8, padding: 8, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 9, color: T.muted, marginBottom: 4, letterSpacing: 2 }}>COVARIANCE MATRIX (standardized)</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 4, letterSpacing: 2 }}>COVARIANCE MATRIX (standardized)</div>
             <div style={{ fontFamily: "monospace", fontSize: 10, lineHeight: 1.6 }}>
               {cov.map((row, i) => (
                 <div key={i} style={{ display: "flex", gap: 4 }}>
@@ -1080,7 +1261,7 @@ function PCASection() {
             onChange={setNComp} color={C} format={v => v.toString()} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
             <CalcRow eq="Original features" result="3 (EN, Mass, Radius)" color={C} />
             <CalcRow eq="Mean EN = (1.90+2.01+2.18+1.61+1.90)/5" result={means[0].toFixed(3)} color={C} />
             <CalcRow eq={`Std EN`} result={stds[0].toFixed(3)} color={C} />
@@ -1097,12 +1278,21 @@ function PCASection() {
             <ResultBox label="VARIANCE KEPT" value={`${(cumulative[nComp - 1] * 100).toFixed(1)}%`} color={M.accent} />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> PCA compresses high-dimensional data by keeping only the
             directions with the most variance. If 2 PCs capture 92% of variance, you can safely drop the 3rd dimension.
             This helps with visualization and reducing overfitting.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Applying PCA without standardizing first — if one feature is in GPa and another in eV, the GPa feature will dominate simply due to scale.",
+            "Keeping too few components — if you retain only 60% of variance, you may lose critical information that hurts downstream models.",
+            "Interpreting PCs as individual features — PC1 is a linear combination of ALL original features; it does not correspond to any single physical property.",
+            "Using PCA on categorical data — PCA is designed for continuous numerical features. For categorical data, use techniques like MCA (Multiple Correspondence Analysis)."
+          ]} />
+
+          <MatSciExample text="In high-entropy alloy research, compositions can involve 5+ elements, each with dozens of elemental descriptors, creating a 100+ dimensional feature space. PCA is used to visualize this space in 2D, revealing clusters of similar alloys and guiding composition optimization. The first two PCs often separate alloys by phase stability (BCC vs FCC vs mixed)." />
         </div>
       </div>
     </Card>
@@ -1125,20 +1315,30 @@ function PerceptronSection() {
   const output = actFn === "sigmoid" ? sigmoid(z) : relu(z);
   const actName = actFn === "sigmoid" ? "σ" : "ReLU";
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
 
   return (
     <Card color={C} title="Perceptron (Single Neuron)" formula={`output = ${actName}(w₁x₁ + w₂x₂ + b)`}>
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A voter weighing pros and cons before making a decision. Each argument (input) has a weight (importance).
           The voter adds up all weighted arguments, applies a threshold, and decides yes or no.
+          If "low cost" has weight 0.8 and "high durability" has weight 0.5, the voter multiplies each factor by its importance, sums them, and checks: is the total above my threshold? If yes, buy. If no, skip.
+          <br/><br/><strong>Another way to think about it:</strong> A neuron in your brain works similarly — it receives signals from thousands of other neurons through synapses (connections with different strengths). If the combined signal exceeds a firing threshold, the neuron fires. An artificial neuron is a mathematical model of this biological process, simplified to weighted sum plus activation function.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Receive input values (x1, x2, ...) — these are your features, like electronegativity and atomic radius.",
+        "Multiply each input by its weight (w1*x1, w2*x2, ...) — weights represent how important each feature is.",
+        "Sum all weighted inputs and add a bias term: z = w1*x1 + w2*x2 + ... + b. The bias shifts the decision threshold.",
+        "Apply an activation function to z. Sigmoid squashes z to range [0,1] (useful for probability). ReLU outputs max(0,z) (useful for deep networks because it avoids vanishing gradients).",
+        "The output is the neuron's prediction. During training, weights and bias are adjusted to minimize the difference between predicted and actual values."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Single Neuron Diagram</text>
             {/* Input nodes */}
@@ -1201,7 +1401,7 @@ function PerceptronSection() {
           <SliderRow label="x₂" value={x2} min={-2} max={2} step={0.1} onChange={setX2} color="#2563eb" />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
             <CalcRow eq={`w₁ × x₁ = ${w1.toFixed(1)} × ${x1.toFixed(1)}`} result={(w1 * x1).toFixed(3)} color={C} />
             <CalcRow eq={`w₂ × x₂ = ${w2.toFixed(1)} × ${x2.toFixed(1)}`} result={(w2 * x2).toFixed(3)} color={C} />
             <CalcRow eq={`z = ${(w1 * x1).toFixed(3)} + ${(w2 * x2).toFixed(3)} + ${bias.toFixed(1)}`} result={z.toFixed(3)} color={C} />
@@ -1214,12 +1414,21 @@ function PerceptronSection() {
             <ResultBox label="OUTPUT" value={output.toFixed(4)} color={output > 0.5 ? "#059669" : "#dc2626"} />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> A neuron computes a weighted sum of inputs, adds a bias,
             then applies an activation function. Sigmoid squashes everything to 0–1 (good for probabilities).
             ReLU passes positive values unchanged and kills negatives (faster training in deep networks).
           </div>
+
+          <CommonMistakes mistakes={[
+            "Thinking a single neuron can solve any problem — a single perceptron can only learn linearly separable patterns (e.g., it cannot learn XOR).",
+            "Setting all weights to the same initial value — this causes symmetry problems where all neurons learn the same thing. Use random initialization.",
+            "Ignoring the bias term — without bias, the decision boundary must pass through the origin, severely limiting what the neuron can learn.",
+            "Confusing weights with feature importance — a large weight does not necessarily mean the feature is important if the feature values are very small."
+          ]} />
+
+          <MatSciExample text="A single neuron with sigmoid activation is essentially logistic regression — one of the first ML models used in materials science. It was applied to predict whether a binary compound will be a semiconductor or insulator based on Pauling electronegativity difference and average atomic number. This simple model achieves ~85% accuracy on this binary classification task." />
         </div>
       </div>
     </Card>
@@ -1251,20 +1460,30 @@ function DNNSection() {
   const zO = w.o1 * h1 + w.o2 * h2 + w.bo;
   const output = sigmoid(zO);
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
 
   return (
     <Card color={C} title="Deep Neural Network" formula="output = σ(W₂ · σ(W₁ · x + b₁) + b₂)">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           An assembly line with stations. Raw materials (inputs) pass through Station 1 (hidden layer 1),
           get partially processed, then move to Station 2 (output). Each station transforms the product in a specific way.
+          At each station, workers combine incoming parts with different weights, add their own adjustments (bias), and pass the result to the next station. The final station produces the finished product.
+          <br/><br/><strong>Another way to think about it:</strong> Think of a series of language translators. The first translator converts English to French, the second converts French to German, the third converts German to the target language. Each translation step loses some nuance but captures the essential meaning in a new representation. Similarly, each hidden layer "translates" the data into a new representation that is progressively more useful for the final prediction task.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Input layer receives raw features (e.g., x1 = electronegativity, x2 = atomic radius).",
+        "Hidden layer 1: each hidden neuron computes z = w*x + b, then applies activation function sigma(z). This creates intermediate features h1, h2 that are combinations of the inputs.",
+        "These intermediate features capture nonlinear relationships that a single neuron cannot — for example, h1 might represent 'metallic character' as a nonlinear mix of EN and radius.",
+        "Output layer combines hidden outputs with another set of weights: output = sigma(w_o1*h1 + w_o2*h2 + b_o).",
+        "The entire process from input to output is called a 'forward pass'. The network has many parameters (weights and biases) that are all learned during training via backpropagation."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>2-Layer Network: Forward Pass</text>
             {/* Input layer */}
@@ -1312,7 +1531,7 @@ function DNNSection() {
           <SliderRow label="Input x₁" value={inputVal} min={-2} max={2} step={0.1} onChange={setInputVal} color={C} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>FORWARD PASS CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>FORWARD PASS CALCULATION</div>
             <CalcRow eq={`z₁ = ${w.h1_1}×${x1.toFixed(1)} + ${w.h1_2}×${x2} + ${w.b1}`} result={z1.toFixed(3)} color={C} />
             <CalcRow eq={`h₁ = σ(${z1.toFixed(3)})`} result={h1.toFixed(4)} color={C} />
             <CalcRow eq={`z₂ = ${w.h2_1}×${x1.toFixed(1)} + ${w.h2_2}×${x2} + ${w.b2}`} result={z2.toFixed(3)} color={C} />
@@ -1327,12 +1546,21 @@ function DNNSection() {
             <ResultBox label="OUTPUT" value={output.toFixed(3)} color={output > 0.5 ? "#059669" : "#dc2626"} />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> Each layer transforms data through weighted sums + activations.
             The hidden layer creates intermediate representations — it "re-encodes" the input in a way that makes the output
             task easier. More layers = more abstraction levels = can learn more complex patterns.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Thinking more layers always means better — deep networks need more data to train and are prone to vanishing gradients. Start shallow and add depth only if needed.",
+            "Using sigmoid in hidden layers of deep networks — sigmoid causes vanishing gradients in deep networks. Use ReLU or its variants (LeakyReLU, GELU) for hidden layers.",
+            "Not understanding the parameter count — a network with 2 inputs, 2 hidden, 1 output has 2*2 + 2 + 2*1 + 1 = 9 parameters. A slightly bigger network explodes in parameter count quickly.",
+            "Treating the network as a black box — always inspect hidden layer activations. They often reveal what intermediate features the network has learned."
+          ]} />
+
+          <MatSciExample text="MEGNet (MatErials Graph Network) uses multiple neural network layers to learn atomic-level representations of crystal structures. The hidden layers progressively encode local bonding environment, then neighborhood coordination, then global crystal properties. Each layer builds a more abstract representation, exactly like our simple 2-layer example here but with graph convolutions." />
         </div>
       </div>
     </Card>
@@ -1384,20 +1612,30 @@ function BackpropSection() {
   }, [lr]);
 
   const cur = history[Math.min(step, history.length - 1)];
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
 
   return (
     <Card color={C} title="Backpropagation" formula="w_new = w_old − η × ∂L/∂w">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A teacher tracing back which step caused the wrong answer on a math test. If the final answer is wrong,
           the teacher checks each intermediate step to find where the biggest mistake was, then corrects those steps the most.
+          Step 3 caused 60% of the error? Fix it aggressively. Step 1 only caused 5%? Barely touch it. This proportional blame assignment is exactly what backpropagation computes mathematically using the chain rule of calculus.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine a factory producing defective widgets. You trace the defect backwards through the assembly line: the painting station added 10% of the defect, the welding station added 30%, the cutting station added 60%. You then improve each station proportionally. After each round of improvements, you run the line again and re-measure — that is one training epoch.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Forward pass: compute the output by passing inputs through all layers, recording every intermediate value (z, h, output).",
+        "Compute the loss: compare the output to the true target value. Here, loss = (y_true - y_hat)^2.",
+        "Backward pass: starting from the loss, compute dL/d(output), then use the chain rule to propagate gradients backwards through each layer.",
+        "For each weight, compute dL/dw — this tells you how much the loss changes if you nudge that weight slightly. Large gradient means large blame.",
+        "Update every weight: w_new = w_old - learning_rate * dL/dw. This is gradient descent — move each weight in the direction that decreases the loss. Repeat for many steps until the loss converges."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Loss Over Training Steps</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
@@ -1433,7 +1671,7 @@ function BackpropSection() {
             onChange={setStep} color={M.accent} format={v => v.toString()} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP {step} CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP {step} CALCULATION</div>
             <CalcRow eq={`Forward: h = σ(${cur.w1.toFixed(3)}×${x} + ${cur.b1.toFixed(3)})`} result={cur.h.toFixed(4)} color={C} />
             <CalcRow eq={`Forward: ŷ = σ(${cur.w2.toFixed(3)}×${cur.h.toFixed(3)} + ${cur.b2.toFixed(3)})`} result={cur.yhat.toFixed(4)} color={C} />
             <CalcRow eq={`Loss = (${yTrue} − ${cur.yhat.toFixed(4)})²`} result={cur.loss.toFixed(5)} color="#dc2626" />
@@ -1450,12 +1688,21 @@ function BackpropSection() {
             <ResultBox label="PREDICTION" value={cur.yhat.toFixed(4)} color={C} sub={`target: ${yTrue}`} />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> Backpropagation uses the chain rule of calculus to compute
             how much each weight contributed to the error. The learning rate controls step size — too large and you overshoot,
             too small and training is slow. Watch the loss curve decrease as gradients update the weights.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Setting learning rate too high — the loss oscillates wildly or even increases. If loss is not decreasing smoothly, lower the learning rate.",
+            "Setting learning rate too low — training takes forever and may get stuck in a local minimum. Use learning rate schedulers that decrease LR over time.",
+            "Not monitoring the loss curve — always plot loss vs. step. A flat curve means the model stopped learning (try larger LR or different architecture).",
+            "Confusing epochs with steps — one epoch = one pass through the entire dataset. One step = one gradient update (usually on a mini-batch). 100 epochs on 1000 samples with batch size 32 = ~3125 steps."
+          ]} />
+
+          <MatSciExample text="When training neural network interatomic potentials (like NequIP or MACE), the loss function includes forces and energies: L = w_E * (E_pred - E_DFT)^2 + w_F * sum(F_pred - F_DFT)^2. Backpropagation computes gradients through the entire potential energy surface model, enabling the network to learn quantum-mechanical-quality force fields from DFT training data." />
         </div>
       </div>
     </Card>
@@ -1477,20 +1724,30 @@ function CNNTransformerSection() {
   const attnTokens = ["Fe", "O", "forms", "rust"];
   const queryKey = [[0.9, 0.1, 0.0, 0.0], [0.1, 0.7, 0.1, 0.1], [0.0, 0.1, 0.8, 0.1], [0.0, 0.1, 0.1, 0.8]];
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
 
   return (
     <Card color={C} title="CNN & Transformer" formula="Conv: Σ(input × kernel) | Attn: softmax(QK^T/√d)V">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           CNN = a magnifying glass sliding across a page, examining small patches one at a time.
-          Transformer = reading the whole page at once and deciding which words relate to each other.
+          The magnifying glass (kernel) detects local patterns like edges, textures, and shapes. By stacking many layers, the network combines local patterns into global understanding: edges become shapes, shapes become objects.
+          Transformer = reading the whole page at once and deciding which words relate to each other, no matter how far apart they are.
+          <br/><br/><strong>Another way to think about it:</strong> A CNN is like a quality inspector examining a circuit board with a small flashlight, checking each region systematically. A Transformer is like taking a photograph of the entire board at once and using AI to highlight which regions relate to each other (e.g., a crack near component A affects component B on the other side). CNNs are great for local patterns; Transformers excel at long-range relationships.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "CNN: A small kernel (e.g., 3x3 matrix of learnable weights) slides across the input, computing element-wise multiply-and-sum at each position.",
+        "CNN: Each kernel detects one pattern (vertical edge, horizontal edge, etc.). Multiple kernels detect multiple patterns. The output is a 'feature map' showing where each pattern occurs.",
+        "CNN: Stacking convolutional layers creates a hierarchy: first layer detects edges, second detects textures, third detects shapes, deeper layers detect objects.",
+        "Transformer: For each token, compute Query, Key, and Value vectors. Attention weight = softmax(Q * K^T / sqrt(d)). This lets every token attend to every other token.",
+        "Transformer: High attention weight between two tokens means they are strongly related. The output for each token is a weighted sum of all Value vectors, where weights come from the attention mechanism."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
             {["CNN (Convolution)", "Transformer (Attention)"].map((lbl, i) => (
               <button key={i} onClick={() => setShowCNN(i === 0)}
@@ -1568,7 +1825,7 @@ function CNNTransformerSection() {
 
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ marginTop: 0, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>
               {showCNN ? "CNN CALCULATION" : "ATTENTION CALCULATION"}
             </div>
             {showCNN ? (
@@ -1597,12 +1854,21 @@ function CNNTransformerSection() {
             <ResultBox label="TRANSFORMER" value="Global" color={C} sub="any-to-any attention" />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> CNNs excel at local patterns (crystal structure images,
             electron density maps) by sliding small filters. Transformers excel at long-range relationships
             (atom-atom interactions across a molecule). Modern materials ML often combines both.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Using CNNs when data has no spatial structure — CNNs assume local spatial correlations. For tabular materials data, use tree-based models or feedforward networks instead.",
+            "Ignoring computational cost of Transformers — attention is O(n^2) in sequence length. For very large crystal structures (1000+ atoms), this becomes expensive.",
+            "Not using pre-trained models when available — foundation models like MatBERT are pre-trained on millions of materials papers and can be fine-tuned for specific tasks with very little data.",
+            "Confusing self-attention with cross-attention — self-attention relates tokens within the same sequence; cross-attention relates tokens between two different sequences (e.g., question and context)."
+          ]} />
+
+          <MatSciExample text="ALIGNN (Atomistic Line Graph Neural Network) uses graph convolutions (similar to CNN) on crystal structure graphs where atoms are nodes and bonds are edges. The Crystal Transformer applies self-attention to atomic environments, allowing each atom to attend to every other atom regardless of distance — capturing long-range electrostatic and strain interactions that local GNNs miss." />
         </div>
       </div>
     </Card>
@@ -1642,20 +1908,30 @@ function FeatureEngineeringSection() {
   const diffRadius = Math.abs(c.ra - c.rb);
   const meanZ = (c.Za + c.Zb) / 2;
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
 
   return (
     <Card color={C} title="Feature Engineering" formula="Material → numerical feature vector">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Describing a house with numbers before predicting its price: square footage, number of bedrooms, age, location score.
           Similarly, we describe a material with numbers: atomic mass, electronegativity, radius — so ML can work with it.
+          Just as a real estate agent knows which features matter (location, square footage) and which do not (wall color), a materials scientist must choose features that capture the relevant physics.
+          <br/><br/><strong>Another way to think about it:</strong> You cannot feed a crystal structure directly into a spreadsheet. Feature engineering is the translation step — converting a chemical formula like "GaAs" into a row of numbers [mean_EN=1.99, delta_EN=0.37, mean_mass=72.3, ...] that a machine learning algorithm can process. The quality of this translation determines the ceiling of your ML model's performance.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Start with the chemical formula (e.g., CdTe, GaAs, ZnO) and look up elemental properties from a periodic table database.",
+        "For each element, retrieve properties: electronegativity, atomic mass, covalent radius, ionization energy, electron affinity, etc.",
+        "Compute compositional statistics: mean, difference, weighted average, min, max of each elemental property across the compound's elements.",
+        "The difference features (like delta_EN) capture bond character — large delta_EN means ionic bonding; small means covalent.",
+        "Assemble all computed numbers into a fixed-length feature vector. Every material, regardless of its complexity, becomes a single row of numbers that ML can process."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
             {compounds.map((comp, i) => (
               <button key={i} onClick={() => setCompound(i)}
@@ -1692,7 +1968,7 @@ function FeatureEngineeringSection() {
 
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ marginTop: 0, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>FEATURE CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>FEATURE CALCULATION</div>
             <CalcRow eq={`Mean EN = (${c.ena} + ${c.enb}) / 2`} result={meanEN.toFixed(3)} color={C} />
             <CalcRow eq={`ΔEN = |${c.ena} − ${c.enb}|`} result={diffEN.toFixed(3)} color={C} />
             <CalcRow eq={`Mean Mass = (${c.ma} + ${c.mb}) / 2`} result={meanMass.toFixed(2)} color={C} />
@@ -1707,12 +1983,21 @@ function FeatureEngineeringSection() {
             <ResultBox label="ΔEN (ionicity)" value={diffEN.toFixed(2)} color={M.accent} sub="bond character" />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> The choice of features matters more than the choice of
             algorithm. Good features capture the physics: electronegativity difference tells about bond ionicity,
             mean atomic radius relates to lattice constant. Feature engineering is where domain knowledge meets ML.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Using raw chemical formulas as input — ML needs numbers, not strings. 'GaAs' means nothing to an algorithm until you convert it to numerical features.",
+            "Including redundant features — if you include both atomic number and number of electrons (which are equal for neutral atoms), you add noise without information.",
+            "Ignoring structural features — composition-only features miss crucial information. Two materials with the same composition but different crystal structures (polymorphs) have different properties.",
+            "Not normalizing features — if mass ranges from 1–238 and EN ranges from 0.7–4.0, the mass feature will dominate distance-based algorithms simply due to scale."
+          ]} />
+
+          <MatSciExample text="Matminer is a Python library that automates feature engineering for materials science. Its 'ElementProperty' featurizer can generate 60+ features from a composition string in one line of code. The Magpie feature set (mean, std, min, max, range, mode of 22 elemental properties) is one of the most widely used and produces 132 features per composition." />
         </div>
       </div>
     </Card>
@@ -1746,7 +2031,7 @@ function PropertyPredictionSection() {
   const ssTot = predicted.reduce((a, p) => a + (p.actual - meanActual) ** 2, 0);
   const r2 = 1 - ssRes / ssTot;
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
   const axMin = 0, axMax = 4;
   const sx = (v) => 40 + (v - axMin) / (axMax - axMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - axMin) / (axMax - axMin) * (svgH - 50);
@@ -1754,15 +2039,25 @@ function PropertyPredictionSection() {
   return (
     <Card color={C} title="Bandgap Prediction" formula="MAE = Σ|pred − actual| / N">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Showing a student 8 solved examples and then asking them to predict the 9th. The closer their answers
           match the actual values, the better they have learned the concept. The parity plot shows predicted vs actual.
+          If all points fall on the diagonal (y = x line), predictions are perfect. Points scattered far from the diagonal indicate poor model performance.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine you are a weather forecaster. Your credibility depends on how close your predictions are to the actual temperatures. If you predict 72F and it is 73F, that is great (MAE = 1). If you predict 72F and it is 95F, your model is terrible. The MAE and R-squared metrics quantify exactly how "off" your predictions are on average.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Train a regression model on labeled data: input = compositional features, output = known bandgap values.",
+        "For each material in the test set, the model outputs a predicted bandgap (e.g., Si predicted = 1.15 eV).",
+        "Compare each prediction to the actual experimental value (Si actual = 1.12 eV). The difference is the residual error.",
+        "Compute summary metrics: MAE = average of |predicted - actual| for all materials. R-squared = 1 - (sum of squared residuals)/(total variance).",
+        "Plot the parity plot: actual on x-axis, predicted on y-axis. Points on the diagonal = perfect. Systematic offsets suggest bias; random scatter suggests noise."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Parity Plot: Predicted vs Actual Bandgap</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
@@ -1793,7 +2088,7 @@ function PropertyPredictionSection() {
             onChange={setBias} color={C} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CALCULATION</div>
             {predicted.slice(0, 4).map((p, i) => (
               <CalcRow key={i} eq={`|${p.pred.toFixed(2)} − ${p.actual.toFixed(2)}|`}
                 result={residuals[i].toFixed(3) + " eV"} color={C} />
@@ -1809,12 +2104,21 @@ function PropertyPredictionSection() {
             <ResultBox label="R²" value={r2.toFixed(3)} color={M.accent} sub="1.0 = perfect" />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> Points on the diagonal mean perfect predictions.
-            MAE tells you the average error in eV. R² near 1 means the model explains most of the variance.
+            MAE tells you the average error in eV. R-squared near 1 means the model explains most of the variance.
             Materials science ML typically achieves MAE of 0.1–0.3 eV for bandgap prediction.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Reporting training error instead of test error — training MAE is always optimistically low. Always report metrics on held-out test data.",
+            "Comparing R-squared across different datasets — R-squared depends on the variance of the target. An R-squared of 0.9 on wide-gap materials is easier than 0.9 on a narrow subset.",
+            "Ignoring systematic bias — if all predictions are 0.3 eV too high, the MAE looks bad but is easily fixed with a simple offset correction.",
+            "Using DFT bandgaps as 'ground truth' — DFT-PBE systematically underestimates bandgaps. Models trained on PBE data will inherit this bias. Use experimental values or higher-level theory (HSE06, GW) when possible."
+          ]} />
+
+          <MatSciExample text="The AFLOW-ML framework predicts electronic bandgaps for inorganic compounds with MAE around 0.3 eV using gradient-boosted trees on compositional features. For more accurate predictions, structure-aware models like CGCNN achieve MAE around 0.1 eV by learning directly from crystal structure graphs. These predictions can screen thousands of candidate solar cell absorbers in minutes." />
         </div>
       </div>
     </Card>
@@ -1850,23 +2154,33 @@ function GenerativeModelsSection() {
   }, { wSum: 0, wTot: 0 });
   const decodedBG = interpBG.wSum / interpBG.wTot;
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
   const sx = (v) => svgW / 2 + v * 60;
   const sy = (v) => svgH / 2 - v * 55;
 
   return (
     <Card color={C} title="Generative Models (VAE)" formula="Encoder → Latent z → Decoder">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A recipe generator: compress known recipes into a "flavor space" (latent space), then explore new points in that
           space to generate novel recipes. The VAE does the same — encodes materials into a compact representation,
           then decodes new points back into material compositions.
+          Nearby points in latent space correspond to similar materials, so you can smoothly interpolate between known materials to discover new ones.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine a color wheel where every paint color you have ever mixed is a point. The encoder maps each paint mixture to coordinates on the wheel. The decoder converts any point on the wheel back to a paint mixture recipe. By exploring empty regions of the wheel, you can generate novel colors (materials) that no one has mixed before, with predictable properties based on their location.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Encoder: take a known material (e.g., GaAs with bandgap 1.42 eV) and compress its features into a low-dimensional latent vector z = (z1, z2).",
+        "The latent space is organized so that similar materials cluster together. Materials with similar bandgaps will have nearby latent vectors.",
+        "Decoder: given any point z in latent space, reconstruct the material properties. This is the generative part — you can decode points that do not correspond to any known material.",
+        "Explore the latent space: move between known materials (interpolation) or venture into unexplored regions (extrapolation) to generate novel candidate materials.",
+        "Validate: the decoded properties are predictions. Promising candidates (e.g., predicted bandgap in solar cell range 1.1–1.7 eV) are flagged for DFT verification or experimental synthesis."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>2D Latent Space</text>
             {/* Axes */}
@@ -1909,7 +2223,7 @@ function GenerativeModelsSection() {
           <SliderRow label="Latent z₂" value={latentY} min={-2} max={2} step={0.1} onChange={setLatentY} color="#dc2626" />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>DECODE CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>DECODE CALCULATION</div>
             <CalcRow eq={`Query point z = (${latentX.toFixed(1)}, ${latentY.toFixed(1)})`} result="decode..." color={C} />
             <CalcRow eq={`Nearest known: ${nearest.name}`} result={`d = ${nearestIdx.d.toFixed(2)}`} color={C} />
             {knownMaterials.slice(0, 3).map((m, i) => {
@@ -1924,12 +2238,21 @@ function GenerativeModelsSection() {
             <ResultBox label="NEAREST" value={nearest.name} color={M.accent} sub={`d = ${nearestIdx.d.toFixed(2)}`} />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> The latent space organizes materials by similarity.
             Nearby points have similar properties. By exploring empty regions between known materials, we can propose
             novel compositions with target properties — this is inverse materials design.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Expecting the decoder to produce physically valid materials every time — many decoded points may correspond to unstable or unsynthesizable compositions. Always validate with DFT or thermodynamic analysis.",
+            "Using too few latent dimensions — if the latent space is too small, different materials get mapped to the same point (information loss).",
+            "Using too many latent dimensions — if the latent space is too large, it becomes sparse and interpolation between known materials becomes unreliable.",
+            "Ignoring the reconstruction loss — if the VAE cannot accurately reconstruct known materials, its predictions for novel materials will be even less reliable."
+          ]} />
+
+          <MatSciExample text="iMatGen (inverse Materials Generator) uses a VAE trained on crystal structure images to generate new 2D van der Waals materials. The encoder compresses crystal structures into a 20-dimensional latent space, and the decoder generates new crystal structure images. Several VAE-generated structures were validated by DFT calculations to be thermodynamically stable — true computational discovery of new materials." />
         </div>
       </div>
     </Card>
@@ -1985,7 +2308,7 @@ function ActiveLearningSection() {
     ]);
   };
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
   const xMin = 0, xMax = 1, yMin = -1.5, yMax = 2.5;
   const sx = (v) => 40 + (v - xMin) / (xMax - xMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - yMin) / (yMax - yMin) * (svgH - 50);
@@ -1993,15 +2316,25 @@ function ActiveLearningSection() {
   return (
     <Card color={C} title="Active Learning" formula="Next = argmax uncertainty(x)">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A chef strategically tasting combinations instead of trying all 1000 possibilities. Instead of random experiments,
           active learning picks the most informative experiment next — where the model is most uncertain.
+          If the chef already knows that salt levels between 1–3 tsp taste good, there is no need to test 1.5 tsp, 2 tsp, and 2.5 tsp. Instead, test 5 tsp (unexplored territory) to learn something genuinely new.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine searching for buried treasure with limited digs. Random digging wastes effort. A smart strategy uses each dig result to update your treasure map, then digs where the map is most uncertain. After just 10 strategic digs, you might have a better map than 100 random digs. Active learning applies this strategy to expensive experiments or simulations.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Start with a small initial dataset (e.g., 3 measured data points) and train a surrogate model.",
+        "The surrogate model makes predictions across the entire search space and estimates its own uncertainty at each point.",
+        "The acquisition function scores each unmeasured point — typically by uncertainty (explore where the model is least confident) or expected improvement (explore where a better result is likely).",
+        "Select the point with the highest acquisition score and perform the expensive experiment/simulation at that point.",
+        "Add the new result to the dataset, retrain the model, and repeat. Each iteration makes the model smarter and more focused on the most promising regions."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Active Learning: {known.length} known points</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
@@ -2056,7 +2389,7 @@ function ActiveLearningSection() {
 
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ marginTop: 0, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ACQUISITION FUNCTION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ACQUISITION FUNCTION</div>
             <CalcRow eq="Known data points" result={known.length.toString()} color={C} />
             <CalcRow eq={`Suggested x = ${bestCandidate.x.toFixed(2)}`} result={`unc = ${bestCandidate.acq.toFixed(3)}`} color="#dc2626" />
             <CalcRow eq={`Min distance to known`} result={(bestCandidate.acq / 2).toFixed(3)} color={C} />
@@ -2070,12 +2403,21 @@ function ActiveLearningSection() {
             <ResultBox label="NEXT x" value={bestCandidate.x.toFixed(2)} color="#dc2626" sub="highest uncertainty" />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> Active learning reduces the number of expensive experiments
             (DFT calculations, lab synthesis) needed. Instead of 1000 random experiments, you might only need 50 well-chosen
             ones. The uncertainty band shows where the model is least confident — that is where new data helps most.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Always exploring (high uncertainty) without exploiting (high predicted value) — a good acquisition function balances exploration and exploitation.",
+            "Using a model that does not provide uncertainty estimates — random forests, Gaussian processes, and ensemble methods provide uncertainty; a single neural network does not (without special techniques).",
+            "Running too few iterations — active learning is iterative. If you only do 2 rounds, you have barely improved over random sampling.",
+            "Ignoring batch active learning — in practice, you often want to run several experiments in parallel. Selecting the top-K most uncertain points is suboptimal; use batch-aware acquisition functions."
+          ]} />
+
+          <MatSciExample text="Researchers at NIST used Bayesian active learning to optimize the composition of NiTi-based shape memory alloys. Starting with only 10 experimental measurements, the active learning loop identified compositions with optimal transformation temperatures in just 25 iterations — a task that would have required hundreds of random experiments. This approach is now standard in high-throughput experimental materials discovery." />
         </div>
       </div>
     </Card>
@@ -2099,20 +2441,30 @@ function DataPipelineSection() {
   ];
 
   const cur = stages[stage];
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
 
   return (
     <Card color={C} title="ML Data Pipeline" formula="Data → Clean → Feature → Split → Train → Evaluate">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Cooking: shopping for ingredients (database) → washing and cleaning (clean) → chopping and measuring
           (featurize) → setting aside a taste test portion (split) → cooking (train) → tasting (evaluate).
+          If you skip the washing step, your dish will taste off no matter how good your cooking skills are. Similarly, if you skip data cleaning, your model will learn from noise and errors.
+          <br/><br/><strong>Another way to think about it:</strong> Think of building a house. You need a blueprint (pipeline plan), quality materials (clean data), proper tools (algorithms), and an inspection (evaluation). Skipping any step — using rotten wood, ignoring the blueprint, or skipping the final inspection — guarantees a weak structure. An ML pipeline enforces discipline at every stage.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Acquire data: pull from databases (Materials Project, AFLOW, OQMD), literature, or in-house experiments. Record the source and provenance of each data point.",
+        "Clean data: remove duplicates, handle missing values (impute or drop), detect and remove outliers, standardize units (all energies in eV, all distances in Angstroms).",
+        "Featurize: convert chemical formulas and structures into numerical feature vectors using domain-informed descriptors (Magpie features, structural fingerprints, etc.).",
+        "Split data: divide into train (70–80%), validation (10–15%), and test (10–15%) sets. Use stratified splitting to ensure each set has a representative distribution of target values.",
+        "Train and evaluate: fit the model on training data, tune hyperparameters on validation data, and report final metrics on the held-out test set. Never touch the test set until the very end."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Pipeline Flow</text>
             {stages.map((s, i) => {
@@ -2152,8 +2504,8 @@ function DataPipelineSection() {
             onChange={setStage} color={C} format={v => stages[v].name} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STAGE: {cur.name.toUpperCase()}</div>
-            <div style={{ fontSize: 11, color: T.ink, marginBottom: 8, lineHeight: 1.7 }}>{cur.desc}</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STAGE: {cur.name.toUpperCase()}</div>
+            <div style={{ fontSize: 14, color: T.ink, marginBottom: 8, lineHeight: 2.0 }}>{cur.desc}</div>
             <CalcRow eq="Start: raw entries" result="1000" color={C} />
             <CalcRow eq="After cleaning (−5%)" result="950" color={C} />
             <CalcRow eq="Features generated" result="12 per sample" color={C} />
@@ -2167,12 +2519,21 @@ function DataPipelineSection() {
             <ResultBox label="DATA SIZE" value={typeof cur.count === "string" ? cur.count : cur.count.toString()} color={M.accent} />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> Data quality matters more than model complexity. Garbage in = garbage out.
             The train/test split must be done before any feature engineering on the test set to prevent data leakage.
             Always evaluate on data the model has never seen during training.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Data leakage — fitting a scaler on the entire dataset (including test) before splitting. The test set must be treated as truly unseen data.",
+            "Not recording data provenance — if you cannot trace where each data point came from, you cannot debug systematic errors later.",
+            "Mixing DFT and experimental data without accounting for systematic differences — DFT-PBE bandgaps are systematically lower than experimental values.",
+            "Removing too many 'outliers' — some apparent outliers are real physical effects (e.g., strongly correlated materials with anomalous bandgaps). Removing them biases your model."
+          ]} />
+
+          <MatSciExample text="The Materials Project API (mp-api) provides programmatic access to over 150,000 computed materials. A typical pipeline: query all binary oxides with mp-api, clean by removing entries with warnings, featurize with matminer's ElementProperty, split 80/20, train a random forest, and evaluate. This entire pipeline can be coded in about 30 lines of Python using pymatgen, matminer, and scikit-learn." />
         </div>
       </div>
     </Card>
@@ -2207,20 +2568,30 @@ function HyperparamSection() {
     return { i: 0, j: 0 };
   })();
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
 
   return (
     <Card color={C} title="Hyperparameter Tuning" formula="Grid Search: try all (lr, hidden_size) pairs">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Tuning a guitar — each string needs the right tension. Too loose or too tight and it sounds wrong.
           Hyperparameters are the "tuning knobs" of your ML model. Grid search tries every combination systematically.
+          Just as a guitar has multiple strings that must be tuned together (not independently), ML hyperparameters interact — the best learning rate depends on the hidden size, and vice versa.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine baking a cake where you must choose oven temperature and baking time. You could try every combination: 300F for 20 min, 300F for 25 min, ..., 400F for 40 min. The combination that produces the best cake wins. Grid search does exactly this, but instead of temperature and time, you vary learning rate and network size.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Define the hyperparameter search space: which hyperparameters to tune and what values to try for each (e.g., learning_rate = [0.001, 0.01, 0.1, 1.0]).",
+        "Grid search: create every possible combination of hyperparameter values. Here, 4 learning rates x 4 hidden sizes = 16 combinations.",
+        "For each combination, train the model from scratch and evaluate on a validation set (NOT the test set). Record the validation error.",
+        "Select the combination with the lowest validation error. This is your best hyperparameter setting.",
+        "Finally, train a model with the best hyperparameters on ALL training data and evaluate once on the held-out test set. This is your final reported performance."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Validation Error Heatmap</text>
             <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={9} fill={T.muted}>Hidden Size</text>
@@ -2266,7 +2637,7 @@ function HyperparamSection() {
             onChange={setHsIdx} color={C} format={v => hsValues[v].toString()} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>GRID SEARCH CALCULATION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>GRID SEARCH CALCULATION</div>
             <CalcRow eq="Learning rates tried" result="4 values" color={C} />
             <CalcRow eq="Hidden sizes tried" result="4 values" color={C} />
             <CalcRow eq="Total combinations = 4 × 4" result="16" color={C} />
@@ -2280,12 +2651,21 @@ function HyperparamSection() {
             <ResultBox label="BEST ERROR" value={minError.toFixed(3)} color={M.accent} sub={`lr=${lrValues[bestPos.i]}, h=${hsValues[bestPos.j]}`} />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> Hyperparameters are NOT learned during training — you choose
             them before training starts. Grid search is simple but expensive (16 full trainings here). Random search or
             Bayesian optimization can find good hyperparameters faster with fewer trials.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Tuning on the test set — if you use test set performance to select hyperparameters, the test set is no longer an unbiased estimate. Use a separate validation set.",
+            "Grid search with too fine a grid — trying 100 values for each of 5 hyperparameters means 10 billion combinations. Use coarse grids first, then refine around the best region.",
+            "Ignoring random search — Bergstra and Bengio (2012) showed that random search finds good hyperparameters faster than grid search because most hyperparameters have different importances.",
+            "Not setting a random seed — without a fixed seed, results vary between runs, making it impossible to fairly compare hyperparameter settings."
+          ]} />
+
+          <MatSciExample text="When using scikit-learn's RandomForestRegressor for bandgap prediction, key hyperparameters include n_estimators (100–500), max_depth (5–None), min_samples_leaf (1–10), and max_features ('sqrt' or 'log2'). Optuna, a Bayesian hyperparameter optimization library, can find near-optimal settings in ~50 trials instead of the thousands needed for exhaustive grid search." />
         </div>
       </div>
     </Card>
@@ -2327,21 +2707,31 @@ function InterpretabilitySection() {
   const totalShap = m.features.reduce((s, f) => s + f.shap, 0);
   const prediction = m.base + totalShap;
 
-  const svgW = 340, svgH = 200;
+  const svgW = 380, svgH = 200;
   const centerX = svgW / 2;
 
   return (
     <Card color={C} title="Interpretability (SHAP)" formula="Prediction = Base + Σ SHAP values">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A doctor explaining why they recommend a treatment: "Your age adds risk (+), but your fitness reduces it (−),
           and your family history adds more (+). Overall score: moderate risk." SHAP does the same for ML predictions.
+          Without this explanation, you only know the model predicts "moderate risk" but have no idea why — it is a black box. SHAP opens the box and shows you every contributing factor.
+          <br/><br/><strong>Another way to think about it:</strong> Imagine a jury delivering a verdict. Just saying "guilty" is not enough — the jury must explain which evidence was most convincing and how each piece shifted their opinion. SHAP values are the ML equivalent: they decompose the final prediction into contributions from each input feature, so you can trace exactly why the model made its decision.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Start with the base value — the average prediction across all training samples. This is what you would predict with zero information about the specific material.",
+        "For each feature of the specific material, compute its SHAP value: how much does knowing this feature's value shift the prediction away from the base?",
+        "Positive SHAP values push the prediction higher (e.g., large delta_EN increases predicted bandgap). Negative SHAP values push it lower.",
+        "All SHAP values sum to exactly (prediction - base_value). This is a mathematical guarantee from game theory (Shapley values), ensuring a complete and fair decomposition.",
+        "Visualize with a waterfall plot: start at the base value, add each SHAP contribution as a colored bar, and arrive at the final prediction. The longest bar is the most important feature."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
             {materials.map((mat, i) => (
               <button key={i} onClick={() => setMaterial(i)}
@@ -2390,7 +2780,7 @@ function InterpretabilitySection() {
 
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ marginTop: 0, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>SHAP DECOMPOSITION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>SHAP DECOMPOSITION</div>
             <CalcRow eq={`Base value (population mean)`} result={m.base.toFixed(2) + " eV"} color={C} />
             {m.features.map((f, i) => (
               <CalcRow key={i}
@@ -2408,12 +2798,21 @@ function InterpretabilitySection() {
               color={M.accent} sub={`SHAP = ${m.features[0].shap.toFixed(2)}`} />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> SHAP values explain how much each feature pushed the
             prediction up or down from the average. Positive SHAP = increases prediction. This is critical in materials
             science: it tells you which physical properties drive the prediction, not just the final number.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Confusing feature importance with SHAP values — feature importance tells you which features matter globally; SHAP values explain individual predictions. Both are useful but answer different questions.",
+            "Assuming SHAP reveals causation — SHAP shows correlation-based contributions. A high SHAP value for delta_EN does not prove that electronegativity difference causes the bandgap — only that the model uses it.",
+            "Ignoring SHAP interactions — sometimes two features interact: neither alone has a large SHAP value, but together they strongly influence the prediction. Use SHAP interaction values to detect this.",
+            "Not validating SHAP explanations with domain knowledge — if SHAP says 'atomic mass is the top predictor of bandgap', something is likely wrong. Good SHAP explanations should align with physical intuition."
+          ]} />
+
+          <MatSciExample text="In a random forest model predicting thermal conductivity of crystalline solids, SHAP analysis revealed that the average atomic mass and Gruneisen parameter were the top predictors — consistent with the physical Slack equation. When SHAP highlighted an unexpected feature (electronegativity variance), investigation revealed it was a proxy for bond anharmonicity, leading to new physical insights about phonon scattering." />
         </div>
       </div>
     </Card>
@@ -2447,15 +2846,25 @@ function MLSummarySection() {
   return (
     <Card color={C} title="ML Methods Comparison" formula="Choose the right tool for the job">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A toolbox: you do not use a sledgehammer to hang a picture frame. Similarly, you do not need a billion-parameter
           neural network when 100 data points and linear regression will do. Choose the simplest method that works.
+          A master carpenter knows every tool in the box and picks the right one for each job. An ML practitioner should know the strengths and weaknesses of each algorithm and pick based on data size, complexity, and interpretability needs.
+          <br/><br/><strong>Another way to think about it:</strong> Transportation choices depend on the journey. Walking works for 500 meters, a bicycle for 5 km, a car for 50 km, and a plane for 5000 km. Using a plane for a 500-meter trip is absurd overkill; walking 5000 km is impractical. Similarly, neural networks for 50 data points is overkill, and linear regression for image recognition is impractical. Match the tool to the task.
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        <div style={{ flex: "0 0 350px" }}>
+      <HowItWorks color={C} steps={[
+        "Assess your data: How many samples? How many features? Is the data labeled? Is it tabular, image, graph, or sequence data?",
+        "Start simple: try linear regression or random forest first. These provide strong baselines and are interpretable. If they work well enough, stop here.",
+        "Increase complexity only if needed: if simple models underperform, try gradient-boosted trees (XGBoost), then neural networks. Each step adds complexity and reduces interpretability.",
+        "Always validate properly: use cross-validation, report mean and standard deviation, and compare to a naive baseline (e.g., always predicting the mean).",
+        "Interpret and communicate: use SHAP values to explain predictions. A model that works well but cannot be understood or trusted by domain experts will never be adopted in practice."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
           {/* Comparison table */}
           <div style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, overflow: "hidden" }}>
             <div style={{ display: "grid", gridTemplateColumns: "110px 60px 55px 55px 55px", fontSize: 8, fontWeight: 700, color: T.muted,
@@ -2479,8 +2888,8 @@ function MLSummarySection() {
 
           {/* Decision guide */}
           <div style={{ marginTop: 8, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 9, color: T.muted, marginBottom: 4, letterSpacing: 2 }}>QUICK GUIDE</div>
-            <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.8 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 4, letterSpacing: 2 }}>QUICK GUIDE</div>
+            <div style={{ fontSize: 13, color: T.ink, lineHeight: 2.0 }}>
               <div>• <strong>{'< 100'} data points:</strong> Linear Reg, Decision Tree, SVM</div>
               <div>• <strong>100–1000 points:</strong> Random Forest, GP</div>
               <div>• <strong>{'> 1000'} points:</strong> Neural Networks</div>
@@ -2497,7 +2906,7 @@ function MLSummarySection() {
             onChange={setCompareB} color={M.accent} format={v => methods[v].name} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>COMPARISON</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>COMPARISON</div>
             <CalcRow eq={`${mA.name} — Type`} result={mA.type} color={mA.color} />
             <CalcRow eq={`${mA.name} — Interpretability`} result={mA.interp} color={mA.color} />
             <CalcRow eq={`${mA.name} — Data needed`} result={mA.data} color={mA.color} />
@@ -2512,12 +2921,21 @@ function MLSummarySection() {
             <ResultBox label={mB.name} value={mB.best} color={mB.color} sub={`${mB.data} data, ${mB.speed}`} />
           </div>
 
-          <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.8,
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
             background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <strong style={{ color: T.ink }}>Key insight.</strong> Start simple. Linear regression with good features often
             beats a neural network with bad features. The most important decisions in ML are: (1) what data to collect,
             (2) what features to compute, (3) how to validate. The model choice is often the least important decision.
           </div>
+
+          <CommonMistakes mistakes={[
+            "Jumping straight to deep learning — for tabular materials data with fewer than ~5000 samples, tree-based methods (RF, XGBoost) almost always win.",
+            "Not establishing a baseline — always compare your fancy model against a simple baseline. If random forest with 5 features gives R-squared = 0.92, a neural network giving 0.93 may not be worth the complexity.",
+            "Ignoring the No Free Lunch theorem — no single algorithm is best for all problems. The best algorithm depends on your specific data and task.",
+            "Publishing without code or data — reproducibility is critical in materials informatics. Always share your pipeline, data splits, and trained models."
+          ]} />
+
+          <MatSciExample text="A comprehensive 2020 benchmark by Dunn et al. (npj Computational Materials) compared 7 ML algorithms across 13 materials property prediction tasks. Key finding: gradient-boosted trees (with Matminer features) and CGCNN (from crystal structures) were the top performers overall, but no single method won every task. For small datasets (fewer than 500 samples), regularized linear models and random forests were most reliable." />
         </div>
       </div>
     </Card>
