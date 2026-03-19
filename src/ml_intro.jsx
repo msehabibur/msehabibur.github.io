@@ -333,23 +333,23 @@ function LinearRegressionSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 380px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Atomic Radius → Lattice Constant</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Atomic Radius → Lattice Constant</text>
             {/* Axes */}
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={10} x2={40} y2={svgH - 30} stroke={T.border} />
-            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={9} fill={T.muted}>Atomic Radius (Å)</text>
-            <text x={8} y={svgH / 2 - 10} fontSize={9} fill={T.muted} transform={`rotate(-90,8,${svgH / 2 - 10})`}>Lattice Const (Å)</text>
+            <text x={svgW / 2} y={svgH - 2} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={600}>Atomic Radius (Å)</text>
+            <text x={10} y={svgH / 2} fontSize={12} fill={T.muted} fontWeight={600} transform={`rotate(-90,10,${svgH / 2})`}>Lattice Const (Å)</text>
             {/* Ticks */}
             {[1.15, 1.25, 1.35, 1.45].map(v => (
               <g key={v}>
-                <line x1={sx(v)} y1={svgH - 30} x2={sx(v)} y2={svgH - 27} stroke={T.dim} />
-                <text x={sx(v)} y={svgH - 18} textAnchor="middle" fontSize={8} fill={T.dim}>{v.toFixed(2)}</text>
+                <line x1={sx(v)} y1={svgH - 30} x2={sx(v)} y2={svgH - 25} stroke={T.dim} strokeWidth={1.5} />
+                <text x={sx(v)} y={svgH - 14} textAnchor="middle" fontSize={11} fill={T.ink}>{v.toFixed(2)}</text>
               </g>
             ))}
             {[4.0, 4.5, 5.0, 5.5, 6.0].map(v => (
               <g key={v}>
-                <line x1={37} y1={sy(v)} x2={40} y2={sy(v)} stroke={T.dim} />
-                <text x={34} y={sy(v) + 3} textAnchor="end" fontSize={8} fill={T.dim}>{v.toFixed(1)}</text>
+                <line x1={35} y1={sy(v)} x2={40} y2={sy(v)} stroke={T.dim} strokeWidth={1.5} />
+                <text x={32} y={sy(v) + 4} textAnchor="end" fontSize={11} fill={T.ink}>{v.toFixed(1)}</text>
               </g>
             ))}
             {/* Regression line */}
