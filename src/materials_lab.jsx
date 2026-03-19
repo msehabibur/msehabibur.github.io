@@ -11339,6 +11339,337 @@ function CHChemConstructSection() {
   );
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// KINETICS & METASTABILITY
+// ─────────────────────────────────────────────────────────────────────────────
+function CHKineticsSection() {
+  const [temp, setTemp] = useState(550);
+  const [time, setTime] = useState(0);
+  const [animFrame, setAnimFrame] = useState(0);
+  const [selectedBarrier, setSelectedBarrier] = useState("czts");
+
+  useEffect(() => {
+    const id = setInterval(() => setAnimFrame(f => (f + 1) % 600), 35);
+    return () => clearInterval(id);
+  }, []);
+
+  // Arrhenius rate: k = A * exp(-Ea / kT), kT in eV, T in K
+  const kB = 8.617e-5; // eV/K
+  const kT = kB * (temp + 273.15);
+  const arrRate = (ea) => Math.exp(-ea / kT);
+
+  // Nucleation barriers (eV) for different phases from the melt/amorphous precursor
+  const phases = {
+    czts:  { label: "Cu\u2082ZnSnS\u2084", ea: 1.8, dG: -3.47, color: "#16a34a", desc: "Kesterite (target)" },
+    cu2s:  { label: "Cu\u2082S",          ea: 0.9, dG: -0.90, color: "#dc2626", desc: "Forms fast (low barrier)" },
+    zns:   { label: "ZnS",             ea: 1.1, dG: -1.75, color: "#d97706", desc: "Moderate barrier" },
+    sns:   { label: "SnS",             ea: 0.7, dG: -1.04, color: "#9333ea", desc: "Nucleates easily, volatile" },
+  };
+  const ph = phases[selectedBarrier];
+
+  // Phase fraction evolution: f(t) = 1 - exp(-k*t^n) (JMAK / Avrami)
+  // n = 3 for 3D nucleation + growth
+  const avramiN = 3;
+  const phaseFractions = Object.entries(phases).map(([id, p]) => {
+    const k = arrRate(p.ea) * 0.05; // rate constant scaled for visualization
+    const f = 1 - Math.exp(-k * Math.pow(time, avramiN));
+    return { id, ...p, fraction: Math.min(f, 1.0), rate: k };
+  });
+
+  // Normalize to show competition
+  const totalF = phaseFractions.reduce((s, p) => s + p.fraction, 0) || 1;
+  const normalizedFractions = phaseFractions.map(p => ({ ...p, norm: p.fraction / totalF }));
+
+  // Free energy landscape SVG
+  const LW = 360, LH = 180, lp = { l: 44, r: 14, t: 14, b: 30 };
+  const lWW = LW - lp.l - lp.r, lHH = LH - lp.t - lp.b;
+
+  // Reaction coordinate: amorphous → barrier → product
+  // Draw a free energy curve with a barrier
+  const drawBarrierCurve = (ea, dG, color, offset) => {
+    const pts = [];
+    const N = 80;
+    for (let i = 0; i <= N; i++) {
+      const x = i / N; // 0 to 1 reaction coordinate
+      // Shape: start at 0, rise to ea at x=0.35, then fall to dG at x=1
+      let y;
+      if (x < 0.35) {
+        y = ea * Math.sin(x / 0.35 * Math.PI / 2); // rise to barrier
+      } else {
+        const t = (x - 0.35) / 0.65;
+        y = ea * (1 - t) + dG * t * t + ea * t * (1 - t) * 0.3; // fall to product
+      }
+      const sx = lp.l + x * lWW;
+      const sy = lp.t + lHH / 2 - y * (lHH / 5); // scale: 5 eV = full height
+      pts.push(`${sx.toFixed(1)},${sy.toFixed(1)}`);
+    }
+    return pts.join(" ");
+  };
+
+  // Time-Temperature-Transformation (TTT) data points
+  const tttTemps = [300, 400, 500, 550, 600, 700, 800];
+  const tttTimes = tttTemps.map(t => {
+    const kt = kB * (t + 273.15);
+    // Time to 50% transformation: solve 1-exp(-k*t^3) = 0.5
+    const k = arrRate(1.8) * 0.05; // CZTS barrier
+    const kAtT = Math.exp(-1.8 / kt) * 0.05;
+    return kAtT > 0 ? Math.pow(Math.log(2) / kAtT, 1 / 3) : 999;
+  });
+
+  // Phase fraction bar chart
+  const barH = 20;
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Thermodynamics is like a <strong>map showing which valleys exist</strong> {"\u2014"} it tells you the lowest-energy states. But kinetics is about <strong>how high the mountains are between valleys</strong>. A ball (your system) can get stuck in a shallow valley (metastable phase) if the mountain pass to the deeper valley (stable phase) is too high to cross at the current temperature. Heating gives the ball more energy to hop over barriers. This is why Cu{"\u2082"}S forms before CZTS during synthesis {"\u2014"} its barrier is lower, even though CZTS is more stable.
+        </div>
+      </div>
+
+      {/* Free Energy Landscape */}
+      <Card title="Free Energy Landscape: Barriers Control Which Phase Forms First" color={CH.accent}>
+        <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+          <div style={{ flex: "0 0 370px" }}>
+            <svg width={LW} height={LH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+              {/* Axes */}
+              <line x1={lp.l} y1={lp.t + lHH} x2={lp.l + lWW} y2={lp.t + lHH} stroke={T.dim} strokeWidth={1} />
+              <line x1={lp.l} y1={lp.t} x2={lp.l} y2={lp.t + lHH} stroke={T.dim} strokeWidth={1} />
+              <text x={lp.l + lWW / 2} y={LH - 4} textAnchor="middle" fill={T.muted} fontSize={9}>Reaction coordinate</text>
+              <text x={10} y={lp.t + lHH / 2} textAnchor="middle" fill={T.muted} fontSize={9} transform={`rotate(-90,10,${lp.t + lHH / 2})`}>{"\u0394"}G (eV)</text>
+              {/* Zero line */}
+              <line x1={lp.l} y1={lp.t + lHH / 2} x2={lp.l + lWW} y2={lp.t + lHH / 2} stroke={T.dim} strokeWidth={1} strokeDasharray="4 3" />
+              <text x={lp.l - 4} y={lp.t + lHH / 2 + 3} textAnchor="end" fill={T.muted} fontSize={8}>0</text>
+              {/* Barrier curves for each phase */}
+              {Object.entries(phases).map(([id, p]) => (
+                <polyline key={id} points={drawBarrierCurve(p.ea, p.dG, p.color, 0)}
+                  fill="none" stroke={p.color} strokeWidth={selectedBarrier === id ? 3 : 1.5}
+                  opacity={selectedBarrier === id ? 1 : 0.3} />
+              ))}
+              {/* Barrier height annotation for selected */}
+              <line x1={lp.l + 0.35 * lWW} y1={lp.t + lHH / 2}
+                x2={lp.l + 0.35 * lWW} y2={lp.t + lHH / 2 - ph.ea * (lHH / 5)}
+                stroke={ph.color} strokeWidth={1.5} strokeDasharray="3 2" />
+              <text x={lp.l + 0.35 * lWW + 6} y={lp.t + lHH / 2 - ph.ea * (lHH / 5) / 2}
+                fill={ph.color} fontSize={9} fontWeight={700}>E_a = {ph.ea} eV</text>
+              {/* Product level annotation */}
+              <text x={lp.l + lWW - 4} y={lp.t + lHH / 2 - ph.dG * (lHH / 5) + 12}
+                textAnchor="end" fill={ph.color} fontSize={8}>{"\u0394"}G = {ph.dG} eV</text>
+              {/* Thermal energy line */}
+              <line x1={lp.l + 0.35 * lWW - 15} y1={lp.t + lHH / 2 - kT * (lHH / 5)}
+                x2={lp.l + 0.35 * lWW + 15} y2={lp.t + lHH / 2 - kT * (lHH / 5)}
+                stroke={T.gold} strokeWidth={2} />
+              <text x={lp.l + 0.35 * lWW + 18} y={lp.t + lHH / 2 - kT * (lHH / 5) + 3}
+                fill={T.gold} fontSize={7} fontWeight={700}>kT = {(kT * 1000).toFixed(0)} meV</text>
+            </svg>
+            <div style={{ marginTop: 6, display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {Object.entries(phases).map(([id, p]) => (
+                <button key={id} onClick={() => setSelectedBarrier(id)} style={{
+                  padding: "3px 8px", borderRadius: 6, fontSize: 9, fontWeight: 600,
+                  background: selectedBarrier === id ? p.color + "18" : T.surface,
+                  border: `1px solid ${selectedBarrier === id ? p.color : T.border}`,
+                  color: selectedBarrier === id ? p.color : T.muted, cursor: "pointer", fontFamily: "inherit",
+                }}>{p.label} (E_a={p.ea})</button>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ flex: 1, minWidth: 200 }}>
+            <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>WHY KINETICS MATTERS</div>
+              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+                <strong style={{ color: "#dc2626" }}>Cu{"\u2082"}S</strong> has E_a = 0.9 eV (low barrier) {"\u2192"} nucleates <strong>first</strong>
+                <br/><strong style={{ color: "#16a34a" }}>CZTS</strong> has E_a = 1.8 eV (high barrier) {"\u2192"} nucleates <strong>slowly</strong>
+                <br/><br/>At 550{"\u00B0"}C, Cu{"\u2082"}S forms 10{"\u00D7"} faster than CZTS. If you stop annealing too soon, you get Cu{"\u2082"}S instead of CZTS {"\u2014"} even though CZTS is more stable ({"\u0394"}G = -3.47 vs -0.90 eV).
+              </div>
+            </div>
+            <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>ARRHENIUS RATE</div>
+              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: CH.accent, lineHeight: 2 }}>
+                k = A {"\u00B7"} exp({"\u2212"}E<sub>a</sub> / k<sub>B</sub>T)
+              </div>
+              <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.6, marginTop: 6 }}>
+                At T = {temp}{"\u00B0"}C ({temp + 273}K):
+                <br/>k<sub>B</sub>T = {(kT * 1000).toFixed(1)} meV
+                <br/>Rate(Cu{"\u2082"}S) / Rate(CZTS) = exp({((1.8 - 0.9) / kT).toFixed(0)}) = <strong>{(arrRate(0.9) / arrRate(1.8)).toFixed(0)}{"\u00D7"}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* Phase Evolution with Time */}
+      <Card title="Phase Evolution: Avrami (JMAK) Transformation Kinetics" color={CH.hull}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          The <strong>Johnson-Mehl-Avrami-Kolmogorov</strong> equation models how phase fractions evolve during annealing:
+          <span style={{ fontFamily: "'Georgia',serif", color: CH.hull }}> f(t) = 1 {"\u2212"} exp({"\u2212"}k{"\u00B7"}t<sup>n</sup>)</span>, where n = 3 for 3D nucleation + growth.
+        </div>
+
+        <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+          <div style={{ flex: 1, minWidth: 280 }}>
+            <SliderRow label="Temperature" value={temp} min={300} max={800} step={10} onChange={setTemp} color={CH.accent} unit={"\u00B0C"} format={v => v.toFixed(0)} />
+            <SliderRow label="Annealing time (a.u.)" value={time} min={0} max={50} step={0.5} onChange={setTime} color={CH.hull} unit="" format={v => v.toFixed(1)} />
+
+            {/* Phase fraction bars */}
+            <div style={{ marginTop: 12, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>PHASE FRACTIONS AT t = {time.toFixed(1)}, T = {temp}{"\u00B0"}C</div>
+              {normalizedFractions.map(p => (
+                <div key={p.id} style={{ marginBottom: 8 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, marginBottom: 2 }}>
+                    <span style={{ color: p.color, fontWeight: 700 }}>{p.label}</span>
+                    <span style={{ color: T.ink, fontFamily: "monospace" }}>{(p.norm * 100).toFixed(1)}%</span>
+                  </div>
+                  <div style={{ height: barH, background: T.panel, borderRadius: 4, overflow: "hidden", border: `1px solid ${T.border}` }}>
+                    <div style={{
+                      width: `${p.norm * 100}%`, height: "100%", background: p.color,
+                      borderRadius: 4, transition: "width 0.3s", opacity: 0.7,
+                    }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
+              <ResultBox label="Dominant phase" value={normalizedFractions.sort((a, b) => b.norm - a.norm)[0]?.label || "?"} color={normalizedFractions.sort((a, b) => b.norm - a.norm)[0]?.color || T.muted} sub={time < 5 ? "early stage" : time < 20 ? "transforming" : "approaching eq."} />
+              <ResultBox label="CZTS fraction" value={`${(normalizedFractions.find(p => p.id === "czts")?.norm * 100 || 0).toFixed(1)}%`} color={normalizedFractions.find(p => p.id === "czts")?.norm > 0.5 ? "#16a34a" : "#dc2626"} sub={normalizedFractions.find(p => p.id === "czts")?.norm > 0.5 ? "majority phase" : "minority"} />
+            </div>
+          </div>
+
+          <div style={{ flex: 1, minWidth: 250 }}>
+            {/* Animated atom rearrangement */}
+            <div style={{ fontSize: 10, color: T.muted, marginBottom: 4, letterSpacing: 1 }}>NUCLEATION {"\u2192"} GROWTH {"\u2192"} EQUILIBRIUM</div>
+            <svg viewBox="0 0 300 120" style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", marginBottom: 10 }}>
+              {/* Three stages */}
+              {[
+                { x: 50, label: "Nucleation", sub: "critical nucleus forms", active: time < 10 },
+                { x: 150, label: "Growth", sub: "grains expand", active: time >= 10 && time < 30 },
+                { x: 250, label: "Coarsening", sub: "Ostwald ripening", active: time >= 30 },
+              ].map((s, i) => (
+                <g key={i}>
+                  <rect x={s.x - 40} y={10} width={80} height={45} rx={6}
+                    fill={s.active ? CH.hull + "22" : T.panel}
+                    stroke={s.active ? CH.hull : T.border} strokeWidth={s.active ? 2 : 1} />
+                  <text x={s.x} y={28} textAnchor="middle" fill={s.active ? CH.hull : T.muted} fontSize={9} fontWeight={700}>{s.label}</text>
+                  <text x={s.x} y={42} textAnchor="middle" fill={T.muted} fontSize={7}>{s.sub}</text>
+                  {i < 2 && <line x1={s.x + 42} y1={32} x2={s.x + 58} y2={32} stroke={T.dim} strokeWidth={1.5} markerEnd="url(#kinArr)" />}
+                </g>
+              ))}
+              {/* Animated grain growth */}
+              {Array.from({ length: 6 }, (_, i) => {
+                const cx = 30 + i * 50;
+                const cy = 90;
+                const progress = Math.min(1, time / 30);
+                const radius = 3 + progress * 12 + Math.sin(animFrame * 0.03 + i) * 1;
+                const cztsFrac = normalizedFractions.find(p => p.id === "czts")?.norm || 0;
+                const isCZTS = i % 3 === 0 || (progress > 0.5 && cztsFrac > 0.4);
+                return (
+                  <circle key={i} cx={cx} cy={cy} r={Math.max(2, radius)}
+                    fill={isCZTS ? "#16a34a" : i % 2 === 0 ? "#dc2626" : "#d97706"}
+                    opacity={0.5 + progress * 0.3} />
+                );
+              })}
+              <defs><marker id="kinArr" viewBox="0 0 10 10" refX={8} refY={5} markerWidth={5} markerHeight={5} orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill={T.dim}/></marker></defs>
+            </svg>
+
+            {/* Numerical Arrhenius table */}
+            <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+              <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>RATE COMPARISON AT {temp}{"\u00B0"}C</div>
+              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10 }}>
+                <thead>
+                  <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                    {["Phase", "E_a (eV)", "\u0394G (eV)", "Rel. Rate", "t_{50%}"].map(h => (
+                      <th key={h} style={{ padding: "4px 5px", textAlign: "left", color: T.muted, fontWeight: 700, fontSize: 9 }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(phases).map(([id, p], i) => {
+                    const rate = arrRate(p.ea);
+                    const maxRate = Math.max(...Object.values(phases).map(pp => arrRate(pp.ea)));
+                    const relRate = rate / maxRate;
+                    const k = rate * 0.05;
+                    const t50 = k > 0 ? Math.pow(Math.log(2) / k, 1 / 3) : 999;
+                    return (
+                      <tr key={id} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
+                        <td style={{ padding: "4px 5px", color: p.color, fontWeight: 700, fontSize: 10 }}>{p.label}</td>
+                        <td style={{ padding: "4px 5px", fontFamily: "monospace" }}>{p.ea.toFixed(1)}</td>
+                        <td style={{ padding: "4px 5px", fontFamily: "monospace" }}>{p.dG.toFixed(2)}</td>
+                        <td style={{ padding: "4px 5px", fontFamily: "monospace", color: relRate > 0.5 ? p.color : T.muted }}>{relRate < 0.01 ? relRate.toExponential(1) : relRate.toFixed(3)}</td>
+                        <td style={{ padding: "4px 5px", fontFamily: "monospace" }}>{t50 > 100 ? ">100" : t50.toFixed(1)}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* Metastability & Practical Implications */}
+      <Card title="Metastability: When Kinetics Overrules Thermodynamics" color={CH.warm}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
+          {[
+            { title: "Diamond vs Graphite", example: "Diamond is metastable (graphite is lower energy), but persists for billions of years because the barrier to transform is ~5 eV. Room temperature kT = 25 meV \u2014 no chance.", color: "#2563eb", icon: "\u25C7" },
+            { title: "Amorphous Si", example: "Sputtered Si thin films are amorphous (metastable). Crystallization requires ~3 eV barrier. Below 500\u00B0C, amorphous Si persists indefinitely.", color: "#9333ea", icon: "\u25CB" },
+            { title: "CZTS Disorder", example: "Cu-Zn disorder in kesterite CZTS has a barrier of only ~0.2 eV. Even at 200\u00B0C, Cu/Zn swap freely \u2192 always disordered. This limits V_oc in solar cells.", color: "#d97706", icon: "\u25A1" },
+            { title: "Quenching Strategy", example: "Anneal at 550\u00B0C long enough for CZTS to form, then QUENCH rapidly to freeze the structure before Cu\u2082S can nucleate during cooldown. Cooling rate matters!", color: "#16a34a", icon: "\u25B2" },
+          ].map(item => (
+            <div key={item.title} style={{ background: item.color + "08", border: `1px solid ${item.color}22`, borderRadius: 8, padding: "10px 12px" }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: item.color, marginBottom: 4 }}>{item.icon} {item.title}</div>
+              <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.7 }}>{item.example}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ background: T.surface, borderRadius: 8, padding: 14, border: `1px solid ${T.border}` }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 8 }}>Thermodynamics vs Kinetics {"\u2014"} The Complete Picture</div>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+              <thead>
+                <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                  {["Question", "Thermodynamics", "Kinetics"].map(h => (
+                    <th key={h} style={{ padding: "6px 8px", textAlign: "left", color: T.muted, fontWeight: 700, fontSize: 10 }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Which phase is most stable?", "\u0394G determines equilibrium", "Irrelevant (given infinite time)"],
+                  ["Which phase forms FIRST?", "Cannot answer", "Lowest E_a nucleates first"],
+                  ["Will CZTS form at 300\u00B0C?", "Yes (thermodynamically stable)", "No (barrier too high, kT too small)"],
+                  ["Why does Cu\u2082S always appear?", "Less stable than CZTS", "Lower barrier \u2192 faster nucleation"],
+                  ["How long to anneal?", "Cannot answer", "t_{50%} from Avrami equation"],
+                  ["How fast to cool?", "Cannot answer", "Fast quench freezes desired phase"],
+                  ["What controls defect concentration?", "\u0394H_f and \u03BC set equilibrium", "Diffusion barriers set actual conc."],
+                ].map(([q, thermo, kin], i) => (
+                  <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
+                    <td style={{ padding: "5px 8px", color: T.ink, fontWeight: 600, fontSize: 10 }}>{q}</td>
+                    <td style={{ padding: "5px 8px", color: CH.accent, fontSize: 10 }}>{thermo}</td>
+                    <td style={{ padding: "5px 8px", color: CH.warm, fontSize: 10 }}>{kin}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div style={{ marginTop: 14, background: CH.warm + "08", borderRadius: 8, padding: 14, border: `1px solid ${CH.warm}22` }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: CH.warm, marginBottom: 6 }}>Practical Synthesis Recipe (Informed by Kinetics)</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+            1. <strong>Deposit precursors</strong> with Cu-poor, Zn-rich ratio (thermodynamics: stay in CZTS polygon)
+            <br/>2. <strong>Ramp to 550{"\u00B0"}C in SnS{"\u2082"} + S{"\u2082"}</strong> (kinetics: need kT {"\u2265"} 70 meV to overcome E_a = 1.8 eV CZTS barrier)
+            <br/>3. <strong>Hold for 30{"\u2013"}60 min</strong> (kinetics: allow CZTS nucleation + growth to completion; Avrami t{"\u2080.5"} {"\u2248"} 15 min at 550{"\u00B0"}C)
+            <br/>4. <strong>Rapid quench to {"<"}200{"\u00B0"}C</strong> (kinetics: freeze CZTS before Cu{"\u2082"}S can nucleate during slow cooling)
+            <br/>5. <strong>Post-anneal at 200{"\u2013"}300{"\u00B0"}C</strong> (kinetics: Cu-Zn disorder barrier is only 0.2 eV {"\u2014"} cannot prevent this)
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
 const CH_BLOCKS = [
   { id: "overview", label: "Introduction", color: T.ch_main },
   { id: "convexhull", label: "Convex Hull Analysis", color: T.ch_hull },
@@ -11360,7 +11691,8 @@ const CH_SECTIONS = [
   { id: "chempot", block: "chempotdiagram", label: "Chemical Potential Basics", color: T.ch_warm, Component: CHChemPotSection, nextReason: "Binary chemical potentials mastered. Now we see what a chemical potential diagram looks like \u2014 a 2D map showing which phase is stable under which conditions." },
   { id: "chemdiagram", block: "chempotdiagram", label: "What is a Chem. Pot. Diagram?", color: T.ch_warm, Component: CHChemDiagramSection, nextReason: "The concept is clear. Now learn how to construct a chemical potential diagram step by step with a full numerical example \u2014 from DFT energies to inequality constraints to the final stability polygon." },
   { id: "czts", block: "chempotdiagram", label: "CZTS Example (Cu\u2082ZnSnS\u2084)", color: T.ch_accent, Component: CHCZTSSection, nextReason: "CZTS competing phases identified. Now build the chemical potential diagram step by step with a full numerical example \u2014 from DFT energies to inequality constraints to the final stability polygon." },
-  { id: "chemconstruct", block: "chempotdiagram", label: "Build the Diagram (Numerical)", color: T.ch_hull, Component: CHChemConstructSection, nextReason: "Computational phase diagrams fully characterized. Chapter 5 (Defects in Semiconductors) applies this framework to charged defects \u2014 where formation energy becomes Fermi-level dependent." },
+  { id: "chemconstruct", block: "chempotdiagram", label: "Build the Diagram (Numerical)", color: T.ch_hull, Component: CHChemConstructSection, nextReason: "Thermodynamics says WHAT is stable. But will it actually form? Kinetics determines HOW FAST \u2014 nucleation barriers, diffusion rates, and metastable phases that persist because atoms cannot rearrange fast enough." },
+  { id: "kinetics", block: "chempotdiagram", label: "Kinetics & Metastability", color: T.ch_warm, Component: CHKineticsSection, nextReason: "Thermodynamics + kinetics now complete. Chapter 5 (Defects in Semiconductors) applies this framework to charged defects \u2014 where formation energy becomes Fermi-level dependent." },
 ];
 
 function ConvexHullModule() {
