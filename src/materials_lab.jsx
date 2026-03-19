@@ -8,6 +8,7 @@ import ChalcoMovieModule from "./chalco_movie.jsx";
 import DFTMovieModule from "./dft_movie.jsx";
 import DFTParamsMovieModule from "./dft_params_movie.jsx";
 import DFTParamsInteractive from "./dft_params_interactive.jsx";
+import CharacterizationModule from "./characterization.jsx";
 import SSSynthesisMovieModule from "./ss_synthesis_movie.jsx";
 import MongoDBMovieModule from "./mongodb_movie.jsx";
 import CdTeSolarCellModule from "./cdte_solar.jsx";
@@ -15279,7 +15280,7 @@ const MODULE_TABS = [
   { id: "forcefield",   chapter: 7,  label: "Force Fields",              color: T.eo_e,       desc: "Classical and machine-learned interatomic potentials — from harmonic bonds to ReaxFF and EAM", topics: 12 },
   { id: "pipeline",     chapter: 8,  label: "MLFF Pipeline",             color: T.eo_e,       desc: "DefectNet force field: graph neural network step by step", topics: 14 },
   { id: "llmdatamining", chapter: 9, label: "LLM Data Mining",           color: T.eo_e,       desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", topics: 3 },
-  // { id: "chalcomovie",  chapter: 10, label: "Chalcogenide Movie",        color: T.eo_e,       desc: "Chalcogenide materials animation" },
+  { id: "characterization", chapter: 10, label: "Materials Characterization", color: T.eo_e, desc: "XRD, XPS, SEM, TEM, AFM, STM, Raman, XANES \u2014 interactive guides to every major characterization technique", topics: 18 },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -15461,6 +15462,7 @@ export default function MaterialsLab({ initialModule = null, blogMode = false })
       {module === "mc" && <ErrorBoundary><MonteCarloModule /></ErrorBoundary>}
       {/* {module === "chalcomovie" && <ChalcoMovieModule />} */}
       {module === "defectsemi" && <ErrorBoundary><DefectSemiModule /></ErrorBoundary>}
+      {module === "characterization" && <ErrorBoundary><CharacterizationModule /></ErrorBoundary>}
     </div>
   );
 }
