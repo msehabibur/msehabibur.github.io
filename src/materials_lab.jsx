@@ -10898,7 +10898,7 @@ function CHCZTSSection() {
         </div>
       </Card>
 
-      <Card title={"CZTS Stability Window \u2014 Numerical Example"} color={CH.stable}>
+      <Card title={"CZTS Stability Window"} color={CH.stable}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           <p style={{ margin: "0 0 10px" }}>
             Using DFT formation energies, the CZTS stability polygon (at optimal {"\u03BC"}_Sn = -0.30 eV) gives:
@@ -10992,7 +10992,7 @@ function CHChemConstructSection() {
         </div>
       </div>
 
-      <Card title={"Numerical Example: Cu-S Binary System"} color={CH.main}>
+      <Card title={"Cu-S Binary System"} color={CH.main}>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           Let{"\u2019"}s build the chemical potential diagram for the <strong>Cu-S</strong> system step by step using real DFT numbers.
         </div>
@@ -11537,38 +11537,90 @@ function CHKineticsSection() {
           </div>
 
           <div style={{ flex: 1, minWidth: 250 }}>
-            {/* Animated atom rearrangement */}
-            <div style={{ fontSize: 10, color: T.muted, marginBottom: 4, letterSpacing: 1 }}>NUCLEATION {"\u2192"} GROWTH {"\u2192"} EQUILIBRIUM</div>
-            <svg viewBox="0 0 300 120" style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", marginBottom: 10 }}>
-              {/* Three stages */}
+            {/* Animated CZTS formation */}
+            <div style={{ fontSize: 10, color: T.muted, marginBottom: 4, letterSpacing: 1 }}>Cu{"\u2082"}ZnSnS{"\u2084"} FORMATION</div>
+            <svg viewBox="0 0 300 200" style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", marginBottom: 10 }}>
+              {/* Three stages at top */}
               {[
-                { x: 50, label: "Nucleation", sub: "critical nucleus forms", active: time < 10 },
-                { x: 150, label: "Growth", sub: "grains expand", active: time >= 10 && time < 30 },
+                { x: 50, label: "Nucleation", sub: "critical nucleus", active: time < 10 },
+                { x: 150, label: "Growth", sub: "CZTS grains expand", active: time >= 10 && time < 30 },
                 { x: 250, label: "Coarsening", sub: "Ostwald ripening", active: time >= 30 },
               ].map((s, i) => (
                 <g key={i}>
-                  <rect x={s.x - 40} y={10} width={80} height={45} rx={6}
+                  <rect x={s.x - 40} y={6} width={80} height={38} rx={6}
                     fill={s.active ? CH.hull + "22" : T.panel}
                     stroke={s.active ? CH.hull : T.border} strokeWidth={s.active ? 2 : 1} />
-                  <text x={s.x} y={28} textAnchor="middle" fill={s.active ? CH.hull : T.muted} fontSize={9} fontWeight={700}>{s.label}</text>
-                  <text x={s.x} y={42} textAnchor="middle" fill={T.muted} fontSize={7}>{s.sub}</text>
-                  {i < 2 && <line x1={s.x + 42} y1={32} x2={s.x + 58} y2={32} stroke={T.dim} strokeWidth={1.5} markerEnd="url(#kinArr)" />}
+                  <text x={s.x} y={22} textAnchor="middle" fill={s.active ? CH.hull : T.muted} fontSize={8} fontWeight={700}>{s.label}</text>
+                  <text x={s.x} y={36} textAnchor="middle" fill={T.muted} fontSize={6}>{s.sub}</text>
+                  {i < 2 && <line x1={s.x + 42} y1={25} x2={s.x + 58} y2={25} stroke={T.dim} strokeWidth={1.5} markerEnd="url(#kinArr)" />}
                 </g>
               ))}
-              {/* Animated grain growth */}
-              {Array.from({ length: 6 }, (_, i) => {
-                const cx = 30 + i * 50;
-                const cy = 90;
-                const progress = Math.min(1, time / 30);
-                const radius = 3 + progress * 12 + Math.sin(animFrame * 0.03 + i) * 1;
-                const cztsFrac = normalizedFractions.find(p => p.id === "czts")?.norm || 0;
-                const isCZTS = i % 3 === 0 || (progress > 0.5 && cztsFrac > 0.4);
+
+              {/* Animated precursor atoms (early stage) */}
+              {time < 15 && Array.from({ length: 16 }, (_, i) => {
+                const species = ["Cu", "Cu", "Zn", "Sn", "S", "S", "S", "S"][i % 8];
+                const colors = { Cu: "#b87333", Zn: "#7f8c8d", Sn: "#95a5a6", S: "#f1c40f" };
+                const bx = 20 + (i % 8) * 35;
+                const by = 70 + Math.floor(i / 8) * 50;
+                const dx = Math.sin(animFrame * 0.025 + i * 1.7) * 10;
+                const dy = Math.cos(animFrame * 0.03 + i * 2.1) * 8;
+                const opacity = Math.max(0, 1 - time / 15);
                 return (
-                  <circle key={i} cx={cx} cy={cy} r={Math.max(2, radius)}
-                    fill={isCZTS ? "#16a34a" : i % 2 === 0 ? "#dc2626" : "#d97706"}
-                    opacity={0.5 + progress * 0.3} />
+                  <g key={`atom-${i}`}>
+                    <circle cx={bx + dx} cy={by + dy} r={6} fill={colors[species]} opacity={opacity * 0.8} />
+                    <text x={bx + dx} y={by + dy + 3} textAnchor="middle" fill="white" fontSize={5} fontWeight="bold" opacity={opacity}>{species}</text>
+                  </g>
                 );
               })}
+
+              {/* CZTS crystal grains growing */}
+              {(() => {
+                const cztsFrac = normalizedFractions.find(p => p.id === "czts")?.norm || 0;
+                const cu2sFrac = normalizedFractions.find(p => p.id === "cu2s")?.norm || 0;
+                const progress = Math.min(1, time / 20);
+                const grains = [
+                  { x: 80, y: 110, phase: "czts", delay: 8 },
+                  { x: 200, y: 100, phase: "cu2s", delay: 2 },
+                  { x: 150, y: 140, phase: "czts", delay: 12 },
+                  { x: 50, y: 150, phase: "zns", delay: 5 },
+                  { x: 250, y: 140, phase: "czts", delay: 15 },
+                  { x: 120, y: 170, phase: "czts", delay: 18 },
+                ];
+                const grainColors = { czts: "#16a34a", cu2s: "#dc2626", zns: "#d97706", sns: "#9333ea" };
+                const grainLabels = { czts: "CZTS", cu2s: "Cu\u2082S", zns: "ZnS", sns: "SnS" };
+                return grains.map((g, i) => {
+                  const t = Math.max(0, time - g.delay);
+                  const r = Math.min(28, t * 1.8 + Math.sin(animFrame * 0.03 + i) * 1);
+                  if (t <= 0) return null;
+                  // At long times, non-CZTS grains shrink (Ostwald ripening toward equilibrium)
+                  const ripening = g.phase !== "czts" && time > 30 ? Math.max(0.3, 1 - (time - 30) / 40) : 1;
+                  const finalR = r * ripening;
+                  return (
+                    <g key={`grain-${i}`}>
+                      <circle cx={g.x} cy={g.y} r={finalR} fill={grainColors[g.phase]} opacity={0.25} />
+                      <circle cx={g.x} cy={g.y} r={finalR * 0.7} fill={grainColors[g.phase]} opacity={0.4} />
+                      {finalR > 8 && (
+                        <text x={g.x} y={g.y + 3} textAnchor="middle" fill={grainColors[g.phase]} fontSize={finalR > 15 ? 8 : 6} fontWeight={700}>
+                          {grainLabels[g.phase]}
+                        </text>
+                      )}
+                      {/* Kesterite unit cell pattern for CZTS grains */}
+                      {g.phase === "czts" && finalR > 15 && [0, 1, 2, 3].map(k => {
+                        const ax = g.x + (k % 2 - 0.5) * 8;
+                        const ay = g.y + (Math.floor(k / 2) - 0.5) * 8 - 4;
+                        const sp = ["Cu", "Zn", "Sn", "S"][k];
+                        const sc = { Cu: "#b87333", Zn: "#7f8c8d", Sn: "#95a5a6", S: "#f1c40f" }[sp];
+                        return <circle key={k} cx={ax} cy={ay} r={2} fill={sc} opacity={0.6} />;
+                      })}
+                    </g>
+                  );
+                });
+              })()}
+
+              {/* Reaction equation at bottom */}
+              <text x={150} y={196} textAnchor="middle" fill={T.muted} fontSize={7}>
+                2Cu + Zn + Sn + 4S {"\u2192"} Cu{"\u2082"}ZnSnS{"\u2084"} (kesterite) at {temp}{"\u00B0"}C
+              </text>
               <defs><marker id="kinArr" viewBox="0 0 10 10" refX={8} refY={5} markerWidth={5} markerHeight={5} orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill={T.dim}/></marker></defs>
             </svg>
 
@@ -11691,7 +11743,7 @@ const CH_SECTIONS = [
   { id: "chempot", block: "chempotdiagram", label: "Chemical Potential Basics", color: T.ch_warm, Component: CHChemPotSection, nextReason: "Binary chemical potentials mastered. Now we see what a chemical potential diagram looks like \u2014 a 2D map showing which phase is stable under which conditions." },
   { id: "chemdiagram", block: "chempotdiagram", label: "What is a Chem. Pot. Diagram?", color: T.ch_warm, Component: CHChemDiagramSection, nextReason: "The concept is clear. Now learn how to construct a chemical potential diagram step by step with a full numerical example \u2014 from DFT energies to inequality constraints to the final stability polygon." },
   { id: "czts", block: "chempotdiagram", label: "CZTS Example (Cu\u2082ZnSnS\u2084)", color: T.ch_accent, Component: CHCZTSSection, nextReason: "CZTS competing phases identified. Now build the chemical potential diagram step by step with a full numerical example \u2014 from DFT energies to inequality constraints to the final stability polygon." },
-  { id: "chemconstruct", block: "chempotdiagram", label: "Build the Diagram (Numerical)", color: T.ch_hull, Component: CHChemConstructSection, nextReason: "Thermodynamics says WHAT is stable. But will it actually form? Kinetics determines HOW FAST \u2014 nucleation barriers, diffusion rates, and metastable phases that persist because atoms cannot rearrange fast enough." },
+  { id: "chemconstruct", block: "chempotdiagram", label: "Build the Diagram", color: T.ch_hull, Component: CHChemConstructSection, nextReason: "Thermodynamics says WHAT is stable. But will it actually form? Kinetics determines HOW FAST \u2014 nucleation barriers, diffusion rates, and metastable phases that persist because atoms cannot rearrange fast enough." },
   { id: "kinetics", block: "chempotdiagram", label: "Kinetics & Metastability", color: T.ch_warm, Component: CHKineticsSection, nextReason: "Thermodynamics + kinetics now complete. Chapter 5 (Defects in Semiconductors) applies this framework to charged defects \u2014 where formation energy becomes Fermi-level dependent." },
 ];
 
