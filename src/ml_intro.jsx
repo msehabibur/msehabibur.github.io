@@ -1724,9 +1724,30 @@ function CNNTransformerSection() {
   const attnTokens = ["Fe", "O", "forms", "rust"];
   const queryKey = [[0.9, 0.1, 0.0, 0.0], [0.1, 0.7, 0.1, 0.1], [0.0, 0.1, 0.8, 0.1], [0.0, 0.1, 0.1, 0.8]];
 
+  /* ── Self-attention numerical example: Fe-O-Fe in FeO ── */
+  const Q = [[1.0, 0.5], [0.3, 0.8], [0.9, 0.4]];
+  const K = [[0.8, 0.6], [0.4, 0.9], [0.7, 0.5]];
+  const V = [[0.2, 1.0], [0.9, 0.3], [0.3, 0.8]];
+  const d_k = 2;
+  const scale = Math.sqrt(d_k);
+
+  const dot = (a, b) => a.reduce((s, v, i) => s + v * b[i], 0);
+  const QKt = Q.map(q => K.map(k => dot(q, k)));
+  const QKt_scaled = QKt.map(row => row.map(v => v / scale));
+  const softmaxRow = (row) => {
+    const exps = row.map(v => Math.exp(v));
+    const sum = exps.reduce((a, b) => a + b, 0);
+    return exps.map(e => e / sum);
+  };
+  const attnWeights = QKt_scaled.map(row => softmaxRow(row));
+  const attnOutput = attnWeights.map(row =>
+    V[0].map((_, j) => row.reduce((s, w, k) => s + w * V[k][j], 0))
+  );
+
   const svgW = 380, svgH = 200;
 
   return (
+    <>
     <Card color={C} title="CNN & Transformer" formula="Conv: Σ(input × kernel) | Attn: softmax(QK^T/√d)V">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
@@ -1872,6 +1893,291 @@ function CNNTransformerSection() {
         </div>
       </div>
     </Card>
+
+    {/* ── Transformer Architecture Deep Dive ── */}
+    <Card color={C} title="Transformer Architecture — Encoder-Decoder" formula="Input → Encoder → Context → Decoder → Output">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Encoder-Decoder Structure</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+          The original Transformer has two halves: an <strong>encoder</strong> that reads the input and builds a rich representation, and a <strong>decoder</strong> that uses that representation to produce output step by step.
+          Think of it like a translator: the encoder reads the entire French sentence and understands its meaning (context). The decoder then writes the English sentence word by word, constantly referring back to the encoder's understanding.
+          <br/><br/>In materials science, the encoder might read a crystal structure (list of atoms and coordinates), and the decoder might output predicted properties or generate a new structure.
+        </div>
+      </div>
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
+          {/* Encoder-Decoder Diagram */}
+          <svg width={380} height={260} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+            <text x={190} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Transformer Encoder-Decoder Architecture</text>
+            {/* Encoder side */}
+            <rect x={20} y={30} width={150} height={210} rx={8} fill="#2563eb08" stroke="#2563eb44" />
+            <text x={95} y={48} textAnchor="middle" fontSize={10} fill="#2563eb" fontWeight={700}>ENCODER</text>
+            {["Input Embedding", "Positional Encoding", "Multi-Head Attention", "Add & Normalize", "Feed Forward", "Add & Normalize"].map((label, i) => (
+              <g key={`enc${i}`}>
+                <rect x={30} y={55 + i * 28} width={130} height={22} rx={4} fill={i === 2 ? "#dc262622" : "#2563eb11"} stroke={i === 2 ? "#dc262666" : "#2563eb33"} />
+                <text x={95} y={70 + i * 28} textAnchor="middle" fontSize={8} fill={T.ink} fontWeight={i === 2 ? 700 : 500}>{label}</text>
+              </g>
+            ))}
+            <text x={95} y={235} textAnchor="middle" fontSize={8} fill="#2563eb" fontWeight={600}>× N layers (typically 6–12)</text>
+
+            {/* Arrow from encoder to decoder */}
+            <line x1={170} y1={135} x2={200} y2={135} stroke={T.dim} strokeWidth={1.5} markerEnd="url(#arrowhead)" />
+            <text x={185} y={128} textAnchor="middle" fontSize={7} fill={T.muted}>context</text>
+
+            {/* Decoder side */}
+            <rect x={200} y={30} width={160} height={210} rx={8} fill="#05966908" stroke="#05966944" />
+            <text x={280} y={48} textAnchor="middle" fontSize={10} fill="#059669" fontWeight={700}>DECODER</text>
+            {["Output Embedding", "Positional Encoding", "Masked Self-Attn", "Add & Normalize", "Cross-Attention", "Add & Normalize", "Feed Forward", "Add & Normalize"].map((label, i) => (
+              <g key={`dec${i}`}>
+                <rect x={210} y={55 + i * 23} width={140} height={18} rx={4}
+                  fill={i === 2 ? "#dc262622" : i === 4 ? "#d9770622" : "#05966911"}
+                  stroke={i === 2 ? "#dc262666" : i === 4 ? "#d9770666" : "#05966933"} />
+                <text x={280} y={67 + i * 23} textAnchor="middle" fontSize={7} fill={T.ink} fontWeight={(i === 2 || i === 4) ? 700 : 500}>{label}</text>
+              </g>
+            ))}
+            <text x={280} y={249} textAnchor="middle" fontSize={8} fill="#059669" fontWeight={600}>× N layers → Linear → Softmax</text>
+
+            <defs>
+              <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill={T.dim} />
+              </marker>
+            </defs>
+          </svg>
+        </div>
+
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, marginBottom: 10 }}>
+            <strong style={{ color: C }}>Encoder</strong> processes the input sequence in parallel. Each layer has two sub-layers: (1) multi-head self-attention that lets each token look at all other tokens, and (2) a feed-forward network that processes each position independently. Residual connections and layer normalization stabilize training.
+          </div>
+          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, marginBottom: 10 }}>
+            <strong style={{ color: "#059669" }}>Decoder</strong> generates the output one step at a time. It has three sub-layers: (1) masked self-attention (can only look at previous outputs, not future ones), (2) cross-attention (attends to the encoder output — this is how the decoder "reads" the input), and (3) a feed-forward network.
+          </div>
+          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
+            <strong style={{ color: T.ink }}>Variants in materials science:</strong> BERT-style models (encoder only) are used for MatBERT — they read materials text and produce embeddings. GPT-style models (decoder only) generate text autoregressively. Full encoder-decoder models are used for sequence-to-sequence tasks like translating crystal structures to property predictions.
+          </div>
+        </div>
+      </div>
+    </Card>
+
+    {/* ── Self-Attention Numerical Example ── */}
+    <Card color={C} title="Self-Attention — Full Numerical Example" formula="Attention(Q,K,V) = softmax(QK^T/√d_k)V">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Setup: Three Atoms in FeO</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+          Consider three atoms in an FeO crystal: Fe(1), O, Fe(2). Each atom is represented by an embedding vector of dimension d=2.
+          We multiply each embedding by three learned weight matrices to get Query (Q), Key (K), and Value (V) vectors.
+          For simplicity, we use d_k = 2 (in practice, d_k = 64 or 128). We will compute every step of the attention mechanism by hand.
+        </div>
+      </div>
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
+          {/* Q, K, V matrices */}
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 1: Q, K, V MATRICES</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
+              {[{ label: "Q (Query)", mat: Q, color: "#dc2626" }, { label: "K (Key)", mat: K, color: "#2563eb" }, { label: "V (Value)", mat: V, color: "#059669" }].map(({ label, mat, color }) => (
+                <div key={label} style={{ textAlign: "center" }}>
+                  <div style={{ fontSize: 9, fontWeight: 700, color, marginBottom: 4 }}>{label}</div>
+                  <div style={{ fontFamily: "monospace", fontSize: 11, lineHeight: 1.8 }}>
+                    {["Fe₁", " O ", "Fe₂"].map((atom, i) => (
+                      <div key={i} style={{ color: T.ink }}>
+                        <span style={{ fontSize: 8, color: T.muted }}>{atom}</span> [{mat[i].map(v => v.toFixed(1)).join(", ")}]
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* QK^T computation */}
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 2: QK^T (DOT PRODUCTS)</div>
+            <div style={{ fontFamily: "monospace", fontSize: 11, lineHeight: 1.8, color: T.ink }}>
+              {["Fe₁", " O ", "Fe₂"].map((rowAtom, i) => (
+                <div key={i}>
+                  {["Fe₁", " O ", "Fe₂"].map((colAtom, j) => (
+                    <div key={j} style={{ marginLeft: 8, fontSize: 11 }}>
+                      <span style={{ color: T.muted }}>{rowAtom}·{colAtom}:</span>{" "}
+                      {Q[i].map((q, k) => `${q.toFixed(1)}×${K[j][k].toFixed(1)}`).join(" + ")}{" "}
+                      = <strong style={{ color: C }}>{QKt[i][j].toFixed(2)}</strong>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div style={{ flex: 1, minWidth: 200 }}>
+          {/* Scaling */}
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 3: SCALE BY √d_k = √2 = {scale.toFixed(3)}</div>
+            {Q.map((_, i) => (
+              <CalcRow key={i} eq={`Row ${i + 1}: [${QKt[i].map(v => v.toFixed(2)).join(", ")}] / ${scale.toFixed(3)}`}
+                result={`[${QKt_scaled[i].map(v => v.toFixed(3)).join(", ")}]`} color={C} />
+            ))}
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.muted, marginTop: 6 }}>
+              Scaling prevents dot products from becoming too large, which would push softmax into regions where gradients are tiny (vanishing gradient problem).
+            </div>
+          </div>
+
+          {/* Softmax */}
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 4: SOFTMAX (EACH ROW)</div>
+            {attnWeights.map((row, i) => (
+              <CalcRow key={i} eq={`softmax(row ${i + 1})`}
+                result={`[${row.map(v => v.toFixed(3)).join(", ")}]`} color={C} />
+            ))}
+            <CalcRow eq="Each row sums to" result="1.000" color={M.accent} />
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.muted, marginTop: 6 }}>
+              The softmax converts raw scores into a probability distribution. High values get most of the weight. For Fe₁, the highest attention is to {attnWeights[0][0] > attnWeights[0][1] && attnWeights[0][0] > attnWeights[0][2] ? "itself (Fe₁)" : "another atom"} — this is typical in self-attention.
+            </div>
+          </div>
+
+          {/* Final output */}
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 5: MULTIPLY BY V</div>
+            {attnOutput.map((row, i) => (
+              <CalcRow key={i} eq={`Output atom ${i + 1} = Σ(attn × V)`}
+                result={`[${row.map(v => v.toFixed(3)).join(", ")}]`} color={C} />
+            ))}
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.muted, marginTop: 6 }}>
+              Each atom's output is a weighted combination of all Value vectors. The weights come from the attention scores. An atom that strongly attends to oxygen will have its output pulled toward V(O) = [{V[1].join(", ")}].
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
+            <ResultBox label="Fe₁ → Fe₁" value={attnWeights[0][0].toFixed(2)} color={C} sub="self-attention" />
+            <ResultBox label="Fe₁ → O" value={attnWeights[0][1].toFixed(2)} color={M.accent} sub="cross-atom" />
+            <ResultBox label="O → Fe₂" value={attnWeights[1][2].toFixed(2)} color={C} sub="cross-atom" />
+          </div>
+        </div>
+      </div>
+    </Card>
+
+    {/* ── Multi-Head Attention & Positional Encoding ── */}
+    <Card color={C} title="Multi-Head Attention & Positional Encoding" formula="MultiHead = Concat(head₁,...,head_h)W^O">
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
+          <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Multi-Head Attention</div>
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+              Instead of computing one set of attention weights, we run multiple attention "heads" in parallel, each with its own Q, K, V weight matrices. Each head can learn to focus on different types of relationships.
+              <br/><br/><strong>Example with 4 heads on a crystal:</strong>
+              <br/>Head 1: focuses on nearest-neighbor bonds (short-range)
+              <br/>Head 2: focuses on same-element relationships (Fe-Fe interactions)
+              <br/>Head 3: focuses on charge transfer patterns (Fe-O interactions)
+              <br/>Head 4: focuses on long-range electrostatic interactions
+              <br/><br/>The outputs of all heads are concatenated and projected through a linear layer to produce the final output.
+            </div>
+          </div>
+
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>MULTI-HEAD CALCULATION</div>
+            <CalcRow eq="Model dimension d_model" result="256" color={C} />
+            <CalcRow eq="Number of heads h" result="8" color={C} />
+            <CalcRow eq="d_k = d_v = d_model / h" result="32" color={C} />
+            <CalcRow eq="Params per head: 3 × d × d_k" result="3 × 256 × 32 = 24,576" color={C} />
+            <CalcRow eq="Total attention params (8 heads)" result="196,608" color={C} />
+            <CalcRow eq="Output projection W^O: d_model × d_model" result="65,536" color={C} />
+            <CalcRow eq="Total multi-head params" result="262,144" color={M.accent} />
+          </div>
+        </div>
+
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Positional Encoding for Crystals</div>
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+              Transformers have no built-in notion of order or position — they see a "bag of tokens." We must explicitly inject position information. For text, sinusoidal encodings work:
+              <br/><strong>PE(pos, 2i) = sin(pos / 10000^(2i/d))</strong>
+              <br/><strong>PE(pos, 2i+1) = cos(pos / 10000^(2i/d))</strong>
+              <br/><br/>For crystal structures, positional encoding is different because atoms exist in 3D space, not a 1D sequence. Common strategies:
+            </div>
+          </div>
+
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>CRYSTAL POSITIONAL ENCODING STRATEGIES</div>
+            <CalcRow eq="1. Fractional coordinates (a, b, c)" result="periodic-aware" color={C} />
+            <CalcRow eq="2. Pairwise distances d_ij" result="rotation invariant" color={C} />
+            <CalcRow eq="3. Gaussian basis: exp(−(d−μ)²/σ²)" result="smooth encoding" color={C} />
+            <CalcRow eq="4. Spherical harmonics Y_l^m(θ,φ)" result="angular info" color={C} />
+            <CalcRow eq="5. Random walk PE on crystal graph" result="topological info" color={M.accent} />
+          </div>
+
+          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.muted, background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
+            <strong style={{ color: T.ink }}>Key insight.</strong> The choice of positional encoding determines what geometric information the Transformer can learn. Gaussian distance expansions (used in DimeNet, SchNet) encode how far atoms are. Spherical harmonics (used in MACE, NequIP) also encode angular relationships, which is critical for capturing bond angles and crystal symmetry.
+          </div>
+        </div>
+      </div>
+    </Card>
+
+    {/* ── Materials Transformer Models Comparison ── */}
+    <Card color={C} title="Materials Transformer Models" formula="MatBERT | Crystal Transformer | ALIGNN">
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>MODEL COMPARISON TABLE</div>
+            <table style={{ width: "100%", fontSize: 11, borderCollapse: "collapse" }}>
+              <thead>
+                <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                  {["Model", "Input", "Attention", "Use Case"].map(h => (
+                    <th key={h} style={{ padding: "4px 6px", textAlign: "left", color: C, fontWeight: 700, fontSize: 9 }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["MatBERT", "Text (abstracts)", "Token-to-token", "NER, classification"],
+                  ["CrystalXformer", "Atom sequences", "Atom-to-atom", "Property prediction"],
+                  ["ALIGNN", "Graph + line graph", "Edge-aware GNN", "Formation energy"],
+                  ["Uni-MOF", "MOF structures", "Atom + building block", "Gas adsorption"],
+                  ["MoLFormer", "SMILES strings", "Token-to-token", "Molecular properties"],
+                ].map((row, i) => (
+                  <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.surface : T.panel }}>
+                    {row.map((cell, j) => (
+                      <td key={j} style={{ padding: "4px 6px", fontSize: 10, color: j === 0 ? C : T.ink, fontWeight: j === 0 ? 700 : 400 }}>{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>PERFORMANCE BENCHMARKS (JARVIS)</div>
+            <CalcRow eq="ALIGNN formation energy MAE" result="0.022 eV/atom" color={C} />
+            <CalcRow eq="CGCNN formation energy MAE" result="0.039 eV/atom" color={C} />
+            <CalcRow eq="SchNet formation energy MAE" result="0.035 eV/atom" color={C} />
+            <CalcRow eq="MatBERT NER F1 score" result="0.89" color={C} />
+            <CalcRow eq="ALIGNN bandgap MAE" result="0.14 eV" color={M.accent} />
+          </div>
+        </div>
+
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, marginBottom: 10 }}>
+            <strong style={{ color: C }}>MatBERT</strong> is a BERT model pre-trained on 2 million materials science abstracts. It learns contextual embeddings for materials terms: "perovskite" near "solar cell" gets a different embedding than "perovskite" near "ferroelectric." Fine-tuning on small labeled datasets achieves state-of-the-art named entity recognition and text classification for materials literature.
+          </div>
+          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, marginBottom: 10 }}>
+            <strong style={{ color: C }}>Crystal Transformer</strong> treats a crystal as a sequence of atoms and applies self-attention directly. Each atom attends to every other atom, weighted by learned compatibility. Unlike GNNs that only pass messages along bonds (local neighbors), the Transformer captures long-range interactions — important for ionic crystals where electrostatic forces span the entire structure.
+          </div>
+          <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, marginBottom: 10 }}>
+            <strong style={{ color: C }}>ALIGNN</strong> operates on two graphs simultaneously: the atom graph (atoms = nodes, bonds = edges) and the line graph (bonds = nodes, bond angles = edges). This dual-graph approach captures both distance and angular information without needing spherical harmonics. It achieves top performance on the JARVIS-DFT benchmark across 55+ properties.
+          </div>
+
+          <CommonMistakes mistakes={[
+            "Assuming Transformers are always better than GNNs — for small crystal datasets (< 10k structures), simpler GNNs like CGCNN often outperform Transformers, which need more data to learn effective attention patterns.",
+            "Ignoring equivariance — Transformers are not inherently equivariant to rotations. If you rotate a crystal, the predictions should not change. Models like MACE build equivariance into the architecture; standard Transformers need data augmentation.",
+            "Using MatBERT for structure prediction — MatBERT is a text model. It excels at NLP tasks on materials papers but cannot predict properties from crystal structures. Use ALIGNN or Crystal Transformer for structure-based predictions."
+          ]} />
+
+          <MatSciExample text="A study compared ALIGNN, CGCNN, SchNet, and a Crystal Transformer on predicting formation energies of 55,000 materials from the JARVIS database. ALIGNN achieved the lowest MAE (0.022 eV/atom) because its line graph captures bond angles critical for distinguishing polymorphs. The Crystal Transformer performed comparably (0.025 eV/atom) but required 3× more training time due to O(n²) attention complexity." />
+        </div>
+      </div>
+    </Card>
+    </>
   );
 }
 
@@ -2126,12 +2432,13 @@ function PropertyPredictionSection() {
 }
 
 /* ════════════════════════════════════════════════════════════════
-   SECTION 15 — Generative Models (VAE)
+   SECTION 15 — Generative Models (VAE, Diffusion, GAN)
    ════════════════════════════════════════════════════════════════ */
 function GenerativeModelsSection() {
   const C = M.mat;
   const [latentX, setLatentX] = useState(0.0);
   const [latentY, setLatentY] = useState(0.0);
+  const [diffStep, setDiffStep] = useState(0);
 
   const knownMaterials = [
     { name: "CdTe", lx: -1.2, ly: 0.8, bg: 1.50 },
@@ -2154,11 +2461,37 @@ function GenerativeModelsSection() {
   }, { wSum: 0, wTot: 0 });
   const decodedBG = interpBG.wSum / interpBG.wTot;
 
+  /* ── VAE ELBO numerical example ── */
+  const x_orig = [0.8, 0.6, 0.3];
+  const x_recon = [0.75, 0.58, 0.35];
+  const reconLoss = x_orig.reduce((s, v, i) => s + (v - x_recon[i]) ** 2, 0);
+  const mu = [0.5, -0.3];
+  const logvar = [-0.5, -0.8];
+  const klTerms = mu.map((m, i) => -0.5 * (1 + logvar[i] - m * m - Math.exp(logvar[i])));
+  const klTotal = klTerms.reduce((a, b) => a + b, 0);
+  const elboLoss = reconLoss + klTotal;
+
+  /* ── Diffusion model example ── */
+  const x0 = [0.50, 0.25, 0.25];
+  const diffSteps = [0, 10, 50, 100];
+  const noiseAtStep = (t) => {
+    const beta = 0.0001 + (0.02 - 0.0001) * (t / 100);
+    const alpha_bar = Math.exp(-0.5 * beta * t);
+    const noise_scale = Math.sqrt(1 - alpha_bar);
+    const rng = seededRandom(t * 137 + 42);
+    return x0.map(v => {
+      const noise = (rng() - 0.5) * 2 * noise_scale;
+      return Math.sqrt(alpha_bar) * v + noise;
+    });
+  };
+  const diffusionSnapshots = diffSteps.map(t => ({ t, values: t === 0 ? [...x0] : noiseAtStep(t) }));
+
   const svgW = 380, svgH = 200;
   const sx = (v) => svgW / 2 + v * 60;
   const sy = (v) => svgH / 2 - v * 55;
 
   return (
+    <>
     <Card color={C} title="Generative Models (VAE)" formula="Encoder → Latent z → Decoder">
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
@@ -2245,17 +2578,279 @@ function GenerativeModelsSection() {
             novel compositions with target properties — this is inverse materials design.
           </div>
 
-          <CommonMistakes mistakes={[
-            "Expecting the decoder to produce physically valid materials every time — many decoded points may correspond to unstable or unsynthesizable compositions. Always validate with DFT or thermodynamic analysis.",
-            "Using too few latent dimensions — if the latent space is too small, different materials get mapped to the same point (information loss).",
-            "Using too many latent dimensions — if the latent space is too large, it becomes sparse and interpolation between known materials becomes unreliable.",
-            "Ignoring the reconstruction loss — if the VAE cannot accurately reconstruct known materials, its predictions for novel materials will be even less reliable."
-          ]} />
-
           <MatSciExample text="iMatGen (inverse Materials Generator) uses a VAE trained on crystal structure images to generate new 2D van der Waals materials. The encoder compresses crystal structures into a 20-dimensional latent space, and the decoder generates new crystal structure images. Several VAE-generated structures were validated by DFT calculations to be thermodynamically stable — true computational discovery of new materials." />
         </div>
       </div>
     </Card>
+
+    {/* ── VAE ELBO Loss Deep Dive ── */}
+    <Card color={C} title="VAE Loss Function — ELBO" formula="L = Reconstruction + KL Divergence">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>The ELBO (Evidence Lower Bound)</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+          The VAE loss has two parts that fight each other in a productive tension:
+          <br/><strong>1. Reconstruction loss:</strong> How well can the decoder rebuild the original input from the latent code? This is measured as the squared difference between input and output. Low reconstruction loss means the VAE is faithful.
+          <br/><strong>2. KL divergence:</strong> How close is the learned latent distribution to a standard normal N(0,1)? This regularizes the latent space, preventing the encoder from memorizing each material at an isolated point. It forces nearby latent codes to represent similar materials.
+          <br/><br/>The balance between these two terms is crucial: too much reconstruction focus leads to memorization (no generalization); too much KL focus leads to blurry, generic outputs.
+        </div>
+      </div>
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ENCODER ARCHITECTURE (TYPICAL)</div>
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+              <strong>Input:</strong> Composition vector x = [{x_orig.join(", ")}] (3 elements)
+              <br/><strong>Layer 1:</strong> Linear(3 → 64) + ReLU — expand to richer representation
+              <br/><strong>Layer 2:</strong> Linear(64 → 32) + ReLU — compress
+              <br/><strong>Layer 3:</strong> Linear(32 → 16) + ReLU — compress further
+              <br/><strong>Output:</strong> Two heads:
+              <br/>&nbsp;&nbsp;μ = Linear(16 → 2) outputs [{mu.join(", ")}]
+              <br/>&nbsp;&nbsp;log σ² = Linear(16 → 2) outputs [{logvar.join(", ")}]
+              <br/><strong>Sampling:</strong> z = μ + σ × ε, where ε ~ N(0,1) (reparameterization trick)
+            </div>
+          </div>
+
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>DECODER ARCHITECTURE (TYPICAL)</div>
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+              <strong>Input:</strong> Latent vector z (dimension 2)
+              <br/><strong>Layer 1:</strong> Linear(2 → 16) + ReLU — begin expanding
+              <br/><strong>Layer 2:</strong> Linear(16 → 32) + ReLU — expand further
+              <br/><strong>Layer 3:</strong> Linear(32 → 64) + ReLU — near original dimension
+              <br/><strong>Output:</strong> Linear(64 → 3) + Sigmoid — reconstruct x
+              <br/><strong>Reconstructed:</strong> x' = [{x_recon.join(", ")}]
+            </div>
+          </div>
+        </div>
+
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>RECONSTRUCTION LOSS (MSE)</div>
+            <CalcRow eq={`x = [${x_orig.join(", ")}]`} result="original" color={C} />
+            <CalcRow eq={`x' = [${x_recon.join(", ")}]`} result="reconstructed" color={C} />
+            {x_orig.map((v, i) => (
+              <CalcRow key={i} eq={`(${v} − ${x_recon[i]})²`} result={(v - x_recon[i]).toFixed(2) + "² = " + ((v - x_recon[i]) ** 2).toFixed(4)} color={C} />
+            ))}
+            <CalcRow eq={`L_recon = ${x_orig.map((v, i) => ((v - x_recon[i]) ** 2).toFixed(4)).join(" + ")}`} result={reconLoss.toFixed(4)} color={M.accent} />
+          </div>
+
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>KL DIVERGENCE</div>
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.muted, marginBottom: 6 }}>
+              KL = −0.5 × Σ(1 + log σ² − μ² − σ²)
+            </div>
+            {mu.map((m, i) => (
+              <CalcRow key={i} eq={`dim ${i + 1}: −0.5×(1 + ${logvar[i].toFixed(1)} − ${m.toFixed(1)}² − e^${logvar[i].toFixed(1)})`}
+                result={klTerms[i].toFixed(4)} color={C} />
+            ))}
+            <CalcRow eq="KL total" result={klTotal.toFixed(4)} color={M.accent} />
+          </div>
+
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>TOTAL ELBO LOSS</div>
+            <CalcRow eq={`L_recon = ${reconLoss.toFixed(4)}`} result="fidelity" color={C} />
+            <CalcRow eq={`L_KL = ${klTotal.toFixed(4)}`} result="regularization" color={C} />
+            <CalcRow eq={`L_total = ${reconLoss.toFixed(4)} + ${klTotal.toFixed(4)}`} result={elboLoss.toFixed(4)} color={M.accent} />
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
+            <ResultBox label="RECON LOSS" value={reconLoss.toFixed(4)} color={C} sub="fidelity" />
+            <ResultBox label="KL LOSS" value={klTotal.toFixed(4)} color={M.accent} sub="smoothness" />
+            <ResultBox label="TOTAL ELBO" value={elboLoss.toFixed(4)} color="#dc2626" sub="minimize" />
+          </div>
+
+          <CommonMistakes mistakes={[
+            "Expecting the decoder to produce physically valid materials every time — many decoded points may correspond to unstable or unsynthesizable compositions. Always validate with DFT or thermodynamic analysis.",
+            "Using too few latent dimensions — if the latent space is too small, different materials get mapped to the same point (information loss). Too many dimensions make it sparse.",
+            "Ignoring KL collapse — if the KL term dominates early in training, the encoder may ignore the input and always output z near zero. Use KL annealing: start with low KL weight and gradually increase it.",
+            "Ignoring the reconstruction loss — if the VAE cannot accurately reconstruct known materials, its predictions for novel materials will be even less reliable."
+          ]} />
+        </div>
+      </div>
+    </Card>
+
+    {/* ── Diffusion Models ── */}
+    <Card color={C} title="Diffusion Models for Materials" formula="x_t = √ᾱ_t·x₀ + √(1−ᾱ_t)·ε">
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+          Imagine dropping ink into a glass of water. Over time, the ink spreads out until the water is uniformly cloudy — this is the <strong>forward process</strong> (adding noise). Now imagine watching a video of this in reverse: the cloudy water gradually organizes back into a sharp ink drop — this is the <strong>reverse process</strong> (denoising).
+          <br/><br/>A diffusion model learns to reverse the noising process. Given pure noise, it learns to iteratively remove noise step by step until a valid crystal structure emerges. This is remarkably powerful because the model can generate diverse, high-quality structures by starting from different random noise samples.
+        </div>
+      </div>
+
+      <HowItWorks color={C} steps={[
+        "Forward process: Start with a clean crystal structure x₀. At each timestep t, add a small amount of Gaussian noise. After T steps (typically T=100 to 1000), the structure becomes pure random noise.",
+        "The noise schedule β₁, β₂, ..., β_T controls how much noise is added at each step. A linear schedule increases β from 0.0001 to 0.02. The cumulative product ᾱ_t determines total noise at step t.",
+        "Training: The neural network (usually a U-Net or Transformer) learns to predict the noise ε that was added at each step. Given noisy x_t and timestep t, it outputs ε̂ ≈ ε.",
+        "Loss function: Simple MSE between predicted and actual noise: L = ||ε − ε̂(x_t, t)||². Despite its simplicity, this objective is mathematically equivalent to maximizing a variational lower bound.",
+        "Reverse process (generation): Start from pure noise x_T ~ N(0,I). At each step, use the trained model to predict and subtract the noise: x_{t-1} = f(x_t, ε̂(x_t, t)). After T reverse steps, you get a clean crystal structure."
+      ]} />
+
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
+          {/* Diffusion visualization */}
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>FORWARD PROCESS: NOISING Cu₂ZnSnS₄-LIKE VECTOR</div>
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, marginBottom: 8 }}>
+              Starting composition vector x₀ = [0.50, 0.25, 0.25] representing (Cu, Zn, Sn) fractions.
+            </div>
+            <SliderRow label="Diffusion timestep t" value={diffStep} min={0} max={3} step={1}
+              onChange={setDiffStep} color={C} format={v => `t=${diffSteps[v]}`} />
+            <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
+              {diffusionSnapshots.map((snap, i) => (
+                <div key={i} style={{
+                  flex: 1, textAlign: "center", padding: "8px 4px", borderRadius: 6,
+                  background: i === diffStep ? C + "15" : T.panel,
+                  border: `1.5px solid ${i === diffStep ? C : T.border}`,
+                }}>
+                  <div style={{ fontSize: 9, fontWeight: 700, color: i === diffStep ? C : T.muted }}>t={snap.t}</div>
+                  {snap.values.map((v, j) => (
+                    <div key={j} style={{ fontSize: 10, fontFamily: "monospace", color: T.ink }}>{v.toFixed(3)}</div>
+                  ))}
+                  <div style={{ fontSize: 8, color: T.muted, marginTop: 2 }}>{snap.t === 0 ? "clean" : snap.t === 100 ? "~noise" : "noisy"}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Forward process math */}
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>NOISE SCHEDULE CALCULATION</div>
+            <CalcRow eq="β_min = 0.0001, β_max = 0.02" result="linear schedule" color={C} />
+            <CalcRow eq="β_t = β_min + (β_max − β_min) × t/T" result="noise per step" color={C} />
+            <CalcRow eq="α_t = 1 − β_t" result="signal retained" color={C} />
+            <CalcRow eq="ᾱ_t = α₁ × α₂ × ... × α_t" result="cumulative signal" color={C} />
+            <CalcRow eq="t=0: ᾱ = 1.000" result="100% signal" color={C} />
+            <CalcRow eq="t=10: ᾱ ≈ 0.990" result="99% signal" color={C} />
+            <CalcRow eq="t=50: ᾱ ≈ 0.607" result="61% signal" color={C} />
+            <CalcRow eq="t=100: ᾱ ≈ 0.135" result="14% signal" color={M.accent} />
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.muted, marginTop: 6 }}>
+              At t=100, only 14% of the original signal remains — the structure is almost pure noise.
+            </div>
+          </div>
+        </div>
+
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>REVERSE PROCESS: DENOISING</div>
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+              Starting from noise x₁₀₀ ~ N(0, I), the model iteratively denoises:
+            </div>
+            <CalcRow eq="Step 100 → 99: predict ε̂₁₀₀" result="subtract noise" color={C} />
+            <CalcRow eq="Step 99 → 98: predict ε̂₉₉" result="subtract noise" color={C} />
+            <CalcRow eq="..." result="..." color={T.muted} />
+            <CalcRow eq="Step 1 → 0: predict ε̂₁" result="final structure" color={C} />
+            <CalcRow eq="x̂₀ = denoised output" result="[0.49, 0.26, 0.24]" color={M.accent} />
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.muted, marginTop: 6 }}>
+              The denoised output [0.49, 0.26, 0.24] is close to a Cu₂ZnSnS₄-like composition. In practice, the model also generates lattice parameters and atom positions, not just compositions.
+            </div>
+          </div>
+
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>MATERIALS DIFFUSION MODELS</div>
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+              <strong style={{ color: C }}>CDVAE</strong> (Crystal Diffusion VAE): Combines a VAE for composition and a diffusion process for atom coordinates. First generates the number of atoms and lattice, then iteratively places atoms via diffusion. Generates stable crystals validated by DFT.
+              <br/><br/><strong style={{ color: C }}>DiffCSP</strong> (Diffusion for Crystal Structure Prediction): Given a composition, predicts the crystal structure by diffusing atom positions and lattice parameters jointly. Achieves state-of-the-art match rates on known structures.
+              <br/><br/><strong style={{ color: C }}>MatterGen</strong> (Microsoft): A diffusion model that generates novel inorganic materials conditioned on target properties (bandgap, bulk modulus). It diffuses atom types, positions, and lattice simultaneously.
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
+            <ResultBox label="FORWARD" value="Add noise" color={C} sub="structure → noise" />
+            <ResultBox label="REVERSE" value="Remove noise" color={M.accent} sub="noise → structure" />
+          </div>
+        </div>
+      </div>
+    </Card>
+
+    {/* ── GAN Brief + Comparison Table ── */}
+    <Card color={C} title="GANs & Generative Model Comparison" formula="VAE vs GAN vs Diffusion">
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+        <div style={{ flex: "0 0 380px" }}>
+          <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>GANs (Generative Adversarial Networks)</div>
+            <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
+              A GAN is a two-player game between a <strong>Generator</strong> (G) and a <strong>Discriminator</strong> (D):
+              <br/>G takes random noise z and generates a fake material.
+              <br/>D receives both real and generated materials and tries to tell them apart.
+              <br/>G improves by trying to fool D; D improves by getting better at detecting fakes.
+              <br/><br/>After training, G can generate realistic materials from noise. GANs produce sharp outputs but are notoriously hard to train — they suffer from mode collapse (generating only a few types of materials) and training instability.
+              <br/><br/>In materials science, CrystalGAN generates ternary compounds by training on known binary compounds, and MatGAN generates alloy compositions with target properties.
+            </div>
+          </div>
+
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>GAN TRAINING CALCULATION</div>
+            <CalcRow eq="Generator loss: −log(D(G(z)))" result="fool discriminator" color={C} />
+            <CalcRow eq="Discriminator loss (real): −log(D(x))" result="detect real" color={C} />
+            <CalcRow eq="Discriminator loss (fake): −log(1−D(G(z)))" result="detect fake" color={C} />
+            <CalcRow eq="Nash equilibrium: D(x) = 0.5" result="cannot distinguish" color={M.accent} />
+            <CalcRow eq="Real material: D(SrTiO₃) = 0.95" result="clearly real" color={C} />
+            <CalcRow eq="Fake material: D(XyZw₇) = 0.12" result="clearly fake" color={C} />
+            <CalcRow eq="Good fake: D(BaTiO₃-like) = 0.48" result="almost fooled" color={M.accent} />
+          </div>
+        </div>
+
+        <div style={{ flex: 1, minWidth: 200 }}>
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>COMPARISON: VAE vs GAN vs DIFFUSION</div>
+            <table style={{ width: "100%", fontSize: 11, borderCollapse: "collapse" }}>
+              <thead>
+                <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                  {["Property", "VAE", "GAN", "Diffusion"].map(h => (
+                    <th key={h} style={{ padding: "4px 6px", textAlign: "left", color: C, fontWeight: 700, fontSize: 9 }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Training", "Stable", "Unstable", "Stable"],
+                  ["Output quality", "Blurry", "Sharp", "Sharp"],
+                  ["Diversity", "Good", "Mode collapse risk", "Excellent"],
+                  ["Latent space", "Smooth, structured", "No explicit", "No explicit"],
+                  ["Speed (generate)", "Fast (1 pass)", "Fast (1 pass)", "Slow (T steps)"],
+                  ["Loss function", "ELBO (recon + KL)", "Adversarial", "MSE on noise"],
+                  ["Materials use", "iMatGen, FTCP", "CrystalGAN", "CDVAE, MatterGen"],
+                  ["Best for", "Interpolation", "Sharp samples", "Diverse generation"],
+                ].map((row, i) => (
+                  <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.surface : T.panel }}>
+                    {row.map((cell, j) => (
+                      <td key={j} style={{ padding: "4px 6px", fontSize: 10, color: j === 0 ? C : T.ink, fontWeight: j === 0 ? 700 : 400 }}>{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
+            <ResultBox label="VAE" value="Smooth" color={C} sub="latent space" />
+            <ResultBox label="GAN" value="Sharp" color={M.accent} sub="output quality" />
+            <ResultBox label="DIFFUSION" value="Diverse" color="#dc2626" sub="sample variety" />
+          </div>
+
+          <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
+            background: T.surface, padding: 10, borderRadius: 8, border: `1px solid ${T.border}` }}>
+            <strong style={{ color: T.ink }}>Key insight.</strong> In 2024–2025, diffusion models have become the dominant approach for generative materials design.
+            CDVAE, DiffCSP, and MatterGen all use diffusion and achieve the best results for crystal structure generation.
+            VAEs remain useful when you need a structured latent space (e.g., for optimization or interpolation).
+            GANs are less common in materials science due to training instability, but are still used for certain molecular generation tasks.
+          </div>
+
+          <CommonMistakes mistakes={[
+            "Using GANs without checking for mode collapse — always verify that the generated materials are diverse, not just many copies of a few stable structures.",
+            "Thinking diffusion models are too slow — modern schedulers (DDIM, DPM-Solver) reduce 1000 steps to 20–50 steps with minimal quality loss.",
+            "Comparing models only on generation quality — also check validity (are generated structures physically reasonable?), uniqueness (are they diverse?), and novelty (are they truly new, not memorized from training data?).",
+            "Not conditioning on target properties — unconditional generation produces random materials. For materials discovery, use conditional generation (e.g., generate a material with bandgap = 1.5 eV and bulk modulus > 100 GPa)."
+          ]} />
+
+          <MatSciExample text="MatterGen (Microsoft, 2024) generates novel inorganic crystals by diffusing atom types, coordinates, and lattice parameters simultaneously. Conditioned on target properties, it generated 15 previously unknown materials that were subsequently synthesized in the lab. CDVAE demonstrated that diffusion-based crystal generation produces 2× more stable structures than VAE-only approaches on the Materials Project dataset." />
+        </div>
+      </div>
+    </Card>
+    </>
   );
 }
 
