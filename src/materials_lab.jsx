@@ -6396,37 +6396,152 @@ function DFTFAQSection() {
       {/* 6b. Ground state but band gaps? */}
       <Card title={"DFT is for ground states \u2014 so why do we calculate band gaps?"} color={D.eqn}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-          This is one of the deepest questions in DFT. Strictly, the Hohenberg-Kohn theorems guarantee
-          that DFT gives exact <strong>ground-state</strong> properties: total energy, electron density, forces.
-          Band gaps involve removing or adding an electron \u2014 that{"\u2019"}s an <strong style={{ color: D.warn }}>excited-state</strong> property.
-          So why does everyone compute band gaps with DFT anyway?
+          The Hohenberg-Kohn theorems rigorously guarantee that DFT yields exact <strong>ground-state</strong> properties:
+          total energy E, electron density n(r), and forces on nuclei. A band gap, however, is fundamentally
+          an <strong style={{ color: D.warn }}>excited-state property</strong>. It measures the energy to remove an electron
+          (ionization, N{"\u2192"}N{"\u2212"}1) or add one (affinity, N{"\u2192"}N+1). These are processes that change
+          the particle number and take the system out of its ground state.
+          So why does the entire computational materials community report DFT band gaps?
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 12 }}>
+      </Card>
+
+      <Card title={"What is an eigenvalue? What are Kohn-Sham eigenvalues?"} color={D.basis}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          An <strong style={{ color: D.basis }}>eigenvalue</strong> comes from the mathematical equation
+          <strong> A x = {"\u03BB"} x</strong>, where A is an operator, x is the eigenvector (or eigenfunction),
+          and {"\u03BB"} is the eigenvalue (a number). In quantum mechanics, the Schr{"\"o"}dinger equation is
+          an eigenvalue problem: the Hamiltonian H acts on the wavefunction {"\u03C8"}, and the eigenvalue
+          E is the energy.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.basis, fontWeight: 700 }}>General eigenvalue problem: A x = {"\u03BB"} x</span><br /><br />
+          <span style={{ color: D.eqn }}>Schr{"\u00F6"}dinger: H{"\u0302"} {"\u03C8"}_n = E_n {"\u03C8"}_n</span><br />
+          <span style={{ color: T.muted }}>E_n are the energy eigenvalues (allowed energies)</span><br />
+          <span style={{ color: T.muted }}>{"\u03C8"}_n are the eigenstates (wavefunctions)</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginTop: 10 }}>
+          In DFT, the <strong style={{ color: D.basis }}>Kohn-Sham eigenvalues</strong> {"\u03B5"}_i come from solving the
+          single-particle KS equations. Each {"\u03B5"}_i is the energy of a fictitious non-interacting
+          electron moving in the effective KS potential. Critically, these are <strong style={{ color: D.warn }}>
+          NOT the true single-particle excitation energies</strong> of the real system. They are Lagrange
+          multipliers that enforce orthonormality of the KS orbitals. Only {"\u03B5"}_HOMO of the exact
+          functional equals {"\u2212"}IP (by Janak{"'"}s theorem).
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.basis, fontWeight: 700 }}>KS equation: [{"\u2212"}{"\u00BD"}{"\u2207\u00B2"} + v_KS(r)] {"\u03C6"}_i(r) = {"\u03B5"}_i {"\u03C6"}_i(r)</span><br /><br />
+          <span style={{ color: T.muted }}>{"\u03B5"}_i = KS eigenvalue (energy of orbital i in effective potential)</span><br />
+          <span style={{ color: T.muted }}>{"\u03C6"}_i = KS orbital (single-particle wavefunction)</span><br /><br />
+          <span style={{ color: D.warn }}>Key point: {"\u03B5"}_i {"\u2260"} true electron removal/addition energy</span><br />
+          <span style={{ color: D.warn }}>The KS eigenvalues are properties of the fictitious non-interacting system,</span><br />
+          <span style={{ color: D.warn }}>not the real interacting electrons!</span><br /><br />
+          <span style={{ color: D.basis }}>Example (Silicon):</span><br />
+          <span style={{ color: T.muted }}>PBE KS gap: {"\u03B5"}_CBM {"\u2212"} {"\u03B5"}_VBM = 0.61 eV</span><br />
+          <span style={{ color: T.muted }}>True quasiparticle gap: 1.17 eV</span><br />
+          <span style={{ color: D.warn }}>The 0.56 eV difference is the derivative discontinuity {"\u0394"}_xc</span>
+        </div>
+      </Card>
+
+      <Card title={"What is a quasiparticle?"} color={D.xc}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          In a real solid, when you add an electron, it doesn{"'"}t just sit there. It repels nearby
+          electrons, creating a <strong>screening cloud</strong> around itself. The electron + its screening
+          cloud together behave like a single particle with a modified energy and lifetime. This
+          composite object is called a <strong style={{ color: D.xc }}>quasiparticle</strong>.
+        </div>
+        <DFT_ANALOGY_BOX text={"Imagine dropping a bowling ball onto a trampoline full of marbles. The ball sinks in, pushing marbles aside, creating a dimple. The ball + dimple moves as one unit \u2014 that\u2019s the quasiparticle. Its effective mass differs from the bare ball (heavier because it drags the dimple). And it has a finite lifetime \u2014 eventually the dimple collapses. In solids, the \u2018ball\u2019 is an electron, the \u2018trampoline\u2019 is the electron sea, and the \u2018dimple\u2019 is the polarisation cloud."} />
+        <div style={mathBlock}>
+          <span style={{ color: D.xc, fontWeight: 700 }}>Quasiparticle equation:</span><br />
+          <span style={{ color: D.xc }}>{"[{-\u00BD\u2207\u00B2 + v_ext + v_H}] \u03C8_i(r) + \u222B \u03A3(r,r\u2019,\u03B5_i) \u03C8_i(r\u2019) dr\u2019 = \u03B5_i^QP \u03C8_i(r)"}</span><br /><br />
+          <span style={{ color: T.muted }}>{"\u03A3"}(r,r{"\u2019"},{"\u03C9"}) = self-energy (non-local, energy-dependent, complex)</span><br />
+          <span style={{ color: T.muted }}>Re({"\u03A3"}) shifts energy levels (quasiparticle correction)</span><br />
+          <span style={{ color: T.muted }}>Im({"\u03A3"}) gives finite lifetime (broadening)</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700 }}>Compare to KS:</span><br />
+          <span style={{ color: D.basis }}>KS: v_xc(r) is local, real, energy-independent</span><br />
+          <span style={{ color: D.xc }}>QP: {"\u03A3"}(r,r{"\u2019"},{"\u03C9"}) is non-local, complex, energy-dependent</span><br />
+          <span style={{ color: T.muted }}>KS eigenvalues approximate QP energies, but miss the non-locality and energy dependence</span>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 10 }}>
           {[
-            { label: "The pragmatic reason", text: "Kohn-Sham eigenvalues (\u03B5\u1D62) are not true quasiparticle energies, but they\u2019re surprisingly close. For many semiconductors, PBE eigenvalue gaps are ~50-70% of experiment \u2014 wrong in magnitude but right in trends. That\u2019s useful for screening.", color: D.basis },
-            { label: "The formal gap", text: "The true DFT band gap has a derivative discontinuity: E_gap = \u03B5_KS_gap + \u0394_xc. LDA/GGA miss \u0394_xc entirely (\u0394_xc \u2248 0 in these approximations), which is WHY they underestimate. The error is not in DFT itself, but in the functional.", color: D.eqn },
-            { label: "Hybrid functionals fix it", text: "HSE06 includes 25% exact exchange, which partially captures \u0394_xc. This is why HSE band gaps match experiment so well \u2014 not because DFT suddenly handles excited states, but because the discontinuity is approximately included.", color: D.xc },
-            { label: "The proper way", text: "For rigorous excited states, use many-body perturbation theory: GW approximation for quasiparticle gaps, BSE for optical gaps. These build on DFT wavefunctions but go beyond ground-state theory.", color: D.warm },
+            { type: "Bare electron", desc: "Electron in vacuum. Energy = kinetic + potential. No screening.", color: D.main },
+            { type: "Kohn-Sham particle", desc: "Fictitious non-interacting electron in v_KS. Local potential. No lifetime. Approximates the quasiparticle.", color: D.basis },
+            { type: "Quasiparticle", desc: "Electron + screening cloud in the real solid. Non-local self-energy. Has a finite lifetime. The physically measurable entity in photoemission experiments.", color: D.xc },
           ].map(item => (
-            <div key={item.label} style={{ background: item.color + "06", borderRadius: 10, padding: "12px 14px", border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}` }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: item.color, marginBottom: 4 }}>{item.label}</div>
-              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>{item.text}</div>
+            <div key={item.type} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}` }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.type}</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.desc}</div>
             </div>
           ))}
         </div>
+      </Card>
+
+      <Card title={"The GW Approximation \u2014 getting band gaps right"} color={D.accent}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The <strong style={{ color: D.accent }}>GW approximation</strong> (Hedin, 1965) computes quasiparticle
+          energies by approximating the self-energy as the product of the single-particle Green{"'"}s function
+          G and the screened Coulomb interaction W. It starts from DFT wavefunctions and corrects the
+          eigenvalues to true quasiparticle energies.
+        </div>
         <div style={mathBlock}>
-          <span style={{ color: D.eqn, fontWeight: 700 }}>True gap: E_gap = I {"\u2212"} A = (E_N{"\u207B\u00B9"} {"\u2212"} E_N) {"\u2212"} (E_N {"\u2212"} E_N{"\u207A\u00B9"})</span><br /><br />
-          <span style={{ color: T.muted }}>I = ionization energy, A = electron affinity</span><br />
-          <span style={{ color: T.muted }}>Both involve changing the number of electrons (N{"\u00B1"}1)</span><br /><br />
-          <span style={{ color: D.eqn }}>KS gap: {"\u03B5"}_gap = {"\u03B5"}_{"{CBM}"} {"\u2212"} {"\u03B5"}_{"{VBM}"}</span><br />
-          <span style={{ color: D.warn }}>Missing piece: {"\u0394"}_xc = E_gap {"\u2212"} {"\u03B5"}_gap (derivative discontinuity)</span><br /><br />
-          <span style={{ color: D.basis }}>LDA/GGA: {"\u0394"}_xc {"\u2248"} 0 {"\u2192"} gap underestimated</span><br />
-          <span style={{ color: D.xc }}>HSE06: partially captures {"\u0394"}_xc {"\u2192"} much better gaps</span><br />
-          <span style={{ color: D.accent }}>GW: full quasiparticle correction {"\u2192"} accurate gaps</span>
+          <span style={{ color: D.accent, fontWeight: 700 }}>Self-energy: {"\u03A3"} = i G W</span><br /><br />
+          <span style={{ color: D.accent }}>G = single-particle Green{"'"}s function (electron propagator)</span><br />
+          <span style={{ color: T.muted }}>{"  G tells you: if I put an electron at (r,t), what\u2019s the amplitude to find it at (r\u2019,t\u2019)?"}</span><br /><br />
+          <span style={{ color: D.accent }}>W = screened Coulomb interaction</span><br />
+          <span style={{ color: T.muted }}>{"  Bare Coulomb: v = 1/|r-r\u2019|"}</span><br />
+          <span style={{ color: T.muted }}>{"  Screened: W = v / \u03B5(\u03C9)  (dielectric function screens the interaction)"}</span><br />
+          <span style={{ color: T.muted }}>{"  In a metal, screening is strong \u2192 W << v"}</span><br />
+          <span style={{ color: T.muted }}>{"  In vacuum, no screening \u2192 W = v"}</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>QP correction (first order, G\u2080W\u2080):</span><br />
+          <span style={{ color: D.accent }}>{"\u03B5"}_i^QP = {"\u03B5"}_i^KS + Z_i {"<"}{"\u03C6"}_i | {"\u03A3"}({"\u03B5"}_i^KS) {"\u2212"} v_xc | {"\u03C6"}_i{">"}</span><br /><br />
+          <span style={{ color: T.muted }}>Z_i = renormalisation factor (0 {"<"} Z {"<"} 1, typically ~0.8)</span><br />
+          <span style={{ color: T.muted }}>The correction replaces the local v_xc with the non-local {"\u03A3"}</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginTop: 10 }}>
+          <strong style={{ color: D.accent }}>In practice (G{"\u2080"}W{"\u2080"}):</strong> Start from DFT orbitals and eigenvalues.
+          Compute the dielectric function, then W, then {"\u03A3"}, then correct each eigenvalue.
+          This is a <em>perturbative one-shot</em> correction on top of DFT. Self-consistent GW (scGW)
+          iterates this, but is much more expensive.
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 12 }}>
+          {[
+            { mat: "Si", pbe: "0.61", gw: "1.12", exp: "1.17", color: D.basis },
+            { mat: "GaAs", pbe: "0.47", gw: "1.30", exp: "1.42", color: D.accent },
+            { mat: "ZnO", pbe: "0.81", gw: "3.20", exp: "3.37", color: D.xc },
+            { mat: "MgO", pbe: "4.70", gw: "7.50", exp: "7.83", color: D.warm },
+          ].map(item => (
+            <div key={item.mat} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15` }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: item.color }}>{item.mat}</div>
+              <div style={{ fontSize: 11, color: T.muted }}>PBE: {item.pbe} eV | <strong style={{ color: item.color }}>GW: {item.gw} eV</strong> | Expt: {item.exp} eV</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginTop: 12 }}>
+          <strong style={{ color: D.warn }}>Cost:</strong> GW is ~1000x more expensive than PBE. Practical for ~10-50 atoms. For larger systems,
+          use HSE06 (10-100x PBE) as a pragmatic alternative, or use GW on a small cell and extrapolate.
+        </div>
+      </Card>
+
+      <Card title={"The derivative discontinuity \u2014 why LDA/GGA gaps are wrong"} color={D.warn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The <strong style={{ color: D.warn }}>fundamental gap</strong> of a solid is the energy difference between
+          ionization energy I and electron affinity A. In exact DFT, this gap has two contributions:
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warn, fontWeight: 700 }}>E_gap = I {"\u2212"} A</span><br /><br />
+          <span style={{ color: T.muted }}>I = E(N{"\u2212"}1) {"\u2212"} E(N) = cost to remove an electron</span><br />
+          <span style={{ color: T.muted }}>A = E(N) {"\u2212"} E(N+1) = energy gained by adding an electron</span><br /><br />
+          <span style={{ color: D.warn, fontWeight: 700 }}>Decomposition:</span><br />
+          <span style={{ color: D.eqn }}>E_gap = {"\u03B5"}_gap^KS + {"\u0394"}_xc</span><br /><br />
+          <span style={{ color: D.eqn }}>{"\u03B5"}_gap^KS = {"\u03B5"}_(N+1) {"\u2212"} {"\u03B5"}_N = KS eigenvalue gap</span><br />
+          <span style={{ color: D.warn }}>{"\u0394"}_xc = discontinuous jump in v_xc when electron count crosses N</span><br /><br />
+          <span style={{ color: T.muted }}>Physical meaning: when you add the (N+1)th electron, the XC potential</span><br />
+          <span style={{ color: T.muted }}>jumps discontinuously by {"\u0394"}_xc for ALL orbitals. This rigid upward</span><br />
+          <span style={{ color: T.muted }}>shift of unoccupied states is missing in LDA/GGA ({"\u0394"}_xc = 0).</span><br /><br />
+          <span style={{ color: D.basis }}>LDA/GGA: {"\u0394"}_xc = 0 {"\u2192"} gap = {"\u03B5"}_gap^KS only (too small)</span><br />
+          <span style={{ color: D.xc }}>HSE06: partially captures {"\u0394"}_xc via exact exchange</span><br />
+          <span style={{ color: D.accent }}>GW: {"\u03A3"} naturally includes the full discontinuity</span>
         </div>
         <FAQGraph height={140}>
-          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.eqn} fontWeight="700">The Band Gap Problem: KS Gap vs True Gap</text>
-          {/* VB and CB for three methods */}
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.warn} fontWeight="700">KS Gap + Derivative Discontinuity = True Gap</text>
           {[
             { label: "PBE", x: 40, vb: 85, cb: 55, col: D.warn },
             { label: "HSE06", x: 150, vb: 85, cb: 35, col: D.xc },
@@ -6439,7 +6554,6 @@ function DFTFAQSection() {
               <rect x={m.x} y={m.cb - 20} width={80} height={20} fill={m.col} opacity={0.1} rx={3} />
               <rect x={m.x} y={m.cb - 20} width={80} height={20} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
               <text x={m.x + 40} y={m.cb - 7} textAnchor="middle" fontSize={8} fill={m.col} fontWeight="600">CBM</text>
-              {/* Gap arrow */}
               <line x1={m.x + 40} y1={m.vb} x2={m.x + 40} y2={m.cb} stroke={m.col} strokeWidth={1.5} />
               <polygon points={`${m.x + 36},${m.cb} ${m.x + 44},${m.cb} ${m.x + 40},${m.cb - 6}`} fill={m.col} />
               <polygon points={`${m.x + 36},${m.vb} ${m.x + 44},${m.vb} ${m.x + 40},${m.vb + 6}`} fill={m.col} />
@@ -6447,7 +6561,6 @@ function DFTFAQSection() {
               <text x={m.x + 40} y={124} textAnchor="middle" fontSize={10} fill="#374151" fontWeight="700">{m.label}</text>
             </g>
           ))}
-          {/* Experiment reference line */}
           <line x1={350} y1={85} x2={350} y2={35} stroke={D.basis} strokeWidth={2} strokeDasharray="4,3" />
           <text x={365} y={63} fontSize={8} fill={D.basis} fontWeight="700">Expt</text>
           <text x={365} y={73} fontSize={8} fill={D.basis}>1.12 eV</text>
