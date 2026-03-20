@@ -6106,6 +6106,62 @@ const DFT_BLOCKS = [
 
 // ── DFT Section Components ──
 
+function DFTFAQSection() {
+  const faqs = [
+    {
+      q: "Why doesn\u2019t the electron fall into the nucleus?",
+      a: "Classical physics says opposite charges should collapse together. But quantum mechanics says electrons are waves, not point particles. Confining a wave to a tiny space (near the nucleus) requires enormous kinetic energy (Heisenberg uncertainty principle: smaller position uncertainty \u2192 larger momentum). The electron settles at a distance where the attractive pull of the nucleus exactly balances the kinetic energy cost of confinement. This balance gives hydrogen its Bohr radius of 0.53 \u00C5.",
+      color: D.main,
+    },
+    {
+      q: "What actually IS an electron orbital?",
+      a: "An orbital is not a path the electron travels \u2014 it\u2019s a probability map. It tells you the likelihood of finding the electron at each point in space. The 1s orbital of hydrogen is a fuzzy sphere: densest at the nucleus, fading outward. The 2p orbital has a dumbbell shape with a node (zero probability plane) through the nucleus. In DFT, we solve for these orbital shapes self-consistently.",
+      color: D.eqn,
+    },
+    {
+      q: "Why can\u2019t we just solve the Schr\u00F6dinger equation exactly?",
+      a: "For one electron (hydrogen), we can. For two electrons (helium), it\u2019s already approximate. The problem is electron-electron repulsion: each electron\u2019s behavior depends on every other electron\u2019s position simultaneously. For N electrons, the wavefunction lives in 3N-dimensional space. Carbon (6 electrons) needs 18 dimensions. A small protein has thousands of electrons \u2014 the exact wavefunction would need more numbers than atoms in the universe.",
+      color: D.warn,
+    },
+    {
+      q: "What is a wavefunction, really?",
+      a: "It\u2019s a mathematical object \u03A8(r) that encodes everything about a quantum particle. Its square |\u03A8|\u00B2 gives the probability density of finding the particle at position r. For multiple particles, \u03A8 depends on ALL their positions at once \u2014 that\u2019s why it\u2019s so expensive to store. DFT\u2019s key insight: you don\u2019t need \u03A8 directly. The electron density n(r) = \u03A3|\u03C6\u1D62|\u00B2 contains all the physics you need for ground-state properties.",
+      color: D.xc,
+    },
+    {
+      q: "What is electron spin and why does it matter?",
+      a: "Electrons have an intrinsic angular momentum called spin \u2014 either 'up' or 'down'. The Pauli exclusion principle says no two electrons can occupy the same orbital with the same spin. This forces electrons into higher-energy orbitals, creating the periodic table\u2019s structure. In DFT, spin affects the exchange energy: same-spin electrons avoid each other more strongly than opposite-spin ones (exchange hole).",
+      color: D.basis,
+    },
+    {
+      q: "Why does DFT underestimate band gaps?",
+      a: "DFT is designed for ground-state properties. Band gaps involve the energy to add or remove an electron (excited states). The Kohn-Sham eigenvalues are not true quasiparticle energies \u2014 they\u2019re Lagrange multipliers from the minimization. Additionally, self-interaction error in LDA/GGA pushes occupied states up and unoccupied states down, artificially shrinking the gap. Hybrid functionals (HSE06) or GW corrections fix this.",
+      color: D.warm,
+    },
+    {
+      q: "What is exchange and correlation in plain English?",
+      a: "Exchange: same-spin electrons naturally avoid each other due to the Pauli principle (they carve out an 'exchange hole'). This lowers their repulsion energy. Correlation: ALL electrons avoid each other dynamically because of Coulomb repulsion, beyond what exchange already accounts for. Together, exchange-correlation is the quantum correction to the classical electron-electron repulsion.",
+      color: D.accent,
+    },
+    {
+      q: "How big a system can DFT handle?",
+      a: "Standard DFT scales as O(N\u00B3) with the number of electrons. On modern supercomputers: ~100 atoms is routine (seconds to minutes), ~1,000 atoms is feasible (hours to days), ~10,000 atoms is possible with linear-scaling methods. Beyond that, you need machine-learned force fields (Chapter 7) or classical potentials. Hybrid functionals like HSE06 are 10-100x more expensive, limiting them to ~100-200 atoms.",
+      color: D.main,
+    },
+  ];
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <DFT_ANALOGY_BOX text={"Before diving into the equations, let\u2019s answer the questions that every student asks when they first encounter quantum mechanics and electronic structure. These aren\u2019t silly questions \u2014 they\u2019re the deep foundations that DFT is built upon."} />
+      {faqs.map((faq, i) => (
+        <Card key={i} title={faq.q} color={faq.color}>
+          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>{faq.a}</div>
+        </Card>
+      ))}
+    </div>
+  );
+}
+
 function DFTManyBodySection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -6518,6 +6574,95 @@ function DFTXCFunctionalsSection() {
         <div style={{ fontSize: 11, color: T.muted, marginTop: 8 }}>
           All values in eV. LDA/PBE severely underestimate band gaps. HSE06 matches experiment well for most semiconductors.
         </div>
+      </Card>
+    </div>
+  );
+}
+
+function DFTLDASection() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <Card title="LDA - Local Density Approximation" color={D.warm}>
+        <DFT_ANALOGY_BOX text={"Imagine estimating the average income of a neighbourhood by assuming every house earns the national average for its postcode density. You only look at how many people live at each spot, ignoring whether they're near a city centre or farmland. That's LDA: at every point in space it asks 'what would a uniform electron gas of this density do?' and uses that answer. It's crude — real materials are far from uniform — but surprisingly useful for trends, especially in metals where the density is fairly smooth."} />
+        <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          LDA is the simplest XC approximation. At each point <strong>r</strong>, it treats the electrons
+          as a <strong style={{ color: D.warm }}>uniform electron gas</strong> with the local density n(r).
+          The XC energy per electron is taken from exact quantum Monte Carlo simulations of that gas.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>E_xc[n] = {"\u222B"} n(r) {"\u03B5"}_xc(n(r)) dr</span><br /><br />
+          <span style={{ color: T.muted }}>{"\u03B5"}_xc(n) = exact result for a uniform gas at density n</span><br />
+          <span style={{ color: T.muted }}>Known numerically from quantum Monte Carlo (Ceperley-Alder, 1980)</span>
+        </div>
+      </Card>
+
+      <Card title="What LDA Gets Right" color={D.warm}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+          {[
+            { prop: "Crystal structures", accuracy: "Good (\u00B11-2%)", verdict: "Reliable", color: D.warm },
+            { prop: "Bulk moduli", accuracy: "Often overestimated", verdict: "Fair", color: D.warm },
+            { prop: "Phonon frequencies", accuracy: "Reasonable", verdict: "Good", color: D.basis },
+            { prop: "Cohesive energies", accuracy: "Overestimated ~20%", verdict: "Overbinds", color: D.warn },
+            { prop: "Band gaps", accuracy: "40-60% too small", verdict: "Poor", color: D.warn },
+            { prop: "Lattice constants", accuracy: "Underestimated", verdict: "Too compact", color: D.accent },
+          ].map(item => (
+            <div key={item.prop} style={{
+              background: item.color + "08", border: `1px solid ${item.color}20`,
+              borderRadius: 10, padding: "10px 14px",
+            }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.prop}</div>
+              <div style={{ fontSize: 11, color: T.muted }}>{item.accuracy}</div>
+              <div style={{ fontSize: 11, fontWeight: 600, color: item.color }}>{item.verdict}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card title="When to Use LDA" color={D.basis}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {[
+            { label: "Quick screening", desc: "Fast estimates of trends across many structures before using a more expensive functional", color: D.basis },
+            { label: "Metals", desc: "Metallic systems where the electron density is relatively uniform — LDA's sweet spot", color: D.warm },
+            { label: "Lattice dynamics", desc: "Phonon calculations where relative energy differences matter more than absolute values", color: D.accent },
+            { label: "NOT for band gaps", desc: "LDA severely underestimates band gaps (Si: 0.52 vs 1.17 eV expt). Use HSE06 or GW instead.", color: D.warn },
+          ].map(item => (
+            <div key={item.label} style={{
+              background: item.color + "06", borderRadius: 10, padding: "10px 14px",
+              border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}`,
+            }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.label}</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card title="LDA vs GGA at a Glance" color={D.accent}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+          <thead>
+            <tr style={{ borderBottom: `2px solid ${D.accent}30` }}>
+              {["Property", "LDA", "GGA (PBE)"].map(h => (
+                <th key={h} style={{ padding: "8px 10px", textAlign: "left", fontSize: 11, color: D.accent, fontWeight: 700 }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ["Information used", "n(r) only", "n(r) + \u2207n(r)"],
+              ["Lattice constants", "Underestimates (~1%)", "Overestimates (~1-2%)"],
+              ["Cohesive energy", "Overbinds", "Slightly overbinds"],
+              ["Band gaps", "Very poor", "Poor (slightly better)"],
+              ["Computational cost", "~1x (baseline)", "~1x (same as LDA)"],
+              ["Best for", "Metals, quick scans", "Most solid-state calculations"],
+            ].map(([prop, lda, gga], i) => (
+              <tr key={prop} style={{ background: i % 2 === 0 ? D.accent + "05" : "transparent", borderBottom: `1px solid ${T.border}55` }}>
+                <td style={{ padding: "8px 10px", fontWeight: 700, color: T.ink }}>{prop}</td>
+                <td style={{ padding: "8px 10px", color: D.warm }}>{lda}</td>
+                <td style={{ padding: "8px 10px", color: D.basis }}>{gga}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </Card>
     </div>
   );
@@ -7878,11 +8023,13 @@ function DFTParamsLabSection() {
 }
 
 const DFT_SECTIONS = [
+  { id: "faq",      block: "foundations", label: "Big Questions",    color: T.dft_accent, Component: DFTFAQSection, nextReason: "These fundamental questions set the stage. Now let\u2019s see the full many-body problem that quantum mechanics poses for materials \u2014 and why it\u2019s so impossibly hard that we need DFT." },
   { id: "manybody", block: "foundations", label: "Many-Body Problem", color: T.dft_main, Component: DFTManyBodySection, nextReason: "The exact many-body problem is intractable. Hohenberg-Kohn next proves a remarkable theorem: the ground-state electron density alone \u2014 a function of just 3 coordinates \u2014 uniquely determines all ground-state properties, replacing the 3N-coordinate wavefunction." },
   { id: "hk",       block: "foundations", label: "Hohenberg-Kohn",   color: T.dft_eqn,  Component: DFTHohenbergKohnSection, nextReason: "Density uniquely determines properties \u2014 but the theorem gives no prescription for finding it. Kohn-Sham maps the interacting electron system onto a fictitious non-interacting system with the same density, yielding solvable single-particle equations." },
   { id: "ks",       block: "foundations", label: "Kohn-Sham Equations", color: T.dft_eqn, Component: DFTKohnShamSection, nextReason: "KS equations are exact in principle, but the exchange-correlation (XC) functional is unknown. The choice of XC approximation is the central challenge of practical DFT \u2014 next we survey the approximations and when each is appropriate." },
 
-  { id: "xc",       block: "functionals", label: "XC Functionals",   color: T.dft_xc,   Component: DFTXCFunctionalsSection, nextReason: "XC approximations form a hierarchy. GGA-PBE is the standard workhorse: it adds density gradient information to LDA, giving reliable geometries and energies for most materials at modest computational cost." },
+  { id: "xc",       block: "functionals", label: "XC Functionals",   color: T.dft_xc,   Component: DFTXCFunctionalsSection, nextReason: "XC approximations form a hierarchy. LDA is the simplest: it treats each point as a uniform electron gas. Despite its simplicity, LDA captures surprising amount of physics and remains useful for quick screening and metallic systems." },
+  { id: "lda",      block: "functionals", label: "LDA",              color: T.dft_warm,  Component: DFTLDASection, nextReason: "LDA is limited by its local-only view. GGA-PBE adds density gradient information, giving better lattice constants, atomization energies, and surface properties at the same computational cost." },
   { id: "gga",      block: "functionals", label: "GGA (PBE)",        color: T.dft_main,  Component: DFTGGASection, nextReason: "PBE works well for many systems but systematically underestimates bandgaps. The root cause is self-interaction error \u2014 where an electron spuriously repels its own charge density. Understanding SIE explains why standard DFT fails for localized states and band gaps." },
   { id: "sic",      block: "functionals", label: "Self-Interaction Error", color: T.dft_warn, Component: DFTSelfInteractionSection, nextReason: "Self-interaction error motivates corrections. HSE06 mixes 25% exact (Hartree-Fock) exchange at short range, partially cancelling SIE and correcting band gaps while remaining computationally tractable for solids." },
   { id: "hse",      block: "functionals", label: "HSE06 Hybrid",     color: T.dft_xc,   Component: DFTHSESection, nextReason: "HSE06 is accurate but expensive. DFT+U applies a Hubbard U correction to localized d/f orbitals \u2014 a cheaper alternative that improves d-electron description in transition metal oxides and correlated materials." },
@@ -7898,7 +8045,7 @@ const DFT_SECTIONS = [
 ];
 
 function DFTBasicsModule() {
-  const [active, setActive] = useState("manybody");
+  const [active, setActive] = useState("faq");
   const [activeBlock, setActiveBlock] = useState("foundations");
   const sec = DFT_SECTIONS.find(s => s.id === active) || DFT_SECTIONS[0];
   const Component = sec.Component;
