@@ -6787,37 +6787,39 @@ function DFTPlaneWavesSection() {
           <span style={{ color: D.eqn, fontWeight: 700 }}>{"\u03C8"}_nk(r) = e{"\u2071\u1D4F\u00B7\u02B3"} u_nk(r)</span><br /><br />
           <span style={{ color: T.muted }}>u_nk(r) is periodic - expand in plane waves:</span><br />
           {"  u_nk(r) = \u03A3_G  c_nk(G) e\u2071\u1D33\u00B7\u02B3"}<br /><br />
-          <span style={{ color: D.eqn }}>Truncate at |k+G|{"\u00B2"}/2 {"<"} E_cut (ENCUT in VASP)</span><br />
+          <span style={{ color: D.eqn }}>Truncate at |k+G|{"\u00B2"}/2 {"<"} E_cut (the energy cutoff parameter)</span><br />
           <span style={{ color: T.muted }}>Larger ENCUT = more plane waves = more accurate = more expensive</span>
         </div>
       </Card>
 
-      <Card title="ENCUT Convergence Test" color={D.accent}>
+      <Card title="Energy Cutoff Convergence" color={D.accent}>
+        <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          The <strong style={{ color: D.accent }}>energy cutoff</strong> (E_cut) controls how many plane waves
+          are included in the basis set. Only plane waves with kinetic energy |k+G|{"\u00B2"}/2 {"<"} E_cut
+          are kept. You must increase E_cut until the total energy converges (changes by {"<"} 1 meV/atom).
+        </div>
         <div style={mathBlock}>
-          <span style={{ color: D.accent, fontWeight: 700 }}>CuInSe{"\u2082"}, 16-atom cell, PBE, 4x4x4 k-mesh</span><br /><br />
-          {"  ENCUT = 200 eV:  E = -89.432 eV  (not converged)"}<br />
-          {"  ENCUT = 250 eV:  E = -90.118 eV  (\u0394 = -0.686)"}<br />
-          {"  ENCUT = 300 eV:  E = -90.341 eV  (\u0394 = -0.223)"}<br />
-          {"  ENCUT = 350 eV:  E = -90.387 eV  (\u0394 = -0.046)"}<br />
-          {"  ENCUT = 400 eV:  E = -90.395 eV  (\u0394 = -0.008)"}<br />
-          {"  ENCUT = 450 eV:  E = -90.397 eV  (\u0394 = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"-0.002 \u2713"}</span>{")"}<br />
-          {"  ENCUT = 500 eV:  E = -90.397 eV  (\u0394 = 0.000)"}<br /><br />
-          <span style={{ color: D.basis }}>Use ENCUT = 400 eV (converged to {"<"} 1 meV/atom)</span>
+          <span style={{ color: D.accent, fontWeight: 700 }}>Typical convergence pattern:</span><br /><br />
+          {"  E_cut = 200 eV:  E not converged (large basis set error)"}<br />
+          {"  E_cut = 300 eV:  \u0394E ~ tens of meV (improving)"}<br />
+          {"  E_cut = 400 eV:  \u0394E ~ few meV (nearly converged)"}<br />
+          {"  E_cut = 500 eV:  \u0394E < 1 meV "}<span style={{ color: D.basis, fontWeight: 700 }}>{"\u2713 converged"}</span><br /><br />
+          <span style={{ color: D.basis }}>The required cutoff depends on the elements (heavier atoms with harder pseudopotentials need higher cutoffs)</span>
         </div>
       </Card>
 
       <Card title="PAW - Projector Augmented Wave" color={D.basis}>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           Core electrons (1s, 2s, 2p of heavy atoms) oscillate rapidly near nuclei and need
-          enormous ENCUT. <strong style={{ color: D.basis }}>PAW</strong> (Blochl, 1994) replaces the
-          all-electron wave function near nuclei with a smooth pseudo-wave-function.
+          enormous cutoff energies. <strong style={{ color: D.basis }}>PAW</strong> (Bl{"\u00F6"}chl, 1994) replaces the
+          all-electron wave function near nuclei with a smooth pseudo-wave-function, while retaining
+          the full all-electron information through a linear transformation.
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
           {[
-            { label: "All-electron", desc: "Full wave function, needs ENCUT > 10,000 eV. Impossible for solids.", color: D.warn },
-            { label: "Pseudopotential", desc: "Replace core with smooth function. ~300-500 eV. Standard approach.", color: D.basis },
-            { label: "PAW (VASP default)", desc: "Keeps all-electron info in augmentation region. Best of both worlds.", color: D.accent },
-            { label: "POTCAR files", desc: "VASP stores PAW data per element. Always use recommended POTCARs.", color: D.warm },
+            { label: "All-electron", desc: "Full wave function with nuclear cusps. Needs E_cut > 10,000 eV. Impractical for solids.", color: D.warn },
+            { label: "Pseudopotential", desc: "Replace core with smooth effective potential. ~300-500 eV cutoff. Standard approach.", color: D.basis },
+            { label: "PAW (widely used)", desc: "Retains all-electron information in augmentation region via a linear transformation. Best of both worlds.", color: D.accent },
           ].map(item => (
             <div key={item.label} style={{
               background: item.color + "08", border: `1px solid ${item.color}20`,
@@ -7881,17 +7883,16 @@ const DFT_SECTIONS = [
   { id: "ks",       block: "foundations", label: "Kohn-Sham Equations", color: T.dft_eqn, Component: DFTKohnShamSection, nextReason: "KS equations are exact in principle, but the exchange-correlation (XC) functional is unknown. The choice of XC approximation is the central challenge of practical DFT \u2014 next we survey the approximations and when each is appropriate." },
 
   { id: "xc",       block: "functionals", label: "XC Functionals",   color: T.dft_xc,   Component: DFTXCFunctionalsSection, nextReason: "XC approximations form a hierarchy. GGA-PBE is the standard workhorse: it adds density gradient information to LDA, giving reliable geometries and energies for most materials at modest computational cost." },
-  { id: "gga",      block: "functionals", label: "GGA (PBE)",        color: T.dft_main,  Component: DFTGGASection, nextReason: "PBE works well for many systems but systematically underestimates bandgaps due to self-interaction error. HSE06 mixes 25% exact (Hartree-Fock) exchange at short range, correcting gaps while remaining computationally tractable for solids." },
+  { id: "gga",      block: "functionals", label: "GGA (PBE)",        color: T.dft_main,  Component: DFTGGASection, nextReason: "PBE works well for many systems but systematically underestimates bandgaps. The root cause is self-interaction error \u2014 where an electron spuriously repels its own charge density. Understanding SIE explains why standard DFT fails for localized states and band gaps." },
+  { id: "sic",      block: "functionals", label: "Self-Interaction Error", color: T.dft_warn, Component: DFTSelfInteractionSection, nextReason: "Self-interaction error motivates corrections. HSE06 mixes 25% exact (Hartree-Fock) exchange at short range, partially cancelling SIE and correcting band gaps while remaining computationally tractable for solids." },
   { id: "hse",      block: "functionals", label: "HSE06 Hybrid",     color: T.dft_xc,   Component: DFTHSESection, nextReason: "HSE06 is accurate but expensive. DFT+U applies a Hubbard U correction to localized d/f orbitals \u2014 a cheaper alternative that improves d-electron description in transition metal oxides and correlated materials." },
-  { id: "dftu",     block: "functionals", label: "GGA+U (DFT+U)",    color: T.dft_warm,  Component: DFTDFTUSection, nextReason: "Both HSE and DFT+U address a deeper root cause: self-interaction error, where an electron spuriously interacts with its own Hartree potential. Understanding SIE explains why standard DFT fails for localized states and deep defect levels." },
-  { id: "sic",      block: "functionals", label: "Self-Interaction Error", color: T.dft_warn, Component: DFTSelfInteractionSection, nextReason: "The physics approximations are established. Now the numerics: plane waves provide a complete, systematically improvable basis for Bloch states in periodic systems; PAW reconstructs the full all-electron density near nuclei without pseudo-potentials." },
+  { id: "dftu",     block: "functionals", label: "GGA+U (DFT+U)",    color: T.dft_warm,  Component: DFTDFTUSection, nextReason: "The physics approximations are established. Now the numerics: plane waves provide a complete, systematically improvable basis for Bloch states in periodic systems; PAW reconstructs the full all-electron density near nuclei." },
 
-  { id: "basis",    block: "numerics",   label: "Plane Waves & PAW", color: T.dft_basis, Component: DFTPlaneWavesSection, nextReason: "Basis sets understood. DFT in practice means choosing ENCUT, k-point meshes, convergence thresholds, and VASP settings \u2014 the engineering decisions that separate reliable from unreliable calculations." },
-  { id: "practice", block: "numerics",   label: "DFT in Practice",   color: T.dft_main,  Component: DFTPracticeSection, nextReason: "Abstract settings become concrete in the sodium atom example \u2014 every SCF step shown with real numbers, from initial guess density through convergence to the final total energy, forces, and band structure." },
+  { id: "basis",    block: "numerics",   label: "Plane Waves & PAW", color: T.dft_basis, Component: DFTPlaneWavesSection, nextReason: "Basis sets understood. The Parameters Lab lets you explore key DFT settings interactively \u2014 energy cutoff, k-point meshes, smearing, convergence thresholds \u2014 seeing how each knob affects convergence and accuracy." },
 
+  { id: "dft_params",  block: "examples", label: "Parameters Lab",   color: T.dft_basis, Component: DFTParamsLabSection, nextReason: "Parameters mastered. H and He give exact benchmarks \u2014 the only atoms where we can compare DFT approximations against known analytical solutions." },
   { id: "h_he_example", block: "examples", label: "H & He Analytic", color: T.dft_eqn, Component: DFTHHeExampleSection, nextReason: "H and He give exact benchmarks. The Na atom example now applies the full SCF machinery numerically \u2014 showing every iteration, orbital, and energy convergence in a real multi-electron system." },
-  { id: "na_example",   block: "examples", label: "Na Atom Example",  color: T.dft_accent, Component: DFTNaExampleSection, nextReason: "Na numerics complete. The Parameters Lab lets you explore every VASP setting interactively \u2014 ENCUT, KPOINTS, ISMEAR, EDIFF \u2014 seeing how each knob affects convergence and accuracy." },
-  { id: "dft_params",  block: "examples", label: "Parameters Lab",   color: T.dft_basis, Component: DFTParamsLabSection, nextReason: "Parameters mastered. The DFT Movie ties everything together \u2014 animated scenes of electron clouds, SCF convergence, and equation-by-equation derivations from scratch." },
+  { id: "na_example",   block: "examples", label: "Na Atom Example",  color: T.dft_accent, Component: DFTNaExampleSection, nextReason: "Na numerics complete. The DFT Movie ties everything together \u2014 animated scenes of electron clouds, SCF convergence, and equation-by-equation derivations from scratch." },
 
   { id: "dft_movie",   block: "movies", label: "DFT Movie",          color: T.dft_main, Component: () => <div style={{ maxWidth: 980, margin: "0 auto", borderRadius: 14, overflow: "hidden", border: `2px solid ${T.dft_main}50`, boxShadow: `0 4px 24px ${T.dft_main}20` }}><DFTMovieModule /></div>, nextReason: "DFT is fully grounded. Chapter 7 (MLFF Pipeline) builds on DFT as a data source: graph neural networks learn to reproduce DFT-quality energies ~1000\u00D7 faster, enabling the large-scale simulations that DFT alone cannot reach." },
 ];

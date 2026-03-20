@@ -421,7 +421,7 @@ function SecKpoints() {
 
       <Card title="k-point Convergence Table" color={T.eqn}>
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          CuInSe₂, 16-atom cell, PBE, ENCUT = 400 eV
+          Example convergence data for a typical semiconductor
         </div>
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
@@ -569,7 +569,7 @@ function SecEncut() {
             <strong>Cost scales</strong> as N<sub>pw</sub> × N<sub>bands</sub> → O(N³)
           </InfoBox>
           <InfoBox color={T.warn}>
-            <strong>Rule:</strong> ENCUT = 1.3 × max(ENMAX in POTCAR)
+            <strong>Rule:</strong> E_cut = 1.3 × max recommended cutoff for your elements
           </InfoBox>
         </div>
       </Card>

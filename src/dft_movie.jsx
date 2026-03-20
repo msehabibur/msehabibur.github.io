@@ -1067,7 +1067,7 @@ export default function DFTMovieModule() {
         { text: "Plane waves (periodic solids):", color: P.blue,   delay: 0.10 },
         { text: "φᵢ(r)=Σ_G cᵢG exp(i(k+G)·r)",  color: P.ink,    delay: 0.14 },
         { text: "E_cut=ħ²|k+G|²_max/2m",         color: P.muted,  delay: 0.18 },
-        { text: "controlled by ENCUT in VASP",    color: P.muted,  delay: 0.22 },
+        { text: "set by energy cutoff parameter",  color: P.muted,  delay: 0.22 },
         { text: "",                               color: P.muted,  delay: 0.25 },
         { text: "Localised (molecules):",         color: P.green,  delay: 0.28 },
         { text: "Gaussian (GTO): exp(-αr²)",      color: P.ink,    delay: 0.32 },
@@ -1207,7 +1207,7 @@ export default function DFTMovieModule() {
             <text x={RX+RW/2} y={363} textAnchor="middle" fill={P.green} fontSize="9.5" fontWeight="700"
               fontFamily="'Inter',sans-serif">Convergence Parameters</text>
             <text x={RX+RW/2} y={380} textAnchor="middle" fill={P.muted} fontSize="8.5"
-              fontFamily="'Inter',sans-serif">ENCUT: 300-600 eV (plane waves)</text>
+              fontFamily="'Inter',sans-serif">E_cut: 300-600 eV typical (plane waves)</text>
             <text x={RX+RW/2} y={394} textAnchor="middle" fill={P.muted} fontSize="8.5"
               fontFamily="'Inter',sans-serif">k-mesh: denser → more accurate bands</text>
           </g>
