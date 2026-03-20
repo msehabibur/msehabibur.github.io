@@ -6106,93 +6106,553 @@ const DFT_BLOCKS = [
 
 // ── DFT Section Components ──
 
-function DFTFAQSection() {
-  const faqs = [
-    {
-      q: "Why doesn\u2019t the electron fall into the nucleus?",
-      a: "Classical physics says opposite charges should collapse together. But quantum mechanics says electrons are waves, not point particles. Confining a wave to a tiny space (near the nucleus) requires enormous kinetic energy (Heisenberg uncertainty principle: smaller position uncertainty \u2192 larger momentum). The electron settles at a distance where the attractive pull of the nucleus exactly balances the kinetic energy cost of confinement. This balance gives hydrogen its Bohr radius of 0.53 \u00C5.",
-      color: D.main,
-    },
-    {
-      q: "What actually IS an electron orbital?",
-      a: "An orbital is not a path the electron travels \u2014 it\u2019s a probability map. It tells you the likelihood of finding the electron at each point in space. The 1s orbital of hydrogen is a fuzzy sphere: densest at the nucleus, fading outward. The 2p orbital has a dumbbell shape with a node (zero probability plane) through the nucleus. In DFT, we solve for these orbital shapes self-consistently.",
-      color: D.eqn,
-    },
-    {
-      q: "Why can\u2019t we just solve the Schr\u00F6dinger equation exactly?",
-      a: "For one electron (hydrogen), we can. For two electrons (helium), it\u2019s already approximate. The problem is electron-electron repulsion: each electron\u2019s behavior depends on every other electron\u2019s position simultaneously. For N electrons, the wavefunction lives in 3N-dimensional space. Carbon (6 electrons) needs 18 dimensions. A small protein has thousands of electrons \u2014 the exact wavefunction would need more numbers than atoms in the universe.",
-      color: D.warn,
-    },
-    {
-      q: "What is a wavefunction, really?",
-      a: "It\u2019s a mathematical object \u03A8(r) that encodes everything about a quantum particle. Its square |\u03A8|\u00B2 gives the probability density of finding the particle at position r. For multiple particles, \u03A8 depends on ALL their positions at once \u2014 that\u2019s why it\u2019s so expensive to store. DFT\u2019s key insight: you don\u2019t need \u03A8 directly. The electron density n(r) = \u03A3|\u03C6\u1D62|\u00B2 contains all the physics you need for ground-state properties.",
-      color: D.xc,
-    },
-    {
-      q: "What is electron spin and why does it matter?",
-      a: "Electrons have an intrinsic angular momentum called spin \u2014 either 'up' or 'down'. The Pauli exclusion principle says no two electrons can occupy the same orbital with the same spin. This forces electrons into higher-energy orbitals, creating the periodic table\u2019s structure. In DFT, spin affects the exchange energy: same-spin electrons avoid each other more strongly than opposite-spin ones (exchange hole).",
-      color: D.basis,
-    },
-    {
-      q: "Why does DFT underestimate band gaps?",
-      a: "DFT is designed for ground-state properties. Band gaps involve the energy to add or remove an electron (excited states). The Kohn-Sham eigenvalues are not true quasiparticle energies \u2014 they\u2019re Lagrange multipliers from the minimization. Additionally, self-interaction error in LDA/GGA pushes occupied states up and unoccupied states down, artificially shrinking the gap. Hybrid functionals (HSE06) or GW corrections fix this.",
-      color: D.warm,
-    },
-    {
-      q: "What is exchange and correlation in plain English?",
-      a: "Exchange: same-spin electrons naturally avoid each other due to the Pauli principle (they carve out an 'exchange hole'). This lowers their repulsion energy. Correlation: ALL electrons avoid each other dynamically because of Coulomb repulsion, beyond what exchange already accounts for. Together, exchange-correlation is the quantum correction to the classical electron-electron repulsion.",
-      color: D.accent,
-    },
-    {
-      q: "How big a system can DFT handle?",
-      a: "Standard DFT scales as O(N\u00B3) with the number of electrons. On modern supercomputers: ~100 atoms is routine (seconds to minutes), ~1,000 atoms is feasible (hours to days), ~10,000 atoms is possible with linear-scaling methods. Beyond that, you need machine-learned force fields (Chapter 7) or classical potentials. Hybrid functionals like HSE06 are 10-100x more expensive, limiting them to ~100-200 atoms.",
-      color: D.main,
-    },
-    {
-      q: "Why are atoms mostly empty space?",
-      a: "A nucleus is ~10\u207B\u00B9\u2075 m across, while the electron cloud extends ~10\u207B\u00B9\u2070 m. That\u2019s a factor of 100,000! If the nucleus were a marble, the atom would be a football stadium. Yet the electron cloud is not 'nothing' \u2014 it\u2019s a quantum probability field that determines all chemistry. DFT computes the shape and energy of this cloud.",
-      color: D.eqn,
-    },
-    {
-      q: "What is the difference between a metal and an insulator?",
-      a: "It\u2019s all about the band gap. Electrons in a crystal can only have certain energies (bands), separated by forbidden gaps. In metals, the highest occupied band is partially filled \u2014 electrons can move freely (conductors). In insulators, the band is completely full with a large gap above it \u2014 electrons are stuck. Semiconductors have a small gap that can be crossed with a little energy (heat, light). DFT calculates these band structures from first principles.",
-      color: D.basis,
-    },
-    {
-      q: "Why do different elements have different properties?",
-      a: "It comes down to electron configuration. Each element has a different number of protons, which means a different number of electrons, which fill orbitals in a specific order (Aufbau principle). The outermost (valence) electrons determine bonding, reactivity, and material properties. DFT solves for these configurations self-consistently, predicting properties without experimental input.",
-      color: D.warm,
-    },
-    {
-      q: "What is a crystal, and why does periodicity matter for DFT?",
-      a: "A crystal is a solid where atoms repeat in a regular 3D pattern. This periodicity is a huge simplification: instead of solving for 10\u00B2\u00B3 atoms, you only solve for the atoms in one unit cell (maybe 2-50 atoms). Bloch\u2019s theorem says electron wavefunctions in a periodic potential are also periodic (times a plane wave). This lets you use plane-wave basis sets and k-point sampling \u2014 the backbone of solid-state DFT.",
-      color: D.xc,
-    },
-    {
-      q: "Can DFT predict new materials that don\u2019t exist yet?",
-      a: "Yes! This is one of DFT\u2019s most powerful applications. You can build any crystal structure on a computer, run DFT, and predict whether it\u2019s stable, what its band gap would be, how hard it is, etc. \u2014 all before synthesizing it. The Materials Project database has DFT data for >150,000 materials, many predicted computationally before experimental verification.",
-      color: D.accent,
-    },
-    {
-      q: "What is a phonon and why should I care?",
-      a: "A phonon is a quantum of lattice vibration \u2014 atoms in a crystal jiggling around their equilibrium positions. Phonons determine thermal conductivity, heat capacity, and superconductivity. They also tell you if a crystal structure is mechanically stable (no imaginary phonon frequencies). DFT calculates phonons by computing the forces when atoms are slightly displaced, giving you the full vibrational spectrum.",
-      color: D.main,
-    },
-    {
-      q: "What is a pseudopotential and why do we need one?",
-      a: "Core electrons (1s, 2s of heavy atoms) are tightly bound and barely participate in chemistry. But they oscillate wildly near the nucleus, requiring an enormous number of plane waves to describe. A pseudopotential replaces the core electrons with a smooth effective potential that reproduces the same physics for valence electrons. This reduces computation by orders of magnitude while losing almost no accuracy for bonding and material properties.",
-      color: D.eqn,
-    },
-  ];
+function FAQGraph({ children, height }) {
+  return (
+    <svg viewBox={`0 0 400 ${height || 140}`} style={{ width: "100%", maxWidth: 460, display: "block", margin: "10px auto 0", background: "#fafafa", borderRadius: 10, border: "1px solid #e5e7eb" }}>
+      {children}
+    </svg>
+  );
+}
 
+function DFTFAQSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <DFT_ANALOGY_BOX text={"Before diving into the equations, let\u2019s answer the questions that every student asks when they first encounter quantum mechanics and electronic structure. These aren\u2019t silly questions \u2014 they\u2019re the deep foundations that DFT is built upon."} />
-      {faqs.map((faq, i) => (
-        <Card key={i} title={faq.q} color={faq.color}>
-          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>{faq.a}</div>
-        </Card>
-      ))}
+
+      {/* 1. Why doesn't electron fall */}
+      <Card title={"Why doesn\u2019t the electron fall into the nucleus?"} color={D.main}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Classical physics says opposite charges should collapse together. But quantum mechanics says electrons are waves. Confining a wave to a tiny space requires enormous kinetic energy (Heisenberg uncertainty principle). The electron settles where attraction balances the kinetic cost of confinement.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.main, fontWeight: 700 }}>{"\u0394"}x {"\u00B7"} {"\u0394"}p {"\u2265"} {"\u0127"}/2</span>
+          <span style={{ color: T.muted, marginLeft: 12 }}>(Heisenberg uncertainty)</span><br /><br />
+          <span style={{ color: D.eqn }}>E_total = T_kinetic + V_coulomb</span><br />
+          <span style={{ color: D.eqn }}>E(r) = {"\u0127\u00B2"}/(2m r{"\u00B2"}) {"\u2212"} e{"\u00B2"}/r</span><br /><br />
+          <span style={{ color: D.accent }}>Minimum at r = a{"\u2080"} = 0.529 {"\u00C5"} (Bohr radius)</span>
+        </div>
+        <FAQGraph height={160}>
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.main} fontWeight="700">Energy vs Distance from Nucleus (Hydrogen)</text>
+          {/* Axes */}
+          <line x1={50} y1={130} x2={380} y2={130} stroke="#9ca3af" strokeWidth={1} />
+          <line x1={50} y1={15} x2={50} y2={130} stroke="#9ca3af" strokeWidth={1} />
+          <text x={215} y={150} textAnchor="middle" fontSize={10} fill="#6b7280">Distance r ({"\u00C5"})</text>
+          <text x={15} y={75} textAnchor="middle" fontSize={10} fill="#6b7280" transform="rotate(-90,15,75)">Energy (eV)</text>
+          {/* Zero line */}
+          <line x1={50} y1={55} x2={380} y2={55} stroke="#9ca3af" strokeWidth={0.5} strokeDasharray="4,4" />
+          <text x={385} y={59} fontSize={9} fill="#9ca3af">0</text>
+          {/* Kinetic (1/r²) */}
+          {Array.from({length: 60}, (_, i) => {
+            const r = 0.2 + i * 0.08;
+            const x = 50 + (r / 5) * 330;
+            const ek = 13.6 / (r * r) * 0.5;
+            const y = 55 - Math.min(ek * 2.5, 38);
+            return i > 0 ? null : undefined;
+          })}
+          <polyline fill="none" stroke={D.main} strokeWidth={2} opacity={0.8}
+            points={Array.from({length: 50}, (_, i) => {
+              const r = 0.3 + i * 0.09;
+              const x = 50 + (r / 5) * 330;
+              const ek = 13.6 / (r * r) * 0.4;
+              const y = Math.max(20, 55 - ek * 2.5);
+              return `${x},${y}`;
+            }).join(" ")} />
+          {/* Coulomb (-1/r) */}
+          <polyline fill="none" stroke={D.warn} strokeWidth={2} opacity={0.8}
+            points={Array.from({length: 50}, (_, i) => {
+              const r = 0.3 + i * 0.09;
+              const x = 50 + (r / 5) * 330;
+              const ev = -13.6 / r * 0.4;
+              const y = Math.min(125, 55 - ev * 2.5);
+              return `${x},${y}`;
+            }).join(" ")} />
+          {/* Total E */}
+          <polyline fill="none" stroke={D.xc} strokeWidth={2.5}
+            points={Array.from({length: 50}, (_, i) => {
+              const r = 0.3 + i * 0.09;
+              const x = 50 + (r / 5) * 330;
+              const et = 13.6 / (r * r) * 0.4 - 13.6 / r * 0.4;
+              const y = 55 - et * 2.5;
+              return `${Math.min(x, 380)},${Math.max(20, Math.min(125, y))}`;
+            }).join(" ")} />
+          {/* Minimum marker */}
+          <circle cx={50 + (0.529 / 5) * 330} cy={80} r={5} fill={D.accent} />
+          <text x={50 + (0.529 / 5) * 330 + 8} y={78} fontSize={9} fill={D.accent} fontWeight="700">a{"\u2080"} = 0.53 {"\u00C5"}</text>
+          {/* Legend */}
+          <line x1={240} y1={25} x2={260} y2={25} stroke={D.main} strokeWidth={2} />
+          <text x={264} y={29} fontSize={9} fill={D.main}>Kinetic</text>
+          <line x1={310} y1={25} x2={330} y2={25} stroke={D.warn} strokeWidth={2} />
+          <text x={334} y={29} fontSize={9} fill={D.warn}>Coulomb</text>
+          <line x1={240} y1={39} x2={260} y2={39} stroke={D.xc} strokeWidth={2.5} />
+          <text x={264} y={43} fontSize={9} fill={D.xc}>Total</text>
+        </FAQGraph>
+      </Card>
+
+      {/* 2. What is an orbital */}
+      <Card title={"What actually IS an electron orbital?"} color={D.eqn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          An orbital is a probability map \u2014 it tells you the likelihood of finding the electron at each point. The 1s orbital is a fuzzy sphere, densest at the nucleus. Higher orbitals have nodes (zero-probability surfaces).
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>{"\u03C8"}_{"\u2081\u209B"}(r) = (1/{"\u221A\u03C0"}) (1/a{"\u2080"}){"\u00B3\u02F2"} e{"\u207B\u02B3\u02F0\u1D43\u2080"}</span><br /><br />
+          <span style={{ color: T.muted }}>Probability density: P(r) = |{"\u03C8"}(r)|{"\u00B2"} = (1/{"\u03C0"}a{"\u2080\u00B3"}) e{"\u207B\u00B2\u02B3\u02F0\u1D43\u2080"}</span><br />
+          <span style={{ color: D.accent }}>Radial probability: 4{"\u03C0"}r{"\u00B2"}|{"\u03C8"}|{"\u00B2"} peaks at r = a{"\u2080"}</span>
+        </div>
+        <FAQGraph height={150}>
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.eqn} fontWeight="700">Radial Probability Distribution</text>
+          <line x1={50} y1={130} x2={380} y2={130} stroke="#9ca3af" strokeWidth={1} />
+          <line x1={50} y1={15} x2={50} y2={130} stroke="#9ca3af" strokeWidth={1} />
+          <text x={215} y={148} textAnchor="middle" fontSize={10} fill="#6b7280">r / a{"\u2080"}</text>
+          <text x={15} y={75} textAnchor="middle" fontSize={10} fill="#6b7280" transform="rotate(-90,15,75)">4{"\u03C0"}r{"\u00B2"}|{"\u03C8"}|{"\u00B2"}</text>
+          {/* 1s orbital */}
+          <polyline fill="none" stroke={D.eqn} strokeWidth={2.5}
+            points={Array.from({length: 60}, (_, i) => {
+              const r = i * 0.12;
+              const x = 50 + r * 45;
+              const p = 4 * r * r * Math.exp(-2 * r);
+              const y = 130 - p * 240;
+              return `${x},${Math.max(22, y)}`;
+            }).join(" ")} />
+          {/* 2s orbital */}
+          <polyline fill="none" stroke={D.accent} strokeWidth={2} strokeDasharray="6,3"
+            points={Array.from({length: 60}, (_, i) => {
+              const r = i * 0.12;
+              const x = 50 + r * 45;
+              const p2s = r * r * Math.pow(2 - r, 2) * Math.exp(-r) * 0.125;
+              const y = 130 - p2s * 240;
+              return `${x},${Math.max(22, Math.min(130, y))}`;
+            }).join(" ")} />
+          <circle cx={50 + 1 * 45} cy={130 - 4 * 1 * Math.exp(-2) * 240} r={4} fill={D.eqn} />
+          <text x={50 + 1 * 45 + 8} y={130 - 4 * 1 * Math.exp(-2) * 240 - 4} fontSize={9} fill={D.eqn} fontWeight="700">1s peak at a{"\u2080"}</text>
+          <line x1={260} y1={25} x2={280} y2={25} stroke={D.eqn} strokeWidth={2.5} />
+          <text x={284} y={29} fontSize={9} fill={D.eqn}>1s</text>
+          <line x1={310} y1={25} x2={330} y2={25} stroke={D.accent} strokeWidth={2} strokeDasharray="6,3" />
+          <text x={334} y={29} fontSize={9} fill={D.accent}>2s</text>
+        </FAQGraph>
+      </Card>
+
+      {/* 3. Why can't we solve exactly */}
+      <Card title={"Why can\u2019t we just solve the Schr\u00F6dinger equation exactly?"} color={D.warn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          For hydrogen (1 electron) we can solve exactly. For helium (2 electrons) it{"\u2019"}s already approximate. The problem: electron-electron repulsion couples all electrons. For N electrons, the wavefunction needs 3N dimensions.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warn, fontWeight: 700 }}>{"\u0124\u03A8"} = E{"\u03A8"}</span>
+          <span style={{ color: T.muted, marginLeft: 12 }}>where {"\u03A8"} = {"\u03A8"}(r{"\u2081"}, r{"\u2082"}, ... r_N)</span><br /><br />
+          <span style={{ color: D.warn }}>Storage needed: ~M{"\u00B3\u1D3A"} numbers (M grid points per dimension)</span><br /><br />
+          <span style={{ color: T.muted }}>N=1: M{"\u00B3"} {"\u2248"} 10{"\u2076"} {"\u2192"} easy</span><br />
+          <span style={{ color: T.muted }}>N=2: M{"\u2076"} {"\u2248"} 10{"\u00B9\u00B2"} {"\u2192"} hard</span><br />
+          <span style={{ color: D.warn }}>N=10: M{"\u00B3\u2070"} {"\u2248"} 10{"\u2076\u2070"} {"\u2192"} more than atoms in universe!</span>
+        </div>
+        <FAQGraph height={140}>
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.warn} fontWeight="700">Computational Cost vs Number of Electrons</text>
+          <line x1={60} y1={120} x2={380} y2={120} stroke="#9ca3af" strokeWidth={1} />
+          <line x1={60} y1={15} x2={60} y2={120} stroke="#9ca3af" strokeWidth={1} />
+          <text x={220} y={137} textAnchor="middle" fontSize={10} fill="#6b7280">Number of electrons N</text>
+          <text x={18} y={70} textAnchor="middle" fontSize={10} fill="#6b7280" transform="rotate(-90,18,70)">log(cost)</text>
+          {/* Exact (exponential) */}
+          <polyline fill="none" stroke={D.warn} strokeWidth={2.5}
+            points={Array.from({length: 8}, (_, i) => {
+              const n = i + 1;
+              const x = 60 + i * 40;
+              const y = 115 - Math.min(100, Math.pow(1.8, n) * 2);
+              return `${x},${Math.max(18, y)}`;
+            }).join(" ")} />
+          {/* DFT (N³) */}
+          <polyline fill="none" stroke={D.basis} strokeWidth={2.5}
+            points={Array.from({length: 8}, (_, i) => {
+              const n = i + 1;
+              const x = 60 + i * 40;
+              const y = 115 - Math.pow(n, 3) * 0.18;
+              return `${x},${Math.max(18, y)}`;
+            }).join(" ")} />
+          {[1,2,3,4,5,6,7,8].map((n, i) => (
+            <text key={i} x={60 + i * 40} y={130} textAnchor="middle" fontSize={8} fill="#9ca3af">{n}</text>
+          ))}
+          <line x1={240} y1={25} x2={260} y2={25} stroke={D.warn} strokeWidth={2.5} />
+          <text x={264} y={29} fontSize={9} fill={D.warn}>Exact (exponential)</text>
+          <line x1={240} y1={39} x2={260} y2={39} stroke={D.basis} strokeWidth={2.5} />
+          <text x={264} y={43} fontSize={9} fill={D.basis}>DFT (polynomial)</text>
+        </FAQGraph>
+      </Card>
+
+      {/* 4. What is a wavefunction */}
+      <Card title={"What is a wavefunction, really?"} color={D.xc}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          A mathematical object {"\u03A8"}(r) encoding everything about a quantum particle. Its square |{"\u03A8"}|{"\u00B2"} gives the probability density. DFT{"\u2019"}s key insight: you don{"\u2019"}t need {"\u03A8"} directly \u2014 the electron density n(r) contains all ground-state physics.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.xc, fontWeight: 700 }}>Born rule: P(r) = |{"\u03A8"}(r)|{"\u00B2"}</span><br /><br />
+          <span style={{ color: T.muted }}>Normalization: {"\u222B"}|{"\u03A8"}|{"\u00B2"} dr = 1 (electron is somewhere!)</span><br /><br />
+          <span style={{ color: D.xc }}>DFT density: n(r) = {"\u03A3"}_i f_i |{"\u03C6"}_i(r)|{"\u00B2"}</span><br />
+          <span style={{ color: T.muted }}>Sum of occupied orbital densities = total electron density</span>
+        </div>
+        <FAQGraph height={120}>
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.xc} fontWeight="700">{"\u03A8"}(x) and |{"\u03A8"}|{"\u00B2"}(x) for a particle in a box</text>
+          <line x1={40} y1={100} x2={360} y2={100} stroke="#9ca3af" strokeWidth={1} />
+          {/* Psi */}
+          <polyline fill="none" stroke={D.xc} strokeWidth={2}
+            points={Array.from({length: 80}, (_, i) => {
+              const x = 40 + i * 4;
+              const t = i / 79;
+              const psi = Math.sin(Math.PI * t) * 50;
+              return `${x},${65 - psi}`;
+            }).join(" ")} />
+          {/* |Psi|^2 */}
+          <polyline fill="none" stroke={D.accent} strokeWidth={2} strokeDasharray="6,3"
+            points={Array.from({length: 80}, (_, i) => {
+              const x = 40 + i * 4;
+              const t = i / 79;
+              const p2 = Math.pow(Math.sin(Math.PI * t), 2) * 50;
+              return `${x},${95 - p2}`;
+            }).join(" ")} />
+          {/* Walls */}
+          <line x1={40} y1={20} x2={40} y2={100} stroke="#374151" strokeWidth={3} />
+          <line x1={360} y1={20} x2={360} y2={100} stroke="#374151" strokeWidth={3} />
+          <text x={200} y={112} textAnchor="middle" fontSize={9} fill="#6b7280">position x</text>
+          <line x1={100} y1={25} x2={120} y2={25} stroke={D.xc} strokeWidth={2} />
+          <text x={124} y={29} fontSize={9} fill={D.xc}>{"\u03A8"}(x)</text>
+          <line x1={180} y1={25} x2={200} y2={25} stroke={D.accent} strokeWidth={2} strokeDasharray="6,3" />
+          <text x={204} y={29} fontSize={9} fill={D.accent}>|{"\u03A8"}|{"\u00B2"} (probability)</text>
+        </FAQGraph>
+      </Card>
+
+      {/* 5. Electron spin */}
+      <Card title={"What is electron spin and why does it matter?"} color={D.basis}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Electrons have intrinsic spin: {"\u2191"} (up) or {"\u2193"} (down). The Pauli exclusion principle says no two electrons can have the same quantum numbers. This forces electrons into higher orbitals, building the periodic table.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.basis, fontWeight: 700 }}>Pauli principle: {"\u03A8"}(r{"\u2081"}{"\u2191"}, r{"\u2082"}{"\u2191"}) = {"\u2212"}{"\u03A8"}(r{"\u2082"}{"\u2191"}, r{"\u2081"}{"\u2191"})</span><br /><br />
+          <span style={{ color: T.muted }}>If r{"\u2081"} = r{"\u2082"} and same spin: {"\u03A8"} = {"\u2212"}{"\u03A8"} {"\u2192"} {"\u03A8"} = 0!</span><br />
+          <span style={{ color: D.basis }}>Same-spin electrons can NEVER be at the same place.</span><br /><br />
+          <span style={{ color: D.accent }}>Each orbital holds max 2 electrons: one {"\u2191"}, one {"\u2193"}</span>
+        </div>
+        <FAQGraph height={110}>
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.basis} fontWeight="700">Orbital Filling (Carbon, Z=6)</text>
+          {/* Energy levels */}
+          {[
+            { label: "1s", y: 88, occ: ["\u2191", "\u2193"] },
+            { label: "2s", y: 62, occ: ["\u2191", "\u2193"] },
+            { label: "2p", y: 36, occ: ["\u2191", "\u2191"], extra: 1 },
+          ].map((lv, li) => (
+            <g key={li}>
+              <line x1={120} y1={lv.y} x2={280} y2={lv.y} stroke={D.basis + "40"} strokeWidth={2} />
+              <text x={105} y={lv.y + 4} textAnchor="end" fontSize={11} fill={D.basis} fontWeight="700">{lv.label}</text>
+              {lv.occ.map((s, si) => (
+                <text key={si} x={170 + si * 30 + (lv.extra ? si * 20 : 0)} y={lv.y - 4} textAnchor="middle" fontSize={16} fill={s === "\u2191" ? D.main : D.warn} fontWeight="700">{s}</text>
+              ))}
+              {lv.extra && <line x1={210} y1={lv.y} x2={280} y2={lv.y} stroke={D.basis + "20"} strokeWidth={2} strokeDasharray="4,3" />}
+            </g>
+          ))}
+          <text x={310} y={40} fontSize={9} fill={D.accent} fontWeight="600">2p: Hund{"'"}s rule</text>
+          <text x={310} y={52} fontSize={9} fill={T.muted}>fill parallel spins first</text>
+        </FAQGraph>
+      </Card>
+
+      {/* 6. Band gaps */}
+      <Card title={"Why does DFT underestimate band gaps?"} color={D.warm}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          DFT is for ground-state properties. Band gaps involve excited states. Self-interaction error in LDA/GGA pushes occupied states up and empty states down, shrinking the gap. Hybrid functionals or GW correct this.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>E_gap = E_CBM {"\u2212"} E_VBM</span><br /><br />
+          <span style={{ color: T.muted }}>KS eigenvalues {"\u2260"} true quasiparticle energies</span><br />
+          <span style={{ color: D.warm }}>PBE gap {"\u2248"} 50-70% of experiment (systematic error)</span><br />
+          <span style={{ color: D.xc }}>HSE06 gap {"\u2248"} 90-100% of experiment</span>
+        </div>
+        <FAQGraph height={130}>
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.warm} fontWeight="700">Band Gap: DFT vs Experiment</text>
+          {/* Bar chart */}
+          {[
+            { mat: "Si", pbe: 0.61, hse: 1.14, exp: 1.17 },
+            { mat: "GaAs", pbe: 0.47, hse: 1.32, exp: 1.42 },
+            { mat: "CdTe", pbe: 0.63, hse: 1.52, exp: 1.48 },
+            { mat: "ZnO", pbe: 0.81, hse: 2.49, exp: 3.37 },
+          ].map((d, i) => {
+            const bx = 60 + i * 85;
+            const scale = 28;
+            return (
+              <g key={i}>
+                <rect x={bx} y={110 - d.pbe * scale} width={18} height={d.pbe * scale} fill={D.warn} rx={2} opacity={0.8} />
+                <rect x={bx + 22} y={110 - d.hse * scale} width={18} height={d.hse * scale} fill={D.xc} rx={2} opacity={0.8} />
+                <rect x={bx + 44} y={110 - d.exp * scale} width={18} height={d.exp * scale} fill={D.basis} rx={2} opacity={0.8} />
+                <text x={bx + 31} y={122} textAnchor="middle" fontSize={10} fill="#374151" fontWeight="700">{d.mat}</text>
+              </g>
+            );
+          })}
+          <line x1={50} y1={110} x2={390} y2={110} stroke="#9ca3af" strokeWidth={1} />
+          {/* Legend */}
+          <rect x={60} y={24} width={10} height={10} fill={D.warn} rx={2} />
+          <text x={74} y={33} fontSize={9} fill={D.warn}>PBE</text>
+          <rect x={110} y={24} width={10} height={10} fill={D.xc} rx={2} />
+          <text x={124} y={33} fontSize={9} fill={D.xc}>HSE06</text>
+          <rect x={170} y={24} width={10} height={10} fill={D.basis} rx={2} />
+          <text x={184} y={33} fontSize={9} fill={D.basis}>Expt.</text>
+        </FAQGraph>
+      </Card>
+
+      {/* 7. Exchange and correlation */}
+      <Card title={"What is exchange and correlation in plain English?"} color={D.accent}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Exchange: same-spin electrons avoid each other (Pauli), carving an {"\u201C"}exchange hole{"\u201D"}. Correlation: ALL electrons avoid each other dynamically. Together, XC is the quantum correction to classical repulsion.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>E_xc[n] = E_x[n] + E_c[n]</span><br /><br />
+          <span style={{ color: D.main }}>Exchange: E_x = {"\u2212"}{"\u00BD"}{"\u222B\u222B"} |{"\u03B3"}(r,r{"\u2019"})|{"\u00B2"} / |r{"\u2212"}r{"\u2019"}| dr dr{"\u2019"}</span><br />
+          <span style={{ color: T.muted }}>(same-spin avoidance, purely quantum, ~90% of E_xc)</span><br /><br />
+          <span style={{ color: D.xc }}>Correlation: E_c = E_exact {"\u2212"} E_HF</span><br />
+          <span style={{ color: T.muted }}>(remaining many-body effects, ~10% of E_xc but chemically important)</span>
+        </div>
+        <FAQGraph height={120}>
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.accent} fontWeight="700">Exchange-Correlation Hole Around an Electron</text>
+          {/* Electron at center */}
+          <circle cx={200} cy={65} r={6} fill={D.main} />
+          <text x={200} y={69} textAnchor="middle" fontSize={7} fill="#fff" fontWeight="800">e{"\u207B"}</text>
+          {/* Exchange hole (same spin depletion) */}
+          <circle cx={200} cy={65} r={40} fill="none" stroke={D.accent} strokeWidth={2} strokeDasharray="6,3" />
+          <circle cx={200} cy={65} r={60} fill="none" stroke={D.accent} strokeWidth={1} strokeDasharray="4,4" opacity={0.4} />
+          {/* Other electrons pushed away */}
+          {[45, 100, 155, 210, 265, 320].map((a, i) => {
+            const rad = (a * Math.PI) / 180;
+            const r = 55 + (i % 2) * 20;
+            const ex = 200 + r * Math.cos(rad);
+            const ey = 65 + r * Math.sin(rad) * 0.6;
+            return (
+              <g key={i}>
+                <circle cx={ex} cy={ey} r={4} fill={i < 3 ? D.main : D.warn} opacity={0.7} />
+                <text x={ex} y={ey + 3} textAnchor="middle" fontSize={6} fill="#fff" fontWeight="700">e{"\u207B"}</text>
+              </g>
+            );
+          })}
+          <text x={200} y={112} textAnchor="middle" fontSize={9} fill={D.accent}>Exchange hole: depleted region around each electron</text>
+        </FAQGraph>
+      </Card>
+
+      {/* 8. System size */}
+      <Card title={"How big a system can DFT handle?"} color={D.main}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Standard DFT scales as O(N{"\u00B3"}) with electrons. ~100 atoms is routine, ~1,000 feasible, beyond that you need MLFF or classical potentials.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.main, fontWeight: 700 }}>Cost {"\u221D"} N{"\u00B3"}_electrons {"\u00D7"} N_kpoints {"\u00D7"} N_SCF</span><br /><br />
+          <span style={{ color: T.muted }}>PBE: ~100 atoms in minutes, ~1000 in hours</span><br />
+          <span style={{ color: D.warm }}>HSE06: 10-100{"\u00D7"} more expensive (exact exchange)</span><br />
+          <span style={{ color: D.xc }}>GW: 1000{"\u00D7"} more (many-body perturbation)</span>
+        </div>
+        <FAQGraph height={130}>
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.main} fontWeight="700">DFT Cost Scaling by Method</text>
+          <line x1={60} y1={110} x2={380} y2={110} stroke="#9ca3af" strokeWidth={1} />
+          <line x1={60} y1={15} x2={60} y2={110} stroke="#9ca3af" strokeWidth={1} />
+          <text x={220} y={128} textAnchor="middle" fontSize={10} fill="#6b7280">System size (atoms)</text>
+          {/* PBE N³ */}
+          <polyline fill="none" stroke={D.basis} strokeWidth={2.5}
+            points={Array.from({length: 7}, (_, i) => {
+              const n = (i + 1) * 50;
+              const x = 60 + i * 48;
+              const y = 105 - Math.pow((i + 1) / 7, 3) * 85;
+              return `${x},${y}`;
+            }).join(" ")} />
+          {/* HSE06 */}
+          <polyline fill="none" stroke={D.warm} strokeWidth={2} strokeDasharray="6,3"
+            points={Array.from({length: 5}, (_, i) => {
+              const x = 60 + i * 48;
+              const y = 105 - Math.pow((i + 1) / 5, 3) * 85;
+              return `${x},${y}`;
+            }).join(" ")} />
+          {[50, 100, 150, 200, 250, 300, 350].map((n, i) => (
+            <text key={i} x={60 + i * 48} y={120} textAnchor="middle" fontSize={8} fill="#9ca3af">{n}</text>
+          ))}
+          <line x1={250} y1={25} x2={270} y2={25} stroke={D.basis} strokeWidth={2.5} />
+          <text x={274} y={29} fontSize={9} fill={D.basis}>PBE</text>
+          <line x1={250} y1={39} x2={270} y2={39} stroke={D.warm} strokeWidth={2} strokeDasharray="6,3" />
+          <text x={274} y={43} fontSize={9} fill={D.warm}>HSE06</text>
+        </FAQGraph>
+      </Card>
+
+      {/* 9. Atoms empty space */}
+      <Card title={"Why are atoms mostly empty space?"} color={D.eqn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The nucleus is ~10{"\u207B\u00B9\u2075"} m, the electron cloud ~10{"\u207B\u00B9\u2070"} m. That{"\u2019"}s a factor of 100,000. If the nucleus were a marble, the atom would be a football stadium. DFT computes this cloud.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>r_nucleus {"\u2248"} 10{"\u207B\u00B9\u2075"} m = 1 fm</span><br />
+          <span style={{ color: D.eqn }}>r_atom {"\u2248"} 10{"\u207B\u00B9\u2070"} m = 1 {"\u00C5"}</span><br /><br />
+          <span style={{ color: D.accent }}>Ratio: r_atom / r_nucleus {"\u2248"} 100,000</span><br />
+          <span style={{ color: T.muted }}>Volume ratio: (10{"\u2075"}){"\u00B3"} = 10{"\u00B9\u2075"} {"\u2192"} atom is 99.9999999999999% empty!</span>
+        </div>
+      </Card>
+
+      {/* 10. Metal vs insulator */}
+      <Card title={"What is the difference between a metal and an insulator?"} color={D.basis}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          It{"\u2019"}s all about the band gap. Metals have partially filled bands (electrons move freely). Insulators have a large gap. Semiconductors have a small gap crossable by heat or light.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.basis, fontWeight: 700 }}>E_gap = E_CBM {"\u2212"} E_VBM</span><br /><br />
+          <span style={{ color: D.main }}>Metal: E_gap = 0 (partially filled band)</span><br />
+          <span style={{ color: D.accent }}>Semiconductor: E_gap = 0.5{"\u2013"}3 eV (Si: 1.1 eV)</span><br />
+          <span style={{ color: D.warn }}>Insulator: E_gap {">"} 3 eV (diamond: 5.5 eV)</span>
+        </div>
+        <FAQGraph height={130}>
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.basis} fontWeight="700">Band Structure: Metal vs Semiconductor vs Insulator</text>
+          {[
+            { label: "Metal", x: 55, gap: 0, col: D.main },
+            { label: "Semiconductor", x: 175, gap: 20, col: D.accent },
+            { label: "Insulator", x: 295, gap: 45, col: D.warn },
+          ].map((m, i) => (
+            <g key={i}>
+              {/* Valence band */}
+              <rect x={m.x} y={75} width={80} height={35} fill={m.col} opacity={0.3} rx={3} />
+              <rect x={m.x} y={75} width={80} height={35} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
+              <text x={m.x + 40} y={96} textAnchor="middle" fontSize={8} fill={m.col} fontWeight="600">VB (filled)</text>
+              {/* Conduction band */}
+              <rect x={m.x} y={75 - m.gap - 30} width={80} height={30} fill={m.col} opacity={0.1} rx={3} />
+              <rect x={m.x} y={75 - m.gap - 30} width={80} height={30} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} strokeDasharray={m.gap > 0 ? "0" : "4,3"} />
+              <text x={m.x + 40} y={75 - m.gap - 12} textAnchor="middle" fontSize={8} fill={m.col}>CB (empty)</text>
+              {/* Gap label */}
+              {m.gap > 0 && <>
+                <line x1={m.x + 40} y1={75} x2={m.x + 40} y2={75 - m.gap} stroke={m.col} strokeWidth={1.5} />
+                <text x={m.x + 55} y={75 - m.gap / 2 + 3} fontSize={8} fill={m.col} fontWeight="700">{m.gap === 20 ? "~1 eV" : ">3 eV"}</text>
+              </>}
+              {m.gap === 0 && <text x={m.x + 40} y={68} textAnchor="middle" fontSize={8} fill={m.col} fontWeight="700">no gap</text>}
+              <text x={m.x + 40} y={120} textAnchor="middle" fontSize={10} fill="#374151" fontWeight="700">{m.label}</text>
+            </g>
+          ))}
+        </FAQGraph>
+      </Card>
+
+      {/* 11. Element properties */}
+      <Card title={"Why do different elements have different properties?"} color={D.warm}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Each element has a different number of protons {"\u2192"} different electrons {"\u2192"} different orbital filling. Valence electrons determine bonding and properties. DFT solves for these configurations self-consistently.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>Aufbau filling order:</span><br />
+          <span style={{ color: D.eqn }}>1s{"\u00B2"} 2s{"\u00B2"} 2p{"\u2076"} 3s{"\u00B2"} 3p{"\u2076"} 4s{"\u00B2"} 3d{"\u00B9\u2070"} ...</span><br /><br />
+          <span style={{ color: T.muted }}>Na: [Ne] 3s{"\u00B9"} {"\u2192"} 1 valence e{"\u207B"} {"\u2192"} metal, reactive</span><br />
+          <span style={{ color: T.muted }}>Si: [Ne] 3s{"\u00B2"}3p{"\u00B2"} {"\u2192"} 4 valence e{"\u207B"} {"\u2192"} semiconductor</span><br />
+          <span style={{ color: T.muted }}>Ar: [Ne] 3s{"\u00B2"}3p{"\u2076"} {"\u2192"} full shell {"\u2192"} noble gas</span>
+        </div>
+      </Card>
+
+      {/* 12. Crystal periodicity */}
+      <Card title={"What is a crystal, and why does periodicity matter for DFT?"} color={D.xc}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          A crystal repeats atoms in a regular 3D pattern. Instead of solving for 10{"\u00B2\u00B3"} atoms, you solve for one unit cell. Bloch{"\u2019"}s theorem exploits this periodicity.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.xc, fontWeight: 700 }}>Bloch{"'"}s theorem: {"\u03C8"}_nk(r) = e{"\u2071\u1D4F\u00B7\u02B3"} u_nk(r)</span><br /><br />
+          <span style={{ color: T.muted }}>u_nk(r) has the periodicity of the crystal lattice</span><br />
+          <span style={{ color: D.xc }}>k = crystal momentum (lives in the Brillouin zone)</span><br /><br />
+          <span style={{ color: D.accent }}>Result: solve for one unit cell, get all 10{"\u00B2\u00B3"} atoms for free!</span>
+        </div>
+      </Card>
+
+      {/* 13. Predicting new materials */}
+      <Card title={"Can DFT predict new materials that don\u2019t exist yet?"} color={D.accent}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Yes! Build any structure on a computer, run DFT, predict stability, band gap, hardness \u2014 all before synthesis. The Materials Project has DFT data for {">"}150,000 materials.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>{"\u0394"}H_f = E_compound {"\u2212"} {"\u03A3"} E_elements</span><br /><br />
+          <span style={{ color: T.muted }}>{"\u0394"}H_f {"<"} 0 {"\u2192"} thermodynamically stable</span><br />
+          <span style={{ color: T.muted }}>{"\u0394"}H_f {">"} 0 {"\u2192"} may decompose</span><br /><br />
+          <span style={{ color: D.accent }}>Convex hull: points below = stable phases</span><br />
+          <span style={{ color: D.accent }}>Points above = will decompose into neighbors</span>
+        </div>
+      </Card>
+
+      {/* 14. Phonons */}
+      <Card title={"What is a phonon and why should I care?"} color={D.main}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          A phonon is a quantum of lattice vibration. Phonons determine thermal conductivity, heat capacity, and structural stability. Imaginary frequencies = unstable structure.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.main, fontWeight: 700 }}>F_i = {"\u2212"}{"\u2202"}E/{"\u2202"}R_i (forces from DFT)</span><br /><br />
+          <span style={{ color: T.muted }}>Dynamical matrix: D_ij = {"\u2202\u00B2"}E / {"\u2202"}R_i{"\u2202"}R_j</span><br />
+          <span style={{ color: D.main }}>Eigenvalues of D {"\u2192"} {"\u03C9\u00B2"} (phonon frequencies)</span><br /><br />
+          <span style={{ color: D.xc }}>{"\u03C9\u00B2"} {">"} 0 everywhere {"\u2192"} structure is stable</span><br />
+          <span style={{ color: D.warn }}>{"\u03C9\u00B2"} {"<"} 0 (imaginary) {"\u2192"} structure is unstable!</span>
+        </div>
+        <FAQGraph height={120}>
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.main} fontWeight="700">Phonon Dispersion (Stable vs Unstable)</text>
+          <line x1={40} y1={60} x2={360} y2={60} stroke="#9ca3af" strokeWidth={0.5} strokeDasharray="4,4" />
+          <line x1={40} y1={100} x2={360} y2={100} stroke="#9ca3af" strokeWidth={1} />
+          <text x={385} y={64} fontSize={8} fill="#9ca3af">{"\u03C9"}=0</text>
+          {/* Stable branches */}
+          <polyline fill="none" stroke={D.xc} strokeWidth={2}
+            points={Array.from({length: 50}, (_, i) => {
+              const x = 40 + i * 6.4;
+              const t = i / 49;
+              const y = 60 - Math.abs(Math.sin(t * Math.PI)) * 35;
+              return `${x},${y}`;
+            }).join(" ")} />
+          <polyline fill="none" stroke={D.xc} strokeWidth={2} opacity={0.6}
+            points={Array.from({length: 50}, (_, i) => {
+              const x = 40 + i * 6.4;
+              const t = i / 49;
+              const y = 60 - Math.abs(Math.sin(t * Math.PI * 0.5)) * 22;
+              return `${x},${y}`;
+            }).join(" ")} />
+          {/* Unstable (imaginary) branch */}
+          <polyline fill="none" stroke={D.warn} strokeWidth={2} strokeDasharray="5,3"
+            points={Array.from({length: 25}, (_, i) => {
+              const x = 40 + i * 6.4;
+              const t = i / 24;
+              const y = 60 + Math.sin(t * Math.PI) * 20;
+              return `${x},${y}`;
+            }).join(" ")} />
+          <text x={100} y={90} fontSize={9} fill={D.warn} fontWeight="700">imaginary {"\u2192"} unstable!</text>
+          <text x={300} y={30} fontSize={9} fill={D.xc} fontWeight="700">real {"\u2192"} stable</text>
+          <text x={40} y={110} fontSize={9} fill="#6b7280">{"\u0393"}</text>
+          <text x={200} y={110} fontSize={9} fill="#6b7280">K</text>
+          <text x={360} y={110} fontSize={9} fill="#6b7280">{"\u0393"}</text>
+        </FAQGraph>
+      </Card>
+
+      {/* 15. Pseudopotential */}
+      <Card title={"What is a pseudopotential and why do we need one?"} color={D.eqn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Core electrons barely participate in chemistry but oscillate wildly near nuclei. A pseudopotential replaces them with a smooth effective potential, reducing computation by orders of magnitude.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>V_ps(r) = V_eff(r) for r {">"} r_c</span><br />
+          <span style={{ color: T.muted }}>r_c = cutoff radius (typically 1-2 a.u.)</span><br /><br />
+          <span style={{ color: D.eqn }}>Inside r_c: smooth, no wild oscillations</span><br />
+          <span style={{ color: D.eqn }}>Outside r_c: matches all-electron exactly</span><br /><br />
+          <span style={{ color: D.accent }}>Reduces E_cut from {">"}10,000 eV to ~400 eV!</span>
+        </div>
+        <FAQGraph height={120}>
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.eqn} fontWeight="700">All-Electron vs Pseudo Wavefunction</text>
+          <line x1={40} y1={70} x2={360} y2={70} stroke="#9ca3af" strokeWidth={0.5} strokeDasharray="4,4" />
+          <line x1={40} y1={105} x2={360} y2={105} stroke="#9ca3af" strokeWidth={1} />
+          <text x={200} y={118} textAnchor="middle" fontSize={9} fill="#6b7280">r (distance from nucleus)</text>
+          {/* AE wavefunction */}
+          <polyline fill="none" stroke={D.warn} strokeWidth={2}
+            points={Array.from({length: 70}, (_, i) => {
+              const r = i / 69;
+              const x = 40 + r * 320;
+              const ae = r < 0.3 ? Math.sin(r * 25) * 25 * Math.exp(-r * 5) : Math.sin(r * 4) * 15 * Math.exp(-(r - 0.3) * 2);
+              return `${x},${70 - ae}`;
+            }).join(" ")} />
+          {/* Pseudo wavefunction */}
+          <polyline fill="none" stroke={D.basis} strokeWidth={2.5} strokeDasharray="6,3"
+            points={Array.from({length: 70}, (_, i) => {
+              const r = i / 69;
+              const x = 40 + r * 320;
+              const ps = Math.sin(r * 3.5) * 14 * Math.exp(-r * 1.5);
+              return `${x},${70 - ps}`;
+            }).join(" ")} />
+          {/* r_c line */}
+          <line x1={40 + 0.3 * 320} y1={20} x2={40 + 0.3 * 320} y2={105} stroke={D.accent} strokeWidth={1.5} strokeDasharray="4,3" />
+          <text x={40 + 0.3 * 320 + 4} y={28} fontSize={9} fill={D.accent} fontWeight="700">r_c</text>
+          <line x1={220} y1={22} x2={240} y2={22} stroke={D.warn} strokeWidth={2} />
+          <text x={244} y={26} fontSize={9} fill={D.warn}>all-electron</text>
+          <line x1={220} y1={34} x2={240} y2={34} stroke={D.basis} strokeWidth={2.5} strokeDasharray="6,3" />
+          <text x={244} y={38} fontSize={9} fill={D.basis}>pseudo (smooth)</text>
+        </FAQGraph>
+      </Card>
     </div>
   );
 }
