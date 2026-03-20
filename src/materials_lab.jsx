@@ -7058,7 +7058,15 @@ function DFTFAQSection() {
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.warm, fontWeight: 700 }}>H_SOC = ξ(r) L·S</span><br /><br />
-          <span style={{ color: T.muted }}>ξ ∝ Z⁴/n³ (increases rapidly with atomic number)</span><br /><br />
+          <span style={{ color: D.warm }}>H_SOC = spin-orbit Hamiltonian (energy from spin-orbit coupling)</span><br />
+          <span style={{ color: D.accent }}>ξ(r) = spin-orbit coupling constant (depends on distance from nucleus)</span><br />
+          <span style={{ color: D.basis }}>L = orbital angular momentum (electron orbiting the nucleus, like a planet around the sun)</span><br />
+          <span style={{ color: D.xc }}>S = spin angular momentum (intrinsic rotation of the electron, either ↑ or ↓)</span><br />
+          <span style={{ color: T.muted }}>L·S = dot product — measures how aligned the orbit and spin are</span><br /><br />
+          <span style={{ color: T.muted }}>ξ ∝ Z⁴/n³ where:</span><br />
+          <span style={{ color: T.muted }}>  Z = atomic number (more protons = stronger nuclear field)</span><br />
+          <span style={{ color: T.muted }}>  n = principal quantum number (which shell: 1s, 2p, 3d...)</span><br />
+          <span style={{ color: D.warm }}>Heavy atoms (large Z) have MUCH stronger SOC: Bi (Z=83) vs C (Z=6)</span><br /><br />
           <span style={{ color: D.warm, fontWeight: 700 }}>When SOC matters:</span><br />
           <span style={{ color: T.muted }}>Topological insulators (Bi₂Se₃: SOC opens the surface gap)</span><br />
           <span style={{ color: T.muted }}>Rashba splitting (heavy metal surfaces/interfaces)</span><br />
