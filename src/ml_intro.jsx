@@ -141,8 +141,8 @@ function WhatIsMLSection() {
     { name: "Reinforcement", desc: "Learn by trial and reward", example: "Optimize synthesis conditions" },
   ];
 
-  const scaleX = (en) => 30 + (en - 1.5) * 400;
-  const scaleY = (r) => 180 - (r - 1.10) * 400;
+  const scaleX = (en) => 50 + (en - 1.5) * 550;
+  const scaleY = (r) => 210 - (r - 1.10) * 450;
 
   return (
     <Card color={C} title="What Is Machine Learning?" formula="f(features) → prediction">
@@ -168,39 +168,50 @@ function WhatIsMLSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={500} height={240} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={170} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Materials Classification Dataset</text>
+            <text x={170} y={16} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Materials Classification Dataset</text>
             {/* Axes */}
             <line x1={30} y1={180} x2={330} y2={180} stroke={T.border} strokeWidth={1} />
             <line x1={30} y1={20} x2={30} y2={180} stroke={T.border} strokeWidth={1} />
-            <text x={180} y={196} textAnchor="middle" fontSize={9} fill={T.muted}>Electronegativity</text>
-            <text x={10} y={100} textAnchor="middle" fontSize={9} fill={T.muted} transform="rotate(-90,10,100)">Atomic Radius (Å)</text>
+            <text x={180} y={196} textAnchor="middle" fontSize={12} fill={T.muted}>Electronegativity</text>
+            <text x={10} y={100} textAnchor="middle" fontSize={12} fill={T.muted} transform="rotate(-90,10,100)">Atomic Radius (Å)</text>
             {/* Axis ticks */}
             {[1.6, 1.8, 2.0, 2.2].map(v => (
               <g key={v}>
                 <line x1={scaleX(v)} y1={180} x2={scaleX(v)} y2={183} stroke={T.dim} />
-                <text x={scaleX(v)} y={192} textAnchor="middle" fontSize={8} fill={T.dim}>{v.toFixed(1)}</text>
+                <text x={scaleX(v)} y={192} textAnchor="middle" fontSize={11} fill={T.dim}>{v.toFixed(1)}</text>
               </g>
             ))}
             {[1.15, 1.25, 1.35, 1.45].map(v => (
               <g key={v}>
                 <line x1={27} y1={scaleY(v)} x2={30} y2={scaleY(v)} stroke={T.dim} />
-                <text x={24} y={scaleY(v) + 3} textAnchor="end" fontSize={8} fill={T.dim}>{v.toFixed(2)}</text>
+                <text x={24} y={scaleY(v) + 3} textAnchor="end" fontSize={11} fill={T.dim}>{v.toFixed(2)}</text>
               </g>
             ))}
             {/* Data points */}
-            {materials.map((m, i) => (
-              <g key={i} onMouseEnter={() => setHighlight(i)} onMouseLeave={() => setHighlight(-1)} style={{ cursor: "pointer" }}>
-                <circle cx={scaleX(m.en)} cy={scaleY(m.radius)} r={highlight === i ? 10 : 7}
-                  fill={m.color + "33"} stroke={m.color} strokeWidth={1.5} />
-                <text x={scaleX(m.en)} y={scaleY(m.radius) - 10} textAnchor="middle"
-                  fontSize={9} fill={m.color} fontWeight={600}>{m.name}</text>
-              </g>
-            ))}
+            {materials.map((m, i) => {
+              const labelOffsets = [
+                { dx: 0, dy: -14 },   // Si — above
+                { dx: 14, dy: -8 },   // Ge — upper right
+                { dx: 14, dy: 4 },    // GaAs — right
+                { dx: -14, dy: -8 },  // Fe — upper left
+                { dx: 14, dy: 10 },   // Cu — lower right (avoid Si)
+                { dx: -14, dy: 10 },  // Al — lower left
+              ];
+              const off = labelOffsets[i] || { dx: 0, dy: -14 };
+              return (
+                <g key={i} onMouseEnter={() => setHighlight(i)} onMouseLeave={() => setHighlight(-1)} style={{ cursor: "pointer" }}>
+                  <circle cx={scaleX(m.en)} cy={scaleY(m.radius)} r={highlight === i ? 10 : 7}
+                    fill={m.color + "33"} stroke={m.color} strokeWidth={1.5} />
+                  <text x={scaleX(m.en) + off.dx} y={scaleY(m.radius) + off.dy} textAnchor="middle"
+                    fontSize={12} fill={m.color} fontWeight={600}>{m.name}</text>
+                </g>
+              );
+            })}
             {/* Legend */}
-            <circle cx={250} cy={35} r={5} fill="#2563eb33" stroke="#2563eb" strokeWidth={1} />
-            <text x={260} y={38} fontSize={9} fill={T.muted}>Semiconductor</text>
-            <circle cx={250} cy={50} r={5} fill="#ea580c33" stroke="#ea580c" strokeWidth={1} />
-            <text x={260} y={53} fontSize={9} fill={T.muted}>Metal</text>
+            <circle cx={380} cy={30} r={5} fill="#2563eb33" stroke="#2563eb" strokeWidth={1} />
+            <text x={392} y={34} fontSize={12} fill={T.muted}>Semiconductor</text>
+            <circle cx={380} cy={50} r={5} fill="#ea580c33" stroke="#ea580c" strokeWidth={1} />
+            <text x={392} y={54} fontSize={12} fill={T.muted}>Metal</text>
           </svg>
 
           {/* Type comparison table */}
@@ -365,7 +376,7 @@ function LinearRegressionSection() {
             {data.map((d, i) => (
               <g key={i}>
                 <circle cx={sx(d.x)} cy={sy(d.y)} r={5} fill={C + "33"} stroke={C} strokeWidth={1.5} />
-                <text x={sx(d.x) + 8} y={sy(d.y) - 4} fontSize={8} fill={C} fontWeight={600}>{d.name}</text>
+                <text x={sx(d.x) + 8} y={sy(d.y) - 4} fontSize={11} fill={C} fontWeight={600}>{d.name}</text>
               </g>
             ))}
           </svg>
@@ -512,7 +523,7 @@ function OverfittingSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Polynomial Degree {degree} Fit</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Polynomial Degree {degree} Fit</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={10} x2={40} y2={svgH - 30} stroke={T.border} />
             {/* True curve y=x² */}
@@ -536,9 +547,9 @@ function OverfittingSection() {
               <circle key={`te${i}`} cx={sx(p.x)} cy={sy(p.y)} r={5} fill="#dc262644" stroke="#dc2626" strokeWidth={1.5} />
             ))}
             <circle cx={250} cy={svgH - 15} r={4} fill={C + "44"} stroke={C} />
-            <text x={258} y={svgH - 12} fontSize={8} fill={T.muted}>Train</text>
+            <text x={258} y={svgH - 12} fontSize={11} fill={T.muted}>Train</text>
             <circle cx={290} cy={svgH - 15} r={4} fill="#dc262644" stroke="#dc2626" />
-            <text x={298} y={svgH - 12} fontSize={8} fill={T.muted}>Test</text>
+            <text x={298} y={svgH - 12} fontSize={11} fill={T.muted}>Test</text>
           </svg>
         </div>
 
@@ -632,14 +643,14 @@ function CrossValidationSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>5-Fold Cross-Validation — Each Fold Takes a Turn as Test Set</text>
+            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>5-Fold Cross-Validation — Each Fold Takes a Turn as Test Set</text>
             {/* Show each fold as a row */}
             {foldAssignments.map((testIds, fi) => {
               const rowY = 28 + fi * 34;
               const rowH = 28;
               return (
                 <g key={fi}>
-                  <text x={8} y={rowY + rowH / 2 + 3} fontSize={9} fill={T.muted} fontWeight={600}>F{fi + 1}</text>
+                  <text x={8} y={rowY + rowH / 2 + 3} fontSize={12} fill={T.muted} fontWeight={600}>F{fi + 1}</text>
                   {dataPoints.map((d, di) => {
                     const cellW = (svgW - 80) / 10;
                     const cx = 30 + di * cellW;
@@ -649,13 +660,13 @@ function CrossValidationSection() {
                         <rect x={cx} y={rowY} width={cellW - 2} height={rowH} rx={3}
                           fill={isTest ? foldColors[fi] + "55" : T.panel}
                           stroke={isTest ? foldColors[fi] : T.border} strokeWidth={isTest ? 1.5 : 0.5} />
-                        <text x={cx + cellW / 2 - 1} y={rowY + rowH / 2 + 3} textAnchor="middle" fontSize={7} fill={isTest ? foldColors[fi] : T.dim} fontWeight={isTest ? 700 : 400}>
+                        <text x={cx + cellW / 2 - 1} y={rowY + rowH / 2 + 3} textAnchor="middle" fontSize={12} fill={isTest ? foldColors[fi] : T.dim} fontWeight={isTest ? 700 : 400}>
                           {isTest ? "TEST" : "train"}
                         </text>
                       </g>
                     );
                   })}
-                  <text x={svgW - 5} y={rowY + rowH / 2 + 3} textAnchor="end" fontSize={9} fill={foldColors[fi]} fontWeight={700}>
+                  <text x={svgW - 5} y={rowY + rowH / 2 + 3} textAnchor="end" fontSize={12} fill={foldColors[fi]} fontWeight={700}>
                     MAE={foldMAEs[fi].toFixed(2)}
                   </text>
                 </g>
@@ -665,15 +676,15 @@ function CrossValidationSection() {
             {dataPoints.map((d, di) => {
               const cellW = (svgW - 80) / 10;
               return (
-                <text key={di} x={30 + di * cellW + cellW / 2 - 1} y={svgH - 8} textAnchor="middle" fontSize={7} fill={T.dim}>
+                <text key={di} x={30 + di * cellW + cellW / 2 - 1} y={svgH - 8} textAnchor="middle" fontSize={12} fill={T.dim}>
                   {d.id}
                 </text>
               );
             })}
             <rect x={30} y={svgH - 22} width={10} height={8} rx={2} fill={C + "55"} stroke={C} strokeWidth={1} />
-            <text x={44} y={svgH - 15} fontSize={8} fill={T.muted}>= Test fold</text>
+            <text x={44} y={svgH - 15} fontSize={11} fill={T.muted}>= Test fold</text>
             <rect x={110} y={svgH - 22} width={10} height={8} rx={2} fill={T.panel} stroke={T.border} strokeWidth={0.5} />
-            <text x={124} y={svgH - 15} fontSize={8} fill={T.muted}>= Train fold</text>
+            <text x={124} y={svgH - 15} fontSize={11} fill={T.muted}>= Train fold</text>
           </svg>
         </div>
 
@@ -781,11 +792,11 @@ function DecisionTreeSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Split on Mean Electronegativity ≤ {splitThreshold.toFixed(2)}</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Split on Mean Electronegativity ≤ {splitThreshold.toFixed(2)}</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={10} x2={40} y2={svgH - 30} stroke={T.border} />
-            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={9} fill={T.muted}>Mean Electronegativity</text>
-            <text x={12} y={svgH / 2} fontSize={9} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Bandgap (eV)</text>
+            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={12} fill={T.muted}>Mean Electronegativity</text>
+            <text x={12} y={svgH / 2} fontSize={12} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Bandgap (eV)</text>
             {/* Split line */}
             <line x1={sx(splitThreshold)} y1={18} x2={sx(splitThreshold)} y2={svgH - 30} stroke={C} strokeWidth={2} strokeDasharray="5,3" />
             {/* Shaded regions */}
@@ -806,21 +817,21 @@ function DecisionTreeSection() {
                 <circle cx={sx(m.en)} cy={sy(m.bg)} r={6}
                   fill={m.en <= splitThreshold ? "#05966933" : "#dc262633"}
                   stroke={m.en <= splitThreshold ? "#059669" : "#dc2626"} strokeWidth={1.5} />
-                <text x={sx(m.en)} y={sy(m.bg) - 9} textAnchor="middle" fontSize={7} fill={T.ink} fontWeight={600}>{m.name}</text>
-                <text x={sx(m.en)} y={sy(m.bg) + 14} textAnchor="middle" fontSize={7} fill={T.muted}>{m.bg} eV</text>
+                <text x={sx(m.en)} y={sy(m.bg) - 9} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={600}>{m.name}</text>
+                <text x={sx(m.en)} y={sy(m.bg) + 14} textAnchor="middle" fontSize={12} fill={T.muted}>{m.bg} eV</text>
               </g>
             ))}
             {/* Axis ticks */}
             {[1.8, 2.0, 2.2, 2.4, 2.6].map(v => (
               <g key={v}>
                 <line x1={sx(v)} y1={svgH - 30} x2={sx(v)} y2={svgH - 25} stroke={T.dim} />
-                <text x={sx(v)} y={svgH - 16} textAnchor="middle" fontSize={8} fill={T.dim}>{v.toFixed(1)}</text>
+                <text x={sx(v)} y={svgH - 16} textAnchor="middle" fontSize={11} fill={T.dim}>{v.toFixed(1)}</text>
               </g>
             ))}
             {[0, 1, 2, 3, 4].map(v => (
               <g key={v}>
                 <line x1={35} y1={sy(v)} x2={40} y2={sy(v)} stroke={T.dim} />
-                <text x={32} y={sy(v) + 3} textAnchor="end" fontSize={8} fill={T.dim}>{v}</text>
+                <text x={32} y={sy(v) + 3} textAnchor="end" fontSize={11} fill={T.dim}>{v}</text>
               </g>
             ))}
           </svg>
@@ -923,7 +934,7 @@ function RandomForestSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Random Forest Regression: 3 Trees Predict InP Bandgap</text>
+            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Random Forest Regression: 3 Trees Predict InP Bandgap</text>
             {/* Draw each tree */}
             {treeSubsets.map((tree, i) => {
               const tx = 60 + i * 150;
@@ -931,11 +942,11 @@ function RandomForestSection() {
               return (
                 <g key={i}>
                   <rect x={tx - 55} y={ty} width={110} height={90} rx={6} fill={treeColors[i] + "10"} stroke={treeColors[i]} strokeWidth={1} />
-                  <text x={tx} y={ty + 14} textAnchor="middle" fontSize={9} fill={treeColors[i]} fontWeight={700}>Tree {tree.id}</text>
-                  <text x={tx} y={ty + 28} textAnchor="middle" fontSize={8} fill={T.muted}>
+                  <text x={tx} y={ty + 14} textAnchor="middle" fontSize={12} fill={treeColors[i]} fontWeight={700}>Tree {tree.id}</text>
+                  <text x={tx} y={ty + 28} textAnchor="middle" fontSize={11} fill={T.muted}>
                     Subset: {tree.indices.map(j => allMaterials[j].name).join(", ")}
                   </text>
-                  <text x={tx} y={ty + 48} textAnchor="middle" fontSize={8} fill={T.muted}>Predicts InP →</text>
+                  <text x={tx} y={ty + 48} textAnchor="middle" fontSize={11} fill={T.muted}>Predicts InP →</text>
                   <text x={tx} y={ty + 68} textAnchor="middle" fontSize={14} fill={treeColors[i]} fontWeight={800}>
                     {tree.pred.toFixed(2)} eV
                   </text>
@@ -946,7 +957,7 @@ function RandomForestSection() {
             })}
             {/* Average box */}
             <rect x={svgW / 2 - 70} y={170} width={140} height={35} rx={6} fill={C + "15"} stroke={C} strokeWidth={1.5} />
-            <text x={svgW / 2} y={183} textAnchor="middle" fontSize={8} fill={T.muted}>Random Forest Average:</text>
+            <text x={svgW / 2} y={183} textAnchor="middle" fontSize={11} fill={T.muted}>Random Forest Average:</text>
             <text x={svgW / 2} y={198} textAnchor="middle" fontSize={12} fill={C} fontWeight={800}>
               {rfPred.toFixed(3)} eV (actual: {actual} eV)
             </text>
@@ -1045,11 +1056,11 @@ function SVMSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Support Vector Regression: ε-Tube (ε = {epsilon.toFixed(2)})</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Support Vector Regression: ε-Tube (ε = {epsilon.toFixed(2)})</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={10} x2={40} y2={svgH - 30} stroke={T.border} />
-            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={9} fill={T.muted}>Mean Electronegativity</text>
-            <text x={12} y={svgH / 2} fontSize={9} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Bandgap (eV)</text>
+            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={12} fill={T.muted}>Mean Electronegativity</text>
+            <text x={12} y={svgH / 2} fontSize={12} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Bandgap (eV)</text>
             {/* ε-tube around each prediction */}
             {materials.map((m, i) => (
               <g key={`tube${i}`}>
@@ -1073,7 +1084,7 @@ function SVMSection() {
                 <circle cx={sx(m.en)} cy={sy(m.bg)} r={6}
                   fill={m.isSV ? "#dc262644" : "#05966944"}
                   stroke={m.isSV ? "#dc2626" : "#059669"} strokeWidth={2} />
-                <text x={sx(m.en)} y={sy(m.bg) - 9} textAnchor="middle" fontSize={7} fill={T.ink} fontWeight={600}>
+                <text x={sx(m.en)} y={sy(m.bg) - 9} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={600}>
                   {m.name}{m.isSV ? " (SV)" : ""}
                 </text>
               </g>
@@ -1082,20 +1093,20 @@ function SVMSection() {
             {[1.8, 2.0, 2.2, 2.4, 2.6].map(v => (
               <g key={v}>
                 <line x1={sx(v)} y1={svgH - 30} x2={sx(v)} y2={svgH - 25} stroke={T.dim} />
-                <text x={sx(v)} y={svgH - 16} textAnchor="middle" fontSize={8} fill={T.dim}>{v.toFixed(1)}</text>
+                <text x={sx(v)} y={svgH - 16} textAnchor="middle" fontSize={11} fill={T.dim}>{v.toFixed(1)}</text>
               </g>
             ))}
             {[0, 1, 2, 3, 4].map(v => (
               <g key={v}>
                 <line x1={35} y1={sy(v)} x2={40} y2={sy(v)} stroke={T.dim} />
-                <text x={32} y={sy(v) + 3} textAnchor="end" fontSize={8} fill={T.dim}>{v}</text>
+                <text x={32} y={sy(v) + 3} textAnchor="end" fontSize={11} fill={T.dim}>{v}</text>
               </g>
             ))}
             {/* Legend */}
             <circle cx={350} cy={25} r={4} fill="#05966944" stroke="#059669" strokeWidth={1.5} />
-            <text x={358} y={28} fontSize={8} fill={T.muted}>Inside tube</text>
+            <text x={358} y={28} fontSize={11} fill={T.muted}>Inside tube</text>
             <circle cx={350} cy={40} r={4} fill="#dc262644" stroke="#dc2626" strokeWidth={1.5} />
-            <text x={358} y={43} fontSize={8} fill={T.muted}>Support vector</text>
+            <text x={358} y={43} fontSize={11} fill={T.muted}>Support vector</text>
           </svg>
         </div>
 
@@ -1206,7 +1217,7 @@ function PCASection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Explained Variance by Component</text>
+            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Explained Variance by Component</text>
             {/* Bar chart */}
             {eigenvalues.map((ev, i) => {
               const barW = 50;
@@ -1218,8 +1229,8 @@ function PCASection() {
                 <g key={i}>
                   <rect x={x} y={y} width={barW} height={barH} rx={4}
                     fill={active ? C : T.dim} opacity={active ? 0.7 : 0.3} />
-                  <text x={x + barW / 2} y={170} textAnchor="middle" fontSize={9} fill={T.muted}>PC{i + 1}</text>
-                  <text x={x + barW / 2} y={y - 5} textAnchor="middle" fontSize={9} fill={active ? C : T.dim} fontWeight={700}>
+                  <text x={x + barW / 2} y={170} textAnchor="middle" fontSize={12} fill={T.muted}>PC{i + 1}</text>
+                  <text x={x + barW / 2} y={y - 5} textAnchor="middle" fontSize={12} fill={active ? C : T.dim} fontWeight={700}>
                     {(explainedRatios[i] * 100).toFixed(1)}%
                   </text>
                 </g>
@@ -1236,11 +1247,11 @@ function PCASection() {
                     <line x1={85 + (i - 1) * 90} y1={160 - cumulative[i - 1] * 120} x2={x} y2={y}
                       stroke={M.accent} strokeWidth={1.5} />
                   )}
-                  <text x={x + 10} y={y + 3} fontSize={8} fill={M.accent} fontWeight={600}>{(c * 100).toFixed(0)}%</text>
+                  <text x={x + 10} y={y + 3} fontSize={11} fill={M.accent} fontWeight={600}>{(c * 100).toFixed(0)}%</text>
                 </g>
               );
             })}
-            <text x={300} y={svgH - 8} fontSize={8} fill={M.accent}>Cumulative</text>
+            <text x={300} y={svgH - 8} fontSize={11} fill={M.accent}>Cumulative</text>
           </svg>
 
           {/* Covariance matrix */}
@@ -1343,30 +1354,30 @@ function PerceptronSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Single Neuron Diagram</text>
+            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Single Neuron Diagram</text>
             {/* Input nodes */}
             <circle cx={60} cy={60} r={18} fill="#2563eb15" stroke="#2563eb" strokeWidth={1.5} />
-            <text x={60} y={58} textAnchor="middle" fontSize={10} fill="#2563eb" fontWeight={700}>x₁</text>
-            <text x={60} y={70} textAnchor="middle" fontSize={8} fill={T.muted}>{x1.toFixed(1)}</text>
+            <text x={60} y={58} textAnchor="middle" fontSize={12} fill="#2563eb" fontWeight={700}>x₁</text>
+            <text x={60} y={70} textAnchor="middle" fontSize={11} fill={T.muted}>{x1.toFixed(1)}</text>
 
             <circle cx={60} cy={140} r={18} fill="#2563eb15" stroke="#2563eb" strokeWidth={1.5} />
-            <text x={60} y={138} textAnchor="middle" fontSize={10} fill="#2563eb" fontWeight={700}>x₂</text>
-            <text x={60} y={150} textAnchor="middle" fontSize={8} fill={T.muted}>{x2.toFixed(1)}</text>
+            <text x={60} y={138} textAnchor="middle" fontSize={12} fill="#2563eb" fontWeight={700}>x₂</text>
+            <text x={60} y={150} textAnchor="middle" fontSize={11} fill={T.muted}>{x2.toFixed(1)}</text>
 
             {/* Weights on arrows */}
             <line x1={78} y1={60} x2={152} y2={90} stroke={C} strokeWidth={1.5} />
-            <text x={108} y={68} fontSize={8} fill={C} fontWeight={600}>w₁={w1.toFixed(1)}</text>
+            <text x={108} y={68} fontSize={11} fill={C} fontWeight={600}>w₁={w1.toFixed(1)}</text>
             <line x1={78} y1={140} x2={152} y2={110} stroke={C} strokeWidth={1.5} />
-            <text x={108} y={138} fontSize={8} fill={C} fontWeight={600}>w₂={w2.toFixed(1)}</text>
+            <text x={108} y={138} fontSize={11} fill={C} fontWeight={600}>w₂={w2.toFixed(1)}</text>
 
             {/* Neuron */}
             <circle cx={170} cy={100} r={22} fill={C + "20"} stroke={C} strokeWidth={2} />
-            <text x={170} y={96} textAnchor="middle" fontSize={9} fill={C} fontWeight={700}>Σ + b</text>
-            <text x={170} y={108} textAnchor="middle" fontSize={8} fill={T.muted}>{actName}</text>
+            <text x={170} y={96} textAnchor="middle" fontSize={12} fill={C} fontWeight={700}>Σ + b</text>
+            <text x={170} y={108} textAnchor="middle" fontSize={11} fill={T.muted}>{actName}</text>
 
             {/* Bias arrow */}
             <line x1={170} y1={45} x2={170} y2={78} stroke={M.accent} strokeWidth={1} strokeDasharray="3,2" />
-            <text x={170} y={40} textAnchor="middle" fontSize={8} fill={M.accent}>b={bias.toFixed(1)}</text>
+            <text x={170} y={40} textAnchor="middle" fontSize={11} fill={M.accent}>b={bias.toFixed(1)}</text>
 
             {/* Output */}
             <line x1={192} y1={100} x2={260} y2={100} stroke={C} strokeWidth={2} markerEnd="url(#arrowhead)" />
@@ -1375,7 +1386,7 @@ function PerceptronSection() {
             <text x={280} y={97} textAnchor="middle" fontSize={11} fill={output > 0.5 ? "#059669" : "#dc2626"} fontWeight={800}>
               {output.toFixed(3)}
             </text>
-            <text x={280} y={110} textAnchor="middle" fontSize={8} fill={T.muted}>output</text>
+            <text x={280} y={110} textAnchor="middle" fontSize={11} fill={T.muted}>output</text>
 
             <defs>
               <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
@@ -1488,14 +1499,14 @@ function DNNSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>2-Layer Network: Forward Pass</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>2-Layer Network: Forward Pass</text>
             {/* Input layer */}
             <circle cx={50} cy={65} r={16} fill="#2563eb15" stroke="#2563eb" strokeWidth={1.5} />
-            <text x={50} y={62} textAnchor="middle" fontSize={9} fill="#2563eb" fontWeight={700}>x₁</text>
-            <text x={50} y={73} textAnchor="middle" fontSize={7} fill={T.muted}>{x1.toFixed(1)}</text>
+            <text x={50} y={62} textAnchor="middle" fontSize={12} fill="#2563eb" fontWeight={700}>x₁</text>
+            <text x={50} y={73} textAnchor="middle" fontSize={12} fill={T.muted}>{x1.toFixed(1)}</text>
             <circle cx={50} cy={140} r={16} fill="#2563eb15" stroke="#2563eb" strokeWidth={1.5} />
-            <text x={50} y={137} textAnchor="middle" fontSize={9} fill="#2563eb" fontWeight={700}>x₂</text>
-            <text x={50} y={148} textAnchor="middle" fontSize={7} fill={T.muted}>{x2.toFixed(1)}</text>
+            <text x={50} y={137} textAnchor="middle" fontSize={12} fill="#2563eb" fontWeight={700}>x₂</text>
+            <text x={50} y={148} textAnchor="middle" fontSize={12} fill={T.muted}>{x2.toFixed(1)}</text>
 
             {/* Connections to hidden */}
             <line x1={66} y1={65} x2={142} y2={65} stroke={C + "66"} strokeWidth={1} />
@@ -1505,11 +1516,11 @@ function DNNSection() {
 
             {/* Hidden layer */}
             <circle cx={158} cy={65} r={16} fill={C + "20"} stroke={C} strokeWidth={1.5} />
-            <text x={158} y={62} textAnchor="middle" fontSize={9} fill={C} fontWeight={700}>h₁</text>
-            <text x={158} y={73} textAnchor="middle" fontSize={7} fill={T.muted}>{h1.toFixed(3)}</text>
+            <text x={158} y={62} textAnchor="middle" fontSize={12} fill={C} fontWeight={700}>h₁</text>
+            <text x={158} y={73} textAnchor="middle" fontSize={12} fill={T.muted}>{h1.toFixed(3)}</text>
             <circle cx={158} cy={140} r={16} fill={C + "20"} stroke={C} strokeWidth={1.5} />
-            <text x={158} y={137} textAnchor="middle" fontSize={9} fill={C} fontWeight={700}>h₂</text>
-            <text x={158} y={148} textAnchor="middle" fontSize={7} fill={T.muted}>{h2.toFixed(3)}</text>
+            <text x={158} y={137} textAnchor="middle" fontSize={12} fill={C} fontWeight={700}>h₂</text>
+            <text x={158} y={148} textAnchor="middle" fontSize={12} fill={T.muted}>{h2.toFixed(3)}</text>
 
             {/* Connections to output */}
             <line x1={174} y1={65} x2={245} y2={100} stroke={C + "66"} strokeWidth={1} />
@@ -1518,15 +1529,15 @@ function DNNSection() {
             {/* Output layer */}
             <circle cx={262} cy={100} r={18} fill={output > 0.5 ? "#05966920" : "#dc262620"}
               stroke={output > 0.5 ? "#059669" : "#dc2626"} strokeWidth={2} />
-            <text x={262} y={97} textAnchor="middle" fontSize={10} fill={output > 0.5 ? "#059669" : "#dc2626"} fontWeight={800}>
+            <text x={262} y={97} textAnchor="middle" fontSize={12} fill={output > 0.5 ? "#059669" : "#dc2626"} fontWeight={800}>
               {output.toFixed(3)}
             </text>
-            <text x={262} y={109} textAnchor="middle" fontSize={7} fill={T.muted}>output</text>
+            <text x={262} y={109} textAnchor="middle" fontSize={12} fill={T.muted}>output</text>
 
             {/* Labels */}
-            <text x={50} y={svgH - 5} textAnchor="middle" fontSize={8} fill={T.dim}>Input</text>
-            <text x={158} y={svgH - 5} textAnchor="middle" fontSize={8} fill={T.dim}>Hidden</text>
-            <text x={262} y={svgH - 5} textAnchor="middle" fontSize={8} fill={T.dim}>Output</text>
+            <text x={50} y={svgH - 5} textAnchor="middle" fontSize={11} fill={T.dim}>Input</text>
+            <text x={158} y={svgH - 5} textAnchor="middle" fontSize={11} fill={T.dim}>Hidden</text>
+            <text x={262} y={svgH - 5} textAnchor="middle" fontSize={11} fill={T.dim}>Output</text>
           </svg>
         </div>
 
@@ -1640,11 +1651,11 @@ function BackpropSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Loss Over Training Steps</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Loss Over Training Steps</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={20} x2={40} y2={svgH - 30} stroke={T.border} />
-            <text x={svgW / 2} y={svgH - 8} textAnchor="middle" fontSize={9} fill={T.muted}>Training Step</text>
-            <text x={12} y={svgH / 2} fontSize={9} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Loss</text>
+            <text x={svgW / 2} y={svgH - 8} textAnchor="middle" fontSize={12} fill={T.muted}>Training Step</text>
+            <text x={12} y={svgH / 2} fontSize={12} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Loss</text>
             {/* Loss curve */}
             {history.map((h, i) => {
               if (i >= history.length - 1) return null;
@@ -1664,7 +1675,7 @@ function BackpropSection() {
             })()}
             {/* Target line */}
             <line x1={40} y1={svgH - 32} x2={svgW - 10} y2={svgH - 32} stroke="#059669" strokeWidth={1} strokeDasharray="4,3" />
-            <text x={svgW - 12} y={svgH - 35} textAnchor="end" fontSize={8} fill="#059669">Target: Loss → 0</text>
+            <text x={svgW - 12} y={svgH - 35} textAnchor="end" fontSize={11} fill="#059669">Target: Loss → 0</text>
           </svg>
         </div>
 
@@ -1747,9 +1758,9 @@ function CNNSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>3×3 Convolution Operation</text>
+            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>3×3 Convolution Operation</text>
             {/* Input patch */}
-            <text x={70} y={35} textAnchor="middle" fontSize={9} fill={T.muted} fontWeight={600}>Input Patch</text>
+            <text x={70} y={35} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={600}>Input Patch</text>
             {inputPatch.map((row, i) => row.map((v, j) => (
               <g key={`i${i}${j}`}>
                 <rect x={30 + j * 28} y={40 + i * 28} width={26} height={26} rx={3} fill="#2563eb11" stroke="#2563eb44" />
@@ -1759,7 +1770,7 @@ function CNNSection() {
             {/* Multiply sign */}
             <text x={130} y={75} fontSize={16} fill={T.muted}>×</text>
             {/* Kernel */}
-            <text x={200} y={35} textAnchor="middle" fontSize={9} fill={T.muted} fontWeight={600}>Kernel</text>
+            <text x={200} y={35} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={600}>Kernel</text>
             {kernel.map((row, i) => row.map((v, j) => (
               <g key={`k${i}${j}`}>
                 <rect x={160 + j * 28} y={40 + i * 28} width={26} height={26} rx={3} fill={C + "11"} stroke={C + "44"} />
@@ -1772,11 +1783,11 @@ function CNNSection() {
             <rect x={275} y={52} width={45} height={35} rx={6} fill={C + "22"} stroke={C} strokeWidth={1.5} />
             <text x={297} y={75} textAnchor="middle" fontSize={16} fill={C} fontWeight={800}>{convResult}</text>
             {/* Element-wise detail */}
-            <text x={svgW / 2} y={140} textAnchor="middle" fontSize={9} fill={T.muted}>Element-wise multiply then sum:</text>
-            <text x={svgW / 2} y={155} textAnchor="middle" fontSize={8} fill={T.ink} fontFamily="monospace">
+            <text x={svgW / 2} y={140} textAnchor="middle" fontSize={12} fill={T.muted}>Element-wise multiply then sum:</text>
+            <text x={svgW / 2} y={155} textAnchor="middle" fontSize={11} fill={T.ink} fontFamily="monospace">
               2×1 + 1×0 + 0×(−1) + 3×1 + 2×0 + 1×(−1) + 4×1 + 3×0 + 2×(−1)
             </text>
-            <text x={svgW / 2} y={170} textAnchor="middle" fontSize={9} fill={C} fontWeight={700}>
+            <text x={svgW / 2} y={170} textAnchor="middle" fontSize={12} fill={C} fontWeight={700}>
               = 2 + 0 + 0 + 3 + 0 − 1 + 4 + 0 − 2 = {convResult}
             </text>
           </svg>
@@ -1872,23 +1883,23 @@ function TransformerSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Self-Attention Weights</text>
+            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Self-Attention Weights</text>
             {attnTokens.map((t, i) => (
               <g key={i}>
-                <text x={90 + i * 55} y={38} textAnchor="middle" fontSize={9} fill={C} fontWeight={600}>{t}</text>
-                <text x={30} y={58 + i * 35} textAnchor="end" fontSize={9} fill={C} fontWeight={600}>{t}</text>
+                <text x={90 + i * 55} y={38} textAnchor="middle" fontSize={12} fill={C} fontWeight={600}>{t}</text>
+                <text x={30} y={58 + i * 35} textAnchor="end" fontSize={12} fill={C} fontWeight={600}>{t}</text>
               </g>
             ))}
             {queryKey.map((row, i) => row.map((v, j) => (
               <g key={`a${i}${j}`}>
                 <rect x={65 + j * 55} y={44 + i * 35} width={50} height={30} rx={3}
                   fill={`rgba(147,51,234,${v * 0.5})`} stroke={T.border} />
-                <text x={90 + j * 55} y={63 + i * 35} textAnchor="middle" fontSize={10} fill={T.ink} fontWeight={600}>
+                <text x={90 + j * 55} y={63 + i * 35} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={600}>
                   {v.toFixed(1)}
                 </text>
               </g>
             )))}
-            <text x={svgW / 2} y={svgH - 10} textAnchor="middle" fontSize={9} fill={T.muted}>
+            <text x={svgW / 2} y={svgH - 10} textAnchor="middle" fontSize={12} fill={T.muted}>
               Each row shows how much one token "attends" to others
             </text>
           </svg>
@@ -2083,25 +2094,25 @@ function FeatureEngineeringSection() {
           </div>
 
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>{c.name} — Elemental Properties</text>
+            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>{c.name} — Elemental Properties</text>
             {/* Element A */}
             <rect x={30} y={30} width={130} height={140} rx={8} fill={C + "10"} stroke={C + "44"} />
             <text x={95} y={50} textAnchor="middle" fontSize={14} fill={C} fontWeight={800}>{c.a}</text>
-            <text x={95} y={65} textAnchor="middle" fontSize={9} fill={T.muted}>Z = {c.Za}</text>
-            <text x={95} y={80} textAnchor="middle" fontSize={9} fill={T.muted}>Mass = {c.ma}</text>
-            <text x={95} y={95} textAnchor="middle" fontSize={9} fill={T.muted}>EN = {c.ena}</text>
-            <text x={95} y={110} textAnchor="middle" fontSize={9} fill={T.muted}>r = {c.ra} Å</text>
+            <text x={95} y={65} textAnchor="middle" fontSize={12} fill={T.muted}>Z = {c.Za}</text>
+            <text x={95} y={80} textAnchor="middle" fontSize={12} fill={T.muted}>Mass = {c.ma}</text>
+            <text x={95} y={95} textAnchor="middle" fontSize={12} fill={T.muted}>EN = {c.ena}</text>
+            <text x={95} y={110} textAnchor="middle" fontSize={12} fill={T.muted}>r = {c.ra} Å</text>
             {/* Arrow */}
             <text x={170} y={100} fontSize={14} fill={T.dim}>+</text>
             {/* Element B */}
             <rect x={185} y={30} width={130} height={140} rx={8} fill={M.accent + "10"} stroke={M.accent + "44"} />
             <text x={250} y={50} textAnchor="middle" fontSize={14} fill={M.accent} fontWeight={800}>{c.b}</text>
-            <text x={250} y={65} textAnchor="middle" fontSize={9} fill={T.muted}>Z = {c.Zb}</text>
-            <text x={250} y={80} textAnchor="middle" fontSize={9} fill={T.muted}>Mass = {c.mb}</text>
-            <text x={250} y={95} textAnchor="middle" fontSize={9} fill={T.muted}>EN = {c.enb}</text>
-            <text x={250} y={110} textAnchor="middle" fontSize={9} fill={T.muted}>r = {c.rb} Å</text>
+            <text x={250} y={65} textAnchor="middle" fontSize={12} fill={T.muted}>Z = {c.Zb}</text>
+            <text x={250} y={80} textAnchor="middle" fontSize={12} fill={T.muted}>Mass = {c.mb}</text>
+            <text x={250} y={95} textAnchor="middle" fontSize={12} fill={T.muted}>EN = {c.enb}</text>
+            <text x={250} y={110} textAnchor="middle" fontSize={12} fill={T.muted}>r = {c.rb} Å</text>
             {/* Arrow to feature vector */}
-            <text x={svgW / 2} y={185} textAnchor="middle" fontSize={9} fill={C} fontWeight={700}>
+            <text x={svgW / 2} y={185} textAnchor="middle" fontSize={12} fill={C} fontWeight={700}>
               → Feature Vector: [{meanEN.toFixed(2)}, {diffEN.toFixed(2)}, {meanMass.toFixed(1)}, {meanRadius.toFixed(2)}, ...]
             </text>
           </svg>
@@ -2200,25 +2211,38 @@ function PropertyPredictionSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Parity Plot: Predicted vs Actual Bandgap</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Parity Plot: Predicted vs Actual Bandgap</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={10} x2={40} y2={svgH - 30} stroke={T.border} />
-            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={9} fill={T.muted}>Actual (eV)</text>
-            <text x={10} y={svgH / 2} fontSize={9} fill={T.muted} transform={`rotate(-90,10,${svgH / 2})`}>Predicted (eV)</text>
+            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={12} fill={T.muted}>Actual (eV)</text>
+            <text x={10} y={svgH / 2} fontSize={12} fill={T.muted} transform={`rotate(-90,10,${svgH / 2})`}>Predicted (eV)</text>
             {/* Perfect line */}
             <line x1={sx(0)} y1={sy(0)} x2={sx(4)} y2={sy(4)} stroke={T.dim} strokeWidth={1} strokeDasharray="4,3" />
             {/* Data points */}
-            {predicted.map((p, i) => (
-              <g key={i}>
-                <circle cx={sx(p.actual)} cy={sy(p.pred)} r={5} fill={C + "44"} stroke={C} strokeWidth={1.5} />
-                <text x={sx(p.actual) + 7} y={sy(p.pred) - 4} fontSize={7} fill={C} fontWeight={600}>{p.name}</text>
-              </g>
-            ))}
+            {predicted.map((p, i) => {
+              const offsets = [
+                { dx: 10, dy: -8 },   // Si
+                { dx: 10, dy: 14 },   // Ge — below to avoid InP
+                { dx: 10, dy: -8 },   // GaAs
+                { dx: 10, dy: -8 },   // CdTe
+                { dx: -35, dy: -8 },  // ZnO — left to avoid GaN
+                { dx: 10, dy: 14 },   // InP — below
+                { dx: 10, dy: -8 },   // GaN
+                { dx: -30, dy: 14 },  // AlAs — lower left
+              ];
+              const off = offsets[i] || { dx: 10, dy: -8 };
+              return (
+                <g key={i}>
+                  <circle cx={sx(p.actual)} cy={sy(p.pred)} r={6} fill={C + "44"} stroke={C} strokeWidth={1.5} />
+                  <text x={sx(p.actual) + off.dx} y={sy(p.pred) + off.dy} fontSize={12} fill={C} fontWeight={600}>{p.name}</text>
+                </g>
+              );
+            })}
             {/* Axis ticks */}
             {[0, 1, 2, 3, 4].map(v => (
               <g key={v}>
-                <text x={sx(v)} y={svgH - 18} textAnchor="middle" fontSize={8} fill={T.dim}>{v}</text>
-                <text x={34} y={sy(v) + 3} textAnchor="end" fontSize={8} fill={T.dim}>{v}</text>
+                <text x={sx(v)} y={svgH - 14} textAnchor="middle" fontSize={12} fill={T.ink}>{v}</text>
+                <text x={32} y={sy(v) + 4} textAnchor="end" fontSize={12} fill={T.ink}>{v}</text>
               </g>
             ))}
           </svg>
@@ -2334,22 +2358,22 @@ function AutoencoderSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>2D Latent Space</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>2D Latent Space</text>
             {/* Axes */}
             <line x1={20} y1={svgH / 2} x2={svgW - 10} y2={svgH / 2} stroke={T.border} strokeDasharray="3,3" />
             <line x1={svgW / 2} y1={20} x2={svgW / 2} y2={svgH - 15} stroke={T.border} strokeDasharray="3,3" />
-            <text x={svgW - 10} y={svgH / 2 - 5} textAnchor="end" fontSize={8} fill={T.dim}>z₁</text>
-            <text x={svgW / 2 + 5} y={25} fontSize={8} fill={T.dim}>z₂</text>
+            <text x={svgW - 10} y={svgH / 2 - 5} textAnchor="end" fontSize={11} fill={T.dim}>z₁</text>
+            <text x={svgW / 2 + 5} y={25} fontSize={11} fill={T.dim}>z₂</text>
             {/* Known materials */}
             {knownMaterials.map((m, i) => (
               <g key={i}>
                 <circle cx={sx(m.lx)} cy={sy(m.ly)} r={6} fill={C + "33"} stroke={C} strokeWidth={1.5} />
-                <text x={sx(m.lx)} y={sy(m.ly) - 9} textAnchor="middle" fontSize={8} fill={C} fontWeight={600}>{m.name}</text>
+                <text x={sx(m.lx)} y={sy(m.ly) - 9} textAnchor="middle" fontSize={11} fill={C} fontWeight={600}>{m.name}</text>
               </g>
             ))}
             {/* Current point */}
             <circle cx={sx(latentX)} cy={sy(latentY)} r={7} fill="#dc262644" stroke="#dc2626" strokeWidth={2} />
-            <text x={sx(latentX)} y={sy(latentY) - 10} textAnchor="middle" fontSize={8} fill="#dc2626" fontWeight={700}>
+            <text x={sx(latentX)} y={sy(latentY) - 10} textAnchor="middle" fontSize={11} fill="#dc2626" fontWeight={700}>
               ? ({decodedBG.toFixed(2)} eV)
             </text>
             {/* Line to nearest */}
@@ -2784,11 +2808,11 @@ function ActiveLearningSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Al-Cu Alloy Optimization: {known.length} experiments</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Al-Cu Alloy Optimization: {known.length} experiments</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={20} x2={40} y2={svgH - 30} stroke={T.border} />
-            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={9} fill={T.muted}>Cu content (%)</text>
-            <text x={12} y={svgH / 2} fontSize={9} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Hardness (HV)</text>
+            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={12} fill={T.muted}>Cu content (%)</text>
+            <text x={12} y={svgH / 2} fontSize={12} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Hardness (HV)</text>
             {/* True function (hidden from model) */}
             {Array.from({ length: 50 }, (_, i) => {
               const x1 = i * 2;
@@ -2815,25 +2839,25 @@ function ActiveLearningSection() {
             {known.map((p, i) => (
               <g key={i}>
                 <circle cx={sx(p.x)} cy={sy(p.y)} r={5} fill={C + "44"} stroke={C} strokeWidth={2} />
-                <text x={sx(p.x)} y={sy(p.y) - 8} textAnchor="middle" fontSize={7} fill={C} fontWeight={600}>{p.x}%→{p.y}</text>
+                <text x={sx(p.x)} y={sy(p.y) - 8} textAnchor="middle" fontSize={12} fill={C} fontWeight={600}>{p.x}%→{p.y}</text>
               </g>
             ))}
             {/* Suggested next point */}
             <circle cx={sx(bestCandidate.x)} cy={sy(predict(bestCandidate.x))} r={6}
               fill="#dc262644" stroke="#dc2626" strokeWidth={2} />
             <text x={sx(bestCandidate.x)} y={sy(predict(bestCandidate.x)) - 10}
-              textAnchor="middle" fontSize={8} fill="#dc2626" fontWeight={700}>Next? ({bestCandidate.x}% Cu)</text>
+              textAnchor="middle" fontSize={11} fill="#dc2626" fontWeight={700}>Next? ({bestCandidate.x}% Cu)</text>
             {/* Axis ticks */}
             {[0, 20, 40, 60, 80, 100].map(v => (
               <g key={v}>
                 <line x1={sx(v)} y1={svgH - 30} x2={sx(v)} y2={svgH - 25} stroke={T.dim} />
-                <text x={sx(v)} y={svgH - 16} textAnchor="middle" fontSize={8} fill={T.dim}>{v}</text>
+                <text x={sx(v)} y={svgH - 16} textAnchor="middle" fontSize={11} fill={T.dim}>{v}</text>
               </g>
             ))}
             {[0, 30, 60, 90, 120].map(v => (
               <g key={v}>
                 <line x1={35} y1={sy(v)} x2={40} y2={sy(v)} stroke={T.dim} />
-                <text x={32} y={sy(v) + 3} textAnchor="end" fontSize={8} fill={T.dim}>{v}</text>
+                <text x={32} y={sy(v) + 3} textAnchor="end" fontSize={11} fill={T.dim}>{v}</text>
               </g>
             ))}
           </svg>
@@ -2932,7 +2956,7 @@ function DataPipelineSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Pipeline Flow</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Pipeline Flow</text>
             {stages.map((s, i) => {
               const x = 20 + (i % 3) * 105;
               const y = i < 3 ? 30 : 110;
@@ -2941,11 +2965,11 @@ function DataPipelineSection() {
                 <g key={i} onClick={() => setStage(i)} style={{ cursor: "pointer" }}>
                   <rect x={x} y={y} width={95} height={55} rx={8}
                     fill={active ? C + "22" : T.panel} stroke={active ? C : T.border} strokeWidth={active ? 2 : 1} />
-                  <text x={x + 47} y={y + 20} textAnchor="middle" fontSize={10} fill={active ? C : T.muted} fontWeight={700}>
+                  <text x={x + 47} y={y + 20} textAnchor="middle" fontSize={12} fill={active ? C : T.muted} fontWeight={700}>
                     {s.icon}
                   </text>
-                  <text x={x + 47} y={y + 35} textAnchor="middle" fontSize={8} fill={T.muted}>{s.name}</text>
-                  <text x={x + 47} y={y + 47} textAnchor="middle" fontSize={8} fill={active ? C : T.dim}>
+                  <text x={x + 47} y={y + 35} textAnchor="middle" fontSize={11} fill={T.muted}>{s.name}</text>
+                  <text x={x + 47} y={y + 47} textAnchor="middle" fontSize={11} fill={active ? C : T.dim}>
                     n={typeof s.count === "string" ? s.count : s.count}
                   </text>
                   {/* Arrow to next */}
@@ -3059,9 +3083,9 @@ function HyperparamSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>Validation Error Heatmap</text>
-            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={9} fill={T.muted}>Hidden Size</text>
-            <text x={10} y={svgH / 2} fontSize={9} fill={T.muted} transform={`rotate(-90,10,${svgH / 2})`}>Learning Rate</text>
+            <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>Validation Error Heatmap</text>
+            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={12} fill={T.muted}>Hidden Size</text>
+            <text x={10} y={svgH / 2} fontSize={12} fill={T.muted} transform={`rotate(-90,10,${svgH / 2})`}>Learning Rate</text>
             {/* Heatmap cells */}
             {errorGrid.map((row, i) => row.map((err, j) => {
               const cellW = 65;
@@ -3079,7 +3103,7 @@ function HyperparamSection() {
                   <rect x={x} y={y} width={cellW - 4} height={cellH - 4} rx={4}
                     fill={`rgb(${r},${g},80)`} opacity={0.7}
                     stroke={isCurrent ? "#fff" : isBest ? M.accent : "transparent"} strokeWidth={isCurrent ? 3 : isBest ? 2 : 0} />
-                  <text x={x + cellW / 2 - 2} y={y + cellH / 2 + 1} textAnchor="middle" fontSize={10} fill="#fff" fontWeight={700}>
+                  <text x={x + cellW / 2 - 2} y={y + cellH / 2 + 1} textAnchor="middle" fontSize={12} fill="#fff" fontWeight={700}>
                     {err.toFixed(3)}
                   </text>
                 </g>
@@ -3087,11 +3111,11 @@ function HyperparamSection() {
             }))}
             {/* Column labels */}
             {hsValues.map((h, j) => (
-              <text key={j} x={55 + j * 65 + 30} y={svgH - 18} textAnchor="middle" fontSize={8} fill={T.dim}>{h}</text>
+              <text key={j} x={55 + j * 65 + 30} y={svgH - 18} textAnchor="middle" fontSize={11} fill={T.dim}>{h}</text>
             ))}
             {/* Row labels */}
             {lrValues.map((lr, i) => (
-              <text key={i} x={50} y={25 + i * 35 + 20} textAnchor="end" fontSize={8} fill={T.dim}>{lr}</text>
+              <text key={i} x={50} y={25 + i * 35 + 20} textAnchor="end" fontSize={11} fill={T.dim}>{lr}</text>
             ))}
           </svg>
         </div>
@@ -3208,10 +3232,10 @@ function InterpretabilitySection() {
           </div>
 
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
-            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight={700}>SHAP Waterfall — {m.name}</text>
+            <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={700}>SHAP Waterfall — {m.name}</text>
             {/* Base value line */}
             <line x1={centerX} y1={25} x2={centerX} y2={svgH - 25} stroke={T.border} strokeDasharray="3,3" />
-            <text x={centerX} y={34} textAnchor="middle" fontSize={8} fill={T.dim}>Base = {m.base.toFixed(1)} eV</text>
+            <text x={centerX} y={34} textAnchor="middle" fontSize={11} fill={T.dim}>Base = {m.base.toFixed(1)} eV</text>
             {/* Waterfall bars */}
             {(() => {
               let running = m.base;
@@ -3228,8 +3252,8 @@ function InterpretabilitySection() {
                     <rect x={centerX + (running - f.shap - m.base) * barScale / 2} y={y}
                       width={barW} height={18} rx={3}
                       fill={isPos ? "#dc262633" : "#05966933"} stroke={isPos ? "#dc2626" : "#059669"} strokeWidth={1} />
-                    <text x={25} y={y + 12} fontSize={8} fill={T.muted}>{f.name}</text>
-                    <text x={svgW - 10} y={y + 12} textAnchor="end" fontSize={8}
+                    <text x={25} y={y + 12} fontSize={11} fill={T.muted}>{f.name}</text>
+                    <text x={svgW - 10} y={y + 12} textAnchor="end" fontSize={11}
                       fill={isPos ? "#dc2626" : "#059669"} fontWeight={700}>
                       {isPos ? "+" : ""}{f.shap.toFixed(2)}
                     </text>
@@ -3238,7 +3262,7 @@ function InterpretabilitySection() {
               });
             })()}
             {/* Final prediction */}
-            <text x={svgW / 2} y={svgH - 8} textAnchor="middle" fontSize={10} fill={C} fontWeight={800}>
+            <text x={svgW / 2} y={svgH - 8} textAnchor="middle" fontSize={12} fill={C} fontWeight={800}>
               Prediction: {prediction.toFixed(2)} eV
             </text>
           </svg>
