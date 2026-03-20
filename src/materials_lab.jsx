@@ -6716,6 +6716,269 @@ function DFTFAQSection() {
           <text x={244} y={38} fontSize={9} fill={D.basis}>pseudo (smooth)</text>
         </FAQGraph>
       </Card>
+
+      {/* ── INTERVIEW / ADVANCED QUESTIONS ── */}
+
+      <div style={{ marginTop: 8, padding: "10px 16px", borderRadius: 10, background: D.warn + "08", border: `1.5px solid ${D.warn}20`, borderLeft: `4px solid ${D.warn}` }}>
+        <div style={{ fontSize: 13, fontWeight: 800, color: D.warn, marginBottom: 2 }}>Interview & Advanced Questions</div>
+        <div style={{ fontSize: 11, color: T.muted }}>The questions below are commonly asked in PhD qualifying exams, postdoc interviews, and computational materials science job interviews.</div>
+      </div>
+
+      {/* A1. Koopmans' theorem */}
+      <Card title={"What is Koopmans\u2019 theorem and does it hold in DFT?"} color={D.eqn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          In Hartree-Fock, Koopmans{"'"} theorem says the orbital energy {"\u03B5"}_i equals the
+          negative ionization energy from that orbital (for frozen orbitals). In DFT, this is
+          <strong style={{ color: D.warn }}> not rigorously true</strong> because KS eigenvalues are Lagrange multipliers,
+          not quasiparticle energies. However, for the HOMO of the exact functional,
+          {"\u03B5"}_HOMO = {"\u2212"}IP (exact). LDA/GGA violate this due to self-interaction error.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>HF: {"\u03B5"}_i = {"\u2212"}IP_i (Koopmans, frozen orbitals)</span><br /><br />
+          <span style={{ color: D.xc }}>Exact DFT: {"\u03B5"}_HOMO = {"\u2212"}IP (only for highest occupied!)</span><br />
+          <span style={{ color: D.warn }}>LDA/GGA: {"\u03B5"}_HOMO {"\u2260"} {"\u2212"}IP (SIE breaks this)</span><br /><br />
+          <span style={{ color: T.muted }}>Example: CO molecule IP_expt = 14.0 eV</span><br />
+          <span style={{ color: T.muted }}>PBE: {"\u2212"}{"\u03B5"}_HOMO = 9.1 eV (way off!) | HF: 15.1 eV | Expt: 14.0 eV</span>
+        </div>
+      </Card>
+
+      {/* A2. v-representability */}
+      <Card title={"What is v-representability and why does it matter?"} color={D.xc}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The HK theorem says every ground-state density n(r) comes from some external potential v(r).
+          But the reverse question is tricky: given an arbitrary density, does a potential exist that
+          produces it? If yes, the density is <strong style={{ color: D.xc }}>v-representable</strong>.
+          The KS scheme requires that the target density is also v-representable in a <em>non-interacting</em> system.
+          This is called <strong>non-interacting v-representability</strong> {"\u2014"} it{"\u2019"}s assumed but not always proven.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.xc, fontWeight: 700 }}>HK: n(r) {"\u2192"} v_ext(r) {"\u2192"} {"\u03A8"} {"\u2192"} E</span><br /><br />
+          <span style={{ color: T.muted }}>Question: for any trial n(r), does a v_ext exist?</span><br />
+          <span style={{ color: D.xc }}>Constrained search (Levy, 1979): avoids this issue</span><br />
+          <span style={{ color: D.xc }}>E[n] = min_{"{"}{"{"}{"\u03A8"}{"\u2192"}n{"}"}} {"<"}{"\u03A8"}|T+V_ee|{"\u03A8"}{">"} + {"\u222B"} v_ext n dr</span><br /><br />
+          <span style={{ color: T.muted }}>Minimise over all wavefunctions that give density n {"\u2014"} no v-representability needed!</span>
+        </div>
+      </Card>
+
+      {/* A3. DFT vs wavefunction methods */}
+      <Card title={"When should you use wavefunction methods instead of DFT?"} color={D.basis}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          DFT is fast but approximate. Wavefunction methods (CCSD(T), CASSCF, DMRG) are systematically
+          improvable but far more expensive. Use wavefunction methods when DFT fails:
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 10 }}>
+          {[
+            { when: "Strong static correlation", example: "Bond-breaking (H\u2082 dissociation), diradicals, transition metal clusters with near-degenerate states", method: "CASSCF / CASPT2 / DMRG", color: D.warn },
+            { when: "Chemical accuracy needed", example: "Reaction barriers to \u00B11 kcal/mol, thermochemistry benchmarks", method: "CCSD(T) \u2014 \u2018gold standard\u2019", color: D.xc },
+            { when: "Van der Waals complexes", example: "Noble gas dimers, \u03C0-stacking, physisorption energies", method: "CCSD(T) or MP2 + DFT-D3", color: D.accent },
+            { when: "Excited states with double excitations", example: "Polyene excited states, conical intersections, photochemistry", method: "EOM-CCSD / CASSCF / TDDFT (with caution)", color: D.eqn },
+            { when: "Benchmarking DFT", example: "Testing whether a new functional is reliable for a specific property", method: "CCSD(T)/CBS as reference", color: D.basis },
+          ].map(item => (
+            <div key={item.when} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15` }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.when}</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.example}</div>
+              <div style={{ fontSize: 11, fontWeight: 600, color: item.color, marginTop: 3 }}>{"\u2192"} {item.method}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      {/* A4. Charge transfer */}
+      <Card title={"Why does DFT struggle with charge-transfer states?"} color={D.warm}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Charge-transfer (CT) excitations involve moving an electron from a donor to an acceptor
+          separated by distance R. Standard TDDFT with LDA/GGA predicts CT excitation energies
+          that are far too low because the XC kernel lacks the correct {"\u2212"}1/R long-range behaviour.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>True CT energy: {"\u03C9"}_CT = IP_D {"\u2212"} EA_A {"\u2212"} 1/R</span><br /><br />
+          <span style={{ color: T.muted }}>IP_D = ionization potential of donor</span><br />
+          <span style={{ color: T.muted }}>EA_A = electron affinity of acceptor</span><br />
+          <span style={{ color: T.muted }}>{"\u2212"}1/R = Coulomb attraction of separated charges</span><br /><br />
+          <span style={{ color: D.warn }}>LDA/GGA TDDFT: misses the {"\u2212"}1/R term {"\u2192"} CT energy too low by eVs</span><br />
+          <span style={{ color: D.xc }}>Range-separated hybrids (CAM-B3LYP, {"\u03C9"}B97X-D): include long-range exact exchange {"\u2192"} fix CT</span>
+        </div>
+      </Card>
+
+      {/* A5. Dispersion / vdW */}
+      <Card title={"Why can\u2019t standard DFT describe van der Waals interactions?"} color={D.accent}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Van der Waals (dispersion) forces arise from correlated fluctuations of electron density
+          between distant fragments. LDA/GGA are <strong>local or semi-local</strong> {"\u2014"} they only see
+          the density at a point (and its gradient). They cannot capture the non-local correlation
+          between density fluctuations on fragments separated by nanometres.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>Dispersion: E_disp = {"\u2212"}C\u2086/R\u2076 {"\u2212"} C\u2088/R\u2078 {"\u2212"} ...</span><br /><br />
+          <span style={{ color: T.muted }}>C\u2086 from dipole-dipole fluctuations (London forces)</span><br />
+          <span style={{ color: D.warn }}>LDA/GGA: E_disp = 0 (completely missing!)</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>Fixes:</span><br />
+          <span style={{ color: D.accent }}>DFT-D3/D4: add empirical C\u2086/R\u2076 correction (Grimme)</span><br />
+          <span style={{ color: D.basis }}>vdW-DF: non-local correlation functional (Dion et al.)</span><br />
+          <span style={{ color: D.xc }}>MBD: many-body dispersion (Tkatchenko)</span>
+        </div>
+      </Card>
+
+      {/* A6. Strongly correlated */}
+      <Card title={"What are strongly correlated systems and why does DFT fail?"} color={D.warn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          In most materials, electrons behave somewhat independently (weakly correlated) {"\u2014"} DFT works.
+          But in some systems (Mott insulators, heavy fermion, cuprate superconductors),
+          electron-electron interactions dominate and the independent-particle picture breaks down.
+          DFT maps onto non-interacting electrons {"\u2014"} it <strong style={{ color: D.warn }}>cannot capture physics where correlation is the main act</strong>.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warn, fontWeight: 700 }}>Weak correlation: U/W {"<"} 1 (DFT works)</span><br />
+          <span style={{ color: D.warn }}>Strong correlation: U/W {">"} 1 (DFT fails)</span><br /><br />
+          <span style={{ color: T.muted }}>U = on-site Coulomb repulsion</span><br />
+          <span style={{ color: T.muted }}>W = bandwidth (kinetic energy scale)</span><br /><br />
+          <span style={{ color: D.warn }}>Examples of failure:</span><br />
+          <span style={{ color: T.muted }}>NiO: DFT says metal, reality is insulator (gap ~4 eV)</span><br />
+          <span style={{ color: T.muted }}>La{"\u2082"}CuO{"\u2084"}: DFT says metal, reality is AF insulator</span><br /><br />
+          <span style={{ color: D.xc }}>Fixes: DFT+U, DMFT, DFT+DMFT, slave-boson methods</span>
+        </div>
+      </Card>
+
+      {/* A7. Janak's theorem */}
+      <Card title={"What is Janak\u2019s theorem and what does it tell us?"} color={D.eqn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Janak{"\u2019"}s theorem relates the KS eigenvalue to the derivative of total energy with
+          respect to orbital occupation. It{"\u2019"}s the DFT analogue of Koopmans{"'"} theorem and provides
+          the formal connection between eigenvalues and ionization energies.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>{"\u03B5"}_i = {"\u2202"}E / {"\u2202"}f_i</span><br /><br />
+          <span style={{ color: T.muted }}>f_i = occupation number (0 to 1)</span><br />
+          <span style={{ color: T.muted }}>For exact functional: integrate from f=1 to f=0 {"\u2192"} IP</span><br /><br />
+          <span style={{ color: D.eqn }}>IP = {"\u2212"}{"\u222B"}\u2080\u00B9 {"\u03B5"}_HOMO(f) df</span><br /><br />
+          <span style={{ color: T.muted }}>If {"\u03B5"}_HOMO is constant (straight-line condition): IP = {"\u2212"}{"\u03B5"}_HOMO</span><br />
+          <span style={{ color: D.warn }}>LDA/GGA: {"\u03B5"} curves, so {"\u2212"}{"\u03B5"}_HOMO {"\u2260"} IP (SIE again!)</span>
+        </div>
+      </Card>
+
+      {/* A8. Hellmann-Feynman */}
+      <Card title={"What is the Hellmann-Feynman theorem and why do forces matter?"} color={D.basis}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The Hellmann-Feynman theorem says the force on a nucleus equals the classical electrostatic
+          force from the electron density and other nuclei. In plane-wave DFT, this is exact
+          (no Pulay corrections needed). Forces enable structure relaxation, molecular dynamics, and phonon calculations.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.basis, fontWeight: 700 }}>F_I = {"\u2212"}{"\u2202"}E/{"\u2202"}R_I = {"\u2212"}{"\u222B"} n(r) {"\u2202"}v_ext/{"\u2202"}R_I dr {"\u2212"} {"\u2202"}E_nn/{"\u2202"}R_I</span><br /><br />
+          <span style={{ color: T.muted }}>Forces depend only on n(r) and nuclear positions!</span><br />
+          <span style={{ color: T.muted }}>No wavefunction derivatives needed (if basis is complete)</span><br /><br />
+          <span style={{ color: D.basis }}>Applications:</span><br />
+          <span style={{ color: T.muted }}>F = 0 on all atoms {"\u2192"} equilibrium structure</span><br />
+          <span style={{ color: T.muted }}>F = ma {"\u2192"} ab initio molecular dynamics (AIMD)</span><br />
+          <span style={{ color: T.muted }}>{"\u2202"}F/{"\u2202"}R {"\u2192"} dynamical matrix {"\u2192"} phonons</span>
+        </div>
+      </Card>
+
+      {/* A9. Brillouin zone sampling */}
+      <Card title={"Why do we need k-point sampling and how does it affect results?"} color={D.main}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          In a periodic crystal, electron states are labelled by crystal momentum <strong>k</strong>.
+          Total energy and density require <em>integrating</em> over all k in the Brillouin zone.
+          Since we can{"\u2019"}t integrate exactly, we approximate with a discrete grid (Monkhorst-Pack).
+          Insufficient k-points {"\u2192"} wrong energies, forces, and band structures.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.main, fontWeight: 700 }}>E_total = (1/N_k) {"\u03A3"}_k {"\u03A3"}_n f_nk {"\u03B5"}_nk</span><br /><br />
+          <span style={{ color: T.muted }}>Rules of thumb:</span><br />
+          <span style={{ color: D.main }}>Metals: {"\u2265"}12{"\u00D7"}12{"\u00D7"}12 (Fermi surface needs fine sampling)</span><br />
+          <span style={{ color: D.accent }}>Semiconductors: 6{"\u00D7"}6{"\u00D7"}6 (smooth bands converge faster)</span><br />
+          <span style={{ color: D.basis }}>Molecules / large cells: {"\u0393"}-only (BZ is tiny)</span><br /><br />
+          <span style={{ color: D.warn }}>Always test: increase k-mesh until E changes by {"<"}1 meV/atom</span>
+        </div>
+      </Card>
+
+      {/* A10. DFT+TDDFT */}
+      <Card title={"What is TDDFT and when do you need it?"} color={D.xc}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Time-Dependent DFT extends DFT to excited states and optical properties. Instead of
+          the static KS equations, you solve the time-dependent KS equations or (more commonly)
+          use linear response to get excitation energies and optical spectra.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.xc, fontWeight: 700 }}>Runge-Gross theorem (1984): n(r,t) uniquely determines v_ext(r,t)</span><br /><br />
+          <span style={{ color: T.muted }}>Time-dependent KS: i{"\u0127"} {"\u2202"}{"\u03C6"}_i/{"\u2202"}t = [{"\u2212"}{"\u00BD"}{"\u2207\u00B2"} + v_KS(r,t)] {"\u03C6"}_i</span><br /><br />
+          <span style={{ color: D.xc }}>Linear response TDDFT: {"\u03C9"}_excitation from Casida equations</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>Use TDDFT for:</span><br />
+          <span style={{ color: T.muted }}>UV-Vis absorption spectra, optical gaps, exciton binding</span><br />
+          <span style={{ color: T.muted }}>Photochemistry, plasmonics, laser-matter interaction</span><br /><br />
+          <span style={{ color: D.warn }}>Limitations: charge-transfer states, double excitations, strong correlation</span>
+        </div>
+      </Card>
+
+      {/* A11. Convergence */}
+      <Card title={"What convergence tests are essential before trusting DFT results?"} color={D.accent}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          This is a critical interview question. Every DFT calculation has numerical parameters that
+          must be converged. Reporting results without convergence tests is <strong style={{ color: D.warn }}>scientifically
+          indefensible</strong>.
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 10 }}>
+          {[
+            { param: "Energy cutoff (E_cut)", what: "Plane-wave basis completeness", converge: "Increase until E changes by <1 meV/atom", color: D.basis },
+            { param: "k-point mesh", what: "Brillouin zone sampling", converge: "Increase grid until E changes by <1 meV/atom", color: D.main },
+            { param: "SCF convergence (EDIFF)", what: "Self-consistency tolerance", converge: "10\u207B\u2076 eV for energies, 10\u207B\u2078 for phonons", color: D.eqn },
+            { param: "Force convergence", what: "Ionic relaxation threshold", converge: "<0.01 eV/\u00C5 for structures, <0.001 for phonons", color: D.accent },
+            { param: "Supercell size", what: "Defect/surface calculations", converge: "Increase until defect doesn\u2019t interact with its images", color: D.warm },
+            { param: "Vacuum thickness", what: "Slab/molecule calculations", converge: "\u226515 \u00C5 vacuum to prevent slab-slab interaction", color: D.xc },
+            { param: "Smearing width (\u03C3)", what: "Fermi-Dirac or Gaussian broadening", converge: "Extrapolate to \u03C3\u21920 or use tetrahedron method for final energy", color: D.warn },
+          ].map(item => (
+            <div key={item.param} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15` }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.param}</div>
+              <div style={{ fontSize: 11, color: T.muted }}>{item.what}</div>
+              <div style={{ fontSize: 11, color: T.ink, fontWeight: 600 }}>{"\u2192"} {item.converge}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      {/* A12. Spin-orbit coupling */}
+      <Card title={"What is spin-orbit coupling and when do you need it?"} color={D.warm}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Spin-orbit coupling (SOC) is a relativistic effect where an electron{"\u2019"}s spin interacts
+          with the magnetic field generated by its orbital motion around the nucleus. It scales
+          as Z{"\u2074"} {"\u2014"} negligible for light elements but huge for heavy atoms (Pb, Bi, W, Pt).
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>H_SOC = {"\u03BE"}(r) L{"\u00B7"}S</span><br /><br />
+          <span style={{ color: T.muted }}>{"\u03BE"} {"\u221D"} Z{"\u2074"}/n{"\u00B3"} (increases rapidly with atomic number)</span><br /><br />
+          <span style={{ color: D.warm, fontWeight: 700 }}>When SOC matters:</span><br />
+          <span style={{ color: T.muted }}>Topological insulators (Bi{"\u2082"}Se{"\u2083"}: SOC opens the surface gap)</span><br />
+          <span style={{ color: T.muted }}>Rashba splitting (heavy metal surfaces/interfaces)</span><br />
+          <span style={{ color: T.muted }}>Magnetic anisotropy (which direction spins prefer)</span><br />
+          <span style={{ color: T.muted }}>Band inversions in HgTe, PbTe, halide perovskites</span><br /><br />
+          <span style={{ color: D.accent }}>Without SOC: Pb halide perovskite gap off by ~1 eV!</span>
+        </div>
+      </Card>
+
+      {/* A13. DFT limitations summary */}
+      <Card title={"What are the fundamental limitations of DFT?"} color={D.warn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          An interviewer asking this wants to know you understand where DFT ends and other methods begin.
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+          {[
+            { issue: "Band gaps underestimated", root: "Derivative discontinuity missing in LDA/GGA", fix: "HSE06, GW", color: D.warn },
+            { issue: "Van der Waals missing", root: "LDA/GGA are local/semi-local", fix: "DFT-D3, vdW-DF, MBD", color: D.accent },
+            { issue: "Self-interaction error", root: "Approximate E_xc doesn\u2019t cancel E_H[n_i]", fix: "Hybrid, SIC, DFT+U", color: D.warm },
+            { issue: "Strong correlation", root: "KS maps to non-interacting system", fix: "DFT+DMFT, CASSCF", color: D.main },
+            { issue: "Excited states", root: "HK theorems for ground state only", fix: "TDDFT, GW-BSE", color: D.eqn },
+            { issue: "O(N\u00B3) scaling", root: "Diagonalisation of KS Hamiltonian", fix: "Linear-scaling DFT, MLFF", color: D.basis },
+            { issue: "Temperature = 0 K", root: "Standard DFT has no thermal effects", fix: "DFT-MD, free energy methods", color: D.xc },
+            { issue: "Nuclear quantum effects", root: "Born-Oppenheimer: classical nuclei", fix: "Path-integral MD", color: D.warm },
+          ].map(item => (
+            <div key={item.issue} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15` }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.issue}</div>
+              <div style={{ fontSize: 10, color: T.muted }}>{item.root}</div>
+              <div style={{ fontSize: 10, fontWeight: 600, color: item.color, marginTop: 2 }}>Fix: {item.fix}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
     </div>
   );
 }
