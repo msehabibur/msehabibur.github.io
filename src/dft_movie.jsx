@@ -175,21 +175,21 @@ export default function DFTMovieModule() {
           </text>
 
           {/* KS equation box — large prominent block */}
-          <rect x={W/2-220} y={240} width={440} height={120} rx="12"
+          <rect x={W/2-260} y={235} width={520} height={130} rx="14"
             fill={P.surface} stroke={P.border} strokeWidth="1.5" opacity={eqOp} />
-          <rect x={W/2-220} y={240} width={440} height={4} rx="2" fill={P.purple} opacity={eqOp} />
-          <text x={W/2} y={263} textAnchor="middle" fill={P.purple} fontSize="11" fontWeight="700"
+          <rect x={W/2-260} y={235} width={520} height={4} rx="2" fill={P.purple} opacity={eqOp} />
+          <text x={W/2} y={260} textAnchor="middle" fill={P.purple} fontSize="12" fontWeight="700"
             fontFamily="'Inter',sans-serif" opacity={eqOp}>Kohn-Sham Equation — The Heart of DFT</text>
-          <text x={W/2} y={292} textAnchor="middle" fill={P.green} fontSize="15" fontWeight="700"
+          <text x={W/2} y={292} textAnchor="middle" fill={P.green} fontSize="16" fontWeight="700"
             fontFamily="'Fira Code','Consolas',monospace" opacity={eqOp}>{"[-½∇² + v_ext(r) + v_H(r) + v_xc(r)] φᵢ(r) = εᵢ φᵢ(r)"}</text>
-          <line x1={W/2-180} y1={306} x2={W/2+180} y2={306} stroke={P.border} strokeWidth="0.8" opacity={eqOp * 0.5} />
-          <text x={W/2-130} y={322} fill={P.amber} fontSize="9" fontWeight="600"
+          <line x1={W/2-220} y1={308} x2={W/2+220} y2={308} stroke={P.border} strokeWidth="0.8" opacity={eqOp * 0.5} />
+          <text x={W/2-150} y={326} fill={P.amber} fontSize="9.5" fontWeight="600"
             fontFamily="'Inter',sans-serif" opacity={eqOp * 0.9}>v_ext = nuclear pull</text>
-          <text x={W/2-10} y={322} fill={P.blue} fontSize="9" fontWeight="600"
+          <text x={W/2-10} y={326} fill={P.blue} fontSize="9.5" fontWeight="600"
             fontFamily="'Inter',sans-serif" opacity={eqOp * 0.9}>v_H = e⁻ repulsion</text>
-          <text x={W/2+120} y={322} fill={P.pink} fontSize="9" fontWeight="600"
+          <text x={W/2+135} y={326} fill={P.pink} fontSize="9.5" fontWeight="600"
             fontFamily="'Inter',sans-serif" opacity={eqOp * 0.9}>v_xc = quantum fix</text>
-          <text x={W/2} y={345} textAnchor="middle" fill={P.muted} fontSize="9"
+          <text x={W/2} y={352} textAnchor="middle" fill={P.muted} fontSize="9.5"
             fontFamily="'Inter',sans-serif" opacity={eqOp * 0.7}>Solve for each orbital φᵢ → get density → repeat until self-consistent</text>
         </svg>
       );
@@ -1075,7 +1075,7 @@ export default function DFTMovieModule() {
         { text: "detail near nuclei when needed.", color: P.muted,  delay: 0.77 },
       ];
 
-      const bzCx = RX + 100, bzCy = 195, bzR = 72;
+      const bzCx = RX + 120, bzCy = 220, bzR = 72;
 
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
