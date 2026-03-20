@@ -10,7 +10,7 @@ class ParamErrorBoundary extends React.Component {
   render() {
     if (this.state.error) return (
       <div style={{ padding: 20, color: "#dc2626", fontSize: 13, fontFamily: "monospace", whiteSpace: "pre-wrap", background: "#fef2f2", borderRadius: 10, border: "1.5px solid #dc262630" }}>
-        <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 8 }}>Error in Parameters Lab:</div>
+        <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 8 }}>Error in Worked Example:</div>
         {this.state.error.toString()}
         <div style={{ marginTop: 8, color: "#999", fontSize: 11 }}>{this.state.error.stack}</div>
       </div>

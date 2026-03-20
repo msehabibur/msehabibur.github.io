@@ -6100,7 +6100,7 @@ const DFT_BLOCKS = [
   { id: "foundations", label: "Theoretical Foundations",  color: T.dft_main },
   { id: "functionals", label: "XC Functionals",          color: T.dft_xc },
   { id: "numerics",    label: "Numerical Methods",       color: T.dft_basis },
-  { id: "examples",    label: "Worked Examples & Lab",     color: T.dft_accent },
+  { id: "examples",    label: "Worked Examples",            color: T.dft_accent },
   { id: "movies",      label: "Movies",                   color: T.dft_warm },
 ];
 
@@ -7888,9 +7888,9 @@ const DFT_SECTIONS = [
   { id: "hse",      block: "functionals", label: "HSE06 Hybrid",     color: T.dft_xc,   Component: DFTHSESection, nextReason: "HSE06 is accurate but expensive. DFT+U applies a Hubbard U correction to localized d/f orbitals \u2014 a cheaper alternative that improves d-electron description in transition metal oxides and correlated materials." },
   { id: "dftu",     block: "functionals", label: "GGA+U (DFT+U)",    color: T.dft_warm,  Component: DFTDFTUSection, nextReason: "The physics approximations are established. Now the numerics: plane waves provide a complete, systematically improvable basis for Bloch states in periodic systems; PAW reconstructs the full all-electron density near nuclei." },
 
-  { id: "basis",    block: "numerics",   label: "Plane Waves & PAW", color: T.dft_basis, Component: DFTPlaneWavesSection, nextReason: "Basis sets understood. The Parameters Lab lets you explore key DFT settings interactively \u2014 energy cutoff, k-point meshes, smearing, convergence thresholds \u2014 seeing how each knob affects convergence and accuracy." },
+  { id: "basis",    block: "numerics",   label: "Plane Waves & PAW", color: T.dft_basis, Component: DFTPlaneWavesSection, nextReason: "Basis sets understood. The Worked Example lets you explore key DFT settings interactively \u2014 energy cutoff, k-point meshes, smearing, convergence thresholds \u2014 seeing how each knob affects convergence and accuracy." },
 
-  { id: "dft_params",  block: "examples", label: "Parameters Lab",   color: T.dft_basis, Component: DFTParamsLabSection, nextReason: "Parameters mastered. H and He give exact benchmarks \u2014 the only atoms where we can compare DFT approximations against known analytical solutions." },
+  { id: "dft_params",  block: "examples", label: "Worked Example",   color: T.dft_basis, Component: DFTParamsLabSection, nextReason: "Worked example complete. H and He give exact benchmarks \u2014 the only atoms where we can compare DFT approximations against known analytical solutions." },
   { id: "h_he_example", block: "examples", label: "H & He Analytic", color: T.dft_eqn, Component: DFTHHeExampleSection, nextReason: "H and He give exact benchmarks. The Na atom example now applies the full SCF machinery numerically \u2014 showing every iteration, orbital, and energy convergence in a real multi-electron system." },
   { id: "na_example",   block: "examples", label: "Na Atom Example",  color: T.dft_accent, Component: DFTNaExampleSection, nextReason: "Na numerics complete. The DFT Movie ties everything together \u2014 animated scenes of electron clouds, SCF convergence, and equation-by-equation derivations from scratch." },
 

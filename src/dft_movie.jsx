@@ -172,30 +172,17 @@ export default function DFTMovieModule() {
             fontFamily="'Inter',sans-serif" opacity={sOp}>
             From Many-Body Problem to Practical Calculation
           </text>
-          <text x={W/2} y={132} textAnchor="middle" fill={P.purple} fontSize="10"
-            fontFamily="'Inter',sans-serif" opacity={sOp * 0.85}>
-            Hohenberg-Kohn · Kohn-Sham · SCF · XC Functionals · Basis Sets
-          </text>
 
           {/* KS equation box */}
-          <rect x={W/2-148} y={250} width={296} height={58} rx="10"
+          <rect x={W/2-168} y={250} width={336} height={68} rx="10"
             fill={P.surface} stroke={P.border} strokeWidth="1.5" opacity={eqOp} />
-          <rect x={W/2-148} y={250} width={296} height={3} rx="1.5" fill={P.purple} opacity={eqOp} />
+          <rect x={W/2-168} y={250} width={336} height={3} rx="1.5" fill={P.purple} opacity={eqOp} />
           <text x={W/2} y={268} textAnchor="middle" fill={P.muted} fontSize="8" fontWeight="600"
             fontFamily="'Inter',sans-serif" opacity={eqOp}>Kohn-Sham equation — the heart of DFT</text>
-          <text x={W/2} y={286} textAnchor="middle" fill={P.green} fontSize="13" fontWeight="700"
-            fontFamily="'Fira Code','Consolas',monospace" opacity={eqOp}>[-½∇² + v_KS(r)] φᵢ = εᵢ φᵢ</text>
-          <text x={W/2} y={300} textAnchor="middle" fill={P.muted} fontSize="8.5"
-            fontFamily="'Inter',sans-serif" opacity={eqOp * 0.8}>appearing character by character as t increases...</text>
-
-          <text x={W/2} y={358} textAnchor="middle" fill={P.muted} fontSize="10"
-            fontFamily="'Inter',sans-serif" opacity={aOp}>
-            Habibur Rahman · Purdue University
-          </text>
-          <text x={W/2} y={376} textAnchor="middle" fill={P.dim} fontSize="9"
-            fontFamily="'Inter',sans-serif" opacity={aOp}>
-            rahma103@purdue.edu
-          </text>
+          <text x={W/2} y={288} textAnchor="middle" fill={P.green} fontSize="13" fontWeight="700"
+            fontFamily="'Fira Code','Consolas',monospace" opacity={eqOp}>{"[-½∇² + v_ext(r) + v_H(r) + v_xc(r)] φᵢ(r) = εᵢ φᵢ(r)"}</text>
+          <text x={W/2} y={306} textAnchor="middle" fill={P.muted} fontSize="8"
+            fontFamily="'Inter',sans-serif" opacity={eqOp * 0.8}>v_ext = nuclear potential · v_H = Hartree · v_xc = exchange-correlation</text>
         </svg>
       );
     }
@@ -1062,28 +1049,27 @@ export default function DFTMovieModule() {
       const tOp = ease(clamp01(t * 4));
 
       const eqLines = [
-        { text: "Basis Sets",                     color: P.amber,  delay: 0.04 },
-        { text: "",                               color: P.muted,  delay: 0.07 },
-        { text: "Plane waves (periodic solids):", color: P.blue,   delay: 0.10 },
-        { text: "φᵢ(r)=Σ_G cᵢG exp(i(k+G)·r)",  color: P.ink,    delay: 0.14 },
-        { text: "E_cut=ħ²|k+G|²_max/2m",         color: P.muted,  delay: 0.18 },
-        { text: "set by energy cutoff parameter",  color: P.muted,  delay: 0.22 },
-        { text: "",                               color: P.muted,  delay: 0.25 },
-        { text: "Localised (molecules):",         color: P.green,  delay: 0.28 },
-        { text: "Gaussian (GTO): exp(-αr²)",      color: P.ink,    delay: 0.32 },
-        { text: "6-31G*, cc-pVTZ, def2-TZVP",    color: P.muted,  delay: 0.36 },
-        { text: "",                               color: P.muted,  delay: 0.39 },
-        { text: "Pseudopotential:",               color: P.purple, delay: 0.42 },
-        { text: "replace core with V_ps(r)",      color: P.muted,  delay: 0.46 },
-        { text: "→ smooth pseudo-wavefunction",   color: P.teal,   delay: 0.50 },
-        { text: "matches AE outside r_c",         color: P.muted,  delay: 0.54 },
-        { text: "",                               color: P.muted,  delay: 0.57 },
-        { text: "PAW method (Blochl 1994):",      color: P.pink,   delay: 0.60 },
-        { text: "reconstruct AE density",         color: P.muted,  delay: 0.64 },
-        { text: "near nuclei via transform",      color: P.muted,  delay: 0.68 },
-        { text: "",                               color: P.muted,  delay: 0.71 },
-        { text: "k-sampling:",                    color: P.amber,  delay: 0.74 },
-        { text: "Monkhorst-Pack Nk×Nk×Nk",       color: P.ink,    delay: 0.78 },
+        { text: "What is a Basis Set?",            color: P.amber,  delay: 0.04 },
+        { text: "A set of mathematical functions",  color: P.muted,  delay: 0.07 },
+        { text: "used to represent orbitals φᵢ(r)", color: P.muted,  delay: 0.10 },
+        { text: "",                               color: P.muted,  delay: 0.13 },
+        { text: "Plane waves (crystals):",        color: P.blue,   delay: 0.16 },
+        { text: "φᵢ(r)=Σ_G cᵢG exp(i(k+G)·r)",  color: P.ink,    delay: 0.20 },
+        { text: "E_cut sets max |k+G|²/2m",       color: P.muted,  delay: 0.24 },
+        { text: "systematic: just increase E_cut", color: P.green,  delay: 0.28 },
+        { text: "",                               color: P.muted,  delay: 0.31 },
+        { text: "Gaussians (molecules):",         color: P.green,  delay: 0.34 },
+        { text: "exp(-αr²) — localized",          color: P.ink,    delay: 0.38 },
+        { text: "6-31G*, cc-pVTZ, def2-TZVP",    color: P.muted,  delay: 0.42 },
+        { text: "",                               color: P.muted,  delay: 0.45 },
+        { text: "Pseudopotential + PAW:",         color: P.purple, delay: 0.48 },
+        { text: "replace expensive core e⁻",      color: P.muted,  delay: 0.52 },
+        { text: "with smooth effective potential", color: P.teal,   delay: 0.56 },
+        { text: "PAW: recovers AE density near",  color: P.pink,   delay: 0.60 },
+        { text: "nuclei via linear transform",     color: P.muted,  delay: 0.64 },
+        { text: "",                               color: P.muted,  delay: 0.68 },
+        { text: "k-sampling:",                    color: P.amber,  delay: 0.71 },
+        { text: "Monkhorst-Pack Nk×Nk×Nk grid",  color: P.ink,    delay: 0.75 },
       ];
 
       const bzCx = RX + 80, bzCy = 165, bzR = 72;
@@ -1453,7 +1439,7 @@ export default function DFTMovieModule() {
           <span style={{ fontSize: 12, fontWeight: 700, color: P.ink }}>{scene.label}</span>
         </div>
         <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 600, opacity: 0.65 }}>
-          Habibur Rahman · rahma103@purdue.edu
+          DFT Basics
         </div>
         <div style={{ opacity: fadeOpacity, transition: "opacity 0.25s ease-in-out", willChange: "opacity" }}>
           {renderScene()}
@@ -1512,6 +1498,102 @@ export default function DFTMovieModule() {
           {Math.floor(elapsed / 1000)}s / {Math.floor(totalDuration / 1000)}s
         </span>
       </div>
+
+      {/* Scene analogies */}
+      {(() => {
+        const analogies = {
+          title: [
+            { icon: "\uD83C\uDFA8", text: "DFT is like predicting the weather: instead of tracking every air molecule (impossible), you use the overall air density and temperature fields. DFT replaces tracking every electron with tracking the electron density." },
+            { icon: "\uD83C\uDFB5", text: "Like reconstructing a song from its frequency spectrum instead of tracking each speaker cone vibration \u2014 the density contains all the physics, just as the spectrum contains all the music." },
+          ],
+          many_body: [
+            { icon: "\uD83C\uDFAD", text: "Imagine choreographing a dance for 100 dancers where every dancer\u2019s move depends on all other dancers simultaneously. With 3 coordinates per dancer, you need a script written in 300-dimensional space \u2014 that\u2019s the many-body problem." },
+            { icon: "\uD83C\uDFB2", text: "Like a chess game where every piece on the board changes the rules for every other piece on every turn. You can\u2019t simplify \u2014 every piece-to-piece interaction matters." },
+            { icon: "\uD83C\uDF0A", text: "Think of waves in a crowded pool: each swimmer creates ripples that affect all other swimmers. Solving for all wave patterns simultaneously is exponentially hard as you add more swimmers." },
+          ],
+          born_opp: [
+            { icon: "\uD83D\uDE82", text: "Nuclei are like slow freight trains and electrons are like buzzing flies around them. The flies adjust instantly to wherever the trains are, so you can solve the fly problem first at each train position." },
+            { icon: "\uD83C\uDFAC", text: "Like filming a time-lapse of a glacier (nuclei) while hummingbirds (electrons) zip around it. At each glacier snapshot, the hummingbirds have already reached their equilibrium pattern." },
+            { icon: "\u2693", text: "Imagine anchoring heavy ships (nuclei) in a harbor and watching how the water currents (electrons) flow around them. Move the ships slightly and the currents re-adjust almost instantly." },
+          ],
+          hohenberg_kohn: [
+            { icon: "\uD83D\uDDFA\uFE0F", text: "HK1 is like saying: if you know the terrain map (density) of a landscape, you can uniquely reconstruct the gravitational field (external potential) that shaped it. No two different gravitational fields produce the same terrain." },
+            { icon: "\uD83D\uDD0D", text: "Like a fingerprint: just as every person has a unique fingerprint, every external potential produces a unique ground-state density. The density IS the fingerprint of the system." },
+            { icon: "\uD83D\uDCE6", text: "Instead of shipping a 3N-dimensional package (the full wavefunction), HK says: just ship a 3D package (the density) \u2014 it contains all the same information. Massive compression!" },
+          ],
+          kohn_sham: [
+            { icon: "\uD83C\uDFAD", text: "KS is a con artist\u2019s trick: replace the hard problem (interacting electrons) with a fake system of independent electrons that gives the same density. It\u2019s like replacing a tangled rope with separate strings that form the same shape." },
+            { icon: "\uD83C\uDFB9", text: "Like playing a complex chord: instead of solving for all string vibrations coupled together, KS finds independent notes (orbitals) that, when combined, reproduce the correct sound (density)." },
+            { icon: "\uD83C\uDFE0", text: "Building a house: instead of calculating every load simultaneously, engineers solve for each beam independently using an effective load that accounts for all the other beams. Same idea \u2014 single-particle equations with an effective potential." },
+          ],
+          xc_functional: [
+            { icon: "\uD83C\uDF70", text: "The XC functional is like a recipe correction: LDA is \u2018use local ingredients only\u2019 (crude), GGA adds \u2018also taste the neighbors\u2019, meta-GGA adds \u2018and note the cooking temperature\u2019, hybrids add \u2018and a pinch of the exact spice\u2019." },
+            { icon: "\uD83D\uDCF7", text: "Like image resolution: LDA is a blurry photo (just local color), GGA adds edges (gradients), meta-GGA adds texture, hybrid adds fine details from a reference photo (exact exchange). More information = clearer picture." },
+            { icon: "\uD83E\uDE9C", text: "Jacob\u2019s Ladder is like map resolution \u2014 from a globe (LDA) to a country map (GGA) to Google Street View (hybrid). Each rung is more detailed but costs more to produce." },
+          ],
+          scf_cycle: [
+            { icon: "\uD83C\uDFAF", text: "SCF is like adjusting a thermostat: you set a temperature (guess density), the heater responds (solve KS), the room reaches a new temperature (new density), and you re-adjust. Eventually the room stabilizes (convergence)." },
+            { icon: "\uD83D\uDD04", text: "Like focusing binoculars: you start with a blurry image (initial guess), adjust the lens (solve equations), check if it\u2019s sharp (convergence test), and keep tweaking until the image is clear." },
+            { icon: "\uD83C\uDF10", text: "Like a GPS finding your location: it starts with a rough estimate, uses satellites (KS equations) to refine, checks accuracy, and iterates until the position is pinpointed within tolerance." },
+          ],
+          basis_sets: [
+            { icon: "\uD83E\uDDE9", text: "A basis set is your set of LEGO bricks. Plane waves are like uniform square bricks \u2014 great for building periodic patterns (crystals). Gaussians are like rounded bricks \u2014 better for building isolated shapes (molecules). More bricks = more detail, but costs more time." },
+            { icon: "\uD83C\uDFB6", text: "Like synthesizing any sound from pure tones (Fourier): plane waves are the pure tones of crystal calculations. The energy cutoff is the highest pitch you include \u2014 more tones give a sharper wavefunction, like more overtones give a richer sound." },
+            { icon: "\uD83D\uDCD6", text: "Pseudopotentials are like using cliff notes for the boring parts. Core electrons (near nuclei) are predictable and expensive to describe. The pseudopotential summarizes them, so you only compute the interesting valence electrons in full detail." },
+          ],
+          output: [
+            { icon: "\uD83D\uDCCA", text: "DFT outputs are like a medical checkup for a material: total energy (overall health), band structure (how electrons flow = blood test), DOS (electron population = blood cell count), forces (structural stability = bone density scan)." },
+            { icon: "\uD83D\uDD2C", text: "Like getting a lab report: the raw numbers (energies, eigenvalues) need interpretation. Band gap tells you insulator vs metal (conductivity), forces tell you stability (will it hold its shape), charge density shows bonding (where the glue is)." },
+          ],
+        };
+        const items = analogies[scene.id];
+        if (!items) return null;
+        return (
+          <div style={{ marginTop: 12, background: P.panel, borderRadius: 12, border: `1px solid ${P.border}`, padding: "12px 16px" }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: P.blue, marginBottom: 8, letterSpacing: 0.5, textTransform: "uppercase" }}>Analogies</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {items.map((a, i) => (
+                <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                  <span style={{ fontSize: 16, lineHeight: "20px", flexShrink: 0 }}>{a.icon}</span>
+                  <span style={{ fontSize: 11, lineHeight: 1.7, color: P.ink }}>{a.text}</span>
+                </div>
+              ))}
+            </div>
+            {/* Summary table for output scene */}
+            {scene.id === "output" && (
+              <div style={{ marginTop: 12, borderTop: `1px solid ${P.border}`, paddingTop: 10 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: P.purple, marginBottom: 8, letterSpacing: 0.5, textTransform: "uppercase" }}>DFT Methods at a Glance</div>
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+                  <thead>
+                    <tr style={{ borderBottom: `2px solid ${P.border}` }}>
+                      {["Method", "Accuracy", "Cost", "Best for"].map(h => (
+                        <th key={h} style={{ padding: "5px 6px", textAlign: "left", color: P.blue, fontWeight: 700, fontSize: 10 }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { m: "LDA",      acc: "Low",      cost: "1x",      use: "Quick estimates, trends",        col: P.blue   },
+                      { m: "GGA-PBE",  acc: "Good",     cost: "1x",      use: "Structures, energetics, phonons", col: P.green  },
+                      { m: "meta-GGA", acc: "Better",   cost: "2-3x",    use: "Diverse bonding, surfaces",      col: P.teal   },
+                      { m: "DFT+U",    acc: "Good (d/f)", cost: "~1x",   use: "TM oxides, correlated systems",  col: P.amber  },
+                      { m: "HSE06",    acc: "High",     cost: "10-100x", use: "Band gaps, defect levels",       col: P.purple },
+                      { m: "GW",       acc: "Very high", cost: "1000x",  use: "Quasiparticle spectra",          col: P.pink   },
+                    ].map((r, i) => (
+                      <tr key={i} style={{ borderBottom: `1px solid ${P.dim}30` }}>
+                        <td style={{ padding: "4px 6px", fontWeight: 700, color: r.col }}>{r.m}</td>
+                        <td style={{ padding: "4px 6px", color: P.ink }}>{r.acc}</td>
+                        <td style={{ padding: "4px 6px", color: P.muted, fontFamily: "monospace" }}>{r.cost}</td>
+                        <td style={{ padding: "4px 6px", color: P.muted }}>{r.use}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        );
+      })()}
 
       {/* Scene chips */}
       <div style={{ display: "flex", gap: 4, marginTop: 10, flexWrap: "wrap" }}>
