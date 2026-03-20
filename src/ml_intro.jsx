@@ -339,7 +339,7 @@ function LinearRegressionSection() {
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={10} x2={40} y2={svgH - 30} stroke={T.border} />
             <text x={svgW / 2} y={svgH - 2} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={600}>Atomic Radius (Å)</text>
-            <text x={12} y={svgH / 2 + 20} fontSize={12} fill={T.muted} fontWeight={600} transform={`rotate(-90,12,${svgH / 2 + 20})`}>Lattice Const (Å)</text>
+            <text x={12} y={svgH / 2 + 40} fontSize={12} fill={T.muted} fontWeight={600} transform={`rotate(-90,12,${svgH / 2 + 40})`}>Lattice Const (Å)</text>
             {/* Ticks */}
             {[1.15, 1.25, 1.35, 1.45].map(v => (
               <g key={v}>
