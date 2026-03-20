@@ -6755,7 +6755,7 @@ function DFTFAQSection() {
           <span style={{ color: D.xc, fontWeight: 700 }}>HK: n(r) {"\u2192"} v_ext(r) {"\u2192"} {"\u03A8"} {"\u2192"} E</span><br /><br />
           <span style={{ color: T.muted }}>Question: for any trial n(r), does a v_ext exist?</span><br />
           <span style={{ color: D.xc }}>Constrained search (Levy, 1979): avoids this issue</span><br />
-          <span style={{ color: D.xc }}>E[n] = min_{"{"}{"{"}{"\u03A8"}{"\u2192"}n{"}"}} {"<"}{"\u03A8"}|T+V_ee|{"\u03A8"}{">"} + {"\u222B"} v_ext n dr</span><br /><br />
+          <span style={{ color: D.xc }}>{"E[n] = min_{\u03A8\u2192n} <\u03A8|T+V_ee|\u03A8> + \u222B v_ext n dr"}</span><br /><br />
           <span style={{ color: T.muted }}>Minimise over all wavefunctions that give density n {"\u2014"} no v-representability needed!</span>
         </div>
       </Card>
