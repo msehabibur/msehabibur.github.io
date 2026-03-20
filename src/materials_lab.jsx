@@ -6393,6 +6393,68 @@ function DFTFAQSection() {
         </FAQGraph>
       </Card>
 
+      {/* 6b. Ground state but band gaps? */}
+      <Card title={"DFT is for ground states \u2014 so why do we calculate band gaps?"} color={D.eqn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          This is one of the deepest questions in DFT. Strictly, the Hohenberg-Kohn theorems guarantee
+          that DFT gives exact <strong>ground-state</strong> properties: total energy, electron density, forces.
+          Band gaps involve removing or adding an electron \u2014 that{"\u2019"}s an <strong style={{ color: D.warn }}>excited-state</strong> property.
+          So why does everyone compute band gaps with DFT anyway?
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 12 }}>
+          {[
+            { label: "The pragmatic reason", text: "Kohn-Sham eigenvalues (\u03B5\u1D62) are not true quasiparticle energies, but they\u2019re surprisingly close. For many semiconductors, PBE eigenvalue gaps are ~50-70% of experiment \u2014 wrong in magnitude but right in trends. That\u2019s useful for screening.", color: D.basis },
+            { label: "The formal gap", text: "The true DFT band gap has a derivative discontinuity: E_gap = \u03B5_KS_gap + \u0394_xc. LDA/GGA miss \u0394_xc entirely (\u0394_xc \u2248 0 in these approximations), which is WHY they underestimate. The error is not in DFT itself, but in the functional.", color: D.eqn },
+            { label: "Hybrid functionals fix it", text: "HSE06 includes 25% exact exchange, which partially captures \u0394_xc. This is why HSE band gaps match experiment so well \u2014 not because DFT suddenly handles excited states, but because the discontinuity is approximately included.", color: D.xc },
+            { label: "The proper way", text: "For rigorous excited states, use many-body perturbation theory: GW approximation for quasiparticle gaps, BSE for optical gaps. These build on DFT wavefunctions but go beyond ground-state theory.", color: D.warm },
+          ].map(item => (
+            <div key={item.label} style={{ background: item.color + "06", borderRadius: 10, padding: "12px 14px", border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}` }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: item.color, marginBottom: 4 }}>{item.label}</div>
+              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>{item.text}</div>
+            </div>
+          ))}
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>True gap: E_gap = I {"\u2212"} A = (E_N{"\u207B\u00B9"} {"\u2212"} E_N) {"\u2212"} (E_N {"\u2212"} E_N{"\u207A\u00B9"})</span><br /><br />
+          <span style={{ color: T.muted }}>I = ionization energy, A = electron affinity</span><br />
+          <span style={{ color: T.muted }}>Both involve changing the number of electrons (N{"\u00B1"}1)</span><br /><br />
+          <span style={{ color: D.eqn }}>KS gap: {"\u03B5"}_gap = {"\u03B5"}_{"{CBM}"} {"\u2212"} {"\u03B5"}_{"{VBM}"}</span><br />
+          <span style={{ color: D.warn }}>Missing piece: {"\u0394"}_xc = E_gap {"\u2212"} {"\u03B5"}_gap (derivative discontinuity)</span><br /><br />
+          <span style={{ color: D.basis }}>LDA/GGA: {"\u0394"}_xc {"\u2248"} 0 {"\u2192"} gap underestimated</span><br />
+          <span style={{ color: D.xc }}>HSE06: partially captures {"\u0394"}_xc {"\u2192"} much better gaps</span><br />
+          <span style={{ color: D.accent }}>GW: full quasiparticle correction {"\u2192"} accurate gaps</span>
+        </div>
+        <FAQGraph height={140}>
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.eqn} fontWeight="700">The Band Gap Problem: KS Gap vs True Gap</text>
+          {/* VB and CB for three methods */}
+          {[
+            { label: "PBE", x: 40, vb: 85, cb: 55, col: D.warn },
+            { label: "HSE06", x: 150, vb: 85, cb: 35, col: D.xc },
+            { label: "GW", x: 260, vb: 85, cb: 28, col: D.accent },
+          ].map((m, i) => (
+            <g key={i}>
+              <rect x={m.x} y={m.vb} width={80} height={30} fill={m.col} opacity={0.25} rx={3} />
+              <rect x={m.x} y={m.vb} width={80} height={30} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
+              <text x={m.x + 40} y={m.vb + 18} textAnchor="middle" fontSize={8} fill={m.col} fontWeight="600">VBM</text>
+              <rect x={m.x} y={m.cb - 20} width={80} height={20} fill={m.col} opacity={0.1} rx={3} />
+              <rect x={m.x} y={m.cb - 20} width={80} height={20} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
+              <text x={m.x + 40} y={m.cb - 7} textAnchor="middle" fontSize={8} fill={m.col} fontWeight="600">CBM</text>
+              {/* Gap arrow */}
+              <line x1={m.x + 40} y1={m.vb} x2={m.x + 40} y2={m.cb} stroke={m.col} strokeWidth={1.5} />
+              <polygon points={`${m.x + 36},${m.cb} ${m.x + 44},${m.cb} ${m.x + 40},${m.cb - 6}`} fill={m.col} />
+              <polygon points={`${m.x + 36},${m.vb} ${m.x + 44},${m.vb} ${m.x + 40},${m.vb + 6}`} fill={m.col} />
+              <text x={m.x + 60} y={(m.vb + m.cb) / 2 + 3} fontSize={8} fill={m.col} fontWeight="700">{m.vb - m.cb > 40 ? "~1.1" : m.vb - m.cb > 35 ? "~1.0" : "~0.6"} eV</text>
+              <text x={m.x + 40} y={124} textAnchor="middle" fontSize={10} fill="#374151" fontWeight="700">{m.label}</text>
+            </g>
+          ))}
+          {/* Experiment reference line */}
+          <line x1={350} y1={85} x2={350} y2={35} stroke={D.basis} strokeWidth={2} strokeDasharray="4,3" />
+          <text x={365} y={63} fontSize={8} fill={D.basis} fontWeight="700">Expt</text>
+          <text x={365} y={73} fontSize={8} fill={D.basis}>1.12 eV</text>
+          <text x={365} y={53} fontSize={7} fill={T.muted}>(Si)</text>
+        </FAQGraph>
+      </Card>
+
       {/* 7. Exchange and correlation */}
       <Card title={"What is exchange and correlation in plain English?"} color={D.accent}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
