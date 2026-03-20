@@ -6099,6 +6099,7 @@ const DFT_ANALOGY_BOX = ({ text }) => (
 const DFT_BLOCKS = [
   { id: "foundations", label: "Theoretical Foundations",  color: T.dft_main },
   { id: "functionals", label: "XC Functionals",          color: T.dft_xc },
+  { id: "basissets",   label: "Basis Sets",              color: T.dft_eqn },
   { id: "numerics",    label: "Numerical Methods",       color: T.dft_basis },
   { id: "examples",    label: "Worked Examples",            color: T.dft_accent },
   { id: "movies",      label: "Movies",                   color: T.dft_warm },
@@ -7114,6 +7115,17 @@ function DFTLDASection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card title="LDA - Local Density Approximation" color={D.warm}>
         <DFT_ANALOGY_BOX text={"Imagine estimating the average income of a neighbourhood by assuming every house earns the national average for its postcode density. You only look at how many people live at each spot, ignoring whether they're near a city centre or farmland. That's LDA: at every point in space it asks 'what would a uniform electron gas of this density do?' and uses that answer. It's crude — real materials are far from uniform — but surprisingly useful for trends, especially in metals where the density is fairly smooth."} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
+          {[
+            { icon: "\uD83C\uDF21\uFE0F", text: "Like measuring temperature: LDA checks the thermometer at each point and assumes the whole room is at that temperature. It ignores that there\u2019s a heater nearby creating a gradient \u2014 that\u2019s what GGA adds." },
+            { icon: "\uD83C\uDF0A", text: "Like a flat-Earth approximation: if you\u2019re building a house, the ground looks flat (LDA works). But if you\u2019re launching a rocket, the curvature matters (you need GGA or beyond)." },
+          ].map((a, i) => (
+            <div key={i} style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.warm}12` }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
+              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
+            </div>
+          ))}
+        </div>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           LDA is the simplest XC approximation. At each point <strong>r</strong>, it treats the electrons
           as a <strong style={{ color: D.warm }}>uniform electron gas</strong> with the local density n(r).
@@ -7203,6 +7215,18 @@ function DFTGGASection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card title="GGA - Generalized Gradient Approximation" color={D.basis}>
         <DFT_ANALOGY_BOX text={"In an oxygen molecule O\u2082, the electron density changes dramatically \u2014 high near nuclei, dropping off into the bonding region, then vanishing in vacuum. LDA pretends each point is a uniform electron gas with that local density, ignoring these steep changes. PBE (GGA) says: 'wait, the density at this point is also rapidly increasing toward the nucleus \u2014 I should adjust E_xc for that gradient.' This gradient correction makes PBE much better for bond lengths, atomization energies, and surface properties."} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
+          {[
+            { icon: "\uD83D\uDCF7", text: "LDA is a blurry photo (just local colour). GGA adds edge detection \u2014 it notices where the colour is changing rapidly and adjusts. The result: sharper, more accurate picture of the electron landscape." },
+            { icon: "\uD83C\uDF0D", text: "Like a weather forecast: LDA checks the barometer at your location. GGA also checks which direction the pressure is changing (the gradient). Knowing the trend makes a much better forecast." },
+            { icon: "\uD83C\uDFD7\uFE0F", text: "Building a bridge: LDA measures the load at each point. GGA also measures how the load is shifting \u2014 catching stress concentrations that a uniform analysis misses." },
+          ].map((a, i) => (
+            <div key={i} style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.basis}12` }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
+              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
+            </div>
+          ))}
+        </div>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           LDA uses only n(r) at each point. GGA adds the <strong style={{ color: D.basis }}>gradient {"\u2207"}n(r)</strong>,
           capturing how rapidly the density changes. PBE (Perdew-Burke-Ernzerhof, 1996) is by far
@@ -7256,6 +7280,17 @@ function DFTHSESection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card title="HSE06 - Heyd-Scuseria-Ernzerhof Hybrid" color={D.xc}>
         <DFT_ANALOGY_BOX text={"Consider silicon: PBE predicts a band gap of 0.6 eV, but experiment shows 1.12 eV. Why? PBE's approximate exchange lets each electron partially repel itself (self-interaction error), spreading orbitals too far and shrinking gaps. HSE06 replaces 25% of PBE exchange with exact Hartree-Fock exchange at short range (within ~5 \u00C5). This removes most self-interaction locally, giving Si a gap of 1.14 eV \u2014 nearly perfect. The trade-off: HSE06 costs 10-100\u00D7 more than PBE."} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
+          {[
+            { icon: "\uD83E\uDDEA", text: "Like seasoning food: PBE uses only pre-made spice mix (approximate exchange). HSE06 adds 25% freshly ground spice (exact exchange) for a more accurate flavour. But fresh grinding takes 100\u00D7 longer." },
+            { icon: "\uD83D\uDD2D", text: "Like corrective lenses: PBE sees the electronic structure blurry. HSE06 adds a precise lens (exact exchange) for nearby objects (short range) while accepting blurriness for far-off things (long range). The result: sharp band gaps at manageable cost." },
+          ].map((a, i) => (
+            <div key={i} style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.xc}12` }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
+              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
+            </div>
+          ))}
+        </div>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           The key idea: mix <strong style={{ color: D.xc }}>25% exact (Hartree-Fock) exchange</strong> with
           75% PBE exchange, but only at <strong>short range</strong>. Long-range exchange stays pure PBE.
@@ -7316,6 +7351,17 @@ function DFTDFTUSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card title="The Problem with d and f Electrons" color={D.warm}>
         <DFT_ANALOGY_BOX text={"In iron oxide (FeO), the Fe 3d electrons are tightly bound to each iron atom. PBE incorrectly delocalizes them across the crystal, predicting FeO is a metal when it's actually an insulator. DFT+U adds a Hubbard U penalty (~4-5 eV) that says: 'it costs extra energy to put two d-electrons on the same Fe atom.' This on-site repulsion forces d-electrons to localize properly on individual Fe atoms, correctly opening the insulating gap. U is typically fitted to experiment or computed from linear response."} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
+          {[
+            { icon: "\uD83C\uDFE8", text: "Like hotel room pricing: without DFT+U, electrons crowd into the cheapest room (delocalize). Adding U is like raising the price of double-occupancy rooms \u2014 electrons prefer their own room (localize on individual atoms)." },
+            { icon: "\uD83D\uDCB0", text: "Like a congestion charge: driving into the city centre (putting two d-electrons on the same atom) costs extra. This penalty forces electrons to spread to neighbouring atoms, correctly describing correlated materials." },
+          ].map((a, i) => (
+            <div key={i} style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.warm}12` }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
+              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
+            </div>
+          ))}
+        </div>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           Standard GGA fails for systems with <strong style={{ color: D.warm }}>localized d or f electrons</strong>:
           transition metal oxides, rare earths, and Mott insulators. GGA delocalizes these
@@ -7388,6 +7434,17 @@ function DFTSelfInteractionSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card title="Self-Interaction Error (SIE)" color={D.warn}>
         <DFT_ANALOGY_BOX text={"Take a single hydrogen atom \u2014 one electron, one proton. The Hartree potential V_H computes the repulsion of the electron density with itself, giving a spurious +13.6 eV self-repulsion. In HF, the exact exchange cancels this perfectly: E_x = -E_self. But in DFT, the approximate E_xc only partially cancels it. The leftover self-interaction makes the electron cloud spread out too much, lowers ionization energies, and shrinks band gaps. This is why PBE gets H's energy slightly wrong and Si's gap very wrong."} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
+          {[
+            { icon: "\uD83E\uDD4A", text: "Imagine punching yourself in the face and counting it as an external attack. That\u2019s what the Hartree term does \u2014 each electron repels its own charge cloud. In exact theory, exchange perfectly cancels this self-punch. In PBE, the cancellation is only ~95% complete." },
+            { icon: "\uD83D\uDCB8", text: "Like a tax system where you\u2019re taxed on your own salary twice: once as income and again as if someone else earned it. The \u2018self-tax\u2019 spreads your wealth (electron density) too thin, and you look poorer (smaller band gap) than you really are." },
+          ].map((a, i) => (
+            <div key={i} style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.warn}12` }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
+              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
+            </div>
+          ))}
+        </div>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           In exact DFT, a single electron{"'"}s Hartree repulsion is exactly cancelled by exchange.
           In approximate functionals (LDA, GGA), this cancellation is incomplete:
@@ -7444,6 +7501,201 @@ function DFTSelfInteractionSection() {
             ))}
           </tbody>
         </table>
+      </Card>
+    </div>
+  );
+}
+
+function DFTBasisIntroSection() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <Card title="What is a Basis Set?" color={D.eqn}>
+        <DFT_ANALOGY_BOX text={"A basis set is your box of LEGO bricks for building electron orbitals. Each orbital \u03C6\u1D62(r) is built by adding up basis functions with different weights. More bricks = more detail, but more computation. The key question: which shape of brick works best for your system? Flat square bricks (plane waves) tile perfectly for repeating crystal patterns. Rounded bricks (Gaussians) cluster naturally around atoms for molecules. Choosing the wrong type is like building a sphere from flat tiles \u2014 possible but wasteful."} />
+        <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          In DFT, we solve the Kohn-Sham equations for orbitals {"\u03C6"}_i(r). But computers work with
+          numbers, not continuous functions. We <strong style={{ color: D.eqn }}>expand each orbital</strong> in a
+          finite set of known functions (the basis set):
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>{"\u03C6"}_i(r) = {"\u03A3"}_j c_ij {"\u03C7"}_j(r)</span><br /><br />
+          <span style={{ color: T.muted }}>{"\u03C7"}_j = basis functions (known shapes)</span><br />
+          <span style={{ color: T.muted }}>c_ij = expansion coefficients (what DFT solves for)</span><br /><br />
+          <span style={{ color: D.eqn }}>Larger basis {"\u2192"} more accurate {"\u2192"} more expensive</span>
+        </div>
+      </Card>
+
+      <Card title="The Two Major Families" color={D.basis}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+          <div style={{ background: D.basis + "08", border: `2px solid ${D.basis}25`, borderRadius: 12, padding: "16px" }}>
+            <div style={{ fontSize: 14, fontWeight: 800, color: D.basis, marginBottom: 8 }}>Plane Waves</div>
+            <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
+              Simple sine/cosine waves that extend across the entire crystal. Natural for periodic solids.
+              Convergence controlled by a single parameter (energy cutoff). Used by codes like VASP, Quantum ESPRESSO, ABINIT.
+            </div>
+            <div style={{ marginTop: 10, fontSize: 11, color: D.basis, fontWeight: 700 }}>Best for: crystals, surfaces, bulk properties</div>
+          </div>
+          <div style={{ background: D.accent + "08", border: `2px solid ${D.accent}25`, borderRadius: 12, padding: "16px" }}>
+            <div style={{ fontSize: 14, fontWeight: 800, color: D.accent, marginBottom: 8 }}>Gaussians (GTO)</div>
+            <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
+              Bell-curve functions centred on each atom. Naturally compact, ideal for isolated molecules. Different basis set
+              sizes (SZ, DZ, TZ, QZ) control accuracy. Used by codes like Gaussian, ORCA, NWChem, FHI-aims.
+            </div>
+            <div style={{ marginTop: 10, fontSize: 11, color: D.accent, fontWeight: 700 }}>Best for: molecules, clusters, reactions</div>
+          </div>
+        </div>
+      </Card>
+
+      <Card title="Other Basis Types" color={D.warm}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {[
+            { name: "Numerical Atomic Orbitals (NAO)", desc: "Atom-like functions on a numerical grid. Combine benefits of localisation with systematic improvability. Used in SIESTA, FHI-aims, OpenMX.", color: D.warm },
+            { name: "Augmented Plane Waves (APW)", desc: "Plane waves in the interstitial region + atomic-like functions inside spheres around nuclei. Very accurate. Used in WIEN2k, Elk, exciting.", color: D.eqn },
+            { name: "Real-space grids", desc: "No basis functions at all \u2014 solve on a 3D mesh. Conceptually simplest, embarrassingly parallel. Used in GPAW, Octopus.", color: D.xc },
+          ].map(item => (
+            <div key={item.name} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}` }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.name}</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function DFTGaussianSection() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <Card title="Gaussian Basis Sets (GTO)" color={D.accent}>
+        <DFT_ANALOGY_BOX text={"Imagine describing a mountain range. Plane waves would tile the whole landscape with uniform waves \u2014 fine for flat plains (crystals) but wasteful for an isolated peak (molecule). Gaussians are like placing a bell curve on each mountain peak: you capture the shape efficiently with few functions. The trade-off: Gaussians aren\u2019t orthogonal and overlap, so the math is messier. But for molecules, you need far fewer Gaussians than plane waves."} />
+        <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Gaussian-type orbitals (GTOs) are atom-centred functions of the form:
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>{"\u03C7"}(r) = N r{"\u02E1"} Y_lm({"\u03B8"},{"\u03C6"}) exp({"\u2212\u03B1"}r{"\u00B2"})</span><br /><br />
+          <span style={{ color: T.muted }}>{"\u03B1"} = exponent (controls width: large {"\u03B1"} = tight, small {"\u03B1"} = diffuse)</span><br />
+          <span style={{ color: T.muted }}>l, m = angular momentum (s, p, d, f character)</span><br /><br />
+          <span style={{ color: D.accent }}>Key advantage: product of two Gaussians = another Gaussian!</span><br />
+          <span style={{ color: T.muted }}>This makes 2-electron integrals analytically tractable.</span>
+        </div>
+      </Card>
+
+      <Card title="Basis Set Hierarchy" color={D.accent}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Gaussian basis sets come in sizes. Each step adds more functions per atom:
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {[
+            { name: "Minimal (SZ)", example: "STO-3G", funcs: "1 function per occupied orbital", accuracy: "Qualitative only", color: D.warm },
+            { name: "Double-\u03B6 (DZ)", example: "6-31G, cc-pVDZ", funcs: "2 functions per valence orbital", accuracy: "Semi-quantitative", color: D.accent },
+            { name: "Triple-\u03B6 (TZ)", example: "cc-pVTZ, def2-TZVP", funcs: "3 functions per valence", accuracy: "Good for most chemistry", color: D.basis },
+            { name: "Quadruple-\u03B6 (QZ)", example: "cc-pVQZ", funcs: "4 functions per valence", accuracy: "Near complete basis set limit", color: D.xc },
+            { name: "+ Polarization", example: "6-31G*, cc-pVDZ", funcs: "Adds higher angular momentum (d on C, p on H)", accuracy: "Essential for bonding", color: D.eqn },
+            { name: "+ Diffuse", example: "6-31+G*, aug-cc-pVDZ", funcs: "Adds very spread-out functions", accuracy: "Essential for anions, excited states", color: D.warn },
+          ].map(item => (
+            <div key={item.name} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15` }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.name}</div>
+                <div style={{ fontSize: 10, fontFamily: "monospace", color: item.color }}>{item.example}</div>
+              </div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.funcs} {"\u2014"} {item.accuracy}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card title="Popular Gaussian Codes" color={D.basis}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+          {[
+            { code: "Gaussian", strength: "Gold standard for molecular chemistry. HF, DFT, MP2, CCSD(T). Commercial.", color: D.accent },
+            { code: "ORCA", strength: "Free for academics. Excellent for spectroscopy, excited states, open-shell systems.", color: D.basis },
+            { code: "NWChem", strength: "Open-source. Good for large molecules and parallel computing.", color: D.xc },
+            { code: "Psi4", strength: "Open-source, Python-driven. Great for education and method development.", color: D.eqn },
+          ].map(item => (
+            <div key={item.code} style={{ background: item.color + "08", border: `1px solid ${item.color}20`, borderRadius: 10, padding: "10px 14px" }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: item.color, marginBottom: 3 }}>{item.code}</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.strength}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function DFTBasisCompareSection() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <Card title="Plane Waves vs Gaussians \u2014 Head to Head" color={D.warm}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+          <thead>
+            <tr style={{ borderBottom: `2px solid ${D.warm}30` }}>
+              {["Feature", "Plane Waves", "Gaussians"].map(h => (
+                <th key={h} style={{ padding: "8px 10px", textAlign: "left", fontSize: 11, color: D.warm, fontWeight: 700 }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ["Natural for", "Periodic crystals", "Isolated molecules"],
+              ["Convergence", "Systematic (increase E_cut)", "Systematic (SZ \u2192 DZ \u2192 TZ \u2192 QZ)"],
+              ["Completeness", "Complete at infinite E_cut", "Complete at CBS limit"],
+              ["BSSE", "None (delocalised)", "Yes (must correct)"],
+              ["Forces", "Exact (Hellmann-Feynman)", "Need Pulay corrections"],
+              ["Periodic systems", "Natural (Bloch\u2019s theorem)", "Needs supercell + k-points add-on"],
+              ["Vacuum/molecules", "Needs large supercell + vacuum", "Natural (compact support)"],
+              ["Pseudopotentials", "Required for efficiency", "Optional (all-electron possible)"],
+              ["Typical codes", "VASP, QE, ABINIT", "Gaussian, ORCA, NWChem"],
+              ["Cost scaling", "O(N\u00B3) with FFT", "O(N\u00B3\u207B\u2074) with 2e integrals"],
+            ].map(([feat, pw, gto], i) => (
+              <tr key={feat} style={{ background: i % 2 === 0 ? D.warm + "05" : "transparent", borderBottom: `1px solid ${T.border}55` }}>
+                <td style={{ padding: "8px 10px", fontWeight: 700, color: T.ink }}>{feat}</td>
+                <td style={{ padding: "8px 10px", color: D.basis }}>{pw}</td>
+                <td style={{ padding: "8px 10px", color: D.accent }}>{gto}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Card>
+
+      <Card title="Which Should You Use?" color={D.xc}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {[
+            { system: "Bulk crystal (Si, Fe, CdTe)", choice: "Plane waves", reason: "Periodicity is exact, no BSSE, systematic convergence", color: D.basis },
+            { system: "Surface or slab", choice: "Plane waves", reason: "Periodic in 2D, vacuum in 1D. PW handles this with supercell.", color: D.basis },
+            { system: "Isolated molecule (H\u2082O, benzene)", choice: "Gaussians", reason: "Compact basis, no wasted vacuum. All-electron possible.", color: D.accent },
+            { system: "Molecular crystal", choice: "Either (or NAO)", reason: "PW if periodicity matters; Gaussian if molecular properties matter.", color: D.xc },
+            { system: "Defect in crystal", choice: "Plane waves (supercell)", reason: "Embed defect in periodic supercell. Standard PW approach.", color: D.basis },
+            { system: "Large biomolecule", choice: "Gaussian or NAO", reason: "Linear-scaling methods with localised basis. PW too expensive.", color: D.accent },
+          ].map(item => (
+            <div key={item.system} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15` }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: T.ink }}>{item.system}</div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: item.color }}>{item.choice}</div>
+              </div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.reason}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card title="The Modern Landscape" color={D.eqn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The boundary between PW and Gaussian DFT is blurring. Modern codes increasingly offer multiple basis types:
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 10 }}>
+          {[
+            { trend: "PAW (Projector Augmented Wave)", desc: "Plane waves + all-electron accuracy near nuclei. The dominant method for periodic DFT today.", color: D.basis },
+            { trend: "Numerical Atomic Orbitals", desc: "FHI-aims, SIESTA: atom-centred but numerically exact. Bridges the PW-Gaussian divide.", color: D.accent },
+            { trend: "Wavelets", desc: "BigDFT: localised like Gaussians, systematic like plane waves. Good for isolated + periodic.", color: D.eqn },
+            { trend: "Real-space grids", desc: "GPAW, Octopus: no basis at all \u2014 solve directly on a 3D mesh. Embarrassingly parallel.", color: D.warm },
+          ].map(item => (
+            <div key={item.trend} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}` }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.trend}</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.desc}</div>
+            </div>
+          ))}
+        </div>
       </Card>
     </div>
   );
@@ -8563,9 +8815,12 @@ const DFT_SECTIONS = [
   { id: "gga",      block: "functionals", label: "GGA (PBE)",        color: T.dft_main,  Component: DFTGGASection, nextReason: "PBE works well for many systems but systematically underestimates bandgaps. The root cause is self-interaction error \u2014 where an electron spuriously repels its own charge density. Understanding SIE explains why standard DFT fails for localized states and band gaps." },
   { id: "sic",      block: "functionals", label: "Self-Interaction Error", color: T.dft_warn, Component: DFTSelfInteractionSection, nextReason: "Self-interaction error motivates corrections. HSE06 mixes 25% exact (Hartree-Fock) exchange at short range, partially cancelling SIE and correcting band gaps while remaining computationally tractable for solids." },
   { id: "hse",      block: "functionals", label: "HSE06 Hybrid",     color: T.dft_xc,   Component: DFTHSESection, nextReason: "HSE06 is accurate but expensive. DFT+U applies a Hubbard U correction to localized d/f orbitals \u2014 a cheaper alternative that improves d-electron description in transition metal oxides and correlated materials." },
-  { id: "dftu",     block: "functionals", label: "GGA+U (DFT+U)",    color: T.dft_warm,  Component: DFTDFTUSection, nextReason: "The physics approximations are established. Now the numerics: plane waves provide a complete, systematically improvable basis for Bloch states in periodic systems; PAW reconstructs the full all-electron density near nuclei." },
+  { id: "dftu",     block: "functionals", label: "GGA+U (DFT+U)",    color: T.dft_warm,  Component: DFTDFTUSection, nextReason: "The physics (XC functionals) is established. Now the numerics: how do we actually represent electron orbitals on a computer? The answer is basis sets \u2014 the mathematical building blocks that expand the Kohn-Sham orbitals." },
 
-  { id: "basis",    block: "numerics",   label: "Plane Waves & PAW", color: T.dft_basis, Component: DFTPlaneWavesSection, nextReason: "Basis sets understood. The Worked Example lets you explore key DFT settings interactively \u2014 energy cutoff, k-point meshes, smearing, convergence thresholds \u2014 seeing how each knob affects convergence and accuracy." },
+  { id: "basis_intro", block: "basissets", label: "What is a Basis Set?", color: T.dft_eqn, Component: DFTBasisIntroSection, nextReason: "A basis set is chosen based on your system. For periodic crystals (solids), plane waves are the natural choice \u2014 they exploit translational symmetry perfectly and converge systematically by increasing a single parameter." },
+  { id: "basis_pw",    block: "basissets", label: "Plane-Wave DFT",      color: T.dft_basis, Component: DFTPlaneWavesSection, nextReason: "Plane waves work beautifully for periodic systems, but what about molecules in vacuum? Gaussian basis sets are localized on atoms and designed for isolated systems \u2014 the workhorse of quantum chemistry." },
+  { id: "basis_gto",   block: "basissets", label: "Gaussian DFT",        color: T.dft_accent, Component: DFTGaussianSection, nextReason: "Both approaches have strengths. The comparison reveals when each is ideal and how modern codes blur the boundary with hybrid methods like PAW and numerical atomic orbitals." },
+  { id: "basis_compare", block: "basissets", label: "PW vs Gaussian",    color: T.dft_warm, Component: DFTBasisCompareSection, nextReason: "Basis sets understood. The Worked Example lets you explore key DFT settings interactively \u2014 energy cutoff, k-point meshes, smearing, convergence thresholds \u2014 seeing how each knob affects convergence and accuracy." },
 
   { id: "dft_params",  block: "examples", label: "Worked Example",   color: T.dft_basis, Component: DFTParamsLabSection, nextReason: "Worked example complete. H and He give exact benchmarks \u2014 the only atoms where we can compare DFT approximations against known analytical solutions." },
   { id: "h_he_example", block: "examples", label: "H & He Analytic", color: T.dft_eqn, Component: DFTHHeExampleSection, nextReason: "H and He give exact benchmarks. The Na atom example now applies the full SCF machinery numerically \u2014 showing every iteration, orbital, and energy convergence in a real multi-electron system." },
