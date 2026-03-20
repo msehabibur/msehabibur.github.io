@@ -6148,6 +6148,41 @@ function DFTFAQSection() {
       a: "Standard DFT scales as O(N\u00B3) with the number of electrons. On modern supercomputers: ~100 atoms is routine (seconds to minutes), ~1,000 atoms is feasible (hours to days), ~10,000 atoms is possible with linear-scaling methods. Beyond that, you need machine-learned force fields (Chapter 7) or classical potentials. Hybrid functionals like HSE06 are 10-100x more expensive, limiting them to ~100-200 atoms.",
       color: D.main,
     },
+    {
+      q: "Why are atoms mostly empty space?",
+      a: "A nucleus is ~10\u207B\u00B9\u2075 m across, while the electron cloud extends ~10\u207B\u00B9\u2070 m. That\u2019s a factor of 100,000! If the nucleus were a marble, the atom would be a football stadium. Yet the electron cloud is not 'nothing' \u2014 it\u2019s a quantum probability field that determines all chemistry. DFT computes the shape and energy of this cloud.",
+      color: D.eqn,
+    },
+    {
+      q: "What is the difference between a metal and an insulator?",
+      a: "It\u2019s all about the band gap. Electrons in a crystal can only have certain energies (bands), separated by forbidden gaps. In metals, the highest occupied band is partially filled \u2014 electrons can move freely (conductors). In insulators, the band is completely full with a large gap above it \u2014 electrons are stuck. Semiconductors have a small gap that can be crossed with a little energy (heat, light). DFT calculates these band structures from first principles.",
+      color: D.basis,
+    },
+    {
+      q: "Why do different elements have different properties?",
+      a: "It comes down to electron configuration. Each element has a different number of protons, which means a different number of electrons, which fill orbitals in a specific order (Aufbau principle). The outermost (valence) electrons determine bonding, reactivity, and material properties. DFT solves for these configurations self-consistently, predicting properties without experimental input.",
+      color: D.warm,
+    },
+    {
+      q: "What is a crystal, and why does periodicity matter for DFT?",
+      a: "A crystal is a solid where atoms repeat in a regular 3D pattern. This periodicity is a huge simplification: instead of solving for 10\u00B2\u00B3 atoms, you only solve for the atoms in one unit cell (maybe 2-50 atoms). Bloch\u2019s theorem says electron wavefunctions in a periodic potential are also periodic (times a plane wave). This lets you use plane-wave basis sets and k-point sampling \u2014 the backbone of solid-state DFT.",
+      color: D.xc,
+    },
+    {
+      q: "Can DFT predict new materials that don\u2019t exist yet?",
+      a: "Yes! This is one of DFT\u2019s most powerful applications. You can build any crystal structure on a computer, run DFT, and predict whether it\u2019s stable, what its band gap would be, how hard it is, etc. \u2014 all before synthesizing it. The Materials Project database has DFT data for >150,000 materials, many predicted computationally before experimental verification.",
+      color: D.accent,
+    },
+    {
+      q: "What is a phonon and why should I care?",
+      a: "A phonon is a quantum of lattice vibration \u2014 atoms in a crystal jiggling around their equilibrium positions. Phonons determine thermal conductivity, heat capacity, and superconductivity. They also tell you if a crystal structure is mechanically stable (no imaginary phonon frequencies). DFT calculates phonons by computing the forces when atoms are slightly displaced, giving you the full vibrational spectrum.",
+      color: D.main,
+    },
+    {
+      q: "What is a pseudopotential and why do we need one?",
+      a: "Core electrons (1s, 2s of heavy atoms) are tightly bound and barely participate in chemistry. But they oscillate wildly near the nucleus, requiring an enormous number of plane waves to describe. A pseudopotential replaces the core electrons with a smooth effective potential that reproduces the same physics for valence electrons. This reduces computation by orders of magnitude while losing almost no accuracy for bonding and material properties.",
+      color: D.eqn,
+    },
   ];
 
   return (
@@ -6167,6 +6202,18 @@ function DFTManyBodySection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card title="The Fundamental Problem" color={D.main}>
         <DFT_ANALOGY_BOX text={"Consider just 3 electrons around a lithium atom. Electron 1 repels electron 2, which shifts electron 2's position, which changes how electron 3 is repelled, which loops back to electron 1. Even with just 3 electrons you need a wavefunction \u03A8(r\u2081, r\u2082, r\u2083) in 9 dimensions. A 64-atom crystal has ~1,920 electrons \u2014 that's 5,760 dimensions. The exact solution is mathematically impossible beyond a handful of electrons."} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
+          {[
+            { icon: "\uD83C\uDFAD", text: "Imagine choreographing a dance for 100 dancers where every dancer\u2019s move depends on all other dancers simultaneously. With 3 coordinates per dancer, you need a script written in 300-dimensional space \u2014 that\u2019s the many-body problem." },
+            { icon: "\uD83C\uDF0A", text: "Think of waves in a crowded pool: each swimmer creates ripples that affect all other swimmers. Solving for all wave patterns simultaneously is exponentially harder as you add more swimmers. Two swimmers? Manageable. Twenty? Supercomputer. Two hundred? Impossible." },
+            { icon: "\uD83C\uDFB2", text: "Like a chess game where every piece changes the rules for every other piece on every turn. You can\u2019t just think about one piece at a time \u2014 they\u2019re all entangled." },
+          ].map((a, i) => (
+            <div key={i} style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.main}12` }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
+              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
+            </div>
+          ))}
+        </div>
         <div style={{
           background: D.main + "0a", border: `1.5px solid ${D.main}30`,
           borderRadius: 10, padding: "14px 18px", marginBottom: 14,
@@ -6347,6 +6394,18 @@ function DFTHohenbergKohnSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card title="Hohenberg-Kohn Theorem 1 - Existence" color={D.eqn}>
         <DFT_ANALOGY_BOX text={"Picture a neon atom with 10 electrons. Instead of tracking all 10 electron positions simultaneously (30 coordinates!), measure just the electron cloud density n(r) \u2014 how much charge is at each point in 3D space. Hohenberg-Kohn proves that this single 3D function contains ALL the same physics as the full 30-dimensional wavefunction. Two different atoms cannot have the same electron density, so n(r) uniquely determines everything."} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
+          {[
+            { icon: "\uD83D\uDDFA\uFE0F", text: "Like a terrain map: if you know the elevation at every point, you can reconstruct the gravitational field that shaped it. The density is the terrain map of the quantum world \u2014 it encodes everything." },
+            { icon: "\uD83D\uDD0D", text: "Like a fingerprint uniquely identifying a person: every external potential (arrangement of nuclei) produces a unique electron density. The density IS the system\u2019s fingerprint." },
+            { icon: "\uD83D\uDCE6", text: "Imagine compressing a 300-dimensional video into a 3D hologram that contains all the same information. HK says nature already did this compression \u2014 the density is the hologram." },
+          ].map((a, i) => (
+            <div key={i} style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.eqn}12` }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
+              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
+            </div>
+          ))}
+        </div>
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 700 }}>The ground-state energy E is a unique functional of n(r)</span><br /><br />
           E = E[n(r)]<br /><br />
@@ -6412,6 +6471,17 @@ function DFTKohnShamSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card title="The Kohn-Sham Trick" color={D.eqn}>
         <DFT_ANALOGY_BOX text={"Take carbon with 6 interacting electrons. Solving all 6 together is a nightmare \u2014 every electron pushes on every other. Kohn-Sham's trick: replace these 6 interacting electrons with 6 independent electrons, each moving in a cleverly designed effective potential V_eff(r). This potential is tuned so the 6 independent electrons produce exactly the same total density n(r) as the real interacting ones. Now you solve 6 simple one-electron equations instead of one impossible 6-electron equation."} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
+          {[
+            { icon: "\uD83C\uDFB9", text: "Like playing a complex chord: instead of solving for all string vibrations coupled together, KS finds independent notes (orbitals) that, when combined, reproduce the same sound (density)." },
+            { icon: "\uD83C\uDFE0", text: "Building a house: instead of calculating every load simultaneously, engineers solve for each beam independently using an effective load. Same idea \u2014 single-particle equations with an effective potential that accounts for all the others." },
+          ].map((a, i) => (
+            <div key={i} style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.eqn}12` }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
+              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
+            </div>
+          ))}
+        </div>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           Replace the interacting many-electron problem with <strong style={{ color: D.eqn }}>non-interacting
           electrons</strong> moving in an effective potential that reproduces the exact density.

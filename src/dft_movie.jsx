@@ -119,12 +119,13 @@ export default function DFTMovieModule() {
 
       // Orbiting electron angle
       const eAngle = t * Math.PI * 4;
-      const eOrbitRx = 72, eOrbitRy = 28;
+      const eOrbitRx = 55, eOrbitRy = 22;
+      const atomCy = 175;
       const ex = W/2 + eOrbitRx * Math.cos(eAngle);
-      const ey = 195 + eOrbitRy * Math.sin(eAngle);
+      const ey = atomCy + eOrbitRy * Math.sin(eAngle);
 
       // Density cloud circles (|psi|^2)
-      const cloudRadii = [18, 30, 44, 58, 72, 88];
+      const cloudRadii = [14, 24, 36, 48, 60];
 
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
@@ -136,53 +137,60 @@ export default function DFTMovieModule() {
 
           {/* Density cloud */}
           {cloudRadii.map((r, i) => (
-            <circle key={i} cx={W/2} cy={195} r={r}
+            <circle key={i} cx={W/2} cy={atomCy} r={r}
               fill="none" stroke={P.blue}
               strokeWidth={i === 0 ? 1.5 : 0.8}
-              opacity={tOp * (0.35 - i * 0.04)} />
+              opacity={tOp * (0.30 - i * 0.04)} />
           ))}
 
           {/* Orbital ellipses (3 planes) */}
           {[0, 60, 120].map((rot, i) => (
-            <ellipse key={i} cx={W/2} cy={195}
+            <ellipse key={i} cx={W/2} cy={atomCy}
               rx={eOrbitRx} ry={eOrbitRy}
               fill="none" stroke={P.blue} strokeWidth="0.8"
-              opacity={tOp * 0.3}
-              transform={`rotate(${rot} ${W/2} 195)`} />
+              opacity={tOp * 0.25}
+              transform={`rotate(${rot} ${W/2} ${atomCy})`} />
           ))}
 
           {/* Nucleus */}
-          <circle cx={W/2} cy={195} r={10} fill={P.red} opacity={tOp * 0.9} />
-          <text x={W/2} y={199} textAnchor="middle" fill="#fff" fontSize="8" fontWeight="800"
+          <circle cx={W/2} cy={atomCy} r={8} fill={P.red} opacity={tOp * 0.9} />
+          <text x={W/2} y={atomCy+4} textAnchor="middle" fill="#fff" fontSize="7" fontWeight="800"
             fontFamily="'Inter',sans-serif" opacity={tOp}>+</text>
 
           {/* Orbiting electron */}
-          <circle cx={ex} cy={ey} r={5} fill={P.blue} opacity={tOp * 0.95} />
-          <circle cx={ex} cy={ey} r={9} fill="none" stroke={P.blue} strokeWidth="1" opacity={tOp * 0.35} />
+          <circle cx={ex} cy={ey} r={4} fill={P.blue} opacity={tOp * 0.95} />
+          <circle cx={ex} cy={ey} r={7} fill="none" stroke={P.blue} strokeWidth="1" opacity={tOp * 0.35} />
 
           {/* Title */}
-          <text x={W/2} y={80} textAnchor="middle" fill={P.ink} fontSize="28" fontWeight="900"
+          <text x={W/2} y={52} textAnchor="middle" fill={P.ink} fontSize="28" fontWeight="900"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Density Functional Theory</text>
 
           {/* Animated underline */}
-          <rect x={W/2 - ease(clamp01((t-0.1)*3))*150} y={89}
+          <rect x={W/2 - ease(clamp01((t-0.1)*3))*150} y={61}
             width={ease(clamp01((t-0.1)*3))*300} height={3} rx="1.5" fill={P.blue} opacity={tOp * 0.85} />
 
-          <text x={W/2} y={112} textAnchor="middle" fill={P.muted} fontSize="13"
+          <text x={W/2} y={82} textAnchor="middle" fill={P.muted} fontSize="13"
             fontFamily="'Inter',sans-serif" opacity={sOp}>
             From Many-Body Problem to Practical Calculation
           </text>
 
-          {/* KS equation box */}
-          <rect x={W/2-168} y={250} width={336} height={68} rx="10"
+          {/* KS equation box — large prominent block */}
+          <rect x={W/2-220} y={240} width={440} height={120} rx="12"
             fill={P.surface} stroke={P.border} strokeWidth="1.5" opacity={eqOp} />
-          <rect x={W/2-168} y={250} width={336} height={3} rx="1.5" fill={P.purple} opacity={eqOp} />
-          <text x={W/2} y={268} textAnchor="middle" fill={P.muted} fontSize="8" fontWeight="600"
-            fontFamily="'Inter',sans-serif" opacity={eqOp}>Kohn-Sham equation — the heart of DFT</text>
-          <text x={W/2} y={288} textAnchor="middle" fill={P.green} fontSize="13" fontWeight="700"
+          <rect x={W/2-220} y={240} width={440} height={4} rx="2" fill={P.purple} opacity={eqOp} />
+          <text x={W/2} y={263} textAnchor="middle" fill={P.purple} fontSize="11" fontWeight="700"
+            fontFamily="'Inter',sans-serif" opacity={eqOp}>Kohn-Sham Equation — The Heart of DFT</text>
+          <text x={W/2} y={292} textAnchor="middle" fill={P.green} fontSize="15" fontWeight="700"
             fontFamily="'Fira Code','Consolas',monospace" opacity={eqOp}>{"[-½∇² + v_ext(r) + v_H(r) + v_xc(r)] φᵢ(r) = εᵢ φᵢ(r)"}</text>
-          <text x={W/2} y={306} textAnchor="middle" fill={P.muted} fontSize="8"
-            fontFamily="'Inter',sans-serif" opacity={eqOp * 0.8}>v_ext = nuclear potential · v_H = Hartree · v_xc = exchange-correlation</text>
+          <line x1={W/2-180} y1={306} x2={W/2+180} y2={306} stroke={P.border} strokeWidth="0.8" opacity={eqOp * 0.5} />
+          <text x={W/2-130} y={322} fill={P.amber} fontSize="9" fontWeight="600"
+            fontFamily="'Inter',sans-serif" opacity={eqOp * 0.9}>v_ext = nuclear pull</text>
+          <text x={W/2-10} y={322} fill={P.blue} fontSize="9" fontWeight="600"
+            fontFamily="'Inter',sans-serif" opacity={eqOp * 0.9}>v_H = e⁻ repulsion</text>
+          <text x={W/2+120} y={322} fill={P.pink} fontSize="9" fontWeight="600"
+            fontFamily="'Inter',sans-serif" opacity={eqOp * 0.9}>v_xc = quantum fix</text>
+          <text x={W/2} y={345} textAnchor="middle" fill={P.muted} fontSize="9"
+            fontFamily="'Inter',sans-serif" opacity={eqOp * 0.7}>Solve for each orbital φᵢ → get density → repeat until self-consistent</text>
         </svg>
       );
     }
@@ -1067,7 +1075,7 @@ export default function DFTMovieModule() {
         { text: "detail near nuclei when needed.", color: P.muted,  delay: 0.77 },
       ];
 
-      const bzCx = RX + 80, bzCy = 165, bzR = 72;
+      const bzCx = RX + 100, bzCy = 195, bzR = 72;
 
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
@@ -1143,7 +1151,7 @@ export default function DFTMovieModule() {
 
           {/* Brillouin Zone */}
           <g opacity={ease(clamp01((t-0.45)*5))}>
-            <text x={RX+RW/2} y={168} textAnchor="middle" fill={P.blue} fontSize="9.5" fontWeight="700"
+            <text x={RX+RW/2} y={178} textAnchor="middle" fill={P.blue} fontSize="9.5" fontWeight="700"
               fontFamily="'Inter',sans-serif">Brillouin Zone & k-points</text>
 
             {/* Hexagonal BZ */}
