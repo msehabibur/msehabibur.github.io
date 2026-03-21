@@ -7554,6 +7554,161 @@ function DFTFAQSection() {
           </div>
         </Card>
       </Card>
+
+      {/* Q36. Long-range interactions */}
+      <Card title={"Q36. How does DFT handle long-range interactions (Coulomb, dipole-dipole)?"} color={D.main}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📡</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a radio tower: the signal (Coulomb interaction) reaches infinitely far, getting weaker with distance but never truly zero. DFT must sum this infinite-range interaction carefully — you can't just cut it off at some radius.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🧲</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like magnets in a row: each magnet feels every other magnet. Nearby ones are strong (short-range), distant ones are weak but there are MANY of them. The sum of infinite weak interactions can be as important as a few strong nearby ones.</span></div>
+          </div>
+          <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#16a34a", marginBottom: 4 }}>Simple English</div>
+            <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>The Coulomb interaction (charge-charge repulsion/attraction) reaches infinitely far. In a periodic crystal, every electron interacts with every other electron in every copy of the unit cell — that's an infinite sum. DFT handles this using Ewald summation, which splits the sum into a short-range part (computed in real space) and a long-range part (computed in reciprocal space using Fourier transforms). For van der Waals (dispersion), DFT needs add-on corrections because standard functionals are nearsighted.</div>
+          </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The Coulomb interaction V = 1/|r−r'| decays slowly (1/r) and is <strong style={{ color: D.main }}>conditionally convergent</strong> in periodic systems — you can't just sum it directly.
+          DFT codes use several strategies:
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 12 }}>
+          {[
+            { label: "Hartree potential (electron-electron)", detail: "Solved via Poisson's equation: ∇²v_H(r) = −4πn(r). In plane-wave codes, this becomes multiplication in reciprocal space: v_H(G) = 4πn(G)/|G|². The G=0 component is handled by a uniform background charge. This is exact and costs O(N log N) via FFT.", color: D.main },
+            { label: "Ion-ion (Madelung) energy", detail: "The electrostatic energy of point charges on a lattice. Computed via Ewald summation: split 1/r into a short-range erfc(αr)/r (real-space sum, converges fast) and a long-range erf(αr)/r (reciprocal-space sum, also converges fast). The parameter α controls the split.", color: D.eqn },
+            { label: "Electron-ion interaction", detail: "Also long-range (−Z/|r−R_I|). Handled by pseudopotentials: the local part is smooth and treated in reciprocal space, the non-local part is short-range by construction (confined within the PAW sphere).", color: D.basis },
+            { label: "Van der Waals (dispersion)", detail: "NOT captured by standard DFT — the XC functional is local/semi-local. Requires explicit corrections: DFT-D3/D4 adds empirical −C₆/R⁶ terms. vdW-DF adds a non-local correlation kernel. MBD (many-body dispersion) captures collective screening effects.", color: D.accent },
+            { label: "Dipole corrections (slabs/molecules)", detail: "Periodic boundary conditions create artificial electric fields across slab models. Dipole corrections add a compensating field in the vacuum region to remove this artifact. Essential for polar surfaces and asymmetric slabs.", color: D.warm },
+          ].map(item => (
+            <div key={item.label} style={{ background: item.color + "06", borderRadius: 10, padding: "12px 14px", border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}` }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: item.color, marginBottom: 4 }}>{item.label}</div>
+              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>{item.detail}</div>
+            </div>
+          ))}
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.main, fontWeight: 700 }}>Ewald summation splits 1/r into two fast-converging sums:</span><br /><br />
+          <span style={{ color: D.eqn }}>1/r = erfc(αr)/r + erf(αr)/r</span><br /><br />
+          <span style={{ color: T.muted }}>erfc(αr)/r = short-range (real space, decays as Gaussian)</span><br />
+          <span style={{ color: T.muted }}>erf(αr)/r = long-range (reciprocal space, smooth Fourier transform)</span><br />
+          <span style={{ color: T.muted }}>α = Ewald parameter (controls the split; optimised for speed)</span><br /><br />
+          <span style={{ color: D.main }}>Hartree in reciprocal space:</span><br />
+          <span style={{ color: D.eqn }}>v_H(G) = 4πn(G) / |G|²</span><br /><br />
+          <span style={{ color: T.muted }}>n(G) = Fourier transform of electron density</span><br />
+          <span style={{ color: T.muted }}>G = reciprocal lattice vector</span><br />
+          <span style={{ color: T.muted }}>This is just Poisson's equation in Fourier space — one line, O(N log N)</span>
+        </div>
+      </Card>
+
+      {/* Q37. What does "25% exact exchange" in HSE06 actually mean? */}
+      <Card title={"Q37. In HSE06, what does '25% exact exchange from HF' actually mean? Isn't Hartree already in KS?"} color={D.xc}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🍳</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Think of making scrambled eggs: v_H (Hartree) is the pan — it's always there in both KS-DFT and HF. The 'exact exchange' HSE06 adds is a specific SPICE (how you handle the quantum avoidance between electrons). PBE uses pre-made spice mix (approximate). HSE06 replaces 25% of that mix with freshly ground spice (exact, from HF theory). The pan (v_H) stays the same.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎨</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like mixing paint colours: KS-DFT uses a pre-mixed 'exchange-correlation' paint (v_xc from PBE). HSE06 says 'the exchange part of that paint is slightly wrong — let me replace 25% of it with the exact colour (from HF)'. The Hartree part (v_H) is a completely separate layer underneath — it doesn't change.</span></div>
+          </div>
+          <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#16a34a", marginBottom: 4 }}>Simple English</div>
+            <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>This is a really common confusion! The Hartree potential v_H and exact exchange E_x^HF are completely different things. v_H is the classical Coulomb repulsion of the electron cloud with itself — it's in BOTH regular DFT and HSE06 (nothing changes). The 'exact exchange' that HSE06 adds comes from the EXCHANGE part of the potential, which is about quantum mechanical avoidance between same-spin electrons. In regular PBE, this exchange is approximated. In HSE06, 25% of that approximation is replaced with the exact formula from Hartree-Fock theory.</div>
+          </div>
+
+        <Card title="The three pieces of v_KS — and which one HSE06 changes" color={D.eqn}>
+          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+            Let's carefully distinguish the three terms in the KS effective potential:
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {[
+              { term: "v_ext(r) — nuclear attraction", what: "The pull of nuclei on electrons. Purely classical, exact, same in every DFT method.", changes: "NO — identical in PBE, HSE06, HF, everything", color: D.basis },
+              { term: "v_H(r) — Hartree (classical repulsion)", what: "The classical Coulomb repulsion of the total electron density n(r) with itself. Computed as v_H(r) = ∫ n(r')/|r−r'| dr'. This is NOT exchange. It treats electrons as a smooth charge cloud.", changes: "NO — identical in PBE, HSE06, HF. Always present, always the same.", color: D.main },
+              { term: "v_xc(r) — exchange-correlation", what: "The QUANTUM correction. Exchange (Pauli avoidance of same-spin electrons) + correlation (dynamic avoidance of all electrons). This is what differs between methods.", changes: "YES — THIS is what HSE06 modifies!", color: D.xc },
+            ].map(item => (
+              <div key={item.term} style={{ background: item.color + "06", borderRadius: 10, padding: "12px 14px", border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}` }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: item.color }}>{item.term}</div>
+                <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 4 }}>{item.what}</div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: item.color, marginTop: 4 }}>Changes in HSE06? {item.changes}</div>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card title="Hartree vs Exchange — the critical difference" color={D.warm}>
+          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+            Both involve electron-electron interactions, but they are fundamentally different:
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div style={{ background: D.main + "08", border: `2px solid ${D.main}25`, borderRadius: 12, padding: "14px" }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: D.main, marginBottom: 6 }}>Hartree (v_H) — CLASSICAL</div>
+              <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
+                Treats electrons as a smooth charge cloud. Each electron is repelled by the average charge of ALL electrons (including itself!). No quantum mechanics needed.
+              </div>
+              <div style={mathBlock}>
+                <span style={{ color: D.main }}>v_H(r) = ∫ n(r')/|r−r'| dr'</span><br />
+                <span style={{ color: T.muted, fontSize: 11 }}>n = total density (all electrons)</span><br />
+                <span style={{ color: D.warn, fontSize: 11 }}>Problem: includes self-interaction!</span>
+              </div>
+            </div>
+            <div style={{ background: D.xc + "08", border: `2px solid ${D.xc}25`, borderRadius: 12, padding: "14px" }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: D.xc, marginBottom: 6 }}>Exchange (E_x) — QUANTUM</div>
+              <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
+                Arises from the Pauli exclusion principle: same-spin electrons avoid each other. This is a purely quantum effect with no classical analogue. It partially CANCELS the Hartree self-interaction.
+              </div>
+              <div style={mathBlock}>
+                <span style={{ color: D.xc }}>E_x = −½ ∫∫ |γ(r,r')|²/|r−r'| dr dr'</span><br />
+                <span style={{ color: T.muted, fontSize: 11 }}>γ = density matrix (off-diagonal)</span><br />
+                <span style={{ color: D.xc, fontSize: 11 }}>Cancels Hartree self-interaction!</span>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <Card title="What HSE06 actually does — step by step" color={D.xc}>
+          <div style={mathBlock}>
+            <span style={{ color: D.xc, fontWeight: 700, fontSize: 14 }}>Standard PBE:</span><br />
+            <span style={{ color: D.basis }}>E_xc = E_x^PBE[n, ∇n] + E_c^PBE[n, ∇n]</span><br />
+            <span style={{ color: T.muted }}>Exchange and correlation both approximated from the local density and its gradient</span><br /><br />
+            <span style={{ color: D.xc, fontWeight: 700, fontSize: 14 }}>HSE06 replaces part of the EXCHANGE only:</span><br />
+            <span style={{ color: D.xc }}>E_xc = 0.25 × E_x^HF,SR + 0.75 × E_x^PBE,SR + E_x^PBE,LR + E_c^PBE</span><br /><br />
+            <span style={{ color: D.xc }}>0.25 × E_x^HF,SR = 25% exact (Hartree-Fock) exchange at SHORT RANGE</span><br />
+            <span style={{ color: T.muted }}>  This is computed from the KS orbitals: E_x^HF = −½ Σ_{"{i,j}"} ∫∫ φ_i*(r)φ_j*(r')φ_j(r)φ_i(r') / |r−r'| dr dr'</span><br />
+            <span style={{ color: T.muted }}>  It's NON-LOCAL (depends on orbitals at TWO points r and r')</span><br />
+            <span style={{ color: T.muted }}>  It's EXPENSIVE (scales as N⁴ naively, N² with screening)</span><br /><br />
+            <span style={{ color: D.basis }}>0.75 × E_x^PBE,SR = remaining 75% stays PBE (local, cheap)</span><br />
+            <span style={{ color: D.basis }}>E_x^PBE,LR = long-range exchange stays PBE (cheap, less important)</span><br />
+            <span style={{ color: D.basis }}>E_c^PBE = correlation unchanged (PBE)</span><br /><br />
+            <span style={{ color: D.warm, fontWeight: 700 }}>SR/LR split uses the error function:</span><br />
+            <span style={{ color: D.warm }}>1/r = erfc(ωr)/r + erf(ωr)/r</span><br />
+            <span style={{ color: T.muted }}>ω = 0.2 Å⁻¹ (range-separation parameter)</span><br />
+            <span style={{ color: T.muted }}>erfc(ωr)/r = short-range part (decays within ~5 Å)</span><br />
+            <span style={{ color: T.muted }}>erf(ωr)/r = long-range part (extends to infinity)</span>
+          </div>
+        </Card>
+
+        <Card title="Why does this fix band gaps?" color={D.accent}>
+          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+            The Hartree term v_H makes each electron repel its own density (self-interaction error). In exact theory, E_x^HF perfectly cancels this for each orbital. In PBE, E_x^PBE only approximately cancels it — leaving a residual self-interaction that:
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {[
+              { effect: "Pushes occupied states UP in energy", detail: "Self-repulsion artificially raises valence band (VBM goes up)", color: D.warn },
+              { effect: "Pushes unoccupied states DOWN", detail: "Unoccupied orbitals also feel the spurious potential (CBM goes down)", color: D.warn },
+              { effect: "Net result: gap is squeezed", detail: "VBM up + CBM down = smaller gap than reality", color: D.warn },
+            ].map(item => (
+              <div key={item.effect} style={{ background: item.color + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${item.color}15` }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: item.color }}>{item.effect}</div>
+                <div style={{ fontSize: 11, color: T.muted }}>{item.detail}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginTop: 10 }}>
+            By adding 25% exact exchange, HSE06 cancels 25% of the self-interaction exactly. This pushes occupied states back down and unoccupied states back up, opening the gap toward the correct experimental value. The 25% is empirically optimal for most semiconductors.
+          </div>
+          <div style={mathBlock}>
+            <span style={{ color: D.accent, fontWeight: 700 }}>Summary of what's in v_KS for each method:</span><br /><br />
+            <span style={{ color: D.basis }}>PBE:   v_KS = v_ext + v_H + v_xc^PBE(r)         [local]</span><br />
+            <span style={{ color: D.xc }}>HSE06: v_KS = v_ext + v_H + v_x^mix(r,r') + v_c^PBE(r)  [non-local!]</span><br />
+            <span style={{ color: D.eqn }}>HF:    v_KS = v_ext + v_H + v_x^HF(r,r')          [fully non-local]</span><br /><br />
+            <span style={{ color: T.muted }}>v_ext and v_H are IDENTICAL in all three.</span><br />
+            <span style={{ color: T.muted }}>Only the exchange-correlation treatment differs.</span><br />
+            <span style={{ color: D.xc }}>HSE06's v_x^mix is non-local (depends on r AND r') — that's why it's expensive.</span>
+          </div>
+        </Card>
+      </Card>
     </div>
   );
 }
