@@ -10166,6 +10166,253 @@ function DFTSCFWalkthroughSection() {
   );
 }
 
+function DFTBandsDOSSection() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <DFT_ANALOGY_BOX text={"Band structure is like a road map of allowed electron speeds at each direction in the crystal. DOS is like a histogram counting how many roads exist at each speed. Together they tell you: is this material a metal, semiconductor, or insulator? How fast can electrons move? Which orbitals contribute at which energies?"} />
+
+      <Card collapsible defaultOpen title="What is a Band Structure?" color={D.eqn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          In a periodic crystal, electron states are labelled by two quantum numbers: <strong style={{ color: D.eqn }}>band index n</strong> and
+          <strong style={{ color: D.eqn }}> crystal momentum k</strong>. The band structure is the plot of
+          energy E_n(k) vs k along high-symmetry paths in the Brillouin zone.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>From the KS equations, at each k-point:</span><br /><br />
+          <span style={{ color: D.eqn }}>[-1/2 nabla^2 + v_KS(r)] psi_nk(r) = epsilon_nk psi_nk(r)</span><br /><br />
+          <span style={{ color: T.muted }}>n = band index (1, 2, 3, ... for each orbital)</span><br />
+          <span style={{ color: T.muted }}>k = crystal momentum vector (point in the Brillouin zone)</span><br />
+          <span style={{ color: T.muted }}>epsilon_nk = KS eigenvalue = energy of band n at k-point k</span><br />
+          <span style={{ color: T.muted }}>psi_nk(r) = Bloch wavefunction = e^(ik.r) u_nk(r)</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>The band structure IS the set of all epsilon_nk plotted vs k.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginTop: 10 }}>
+          <strong style={{ color: D.eqn }}>How to compute it step by step:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 8 }}>
+          {[
+            { step: "1. Self-consistent SCF", detail: "Run a normal DFT calculation with a uniform k-mesh (e.g. 8x8x8) to get the converged charge density n(r) and potential v_KS(r).", color: D.basis },
+            { step: "2. Choose k-path", detail: "Pick high-symmetry points in the BZ (e.g. Gamma -> X -> M -> Gamma for FCC) and create a dense set of k-points along these paths (typically 50-100 points per segment).", color: D.eqn },
+            { step: "3. Non-SCF calculation", detail: "Using the FIXED charge density from step 1, solve the KS equations at each k-point on the path. No SCF iteration needed — just diagonalise H(k) once at each k.", color: D.accent },
+            { step: "4. Collect eigenvalues", detail: "At each k-point, you get eigenvalues epsilon_1k, epsilon_2k, ... epsilon_Nk. Plot these vs k. That's your band structure.", color: D.xc },
+            { step: "5. Align to Fermi level", detail: "Shift all eigenvalues so E_F = 0. Bands below 0 are occupied (valence), above 0 are empty (conduction). The gap between them is the band gap.", color: D.warm },
+          ].map(item => (
+            <div key={item.step} style={{ display: "flex", gap: 10, background: item.color + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${item.color}15` }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: item.color, minWidth: 30 }}>{item.step.split(".")[0]}.</div>
+              <div><div style={{ fontSize: 11, fontWeight: 700, color: item.color }}>{item.step.split(". ")[1]}</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.detail}</div></div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card collapsible title="What is the Density of States (DOS)?" color={D.xc}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          The DOS counts how many electronic states exist at each energy. It's the energy histogram
+          of all eigenvalues across all k-points. A peak in the DOS means many states are available
+          at that energy; a gap means no states (band gap).
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.xc, fontWeight: 700 }}>Total DOS:</span><br /><br />
+          <span style={{ color: D.xc }}>g(E) = sum_n integral_BZ delta(E - epsilon_nk) dk / (2*pi)^3</span><br /><br />
+          <span style={{ color: T.muted }}>g(E) = number of states per unit energy per unit volume</span><br />
+          <span style={{ color: T.muted }}>delta(E - epsilon_nk) = Dirac delta (counts states at energy E)</span><br />
+          <span style={{ color: T.muted }}>The integral runs over the entire Brillouin zone</span><br />
+          <span style={{ color: T.muted }}>The sum runs over all bands n</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700 }}>In practice (discrete k-mesh):</span><br /><br />
+          <span style={{ color: D.xc }}>g(E) = (1/N_k) sum_n sum_k delta(E - epsilon_nk)</span><br /><br />
+          <span style={{ color: T.muted }}>N_k = total number of k-points in the mesh</span><br />
+          <span style={{ color: T.muted }}>The delta function is broadened (Gaussian or Lorentzian) for smooth plots:</span><br /><br />
+          <span style={{ color: D.accent }}>delta(x) -> (1 / sigma*sqrt(2*pi)) * exp(-x^2 / 2*sigma^2)</span><br />
+          <span style={{ color: T.muted }}>sigma = smearing width (typically 0.05-0.2 eV)</span><br />
+          <span style={{ color: T.muted }}>Too small sigma = noisy. Too large = features washed out.</span>
+        </div>
+      </Card>
+
+      <Card collapsible title="Projected DOS (PDOS) — which orbitals contribute?" color={D.accent}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Total DOS tells you how many states, but not <em>which atoms or orbitals</em> contribute.
+          PDOS projects each state onto atomic orbitals to decompose the DOS by atom and angular momentum.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>Projected DOS onto atom A, orbital l:</span><br /><br />
+          <span style={{ color: D.accent }}>g_Al(E) = (1/N_k) sum_n sum_k |{"<"}Y_lm^A | psi_nk{">"}|^2 * delta(E - epsilon_nk)</span><br /><br />
+          <span style={{ color: T.muted }}>Y_lm^A = spherical harmonic centred on atom A</span><br />
+          <span style={{ color: T.muted }}>l = 0 (s), 1 (p), 2 (d), 3 (f)</span><br />
+          <span style={{ color: T.muted }}>|{"<"}Y_lm | psi_nk{">"}|^2 = weight of orbital character in state nk</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>What PDOS tells you:</span><br />
+          <span style={{ color: T.muted }}>- Which atom dominates at each energy (e.g. Cu-3d vs S-3p)</span><br />
+          <span style={{ color: T.muted }}>- The orbital character of bands (s, p, d contributions)</span><br />
+          <span style={{ color: T.muted }}>- Bonding analysis: overlapping PDOS = orbital hybridisation</span><br />
+          <span style={{ color: T.muted }}>- Defect states: localised peaks in the gap from specific atoms</span>
+        </div>
+      </Card>
+
+      <Card collapsible title="Tetrahedron Method vs Gaussian Smearing" color={D.basis}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          The delta function in the DOS integral must be approximated. Two main approaches:
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          <div style={{ background: D.basis + "08", border: `2px solid ${D.basis}25`, borderRadius: 12, padding: "14px" }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: D.basis, marginBottom: 6 }}>Gaussian Smearing</div>
+            <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
+              Replace delta(x) with a Gaussian of width sigma. Simple, works for any k-mesh.
+              But sigma introduces artificial broadening — features narrower than sigma are lost.
+              Must extrapolate to sigma -> 0 for precise total energy.
+            </div>
+            <div style={mathBlock}>
+              <span style={{ color: D.basis }}>g(E) = sum_nk (1/sigma*sqrt(2pi)) exp(-(E-epsilon_nk)^2 / 2*sigma^2)</span>
+            </div>
+          </div>
+          <div style={{ background: D.accent + "08", border: `2px solid ${D.accent}25`, borderRadius: 12, padding: "14px" }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: D.accent, marginBottom: 6 }}>Tetrahedron Method</div>
+            <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
+              Divide the BZ into tetrahedra, interpolate epsilon_nk linearly within each.
+              The DOS integral becomes analytic within each tetrahedron — no broadening parameter!
+              More accurate for total energy and DOS, but needs a regular k-mesh.
+            </div>
+            <div style={mathBlock}>
+              <span style={{ color: D.accent }}>Interpolate: epsilon(k) = a + b*k_x + c*k_y + d*k_z within each tetrahedron</span>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      <Card collapsible title="Band Gap: Direct vs Indirect" color={D.warm}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          The band gap E_g is the energy difference between the valence band maximum (VBM) and
+          conduction band minimum (CBM). The <em>type</em> of gap matters enormously for applications:
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          <div style={{ background: D.basis + "08", border: `2px solid ${D.basis}25`, borderRadius: 12, padding: "14px" }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: D.basis, marginBottom: 6 }}>Direct Gap</div>
+            <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
+              VBM and CBM are at the <strong>same k-point</strong> (usually Gamma).
+              An electron can absorb a photon and jump directly across the gap — strong optical absorption.
+            </div>
+            <div style={mathBlock}>
+              <span style={{ color: D.basis }}>E_g^direct = epsilon_CBM(k_0) - epsilon_VBM(k_0)</span><br />
+              <span style={{ color: T.muted }}>Same k_0 for both. Examples: GaAs (1.42 eV), CdTe (1.48 eV)</span><br />
+              <span style={{ color: D.basis }}>Strong absorption: alpha ~ 10^4 cm^-1 near gap edge</span>
+            </div>
+          </div>
+          <div style={{ background: D.warm + "08", border: `2px solid ${D.warm}25`, borderRadius: 12, padding: "14px" }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: D.warm, marginBottom: 6 }}>Indirect Gap</div>
+            <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
+              VBM and CBM are at <strong>different k-points</strong>.
+              The electron needs a photon AND a phonon (lattice vibration) to jump — much weaker absorption.
+            </div>
+            <div style={mathBlock}>
+              <span style={{ color: D.warm }}>E_g^indirect = epsilon_CBM(k_c) - epsilon_VBM(k_v), k_c != k_v</span><br />
+              <span style={{ color: T.muted }}>Examples: Si (Gamma->X, 1.12 eV), Ge (Gamma->L, 0.66 eV)</span><br />
+              <span style={{ color: D.warm }}>Weak absorption: needs 100 um thick Si vs 2 um CdTe</span>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      <Card collapsible title="Effective Mass from Band Curvature" color={D.eqn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Near band edges, E(k) is approximately parabolic. The curvature determines the
+          <strong style={{ color: D.eqn }}> effective mass</strong> m* — how easily electrons (or holes) accelerate in an electric field.
+          Flat bands = heavy carriers = low mobility. Curved bands = light carriers = high mobility.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>Effective mass from band curvature:</span><br /><br />
+          <span style={{ color: D.eqn }}>1/m* = (1/hbar^2) * d^2E/dk^2</span><br /><br />
+          <span style={{ color: T.muted }}>m* = effective mass (in units of free electron mass m_e)</span><br />
+          <span style={{ color: T.muted }}>d^2E/dk^2 = second derivative of band energy w.r.t. k</span><br />
+          <span style={{ color: T.muted }}>Large curvature = small m* = fast electrons (good for transport)</span><br />
+          <span style={{ color: T.muted }}>Small curvature = large m* = slow electrons (poor transport)</span><br /><br />
+          <span style={{ color: D.eqn, fontWeight: 700 }}>In practice (from DFT band structure):</span><br />
+          <span style={{ color: T.muted }}>Fit a parabola to the 3-5 k-points nearest to VBM or CBM</span><br />
+          <span style={{ color: T.muted }}>E(k) approx E_0 + hbar^2(k-k_0)^2 / (2m*)</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>Example — Silicon:</span><br />
+          <span style={{ color: T.muted }}>Electron m* = 0.26 m_e (at CBM near X point, longitudinal)</span><br />
+          <span style={{ color: T.muted }}>Hole m* = 0.49 m_e (at VBM at Gamma, heavy hole)</span><br />
+          <span style={{ color: T.muted }}>GaAs electron m* = 0.067 m_e (very light — high mobility!)</span>
+        </div>
+      </Card>
+
+      <Card collapsible title="Worked Example — Si Band Structure" color={D.main}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Complete workflow to compute the band structure of silicon:
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.main, fontWeight: 700 }}>Step 1: SCF with uniform k-mesh</span><br />
+          <span style={{ color: T.muted }}>Si, diamond structure, a = 5.43 Ang, 2 atoms/cell</span><br />
+          <span style={{ color: T.muted }}>PBE functional, E_cut = 400 eV, k-mesh = 8x8x8</span><br />
+          <span style={{ color: T.muted }}>SCF converges in ~15 iterations, gives E_total and n(r)</span><br /><br />
+          <span style={{ color: D.main, fontWeight: 700 }}>Step 2: k-path (FCC BZ)</span><br />
+          <span style={{ color: D.eqn }}>W -> L -> Gamma -> X -> W -> K -> Gamma</span><br />
+          <span style={{ color: T.muted }}>100 points per segment = 600 k-points total</span><br /><br />
+          <span style={{ color: D.main, fontWeight: 700 }}>Step 3: Non-SCF band calculation</span><br />
+          <span style={{ color: T.muted }}>Fix n(r) from step 1. At each of 600 k-points, diagonalise H(k).</span><br />
+          <span style={{ color: T.muted }}>Get 20 eigenvalues at each k (enough to cover valence + low conduction).</span><br />
+          <span style={{ color: T.muted }}>Total: 600 x 20 = 12,000 eigenvalues.</span><br /><br />
+          <span style={{ color: D.main, fontWeight: 700 }}>Step 4: Results</span><br />
+          <span style={{ color: D.basis }}>VBM at Gamma: E = 0 eV (by convention)</span><br />
+          <span style={{ color: D.basis }}>CBM near X (at ~0.85 * Gamma-X): E = 0.61 eV</span><br />
+          <span style={{ color: D.accent }}>PBE band gap = 0.61 eV (indirect, Gamma -> near-X)</span><br />
+          <span style={{ color: D.warn }}>Experiment: 1.17 eV (PBE underestimates by 48%!)</span><br />
+          <span style={{ color: D.xc }}>HSE06 gap: 1.14 eV (much better, only 3% error)</span>
+        </div>
+      </Card>
+
+      <Card collapsible title="Worked Example — Si DOS" color={D.xc}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Computing the DOS requires a much denser k-mesh than the band structure:
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.xc, fontWeight: 700 }}>Step 1: Dense SCF (or use existing charge density)</span><br />
+          <span style={{ color: T.muted }}>Same Si cell, but now k-mesh = 20x20x20 = 8,000 k-points</span><br />
+          <span style={{ color: T.muted }}>(Or: use n(r) from 8x8x8 SCF + non-SCF at 20x20x20)</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700 }}>Step 2: Collect all eigenvalues</span><br />
+          <span style={{ color: T.muted }}>20x20x20 k-points x 20 bands = 160,000 eigenvalues</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700 }}>Step 3: Build histogram</span><br />
+          <span style={{ color: T.muted }}>Energy range: -12 eV to +8 eV (relative to E_F)</span><br />
+          <span style={{ color: T.muted }}>Bin width: 0.01 eV (or use Gaussian smearing sigma = 0.1 eV)</span><br />
+          <span style={{ color: T.muted }}>At each energy E, count: g(E) = (1/8000) * sum of delta(E - epsilon_nk)</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700 }}>Step 4: Features in Si DOS</span><br />
+          <span style={{ color: D.basis }}>-12 to -10 eV: Si 3s band (deep valence)</span><br />
+          <span style={{ color: D.basis }}>-6 to 0 eV: Si 3p band (upper valence, determines bonding)</span><br />
+          <span style={{ color: D.warn }}>0 to 0.61 eV: ZERO states = band gap (PBE)</span><br />
+          <span style={{ color: D.accent }}>0.61+ eV: conduction band (Si 3s + 3p antibonding)</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700 }}>Step 5: PDOS decomposition</span><br />
+          <span style={{ color: T.muted }}>Project onto Si s and Si p orbitals:</span><br />
+          <span style={{ color: T.muted }}>Lower valence (-12 to -10 eV): mostly Si-3s character</span><br />
+          <span style={{ color: T.muted }}>Upper valence (-6 to 0 eV): mostly Si-3p character</span><br />
+          <span style={{ color: T.muted }}>Conduction: mixed Si-3s + Si-3p (sp3 antibonding)</span>
+        </div>
+      </Card>
+
+      <Card collapsible title="Key Formulas Summary" color={D.warm}>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>Band structure:</span><br />
+          <span style={{ color: D.eqn }}>H(k) c_nk = epsilon_nk S(k) c_nk</span><br />
+          <span style={{ color: T.muted }}>H(k)_GG' = |k+G|^2/2 * delta_GG' + v_KS(G-G')</span><br />
+          <span style={{ color: T.muted }}>Solve at each k on the path -> plot epsilon_nk vs k</span><br /><br />
+          <span style={{ color: D.warm, fontWeight: 700 }}>Total DOS:</span><br />
+          <span style={{ color: D.xc }}>g(E) = (1/V_BZ) sum_n integral_BZ delta(E - epsilon_nk) dk</span><br /><br />
+          <span style={{ color: D.warm, fontWeight: 700 }}>Projected DOS:</span><br />
+          <span style={{ color: D.accent }}>g_Al(E) = (1/V_BZ) sum_n integral_BZ |{"<"}phi_Al | psi_nk{">"}|^2 delta(E - epsilon_nk) dk</span><br /><br />
+          <span style={{ color: D.warm, fontWeight: 700 }}>Number of electrons (check):</span><br />
+          <span style={{ color: D.basis }}>N_e = integral_{"{-inf}"}^{"{E_F}"} g(E) dE</span><br />
+          <span style={{ color: T.muted }}>Must equal the total number of electrons in the cell!</span><br /><br />
+          <span style={{ color: D.warm, fontWeight: 700 }}>Effective mass:</span><br />
+          <span style={{ color: D.eqn }}>m*_ij = hbar^2 / (d^2E / dk_i dk_j)</span><br />
+          <span style={{ color: T.muted }}>Tensor: different in different directions (anisotropic)</span><br /><br />
+          <span style={{ color: D.warm, fontWeight: 700 }}>Carrier concentration (semiconductors):</span><br />
+          <span style={{ color: D.main }}>n = integral_{"{E_c}"}^{"{inf}"} g(E) f(E) dE</span><br />
+          <span style={{ color: T.muted }}>f(E) = 1 / (1 + exp((E - E_F)/k_BT))  (Fermi-Dirac distribution)</span><br />
+          <span style={{ color: T.muted }}>At T = 0: f = 1 below E_F, f = 0 above E_F (sharp step)</span><br />
+          <span style={{ color: T.muted }}>At T {">"} 0: thermal tail populates conduction band</span>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
 function DFTParamsLabSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -10192,7 +10439,8 @@ const DFT_SECTIONS = [
   { id: "basis_gto",   block: "basissets", label: "Gaussian DFT",        color: T.dft_accent, Component: DFTGaussianSection, nextReason: "Both approaches have strengths. The comparison reveals when each is ideal and how modern codes blur the boundary with hybrid methods like PAW and numerical atomic orbitals." },
   { id: "basis_compare", block: "basissets", label: "PW vs Gaussian",    color: T.dft_warm, Component: DFTBasisCompareSection, nextReason: "Basis sets understood. The Worked Example lets you explore key DFT settings interactively — energy cutoff, k-point meshes, smearing, convergence thresholds — seeing how each knob affects convergence and accuracy." },
 
-  { id: "dft_params",  block: "examples", label: "Worked Example",   color: T.dft_basis, Component: DFTParamsLabSection, nextReason: "Worked example complete. H and He give exact benchmarks — the only atoms where we can compare DFT approximations against known analytical solutions." },
+  { id: "dft_params",  block: "examples", label: "Worked Example",   color: T.dft_basis, Component: DFTParamsLabSection, nextReason: "Worked example complete. Now learn how DFT computes two of the most important material properties: band structure (which electron energies are allowed at each k-point) and density of states (how many states exist at each energy)." },
+  { id: "bands_dos",   block: "examples", label: "Band Structure & DOS", color: T.dft_xc, Component: DFTBandsDOSSection, nextReason: "Band structure and DOS understood. H and He give exact benchmarks — the only atoms where we can compare DFT approximations against known analytical solutions." },
   { id: "h_he_example", block: "examples", label: "H & He Analytic", color: T.dft_eqn, Component: DFTHHeExampleSection, nextReason: "H and He give exact benchmarks. The Na atom example now applies the full SCF machinery numerically — showing every iteration, orbital, and energy convergence in a real multi-electron system." },
   { id: "na_example",   block: "examples", label: "Na Atom Example",  color: T.dft_accent, Component: DFTNaExampleSection, nextReason: "Na atom done. The next example walks through every single SCF step with actual numbers — guessing the initial density, building v_KS, solving the eigenvalue problem with Davidson iteration, and checking convergence." },
   { id: "scf_walkthrough", block: "examples", label: "SCF Step by Step", color: T.dft_main, Component: DFTSCFWalkthroughSection, nextReason: "Full SCF walkthrough complete. The DFT Movie ties everything together — animated scenes of electron clouds, SCF convergence, and equation-by-equation derivations from scratch." },
