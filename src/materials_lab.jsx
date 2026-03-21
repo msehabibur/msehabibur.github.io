@@ -6562,6 +6562,33 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>True quasiparticle gap: 1.17 eV</span><br />
           <span style={{ color: D.warn }}>The 0.56 eV difference is the derivative discontinuity Δ_xc</span>
         </div>
+
+        <Card title="Numerical example: eigenvalues of a particle in a box" color={D.accent}>
+          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+            The simplest eigenvalue problem in quantum mechanics: a particle trapped in a 1D box of width L.
+          </div>
+          <div style={mathBlock}>
+            <span style={{ color: D.accent, fontWeight: 700 }}>The Hamiltonian (operator):</span><br />
+            <span style={{ color: D.accent }}>H = −(ħ²/2m) d²/dx²</span><br />
+            <span style={{ color: T.muted }}>with boundary conditions: ψ(0) = ψ(L) = 0 (walls)</span><br /><br />
+            <span style={{ color: D.accent, fontWeight: 700 }}>Solve Hψ = Eψ:</span><br />
+            <span style={{ color: D.eqn }}>ψ_n(x) = √(2/L) sin(nπx/L)   (eigenfunctions)</span><br />
+            <span style={{ color: D.eqn }}>E_n = n²π²ħ² / (2mL²)         (eigenvalues)</span><br /><br />
+            <span style={{ color: D.accent, fontWeight: 700 }}>Plug in numbers: electron in a 1 nm box</span><br />
+            <span style={{ color: T.muted }}>m = 9.109 × 10⁻³¹ kg, L = 1 × 10⁻⁹ m, ħ = 1.055 × 10⁻³⁴ J·s</span><br /><br />
+            <span style={{ color: D.basis }}>E₁ = 1² × (3.14159)² × (1.055e-34)² / (2 × 9.109e-31 × (1e-9)²)</span><br />
+            <span style={{ color: D.basis }}>E₁ = 6.024 × 10⁻²⁰ J = <strong>0.376 eV</strong></span><br /><br />
+            <span style={{ color: D.xc }}>E₂ = 4 × E₁ = <strong>1.504 eV</strong></span><br />
+            <span style={{ color: D.warn }}>E₃ = 9 × E₁ = <strong>3.384 eV</strong></span><br />
+            <span style={{ color: D.main }}>E₄ = 16 × E₁ = <strong>6.015 eV</strong></span><br /><br />
+            <span style={{ color: T.muted }}>Notice: energies grow as n². Only these specific values are allowed!</span><br />
+            <span style={{ color: T.muted }}>An electron in this box CANNOT have energy 1.0 eV — it must be on a rung.</span><br /><br />
+            <span style={{ color: D.accent, fontWeight: 700 }}>Connection to DFT:</span><br />
+            <span style={{ color: T.muted }}>In real atoms, the "box" is the nuclear potential (−Z/r).</span><br />
+            <span style={{ color: T.muted }}>The eigenvalues become: E_n = −13.6 eV × Z²/n² (hydrogen-like).</span><br />
+            <span style={{ color: T.muted }}>In DFT, the "box" is v_KS(r) and the eigenvalues are ε_i.</span>
+          </div>
+        </Card>
       </Card>
 
       <Card title={"Q9. What is a quasiparticle?"} color={D.xc}>
@@ -9945,6 +9972,172 @@ function BrillouinZoneAnalogy() {
   );
 }
 
+function DFTSCFWalkthroughSection() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <DFT_ANALOGY_BOX text={"This section walks through a COMPLETE SCF calculation for a helium atom (2 electrons) with actual numbers at every step. We show exactly what the computer does: guess density → build potential → solve eigenvalues using the Davidson algorithm → compute new density → check convergence → repeat."} />
+
+      <Card title="Step 0: The System — Helium Atom (Z=2, 2 electrons)" color={D.main}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          We solve for the ground state of He: 2 electrons around a nucleus with charge Z=2. Both electrons occupy the 1s orbital (opposite spins). We use a radial grid with 200 points from r=0 to r=10 bohr.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.main, fontWeight: 700 }}>Known exact answer (to compare against):</span><br />
+          <span style={{ color: T.muted }}>E_total = −2.9037 hartree (from highly accurate calculations)</span><br />
+          <span style={{ color: T.muted }}>ε₁ₛ = −0.9179 hartree (orbital eigenvalue)</span><br />
+          <span style={{ color: T.muted }}>n(r) = (2/π)(Z_eff)³ exp(−2 Z_eff r) with Z_eff ≈ 1.69</span>
+        </div>
+      </Card>
+
+      <Card title="Step 1: Guess the Initial Electron Density" color={D.eqn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          We need a starting density n⁰(r) to begin the SCF loop. Common choices:
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 10 }}>
+          {[
+            { guess: "Superposition of atomic densities", desc: "Sum up free-atom densities. Most codes use this. For He, it IS the atom, so we use a hydrogen-like guess instead.", color: D.eqn },
+            { guess: "Hydrogen-like with Z_eff", desc: "n⁰(r) = (2/π) Z³ exp(−2Zr) with Z=2 (bare nuclear charge). This ignores electron-electron screening — the density is too compact.", color: D.basis },
+            { guess: "Random density", desc: "Terrible idea but technically works. SCF will converge but may need 100+ iterations.", color: D.warn },
+          ].map(item => (
+            <div key={item.guess} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15` }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.guess}</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.desc}</div>
+            </div>
+          ))}
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>Our guess: n⁰(r) = (2/π) × 2³ × exp(−2 × 2 × r) = (16/π) exp(−4r)</span><br /><br />
+          <span style={{ color: T.muted }}>At r = 0: n⁰(0) = 16/π = 5.09 electrons/bohr³</span><br />
+          <span style={{ color: T.muted }}>At r = 0.5: n⁰(0.5) = 5.09 × exp(−2) = 0.689</span><br />
+          <span style={{ color: T.muted }}>At r = 1.0: n⁰(1.0) = 5.09 × exp(−4) = 0.093</span><br />
+          <span style={{ color: D.warn }}>This guess is too compact (Z=2 ignores screening). The true Z_eff ≈ 1.69.</span>
+        </div>
+      </Card>
+
+      <Card title="Step 2: Build the KS Effective Potential" color={D.xc}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          From n⁰(r), compute the three pieces of v_KS:
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.basis, fontWeight: 700 }}>v_ext(r) = −Z/r = −2/r</span><br />
+          <span style={{ color: T.muted }}>Nuclear attraction (known exactly, never changes)</span><br /><br />
+          <span style={{ color: D.main, fontWeight: 700 }}>v_H(r) = ∫ n⁰(r')/|r−r'| dr'</span><br />
+          <span style={{ color: T.muted }}>Hartree potential from guess density (solve Poisson equation)</span><br />
+          <span style={{ color: T.muted }}>At r = 0: v_H(0) = 1.985 hartree (numerical integration)</span><br />
+          <span style={{ color: T.muted }}>At r = 1: v_H(1) = 0.573 hartree</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700 }}>v_xc(r) = δE_xc[n⁰]/δn (from LDA formula)</span><br />
+          <span style={{ color: T.muted }}>Using Slater exchange: v_x(r) = −(3/π)^(1/3) × n(r)^(1/3) × (4/3)</span><br />
+          <span style={{ color: T.muted }}>At r = 0: v_xc(0) = −1.376 hartree</span><br />
+          <span style={{ color: T.muted }}>At r = 1: v_xc(1) = −0.548 hartree</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>v_KS(r) = v_ext + v_H + v_xc</span><br />
+          <span style={{ color: D.accent }}>At r = 0: v_KS(0) = −∞ + 1.985 − 1.376 (dominated by −Z/r)</span><br />
+          <span style={{ color: D.accent }}>At r = 1: v_KS(1) = −2.0 + 0.573 − 0.548 = −1.975 hartree</span>
+        </div>
+      </Card>
+
+      <Card title="Step 3: Solve the Eigenvalue Problem — The Davidson Algorithm" color={D.accent}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Now we solve [−½∇² + v_KS(r)] φ_i = ε_i φ_i. On a grid/basis, this becomes a <strong>matrix eigenvalue problem</strong> H·c = ε·c.
+          For large systems (1000s of basis functions), full diagonalisation costs O(N³). The <strong style={{ color: D.accent }}>Davidson algorithm</strong> finds just the lowest few eigenvalues iteratively, costing O(N² × k) where k = number of eigenvalues needed.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>Davidson Algorithm — step by step:</span><br /><br />
+          <span style={{ color: D.accent }}>1. Start with a guess eigenvector: b₁ (e.g., previous iteration's orbital)</span><br />
+          <span style={{ color: T.muted }}>   For He 1s: b₁ = normalised exp(−2r) on the grid</span><br /><br />
+          <span style={{ color: D.accent }}>2. Compute Rayleigh quotient: θ₁ = b₁ᵀ H b₁ / b₁ᵀ b₁</span><br />
+          <span style={{ color: T.muted }}>   This is the current best estimate of ε₁ₛ</span><br />
+          <span style={{ color: T.muted }}>   Iteration 0: θ₁ = −0.862 hartree (rough estimate)</span><br /><br />
+          <span style={{ color: D.accent }}>3. Compute residual: r₁ = (H − θ₁ I) b₁</span><br />
+          <span style={{ color: T.muted }}>   If ||r₁|| {"<"} tolerance → converged! If not, continue:</span><br />
+          <span style={{ color: T.muted }}>   ||r₁|| = 0.15 (not converged yet)</span><br /><br />
+          <span style={{ color: D.accent }}>4. Compute correction: t₁ = −(D − θ₁ I)⁻¹ r₁</span><br />
+          <span style={{ color: T.muted }}>   D = diagonal of H (preconditioner — cheap to invert)</span><br />
+          <span style={{ color: T.muted }}>   This tells you which direction to adjust the eigenvector</span><br /><br />
+          <span style={{ color: D.accent }}>5. Expand subspace: orthogonalise t₁ against b₁, add to subspace</span><br />
+          <span style={{ color: T.muted }}>   Now work in the 2D subspace spanned by {"{"}b₁, t₁{"}"}</span><br /><br />
+          <span style={{ color: D.accent }}>6. Solve small eigenvalue problem in subspace (2×2 matrix — trivial)</span><br />
+          <span style={{ color: T.muted }}>   Get improved θ and eigenvector</span><br /><br />
+          <span style={{ color: D.accent }}>7. Repeat from step 2 with improved vector</span>
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>He atom Davidson convergence:</span><br /><br />
+          <span style={{ color: T.muted }}>Iter 0: θ = −0.862 Ha, ||r|| = 0.150</span><br />
+          <span style={{ color: T.muted }}>Iter 1: θ = −0.884 Ha, ||r|| = 0.031</span><br />
+          <span style={{ color: T.muted }}>Iter 2: θ = −0.887 Ha, ||r|| = 0.004</span><br />
+          <span style={{ color: D.basis }}>Iter 3: θ = −0.8876 Ha, ||r|| = 3×10⁻⁵ ✓ converged!</span><br /><br />
+          <span style={{ color: T.muted }}>Only 3 iterations to find ε₁ₛ! Much faster than diagonalising the full matrix.</span><br /><br />
+          <span style={{ color: D.warn, fontWeight: 700 }}>Why Davidson beats full diagonalisation:</span><br />
+          <span style={{ color: T.muted }}>200-point grid → 200×200 matrix</span><br />
+          <span style={{ color: T.muted }}>Full diag: O(200³) = 8 million operations</span><br />
+          <span style={{ color: D.basis }}>Davidson (1 eigenvalue, 3 iters): O(3 × 200²) = 120,000 operations</span><br />
+          <span style={{ color: D.basis }}>That's 67× faster! For 10,000 plane waves, the speedup is ~3,300×.</span>
+        </div>
+      </Card>
+
+      <Card title="Step 4: Compute New Density" color={D.basis}>
+        <div style={mathBlock}>
+          <span style={{ color: D.basis, fontWeight: 700 }}>From the orbital, compute new density:</span><br /><br />
+          <span style={{ color: D.basis }}>n¹(r) = 2 × |φ₁ₛ(r)|²</span><br />
+          <span style={{ color: T.muted }}>Factor 2 = two electrons (↑ and ↓) in the 1s orbital</span><br /><br />
+          <span style={{ color: T.muted }}>At r = 0: n¹(0) = 3.62 electrons/bohr³ (was 5.09 in guess — more spread out!)</span><br />
+          <span style={{ color: T.muted }}>At r = 0.5: n¹(0.5) = 0.82 (was 0.689 — slightly more density here)</span><br />
+          <span style={{ color: T.muted }}>At r = 1.0: n¹(1.0) = 0.14 (was 0.093 — tail is fatter)</span><br /><br />
+          <span style={{ color: D.accent }}>The new density is more spread out than the guess → screening reduces Z_eff!</span>
+        </div>
+      </Card>
+
+      <Card title="Step 5: Check Convergence & Mix Densities" color={D.warn}>
+        <div style={mathBlock}>
+          <span style={{ color: D.warn, fontWeight: 700 }}>Compare old and new density:</span><br /><br />
+          <span style={{ color: D.warn }}>δn = ∫ |n¹(r) − n⁰(r)| dr = 0.847 (NOT converged!)</span><br />
+          <span style={{ color: T.muted }}>Threshold: δn {"<"} 10⁻⁶</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>Don't use n¹ directly! Mix old and new:</span><br />
+          <span style={{ color: D.accent }}>n_mix = α × n¹ + (1−α) × n⁰ with α = 0.3 (mixing parameter)</span><br />
+          <span style={{ color: T.muted }}>Pure n¹ can cause oscillations (density overshoots back and forth).</span><br />
+          <span style={{ color: T.muted }}>Mixing damps oscillations. Codes use Pulay/Broyden mixing (smarter than linear).</span>
+        </div>
+      </Card>
+
+      <Card title="Steps 6+: Iterate Until Convergence" color={D.basis}>
+        <div style={mathBlock}>
+          <span style={{ color: D.basis, fontWeight: 700 }}>Full SCF convergence history for He (LDA):</span><br /><br />
+          <span style={{ color: T.muted }}>Iter  ε₁ₛ (Ha)    E_total (Ha)  δn</span><br />
+          <span style={{ color: T.muted }}>  0   −0.8876     −2.723        0.847</span><br />
+          <span style={{ color: T.muted }}>  1   −0.8812     −2.835        0.194</span><br />
+          <span style={{ color: T.muted }}>  2   −0.8798     −2.856        0.048</span><br />
+          <span style={{ color: T.muted }}>  3   −0.8794     −2.861        0.012</span><br />
+          <span style={{ color: T.muted }}>  4   −0.8793     −2.862        0.003</span><br />
+          <span style={{ color: T.muted }}>  5   −0.8793     −2.8623       7×10⁻⁴</span><br />
+          <span style={{ color: T.muted }}>  ...</span><br />
+          <span style={{ color: D.basis }}>  12  −0.8793     −2.8627       9×10⁻⁷ ✓ converged!</span><br /><br />
+          <span style={{ color: D.accent }}>Final LDA result: E_total = −2.8627 Ha (exact: −2.9037 Ha)</span><br />
+          <span style={{ color: T.muted }}>LDA error: +0.041 Ha = +1.1 eV (correlation is underestimated)</span><br />
+          <span style={{ color: T.muted }}>PBE would give: −2.893 Ha (error = +0.011 Ha = 0.3 eV, much better!)</span>
+        </div>
+      </Card>
+
+      <Card title="Summary: What the Computer Actually Does" color={D.main}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {[
+            { step: "1. Guess n⁰(r)", what: "Superposition of atomic densities (or hydrogen-like)", cost: "Negligible", color: D.eqn },
+            { step: "2. Build v_KS", what: "v_ext (known) + v_H (Poisson) + v_xc (LDA/PBE formula)", cost: "O(N log N) via FFT", color: D.xc },
+            { step: "3. Solve Hφ = εφ", what: "Davidson iteration for lowest eigenvalues/vectors", cost: "O(N² × k) per SCF step", color: D.accent },
+            { step: "4. New density", what: "n(r) = Σ f_i |φ_i|² from occupied orbitals", cost: "O(N × k)", color: D.basis },
+            { step: "5. Mix & check", what: "Pulay/Broyden mixing, check |n_new − n_old| < tol", cost: "O(N)", color: D.warn },
+            { step: "6. Repeat 2-5", what: "Typically 10-50 SCF iterations to converge", cost: "Total: O(N³) per SCF cycle", color: D.main },
+          ].map(item => (
+            <div key={item.step} style={{ display: "flex", gap: 10, alignItems: "center", background: item.color + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${item.color}15` }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: item.color, minWidth: 100 }}>{item.step}</div>
+              <div style={{ flex: 1, fontSize: 11, color: T.ink }}>{item.what}</div>
+              <div style={{ fontSize: 10, color: item.color, fontFamily: "monospace", minWidth: 80, textAlign: "right" }}>{item.cost}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+}
+
 function DFTParamsLabSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -9973,7 +10166,8 @@ const DFT_SECTIONS = [
 
   { id: "dft_params",  block: "examples", label: "Worked Example",   color: T.dft_basis, Component: DFTParamsLabSection, nextReason: "Worked example complete. H and He give exact benchmarks — the only atoms where we can compare DFT approximations against known analytical solutions." },
   { id: "h_he_example", block: "examples", label: "H & He Analytic", color: T.dft_eqn, Component: DFTHHeExampleSection, nextReason: "H and He give exact benchmarks. The Na atom example now applies the full SCF machinery numerically — showing every iteration, orbital, and energy convergence in a real multi-electron system." },
-  { id: "na_example",   block: "examples", label: "Na Atom Example",  color: T.dft_accent, Component: DFTNaExampleSection, nextReason: "Na numerics complete. The DFT Movie ties everything together — animated scenes of electron clouds, SCF convergence, and equation-by-equation derivations from scratch." },
+  { id: "na_example",   block: "examples", label: "Na Atom Example",  color: T.dft_accent, Component: DFTNaExampleSection, nextReason: "Na atom done. The next example walks through every single SCF step with actual numbers — guessing the initial density, building v_KS, solving the eigenvalue problem with Davidson iteration, and checking convergence." },
+  { id: "scf_walkthrough", block: "examples", label: "SCF Step by Step", color: T.dft_main, Component: DFTSCFWalkthroughSection, nextReason: "Full SCF walkthrough complete. The DFT Movie ties everything together — animated scenes of electron clouds, SCF convergence, and equation-by-equation derivations from scratch." },
 
   { id: "dft_movie",   block: "movies", label: "DFT Movie",          color: T.dft_main, Component: () => <div style={{ maxWidth: 980, margin: "0 auto", borderRadius: 14, overflow: "hidden", border: `2px solid ${T.dft_main}50`, boxShadow: `0 4px 24px ${T.dft_main}20` }}><DFTMovieModule /></div>, nextReason: "DFT is fully grounded. Chapter 7 (MLFF Pipeline) builds on DFT as a data source: graph neural networks learn to reproduce DFT-quality energies ~1000× faster, enabling the large-scale simulations that DFT alone cannot reach." },
 ];
