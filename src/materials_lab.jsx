@@ -6670,31 +6670,43 @@ function DFTFAQSection() {
           <span style={{ color: D.accent }}>Semiconductor: E_gap = 0.5–3 eV (Si: 1.1 eV)</span><br />
           <span style={{ color: D.warn }}>Insulator: E_gap {">"} 3 eV (diamond: 5.5 eV)</span>
         </div>
-        <FAQGraph height={130}>
-          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.basis} fontWeight="700">Band Structure: Metal vs Semiconductor vs Insulator</text>
+        <FAQGraph height={200}>
+          <text x={200} y={16} textAnchor="middle" fontSize={12} fill={D.basis} fontWeight="700">Band Structure: Metal vs Semiconductor vs Insulator</text>
           {[
             { label: "Metal", x: 55, gap: 0, col: D.main },
-            { label: "Semiconductor", x: 175, gap: 20, col: D.accent },
-            { label: "Insulator", x: 295, gap: 45, col: D.warn },
+            { label: "Semiconductor", x: 175, gap: 30, col: D.accent },
+            { label: "Insulator", x: 295, gap: 65, col: D.warn },
           ].map((m, i) => (
             <g key={i}>
               {/* Valence band */}
-              <rect x={m.x} y={75} width={80} height={35} fill={m.col} opacity={0.3} rx={3} />
-              <rect x={m.x} y={75} width={80} height={35} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
-              <text x={m.x + 40} y={96} textAnchor="middle" fontSize={8} fill={m.col} fontWeight="600">VB (filled)</text>
+              <rect x={m.x} y={120} width={80} height={45} fill={m.col} opacity={0.3} rx={4} />
+              <rect x={m.x} y={120} width={80} height={45} fill="none" stroke={m.col} strokeWidth={1.5} rx={4} />
+              <text x={m.x + 40} y={146} textAnchor="middle" fontSize={9} fill={m.col} fontWeight="600">VB (filled)</text>
               {/* Conduction band */}
-              <rect x={m.x} y={75 - m.gap - 30} width={80} height={30} fill={m.col} opacity={0.1} rx={3} />
-              <rect x={m.x} y={75 - m.gap - 30} width={80} height={30} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} strokeDasharray={m.gap > 0 ? "0" : "4,3"} />
-              <text x={m.x + 40} y={75 - m.gap - 12} textAnchor="middle" fontSize={8} fill={m.col}>CB (empty)</text>
+              <rect x={m.x} y={120 - m.gap - 40} width={80} height={40} fill={m.col} opacity={0.1} rx={4} />
+              <rect x={m.x} y={120 - m.gap - 40} width={80} height={40} fill="none" stroke={m.col} strokeWidth={1.5} rx={4} strokeDasharray={m.gap > 0 ? "0" : "5,3"} />
+              <text x={m.x + 40} y={120 - m.gap - 17} textAnchor="middle" fontSize={9} fill={m.col}>CB (empty)</text>
+              {/* Fermi level */}
+              <line x1={m.x} y1={120} x2={m.x + 80} y2={120} stroke={m.col} strokeWidth={1} strokeDasharray="3,3" opacity={0.5} />
               {/* Gap label */}
               {m.gap > 0 && <>
-                <line x1={m.x + 40} y1={75} x2={m.x + 40} y2={75 - m.gap} stroke={m.col} strokeWidth={1.5} />
-                <text x={m.x + 55} y={75 - m.gap / 2 + 3} fontSize={8} fill={m.col} fontWeight="700">{m.gap === 20 ? "~1 eV" : ">3 eV"}</text>
+                <line x1={m.x + 40} y1={120} x2={m.x + 40} y2={120 - m.gap} stroke={m.col} strokeWidth={2} />
+                <polygon points={`${m.x + 36},${120 - m.gap} ${m.x + 44},${120 - m.gap} ${m.x + 40},${120 - m.gap - 5}`} fill={m.col} />
+                <polygon points={`${m.x + 36},${120} ${m.x + 44},${120} ${m.x + 40},${120 + 5}`} fill={m.col} />
+                <text x={m.x + 58} y={120 - m.gap / 2 + 4} fontSize={10} fill={m.col} fontWeight="700">{m.gap === 30 ? "~1 eV" : ">3 eV"}</text>
               </>}
-              {m.gap === 0 && <text x={m.x + 40} y={68} textAnchor="middle" fontSize={8} fill={m.col} fontWeight="700">no gap</text>}
-              <text x={m.x + 40} y={120} textAnchor="middle" fontSize={10} fill="#374151" fontWeight="700">{m.label}</text>
+              {m.gap === 0 && <>
+                <text x={m.x + 40} y={112} textAnchor="middle" fontSize={9} fill={m.col} fontWeight="700">no gap</text>
+                <text x={m.x + 40} y={100} textAnchor="middle" fontSize={8} fill={T.muted}>bands overlap</text>
+              </>}
+              <text x={m.x + 40} y={180} textAnchor="middle" fontSize={11} fill="#374151" fontWeight="700">{m.label}</text>
+              <text x={m.x + 40} y={192} textAnchor="middle" fontSize={8} fill={T.muted}>{m.gap === 0 ? "Cu, Fe, Al" : m.gap === 30 ? "Si, GaAs, CdTe" : "Diamond, SiO₂"}</text>
             </g>
           ))}
+          {/* Energy axis label */}
+          <text x={18} y={100} textAnchor="middle" fontSize={9} fill="#6b7280" transform="rotate(-90,18,100)">Energy</text>
+          <line x1={35} y1={35} x2={35} y2={170} stroke="#9ca3af" strokeWidth={1} />
+          <polygon points="32,38 38,38 35,30" fill="#9ca3af" />
         </FAQGraph>
       </Card>
 
