@@ -10334,55 +10334,177 @@ function DFTBandsDOSSection() {
         </div>
       </Card>
 
-      <Card collapsible title="Worked Example — Si Band Structure" color={D.main}>
+      <Card collapsible title="Numerical Example — Band Structure (3-atom chain)" color={D.main}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
-          Complete workflow to compute the band structure of silicon:
+          Let's compute a band structure from scratch using a simple 1D model: 3 hydrogen-like atoms in a chain with spacing a = 3 bohr. Each atom has one orbital (1s). This gives a 3×3 Hamiltonian at each k-point.
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.main, fontWeight: 700 }}>Step 1: SCF with uniform k-mesh</span><br />
-          <span style={{ color: T.muted }}>Si, diamond structure, a = 5.43 Ang, 2 atoms/cell</span><br />
-          <span style={{ color: T.muted }}>PBE functional, E_cut = 400 eV, k-mesh = 8x8x8</span><br />
-          <span style={{ color: T.muted }}>SCF converges in ~15 iterations, gives E_total and n(r)</span><br /><br />
-          <span style={{ color: D.main, fontWeight: 700 }}>Step 2: k-path (FCC BZ)</span><br />
-          <span style={{ color: D.eqn }}>{"W -> L -> Gamma -> X -> W -> K -> Gamma"}</span><br />
-          <span style={{ color: T.muted }}>100 points per segment = 600 k-points total</span><br /><br />
-          <span style={{ color: D.main, fontWeight: 700 }}>Step 3: Non-SCF band calculation</span><br />
-          <span style={{ color: T.muted }}>Fix n(r) from step 1. At each of 600 k-points, diagonalise H(k).</span><br />
-          <span style={{ color: T.muted }}>Get 20 eigenvalues at each k (enough to cover valence + low conduction).</span><br />
-          <span style={{ color: T.muted }}>Total: 600 x 20 = 12,000 eigenvalues.</span><br /><br />
-          <span style={{ color: D.main, fontWeight: 700 }}>Step 4: Results</span><br />
-          <span style={{ color: D.basis }}>VBM at Gamma: E = 0 eV (by convention)</span><br />
-          <span style={{ color: D.basis }}>CBM near X (at ~0.85 * Gamma-X): E = 0.61 eV</span><br />
-          <span style={{ color: D.accent }}>{"PBE band gap = 0.61 eV (indirect, Gamma -> near-X)"}</span><br />
-          <span style={{ color: D.warn }}>Experiment: 1.17 eV (PBE underestimates by 48%!)</span><br />
-          <span style={{ color: D.xc }}>HSE06 gap: 1.14 eV (much better, only 3% error)</span>
+          <span style={{ color: D.main, fontWeight: 700 }}>Step 1: Set up the Hamiltonian H(k)</span><br /><br />
+          <span style={{ color: T.muted }}>On-site energy: α = -13.6 eV (1s orbital energy)</span><br />
+          <span style={{ color: T.muted }}>Nearest-neighbor hopping: β = -3.0 eV (overlap integral)</span><br />
+          <span style={{ color: T.muted }}>For a 1D chain with lattice constant a, Bloch's theorem gives:</span><br /><br />
+          <span style={{ color: D.eqn }}>H(k) = α + 2β cos(ka)</span><br /><br />
+          <span style={{ color: T.muted }}>This is a single band! For our 3-atom cell, we get 3 bands.</span><br /><br />
+          <span style={{ color: D.main, fontWeight: 700 }}>Step 2: Choose k-points</span><br /><br />
+          <span style={{ color: T.muted }}>Brillouin zone: k ranges from -π/a to +π/a</span><br />
+          <span style={{ color: T.muted }}>Let's sample 7 k-points:</span><br /><br />
+          <span style={{ color: D.eqn }}>k = 0, ±π/6a, ±π/3a, ±π/2a, ±2π/3a, ±5π/6a, π/a</span>
         </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.main, fontWeight: 700 }}>Step 3: Compute ε(k) = α + 2β cos(ka) at each k</span><br /><br />
+          <span style={{ color: T.muted }}>{"k = 0:        cos(0) = 1.000    ε = -13.6 + 2(-3.0)(1.000) = -19.6 eV"}</span><br />
+          <span style={{ color: T.muted }}>{"k = π/6a:     cos(π/6) = 0.866   ε = -13.6 + 2(-3.0)(0.866) = -18.8 eV"}</span><br />
+          <span style={{ color: T.muted }}>{"k = π/3a:     cos(π/3) = 0.500   ε = -13.6 + 2(-3.0)(0.500) = -16.6 eV"}</span><br />
+          <span style={{ color: D.eqn }}>{"k = π/2a:     cos(π/2) = 0.000   ε = -13.6 + 2(-3.0)(0.000) = -13.6 eV"}</span><br />
+          <span style={{ color: T.muted }}>{"k = 2π/3a:   cos(2π/3) = -0.500  ε = -13.6 + 2(-3.0)(-0.500) = -10.6 eV"}</span><br />
+          <span style={{ color: T.muted }}>{"k = 5π/6a:   cos(5π/6) = -0.866  ε = -13.6 + 2(-3.0)(-0.866) = -8.4 eV"}</span><br />
+          <span style={{ color: D.warn }}>{"k = π/a:      cos(π) = -1.000    ε = -13.6 + 2(-3.0)(-1.000) = -7.6 eV"}</span><br /><br />
+          <span style={{ color: D.accent }}>Bandwidth = ε_max - ε_min = -7.6 - (-19.6) = 12.0 eV = 4|β|</span>
+        </div>
+        <FAQGraph height={220}>
+          <text x={200} y={16} textAnchor="middle" fontSize={12} fill={D.main} fontWeight="700">Band Structure: 1D Hydrogen Chain</text>
+          <text x={200} y={34} textAnchor="middle" fontSize={9} fill={T.muted}>{"ε(k) = α + 2β cos(ka), α = -13.6 eV, β = -3.0 eV"}</text>
+          {/* Axes */}
+          <line x1={60} y1={190} x2={370} y2={190} stroke="#9ca3af" strokeWidth={1} />
+          <line x1={60} y1={45} x2={60} y2={190} stroke="#9ca3af" strokeWidth={1} />
+          <text x={215} y={210} textAnchor="middle" fontSize={10} fill="#6b7280">k</text>
+          <text x={20} y={120} textAnchor="middle" fontSize={10} fill="#6b7280" transform="rotate(-90,20,120)">Energy (eV)</text>
+          {/* k labels */}
+          {[
+            { k: 0, label: "0" }, { k: 0.167, label: "π/6a" }, { k: 0.333, label: "π/3a" },
+            { k: 0.5, label: "π/2a" }, { k: 0.667, label: "2π/3a" }, { k: 0.833, label: "5π/6a" },
+            { k: 1, label: "π/a" },
+          ].map((p, i) => (
+            <text key={i} x={60 + p.k * 310} y={202} textAnchor="middle" fontSize={7} fill="#9ca3af">{p.label}</text>
+          ))}
+          {/* Energy labels */}
+          {[-19.6, -16.6, -13.6, -10.6, -7.6].map((e, i) => (
+            <g key={i}>
+              <line x1={55} y1={190 - (e + 20) * 11} x2={60} y2={190 - (e + 20) * 11} stroke="#9ca3af" strokeWidth={1} />
+              <text x={50} y={190 - (e + 20) * 11 + 3} textAnchor="end" fontSize={7} fill="#9ca3af">{e}</text>
+            </g>
+          ))}
+          {/* Band curve */}
+          <polyline fill="none" stroke={D.main} strokeWidth={2.5}
+            points={Array.from({length: 50}, (_, i) => {
+              const k = i / 49;
+              const x = 60 + k * 310;
+              const eps = -13.6 + 2 * (-3.0) * Math.cos(k * Math.PI);
+              const y = 190 - (eps + 20) * 11;
+              return `${x},${y}`;
+            }).join(" ")} />
+          {/* Data points */}
+          {[
+            { k: 0, e: -19.6 }, { k: 0.167, e: -18.8 }, { k: 0.333, e: -16.6 },
+            { k: 0.5, e: -13.6 }, { k: 0.667, e: -10.6 }, { k: 0.833, e: -8.4 },
+            { k: 1, e: -7.6 },
+          ].map((p, i) => (
+            <circle key={i} cx={60 + p.k * 310} cy={190 - (p.e + 20) * 11} r={4} fill={D.accent} />
+          ))}
+          {/* Fermi level (half filled = at center) */}
+          <line x1={60} y1={190 - (-13.6 + 20) * 11} x2={370} y2={190 - (-13.6 + 20) * 11} stroke={D.warn} strokeWidth={1} strokeDasharray="5,3" />
+          <text x={375} y={190 - (-13.6 + 20) * 11 + 3} fontSize={8} fill={D.warn}>E_F</text>
+          {/* Bandwidth label */}
+          <line x1={380} y1={190 - (-19.6 + 20) * 11} x2={380} y2={190 - (-7.6 + 20) * 11} stroke={D.accent} strokeWidth={1.5} />
+          <text x={390} y={120} fontSize={8} fill={D.accent} fontWeight="700">4|β|</text>
+        </FAQGraph>
       </Card>
 
-      <Card collapsible title="Worked Example — Si DOS" color={D.xc}>
+      <Card collapsible title="Numerical Example — DOS Calculation (same chain)" color={D.xc}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
-          Computing the DOS requires a much denser k-mesh than the band structure:
+          Using the same 1D chain, let's compute the DOS by counting eigenvalues in energy bins.
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.xc, fontWeight: 700 }}>Step 1: Dense SCF (or use existing charge density)</span><br />
-          <span style={{ color: T.muted }}>Same Si cell, but now k-mesh = 20x20x20 = 8,000 k-points</span><br />
-          <span style={{ color: T.muted }}>(Or: use n(r) from 8x8x8 SCF + non-SCF at 20x20x20)</span><br /><br />
-          <span style={{ color: D.xc, fontWeight: 700 }}>Step 2: Collect all eigenvalues</span><br />
-          <span style={{ color: T.muted }}>20x20x20 k-points x 20 bands = 160,000 eigenvalues</span><br /><br />
-          <span style={{ color: D.xc, fontWeight: 700 }}>Step 3: Build histogram</span><br />
-          <span style={{ color: T.muted }}>Energy range: -12 eV to +8 eV (relative to E_F)</span><br />
-          <span style={{ color: T.muted }}>Bin width: 0.01 eV (or use Gaussian smearing sigma = 0.1 eV)</span><br />
-          <span style={{ color: T.muted }}>At each energy E, count: g(E) = (1/8000) * sum of delta(E - epsilon_nk)</span><br /><br />
-          <span style={{ color: D.xc, fontWeight: 700 }}>Step 4: Features in Si DOS</span><br />
-          <span style={{ color: D.basis }}>-12 to -10 eV: Si 3s band (deep valence)</span><br />
-          <span style={{ color: D.basis }}>-6 to 0 eV: Si 3p band (upper valence, determines bonding)</span><br />
-          <span style={{ color: D.warn }}>0 to 0.61 eV: ZERO states = band gap (PBE)</span><br />
-          <span style={{ color: D.accent }}>0.61+ eV: conduction band (Si 3s + 3p antibonding)</span><br /><br />
-          <span style={{ color: D.xc, fontWeight: 700 }}>Step 5: PDOS decomposition</span><br />
-          <span style={{ color: T.muted }}>Project onto Si s and Si p orbitals:</span><br />
-          <span style={{ color: T.muted }}>Lower valence (-12 to -10 eV): mostly Si-3s character</span><br />
-          <span style={{ color: T.muted }}>Upper valence (-6 to 0 eV): mostly Si-3p character</span><br />
-          <span style={{ color: T.muted }}>Conduction: mixed Si-3s + Si-3p (sp3 antibonding)</span>
+          <span style={{ color: D.xc, fontWeight: 700 }}>Step 1: Sample many k-points (20 evenly spaced)</span><br /><br />
+          <span style={{ color: T.muted }}>{"k_i = i × π/(20a), for i = 0, 1, 2, ..., 19"}</span><br />
+          <span style={{ color: T.muted }}>At each k, compute ε(k) = -13.6 + 2(-3.0)cos(ka)</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700 }}>Step 2: All 20 eigenvalues:</span><br /><br />
+          <span style={{ color: T.muted }}>{"ε₁  = -19.60 eV (k=0)"}</span><br />
+          <span style={{ color: T.muted }}>{"ε₂  = -19.35 eV"}</span><br />
+          <span style={{ color: T.muted }}>{"ε₃  = -18.63 eV"}</span><br />
+          <span style={{ color: T.muted }}>{"ε₄  = -17.50 eV"}</span><br />
+          <span style={{ color: T.muted }}>{"ε₅  = -16.06 eV"}</span><br />
+          <span style={{ color: T.muted }}>{"ε₆  = -14.43 eV"}</span><br />
+          <span style={{ color: D.eqn }}>{"ε₇  = -12.77 eV"}</span><br />
+          <span style={{ color: T.muted }}>{"ε₈  = -11.21 eV"}</span><br />
+          <span style={{ color: T.muted }}>{"ε₉  = -9.88 eV"}</span><br />
+          <span style={{ color: T.muted }}>{"ε₁₀ = -8.89 eV"}</span><br />
+          <span style={{ color: T.muted }}>{"... ε₂₀ = -7.60 eV (k=π/a)"}</span>
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.xc, fontWeight: 700 }}>Step 3: Bin the eigenvalues (bin width = 2 eV)</span><br /><br />
+          <span style={{ color: T.muted }}>{"Bin [-20, -18]: 3 eigenvalues → g = 3/20 = 0.15 states/eV"}</span><br />
+          <span style={{ color: T.muted }}>{"Bin [-18, -16]: 2 eigenvalues → g = 2/20 = 0.10 states/eV"}</span><br />
+          <span style={{ color: T.muted }}>{"Bin [-16, -14]: 2 eigenvalues → g = 2/20 = 0.10 states/eV"}</span><br />
+          <span style={{ color: D.eqn }}>{"Bin [-14, -12]: 2 eigenvalues → g = 2/20 = 0.10 states/eV"}</span><br />
+          <span style={{ color: T.muted }}>{"Bin [-12, -10]: 2 eigenvalues → g = 2/20 = 0.10 states/eV"}</span><br />
+          <span style={{ color: T.muted }}>{"Bin [-10, -8]:  3 eigenvalues → g = 3/20 = 0.15 states/eV"}</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>Check: total = 3+2+2+2+2+3 = 14? No, we need all 20.</span><br />
+          <span style={{ color: T.muted }}>{"Bin [-8, -6]:   6 eigenvalues → g = 6/20 = 0.30 states/eV"}</span><br />
+          <span style={{ color: T.muted }}>Total: 3+2+2+2+2+3+6 = 20 ✓</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700 }}>Notice: DOS is highest at band edges!</span><br />
+          <span style={{ color: T.muted }}>This is a Van Hove singularity — cos(ka) is flat at k=0 and k=π/a,</span><br />
+          <span style={{ color: T.muted }}>so many k-points pile up at the same energy.</span>
+        </div>
+        <FAQGraph height={220}>
+          <text x={200} y={16} textAnchor="middle" fontSize={12} fill={D.xc} fontWeight="700">DOS of 1D Hydrogen Chain</text>
+          <text x={200} y={34} textAnchor="middle" fontSize={9} fill={T.muted}>Histogram from 20 k-points, bin width = 2 eV</text>
+          {/* Axes */}
+          <line x1={70} y1={180} x2={370} y2={180} stroke="#9ca3af" strokeWidth={1} />
+          <line x1={70} y1={45} x2={70} y2={180} stroke="#9ca3af" strokeWidth={1} />
+          <text x={220} y={200} textAnchor="middle" fontSize={10} fill="#6b7280">Energy (eV)</text>
+          <text x={25} y={115} textAnchor="middle" fontSize={10} fill="#6b7280" transform="rotate(-90,25,115)">g(E) (states/eV)</text>
+          {/* Bars */}
+          {[
+            { e: -20, g: 0.15, label: "0.15" },
+            { e: -18, g: 0.10, label: "0.10" },
+            { e: -16, g: 0.10, label: "0.10" },
+            { e: -14, g: 0.10, label: "0.10" },
+            { e: -12, g: 0.10, label: "0.10" },
+            { e: -10, g: 0.15, label: "0.15" },
+            { e: -8,  g: 0.30, label: "0.30" },
+          ].map((bin, i) => {
+            const x = 70 + (bin.e + 20) * 25;
+            const h = bin.g * 400;
+            return (
+              <g key={i}>
+                <rect x={x} y={180 - h} width={48} height={h} fill={i === 3 ? D.eqn : D.xc} opacity={0.5} rx={2} />
+                <rect x={x} y={180 - h} width={48} height={h} fill="none" stroke={D.xc} strokeWidth={1.5} rx={2} />
+                <text x={x + 24} y={180 - h - 5} textAnchor="middle" fontSize={8} fill={D.xc} fontWeight="700">{bin.label}</text>
+                <text x={x + 24} y={192} textAnchor="middle" fontSize={7} fill="#9ca3af">{bin.e}</text>
+              </g>
+            );
+          })}
+          {/* Fermi level */}
+          <line x1={70 + (-13.6 + 20) * 25} y1={45} x2={70 + (-13.6 + 20) * 25} y2={180} stroke={D.warn} strokeWidth={1.5} strokeDasharray="5,3" />
+          <text x={70 + (-13.6 + 20) * 25 + 3} y={55} fontSize={8} fill={D.warn} fontWeight="700">E_F</text>
+          {/* Analytic DOS curve overlay */}
+          <polyline fill="none" stroke={D.accent} strokeWidth={2} strokeDasharray="4,3"
+            points={Array.from({length: 60}, (_, i) => {
+              const e = -19.6 + i * 0.2;
+              const x = 70 + (e + 20) * 25;
+              const arg = (e + 13.6) / 6.0;
+              if (Math.abs(arg) >= 1) return null;
+              const dos = 1.0 / (Math.PI * 6.0 * Math.sqrt(1 - arg * arg));
+              const y = 180 - dos * 400;
+              return `${x},${Math.max(50, y)}`;
+            }).filter(Boolean).join(" ")} />
+          {/* Labels */}
+          <text x={85} y={65} fontSize={8} fill={D.xc} fontWeight="700">Van Hove</text>
+          <text x={85} y={75} fontSize={8} fill={D.xc}>singularity</text>
+          <line x1={310} y1={50} x2={330} y2={50} stroke={D.accent} strokeWidth={2} strokeDasharray="4,3" />
+          <text x={334} y={54} fontSize={8} fill={D.accent}>analytic</text>
+          <rect x={310} y={62} width={15} height={10} fill={D.xc} opacity={0.5} rx={2} />
+          <text x={329} y={71} fontSize={8} fill={D.xc}>histogram</text>
+        </FAQGraph>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginTop: 10 }}>
+          <strong style={{ color: D.accent }}>The analytic DOS for a 1D tight-binding chain is:</strong>
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent }}>{"g(E) = 1 / (π × √(4β² − (E−α)²))"}</span><br /><br />
+          <span style={{ color: T.muted }}>{"This diverges at E = α ± 2β (band edges) → Van Hove singularities"}</span><br />
+          <span style={{ color: T.muted }}>With more k-points, the histogram approaches the analytic curve.</span><br />
+          <span style={{ color: T.muted }}>In 3D, Van Hove singularities become kinks (not divergences).</span>
         </div>
       </Card>
 
