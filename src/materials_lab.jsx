@@ -6464,31 +6464,31 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>For Si: ε_gap^KS(PBE) = 0.61 eV, Δ_xc ≈ 0.56 eV, true gap = 1.17 eV</span><br />
           <span style={{ color: T.muted }}>PBE sees only 52% of the true gap!</span>
         </div>
-        <FAQGraph height={200}>
-          <text x={200} y={16} textAnchor="middle" fontSize={12} fill={D.eqn} fontWeight="700">KS Gap + Derivative Discontinuity = True Gap</text>
+        <FAQGraph height={230}>
+          <text x={200} y={18} textAnchor="middle" fontSize={13} fill={D.eqn} fontWeight="700">KS Gap + Derivative Discontinuity = True Gap</text>
           {[
-            { label: "PBE", x: 40, vb: 115, cb: 80, col: D.warn },
-            { label: "HSE06", x: 150, vb: 115, cb: 60, col: D.xc },
-            { label: "GW", x: 260, vb: 115, cb: 50, col: D.accent },
+            { label: "PBE", x: 40, vb: 140, cb: 100, col: D.warn },
+            { label: "HSE06", x: 150, vb: 140, cb: 75, col: D.xc },
+            { label: "GW", x: 260, vb: 140, cb: 60, col: D.accent },
           ].map((m, i) => (
             <g key={i}>
-              <rect x={m.x} y={m.vb} width={80} height={35} fill={m.col} opacity={0.25} rx={3} />
-              <rect x={m.x} y={m.vb} width={80} height={35} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
-              <text x={m.x + 40} y={m.vb + 21} textAnchor="middle" fontSize={9} fill={m.col} fontWeight="600">VBM</text>
-              <rect x={m.x} y={m.cb - 25} width={80} height={25} fill={m.col} opacity={0.1} rx={3} />
-              <rect x={m.x} y={m.cb - 25} width={80} height={25} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
-              <text x={m.x + 40} y={m.cb - 9} textAnchor="middle" fontSize={9} fill={m.col} fontWeight="600">CBM</text>
-              <line x1={m.x + 40} y1={m.vb} x2={m.x + 40} y2={m.cb} stroke={m.col} strokeWidth={2} />
-              <polygon points={`${m.x + 36},${m.cb} ${m.x + 44},${m.cb} ${m.x + 40},${m.cb - 6}`} fill={m.col} />
-              <polygon points={`${m.x + 36},${m.vb} ${m.x + 44},${m.vb} ${m.x + 40},${m.vb + 6}`} fill={m.col} />
-              <text x={m.x + 62} y={(m.vb + m.cb) / 2 + 4} fontSize={9} fill={m.col} fontWeight="700">{m.vb - m.cb > 55 ? "~1.1" : m.vb - m.cb > 45 ? "~1.0" : "~0.6"} eV</text>
-              <text x={m.x + 40} y={162} textAnchor="middle" fontSize={11} fill="#374151" fontWeight="700">{m.label}</text>
+              <rect x={m.x} y={m.vb} width={85} height={40} fill={m.col} opacity={0.25} rx={4} />
+              <rect x={m.x} y={m.vb} width={85} height={40} fill="none" stroke={m.col} strokeWidth={1.5} rx={4} />
+              <text x={m.x + 42} y={m.vb + 24} textAnchor="middle" fontSize={10} fill={m.col} fontWeight="600">VBM</text>
+              <rect x={m.x} y={m.cb - 30} width={85} height={30} fill={m.col} opacity={0.1} rx={4} />
+              <rect x={m.x} y={m.cb - 30} width={85} height={30} fill="none" stroke={m.col} strokeWidth={1.5} rx={4} />
+              <text x={m.x + 42} y={m.cb - 11} textAnchor="middle" fontSize={10} fill={m.col} fontWeight="600">CBM</text>
+              <line x1={m.x + 42} y1={m.vb} x2={m.x + 42} y2={m.cb} stroke={m.col} strokeWidth={2} />
+              <polygon points={`${m.x + 38},${m.cb} ${m.x + 46},${m.cb} ${m.x + 42},${m.cb - 6}`} fill={m.col} />
+              <polygon points={`${m.x + 38},${m.vb} ${m.x + 46},${m.vb} ${m.x + 42},${m.vb + 6}`} fill={m.col} />
+              <text x={m.x + 64} y={(m.vb + m.cb) / 2 + 4} fontSize={10} fill={m.col} fontWeight="700">{m.vb - m.cb > 65 ? "~1.1" : m.vb - m.cb > 55 ? "~1.0" : "~0.6"} eV</text>
+              <text x={m.x + 42} y={195} textAnchor="middle" fontSize={11} fill="#374151" fontWeight="700">{m.label}</text>
             </g>
           ))}
-          <line x1={350} y1={115} x2={350} y2={50} stroke={D.basis} strokeWidth={2} strokeDasharray="4,3" />
-          <text x={367} y={80} fontSize={9} fill={D.basis} fontWeight="700">Expt</text>
-          <text x={367} y={93} fontSize={9} fill={D.basis}>1.12 eV</text>
-          <text x={367} y={70} fontSize={8} fill={T.muted}>(Si)</text>
+          <line x1={355} y1={140} x2={355} y2={55} stroke={D.basis} strokeWidth={2} strokeDasharray="4,3" />
+          <text x={370} y={95} fontSize={9} fill={D.basis} fontWeight="700">Expt</text>
+          <text x={370} y={108} fontSize={9} fill={D.basis}>1.12 eV</text>
+          <text x={370} y={82} fontSize={8} fill={T.muted}>(Si)</text>
         </FAQGraph>
       </Card>
 
@@ -6643,31 +6643,31 @@ function DFTFAQSection() {
           <span style={{ color: D.xc }}>HSE06: partially captures Δ_xc via exact exchange</span><br />
           <span style={{ color: D.accent }}>GW: Σ naturally includes the full discontinuity</span>
         </div>
-        <FAQGraph height={170}>
-          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.warn} fontWeight="700">KS Gap + Derivative Discontinuity = True Gap</text>
+        <FAQGraph height={230}>
+          <text x={200} y={18} textAnchor="middle" fontSize={13} fill={D.warn} fontWeight="700">KS Gap + Derivative Discontinuity = True Gap</text>
           {[
-            { label: "PBE", x: 40, vb: 85, cb: 55, col: D.warn },
-            { label: "HSE06", x: 150, vb: 85, cb: 35, col: D.xc },
-            { label: "GW", x: 260, vb: 85, cb: 28, col: D.accent },
+            { label: "PBE", x: 40, vb: 140, cb: 100, col: D.warn },
+            { label: "HSE06", x: 150, vb: 140, cb: 75, col: D.xc },
+            { label: "GW", x: 260, vb: 140, cb: 60, col: D.accent },
           ].map((m, i) => (
             <g key={i}>
-              <rect x={m.x} y={m.vb} width={80} height={30} fill={m.col} opacity={0.25} rx={3} />
-              <rect x={m.x} y={m.vb} width={80} height={30} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
-              <text x={m.x + 40} y={m.vb + 18} textAnchor="middle" fontSize={8} fill={m.col} fontWeight="600">VBM</text>
-              <rect x={m.x} y={m.cb - 20} width={80} height={20} fill={m.col} opacity={0.1} rx={3} />
-              <rect x={m.x} y={m.cb - 20} width={80} height={20} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
-              <text x={m.x + 40} y={m.cb - 7} textAnchor="middle" fontSize={8} fill={m.col} fontWeight="600">CBM</text>
-              <line x1={m.x + 40} y1={m.vb} x2={m.x + 40} y2={m.cb} stroke={m.col} strokeWidth={1.5} />
-              <polygon points={`${m.x + 36},${m.cb} ${m.x + 44},${m.cb} ${m.x + 40},${m.cb - 6}`} fill={m.col} />
-              <polygon points={`${m.x + 36},${m.vb} ${m.x + 44},${m.vb} ${m.x + 40},${m.vb + 6}`} fill={m.col} />
-              <text x={m.x + 60} y={(m.vb + m.cb) / 2 + 3} fontSize={8} fill={m.col} fontWeight="700">{m.vb - m.cb > 40 ? "~1.1" : m.vb - m.cb > 35 ? "~1.0" : "~0.6"} eV</text>
-              <text x={m.x + 40} y={124} textAnchor="middle" fontSize={10} fill="#374151" fontWeight="700">{m.label}</text>
+              <rect x={m.x} y={m.vb} width={85} height={40} fill={m.col} opacity={0.25} rx={4} />
+              <rect x={m.x} y={m.vb} width={85} height={40} fill="none" stroke={m.col} strokeWidth={1.5} rx={4} />
+              <text x={m.x + 42} y={m.vb + 24} textAnchor="middle" fontSize={10} fill={m.col} fontWeight="600">VBM</text>
+              <rect x={m.x} y={m.cb - 30} width={85} height={30} fill={m.col} opacity={0.1} rx={4} />
+              <rect x={m.x} y={m.cb - 30} width={85} height={30} fill="none" stroke={m.col} strokeWidth={1.5} rx={4} />
+              <text x={m.x + 42} y={m.cb - 11} textAnchor="middle" fontSize={10} fill={m.col} fontWeight="600">CBM</text>
+              <line x1={m.x + 42} y1={m.vb} x2={m.x + 42} y2={m.cb} stroke={m.col} strokeWidth={2} />
+              <polygon points={`${m.x + 38},${m.cb} ${m.x + 46},${m.cb} ${m.x + 42},${m.cb - 6}`} fill={m.col} />
+              <polygon points={`${m.x + 38},${m.vb} ${m.x + 46},${m.vb} ${m.x + 42},${m.vb + 6}`} fill={m.col} />
+              <text x={m.x + 64} y={(m.vb + m.cb) / 2 + 4} fontSize={10} fill={m.col} fontWeight="700">{m.vb - m.cb > 65 ? "~1.1" : m.vb - m.cb > 55 ? "~1.0" : "~0.6"} eV</text>
+              <text x={m.x + 42} y={195} textAnchor="middle" fontSize={11} fill="#374151" fontWeight="700">{m.label}</text>
             </g>
           ))}
-          <line x1={350} y1={85} x2={350} y2={35} stroke={D.basis} strokeWidth={2} strokeDasharray="4,3" />
-          <text x={365} y={63} fontSize={8} fill={D.basis} fontWeight="700">Expt</text>
-          <text x={365} y={73} fontSize={8} fill={D.basis}>1.12 eV</text>
-          <text x={365} y={53} fontSize={7} fill={T.muted}>(Si)</text>
+          <line x1={355} y1={140} x2={355} y2={55} stroke={D.basis} strokeWidth={2} strokeDasharray="4,3" />
+          <text x={370} y={95} fontSize={9} fill={D.basis} fontWeight="700">Expt</text>
+          <text x={370} y={108} fontSize={9} fill={D.basis}>1.12 eV</text>
+          <text x={370} y={82} fontSize={8} fill={T.muted}>(Si)</text>
         </FAQGraph>
       </Card>
 
