@@ -11837,7 +11837,7 @@ function CHOverviewSection() {
           A computational phase diagram is like a GPS map for materials scientists. Just as a GPS map shows all the roads, cities, and terrain so you can plan the best route, a phase diagram maps all possible compounds that can form from a set of elements and shows which ones are stable under different conditions. Without this map, synthesizing a new material is like driving blindfolded.
         </div>
       </div>
-      <Card title={"What is a Computational Phase Diagram?"} color={CH.main}>
+      <Card collapsible defaultOpen title={"What is a Computational Phase Diagram?"} color={CH.main}>
         <div style={{ fontSize: 14, lineHeight: 1.8, color: T.ink }}>
           <p style={{ margin: "0 0 12px" }}>
             A <strong style={{ color: CH.main }}>computational phase diagram</strong> is a theoretical map that predicts
@@ -11858,7 +11858,7 @@ function CHOverviewSection() {
         </div>
       </Card>
 
-      <Card title={"Types of Computational Phase Diagrams"} color={CH.hull}>
+      <Card collapsible title={"Types of Computational Phase Diagrams"} color={CH.hull}>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink }}>
           {[
             { type: "Convex Hull (Energy vs. Composition)", desc: "Plots formation energy against composition. The lower envelope identifies which phases are thermodynamically stable at T = 0 K. Phases on the hull are stable; phases above it will decompose.", color: CH.hull, topics: "Topics 2–6 in this chapter" },
@@ -11877,7 +11877,7 @@ function CHOverviewSection() {
         </div>
       </Card>
 
-      <Card title={"The Computational Pipeline"} color={CH.accent}>
+      <Card collapsible title={"The Computational Pipeline"} color={CH.accent}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           {[
             { step: "1", title: "Enumerate Candidate Phases", desc: "List all known and hypothetical compounds in the chemical system (e.g., Cu, S, Cu₂S, CuS, CuS₂ for the Cu-S binary)." },
@@ -11900,7 +11900,7 @@ function CHOverviewSection() {
 
       <div style={{ display: "flex", gap: 14 }}>
         <div style={{ flex: 1 }}>
-          <Card title={"Real-World Impact"} color={CH.stable}>
+          <Card collapsible title={"Real-World Impact"} color={CH.stable}>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
               <strong style={{ color: CH.stable }}>Materials discovery relies on phase diagrams.</strong> The Materials
               Project database contains over 150,000 DFT-computed compounds with pre-built convex hulls. Researchers
@@ -11921,7 +11921,7 @@ function CHOverviewSection() {
           </Card>
         </div>
         <div style={{ flex: 1 }}>
-          <Card title={"Chapter Roadmap"} color={CH.warm}>
+          <Card collapsible title={"Chapter Roadmap"} color={CH.warm}>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
               {[
                 { block: "Convex Hull Analysis", desc: "Build the energy-composition hull from DFT data (Cu-S system)", color: CH.hull },
@@ -11953,7 +11953,7 @@ function CHIntroSection() {
             Imagine you want to find which recipes for a cake use the least energy to bake. You list every recipe (compound) and plot their baking energy. The <strong>convex hull</strong> is like drawing a string tightly around the lowest-energy recipes — any recipe above the string wastes energy and the cake will fall apart into the simpler, lower-energy recipes below it.
           </div>
         </div>
-        <Card title="What is a Convex Hull?" color={CH.main}>
+        <Card collapsible defaultOpen title="What is a Convex Hull?" color={CH.main}>
           <div style={{ fontSize: 14, lineHeight: 1.8, color: T.ink }}>
             <p style={{ margin: "0 0 12px" }}>
               A <strong style={{ color: CH.hull }}>convex hull</strong> in computational materials science is the
@@ -11975,7 +11975,7 @@ function CHIntroSection() {
           </div>
         </Card>
 
-        <Card title="The Procedure" color={CH.accent}>
+        <Card collapsible title="The Procedure" color={CH.accent}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
             {[
               { step: "1", title: "Get DFT Energies", desc: "Calculate total energy for each compound and the pure elements using DFT." },
@@ -11999,7 +11999,7 @@ function CHIntroSection() {
           </div>
         </Card>
 
-        <Card title={"Preview — Cu-S Phase Diagram"} color={CH.hull}>
+        <Card collapsible title={"Preview — Cu-S Phase Diagram"} color={CH.hull}>
           <div style={{ fontSize: 12, color: T.muted, marginBottom: 10 }}>
             We{"'"}ll build this plot step by step using fabricated DFT energies for the Cu-S binary system.
           </div>
@@ -12018,7 +12018,7 @@ function CHSetupSection() {
             Before comparing cake recipes, you need the raw ingredient costs. DFT total energies are like the total grocery bill for each recipe — but different recipes use different amounts of ingredients. You can{"'"}t compare a recipe for 12 cupcakes with one for a single layer cake without normalizing to {"'"}cost per serving.{"'"} That{"'"}s why we convert to formation energy per atom.
           </div>
         </div>
-        <Card title="Raw DFT Total Energies" color={CH.main}>
+        <Card collapsible defaultOpen title="Raw DFT Total Energies" color={CH.main}>
           <div style={{ fontSize: 13, color: T.muted, marginBottom: 14, lineHeight: 1.6 }}>
             These are the total energies from DFT calculations for each compound in the Cu-S system.
             Each value represents the energy of the <strong>entire unit cell</strong> (not per atom).
@@ -12052,7 +12052,7 @@ function CHSetupSection() {
           </div>
         </Card>
 
-        <Card title="What we need to do" color={CH.warm}>
+        <Card collapsible title="What we need to do" color={CH.warm}>
           <div style={{
             background: CH.warm + "0a", border: `1px solid ${CH.warm}22`,
             borderRadius: 10, padding: "14px 18px", fontSize: 13, lineHeight: 1.8,
@@ -12076,7 +12076,7 @@ function CHFormSection() {
             Formation energy is like asking: {"'"}How much cheaper is this cake compared to just eating the raw flour and sugar separately?{"'"} You subtract the cost of raw ingredients (pure elements) from the total cost (compound energy). If the result is negative, the cake is worth making — the combined product is more stable than the raw parts.
           </div>
         </div>
-        <Card title="Formation Energy Formula" color={CH.hull}>
+        <Card collapsible defaultOpen title="Formation Energy Formula" color={CH.hull}>
           <div style={chMathBlock}>
             {"ΔHᶠ = E(compound) − [n_Cu × E(Cu)] − [n_S × E(S)]"}<br />
             <span style={{ color: T.muted }}>then divide by total atoms to get per-atom value</span>
@@ -12087,7 +12087,7 @@ function CHFormSection() {
         </Card>
 
         {/* Cu2S worked example */}
-        <Card title={"Worked Example — Cu₂S"} color={CH.stable}>
+        <Card collapsible title={"Worked Example — Cu₂S"} color={CH.stable}>
           <div style={{ fontSize: 12, color: T.muted, marginBottom: 8 }}>
             Cu₂S has {chHighlightNum("2 Cu", CH.main)} atoms and {chHighlightNum("1 S", CH.main)} atom = {chHighlightNum("3 atoms", CH.accent)} total.
           </div>
@@ -12109,7 +12109,7 @@ function CHFormSection() {
         </Card>
 
         {/* CuS worked example */}
-        <Card title={"Worked Example — CuS"} color={CH.warm}>
+        <Card collapsible title={"Worked Example — CuS"} color={CH.warm}>
           <div style={{ fontSize: 12, color: T.muted, marginBottom: 8 }}>
             CuS has {chHighlightNum("1 Cu", CH.main)} + {chHighlightNum("1 S", CH.main)} = {chHighlightNum("2 atoms", CH.accent)} total.
           </div>
@@ -12128,7 +12128,7 @@ function CHFormSection() {
         </Card>
 
         {/* CuS2 worked example */}
-        <Card title={"Worked Example — CuS₂"} color={CH.unstab}>
+        <Card collapsible title={"Worked Example — CuS₂"} color={CH.unstab}>
           <div style={{ fontSize: 12, color: T.muted, marginBottom: 8 }}>
             CuS₂ has {chHighlightNum("1 Cu", CH.main)} + {chHighlightNum("2 S", CH.main)} = {chHighlightNum("3 atoms", CH.accent)} total.
           </div>
@@ -12141,7 +12141,7 @@ function CHFormSection() {
         </Card>
 
         {/* Summary table */}
-        <Card title="Formation Energy Summary" color={CH.accent}>
+        <Card collapsible title="Formation Energy Summary" color={CH.accent}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, fontFamily: "monospace" }}>
             <thead>
               <tr style={{ borderBottom: `2px solid ${CH.accent}30` }}>
@@ -12186,7 +12186,7 @@ function CHHullSection() {
             Building the convex hull is like stretching a rubber band under all the data points on a plot. The rubber band snaps tight to the lowest points — those are the stable phases. Any point the rubber band doesn{"'"}t touch is floating above it — those compounds are unstable and will decompose into the phases the band does touch.
           </div>
         </div>
-        <Card title="Building the Convex Hull" color={CH.hull}>
+        <Card collapsible defaultOpen title="Building the Convex Hull" color={CH.hull}>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 14 }}>
             The convex hull connects the <strong style={{ color: CH.stable }}>lowest-energy points</strong> with
             straight lines. Any compound above these lines is thermodynamically unstable.
@@ -12202,7 +12202,7 @@ function CHHullSection() {
           </div>
         </Card>
 
-        <Card title="Hull Line Equations" color={CH.accent}>
+        <Card collapsible title="Hull Line Equations" color={CH.accent}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
             <div style={{
               background: CH.accent + "08", border: `1px solid ${CH.accent}20`,
@@ -12247,7 +12247,7 @@ function CHAboveSection() {
             Energy above hull is like measuring how high a ball sits above the valley floor. A ball ON the floor (on the hull) stays put — it{"'"}s stable. A ball perched on a ledge above the floor (above the hull) will eventually roll down. The higher it sits, the stronger the driving force to decompose into the stable valley-floor phases.
           </div>
         </div>
-        <Card title={"Energy Above Hull — Concept"} color={CH.unstab}>
+        <Card collapsible defaultOpen title={"Energy Above Hull — Concept"} color={CH.unstab}>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             For any compound, the <strong style={{ color: CH.unstab }}>energy above hull</strong> measures how far it sits
             above the convex hull line at that composition. It tells us the <em>thermodynamic driving force
@@ -12260,7 +12260,7 @@ function CHAboveSection() {
         </Card>
 
         {/* CuS calculation */}
-        <Card title={"CuS (x = 0.50) — Energy Above Hull"} color={CH.unstab}>
+        <Card collapsible title={"CuS (x = 0.50) — Energy Above Hull"} color={CH.unstab}>
           <div style={{ fontSize: 12, color: T.muted, marginBottom: 8 }}>
             x = 0.50 falls between Cu₂S (x = 0.33) and S (x = 1.00) → use hull segment 2
           </div>
@@ -12285,7 +12285,7 @@ function CHAboveSection() {
         </Card>
 
         {/* CuS2 calculation */}
-        <Card title={"CuS₂ (x = 0.67) — Energy Above Hull"} color={CH.unstab}>
+        <Card collapsible title={"CuS₂ (x = 0.67) — Energy Above Hull"} color={CH.unstab}>
           <div style={chMathBlock}>
             <div style={{ color: CH.hull, fontWeight: 700, marginBottom: 4 }}>Hull energy at x = 0.67:</div>
             {"E_hull(0.67) = -0.663 + 0.990 × (0.67 − 0.33)"}<br />
@@ -12304,7 +12304,7 @@ function CHAboveSection() {
           </div>
         </Card>
 
-        <Card title="Visualized" color={CH.hull}>
+        <Card collapsible title="Visualized" color={CH.hull}>
           <div style={{ fontSize: 12, color: T.muted, marginBottom: 8 }}>
             Red dashed lines show the distance above the hull for each unstable compound.
           </div>
@@ -12323,7 +12323,7 @@ function CHResultsSection() {
             The final results table is like a scoreboard after a tournament. Each compound gets rated: ON the hull = winner (thermodynamically stable, will exist in nature). ABOVE the hull = eliminated (will decompose into winners). The energy above hull tells you how badly each loser lost — small gaps mean they might survive with a bit of luck (kinetic trapping).
           </div>
         </div>
-        <Card title="Final Results Table" color={CH.main}>
+        <Card collapsible defaultOpen title="Final Results Table" color={CH.main}>
           <div style={{ overflowX: "auto" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
               <thead>
@@ -12367,11 +12367,11 @@ function CHResultsSection() {
           </div>
         </Card>
 
-        <Card title="Complete Cu-S Phase Diagram" color={CH.hull}>
+        <Card collapsible title="Complete Cu-S Phase Diagram" color={CH.hull}>
           <CHHullPlot showAbove={true} />
         </Card>
 
-        <Card title="Physical Interpretation" color={CH.stable}>
+        <Card collapsible title="Physical Interpretation" color={CH.stable}>
           <div style={{ fontSize: 13, lineHeight: 1.9, color: T.ink }}>
             <div style={{
               background: CH.stable + "0a", border: `1px solid ${CH.stable}22`,
@@ -12420,7 +12420,7 @@ function CHThermoSection() {
             The 0 K hull is like a frozen lake — the surface is rigid and only the lowest-energy phases sit on it. Heating up (adding temperature) is like thawing the lake — the surface becomes flexible. Entropy (disorder) acts like waves that can lift previously submerged phases to the surface. Some compounds that were unstable at 0 K become stable at high temperature because their atoms vibrate more freely (higher entropy).
           </div>
         </div>
-        <Card title="Why Thermodynamics Matters for the Hull" color={CH.accent}>
+        <Card collapsible defaultOpen title="Why Thermodynamics Matters for the Hull" color={CH.accent}>
           <div style={{ fontSize: 14, lineHeight: 1.8, color: T.ink }}>
             <p style={{ margin: "0 0 12px" }}>
               The convex hull is a <strong style={{ color: CH.accent }}>thermodynamic construction</strong> — it identifies
@@ -12443,7 +12443,7 @@ function CHThermoSection() {
 
         <div style={{ display: "flex", gap: 14 }}>
           <div style={{ flex: 1 }}>
-            <Card title="Free Energy vs. Temperature" color={CH.hull}>
+            <Card collapsible title="Free Energy vs. Temperature" color={CH.hull}>
               <div style={chMathBlock}>
                 G(T) = E_DFT + E_ZPE + ∫C_v dT − T × S(T)<br/>
                 <span style={{ color: T.muted }}>where S(T) includes vibrational entropy from phonons</span>
@@ -12457,7 +12457,7 @@ function CHThermoSection() {
             </Card>
           </div>
           <div style={{ flex: 1 }}>
-            <Card title="Hull Stability vs. Temperature" color={CH.warm}>
+            <Card collapsible title="Hull Stability vs. Temperature" color={CH.warm}>
               <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 12 }}>
                 A compound <strong style={{ color: CH.unstab }}>above the hull</strong> at 0 K may become stable at high T if
                 it has higher vibrational entropy than competing phases.
@@ -12481,7 +12481,7 @@ function CHThermoSection() {
           </div>
         </div>
 
-        <Card title="When Does the 0 K Hull Fail?" color={CH.unstab}>
+        <Card collapsible title="When Does the 0 K Hull Fail?" color={CH.unstab}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
             {[
               { title: "High-T Polymorphs", desc: "Rutile vs anatase TiO₂ — anatase is metastable at 0 K but common at low-T synthesis.", color: CH.unstab },
@@ -12499,7 +12499,7 @@ function CHThermoSection() {
           </div>
         </Card>
 
-        <Card title="Practical Rule of Thumb" color={CH.stable}>
+        <Card collapsible title="Practical Rule of Thumb" color={CH.stable}>
           <div style={{
             background: CH.stable + "0a", border: `1px solid ${CH.stable}22`,
             borderRadius: 10, padding: "14px 18px", fontSize: 13, lineHeight: 1.8,
@@ -12522,7 +12522,7 @@ function CHChemPotSection() {
             Chemical potential is like the price of individual ingredients at the grocery store. If copper is cheap (Cu-rich conditions, high {'μ'}_Cu), you get compounds with lots of copper. If sulfur is cheap (S-rich), sulfur-heavy phases win. By adjusting these {"'"}prices{"'"} (partial pressures in the lab), experimentalists control which phase actually grows — it{"'"}s the bridge between the theoretical hull and the real experiment.
           </div>
         </div>
-        <Card title="What is a Chemical Potential?" color={CH.warm}>
+        <Card collapsible defaultOpen title="What is a Chemical Potential?" color={CH.warm}>
           <div style={{ fontSize: 14, lineHeight: 1.8, color: T.ink }}>
             <p style={{ margin: "0 0 12px" }}>
               The <strong style={{ color: CH.warm }}>chemical potential μ_i</strong> represents the energy cost of adding
@@ -12545,7 +12545,7 @@ function CHChemPotSection() {
 
         <div style={{ display: "flex", gap: 14 }}>
           <div style={{ flex: 1 }}>
-            <Card title="Chemical Potential Bounds — Cu-S System" color={CH.main}>
+            <Card collapsible title="Chemical Potential Bounds — Cu-S System" color={CH.main}>
               <div style={chMathBlock}>
                 μ_Cu + μ_S = ΔH_f(Cu₂S) / formula unit<br/>
                 <span style={{ color: T.muted }}>Chemical potentials are constrained by phase stability</span>
@@ -12564,7 +12564,7 @@ function CHChemPotSection() {
             </Card>
           </div>
           <div style={{ flex: 1 }}>
-            <Card title="Growth Conditions Map" color={CH.accent}>
+            <Card collapsible title="Growth Conditions Map" color={CH.accent}>
               <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 12 }}>
                 Chemical potentials translate directly to experimental growth parameters:
               </div>
@@ -12586,7 +12586,7 @@ function CHChemPotSection() {
           </div>
         </div>
 
-        <Card title="Chemical Potential in Defect Calculations" color={CH.hull}>
+        <Card collapsible title="Chemical Potential in Defect Calculations" color={CH.hull}>
           <div style={{ display: "flex", gap: 14 }}>
             <div style={{ flex: 1 }}>
               <div style={chMathBlock}>
@@ -12619,7 +12619,7 @@ function CHChemPotSection() {
           </div>
         </Card>
 
-        <Card title="Connecting Hull to Experiment" color={CH.stable}>
+        <Card collapsible title="Connecting Hull to Experiment" color={CH.stable}>
           <div style={{
             background: CH.stable + "0a", border: `1px solid ${CH.stable}22`,
             borderRadius: 10, padding: "14px 18px", fontSize: 13, lineHeight: 1.8,
@@ -12644,7 +12644,7 @@ function CHChemDiagramSection() {
           A chemical potential diagram is like a weather map for crystal growth. Just as a weather map shows where it rains, snows, or stays dry based on temperature and humidity, a chemical potential diagram shows which crystal phase forms based on how much of each element is available. The axes are the {"\""}prices{"\""} of each element, and each colored region is a different phase that {"\""}wins{"\""} at those conditions.
         </div>
       </div>
-      <Card title="What is a Chemical Potential Diagram?" color={CH.warm}>
+      <Card collapsible defaultOpen title="What is a Chemical Potential Diagram?" color={CH.warm}>
         <div style={{ fontSize: 14, lineHeight: 1.8, color: T.ink }}>
           <p style={{ margin: "0 0 12px" }}>
             A <strong style={{ color: CH.warm }}>chemical potential diagram</strong> maps the thermodynamic stability
@@ -12667,7 +12667,7 @@ function CHChemDiagramSection() {
         </div>
       </Card>
 
-      <Card title="How to Build a Chemical Potential Diagram" color={CH.main}>
+      <Card collapsible title="How to Build a Chemical Potential Diagram" color={CH.main}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           {[
             { step: "1", title: "Compute DFT Energies", desc: "Run DFT for all competing phases in the system (elements, binaries, ternaries, quaternaries)." },
@@ -12689,7 +12689,7 @@ function CHChemDiagramSection() {
 
       <div style={{ display: "flex", gap: 14 }}>
         <div style={{ flex: 1 }}>
-          <Card title="Binary System: Cu-S" color={CH.hull}>
+          <Card collapsible title="Binary System: Cu-S" color={CH.hull}>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
               <p style={{ margin: "0 0 8px" }}>In a binary A-B system, the diagram is <strong>1D</strong>:</p>
               <div style={{
@@ -12705,7 +12705,7 @@ function CHChemDiagramSection() {
           </Card>
         </div>
         <div style={{ flex: 1 }}>
-          <Card title="Ternary System: Cu-Zn-S" color={CH.accent}>
+          <Card collapsible title="Ternary System: Cu-Zn-S" color={CH.accent}>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
               <p style={{ margin: "0 0 8px" }}>In a ternary A-B-C system, the diagram is <strong>2D</strong>:</p>
               <div style={{
@@ -12722,7 +12722,7 @@ function CHChemDiagramSection() {
         </div>
       </div>
 
-      <Card title="Why Chemical Potential Diagrams Matter" color={CH.stable}>
+      <Card collapsible title="Why Chemical Potential Diagrams Matter" color={CH.stable}>
         <div style={{
           background: CH.stable + "0a", border: `1px solid ${CH.stable}22`,
           borderRadius: 10, padding: "14px 18px", fontSize: 13, lineHeight: 1.8,
@@ -12804,7 +12804,7 @@ function CZTSSynthesisAnimation() {
   };
 
   return (
-    <Card title={"Animated Synthesis: From μ to Experiment"} color={CH.accent}>
+    <Card collapsible title={"Animated Synthesis: From μ to Experiment"} color={CH.accent}>
       <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 12 }}>
         <strong style={{ color: CH.accent }}>The bridge between theory and experiment:</strong> the chemical potential
         diagram tells you <em>what to set in the lab</em>. Each point (μ_Cu, μ_Zn) corresponds
@@ -13040,7 +13040,7 @@ function CHCZTSSection() {
         </div>
       </div>
 
-      <Card title={"Cu₂ZnSnS₄ (CZTS) — Quaternary Kesterite"} color={CH.warm}>
+      <Card collapsible defaultOpen title={"Cu₂ZnSnS₄ (CZTS) — Quaternary Kesterite"} color={CH.warm}>
         <div style={{ fontSize: 14, lineHeight: 1.8, color: T.ink }}>
           <p style={{ margin: "0 0 12px" }}>
             <strong style={{ color: CH.warm }}>CZTS</strong> is a promising earth-abundant solar absorber
@@ -13069,7 +13069,7 @@ function CHCZTSSection() {
         </div>
       </Card>
 
-      <Card title="DFT Formation Energies for CZTS System" color={CH.main}>
+      <Card collapsible title="DFT Formation Energies for CZTS System" color={CH.main}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           DFT-computed formation enthalpies (eV/atom) for all relevant phases in the Cu-Zn-Sn-S system:
         </div>
@@ -13108,7 +13108,7 @@ function CHCZTSSection() {
         </div>
       </Card>
 
-      <Card title="Chemical Potential Constraints for CZTS" color={CH.hull}>
+      <Card collapsible title="Chemical Potential Constraints for CZTS" color={CH.hull}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           <p style={{ margin: "0 0 10px" }}>
             For Cu₂ZnSnS₄ with 4 elements, we have <strong>3 independent chemical potentials</strong> (the
@@ -13135,7 +13135,7 @@ function CHCZTSSection() {
         </div>
       </Card>
 
-      <Card title="Interactive: Competing Phases" color={CH.accent}>
+      <Card collapsible title="Interactive: Competing Phases" color={CH.accent}>
         <div style={{ fontSize: 12, color: T.muted, marginBottom: 10 }}>
           Click a phase to see how it competes with CZTS:
         </div>
@@ -13204,7 +13204,7 @@ function CHCZTSSection() {
         </div>
       </Card>
 
-      <Card title={"CZTS Stability Window"} color={CH.stable}>
+      <Card collapsible title={"CZTS Stability Window"} color={CH.stable}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           <p style={{ margin: "0 0 10px" }}>
             Using DFT formation energies, the CZTS stability polygon (at optimal μ_Sn = -0.30 eV) gives:
@@ -13249,7 +13249,7 @@ function CHCZTSSection() {
         </div>
       </Card>
 
-      <Card title="Experimental Synthesis Guidance from the Diagram" color={CH.warm}>
+      <Card collapsible title="Experimental Synthesis Guidance from the Diagram" color={CH.warm}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           {[
             { rule: "Cu-poor, Zn-rich", reason: "Avoids metallic Cu₂S shunts. Excess ZnS (insulating) is less harmful than Cu₂S (metallic).", color: CH.stable },
@@ -13298,7 +13298,7 @@ function CHChemConstructSection() {
         </div>
       </div>
 
-      <Card title={"Cu-S Binary System"} color={CH.main}>
+      <Card collapsible defaultOpen title={"Cu-S Binary System"} color={CH.main}>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           Let’s build the chemical potential diagram for the <strong>Cu-S</strong> system step by step using real DFT numbers.
         </div>
@@ -13333,7 +13333,7 @@ function CHChemConstructSection() {
         </div>
       </Card>
 
-      <Card title={"Build the Diagram Step by Step"} color={CH.warm}>
+      <Card collapsible title={"Build the Diagram Step by Step"} color={CH.warm}>
         <div style={{ fontSize: 12, color: T.muted, marginBottom: 10 }}>
           Click each step to see how constraints build the diagram. The SVG updates at each step:
         </div>
@@ -13558,7 +13558,7 @@ function CHChemConstructSection() {
         </div>
       </Card>
 
-      <Card title={"Summary of Calculations"} color={CH.hull}>
+      <Card collapsible title={"Summary of Calculations"} color={CH.hull}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           <div style={{ overflowX: "auto" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
@@ -13597,7 +13597,7 @@ function CHChemConstructSection() {
         </div>
       </Card>
 
-      <Card title={"From Binary to Quaternary: Increasing Complexity"} color={CH.accent}>
+      <Card collapsible title={"From Binary to Quaternary: Increasing Complexity"} color={CH.accent}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           {[
             { system: "Binary (A-B)", dim: "1D (line)", vars: "1 free μ", example: "Cu-S: μ_Cu determines everything", color: CH.main },
@@ -13623,7 +13623,7 @@ function CHChemConstructSection() {
         </div>
       </Card>
 
-      <Card title={"Computational Tools"} color={CH.stable}>
+      <Card collapsible title={"Computational Tools"} color={CH.stable}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Several software packages automate chemical potential diagram construction:
           {[
@@ -13772,7 +13772,7 @@ function CHKineticsSection() {
       </div>
 
       {/* Free Energy Landscape */}
-      <Card title="Free Energy Landscape: Barriers Control Which Phase Forms First" color={CH.accent}>
+      <Card collapsible defaultOpen title="Free Energy Landscape: Barriers Control Which Phase Forms First" color={CH.accent}>
         <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
           <div style={{ flex: "0 0 370px" }}>
             <svg width={LW} height={LH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
@@ -13844,7 +13844,7 @@ function CHKineticsSection() {
       </Card>
 
       {/* Phase Evolution with Time */}
-      <Card title="Phase Evolution: Avrami (JMAK) Transformation Kinetics" color={CH.hull}>
+      <Card collapsible title="Phase Evolution: Avrami (JMAK) Transformation Kinetics" color={CH.hull}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           The <strong>Johnson-Mehl-Avrami-Kolmogorov</strong> equation models how phase fractions evolve during annealing:
           <span style={{ fontFamily: "'Georgia',serif", color: CH.hull }}> f(t) = 1 − exp(−k·t<sup>n</sup>)</span>, where n = 2 for 2D nucleation + growth in thin films. Press <strong>Play</strong> to watch CZTS grow over time.
@@ -14019,7 +14019,7 @@ function CHKineticsSection() {
       </Card>
 
       {/* Metastability & Practical Implications */}
-      <Card title="Metastability: When Kinetics Overrules Thermodynamics" color={CH.warm}>
+      <Card collapsible title="Metastability: When Kinetics Overrules Thermodynamics" color={CH.warm}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
           {[
             { title: "Diamond vs Graphite", example: "Diamond is metastable (graphite is lower energy), but persists for billions of years because the barrier to transform is ~5 eV. Room temperature kT = 25 meV — no chance.", color: "#2563eb", icon: "◇" },
