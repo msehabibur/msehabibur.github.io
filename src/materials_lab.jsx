@@ -14471,7 +14471,8 @@ const CH_SECTIONS = [
   { id: "setup", block: "convexhull", label: "DFT Input Data", color: T.ch_main, Component: CHSetupSection, nextReason: "Raw DFT total energies are ready. Now we build the hull — plot formation energy vs. composition and draw the lower convex boundary." },
   { id: "hull", block: "convexhull", label: "Build the Hull", color: T.ch_hull, Component: CHHullSection, nextReason: "The hull is built. The energy above hull quantifies how far each compound lies above it — phases on the hull are stable; those above it are metastable and will tend to decompose into hull phases." },
   { id: "above", block: "convexhull", label: "Energy Above Hull", color: T.ch_unstab, Component: CHAboveSection, nextReason: "Individual stability values computed. The final results panel assembles everything into a comprehensive stability map — all Cu-S phases ranked, colored by stability, showing which are synthesizable." },
-  { id: "results", block: "convexhull", label: "Final Results & Plot", color: T.ch_stable, Component: CHResultsSection, nextReason: "T = 0 K convex hull complete. Chemical potentials now connect the hull to real synthesis conditions — how oxidizing or reducing, how metal-rich or poor — under which a desired phase can grow." },
+  { id: "results", block: "convexhull", label: "Final Results & Plot", color: T.ch_stable, Component: CHResultsSection, nextReason: "The 0 K hull is complete. But real materials are synthesized at high temperature. How does temperature change the hull? Which phases become stable or unstable when you heat up?" },
+  { id: "temp_hull", block: "convexhull", label: "Temperature Effects on Hull", color: T.ch_accent, Component: CHTempHullSection, nextReason: "Temperature effects understood. Chemical potentials now connect the hull to real synthesis conditions — how oxidizing or reducing, how metal-rich or poor — under which a desired phase can grow." },
 
   // Block 4: Chemical Potential Diagram (separate tab)
   { id: "chempot", block: "chempot", label: "Chemical Potential Basics", color: T.ch_warm, Component: CHChemPotSection, nextReason: "Binary chemical potentials mastered. Now we see what a chemical potential diagram looks like — a 2D map showing which phase is stable under which conditions." },
@@ -14481,6 +14482,153 @@ const CH_SECTIONS = [
   { id: "kinetics", block: "chempot", label: "Kinetics & Metastability", color: T.ch_warm, Component: CHKineticsSection, nextReason: "Thermodynamics and kinetics are clear. But how do the abstract chemical potentials Δμ connect to real lab knobs — temperature, pressure, gas flow? The next section bridges computation to experiment." },
   { id: "chempot_expt", block: "chempot", label: "μ to Experiment (T, P)", color: T.ch_main, Component: CHChemPotExptSection, nextReason: "Chemical potentials are now connected to real experimental conditions. Chapter 5 (Defects in Semiconductors) applies this framework to charged defects — where formation energy becomes Fermi-level dependent." },
 ];
+
+function CHTempHullSection() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The 0 K convex hull is like a frozen lake — only the lowest-energy structures sit on the rigid ice surface. Heating up is like thawing: the surface becomes flexible. Entropy (disorder) acts like waves that can lift previously sunken phases to the surface. Some compounds unstable at 0 K become stable at high temperature because their atoms vibrate more freely (higher vibrational entropy) or can mix randomly (configurational entropy).
+        </div>
+      </div>
+
+      <Card collapsible defaultOpen title="Why the 0 K Hull Is Not Enough" color={CH.accent}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Standard DFT gives total energies at <strong style={{ color: CH.accent }}>T = 0 K</strong>. The convex hull built from these energies identifies phases that minimize enthalpy H. But real synthesis happens at 300-1500 K, where the relevant quantity is the <strong style={{ color: CH.accent }}>Gibbs free energy</strong> G = H - TS. The entropy term -TS can shift the hull significantly.
+        </div>
+        <div style={chMathBlock}>
+          <span style={{ color: CH.accent, fontWeight: 700 }}>{"At 0 K: G = H ≈ E_DFT (entropy is zero)"}</span><br />
+          <span style={{ color: CH.warm, fontWeight: 700 }}>{"At T > 0: G(T) = E_DFT + E_ZPE + ∫₀ᵀ Cᵥ dT' − T×S(T)"}</span><br /><br />
+          <span style={{ color: T.muted }}>{"E_DFT = DFT total energy (what we already have)"}</span><br />
+          <span style={{ color: T.muted }}>{"E_ZPE = zero-point energy = ½ Σᵢ ℏωᵢ (quantum vibrations even at 0 K)"}</span><br />
+          <span style={{ color: T.muted }}>{"∫Cᵥ dT = enthalpy gained from heating (heat capacity integral)"}</span><br />
+          <span style={{ color: T.muted }}>{"T×S(T) = entropy contribution (this is the big one at high T)"}</span>
+        </div>
+      </Card>
+
+      <Card collapsible title="The Three Sources of Entropy" color={CH.hull}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <div style={{ background: CH.hull + "08", border: `2px solid ${CH.hull}25`, borderRadius: 12, padding: "14px" }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: CH.hull, marginBottom: 6 }}>1. Vibrational Entropy (from phonons)</div>
+            <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+              Atoms vibrate around their equilibrium positions. Each vibrational mode (phonon) contributes to entropy. Phases with softer bonds (lower phonon frequencies) have higher vibrational entropy and are favoured at high T.
+            </div>
+            <div style={chMathBlock}>
+              {"S_vib(T) = k_B Σᵢ [ (ℏωᵢ/k_BT) / (exp(ℏωᵢ/k_BT) − 1) − ln(1 − exp(−ℏωᵢ/k_BT)) ]"}<br /><br />
+              <span style={{ color: T.muted }}>{"ωᵢ = phonon frequencies (from DFT phonon calculation)"}</span><br />
+              <span style={{ color: T.muted }}>{"Need: full phonon dispersion → supercell + force constants → diagonalise"}</span><br />
+              <span style={{ color: CH.hull }}>{"Typical magnitude: 0.5−2.0 k_B/atom at 1000 K"}</span>
+            </div>
+          </div>
+
+          <div style={{ background: CH.accent + "08", border: `2px solid ${CH.accent}25`, borderRadius: 12, padding: "14px" }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: CH.accent, marginBottom: 6 }}>2. Configurational Entropy (from mixing/disorder)</div>
+            <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+              In solid solutions and disordered alloys, atoms can randomly occupy lattice sites. The number of possible arrangements gives configurational entropy. This is why high-entropy alloys (5+ elements) and disordered rock-salt oxides become stable only at high T.
+            </div>
+            <div style={chMathBlock}>
+              {"S_config = −k_B Σᵢ xᵢ ln(xᵢ)"}<br /><br />
+              <span style={{ color: T.muted }}>{"xᵢ = fraction of species i on the sublattice"}</span><br />
+              <span style={{ color: CH.accent }}>{"For equimolar 5-component alloy: S = −5 × 0.2 × ln(0.2) × k_B = 1.61 k_B/site"}</span><br />
+              <span style={{ color: T.muted }}>{"At 1000 K: −TS = −1000 × 8.617e-5 × 1.61 = −0.139 eV/site"}</span><br />
+              <span style={{ color: CH.accent }}>{"That's 139 meV — enough to stabilise phases 100+ meV above the 0 K hull!"}</span>
+            </div>
+          </div>
+
+          <div style={{ background: CH.warm + "08", border: `2px solid ${CH.warm}25`, borderRadius: 12, padding: "14px" }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: CH.warm, marginBottom: 6 }}>3. Electronic Entropy (usually small)</div>
+            <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+              In metals, electrons near the Fermi level get thermally excited. This contributes a small electronic entropy proportional to T and the DOS at E_F. Negligible for semiconductors/insulators, but can matter for metals at very high T.
+            </div>
+            <div style={chMathBlock}>
+              {"S_elec ≈ (π²/3) k_B² T × g(E_F)"}<br /><br />
+              <span style={{ color: T.muted }}>{"g(E_F) = electronic density of states at Fermi level"}</span><br />
+              <span style={{ color: CH.warm }}>{"For metals: ~0.01−0.05 k_B/atom at 1000 K (usually ignore for semiconductors)"}</span>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      <Card collapsible title={"Numerical Example — Cu-S System at 800 K"} color={CH.main}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Let's see how the Cu-S convex hull changes from 0 K to 800 K using phonon data.
+        </div>
+        <div style={chMathBlock}>
+          <span style={{ color: CH.main, fontWeight: 700 }}>{"Step 1: 0 K formation energies (from DFT)"}</span><br /><br />
+          {"CuS  (covellite):  ΔH_f = −0.53 eV/atom  [on hull]"}<br />
+          {"Cu₂S (chalcocite): ΔH_f = −0.30 eV/atom  [on hull]"}<br />
+          {"CuS₂ (pyrite):    ΔH_f = −0.41 eV/atom  [above hull by 12 meV]"}<br /><br />
+          <span style={{ color: CH.main, fontWeight: 700 }}>{"Step 2: Compute phonon free energies at 800 K"}</span><br /><br />
+          {"Run DFT phonon calculations (supercell + finite displacements) for each phase."}<br />
+          {"Compute F_vib(800K) = E_ZPE + ∫Cᵥ dT − T×S_vib for each:"}<br /><br />
+          {"CuS:  F_vib(800K) = +0.045 − 0.183 = −0.138 eV/atom"}<br />
+          {"Cu₂S: F_vib(800K) = +0.038 − 0.210 = −0.172 eV/atom  (softer bonds!)"}<br />
+          {"CuS₂: F_vib(800K) = +0.052 − 0.225 = −0.173 eV/atom  (also soft)"}<br /><br />
+          <span style={{ color: CH.main, fontWeight: 700 }}>{"Step 3: New formation energies at 800 K"}</span><br /><br />
+          {"ΔG_f(T) = ΔH_f(0K) + ΔF_vib(T) − ΔF_vib,references(T)"}<br /><br />
+          {"CuS:  ΔG_f(800K) = −0.53 + (−0.138 − (−0.155)) = −0.53 + 0.017 = −0.513 eV/atom"}<br />
+          {"Cu₂S: ΔG_f(800K) = −0.30 + (−0.172 − (−0.160)) = −0.30 − 0.012 = −0.312 eV/atom"}<br />
+          <span style={{ color: CH.stable, fontWeight: 700 }}>{"CuS₂: ΔG_f(800K) = −0.41 + (−0.173 − (−0.145)) = −0.41 − 0.028 = −0.438 eV/atom"}</span><br /><br />
+          <span style={{ color: CH.stable }}>{"CuS₂ dropped by 28 meV/atom → it's now only 2 meV above the hull!"}</span><br />
+          <span style={{ color: CH.warm }}>{"At 800 K, CuS₂ is essentially on the hull — synthesizable!"}</span>
+        </div>
+      </Card>
+
+      <Card collapsible title="How to Compute the Temperature-Dependent Hull in Practice" color={CH.hull}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {[
+            { step: "1. Standard DFT relaxation", detail: "Relax all candidate structures at T = 0 K. Get E_DFT for each. Build the 0 K hull.", color: CH.hull },
+            { step: "2. Phonon calculations", detail: "For each phase: build supercell (2×2×2 minimum), displace atoms (0.01 Å), compute forces, build force constant matrix, diagonalise to get phonon frequencies ωᵢ(q) on a q-mesh.", color: CH.accent },
+            { step: "3. Check stability", detail: "If any phonon frequency is imaginary (ω² < 0), the phase is dynamically unstable — it will distort. Remove it from the hull or find the true ground state.", color: CH.unstab },
+            { step: "4. Compute F_vib(T)", detail: "From phonon DOS: F_vib(T) = E_ZPE + k_BT ∫ ln(1 − exp(−ℏω/k_BT)) g(ω) dω. Do this for every phase AND the elemental references.", color: CH.main },
+            { step: "5. Rebuild hull at T", detail: "Replace E_DFT with G(T) = E_DFT + F_vib(T) for each phase. Recompute formation energies. Reconstruct the convex hull. Compare with 0 K hull.", color: CH.stable },
+            { step: "6. Scan temperatures", detail: "Repeat steps 4-5 for T = 0, 300, 600, 900, 1200 K. Plot how E_above_hull changes with T for each phase. Identify temperature where metastable phases hit the hull.", color: CH.warm },
+          ].map(item => (
+            <div key={item.step} style={{ display: "flex", gap: 10, background: item.color + "06", borderRadius: 8, padding: "10px 14px", border: `1px solid ${item.color}15` }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: item.color, minWidth: 24 }}>{item.step.split(".")[0]}.</div>
+              <div><div style={{ fontSize: 11, fontWeight: 700, color: item.color }}>{item.step.split(". ")[1]}</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.detail}</div></div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card collapsible title="When Does Temperature Change the Answer?" color={CH.warm}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {[
+            { case: "E_above_hull < 25 meV/atom", outcome: "Likely stabilised by vibrational entropy at moderate T (300-800 K). Always check phonons.", color: CH.stable },
+            { case: "E_above_hull 25-50 meV/atom", outcome: "May be stabilised at high T (800-1500 K) if it has significantly softer phonons than competing phases.", color: CH.accent },
+            { case: "E_above_hull 50-100 meV/atom", outcome: "Needs large configurational entropy (solid solutions, high-entropy alloys) or very high T. Rare for ordered compounds.", color: CH.warm },
+            { case: "E_above_hull > 100 meV/atom", outcome: "Very unlikely to become thermodynamically stable at any reasonable T. Would need kinetic trapping (rapid quench, thin film, amorphous).", color: CH.unstab },
+            { case: "Polymorphs (same composition)", outcome: "Temperature-driven transitions are common: anatase↔rutile TiO₂, α↔β quartz, zinc blende↔wurtzite. Phonon entropy determines the transition temperature.", color: CH.hull },
+          ].map(item => (
+            <div key={item.case} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}` }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.case}</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.outcome}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card collapsible title="Tools & Software" color={CH.stable}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+          {[
+            { tool: "Phonopy", use: "Phonon dispersion, DOS, thermodynamic functions F(T), S(T), Cᵥ(T). Open-source, works with any DFT code.", color: CH.hull },
+            { tool: "ATAT / CLEASE", use: "Cluster expansion for configurational entropy in alloys and solid solutions. Maps DFT energies to lattice models.", color: CH.accent },
+            { tool: "pymatgen", use: "Phase diagram construction, formation energies, temperature-dependent hull via grand potential. Python library.", color: CH.main },
+            { tool: "Materials Project API", use: "Pre-computed phonon data and temperature-dependent stability for thousands of materials.", color: CH.stable },
+          ].map(item => (
+            <div key={item.tool} style={{ background: item.color + "08", border: `1px solid ${item.color}20`, borderRadius: 10, padding: "10px 14px" }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: item.color, marginBottom: 3 }}>{item.tool}</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.use}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+}
 
 function CHChemPotExptSection() {
   return (
