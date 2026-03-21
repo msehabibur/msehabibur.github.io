@@ -6434,6 +6434,62 @@ function DFTFAQSection() {
           the particle number and take the system out of its ground state.
           So why does the entire computational materials community report DFT band gaps?
         </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 12 }}>
+          <div style={{ background: D.basis + "06", borderRadius: 10, padding: "12px 14px", border: `1px solid ${D.basis}15`, borderLeft: `4px solid ${D.basis}` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: D.basis, marginBottom: 4 }}>Reason 1: KS eigenvalues are a useful approximation</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>When you solve the Kohn-Sham equations, each orbital gets an eigenvalue ε_i. The difference between the highest occupied (VBM) and lowest unoccupied (CBM) eigenvalue gives the "KS gap". This is NOT the true band gap — these eigenvalues are mathematical tools (Lagrange multipliers) of a fictitious non-interacting system. But empirically, KS gaps track real gaps surprisingly well in trends (which material has a larger gap), even though the absolute values are 30-50% too small with PBE.</div>
+          </div>
+          <div style={{ background: D.eqn + "06", borderRadius: 10, padding: "12px 14px", border: `1px solid ${D.eqn}15`, borderLeft: `4px solid ${D.eqn}` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 4 }}>Reason 2: The derivative discontinuity is the missing piece</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The exact DFT band gap equals the KS gap PLUS a correction called Δ_xc (the derivative discontinuity). When you add the (N+1)th electron, the exact XC potential jumps discontinuously — this shifts all unoccupied states up. LDA and GGA functionals are smooth — they have Δ_xc ≈ 0 — so they systematically miss this shift. The error is in the functional, not in DFT itself. If someone found the exact functional, DFT band gaps would be exact.</div>
+          </div>
+          <div style={{ background: D.xc + "06", borderRadius: 10, padding: "12px 14px", border: `1px solid ${D.xc}15`, borderLeft: `4px solid ${D.xc}` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: D.xc, marginBottom: 4 }}>Reason 3: Hybrid functionals partially fix it</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>HSE06 mixes in 25% Hartree-Fock exact exchange. This doesn't make DFT handle excited states — rather, the exact exchange has a natural discontinuity that partially mimics Δ_xc. That's why HSE06 band gaps agree with experiment to within ~0.2 eV for most semiconductors. It's a pragmatic fix, not a fundamental solution.</div>
+          </div>
+          <div style={{ background: D.warm + "06", borderRadius: 10, padding: "12px 14px", border: `1px solid ${D.warm}15`, borderLeft: `4px solid ${D.warm}` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 4 }}>Reason 4: For rigorous gaps, go beyond DFT</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The GW approximation computes true quasiparticle energies by replacing the local v_xc with the non-local, energy-dependent self-energy Σ = iGW. This correctly accounts for screening and gives band gaps accurate to ~0.1 eV. For optical gaps (accounting for electron-hole attraction), you need the Bethe-Salpeter equation (BSE) on top of GW. These methods are 1000× more expensive than PBE but give rigorous excited-state properties.</div>
+          </div>
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>True gap: E_gap = I − A = (E(N−1) − E(N)) − (E(N) − E(N+1))</span><br /><br />
+          <span style={{ color: T.muted }}>I = ionization energy (cost to remove an electron from N-electron system)</span><br />
+          <span style={{ color: T.muted }}>A = electron affinity (energy gained by adding an electron)</span><br />
+          <span style={{ color: T.muted }}>Both involve changing the particle number — NOT a ground-state property!</span><br /><br />
+          <span style={{ color: D.eqn, fontWeight: 700 }}>Decomposition:</span><br />
+          <span style={{ color: D.eqn }}>E_gap = ε_gap^KS + Δ_xc</span><br /><br />
+          <span style={{ color: D.basis }}>ε_gap^KS = ε_CBM − ε_VBM (what DFT directly gives you)</span><br />
+          <span style={{ color: D.warn }}>Δ_xc = derivative discontinuity (what LDA/GGA miss)</span><br /><br />
+          <span style={{ color: T.muted }}>For Si: ε_gap^KS(PBE) = 0.61 eV, Δ_xc ≈ 0.56 eV, true gap = 1.17 eV</span><br />
+          <span style={{ color: T.muted }}>PBE sees only 52% of the true gap!</span>
+        </div>
+        <FAQGraph height={140}>
+          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.eqn} fontWeight="700">The Band Gap Problem: KS Gap vs True Gap</text>
+          {[
+            { label: "PBE", x: 40, vb: 85, cb: 55, col: D.warn },
+            { label: "HSE06", x: 150, vb: 85, cb: 35, col: D.xc },
+            { label: "GW", x: 260, vb: 85, cb: 28, col: D.accent },
+          ].map((m, i) => (
+            <g key={i}>
+              <rect x={m.x} y={m.vb} width={80} height={30} fill={m.col} opacity={0.25} rx={3} />
+              <rect x={m.x} y={m.vb} width={80} height={30} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
+              <text x={m.x + 40} y={m.vb + 18} textAnchor="middle" fontSize={8} fill={m.col} fontWeight="600">VBM</text>
+              <rect x={m.x} y={m.cb - 20} width={80} height={20} fill={m.col} opacity={0.1} rx={3} />
+              <rect x={m.x} y={m.cb - 20} width={80} height={20} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
+              <text x={m.x + 40} y={m.cb - 7} textAnchor="middle" fontSize={8} fill={m.col} fontWeight="600">CBM</text>
+              <line x1={m.x + 40} y1={m.vb} x2={m.x + 40} y2={m.cb} stroke={m.col} strokeWidth={1.5} />
+              <polygon points={`${m.x + 36},${m.cb} ${m.x + 44},${m.cb} ${m.x + 40},${m.cb - 6}`} fill={m.col} />
+              <polygon points={`${m.x + 36},${m.vb} ${m.x + 44},${m.vb} ${m.x + 40},${m.vb + 6}`} fill={m.col} />
+              <text x={m.x + 60} y={(m.vb + m.cb) / 2 + 3} fontSize={8} fill={m.col} fontWeight="700">{m.vb - m.cb > 40 ? "~1.1" : m.vb - m.cb > 35 ? "~1.0" : "~0.6"} eV</text>
+              <text x={m.x + 40} y={124} textAnchor="middle" fontSize={10} fill="#374151" fontWeight="700">{m.label}</text>
+            </g>
+          ))}
+          <line x1={350} y1={85} x2={350} y2={35} stroke={D.basis} strokeWidth={2} strokeDasharray="4,3" />
+          <text x={365} y={63} fontSize={8} fill={D.basis} fontWeight="700">Expt</text>
+          <text x={365} y={73} fontSize={8} fill={D.basis}>1.12 eV</text>
+          <text x={365} y={53} fontSize={7} fill={T.muted}>(Si)</text>
+        </FAQGraph>
       </Card>
 
       <Card title={"Q8. What is an eigenvalue? What are Kohn-Sham eigenvalues?"} color={D.basis}>
