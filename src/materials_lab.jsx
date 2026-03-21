@@ -6288,33 +6288,45 @@ function DFTFAQSection() {
           <span style={{ color: D.xc }}>DFT density: n(r) = Σ_i f_i |φ_i(r)|²</span><br />
           <span style={{ color: T.muted }}>Sum of occupied orbital densities = total electron density</span>
         </div>
-        <FAQGraph height={120}>
-          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.xc} fontWeight="700">Ψ(x) and |Ψ|²(x) for a particle in a box</text>
-          <line x1={40} y1={100} x2={360} y2={100} stroke="#9ca3af" strokeWidth={1} />
+        <FAQGraph height={220}>
+          <text x={200} y={18} textAnchor="middle" fontSize={12} fill={D.xc} fontWeight="700">Ψ(x) and |Ψ|²(x) for a particle in a box</text>
+          {/* Legend - pushed down with gap from title */}
+          <line x1={100} y1={42} x2={120} y2={42} stroke={D.xc} strokeWidth={2.5} />
+          <text x={124} y={46} fontSize={10} fill={D.xc} fontWeight="600">Ψ(x) wavefunction</text>
+          <line x1={230} y1={42} x2={250} y2={42} stroke={D.accent} strokeWidth={2.5} strokeDasharray="6,3" />
+          <text x={254} y={46} fontSize={10} fill={D.accent} fontWeight="600">|Ψ|² probability</text>
+          {/* Zero line */}
+          <line x1={50} y1={140} x2={370} y2={140} stroke="#9ca3af" strokeWidth={1} />
+          <text x={380} y={144} fontSize={8} fill="#9ca3af">0</text>
           {/* Psi */}
-          <polyline fill="none" stroke={D.xc} strokeWidth={2}
+          <polyline fill="none" stroke={D.xc} strokeWidth={2.5}
             points={Array.from({length: 80}, (_, i) => {
-              const x = 40 + i * 4;
+              const x = 50 + i * 4;
               const t = i / 79;
-              const psi = Math.sin(Math.PI * t) * 50;
-              return `${x},${65 - psi}`;
+              const psi = Math.sin(Math.PI * t) * 65;
+              return `${x},${120 - psi}`;
             }).join(" ")} />
           {/* |Psi|^2 */}
-          <polyline fill="none" stroke={D.accent} strokeWidth={2} strokeDasharray="6,3"
+          <polyline fill="none" stroke={D.accent} strokeWidth={2.5} strokeDasharray="6,3"
             points={Array.from({length: 80}, (_, i) => {
-              const x = 40 + i * 4;
+              const x = 50 + i * 4;
               const t = i / 79;
-              const p2 = Math.pow(Math.sin(Math.PI * t), 2) * 50;
-              return `${x},${95 - p2}`;
+              const p2 = Math.pow(Math.sin(Math.PI * t), 2) * 65;
+              return `${x},${140 - p2}`;
             }).join(" ")} />
           {/* Walls */}
-          <line x1={40} y1={20} x2={40} y2={100} stroke="#374151" strokeWidth={3} />
-          <line x1={360} y1={20} x2={360} y2={100} stroke="#374151" strokeWidth={3} />
-          <text x={200} y={112} textAnchor="middle" fontSize={9} fill="#6b7280">position x</text>
-          <line x1={100} y1={25} x2={120} y2={25} stroke={D.xc} strokeWidth={2} />
-          <text x={124} y={29} fontSize={9} fill={D.xc}>Ψ(x)</text>
-          <line x1={180} y1={25} x2={200} y2={25} stroke={D.accent} strokeWidth={2} strokeDasharray="6,3" />
-          <text x={204} y={29} fontSize={9} fill={D.accent}>|Ψ|² (probability)</text>
+          <line x1={50} y1={55} x2={50} y2={155} stroke="#374151" strokeWidth={3} />
+          <line x1={370} y1={55} x2={370} y2={155} stroke="#374151" strokeWidth={3} />
+          <text x={42} y={58} textAnchor="end" fontSize={8} fill="#374151" fontWeight="700">wall</text>
+          <text x={378} y={58} fontSize={8} fill="#374151" fontWeight="700">wall</text>
+          {/* Axis labels */}
+          <text x={210} y={172} textAnchor="middle" fontSize={10} fill="#6b7280">position x</text>
+          <text x={25} y={110} textAnchor="middle" fontSize={9} fill="#6b7280" transform="rotate(-90,25,110)">amplitude</text>
+          <line x1={38} y1={60} x2={38} y2={155} stroke="#9ca3af" strokeWidth={1} />
+          <polygon points="35,63 41,63 38,55" fill="#9ca3af" />
+          {/* Annotations */}
+          <text x={210} y={190} textAnchor="middle" fontSize={9} fill={D.xc}>Ψ can be positive or negative (wave)</text>
+          <text x={210} y={204} textAnchor="middle" fontSize={9} fill={D.accent}>|Ψ|² is always positive (probability density)</text>
         </FAQGraph>
       </Card>
 
@@ -6670,43 +6682,46 @@ function DFTFAQSection() {
           <span style={{ color: D.accent }}>Semiconductor: E_gap = 0.5–3 eV (Si: 1.1 eV)</span><br />
           <span style={{ color: D.warn }}>Insulator: E_gap {">"} 3 eV (diamond: 5.5 eV)</span>
         </div>
-        <FAQGraph height={200}>
-          <text x={200} y={16} textAnchor="middle" fontSize={12} fill={D.basis} fontWeight="700">Band Structure: Metal vs Semiconductor vs Insulator</text>
+        <FAQGraph height={280}>
+          <text x={200} y={20} textAnchor="middle" fontSize={13} fill={D.basis} fontWeight="700">Band Structure: Metal vs Semiconductor vs Insulator</text>
+          {/* Subtitle with gap from title */}
+          <text x={200} y={40} textAnchor="middle" fontSize={9} fill={T.muted}>How electron energy levels determine electrical behaviour</text>
           {[
             { label: "Metal", x: 55, gap: 0, col: D.main },
-            { label: "Semiconductor", x: 175, gap: 30, col: D.accent },
-            { label: "Insulator", x: 295, gap: 65, col: D.warn },
+            { label: "Semiconductor", x: 175, gap: 40, col: D.accent },
+            { label: "Insulator", x: 295, gap: 85, col: D.warn },
           ].map((m, i) => (
             <g key={i}>
               {/* Valence band */}
-              <rect x={m.x} y={120} width={80} height={45} fill={m.col} opacity={0.3} rx={4} />
-              <rect x={m.x} y={120} width={80} height={45} fill="none" stroke={m.col} strokeWidth={1.5} rx={4} />
-              <text x={m.x + 40} y={146} textAnchor="middle" fontSize={9} fill={m.col} fontWeight="600">VB (filled)</text>
+              <rect x={m.x} y={175} width={85} height={50} fill={m.col} opacity={0.3} rx={5} />
+              <rect x={m.x} y={175} width={85} height={50} fill="none" stroke={m.col} strokeWidth={1.5} rx={5} />
+              <text x={m.x + 42} y={204} textAnchor="middle" fontSize={10} fill={m.col} fontWeight="600">VB (filled)</text>
               {/* Conduction band */}
-              <rect x={m.x} y={120 - m.gap - 40} width={80} height={40} fill={m.col} opacity={0.1} rx={4} />
-              <rect x={m.x} y={120 - m.gap - 40} width={80} height={40} fill="none" stroke={m.col} strokeWidth={1.5} rx={4} strokeDasharray={m.gap > 0 ? "0" : "5,3"} />
-              <text x={m.x + 40} y={120 - m.gap - 17} textAnchor="middle" fontSize={9} fill={m.col}>CB (empty)</text>
+              <rect x={m.x} y={175 - m.gap - 45} width={85} height={45} fill={m.col} opacity={0.1} rx={5} />
+              <rect x={m.x} y={175 - m.gap - 45} width={85} height={45} fill="none" stroke={m.col} strokeWidth={1.5} rx={5} strokeDasharray={m.gap > 0 ? "0" : "5,3"} />
+              <text x={m.x + 42} y={175 - m.gap - 19} textAnchor="middle" fontSize={10} fill={m.col}>CB (empty)</text>
               {/* Fermi level */}
-              <line x1={m.x} y1={120} x2={m.x + 80} y2={120} stroke={m.col} strokeWidth={1} strokeDasharray="3,3" opacity={0.5} />
+              <line x1={m.x - 5} y1={175} x2={m.x + 90} y2={175} stroke={m.col} strokeWidth={1} strokeDasharray="3,3" opacity={0.5} />
               {/* Gap label */}
               {m.gap > 0 && <>
-                <line x1={m.x + 40} y1={120} x2={m.x + 40} y2={120 - m.gap} stroke={m.col} strokeWidth={2} />
-                <polygon points={`${m.x + 36},${120 - m.gap} ${m.x + 44},${120 - m.gap} ${m.x + 40},${120 - m.gap - 5}`} fill={m.col} />
-                <polygon points={`${m.x + 36},${120} ${m.x + 44},${120} ${m.x + 40},${120 + 5}`} fill={m.col} />
-                <text x={m.x + 58} y={120 - m.gap / 2 + 4} fontSize={10} fill={m.col} fontWeight="700">{m.gap === 30 ? "~1 eV" : ">3 eV"}</text>
+                <line x1={m.x + 42} y1={175} x2={m.x + 42} y2={175 - m.gap} stroke={m.col} strokeWidth={2} />
+                <polygon points={`${m.x + 38},${175 - m.gap} ${m.x + 46},${175 - m.gap} ${m.x + 42},${175 - m.gap - 6}`} fill={m.col} />
+                <polygon points={`${m.x + 38},${175} ${m.x + 46},${175} ${m.x + 42},${175 + 6}`} fill={m.col} />
+                <text x={m.x + 62} y={175 - m.gap / 2 + 4} fontSize={11} fill={m.col} fontWeight="700">{m.gap === 40 ? "~1 eV" : ">3 eV"}</text>
               </>}
               {m.gap === 0 && <>
-                <text x={m.x + 40} y={112} textAnchor="middle" fontSize={9} fill={m.col} fontWeight="700">no gap</text>
-                <text x={m.x + 40} y={100} textAnchor="middle" fontSize={8} fill={T.muted}>bands overlap</text>
+                <text x={m.x + 42} y={163} textAnchor="middle" fontSize={10} fill={m.col} fontWeight="700">no gap</text>
+                <text x={m.x + 42} y={148} textAnchor="middle" fontSize={9} fill={T.muted}>bands overlap</text>
               </>}
-              <text x={m.x + 40} y={180} textAnchor="middle" fontSize={11} fill="#374151" fontWeight="700">{m.label}</text>
-              <text x={m.x + 40} y={192} textAnchor="middle" fontSize={8} fill={T.muted}>{m.gap === 0 ? "Cu, Fe, Al" : m.gap === 30 ? "Si, GaAs, CdTe" : "Diamond, SiO₂"}</text>
+              <text x={m.x + 42} y={242} textAnchor="middle" fontSize={12} fill="#374151" fontWeight="700">{m.label}</text>
+              <text x={m.x + 42} y={256} textAnchor="middle" fontSize={9} fill={T.muted}>{m.gap === 0 ? "Cu, Fe, Al" : m.gap === 40 ? "Si, GaAs, CdTe" : "Diamond, SiO₂"}</text>
+              <text x={m.x + 42} y={269} textAnchor="middle" fontSize={8} fill={m.col}>{m.gap === 0 ? "conducts freely" : m.gap === 40 ? "conducts with energy" : "does not conduct"}</text>
             </g>
           ))}
-          {/* Energy axis label */}
-          <text x={18} y={100} textAnchor="middle" fontSize={9} fill="#6b7280" transform="rotate(-90,18,100)">Energy</text>
-          <line x1={35} y1={35} x2={35} y2={170} stroke="#9ca3af" strokeWidth={1} />
-          <polygon points="32,38 38,38 35,30" fill="#9ca3af" />
+          {/* Energy axis */}
+          <text x={20} y={150} textAnchor="middle" fontSize={10} fill="#6b7280" transform="rotate(-90,20,150)">Energy (eV)</text>
+          <line x1={40} y1={55} x2={40} y2={230} stroke="#9ca3af" strokeWidth={1} />
+          <polygon points="37,58 43,58 40,48" fill="#9ca3af" />
         </FAQGraph>
       </Card>
 
