@@ -6131,22 +6131,22 @@ function DFTFAQSection() {
           <span style={{ color: D.eqn }}>E(r) = ħ²/(2m r²) − e²/r</span><br /><br />
           <span style={{ color: D.accent }}>Minimum at r = a₀ = 0.529 Å (Bohr radius)</span>
         </div>
-        <FAQGraph height={160}>
-          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.main} fontWeight="700">Energy vs Distance from Nucleus (Hydrogen)</text>
+        <FAQGraph height={190}>
+          <text x={200} y={16} textAnchor="middle" fontSize={12} fill={D.main} fontWeight="700">Energy vs Distance from Nucleus (Hydrogen)</text>
           {/* Axes */}
-          <line x1={50} y1={130} x2={380} y2={130} stroke="#9ca3af" strokeWidth={1} />
-          <line x1={50} y1={15} x2={50} y2={130} stroke="#9ca3af" strokeWidth={1} />
-          <text x={215} y={150} textAnchor="middle" fontSize={10} fill="#6b7280">Distance r (Å)</text>
-          <text x={15} y={75} textAnchor="middle" fontSize={10} fill="#6b7280" transform="rotate(-90,15,75)">Energy (eV)</text>
+          <line x1={50} y1={145} x2={380} y2={145} stroke="#9ca3af" strokeWidth={1} />
+          <line x1={50} y1={30} x2={50} y2={145} stroke="#9ca3af" strokeWidth={1} />
+          <text x={215} y={165} textAnchor="middle" fontSize={10} fill="#6b7280">Distance r (Å)</text>
+          <text x={15} y={90} textAnchor="middle" fontSize={10} fill="#6b7280" transform="rotate(-90,15,90)">Energy (eV)</text>
           {/* Zero line */}
-          <line x1={50} y1={55} x2={380} y2={55} stroke="#9ca3af" strokeWidth={0.5} strokeDasharray="4,4" />
-          <text x={385} y={59} fontSize={9} fill="#9ca3af">0</text>
+          <line x1={50} y1={70} x2={380} y2={70} stroke="#9ca3af" strokeWidth={0.5} strokeDasharray="4,4" />
+          <text x={385} y={74} fontSize={9} fill="#9ca3af">0</text>
           {/* Kinetic (1/r²) */}
           {Array.from({length: 60}, (_, i) => {
             const r = 0.2 + i * 0.08;
             const x = 50 + (r / 5) * 330;
             const ek = 13.6 / (r * r) * 0.5;
-            const y = 55 - Math.min(ek * 2.5, 38);
+            const y = 70 - Math.min(ek * 2.5, 38);
             return i > 0 ? null : undefined;
           })}
           <polyline fill="none" stroke={D.main} strokeWidth={2} opacity={0.8}
@@ -6154,7 +6154,7 @@ function DFTFAQSection() {
               const r = 0.3 + i * 0.09;
               const x = 50 + (r / 5) * 330;
               const ek = 13.6 / (r * r) * 0.4;
-              const y = Math.max(20, 55 - ek * 2.5);
+              const y = Math.max(35, 70 - ek * 2.5);
               return `${x},${y}`;
             }).join(" ")} />
           {/* Coulomb (-1/r) */}
@@ -6163,7 +6163,7 @@ function DFTFAQSection() {
               const r = 0.3 + i * 0.09;
               const x = 50 + (r / 5) * 330;
               const ev = -13.6 / r * 0.4;
-              const y = Math.min(125, 55 - ev * 2.5);
+              const y = Math.min(140, 70 - ev * 2.5);
               return `${x},${y}`;
             }).join(" ")} />
           {/* Total E */}
@@ -6172,19 +6172,19 @@ function DFTFAQSection() {
               const r = 0.3 + i * 0.09;
               const x = 50 + (r / 5) * 330;
               const et = 13.6 / (r * r) * 0.4 - 13.6 / r * 0.4;
-              const y = 55 - et * 2.5;
-              return `${Math.min(x, 380)},${Math.max(20, Math.min(125, y))}`;
+              const y = 70 - et * 2.5;
+              return `${Math.min(x, 380)},${Math.max(35, Math.min(140, y))}`;
             }).join(" ")} />
           {/* Minimum marker */}
-          <circle cx={50 + (0.529 / 5) * 330} cy={80} r={5} fill={D.accent} />
-          <text x={50 + (0.529 / 5) * 330 + 8} y={78} fontSize={9} fill={D.accent} fontWeight="700">a₀ = 0.53 Å</text>
+          <circle cx={50 + (0.529 / 5) * 330} cy={95} r={5} fill={D.accent} />
+          <text x={50 + (0.529 / 5) * 330 + 8} y={93} fontSize={9} fill={D.accent} fontWeight="700">a₀ = 0.53 Å</text>
           {/* Legend */}
-          <line x1={240} y1={25} x2={260} y2={25} stroke={D.main} strokeWidth={2} />
-          <text x={264} y={29} fontSize={9} fill={D.main}>Kinetic</text>
-          <line x1={310} y1={25} x2={330} y2={25} stroke={D.warn} strokeWidth={2} />
-          <text x={334} y={29} fontSize={9} fill={D.warn}>Coulomb</text>
-          <line x1={240} y1={39} x2={260} y2={39} stroke={D.xc} strokeWidth={2.5} />
-          <text x={264} y={43} fontSize={9} fill={D.xc}>Total</text>
+          <line x1={240} y1={35} x2={260} y2={35} stroke={D.main} strokeWidth={2} />
+          <text x={264} y={39} fontSize={9} fill={D.main}>Kinetic</text>
+          <line x1={310} y1={35} x2={330} y2={35} stroke={D.warn} strokeWidth={2} />
+          <text x={334} y={39} fontSize={9} fill={D.warn}>Coulomb</text>
+          <line x1={240} y1={49} x2={260} y2={49} stroke={D.xc} strokeWidth={2.5} />
+          <text x={264} y={53} fontSize={9} fill={D.xc}>Total</text>
         </FAQGraph>
       </Card>
 
@@ -6202,7 +6202,7 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>Probability density: P(r) = |ψ(r)|² = (1/πa₀³) e⁻²ʳ˰ᵃ₀</span><br />
           <span style={{ color: D.accent }}>Radial probability: 4πr²|ψ|² peaks at r = a₀</span>
         </div>
-        <FAQGraph height={150}>
+        <FAQGraph height={180}>
           <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.eqn} fontWeight="700">Radial Probability Distribution</text>
           <line x1={50} y1={130} x2={380} y2={130} stroke="#9ca3af" strokeWidth={1} />
           <line x1={50} y1={15} x2={50} y2={130} stroke="#9ca3af" strokeWidth={1} />
@@ -6248,7 +6248,7 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>N=2: M⁶ ≈ 10¹² → hard</span><br />
           <span style={{ color: D.warn }}>N=10: M³⁰ ≈ 10⁶⁰ → more than atoms in universe!</span>
         </div>
-        <FAQGraph height={140}>
+        <FAQGraph height={170}>
           <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.warn} fontWeight="700">Computational Cost vs Number of Electrons</text>
           <line x1={60} y1={120} x2={380} y2={120} stroke="#9ca3af" strokeWidth={1} />
           <line x1={60} y1={15} x2={60} y2={120} stroke="#9ca3af" strokeWidth={1} />
@@ -6295,7 +6295,7 @@ function DFTFAQSection() {
           <span style={{ color: D.xc }}>DFT density: n(r) = Σ_i f_i |φ_i(r)|²</span><br />
           <span style={{ color: T.muted }}>Sum of occupied orbital densities = total electron density</span>
         </div>
-        <FAQGraph height={220}>
+        <FAQGraph height={250}>
           <text x={200} y={18} textAnchor="middle" fontSize={12} fill={D.xc} fontWeight="700">Ψ(x) and |Ψ|²(x) for a particle in a box</text>
           {/* Legend - pushed down with gap from title */}
           <line x1={100} y1={42} x2={120} y2={42} stroke={D.xc} strokeWidth={2.5} />
@@ -6352,7 +6352,7 @@ function DFTFAQSection() {
           <span style={{ color: D.basis }}>Same-spin electrons can NEVER be at the same place.</span><br /><br />
           <span style={{ color: D.accent }}>Each orbital holds max 2 electrons: one ↑, one ↓</span>
         </div>
-        <FAQGraph height={110}>
+        <FAQGraph height={140}>
           <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.basis} fontWeight="700">Orbital Filling (Carbon, Z=6)</text>
           {/* Energy levels */}
           {[
@@ -6389,7 +6389,7 @@ function DFTFAQSection() {
           <span style={{ color: D.warm }}>PBE gap ≈ 50-70% of experiment (systematic error)</span><br />
           <span style={{ color: D.xc }}>HSE06 gap ≈ 90-100% of experiment</span>
         </div>
-        <FAQGraph height={130}>
+        <FAQGraph height={160}>
           <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.warm} fontWeight="700">Band Gap: DFT vs Experiment</text>
           {/* Bar chart */}
           {[
@@ -6464,31 +6464,31 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>For Si: ε_gap^KS(PBE) = 0.61 eV, Δ_xc ≈ 0.56 eV, true gap = 1.17 eV</span><br />
           <span style={{ color: T.muted }}>PBE sees only 52% of the true gap!</span>
         </div>
-        <FAQGraph height={140}>
-          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.eqn} fontWeight="700">The Band Gap Problem: KS Gap vs True Gap</text>
+        <FAQGraph height={200}>
+          <text x={200} y={16} textAnchor="middle" fontSize={12} fill={D.eqn} fontWeight="700">KS Gap + Derivative Discontinuity = True Gap</text>
           {[
-            { label: "PBE", x: 40, vb: 85, cb: 55, col: D.warn },
-            { label: "HSE06", x: 150, vb: 85, cb: 35, col: D.xc },
-            { label: "GW", x: 260, vb: 85, cb: 28, col: D.accent },
+            { label: "PBE", x: 40, vb: 115, cb: 80, col: D.warn },
+            { label: "HSE06", x: 150, vb: 115, cb: 60, col: D.xc },
+            { label: "GW", x: 260, vb: 115, cb: 50, col: D.accent },
           ].map((m, i) => (
             <g key={i}>
-              <rect x={m.x} y={m.vb} width={80} height={30} fill={m.col} opacity={0.25} rx={3} />
-              <rect x={m.x} y={m.vb} width={80} height={30} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
-              <text x={m.x + 40} y={m.vb + 18} textAnchor="middle" fontSize={8} fill={m.col} fontWeight="600">VBM</text>
-              <rect x={m.x} y={m.cb - 20} width={80} height={20} fill={m.col} opacity={0.1} rx={3} />
-              <rect x={m.x} y={m.cb - 20} width={80} height={20} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
-              <text x={m.x + 40} y={m.cb - 7} textAnchor="middle" fontSize={8} fill={m.col} fontWeight="600">CBM</text>
-              <line x1={m.x + 40} y1={m.vb} x2={m.x + 40} y2={m.cb} stroke={m.col} strokeWidth={1.5} />
+              <rect x={m.x} y={m.vb} width={80} height={35} fill={m.col} opacity={0.25} rx={3} />
+              <rect x={m.x} y={m.vb} width={80} height={35} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
+              <text x={m.x + 40} y={m.vb + 21} textAnchor="middle" fontSize={9} fill={m.col} fontWeight="600">VBM</text>
+              <rect x={m.x} y={m.cb - 25} width={80} height={25} fill={m.col} opacity={0.1} rx={3} />
+              <rect x={m.x} y={m.cb - 25} width={80} height={25} fill="none" stroke={m.col} strokeWidth={1.5} rx={3} />
+              <text x={m.x + 40} y={m.cb - 9} textAnchor="middle" fontSize={9} fill={m.col} fontWeight="600">CBM</text>
+              <line x1={m.x + 40} y1={m.vb} x2={m.x + 40} y2={m.cb} stroke={m.col} strokeWidth={2} />
               <polygon points={`${m.x + 36},${m.cb} ${m.x + 44},${m.cb} ${m.x + 40},${m.cb - 6}`} fill={m.col} />
               <polygon points={`${m.x + 36},${m.vb} ${m.x + 44},${m.vb} ${m.x + 40},${m.vb + 6}`} fill={m.col} />
-              <text x={m.x + 60} y={(m.vb + m.cb) / 2 + 3} fontSize={8} fill={m.col} fontWeight="700">{m.vb - m.cb > 40 ? "~1.1" : m.vb - m.cb > 35 ? "~1.0" : "~0.6"} eV</text>
-              <text x={m.x + 40} y={124} textAnchor="middle" fontSize={10} fill="#374151" fontWeight="700">{m.label}</text>
+              <text x={m.x + 62} y={(m.vb + m.cb) / 2 + 4} fontSize={9} fill={m.col} fontWeight="700">{m.vb - m.cb > 55 ? "~1.1" : m.vb - m.cb > 45 ? "~1.0" : "~0.6"} eV</text>
+              <text x={m.x + 40} y={162} textAnchor="middle" fontSize={11} fill="#374151" fontWeight="700">{m.label}</text>
             </g>
           ))}
-          <line x1={350} y1={85} x2={350} y2={35} stroke={D.basis} strokeWidth={2} strokeDasharray="4,3" />
-          <text x={365} y={63} fontSize={8} fill={D.basis} fontWeight="700">Expt</text>
-          <text x={365} y={73} fontSize={8} fill={D.basis}>1.12 eV</text>
-          <text x={365} y={53} fontSize={7} fill={T.muted}>(Si)</text>
+          <line x1={350} y1={115} x2={350} y2={50} stroke={D.basis} strokeWidth={2} strokeDasharray="4,3" />
+          <text x={367} y={80} fontSize={9} fill={D.basis} fontWeight="700">Expt</text>
+          <text x={367} y={93} fontSize={9} fill={D.basis}>1.12 eV</text>
+          <text x={367} y={70} fontSize={8} fill={T.muted}>(Si)</text>
         </FAQGraph>
       </Card>
 
@@ -6643,7 +6643,7 @@ function DFTFAQSection() {
           <span style={{ color: D.xc }}>HSE06: partially captures Δ_xc via exact exchange</span><br />
           <span style={{ color: D.accent }}>GW: Σ naturally includes the full discontinuity</span>
         </div>
-        <FAQGraph height={140}>
+        <FAQGraph height={170}>
           <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.warn} fontWeight="700">KS Gap + Derivative Discontinuity = True Gap</text>
           {[
             { label: "PBE", x: 40, vb: 85, cb: 55, col: D.warn },
@@ -6687,28 +6687,28 @@ function DFTFAQSection() {
           <span style={{ color: D.xc }}>Correlation: E_c = E_exact − E_HF</span><br />
           <span style={{ color: T.muted }}>(remaining many-body effects, ~10% of E_xc but chemically important)</span>
         </div>
-        <FAQGraph height={120}>
-          <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.accent} fontWeight="700">Exchange-Correlation Hole Around an Electron</text>
+        <FAQGraph height={170}>
+          <text x={200} y={16} textAnchor="middle" fontSize={12} fill={D.accent} fontWeight="700">Exchange-Correlation Hole Around an Electron</text>
           {/* Electron at center */}
-          <circle cx={200} cy={65} r={6} fill={D.main} />
-          <text x={200} y={69} textAnchor="middle" fontSize={7} fill="#fff" fontWeight="800">e⁻</text>
+          <circle cx={200} cy={88} r={7} fill={D.main} />
+          <text x={200} y={92} textAnchor="middle" fontSize={8} fill="#fff" fontWeight="800">e⁻</text>
           {/* Exchange hole (same spin depletion) */}
-          <circle cx={200} cy={65} r={40} fill="none" stroke={D.accent} strokeWidth={2} strokeDasharray="6,3" />
-          <circle cx={200} cy={65} r={60} fill="none" stroke={D.accent} strokeWidth={1} strokeDasharray="4,4" opacity={0.4} />
+          <circle cx={200} cy={88} r={42} fill="none" stroke={D.accent} strokeWidth={2} strokeDasharray="6,3" />
+          <circle cx={200} cy={88} r={62} fill="none" stroke={D.accent} strokeWidth={1} strokeDasharray="4,4" opacity={0.4} />
           {/* Other electrons pushed away */}
           {[45, 100, 155, 210, 265, 320].map((a, i) => {
             const rad = (a * Math.PI) / 180;
-            const r = 55 + (i % 2) * 20;
+            const r = 58 + (i % 2) * 22;
             const ex = 200 + r * Math.cos(rad);
-            const ey = 65 + r * Math.sin(rad) * 0.6;
+            const ey = 88 + r * Math.sin(rad) * 0.6;
             return (
               <g key={i}>
-                <circle cx={ex} cy={ey} r={4} fill={i < 3 ? D.main : D.warn} opacity={0.7} />
-                <text x={ex} y={ey + 3} textAnchor="middle" fontSize={6} fill="#fff" fontWeight="700">e⁻</text>
+                <circle cx={ex} cy={ey} r={5} fill={i < 3 ? D.main : D.warn} opacity={0.7} />
+                <text x={ex} y={ey + 3} textAnchor="middle" fontSize={7} fill="#fff" fontWeight="700">e⁻</text>
               </g>
             );
           })}
-          <text x={200} y={112} textAnchor="middle" fontSize={9} fill={D.accent}>Exchange hole: depleted region around each electron</text>
+          <text x={200} y={155} textAnchor="middle" fontSize={10} fill={D.accent}>Exchange hole: depleted region around each electron</text>
         </FAQGraph>
       </Card>
 
@@ -6727,7 +6727,7 @@ function DFTFAQSection() {
           <span style={{ color: D.warm }}>HSE06: 10-100× more expensive (exact exchange)</span><br />
           <span style={{ color: D.xc }}>GW: 1000× more (many-body perturbation)</span>
         </div>
-        <FAQGraph height={130}>
+        <FAQGraph height={160}>
           <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.main} fontWeight="700">DFT Cost Scaling by Method</text>
           <line x1={60} y1={110} x2={380} y2={110} stroke="#9ca3af" strokeWidth={1} />
           <line x1={60} y1={15} x2={60} y2={110} stroke="#9ca3af" strokeWidth={1} />
@@ -6789,7 +6789,7 @@ function DFTFAQSection() {
           <span style={{ color: D.accent }}>Semiconductor: E_gap = 0.5–3 eV (Si: 1.1 eV)</span><br />
           <span style={{ color: D.warn }}>Insulator: E_gap {">"} 3 eV (diamond: 5.5 eV)</span>
         </div>
-        <FAQGraph height={280}>
+        <FAQGraph height={310}>
           <text x={200} y={20} textAnchor="middle" fontSize={13} fill={D.basis} fontWeight="700">Band Structure: Metal vs Semiconductor vs Insulator</text>
           {/* Subtitle with gap from title */}
           <text x={200} y={40} textAnchor="middle" fontSize={9} fill={T.muted}>How electron energy levels determine electrical behaviour</text>
@@ -6897,7 +6897,7 @@ function DFTFAQSection() {
           <span style={{ color: D.xc }}>ω² {">"} 0 everywhere → structure is stable</span><br />
           <span style={{ color: D.warn }}>ω² {"<"} 0 (imaginary) → structure is unstable!</span>
         </div>
-        <FAQGraph height={120}>
+        <FAQGraph height={150}>
           <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.main} fontWeight="700">Phonon Dispersion (Stable vs Unstable)</text>
           <line x1={40} y1={60} x2={360} y2={60} stroke="#9ca3af" strokeWidth={0.5} strokeDasharray="4,4" />
           <line x1={40} y1={100} x2={360} y2={100} stroke="#9ca3af" strokeWidth={1} />
@@ -6949,7 +6949,7 @@ function DFTFAQSection() {
           <span style={{ color: D.eqn }}>Outside r_c: matches all-electron exactly</span><br /><br />
           <span style={{ color: D.accent }}>Reduces E_cut from {">"}10,000 eV to ~400 eV!</span>
         </div>
-        <FAQGraph height={120}>
+        <FAQGraph height={150}>
           <text x={200} y={14} textAnchor="middle" fontSize={11} fill={D.eqn} fontWeight="700">All-Electron vs Pseudo Wavefunction</text>
           <line x1={40} y1={70} x2={360} y2={70} stroke="#9ca3af" strokeWidth={0.5} strokeDasharray="4,4" />
           <line x1={40} y1={105} x2={360} y2={105} stroke="#9ca3af" strokeWidth={1} />
