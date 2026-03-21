@@ -240,8 +240,8 @@ function NextTopicCard({ sections, activeId }) {
 // SHARED: Unified Card component (supports both defectnet + force-field styles)
 // ═══════════════════════════════════════════════════════════════════════════
 function Card({ title, color, formula, collapsible, defaultOpen, children }) {
-  const [open, setOpen] = useState(defaultOpen !== false);
   const isCollapsible = collapsible === true;
+  const [open, setOpen] = useState(isCollapsible ? defaultOpen === true : true);
   return (
     <div style={{
       background: T.panel,
@@ -7865,7 +7865,7 @@ function DFTFAQSection() {
 function DFTManyBodySection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card collapsible title="The Fundamental Problem" color={D.main}>
+      <Card collapsible defaultOpen title="The Fundamental Problem" color={D.main}>
         <DFT_ANALOGY_BOX text={"Consider just 3 electrons around a lithium atom. Electron 1 repels electron 2, which shifts electron 2's position, which changes how electron 3 is repelled, which loops back to electron 1. Even with just 3 electrons you need a wavefunction Ψ(r₁, r₂, r₃) in 9 dimensions. A 64-atom crystal has ~1,920 electrons — that's 5,760 dimensions. The exact solution is mathematically impossible beyond a handful of electrons."} />
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
           {[
@@ -8057,7 +8057,7 @@ function DFTManyBodySection() {
 function DFTHohenbergKohnSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card collapsible title="Hohenberg-Kohn Theorem 1 - Existence" color={D.eqn}>
+      <Card collapsible defaultOpen title="Hohenberg-Kohn Theorem 1 - Existence" color={D.eqn}>
         <DFT_ANALOGY_BOX text={"Picture a neon atom with 10 electrons. Instead of tracking all 10 electron positions simultaneously (30 coordinates!), measure just the electron cloud density n(r) — how much charge is at each point in 3D space. Hohenberg-Kohn proves that this single 3D function contains ALL the same physics as the full 30-dimensional wavefunction. Two different atoms cannot have the same electron density, so n(r) uniquely determines everything."} />
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
           {[
@@ -8134,7 +8134,7 @@ function DFTHohenbergKohnSection() {
 function DFTKohnShamSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card collapsible title="The Kohn-Sham Trick" color={D.eqn}>
+      <Card collapsible defaultOpen title="The Kohn-Sham Trick" color={D.eqn}>
         <DFT_ANALOGY_BOX text={"Take carbon with 6 interacting electrons. Solving all 6 together is a nightmare — every electron pushes on every other. Kohn-Sham's trick: replace these 6 interacting electrons with 6 independent electrons, each moving in a cleverly designed effective potential V_eff(r). This potential is tuned so the 6 independent electrons produce exactly the same total density n(r) as the real interacting ones. Now you solve 6 simple one-electron equations instead of one impossible 6-electron equation."} />
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
           {[
@@ -8243,7 +8243,7 @@ function DFTKohnShamSection() {
 function DFTXCFunctionalsSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card collapsible title="Jacob's Ladder of XC Functionals" color={D.xc}>
+      <Card collapsible defaultOpen title="Jacob's Ladder of XC Functionals" color={D.xc}>
         <DFT_ANALOGY_BOX text={"In a beryllium atom (4 electrons), we know the kinetic energy, the nuclear attraction, and the classical electron-electron repulsion exactly. What's left? Two quantum effects bundled into E_xc: (1) Exchange — two same-spin electrons carve out an 'exchange hole' around each other (Pauli exclusion), lowering their repulsion. (2) Correlation — opposite-spin electrons also avoid each other dynamically, but this is harder to capture. LDA approximates E_xc using a uniform electron gas. GGA adds how fast n(r) varies. HSE06 computes 25% of exchange exactly from the orbitals."} />
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           Each rung adds more information about the density, improving accuracy but increasing cost.
@@ -8317,7 +8317,7 @@ function DFTXCFunctionalsSection() {
 function DFTLDASection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card collapsible title="LDA - Local Density Approximation" color={D.warm}>
+      <Card collapsible defaultOpen title="LDA - Local Density Approximation" color={D.warm}>
         <DFT_ANALOGY_BOX text={"Imagine estimating the average income of a neighbourhood by assuming every house earns the national average for its postcode density. You only look at how many people live at each spot, ignoring whether they're near a city centre or farmland. That's LDA: at every point in space it asks 'what would a uniform electron gas of this density do?' and uses that answer. It's crude — real materials are far from uniform — but surprisingly useful for trends, especially in metals where the density is fairly smooth."} />
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
           {[
@@ -8417,7 +8417,7 @@ function DFTLDASection() {
 function DFTGGASection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card collapsible title="GGA - Generalized Gradient Approximation" color={D.basis}>
+      <Card collapsible defaultOpen title="GGA - Generalized Gradient Approximation" color={D.basis}>
         <DFT_ANALOGY_BOX text={"In an oxygen molecule O₂, the electron density changes dramatically — high near nuclei, dropping off into the bonding region, then vanishing in vacuum. LDA pretends each point is a uniform electron gas with that local density, ignoring these steep changes. PBE (GGA) says: 'wait, the density at this point is also rapidly increasing toward the nucleus — I should adjust E_xc for that gradient.' This gradient correction makes PBE much better for bond lengths, atomization energies, and surface properties."} />
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
           {[
@@ -8482,7 +8482,7 @@ function DFTGGASection() {
 function DFTHSESection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card collapsible title="HSE06 - Heyd-Scuseria-Ernzerhof Hybrid" color={D.xc}>
+      <Card collapsible defaultOpen title="HSE06 - Heyd-Scuseria-Ernzerhof Hybrid" color={D.xc}>
         <DFT_ANALOGY_BOX text={"Consider silicon: PBE predicts a band gap of 0.6 eV, but experiment shows 1.12 eV. Why? PBE's approximate exchange lets each electron partially repel itself (self-interaction error), spreading orbitals too far and shrinking gaps. HSE06 replaces 25% of PBE exchange with exact Hartree-Fock exchange at short range (within ~5 Å). This removes most self-interaction locally, giving Si a gap of 1.14 eV — nearly perfect. The trade-off: HSE06 costs 10-100× more than PBE."} />
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
           {[
@@ -8553,7 +8553,7 @@ function DFTHSESection() {
 function DFTDFTUSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card collapsible title="The Problem with d and f Electrons" color={D.warm}>
+      <Card collapsible defaultOpen title="The Problem with d and f Electrons" color={D.warm}>
         <DFT_ANALOGY_BOX text={"In iron oxide (FeO), the Fe 3d electrons are tightly bound to each iron atom. PBE incorrectly delocalizes them across the crystal, predicting FeO is a metal when it's actually an insulator. DFT+U adds a Hubbard U penalty (~4-5 eV) that says: 'it costs extra energy to put two d-electrons on the same Fe atom.' This on-site repulsion forces d-electrons to localize properly on individual Fe atoms, correctly opening the insulating gap. U is typically fitted to experiment or computed from linear response."} />
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
           {[
@@ -8636,7 +8636,7 @@ function DFTDFTUSection() {
 function DFTSelfInteractionSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card collapsible title="Self-Interaction Error (SIE)" color={D.warn}>
+      <Card collapsible defaultOpen title="Self-Interaction Error (SIE)" color={D.warn}>
         <DFT_ANALOGY_BOX text={"Take a single hydrogen atom — one electron, one proton. The Hartree potential V_H computes the repulsion of the electron density with itself, giving a spurious +13.6 eV self-repulsion. In HF, the exact exchange cancels this perfectly: E_x = -E_self. But in DFT, the approximate E_xc only partially cancels it. The leftover self-interaction makes the electron cloud spread out too much, lowers ionization energies, and shrinks band gaps. This is why PBE gets H's energy slightly wrong and Si's gap very wrong."} />
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
           {[
@@ -8713,7 +8713,7 @@ function DFTSelfInteractionSection() {
 function DFTBasisIntroSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card collapsible title="What is a Basis Set?" color={D.eqn}>
+      <Card collapsible defaultOpen title="What is a Basis Set?" color={D.eqn}>
         <DFT_ANALOGY_BOX text={"A basis set is your box of LEGO bricks for building electron orbitals. Each orbital φᵢ(r) is built by adding up basis functions with different weights. More bricks = more detail, but more computation. The key question: which shape of brick works best for your system? Flat square bricks (plane waves) tile perfectly for repeating crystal patterns. Rounded bricks (Gaussians) cluster naturally around atoms for molecules. Choosing the wrong type is like building a sphere from flat tiles — possible but wasteful."} />
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           In DFT, we solve the Kohn-Sham equations for orbitals φ_i(r). But computers work with
@@ -8770,7 +8770,7 @@ function DFTBasisIntroSection() {
 function DFTGaussianSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card collapsible title="Gaussian Basis Sets (GTO)" color={D.accent}>
+      <Card collapsible defaultOpen title="Gaussian Basis Sets (GTO)" color={D.accent}>
         <DFT_ANALOGY_BOX text={"Imagine describing a mountain range. Plane waves would tile the whole landscape with uniform waves — fine for flat plains (crystals) but wasteful for an isolated peak (molecule). Gaussians are like placing a bell curve on each mountain peak: you capture the shape efficiently with few functions. The trade-off: Gaussians aren’t orthogonal and overlap, so the math is messier. But for molecules, you need far fewer Gaussians than plane waves."} />
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           Gaussian-type orbitals (GTOs) are atom-centred functions of the form:
@@ -8830,7 +8830,7 @@ function DFTGaussianSection() {
 function DFTBasisCompareSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card collapsible title="Plane Waves vs Gaussians — Head to Head" color={D.warm}>
+      <Card collapsible defaultOpen title="Plane Waves vs Gaussians — Head to Head" color={D.warm}>
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
           <thead>
             <tr style={{ borderBottom: `2px solid ${D.warm}30` }}>
@@ -8908,7 +8908,7 @@ function DFTBasisCompareSection() {
 function DFTPlaneWavesSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <Card collapsible title="Plane Waves & Bloch's Theorem" color={D.eqn}>
+      <Card collapsible defaultOpen title="Plane Waves & Bloch's Theorem" color={D.eqn}>
         <DFT_ANALOGY_BOX text={"In a silicon crystal, the electron density is periodic — it repeats every unit cell. Any periodic function can be expanded in plane waves e^(iG·r), just like any repeating sound wave is a sum of pure frequencies (Fourier series). ENCUT controls the highest frequency: 400 eV captures the smooth valence density well, but near Si nuclei the 1s electrons oscillate wildly and would need ENCUT > 10,000 eV. PAW solves this by analytically reconstructing the sharp nuclear wiggles from smooth pseudo-wavefunctions — giving all-electron accuracy at pseudopotential cost."} />
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           For periodic crystals, <strong style={{ color: D.eqn }}>Bloch{"'"}s theorem</strong> says every
@@ -9015,7 +9015,7 @@ function DFTHHeExampleSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
 
       {/* HYDROGEN ATOM */}
-      <Card collapsible title="Hydrogen Atom (Z=1, 1 electron) — Exact DFT" color="#6366f1">
+      <Card collapsible defaultOpen title="Hydrogen Atom (Z=1, 1 electron) — Exact DFT" color="#6366f1">
         <DFT_ANALOGY_BOX text={"Hydrogen (1 electron): the Schrödinger equation is exactly solvable — E₁ = -13.6 eV, orbital = (1/√π)a₀^(-3/2) e^(-r/a₀). DFT must reproduce this exactly if E_xc is perfect. Helium (2 electrons): no exact solution exists, but very accurate benchmarks from variational methods give E = -2.9037 hartree. Comparing DFT approximations against these two atoms reveals exactly how much error each functional introduces — LDA overbinds He by ~40 mHa, PBE by ~20 mHa, exact exchange gets it right."} />
         <div style={{
           background: "#6366f1" + "0a", border: `1.5px solid #6366f130`,
@@ -9415,7 +9415,7 @@ function DFTNaExampleSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
 
       {/* Na Atom Overview */}
-      <Card collapsible title={"Sodium Atom — DFT Step by Step"} color={D.main}>
+      <Card collapsible defaultOpen title={"Sodium Atom — DFT Step by Step"} color={D.main}>
         <DFT_ANALOGY_BOX text={"Sodium (Na, 11 electrons): Start with a guess density from superposed atomic orbitals. Iteration 1 builds V_eff, solves 11 KS equations, gets new orbitals 1s² 2s² 2p⁶ 3s¹. The new density differs from the guess, so mix old and new (Pulay mixing) and repeat. By iteration 5-8, the energy changes by less than 10⁻⁶ eV between steps — self-consistency is reached. The final 3s eigenvalue (-5.14 eV with PBE) closely matches Na's ionization energy (5.14 eV experimental)."} />
         <div style={{
           background: D.main + "0a", border: `1.5px solid ${D.main}30`,
@@ -10005,7 +10005,7 @@ function DFTSCFWalkthroughSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <DFT_ANALOGY_BOX text={"This section walks through a COMPLETE SCF calculation for a helium atom (2 electrons) with actual numbers at every step. We show exactly what the computer does: guess density → build potential → solve eigenvalues using the Davidson algorithm → compute new density → check convergence → repeat."} />
 
-      <Card collapsible title="Step 0: The System — Helium Atom (Z=2, 2 electrons)" color={D.main}>
+      <Card collapsible defaultOpen title="Step 0: The System — Helium Atom (Z=2, 2 electrons)" color={D.main}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           We solve for the ground state of He: 2 electrons around a nucleus with charge Z=2. Both electrons occupy the 1s orbital (opposite spins). We use a radial grid with 200 points from r=0 to r=10 bohr.
         </div>
