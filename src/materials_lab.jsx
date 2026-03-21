@@ -13861,27 +13861,32 @@ function CHKineticsSection() {
 
 const CH_BLOCKS = [
   { id: "overview", label: "Introduction", color: T.ch_main },
+  { id: "thermo", label: "Thermodynamics", color: T.ch_accent },
   { id: "convexhull", label: "Convex Hull Analysis", color: T.ch_hull },
-  { id: "chempotdiagram", label: "Thermodynamics & Chemical Potential Diagram", color: T.ch_accent },
+  { id: "chempot", label: "Chemical Potential Diagram", color: T.ch_warm },
 ];
 
 const CH_SECTIONS = [
   // Block 1: Introduction
-  { id: "overview", block: "overview", label: "What is a Computational Phase Diagram?", color: T.ch_main, Component: CHOverviewSection, nextReason: "The big picture is clear — computational phase diagrams map stability from DFT. The first tool is the convex hull: a plot of formation energy vs. composition that identifies which phases are thermodynamically stable." },
-  // Block 2: Convex Hull Analysis
+  { id: "overview", block: "overview", label: "What is a Computational Phase Diagram?", color: T.ch_main, Component: CHOverviewSection, nextReason: "The big picture is clear — computational phase diagrams map stability from DFT. Before we build one, we need to understand the thermodynamic framework: what determines whether a compound is stable or not." },
+
+  // Block 2: Thermodynamics (new — before convex hull)
+  { id: "thermo", block: "thermo", label: "Gibbs Free Energy & Stability", color: T.ch_accent, Component: CHThermoSection, nextReason: "Free energy sets the rules of stability. Now we need a specific tool to compare ALL possible phases at once — the convex hull plots formation energy vs. composition and identifies which phases are thermodynamically stable." },
+  { id: "thermo_form", block: "thermo", label: "Formation Energy", color: T.ch_hull, Component: CHFormSection, nextReason: "Formation energies measure stability relative to pure elements. With these energies in hand, the convex hull construction visually identifies which compounds are stable and which will decompose." },
+
+  // Block 3: Convex Hull Analysis
   { id: "intro", block: "convexhull", label: "What is a Convex Hull?", color: T.ch_main, Component: CHIntroSection, nextReason: "The concept is clear — a convex hull is the lower boundary of phase stability. Now we need the raw data: DFT-computed total energies for all candidate Cu-S phases to populate it." },
-  { id: "setup", block: "convexhull", label: "DFT Input Data", color: T.ch_main, Component: CHSetupSection, nextReason: "Raw DFT total energies include contributions from reference elemental atoms. Formation energy subtracts these references, giving the thermodynamic stability of each compound relative to its pure elements." },
-  { id: "form", block: "convexhull", label: "Formation Energy", color: T.ch_hull, Component: CHFormSection, nextReason: "Formation energies are computed for every phase. Now we construct the convex hull — the lower boundary of the formation energy vs. composition plot — which separates stable from unstable phases." },
+  { id: "setup", block: "convexhull", label: "DFT Input Data", color: T.ch_main, Component: CHSetupSection, nextReason: "Raw DFT total energies are ready. Now we build the hull — plot formation energy vs. composition and draw the lower convex boundary." },
   { id: "hull", block: "convexhull", label: "Build the Hull", color: T.ch_hull, Component: CHHullSection, nextReason: "The hull is built. The energy above hull quantifies how far each compound lies above it — phases on the hull are stable; those above it are metastable and will tend to decompose into hull phases." },
   { id: "above", block: "convexhull", label: "Energy Above Hull", color: T.ch_unstab, Component: CHAboveSection, nextReason: "Individual stability values computed. The final results panel assembles everything into a comprehensive stability map — all Cu-S phases ranked, colored by stability, showing which are synthesizable." },
-  { id: "results", block: "convexhull", label: "Final Results & Plot", color: T.ch_stable, Component: CHResultsSection, nextReason: "T = 0 K convex hull complete. Real synthesis happens at finite temperature — thermodynamic corrections and chemical potentials connect the hull to experimental conditions." },
-  // Block 3: Thermodynamics & Chemical Potential Diagram
-  { id: "thermo", block: "chempotdiagram", label: "Thermodynamics", color: T.ch_accent, Component: CHThermoSection, nextReason: "Free energies set bulk stability. Chemical potentials now define the synthesis atmosphere — how oxidizing or reducing, how metal-rich or poor — under which a desired phase can grow." },
-  { id: "chempot", block: "chempotdiagram", label: "Chemical Potential Basics", color: T.ch_warm, Component: CHChemPotSection, nextReason: "Binary chemical potentials mastered. Now we see what a chemical potential diagram looks like — a 2D map showing which phase is stable under which conditions." },
-  { id: "chemdiagram", block: "chempotdiagram", label: "What is a Chem. Pot. Diagram?", color: T.ch_warm, Component: CHChemDiagramSection, nextReason: "The concept is clear. Now learn how to construct a chemical potential diagram step by step with a full numerical example — from DFT energies to inequality constraints to the final stability polygon." },
-  { id: "czts", block: "chempotdiagram", label: "CZTS Example (Cu₂ZnSnS₄)", color: T.ch_accent, Component: CHCZTSSection, nextReason: "CZTS competing phases identified. Now build the chemical potential diagram step by step with a full numerical example — from DFT energies to inequality constraints to the final stability polygon." },
-  { id: "chemconstruct", block: "chempotdiagram", label: "Build the Diagram", color: T.ch_hull, Component: CHChemConstructSection, nextReason: "Thermodynamics says WHAT is stable. But will it actually form? Kinetics determines HOW FAST — nucleation barriers, diffusion rates, and metastable phases that persist because atoms cannot rearrange fast enough." },
-  { id: "kinetics", block: "chempotdiagram", label: "Kinetics & Metastability", color: T.ch_warm, Component: CHKineticsSection, nextReason: "Thermodynamics + kinetics now complete. Chapter 5 (Defects in Semiconductors) applies this framework to charged defects — where formation energy becomes Fermi-level dependent." },
+  { id: "results", block: "convexhull", label: "Final Results & Plot", color: T.ch_stable, Component: CHResultsSection, nextReason: "T = 0 K convex hull complete. Chemical potentials now connect the hull to real synthesis conditions — how oxidizing or reducing, how metal-rich or poor — under which a desired phase can grow." },
+
+  // Block 4: Chemical Potential Diagram (separate tab)
+  { id: "chempot", block: "chempot", label: "Chemical Potential Basics", color: T.ch_warm, Component: CHChemPotSection, nextReason: "Binary chemical potentials mastered. Now we see what a chemical potential diagram looks like — a 2D map showing which phase is stable under which conditions." },
+  { id: "chemdiagram", block: "chempot", label: "What is a Chem. Pot. Diagram?", color: T.ch_warm, Component: CHChemDiagramSection, nextReason: "The concept is clear. The CZTS example shows the full complexity of a quaternary system with many competing phases." },
+  { id: "czts", block: "chempot", label: "CZTS Example (Cu₂ZnSnS₄)", color: T.ch_accent, Component: CHCZTSSection, nextReason: "CZTS competing phases identified. Now build the chemical potential diagram step by step — from DFT energies to inequality constraints to the final stability polygon." },
+  { id: "chemconstruct", block: "chempot", label: "Build the Diagram", color: T.ch_hull, Component: CHChemConstructSection, nextReason: "Thermodynamics says WHAT is stable. But will it actually form? Kinetics determines HOW FAST — nucleation barriers, diffusion rates, and metastable phases that persist because atoms cannot rearrange fast enough." },
+  { id: "kinetics", block: "chempot", label: "Kinetics & Metastability", color: T.ch_warm, Component: CHKineticsSection, nextReason: "Thermodynamics + kinetics now complete. Chapter 5 (Defects in Semiconductors) applies this framework to charged defects — where formation energy becomes Fermi-level dependent." },
 ];
 
 function ConvexHullModule() {
