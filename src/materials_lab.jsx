@@ -7709,6 +7709,100 @@ function DFTFAQSection() {
           </div>
         </Card>
       </Card>
+
+      {/* Q38. Classical vs quantum avoidance */}
+      <Card title={"Q38. Electrons already avoid each other classically (Coulomb). So why do we need exchange AND correlation on top?"} color={D.warm}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏟️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine a stadium with assigned seats. Classical avoidance = 'don't sit on someone's lap' (charge repulsion, handled by v_H). Exchange = 'identical twins refuse to sit next to each other' (Pauli, quantum). Correlation = 'even non-twins shift apart slightly because they don't like being close' (dynamic quantum dodging). Three separate effects!</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🚗</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Think of cars on a highway. Classical Coulomb = cars take up physical space (you can't overlap). Exchange = identical cars (same spin) keep an extra-large following distance (quantum rule). Correlation = ALL cars dynamically adjust speed to avoid being too close, beyond what the 'average traffic density' model predicts.</span></div>
+          </div>
+          <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#16a34a", marginBottom: 4 }}>Simple English</div>
+            <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Yes, electrons DO repel each other classically via Coulomb's law, and the Hartree term v_H captures this. But v_H treats electrons as a smooth, average charge cloud — it doesn't know that electrons are discrete particles that actively dodge each other in real time. Exchange and correlation capture the EXTRA avoidance that the classical average misses. v_H says "the average traffic density here is 50 cars/km, so expect some resistance." Exchange and correlation say "but actually, there's a specific car right in front of you that you need to dodge RIGHT NOW."</div>
+          </div>
+
+        <Card title="The four layers of electron-electron interaction" color={D.eqn}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div style={{ background: D.main + "08", border: `2px solid ${D.main}25`, borderRadius: 12, padding: "14px" }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: D.main, marginBottom: 6 }}>Layer 1: Hartree (v_H) — classical average repulsion</div>
+              <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+                Each electron feels the electrostatic potential of the <strong>total, smoothed-out</strong> electron density n(r). This is like saying "there are on average 2 electrons per cubic angstrom here, so you feel their average repulsion." It does NOT know where individual electrons actually are at any instant. It also includes the electron repelling <em>itself</em> (self-interaction error).
+              </div>
+              <div style={mathBlock}>
+                <span style={{ color: D.main }}>v_H(r) = ∫ n(r')/|r−r'| dr'</span><br />
+                <span style={{ color: T.muted }}>n(r) = smooth average density (no info about individual electrons)</span><br />
+                <span style={{ color: D.warn }}>Includes self-interaction: electron i feels its own charge in n(r)!</span>
+              </div>
+            </div>
+
+            <div style={{ background: D.xc + "08", border: `2px solid ${D.xc}25`, borderRadius: 12, padding: "14px" }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: D.xc, marginBottom: 6 }}>Layer 2: Exchange (E_x) — quantum identity avoidance (Pauli)</div>
+              <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+                This is purely quantum with NO classical analogue. Two electrons with the <strong>same spin</strong> can NEVER be at the same point (Pauli exclusion). This creates an "exchange hole" — a region depleted of same-spin density around each electron. This LOWERS the repulsion compared to what v_H predicts. Crucially, exchange exactly cancels the self-interaction in v_H for each orbital.
+              </div>
+              <div style={mathBlock}>
+                <span style={{ color: D.xc }}>E_x = −½ ∫∫ |γ(r,r')|² / |r−r'| dr dr'</span><br />
+                <span style={{ color: T.muted }}>γ(r,r') = density matrix = Σ_i f_i φ_i*(r')φ_i(r)</span><br />
+                <span style={{ color: D.xc }}>For one electron: E_x = −E_H[n_i] (exactly cancels self-interaction)</span><br />
+                <span style={{ color: T.muted }}>Only acts between SAME-SPIN electrons</span>
+              </div>
+            </div>
+
+            <div style={{ background: D.accent + "08", border: `2px solid ${D.accent}25`, borderRadius: 12, padding: "14px" }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: D.accent, marginBottom: 6 }}>Layer 3: Correlation (E_c) — dynamic dodging beyond exchange</div>
+              <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+                After Hartree (average) and exchange (same-spin Pauli), electrons STILL avoid each other more than predicted. Why? Because real electrons are not independent — when electron A moves left, electron B tends to move right, in real time. This dynamic, instantaneous avoidance is <strong>correlation</strong>. It affects BOTH same-spin and opposite-spin pairs. It's the smallest piece (~10% of E_xc) but chemically crucial — it determines reaction barriers, weak bonds, and dispersion.
+              </div>
+              <div style={mathBlock}>
+                <span style={{ color: D.accent }}>E_c = E_exact − E_HF</span><br />
+                <span style={{ color: T.muted }}>= everything the Hartree-Fock method misses</span><br />
+                <span style={{ color: T.muted }}>Affects ALL electron pairs (same-spin AND opposite-spin)</span><br />
+                <span style={{ color: D.accent }}>Typical magnitude: ~0.04 hartree/electron (small but decisive)</span>
+              </div>
+            </div>
+
+            <div style={{ background: D.warn + "08", border: `2px solid ${D.warn}25`, borderRadius: 12, padding: "14px" }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: D.warn, marginBottom: 6 }}>Why can't Hartree alone capture all the avoidance?</div>
+              <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+                Because v_H uses the <strong>average density</strong> n(r). Consider two electrons orbiting a nucleus: at any instant, one is on the left and one on the right (they're correlated). But the average density n(r) is symmetric — it shows equal density on both sides simultaneously. v_H sees the symmetric average and misses the instantaneous asymmetry. The pair density n₂(r,r') captures this — it tells you the probability of finding electrons at r AND r' simultaneously — and it is NOT simply n(r)×n(r').
+              </div>
+              <div style={mathBlock}>
+                <span style={{ color: D.warn, fontWeight: 700 }}>The fundamental equation:</span><br /><br />
+                <span style={{ color: D.warn }}>Exact e-e energy: E_ee = ½∫∫ n₂(r,r')/|r−r'| dr dr'</span><br />
+                <span style={{ color: T.muted }}>n₂(r,r') = pair density (probability of electron at r AND r')</span><br /><br />
+                <span style={{ color: D.main }}>Hartree approximation: E_H = ½∫∫ n(r)n(r')/|r−r'| dr dr'</span><br />
+                <span style={{ color: T.muted }}>Assumes n₂(r,r') ≈ n(r)×n(r') (electrons are INDEPENDENT)</span><br /><br />
+                <span style={{ color: D.xc }}>The difference is exchange-correlation:</span><br />
+                <span style={{ color: D.xc }}>E_xc = E_ee − E_H = ½∫∫ [n₂(r,r') − n(r)n(r')] / |r−r'| dr dr'</span><br /><br />
+                <span style={{ color: T.muted }}>n₂ ≠ n×n because electrons are NOT independent.</span><br />
+                <span style={{ color: D.xc }}>Exchange: the Pauli part of this inequality (same-spin).</span><br />
+                <span style={{ color: D.accent }}>Correlation: the Coulomb part beyond exchange (all spins).</span>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <Card title="Numerical example — Helium atom (2 electrons)" color={D.basis}>
+          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+            He has 2 electrons with opposite spin. Let's see how each layer contributes:
+          </div>
+          <div style={mathBlock}>
+            <span style={{ color: D.basis, fontWeight: 700 }}>Helium atom (Z=2, 2 electrons):</span><br /><br />
+            <span style={{ color: D.main }}>E_H   = +2.05 hartree  (classical repulsion — too large!)</span><br />
+            <span style={{ color: T.muted }}>  v_H treats both electrons as a smooth cloud, overcounts repulsion</span><br /><br />
+            <span style={{ color: D.xc }}>E_x   = −1.03 hartree  (exchange correction)</span><br />
+            <span style={{ color: T.muted }}>  Cancels self-interaction; same spin only but He has opposite spins</span><br />
+            <span style={{ color: T.muted }}>  so exchange here comes from orbital self-interaction cancellation</span><br /><br />
+            <span style={{ color: D.accent }}>E_c   = −0.042 hartree (correlation — small but crucial)</span><br />
+            <span style={{ color: T.muted }}>  Dynamic avoidance of the two opposite-spin electrons</span><br /><br />
+            <span style={{ color: D.warn }}>Without exchange: error = +1.10 hartree (HUGE)</span><br />
+            <span style={{ color: D.xc }}>With exchange only: error = +0.032 hartree (good, 97% corrected)</span><br />
+            <span style={{ color: D.accent }}>With exchange + correlation: error = −0.010 hartree (excellent)</span><br /><br />
+            <span style={{ color: T.muted }}>Exchange does ~95% of the correction beyond Hartree.</span><br />
+            <span style={{ color: T.muted }}>Correlation does the last ~5% — but that 5% determines chemistry!</span>
+          </div>
+        </Card>
+      </Card>
     </div>
   );
 }
