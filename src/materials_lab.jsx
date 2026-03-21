@@ -6114,13 +6114,37 @@ function FAQGraph({ children, height }) {
   );
 }
 
-function DFTFAQSection() {
+function FAQAccordion({ title, color, isOpen, onClick, children }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+    <div style={{ borderRadius: 12, border: `1.5px solid ${isOpen ? color : T.border}`, overflow: "hidden", transition: "all 0.2s" }}>
+      <button onClick={onClick} style={{
+        width: "100%", padding: "12px 16px", background: isOpen ? color + "12" : T.surface,
+        border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10,
+        fontFamily: "inherit", textAlign: "left",
+      }}>
+        <span style={{ fontSize: 16, color: isOpen ? color : T.muted, fontWeight: 700, transition: "transform 0.2s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}>▶</span>
+        <span style={{ fontSize: 13, fontWeight: 700, color: isOpen ? color : T.ink, flex: 1 }}>{title}</span>
+        {isOpen && <span style={{ fontSize: 10, color, fontWeight: 600, padding: "2px 8px", background: color + "15", borderRadius: 6 }}>OPEN</span>}
+      </button>
+      {isOpen && (
+        <div style={{ padding: "14px 18px", borderTop: `1px solid ${color}20`, background: T.surface }}>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DFTFAQSection() {
+  const [openQ, setOpenQ] = useState("Q1");
+  const toggle = (q) => setOpenQ(openQ === q ? null : q);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <DFT_ANALOGY_BOX text={"Before diving into the equations, let’s answer the questions that every student asks when they first encounter quantum mechanics and electronic structure. These aren’t silly questions — they’re the deep foundations that DFT is built upon."} />
 
       {/* 1. Why doesn't electron fall */}
-      <Card title={"Q1. Why doesn’t the electron fall into the nucleus?"} color={D.main}>
+      <FAQAccordion title={"Q1. Why doesn’t the electron fall into the nucleus?"} color={D.main} isOpen={openQ === "Q1"} onClick={() => toggle("Q1")}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Classical physics says opposite charges should collapse together. But quantum mechanics says electrons are waves. Confining a wave to a tiny space requires enormous kinetic energy (Heisenberg uncertainty principle). The electron settles where attraction balances the kinetic cost of confinement.
         </div>
@@ -6186,10 +6210,10 @@ function DFTFAQSection() {
           <line x1={240} y1={49} x2={260} y2={49} stroke={D.xc} strokeWidth={2.5} />
           <text x={264} y={53} fontSize={9} fill={D.xc}>Total</text>
         </FAQGraph>
-      </Card>
+      </FAQAccordion>
 
       {/* 2. What is an orbital */}
-      <Card title={"Q2. What actually IS an electron orbital?"} color={D.eqn}>
+      <FAQAccordion title={"Q2. What actually IS an electron orbital?"} color={D.eqn} isOpen={openQ === "Q2"} onClick={() => toggle("Q2")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌧️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>An orbital is like a rain probability map: it doesn't tell you where the next raindrop will fall, but shows where rain is most likely. Denser shading = higher probability of finding the electron.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6241,10 +6265,10 @@ function DFTFAQSection() {
           <line x1={310} y1={25} x2={330} y2={25} stroke={D.accent} strokeWidth={2} strokeDasharray="6,3" />
           <text x={334} y={29} fontSize={9} fill={D.accent}>2s</text>
         </FAQGraph>
-      </Card>
+      </FAQAccordion>
 
       {/* 3. Why can't we solve exactly */}
-      <Card title={"Q3. Why can’t we just solve the Schrödinger equation exactly?"} color={D.warn}>
+      <FAQAccordion title={"Q3. Why can’t we just solve the Schrödinger equation exactly?"} color={D.warn} isOpen={openQ === "Q3"} onClick={() => toggle("Q3")}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           For hydrogen (1 electron) we can solve exactly. For helium (2 electrons) it’s already approximate. The problem: electron-electron repulsion couples all electrons. For N electrons, the wavefunction needs 3N dimensions.
         </div>
@@ -6286,10 +6310,10 @@ function DFTFAQSection() {
           <line x1={240} y1={39} x2={260} y2={39} stroke={D.basis} strokeWidth={2.5} />
           <text x={264} y={43} fontSize={9} fill={D.basis}>DFT (polynomial)</text>
         </FAQGraph>
-      </Card>
+      </FAQAccordion>
 
       {/* 4. What is a wavefunction */}
-      <Card title={"Q4. What is a wavefunction, really?"} color={D.xc}>
+      <FAQAccordion title={"Q4. What is a wavefunction, really?"} color={D.xc} isOpen={openQ === "Q4"} onClick={() => toggle("Q4")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎵</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a musical note: the wavefunction is the sound wave (can be positive or negative), while |Ψ|² is the loudness (always positive). You hear loudness, but the wave carries the full information.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6351,10 +6375,10 @@ function DFTFAQSection() {
           <text x={210} y={190} textAnchor="middle" fontSize={9} fill={D.xc}>Ψ can be positive or negative (wave)</text>
           <text x={210} y={204} textAnchor="middle" fontSize={9} fill={D.accent}>|Ψ|² is always positive (probability density)</text>
         </FAQGraph>
-      </Card>
+      </FAQAccordion>
 
       {/* 5. Electron spin */}
-      <Card title={"Q5. What is electron spin and why does it matter?"} color={D.basis}>
+      <FAQAccordion title={"Q5. What is electron spin and why does it matter?"} color={D.basis} isOpen={openQ === "Q5"} onClick={() => toggle("Q5")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎭</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like seats on a bus: each seat (orbital) holds exactly 2 people, but they must face opposite directions (↑ and ↓ spin). Once a seat is full, the next person must take a higher-energy seat further back.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6392,10 +6416,10 @@ function DFTFAQSection() {
           <text x={310} y={40} fontSize={9} fill={D.accent} fontWeight="600">2p: Hund{"'"}s rule</text>
           <text x={310} y={52} fontSize={9} fill={T.muted}>fill parallel spins first</text>
         </FAQGraph>
-      </Card>
+      </FAQAccordion>
 
       {/* 6. Band gaps */}
-      <Card title={"Q6. Why does DFT underestimate band gaps?"} color={D.warm}>
+      <FAQAccordion title={"Q6. Why does DFT underestimate band gaps?"} color={D.warm} isOpen={openQ === "Q6"} onClick={() => toggle("Q6")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📏</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like measuring a doorway with a bent ruler: DFT's approximate exchange-correlation systematically bends the ruler, making every gap look smaller. HSE06 straightens the ruler with exact exchange.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6442,10 +6466,10 @@ function DFTFAQSection() {
           <rect x={170} y={24} width={10} height={10} fill={D.basis} rx={2} />
           <text x={184} y={33} fontSize={9} fill={D.basis}>Expt.</text>
         </FAQGraph>
-      </Card>
+      </FAQAccordion>
 
       {/* 6b. Ground state but band gaps? */}
-      <Card title={"Q7. DFT is for ground states — so why do we calculate band gaps?"} color={D.eqn}>
+      <FAQAccordion title={"Q7. DFT is for ground states — so why do we calculate band gaps?"} color={D.eqn} isOpen={openQ === "Q7"} onClick={() => toggle("Q7")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏠</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like appraising a house: DFT knows the exact value of the house you own (ground state). The cost to buy the next house (excited state) isn't guaranteed, but the neighbourhood price (KS eigenvalues) gives a useful estimate.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6518,9 +6542,9 @@ function DFTFAQSection() {
           <text x={370} y={108} fontSize={9} fill={D.basis}>1.12 eV</text>
           <text x={370} y={82} fontSize={8} fill={T.muted}>(Si)</text>
         </FAQGraph>
-      </Card>
+      </FAQAccordion>
 
-      <Card title={"Q8. What is an eigenvalue? What are Kohn-Sham eigenvalues?"} color={D.basis}>
+      <FAQAccordion title={"Q8. What is an eigenvalue? What are Kohn-Sham eigenvalues?"} color={D.basis} isOpen={openQ === "Q8"} onClick={() => toggle("Q8")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔔</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a bell: when struck, it vibrates at specific natural frequencies (eigenvalues). You can't make a bell ring at arbitrary frequencies — only its characteristic ones. Energy eigenvalues are the 'natural frequencies' of quantum systems.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6589,9 +6613,9 @@ function DFTFAQSection() {
             <span style={{ color: T.muted }}>In DFT, the "box" is v_KS(r) and the eigenvalues are ε_i.</span>
           </div>
         </Card>
-      </Card>
+      </FAQAccordion>
 
-      <Card title={"Q9. What is a quasiparticle?"} color={D.xc}>
+      <FAQAccordion title={"Q9. What is a quasiparticle?"} color={D.xc} isOpen={openQ === "Q9"} onClick={() => toggle("Q9")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏈</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a running back in football: the player (electron) plus the pocket of blockers around him (screening cloud) move as one unit. The 'quasiparticle' is the player + entourage, with different effective speed (mass) than the bare player.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6630,9 +6654,9 @@ function DFTFAQSection() {
             </div>
           ))}
         </div>
-      </Card>
+      </FAQAccordion>
 
-      <Card title={"Q10. The GW Approximation — getting band gaps right"} color={D.accent}>
+      <FAQAccordion title={"Q10. The GW Approximation — getting band gaps right"} color={D.accent} isOpen={openQ === "Q10"} onClick={() => toggle("Q10")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📡</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like upgrading from AM to FM radio: DFT (AM) gives you the song but with static. GW (FM) computes the exact screening environment, removing the static to give crisp quasiparticle energies.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6684,9 +6708,9 @@ function DFTFAQSection() {
           <strong style={{ color: D.warn }}>Cost:</strong> GW is ~1000x more expensive than PBE. Practical for ~10-50 atoms. For larger systems,
           use HSE06 (10-100x PBE) as a pragmatic alternative, or use GW on a small cell and extrapolate.
         </div>
-      </Card>
+      </FAQAccordion>
 
-      <Card title={"Q11. The derivative discontinuity — why LDA/GGA gaps are wrong"} color={D.warn}>
+      <FAQAccordion title={"Q11. The derivative discontinuity — why LDA/GGA gaps are wrong"} color={D.warn} isOpen={openQ === "Q11"} onClick={() => toggle("Q11")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🚪</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a turnstile that should click when the Nth person passes: the exact XC potential 'clicks' (jumps) when the electron count crosses an integer. LDA/GGA turnstiles are smooth — they don't click, so they miscount (underestimate the gap).</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6740,10 +6764,10 @@ function DFTFAQSection() {
           <text x={370} y={108} fontSize={9} fill={D.basis}>1.12 eV</text>
           <text x={370} y={82} fontSize={8} fill={T.muted}>(Si)</text>
         </FAQGraph>
-      </Card>
+      </FAQAccordion>
 
       {/* 7. Exchange and correlation */}
-      <Card title={"Q12. What is exchange and correlation in plain English?"} color={D.accent}>
+      <FAQAccordion title={"Q12. What is exchange and correlation in plain English?"} color={D.accent} isOpen={openQ === "Q12"} onClick={() => toggle("Q12")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>💃</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Exchange: like same-gender bathroom rules — same-spin electrons avoid each other's space (Pauli exclusion), lowering repulsion. Correlation: all electrons dynamically dodge each other, like dancers avoiding collisions on a crowded floor.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6785,10 +6809,10 @@ function DFTFAQSection() {
           })}
           <text x={200} y={155} textAnchor="middle" fontSize={10} fill={D.accent}>Exchange hole: depleted region around each electron</text>
         </FAQGraph>
-      </Card>
+      </FAQAccordion>
 
       {/* 8. System size */}
-      <Card title={"Q13. How big a system can DFT handle?"} color={D.main}>
+      <FAQAccordion title={"Q13. How big a system can DFT handle?"} color={D.main} isOpen={openQ === "Q13"} onClick={() => toggle("Q13")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏗️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like building with LEGO: 100 bricks (atoms) takes minutes. 1,000 takes hours. 10,000 takes days. Beyond that, you need prefab modules (machine-learned potentials) instead of brick-by-brick (DFT).</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6834,10 +6858,10 @@ function DFTFAQSection() {
           <line x1={250} y1={39} x2={270} y2={39} stroke={D.warm} strokeWidth={2} strokeDasharray="6,3" />
           <text x={274} y={43} fontSize={9} fill={D.warm}>HSE06</text>
         </FAQGraph>
-      </Card>
+      </FAQAccordion>
 
       {/* 9. Atoms empty space */}
-      <Card title={"Q14. Why are atoms mostly empty space?"} color={D.eqn}>
+      <FAQAccordion title={"Q14. Why are atoms mostly empty space?"} color={D.eqn} isOpen={openQ === "Q14"} onClick={() => toggle("Q14")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏟️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>If the nucleus were a marble at the center of a football stadium, the nearest electron would be in the upper deck. Everything in between is the quantum probability cloud that DFT computes.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6855,10 +6879,10 @@ function DFTFAQSection() {
           <span style={{ color: D.accent }}>Ratio: r_atom / r_nucleus ≈ 100,000</span><br />
           <span style={{ color: T.muted }}>Volume ratio: (10⁵)³ = 10¹⁵ → atom is 99.9999999999999% empty!</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* 10. Metal vs insulator */}
-      <Card title={"Q15. What is the difference between a metal and an insulator?"} color={D.basis}>
+      <FAQAccordion title={"Q15. What is the difference between a metal and an insulator?"} color={D.basis} isOpen={openQ === "Q15"} onClick={() => toggle("Q15")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🚗</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Metal = open highway (electrons flow freely). Semiconductor = toll road (need a bit of energy to enter). Insulator = brick wall (electrons can't get through without enormous energy).</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6917,10 +6941,10 @@ function DFTFAQSection() {
           <line x1={40} y1={55} x2={40} y2={230} stroke="#9ca3af" strokeWidth={1} />
           <polygon points="37,58 43,58 40,48" fill="#9ca3af" />
         </FAQGraph>
-      </Card>
+      </FAQAccordion>
 
       {/* 11. Element properties */}
-      <Card title={"Q16. Why do different elements have different properties?"} color={D.warm}>
+      <FAQAccordion title={"Q16. Why do different elements have different properties?"} color={D.warm} isOpen={openQ === "Q16"} onClick={() => toggle("Q16")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎰</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a parking garage: electrons fill levels from bottom up. Na has 1 car on the top floor (reactive metal). Si has 4 (semiconductor). Ar's top floor is completely full (noble gas — inert). The top-floor arrangement dictates everything.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6939,10 +6963,10 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>Si: [Ne] 3s²3p² → 4 valence e⁻ → semiconductor</span><br />
           <span style={{ color: T.muted }}>Ar: [Ne] 3s²3p⁶ → full shell → noble gas</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* 12. Crystal periodicity */}
-      <Card title={"Q17. What is a crystal, and why does periodicity matter for DFT?"} color={D.xc}>
+      <FAQAccordion title={"Q17. What is a crystal, and why does periodicity matter for DFT?"} color={D.xc} isOpen={openQ === "Q17"} onClick={() => toggle("Q17")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🧱</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like wallpaper: you only need to design one tile, then repeat it infinitely. DFT exploits this — solve one unit cell, and Bloch's theorem gives you the entire infinite crystal for free.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -6960,10 +6984,10 @@ function DFTFAQSection() {
           <span style={{ color: D.xc }}>k = crystal momentum (lives in the Brillouin zone)</span><br /><br />
           <span style={{ color: D.accent }}>Result: solve for one unit cell, get all 10²³ atoms for free!</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* 13. Predicting new materials */}
-      <Card title={"Q18. Can DFT predict new materials that don’t exist yet?"} color={D.accent}>
+      <FAQAccordion title={"Q18. Can DFT predict new materials that don’t exist yet?"} color={D.accent} isOpen={openQ === "Q18"} onClick={() => toggle("Q18")}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Yes! Build any structure on a computer, run DFT, predict stability, band gap, hardness — all before synthesis. The Materials Project has DFT data for {">"}150,000 materials.
         </div>
@@ -6974,10 +6998,10 @@ function DFTFAQSection() {
           <span style={{ color: D.accent }}>Convex hull: points below = stable phases</span><br />
           <span style={{ color: D.accent }}>Points above = will decompose into neighbors</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* 14. Phonons */}
-      <Card title={"Q19. What is a phonon and why should I care?"} color={D.main}>
+      <FAQAccordion title={"Q19. What is a phonon and why should I care?"} color={D.main} isOpen={openQ === "Q19"} onClick={() => toggle("Q19")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔔</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like vibrations in a bell: atoms in a crystal jiggle at specific frequencies (phonons). The vibration pattern tells you if the structure is stable (real frequencies) or unstable (imaginary = will collapse).</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7034,10 +7058,10 @@ function DFTFAQSection() {
           <text x={200} y={110} fontSize={9} fill="#6b7280">K</text>
           <text x={360} y={110} fontSize={9} fill="#6b7280">Γ</text>
         </FAQGraph>
-      </Card>
+      </FAQAccordion>
 
       {/* 15. Pseudopotential */}
-      <Card title={"Q20. What is a pseudopotential and why do we need one?"} color={D.eqn}>
+      <FAQAccordion title={"Q20. What is a pseudopotential and why do we need one?"} color={D.eqn} isOpen={openQ === "Q20"} onClick={() => toggle("Q20")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📝</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like CliffsNotes for a novel: core electrons are the predictable backstory (1s, 2s of heavy atoms). The pseudopotential summarizes them so you only read the exciting chapters (valence electrons).</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7085,10 +7109,10 @@ function DFTFAQSection() {
           <line x1={220} y1={34} x2={240} y2={34} stroke={D.basis} strokeWidth={2.5} strokeDasharray="6,3" />
           <text x={244} y={38} fontSize={9} fill={D.basis}>pseudo (smooth)</text>
         </FAQGraph>
-      </Card>
+      </FAQAccordion>
 
       {/* A1. Koopmans' theorem */}
-      <Card title={"Q21. What is Koopmans’ theorem and does it hold in DFT?"} color={D.eqn}>
+      <FAQAccordion title={"Q21. What is Koopmans’ theorem and does it hold in DFT?"} color={D.eqn} isOpen={openQ === "Q21"} onClick={() => toggle("Q21")}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In Hartree-Fock, Koopmans{"'"} theorem says the orbital energy ε_i equals the
           negative ionization energy from that orbital (for frozen orbitals). In DFT, this is
@@ -7103,10 +7127,10 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>Example: CO molecule IP_expt = 14.0 eV</span><br />
           <span style={{ color: T.muted }}>PBE: −ε_HOMO = 9.1 eV (way off!) | HF: 15.1 eV | Expt: 14.0 eV</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* A2. v-representability */}
-      <Card title={"Q22. What is v-representability and why does it matter?"} color={D.xc}>
+      <FAQAccordion title={"Q22. What is v-representability and why does it matter?"} color={D.xc} isOpen={openQ === "Q22"} onClick={() => toggle("Q22")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🗺️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like asking: can every possible height map (density) correspond to a real landscape (potential)? Some theoretical density profiles might not come from any physical potential — a subtle mathematical trap.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7133,10 +7157,10 @@ function DFTFAQSection() {
           <span style={{ color: D.xc }}>{"E[n] = min_{Ψ→n} <Ψ|T+V_ee|Ψ> + ∫ v_ext n dr"}</span><br /><br />
           <span style={{ color: T.muted }}>Minimise over all wavefunctions that give density n — no v-representability needed!</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* A3. DFT vs wavefunction methods */}
-      <Card title={"Q23. When should you use wavefunction methods instead of DFT?"} color={D.basis}>
+      <FAQAccordion title={"Q23. When should you use wavefunction methods instead of DFT?"} color={D.basis} isOpen={openQ === "Q23"} onClick={() => toggle("Q23")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔧</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>DFT is a Swiss Army knife — great for most jobs. But for precision surgery (chemical accuracy), you need a scalpel (CCSD(T)). For tangled systems (strong correlation), you need specialized tools (CASSCF/DMRG).</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7164,10 +7188,10 @@ function DFTFAQSection() {
             </div>
           ))}
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* A4. Charge transfer */}
-      <Card title={"Q24. Why does DFT struggle with charge-transfer states?"} color={D.warm}>
+      <FAQAccordion title={"Q24. Why does DFT struggle with charge-transfer states?"} color={D.warm} isOpen={openQ === "Q24"} onClick={() => toggle("Q24")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📬</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like sending mail: the cost depends on distance. LDA/GGA charge the same postage regardless of distance (local). Real charge-transfer costs depend on donor-acceptor separation (−1/R). Range-separated hybrids fix the postage.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7189,10 +7213,10 @@ function DFTFAQSection() {
           <span style={{ color: D.warn }}>LDA/GGA TDDFT: misses the −1/R term → CT energy too low by eVs</span><br />
           <span style={{ color: D.xc }}>Range-separated hybrids (CAM-B3LYP, ωB97X-D): include long-range exact exchange → fix CT</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* A5. Dispersion / vdW */}
-      <Card title={"Q25. Why can’t standard DFT describe van der Waals interactions?"} color={D.accent}>
+      <FAQAccordion title={"Q25. Why can’t standard DFT describe van der Waals interactions?"} color={D.accent} isOpen={openQ === "Q25"} onClick={() => toggle("Q25")}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Van der Waals (dispersion) forces arise from correlated fluctuations of electron density
           between distant fragments. LDA/GGA are <strong>local or semi-local</strong> — they only see
@@ -7208,10 +7232,10 @@ function DFTFAQSection() {
           <span style={{ color: D.basis }}>vdW-DF: non-local correlation functional (Dion et al.)</span><br />
           <span style={{ color: D.xc }}>MBD: many-body dispersion (Tkatchenko)</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* A6. Strongly correlated */}
-      <Card title={"Q26. What are strongly correlated systems and why does DFT fail?"} color={D.warn}>
+      <FAQAccordion title={"Q26. What are strongly correlated systems and why does DFT fail?"} color={D.warn} isOpen={openQ === "Q26"} onClick={() => toggle("Q26")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎭</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a traffic jam: when cars (electrons) are sparse, they move independently (DFT works). In a jam (strong correlation), every car's movement depends on all others simultaneously — the independent-particle picture collapses.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7240,10 +7264,10 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>La₂CuO₄: DFT says metal, reality is AF insulator</span><br /><br />
           <span style={{ color: D.xc }}>Fixes: DFT+U, DMFT, DFT+DMFT, slave-boson methods</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* A7. Janak's theorem */}
-      <Card title={"Q27. What is Janak’s theorem and what does it tell us?"} color={D.eqn}>
+      <FAQAccordion title={"Q27. What is Janak’s theorem and what does it tell us?"} color={D.eqn} isOpen={openQ === "Q27"} onClick={() => toggle("Q27")}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Janak’s theorem relates the KS eigenvalue to the derivative of total energy with
           respect to orbital occupation. It’s the DFT analogue of Koopmans{"'"} theorem and provides
@@ -7257,10 +7281,10 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>If ε_HOMO is constant (straight-line condition): IP = −ε_HOMO</span><br />
           <span style={{ color: D.warn }}>LDA/GGA: ε curves, so −ε_HOMO ≠ IP (SIE again!)</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* A8. Hellmann-Feynman */}
-      <Card title={"Q28. What is the Hellmann-Feynman theorem and why do forces matter?"} color={D.basis}>
+      <FAQAccordion title={"Q28. What is the Hellmann-Feynman theorem and why do forces matter?"} color={D.basis} isOpen={openQ === "Q28"} onClick={() => toggle("Q28")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>⚡</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a charged ball in an electric field: you don't need to know the ball's internal structure — just the external field and the charge distribution. Similarly, nuclear forces depend only on electron density and nuclear positions.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7287,10 +7311,10 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>F = ma → ab initio molecular dynamics (AIMD)</span><br />
           <span style={{ color: T.muted }}>∂F/∂R → dynamical matrix → phonons</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* A9. Brillouin zone sampling */}
-      <Card title={"Q29. Why do we need k-point sampling and how does it affect results?"} color={D.main}>
+      <FAQAccordion title={"Q29. Why do we need k-point sampling and how does it affect results?"} color={D.main} isOpen={openQ === "Q29"} onClick={() => toggle("Q29")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🗳️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like polling voters: you can't ask everyone in the Brillouin zone, so you sample at representative k-points. Too few samples = biased results. More k-points = more accurate but slower, like a larger poll.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7313,10 +7337,10 @@ function DFTFAQSection() {
           <span style={{ color: D.basis }}>Molecules / large cells: Γ-only (BZ is tiny)</span><br /><br />
           <span style={{ color: D.warn }}>Always test: increase k-mesh until E changes by {"<"}1 meV/atom</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* A10. DFT+TDDFT */}
-      <Card title={"Q30. What is TDDFT and when do you need it?"} color={D.xc}>
+      <FAQAccordion title={"Q30. What is TDDFT and when do you need it?"} color={D.xc} isOpen={openQ === "Q30"} onClick={() => toggle("Q30")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📹</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>DFT is a photograph (ground state snapshot). TDDFT is a video — it captures how the electron density evolves in time when hit by light, giving you absorption spectra and excitation energies.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7339,10 +7363,10 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>Photochemistry, plasmonics, laser-matter interaction</span><br /><br />
           <span style={{ color: D.warn }}>Limitations: charge-transfer states, double excitations, strong correlation</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* A11. Convergence */}
-      <Card title={"Q31. What convergence tests are essential before trusting DFT results?"} color={D.accent}>
+      <FAQAccordion title={"Q31. What convergence tests are essential before trusting DFT results?"} color={D.accent} isOpen={openQ === "Q31"} onClick={() => toggle("Q31")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔍</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like calibrating a microscope: you must adjust focus (E_cut), zoom (k-mesh), and exposure (SCF tolerance) until the image stops changing. Publishing uncoverged results is like publishing a blurry photo as 'evidence'.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7373,10 +7397,10 @@ function DFTFAQSection() {
             </div>
           ))}
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* A12. Spin-orbit coupling */}
-      <Card title={"Q32. What is spin-orbit coupling and when do you need it?"} color={D.warm}>
+      <FAQAccordion title={"Q32. What is spin-orbit coupling and when do you need it?"} color={D.warm} isOpen={openQ === "Q32"} onClick={() => toggle("Q32")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌀</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a spinning top in a magnetic field: the top's spin axis precesses around the field direction. Similarly, an electron's spin interacts with the magnetic field created by its own orbital motion around the nucleus.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7408,10 +7432,10 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>Band inversions in HgTe, PbTe, halide perovskites</span><br /><br />
           <span style={{ color: D.accent }}>Without SOC: Pb halide perovskite gap off by ~1 eV!</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* A13. DFT limitations summary */}
-      <Card title={"Q33. What are the fundamental limitations of DFT?"} color={D.warn}>
+      <FAQAccordion title={"Q33. What are the fundamental limitations of DFT?"} color={D.warn} isOpen={openQ === "Q33"} onClick={() => toggle("Q33")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🗺️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Every map has limits: DFT is an incredibly detailed city map but it can't show you the weather (excited states), air quality (strong correlation), or the view from a satellite (long-range dispersion). You need different tools for different questions.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7441,10 +7465,10 @@ function DFTFAQSection() {
             </div>
           ))}
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* Q34. Optical properties */}
-      <Card title={"Q34. How does DFT calculate optical properties (dielectric function, absorption)?"} color={D.xc}>
+      <FAQAccordion title={"Q34. How does DFT calculate optical properties (dielectric function, absorption)?"} color={D.xc} isOpen={openQ === "Q34"} onClick={() => toggle("Q34")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌈</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like shining a flashlight through coloured glass: the glass absorbs certain wavelengths (colours) and transmits others. The dielectric function tells you exactly which wavelengths get absorbed and how strongly — it is the optical fingerprint of the material.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7491,10 +7515,10 @@ function DFTFAQSection() {
             ))}
           </div>
         </Card>
-      </Card>
+      </FAQAccordion>
 
       {/* Q35. SLME */}
-      <Card title={"Q35. What is SLME and how do you calculate solar cell efficiency from DFT?"} color={D.accent}>
+      <FAQAccordion title={"Q35. What is SLME and how do you calculate solar cell efficiency from DFT?"} color={D.accent} isOpen={openQ === "Q35"} onClick={() => toggle("Q35")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>☀️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like rating a sponge by how much water it can absorb and squeeze out: SLME rates a solar cell material by how much sunlight it absorbs (from ε₂) and how much useful electrical energy it can deliver (from the band gap). A perfect sponge absorbs everything — real materials have thickness-dependent losses.</span></div>
           <div style={{ background: "#f0fdf4", border: "1.5px solid #22c55e30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
@@ -7580,10 +7604,10 @@ function DFTFAQSection() {
             ))}
           </div>
         </Card>
-      </Card>
+      </FAQAccordion>
 
       {/* Q36. Long-range interactions */}
-      <Card title={"Q36. How does DFT handle long-range interactions (Coulomb, dipole-dipole)?"} color={D.main}>
+      <FAQAccordion title={"Q36. How does DFT handle long-range interactions (Coulomb, dipole-dipole)?"} color={D.main} isOpen={openQ === "Q36"} onClick={() => toggle("Q36")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📡</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a radio tower: the signal (Coulomb interaction) reaches infinitely far, getting weaker with distance but never truly zero. DFT must sum this infinite-range interaction carefully — you can't just cut it off at some radius.</span></div>
             <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🧲</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like magnets in a row: each magnet feels every other magnet. Nearby ones are strong (short-range), distant ones are weak but there are MANY of them. The sum of infinite weak interactions can be as important as a few strong nearby ones.</span></div>
@@ -7622,10 +7646,10 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>G = reciprocal lattice vector</span><br />
           <span style={{ color: T.muted }}>This is just Poisson's equation in Fourier space — one line, O(N log N)</span>
         </div>
-      </Card>
+      </FAQAccordion>
 
       {/* Q37. What does "25% exact exchange" in HSE06 actually mean? */}
-      <Card title={"Q37. In HSE06, what does '25% exact exchange from HF' actually mean? Isn't Hartree already in KS?"} color={D.xc}>
+      <FAQAccordion title={"Q37. In HSE06, what does '25% exact exchange from HF' actually mean? Isn't Hartree already in KS?"} color={D.xc} isOpen={openQ === "Q37"} onClick={() => toggle("Q37")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🍳</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Think of making scrambled eggs: v_H (Hartree) is the pan — it's always there in both KS-DFT and HF. The 'exact exchange' HSE06 adds is a specific SPICE (how you handle the quantum avoidance between electrons). PBE uses pre-made spice mix (approximate). HSE06 replaces 25% of that mix with freshly ground spice (exact, from HF theory). The pan (v_H) stays the same.</span></div>
             <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎨</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like mixing paint colours: KS-DFT uses a pre-mixed 'exchange-correlation' paint (v_xc from PBE). HSE06 says 'the exchange part of that paint is slightly wrong — let me replace 25% of it with the exact colour (from HF)'. The Hartree part (v_H) is a completely separate layer underneath — it doesn't change.</span></div>
@@ -7735,10 +7759,10 @@ function DFTFAQSection() {
             <span style={{ color: D.xc }}>HSE06's v_x^mix is non-local (depends on r AND r') — that's why it's expensive.</span>
           </div>
         </Card>
-      </Card>
+      </FAQAccordion>
 
       {/* Q38. Classical vs quantum avoidance */}
-      <Card title={"Q38. Electrons already avoid each other classically (Coulomb). So why do we need exchange AND correlation on top?"} color={D.warm}>
+      <FAQAccordion title={"Q38. Electrons already avoid each other classically (Coulomb). So why do we need exchange AND correlation on top?"} color={D.warm} isOpen={openQ === "Q38"} onClick={() => toggle("Q38")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏟️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine a stadium with assigned seats. Classical avoidance = 'don't sit on someone's lap' (charge repulsion, handled by v_H). Exchange = 'identical twins refuse to sit next to each other' (Pauli, quantum). Correlation = 'even non-twins shift apart slightly because they don't like being close' (dynamic quantum dodging). Three separate effects!</span></div>
             <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🚗</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Think of cars on a highway. Classical Coulomb = cars take up physical space (you can't overlap). Exchange = identical cars (same spin) keep an extra-large following distance (quantum rule). Correlation = ALL cars dynamically adjust speed to avoid being too close, beyond what the 'average traffic density' model predicts.</span></div>
@@ -7829,7 +7853,7 @@ function DFTFAQSection() {
             <span style={{ color: T.muted }}>Correlation does the last ~5% — but that 5% determines chemistry!</span>
           </div>
         </Card>
-      </Card>
+      </FAQAccordion>
     </div>
   );
 }
