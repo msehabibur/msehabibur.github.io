@@ -7290,6 +7290,137 @@ function DFTFAQSection() {
           ))}
         </div>
       </Card>
+
+      {/* Q34. Optical properties */}
+      <Card title={"Q34. How does DFT calculate optical properties (dielectric function, absorption)?"} color={D.xc}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌈</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like shining a flashlight through coloured glass: the glass absorbs certain wavelengths (colours) and transmits others. The dielectric function tells you exactly which wavelengths get absorbed and how strongly — it is the optical fingerprint of the material.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📻</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like tuning a radio: each frequency (photon energy) either resonates with an electronic transition (absorption peak) or passes through (transparent). The imaginary part of the dielectric function ε₂(ω) maps out all the resonances.</span></div>
+          </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Optical properties are computed from the <strong style={{ color: D.xc }}>frequency-dependent dielectric function</strong> ε(ω) = ε₁(ω) + iε₂(ω).
+          The imaginary part ε₂ describes absorption; the real part ε₁ describes refraction. From these, you can derive the absorption coefficient α(ω), reflectivity R(ω), refractive index n(ω), and optical conductivity σ(ω).
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.xc, fontWeight: 700 }}>Step 1: Compute the imaginary dielectric function</span><br /><br />
+          <span style={{ color: D.xc }}>ε₂(ω) = (4π²e²)/(m²ω²) Σ_{"{v,c,k}"} |{"<"}ψ_ck|p̂|ψ_vk{">"}|² δ(ε_ck − ε_vk − ℏω)</span><br /><br />
+          <span style={{ color: T.muted }}>v = valence (occupied) band index</span><br />
+          <span style={{ color: T.muted }}>c = conduction (empty) band index</span><br />
+          <span style={{ color: T.muted }}>k = crystal momentum (summed over Brillouin zone)</span><br />
+          <span style={{ color: T.muted }}>p̂ = momentum operator (couples to the electric field of light)</span><br />
+          <span style={{ color: T.muted }}>|{"<"}ψ_ck|p̂|ψ_vk{">"}|² = transition matrix element (probability of the transition)</span><br />
+          <span style={{ color: T.muted }}>δ(ε_ck − ε_vk − ℏω) = energy conservation (photon energy = gap between bands)</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700 }}>Step 2: Get the real part via Kramers-Kronig</span><br /><br />
+          <span style={{ color: D.xc }}>ε₁(ω) = 1 + (2/π) P ∫₀^∞ [ω′ε₂(ω′)] / (ω′² − ω²) dω′</span><br /><br />
+          <span style={{ color: T.muted }}>P = Cauchy principal value (avoids the singularity at ω′ = ω)</span><br />
+          <span style={{ color: T.muted }}>ε₁ and ε₂ are not independent — knowing one gives the other</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700 }}>Step 3: Derive optical properties</span><br /><br />
+          <span style={{ color: D.accent }}>Absorption coefficient: α(ω) = (ω/c)√(2(√(ε₁²+ε₂²) − ε₁))</span><br />
+          <span style={{ color: T.muted }}>Refractive index: n = √((√(ε₁²+ε₂²) + ε₁)/2)</span><br />
+          <span style={{ color: T.muted }}>Extinction coefficient: κ = √((√(ε₁²+ε₂²) − ε₁)/2)</span><br />
+          <span style={{ color: T.muted }}>Reflectivity: R = ((n−1)² + κ²) / ((n+1)² + κ²)</span>
+        </div>
+        <Card title="Important caveats" color={D.warn}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {[
+              { issue: "Band gap error", detail: "PBE underestimates gaps, so absorption onset is red-shifted. Use HSE06 or scissor correction to shift conduction bands up.", color: D.warn },
+              { issue: "No excitonic effects", detail: "Independent-particle approximation misses electron-hole attraction. For accurate optical spectra (especially in wide-gap materials), you need BSE (Bethe-Salpeter equation) on top of GW.", color: D.xc },
+              { issue: "Dense k-mesh required", detail: "Optical spectra need very dense k-point sampling (typically 2-4× denser than for energy convergence) to resolve sharp features.", color: D.basis },
+              { issue: "Spin-orbit coupling", detail: "For heavy elements (Pb, Bi, halide perovskites), SOC significantly affects the optical spectrum and must be included.", color: D.warm },
+            ].map(item => (
+              <div key={item.issue} style={{ background: item.color + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${item.color}15` }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: item.color }}>{item.issue}</div>
+                <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.detail}</div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </Card>
+
+      {/* Q35. SLME */}
+      <Card title={"Q35. What is SLME and how do you calculate solar cell efficiency from DFT?"} color={D.accent}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>☀️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like rating a sponge by how much water it can absorb and squeeze out: SLME rates a solar cell material by how much sunlight it absorbs (from ε₂) and how much useful electrical energy it can deliver (from the band gap). A perfect sponge absorbs everything — real materials have thickness-dependent losses.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏆</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a figure skating score: the Shockley-Queisser limit is the maximum possible score (depends only on band gap). SLME is the actual score (depends on absorption strength and recombination). A material with a perfect gap but weak absorption still scores poorly.</span></div>
+          </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The <strong style={{ color: D.accent }}>Spectroscopic Limited Maximum Efficiency (SLME)</strong> (Yu & Zunger, 2012)
+          predicts the maximum solar cell efficiency of a material using only DFT-computed quantities: the band gap
+          and the absorption spectrum α(ω). It improves on the Shockley-Queisser limit by accounting for
+          the <em>actual</em> absorption strength and the nature of the gap (direct vs indirect).
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>Inputs needed from DFT:</span><br /><br />
+          <span style={{ color: D.basis }}>1. Band gap E_g (from PBE, HSE06, or GW)</span><br />
+          <span style={{ color: T.muted }}>   Determines the minimum photon energy that can be absorbed</span><br /><br />
+          <span style={{ color: D.basis }}>2. Absorption coefficient α(E) (from dielectric function ε₂)</span><br />
+          <span style={{ color: T.muted }}>   Determines how thick the film must be to absorb all light</span><br /><br />
+          <span style={{ color: D.basis }}>3. Direct vs indirect gap character</span><br />
+          <span style={{ color: T.muted }}>   Indirect gaps need phonon assistance → weaker absorption onset</span>
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>Step 1: Absorptivity of a film of thickness L</span><br /><br />
+          <span style={{ color: D.accent }}>a(E) = 1 − exp(−2α(E)L)</span><br /><br />
+          <span style={{ color: T.muted }}>α(E) = absorption coefficient from DFT (see Q34)</span><br />
+          <span style={{ color: T.muted }}>L = film thickness (typically scan 0.1 − 10 μm)</span><br />
+          <span style={{ color: T.muted }}>Factor of 2 accounts for back-surface reflection</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>Step 2: Short-circuit current J_sc</span><br /><br />
+          <span style={{ color: D.accent }}>J_sc = e ∫₀^∞ a(E) × I_sun(E) dE</span><br /><br />
+          <span style={{ color: T.muted }}>e = electron charge</span><br />
+          <span style={{ color: T.muted }}>I_sun(E) = AM1.5G solar photon flux (standard solar spectrum)</span><br />
+          <span style={{ color: T.muted }}>Each absorbed photon generates one electron-hole pair</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>Step 3: Reverse saturation current J_0</span><br /><br />
+          <span style={{ color: D.accent }}>J_0 = e π ∫₀^∞ a(E) × (2E²)/(h³c²) × exp(−E/k_BT) dE</span><br /><br />
+          <span style={{ color: T.muted }}>This is the recombination current (blackbody radiation from the cell)</span><br />
+          <span style={{ color: T.muted }}>Smaller J_0 = less recombination = better efficiency</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>Step 4: For indirect gaps, add non-radiative recombination</span><br /><br />
+          <span style={{ color: D.accent }}>J_0^nr = J_0 × exp(Δ/k_BT)</span><br /><br />
+          <span style={{ color: T.muted }}>Δ = E_g^direct − E_g^indirect (if indirect gap material)</span><br />
+          <span style={{ color: T.muted }}>Indirect gaps have extra non-radiative loss channels</span><br />
+          <span style={{ color: T.muted }}>If direct gap: Δ = 0, no extra loss</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>Step 5: Maximum efficiency (SLME)</span><br /><br />
+          <span style={{ color: D.accent }}>η = max_V [ J(V) × V ] / P_sun</span><br /><br />
+          <span style={{ color: T.muted }}>J(V) = J_sc − J_0^total × (exp(eV/k_BT) − 1)   (diode equation)</span><br />
+          <span style={{ color: T.muted }}>P_sun = 100 mW/cm² (AM1.5G standard illumination)</span><br />
+          <span style={{ color: T.muted }}>Maximise the power J×V over all voltages V</span>
+        </div>
+        <Card title="SLME vs Shockley-Queisser" color={D.warm}>
+          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+            The Shockley-Queisser (SQ) limit assumes perfect absorption above E_g — it depends only on the gap.
+            SLME uses the <em>actual</em> DFT absorption spectrum, so:
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+            {[
+              { mat: "GaAs (direct, 1.42 eV)", sq: "33%", slme: "~31% at 1 μm", note: "Strong absorber, nearly hits SQ limit", color: D.basis },
+              { mat: "Si (indirect, 1.12 eV)", sq: "33%", slme: "~26% at 100 μm", note: "Weak absorption near gap edge, needs thick film", color: D.warm },
+              { mat: "CdTe (direct, 1.48 eV)", sq: "32%", slme: "~30% at 2 μm", note: "Excellent thin-film absorber", color: D.accent },
+              { mat: "Cu₂ZnSnS₄ (direct, 1.5 eV)", sq: "32%", slme: "~25% at 1 μm", note: "Good gap but weaker absorption than CdTe", color: D.xc },
+            ].map(item => (
+              <div key={item.mat} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15` }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.mat}</div>
+                <div style={{ fontSize: 11, color: T.muted }}>SQ limit: {item.sq} | SLME: {item.slme}</div>
+                <div style={{ fontSize: 10, color: T.ink, marginTop: 3 }}>{item.note}</div>
+              </div>
+            ))}
+          </div>
+        </Card>
+        <Card title="Practical workflow" color={D.basis}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            {[
+              { step: "1. Relax structure", detail: "PBE geometry optimisation (forces < 0.01 eV/Å)", color: D.basis },
+              { step: "2. Accurate band gap", detail: "HSE06 or GW single-point calculation for correct gap", color: D.xc },
+              { step: "3. Dense k-mesh SCF", detail: "Self-consistent calculation with very dense k-mesh (e.g. 20×20×20)", color: D.eqn },
+              { step: "4. Optical calculation", detail: "Compute ε₂(ω) from interband transitions (needs many empty bands, ~3× occupied)", color: D.accent },
+              { step: "5. Post-process", detail: "Kramers-Kronig → ε₁ → α(ω) → SLME at various thicknesses", color: D.warm },
+            ].map(item => (
+              <div key={item.step} style={{ display: "flex", gap: 10, alignItems: "center", background: item.color + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${item.color}15` }}>
+                <div style={{ fontSize: 12, fontWeight: 800, color: item.color, minWidth: 70 }}>{item.step}</div>
+                <div style={{ fontSize: 11, color: T.muted }}>{item.detail}</div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </Card>
     </div>
   );
 }
