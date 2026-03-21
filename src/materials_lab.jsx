@@ -6100,7 +6100,6 @@ const DFT_BLOCKS = [
   { id: "foundations", label: "Theoretical Foundations",  color: T.dft_main },
   { id: "functionals", label: "XC Functionals",          color: T.dft_xc },
   { id: "basissets",   label: "Basis Sets",              color: T.dft_eqn },
-  { id: "numerics",    label: "Numerical Methods",       color: T.dft_basis },
   { id: "examples",    label: "Worked Examples",            color: T.dft_accent },
   { id: "movies",      label: "Movies",                   color: T.dft_warm },
 ];
