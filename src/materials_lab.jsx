@@ -10223,7 +10223,7 @@ function DFTBandsDOSSection() {
           <span style={{ color: D.xc }}>g(E) = (1/N_k) sum_n sum_k delta(E - epsilon_nk)</span><br /><br />
           <span style={{ color: T.muted }}>N_k = total number of k-points in the mesh</span><br />
           <span style={{ color: T.muted }}>The delta function is broadened (Gaussian or Lorentzian) for smooth plots:</span><br /><br />
-          <span style={{ color: D.accent }}>delta(x) -> (1 / sigma*sqrt(2*pi)) * exp(-x^2 / 2*sigma^2)</span><br />
+          <span style={{ color: D.accent }}>{"delta(x) → (1 / sigma√(2π)) × exp(-x² / 2σ²)"}</span><br />
           <span style={{ color: T.muted }}>sigma = smearing width (typically 0.05-0.2 eV)</span><br />
           <span style={{ color: T.muted }}>Too small sigma = noisy. Too large = features washed out.</span>
         </div>
@@ -10258,7 +10258,7 @@ function DFTBandsDOSSection() {
             <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
               Replace delta(x) with a Gaussian of width sigma. Simple, works for any k-mesh.
               But sigma introduces artificial broadening — features narrower than sigma are lost.
-              Must extrapolate to sigma -> 0 for precise total energy.
+              {"Must extrapolate to sigma -> 0 for precise total energy."}
             </div>
             <div style={mathBlock}>
               <span style={{ color: D.basis }}>g(E) = sum_nk (1/sigma*sqrt(2pi)) exp(-(E-epsilon_nk)^2 / 2*sigma^2)</span>
@@ -10304,7 +10304,7 @@ function DFTBandsDOSSection() {
             </div>
             <div style={mathBlock}>
               <span style={{ color: D.warm }}>E_g^indirect = epsilon_CBM(k_c) - epsilon_VBM(k_v), k_c != k_v</span><br />
-              <span style={{ color: T.muted }}>Examples: Si (Gamma->X, 1.12 eV), Ge (Gamma->L, 0.66 eV)</span><br />
+              <span style={{ color: T.muted }}>{"Examples: Si (Gamma->X, 1.12 eV), Ge (Gamma-> L, 0.66 eV)"}</span><br />
               <span style={{ color: D.warm }}>Weak absorption: needs 100 um thick Si vs 2 um CdTe</span>
             </div>
           </div>
@@ -10344,7 +10344,7 @@ function DFTBandsDOSSection() {
           <span style={{ color: T.muted }}>PBE functional, E_cut = 400 eV, k-mesh = 8x8x8</span><br />
           <span style={{ color: T.muted }}>SCF converges in ~15 iterations, gives E_total and n(r)</span><br /><br />
           <span style={{ color: D.main, fontWeight: 700 }}>Step 2: k-path (FCC BZ)</span><br />
-          <span style={{ color: D.eqn }}>W -> L -> Gamma -> X -> W -> K -> Gamma</span><br />
+          <span style={{ color: D.eqn }}>{"W -> L -> Gamma -> X -> W -> K -> Gamma"}</span><br />
           <span style={{ color: T.muted }}>100 points per segment = 600 k-points total</span><br /><br />
           <span style={{ color: D.main, fontWeight: 700 }}>Step 3: Non-SCF band calculation</span><br />
           <span style={{ color: T.muted }}>Fix n(r) from step 1. At each of 600 k-points, diagonalise H(k).</span><br />
@@ -10353,7 +10353,7 @@ function DFTBandsDOSSection() {
           <span style={{ color: D.main, fontWeight: 700 }}>Step 4: Results</span><br />
           <span style={{ color: D.basis }}>VBM at Gamma: E = 0 eV (by convention)</span><br />
           <span style={{ color: D.basis }}>CBM near X (at ~0.85 * Gamma-X): E = 0.61 eV</span><br />
-          <span style={{ color: D.accent }}>PBE band gap = 0.61 eV (indirect, Gamma -> near-X)</span><br />
+          <span style={{ color: D.accent }}>{"PBE band gap = 0.61 eV (indirect, Gamma -> near-X)"}</span><br />
           <span style={{ color: D.warn }}>Experiment: 1.17 eV (PBE underestimates by 48%!)</span><br />
           <span style={{ color: D.xc }}>HSE06 gap: 1.14 eV (much better, only 3% error)</span>
         </div>
@@ -10391,7 +10391,7 @@ function DFTBandsDOSSection() {
           <span style={{ color: D.warm, fontWeight: 700 }}>Band structure:</span><br />
           <span style={{ color: D.eqn }}>H(k) c_nk = epsilon_nk S(k) c_nk</span><br />
           <span style={{ color: T.muted }}>H(k)_GG' = |k+G|^2/2 * delta_GG' + v_KS(G-G')</span><br />
-          <span style={{ color: T.muted }}>Solve at each k on the path -> plot epsilon_nk vs k</span><br /><br />
+          <span style={{ color: T.muted }}>{"Solve at each k on the path -> plot epsilon_nk vs k"}</span><br /><br />
           <span style={{ color: D.warm, fontWeight: 700 }}>Total DOS:</span><br />
           <span style={{ color: D.xc }}>g(E) = (1/V_BZ) sum_n integral_BZ delta(E - epsilon_nk) dk</span><br /><br />
           <span style={{ color: D.warm, fontWeight: 700 }}>Projected DOS:</span><br />
