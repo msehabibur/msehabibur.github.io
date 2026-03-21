@@ -14478,8 +14478,159 @@ const CH_SECTIONS = [
   { id: "chemdiagram", block: "chempot", label: "What is a Chem. Pot. Diagram?", color: T.ch_warm, Component: CHChemDiagramSection, nextReason: "The concept is clear. The CZTS example shows the full complexity of a quaternary system with many competing phases." },
   { id: "czts", block: "chempot", label: "CZTS Example (Cu₂ZnSnS₄)", color: T.ch_accent, Component: CHCZTSSection, nextReason: "CZTS competing phases identified. Now build the chemical potential diagram step by step — from DFT energies to inequality constraints to the final stability polygon." },
   { id: "chemconstruct", block: "chempot", label: "Build the Diagram", color: T.ch_hull, Component: CHChemConstructSection, nextReason: "Thermodynamics says WHAT is stable. But will it actually form? Kinetics determines HOW FAST — nucleation barriers, diffusion rates, and metastable phases that persist because atoms cannot rearrange fast enough." },
-  { id: "kinetics", block: "chempot", label: "Kinetics & Metastability", color: T.ch_warm, Component: CHKineticsSection, nextReason: "Thermodynamics + kinetics now complete. Chapter 5 (Defects in Semiconductors) applies this framework to charged defects — where formation energy becomes Fermi-level dependent." },
+  { id: "kinetics", block: "chempot", label: "Kinetics & Metastability", color: T.ch_warm, Component: CHKineticsSection, nextReason: "Thermodynamics and kinetics are clear. But how do the abstract chemical potentials Δμ connect to real lab knobs — temperature, pressure, gas flow? The next section bridges computation to experiment." },
+  { id: "chempot_expt", block: "chempot", label: "μ to Experiment (T, P)", color: T.ch_main, Component: CHChemPotExptSection, nextReason: "Chemical potentials are now connected to real experimental conditions. Chapter 5 (Defects in Semiconductors) applies this framework to charged defects — where formation energy becomes Fermi-level dependent." },
 ];
+
+function CHChemPotExptSection() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Chemical potentials in DFT are like coordinates on a map. But the map uses abstract units. To actually GO somewhere (do an experiment), you need to convert those coordinates to GPS readings (temperature and pressure). This section is the GPS converter — it translates abstract chemical potential values into real lab conditions you can set on your furnace and gas flow controllers.
+        </div>
+      </div>
+
+      <Card collapsible defaultOpen title="The Bridge: Chemical Potential to Temperature & Pressure" color={CH.main}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          In DFT calculations, chemical potentials are defined relative to a reference (usually the pure element at T = 0 K). But experimentalists control <strong style={{ color: CH.main }}>temperature T</strong> and <strong style={{ color: CH.main }}>partial pressure P</strong> of gaseous species.
+          The connection is through the thermodynamic chemical potential of an ideal gas:
+        </div>
+        <div style={chMathBlock}>
+          {"μ(T, P) = μ_DFT(0K) + ΔH(T) − TΔS(T) + k_BT ln(P/P⁰)"}<br /><br />
+          <span style={{ color: CH.main }}>{"μ_DFT(0K) = DFT total energy of the reference (e.g. O₂ molecule)"}</span><br />
+          <span style={{ color: CH.accent }}>{"ΔH(T) = enthalpy change from 0 K to T (from thermodynamic tables or phonons)"}</span><br />
+          <span style={{ color: CH.hull }}>{"TΔS(T) = entropy contribution (translational + rotational + vibrational)"}</span><br />
+          <span style={{ color: CH.warm }}>{"k_BT ln(P/P⁰) = pressure dependence (P⁰ = 1 atm reference)"}</span><br /><br />
+          <span style={{ color: T.muted }}>{"k_B = 8.617 × 10⁻⁵ eV/K (Boltzmann constant)"}</span>
+        </div>
+      </Card>
+
+      <Card collapsible title="Oxygen Chemical Potential — The Most Important Example" color={CH.accent}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          For oxide materials (most semiconductors, catalysts, batteries), the oxygen chemical potential
+          is the critical experimental knob. It connects directly to the oxygen partial pressure in the growth atmosphere.
+        </div>
+        <div style={chMathBlock}>
+          {"Δμ_O(T, P_O₂) = ½[μ_O₂(T, P_O₂) − E_O₂^DFT]"}<br /><br />
+          {"= ½[ΔH_O₂(T) − TΔS_O₂(T) + k_BT ln(P_O₂/P⁰)]"}<br /><br />
+          <span style={{ color: CH.accent }}>{"The factor ½ is because O₂ has 2 oxygen atoms."}</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginTop: 10, marginBottom: 10 }}>
+          <strong style={{ color: CH.accent }}>Numerical example at T = 1000 K:</strong>
+        </div>
+        <div style={chMathBlock}>
+          {"From NIST-JANAF tables for O₂:"}<br />
+          {"ΔH(1000K) − ΔH(0K) = 0.272 eV/molecule"}<br />
+          {"S(1000K) = 2.43 × 10⁻³ eV/K/molecule"}<br />
+          {"TΔS = 1000 × 2.43 × 10⁻³ = 2.43 eV"}<br /><br />
+          {"So: Δμ_O₂(1000K, P) = 0.272 − 2.43 + k_BT ln(P/P⁰)"}<br />
+          {"= −2.158 + 0.0862 × ln(P/P⁰) eV"}<br /><br />
+          <span style={{ color: CH.accent, fontWeight: 700 }}>{"Plug in pressures:"}</span><br />
+          {"P = 1 atm:     Δμ_O = ½(−2.158 + 0)      = −1.079 eV"}<br />
+          {"P = 10⁻⁵ atm:  Δμ_O = ½(−2.158 − 0.993)  = −1.576 eV"}<br />
+          {"P = 10⁻¹⁰ atm: Δμ_O = ½(−2.158 − 1.986)  = −2.072 eV"}<br />
+          {"P = 10⁻²⁰ atm: Δμ_O = ½(−2.158 − 3.972)  = −3.065 eV"}<br /><br />
+          <span style={{ color: CH.warm }}>{"Lower O₂ pressure → more negative Δμ_O → more reducing conditions"}</span><br />
+          <span style={{ color: CH.stable }}>{"Higher O₂ pressure → less negative Δμ_O → more oxidizing conditions"}</span>
+        </div>
+      </Card>
+
+      <Card collapsible title="Sulfur Chemical Potential from H₂S/H₂ Ratio" color={CH.hull}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          For sulfide materials (CdS, CZTS, Cu₂ZnSnS₄), sulfur is supplied as H₂S gas mixed with H₂. The sulfur chemical potential depends on the H₂S/H₂ ratio:
+        </div>
+        <div style={chMathBlock}>
+          {"H₂S(g) ⇌ H₂(g) + S  (equilibrium)"}<br /><br />
+          {"μ_S = μ_H₂S − μ_H₂"}<br />
+          {"= ΔG°_f(H₂S) + k_BT ln(P_H₂S / P_H₂)"}<br /><br />
+          {"ΔG°_f(H₂S, 800K) = −0.36 eV"}<br /><br />
+          <span style={{ color: CH.hull, fontWeight: 700 }}>{"Example at T = 800 K:"}</span><br />
+          {"H₂S/H₂ = 0.1:   μ_S = −0.36 + 0.069 × ln(0.1) = −0.52 eV"}<br />
+          {"H₂S/H₂ = 0.01:  μ_S = −0.36 + 0.069 × ln(0.01) = −0.68 eV"}<br />
+          {"H₂S/H₂ = 0.001: μ_S = −0.36 + 0.069 × ln(0.001) = −0.84 eV"}<br /><br />
+          <span style={{ color: T.muted }}>{"More H₂S → less negative μ_S → sulfur-rich conditions"}</span>
+        </div>
+      </Card>
+
+      <Card collapsible title="Metal Chemical Potentials from Evaporation Sources" color={CH.warm}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Metal chemical potentials (Cu, Zn, Sn in CZTS) are controlled by the evaporation rate (flux) from effusion cells in MBE, or by precursor concentration in solution growth. These connect to the vapour pressure above the source:
+        </div>
+        <div style={chMathBlock}>
+          {"μ_metal(T) = μ_metal^bulk + k_BT ln(P_metal / P_sat(T))"}<br /><br />
+          <span style={{ color: T.muted }}>{"P_sat(T) = saturated vapour pressure at source temperature T"}</span><br />
+          <span style={{ color: T.muted }}>{"P_metal = actual partial pressure at substrate"}</span><br /><br />
+          <span style={{ color: CH.warm, fontWeight: 700 }}>{"Practical control:"}</span><br />
+          {"MBE: control flux by source temperature (higher T → higher P → more metal-rich)"}<br />
+          {"Sputtering: control by power and target composition"}<br />
+          {"Solution: control by precursor molar ratio"}<br />
+          {"CVD: control by precursor partial pressures and carrier gas flow"}
+        </div>
+      </Card>
+
+      <Card collapsible title="Putting It All Together — Experimental Phase Map" color={CH.stable}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          By computing μ(T, P) for each species, you can convert the entire DFT chemical potential diagram into
+          <strong style={{ color: CH.stable }}> experimental coordinates</strong>:
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {[
+            { from: "Δμ_O axis", to: "log(P_O₂) at fixed T", example: "At 1000 K: Δμ_O = −1.08 eV corresponds to P_O₂ = 1 atm", color: CH.accent },
+            { from: "Δμ_S axis", to: "log(P_H₂S/P_H₂) at fixed T", example: "At 800 K: Δμ_S = −0.52 eV corresponds to H₂S/H₂ = 0.1", color: CH.hull },
+            { from: "Δμ_Cu axis", to: "Cu flux / evaporation rate", example: "Higher Cu cell temperature → more positive Δμ_Cu → Cu-rich growth", color: CH.warm },
+            { from: "Stability polygon", to: "Experimental growth window", example: "The polygon vertices become T-P coordinates defining safe synthesis conditions", color: CH.stable },
+          ].map(item => (
+            <div key={item.from} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}` }}>
+              <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 4 }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.from}</span>
+                <span style={{ fontSize: 12, color: T.muted }}>{"→"}</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.to}</span>
+              </div>
+              <div style={{ fontSize: 11, color: T.muted }}>{item.example}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card collapsible title="Numerical Example — ZnO Growth Window" color={CH.main}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          ZnO is a binary oxide — the simplest case. The stability condition from DFT:
+        </div>
+        <div style={chMathBlock}>
+          {"ΔH_f(ZnO) = −3.60 eV (from DFT)"}<br /><br />
+          {"Stability requires: ΔH_f < Δμ_Zn + Δμ_O < 0"}<br />
+          {"So: −3.60 < Δμ_Zn + Δμ_O < 0"}<br /><br />
+          <span style={{ color: CH.main, fontWeight: 700 }}>{"Convert Δμ_O to P_O₂ at T = 1000 K:"}</span><br /><br />
+          {"Zn-rich limit: Δμ_O = −3.60 eV"}<br />
+          {"→ P_O₂ = P⁰ × exp(2(−3.60 + 1.079) / 0.0862)"}<br />
+          {"→ P_O₂ ≈ 10⁻²⁴ atm (ultra-low oxygen = very reducing)"}<br /><br />
+          {"O-rich limit: Δμ_O = 0 eV (impossible, capped by O₂ condensation)"}<br />
+          {"Practical O-rich: Δμ_O ≈ −1.08 eV → P_O₂ = 1 atm"}<br /><br />
+          <span style={{ color: CH.stable, fontWeight: 700 }}>{"Growth window at 1000 K:"}</span><br />
+          {"P_O₂ from ~10⁻²⁴ atm (Zn-rich) to ~1 atm (O-rich)"}<br />
+          {"In practice: 10⁻⁵ to 10⁻¹ atm is typical for MBE/PLD growth"}
+        </div>
+      </Card>
+
+      <Card collapsible title="Key Formulas Summary" color={CH.accent}>
+        <div style={chMathBlock}>
+          <span style={{ color: CH.accent, fontWeight: 700 }}>{"Gas-phase chemical potential:"}</span><br />
+          {"μ_gas(T,P) = E_DFT + ΔH(T) − TΔS(T) + k_BT ln(P/P⁰)"}<br /><br />
+          <span style={{ color: CH.accent, fontWeight: 700 }}>{"Oxygen:"}</span><br />
+          {"Δμ_O(T,P) = ½[ΔH_O₂(T) − TΔS_O₂(T) + k_BT ln(P_O₂/P⁰)]"}<br /><br />
+          <span style={{ color: CH.accent, fontWeight: 700 }}>{"Sulfur (from H₂S):"}</span><br />
+          {"Δμ_S(T) = ΔG°_f(H₂S,T) + k_BT ln(P_H₂S/P_H₂)"}<br /><br />
+          <span style={{ color: CH.accent, fontWeight: 700 }}>{"Invert to get pressure:"}</span><br />
+          {"P = P⁰ × exp[(μ − μ_ref) / k_BT]"}<br /><br />
+          <span style={{ color: T.muted }}>{"Key data sources: NIST-JANAF tables, CODATA, phonon calculations"}</span><br />
+          <span style={{ color: T.muted }}>{"Software: CPLAP (Chemical Potential Limits Analysis Program)"}</span>
+        </div>
+      </Card>
+    </div>
+  );
+}
 
 function ConvexHullModule() {
   const [active, setActive] = useState("overview");
