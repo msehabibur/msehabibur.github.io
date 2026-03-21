@@ -6121,7 +6121,7 @@ function DFTFAQSection() {
       <DFT_ANALOGY_BOX text={"Before diving into the equations, let’s answer the questions that every student asks when they first encounter quantum mechanics and electronic structure. These aren’t silly questions — they’re the deep foundations that DFT is built upon."} />
 
       {/* 1. Why doesn't electron fall */}
-      <Card title={"Why doesn’t the electron fall into the nucleus?"} color={D.main}>
+      <Card title={"Q1. Why doesn’t the electron fall into the nucleus?"} color={D.main}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Classical physics says opposite charges should collapse together. But quantum mechanics says electrons are waves. Confining a wave to a tiny space requires enormous kinetic energy (Heisenberg uncertainty principle). The electron settles where attraction balances the kinetic cost of confinement.
         </div>
@@ -6190,7 +6190,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* 2. What is an orbital */}
-      <Card title={"What actually IS an electron orbital?"} color={D.eqn}>
+      <Card title={"Q2. What actually IS an electron orbital?"} color={D.eqn}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌧️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>An orbital is like a rain probability map: it doesn't tell you where the next raindrop will fall, but shows where rain is most likely. Denser shading = higher probability of finding the electron.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📸</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a long-exposure photo of a firefly: the bright spots show where the firefly spent the most time. The orbital is the long-exposure photo of an electron's position.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           An orbital is a probability map — it tells you the likelihood of finding the electron at each point. The 1s orbital is a fuzzy sphere, densest at the nucleus. Higher orbitals have nodes (zero-probability surfaces).
         </div>
@@ -6233,7 +6237,7 @@ function DFTFAQSection() {
       </Card>
 
       {/* 3. Why can't we solve exactly */}
-      <Card title={"Why can’t we just solve the Schrödinger equation exactly?"} color={D.warn}>
+      <Card title={"Q3. Why can’t we just solve the Schrödinger equation exactly?"} color={D.warn}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           For hydrogen (1 electron) we can solve exactly. For helium (2 electrons) it’s already approximate. The problem: electron-electron repulsion couples all electrons. For N electrons, the wavefunction needs 3N dimensions.
         </div>
@@ -6278,7 +6282,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* 4. What is a wavefunction */}
-      <Card title={"What is a wavefunction, really?"} color={D.xc}>
+      <Card title={"Q4. What is a wavefunction, really?"} color={D.xc}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎵</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a musical note: the wavefunction is the sound wave (can be positive or negative), while |Ψ|² is the loudness (always positive). You hear loudness, but the wave carries the full information.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌊</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like ocean waves: the height can be positive (crest) or negative (trough), but the energy (|Ψ|²) is always positive. Waves can interfere — constructive (amplify) or destructive (cancel).</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           A mathematical object Ψ(r) encoding everything about a quantum particle. Its square |Ψ|² gives the probability density. DFT’s key insight: you don’t need Ψ directly — the electron density n(r) contains all ground-state physics.
         </div>
@@ -6331,7 +6339,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* 5. Electron spin */}
-      <Card title={"What is electron spin and why does it matter?"} color={D.basis}>
+      <Card title={"Q5. What is electron spin and why does it matter?"} color={D.basis}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎭</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like seats on a bus: each seat (orbital) holds exactly 2 people, but they must face opposite directions (↑ and ↓ spin). Once a seat is full, the next person must take a higher-energy seat further back.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔒</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a security clearance: two identical-spin electrons can never be at the same place (Pauli exclusion). This 'quantum lock' is why matter has volume — electrons can't all collapse to the lowest orbital.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Electrons have intrinsic spin: ↑ (up) or ↓ (down). The Pauli exclusion principle says no two electrons can have the same quantum numbers. This forces electrons into higher orbitals, building the periodic table.
         </div>
@@ -6364,7 +6376,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* 6. Band gaps */}
-      <Card title={"Why does DFT underestimate band gaps?"} color={D.warm}>
+      <Card title={"Q6. Why does DFT underestimate band gaps?"} color={D.warm}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📏</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like measuring a doorway with a bent ruler: DFT's approximate exchange-correlation systematically bends the ruler, making every gap look smaller. HSE06 straightens the ruler with exact exchange.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎯</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a scale that always reads 2 kg too light: PBE consistently underweighs band gaps. You can recalibrate (use HSE06/GW), but you must know the scale is off.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           DFT is for ground-state properties. Band gaps involve excited states. Self-interaction error in LDA/GGA pushes occupied states up and empty states down, shrinking the gap. Hybrid functionals or GW correct this.
         </div>
@@ -6406,7 +6422,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* 6b. Ground state but band gaps? */}
-      <Card title={"DFT is for ground states — so why do we calculate band gaps?"} color={D.eqn}>
+      <Card title={"Q7. DFT is for ground states — so why do we calculate band gaps?"} color={D.eqn}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏠</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like appraising a house: DFT knows the exact value of the house you own (ground state). The cost to buy the next house (excited state) isn't guaranteed, but the neighbourhood price (KS eigenvalues) gives a useful estimate.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🧊</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like knowing the temperature of an ice cube (ground state) and estimating the heat needed to melt it (excitation). The estimate is useful but not exact — you need calorimetry (GW) for precision.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The Hohenberg-Kohn theorems rigorously guarantee that DFT yields exact <strong>ground-state</strong> properties:
           total energy E, electron density n(r), and forces on nuclei. A band gap, however, is fundamentally
@@ -6417,7 +6437,11 @@ function DFTFAQSection() {
         </div>
       </Card>
 
-      <Card title={"What is an eigenvalue? What are Kohn-Sham eigenvalues?"} color={D.basis}>
+      <Card title={"Q8. What is an eigenvalue? What are Kohn-Sham eigenvalues?"} color={D.basis}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔔</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a bell: when struck, it vibrates at specific natural frequencies (eigenvalues). You can't make a bell ring at arbitrary frequencies — only its characteristic ones. Energy eigenvalues are the 'natural frequencies' of quantum systems.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🪜</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like rungs on a ladder: electrons can only stand on specific rungs (eigenvalues), never between them. KS eigenvalues are the rungs of a fictitious ladder that gives the right density but not necessarily the right rung spacing.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           An <strong style={{ color: D.basis }}>eigenvalue</strong> comes from the mathematical equation
           <strong> A x = λ x</strong>, where A is an operator, x is the eigenvector (or eigenfunction),
@@ -6453,7 +6477,11 @@ function DFTFAQSection() {
         </div>
       </Card>
 
-      <Card title={"What is a quasiparticle?"} color={D.xc}>
+      <Card title={"Q9. What is a quasiparticle?"} color={D.xc}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏈</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a running back in football: the player (electron) plus the pocket of blockers around him (screening cloud) move as one unit. The 'quasiparticle' is the player + entourage, with different effective speed (mass) than the bare player.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🫧</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a bubble in water: it's not just empty space — it's the air plus the water surface tension around it, moving as one entity with its own effective properties.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In a real solid, when you add an electron, it doesn{"'"}t just sit there. It repels nearby
           electrons, creating a <strong>screening cloud</strong> around itself. The electron + its screening
@@ -6486,7 +6514,11 @@ function DFTFAQSection() {
         </div>
       </Card>
 
-      <Card title={"The GW Approximation — getting band gaps right"} color={D.accent}>
+      <Card title={"Q10. The GW Approximation — getting band gaps right"} color={D.accent}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📡</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like upgrading from AM to FM radio: DFT (AM) gives you the song but with static. GW (FM) computes the exact screening environment, removing the static to give crisp quasiparticle energies.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔬</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like switching from a magnifying glass (DFT) to an electron microscope (GW): much more expensive, much sharper image. You use the magnifying glass to scan, then the microscope for the important spots.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The <strong style={{ color: D.accent }}>GW approximation</strong> (Hedin, 1965) computes quasiparticle
           energies by approximating the self-energy as the product of the single-particle Green{"'"}s function
@@ -6532,7 +6564,11 @@ function DFTFAQSection() {
         </div>
       </Card>
 
-      <Card title={"The derivative discontinuity — why LDA/GGA gaps are wrong"} color={D.warn}>
+      <Card title={"Q11. The derivative discontinuity — why LDA/GGA gaps are wrong"} color={D.warn}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🚪</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a turnstile that should click when the Nth person passes: the exact XC potential 'clicks' (jumps) when the electron count crosses an integer. LDA/GGA turnstiles are smooth — they don't click, so they miscount (underestimate the gap).</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📊</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a tax bracket: your tax rate jumps discontinuously when your income crosses a threshold. LDA/GGA use a smooth tax curve instead, systematically undertaxing (underestimating the gap).</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The <strong style={{ color: D.warn }}>fundamental gap</strong> of a solid is the energy difference between
           ionization energy I and electron affinity A. In exact DFT, this gap has two contributions:
@@ -6581,7 +6617,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* 7. Exchange and correlation */}
-      <Card title={"What is exchange and correlation in plain English?"} color={D.accent}>
+      <Card title={"Q12. What is exchange and correlation in plain English?"} color={D.accent}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>💃</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Exchange: like same-gender bathroom rules — same-spin electrons avoid each other's space (Pauli exclusion), lowering repulsion. Correlation: all electrons dynamically dodge each other, like dancers avoiding collisions on a crowded floor.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🧲</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Exchange is quantum avoidance (identity-based). Correlation is classical avoidance (charge-based). Together they reduce the electron-electron repulsion below the naive classical estimate.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Exchange: same-spin electrons avoid each other (Pauli), carving an “exchange hole”. Correlation: ALL electrons avoid each other dynamically. Together, XC is the quantum correction to classical repulsion.
         </div>
@@ -6618,7 +6658,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* 8. System size */}
-      <Card title={"How big a system can DFT handle?"} color={D.main}>
+      <Card title={"Q13. How big a system can DFT handle?"} color={D.main}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏗️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like building with LEGO: 100 bricks (atoms) takes minutes. 1,000 takes hours. 10,000 takes days. Beyond that, you need prefab modules (machine-learned potentials) instead of brick-by-brick (DFT).</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🧮</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like multiplying matrices: doubling the atoms means 8× more computation (N³). A 200-atom HSE06 calculation can take weeks on a supercomputer — that's why screening uses PBE first.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Standard DFT scales as O(N³) with electrons. ~100 atoms is routine, ~1,000 feasible, beyond that you need MLFF or classical potentials.
         </div>
@@ -6659,7 +6703,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* 9. Atoms empty space */}
-      <Card title={"Why are atoms mostly empty space?"} color={D.eqn}>
+      <Card title={"Q14. Why are atoms mostly empty space?"} color={D.eqn}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏟️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>If the nucleus were a marble at the center of a football stadium, the nearest electron would be in the upper deck. Everything in between is the quantum probability cloud that DFT computes.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🪐</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like the solar system: the sun (nucleus) is tiny compared to the orbits of planets (electron cloud). Yet the electron cloud determines all of chemistry, just as gravity shapes the solar system.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The nucleus is ~10⁻¹⁵ m, the electron cloud ~10⁻¹⁰ m. That’s a factor of 100,000. If the nucleus were a marble, the atom would be a football stadium. DFT computes this cloud.
         </div>
@@ -6672,7 +6720,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* 10. Metal vs insulator */}
-      <Card title={"What is the difference between a metal and an insulator?"} color={D.basis}>
+      <Card title={"Q15. What is the difference between a metal and an insulator?"} color={D.basis}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🚗</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Metal = open highway (electrons flow freely). Semiconductor = toll road (need a bit of energy to enter). Insulator = brick wall (electrons can't get through without enormous energy).</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎪</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a theater: metal = standing room only (partially filled, people can move). Insulator = sold-out seated show (all seats full, nobody can move). Semiconductor = one empty row if someone stands up (small gap).</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           It’s all about the band gap. Metals have partially filled bands (electrons move freely). Insulators have a large gap. Semiconductors have a small gap crossable by heat or light.
         </div>
@@ -6726,7 +6778,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* 11. Element properties */}
-      <Card title={"Why do different elements have different properties?"} color={D.warm}>
+      <Card title={"Q16. Why do different elements have different properties?"} color={D.warm}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎰</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a parking garage: electrons fill levels from bottom up. Na has 1 car on the top floor (reactive metal). Si has 4 (semiconductor). Ar's top floor is completely full (noble gas — inert). The top-floor arrangement dictates everything.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎹</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like piano keys: each element adds one more proton and electron, filling orbitals like pressing the next key. The pattern of filled/empty keys determines the 'chord' (properties).</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Each element has a different number of protons → different electrons → different orbital filling. Valence electrons determine bonding and properties. DFT solves for these configurations self-consistently.
         </div>
@@ -6740,7 +6796,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* 12. Crystal periodicity */}
-      <Card title={"What is a crystal, and why does periodicity matter for DFT?"} color={D.xc}>
+      <Card title={"Q17. What is a crystal, and why does periodicity matter for DFT?"} color={D.xc}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🧱</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like wallpaper: you only need to design one tile, then repeat it infinitely. DFT exploits this — solve one unit cell, and Bloch's theorem gives you the entire infinite crystal for free.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎼</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like sheet music with a repeating pattern: instead of writing every note for an infinite symphony, you write one bar and say 'repeat forever'. That's what periodicity does for DFT.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           A crystal repeats atoms in a regular 3D pattern. Instead of solving for 10²³ atoms, you solve for one unit cell. Bloch’s theorem exploits this periodicity.
         </div>
@@ -6753,7 +6813,7 @@ function DFTFAQSection() {
       </Card>
 
       {/* 13. Predicting new materials */}
-      <Card title={"Can DFT predict new materials that don’t exist yet?"} color={D.accent}>
+      <Card title={"Q18. Can DFT predict new materials that don’t exist yet?"} color={D.accent}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Yes! Build any structure on a computer, run DFT, predict stability, band gap, hardness — all before synthesis. The Materials Project has DFT data for {">"}150,000 materials.
         </div>
@@ -6767,7 +6827,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* 14. Phonons */}
-      <Card title={"What is a phonon and why should I care?"} color={D.main}>
+      <Card title={"Q19. What is a phonon and why should I care?"} color={D.main}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔔</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like vibrations in a bell: atoms in a crystal jiggle at specific frequencies (phonons). The vibration pattern tells you if the structure is stable (real frequencies) or unstable (imaginary = will collapse).</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌡️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like heat flowing through a chain of people passing buckets: phonons carry thermal energy. More phonon modes = higher heat capacity. Fast phonons = high thermal conductivity (diamond).</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           A phonon is a quantum of lattice vibration. Phonons determine thermal conductivity, heat capacity, and structural stability. Imaginary frequencies = unstable structure.
         </div>
@@ -6815,7 +6879,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* 15. Pseudopotential */}
-      <Card title={"What is a pseudopotential and why do we need one?"} color={D.eqn}>
+      <Card title={"Q20. What is a pseudopotential and why do we need one?"} color={D.eqn}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📝</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like CliffsNotes for a novel: core electrons are the predictable backstory (1s, 2s of heavy atoms). The pseudopotential summarizes them so you only read the exciting chapters (valence electrons).</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🖼️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like compressing a photo: the core region has wild oscillations (huge file). The pseudopotential smooths them out (compressed file) while keeping the important features (valence physics) intact.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Core electrons barely participate in chemistry but oscillate wildly near nuclei. A pseudopotential replaces them with a smooth effective potential, reducing computation by orders of magnitude.
         </div>
@@ -6865,7 +6933,7 @@ function DFTFAQSection() {
       </div>
 
       {/* A1. Koopmans' theorem */}
-      <Card title={"What is Koopmans’ theorem and does it hold in DFT?"} color={D.eqn}>
+      <Card title={"Q21. What is Koopmans’ theorem and does it hold in DFT?"} color={D.eqn}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In Hartree-Fock, Koopmans{"'"} theorem says the orbital energy ε_i equals the
           negative ionization energy from that orbital (for frozen orbitals). In DFT, this is
@@ -6883,7 +6951,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* A2. v-representability */}
-      <Card title={"What is v-representability and why does it matter?"} color={D.xc}>
+      <Card title={"Q22. What is v-representability and why does it matter?"} color={D.xc}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🗺️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like asking: can every possible height map (density) correspond to a real landscape (potential)? Some theoretical density profiles might not come from any physical potential — a subtle mathematical trap.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🧩</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like checking if a jigsaw puzzle piece actually belongs to the puzzle: Levy's constrained search sidesteps the issue by minimizing over all wavefunctions giving a density, without asking if a potential exists.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The HK theorem says every ground-state density n(r) comes from some external potential v(r).
           But the reverse question is tricky: given an arbitrary density, does a potential exist that
@@ -6901,7 +6973,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* A3. DFT vs wavefunction methods */}
-      <Card title={"When should you use wavefunction methods instead of DFT?"} color={D.basis}>
+      <Card title={"Q23. When should you use wavefunction methods instead of DFT?"} color={D.basis}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔧</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>DFT is a Swiss Army knife — great for most jobs. But for precision surgery (chemical accuracy), you need a scalpel (CCSD(T)). For tangled systems (strong correlation), you need specialized tools (CASSCF/DMRG).</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📐</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like architecture: DFT is the quick 3D model (good enough for most). Wavefunction methods are the full engineering blueprint (exact but 1000× more expensive). Use the blueprint only for critical structures.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           DFT is fast but approximate. Wavefunction methods (CCSD(T), CASSCF, DMRG) are systematically
           improvable but far more expensive. Use wavefunction methods when DFT fails:
@@ -6924,7 +7000,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* A4. Charge transfer */}
-      <Card title={"Why does DFT struggle with charge-transfer states?"} color={D.warm}>
+      <Card title={"Q24. Why does DFT struggle with charge-transfer states?"} color={D.warm}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📬</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like sending mail: the cost depends on distance. LDA/GGA charge the same postage regardless of distance (local). Real charge-transfer costs depend on donor-acceptor separation (−1/R). Range-separated hybrids fix the postage.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔋</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a battery: moving charge across a distance costs energy proportional to 1/R. Standard DFT can't see this distance-dependence because its exchange is local.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Charge-transfer (CT) excitations involve moving an electron from a donor to an acceptor
           separated by distance R. Standard TDDFT with LDA/GGA predicts CT excitation energies
@@ -6941,7 +7021,7 @@ function DFTFAQSection() {
       </Card>
 
       {/* A5. Dispersion / vdW */}
-      <Card title={"Why can’t standard DFT describe van der Waals interactions?"} color={D.accent}>
+      <Card title={"Q25. Why can’t standard DFT describe van der Waals interactions?"} color={D.accent}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Van der Waals (dispersion) forces arise from correlated fluctuations of electron density
           between distant fragments. LDA/GGA are <strong>local or semi-local</strong> — they only see
@@ -6960,7 +7040,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* A6. Strongly correlated */}
-      <Card title={"What are strongly correlated systems and why does DFT fail?"} color={D.warn}>
+      <Card title={"Q26. What are strongly correlated systems and why does DFT fail?"} color={D.warn}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎭</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a traffic jam: when cars (electrons) are sparse, they move independently (DFT works). In a jam (strong correlation), every car's movement depends on all others simultaneously — the independent-particle picture collapses.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏀</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like basketball vs. solo sports: DFT treats electrons as solo runners on adjacent tracks. Strongly correlated systems are like basketball — every player's move depends on all teammates and opponents.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In most materials, electrons behave somewhat independently (weakly correlated) — DFT works.
           But in some systems (Mott insulators, heavy fermion, cuprate superconductors),
@@ -6980,7 +7064,7 @@ function DFTFAQSection() {
       </Card>
 
       {/* A7. Janak's theorem */}
-      <Card title={"What is Janak’s theorem and what does it tell us?"} color={D.eqn}>
+      <Card title={"Q27. What is Janak’s theorem and what does it tell us?"} color={D.eqn}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Janak’s theorem relates the KS eigenvalue to the derivative of total energy with
           respect to orbital occupation. It’s the DFT analogue of Koopmans{"'"} theorem and provides
@@ -6997,7 +7081,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* A8. Hellmann-Feynman */}
-      <Card title={"What is the Hellmann-Feynman theorem and why do forces matter?"} color={D.basis}>
+      <Card title={"Q28. What is the Hellmann-Feynman theorem and why do forces matter?"} color={D.basis}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>⚡</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a charged ball in an electric field: you don't need to know the ball's internal structure — just the external field and the charge distribution. Similarly, nuclear forces depend only on electron density and nuclear positions.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🧭</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a compass pointing downhill: forces tell atoms which direction lowers the energy. Follow the forces to zero = equilibrium structure. Shake atoms and track forces = phonons and molecular dynamics.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The Hellmann-Feynman theorem says the force on a nucleus equals the classical electrostatic
           force from the electron density and other nuclei. In plane-wave DFT, this is exact
@@ -7015,7 +7103,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* A9. Brillouin zone sampling */}
-      <Card title={"Why do we need k-point sampling and how does it affect results?"} color={D.main}>
+      <Card title={"Q29. Why do we need k-point sampling and how does it affect results?"} color={D.main}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🗳️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like polling voters: you can't ask everyone in the Brillouin zone, so you sample at representative k-points. Too few samples = biased results. More k-points = more accurate but slower, like a larger poll.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📸</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like pixel resolution: 1×1 k-mesh = 1 pixel (useless). 8×8×8 = decent photo. 20×20×20 = HD. Metals need HD (complex Fermi surface). Semiconductors are fine with decent resolution.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In a periodic crystal, electron states are labelled by crystal momentum <strong>k</strong>.
           Total energy and density require <em>integrating</em> over all k in the Brillouin zone.
@@ -7033,7 +7125,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* A10. DFT+TDDFT */}
-      <Card title={"What is TDDFT and when do you need it?"} color={D.xc}>
+      <Card title={"Q30. What is TDDFT and when do you need it?"} color={D.xc}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>📹</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>DFT is a photograph (ground state snapshot). TDDFT is a video — it captures how the electron density evolves in time when hit by light, giving you absorption spectra and excitation energies.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎸</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like plucking a guitar string: DFT tells you the string's rest position. TDDFT tells you how it vibrates after plucking — the frequencies (excitation energies) and amplitudes (oscillator strengths).</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Time-Dependent DFT extends DFT to excited states and optical properties. Instead of
           the static KS equations, you solve the time-dependent KS equations or (more commonly)
@@ -7051,7 +7147,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* A11. Convergence */}
-      <Card title={"What convergence tests are essential before trusting DFT results?"} color={D.accent}>
+      <Card title={"Q31. What convergence tests are essential before trusting DFT results?"} color={D.accent}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔍</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like calibrating a microscope: you must adjust focus (E_cut), zoom (k-mesh), and exposure (SCF tolerance) until the image stops changing. Publishing uncoverged results is like publishing a blurry photo as 'evidence'.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🧪</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like titration in chemistry: you add more k-points drop by drop until the endpoint (energy convergence) is reached. Stopping too early gives the wrong answer.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           This is a critical interview question. Every DFT calculation has numerical parameters that
           must be converged. Reporting results without convergence tests is <strong style={{ color: D.warn }}>scientifically
@@ -7077,7 +7177,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* A12. Spin-orbit coupling */}
-      <Card title={"What is spin-orbit coupling and when do you need it?"} color={D.warm}>
+      <Card title={"Q32. What is spin-orbit coupling and when do you need it?"} color={D.warm}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌀</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a spinning top in a magnetic field: the top's spin axis precesses around the field direction. Similarly, an electron's spin interacts with the magnetic field created by its own orbital motion around the nucleus.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎯</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like weight classes in boxing: for light elements (C, N, O), SOC is a featherweight effect (meV). For heavy elements (Bi, Pb, W), it's a heavyweight (eV) that completely changes the electronic structure.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Spin-orbit coupling (SOC) is a relativistic effect where an electron’s spin interacts
           with the magnetic field generated by its orbital motion around the nucleus. It scales
@@ -7104,7 +7208,11 @@ function DFTFAQSection() {
       </Card>
 
       {/* A13. DFT limitations summary */}
-      <Card title={"What are the fundamental limitations of DFT?"} color={D.warn}>
+      <Card title={"Q33. What are the fundamental limitations of DFT?"} color={D.warn}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🗺️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Every map has limits: DFT is an incredibly detailed city map but it can't show you the weather (excited states), air quality (strong correlation), or the view from a satellite (long-range dispersion). You need different tools for different questions.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔧</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a Swiss Army knife: incredibly versatile, but you wouldn't use it for brain surgery (strong correlation) or satellite imagery (van der Waals). Knowing the limits is as important as knowing the capabilities.</span></div>
+          </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           An interviewer asking this wants to know you understand where DFT ends and other methods begin.
         </div>
