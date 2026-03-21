@@ -14594,38 +14594,75 @@ function CHChemPotExptSection() {
         </div>
       </Card>
 
-      <Card collapsible title="Numerical Example — ZnO Growth Window" color={CH.main}>
+      <Card collapsible title={"Numerical Example — Growing Cu₂ZnSnS₄ (CZTS)"} color={CH.main}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
-          ZnO is a binary oxide — the simplest case. The stability condition from DFT:
+          CZTS is a quaternary sulfide solar cell absorber with 4 elements. From DFT we know the formation energy and the chemical potential stability polygon. Now let's convert those abstract Δμ values to real synthesis conditions.
         </div>
         <div style={chMathBlock}>
-          {"ΔH_f(ZnO) = −3.60 eV (from DFT)"}<br /><br />
-          {"Stability requires: ΔH_f < Δμ_Zn + Δμ_O < 0"}<br />
-          {"So: −3.60 < Δμ_Zn + Δμ_O < 0"}<br /><br />
-          <span style={{ color: CH.main, fontWeight: 700 }}>{"Convert Δμ_O to P_O₂ at T = 1000 K:"}</span><br /><br />
-          {"Zn-rich limit: Δμ_O = −3.60 eV"}<br />
-          {"→ P_O₂ = P⁰ × exp(2(−3.60 + 1.079) / 0.0862)"}<br />
-          {"→ P_O₂ ≈ 10⁻²⁴ atm (ultra-low oxygen = very reducing)"}<br /><br />
-          {"O-rich limit: Δμ_O = 0 eV (impossible, capped by O₂ condensation)"}<br />
-          {"Practical O-rich: Δμ_O ≈ −1.08 eV → P_O₂ = 1 atm"}<br /><br />
-          <span style={{ color: CH.stable, fontWeight: 700 }}>{"Growth window at 1000 K:"}</span><br />
-          {"P_O₂ from ~10⁻²⁴ atm (Zn-rich) to ~1 atm (O-rich)"}<br />
-          {"In practice: 10⁻⁵ to 10⁻¹ atm is typical for MBE/PLD growth"}
+          <span style={{ color: CH.main, fontWeight: 700 }}>{"Step 1: DFT stability constraints for CZTS"}</span><br /><br />
+          {"ΔH_f(Cu₂ZnSnS₄) = −4.56 eV/f.u. (from DFT-PBE)"}<br /><br />
+          {"Stability requires all of these simultaneously:"}<br />
+          {"  2Δμ_Cu + Δμ_Zn + Δμ_Sn + 4Δμ_S = −4.56 eV"}<br />
+          {"  Δμ_Cu < 0  (no Cu metal precipitation)"}<br />
+          {"  Δμ_Zn < 0  (no Zn metal precipitation)"}<br />
+          {"  Δμ_Sn < 0  (no Sn metal precipitation)"}<br />
+          {"  Δμ_S  < 0  (no S condensation)"}<br /><br />
+          {"Plus competing phases must be avoided:"}<br />
+          {"  Cu₂S:  2Δμ_Cu + Δμ_S > −0.91 eV"}<br />
+          {"  ZnS:   Δμ_Zn + Δμ_S  > −2.02 eV"}<br />
+          {"  SnS:   Δμ_Sn + Δμ_S  > −1.09 eV"}<br />
+          {"  SnS₂:  Δμ_Sn + 2Δμ_S > −1.61 eV"}<br />
+          {"  Cu₂SnS₃: 2Δμ_Cu + Δμ_Sn + 3Δμ_S > −3.28 eV"}
         </div>
-      </Card>
-
-      <Card collapsible title="Key Formulas Summary" color={CH.accent}>
         <div style={chMathBlock}>
-          <span style={{ color: CH.accent, fontWeight: 700 }}>{"Gas-phase chemical potential:"}</span><br />
-          {"μ_gas(T,P) = E_DFT + ΔH(T) − TΔS(T) + k_BT ln(P/P⁰)"}<br /><br />
-          <span style={{ color: CH.accent, fontWeight: 700 }}>{"Oxygen:"}</span><br />
-          {"Δμ_O(T,P) = ½[ΔH_O₂(T) − TΔS_O₂(T) + k_BT ln(P_O₂/P⁰)]"}<br /><br />
-          <span style={{ color: CH.accent, fontWeight: 700 }}>{"Sulfur (from H₂S):"}</span><br />
-          {"Δμ_S(T) = ΔG°_f(H₂S,T) + k_BT ln(P_H₂S/P_H₂)"}<br /><br />
-          <span style={{ color: CH.accent, fontWeight: 700 }}>{"Invert to get pressure:"}</span><br />
-          {"P = P⁰ × exp[(μ − μ_ref) / k_BT]"}<br /><br />
-          <span style={{ color: T.muted }}>{"Key data sources: NIST-JANAF tables, CODATA, phonon calculations"}</span><br />
-          <span style={{ color: T.muted }}>{"Software: CPLAP (Chemical Potential Limits Analysis Program)"}</span>
+          <span style={{ color: CH.accent, fontWeight: 700 }}>{"Step 2: Pick a point inside the CZTS stability polygon"}</span><br /><br />
+          {"From the DFT chemical potential diagram, one stable point is:"}<br />
+          {"  Δμ_Cu = −0.20 eV"}<br />
+          {"  Δμ_Zn = −0.30 eV"}<br />
+          {"  Δμ_Sn = −0.40 eV"}<br />
+          {"  Δμ_S  = −0.87 eV  (from: 2(−0.20) + (−0.30) + (−0.40) + 4Δμ_S = −4.56)"}<br /><br />
+          {"Check: 2(−0.20)+(−0.30)+(−0.40)+4(−0.87) = −0.40−0.30−0.40−3.48 = −4.58 ≈ −4.56 ✓"}
+        </div>
+        <div style={chMathBlock}>
+          <span style={{ color: CH.hull, fontWeight: 700 }}>{"Step 3: Convert Δμ_S to H₂S/H₂ pressure ratio"}</span><br /><br />
+          {"Using: Δμ_S = ΔG°_f(H₂S, T) + k_BT × ln(P_H₂S / P_H₂)"}<br /><br />
+          {"At growth temperature T = 823 K (550°C):"}<br />
+          {"  k_BT = 8.617×10⁻⁵ × 823 = 0.0709 eV"}<br />
+          {"  ΔG°_f(H₂S, 823K) = −0.34 eV (from NIST-JANAF)"}<br /><br />
+          {"Solve for P_H₂S/P_H₂:"}<br />
+          {"  −0.87 = −0.34 + 0.0709 × ln(P_H₂S/P_H₂)"}<br />
+          {"  ln(P_H₂S/P_H₂) = (−0.87 + 0.34) / 0.0709 = −7.47"}<br />
+          <span style={{ color: CH.hull, fontWeight: 700 }}>{"  P_H₂S/P_H₂ = exp(−7.47) = 5.7 × 10⁻⁴"}</span><br /><br />
+          <span style={{ color: CH.stable }}>{"→ Use about 0.06% H₂S in H₂ carrier gas at 550°C"}</span>
+        </div>
+        <div style={chMathBlock}>
+          <span style={{ color: CH.warm, fontWeight: 700 }}>{"Step 4: Convert Δμ_metals to MBE source temperatures"}</span><br /><br />
+          {"For Cu effusion cell:"}<br />
+          {"  Δμ_Cu = k_BT × ln(P_Cu / P_sat,Cu(T_source))"}<br />
+          {"  At substrate T = 823K: Δμ_Cu = −0.20 eV"}<br /><br />
+          {"  Using Clausius-Clapeyron for Cu vapour pressure:"}<br />
+          {"  ln(P_sat) = A − B/T, with A = 17.7, B = 40,000 K for Cu"}<br /><br />
+          {"  P_Cu = P_sat × exp(Δμ_Cu / k_BT)"}<br />
+          {"  = P_sat × exp(−0.20/0.0709) = P_sat × exp(−2.82)"}<br />
+          {"  = P_sat × 0.060"}<br /><br />
+          <span style={{ color: CH.warm }}>{"→ Cu flux should be ~6% of saturated vapour pressure"}</span><br />
+          <span style={{ color: T.muted }}>{"This translates to a Cu cell temperature of ~1050°C for typical MBE geometry"}</span><br /><br />
+          {"Similarly for Zn (Δμ_Zn = −0.30 eV) and Sn (Δμ_Sn = −0.40 eV):"}<br />
+          {"  Zn: exp(−0.30/0.0709) = 0.015 → Zn cell ~350°C"}<br />
+          {"  Sn: exp(−0.40/0.0709) = 0.004 → Sn cell ~1100°C"}
+        </div>
+        <div style={chMathBlock}>
+          <span style={{ color: CH.stable, fontWeight: 700 }}>{"Step 5: Final recipe to grow CZTS at 550°C"}</span><br /><br />
+          {"Substrate temperature: 550°C (823 K)"}<br />
+          {"Sulfur source: H₂S in H₂, ratio = 5.7 × 10⁻⁴ (0.06%)"}<br />
+          {"Cu effusion cell: ~1050°C"}<br />
+          {"Zn effusion cell: ~350°C"}<br />
+          {"Sn effusion cell: ~1100°C"}<br /><br />
+          <span style={{ color: CH.warm }}>{"⚠ These are approximate — real MBE geometry, sticking coefficients,"}</span><br />
+          <span style={{ color: CH.warm }}>{"and re-evaporation from the substrate will shift optimal conditions."}</span><br />
+          <span style={{ color: CH.stable }}>{"But the DFT chemical potential diagram tells you WHERE in parameter"}</span><br />
+          <span style={{ color: CH.stable }}>{"space to look — narrowing a 4D search to a small region."}
+          </span>
         </div>
       </Card>
     </div>
