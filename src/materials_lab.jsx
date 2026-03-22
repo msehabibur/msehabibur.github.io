@@ -10744,6 +10744,21 @@ const MD_BLOCKS = [
 ];
 
 function MDIntroSection() {
+  const [introN, setIntroN] = useState(64);
+  const [introT, setIntroT] = useState(300);
+  const [introDt, setIntroDt] = useState(2);
+  const [introTick, setIntroTick] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setIntroTick(t => t + 1), 100);
+    return () => clearInterval(id);
+  }, []);
+
+  const totalSteps = Math.round(10 / (introDt * 1e-3));
+  const simTime = totalSteps * introDt;
+  const kB = 8.617e-5;
+  const totalKE = 1.5 * introN * kB * introT;
+
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
@@ -10765,6 +10780,51 @@ function MDIntroSection() {
             DFT gives you the ground state at T = 0 K. But real materials exist at finite
             temperature: atoms vibrate, diffuse, and undergo phase transitions. MD simulates
             this by propagating atomic trajectories forward in time.
+          </div>
+        </Card>
+
+        {/* Animated atoms visualization */}
+        <Card title="Watch Atoms Move" color={MD.newton}>
+          <svg width={320} height={180} style={{ background: T.surface, borderRadius: 10, border: `1px solid ${T.border}`, display: "block", margin: "0 auto" }}>
+            <rect x={10} y={10} width={300} height={160} rx={6} fill={MD.main + "06"} stroke={MD.main} strokeWidth={1.5} />
+            {Array.from({ length: Math.min(introN, 24) }, (_, i) => {
+              const cols = 6, rows = 4;
+              const cx = 30 + (i % cols) * 48;
+              const cy = 30 + Math.floor(i / cols) * 38;
+              const amp = introT / 100;
+              const phase = introTick * 0.12 + i * 1.7;
+              return <circle key={i} cx={cx + amp * Math.sin(phase)} cy={cy + amp * Math.cos(phase * 0.8 + i)} r={5} fill={MD.newton + "90"} stroke={MD.newton} strokeWidth={1} />;
+            })}
+            <text x={160} y={178} textAnchor="middle" fill={T.muted} fontSize={9}>T = {introT} K | N = {introN} atoms | {introT > 800 ? "High vibration amplitude" : introT > 300 ? "Moderate vibration" : "Low vibration"}</text>
+          </svg>
+        </Card>
+
+        {/* Interactive MD planner */}
+        <Card title="Interactive: Plan Your MD Simulation" color={MD.prop}>
+          <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 220 }}>
+              <SliderRow label="N — number of atoms" value={introN} min={4} max={512} step={4} onChange={setIntroN} color={MD.main} format={v => v.toFixed(0)} />
+              <SliderRow label="T — target temperature" value={introT} min={10} max={3000} step={10} onChange={setIntroT} color={MD.thermo} unit=" K" format={v => v.toFixed(0)} />
+              <SliderRow label="Δt — time step" value={introDt} min={0.5} max={5} step={0.5} onChange={setIntroDt} color={MD.warn} unit=" fs" />
+            </div>
+            <div style={{ flex: 1, minWidth: 240 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 10 }}>
+                <ResultBox label="Steps for 10 ps" value={totalSteps.toLocaleString()} color={MD.newton} sub="MD steps" />
+                <ResultBox label="Total KE" value={totalKE.toFixed(3)} color={MD.thermo} sub="eV" />
+                <ResultBox label="Sim time" value={(simTime / 1000).toFixed(1)} color={MD.main} sub="ps" />
+                <ResultBox label="Pairs to check" value={((introN * (introN - 1)) / 2).toLocaleString()} color={MD.prop} sub="per step" />
+              </div>
+              <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+                <CalcRow eq={`Steps = 10 ps / ${introDt} fs`} result={totalSteps.toLocaleString()} color={MD.newton} />
+                <CalcRow eq={`KE = 3/2 × ${introN} × kB × ${introT}`} result={`${totalKE.toFixed(3)} eV`} color={MD.thermo} />
+                <CalcRow eq={`Pairs = N(N-1)/2`} result={((introN * (introN - 1)) / 2).toLocaleString()} color={MD.prop} />
+              </div>
+              <div style={{ marginTop: 8, fontSize: 11, color: T.muted, lineHeight: 1.6, background: MD.prop + "08", borderRadius: 8, padding: "8px 12px" }}>
+                {introN <= 32 && <span style={{ color: MD.warn, fontWeight: 700 }}>Small cell — large finite-size effects. Use for testing only.</span>}
+                {introN > 32 && introN <= 128 && <span>Good size for AIMD. Classical MD can handle much larger.</span>}
+                {introN > 128 && <span>Large cell — classical MD or MLFF recommended. AIMD will be very expensive.</span>}
+              </div>
+            </div>
           </div>
         </Card>
 
@@ -11313,6 +11373,17 @@ function MDEnsemblesSection() {
 }
 
 function MDAimdSection() {
+  const [aimdN, setAimdN] = useState(64);
+  const [aimdDt, setAimdDt] = useState(1.0);
+  const [aimdNsw, setAimdNsw] = useState(5000);
+  const [aimdCores, setAimdCores] = useState(32);
+  const [aimdT, setAimdT] = useState(800);
+
+  const secPerStep = (aimdN / 64) * (aimdN / 64) * 60 / (aimdCores / 32);
+  const totalTimPs = aimdNsw * aimdDt / 1000;
+  const wallHrs = (aimdNsw * secPerStep) / 3600;
+  const cpuHrs = wallHrs * aimdCores;
+
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
@@ -11337,6 +11408,39 @@ function MDAimdSection() {
           </div>
         </Card>
 
+        {/* Interactive AIMD cost estimator */}
+        <Card title="Interactive: AIMD Cost Estimator" color={MD.warn}>
+          <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 220 }}>
+              <SliderRow label="N — atoms in cell" value={aimdN} min={8} max={256} step={8} onChange={setAimdN} color={MD.aimd} format={v => v.toFixed(0)} />
+              <SliderRow label="Δt — time step" value={aimdDt} min={0.5} max={3.0} step={0.5} onChange={setAimdDt} color={MD.warn} unit=" fs" />
+              <SliderRow label="NSW — total MD steps" value={aimdNsw} min={500} max={20000} step={500} onChange={setAimdNsw} color={MD.main} format={v => v.toFixed(0)} />
+              <SliderRow label="Cores" value={aimdCores} min={4} max={256} step={4} onChange={setAimdCores} color={MD.prop} format={v => v.toFixed(0)} />
+              <SliderRow label="Temperature" value={aimdT} min={100} max={3000} step={50} onChange={setAimdT} color={MD.thermo} unit=" K" format={v => v.toFixed(0)} />
+            </div>
+            <div style={{ flex: 1, minWidth: 240 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 10 }}>
+                <ResultBox label="Sim time" value={totalTimPs.toFixed(1)} color={MD.main} sub="ps" />
+                <ResultBox label="Wall time" value={wallHrs < 24 ? wallHrs.toFixed(1) + " hrs" : (wallHrs / 24).toFixed(1) + " days"} color={MD.warn} sub={wallHrs < 24 ? "" : `${wallHrs.toFixed(0)} hrs`} />
+                <ResultBox label="CPU-hours" value={cpuHrs < 1000 ? cpuHrs.toFixed(0) : (cpuHrs / 1000).toFixed(1) + "k"} color={MD.aimd} sub="CPU-hrs" />
+                <ResultBox label="~sec/step" value={secPerStep.toFixed(1)} color={MD.prop} sub="seconds" />
+              </div>
+              <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+                <CalcRow eq={`Sim time = ${aimdNsw} × ${aimdDt} fs`} result={`${totalTimPs.toFixed(1)} ps`} color={MD.main} />
+                <CalcRow eq={`sec/step ≈ (N/64)² × 60 / (cores/32)`} result={`${secPerStep.toFixed(1)} s`} color={MD.prop} />
+                <CalcRow eq={`Wall = ${aimdNsw} × ${secPerStep.toFixed(1)} s`} result={wallHrs < 24 ? `${wallHrs.toFixed(1)} hrs` : `${(wallHrs / 24).toFixed(1)} days`} color={MD.warn} />
+                <CalcRow eq={`CPU-hrs = wall × ${aimdCores} cores`} result={`${cpuHrs.toFixed(0)}`} color={MD.aimd} />
+              </div>
+              <div style={{ marginTop: 8, fontSize: 11, lineHeight: 1.6, background: MD.aimd + "08", borderRadius: 8, padding: "8px 12px" }}>
+                {cpuHrs > 50000 && <span style={{ color: MD.warn, fontWeight: 700 }}>Very expensive! Consider MLFF-MD or smaller cell.</span>}
+                {cpuHrs > 10000 && cpuHrs <= 50000 && <span style={{ color: MD.warn }}>Large job — typical for AIMD research. Budget {(cpuHrs / 1000).toFixed(0)}k CPU-hrs.</span>}
+                {cpuHrs <= 10000 && cpuHrs > 1000 && <span style={{ color: MD.main }}>Moderate cost. Feasible on a HPC cluster allocation.</span>}
+                {cpuHrs <= 1000 && <span style={{ color: MD.main, fontWeight: 700 }}>Affordable! Can run on a small cluster or workstation.</span>}
+              </div>
+            </div>
+          </div>
+        </Card>
+
         <Card title="AIMD Cost Comparison" color={MD.warn}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
             {[
@@ -11357,19 +11461,19 @@ function MDAimdSection() {
           </div>
         </Card>
 
-        <Card title="VASP AIMD Settings" color={MD.prop}>
+        <Card title="Interactive: VASP AIMD Input Generator" color={MD.prop}>
           <div style={{
             fontFamily: "'JetBrains Mono', monospace", fontSize: 11, lineHeight: 1.7,
             background: T.surface, color: T.ink, border: `1px solid ${T.border}`,
             borderRadius: 10, padding: "18px 20px",
           }}>
-            <pre style={{ margin: 0 }}>{`# AIMD in VASP
+            <pre style={{ margin: 0 }}>{`# AIMD in VASP — ${aimdN} atoms, ${aimdT} K, ${totalTimPs.toFixed(1)} ps
 IBRION  = 0       # MD mode
-POTIM   = 1.0     # Timestep (fs)
-NSW     = 5000    # Number of MD steps (= 5 ps)
+POTIM   = ${aimdDt.toFixed(1)}     # Timestep (fs)
+NSW     = ${aimdNsw}    # Number of MD steps (= ${totalTimPs.toFixed(1)} ps)
 SMASS   = 0       # Nose-Hoover thermostat
-TEBEG   = 800     # Starting temperature (K)
-TEEND   = 800     # Final temperature (K)
+TEBEG   = ${aimdT}     # Starting temperature (K)
+TEEND   = ${aimdT}     # Final temperature (K)
 
 # Reduce accuracy slightly for speed
 PREC    = Normal  # (not Accurate)
@@ -11383,6 +11487,14 @@ NELMIN  = 4       # Minimum SCF steps`}</pre>
 }
 
 function MDClassicalSection() {
+  const [ljR, setLjR] = useState(3.0);
+  const [ljEps, setLjEps] = useState(0.01);
+  const [ljSig, setLjSig] = useState(2.55);
+
+  const sr6 = Math.pow(ljSig / ljR, 6);
+  const ljV = 4 * ljEps * (sr6 * sr6 - sr6);
+  const ljF = 24 * ljEps * (2 * sr6 * sr6 - sr6) / ljR;
+
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
@@ -11446,6 +11558,40 @@ function MDClassicalSection() {
               ))}
             </tbody>
           </table>
+        </Card>
+
+        {/* Interactive LJ calculator */}
+        <Card title="Interactive: Lennard-Jones Potential" color={MD.thermo}>
+          <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 220 }}>
+              <SliderRow label="r — interatomic distance" value={ljR} min={2.0} max={8.0} step={0.05} onChange={setLjR} color={MD.cls} unit=" Å" />
+              <SliderRow label="ε — well depth" value={ljEps} min={0.001} max={0.5} step={0.001} onChange={setLjEps} color={MD.thermo} unit=" eV" format={v => v.toFixed(3)} />
+              <SliderRow label="σ — zero-crossing" value={ljSig} min={1.5} max={4.0} step={0.05} onChange={setLjSig} color={MD.newton} unit=" Å" />
+              <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+                V(r) = 4ε[(σ/r)¹² − (σ/r)⁶]<br />
+                Minimum at r = 2^(1/6) × σ = {(Math.pow(2, 1/6) * ljSig).toFixed(3)} Å
+              </div>
+            </div>
+            <div style={{ flex: 1, minWidth: 240 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 10 }}>
+                <ResultBox label="V(r)" value={ljV.toFixed(5)} color={ljV > 0 ? MD.warn : MD.main} sub="eV" />
+                <ResultBox label="F(r)" value={ljF.toFixed(5)} color={ljF > 0 ? MD.warn : MD.newton} sub="eV/Å" />
+                <ResultBox label="r_min" value={(Math.pow(2, 1/6) * ljSig).toFixed(3)} color={MD.main} sub="Å" />
+                <ResultBox label="V(r_min)" value={(-ljEps).toFixed(5)} color={MD.thermo} sub="eV" />
+              </div>
+              <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+                <CalcRow eq={`(σ/r)⁶ = (${ljSig.toFixed(2)}/${ljR.toFixed(2)})⁶`} result={sr6.toFixed(5)} color={MD.newton} />
+                <CalcRow eq={`V = 4×${ljEps.toFixed(3)}×(${(sr6*sr6).toFixed(5)} − ${sr6.toFixed(5)})`} result={`${ljV.toFixed(5)} eV`} color={ljV > 0 ? MD.warn : MD.main} />
+                <CalcRow eq="F = −dV/dr" result={`${ljF.toFixed(5)} eV/Å`} color={ljF > 0 ? MD.warn : MD.newton} />
+              </div>
+              <div style={{ marginTop: 8, fontSize: 11, fontWeight: 700, color: ljR < ljSig ? MD.warn : ljR < Math.pow(2, 1/6) * ljSig ? MD.main : MD.prop }}>
+                {ljR < ljSig && "Repulsive region — atoms overlap!"}
+                {ljR >= ljSig && ljR < Math.pow(2, 1/6) * ljSig && "Attractive well — near equilibrium"}
+                {ljR >= Math.pow(2, 1/6) * ljSig && ljR < 2.5 * ljSig && "Weakly attractive — atoms pulling together"}
+                {ljR >= 2.5 * ljSig && "Beyond cutoff — effectively zero interaction"}
+              </div>
+            </div>
+          </div>
         </Card>
 
         <Card title="Software" color={MD.prop}>
@@ -11564,6 +11710,18 @@ function MDPropertiesSection() {
 }
 
 function MDPracticeSection() {
+  const [pracDt, setPracDt] = useState(2.0);
+  const [pracEq, setPracEq] = useState(2);
+  const [pracProd, setPracProd] = useState(20);
+  const [pracN, setPracN] = useState(64);
+  const [pracDrift, setPracDrift] = useState(0.05);
+
+  const eqSteps = Math.round(pracEq * 1000 / pracDt);
+  const prodSteps = Math.round(pracProd * 1000 / pracDt);
+  const totalSteps = eqSteps + prodSteps;
+  const driftPerAtom = pracDrift / pracN;
+  const driftOk = driftPerAtom < 1;
+
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
@@ -11596,6 +11754,43 @@ function MDPracticeSection() {
                 }}>{step.text}</div>
               </div>
             ))}
+          </div>
+        </Card>
+
+        {/* Interactive MD run planner */}
+        <Card title="Interactive: MD Run Planner & Diagnostics" color={MD.prop}>
+          <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 220 }}>
+              <SliderRow label="Δt — time step" value={pracDt} min={0.5} max={5.0} step={0.5} onChange={setPracDt} color={MD.warn} unit=" fs" />
+              <SliderRow label="Equilibration time" value={pracEq} min={0.5} max={20} step={0.5} onChange={setPracEq} color={MD.cls} unit=" ps" />
+              <SliderRow label="Production time" value={pracProd} min={1} max={200} step={1} onChange={setPracProd} color={MD.main} unit=" ps" format={v => v.toFixed(0)} />
+              <SliderRow label="N — atoms" value={pracN} min={8} max={512} step={8} onChange={setPracN} color={MD.newton} format={v => v.toFixed(0)} />
+              <SliderRow label="Energy drift (NVE)" value={pracDrift} min={0.001} max={5.0} step={0.001} onChange={setPracDrift} color={MD.warn} unit=" meV/ps" format={v => v.toFixed(3)} />
+            </div>
+            <div style={{ flex: 1, minWidth: 240 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 10 }}>
+                <ResultBox label="Eq steps" value={eqSteps.toLocaleString()} color={MD.cls} sub="steps" />
+                <ResultBox label="Prod steps" value={prodSteps.toLocaleString()} color={MD.main} sub="steps" />
+                <ResultBox label="Total steps" value={totalSteps.toLocaleString()} color={MD.newton} sub="eq + prod" />
+                <ResultBox label="Drift/atom/ps" value={driftPerAtom.toFixed(3)} color={driftOk ? MD.main : MD.warn} sub={driftOk ? "OK" : "TOO HIGH!"} />
+              </div>
+              <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+                <CalcRow eq={`Eq steps = ${pracEq} ps / ${pracDt} fs`} result={eqSteps.toLocaleString()} color={MD.cls} />
+                <CalcRow eq={`Prod steps = ${pracProd} ps / ${pracDt} fs`} result={prodSteps.toLocaleString()} color={MD.main} />
+                <CalcRow eq={`Drift/atom = ${pracDrift.toFixed(3)} / ${pracN}`} result={`${driftPerAtom.toFixed(4)} meV/atom/ps`} color={driftOk ? MD.main : MD.warn} />
+              </div>
+              <div style={{ marginTop: 8, display: "flex", flexDirection: "column", gap: 4 }}>
+                <div style={{ fontSize: 11, color: driftOk ? MD.main : MD.warn, fontWeight: 700 }}>
+                  {driftPerAtom < 0.1 ? "Excellent energy conservation!" : driftPerAtom < 1 ? "Acceptable drift — OK for production." : "Energy drift too high — reduce Δt!"}
+                </div>
+                <div style={{ fontSize: 11, color: pracProd < 10 ? MD.warn : MD.main }}>
+                  {pracProd < 5 ? "Very short production — only for testing." : pracProd < 20 ? "Short production — OK for g(r), may be too short for MSD." : pracProd < 50 ? "Good length for most bulk properties." : "Long run — excellent for diffusion and rare events."}
+                </div>
+                <div style={{ fontSize: 11, color: pracEq < 1 ? MD.warn : MD.main }}>
+                  {pracEq < 1 ? "Very short equilibration — system may not be relaxed!" : pracEq < 3 ? "Minimal equilibration — check T/PE convergence." : "Good equilibration length."}
+                </div>
+              </div>
+            </div>
           </div>
         </Card>
 
