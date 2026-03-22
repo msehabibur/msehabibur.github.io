@@ -20926,7 +20926,7 @@ export default function MaterialsLab({ initialModule = null, blogMode = false })
 
         {/* Quick nav pills */}
         <div style={{ display: "flex", gap: 4 }}>
-          {MODULE_TABS.filter(m => m.id !== module).slice(0, 7).map(m => (
+          {MODULE_TABS.filter(m => m.id !== module).map(m => (
             <button key={m.id} onClick={() => setModule(m.id)} style={{
               padding: "4px 10px", borderRadius: 6, fontSize: 10, cursor: "pointer",
               background: "transparent", border: `1px solid ${shell.border}`,
