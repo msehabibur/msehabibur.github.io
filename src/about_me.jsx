@@ -215,7 +215,9 @@ const BLOG_CHAPTERS = [
   { id: "forcefield",   chapter: 7,  label: "Force Fields",               desc: "Classical and machine-learned interatomic potentials \u2014 from harmonic bonds to ReaxFF and EAM", icon: "\u2699" },
   { id: "pipeline",     chapter: 8,  label: "MLFF Pipeline",              desc: "DefectNet force field: graph neural network architecture, training, and deployment", icon: "\u{1F9E0}" },
   { id: "llmdatamining", chapter: 9, label: "LLM Data Mining",            desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", icon: "\u{1F4DA}" },
-  // { id: "chalcomovie",  chapter: 10, label: "Chalcogenide Movie",         desc: "Animated walkthrough of chalcogenide semiconductor materials and their applications", icon: "\u{1F3AC}" },
+  { id: "characterization", chapter: 10, label: "Materials Characterization", desc: "XRD, XPS, SEM, TEM, AFM, STM, Raman, XANES — interactive guides to every major technique", icon: "\u{1F52C}" },
+  { id: "mlintro", chapter: 11, label: "Introduction to ML",            desc: "Machine learning foundations, algorithms, neural networks, and applications in materials science", icon: "\u{1F916}" },
+  { id: "synthesis", chapter: 12, label: "Materials Synthesis",          desc: "CVD, PVD, sol-gel, ALD, MBE, spin coating, hydrothermal — step-by-step animated synthesis methods", icon: "\u{1F3ED}" },
 ];
 
 const PUBLICATIONS = [
