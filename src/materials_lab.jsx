@@ -10744,6 +10744,8 @@ const MD_BLOCKS = [
 ];
 
 function MDIntroSection() {
+  const [openItem, setOpenItem] = useState("intro_what");
+  const toggle = (id) => setOpenItem(openItem === id ? null : id);
   const [introN, setIntroN] = useState(64);
   const [introT, setIntroT] = useState(300);
   const [introDt, setIntroDt] = useState(2);
@@ -10760,35 +10762,19 @@ function MDIntroSection() {
   const totalKE = 1.5 * introN * kB * introT;
 
   return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>🍎 Simple Analogy</div>
-          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-            Imagine you have a box of 1000 atoms. You know every atom{"'"}s position and the forces between them. MD is like pressing {"'"}play{"'"} — Newton{"'"}s laws tell each atom where to move next. You advance time in tiny steps (femtoseconds), and watch the atoms bounce, vibrate, diffuse, and melt. It{"'"}s a computational microscope that shows you atomic motion frame by frame.
-          </div>
-        </div>
-        <Card title="Molecular Dynamics - Simulating Atomic Motion" color={MD.main}>
-          <div style={{
-            background: MD.main + "0a", border: `1.5px solid ${MD.main}30`,
-            borderRadius: 10, padding: "14px 18px", marginBottom: 14,
-            fontSize: 14, fontWeight: 600, color: MD.main, textAlign: "center", lineHeight: 1.6,
-          }}>
-            Solve Newton{"'"}s equations for every atom, one tiny time step at a time.
-            Watch your material evolve in real time.
-          </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <FAQAccordion title="What is Molecular Dynamics?" color={MD.main} isOpen={openItem === "intro_what"} onClick={() => toggle("intro_what")}>
+          <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🍎</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine you have a box of 1000 atoms. You know every atom{"'"}s position and the forces between them. MD is like pressing {"'"}play{"'"} — Newton{"'"}s laws tell each atom where to move next. You advance time in tiny steps (femtoseconds), and watch the atoms bounce, vibrate, diffuse, and melt.</span></div>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink }}>
-            DFT gives you the ground state at T = 0 K. But real materials exist at finite
-            temperature: atoms vibrate, diffuse, and undergo phase transitions. MD simulates
-            this by propagating atomic trajectories forward in time.
+            DFT gives you the ground state at T = 0 K. But real materials exist at finite temperature: atoms vibrate, diffuse, and undergo phase transitions. MD simulates this by propagating atomic trajectories forward in time.
           </div>
-        </Card>
+        </FAQAccordion>
 
-        {/* Animated atoms visualization */}
-        <Card title="Watch Atoms Move" color={MD.newton}>
+        <FAQAccordion title="Watch Atoms Move (Animated)" color={MD.newton} isOpen={openItem === "intro_anim"} onClick={() => toggle("intro_anim")}>
           <svg width={320} height={180} style={{ background: T.surface, borderRadius: 10, border: `1px solid ${T.border}`, display: "block", margin: "0 auto" }}>
             <rect x={10} y={10} width={300} height={160} rx={6} fill={MD.main + "06"} stroke={MD.main} strokeWidth={1.5} />
             {Array.from({ length: Math.min(introN, 24) }, (_, i) => {
-              const cols = 6, rows = 4;
+              const cols = 6;
               const cx = 30 + (i % cols) * 48;
               const cy = 30 + Math.floor(i / cols) * 38;
               const amp = introT / 100;
@@ -10797,10 +10783,9 @@ function MDIntroSection() {
             })}
             <text x={160} y={178} textAnchor="middle" fill={T.muted} fontSize={9}>T = {introT} K | N = {introN} atoms | {introT > 800 ? "High vibration amplitude" : introT > 300 ? "Moderate vibration" : "Low vibration"}</text>
           </svg>
-        </Card>
+        </FAQAccordion>
 
-        {/* Interactive MD planner */}
-        <Card title="Interactive: Plan Your MD Simulation" color={MD.prop}>
+        <FAQAccordion title="Interactive: Plan Your MD Simulation" color={MD.prop} isOpen={openItem === "intro_plan"} onClick={() => toggle("intro_plan")}>
           <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 220 }}>
               <SliderRow label="N — number of atoms" value={introN} min={4} max={512} step={4} onChange={setIntroN} color={MD.main} format={v => v.toFixed(0)} />
@@ -10826,9 +10811,9 @@ function MDIntroSection() {
               </div>
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="MD vs Static DFT" color={MD.newton}>
+        <FAQAccordion title="MD vs Static DFT" color={MD.newton} isOpen={openItem === "intro_vs"} onClick={() => toggle("intro_vs")}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
             {[
               { label: "Static DFT", items: ["T = 0 K only", "Equilibrium geometry", "No dynamics", "One structure"], color: MD.newton },
@@ -10842,9 +10827,9 @@ function MDIntroSection() {
               </div>
             ))}
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="What MD Can Tell You" color={MD.prop}>
+        <FAQAccordion title="What MD Can Tell You" color={MD.prop} isOpen={openItem === "intro_props"} onClick={() => toggle("intro_props")}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
             {[
               { prop: "Diffusion", desc: "How fast atoms move through a material", color: MD.main },
@@ -10863,12 +10848,14 @@ function MDIntroSection() {
               </div>
             ))}
           </div>
-        </Card>
+        </FAQAccordion>
       </div>
   );
 }
 
 function MDNewtonSection() {
+  const [openItem, setOpenItem] = useState("newton_fma");
+  const toggle = (id) => setOpenItem(openItem === id ? null : id);
   const [force, setForce] = useState(0.5);
   const [mass, setMass] = useState(16);
   const [dt, setDt] = useState(1.0);
@@ -10881,14 +10868,9 @@ function MDNewtonSection() {
   const velMs = accel * dt * 1e-15;
 
   return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>🍎 Simple Analogy</div>
-          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-            Every atom feels forces from its neighbors — attractions from bonds, repulsions when too close. F = ma tells you the acceleration. If a Cu atom feels 2 eV/Å of force and weighs 63.5 amu, you can calculate exactly how fast it accelerates. Multiply by a tiny time step, and you know where it moves next. Do this for every atom simultaneously, and you have MD.
-          </div>
-        </div>
-        <Card title="Newton's Second Law for Atoms" color={MD.newton}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <FAQAccordion title="Newton's Second Law for Atoms" color={MD.newton} isOpen={openItem === "newton_fma"} onClick={() => toggle("newton_fma")}>
+          <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🍎</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Every atom feels forces from its neighbors — attractions from bonds, repulsions when too close. F = ma tells you the acceleration. If a Cu atom feels 2 eV/Å of force and weighs 63.5 amu, you can calculate exactly how fast it accelerates. Multiply by a tiny time step, and you know where it moves next. Do this for every atom simultaneously, and you have MD.</span></div>
           <div style={mdMathBlock}>
             <div style={{ textAlign: "center", marginBottom: 12 }}>
               <span style={{ color: MD.newton, fontWeight: 800, fontSize: 18, letterSpacing: 1 }}>F</span>
@@ -10932,9 +10914,9 @@ function MDNewtonSection() {
               In AIMD: forces from DFT. In classical MD: forces from force fields.
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="Interactive: F = ma for a Single Atom" color={MD.prop}>
+        <FAQAccordion title="Interactive: F = ma for a Single Atom" color={MD.prop} isOpen={openItem === "newton_interactive"} onClick={() => toggle("newton_interactive")}>
           <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 220 }}>
               <SliderRow label="F — applied force" value={force} min={0.01} max={5.0} step={0.01} onChange={setForce} color={MD.newton} unit=" eV/Å" />
@@ -10962,9 +10944,9 @@ function MDNewtonSection() {
               </div>
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="The Time Step" color={MD.warn}>
+        <FAQAccordion title="The Time Step" color={MD.warn} isOpen={openItem === "newton_timestep"} onClick={() => toggle("newton_timestep")}>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             Must be small enough to resolve the fastest vibration in your system.
             For most solids: {mdHl("Δt = 1-2 fs", MD.warn)} (1 fs = 10⁻¹⁵ s).
@@ -10976,12 +10958,14 @@ function MDNewtonSection() {
             {"  Cu-Se bond:     period ~ 30 fs   → Δt < 3.0 fs"}<br />
             {"  Heavy metals:   period ~ 50 fs   → Δt < 5.0 fs"}
           </div>
-        </Card>
+        </FAQAccordion>
       </div>
   );
 }
 
 function MDVerletSection() {
+  const [openItem, setOpenItem] = useState("verlet_algo");
+  const toggle = (id) => setOpenItem(openItem === id ? null : id);
   const [k_spring, setK] = useState(1.0);
   const [r0_eq, setR0] = useState(2.5);
   const [r_init, setRInit] = useState(2.7);
@@ -11006,14 +10990,9 @@ function MDVerletSection() {
   const PE1 = 0.5 * k_spring * dr1 * dr1;
 
   return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>🍎 Simple Analogy</div>
-          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-            You can{"'"}t solve F = ma analytically for 1000 interacting atoms. Instead, you take tiny time steps: know where the atom is now, know its velocity, compute the force {"→"} predict where it will be 1 fs later. The Velocity Verlet algorithm does this while perfectly conserving total energy — like a perfectly elastic billiards table where no energy is ever lost.
-          </div>
-        </div>
-        <Card title="Velocity Verlet Algorithm (Most Used)" color={MD.newton}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <FAQAccordion title="Velocity Verlet Algorithm (Most Used)" color={MD.newton} isOpen={openItem === "verlet_algo"} onClick={() => toggle("verlet_algo")}>
+          <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🍎</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>You can{"'"}t solve F = ma analytically for 1000 interacting atoms. Instead, you take tiny time steps: know where the atom is now, know its velocity, compute the force {"→"} predict where it will be 1 fs later. The Velocity Verlet algorithm does this while perfectly conserving total energy — like a perfectly elastic billiards table where no energy is ever lost.</span></div>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             The standard integration algorithm in almost all MD codes. Time-reversible, symplectic
             (conserves energy), and simple to implement.
@@ -11039,9 +11018,9 @@ function MDVerletSection() {
               </div>
             ))}
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="Interactive: Velocity Verlet — Harmonic Spring" color={MD.prop}>
+        <FAQAccordion title="Interactive: Velocity Verlet — Harmonic Spring" color={MD.prop} isOpen={openItem === "verlet_spring"} onClick={() => toggle("verlet_spring")}>
           <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 220 }}>
               <SliderRow label="k — spring constant" value={k_spring} min={0.1} max={10.0} step={0.1} onChange={setK} color={MD.aimd} unit=" eV/Å²" />
@@ -11074,9 +11053,9 @@ function MDVerletSection() {
               </div>
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="Elastic MD Example — 4-Atom 1D Chain" color={MD.aimd}>
+        <FAQAccordion title="Elastic MD Example — 4-Atom 1D Chain" color={MD.aimd} isOpen={openItem === "verlet_chain"} onClick={() => toggle("verlet_chain")}>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             A 1D chain of 4 atoms connected by springs (harmonic bonds). This demonstrates
             how elastic interactions propagate through a lattice — the basis of phonon physics.
@@ -11184,12 +11163,14 @@ function MDVerletSection() {
               </span>
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
       </div>
   );
 }
 
 function MDEnsemblesSection() {
+  const [openItem, setOpenItem] = useState("ens_selector");
+  const toggle = (id) => setOpenItem(openItem === id ? null : id);
   const [ensView, setEnsView] = useState("NVE");
   const [nAtoms, setNAtoms] = useState(64);
   const [targetT, setTargetT] = useState(300);
@@ -11258,30 +11239,26 @@ function MDEnsemblesSection() {
   const boxSkew = ensView === "NPsT" ? 3 * Math.sin(tick * 0.03) : 0;
 
   return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>🍎 Simple Analogy</div>
-          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-            Basic MD conserves total energy (NVE) — like a perfectly insulated box. But real experiments happen at constant temperature (NVT) or pressure (NPT). A thermostat acts like the lab{"'"}s temperature controller — it adds or removes kinetic energy so atoms maintain the right average speed. A barostat adjusts the box size to maintain constant pressure.
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <FAQAccordion title="Ensemble Selector & Animation" color={MD.newton} isOpen={openItem === "ens_selector"} onClick={() => toggle("ens_selector")}>
+          <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🍎</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Basic MD conserves total energy (NVE) — like a perfectly insulated box. But real experiments happen at constant temperature (NVT) or pressure (NPT). A thermostat acts like the lab{"'"}s temperature controller — it adds or removes kinetic energy so atoms maintain the right average speed. A barostat adjusts the box size to maintain constant pressure.</span></div>
+
+          {/* Ensemble selector */}
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
+            {ensembles.map(e => (
+              <button key={e.id} onClick={() => setEnsView(e.id)} style={{
+                padding: "8px 16px", borderRadius: 10, border: `2px solid ${ensView === e.id ? e.color : T.border}`,
+                background: ensView === e.id ? e.color + "18" : T.bg, color: ensView === e.id ? e.color : T.muted,
+                cursor: "pointer", fontSize: 12, fontFamily: "inherit", fontWeight: ensView === e.id ? 800 : 400,
+                transition: "all 0.2s",
+              }}>
+                <span style={{ marginRight: 6 }}>{e.icon}</span>{e.id}
+              </button>
+            ))}
           </div>
-        </div>
 
-        {/* Ensemble selector */}
-        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          {ensembles.map(e => (
-            <button key={e.id} onClick={() => setEnsView(e.id)} style={{
-              padding: "8px 16px", borderRadius: 10, border: `2px solid ${ensView === e.id ? e.color : T.border}`,
-              background: ensView === e.id ? e.color + "18" : T.bg, color: ensView === e.id ? e.color : T.muted,
-              cursor: "pointer", fontSize: 12, fontFamily: "inherit", fontWeight: ensView === e.id ? 800 : 400,
-              transition: "all 0.2s",
-            }}>
-              <span style={{ marginRight: 6 }}>{e.icon}</span>{e.id}
-            </button>
-          ))}
-        </div>
-
-        {/* Animated box */}
-        <Card title={ens.name} color={ens.color}>
+          {/* Animated box */}
+          <div style={{ fontSize: 13, fontWeight: 700, color: ens.color, marginBottom: 8 }}>{ens.name}</div>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <div style={{ flex: "0 0 280px" }}>
               <svg width={boxW + 20} height={boxH + 40} style={{ background: T.surface, borderRadius: 10, border: `1px solid ${T.border}` }}>
@@ -11316,10 +11293,10 @@ function MDEnsemblesSection() {
               <div style={{ marginTop: 6, fontSize: 10, fontFamily: "monospace", color: ens.color, fontWeight: 600 }}>VASP: {ens.vasp}</div>
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
 
         {/* Interactive calculator */}
-        <Card title="Interactive: Ensemble Properties Calculator" color={MD.prop}>
+        <FAQAccordion title="Interactive: Ensemble Properties Calculator" color={MD.prop} isOpen={openItem === "ens_calculator"} onClick={() => toggle("ens_calculator")}>
           <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 200 }}>
               <SliderRow label="N — number of atoms" value={nAtoms} min={4} max={512} step={4} onChange={setNAtoms} color={MD.main} format={v => v.toFixed(0)} />
@@ -11341,9 +11318,9 @@ function MDEnsemblesSection() {
               {nAtoms < 32 && <div style={{ marginTop: 8, fontSize: 11, color: MD.warn, fontWeight: 700 }}>Warning: {nAtoms} atoms is very small — T fluctuations are {(T_fluct / targetT * 100).toFixed(0)}%!</div>}
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="Thermostats - Controlling Temperature" color={MD.cls}>
+        <FAQAccordion title="Thermostats - Controlling Temperature" color={MD.cls} isOpen={openItem === "ens_thermostats"} onClick={() => toggle("ens_thermostats")}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
             <thead>
               <tr style={{ borderBottom: `2px solid ${MD.cls}30` }}>
@@ -11367,12 +11344,14 @@ function MDEnsemblesSection() {
               ))}
             </tbody>
           </table>
-        </Card>
+        </FAQAccordion>
       </div>
   );
 }
 
 function MDAimdSection() {
+  const [openItem, setOpenItem] = useState("aimd_intro");
+  const toggle = (id) => setOpenItem(openItem === id ? null : id);
   const [aimdN, setAimdN] = useState(64);
   const [aimdDt, setAimdDt] = useState(1.0);
   const [aimdNsw, setAimdNsw] = useState(5000);
@@ -11385,14 +11364,9 @@ function MDAimdSection() {
   const cpuHrs = wallHrs * aimdCores;
 
   return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>🍎 Simple Analogy</div>
-          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-            In classical MD, you use a pre-built force field (a formula). In AIMD, you run a DFT calculation at every single time step to get exact quantum forces. It{"'"}s like hiring a quantum mechanic to compute forces fresh every femtosecond instead of using an approximate recipe. Incredibly accurate but extremely expensive — limited to ~100 atoms for ~10 picoseconds.
-          </div>
-        </div>
-        <Card title="Ab Initio Molecular Dynamics (AIMD)" color={MD.aimd}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <FAQAccordion title="Ab Initio Molecular Dynamics (AIMD)" color={MD.aimd} isOpen={openItem === "aimd_intro"} onClick={() => toggle("aimd_intro")}>
+          <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🍎</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>In classical MD, you use a pre-built force field (a formula). In AIMD, you run a DFT calculation at every single time step to get exact quantum forces. It{"'"}s like hiring a quantum mechanic to compute forces fresh every femtosecond instead of using an approximate recipe. Incredibly accurate but extremely expensive — limited to ~100 atoms for ~10 picoseconds.</span></div>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             At every MD step, run a full DFT calculation to get forces. No force field needed -
             forces come directly from quantum mechanics. This is the most accurate but most expensive MD.
@@ -11406,10 +11380,10 @@ function MDAimdSection() {
             <span style={{ color: T.muted }}>Each step requires a full SCF cycle (5-20 iterations)</span><br />
             <span style={{ color: MD.aimd }}>Cost: ~1 min per step for 64 atoms on 32 cores</span>
           </div>
-        </Card>
+        </FAQAccordion>
 
         {/* Interactive AIMD cost estimator */}
-        <Card title="Interactive: AIMD Cost Estimator" color={MD.warn}>
+        <FAQAccordion title="Interactive: AIMD Cost Estimator" color={MD.warn} isOpen={openItem === "aimd_cost"} onClick={() => toggle("aimd_cost")}>
           <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 220 }}>
               <SliderRow label="N — atoms in cell" value={aimdN} min={8} max={256} step={8} onChange={setAimdN} color={MD.aimd} format={v => v.toFixed(0)} />
@@ -11439,9 +11413,9 @@ function MDAimdSection() {
               </div>
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="AIMD Cost Comparison" color={MD.warn}>
+        <FAQAccordion title="AIMD Cost Comparison" color={MD.warn} isOpen={openItem === "aimd_comparison"} onClick={() => toggle("aimd_comparison")}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
             {[
               { method: "AIMD (DFT)", atoms: "64-256", time: "10-100 ps", cost: "10,000 CPU-hrs", color: MD.aimd },
@@ -11459,9 +11433,9 @@ function MDAimdSection() {
               </div>
             ))}
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="Interactive: VASP AIMD Input Generator" color={MD.prop}>
+        <FAQAccordion title="Interactive: VASP AIMD Input Generator" color={MD.prop} isOpen={openItem === "aimd_vasp"} onClick={() => toggle("aimd_vasp")}>
           <div style={{
             fontFamily: "'JetBrains Mono', monospace", fontSize: 11, lineHeight: 1.7,
             background: T.surface, color: T.ink, border: `1px solid ${T.border}`,
@@ -11481,12 +11455,14 @@ EDIFF   = 1E-5    # Looser SCF (still fine for forces)
 ALGO    = VeryFast # RMM-DIIS (faster SCF)
 NELMIN  = 4       # Minimum SCF steps`}</pre>
           </div>
-        </Card>
+        </FAQAccordion>
       </div>
   );
 }
 
 function MDClassicalSection() {
+  const [openItem, setOpenItem] = useState("cls_forcefields");
+  const toggle = (id) => setOpenItem(openItem === id ? null : id);
   const [ljR, setLjR] = useState(3.0);
   const [ljEps, setLjEps] = useState(0.01);
   const [ljSig, setLjSig] = useState(2.55);
@@ -11496,14 +11472,9 @@ function MDClassicalSection() {
   const ljF = 24 * ljEps * (2 * sr6 * sr6 - sr6) / ljR;
 
   return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>🍎 Simple Analogy</div>
-          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-            Classical MD uses pre-fitted mathematical formulas (force fields like EAM for metals, Tersoff for covalent systems) instead of solving quantum mechanics at each step. This makes it fast enough to simulate millions of atoms for nanoseconds — the scale needed to see grain boundaries move, cracks propagate, or materials melt.
-          </div>
-        </div>
-        <Card title="Classical MD - Force Fields" color={MD.cls}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <FAQAccordion title="Classical MD - Force Fields" color={MD.cls} isOpen={openItem === "cls_forcefields"} onClick={() => toggle("cls_forcefields")}>
+          <div style={{ display: "flex", gap: 10, background: MD.cls + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.cls + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🍎</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Classical MD uses pre-fitted mathematical formulas (force fields like EAM for metals, Tersoff for covalent systems) instead of solving quantum mechanics at each step. This makes it fast enough to simulate millions of atoms for nanoseconds — the scale needed to see grain boundaries move, cracks propagate, or materials melt.</span></div>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             Instead of DFT at each step, use analytical force fields (Lennard-Jones, EAM, Tersoff, etc.)
             to compute forces. Orders of magnitude faster - can simulate millions of atoms for nanoseconds.
@@ -11531,9 +11502,9 @@ function MDClassicalSection() {
               <div style={{ background: MD.main + "10", borderRadius: 8, padding: "6px 14px", fontSize: 12, color: MD.main, fontWeight: 700 }}>FF force: ~0.001 s/step</div>
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="Common Force Fields" color={MD.newton}>
+        <FAQAccordion title="Common Force Fields" color={MD.newton} isOpen={openItem === "cls_common"} onClick={() => toggle("cls_common")}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
             <thead>
               <tr style={{ borderBottom: `2px solid ${MD.newton}30` }}>
@@ -11558,10 +11529,10 @@ function MDClassicalSection() {
               ))}
             </tbody>
           </table>
-        </Card>
+        </FAQAccordion>
 
         {/* Interactive LJ calculator */}
-        <Card title="Interactive: Lennard-Jones Potential" color={MD.thermo}>
+        <FAQAccordion title="Interactive: Lennard-Jones Potential" color={MD.thermo} isOpen={openItem === "cls_lj"} onClick={() => toggle("cls_lj")}>
           <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 220 }}>
               <SliderRow label="r — interatomic distance" value={ljR} min={2.0} max={8.0} step={0.05} onChange={setLjR} color={MD.cls} unit=" Å" />
@@ -11592,9 +11563,9 @@ function MDClassicalSection() {
               </div>
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="Software" color={MD.prop}>
+        <FAQAccordion title="Software" color={MD.prop} isOpen={openItem === "cls_software"} onClick={() => toggle("cls_software")}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
             {[
               { name: "LAMMPS", desc: "General-purpose, massive parallelism, most force fields", color: MD.main },
@@ -11610,12 +11581,14 @@ function MDClassicalSection() {
               </div>
             ))}
           </div>
-        </Card>
+        </FAQAccordion>
       </div>
   );
 }
 
 function MDPropertiesSection() {
+  const [openItem, setOpenItem] = useState("prop_rdf");
+  const toggle = (id) => setOpenItem(openItem === id ? null : id);
   const [msd_t1, setMsdT1] = useState(10);
   const [msd_v1, setMsdV1] = useState(0.42);
   const [msd_t2, setMsdT2] = useState(100);
@@ -11628,14 +11601,9 @@ function MDPropertiesSection() {
   const totalKE = 1.5 * propN * 8.617e-5 * propT;
 
   return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>🍎 Simple Analogy</div>
-          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-            MD generates atomic trajectories — positions and velocities at every time step. From these trajectories you extract real physical properties: how atoms are arranged (RDF), how fast they diffuse (MSD), what temperature the system is at (kinetic energy), and vibrational frequencies (velocity autocorrelation). The trajectory is raw data; properties are the physics.
-          </div>
-        </div>
-        <Card title="Radial Distribution Function g(r)" color={MD.main}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <FAQAccordion title="Radial Distribution Function g(r)" color={MD.main} isOpen={openItem === "prop_rdf"} onClick={() => toggle("prop_rdf")}>
+          <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🍎</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>MD generates atomic trajectories — positions and velocities at every time step. From these trajectories you extract real physical properties: how atoms are arranged (RDF), how fast they diffuse (MSD), what temperature the system is at (kinetic energy), and vibrational frequencies (velocity autocorrelation). The trajectory is raw data; properties are the physics.</span></div>
           <div style={mdMathBlock}>
             <div style={{ textAlign: "center", marginBottom: 14, padding: "12px 0", background: MD.main + "08", borderRadius: 8 }}>
               <span style={{ fontSize: 18, fontWeight: 800, color: MD.main }}>g</span>
@@ -11660,9 +11628,9 @@ function MDPropertiesSection() {
               g(r) → 1 at large r (random/uniform distribution).
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="Interactive: Diffusion from MSD" color={MD.prop}>
+        <FAQAccordion title="Interactive: Diffusion from MSD" color={MD.prop} isOpen={openItem === "prop_msd"} onClick={() => toggle("prop_msd")}>
           <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 220 }}>
               <SliderRow label="t₁ — first time point" value={msd_t1} min={1} max={50} step={1} onChange={setMsdT1} color={MD.newton} unit=" ps" format={v => v.toFixed(0)} />
@@ -11683,9 +11651,9 @@ function MDPropertiesSection() {
               {slope < 0 && <div style={{ marginTop: 8, fontSize: 11, color: MD.warn, fontWeight: 700 }}>Negative slope — MSD must increase with time! Check your values.</div>}
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="Interactive: Temperature from Kinetic Energy" color={MD.thermo}>
+        <FAQAccordion title="Interactive: Temperature from Kinetic Energy" color={MD.thermo} isOpen={openItem === "prop_ke"} onClick={() => toggle("prop_ke")}>
           <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 200 }}>
               <SliderRow label="N — atoms in cell" value={propN} min={4} max={512} step={4} onChange={setPropN} color={MD.main} format={v => v.toFixed(0)} />
@@ -11704,12 +11672,14 @@ function MDPropertiesSection() {
               </div>
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
       </div>
   );
 }
 
 function MDPracticeSection() {
+  const [openItem, setOpenItem] = useState("prac_workflow");
+  const toggle = (id) => setOpenItem(openItem === id ? null : id);
   const [pracDt, setPracDt] = useState(2.0);
   const [pracEq, setPracEq] = useState(2);
   const [pracProd, setPracProd] = useState(20);
@@ -11723,14 +11693,9 @@ function MDPracticeSection() {
   const driftOk = driftPerAtom < 1;
 
   return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>🍎 Simple Analogy</div>
-          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-            Running MD is like cooking — the recipe matters. Choose a time step small enough to capture the fastest vibration (~1 fs). Equilibrate long enough for the system to forget its initial configuration. Run production long enough to get good statistics. Check that energy is conserved and temperature is stable. Cut corners and your results are garbage.
-          </div>
-        </div>
-        <Card title="MD Workflow" color={MD.main}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <FAQAccordion title="MD Workflow" color={MD.main} isOpen={openItem === "prac_workflow"} onClick={() => toggle("prac_workflow")}>
+          <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🍎</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Running MD is like cooking — the recipe matters. Choose a time step small enough to capture the fastest vibration (~1 fs). Equilibrate long enough for the system to forget its initial configuration. Run production long enough to get good statistics. Check that energy is conserved and temperature is stable. Cut corners and your results are garbage.</span></div>
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             {[
               { text: "Build initial structure (POSCAR, relaxed from static DFT)", color: MD.newton },
@@ -11755,10 +11720,10 @@ function MDPracticeSection() {
               </div>
             ))}
           </div>
-        </Card>
+        </FAQAccordion>
 
         {/* Interactive MD run planner */}
-        <Card title="Interactive: MD Run Planner & Diagnostics" color={MD.prop}>
+        <FAQAccordion title="Interactive: MD Run Planner & Diagnostics" color={MD.prop} isOpen={openItem === "prac_planner"} onClick={() => toggle("prac_planner")}>
           <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 220 }}>
               <SliderRow label="Δt — time step" value={pracDt} min={0.5} max={5.0} step={0.5} onChange={setPracDt} color={MD.warn} unit=" fs" />
@@ -11792,9 +11757,9 @@ function MDPracticeSection() {
               </div>
             </div>
           </div>
-        </Card>
+        </FAQAccordion>
 
-        <Card title="Common Pitfalls" color={MD.warn}>
+        <FAQAccordion title="Common Pitfalls" color={MD.warn} isOpen={openItem === "prac_pitfalls"} onClick={() => toggle("prac_pitfalls")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {[
               { trap: "Flying ice cube", fix: "Remove center-of-mass drift every N steps. Energy accumulates in translation.", color: MD.warn },
@@ -11812,7 +11777,7 @@ function MDPracticeSection() {
               </div>
             ))}
           </div>
-        </Card>
+        </FAQAccordion>
       </div>
   );
 }
