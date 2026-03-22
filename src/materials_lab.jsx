@@ -20997,7 +20997,7 @@ export default function MaterialsLab({ initialModule = null, blogMode = false })
           padding: "6px 14px", borderRadius: 8, fontSize: 12, cursor: "pointer",
           background: shell.surface, border: `1.5px solid ${shell.border}`,
           color: shell.ink, fontWeight: 700, fontFamily: "inherit",
-          display: "flex", alignItems: "center", gap: 6,
+          display: "flex", alignItems: "center", gap: 6, whiteSpace: "nowrap",
         }}>
           ← {blogMode ? "Blog" : "Home"}
         </button>
