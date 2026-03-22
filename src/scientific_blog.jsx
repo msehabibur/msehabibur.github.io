@@ -74,11 +74,11 @@ export default function ScientificBlog() {
         </Link>
 
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 10, letterSpacing: 3, color: T.accent, textTransform: "uppercase", fontWeight: 700 }}>
-            MICROLAB
+          <div style={{ fontSize: 10, letterSpacing: 3, color: T.accent, fontWeight: 700 }}>
+            MicroLab
           </div>
           <div style={{ fontSize: 18, fontWeight: 800, color: T.ink }}>
-            Computational Materials Science
+            Interactive Materials Science
           </div>
         </div>
       </div>

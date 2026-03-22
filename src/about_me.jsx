@@ -596,7 +596,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
       {/* ─── ELEMENT 119 ─── */}
       {tab === "blog" && (
         <div>
-          <SectionTitle color={T.blue}>Computational Materials Science</SectionTitle>
+          <SectionTitle color={T.blue}>Interactive Materials Science</SectionTitle>
           <Card style={{ marginBottom: 16, padding: "16px 20px", background: T.blue + "06", border: `1px solid ${T.blue}25` }}>
             <div style={{ fontSize: 14, lineHeight: 1.7, color: T.ink }}>
               An interactive learning platform covering the full stack of computational materials science — from
