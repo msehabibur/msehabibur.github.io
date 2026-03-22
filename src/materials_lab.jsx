@@ -10771,17 +10771,17 @@ function MDIntroSection() {
         </FAQAccordion>
 
         <FAQAccordion title="Watch Atoms Move (Animated)" color={MD.newton} isOpen={openItem === "intro_anim"} onClick={() => toggle("intro_anim")}>
-          <svg width={320} height={180} style={{ background: T.surface, borderRadius: 10, border: `1px solid ${T.border}`, display: "block", margin: "0 auto" }}>
-            <rect x={10} y={10} width={300} height={160} rx={6} fill={MD.main + "06"} stroke={MD.main} strokeWidth={1.5} />
+          <svg width={320} height={220} style={{ background: T.surface, borderRadius: 10, border: `1px solid ${T.border}`, display: "block", margin: "0 auto", overflow: "hidden" }}>
+            <rect x={10} y={10} width={300} height={175} rx={6} fill={MD.main + "06"} stroke={MD.main} strokeWidth={1.5} />
             {Array.from({ length: Math.min(introN, 24) }, (_, i) => {
               const cols = 6;
-              const cx = 30 + (i % cols) * 48;
-              const cy = 30 + Math.floor(i / cols) * 38;
-              const amp = introT / 100;
+              const cx = 35 + (i % cols) * 46;
+              const cy = 35 + Math.floor(i / cols) * 36;
+              const amp = Math.min(introT / 100, 15);
               const phase = introTick * 0.12 + i * 1.7;
               return <circle key={i} cx={cx + amp * Math.sin(phase)} cy={cy + amp * Math.cos(phase * 0.8 + i)} r={5} fill={MD.newton + "90"} stroke={MD.newton} strokeWidth={1} />;
             })}
-            <text x={160} y={178} textAnchor="middle" fill={T.muted} fontSize={9}>T = {introT} K | N = {introN} atoms | {introT > 800 ? "High vibration amplitude" : introT > 300 ? "Moderate vibration" : "Low vibration"}</text>
+            <text x={160} y={208} textAnchor="middle" fill={T.muted} fontSize={10}>T = {introT} K | N = {introN} atoms | {introT > 800 ? "High vibration amplitude" : introT > 300 ? "Moderate vibration" : "Low vibration"}</text>
           </svg>
         </FAQAccordion>
 
