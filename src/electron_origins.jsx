@@ -8385,12 +8385,12 @@ function FAQAccordion({ title, color, isOpen, onClick, children }) {
         border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10,
         fontFamily: "inherit", textAlign: "left",
       }}>
-        <span style={{ fontSize: 13, color: isOpen ? color : T.muted, fontWeight: 700, transition: "transform 0.2s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}>▶</span>
-        <span style={{ fontSize: 11, fontWeight: 700, color: isOpen ? color : T.ink, flex: 1 }}>{title}</span>
+        <span style={{ fontSize: 14, color: isOpen ? color : T.muted, fontWeight: 700, transition: "transform 0.2s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}>▶</span>
+        <span style={{ fontSize: 13, fontWeight: 700, color: isOpen ? color : T.ink, flex: 1 }}>{title}</span>
         {isOpen && <span style={{ fontSize: 10, color, fontWeight: 600, padding: "2px 8px", background: color + "15", borderRadius: 6 }}>OPEN</span>}
       </button>
       {isOpen && (
-        <div style={{ padding: "14px 18px", borderTop: `1px solid ${color}20`, background: T.surface }}>
+        <div style={{ padding: "12px 16px", borderTop: `1px solid ${color}20`, background: T.surface, fontSize: 12, lineHeight: 1.7 }}>
           {children}
         </div>
       )}
