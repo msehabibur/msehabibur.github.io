@@ -506,9 +506,9 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               color: T.muted,
               fontWeight: 500, fontFamily: "inherit",
               transition: "all 0.15s",
-              textDecoration: "none", display: "inline-block",
+              textDecoration: "none", display: "inline-block", whiteSpace: "nowrap",
             }}>
-              {t.label} {"\u2197"}
+              {t.label}{"\u00A0"}{"\u2197"}
             </a>
           ) : (
             <button key={t.id} onClick={() => setTab(t.id)} style={{
