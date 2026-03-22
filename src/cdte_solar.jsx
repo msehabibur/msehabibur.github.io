@@ -3298,6 +3298,311 @@ function CdTeExampleModule() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
+// FAQAccordion (local copy for this file)
+// ═══════════════════════════════════════════════════════════════════════════
+function FAQAccordion({ title, color, isOpen, onClick, children }) {
+  return (
+    <div style={{ borderRadius: 12, border: `1.5px solid ${isOpen ? color : T.border}`, overflow: "hidden", transition: "all 0.2s" }}>
+      <button onClick={onClick} style={{ width: "100%", padding: "12px 16px", background: isOpen ? color + "12" : T.surface, border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10, fontFamily: "inherit", textAlign: "left" }}>
+        <span style={{ fontSize: 16, color: isOpen ? color : T.muted, fontWeight: 700, transition: "transform 0.2s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}>▶</span>
+        <span style={{ fontSize: 13, fontWeight: 700, color: isOpen ? color : T.ink, flex: 1 }}>{title}</span>
+        {isOpen && <span style={{ fontSize: 10, color, fontWeight: 600, padding: "2px 8px", background: color + "15", borderRadius: 6 }}>OPEN</span>}
+      </button>
+      {isOpen && <div style={{ padding: "14px 18px", borderTop: `1px solid ${color}20`, background: T.surface }}>{children}</div>}
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CdTe SOLAR CELL MANUFACTURING — Step-by-step animated process
+// ═══════════════════════════════════════════════════════════════════════════
+function CdTeManufacturingSection() {
+  const [openItem, setOpenItem] = useState("mfg_overview");
+  const toggle = (id) => setOpenItem(openItem === id ? null : id);
+  const [mfgStep, setMfgStep] = useState(0);
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setTick(t => t + 1), 100);
+    return () => clearInterval(id);
+  }, []);
+
+  const mb = { fontFamily: "monospace", fontSize: 12, lineHeight: 1.9, background: T.surface, borderRadius: 10, padding: "14px 18px", border: `1px solid ${T.border}40`, marginBottom: 10 };
+
+  const mfgSteps = [
+    { title: "Step 1: Glass Substrate Preparation", icon: "🪟", color: T.eo_cond,
+      analogy: "Like cleaning a window before painting — any dust particle on the glass creates a pinhole in the solar cell. Substrates are cleaned with detergent, DI water, and UV-ozone to remove organics. The glass must be optically transparent (soda-lime or aluminosilicate, 2-3 mm thick).",
+      details: "Soda-lime glass is cheap but Na diffusion can dope CdTe. Aluminosilicate (more expensive) avoids this. Substrate size: 60×120 cm² for production, 2.5×2.5 cm² for lab. Cleaning: ultrasonic in acetone → IPA → DI water → UV-ozone 15 min.",
+      params: "Glass thickness: 2-3 mm | Transmittance: >90% at 400-850 nm | Roughness: <1 nm RMS" },
+    { title: "Step 2: TCO Deposition (Front Contact)", icon: "⚡", color: "#22c55e",
+      analogy: "Like laying down a transparent electrical highway. The TCO (typically FTO or ITO) must be both electrically conductive AND optically transparent — a rare combination. Light passes through, but electrons have a clear road to the external circuit.",
+      details: "FTO (SnO₂:F) deposited by APCVD at 500°C from SnCl₄ + HF precursors. Sheet resistance ~8 Ω/□, transparency >80%. ITO (In₂O₃:Sn) is better optically but more expensive. The TCO surface roughness scatters light (light trapping).",
+      params: "R_sheet: 8-15 Ω/□ | Thickness: 300-500 nm | Carrier density: ~10²⁰ cm⁻³" },
+    { title: "Step 3: CdS Buffer Layer", icon: "🛡️", color: T.eo_photon,
+      analogy: "Like a diplomatic ambassador between two countries. CdS (E_g = 2.4 eV) sits between the TCO and CdTe, forming the n-type partner of the p-n junction. It's thin enough (50-80 nm) that most light passes through to CdTe, but thick enough to prevent shunting.",
+      details: "Deposited by Chemical Bath Deposition (CBD): CdSO₄ + thiourea in NH₄OH at 65°C for 12 min. Or by sputtering/CSS. CBD gives the best junction quality because it conformally coats the rough TCO. Too thick → absorbs blue light (parasitic). Too thin → pinholes → shunts.",
+      params: "Thickness: 50-80 nm | E_g: 2.4 eV | Type: n-type (~10¹⁷ cm⁻³) | Method: CBD at 65°C" },
+    { title: "Step 4: CdTe Absorber Deposition", icon: "☀️", color: T.eo_gap,
+      analogy: "Like pouring the main ingredient into the cake pan. This is where the magic happens — the CdTe layer absorbs sunlight and generates electron-hole pairs. Close-Space Sublimation (CSS) heats CdTe powder to ~600°C in vacuum; atoms sublime and recrystallize on the substrate above.",
+      details: "CSS: source at 600-640°C, substrate at 550-580°C, gap ~2 mm, N₂/O₂ ambient at 1-20 Torr. Deposition rate: 1-5 μm/min. Vapor Transport Deposition (VTD) used in production (First Solar). As-deposited grains are small (1-2 μm) with many grain boundaries — not yet good for solar cells.",
+      params: "Thickness: 3-5 μm | E_g: 1.44 eV | Crystal: zinc-blende | Grain size: 1-2 μm (as-deposited)" },
+    { title: "Step 5: CdCl₂ Activation Treatment", icon: "🔥", color: T.eo_hole,
+      analogy: "Like annealing steel — heating with a catalyst that reorganizes the internal structure. CdCl₂ treatment is THE critical step. It recrystallizes CdTe grains from 1-2 μm to 5-10 μm, passivates grain boundaries with Cl, and activates p-type doping. Without this step, efficiency drops from ~18% to ~5%.",
+      details: "Apply CdCl₂ solution (saturated in methanol) or evaporate CdCl₂ onto CdTe surface. Anneal at 380-420°C for 20-30 min in dry air. Cl diffuses along grain boundaries, promotes recrystallization via vapor-phase transport. CdCl₂ acts as a flux — lowers the activation energy for grain boundary motion. Rinse with DI water to remove excess CdCl₂.",
+      params: "Temperature: 390-420°C | Time: 20-30 min | Ambient: dry air | Grain growth: 1→5-10 μm" },
+    { title: "Step 6: Cu Doping & Back Contact", icon: "🔌", color: T.eo_core,
+      analogy: "Like adding a pinch of spice to finish the dish. A tiny amount of Cu (~3 nm) is evaporated onto CdTe, then annealed at 200°C. Cu substitutes on Cd sites (Cu_Cd) creating a shallow acceptor that boosts p-type doping from ~10¹³ to ~10¹⁴-10¹⁵ cm⁻³. Too much Cu → deep traps → degradation.",
+      details: "Evaporate 1-5 nm Cu, then 40 nm Au (or graphite/Mo). Anneal at 150-200°C for 20-45 min in N₂. Cu diffuses into CdTe — Cu_Cd is the primary acceptor. Back contact must be ohmic: CdTe has high electron affinity (4.3 eV) making ohmic contact difficult. ZnTe:Cu or Te-rich surface helps.",
+      params: "Cu thickness: 1-5 nm | Anneal: 150-200°C, 20-45 min | Back metal: Au, Mo, or graphite" },
+    { title: "Step 7: Characterization & Testing", icon: "📊", color: T.eo_cond,
+      analogy: "Like a doctor's checkup — measure everything to see if the patient (solar cell) is healthy. J-V curves measure efficiency, EQE shows which wavelengths are collected, DLTS finds deep traps, PL identifies defect levels, and C-V profiling maps the doping profile.",
+      details: "J-V under AM1.5G (100 mW/cm²): gives Voc, Jsc, FF, η. EQE(λ): photon-to-electron conversion vs wavelength. Dark J-V: reveals diode ideality factor n and recombination mechanism. DLTS: trap depth and density. PL at 10K: defect identification. C-V: doping profile N_A(x).",
+      params: "Best lab cell: Voc=0.887 V, Jsc=31.7 mA/cm², FF=79.4%, η=22.1% (First Solar, 2016)" },
+    { title: "Step 8: Module Assembly & Encapsulation", icon: "🏭", color: "#16a34a",
+      analogy: "Like framing a painting and sealing it behind glass. Individual cells are scribed into series-connected strings (P1-P2-P3 laser scribing), then encapsulated between glass sheets with EVA lamination. The module must survive 25+ years of sun, rain, hail, and temperature cycling.",
+      details: "Monolithic integration: P1 scribe (laser, through TCO), P2 scribe (mechanical, through CdTe), P3 scribe (laser, through back contact). This creates series-connected cells without wires. Encapsulation: front glass / EVA / cell / EVA / back glass. Lamination at 150°C, 15 min. Edge seal prevents moisture ingress.",
+      params: "Module efficiency: 18-19% | Size: 60×120 cm² | Lifetime: 25+ years | Degradation: <0.5%/year" },
+  ];
+
+  const step = mfgSteps[mfgStep];
+
+  // Layer stack animation positions
+  const layerStack = [
+    { label: "Glass", y: 200, h: 30, color: "#94a3b8", active: mfgStep >= 0 },
+    { label: "TCO (FTO)", y: 185, h: 15, color: "#22c55e80", active: mfgStep >= 1 },
+    { label: "CdS (n)", y: 177, h: 8, color: T.eo_photon + "90", active: mfgStep >= 2 },
+    { label: "CdTe (p)", y: 132, h: 45, color: T.eo_gap + "80", active: mfgStep >= 3 },
+    { label: "Back Contact", y: 122, h: 10, color: T.eo_core + "90", active: mfgStep >= 5 },
+  ];
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <FAQAccordion title="Overview: How a CdTe Solar Cell is Made" color={T.eo_hole} isOpen={openItem === "mfg_overview"} onClick={() => toggle("mfg_overview")}>
+        <div style={{ display: "flex", gap: 10, background: T.eo_hole + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.eo_hole + "12", marginBottom: 12 }}>
+          <span style={{ fontSize: 16, flexShrink: 0 }}>🏭</span>
+          <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
+            Building a CdTe solar cell is like making a layered cake — each layer has a specific purpose, and the order matters. Glass (foundation) → TCO (transparent conductor) → CdS (n-type partner) → CdTe (light absorber) → CdCl₂ treatment (the secret sauce) → Cu doping + back contact → testing → encapsulation. Every step involves precise control of temperature, time, and chemistry.
+          </span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          CdTe solar cells use the <strong>superstrate</strong> configuration: light enters through the glass. This is opposite to Si cells (substrate configuration). The manufacturing flow takes ~2 hours from glass to finished cell. First Solar produces ~3 GW/year using Vapor Transport Deposition (VTD) — the fastest thin-film deposition technology.
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6, marginTop: 12 }}>
+          {[
+            { label: "Record η", value: "22.1%", color: T.eo_gap },
+            { label: "Band gap", value: "1.44 eV", color: T.eo_cond },
+            { label: "Absorber", value: "3-5 μm", color: T.eo_core },
+            { label: "Module life", value: "25+ yrs", color: "#22c55e" },
+          ].map(item => (
+            <div key={item.label} style={{ background: item.color + "10", border: `1px solid ${item.color}30`, borderRadius: 8, padding: "8px", textAlign: "center" }}>
+              <div style={{ fontSize: 16, fontWeight: 800, color: item.color }}>{item.value}</div>
+              <div style={{ fontSize: 9, color: T.muted }}>{item.label}</div>
+            </div>
+          ))}
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="Interactive: Step-by-Step Manufacturing (click each step)" color={T.eo_cond} isOpen={openItem === "mfg_steps"} onClick={() => toggle("mfg_steps")}>
+        {/* Step selector buttons */}
+        <div style={{ display: "flex", gap: 4, marginBottom: 12, flexWrap: "wrap" }}>
+          {mfgSteps.map((s, i) => (
+            <button key={i} onClick={() => setMfgStep(i)} style={{
+              padding: "5px 10px", borderRadius: 8, border: `2px solid ${mfgStep === i ? s.color : T.border}`,
+              background: mfgStep === i ? s.color + "18" : T.bg, color: mfgStep === i ? s.color : T.muted,
+              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: mfgStep === i ? 800 : 400, transition: "all 0.2s",
+            }}>{s.icon} {i + 1}</button>
+          ))}
+        </div>
+
+        {/* Analogy box */}
+        <div style={{ display: "flex", gap: 10, background: step.color + "08", borderRadius: 10, padding: "10px 14px", border: `1.5px solid ${step.color}20`, marginBottom: 12 }}>
+          <span style={{ fontSize: 20, flexShrink: 0 }}>{step.icon}</span>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 800, color: step.color, marginBottom: 4 }}>{step.title}</div>
+            <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{step.analogy}</div>
+          </div>
+        </div>
+
+        <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+          {/* Animated layer stack */}
+          <div style={{ flex: "0 0 280px" }}>
+            <svg width={280} height={270} style={{ background: T.bg, borderRadius: 10, border: `1px solid ${T.border}`, display: "block" }}>
+              <text x={140} y={18} textAnchor="middle" fill={T.ink} fontSize={10} fontWeight={700}>CdTe Cell Cross-Section</text>
+
+              {/* Sunlight arrows */}
+              {mfgStep >= 3 && [50, 100, 150, 200, 230].map((x, i) => (
+                <line key={i} x1={x} y1={25} x2={x} y2={120 + (tick * 2 + i * 10) % 15} stroke={T.eo_photon} strokeWidth={1.5} opacity={0.4 + 0.3 * Math.sin(tick * 0.1 + i)} strokeDasharray="4 3" />
+              ))}
+              {mfgStep >= 3 && <text x={240} y={40} fill={T.eo_photon} fontSize={9} fontWeight={700}>☀️ light</text>}
+
+              {/* Layer stack */}
+              {layerStack.map((layer, i) => layer.active && (
+                <g key={i}>
+                  <rect x={30} y={layer.y} width={200} height={layer.h} rx={3} fill={layer.color} stroke={T.ink + "30"} strokeWidth={0.5}>
+                    {i === mfgStep && <animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite" />}
+                  </rect>
+                  <text x={240} y={layer.y + layer.h / 2 + 4} fill={T.ink} fontSize={8} fontWeight={i === mfgStep ? 700 : 400}>{layer.label}</text>
+                </g>
+              ))}
+
+              {/* CdCl2 treatment visualization */}
+              {mfgStep === 4 && <>
+                <text x={140} y={125} textAnchor="middle" fill={T.eo_hole} fontSize={9} fontWeight={700}>CdCl₂ + 400°C</text>
+                {[60, 100, 140, 180].map((x, i) => (
+                  <circle key={i} cx={x} cy={135 + 5 * Math.sin(tick * 0.15 + i)} r={2} fill={T.eo_hole}>
+                    <animate attributeName="cy" values={`${135};${170};${135}`} dur="2s" repeatCount="indefinite" begin={`${i * 0.3}s`} />
+                  </circle>
+                ))}
+                <text x={140} y={195} textAnchor="middle" fill={T.muted} fontSize={8}>Cl diffuses → grains grow 1→10 μm</text>
+              </>}
+
+              {/* Cu diffusion */}
+              {mfgStep === 5 && <>
+                {[70, 110, 150, 190].map((x, i) => (
+                  <circle key={i} cx={x} cy={125 + (tick * 1.5 + i * 8) % 50} r={2.5} fill={T.eo_core}>
+                    <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite" begin={`${i * 0.2}s`} />
+                  </circle>
+                ))}
+                <text x={140} y={118} textAnchor="middle" fill={T.eo_core} fontSize={9} fontWeight={700}>Cu diffusing into CdTe</text>
+              </>}
+
+              {/* Characterization */}
+              {mfgStep === 6 && <>
+                <text x={140} y={115} textAnchor="middle" fill={T.eo_cond} fontSize={10} fontWeight={700}>TESTING</text>
+                <text x={140} y={255} textAnchor="middle" fill={T.muted} fontSize={8}>J-V, EQE, DLTS, PL, C-V</text>
+              </>}
+
+              {/* Encapsulation */}
+              {mfgStep === 7 && <>
+                <rect x={20} y={100} width={220} height={140} rx={6} fill="none" stroke="#16a34a" strokeWidth={3} strokeDasharray="6 3" />
+                <text x={140} y={255} textAnchor="middle" fill="#16a34a" fontSize={9} fontWeight={700}>Encapsulated — 25+ year lifetime</text>
+              </>}
+
+              {/* e-h pair generation animation */}
+              {mfgStep === 3 && <>
+                <circle cx={100 + (tick * 3) % 80} cy={155} r={3} fill={T.eo_e}>
+                  <animate attributeName="cy" values="155;140;155" dur="1s" repeatCount="indefinite" />
+                </circle>
+                <circle cx={140 + (tick * 2) % 60} cy={165} r={3} fill={T.eo_hole}>
+                  <animate attributeName="cy" values="165;175;165" dur="1s" repeatCount="indefinite" />
+                </circle>
+                <text x={140} y={195} textAnchor="middle" fill={T.muted} fontSize={8}>e⁻/h⁺ pairs generated in CdTe</text>
+              </>}
+            </svg>
+          </div>
+
+          {/* Details panel */}
+          <div style={{ flex: 1, minWidth: 240 }}>
+            <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: step.color, marginBottom: 6 }}>Process Details</div>
+              <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{step.details}</div>
+            </div>
+            <div style={{ background: step.color + "08", borderRadius: 8, padding: "8px 12px", border: `1px solid ${step.color}15` }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: step.color, marginBottom: 4 }}>Key Parameters</div>
+              <div style={{ fontSize: 11, color: T.ink, fontFamily: "monospace", lineHeight: 1.8 }}>{step.params}</div>
+            </div>
+          </div>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="The CdCl₂ Treatment — Why It's the Most Important Step" color={T.eo_hole} isOpen={openItem === "mfg_cdcl2"} onClick={() => toggle("mfg_cdcl2")}>
+        <div style={{ display: "flex", gap: 10, background: T.eo_hole + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.eo_hole + "12", marginBottom: 12 }}>
+          <span style={{ fontSize: 16, flexShrink: 0 }}>🔥</span>
+          <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Without CdCl₂ treatment, CdTe solar cells are only ~5% efficient. WITH it, they reach 22%+. This single step is responsible for a 4× improvement. It{"'"}s the "secret sauce" of CdTe technology — and it took decades to fully understand why it works.</span>
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.eo_hole, fontWeight: 700 }}>What CdCl₂ treatment does — 5 simultaneous effects:</span><br /><br />
+          {"  1. GRAIN GROWTH: 1-2 μm → 5-10 μm (fewer grain boundaries)"}<br />
+          {"     Mechanism: Cl lowers grain boundary energy → grains coalesce"}<br />
+          {"     Analogy: like soap reducing surface tension → small bubbles merge"}<br /><br />
+          {"  2. GRAIN BOUNDARY PASSIVATION: Cl segregates to GBs"}<br />
+          {"     Cl atoms fill dangling bonds at GBs → removes mid-gap states"}<br />
+          {"     Analogy: like caulking cracks in a wall"}<br /><br />
+          {"  3. CdS INTERMIXING: CdS₁₋ₓTeₓ alloy at interface"}<br />
+          {"     Reduces lattice mismatch (CdS: 5.83 Å, CdTe: 6.48 Å)"}<br />
+          {"     Analogy: like blending two colors at the border for a smooth transition"}<br /><br />
+          {"  4. p-TYPE ACTIVATION: Cd vacancies form, act as acceptors"}<br />
+          {"     V_Cd concentration increases with Cl treatment"}<br />
+          {"     Hole density: 10¹³ → 10¹⁴ cm⁻³"}<br /><br />
+          {"  5. STACKING FAULT REMOVAL: Cl removes planar defects"}<br />
+          {"     Twin boundaries and stacking faults annealed out"}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+          {[
+            { label: "Without CdCl₂", value: "~5%", sub: "Small grains, many GBs, unpassivated", color: T.eo_gap },
+            { label: "With CdCl₂", value: "~20%+", sub: "Large grains, passivated GBs, activated", color: "#22c55e" },
+          ].map(item => (
+            <div key={item.label} style={{ background: item.color + "10", border: `1.5px solid ${item.color}30`, borderRadius: 10, padding: "12px", textAlign: "center" }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: item.color }}>{item.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: item.color, margin: "4px 0" }}>{item.value}</div>
+              <div style={{ fontSize: 10, color: T.muted }}>{item.sub}</div>
+            </div>
+          ))}
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="Numerical Example: Full Cell Fabrication Parameters" color={T.eo_cond} isOpen={openItem === "mfg_numerical"} onClick={() => toggle("mfg_numerical")}>
+        <div style={mb}>
+          <span style={{ color: T.eo_cond, fontWeight: 800, fontSize: 14 }}>Complete recipe for a 20%+ CdTe cell:</span><br /><br />
+
+          <span style={{ color: T.eo_cond, fontWeight: 700 }}>Layer 1: FTO/glass</span><br />
+          {"  SnO₂:F by APCVD at 500°C | 400 nm | R_sh = 8 Ω/□ | T = 82%"}<br /><br />
+
+          <span style={{ color: T.eo_photon, fontWeight: 700 }}>Layer 2: CdS buffer</span><br />
+          {"  CBD: 0.015M CdSO₄ + 0.15M thiourea + 1.5M NH₄OH"}<br />
+          {"  T = 65°C, t = 12 min → 70 nm film"}<br />
+          {"  Post-anneal: 400°C, 10 min, air (densifies film)"}<br /><br />
+
+          <span style={{ color: T.eo_gap, fontWeight: 700 }}>Layer 3: CdTe absorber</span><br />
+          {"  CSS: source 625°C, substrate 565°C, gap 2 mm"}<br />
+          {"  Ambient: 2 Torr N₂ + 0.1 Torr O₂"}<br />
+          {"  Rate: 3 μm/min → 4 μm in 80 s"}<br /><br />
+
+          <span style={{ color: T.eo_hole, fontWeight: 700 }}>Step 4: CdCl₂ activation</span><br />
+          {"  Saturated CdCl₂ in methanol, spin-coat or dip"}<br />
+          {"  Anneal: 400°C, 25 min, dry air (20% O₂, 80% N₂)"}<br />
+          {"  Grain growth: 1.5 μm → 8 μm average"}<br />
+          {"  Rinse: DI water × 3, N₂ dry"}<br /><br />
+
+          <span style={{ color: T.eo_core, fontWeight: 700 }}>Step 5: Back contact</span><br />
+          {"  Etch: NP etch (HNO₃:H₃PO₄:H₂O = 1:88:40) for 30s → Te-rich surface"}<br />
+          {"  Evaporate: 3 nm Cu / 40 nm Au at 10⁻⁶ Torr"}<br />
+          {"  Anneal: 200°C, 30 min, N₂ → Cu diffuses ~200 nm into CdTe"}<br /><br />
+
+          <span style={{ color: "#22c55e", fontWeight: 700 }}>Result:</span><br />
+          {"  Voc = 0.86 V | Jsc = 29.5 mA/cm² | FF = 78% | η = 19.8%"}<br />
+          {"  Diode: n = 1.6, J₀ = 2×10⁻¹⁰ A/cm²"}<br />
+          {"  Doping: N_A ≈ 2×10¹⁴ cm⁻³ (from C-V)"}<br />
+          {"  Lifetime: τ = 3 ns (from TRPL)"}
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="Common Failure Modes & How to Fix Them" color={T.eo_gap} isOpen={openItem === "mfg_failures"} onClick={() => toggle("mfg_failures")}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {[
+            { problem: "Low Voc (< 0.8 V)", cause: "Too many deep traps (V_Cd, Te_Cd). Insufficient CdCl₂ treatment or excess Cu.", fix: "Optimize CdCl₂ time/temp. Reduce Cu to 1-2 nm. Add MgZnO buffer instead of CdS.", icon: "📉", color: T.eo_gap },
+            { problem: "Low Jsc (< 25 mA/cm²)", cause: "CdS too thick (absorbs blue light). CdTe too thin. Poor light trapping.", fix: "Reduce CdS to 50 nm or use MgZnO. Increase CdTe to 4+ μm. Texture TCO surface.", icon: "🔅", color: T.eo_photon },
+            { problem: "Low FF (< 70%)", cause: "High series resistance (bad back contact) or shunting (pinholes in CdS).", fix: "NP etch before back contact. Ensure CdS fully covers TCO. Check for scribing damage.", icon: "📊", color: T.eo_cond },
+            { problem: "Shunting (J_dark too high)", cause: "Pinholes in CdS expose TCO to CdTe → direct metal-semiconductor contact.", fix: "Increase CdS thickness to 80+ nm. Or add high-resistivity buffer (MgZnO, ZnSnO).", icon: "⚡", color: T.eo_hole },
+            { problem: "Degradation over time", cause: "Cu migration from back contact through CdTe → creates deep donor Cu_i near junction.", fix: "Use diffusion barrier (ZnTe) between Cu and CdTe. Limit Cu to 1-2 nm. Proper encapsulation.", icon: "⏰", color: T.eo_core },
+            { problem: "Roll-over in J-V curve", cause: "Back contact barrier (Schottky barrier at CdTe/metal interface).", fix: "Te-rich surface etch + Cu/Au contact. Or use ZnTe:Cu intermediate layer.", icon: "🔄", color: "#22c55e" },
+          ].map(item => (
+            <div key={item.problem} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}` }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+                <span style={{ fontSize: 14 }}>{item.icon}</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.problem}</span>
+              </div>
+              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.5, marginBottom: 4 }}><strong>Cause:</strong> {item.cause}</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}><strong>Fix:</strong> {item.fix}</div>
+            </div>
+          ))}
+        </div>
+      </FAQAccordion>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
 // CHAPTER 2: CdTe SOLAR CELL MODULE (CdTe + N-type + P-type tabs)
 // ═══════════════════════════════════════════════════════════════════════════
 const CDTE_SOLAR_SECTIONS = [
@@ -3315,7 +3620,8 @@ const CDTE_SOLAR_SECTIONS = [
   { id: "ivcurve", label: "J-V Curve & Efficiency", icon: "📈",  color: "#22c55e",    Component: IVCurveSection,           nextReason: "The J-V curve summarises all device physics in one plot. The Device Animation shows all of these microscopic processes — photon absorption, carrier generation, drift, and collection — happening simultaneously in real time." },
   { id: "device",  label: "Device Animation",     icon: "🎬",  color: T.eo_photon,  Component: SolarCellDeviceSection,   nextReason: "The device is running. Now watch the full animated story — from atomistic simulations through defect physics to DFT and MLFF acceleration — in the DefectDB movie." },
   { id: "defectmovie", label: "Movie",  icon: "🎥",  color: "#f59e0b",    Component: DefectMovieModule,        nextReason: "The DefectDB movie covers the computational side. Now see how all these defect physics play out in real-world device aging — the Degradation Movie shows CdTe solar cells aging under light, heat, moisture, and mechanical stress." },
-  { id: "degradation", label: "Degradation Movie", icon: "⚡", color: "#ef4444", Component: SolarCellDegradationMovie, nextReason: "CdTe chapter complete: from individual Cd and Te atoms through crystal structure, defects, device physics, and real-world degradation. Next chapter covers the computational force fields used to simulate these atomic interactions." },
+  { id: "degradation", label: "Degradation Movie", icon: "⚡", color: "#ef4444", Component: SolarCellDegradationMovie, nextReason: "Degradation physics covered. Now see the full manufacturing process — from glass substrate to finished solar cell module — with step-by-step animated fabrication, CdCl₂ activation, Cu doping, and characterization." },
+  { id: "manufacturing", label: "Manufacturing", icon: "🏭", color: "#16a34a", Component: CdTeManufacturingSection },
 ];
 
 function CdTeSolarCellModule() {
