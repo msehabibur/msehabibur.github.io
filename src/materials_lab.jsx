@@ -15704,11 +15704,768 @@ function CHKineticsSection() {
   );
 }
 
+function CHBigQuestionsSection() {
+  const [openQ, setOpenQ] = useState("PQ1");
+  const toggle = (q) => setOpenQ(openQ === q ? null : q);
+  const mb = { fontFamily: "monospace", fontSize: 13, lineHeight: 1.9, background: T.surface, borderRadius: 10, padding: "14px 18px", border: `1px solid ${T.border}40`, marginBottom: 10 };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>🧠 Big Questions</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          40+ deep questions about phase diagrams, convex hulls, thermodynamics, and chemical potentials.
+        </div>
+      </div>
+
+      {/* ═══ PQ1–PQ5: Phase Diagrams ═══ */}
+      <FAQAccordion title={"PQ1. What exactly IS a phase?"} color={T.ch_main} isOpen={openQ === "PQ1"} onClick={() => toggle("PQ1")}>
+        <div style={{ background: T.ch_main + "10", border: `1px solid ${T.ch_main}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_main }}>🧊 <b>Analogy:</b> Think of ice, liquid water, and steam — same H₂O molecules, but completely different arrangements. Each arrangement is a distinct phase.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          A <b>phase</b> is a region of matter with uniform chemical composition and physical properties. Within a single phase, every microscopic portion looks the same. Phases differ in crystal structure (BCC vs FCC iron), composition (Cu vs CuS), or state of matter (solid vs liquid).
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_main, fontWeight: 700 }}>Examples of distinct phases:</span><br />
+          <span style={{ color: T.ch_stable }}>• α-Fe (BCC iron) vs γ-Fe (FCC iron)</span><br />
+          <span style={{ color: T.ch_hull }}>• CuS (covellite) vs Cu₂S (chalcocite)</span><br />
+          <span style={{ color: T.ch_accent }}>• Liquid Cu-S melt vs solid Cu₂S</span><br /><br />
+          <span style={{ color: T.muted }}>Key: same atoms, different arrangement = different phase</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ2. What does 'equilibrium' mean on a phase diagram?"} color={T.ch_main} isOpen={openQ === "PQ2"} onClick={() => toggle("PQ2")}>
+        <div style={{ background: T.ch_main + "10", border: `1px solid ${T.ch_main}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_main }}>⚖️ <b>Analogy:</b> A ball rolling to the bottom of a valley. At equilibrium, the system has found its lowest-energy state and has no driving force to change.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          <b>Thermodynamic equilibrium</b> means the system has minimized its Gibbs free energy G at a given temperature and pressure. No spontaneous changes will occur. On a phase diagram, every point represents THE equilibrium state(s) at those conditions.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_main, fontWeight: 700 }}>At equilibrium:</span><br />
+          <span style={{ color: T.ch_hull }}>dG = 0 (free energy is at a minimum)</span><br />
+          <span style={{ color: T.ch_accent }}>μᵢᵅ = μᵢᵝ (chemical potential equal in all phases)</span><br /><br />
+          <span style={{ color: T.muted }}>If μ_Cu in phase α {">"} μ_Cu in phase β → Cu atoms migrate α→β until equal</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ3. What is the Gibbs phase rule and why does it matter?"} color={T.ch_hull} isOpen={openQ === "PQ3"} onClick={() => toggle("PQ3")}>
+        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_hull }}>📐 <b>Analogy:</b> Imagine knobs on a control panel. The phase rule tells you how many knobs you can turn independently without changing which phases are present.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The Gibbs phase rule constrains how many independent variables (degrees of freedom) you can vary while maintaining a certain number of phases in equilibrium.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_hull, fontWeight: 700 }}>F = C − P + 2</span><br /><br />
+          <span style={{ color: T.ch_main }}>F = degrees of freedom (T, P, composition...)</span><br />
+          <span style={{ color: T.ch_stable }}>C = number of components (independent species)</span><br />
+          <span style={{ color: T.ch_unstab }}>P = number of phases in equilibrium</span><br /><br />
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Example: Cu-S binary (C=2):</span><br />
+          <span style={{ color: T.ch_stable }}>• 1 phase: F = 2−1+2 = 3 (vary T, P, x)</span><br />
+          <span style={{ color: T.ch_hull }}>• 2 phases: F = 2−2+2 = 2 (vary T, P only)</span><br />
+          <span style={{ color: T.ch_unstab }}>• 3 phases: F = 2−3+2 = 1 (univariant line)</span><br />
+          <span style={{ color: T.ch_warm }}>• 4 phases: F = 0 (invariant point — fixed T,P)</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ4. What are 'degrees of freedom' physically?"} color={T.ch_hull} isOpen={openQ === "PQ4"} onClick={() => toggle("PQ4")}>
+        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_hull }}>🎛️ <b>Analogy:</b> A drone flying in 3D space has 3 degrees of freedom (x, y, z). Pin it to a wire and it has 1. Each constraint removes a freedom.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Degrees of freedom are the number of intensive variables (T, P, compositions) you can change independently without altering the number or identity of phases present. Each additional phase in equilibrium imposes a constraint (equality of chemical potentials), reducing F by 1.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_hull, fontWeight: 700 }}>Physical meaning in Cu-S at 1 atm (F = C−P+1):</span><br /><br />
+          <span style={{ color: T.ch_stable }}>• In a single-phase region (e.g., liquid): F=2</span><br />
+          <span style={{ color: T.ch_stable }}>  → Change both T and composition freely</span><br /><br />
+          <span style={{ color: T.ch_hull }}>• On a two-phase boundary: F=1</span><br />
+          <span style={{ color: T.ch_hull }}>  → Choose T, compositions are fixed by the phase boundary</span><br /><br />
+          <span style={{ color: T.ch_unstab }}>• At a eutectic (3 phases): F=0</span><br />
+          <span style={{ color: T.ch_unstab }}>  → Everything is locked: T and all compositions fixed</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ5. What is the lever rule and how do I use it?"} color={T.ch_accent} isOpen={openQ === "PQ5"} onClick={() => toggle("PQ5")}>
+        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_accent }}>⚖️ <b>Analogy:</b> A seesaw — the heavier child sits closer to the pivot. Similarly, the phase closer in composition to the overall alloy is present in greater proportion.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          In a two-phase region, the <b>lever rule</b> tells you what fraction of each phase is present. It's a simple mass balance derived from the fact that the overall composition must equal the weighted average of the two phase compositions.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Lever Rule:</span><br />
+          <span style={{ color: T.ch_hull }}>f_α = (x_β − x₀) / (x_β − x_α)</span><br />
+          <span style={{ color: T.ch_hull }}>f_β = (x₀ − x_α) / (x_β − x_α)</span><br /><br />
+          <span style={{ color: T.ch_main, fontWeight: 700 }}>Example:</span><br />
+          <span style={{ color: T.ch_stable }}>Overall: x₀ = 0.40 (40% S)</span><br />
+          <span style={{ color: T.ch_stable }}>Phase α: x_α = 0.33 (Cu₂S), Phase β: x_β = 0.50 (CuS)</span><br /><br />
+          <span style={{ color: T.ch_accent }}>f_Cu₂S = (0.50−0.40)/(0.50−0.33) = 0.10/0.17 = 59%</span><br />
+          <span style={{ color: T.ch_warm }}>f_CuS = (0.40−0.33)/(0.50−0.33) = 0.07/0.17 = 41%</span>
+        </div>
+      </FAQAccordion>
+
+      {/* ═══ PQ6–PQ10: Thermodynamics ═══ */}
+      <FAQAccordion title={"PQ6. What is Gibbs free energy and why does it determine stability?"} color={T.ch_accent} isOpen={openQ === "PQ6"} onClick={() => toggle("PQ6")}>
+        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_accent }}>🏔️ <b>Analogy:</b> A ball on a hilly landscape. G is the height. The ball always rolls downhill to the lowest G. Stable phases sit in the deepest valleys.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Gibbs free energy G = H − TS combines enthalpy (bonding energy + PV work) with entropy (disorder). At constant T and P, nature minimizes G. The phase with the lowest G wins.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>G = H − TS</span><br /><br />
+          <span style={{ color: T.ch_main }}>H = enthalpy (bond energies + PV)</span><br />
+          <span style={{ color: T.ch_warm }}>T = temperature (K)</span><br />
+          <span style={{ color: T.ch_hull }}>S = entropy (disorder, vibrations)</span><br /><br />
+          <span style={{ color: T.ch_stable, fontWeight: 700 }}>At low T:</span> <span style={{ color: T.ink }}>TS ≈ 0, so G ≈ H → strong bonds win</span><br />
+          <span style={{ color: T.ch_unstab, fontWeight: 700 }}>At high T:</span> <span style={{ color: T.ink }}>TS large → disordered phases (liquid, gas) win</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ7. What's the difference between enthalpy and entropy?"} color={T.ch_warm} isOpen={openQ === "PQ7"} onClick={() => toggle("PQ7")}>
+        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_warm }}>🔥 <b>Analogy:</b> Enthalpy H is like money in the bank (energy stored in bonds). Entropy S is like freedom to spend it (how many microstates). Nature wants low H and high S.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          <b>Enthalpy H</b> measures the total heat content — stronger bonds mean lower H (more stable). <b>Entropy S</b> measures disorder — more possible arrangements mean higher S. They compete: H favors ordered crystals, TS favors disordered states.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_warm, fontWeight: 700 }}>Enthalpy (H):</span><br />
+          <span style={{ color: T.ch_stable }}>• Strong Cu-S bonds → low H → favorable</span><br />
+          <span style={{ color: T.ch_stable }}>• DFT directly computes H at 0K (H ≈ E_total)</span><br /><br />
+          <span style={{ color: T.ch_hull, fontWeight: 700 }}>Entropy (S):</span><br />
+          <span style={{ color: T.ch_accent }}>• Vibrational: atoms vibrating around equilibrium</span><br />
+          <span style={{ color: T.ch_accent }}>• Configurational: mixing on lattice sites</span><br />
+          <span style={{ color: T.ch_accent }}>• Electronic: smearing of Fermi level</span><br /><br />
+          <span style={{ color: T.muted }}>S = k_B ln(Ω) where Ω = number of microstates</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ8. Why does ΔG < 0 mean a reaction is spontaneous?"} color={T.ch_stable} isOpen={openQ === "PQ8"} onClick={() => toggle("PQ8")}>
+        <div style={{ background: T.ch_stable + "10", border: `1px solid ${T.ch_stable}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_stable }}>⛷️ <b>Analogy:</b> A skier going downhill. ΔG {"<"} 0 means you're going downhill in the energy landscape — the reaction happens naturally without external energy input.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The second law of thermodynamics (at constant T, P) says the total Gibbs free energy of the universe must decrease. If products have lower G than reactants (ΔG {"<"} 0), the reaction releases free energy and proceeds spontaneously. ΔG {">"} 0 means it costs energy — non-spontaneous.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_stable, fontWeight: 700 }}>ΔG = G_products − G_reactants</span><br /><br />
+          <span style={{ color: T.ch_stable }}>ΔG {"<"} 0 → Spontaneous (products more stable)</span><br />
+          <span style={{ color: T.ch_unstab }}>ΔG {">"} 0 → Non-spontaneous (needs energy input)</span><br />
+          <span style={{ color: T.ch_hull }}>ΔG = 0 → Equilibrium (no net change)</span><br /><br />
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Example:</span><br />
+          <span style={{ color: T.ink }}>2Cu + S → Cu₂S: ΔG = −86 kJ/mol at 300K</span><br />
+          <span style={{ color: T.ch_stable }}>Strongly spontaneous — Cu₂S is very stable!</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ9. What is chemical potential μ?"} color={T.ch_warm} isOpen={openQ === "PQ9"} onClick={() => toggle("PQ9")}>
+        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_warm }}>💧 <b>Analogy:</b> Water pressure in connected tanks. Water flows from high pressure to low until pressures equalize. Chemical potential is the "pressure" driving atoms from one phase to another.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Chemical potential μᵢ is the partial molar Gibbs free energy — the change in G when you add one mole of species i, holding T, P, and all other compositions constant. At equilibrium, μᵢ must be equal in every phase.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_warm, fontWeight: 700 }}>μᵢ = (∂G/∂nᵢ)_{"{T,P,n_j}"}</span><br /><br />
+          <span style={{ color: T.ch_main }}>Physical meaning:</span><br />
+          <span style={{ color: T.ink }}>• μ_Cu = "how much does G change if I add one Cu atom?"</span><br />
+          <span style={{ color: T.ink }}>• High μ_Cu → Cu wants to leave</span><br />
+          <span style={{ color: T.ink }}>• Low μ_Cu → Cu wants to arrive</span><br /><br />
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Equilibrium condition:</span><br />
+          <span style={{ color: T.ch_stable }}>μ_Cu(phase α) = μ_Cu(phase β) = μ_Cu(phase γ)...</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ10. What is thermodynamic activity?"} color={T.ch_accent} isOpen={openQ === "PQ10"} onClick={() => toggle("PQ10")}>
+        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_accent }}>🎯 <b>Analogy:</b> In a crowded room, a person's "effective presence" depends on how active they are, not just how many people are there. Activity = effective concentration.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Activity aᵢ is the "effective concentration" of species i — it accounts for non-ideal interactions. For ideal solutions, activity equals mole fraction. For real solutions, activity can be much higher or lower than composition suggests.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>μᵢ = μᵢ° + RT ln(aᵢ)</span><br /><br />
+          <span style={{ color: T.ch_main }}>μᵢ° = standard chemical potential (pure species)</span><br />
+          <span style={{ color: T.ch_hull }}>R = 8.314 J/(mol·K)</span><br />
+          <span style={{ color: T.ch_warm }}>aᵢ = activity (effective concentration)</span><br /><br />
+          <span style={{ color: T.ch_stable }}>For pure solid Cu: a_Cu = 1 (by convention)</span><br />
+          <span style={{ color: T.ch_stable }}>For ideal gas: a = P/P° (pressure ratio)</span><br />
+          <span style={{ color: T.ch_stable }}>For ideal solution: a = x (mole fraction)</span>
+        </div>
+      </FAQAccordion>
+
+      {/* ═══ PQ11–PQ15: Formation Energy ═══ */}
+      <FAQAccordion title={"PQ11. What is formation energy?"} color={T.ch_hull} isOpen={openQ === "PQ11"} onClick={() => toggle("PQ11")}>
+        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_hull }}>🏗️ <b>Analogy:</b> Building a house. Formation energy is the energy difference between the finished house and the raw materials (bricks, wood, nails). Negative = exothermic = house is more stable than a pile of materials.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Formation energy ΔH_f is the energy released (or absorbed) when a compound forms from its constituent elements in their standard reference states. It directly tells you whether a compound is energetically favorable to form.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_hull, fontWeight: 700 }}>ΔH_f(Cu₂S) = E(Cu₂S) − 2·E(Cu) − E(S)</span><br /><br />
+          <span style={{ color: T.ch_stable }}>ΔH_f {"<"} 0 → Compound is stable vs. elements</span><br />
+          <span style={{ color: T.ch_unstab }}>ΔH_f {">"} 0 → Elements are more stable (compound may decompose)</span><br /><br />
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Numerical example (DFT, per atom):</span><br />
+          <span style={{ color: T.ink }}>E(Cu₂S) = −4.19 eV/atom (3 atoms per formula unit)</span><br />
+          <span style={{ color: T.ink }}>E(Cu) = −3.72 eV/atom, E(S) = −4.00 eV/atom</span><br />
+          <span style={{ color: T.ch_hull }}>ΔH_f = −4.19 − (2/3)(−3.72) − (1/3)(−4.00) = −0.37 eV/atom</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ12. Why measure formation energy relative to pure elements?"} color={T.ch_hull} isOpen={openQ === "PQ12"} onClick={() => toggle("PQ12")}>
+        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_hull }}>📏 <b>Analogy:</b> Measuring height above sea level. Sea level is arbitrary but universal. Similarly, pure elements are the universal "zero" for formation energy — everyone agrees on the reference.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          DFT total energies are huge negative numbers that depend on pseudopotentials, cutoffs, and other technical details. By subtracting reference element energies, systematic errors cancel and you get a physically meaningful quantity that can be compared across studies.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_hull, fontWeight: 700 }}>Why references matter:</span><br /><br />
+          <span style={{ color: T.ch_unstab }}>Raw DFT: E(Cu₂S) = −12.57 eV (meaningless alone)</span><br />
+          <span style={{ color: T.ch_stable }}>Referenced: ΔH_f = −0.37 eV/atom (physically meaningful)</span><br /><br />
+          <span style={{ color: T.ch_accent }}>Error cancellation: if your pseudopotential overbinds Cu by 0.1 eV,</span><br />
+          <span style={{ color: T.ch_accent }}>this error appears in BOTH E(Cu) and E(Cu₂S) → cancels in ΔH_f</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ13. How does DFT actually compute formation energy?"} color={T.ch_main} isOpen={openQ === "PQ13"} onClick={() => toggle("PQ13")}>
+        <div style={{ background: T.ch_main + "10", border: `1px solid ${T.ch_main}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_main }}>🖥️ <b>Analogy:</b> A supercomputer playing the world's most detailed game of Minecraft — placing every atom, computing every electron interaction, then finding the total energy of the arrangement.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          DFT solves the Kohn-Sham equations self-consistently for a periodic crystal. The output is a total energy E_total. You run separate calculations for the compound and each element, then subtract.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_main, fontWeight: 700 }}>DFT workflow for ΔH_f:</span><br /><br />
+          <span style={{ color: T.ch_stable }}>Step 1: Relax Cu (FCC) → E_Cu = −3.72 eV/atom</span><br />
+          <span style={{ color: T.ch_stable }}>Step 2: Relax S (orthorhombic) → E_S = −4.00 eV/atom</span><br />
+          <span style={{ color: T.ch_hull }}>Step 3: Relax Cu₂S → E_Cu₂S = −4.19 eV/atom</span><br />
+          <span style={{ color: T.ch_accent }}>Step 4: ΔH_f = E_Cu₂S − (2/3)E_Cu − (1/3)E_S</span><br /><br />
+          <span style={{ color: T.ch_warm }}>Each "relax" means: optimize atom positions + cell shape + cell volume until forces {"<"} 0.01 eV/Å</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ14. What are reference states and how do I choose them?"} color={T.ch_stable} isOpen={openQ === "PQ14"} onClick={() => toggle("PQ14")}>
+        <div style={{ background: T.ch_stable + "10", border: `1px solid ${T.ch_stable}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_stable }}>🧭 <b>Analogy:</b> Like choosing "ground floor" in a building — the reference defines zero, and everything else is measured relative to it. Pick the wrong ground floor, and all heights are wrong.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Reference states are the most stable form of each element under standard conditions. For metals, this is typically the ground-state crystal structure. For gases (O₂, N₂, Cl₂), it's the diatomic molecule. Getting references right is critical — wrong references shift the entire hull.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_stable, fontWeight: 700 }}>Common reference states:</span><br /><br />
+          <span style={{ color: T.ch_main }}>Cu → FCC copper (ground state metal)</span><br />
+          <span style={{ color: T.ch_hull }}>S → α-S₈ orthorhombic sulfur</span><br />
+          <span style={{ color: T.ch_accent }}>Fe → BCC iron (ferromagnetic!)</span><br />
+          <span style={{ color: T.ch_warm }}>O → ½O₂ molecule (DFT has trouble here)</span><br /><br />
+          <span style={{ color: T.ch_unstab, fontWeight: 700 }}>Warning:</span> <span style={{ color: T.ink }}>O₂ is notoriously difficult for DFT — most databases apply empirical corrections (e.g., +1.36 eV/O₂ in Materials Project)</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ15. What if ΔH_f > 0? Is the compound always unstable?"} color={T.ch_unstab} isOpen={openQ === "PQ15"} onClick={() => toggle("PQ15")}>
+        <div style={{ background: T.ch_unstab + "10", border: `1px solid ${T.ch_unstab}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_unstab }}>🎈 <b>Analogy:</b> A ball balanced on a hilltop has positive potential energy vs. the valley, but it stays put unless something pushes it. Some "unstable" compounds persist for millennia because they can't find a path downhill.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          ΔH_f {">"} 0 means the compound is energetically unfavorable vs. pure elements at 0K. But it does NOT mean the compound cannot exist! Entropy can stabilize it at high T (ΔG = ΔH − TΔS {"<"} 0), or kinetic barriers can trap it as a metastable phase.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_unstab, fontWeight: 700 }}>ΔH_f {">"} 0 but compound still exists? Three scenarios:</span><br /><br />
+          <span style={{ color: T.ch_accent }}>1. Entropy-stabilized: ΔG = ΔH − TΔS {"<"} 0 at high T</span><br />
+          <span style={{ color: T.ch_accent }}>   Example: high-entropy alloys (TΔS_config dominates)</span><br /><br />
+          <span style={{ color: T.ch_hull }}>2. Kinetically trapped (metastable):</span><br />
+          <span style={{ color: T.ch_hull }}>   Example: diamond (ΔH_f {">"} 0 vs graphite, but persists forever)</span><br /><br />
+          <span style={{ color: T.ch_warm }}>3. Stabilized by conditions (P, epitaxy, substrate):</span><br />
+          <span style={{ color: T.ch_warm }}>   Example: strained thin films stabilized by substrate</span>
+        </div>
+      </FAQAccordion>
+
+      {/* ═══ PQ16–PQ20: Convex Hull ═══ */}
+      <FAQAccordion title={"PQ16. What IS a convex hull, geometrically?"} color={T.ch_hull} isOpen={openQ === "PQ16"} onClick={() => toggle("PQ16")}>
+        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_hull }}>📦 <b>Analogy:</b> Imagine scattering pins on a board and stretching a rubber band around the outermost ones. The rubber band forms the "convex hull." In thermodynamics, we want the LOWER hull — the floor, not the ceiling.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          In composition-energy space, plot formation energy (y) vs. composition (x) for every known compound. The lower convex hull is the set of line segments connecting the lowest-energy phases such that no point lies below the lines. Phases ON the hull are thermodynamically stable; those above it are not.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_hull, fontWeight: 700 }}>Construction:</span><br />
+          <span style={{ color: T.ch_stable }}>1. Plot all phases as points (x_S, ΔH_f)</span><br />
+          <span style={{ color: T.ch_stable }}>2. Connect endpoints: (0, 0) for pure Cu and (1, 0) for pure S</span><br />
+          <span style={{ color: T.ch_hull }}>3. Draw the lower envelope connecting the deepest points</span><br />
+          <span style={{ color: T.ch_hull }}>4. No phase can be below the hull (by definition)</span><br /><br />
+          <span style={{ color: T.ch_accent }}>The hull is "convex" because the line between any two hull points</span><br />
+          <span style={{ color: T.ch_accent }}>never goes above the hull — it's a bowl shape, not wavy.</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ17. Why does 'lower energy = more stable'?"} color={T.ch_stable} isOpen={openQ === "PQ17"} onClick={() => toggle("PQ17")}>
+        <div style={{ background: T.ch_stable + "10", border: `1px solid ${T.ch_stable}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_stable }}>🏔️ <b>Analogy:</b> Water flows downhill to the lowest point. Atoms rearrange to reach the lowest-energy configuration. Being lower on the hull = more strongly bonded = harder to decompose.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The second law demands that systems evolve toward lower free energy. A compound with very negative ΔH_f has very strong bonds relative to the elements — breaking it apart costs energy. On the hull, deeper points are more thermodynamically stable.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_stable, fontWeight: 700 }}>Example — Cu-S system (per atom):</span><br /><br />
+          <span style={{ color: T.ch_stable }}>Cu₂S (chalcocite): ΔH_f = −0.37 eV/atom (very stable)</span><br />
+          <span style={{ color: T.ch_hull }}>CuS (covellite): ΔH_f = −0.30 eV/atom (stable)</span><br />
+          <span style={{ color: T.ch_unstab }}>Cu₃S₂: ΔH_f = −0.28 eV/atom (above hull!)</span><br /><br />
+          <span style={{ color: T.ch_accent }}>Cu₃S₂ is above hull despite having ΔH_f {"<"} 0 because a</span><br />
+          <span style={{ color: T.ch_accent }}>mixture of Cu₂S + CuS at same composition is even lower.</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ18. What does 'energy above hull' (E_hull) mean?"} color={T.ch_unstab} isOpen={openQ === "PQ18"} onClick={() => toggle("PQ18")}>
+        <div style={{ background: T.ch_unstab + "10", border: `1px solid ${T.ch_unstab}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_unstab }}>📍 <b>Analogy:</b> E_hull is like altitude above the valley floor. Zero = on the ground (stable). 10 meV = standing on a curb (barely metastable). 200 meV = on the roof (very unstable, will decompose quickly).</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Energy above hull measures how far a compound sits above the convex hull at its composition. E_hull = 0 means the phase is on the hull (stable). E_hull {">"} 0 means a mixture of hull phases at the same composition would be lower in energy.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_unstab, fontWeight: 700 }}>E_hull scale (empirical guidelines):</span><br /><br />
+          <span style={{ color: T.ch_stable }}>E_hull = 0 meV/atom → On the hull, thermodynamically stable</span><br />
+          <span style={{ color: T.ch_hull }}>E_hull {"<"} 25 meV/atom → Possibly synthesizable (metastable)</span><br />
+          <span style={{ color: T.ch_warm }}>E_hull = 25–100 meV/atom → Unlikely to be synthesized</span><br />
+          <span style={{ color: T.ch_unstab }}>E_hull {">"} 100 meV/atom → Very unlikely to exist</span><br /><br />
+          <span style={{ color: T.muted }}>Note: DFT accuracy is ~25 meV/atom, so phases with E_hull {"<"} 25 meV</span><br />
+          <span style={{ color: T.muted }}>could actually be ON the hull within DFT error bars.</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ19. What are tie lines and what do they mean?"} color={T.ch_hull} isOpen={openQ === "PQ19"} onClick={() => toggle("PQ19")}>
+        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_hull }}>🔗 <b>Analogy:</b> Tie lines are like bridge cables connecting stable islands. If your composition falls between two islands, you'll be a mixture of both — connected by the tie line.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Tie lines are the line segments forming the convex hull, connecting adjacent stable phases. Any composition that falls on a tie line (between two hull phases) exists as a two-phase mixture of those endpoints. The lever rule gives the proportions.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_hull, fontWeight: 700 }}>Tie lines in Cu-S:</span><br /><br />
+          <span style={{ color: T.ch_stable }}>Cu ——— Cu₂S ——— CuS ——— S</span><br />
+          <span style={{ color: T.ch_stable }}>  (tie 1)   (tie 2)   (tie 3)</span><br /><br />
+          <span style={{ color: T.ch_accent }}>Composition x_S = 0.40 falls on tie line 2:</span><br />
+          <span style={{ color: T.ch_accent }}>→ Equilibrium = Cu₂S + CuS mixture (lever rule gives fractions)</span><br /><br />
+          <span style={{ color: T.muted }}>In ternary systems, tie lines become tie triangles</span><br />
+          <span style={{ color: T.muted }}>→ three-phase equilibria at any point inside the triangle</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ20. How do I find decomposition products?"} color={T.ch_unstab} isOpen={openQ === "PQ20"} onClick={() => toggle("PQ20")}>
+        <div style={{ background: T.ch_unstab + "10", border: `1px solid ${T.ch_unstab}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_unstab }}>💥 <b>Analogy:</b> A Jenga tower collapsing into specific blocks. Decomposition products are the stable phases that an unstable compound falls apart into — determined by which hull phases bracket its composition.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          For any metastable phase, drop a vertical line from it to the hull. The tie line it lands on tells you the decomposition products. The lever rule gives the amounts.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_unstab, fontWeight: 700 }}>Finding decomposition products:</span><br /><br />
+          <span style={{ color: T.ch_hull }}>1. Locate Cu₃S₂ at composition x_S = 0.40</span><br />
+          <span style={{ color: T.ch_hull }}>2. Drop to hull → lands on Cu₂S—CuS tie line</span><br />
+          <span style={{ color: T.ch_hull }}>3. Decomposition: Cu₃S₂ → Cu₂S + CuS</span><br /><br />
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Energy released per atom:</span><br />
+          <span style={{ color: T.ch_accent }}>ΔE_decomp = −E_hull(Cu₃S₂) ≈ −0.02 eV/atom</span><br /><br />
+          <span style={{ color: T.ch_warm }}>In ternary: decomposition can yield 3 products</span><br />
+          <span style={{ color: T.ch_warm }}>e.g., CZTS → Cu₂S + ZnS + SnS₂ (not always obvious!)</span>
+        </div>
+      </FAQAccordion>
+
+      {/* ═══ PQ21–PQ25: Building the Hull ═══ */}
+      <FAQAccordion title={"PQ21. What DFT calculations are needed to build a hull?"} color={T.ch_main} isOpen={openQ === "PQ21"} onClick={() => toggle("PQ21")}>
+        <div style={{ background: T.ch_main + "10", border: `1px solid ${T.ch_main}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_main }}>🧪 <b>Analogy:</b> Making a recipe book — you need to cook every possible dish (structure) and taste-test (compute energy) each one. Miss a recipe, and you might miss the winning dish.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          You need the total energy of every plausible phase in the system. This means: all known crystal structures for each composition, both endpoints (pure elements), and any hypothetical structures you can think of. Missing a stable phase means your hull is wrong.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_main, fontWeight: 700 }}>Checklist for Cu-S hull:</span><br /><br />
+          <span style={{ color: T.ch_stable }}>□ Pure Cu (FCC) — reference endpoint</span><br />
+          <span style={{ color: T.ch_stable }}>□ Pure S (orthorhombic S₈) — reference endpoint</span><br />
+          <span style={{ color: T.ch_hull }}>□ Cu₂S (chalcocite, djurleite, ...)</span><br />
+          <span style={{ color: T.ch_hull }}>□ Cu₁.₈S (digenite)</span><br />
+          <span style={{ color: T.ch_hull }}>□ CuS (covellite)</span><br />
+          <span style={{ color: T.ch_hull }}>□ CuS₂ (if it exists)</span><br /><br />
+          <span style={{ color: T.ch_warm }}>Each structure: full ionic relaxation (ISIF=3 in VASP)</span><br />
+          <span style={{ color: T.ch_warm }}>Consistent settings: same ENCUT, k-point density, functional</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ22. How many structures should I try?"} color={T.ch_main} isOpen={openQ === "PQ22"} onClick={() => toggle("PQ22")}>
+        <div style={{ background: T.ch_main + "10", border: `1px solid ${T.ch_main}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_main }}>🎰 <b>Analogy:</b> Lottery tickets — the more you buy (structures you try), the more likely you find the winner (ground state). But diminishing returns apply after you've covered the common structure types.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          There's no definitive answer. Start with all experimentally known phases and common prototype structures. For thorough searches, use structure prediction tools (AIRSS, evolutionary algorithms, machine learning). Materials databases like ICSD, Materials Project, and AFLOW are excellent starting points.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_main, fontWeight: 700 }}>Practical approach:</span><br /><br />
+          <span style={{ color: T.ch_stable }}>Tier 1: ICSD experimental structures (5–20 per system)</span><br />
+          <span style={{ color: T.ch_hull }}>Tier 2: Prototype structures from similar systems (20–100)</span><br />
+          <span style={{ color: T.ch_accent }}>Tier 3: Structure prediction (100–10,000+)</span><br /><br />
+          <span style={{ color: T.ch_warm, fontWeight: 700 }}>Rule of thumb:</span><br />
+          <span style={{ color: T.ink }}>Binary: 10–50 structures usually sufficient</span><br />
+          <span style={{ color: T.ink }}>Ternary: 50–500 structures needed</span><br />
+          <span style={{ color: T.ink }}>Quaternary: 200–5000+ structures (combinatorial explosion)</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ23. What is polymorphism and how does it affect the hull?"} color={T.ch_accent} isOpen={openQ === "PQ23"} onClick={() => toggle("PQ23")}>
+        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_accent }}>🦋 <b>Analogy:</b> Same recipe, different plating. Carbon can be diamond or graphite — same atoms, wildly different structures. Only the lowest-energy polymorph sits on the hull.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Polymorphism means one composition can have multiple crystal structures (polymorphs). Each appears as a separate point on the energy-composition plot. Only the lowest-energy polymorph at each composition matters for the 0K hull. Higher-energy polymorphs appear above the hull.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Cu₂S polymorphs:</span><br /><br />
+          <span style={{ color: T.ch_stable }}>• Chalcocite (monoclinic): ΔH_f = −0.37 eV/atom ← on hull!</span><br />
+          <span style={{ color: T.ch_hull }}>• Djurleite (Cu₁.₉₇S): ΔH_f = −0.35 eV/atom ← slightly above</span><br />
+          <span style={{ color: T.ch_unstab }}>• High-T hexagonal Cu₂S: ΔH_f = −0.31 eV/atom ← above hull</span><br /><br />
+          <span style={{ color: T.ch_warm }}>Key insight: high-T polymorphs are above the 0K hull</span><br />
+          <span style={{ color: T.ch_warm }}>but may appear ON the finite-T hull (entropy stabilization)</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ24. How do magnetic states affect the hull?"} color={T.ch_warm} isOpen={openQ === "PQ24"} onClick={() => toggle("PQ24")}>
+        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_warm }}>🧲 <b>Analogy:</b> A choir singing in unison (ferromagnetic) vs. alternating voices (antiferromagnetic) vs. everyone singing randomly (paramagnetic). Each arrangement has different energy, and picking the wrong one wrecks your hull.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          For systems containing 3d transition metals (Fe, Co, Ni, Mn, Cr), the magnetic ground state can dramatically affect total energies. You MUST try multiple magnetic orderings (FM, AFM, NM) and use the lowest energy. BCC Fe is ferromagnetic — using nonmagnetic Fe gives an error of ~0.5 eV/atom!
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_warm, fontWeight: 700 }}>Impact on hull — Fe example:</span><br /><br />
+          <span style={{ color: T.ch_stable }}>BCC Fe (FM): E = −8.31 eV/atom ← correct reference</span><br />
+          <span style={{ color: T.ch_unstab }}>BCC Fe (NM): E = −7.78 eV/atom ← WRONG! (0.53 eV error)</span><br /><br />
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Best practice:</span><br />
+          <span style={{ color: T.ch_hull }}>1. Try FM, AFM, and NM initial states</span><br />
+          <span style={{ color: T.ch_hull }}>2. Use lowest energy for the hull</span><br />
+          <span style={{ color: T.ch_hull }}>3. Include Hubbard U for localized d/f electrons (DFT+U)</span><br />
+          <span style={{ color: T.ch_hull }}>4. Check Materials Project for recommended U values</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ25. How do I know my DFT calculation has converged?"} color={T.ch_stable} isOpen={openQ === "PQ25"} onClick={() => toggle("PQ25")}>
+        <div style={{ background: T.ch_stable + "10", border: `1px solid ${T.ch_stable}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_stable }}>🎯 <b>Analogy:</b> Zooming in on a photograph. At some point, more pixels don't change the image. Convergence means adding more computational detail doesn't change the energy.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          A DFT result is "converged" when the total energy doesn't change significantly as you increase the computational parameters (plane-wave cutoff, k-point density, etc.). For hull construction, you need convergence to ~1 meV/atom.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_stable, fontWeight: 700 }}>Convergence checklist:</span><br /><br />
+          <span style={{ color: T.ch_main }}>ENCUT (plane-wave cutoff):</span><br />
+          <span style={{ color: T.ink }}>Try 400, 500, 600, 700 eV → ΔE {"<"} 1 meV/atom?</span><br /><br />
+          <span style={{ color: T.ch_hull }}>k-point mesh:</span><br />
+          <span style={{ color: T.ink }}>Try 4×4×4, 6×6×6, 8×8×8 → ΔE {"<"} 1 meV/atom?</span><br /><br />
+          <span style={{ color: T.ch_accent }}>SCF convergence: EDIFF = 10⁻⁶ eV (standard)</span><br />
+          <span style={{ color: T.ch_warm }}>Ionic convergence: EDIFFG = −0.01 eV/Å (forces)</span><br /><br />
+          <span style={{ color: T.ch_unstab, fontWeight: 700 }}>Pitfall:</span> <span style={{ color: T.ink }}>All phases must use the same settings! Mixing ENCUT=400 for one phase and ENCUT=600 for another introduces systematic errors.</span>
+        </div>
+      </FAQAccordion>
+
+      {/* ═══ PQ26–PQ30: Temperature Effects ═══ */}
+      <FAQAccordion title={"PQ26. Why isn't the 0K hull enough?"} color={T.ch_accent} isOpen={openQ === "PQ26"} onClick={() => toggle("PQ26")}>
+        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_accent }}>❄️ <b>Analogy:</b> A 0K hull is like a weather forecast made only from January data. It misses summer entirely. Real synthesis happens at 300–1500K, where entropy reshuffles stability.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          DFT naturally gives 0K energies. But synthesis occurs at finite temperature where G = H − TS, not just H. Phases with high entropy (disordered, many vibrational modes) become more competitive at high T. Some 0K-unstable phases become stable; some 0K-stable phases become unstable.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>What changes with temperature:</span><br /><br />
+          <span style={{ color: T.ch_hull }}>G(T) = E_DFT + E_ZPE + ∫C_v dT − T·S(T)</span><br /><br />
+          <span style={{ color: T.ch_stable }}>Low T: Enthalpy dominates → ordered phases stable</span><br />
+          <span style={{ color: T.ch_unstab }}>High T: Entropy dominates → disordered phases stable</span><br /><br />
+          <span style={{ color: T.ch_warm, fontWeight: 700 }}>Example:</span><br />
+          <span style={{ color: T.ink }}>BCC Ti is unstable at 0K (HCP is ground state)</span><br />
+          <span style={{ color: T.ink }}>But BCC Ti becomes stable above 1155K (entropy wins)</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ27. What is vibrational entropy and how big is it?"} color={T.ch_warm} isOpen={openQ === "PQ27"} onClick={() => toggle("PQ27")}>
+        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_warm }}>🔔 <b>Analogy:</b> Atoms in a crystal are like balls connected by springs, constantly vibrating. More vibrations at higher temperature = more entropy. Loosely-bonded phases have higher vibrational entropy.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Vibrational entropy comes from phonons (quantized lattice vibrations). It's computed from phonon density of states via the harmonic approximation. ΔS_vib between competing phases is typically 0.1–1.0 k_B/atom, which at 1000K gives TΔS_vib ~ 10–100 meV/atom — enough to flip stability!
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_warm, fontWeight: 700 }}>Computing vibrational free energy:</span><br /><br />
+          <span style={{ color: T.ch_hull }}>F_vib(T) = k_BT ∫ ln[2sinh(ħω/2k_BT)] g(ω) dω</span><br /><br />
+          <span style={{ color: T.ch_main }}>g(ω) = phonon density of states (from DFPT or finite differences)</span><br /><br />
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Typical magnitudes at T=1000K:</span><br />
+          <span style={{ color: T.ink }}>TΔS_vib between polymorphs: 10–50 meV/atom</span><br />
+          <span style={{ color: T.ink }}>TΔS_vib solid vs. liquid: 50–100 meV/atom</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ28. What is configurational entropy?"} color={T.ch_accent} isOpen={openQ === "PQ28"} onClick={() => toggle("PQ28")}>
+        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_accent }}>🎲 <b>Analogy:</b> Arranging red and blue balls in a grid. There's only one way to have all red on the left, but millions of ways to mix them randomly. More mixing arrangements = more configurational entropy.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Configurational entropy arises from the number of ways atoms can be arranged on lattice sites. It's maximized for 50-50 mixing and zero for pure compounds. This is the key to understanding why alloys and solid solutions become stable at high T.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Ideal mixing entropy (per atom):</span><br /><br />
+          <span style={{ color: T.ch_hull }}>S_config = −k_B Σᵢ xᵢ ln(xᵢ)</span><br /><br />
+          <span style={{ color: T.ch_main, fontWeight: 700 }}>Numerical values:</span><br />
+          <span style={{ color: T.ch_stable }}>x = 0.50 (50-50): S = k_B·ln(2) = 0.693 k_B → TS(1000K) = 60 meV</span><br />
+          <span style={{ color: T.ch_hull }}>x = 0.33 (1:2): S = 0.637 k_B → TS(1000K) = 55 meV</span><br />
+          <span style={{ color: T.ch_warm }}>x = 0.10 (dilute): S = 0.325 k_B → TS(1000K) = 28 meV</span><br /><br />
+          <span style={{ color: T.ch_unstab, fontWeight: 700 }}>High-entropy alloys (5 elements, equimolar):</span><br />
+          <span style={{ color: T.ink }}>S = k_B·ln(5) = 1.61 k_B → TS(1500K) = 208 meV/atom!</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ29. How does melting appear on a phase diagram?"} color={T.ch_warm} isOpen={openQ === "PQ29"} onClick={() => toggle("PQ29")}>
+        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_warm }}>🧊→💧 <b>Analogy:</b> Ice melting — at T_m, the liquid's higher entropy overwhelms the solid's lower enthalpy. On a phase diagram, the solidus and liquidus lines define the melting range.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Melting occurs when G_liquid = G_solid. For a pure substance, this is a single temperature T_m. For alloys, melting occurs over a range between solidus (first liquid appears) and liquidus (last solid disappears). Eutectic points are where liquidus lines meet — the lowest melting composition.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_warm, fontWeight: 700 }}>At the melting point:</span><br /><br />
+          <span style={{ color: T.ch_hull }}>G_solid(T_m) = G_liquid(T_m)</span><br />
+          <span style={{ color: T.ch_hull }}>H_solid − T_m·S_solid = H_liquid − T_m·S_liquid</span><br />
+          <span style={{ color: T.ch_accent }}>T_m = ΔH_fusion / ΔS_fusion</span><br /><br />
+          <span style={{ color: T.ch_main, fontWeight: 700 }}>Example — Cu:</span><br />
+          <span style={{ color: T.ink }}>ΔH_fusion = 13.1 kJ/mol, ΔS_fusion = 9.6 J/(mol·K)</span><br />
+          <span style={{ color: T.ch_stable }}>T_m = 13100/9.6 = 1358K (1085°C) ✓</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ30. How do phase transitions change with temperature?"} color={T.ch_accent} isOpen={openQ === "PQ30"} onClick={() => toggle("PQ30")}>
+        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_accent }}>🔄 <b>Analogy:</b> Changing seasons. At 0K (deep winter), only the hardiest phases survive. As T increases (spring→summer), new phases emerge while others disappear. The hull literally reshapes with temperature.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The convex hull is a snapshot at one temperature. As T increases, the G(T) curves of different phases shift by different amounts (each has different entropy). Phases cross — formerly stable phases become unstable, and vice versa. The hull vertices change.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Hull evolution with temperature (Cu-S example):</span><br /><br />
+          <span style={{ color: T.ch_stable }}>0K: Cu — Cu₂S — CuS — S (ordered phases dominate)</span><br />
+          <span style={{ color: T.ch_hull }}>500K: Cu — Cu₂S — CuS — S (similar, but digenite emerging)</span><br />
+          <span style={{ color: T.ch_warm }}>800K: Cu — Cu₂₋ₓS — CuS — S (disordered Cu₂₋ₓS replaces Cu₂S)</span><br />
+          <span style={{ color: T.ch_unstab }}>1400K: Cu(l) — liquid — S₂(g) (everything melts/vaporizes)</span><br /><br />
+          <span style={{ color: T.muted }}>Key: each phase has dG/dT = −S, so high-entropy phases drop fastest</span>
+        </div>
+      </FAQAccordion>
+
+      {/* ═══ PQ31–PQ35: Chemical Potentials ═══ */}
+      <FAQAccordion title={"PQ31. What do Δμ values mean physically?"} color={T.ch_warm} isOpen={openQ === "PQ31"} onClick={() => toggle("PQ31")}>
+        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_warm }}>🌡️ <b>Analogy:</b> Δμ is like "how far from pure." Δμ_Cu = 0 means Cu is at its pure metal chemical potential (Cu-rich). Δμ_Cu = −2 eV means Cu is very depleted — you're in S-rich conditions.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Δμᵢ = μᵢ − μᵢ° is the chemical potential measured relative to the pure element reference. It quantifies how "rich" or "poor" the environment is in species i. In a chemical potential diagram, Δμ values define the axes and determine which phase is stable.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_warm, fontWeight: 700 }}>Δμ_Cu + physical meaning:</span><br /><br />
+          <span style={{ color: T.ch_stable }}>Δμ_Cu = 0 → Cu-rich limit (pure Cu metal in equilibrium)</span><br />
+          <span style={{ color: T.ch_hull }}>Δμ_Cu = −0.5 eV → moderately Cu-poor</span><br />
+          <span style={{ color: T.ch_unstab }}>Δμ_Cu = −1.5 eV → very Cu-poor (S-rich environment)</span><br /><br />
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Constraint from compound stability:</span><br />
+          <span style={{ color: T.ink }}>For Cu₂S: 2Δμ_Cu + Δμ_S = ΔH_f(Cu₂S) = −0.74 eV</span><br />
+          <span style={{ color: T.ink }}>→ Δμ_Cu and Δμ_S are coupled along a line</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ32. What do 'Cu-rich' and 'S-rich' conditions mean?"} color={T.ch_main} isOpen={openQ === "PQ32"} onClick={() => toggle("PQ32")}>
+        <div style={{ background: T.ch_main + "10", border: `1px solid ${T.ch_main}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_main }}>⚖️ <b>Analogy:</b> Like a marketplace — "Cu-rich" means copper is cheap and abundant. "S-rich" means sulfur is cheap. You can't have both maximally cheap (that would decompose the compound).</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Cu-rich conditions mean Δμ_Cu is close to 0 (Cu is plentiful, nearly at its metallic state). S-rich means Δμ_S is close to 0. Due to the constraint 2Δμ_Cu + Δμ_S = ΔH_f, you can't have both at zero simultaneously — one must be depleted for the compound to be stable.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_main, fontWeight: 700 }}>Limits for Cu₂S (ΔH_f = −0.74 eV):</span><br /><br />
+          <span style={{ color: T.ch_stable, fontWeight: 700 }}>Cu-rich limit:</span><br />
+          <span style={{ color: T.ch_stable }}>Δμ_Cu = 0 → Δμ_S = −0.74 eV (S is depleted)</span><br /><br />
+          <span style={{ color: T.ch_hull, fontWeight: 700 }}>S-rich limit:</span><br />
+          <span style={{ color: T.ch_hull }}>Δμ_S = 0 → Δμ_Cu = −0.37 eV (Cu is depleted)</span><br /><br />
+          <span style={{ color: T.ch_warm }}>In lab terms:</span><br />
+          <span style={{ color: T.ink }}>Cu-rich → low sulfur partial pressure (vacuum, inert gas)</span><br />
+          <span style={{ color: T.ink }}>S-rich → high sulfur partial pressure (H₂S atmosphere)</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ33. How does μ connect to real experiments?"} color={T.ch_hull} isOpen={openQ === "PQ33"} onClick={() => toggle("PQ33")}>
+        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_hull }}>🔧 <b>Analogy:</b> The chemical potential diagram is a map, and experimental knobs (temperature, gas pressure, precursor ratios) are GPS coordinates. The map tells you which phase you'll make at each setting.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Experimentalists control chemical potentials through gas partial pressures, solution concentrations, temperature, and precursor ratios. For gaseous species, μ(T,P) = μ°(T) + k_BT·ln(P/P°). This directly converts Δμ to a temperature-pressure pair.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_hull, fontWeight: 700 }}>Connecting Δμ to lab conditions:</span><br /><br />
+          <span style={{ color: T.ch_accent }}>For sulfur (gas phase):</span><br />
+          <span style={{ color: T.ink }}>Δμ_S(T,P) = Δμ_S°(T) + k_BT·ln(P_S₂/P°)</span><br /><br />
+          <span style={{ color: T.ch_main, fontWeight: 700 }}>Example — targeting CZTS at 550°C:</span><br />
+          <span style={{ color: T.ink }}>Need Δμ_S = −0.5 eV</span><br />
+          <span style={{ color: T.ink }}>At T=823K: Δμ_S°(823K) = −0.8 eV</span><br />
+          <span style={{ color: T.ch_stable }}>−0.5 = −0.8 + 0.071·ln(P_S₂)</span><br />
+          <span style={{ color: T.ch_stable }}>P_S₂ = exp(0.3/0.071) = 68 Torr</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ34. How do temperature and pressure affect chemical potential?"} color={T.ch_accent} isOpen={openQ === "PQ34"} onClick={() => toggle("PQ34")}>
+        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_accent }}>🎚️ <b>Analogy:</b> Temperature and pressure are volume knobs on a stereo. Turning up T makes chemical potential drop (more entropy). Turning up P makes gas-phase μ rise (more molecules crammed in).</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          For solids, μ changes slowly with T and P (small entropy and volume). For gases, μ changes dramatically with both T and P. This is why gas-phase chemical potentials are the primary experimental control knob.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Temperature dependence:</span><br />
+          <span style={{ color: T.ch_hull }}>(∂μ/∂T)_P = −S (entropy is always positive → μ decreases with T)</span><br /><br />
+          <span style={{ color: T.ch_warm, fontWeight: 700 }}>Pressure dependence:</span><br />
+          <span style={{ color: T.ch_hull }}>(∂μ/∂P)_T = V (volume is positive → μ increases with P)</span><br /><br />
+          <span style={{ color: T.ch_main, fontWeight: 700 }}>For ideal gas:</span><br />
+          <span style={{ color: T.ink }}>μ(T,P) = μ°(T) + k_BT·ln(P/P°)</span><br />
+          <span style={{ color: T.ink }}>Doubling P raises μ by k_BT·ln(2) = 0.060 eV at 1000K</span><br /><br />
+          <span style={{ color: T.ch_stable }}>For solids: ΔμP ≈ VΔP ≈ 10⁻⁵ eV/atm (negligible!)</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ35. How is gas-phase chemical potential handled?"} color={T.ch_warm} isOpen={openQ === "PQ35"} onClick={() => toggle("PQ35")}>
+        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_warm }}>💨 <b>Analogy:</b> Gas-phase μ is like the "exchange rate" between elements in the gas and solid. High gas pressure = elements flooding in from the gas. The partial pressure acts as the supply dial.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Gaseous species (O₂, S₂, N₂) are tricky for DFT because: (1) DFT poorly describes isolated molecules, (2) gases have large translational/rotational entropy absent in solids. The standard approach uses experimental thermochemical data (JANAF tables) for the gas contribution.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_warm, fontWeight: 700 }}>Gas-phase μ formula:</span><br /><br />
+          <span style={{ color: T.ch_hull }}>μ_O₂(T,P) = E_DFT(O₂) + ΔG°(T) + k_BT·ln(P/P°)</span><br /><br />
+          <span style={{ color: T.ch_main }}>E_DFT(O₂) = DFT total energy of O₂ molecule</span><br />
+          <span style={{ color: T.ch_accent }}>ΔG°(T) = from JANAF tables (includes H(T)−H(0)−TS)</span><br />
+          <span style={{ color: T.ch_warm }}>k_BT·ln(P/P°) = pressure correction</span><br /><br />
+          <span style={{ color: T.ch_unstab, fontWeight: 700 }}>Common corrections for O₂:</span><br />
+          <span style={{ color: T.ink }}>Materials Project adds +1.36 eV/O₂ to fix DFT overbinding</span><br />
+          <span style={{ color: T.ink }}>This shifts all oxide formation energies systematically</span>
+        </div>
+      </FAQAccordion>
+
+      {/* ═══ PQ36–PQ40: Applications ═══ */}
+      <FAQAccordion title={"PQ36. Can I predict whether a new material can be synthesized?"} color={T.ch_stable} isOpen={openQ === "PQ36"} onClick={() => toggle("PQ36")}>
+        <div style={{ background: T.ch_stable + "10", border: `1px solid ${T.ch_stable}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_stable }}>🔮 <b>Analogy:</b> The hull is a stability filter. Phases on the hull are "thermodynamically approved." But passing the filter doesn't guarantee synthesis — you also need the right recipe (kinetics) and kitchen equipment (synthesis conditions).</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The convex hull is a necessary but not sufficient condition for synthesizability. A phase on the hull CAN be made thermodynamically. A phase far above the hull almost certainly CANNOT be made as a bulk equilibrium phase. The gray zone is 0–50 meV/atom above hull.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_stable, fontWeight: 700 }}>Synthesizability prediction heuristic:</span><br /><br />
+          <span style={{ color: T.ch_stable }}>E_hull = 0: Thermodynamically stable → synthesizable ✓</span><br />
+          <span style={{ color: T.ch_hull }}>E_hull {"<"} 25 meV: Within DFT error → possibly stable ✓</span><br />
+          <span style={{ color: T.ch_warm }}>E_hull 25–50 meV: Metastable → might exist via quenching</span><br />
+          <span style={{ color: T.ch_unstab }}>E_hull 50–100 meV: Very metastable → extreme conditions needed</span><br />
+          <span style={{ color: T.ch_unstab }}>E_hull {">"} 100 meV: Almost certainly not synthesizable</span><br /><br />
+          <span style={{ color: T.muted }}>Sun et al. (2016): 90% of experimentally known phases have E_hull {"<"} 36 meV/atom</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ37. What is metastability and why do metastable phases exist?"} color={T.ch_unstab} isOpen={openQ === "PQ37"} onClick={() => toggle("PQ37")}>
+        <div style={{ background: T.ch_unstab + "10", border: `1px solid ${T.ch_unstab}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_unstab }}>⏳ <b>Analogy:</b> A ball in a local valley (not the deepest one) on a hilly landscape. It's stable against small pushes but would roll to a deeper valley if given enough energy. Diamond is the most famous metastable material — it's "stuck" in a local minimum for billions of years.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          A metastable phase has higher free energy than the equilibrium state but is kinetically trapped — the activation barrier to decompose is too high for atoms to overcome at the given temperature. Many technologically important materials are metastable (diamond, many amorphous materials, martensite in steel).
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_unstab, fontWeight: 700 }}>Why metastable phases persist:</span><br /><br />
+          <span style={{ color: T.ch_hull }}>Rate ∝ exp(−E_barrier / k_BT)</span><br /><br />
+          <span style={{ color: T.ch_accent }}>E_barrier = 0.5 eV → decomposes in seconds at 300K</span><br />
+          <span style={{ color: T.ch_warm }}>E_barrier = 1.0 eV → decomposes in years</span><br />
+          <span style={{ color: T.ch_stable }}>E_barrier = 2.0 eV → persists for geological timescales</span><br /><br />
+          <span style={{ color: T.ch_main, fontWeight: 700 }}>Famous metastable materials:</span><br />
+          <span style={{ color: T.ink }}>Diamond (ΔG = +2.9 kJ/mol vs graphite)</span><br />
+          <span style={{ color: T.ink }}>Metallic glass (amorphous metals)</span><br />
+          <span style={{ color: T.ink }}>Martensite in quenched steel</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ38. How do competing phases affect my target material?"} color={T.ch_hull} isOpen={openQ === "PQ38"} onClick={() => toggle("PQ38")}>
+        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_hull }}>🏁 <b>Analogy:</b> Baking a cake in a kitchen with other chefs making different dishes. If their dishes use the same ingredients and are easier to make, they'll steal your ingredients. Competing phases are those rival dishes.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Every phase in the system competes for the same atoms. Your target phase must be the lowest-energy option at its composition AND the relevant chemical potential conditions. Competing phases narrow the stability region in chemical potential space — more competitors = smaller stability window.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_hull, fontWeight: 700 }}>CZTS example — competing phases:</span><br /><br />
+          <span style={{ color: T.ch_unstab }}>Cu₂S, ZnS, SnS, SnS₂, Cu₂SnS₃, CuS...</span><br />
+          <span style={{ color: T.ink }}>Each adds a constraint: ΔH_f(competitor) {"<"} nΔμ_Cu + mΔμ_S + ...</span><br /><br />
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Impact on CZTS stability:</span><br />
+          <span style={{ color: T.ch_stable }}>Without competitors: large stability region</span><br />
+          <span style={{ color: T.ch_warm }}>With Cu₂S, ZnS: region shrinks</span><br />
+          <span style={{ color: T.ch_unstab }}>With ALL competitors: tiny triangle remains</span><br /><br />
+          <span style={{ color: T.muted }}>This is why CZTS solar cells are hard to make — very narrow synthesis window!</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ39. How do ternary and quaternary hulls work?"} color={T.ch_accent} isOpen={openQ === "PQ39"} onClick={() => toggle("PQ39")}>
+        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_accent }}>📐 <b>Analogy:</b> Binary hull = 2D plot (line). Ternary hull = 3D surface (triangle base + energy up). Quaternary = 4D (tetrahedron base) — can't visualize directly, but math works the same way.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          For N components, the hull lives in N-dimensional space. A ternary hull (3 components) uses a triangular composition axis (Gibbs triangle) with energy as the vertical axis. The lower convex hull is now a surface of triangular facets. Each facet defines a three-phase equilibrium region.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_accent, fontWeight: 700 }}>Dimensionality:</span><br /><br />
+          <span style={{ color: T.ch_main }}>Binary (A-B): 2D, hull = line segments</span><br />
+          <span style={{ color: T.ch_hull }}>Ternary (A-B-C): 3D, hull = triangular facets</span><br />
+          <span style={{ color: T.ch_warm }}>Quaternary (A-B-C-D): 4D, hull = tetrahedral facets</span><br /><br />
+          <span style={{ color: T.ch_stable, fontWeight: 700 }}>Ternary decomposition:</span><br />
+          <span style={{ color: T.ink }}>A phase above the ternary hull decomposes into 1, 2, or 3 phases</span><br />
+          <span style={{ color: T.ink }}>depending on where it projects onto the hull surface.</span><br /><br />
+          <span style={{ color: T.ch_unstab }}>Computational cost: ternary needs ~10× more structures than binary</span><br />
+          <span style={{ color: T.ch_unstab }}>Quaternary needs ~100× more (combinatorial explosion)</span>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title={"PQ40. What are the main accuracy limitations of DFT for phase diagrams?"} color={T.ch_unstab} isOpen={openQ === "PQ40"} onClick={() => toggle("PQ40")}>
+        <div style={{ background: T.ch_unstab + "10", border: `1px solid ${T.ch_unstab}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+          <span style={{ fontSize: 12, color: T.ch_unstab }}>⚠️ <b>Analogy:</b> DFT is like a very good but imperfect measuring tape. It measures all lengths with the same systematic error. For comparing SIMILAR phases, errors cancel. For comparing DIFFERENT types (metal vs gas), errors accumulate.</span>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          DFT (with GGA) has systematic errors of ~50–200 meV/atom in absolute formation energies. Error cancellation makes relative energies much better (~25 meV/atom) but several well-known pitfalls remain. Knowing these limitations prevents over-interpreting results.
+        </div>
+        <div style={mb}>
+          <span style={{ color: T.ch_unstab, fontWeight: 700 }}>Major DFT accuracy issues:</span><br /><br />
+          <span style={{ color: T.ch_main }}>1. GGA overbinds O₂, N₂ molecules</span><br />
+          <span style={{ color: T.ink }}>   → Oxide/nitride formation energies systematically wrong</span><br />
+          <span style={{ color: T.ink }}>   → Fix: empirical corrections (+1.36 eV/O₂)</span><br /><br />
+          <span style={{ color: T.ch_hull }}>2. Self-interaction error for d/f electrons</span><br />
+          <span style={{ color: T.ink }}>   → Transition metal oxides need DFT+U</span><br />
+          <span style={{ color: T.ink }}>   → Mixing GGA and GGA+U requires careful fitting</span><br /><br />
+          <span style={{ color: T.ch_warm }}>3. No van der Waals in standard GGA</span><br />
+          <span style={{ color: T.ink }}>   → Layered materials (graphite, MoS₂) poorly described</span><br /><br />
+          <span style={{ color: T.ch_accent }}>4. Zero-point energy neglected</span><br />
+          <span style={{ color: T.ink }}>   → Matters for light elements (H, Li): ~50 meV/atom</span><br /><br />
+          <span style={{ color: T.muted }}>Bottom line: trust E_hull differences {">"} 25 meV/atom, be cautious below that.</span>
+        </div>
+      </FAQAccordion>
+    </div>
+  );
+}
+
 const CH_BLOCKS = [
   { id: "overview", label: "Introduction", color: T.ch_main },
   { id: "thermo", label: "Thermodynamics", color: T.ch_accent },
   { id: "convexhull", label: "Convex Hull Analysis", color: T.ch_hull },
   { id: "chempot", label: "Chemical Potential Diagram", color: T.ch_warm },
+  { id: "bigq", label: "Big Questions", color: T.ch_unstab },
 ];
 
 const CH_SECTIONS = [
@@ -15734,6 +16491,9 @@ const CH_SECTIONS = [
   { id: "chemconstruct", block: "chempot", label: "Build the Diagram", color: T.ch_hull, Component: CHChemConstructSection, nextReason: "Thermodynamics says WHAT is stable. But will it actually form? Kinetics determines HOW FAST — nucleation barriers, diffusion rates, and metastable phases that persist because atoms cannot rearrange fast enough." },
   { id: "kinetics", block: "chempot", label: "Kinetics & Metastability", color: T.ch_warm, Component: CHKineticsSection, nextReason: "Thermodynamics and kinetics are clear. But how do the abstract chemical potentials Δμ connect to real lab knobs — temperature, pressure, gas flow? The next section bridges computation to experiment." },
   { id: "chempot_expt", block: "chempot", label: "μ to Experiment (T, P)", color: T.ch_main, Component: CHChemPotExptSection, nextReason: "Chemical potentials are now connected to real experimental conditions. Chapter 5 (Defects in Semiconductors) applies this framework to charged defects — where formation energy becomes Fermi-level dependent." },
+
+  // Block 5: Big Questions
+  { id: "bigQuestions", block: "bigq", label: "Big Questions", color: T.ch_unstab, Component: CHBigQuestionsSection },
 ];
 
 function CHTempHullSection() {

@@ -211,7 +211,7 @@ function AtomicModelsSection() {
             {orbitRadii.map((r, i) => (
               <g key={i}>
                 <circle cx={cx} cy={cy} r={r} fill="none" stroke={i + 1 === bohrLevel ? T.eo_e : T.dim} strokeWidth={i + 1 === bohrLevel ? 2 : 1} strokeDasharray={i + 1 === bohrLevel ? "none" : "4,3"} opacity={i + 1 === bohrLevel ? 1 : 0.5} />
-                <text x={cx + r + 4} y={cy - 5} fill={T.muted} fontSize={12} fontFamily="monospace">n={i + 1}</text>
+                <text x={cx + r + 4} y={cy + 15} fill={T.muted} fontSize={12} fontFamily="monospace">n={i + 1}</text>
                 <circle cx={cx + r} cy={cy - 16} r={8} fill="transparent" stroke="none" style={{ cursor: "pointer" }} onClick={() => {
                   if (i + 1 !== bohrLevel && !bohrTransition) {
                     setBohrTransition({ from: bohrLevel, to: i + 1 });
@@ -389,7 +389,7 @@ function AtomicModelsSection() {
           ...generateDots("3d", cx, cy, 1, T.eo_gap),
         ];
         return (
-          <svg viewBox="0 0 340 340" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
+          <svg viewBox="0 0 340 350" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 340 }}>
             {allDots.map((d, i) => (
               <circle key={i} cx={d.x} cy={d.y} r={1.8} fill={d.c} opacity={d.o * 0.8} />
             ))}
@@ -508,14 +508,6 @@ function AtomicModelsSection() {
           </div>
         </div>
 
-        <div style={{ background: "#eef3ff", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 10, marginBottom: 10 }}>
-          <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
-          <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.5 }}>
-            Each model improved on the last. The quantum mechanical model is the correct one,
-            but Bohr{"’"}s model gives the right energy levels for hydrogen and builds intuition.
-            For materials science, we use QM (DFT) for real calculations.
-          </div>
-        </div>
 
         <div style={{ background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`, borderRadius: 6, padding: 10 }}>
           <div style={{ fontSize: 11, fontWeight: "bold", color: T.eo_core, marginBottom: 4 }}>Why Wave-Particle Duality Comes Next {"→"}</div>
@@ -1380,22 +1372,41 @@ function WaveDualitySection() {
         ))}
       </div>
 
-      {/* Animation */}
-      <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 10, overflow: "hidden" }}>
-        <svg viewBox={`0 0 ${W} ${H}`} style={{ display: "block", background: "#0f172a", width: "100%", maxWidth: W }}>
-          <defs>
-            <clipPath id="wdLeft"><rect x={0} y={0} width={barrX} height={H} /></clipPath>
-            <clipPath id="wdRight"><rect x={barrX} y={0} width={W - barrX} height={H} /></clipPath>
-          </defs>
-          {renderSVG()}
-        </svg>
+      {/* Animation + Why this matters side by side */}
+      <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+        <div style={{ flex: 1, minWidth: 300 }}>
+          {/* Animation */}
+          <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 10, overflow: "hidden" }}>
+            <svg viewBox={`0 0 ${W} ${H}`} style={{ display: "block", background: "#0f172a", width: "100%", maxWidth: W }}>
+              <defs>
+                <clipPath id="wdLeft"><rect x={0} y={0} width={barrX} height={H} /></clipPath>
+                <clipPath id="wdRight"><rect x={barrX} y={0} width={W - barrX} height={H} /></clipPath>
+              </defs>
+              {renderSVG()}
+            </svg>
 
-        {mode !== "wave" && (
-          <div style={{ padding: "8px 16px", borderTop: `1px solid ${T.border}`, fontSize: 11, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ color: T.muted }}>Electrons on screen: <span style={{ color: col, fontWeight: 700 }}>{hits.length}</span></span>
-            <span style={{ color: hits.length < 30 ? "#f59e0b" : hits.length < 100 ? "#06b6d4" : "#22c55e", fontSize: 10 }}>
-              {hits.length < 30 ? "Firing… wait for pattern" : hits.length < 100 ? "Pattern forming…" : "Interference pattern visible!"}
-            </span>
+            {mode !== "wave" && (
+              <div style={{ padding: "8px 16px", borderTop: `1px solid ${T.border}`, fontSize: 11, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ color: T.muted }}>Electrons on screen: <span style={{ color: col, fontWeight: 700 }}>{hits.length}</span></span>
+                <span style={{ color: hits.length < 30 ? "#f59e0b" : hits.length < 100 ? "#06b6d4" : "#22c55e", fontSize: 10 }}>
+                  {hits.length < 30 ? "Firing… wait for pattern" : hits.length < 100 ? "Pattern forming…" : "Interference pattern visible!"}
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Key insight — quantum only, beside animation */}
+        {mode === "quantum" && (
+          <div style={{ flexShrink: 0, width: 280, background: "#06b6d418", border: "1.5px solid #06b6d433", borderLeft: "4px solid #06b6d4", borderRadius: 8, padding: 16, alignSelf: "flex-start" }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "#06b6d4", marginBottom: 8 }}>Why this matters for materials science</div>
+            <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.75 }}>
+              Every electron in a CdTe crystal behaves this way. Its wavefunction ψ is not localised to one atom — it spreads
+              over the entire crystal lattice. When Bloch solved the Schrödinger equation for periodic crystals, he found that
+              these spreading wavefunctions form <strong>energy bands</strong> — the conduction band and valence band that determine
+              whether CdTe absorbs light and conducts electricity. The "weirdness" of quantum mechanics is precisely why solar
+              cells work.
+            </div>
           </div>
         )}
       </div>
@@ -1424,20 +1435,6 @@ function WaveDualitySection() {
           ))}
         </div>
       </div>
-
-      {/* Key insight — quantum only */}
-      {mode === "quantum" && (
-        <div style={{ background: "#06b6d418", border: "1.5px solid #06b6d433", borderLeft: "4px solid #06b6d4", borderRadius: 8, padding: 16 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "#06b6d4", marginBottom: 8 }}>Why this matters for materials science</div>
-          <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.75 }}>
-            Every electron in a CdTe crystal behaves this way. Its wavefunction ψ is not localised to one atom — it spreads
-            over the entire crystal lattice. When Bloch solved the Schrödinger equation for periodic crystals, he found that
-            these spreading wavefunctions form <strong>energy bands</strong> — the conduction band and valence band that determine
-            whether CdTe absorbs light and conducts electricity. The "weirdness" of quantum mechanics is precisely why solar
-            cells work.
-          </div>
-        </div>
-      )}
 
       {/* de Broglie section */}
       <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
@@ -8377,6 +8374,670 @@ function AtomToDeviceSection() {
 
 
 // ═══════════════════════════════════════════════════════════════════════════
+// FAQ ACCORDION COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════
+
+function FAQAccordion({ title, color, isOpen, onClick, children }) {
+  return (
+    <div style={{ borderRadius: 12, border: `1.5px solid ${isOpen ? color : T.border}`, overflow: "hidden", transition: "all 0.2s" }}>
+      <button onClick={onClick} style={{
+        width: "100%", padding: "12px 16px", background: isOpen ? color + "12" : T.surface,
+        border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10,
+        fontFamily: "inherit", textAlign: "left",
+      }}>
+        <span style={{ fontSize: 16, color: isOpen ? color : T.muted, fontWeight: 700, transition: "transform 0.2s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}>▶</span>
+        <span style={{ fontSize: 13, fontWeight: 700, color: isOpen ? color : T.ink, flex: 1 }}>{title}</span>
+        {isOpen && <span style={{ fontSize: 10, color, fontWeight: 600, padding: "2px 8px", background: color + "15", borderRadius: 6 }}>OPEN</span>}
+      </button>
+      {isOpen && (
+        <div style={{ padding: "14px 18px", borderTop: `1px solid ${color}20`, background: T.surface }}>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// BIG QUESTIONS — Deep FAQ for the Atoms World chapter
+// ═══════════════════════════════════════════════════════════════════════════
+
+function AtomsBigQuestionsSection() {
+  const [openQ, setOpenQ] = useState("AQ1");
+  const toggle = (q) => setOpenQ(openQ === q ? null : q);
+  const mb = { fontFamily: "monospace", fontSize: 13, lineHeight: 1.9, background: T.surface, borderRadius: 10, padding: "14px 18px", border: `1px solid ${T.border}40`, marginBottom: 10 };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+
+      {/* ── AQ1-AQ6: Atomic Models ── */}
+
+      <FAQAccordion title="AQ1: Why doesn't the electron fall into the nucleus?" color={T.eo_core} isOpen={openQ === "AQ1"} onClick={() => toggle("AQ1")}>
+        <div style={{ background: T.eo_core + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎸 Analogy:</b> Imagine a guitar string. You can pluck it, but it can only vibrate at certain frequencies — the fundamental, harmonics, etc. It cannot vibrate at "zero frequency" (a flat, motionless string with tension is the lowest energy, but it still has some vibration at the quantum level). Similarly, an electron is a standing wave around the nucleus. The lowest energy state still has a finite spread — it cannot "collapse" to a point.
+        </div>
+        <p><b>Simple English:</b> In classical physics, an orbiting charge should radiate energy and spiral inward. But quantum mechanics says the electron is not a point particle orbiting — it is a wave. The Heisenberg uncertainty principle forbids confining it to an infinitely small space. If you tried to squeeze it onto the nucleus, its momentum uncertainty would skyrocket, giving it enormous kinetic energy that pushes it back out. The ground state (1s orbital) is the balance point between electrostatic attraction pulling it in and quantum kinetic energy pushing it out.</p>
+        <div style={mb}>
+          ΔxΔp ≥ ℏ/2{"\n"}
+          If Δx → 0, then Δp → ∞, so KE = p²/2m → ∞{"\n"}
+          Ground state energy of hydrogen: E₁ = -13.6 eV{"\n"}
+          Bohr radius a₀ = 0.529 Å — the most probable distance
+        </div>
+        <p><b>Numerical example:</b> If we tried to confine an electron to r = 10⁻¹⁵ m (the nuclear radius), Δp ≈ ℏ/(2×10⁻¹⁵) ≈ 5.3×10⁻²⁰ kg·m/s, giving KE ≈ 1.5×10⁻¹⁰ J ≈ 940 MeV. That is ~69,000× more energy than the 13.6 eV binding energy. The electron simply cannot stay there.</p>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ2: What exactly is wave-particle duality?" color={T.eo_core} isOpen={openQ === "AQ2"} onClick={() => toggle("AQ2")}>
+        <div style={{ background: T.eo_core + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🌊 Analogy:</b> Think of a coin. Heads or tails? It depends on how you look. But a coin is ALWAYS a coin — it has both sides simultaneously. An electron is always a quantum object. When you do a "which slit" experiment, you see the particle face. When you let it propagate freely, you see the wave face. It is not switching — your measurement picks which aspect you observe.
+        </div>
+        <p><b>Simple English:</b> Every quantum object (electron, photon, neutron, even molecules) behaves like a wave when propagating and like a particle when detected. The de Broglie relation connects the two: a particle with momentum p has a wavelength λ = h/p. This is not a metaphor — electrons literally create interference patterns in the double-slit experiment, just like water waves.</p>
+        <div style={mb}>
+          λ = h/p = h/(mv){"\n"}
+          For an electron at 100 eV: v ≈ 5.93×10⁶ m/s{"\n"}
+          λ = 6.626×10⁻³⁴ / (9.109×10⁻³¹ × 5.93×10⁶){"\n"}
+          λ ≈ 1.23 Å — comparable to atomic spacings!
+        </div>
+        <p><b>Key insight:</b> This is why electron diffraction works for crystal structure determination. The electron wavelength at typical TEM energies (100-300 keV) is ~0.02-0.04 Å, smaller than atom spacing, giving excellent resolution.</p>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ3: What does |ψ|² really mean?" color={T.eo_core} isOpen={openQ === "AQ3"} onClick={() => toggle("AQ3")}>
+        <div style={{ background: T.eo_core + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎯 Analogy:</b> Imagine throwing darts at a board blindfolded millions of times. Each dart lands at a random spot, but after millions of throws, a pattern emerges — more darts near the center, fewer at the edges. |ψ|² is like the dart-density map: it does not tell you where the next dart will land, but it tells you the probability of landing in each region.
+        </div>
+        <p><b>Simple English:</b> ψ (psi) is the wavefunction — a complex-valued function of position and time. It has no direct physical meaning by itself. But |ψ(r)|² gives the probability density of finding the particle at position r. If you multiply by a small volume dV, you get the probability of finding the electron in that tiny volume: P = |ψ|²dV. The total probability over all space must equal 1 (the electron is somewhere).</p>
+        <div style={mb}>
+          ∫|ψ(r)|² dV = 1  (normalization condition){"\n"}
+          For hydrogen 1s: ψ₁ₛ = (1/√π)(1/a₀)^(3/2) × e^(-r/a₀){"\n"}
+          |ψ₁ₛ|² = (1/πa₀³) × e^(-2r/a₀){"\n"}
+          Maximum probability density: at r = 0 (the nucleus!)
+          But most probable RADIUS: r = a₀ = 0.529 Å
+        </div>
+        <p><b>Subtle point:</b> The probability density |ψ|² peaks at r=0 for the 1s orbital, but the radial probability 4πr²|ψ|² peaks at r = a₀. The factor 4πr² accounts for the growing spherical shell volume at larger r.</p>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ4: How does the Heisenberg Uncertainty Principle actually work?" color={T.eo_core} isOpen={openQ === "AQ4"} onClick={() => toggle("AQ4")}>
+        <div style={{ background: T.eo_core + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>📻 Analogy:</b> Think of a musical note. A pure tone (single frequency) goes on forever in time — you know the frequency perfectly but cannot say "when" the note is. A sharp clap is perfectly localized in time but contains ALL frequencies. You cannot have both a perfectly defined pitch and a perfectly defined moment. This is exactly the uncertainty principle for waves.
+        </div>
+        <p><b>Simple English:</b> The uncertainty principle is NOT about measurement clumsiness or instrument limitations. It is a fundamental property of waves. Position and momentum are "conjugate variables" — their operators do not commute. A state with well-defined position is a superposition of many momenta, and vice versa. This is mathematically identical to the bandwidth theorem in signal processing.</p>
+        <div style={mb}>
+          ΔxΔp ≥ ℏ/2    (position-momentum){"\n"}
+          ΔEΔt ≥ ℏ/2    (energy-time){"\n"}
+          ℏ = h/(2π) = 1.055×10⁻³⁴ J·s{"\n"}
+          {"\n"}
+          Example: electron in a 1 Å box (atom-sized){"\n"}
+          Δp ≥ ℏ/(2×10⁻¹⁰) = 5.3×10⁻²⁵ kg·m/s{"\n"}
+          KE ≈ (Δp)²/(2m) ≈ 1.5×10⁻¹⁹ J ≈ 0.95 eV
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ5: What are orbitals, really? Are they orbits?" color={T.eo_core} isOpen={openQ === "AQ5"} onClick={() => toggle("AQ5")}>
+        <div style={{ background: T.eo_core + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>☁️ Analogy:</b> An orbit is the path a planet takes around the Sun — a defined trajectory. An orbital is more like the region where a bee buzzes around a flower. You cannot predict where the bee is at any moment, but you can draw a cloud showing where it spends most of its time. The shape of that cloud IS the orbital.
+        </div>
+        <p><b>Simple English:</b> An orbital is a solution to the Schrödinger equation for an electron in the atom. It is a mathematical function ψ(r,θ,φ) that describes the quantum state. The shape we draw (the 3D lobes) is an isosurface of |ψ|² that encloses ~90% of the probability. Different orbitals (s, p, d, f) have different shapes because they correspond to different angular momentum quantum numbers.</p>
+        <div style={mb}>
+          s orbitals: l=0, spherical, 1 orientation{"\n"}
+          p orbitals: l=1, dumbbell, 3 orientations (px, py, pz){"\n"}
+          d orbitals: l=2, cloverleaf, 5 orientations{"\n"}
+          f orbitals: l=3, complex shapes, 7 orientations{"\n"}
+          Number of orbitals per l: (2l+1)
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ6: Why do s orbitals fill before p orbitals?" color={T.eo_core} isOpen={openQ === "AQ6"} onClick={() => toggle("AQ6")}>
+        <div style={{ background: T.eo_core + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎳 Analogy:</b> Imagine two bowling lanes. Lane S goes straight to the pins (the nucleus) — the ball gets close and feels the full force. Lane P has a bumper that keeps the ball farther away. Even if both balls are on the same "level" (same n), the S ball interacts more strongly with the pins because it penetrates closer. It is "more bound" and therefore lower energy.
+        </div>
+        <p><b>Simple English:</b> In hydrogen (one electron), all orbitals with the same n have the same energy (they are degenerate). But in multi-electron atoms, inner electrons shield outer electrons from the nuclear charge. An s electron penetrates closer to the nucleus than a p electron (the s wavefunction is nonzero at r=0), so it "sees" more nuclear charge through the inner electron cloud. This makes s orbitals lower in energy than p orbitals of the same n.</p>
+        <div style={mb}>
+          Effective nuclear charge: Z_eff = Z - σ (Slater's rules){"\n"}
+          Penetration order: s {">"} p {">"} d {">"} f{"\n"}
+          So energy order: E(ns) {"<"} E(np) {"<"} E(nd) {"<"} E(nf){"\n"}
+          For n=3 in Ar: E(3s) {"<"} E(3p) {"<"} E(3d)
+        </div>
+      </FAQAccordion>
+
+      {/* ── AQ7-AQ10: Quantum Numbers ── */}
+
+      <FAQAccordion title="AQ7: What do the four quantum numbers physically mean?" color={T.eo_e} isOpen={openQ === "AQ7"} onClick={() => toggle("AQ7")}>
+        <div style={{ background: T.eo_e + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🏠 Analogy:</b> Think of quantum numbers as an address system. n = the floor (energy level), l = the apartment type (shape — studio, 1BR, 2BR), mₗ = the apartment number on that floor (orientation), and mₛ = which bed in the apartment (spin up or down). No two electrons can have the exact same address.
+        </div>
+        <p><b>Simple English:</b> Each quantum number corresponds to a physical property. n determines energy and average distance from nucleus. l determines the shape of the orbital and angular momentum. mₗ determines the spatial orientation. mₛ determines the intrinsic spin angular momentum (up +½ or down -½). Together, they uniquely identify every electron state in an atom.</p>
+        <div style={mb}>
+          n = 1, 2, 3, ...           (principal: energy, size){"\n"}
+          l = 0, 1, ..., n-1         (angular momentum: shape){"\n"}
+          mₗ = -l, ..., 0, ..., +l  (magnetic: orientation){"\n"}
+          mₛ = +½ or -½             (spin: intrinsic angular momentum){"\n"}
+          {"\n"}
+          Angular momentum magnitude: L = √(l(l+1))ℏ{"\n"}
+          z-component: Lz = mₗℏ{"\n"}
+          Spin magnitude: S = √(s(s+1))ℏ = (√3/2)ℏ
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ8: Why can't two electrons have the same quantum numbers? (Pauli Exclusion)" color={T.eo_e} isOpen={openQ === "AQ8"} onClick={() => toggle("AQ8")}>
+        <div style={{ background: T.eo_e + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎭 Analogy:</b> Imagine identical twins at a costume party where the rule is "no two people can wear the exact same costume." Since the twins already look alike, they MUST differ in at least one accessory — maybe one wears a red hat and the other blue. Electrons are identical fermions, so they MUST differ in at least one quantum number.
+        </div>
+        <p><b>Simple English:</b> The Pauli exclusion principle comes from the antisymmetry requirement for fermion wavefunctions. When you swap two identical fermions, the total wavefunction must change sign: ψ(1,2) = -ψ(2,1). If both are in the same state, then ψ(1,2) = -ψ(1,2), which means ψ = 0 — the state does not exist. This is why each orbital (defined by n, l, mₗ) holds at most 2 electrons (spin up and spin down).</p>
+        <div style={mb}>
+          Max electrons per shell n: 2n²{"\n"}
+          n=1: 2 electrons (1s²){"\n"}
+          n=2: 8 electrons (2s² 2p⁶){"\n"}
+          n=3: 18 electrons (3s² 3p⁶ 3d¹⁰){"\n"}
+          n=4: 32 electrons (4s² 4p⁶ 4d¹⁰ 4f¹⁴)
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ9: What is orbital degeneracy and when does it break?" color={T.eo_e} isOpen={openQ === "AQ9"} onClick={() => toggle("AQ9")}>
+        <div style={{ background: T.eo_e + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎹 Analogy:</b> Imagine a perfectly round drum — it vibrates at certain frequencies, and some different vibration patterns happen to have the exact same frequency (degenerate). Now dent the drum — the symmetry is broken, and those previously equal frequencies split apart. In atoms, the spherical symmetry of hydrogen makes same-n orbitals degenerate, but other electrons or external fields break this symmetry.
+        </div>
+        <p><b>Simple English:</b> "Degenerate" means "same energy." In hydrogen, the 2s and 2p orbitals have the same energy because the potential is purely 1/r (perfect spherical symmetry). In multi-electron atoms, electron-electron repulsion breaks this degeneracy: 2s becomes lower than 2p. External magnetic fields split the mₗ sublevels (Zeeman effect). Crystal fields in solids split d orbitals into eg and t2g sets.</p>
+        <div style={mb}>
+          Hydrogen: E depends only on n → n² degenerate states{"\n"}
+          Multi-electron: E depends on n and l → (2l+1) degenerate states per subshell{"\n"}
+          In magnetic field B: E depends on n, l, mₗ → each mₗ splits{"\n"}
+          Zeeman splitting: ΔE = mₗ × μ_B × B{"\n"}
+          Crystal field (octahedral): d orbitals split into t₂g (3) and eg (2)
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ10: What IS electron spin? Does the electron actually spin?" color={T.eo_e} isOpen={openQ === "AQ10"} onClick={() => toggle("AQ10")}>
+        <div style={{ background: T.eo_e + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🌀 Analogy:</b> Spin is like a property of a playing card being face-up or face-down. It is not that the card is literally spinning — it is just an intrinsic two-state property. Similarly, electron spin is not physical rotation. It is an intrinsic quantum property that gives the electron a magnetic moment, as if it were a tiny bar magnet that can only point up or down.
+        </div>
+        <p><b>Simple English:</b> Electron spin is an intrinsic angular momentum with no classical analogue. If the electron were literally spinning, its surface would need to move faster than light to account for the observed magnetic moment. Spin emerges naturally from the Dirac equation (relativistic quantum mechanics). It has exactly two states: +ℏ/2 (spin-up) and -ℏ/2 (spin-down). Spin is what makes electrons fermions and is responsible for magnetism in materials.</p>
+        <div style={mb}>
+          Spin quantum number: s = ½{"\n"}
+          Spin angular momentum: S = √(s(s+1))ℏ = (√3/2)ℏ{"\n"}
+          z-component: Sz = mₛℏ = ±ℏ/2{"\n"}
+          Magnetic moment: μ = -gₑ(e/2mₑ)S{"\n"}
+          g-factor: gₑ ≈ 2.0023 (anomalous magnetic moment)
+        </div>
+      </FAQAccordion>
+
+      {/* ── AQ11-AQ14: Aufbau & Periodic Trends ── */}
+
+      <FAQAccordion title="AQ11: Why does 4s fill before 3d?" color={T.eo_valence} isOpen={openQ === "AQ11"} onClick={() => toggle("AQ11")}>
+        <div style={{ background: T.eo_valence + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>⛰️ Analogy:</b> Imagine hiking. There are two trails to the summit: a direct steep path (3d) and a longer winding path (4s). Even though the winding path goes to a higher "floor," it actually requires less total energy because the terrain is easier. The 4s orbital is farther from the nucleus but penetrates more effectively, making it lower energy than 3d for elements K and Ca.
+        </div>
+        <p><b>Simple English:</b> The Madelung (n+l) rule says orbitals fill in order of increasing n+l (and for equal n+l, increasing n). 4s has n+l = 4+0 = 4, while 3d has n+l = 3+2 = 5. So 4s fills first. However, after 3d starts filling (Sc onward), the 3d orbital actually drops below 4s in energy due to increasing nuclear charge. This is why transition metals lose 4s electrons first when forming ions.</p>
+        <div style={mb}>
+          Filling order (Madelung rule): 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, 5s, 4d, ...{"\n"}
+          K (Z=19): [Ar] 4s¹ (not [Ar] 3d¹){"\n"}
+          Ca (Z=20): [Ar] 4s²{"\n"}
+          Sc (Z=21): [Ar] 3d¹ 4s²{"\n"}
+          But Fe²⁺: [Ar] 3d⁶ (loses 4s electrons first!)
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ12: What is electronegativity and why does it trend the way it does?" color={T.eo_valence} isOpen={openQ === "AQ12"} onClick={() => toggle("AQ12")}>
+        <div style={{ background: T.eo_valence + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>💪 Analogy:</b> Imagine a tug-of-war between two atoms over shared electrons. The stronger player (higher electronegativity) pulls the electron rope closer to itself. Fluorine is the strongest puller (3.98), while cesium barely tries (0.79). In a bond, electrons spend more time near the more electronegative atom.
+        </div>
+        <p><b>Simple English:</b> Electronegativity measures how strongly an atom attracts bonding electrons. It increases going right across a period (more protons, same shell → stronger pull) and up a group (electrons closer to nucleus → stronger pull). Fluorine is the most electronegative element. The electronegativity difference between bonding atoms determines bond polarity: small difference → covalent, large difference → ionic.</p>
+        <div style={mb}>
+          Pauling scale: F (3.98) {">"} O (3.44) {">"} N (3.04) {">"} C (2.55){"\n"}
+          Mulliken: χ = (IE + EA)/2{"\n"}
+          |Δχ| {"<"} 0.5 → nonpolar covalent{"\n"}
+          0.5 {"<"} |Δχ| {"<"} 1.7 → polar covalent{"\n"}
+          |Δχ| {">"} 1.7 → ionic
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ13: Why does ionization energy increase across a period?" color={T.eo_valence} isOpen={openQ === "AQ13"} onClick={() => toggle("AQ13")}>
+        <div style={{ background: T.eo_valence + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🧲 Analogy:</b> Imagine pulling a metal ball off a magnet. A stronger magnet (more protons in the nucleus) holds the ball tighter, requiring more energy to remove it. Across a period, the nuclear charge increases but the shielding stays roughly the same, so each successive element holds its outer electrons more tightly.
+        </div>
+        <p><b>Simple English:</b> Ionization energy (IE) is the energy needed to remove the outermost electron. Across a period (left to right), the nuclear charge Z increases by 1 for each element while electrons go into the same shell. The effective nuclear charge Z_eff increases, pulling electrons closer and binding them tighter. Exceptions occur at groups 3 and 6 due to subshell effects (p electron easier to remove than s; half-filled stability).</p>
+        <div style={mb}>
+          First IE trend (Period 2, in eV):{"\n"}
+          Li: 5.39 → Be: 9.32 → B: 8.30* → C: 11.26 → N: 14.53{"\n"}
+          → O: 13.62* → F: 17.42 → Ne: 21.56{"\n"}
+          *B drops: removing p electron (easier than s){"\n"}
+          *O drops: pairing penalty in p⁴ configuration
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ14: Why do atoms get smaller across a period but larger down a group?" color={T.eo_valence} isOpen={openQ === "AQ14"} onClick={() => toggle("AQ14")}>
+        <div style={{ background: T.eo_valence + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎈 Analogy:</b> Imagine a balloon on a string. Pulling the string tighter (increasing nuclear charge across a period) shrinks the balloon. Adding more layers of string (new electron shells down a group) makes the balloon bigger despite the string tension. Atomic radius decreases across periods and increases down groups.
+        </div>
+        <p><b>Simple English:</b> Across a period, electrons are added to the same shell while nuclear charge increases. Greater Z_eff pulls the electron cloud inward, shrinking the atom. Down a group, a new principal shell is added, which is farther from the nucleus. Even though Z increases, the new inner shell provides significant shielding, so the outer electrons are farther away and the atom is larger.</p>
+        <div style={mb}>
+          Atomic radii (pm):{"\n"}
+          Period 2: Li(152) → Be(112) → B(87) → C(77) → N(75) → O(73) → F(72){"\n"}
+          Group 1: Li(152) → Na(186) → K(227) → Rb(248) → Cs(265){"\n"}
+          Covalent radius of C: 77 pm{"\n"}
+          Van der Waals radius of C: 170 pm
+        </div>
+      </FAQAccordion>
+
+      {/* ── AQ15-AQ18: Chemical Bonding ── */}
+
+      <FAQAccordion title="AQ15: What is the real difference between ionic, covalent, and metallic bonds?" color={T.eo_valence} isOpen={openQ === "AQ15"} onClick={() => toggle("AQ15")}>
+        <div style={{ background: T.eo_valence + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🤝 Analogy:</b> Think of electrons as money. Ionic bonding: one atom gives money to another (electron transfer, like a donation). Covalent bonding: atoms share money equally or unequally (electron sharing, like a joint bank account). Metallic bonding: everyone puts money in a communal pool that all atoms draw from (delocalized electron sea, like a commune).
+        </div>
+        <p><b>Simple English:</b> These three are not distinct categories but points on a bonding triangle. Ionic bonds form between atoms with large electronegativity differences — one atom essentially takes electrons from another, creating charged ions attracted by Coulomb forces. Covalent bonds share electrons between atoms with similar electronegativities. Metallic bonds delocalize valence electrons over the entire crystal. Real bonds are often mixtures.</p>
+        <div style={mb}>
+          Ionic: NaCl → Na⁺ + Cl⁻ (Δχ = 2.23){"\n"}
+          Covalent: H₂ → H–H (Δχ = 0){"\n"}
+          Metallic: Cu → Cu⁺ ions in electron sea{"\n"}
+          Polar covalent: HF (Δχ = 1.78) — mostly ionic character{"\n"}
+          Bond energy: NaCl lattice energy = 786 kJ/mol{"\n"}
+          H-H bond energy = 436 kJ/mol
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ16: What IS a chemical bond in quantum mechanical terms?" color={T.eo_valence} isOpen={openQ === "AQ16"} onClick={() => toggle("AQ16")}>
+        <div style={{ background: T.eo_valence + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎻 Analogy:</b> Imagine two tuning forks near each other. Separately, each vibrates at its own frequency. Together, they couple and create two new frequencies — one lower (bonding) and one higher (antibonding). A chemical bond is when electrons occupy the lower-frequency (lower-energy) coupled state, making the system more stable than two separate atoms.
+        </div>
+        <p><b>Simple English:</b> A chemical bond forms when atomic orbitals overlap and combine into molecular orbitals. The bonding MO has lower energy than the original atomic orbitals because electron density builds up between the nuclei, reducing the potential energy. The key insight: it is not just about electrostatic attraction. The kinetic energy also decreases because the electron wavefunction spreads over a larger region (both atoms), lowering the kinetic energy via the uncertainty principle.</p>
+        <div style={mb}>
+          H₂ molecule:{"\n"}
+          Two 1s orbitals → σ(bonding) + σ*(antibonding){"\n"}
+          Bond energy = 4.52 eV (energy gained by forming bond){"\n"}
+          Bond length = 0.74 Å{"\n"}
+          Virial theorem: ⟨KE⟩ = -½⟨PE⟩ at equilibrium
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ17: What is bond order and why does it matter?" color={T.eo_valence} isOpen={openQ === "AQ17"} onClick={() => toggle("AQ17")}>
+        <div style={{ background: T.eo_valence + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🔗 Analogy:</b> Bond order is like the number of ropes connecting two boats. One rope (single bond) is weak and the boats can drift apart easily. Two ropes (double bond) are stronger and hold them closer. Three ropes (triple bond) — very strong, very short. Zero ropes — no connection, the boats float apart.
+        </div>
+        <p><b>Simple English:</b> Bond order = (bonding electrons - antibonding electrons)/2. It tells you the net number of chemical bonds. Higher bond order means shorter, stronger, stiffer bonds. A bond order of zero means no stable bond forms (like He₂). Fractional bond orders are possible (e.g., O₃ has bond order 1.5).</p>
+        <div style={mb}>
+          Bond order = (N_bonding - N_antibonding) / 2{"\n"}
+          H₂: (2-0)/2 = 1 → single bond, 436 kJ/mol, 0.74 Å{"\n"}
+          O₂: (8-4)/2 = 2 → double bond, 498 kJ/mol, 1.21 Å{"\n"}
+          N₂: (8-2)/2 = 3 → triple bond, 945 kJ/mol, 1.10 Å{"\n"}
+          He₂: (2-2)/2 = 0 → no bond!
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ18: How does electronegativity difference determine bond type?" color={T.eo_valence} isOpen={openQ === "AQ18"} onClick={() => toggle("AQ18")}>
+        <div style={{ background: T.eo_valence + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>⚖️ Analogy:</b> Imagine two people of different strengths pulling on a spring with a ball in the middle. If equal strength (Δχ≈0), the ball stays centered — pure covalent. If one is much stronger (Δχ large), the ball moves almost entirely to one side — ionic. In between — polar covalent, with partial charges δ+ and δ−.
+        </div>
+        <p><b>Simple English:</b> The Pauling electronegativity difference Δχ between two bonded atoms predicts the ionic character of the bond. This is actually a continuous spectrum, not discrete categories. The percent ionic character can be estimated from Δχ. For materials science, this determines properties like dielectric constant, solubility, melting point, and band gap.</p>
+        <div style={mb}>
+          % ionic character ≈ (1 - e^(-0.25(Δχ)²)) × 100{"\n"}
+          ZnTe: Zn(1.65) Te(2.10) → Δχ = 0.45 → ~5% ionic{"\n"}
+          GaAs: Ga(1.81) As(2.18) → Δχ = 0.37 → ~3% ionic{"\n"}
+          NaCl: Na(0.93) Cl(3.16) → Δχ = 2.23 → ~74% ionic{"\n"}
+          SiC: Si(1.90) C(2.55) → Δχ = 0.65 → ~10% ionic
+        </div>
+      </FAQAccordion>
+
+      {/* ── AQ19-AQ22: Hybridization ── */}
+
+      <FAQAccordion title="AQ19: What is hybridization physically — do orbitals really mix?" color={T.eo_cond} isOpen={openQ === "AQ19"} onClick={() => toggle("AQ19")}>
+        <div style={{ background: T.eo_cond + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎨 Analogy:</b> Imagine mixing red and blue paint. You do not get red OR blue — you get purple, a genuinely new color. Hybridization is mixing s and p orbitals to create new hybrid orbitals that are genuinely different from either parent. These new orbitals point in specific directions, optimizing bond overlap.
+        </div>
+        <p><b>Simple English:</b> Hybridization is a mathematical mixing (linear combination) of atomic orbitals on the SAME atom to create new orbitals better suited for bonding. It is a bookkeeping device from Valence Bond theory. The atom does not "decide" to hybridize — rather, when we analyze the bonding, we find that describing the atom's orbitals as hybrids better matches the observed molecular geometry. In MO theory, hybridization emerges naturally.</p>
+        <div style={mb}>
+          sp³ = ¼(s + px + py + pz) → tetrahedral, 109.5°{"\n"}
+          sp² = ⅓(s + px + py) → trigonal planar, 120°{"\n"}
+          sp  = ½(s + px) → linear, 180°{"\n"}
+          {"\n"}
+          Each hybrid is normalized: ∫|ψ_hybrid|² dV = 1{"\n"}
+          Hybrids are orthogonal: ∫ψᵢ*ψⱼ dV = 0 for i≠j
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ20: Why is sp3 tetrahedral, sp2 planar, and sp linear?" color={T.eo_cond} isOpen={openQ === "AQ20"} onClick={() => toggle("AQ20")}>
+        <div style={{ background: T.eo_cond + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎈 Analogy:</b> Tie balloons to a central point. Two balloons (sp) point in opposite directions — linear. Three balloons (sp²) spread into a flat Y — trigonal planar. Four balloons (sp³) form a 3D pyramid — tetrahedral. The balloons repel each other and settle into the geometry that maximizes the distance between them.
+        </div>
+        <p><b>Simple English:</b> The geometry comes from maximizing the overlap with bonding partners while minimizing electron-electron repulsion. sp³ mixes one s and three p orbitals to make four equivalent hybrids pointing to tetrahedral corners (109.5° apart). sp² mixes one s and two p orbitals for three planar hybrids at 120°, leaving one p orbital for π bonding. sp mixes one s and one p for two linear hybrids at 180°, leaving two p orbitals for π bonds.</p>
+        <div style={mb}>
+          sp³: CH₄ (methane), SiH₄, diamond → 109.5°{"\n"}
+          sp²: C₂H₄ (ethylene), graphene, BF₃ → 120°{"\n"}
+          sp:  C₂H₂ (acetylene), CO₂, BeH₂ → 180°{"\n"}
+          {"\n"}
+          Bond angles predict molecular shape → VSEPR theory
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ21: Why does carbon hybridize so readily?" color={T.eo_cond} isOpen={openQ === "AQ21"} onClick={() => toggle("AQ21")}>
+        <div style={{ background: T.eo_cond + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🏗️ Analogy:</b> Carbon is like a versatile Lego brick with exactly 4 connectors. It can use all 4 equally (sp³, like diamond), use 3 and keep one special (sp², like graphite), or use 2 and keep two special (sp, like acetylene). No other element balances the s-p energy gap and number of valence electrons so perfectly for this versatility.
+        </div>
+        <p><b>Simple English:</b> Carbon has 4 valence electrons (2s² 2p²) and the 2s-2p energy gap is small enough (~4 eV) that the energy cost of promoting one electron from 2s to 2p is more than compensated by forming an additional bond (~3-4 eV per bond). Carbon can form 2, 3, or 4 bonds with nearly equal ease. Silicon, below carbon, has a larger s-p gap and prefers sp³. Nitrogen (5 valence e⁻) usually does sp³ with a lone pair.</p>
+        <div style={mb}>
+          Carbon 2s→2p promotion energy: ~4 eV{"\n"}
+          C-H bond energy: ~4.3 eV → easily compensates{"\n"}
+          Diamond: sp³ → 4 bonds → hardest natural material{"\n"}
+          Graphene: sp² → 3σ + 1π → strongest 2D material{"\n"}
+          Carbyne: sp → 2σ + 2π → extremely stiff chain
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ22: What is the real difference between sigma and pi bonds?" color={T.eo_cond} isOpen={openQ === "AQ22"} onClick={() => toggle("AQ22")}>
+        <div style={{ background: T.eo_cond + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🤜🤛 Analogy:</b> A sigma bond is like a head-on handshake — the orbitals meet face-to-face along the bond axis, creating strong overlap. A pi bond is like linking arms side-by-side — the orbitals overlap laterally, above and below the bond axis. The handshake (σ) is stronger than linking arms (π), which is why π bonds are always the "second" bond in a double bond.
+        </div>
+        <p><b>Simple English:</b> σ bonds have cylindrical symmetry around the bond axis — the electron density is concentrated between the nuclei. π bonds have a nodal plane along the bond axis — electron density is above and below (or in front of and behind) the internuclear line. σ bonds can rotate freely; π bonds lock the molecule into a planar geometry because rotation would break the lateral overlap.</p>
+        <div style={mb}>
+          Single bond (C-C): 1σ, bond energy ~346 kJ/mol{"\n"}
+          Double bond (C=C): 1σ + 1π, bond energy ~614 kJ/mol{"\n"}
+          Triple bond (C≡C): 1σ + 2π, bond energy ~839 kJ/mol{"\n"}
+          {"\n"}
+          π bond energy ≈ 614 - 346 = 268 kJ/mol (weaker than σ){"\n"}
+          Second π bond ≈ 839 - 614 = 225 kJ/mol (even weaker)
+        </div>
+      </FAQAccordion>
+
+      {/* ── AQ23-AQ26: Molecular Orbitals ── */}
+
+      <FAQAccordion title="AQ23: What is the difference between bonding and antibonding orbitals?" color={T.eo_cond} isOpen={openQ === "AQ23"} onClick={() => toggle("AQ23")}>
+        <div style={{ background: T.eo_cond + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎵 Analogy:</b> Two speakers playing the same note. In phase (constructive interference) — the sound is louder in the middle. That is a bonding orbital: electron density builds up between nuclei. Out of phase (destructive interference) — silence in the middle. That is an antibonding orbital: a node between nuclei where the electron density is zero.
+        </div>
+        <p><b>Simple English:</b> When two atomic orbitals combine, they always produce two molecular orbitals — one bonding (lower energy, constructive overlap) and one antibonding (higher energy, destructive overlap, marked with *). The bonding MO has increased electron density between nuclei, stabilizing the molecule. The antibonding MO has a node between nuclei and actually destabilizes. The antibonding orbital is always raised MORE in energy than the bonding orbital is lowered.</p>
+        <div style={mb}>
+          ψ_bonding = ψ_A + ψ_B (constructive){"\n"}
+          ψ_antibonding = ψ_A - ψ_B (destructive){"\n"}
+          {"\n"}
+          Energy: E(σ*) - E(atom) {">"} E(atom) - E(σ){"\n"}
+          This asymmetry is why He₂ does not form:{"\n"}
+          He₂: σ(1s)² σ*(1s)² → net destabilization
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ24: What is the HOMO-LUMO gap and why does it matter?" color={T.eo_cond} isOpen={openQ === "AQ24"} onClick={() => toggle("AQ24")}>
+        <div style={{ background: T.eo_cond + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🪜 Analogy:</b> HOMO is the highest occupied rung of a ladder (where the most energetic electron stands). LUMO is the next empty rung above. The gap between them determines how much energy is needed to "step up" — i.e., excite the molecule. A small gap means the molecule absorbs low-energy visible light (colored). A large gap means it is transparent.
+        </div>
+        <p><b>Simple English:</b> HOMO = Highest Occupied Molecular Orbital. LUMO = Lowest Unoccupied Molecular Orbital. The HOMO-LUMO gap determines the molecule's color (light absorption), chemical reactivity (small gap = more reactive), and electrical conductivity. In solids, this extends to the band gap between valence and conduction bands. The HOMO-LUMO gap is the molecular analogue of the semiconductor band gap.</p>
+        <div style={mb}>
+          Small HOMO-LUMO gap → colored, reactive, conductive{"\n"}
+          Large HOMO-LUMO gap → colorless, stable, insulating{"\n"}
+          {"\n"}
+          β-carotene (orange): gap ≈ 2.4 eV → absorbs blue{"\n"}
+          Benzene (colorless): gap ≈ 6.0 eV → absorbs UV only{"\n"}
+          In Koopmans' theorem: IE ≈ -E(HOMO), EA ≈ -E(LUMO)
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ25: Why is O₂ paramagnetic? (MO theory's triumph)" color={T.eo_cond} isOpen={openQ === "AQ25"} onClick={() => toggle("AQ25")}>
+        <div style={{ background: T.eo_cond + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🧲 Analogy:</b> Imagine assigning 12 students (electrons) to seats in a theater (molecular orbitals). The last two students arrive at a row with two equivalent seats (degenerate π* orbitals). Following Hund's rule, they each take a separate seat and both face the same direction (parallel spins). These unpaired spins make O₂ magnetic — attracted to a magnet!
+        </div>
+        <p><b>Simple English:</b> Lewis structures predict O₂ should have all electrons paired (O=O, double bond). But experimentally, liquid O₂ is attracted to magnets — it has unpaired electrons! MO theory explains this beautifully: O₂ has two electrons in degenerate π*₂p orbitals. By Hund's rule, they occupy separate orbitals with parallel spins, giving O₂ two unpaired electrons. This was a major validation of MO theory over Lewis structures.</p>
+        <div style={mb}>
+          O₂ MO configuration:{"\n"}
+          (σ₂s)² (σ*₂s)² (σ₂p)² (π₂p)⁴ (π*₂p)²{"\n"}
+          Bond order = (8-4)/2 = 2 ✓ (double bond){"\n"}
+          Two unpaired electrons → paramagnetic ✓{"\n"}
+          Magnetic moment = 2√(s(s+1))μ_B ≈ 2.83 μ_B
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ26: MO theory vs. Valence Bond theory — which is right?" color={T.eo_cond} isOpen={openQ === "AQ26"} onClick={() => toggle("AQ26")}>
+        <div style={{ background: T.eo_cond + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🗺️ Analogy:</b> MO and VB theories are like two different maps of the same city. The street map (VB) is great for navigating neighborhoods (localized bonds, molecular geometry). The subway map (MO) is better for understanding long-distance connections (delocalization, spectroscopy, magnetism). Neither is "wrong" — they emphasize different aspects.
+        </div>
+        <p><b>Simple English:</b> Valence Bond theory builds molecules from localized two-center bonds using hybrid orbitals. It is intuitive for predicting molecular geometry and understanding organic chemistry. MO theory builds molecules from delocalized orbitals spread over the entire molecule. It correctly predicts paramagnetism, spectroscopic properties, and band structure. For solids and materials science, MO theory naturally extends to band theory, making it more useful.</p>
+        <div style={mb}>
+          VB theory strengths: geometry, hybridization, resonance{"\n"}
+          MO theory strengths: magnetism, spectroscopy, band theory{"\n"}
+          {"\n"}
+          Both give same results when fully converged.{"\n"}
+          VB → localized picture: bonds, lone pairs{"\n"}
+          MO → delocalized picture: energy levels, DOS{"\n"}
+          For solids: MO theory → Band theory (essential!)
+        </div>
+      </FAQAccordion>
+
+      {/* ── AQ27-AQ30: Crystal Symmetry ── */}
+
+      <FAQAccordion title="AQ27: What is the difference between a unit cell and a primitive cell?" color={T.eo_photon} isOpen={openQ === "AQ27"} onClick={() => toggle("AQ27")}>
+        <div style={{ background: T.eo_photon + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🧱 Analogy:</b> Imagine tiling a bathroom floor. The primitive cell is the smallest tile that can cover the entire floor by repetition. The conventional unit cell is like using a larger, more convenient tile shape that might contain 2-4 copies of the primitive tile. Larger, but easier to work with because it shows the symmetry more clearly.
+        </div>
+        <p><b>Simple English:</b> A primitive cell contains exactly one lattice point and is the smallest repeating unit. The conventional unit cell is chosen to display the crystal's full symmetry and may contain 1, 2, or 4 lattice points. For example, FCC has a conventional cubic unit cell with 4 atoms but a primitive rhombohedral cell with 1 atom. We use conventional cells because they make the symmetry obvious.</p>
+        <div style={mb}>
+          Primitive cell: exactly 1 lattice point, minimum volume{"\n"}
+          Conventional unit cells:{"\n"}
+          Simple cubic (SC): 1 atom/cell → primitive{"\n"}
+          BCC: 2 atoms/cell (conventional) → 1 atom (primitive){"\n"}
+          FCC: 4 atoms/cell (conventional) → 1 atom (primitive){"\n"}
+          Wigner-Seitz cell: primitive cell with full point group symmetry
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ28: What are Bravais lattices and why are there exactly 14?" color={T.eo_photon} isOpen={openQ === "AQ28"} onClick={() => toggle("AQ28")}>
+        <div style={{ background: T.eo_photon + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎲 Analogy:</b> Think of all possible ways to arrange identical dots in 3D space such that every dot "sees" the same environment. It is like asking: how many fundamentally different wallpaper patterns exist in 3D? Mathematics proves the answer is exactly 14. Any crystal must use one of these 14 lattice types — there are no others possible.
+        </div>
+        <p><b>Simple English:</b> A Bravais lattice is an infinite set of points generated by three translation vectors, where every point has an identical environment. There are 7 crystal systems (based on axis lengths and angles: cubic, tetragonal, orthorhombic, hexagonal, trigonal, monoclinic, triclinic) and centering types (P, I, F, C). Combining these gives 14 unique Bravais lattices. Some combinations are redundant (e.g., face-centered tetragonal = body-centered tetragonal).</p>
+        <div style={mb}>
+          7 crystal systems × centering types = 14 Bravais lattices:{"\n"}
+          Cubic: P (SC), I (BCC), F (FCC) → 3{"\n"}
+          Tetragonal: P, I → 2{"\n"}
+          Orthorhombic: P, I, F, C → 4{"\n"}
+          Hexagonal: P → 1{"\n"}
+          Trigonal: P (R) → 1{"\n"}
+          Monoclinic: P, C → 2{"\n"}
+          Triclinic: P → 1 → Total: 14
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ29: What are point groups and space groups?" color={T.eo_photon} isOpen={openQ === "AQ29"} onClick={() => toggle("AQ29")}>
+        <div style={{ background: T.eo_photon + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>❄️ Analogy:</b> Hold a snowflake. The ways you can rotate and flip it so it looks the same form its point group (rotations and reflections about a fixed point). Now imagine a wallpaper — it also has translation symmetry (slide it and it looks the same). Space groups combine both: the rotational/reflective symmetry of the motif PLUS the translational symmetry of the lattice.
+        </div>
+        <p><b>Simple English:</b> A point group describes all symmetry operations (rotations, reflections, inversions) that leave at least one point fixed. There are 32 crystallographic point groups in 3D. A space group adds translational symmetry (lattice translations, screw axes, glide planes). There are exactly 230 space groups in 3D. Every crystal structure belongs to one of these 230 space groups. Space group determines many physical properties.</p>
+        <div style={mb}>
+          32 point groups (crystal classes){"\n"}
+          230 space groups{"\n"}
+          ZnTe (zinc blende): space group F-43m (No. 216){"\n"}
+          Si (diamond): space group Fd-3m (No. 227){"\n"}
+          NaCl (rock salt): space group Fm-3m (No. 225){"\n"}
+          Point group of a cube: Oh (48 symmetry operations)
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ30: What are Miller indices and how do you read them?" color={T.eo_photon} isOpen={openQ === "AQ30"} onClick={() => toggle("AQ30")}>
+        <div style={{ background: T.eo_photon + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🍞 Analogy:</b> Imagine slicing a loaf of bread. Miller indices (hkl) describe HOW you make the cut. (100) slices perpendicular to the x-axis. (110) slices diagonally through x and y. (111) slices diagonally through all three axes. The indices tell you the orientation of the crystal plane, which determines surface properties, cleavage, and X-ray diffraction patterns.
+        </div>
+        <p><b>Simple English:</b> Miller indices (hkl) specify a crystal plane by taking the reciprocals of the fractional intercepts with the crystal axes. If a plane cuts the x-axis at 1/h, y-axis at 1/k, and z-axis at 1/l (in units of lattice parameters), the Miller index is (hkl). Negative intercepts get a bar over the number. The spacing between parallel (hkl) planes is d_hkl, which determines diffraction angles via Bragg's law.</p>
+        <div style={mb}>
+          (100): intercepts at (1,∞,∞) → parallel to y and z{"\n"}
+          (110): intercepts at (1,1,∞) → diagonal in xy{"\n"}
+          (111): intercepts at (1,1,1) → diagonal through all axes{"\n"}
+          {"\n"}
+          For cubic: d_hkl = a/√(h²+k²+l²){"\n"}
+          Bragg's law: 2d sinθ = nλ{"\n"}
+          Si wafers: (100) orientation most common for electronics
+        </div>
+      </FAQAccordion>
+
+      {/* ── AQ31-AQ33: Reciprocal Space ── */}
+
+      <FAQAccordion title="AQ31: What IS reciprocal space? Why can't we just use real space?" color={T.eo_gap} isOpen={openQ === "AQ31"} onClick={() => toggle("AQ31")}>
+        <div style={{ background: T.eo_gap + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎼 Analogy:</b> Think of a musical chord. In "time space," you see a complicated oscillating wave. In "frequency space" (Fourier transform), you see three clean dots — one for each note. Reciprocal space is the frequency-domain version of a crystal. The messy repeating pattern in real space becomes elegant dots in reciprocal space, revealing the underlying periodicity.
+        </div>
+        <p><b>Simple English:</b> Reciprocal space (k-space) is the Fourier transform of the real-space lattice. Every crystal property that repeats with the lattice periodicity is naturally expressed in reciprocal space. Waves in the crystal (electrons, phonons, X-rays) are described by wavevectors k, which live in reciprocal space. X-ray diffraction patterns ARE reciprocal space images. Band structures plot E vs. k — that is reciprocal space. It is not just a mathematical trick; it is the natural language for periodic systems.</p>
+        <div style={mb}>
+          Real space vectors: a₁, a₂, a₃{"\n"}
+          Reciprocal vectors: b₁ = 2π(a₂×a₃)/(a₁·a₂×a₃){"\n"}
+          Property: aᵢ · bⱼ = 2πδᵢⱼ{"\n"}
+          {"\n"}
+          Reciprocal of FCC → BCC (and vice versa!){"\n"}
+          Reciprocal of SC → SC{"\n"}
+          Diffraction condition: Δk = G (reciprocal lattice vector)
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ32: What is the Brillouin zone and why do we care about it?" color={T.eo_gap} isOpen={openQ === "AQ32"} onClick={() => toggle("AQ32")}>
+        <div style={{ background: T.eo_gap + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>📦 Analogy:</b> In a city with a repeating grid, you do not need to explore every block — just understand one block and the rest are copies. The Brillouin zone is that "one unique block" in reciprocal space. All the physics of electrons in the crystal is contained within this zone. Going outside it just takes you to a copy.
+        </div>
+        <p><b>Simple English:</b> The first Brillouin zone (BZ) is the Wigner-Seitz cell of the reciprocal lattice — the region of k-space closer to the origin than to any other reciprocal lattice point. Due to Bloch's theorem, all unique electron states can be labeled by k vectors within the first BZ. Band structures plot energy E(k) along high-symmetry paths in the BZ. High-symmetry points have special names (Γ, X, L, K, M, etc.).</p>
+        <div style={mb}>
+          FCC Brillouin zone: truncated octahedron{"\n"}
+          High-symmetry points:{"\n"}
+          Γ = (0,0,0) — zone center{"\n"}
+          X = (1,0,0)π/a — zone face center{"\n"}
+          L = (½,½,½)2π/a — zone corner{"\n"}
+          K = (¾,¾,0)π/a — zone edge{"\n"}
+          Band gap of Si: indirect Γ→X, 1.12 eV
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ33: What are k-points and why do DFT calculations need so many?" color={T.eo_gap} isOpen={openQ === "AQ33"} onClick={() => toggle("AQ33")}>
+        <div style={{ background: T.eo_gap + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>📊 Analogy:</b> Imagine measuring the average temperature of a room. You could put one thermometer in the center (1 k-point) and get a rough estimate, or place a grid of 100 thermometers throughout the room (10×10×10 k-grid) for an accurate average. k-points sample the Brillouin zone to compute properties like total energy, DOS, and charge density.
+        </div>
+        <p><b>Simple English:</b> In a DFT calculation, properties like total energy are integrals over the Brillouin zone: E = ∫E(k)dk. Since we cannot integrate analytically, we sample discrete k-points (usually a Monkhorst-Pack grid). More k-points = more accurate but more expensive. Metals need many more k-points than insulators because their Fermi surface has sharp features. Convergence testing means increasing k-points until the total energy stops changing.</p>
+        <div style={mb}>
+          Monkhorst-Pack grid: N₁ × N₂ × N₃ k-points{"\n"}
+          Typical for bulk Si: 8×8×8 = 512 k-points{"\n"}
+          With symmetry: reduces to ~60 irreducible k-points{"\n"}
+          Metals: may need 20×20×20 or more{"\n"}
+          Insulators: 4×4×4 often sufficient{"\n"}
+          Convergence criterion: ΔE {"<"} 1 meV/atom
+        </div>
+      </FAQAccordion>
+
+      {/* ── AQ34-AQ37: Band Theory ── */}
+
+      <FAQAccordion title="AQ34: Where do energy bands come from? (From atoms to bands)" color={T.eo_photon} isOpen={openQ === "AQ34"} onClick={() => toggle("AQ34")}>
+        <div style={{ background: T.eo_photon + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎹 Analogy:</b> One tuning fork has one frequency (one atomic energy level). Two coupled tuning forks split into two frequencies. N coupled tuning forks split into N closely-spaced frequencies — a "band" of frequencies. A crystal has ~10²³ atoms, so each atomic level splits into ~10²³ closely-spaced levels, forming a quasi-continuous energy band.
+        </div>
+        <p><b>Simple English:</b> Start with N isolated atoms, each with discrete energy levels. Bring them together to form a crystal. Their atomic orbitals overlap and split into bonding/antibonding combinations, just like in molecules. With N atoms, each atomic level splits into N molecular-orbital-like states. For N ~ 10²³, these N states are so closely spaced they form a continuous band. The bandwidth depends on the orbital overlap — greater overlap → wider band.</p>
+        <div style={mb}>
+          1 atom: discrete level E₀{"\n"}
+          2 atoms: E₀ ± t (t = hopping integral){"\n"}
+          N atoms: band from E₀ - 2t to E₀ + 2t{"\n"}
+          Bandwidth W = 4t{"\n"}
+          {"\n"}
+          Si: 3s band width ≈ 12 eV{"\n"}
+          Si: 3p band width ≈ 10 eV{"\n"}
+          Band gap (between valence and conduction bands): 1.12 eV
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ35: What is the difference between direct and indirect band gaps?" color={T.eo_photon} isOpen={openQ === "AQ35"} onClick={() => toggle("AQ35")}>
+        <div style={{ background: T.eo_photon + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🏀 Analogy:</b> Imagine shooting a basketball. In a direct gap (like GaAs), the hoop is right above you — shoot straight up (photon carries energy, no momentum change needed). In an indirect gap (like Si), the hoop is across the court — you need someone to pass you the ball sideways (a phonon provides the momentum) while you also jump (photon provides energy). Much harder, much less probable.
+        </div>
+        <p><b>Simple English:</b> In a direct band gap, the valence band maximum (VBM) and conduction band minimum (CBM) occur at the same k-point. An electron can be excited by absorbing just a photon (which carries energy but negligible momentum). In an indirect gap, VBM and CBM are at different k-points. The transition requires both a photon (for energy) and a phonon (for momentum). This makes indirect transitions ~1000× less probable.</p>
+        <div style={mb}>
+          Direct gap materials: GaAs (1.42 eV), GaN (3.4 eV), CdTe (1.5 eV){"\n"}
+          → Efficient light emitters → LEDs, lasers{"\n"}
+          Indirect gap materials: Si (1.12 eV), Ge (0.66 eV), AlAs (2.16 eV){"\n"}
+          → Poor light emitters but good for electronics{"\n"}
+          {"\n"}
+          ZnTe: direct gap = 2.26 eV (green light){"\n"}
+          Si solar cells work despite indirect gap (thick absorber ~300 μm)
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ36: What is effective mass and why does it differ from real mass?" color={T.eo_photon} isOpen={openQ === "AQ36"} onClick={() => toggle("AQ36")}>
+        <div style={{ background: T.eo_photon + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🏊 Analogy:</b> An electron in a crystal is like a swimmer in a pool. In vacuum, the swimmer moves freely with their true mass. In a pool with currents (the periodic potential of the crystal), the swimmer seems lighter (moves faster, as if the current helps) or heavier (current fights them). The effective mass encodes how the crystal potential modifies the electron's response to forces.
+        </div>
+        <p><b>Simple English:</b> In a crystal, an electron is not truly free — it interacts with all the ions. But remarkably, we can describe it as a FREE particle with a modified mass, called the effective mass m*. This m* comes from the band curvature: a sharply curved band means small m* (light, fast carrier), a flat band means large m* (heavy, slow carrier). Near the band edge, m* = ℏ²/(d²E/dk²).</p>
+        <div style={mb}>
+          m* = ℏ² / (d²E/dk²){"\n"}
+          Sharply curved band → small m* → fast carrier{"\n"}
+          Flat band → large m* → slow carrier{"\n"}
+          {"\n"}
+          GaAs electron m* = 0.067 mₑ (very light → fast){"\n"}
+          Si electron m* = 0.26 mₑ (transverse){"\n"}
+          GaAs hole m* = 0.45 mₑ (heavy hole){"\n"}
+          Mobility: μ = eτ/m* → smaller m* → higher mobility
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ37: What is the Fermi level and why is it so important?" color={T.eo_photon} isOpen={openQ === "AQ37"} onClick={() => toggle("AQ37")}>
+        <div style={{ background: T.eo_photon + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🌊 Analogy:</b> The Fermi level is like the water line in a harbor. Below the line — everything is filled (occupied states). Above the line — empty (unoccupied states). The water line determines what is submerged and what is exposed. The Fermi level determines which states are filled with electrons and which are empty, and it controls essentially all electronic properties.
+        </div>
+        <p><b>Simple English:</b> The Fermi level (E_F) is the energy at which the probability of occupation is exactly 50% at any temperature. At T=0, all states below E_F are filled and all above are empty. In metals, E_F lies within a band (partially filled band = conductor). In semiconductors, E_F lies in the gap. In insulators, E_F lies in a large gap. Doping shifts E_F toward the conduction band (n-type) or valence band (p-type).</p>
+        <div style={mb}>
+          Fermi-Dirac distribution: f(E) = 1/(e^((E-E_F)/k_BT) + 1){"\n"}
+          At T = 0: f(E) = 1 if E {"<"} E_F, 0 if E {">"} E_F{"\n"}
+          At T = 300K: k_BT = 0.026 eV (thermal smearing){"\n"}
+          {"\n"}
+          Metal (Cu): E_F = 7.0 eV (inside the band){"\n"}
+          Intrinsic Si: E_F = mid-gap ≈ 0.56 eV above VBM{"\n"}
+          n-type Si: E_F shifts toward CBM
+        </div>
+      </FAQAccordion>
+
+      {/* ── AQ38-AQ40: DOS and Material Classes ── */}
+
+      <FAQAccordion title="AQ38: What does the density of states (DOS) actually measure?" color={T.eo_gap} isOpen={openQ === "AQ38"} onClick={() => toggle("AQ38")}>
+        <div style={{ background: T.eo_gap + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🎭 Analogy:</b> Imagine a concert hall with seats at different heights (energies). DOS tells you how many seats exist at each height level. Many seats at a given energy = high DOS = many electrons can exist at that energy. No seats at a given energy = zero DOS = a gap. The DOS is like a histogram of available quantum states vs. energy.
+        </div>
+        <p><b>Simple English:</b> The density of states g(E) counts the number of available quantum states per unit energy per unit volume. It is the most fundamental quantity connecting band theory to measurable properties. The number of electrons at energy E is g(E)×f(E), where f(E) is the Fermi function. Integrating g(E)f(E) gives total electron density. DOS determines electronic specific heat, electrical conductivity, optical absorption, and more.</p>
+        <div style={mb}>
+          DOS: g(E) = number of states per unit energy per unit volume{"\n"}
+          Total electrons: n = ∫ g(E)f(E) dE{"\n"}
+          {"\n"}
+          Free electron DOS (3D): g(E) = (1/2π²)(2m/ℏ²)^(3/2) √E{"\n"}
+          Free electron DOS (2D): g(E) = m/(πℏ²) (constant!){"\n"}
+          Free electron DOS (1D): g(E) ∝ 1/√E (van Hove singularity){"\n"}
+          At band gap: g(E) = 0 (no states available)
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ39: Why do metals conduct electricity and insulators don't?" color={T.eo_gap} isOpen={openQ === "AQ39"} onClick={() => toggle("AQ39")}>
+        <div style={{ background: T.eo_gap + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🚗 Analogy:</b> Imagine a parking garage. Metals have a half-full level — cars (electrons) can easily rearrange and move (conduct). Insulators have completely full levels with a huge empty gap above — no car can move because there is no empty space, and jumping to the next level requires too much energy. Semiconductors have a modest gap — a few cars can jump with a thermal boost.
+        </div>
+        <p><b>Simple English:</b> Conduction requires that electrons change their states in response to an electric field — they need to accelerate to slightly higher energy/momentum states. In a metal, the band is partially filled, so empty states are immediately available just above the Fermi level. In an insulator, the band is completely filled. An electron cannot accelerate because all nearby states are occupied (Pauli exclusion). It would need to jump across the large band gap, which requires enormous energy.</p>
+        <div style={mb}>
+          Metal (Cu): no gap, σ ≈ 5.9 × 10⁷ S/m{"\n"}
+          Semiconductor (Si): Eg = 1.12 eV, σ ≈ 10⁻⁴ S/m (intrinsic){"\n"}
+          Insulator (diamond): Eg = 5.5 eV, σ ≈ 10⁻¹⁴ S/m{"\n"}
+          Insulator (SiO₂): Eg = 9 eV, σ ≈ 10⁻¹⁸ S/m{"\n"}
+          {"\n"}
+          Conductivity range: 10²⁵ orders of magnitude!{"\n"}
+          This is the largest variation of any physical property.
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="AQ40: What really distinguishes a semiconductor from an insulator?" color={T.eo_gap} isOpen={openQ === "AQ40"} onClick={() => toggle("AQ40")}>
+        <div style={{ background: T.eo_gap + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
+          <b>🚪 Analogy:</b> Both semiconductors and insulators have a gap (a door between floors). In a semiconductor, the door is low enough that thermal energy (body heat) can occasionally push electrons through (~1 eV). In an insulator, the door is so high ({">"}4 eV) that thermal energy is hopeless. But there is no sharp line — it is a sliding scale. We call materials "semiconductors" when we can usefully control their conductivity by doping, temperature, or light.
+        </div>
+        <p><b>Simple English:</b> There is no fundamental physical difference — it is a matter of band gap size. Convention: band gap below ~3-4 eV is "semiconductor," above is "insulator." But the real distinction is practical: can we use the material in electronic devices? If doping can meaningfully change its conductivity, it is a useful semiconductor. Diamond (5.5 eV) is an insulator, but when doped with boron it becomes a p-type semiconductor. GaN (3.4 eV) was once called a "wide-gap semiconductor," now essential for blue LEDs.</p>
+        <div style={mb}>
+          Semiconductor examples:{"\n"}
+          Si: 1.12 eV, Ge: 0.66 eV, GaAs: 1.42 eV{"\n"}
+          ZnTe: 2.26 eV, GaN: 3.4 eV, SiC: 3.3 eV{"\n"}
+          {"\n"}
+          Insulator examples:{"\n"}
+          Diamond: 5.5 eV, SiO₂: 9.0 eV, Al₂O₃: 8.8 eV{"\n"}
+          {"\n"}
+          At T=300K: k_BT = 0.026 eV{"\n"}
+          Carrier concentration ∝ e^(-Eg/2k_BT){"\n"}
+          Si: nᵢ ≈ 10¹⁰/cm³ vs Diamond: nᵢ ≈ 10⁻²⁷/cm³
+        </div>
+      </FAQAccordion>
+
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
 // SECTIONS REGISTRY — 22 sections organized as a story in 5 acts
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -8386,6 +9047,7 @@ const BLOCKS = [
   { id: "crystals",   label: "From Molecules to Crystals",  color: T.eo_cond },
   { id: "properties", label: "Properties of the Crystal",   color: T.eo_photon },
   { id: "design",     label: "Can We Make It?",             color: T.eo_e },
+  { id: "bigq",       label: "Big Questions",              color: T.eo_gap },
 ];
 
 const ELECTRON_SECTIONS = [
@@ -8418,6 +9080,9 @@ const ELECTRON_SECTIONS = [
   { id: "phase",           block: "design", label: "Phase Diagrams",         icon: "\u{1F5FA}️", color: T.eo_e, Component: PhaseDiagramSection },
   { id: "chemPot",         block: "design", label: "Chemical Potential",     icon: "\u{2697}️",  color: T.eo_e, Component: ChemicalPotentialSection },
   { id: "atomToDevice",    block: "design", label: "From Atom to Device",    icon: "\u{1F680}", color: T.eo_e, Component: AtomToDeviceSection },
+
+  // ── Act 6: Big Questions ──
+  { id: "bigQuestions", block: "bigq", label: "Big Questions", icon: "\u{1F9E0}", color: T.eo_gap, Component: AtomsBigQuestionsSection },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
