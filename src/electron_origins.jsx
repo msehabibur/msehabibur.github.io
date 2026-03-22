@@ -8385,8 +8385,8 @@ function FAQAccordion({ title, color, isOpen, onClick, children }) {
         border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10,
         fontFamily: "inherit", textAlign: "left",
       }}>
-        <span style={{ fontSize: 16, color: isOpen ? color : T.muted, fontWeight: 700, transition: "transform 0.2s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}>▶</span>
-        <span style={{ fontSize: 13, fontWeight: 700, color: isOpen ? color : T.ink, flex: 1 }}>{title}</span>
+        <span style={{ fontSize: 13, color: isOpen ? color : T.muted, fontWeight: 700, transition: "transform 0.2s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}>▶</span>
+        <span style={{ fontSize: 11, fontWeight: 700, color: isOpen ? color : T.ink, flex: 1 }}>{title}</span>
         {isOpen && <span style={{ fontSize: 10, color, fontWeight: 600, padding: "2px 8px", background: color + "15", borderRadius: 6 }}>OPEN</span>}
       </button>
       {isOpen && (
@@ -8405,7 +8405,7 @@ function FAQAccordion({ title, color, isOpen, onClick, children }) {
 function AtomsBigQuestionsSection() {
   const [openQ, setOpenQ] = useState("AQ1");
   const toggle = (q) => setOpenQ(openQ === q ? null : q);
-  const mb = { fontFamily: "monospace", fontSize: 13, lineHeight: 1.9, background: T.surface, borderRadius: 10, padding: "14px 18px", border: `1px solid ${T.border}40`, marginBottom: 10 };
+  const mb = { fontFamily: "monospace", fontSize: 11, lineHeight: 1.7, background: T.surface, borderRadius: 10, padding: "10px 14px", border: `1px solid ${T.border}40`, marginBottom: 8 };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
