@@ -75,7 +75,7 @@ export default function ScientificBlog() {
 
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 10, letterSpacing: 3, color: T.accent, textTransform: "uppercase", fontWeight: 700 }}>
-            SCIENTIFIC BLOG
+            ELEMENT 119
           </div>
           <div style={{ fontSize: 18, fontWeight: 800, color: T.ink }}>
             Computational Materials Science

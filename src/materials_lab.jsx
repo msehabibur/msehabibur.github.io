@@ -20999,7 +20999,7 @@ export default function MaterialsLab({ initialModule = null, blogMode = false })
           color: shell.ink, fontWeight: 700, fontFamily: "inherit",
           display: "flex", alignItems: "center", gap: 6, whiteSpace: "nowrap",
         }}>
-          ← {blogMode ? "Blog" : "Home"}
+          ← {blogMode ? "Element 119" : "Home"}
         </button>
 
         <div style={{

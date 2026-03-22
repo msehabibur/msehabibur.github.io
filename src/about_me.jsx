@@ -202,7 +202,7 @@ const TABS = [
   { id: "conferences",   label: "Conferences" },
   { id: "awards",        label: "Awards" },
   { id: "software",      label: "Software" },
-  { id: "blog",          label: "Scientific Blog" },
+  { id: "blog",          label: "Element 119" },
 ];
 
 const BLOG_CHAPTERS = [
@@ -593,7 +593,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
         </div>
       )}
 
-      {/* ─── SCIENTIFIC BLOG ─── */}
+      {/* ─── ELEMENT 119 ─── */}
       {tab === "blog" && (
         <div>
           <SectionTitle color={T.blue}>Computational Materials Science</SectionTitle>
