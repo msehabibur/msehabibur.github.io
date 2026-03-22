@@ -7650,6 +7650,67 @@ function DFTFAQSection() {
           <span style={{ color: T.muted }}>G = reciprocal lattice vector</span><br />
           <span style={{ color: T.muted }}>This is just Poisson's equation in Fourier space — one line, O(N log N)</span>
         </div>
+
+        <Card title="Numerical Example: Ewald Summation for NaCl" color={D.eqn}>
+          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+            Consider a 1D chain of alternating Na⁺ and Cl⁻ ions with spacing a = 2.82 Å and charges q = ±1e. The Madelung energy per ion pair is:
+          </div>
+          <div style={mathBlock}>
+            <span style={{ color: D.eqn, fontWeight: 700 }}>Direct sum (conditionally convergent — WRONG approach):</span><br /><br />
+            <span style={{ color: T.ink }}>E = (q²/4πε₀a) × [−1/1 + 1/2 − 1/3 + 1/4 − 1/5 + ...]</span><br /><br />
+            <span style={{ color: T.muted }}>After 5 terms:  −1 + 0.5 − 0.333 + 0.25 − 0.2 = −0.783</span><br />
+            <span style={{ color: T.muted }}>After 10 terms: −0.646</span><br />
+            <span style={{ color: T.muted }}>After 100 terms: −0.688</span><br />
+            <span style={{ color: T.muted }}>After 1000 terms: −0.693</span><br />
+            <span style={{ color: D.warn }}>Exact answer: −ln(2) = −0.6931... (converges VERY slowly!)</span><br /><br />
+
+            <span style={{ color: D.main, fontWeight: 700 }}>Ewald method (splits into two FAST-converging sums):</span><br /><br />
+            <span style={{ color: T.ink }}>Choose α = 1.0/a. Split each 1/r into:</span><br />
+            <span style={{ color: D.eqn }}>  erfc(αr)/r → short-range (real space)</span><br />
+            <span style={{ color: D.basis }}>  erf(αr)/r  → long-range (reciprocal space)</span><br /><br />
+
+            <span style={{ color: D.eqn, fontWeight: 700 }}>Real-space sum (short-range, erfc decays like Gaussian):</span><br />
+            <span style={{ color: T.ink }}>n=1: erfc(1.0×1)/1 = erfc(1.0) = 0.1573</span><br />
+            <span style={{ color: T.ink }}>n=2: erfc(1.0×2)/2 = erfc(2.0)/2 = 0.00234/2 ≈ 0.0012</span><br />
+            <span style={{ color: T.ink }}>n=3: erfc(1.0×3)/3 ≈ 7.2×10⁻⁶ (already negligible!)</span><br />
+            <span style={{ color: D.eqn }}>Real-space sum converges in just 2-3 terms!</span><br /><br />
+
+            <span style={{ color: D.basis, fontWeight: 700 }}>Reciprocal-space sum (long-range, smooth in Fourier space):</span><br />
+            <span style={{ color: T.ink }}>G₁ = 2π/a:  (1/G₁²) × exp(−G₁²/4α²) = strong contribution</span><br />
+            <span style={{ color: T.ink }}>G₂ = 4π/a:  (1/G₂²) × exp(−G₂²/4α²) = small</span><br />
+            <span style={{ color: T.ink }}>G₃ = 6π/a:  ≈ negligible (Gaussian decay in G-space)</span><br />
+            <span style={{ color: D.basis }}>Reciprocal sum also converges in 2-3 terms!</span><br /><br />
+
+            <span style={{ color: D.main, fontWeight: 700 }}>Self-energy correction (subtract spurious self-interaction):</span><br />
+            <span style={{ color: T.ink }}>E_self = −α/√π per ion = −1.0/√π = −0.5642</span><br /><br />
+
+            <span style={{ color: D.warm, fontWeight: 700, fontSize: 13 }}>Final result:</span><br />
+            <span style={{ color: D.warm }}>E_Madelung = E_real + E_reciprocal + E_self = −0.6931 (exact to 4 digits!)</span><br />
+            <span style={{ color: D.eqn }}>Total terms needed: ~6 vs ~1000 for direct sum → 150× faster!</span>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 12 }}>
+            {[
+              { step: "Step 1: Choose α", detail: "α balances the two sums. Large α → more work in reciprocal space, less in real space. α ≈ 1/a is a good starting point. VASP optimises α automatically.", color: D.eqn },
+              { step: "Step 2: Real-space sum", detail: "Sum erfc(α|rᵢⱼ|)/|rᵢⱼ| over nearby ions. erfc decays like exp(−α²r²), so only neighbors within ~3/α matter. For NaCl with α=1/a, that's about 3 shells of neighbors.", color: D.main },
+              { step: "Step 3: Reciprocal-space sum", detail: "Sum exp(−|G|²/4α²)/|G|² × S(G) over reciprocal vectors G, where S(G) is the structure factor. The Gaussian exp(−G²/4α²) kills large G terms, so only a few G-vectors are needed.", color: D.basis },
+              { step: "Step 4: Subtract self-energy", detail: "The Ewald splitting accidentally adds a self-interaction (each charge interacting with its own Gaussian). Subtract E_self = −α/√π × Σqᵢ² to correct this.", color: D.accent },
+            ].map(item => (
+              <div key={item.step} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}` }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.step}</div>
+                <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 2 }}>{item.detail}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ background: D.warm + "08", borderRadius: 10, padding: "12px 14px", border: `1.5px solid ${D.warm}20`, marginTop: 12 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 4 }}>3D NaCl (real crystal)</div>
+            <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
+              In 3D, the Madelung constant for NaCl is M = 1.7476. The electrostatic energy per ion pair is:<br />
+              <strong>E = −M × q²/(4πε₀a) = −1.7476 × (1.602×10⁻¹⁹)² / (4π × 8.854×10⁻¹² × 2.82×10⁻¹⁰)</strong><br />
+              <strong>E = −1.7476 × 5.12 eV = −8.94 eV per ion pair</strong><br />
+              This is the dominant contribution to the cohesive energy of NaCl. Without Ewald summation, computing this accurately for a periodic crystal would require summing millions of terms. With Ewald, VASP gets it exact with ~50 terms total (real + reciprocal).
+            </div>
+          </div>
+        </Card>
       </FAQAccordion>
 
       {/* Q37. What does "25% exact exchange" in HSE06 actually mean? */}
@@ -10748,6 +10809,17 @@ function MDIntroSection() {
 }
 
 function MDNewtonSection() {
+  const [force, setForce] = useState(0.5);
+  const [mass, setMass] = useState(16);
+  const [dt, setDt] = useState(1.0);
+
+  const massKg = mass * 1.6605e-27;
+  const forceN = force * 1.602e-19 / 1e-10;
+  const accel = forceN / massKg;
+  const dispM = 0.5 * accel * (dt * 1e-15) * (dt * 1e-15);
+  const dispAng = dispM * 1e10;
+  const velMs = accel * dt * 1e-15;
+
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
@@ -10802,6 +10874,36 @@ function MDNewtonSection() {
           </div>
         </Card>
 
+        <Card title="Interactive: F = ma for a Single Atom" color={MD.prop}>
+          <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 220 }}>
+              <SliderRow label="F — applied force" value={force} min={0.01} max={5.0} step={0.01} onChange={setForce} color={MD.newton} unit=" eV/Å" />
+              <SliderRow label="m — atomic mass" value={mass} min={1} max={200} step={1} onChange={setMass} color={MD.main} unit=" amu" format={v => v.toFixed(0)} />
+              <SliderRow label="Δt — time step" value={dt} min={0.1} max={10.0} step={0.1} onChange={setDt} color={MD.warn} unit=" fs" />
+              <div style={{ marginTop: 12, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+                <CalcRow eq={`a = F/m = ${force.toFixed(2)} / ${mass}`} result={`${accel.toExponential(2)} m/s²`} color={MD.prop} />
+                <CalcRow eq={`Δr = ½·a·Δt²`} result={`${dispAng.toFixed(5)} Å`} color={MD.newton} />
+                <CalcRow eq={`v after Δt`} result={`${velMs.toFixed(1)} m/s`} color={MD.main} />
+              </div>
+            </div>
+            <div style={{ flex: 1, minWidth: 220 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                <ResultBox label="Acceleration" value={accel.toExponential(2)} color={MD.prop} sub="m/s²" />
+                <ResultBox label="Displacement" value={dispAng.toFixed(4)} color={MD.newton} sub="Å per step" />
+                <ResultBox label="Velocity" value={(velMs).toFixed(1)} color={MD.main} sub="m/s after 1 step" />
+                <ResultBox label="Steps for 1 Å" value={dispAng > 0 ? Math.ceil(1.0 / dispAng).toLocaleString() : "∞"} color={MD.warn} sub="steps needed" />
+              </div>
+              <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6, background: MD.prop + "08", borderRadius: 8, padding: "8px 12px" }}>
+                {mass <= 4 && <span style={{ color: MD.warn, fontWeight: 700 }}>Very light atom (H/He) — needs very small Δt!</span>}
+                {mass > 4 && mass <= 20 && <span>Light atom (C, N, O) — Δt ~ 0.5–1 fs typical.</span>}
+                {mass > 20 && mass <= 60 && <span>Medium atom (Si, S, Ca) — Δt ~ 1–2 fs typical.</span>}
+                {mass > 60 && mass <= 120 && <span>Heavy atom (Cu, Se, Ag) — Δt ~ 2–3 fs typical.</span>}
+                {mass > 120 && <span>Very heavy atom (W, Au, Pb) — Δt up to 5 fs possible.</span>}
+              </div>
+            </div>
+          </div>
+        </Card>
+
         <Card title="The Time Step" color={MD.warn}>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             Must be small enough to resolve the fastest vibration in your system.
@@ -10815,23 +10917,34 @@ function MDNewtonSection() {
             {"  Heavy metals:   period ~ 50 fs   → Δt < 5.0 fs"}
           </div>
         </Card>
-
-        <Card title="Numerical Example - Single O Atom" color={MD.prop}>
-          <div style={mdMathBlock}>
-            <span style={{ color: MD.prop, fontWeight: 700 }}>Given: F = 0.5 eV/Å on an oxygen atom (m = 16 amu)</span><br /><br />
-            {"  a = F/m = 0.5 eV/Å / (16 × 1.661×10⁻²⁷ kg)"}<br />
-            {"    = 0.5 × 1.602×10⁻¹⁹ J / (10⁻¹⁰ m) / (2.658×10⁻²⁶ kg)"}<br />
-            {"    = "}<span style={{ color: MD.prop, fontWeight: 700 }}>{"3.01 × 10²⁶ m/s²"}</span><br /><br />
-            {"  In 1 fs: Δr = ½ a t² = ½ × 3.01×10²⁶ × (10⁻¹⁵)²"}<br />
-            {"         = "}<span style={{ color: MD.prop, fontWeight: 700 }}>{"0.015 Å"}</span><br /><br />
-            <span style={{ color: T.muted }}>A tiny displacement per step - that{"'"}s why you need thousands of steps.</span>
-          </div>
-        </Card>
       </div>
   );
 }
 
 function MDVerletSection() {
+  const [k_spring, setK] = useState(1.0);
+  const [r0_eq, setR0] = useState(2.5);
+  const [r_init, setRInit] = useState(2.7);
+  const [m_ver, setMVer] = useState(28);
+  const [dt_ver, setDtVer] = useState(2.0);
+
+  const dr0 = r_init - r0_eq;
+  const F0 = -k_spring * dr0;
+  const mkg = m_ver * 1.6605e-27;
+  const F0N = F0 * 1.602e-19 / 1e-10;
+  const a0 = F0N / mkg;
+  const dtS = dt_ver * 1e-15;
+  const r1 = r_init + 0 + 0.5 * a0 * dtS * dtS * 1e10;
+  const dr1 = r1 - r0_eq;
+  const F1 = -k_spring * dr1;
+  const F1N = F1 * 1.602e-19 / 1e-10;
+  const a1 = F1N / mkg;
+  const v1 = 0.5 * (a0 + a1) * dtS * 1e10;
+  const KE0 = 0;
+  const PE0 = 0.5 * k_spring * dr0 * dr0;
+  const KE1 = 0.5 * m_ver * 1.6605e-27 * (v1 / 1e10 * 1e15) * (v1 / 1e10 * 1e15) / 1.602e-19;
+  const PE1 = 0.5 * k_spring * dr1 * dr1;
+
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
@@ -10868,17 +10981,38 @@ function MDVerletSection() {
           </div>
         </Card>
 
-        <Card title="Worked Example - 2 Atoms, 3 Steps" color={MD.prop}>
-          <div style={mdMathBlock}>
-            <span style={{ color: MD.prop, fontWeight: 700 }}>Setup: 2 atoms on a line, Hooke{"'"}s spring F = -k(r-r0)</span><br />
-            {"  k = 1.0 eV/Å², r0 = 2.5 Å, m = 28 amu (Si), Δt = 2 fs"}<br /><br />
-            <span style={{ color: MD.newton, fontWeight: 700 }}>t = 0:</span><br />
-            {"  r = 2.7 Å, v = 0, F = -0.2 eV/Å, a = -4.3×10²⁴ m/s²"}<br /><br />
-            <span style={{ color: MD.newton, fontWeight: 700 }}>t = 2 fs:</span><br />
-            {"  r = 2.7 + 0 + ½(-4.3×10²⁴)(2×10⁻¹⁵)² = 2.6991 Å"}<br />
-            {"  F_new = -0.199 eV/Å"}<br />
-            {"  v = 0 + ½(-4.3×10²⁴ + -4.29×10²⁴)(2×10⁻¹⁵) = "}<span style={{ color: MD.prop, fontWeight: 700 }}>{"-0.86 Å/ps"}</span><br /><br />
-            <span style={{ color: T.muted }}>Atom oscillates around equilibrium - that{"'"}s a phonon!</span>
+        <Card title="Interactive: Velocity Verlet — Harmonic Spring" color={MD.prop}>
+          <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 220 }}>
+              <SliderRow label="k — spring constant" value={k_spring} min={0.1} max={10.0} step={0.1} onChange={setK} color={MD.aimd} unit=" eV/Å²" />
+              <SliderRow label="r₀ — equilibrium distance" value={r0_eq} min={1.0} max={4.0} step={0.05} onChange={setR0} color={MD.main} unit=" Å" />
+              <SliderRow label="r(0) — initial distance" value={r_init} min={1.0} max={5.0} step={0.01} onChange={setRInit} color={MD.newton} unit=" Å" />
+              <SliderRow label="m — atomic mass" value={m_ver} min={1} max={200} step={1} onChange={setMVer} color={MD.thermo} unit=" amu" format={v => v.toFixed(0)} />
+              <SliderRow label="Δt — time step" value={dt_ver} min={0.1} max={10.0} step={0.1} onChange={setDtVer} color={MD.warn} unit=" fs" />
+            </div>
+            <div style={{ flex: 1, minWidth: 260 }}>
+              <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: MD.newton, marginBottom: 6 }}>t = 0 (initial)</div>
+                <CalcRow eq={`Δr = r − r₀ = ${r_init.toFixed(2)} − ${r0_eq.toFixed(2)}`} result={`${dr0.toFixed(4)} Å`} color={MD.newton} />
+                <CalcRow eq={`F = −k·Δr = −${k_spring.toFixed(1)}×${dr0.toFixed(4)}`} result={`${F0.toFixed(4)} eV/Å`} color={MD.aimd} />
+                <CalcRow eq={`a = F/m`} result={`${a0.toExponential(2)} m/s²`} color={MD.prop} />
+                <CalcRow eq="PE = ½k·Δr²" result={`${PE0.toFixed(5)} eV`} color={MD.thermo} />
+              </div>
+              <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: MD.main, marginBottom: 6 }}>t = {dt_ver.toFixed(1)} fs (after 1 step)</div>
+                <CalcRow eq={`r(Δt) = r + v·Δt + ½a·Δt²`} result={`${r1.toFixed(5)} Å`} color={MD.newton} />
+                <CalcRow eq={`F(new)`} result={`${F1.toFixed(4)} eV/Å`} color={MD.aimd} />
+                <CalcRow eq={`v(Δt) = ½[a₀+a₁]·Δt`} result={`${(v1 * 1000).toFixed(3)} Å/ps`} color={MD.main} />
+                <CalcRow eq="PE(new) = ½k·Δr²" result={`${PE1.toFixed(5)} eV`} color={MD.thermo} />
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                <ResultBox label="E_total (t=0)" value={(KE0 + PE0).toFixed(5)} color={MD.prop} sub="eV" />
+                <ResultBox label="E_total (t=Δt)" value={(KE1 + PE1).toFixed(5)} color={MD.prop} sub="eV" />
+              </div>
+              <div style={{ marginTop: 8, fontSize: 11, color: Math.abs((KE1+PE1) - (KE0+PE0)) < 0.001 ? MD.main : MD.warn, fontWeight: 700, textAlign: "center" }}>
+                {Math.abs((KE1+PE1) - (KE0+PE0)) < 0.001 ? "Energy well conserved after 1 step!" : `Energy drift: ${((KE1+PE1) - (KE0+PE0)).toExponential(2)} eV — ${dt_ver > 5 ? "reduce Δt!" : "check parameters"}`}
+              </div>
+            </div>
           </div>
         </Card>
 
@@ -10996,6 +11130,73 @@ function MDVerletSection() {
 }
 
 function MDEnsemblesSection() {
+  const [ensView, setEnsView] = useState("NVE");
+  const [nAtoms, setNAtoms] = useState(64);
+  const [targetT, setTargetT] = useState(300);
+  const [targetP, setTargetP] = useState(0);
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setTick(t => t + 1), 120);
+    return () => clearInterval(id);
+  }, []);
+
+  const kB = 8.617e-5;
+  const dof = 3 * nAtoms;
+  const totalKE = 1.5 * nAtoms * kB * targetT;
+  const sigma_v = Math.sqrt(kB * targetT / 63.546);
+  const T_fluct = targetT / Math.sqrt(1.5 * nAtoms);
+
+  const ensembles = [
+    { id: "NVE", name: "NVE (Microcanonical)", icon: "📦",
+      analogy: "A perfectly insulated thermos. You seal it shut — no heat enters or leaves. The coffee inside can slosh around (KE↔PE), but the total energy never changes. Temperature fluctuates naturally. This is the 'purest' MD — just Newton's laws, no external interference.",
+      fixed: "N, V, E", varies: "T, P",
+      mechanism: "No thermostat. No barostat. Pure Newtonian dynamics. Total energy E = KE + PE is exactly conserved. Temperature fluctuates as ΔT/T ~ 1/√(3N/2).",
+      equation: "mᵢ aᵢ = Fᵢ  (that's it — no friction, no rescaling)",
+      use: "Testing energy conservation, debugging force calculations, validating integrators.",
+      vasp: "IBRION=0, SMASS=-1 (or omit), ISIF=2",
+      color: MD.newton },
+    { id: "NVT", name: "NVT (Canonical)", icon: "🌡️",
+      analogy: "A beaker in a water bath. The water bath holds the temperature constant. If the beaker gets too hot, heat flows out to the bath. Too cold? Heat flows in. The Nosé-Hoover thermostat is the 'water bath' — it adds a friction term ξ that speeds up or slows down atoms to maintain the target temperature.",
+      fixed: "N, V, T", varies: "E, P",
+      mechanism: "Nosé-Hoover thermostat adds a friction variable ξ to the equations of motion. When T > T_target, ξ > 0 (friction slows atoms). When T < T_target, ξ < 0 (anti-friction speeds them up). Energy is NOT conserved — the thermostat exchanges energy with the system.",
+      equation: "mᵢ aᵢ = Fᵢ − ξ mᵢ vᵢ\ndξ/dt = (1/Q)[Σ mᵢvᵢ² − 3NkᵦT_target]",
+      use: "Most common ensemble. Fixed-T property calculations, defect studies, equilibrium sampling.",
+      vasp: "IBRION=0, SMASS=0 (Nosé-Hoover), ISIF=2, TEBEG=T, TEEND=T",
+      color: MD.main },
+    { id: "NPT", name: "NPT (Isobaric-Isothermal)", icon: "🎈",
+      analogy: "A balloon in a room. The room sets the temperature (thermostat) and atmospheric pressure pushes on the balloon walls (barostat). If internal pressure is too high, the balloon expands. Too low? It shrinks. Both T and P are controlled. The volume adjusts freely — that's how you measure thermal expansion.",
+      fixed: "N, P, T", varies: "E, V",
+      mechanism: "Nosé-Hoover thermostat (for T) + Parrinello-Rahman barostat (for P). The barostat adds fictitious mass W to the cell dimensions — the cell volume (and optionally shape) becomes a dynamic variable that evolves to maintain target pressure via the virial.",
+      equation: "mᵢ aᵢ = Fᵢ − ξ mᵢ vᵢ  (thermostat)\ndh/dt² = V(P_int − P_ext) / W  (barostat)\nP = (NkᵦT + ⅓Σ rᵢⱼ·Fᵢⱼ) / V  (virial pressure)",
+      use: "Thermal expansion, density at finite T, phase transitions, equilibrium volume.",
+      vasp: "IBRION=0, SMASS=0, ISIF=3 (cell relaxes), PSTRESS=P_target",
+      color: MD.thermo },
+    { id: "NPsT", name: "NPσT (Parrinello-Rahman)", icon: "🔮",
+      analogy: "A shape-shifting container. Not only can the volume change (like NPT), but the container can morph from cubic to tetragonal to monoclinic. This is essential for studying structural phase transitions where the crystal symmetry itself changes — like BCC iron transforming to FCC at high temperature.",
+      fixed: "N, σ (stress tensor), T", varies: "E, V, cell shape",
+      mechanism: "Full Parrinello-Rahman dynamics: all 6 independent components of the cell matrix h are dynamic variables. The cell can stretch, shear, and rotate. The stress tensor σ replaces scalar pressure P.",
+      equation: "mᵢ aᵢ = Fᵢ − ξ mᵢ vᵢ − G⁻¹ Ġ rᵢ\nW d²h/dt² = (σ_int − σ_ext) × V  (full stress tensor)",
+      use: "Structural phase transitions (BCC→FCC), martensitic transformations, ferroelectric switching.",
+      vasp: "IBRION=0, SMASS=0, ISIF=3, PSTRESS=0",
+      color: MD.cls },
+  ];
+
+  const ens = ensembles.find(e => e.id === ensView) || ensembles[0];
+
+  const animBalls = Array.from({ length: 12 }, (_, i) => {
+    const phase = tick * 0.15 + i * 1.3;
+    const baseX = 30 + (i % 4) * 60;
+    const baseY = 30 + Math.floor(i / 4) * 55;
+    const amp = ensView === "NVE" ? 12 : ensView === "NVT" ? 8 + 4 * Math.sin(tick * 0.05) : 10;
+    return { x: baseX + amp * Math.sin(phase), y: baseY + amp * Math.cos(phase * 0.7 + i), r: 6 };
+  });
+
+  const boxW = 260;
+  const boxH = 180;
+  const boxScale = ensView === "NPT" || ensView === "NPsT" ? 1 + 0.03 * Math.sin(tick * 0.04) : 1;
+  const boxSkew = ensView === "NPsT" ? 3 * Math.sin(tick * 0.03) : 0;
+
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
@@ -11004,25 +11205,81 @@ function MDEnsemblesSection() {
             Basic MD conserves total energy (NVE) — like a perfectly insulated box. But real experiments happen at constant temperature (NVT) or pressure (NPT). A thermostat acts like the lab{"'"}s temperature controller — it adds or removes kinetic energy so atoms maintain the right average speed. A barostat adjusts the box size to maintain constant pressure.
           </div>
         </div>
-        <Card title="Thermodynamic Ensembles" color={MD.thermo}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {[
-              { name: "NVE (Microcanonical)", fixed: "N, V, E", varies: "T, P", use: "Testing energy conservation. Debugging. Isolated system.", color: MD.newton },
-              { name: "NVT (Canonical)", fixed: "N, V, T", varies: "E, P", use: "Most common. Fixed temperature simulations. Defect studies.", color: MD.main },
-              { name: "NPT (Isobaric-Isothermal)", fixed: "N, P, T", varies: "E, V", use: "Phase transitions, thermal expansion. Cell shape changes.", color: MD.thermo },
-              { name: "NPσT (Parrinello-Rahman)", fixed: "N, σ, T", varies: "E, V, shape", use: "Structural phase transitions where cell shape matters.", color: MD.cls },
-            ].map(item => (
-              <div key={item.name} style={{
-                background: item.color + "08", border: `1.5px solid ${item.color}20`,
-                borderRadius: 10, padding: "12px 16px",
-              }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: item.color, marginBottom: 4 }}>{item.name}</div>
-                <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.5 }}>
-                  <strong>Fixed:</strong> {item.fixed} | <strong>Varies:</strong> {item.varies}
-                </div>
-                <div style={{ fontSize: 11, color: T.muted, marginTop: 4 }}>{item.use}</div>
+
+        {/* Ensemble selector */}
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          {ensembles.map(e => (
+            <button key={e.id} onClick={() => setEnsView(e.id)} style={{
+              padding: "8px 16px", borderRadius: 10, border: `2px solid ${ensView === e.id ? e.color : T.border}`,
+              background: ensView === e.id ? e.color + "18" : T.bg, color: ensView === e.id ? e.color : T.muted,
+              cursor: "pointer", fontSize: 12, fontFamily: "inherit", fontWeight: ensView === e.id ? 800 : 400,
+              transition: "all 0.2s",
+            }}>
+              <span style={{ marginRight: 6 }}>{e.icon}</span>{e.id}
+            </button>
+          ))}
+        </div>
+
+        {/* Animated box */}
+        <Card title={ens.name} color={ens.color}>
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+            <div style={{ flex: "0 0 280px" }}>
+              <svg width={boxW + 20} height={boxH + 40} style={{ background: T.surface, borderRadius: 10, border: `1px solid ${T.border}` }}>
+                <g transform={`translate(10, 20) scale(${boxScale}) skewX(${boxSkew})`}>
+                  <rect x={0} y={0} width={boxW} height={boxH} rx={6} fill={ens.color + "08"} stroke={ens.color} strokeWidth={2} strokeDasharray={ensView === "NPT" || ensView === "NPsT" ? "6 3" : "none"} />
+                  {animBalls.map((b, i) => (
+                    <circle key={i} cx={b.x} cy={b.y} r={b.r} fill={ens.color + "80"} stroke={ens.color} strokeWidth={1} />
+                  ))}
+                  {ensView === "NVT" && <text x={boxW/2} y={boxH + 14} textAnchor="middle" fill={MD.warn} fontSize={10} fontWeight={700}>~~ Heat Bath (T={targetT}K) ~~</text>}
+                  {ensView === "NPT" && <>
+                    <text x={boxW/2} y={boxH + 14} textAnchor="middle" fill={MD.warn} fontSize={10} fontWeight={700}>~~ Heat Bath ~~ | ← P={targetP} kbar →</text>
+                    {[0, boxW].map(x => <line key={x} x1={x} y1={0} x2={x} y2={boxH} stroke={MD.thermo} strokeWidth={3} strokeDasharray="4 2" opacity={0.5 + 0.3 * Math.sin(tick * 0.1)} />)}
+                  </>}
+                  {ensView === "NPsT" && <>
+                    <text x={boxW/2} y={boxH + 14} textAnchor="middle" fill={MD.cls} fontSize={10} fontWeight={700}>Cell shape can change!</text>
+                  </>}
+                  {ensView === "NVE" && <text x={boxW/2} y={boxH + 14} textAnchor="middle" fill={MD.newton} fontSize={10} fontWeight={700}>Isolated — no heat exchange</text>}
+                </g>
+              </svg>
+            </div>
+            <div style={{ flex: 1, minWidth: 240 }}>
+              <div style={{ background: ens.color + "08", borderRadius: 10, padding: "12px 14px", border: `1px solid ${ens.color}15`, marginBottom: 10 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: ens.color, marginBottom: 6 }}>{ens.icon} Analogy</div>
+                <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{ens.analogy}</div>
               </div>
-            ))}
+              <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink, marginBottom: 6 }}>
+                <strong style={{ color: ens.color }}>Fixed:</strong> {ens.fixed} | <strong style={{ color: ens.color }}>Varies:</strong> {ens.varies}
+              </div>
+              <div style={{ fontSize: 11, lineHeight: 1.7, color: T.muted, marginBottom: 8 }}>{ens.mechanism}</div>
+              <div style={{ fontFamily: "monospace", fontSize: 10, background: T.surface, borderRadius: 6, padding: "8px 10px", border: `1px solid ${T.border}`, whiteSpace: "pre-wrap", color: T.ink, marginBottom: 8 }}>{ens.equation}</div>
+              <div style={{ fontSize: 11, color: T.muted }}><strong>Use:</strong> {ens.use}</div>
+              <div style={{ marginTop: 6, fontSize: 10, fontFamily: "monospace", color: ens.color, fontWeight: 600 }}>VASP: {ens.vasp}</div>
+            </div>
+          </div>
+        </Card>
+
+        {/* Interactive calculator */}
+        <Card title="Interactive: Ensemble Properties Calculator" color={MD.prop}>
+          <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 200 }}>
+              <SliderRow label="N — number of atoms" value={nAtoms} min={4} max={512} step={4} onChange={setNAtoms} color={MD.main} format={v => v.toFixed(0)} />
+              <SliderRow label="T — target temperature" value={targetT} min={10} max={3000} step={10} onChange={setTargetT} color={MD.thermo} unit=" K" format={v => v.toFixed(0)} />
+              {(ensView === "NPT" || ensView === "NPsT") && <SliderRow label="P — target pressure" value={targetP} min={-100} max={500} step={1} onChange={setTargetP} color={MD.prop} unit=" kbar" format={v => v.toFixed(0)} />}
+            </div>
+            <div style={{ flex: 1, minWidth: 240 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 10 }}>
+                <ResultBox label="Degrees of freedom" value={dof} color={MD.newton} sub="3N" />
+                <ResultBox label="Total KE" value={totalKE.toFixed(3)} color={MD.main} sub="eV" />
+                <ResultBox label="σ_v (Cu)" value={(sigma_v * 1e5).toFixed(1)} color={MD.thermo} sub="×10⁻⁵ Å/fs" />
+                <ResultBox label="ΔT/T fluctuation" value={(T_fluct / targetT * 100).toFixed(1) + "%"} color={MD.warn} sub={`±${T_fluct.toFixed(0)} K`} />
+              </div>
+              <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+                <CalcRow eq={`KE = 3/2 × ${nAtoms} × kB × ${targetT}`} result={`${totalKE.toFixed(3)} eV`} color={MD.main} />
+                <CalcRow eq={`ΔT = T/√(3N/2) = ${targetT}/√${(1.5*nAtoms).toFixed(0)}`} result={`±${T_fluct.toFixed(1)} K`} color={MD.warn} />
+                <CalcRow eq={`σ_v = √(kBT/m_Cu)`} result={`${(sigma_v * 1e5).toFixed(2)}×10⁻⁵ Å/fs`} color={MD.thermo} />
+              </div>
+              {nAtoms < 32 && <div style={{ marginTop: 8, fontSize: 11, color: MD.warn, fontWeight: 700 }}>Warning: {nAtoms} atoms is very small — T fluctuations are {(T_fluct / targetT * 100).toFixed(0)}%!</div>}
+            </div>
           </div>
         </Card>
 
@@ -11037,15 +11294,15 @@ function MDEnsemblesSection() {
             </thead>
             <tbody>
               {[
-                ["Nose-Hoover", "Extended Lagrangian with fictitious mass", "Correct NVT ensemble. Standard choice."],
-                ["Berendsen", "Rescale velocities toward target T", "Fast equilibration but wrong ensemble."],
-                ["Langevin", "Random forces + friction", "Good for rare events. Stochastic."],
-                ["Velocity rescaling", "Direct v scaling each step", "Simple but unphysical. Only for equilibration."],
+                ["Nosé-Hoover", "Extended Lagrangian with fictitious mass Q. Adds friction ξ that self-adjusts.", "Correct NVT ensemble. Standard choice. Q controls coupling — too small = oscillations, too large = slow equilibration."],
+                ["Berendsen", "Rescale velocities: v_new = v × √(1 + Δt/τ × (T_target/T − 1))", "Fast equilibration but WRONG ensemble (no fluctuations). Only for equilibration, never production."],
+                ["Langevin", "Add random force + friction: F_total = F − γmv + R(t)", "Correct ensemble. Good for rare events. But contaminates dynamics — can't compute diffusion directly."],
+                ["Velocity rescaling", "v_new = v × √(T_target/T_inst) every step", "Simplest but most unphysical. Only for initial equilibration."],
               ].map(([name, method, pros], i) => (
                 <tr key={name} style={{ background: i % 2 === 0 ? MD.cls + "05" : "transparent", borderBottom: `1px solid ${T.border}55` }}>
                   <td style={{ padding: "8px 10px", fontWeight: 700, color: T.ink, fontFamily: "monospace" }}>{name}</td>
-                  <td style={{ padding: "8px 10px", color: T.muted }}>{method}</td>
-                  <td style={{ padding: "8px 10px", color: T.muted }}>{pros}</td>
+                  <td style={{ padding: "8px 10px", color: T.muted, fontSize: 11 }}>{method}</td>
+                  <td style={{ padding: "8px 10px", color: T.muted, fontSize: 11 }}>{pros}</td>
                 </tr>
               ))}
             </tbody>
@@ -11213,6 +11470,17 @@ function MDClassicalSection() {
 }
 
 function MDPropertiesSection() {
+  const [msd_t1, setMsdT1] = useState(10);
+  const [msd_v1, setMsdV1] = useState(0.42);
+  const [msd_t2, setMsdT2] = useState(100);
+  const [msd_v2, setMsdV2] = useState(4.15);
+  const [propN, setPropN] = useState(64);
+  const [propT, setPropT] = useState(800);
+
+  const slope = (msd_v2 - msd_v1) / (msd_t2 - msd_t1);
+  const D_cm2s = slope / 6 * 1e-4;
+  const totalKE = 1.5 * propN * 8.617e-5 * propT;
+
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
@@ -11248,62 +11516,47 @@ function MDPropertiesSection() {
           </div>
         </Card>
 
-        <Card title="Mean Square Displacement — Diffusion" color={MD.prop}>
-          <div style={mdMathBlock}>
-            <div style={{ textAlign: "center", marginBottom: 10, padding: "12px 0", background: MD.prop + "08", borderRadius: 8 }}>
-              <span style={{ fontSize: 18, fontWeight: 800, color: MD.prop }}>MSD</span>
-              <span style={{ fontSize: 16, color: T.ink }}>(t) = ⟨|</span>
-              <span style={{ fontSize: 16, fontWeight: 700, color: MD.prop }}>r</span>
-              <span style={{ fontSize: 16, color: T.ink }}>(t) − </span>
-              <span style={{ fontSize: 16, fontWeight: 700, color: MD.prop }}>r</span>
-              <span style={{ fontSize: 16, color: T.ink }}>(0)|²⟩</span>
+        <Card title="Interactive: Diffusion from MSD" color={MD.prop}>
+          <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 220 }}>
+              <SliderRow label="t₁ — first time point" value={msd_t1} min={1} max={50} step={1} onChange={setMsdT1} color={MD.newton} unit=" ps" format={v => v.toFixed(0)} />
+              <SliderRow label="MSD(t₁)" value={msd_v1} min={0.01} max={5.0} step={0.01} onChange={setMsdV1} color={MD.newton} unit=" Å²" />
+              <SliderRow label="t₂ — second time point" value={msd_t2} min={51} max={500} step={1} onChange={setMsdT2} color={MD.prop} unit=" ps" format={v => v.toFixed(0)} />
+              <SliderRow label="MSD(t₂)" value={msd_v2} min={0.1} max={50.0} step={0.1} onChange={setMsdV2} color={MD.prop} unit=" Å²" />
             </div>
-            <div style={{ textAlign: "center", marginBottom: 14, padding: "8px 0", background: MD.main + "08", borderRadius: 8 }}>
-              <span style={{ fontSize: 16, fontWeight: 800, color: MD.main }}>D</span>
-              <span style={{ fontSize: 16, color: T.ink }}> = </span>
-              <span style={{ fontSize: 14, color: T.ink }}>
-                <sup style={{ fontSize: 12 }}>MSD</sup>⁄<sub style={{ fontSize: 12 }}>2dt</sub>
-              </span>
-              <span style={{ fontSize: 12, color: T.muted }}> {"  "}(d = dimensionality = 3)</span>
+            <div style={{ flex: 1, minWidth: 240 }}>
+              <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
+                <CalcRow eq={`Slope = ΔMSD/Δt = (${msd_v2.toFixed(2)}−${msd_v1.toFixed(2)})/(${msd_t2}−${msd_t1})`} result={`${slope.toFixed(5)} Å²/ps`} color={MD.prop} />
+                <CalcRow eq="D = slope / (2×d) = slope / 6" result={`${(slope/6).toFixed(5)} Å²/ps`} color={MD.main} />
+                <CalcRow eq="D in cm²/s" result={`${D_cm2s.toExponential(2)} cm²/s`} color={MD.main} />
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                <ResultBox label="Diffusion D" value={D_cm2s.toExponential(1)} color={MD.prop} sub="cm²/s" />
+                <ResultBox label="MSD slope" value={slope.toFixed(4)} color={MD.main} sub="Å²/ps" />
+              </div>
+              {slope < 0 && <div style={{ marginTop: 8, fontSize: 11, color: MD.warn, fontWeight: 700 }}>Negative slope — MSD must increase with time! Check your values.</div>}
             </div>
-            <span style={{ color: MD.prop, fontWeight: 700 }}>Numerical example — Cu vacancy in CuInSe₂ at 800K:</span><br /><br />
-            {"  After 10 ps:  MSD = 0.42 Å²"}<br />
-            {"  After 50 ps:  MSD = 2.10 Å²"}<br />
-            {"  After 100 ps: MSD = 4.15 Å²"}<br /><br />
-            {"  Slope = ΔMSD/Δt = (4.15 − 0.42) / (90 ps)"}<br />
-            {"         = 0.0414 Å²/ps"}<br /><br />
-            {"  D = 0.0414 / (2 × 3) = "}<span style={{ color: MD.prop, fontWeight: 700 }}>{"6.9 × 10⁻⁸ cm²/s"}</span><br /><br />
-            <span style={{ color: T.muted }}>Compare experiment: D_Cu in CIS at 800K ~ 5-8 × 10⁻⁸ cm²/s</span>
           </div>
         </Card>
 
-        <Card title="Temperature from Kinetic Energy" color={MD.thermo}>
-          <div style={mdMathBlock}>
-            <div style={{ textAlign: "center", marginBottom: 14, padding: "12px 0", background: MD.thermo + "08", borderRadius: 8 }}>
-              <span style={{ fontSize: 18, fontWeight: 800, color: MD.thermo }}>T</span>
-              <span style={{ fontSize: 16, color: T.ink }}> = </span>
-              <span style={{ fontSize: 14, color: T.ink }}>
-                <sup style={{ fontSize: 12 }}>2</sup>⁄<sub style={{ fontSize: 12 }}>3N k<sub>B</sub></sub>
-              </span>
-              <span style={{ fontSize: 16, color: T.ink }}> </span>
-              <span style={{ fontSize: 16, color: MD.newton }}>Σ</span>
-              <sub style={{ fontSize: 10 }}>i</sub>
-              <span style={{ fontSize: 16, color: T.ink }}> ½ </span>
-              <span style={{ fontSize: 16, fontWeight: 700, color: MD.main }}>m</span>
-              <sub style={{ fontSize: 10 }}>i</sub>
-              <span style={{ fontSize: 16, color: T.ink }}> </span>
-              <span style={{ fontSize: 16, fontWeight: 700, color: MD.prop }}>v</span>
-              <sub style={{ fontSize: 10 }}>i</sub>
-              <span style={{ fontSize: 16, color: T.ink }}>²</span>
+        <Card title="Interactive: Temperature from Kinetic Energy" color={MD.thermo}>
+          <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 200 }}>
+              <SliderRow label="N — atoms in cell" value={propN} min={4} max={512} step={4} onChange={setPropN} color={MD.main} format={v => v.toFixed(0)} />
+              <SliderRow label="T — temperature" value={propT} min={10} max={3000} step={10} onChange={setPropT} color={MD.thermo} unit=" K" format={v => v.toFixed(0)} />
             </div>
-            <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.7, textAlign: "center", marginBottom: 12 }}>
-              Equipartition: each degree of freedom has ½k<sub>B</sub>T energy.<br />
-              N atoms in 3D = 3N degrees of freedom.
+            <div style={{ flex: 1, minWidth: 240 }}>
+              <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+                <CalcRow eq={`KE = 3/2 × ${propN} × kB × ${propT}`} result={`${totalKE.toFixed(3)} eV`} color={MD.thermo} />
+                <CalcRow eq={`DOF = 3N = 3×${propN}`} result={`${3*propN}`} color={MD.newton} />
+                <CalcRow eq="KE per atom = KE/N" result={`${(totalKE/propN).toFixed(4)} eV`} color={MD.main} />
+                <CalcRow eq="KE per DOF = ½kBT" result={`${(0.5*8.617e-5*propT).toFixed(4)} eV`} color={MD.prop} />
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
+                <ResultBox label="Total KE" value={totalKE.toFixed(3)} color={MD.thermo} sub="eV" />
+                <ResultBox label="Per atom" value={(totalKE/propN*1000).toFixed(1)} color={MD.main} sub="meV" />
+              </div>
             </div>
-            <span style={{ color: MD.thermo, fontWeight: 700 }}>Example: 64-atom cell, target T = 800 K</span><br />
-            {"  Total KE = 3/2 × 64 × k_B × 800"}<br />
-            {"           = 3/2 × 64 × 0.0862 meV/K × 800 K"}<br />
-            {"           = "}<span style={{ color: MD.thermo, fontWeight: 700 }}>{"6.62 eV"}</span>
           </div>
         </Card>
       </div>
@@ -11917,6 +12170,845 @@ function MDMovieSection() {
   );
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// MD BIG QUESTIONS (40+ FAQ)
+// ═══════════════════════════════════════════════════════════════════════════
+function MDFAQSection() {
+  const [openQ, setOpenQ] = useState("MQ1");
+  const toggle = (q) => setOpenQ(openQ === q ? null : q);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>🧠 Big Questions</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          40+ deep questions that probe real understanding of Molecular Dynamics. These are the questions a thesis committee would ask. If you can answer them all, you truly understand MD.
+        </div>
+      </div>
+
+      {/* MQ1 */}
+      <FAQAccordion title={"MQ1. Why can’t we just solve the Schrödinger equation for atomic motion?"} color={MD.newton} isOpen={openQ === "MQ1"} onClick={() => toggle("MQ1")}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+          <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎭</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like trying to choreograph every person on Earth simultaneously — quantum mechanics for nuclei + electrons is exponentially intractable.</span></div>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The full quantum problem requires solving a 3(N_e + N_n)-dimensional Schrödinger equation where N_e is the number of electrons and N_n the number of nuclei. For even 10 atoms with 100 electrons, this is a ~330-dimensional PDE — impossible to solve directly.
+        </div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.newton, fontWeight: 700 }}>The Born-Oppenheimer approximation saves us:</span><br /><br />
+          {"  m_proton / m_electron = 1836"}<br />
+          {"  Nuclei are ~2000× heavier than electrons"}<br />
+          {"  → Electrons adjust instantly to nuclear positions"}<br />
+          {"  → Nuclei move classically on the electronic energy surface"}<br /><br />
+          <span style={{ color: MD.main }}>This is WHY MD works: nuclei are heavy enough to be classical particles.</span><br />
+          <span style={{ color: T.muted }}>Exception: light atoms (H, Li) sometimes need quantum nuclear effects (path integral MD).</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ2 */}
+      <FAQAccordion title={"MQ2. What exactly is the ‘potential energy surface’ that MD runs on?"} color={MD.main} isOpen={openQ === "MQ2"} onClick={() => toggle("MQ2")}>
+        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏔️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine a landscape of mountains and valleys in 3N dimensions. Each point is one arrangement of all atoms. The height is the total energy. MD is a ball rolling on this landscape, following Newton{"’"}s laws.</span></div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The PES is E(R₁, R₂, ..., R_N) — the total electronic energy as a function of ALL nuclear positions. It{"’"}s a single scalar function on a 3N-dimensional space. Forces are the negative gradient: F_i = −∂E/∂R_i. In AIMD, E comes from DFT at each step. In classical MD, E comes from a force field (analytical formula). In MLFF-MD, E comes from a neural network trained on DFT data.
+        </div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.main, fontWeight: 700 }}>Dimensionality example — 64-atom Cu cell:</span><br />
+          {"  PES has 3 × 64 = 192 dimensions"}<br />
+          {"  Each MD step samples ONE point on this 192D surface"}<br />
+          {"  A 10 ps trajectory (5000 steps) traces a path through 192D space"}<br />
+          {"  Minima = equilibrium structures, saddle points = transition states"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ3 */}
+      <FAQAccordion title={"MQ3. Why does Velocity Verlet conserve energy but Euler’s method doesn’t?"} color={MD.newton} isOpen={openQ === "MQ3"} onClick={() => toggle("MQ3")}>
+        <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎡</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a Ferris wheel vs. a spiral staircase. Verlet maps a circle back to a circle (symplectic). Euler maps it to a slowly expanding spiral — energy creeps up every step.</span></div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Velocity Verlet is <strong>symplectic</strong> — it preserves the geometric structure (phase space volume) of Hamilton{"’"}s equations. This means it conserves a "shadow Hamiltonian" H{"’"} = H + O(Δt²) that is very close to the true Hamiltonian. Energy oscillates around the true value but never drifts. Euler{"’"}s method is NOT symplectic — it systematically adds energy every step, causing exponential drift.
+        </div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.newton, fontWeight: 700 }}>Euler (WRONG for MD):</span><br />
+          {"  r(t+Δt) = r(t) + v(t)·Δt"}<br />
+          {"  v(t+Δt) = v(t) + a(t)·Δt"}<br />
+          {"  Error: O(Δt) per step → energy grows as ~ exp(C·t)"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Velocity Verlet (CORRECT):</span><br />
+          {"  r(t+Δt) = r(t) + v(t)·Δt + ½a(t)·Δt²"}<br />
+          {"  v(t+Δt) = v(t) + ½[a(t)+a(t+Δt)]·Δt"}<br />
+          {"  Error: O(Δt²) per step → energy bounded, oscillates"}<br /><br />
+          <span style={{ color: T.muted }}>Key properties: time-reversible + symplectic = long-term stability</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ4 */}
+      <FAQAccordion title={"MQ4. How small must the time step be, and what happens if it’s too large?"} color={MD.warn} isOpen={openQ === "MQ4"} onClick={() => toggle("MQ4")}>
+        <div style={{ display: "flex", gap: 10, background: MD.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.warn + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>⏱️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like sampling a fast song — if you sample too slowly, you miss the beat and get garbage noise (aliasing). The time step must resolve the fastest vibration in your system.</span></div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          The Nyquist criterion requires Δt {"<"} τ_min / (2π), where τ_min is the period of the fastest vibration. In practice, Δt {"<"} τ_min / 10 for accuracy. If Δt is too large: atoms overlap → forces explode → energy diverges → simulation crashes. This is called "numerical instability."
+        </div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Fastest vibrations by bond type:</span><br />
+          {"  O-H stretch:    ω ~ 3600 cm⁻¹,  τ ~ 9.3 fs  → Δt < 0.9 fs"}<br />
+          {"  C-H stretch:    ω ~ 3000 cm⁻¹,  τ ~ 11 fs   → Δt < 1.1 fs"}<br />
+          {"  Si-O stretch:   ω ~ 1100 cm⁻¹,  τ ~ 30 fs   → Δt < 3.0 fs"}<br />
+          {"  Metal-metal:    ω ~ 200 cm⁻¹,   τ ~ 167 fs  → Δt < 5-10 fs"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Diagnostic: energy drift in NVE</span><br />
+          {"  Good:  < 0.1 meV/atom/ps"}<br />
+          {"  OK:    < 1 meV/atom/ps"}<br />
+          {"  Bad:   > 1 meV/atom/ps → reduce Δt"}<br />
+          {"  Crash: atoms overlap → NaN forces → simulation dies"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ5 */}
+      <FAQAccordion title={"MQ5. Why does temperature fluctuate in NVE? Isn’t energy conserved?"} color={MD.thermo} isOpen={openQ === "MQ5"} onClick={() => toggle("MQ5")}>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌊</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like water sloshing in a bathtub. Total water (energy) is constant, but the level (KE=temperature) at any point rises and falls as water sloshes between kinetic and potential.</span></div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Total energy E = KE + PE is constant in NVE. But KE and PE individually fluctuate as atoms vibrate — when atoms are compressed (high PE), they slow down (low KE), and vice versa. Since T ∝ KE, temperature fluctuates even though total energy is exactly conserved.
+        </div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>Temperature fluctuation magnitude:</span><br /><br />
+          {"  ΔT/T = 1/√(3N/2 − 1)"}<br /><br />
+          {"  N = 16:   ΔT/T = 1/√23 ≈ 21%  → T = 300 ± 63 K"}<br />
+          {"  N = 64:   ΔT/T = 1/√95 ≈ 10%  → T = 300 ± 31 K"}<br />
+          {"  N = 256:  ΔT/T = 1/√383 ≈ 5%  → T = 300 ± 15 K"}<br />
+          {"  N = 1000: ΔT/T = 1/√1499 ≈ 3% → T = 300 ± 8 K"}<br /><br />
+          <span style={{ color: T.muted }}>This is why small cells have huge T fluctuations — it{"’"}s physics, not a bug!</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ6 */}
+      <FAQAccordion title={"MQ6. How does the Nosé-Hoover thermostat actually work?"} color={MD.main} isOpen={openQ === "MQ6"} onClick={() => toggle("MQ6")}>
+        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🚿</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a shower with a feedback thermostat. If the water (atoms) gets too hot, the thermostat turns on cold water (friction). Too cold? Hot water. The key insight: the thermostat has inertia (mass Q) so it overshoots and oscillates, creating natural fluctuations — exactly the right canonical distribution.</span></div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Nosé-Hoover extends the system with a fictional variable ξ (friction coefficient) that has its own equation of motion. When instantaneous T {">"} T_target, ξ increases → atoms are slowed → T decreases. The "thermostat mass" Q controls the coupling strength — it{"’"}s the inertia of the feedback loop.
+        </div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.main, fontWeight: 700 }}>Equations of motion:</span><br />
+          {"  mᵢ·aᵢ = Fᵢ − ξ·mᵢ·vᵢ    (modified Newton’s law)"}<br />
+          {"  dξ/dt = (1/Q)[Σ mᵢvᵢ² − 3NkBT_target]  (ξ evolves)"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Choosing Q (thermostat mass):</span><br />
+          {"  Q = 3NkBT × (τ_thermo)²"}<br />
+          {"  τ_thermo ~ 50-200 Δt is typical"}<br /><br />
+          {"  Q too small → T oscillates wildly (thermostat overcorrects)"}<br />
+          {"  Q too large → T drifts slowly (thermostat too sluggish)"}<br />
+          {"  Q optimal → T fluctuates naturally around target"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>VASP: SMASS = 0 → Nosé-Hoover. SMASS = -1 → NVE (no thermostat).</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ7 */}
+      <FAQAccordion title={"MQ7. Why is the Berendsen thermostat ‘wrong’ for production runs?"} color={MD.warn} isOpen={openQ === "MQ7"} onClick={() => toggle("MQ7")}>
+        <div style={{ display: "flex", gap: 10, background: MD.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.warn + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎯</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a strict parent who forces the temperature to be EXACTLY 300 K every step. In reality, temperature should naturally fluctuate. By suppressing fluctuations, Berendsen gives the wrong statistical mechanics — it doesn{"’"}t sample the canonical ensemble.</span></div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Berendsen rescales velocities every step: v_new = v × √(1 + Δt/τ × (T_target/T_inst − 1)). This drives T toward the target exponentially fast (great for equilibration!) but suppresses the natural fluctuations that the canonical ensemble requires. Properties that depend on fluctuations (heat capacity, free energy) will be wrong.
+        </div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.warn, fontWeight: 700 }}>The problem — suppressed fluctuations:</span><br />
+          {"  Correct NVT:    ⟨(ΔT)²⟩ = T²/(3N/2)  (canonical)"}<br />
+          {"  Berendsen:      ⟨(ΔT)²⟩ ≈ 0 (artificially suppressed)"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>When to use each:</span><br />
+          {"  Berendsen:    equilibration phase (first 2-5 ps)"}<br />
+          {"  Nosé-Hoover:  production phase (data collection)"}<br /><br />
+          <span style={{ color: T.muted }}>In VASP: there{"’"}s no Berendsen option. SMASS=0 is Nosé-Hoover. Use it always.</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ8 */}
+      <FAQAccordion title={"MQ8. What is the virial pressure and how is it computed in MD?"} color={MD.thermo} isOpen={openQ === "MQ8"} onClick={() => toggle("MQ8")}>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>💨</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Pressure has two parts: atoms bouncing off walls (kinetic, like gas pressure) and atoms pulling/pushing each other (virial, from interatomic forces). The virial part is unique to condensed matter — it{"’"}s the force contribution to pressure.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>Full pressure formula:</span><br />
+          {"  P = (1/V) × [NkBT + (1/3) Σᵢ<ⱼ rᵢⱼ · Fᵢⱼ]"}<br /><br />
+          <span style={{ color: MD.newton }}>Kinetic part: NkBT/V</span><br />
+          {"  = ideal gas contribution (atoms have momentum)"}<br /><br />
+          <span style={{ color: MD.main }}>Virial part: (1/3V) Σ rᵢⱼ · Fᵢⱼ</span><br />
+          {"  = force contribution (atoms attract/repel)"}<br />
+          {"  Attractive forces → negative virial → pressure decreases"}<br />
+          {"  Repulsive forces → positive virial → pressure increases"}<br /><br />
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>Numerical example (64 Cu atoms, 300 K):</span><br />
+          {"  Kinetic: 64 × 0.02585 eV / 189 Å³ = 0.00876 eV/Å³ = 14 GPa"}<br />
+          {"  Virial:  −0.00874 eV/Å³ = −14 GPa (attractive metals!)"}<br />
+          {"  Total:   ~0 GPa (equilibrium — forces balance kinetic pressure)"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ9 */}
+      <FAQAccordion title={"MQ9. Why do we need periodic boundary conditions (PBC) in MD?"} color={MD.prop} isOpen={openQ === "MQ9"} onClick={() => toggle("MQ9")}>
+        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🪞</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a video game screen that wraps around — walk off the right edge and reappear on the left. PBC makes your 64-atom box behave as if it{"’"}s an infinite crystal. Without PBC, half your atoms would be surface atoms with wrong coordination.</span></div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          We can only simulate 10-10,000 atoms, but bulk materials have ~10²³. PBC replicates the simulation box infinitely in all directions. An atom leaving the right face re-enters the left. This eliminates surface effects and mimics an infinite crystal.
+        </div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.prop, fontWeight: 700 }}>The minimum image convention:</span><br />
+          {"  For each pair (i,j), use the CLOSEST image:"}<br />
+          {"  rᵢⱼ = rⱼ − rᵢ"}<br />
+          {"  If rᵢⱼ.x > L/2, subtract L"}<br />
+          {"  If rᵢⱼ.x < −L/2, add L"}<br />
+          {"  (same for y, z)"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>The cutoff constraint:</span><br />
+          {"  r_cut < L/2  (must not interact with own periodic image)"}<br />
+          {"  For 64-atom Cu cell: L = 7.23 Å → r_cut < 3.6 Å"}<br />
+          {"  This is WHY you need large supercells for long-range potentials!"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ10 */}
+      <FAQAccordion title={"MQ10. What is the ‘flying ice cube’ artifact and how do you prevent it?"} color={MD.warn} isOpen={openQ === "MQ10"} onClick={() => toggle("MQ10")}>
+        <div style={{ display: "flex", gap: 10, background: MD.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.warn + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🧊</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine all atoms slowly freezing into a rigid block that flies through space at high speed. The center-of-mass velocity contains all the kinetic energy, but no atom is vibrating. Temperature reads as "300 K" but the material is effectively at 0 K. The ice cube flies — but it{"’"}s dead inside.</span></div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          In NVE with certain thermostats (especially velocity rescaling), kinetic energy can slowly leak from internal vibrations into center-of-mass translation. The system appears hot (high KE) but is internally cold (no vibration). Fix: remove COM velocity every 10-100 steps.
+        </div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Fix: remove center-of-mass drift</span><br />
+          {"  v_COM = (1/N) Σ mᵢvᵢ / Σ mᵢ"}<br />
+          {"  v_corrected = vᵢ − v_COM  (every 10-100 steps)"}<br /><br />
+          <span style={{ color: MD.main }}>Also remove COM angular momentum for finite systems (non-PBC).</span><br />
+          <span style={{ color: T.muted }}>VASP does this automatically. LAMMPS: fix momentum all linear 100 1 1 1</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ11 */}
+      <FAQAccordion title={"MQ11. How do you initialize velocities and why does the method matter?"} color={MD.thermo} isOpen={openQ === "MQ11"} onClick={() => toggle("MQ11")}>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎲</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like dealing cards to players at the start of a poker game. Each atom gets a random velocity drawn from the Maxwell-Boltzmann distribution at your target temperature. The randomness ensures each simulation explores different parts of phase space.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>Maxwell-Boltzmann distribution:</span><br />
+          {"  Each velocity component vₓ, v_y, v_z drawn from:"}<br />
+          {"  P(vₓ) = √(m/2πkBT) × exp(−mvₓ²/2kBT)"}<br /><br />
+          {"  Standard deviation: σ_v = √(kBT/m)"}<br /><br />
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>After drawing random velocities:</span><br />
+          {"  1. Remove COM velocity: vᵢ → vᵢ − v_COM"}<br />
+          {"  2. Rescale to exact target T: vᵢ → vᵢ × √(T_target/T_actual)"}<br />
+          {"  3. Check T: should be within ~1% of target"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Why the random seed matters:</span><br />
+          {"  Different seeds → different initial velocities → different trajectories"}<br />
+          {"  Run 3-5 independent trajectories (different seeds) to check convergence"}<br />
+          <span style={{ color: T.muted }}>If property X differs by {">"} 10% between seeds, you need longer runs.</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ12 */}
+      <FAQAccordion title={"MQ12. What is equilibration and how do you know when the system is equilibrated?"} color={MD.main} isOpen={openQ === "MQ12"} onClick={() => toggle("MQ12")}>
+        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>⏳</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like preheating an oven — you don{"’"}t put the cake in until the temperature is stable. Equilibration lets the system "forget" its artificial initial conditions. Only AFTER equilibration do you start collecting data.</span></div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Initial conditions are artificial (perfect lattice, random velocities). The system needs time to relax to thermal equilibrium. During equilibration, properties drift. After equilibration, they fluctuate around a stable mean. Equilibration data must be DISCARDED — never included in property averages.
+        </div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.main, fontWeight: 700 }}>Signs of equilibration:</span><br />
+          {"  ✓ Temperature: stable mean, no drift"}<br />
+          {"  ✓ Potential energy: converged to a plateau"}<br />
+          {"  ✓ Pressure: fluctuates around target (NPT)"}<br />
+          {"  ✓ Volume: converged (NPT)"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Typical equilibration times:</span><br />
+          {"  Solid at 300 K:     1-2 ps"}<br />
+          {"  Liquid:             5-10 ps"}<br />
+          {"  Phase transition:   10-50 ps"}<br />
+          {"  Defect migration:   5-20 ps"}<br /><br />
+          <span style={{ color: T.muted }}>Rule of thumb: equilibrate for at least 10× the slowest relaxation time.</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ13 */}
+      <FAQAccordion title={"MQ13. What is the radial distribution function g(r) and what does each peak mean?"} color={MD.main} isOpen={openQ === "MQ13"} onClick={() => toggle("MQ13")}>
+        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>📊</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like counting how many people are standing at each distance from you at a concert. The first peak = your friends right next to you (nearest neighbors). Second peak = people one row back. For a crystal, peaks are sharp. For a liquid, they{"’"}re broad and fade to uniform.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.main, fontWeight: 700 }}>g(r) = (V/N²) × ⟨Σᵢ Σⱼ≠ᵢ δ(r − rᵢⱼ)⟩ / (4πr²dr)</span><br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>What g(r) tells you:</span><br />
+          {"  g(r) = 0:  no atoms at this distance (inside atomic core)"}<br />
+          {"  g(r) > 1:  MORE atoms than random (preferred distance)"}<br />
+          {"  g(r) = 1:  random/uniform distribution (far from center)"}<br />
+          {"  g(r) < 1:  FEWER atoms than random (depleted zone)"}<br /><br />
+          <span style={{ color: MD.newton, fontWeight: 700 }}>FCC Cu peaks:</span><br />
+          {"  1st peak: r = 2.55 Å (12 nearest neighbors)"}<br />
+          {"  2nd peak: r = 3.61 Å (6 second-nearest)"}<br />
+          {"  3rd peak: r = 4.43 Å (24 third-nearest)"}<br /><br />
+          <span style={{ color: MD.prop, fontWeight: 700 }}>Crystal vs Liquid vs Amorphous:</span><br />
+          {"  Crystal:    sharp peaks at exact lattice distances → long-range order"}<br />
+          {"  Liquid:     broad peaks, rapidly fade to g(r)=1 → short-range order only"}<br />
+          {"  Amorphous:  like liquid but with some splitting of 2nd peak"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ14 */}
+      <FAQAccordion title={"MQ14. How do you extract diffusion coefficients from MD trajectories?"} color={MD.prop} isOpen={openQ === "MQ14"} onClick={() => toggle("MQ14")}>
+        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🚶</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like tracking a drunk person walking randomly. After time t, they{"’"}ve wandered a distance ~ √(Dt) from their start. Plot their squared distance vs time — the slope gives the diffusion coefficient. In MD, track every atom and average.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.prop, fontWeight: 700 }}>Einstein relation:</span><br />
+          {"  MSD(t) = ⟨|r(t) − r(0)|²⟩ = 2dDt   (d = 3 for 3D)"}<br />
+          {"  D = slope of MSD(t) / 6"}<br /><br />
+          <span style={{ color: MD.prop, fontWeight: 700 }}>Practical steps:</span><br />
+          {"  1. Compute MSD for each atom type separately"}<br />
+          {"  2. Use multiple time origins for better statistics"}<br />
+          {"  3. Fit the LINEAR region only (skip initial ballistic regime)"}<br />
+          {"  4. Ballistic regime: MSD ∝ t² (first ~0.5 ps) — DON’T fit this"}<br />
+          {"  5. Diffusive regime: MSD ∝ t (after ~1-5 ps) — fit THIS"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Common mistake:</span><br />
+          {"  If MSD is NOT linear → system not diffusing (too cold, too short)"}<br />
+          {"  Need MSD > 1 Å² for reliable D (atom moved ~1 bond length)"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ15 */}
+      <FAQAccordion title={"MQ15. What is the difference between AIMD and classical MD at the deepest level?"} color={MD.aimd} isOpen={openQ === "MQ15"} onClick={() => toggle("MQ15")}>
+        <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔬</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Classical MD: forces come from a pre-written recipe (force field). AIMD: forces come from solving quantum mechanics (DFT) at every single time step. It{"’"}s the difference between following a cookbook and having a professional chef taste and adjust the dish 5000 times.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.aimd, fontWeight: 700 }}>Classical MD loop:</span><br />
+          {"  F = −∇V(r₁...rN)         ← analytical formula, 0.001 s"}<br />
+          {"  r(t+Δt) = Verlet(r, v, F) ← integration, instant"}<br /><br />
+          <span style={{ color: MD.aimd, fontWeight: 700 }}>AIMD (Born-Oppenheimer) loop:</span><br />
+          {"  1. Solve KS-DFT: (−½∇² + v_eff)ψᵢ = εᵢψᵢ  ← 5-20 SCF cycles"}<br />
+          {"  2. F = −∂E_DFT/∂Rᵢ (Hellmann-Feynman)       ← from converged density"}<br />
+          {"  3. r(t+Δt) = Verlet(r, v, F)                 ← same integrator"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Cost comparison for 64 atoms:</span><br />
+          {"  Classical: ~10⁻³ s/step → 10⁷ steps/day → 100 ns/day"}<br />
+          {"  AIMD:      ~60 s/step   → 1400 steps/day → 2.8 ps/day"}<br /><br />
+          <span style={{ color: MD.main }}>AIMD is ~60,000× slower but handles bond breaking, charge transfer,</span><br />
+          <span style={{ color: MD.main }}>electronic excitations — things force fields can{"’"}t do.</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ16 */}
+      <FAQAccordion title={"MQ16. What are Hellmann-Feynman forces and why do they matter for AIMD?"} color={MD.aimd} isOpen={openQ === "MQ16"} onClick={() => toggle("MQ16")}>
+        <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>⚡</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>A beautiful shortcut: you don{"’"}t need to differentiate the wavefunction to get forces! Just differentiate the Hamiltonian and evaluate with the converged wavefunction. This makes AIMD forces computationally cheap once the SCF is converged.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.aimd, fontWeight: 700 }}>Hellmann-Feynman theorem:</span><br />
+          {"  F_I = −dE/dR_I = −⟨ψ|∂Ĥ/∂R_I|ψ⟩"}<br /><br />
+          {"  No need for ∂ψ/∂R_I terms (they vanish at SCF convergence)"}<br />
+          {"  Force = expectation value of ∂V_ext/∂R_I only"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Pulay forces (correction for incomplete basis):</span><br />
+          {"  In plane-wave codes (VASP): no Pulay forces (basis is position-independent)"}<br />
+          {"  In atom-centered codes (GAUSSIAN): Pulay corrections needed"}<br /><br />
+          <span style={{ color: T.muted }}>Key requirement: SCF must be well converged (EDIFF = 1E-5 or tighter)</span><br />
+          <span style={{ color: T.muted }}>Loose SCF → noisy forces → energy drift → garbage trajectory</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ17 */}
+      <FAQAccordion title={"MQ17. What is Car-Parrinello MD and how does it differ from Born-Oppenheimer MD?"} color={MD.aimd} isOpen={openQ === "MQ17"} onClick={() => toggle("MQ17")}>
+        <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏎️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>BOMD: stop the car, get out, take a photo (full SCF), get back in, drive 1 step. Repeat. CPMD: attach the camera to the car with a spring — it bounces along taking continuous shots. Faster, but the camera might fly off (adiabaticity violation).</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.aimd, fontWeight: 700 }}>Born-Oppenheimer MD (BOMD):</span><br />
+          {"  At each step: fully converge SCF → exact ground state → exact forces"}<br />
+          {"  Cost: 5-20 SCF iterations per step"}<br />
+          {"  Advantage: always on the ground-state PES"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Car-Parrinello MD (CPMD):</span><br />
+          {"  Give electrons a fictitious mass μ"}<br />
+          {"  Propagate electrons as classical ‘particles’ alongside nuclei"}<br />
+          {"  μ·ψ̈ᵢ = −δE/δψᵢ* + constraints (orthogonality)"}<br /><br />
+          {"  Cost: no SCF convergence needed per step (just one ‘step’ for ψ)"}<br />
+          {"  μ must be small enough that ψ follows the nuclei adiabatically"}<br />
+          {"  Requires VERY small Δt (~0.1 fs vs 1 fs for BOMD)"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>BOMD is now dominant (VASP, QE, CP2K default) — modern SCF solvers</span><br />
+          <span style={{ color: MD.warn }}>converge so fast that CPMD{"’"}s advantage has largely disappeared.</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ18 */}
+      <FAQAccordion title={"MQ18. How large must the supercell be and why?"} color={MD.prop} isOpen={openQ === "MQ18"} onClick={() => toggle("MQ18")}>
+        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>📐</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>If your simulation box is too small, an atom can "see" itself through the periodic boundary — like shouting in a small room and hearing your own echo. The box must be large enough that no atom interacts with its own periodic image.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.prop, fontWeight: 700 }}>Rule 1: L/2 {">"} r_cutoff</span><br />
+          {"  Minimum image convention requires this"}<br />
+          {"  For r_cut = 6 Å: need L > 12 Å (at least 3×3×3 for most materials)"}<br /><br />
+          <span style={{ color: MD.prop, fontWeight: 700 }}>Rule 2: finite-size effects on properties</span><br />
+          {"  g(r): affected beyond L/2 (can’t see further than half the box)"}<br />
+          {"  MSD: affected when √(6Dt) > L/2 (atom diffuses across box)"}<br />
+          {"  Phonons: only wavelengths λ < L are captured"}<br /><br />
+          <span style={{ color: MD.prop, fontWeight: 700 }}>Practical guidelines:</span><br />
+          {"  Bulk properties (g(r), D): ≥ 3×3×3 (100+ atoms)"}<br />
+          {"  Defect diffusion: ≥ 4×4×4 (256+ atoms)"}<br />
+          {"  Grain boundaries: 1000+ atoms"}<br />
+          {"  AIMD (expensive): 64-128 atoms (compromise)"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ19 */}
+      <FAQAccordion title={"MQ19. What is ergodicity and why does MD assume it?"} color={MD.thermo} isOpen={openQ === "MQ19"} onClick={() => toggle("MQ19")}>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔄</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like shuffling a deck of cards. If you shuffle long enough, every possible arrangement appears. Ergodicity says: a sufficiently long MD trajectory visits every accessible configuration. So time averages = ensemble averages. If it doesn{"’"}t hold (e.g., system is stuck), your results are wrong.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>Ergodic hypothesis:</span><br />
+          {"  ⟨A⟩_time = lim(τ→∞) (1/τ) ∫₀ᵗ A(t) dt = ⟨A⟩_ensemble"}<br /><br />
+          {"  Time average (what MD computes) = ensemble average (what theory predicts)"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>When ergodicity breaks down:</span><br />
+          {"  • System stuck in one local minimum (T too low)"}<br />
+          {"  • Energy barriers too high (rare events: diffusion, phase transitions)"}<br />
+          {"  • Simulation too short to explore configuration space"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Solutions:</span><br />
+          {"  • Higher temperature (more kinetic energy to overcome barriers)"}<br />
+          {"  • Enhanced sampling: metadynamics, umbrella sampling, replica exchange"}<br />
+          {"  • Longer simulations (brute force, but often insufficient)"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ20 */}
+      <FAQAccordion title={"MQ20. How do you compute the heat capacity from an MD trajectory?"} color={MD.thermo} isOpen={openQ === "MQ20"} onClick={() => toggle("MQ20")}>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔥</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>How much does the temperature change when you add a bit of energy? That{"’"}s heat capacity. In MD, you don{"’"}t add energy directly — you measure how much energy FLUCTUATES. Bigger fluctuations = higher heat capacity.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>From energy fluctuations (NVT ensemble):</span><br />
+          {"  Cv = ⟨(ΔE)²⟩ / (kBT²)"}<br />
+          {"     = (⟨E²⟩ − ⟨E⟩²) / (kBT²)"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Classical limit (Dulong-Petit):</span><br />
+          {"  Cv = 3NkB per cell"}<br />
+          {"  For 64 Cu atoms: Cv = 3 × 64 × 8.617×10⁻⁵ = 0.01655 eV/K"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Warning: classical MD always gives Dulong-Petit!</span><br />
+          {"  At low T, quantum effects reduce Cv (frozen modes)"}<br />
+          {"  Classical MD can’t capture this — every mode has kBT energy"}<br />
+          {"  For accurate low-T Cv, use phonon calculations instead"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ21 */}
+      <FAQAccordion title={"MQ21. What is the velocity autocorrelation function and how does it give vibrational spectra?"} color={MD.prop} isOpen={openQ === "MQ21"} onClick={() => toggle("MQ21")}>
+        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎵</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>If an atom vibrates at 500 cm⁻¹, its velocity oscillates at that frequency. The VACF measures "does the atom remember which direction it was moving?" Fourier transform the VACF → you get the vibrational spectrum (phonon DOS). It{"’"}s MD{"’"}s version of IR/Raman spectroscopy.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.prop, fontWeight: 700 }}>Velocity autocorrelation function:</span><br />
+          {"  C(t) = ⟨v(0) · v(t)⟩ / ⟨v(0) · v(0)⟩"}<br /><br />
+          {"  C(0) = 1 (perfect correlation)"}<br />
+          {"  C(t→∞) = 0 (velocity decorrelates)"}<br />
+          {"  For harmonic oscillator: C(t) = cos(ωt) (oscillates forever)"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Phonon density of states:</span><br />
+          {"  g(ω) = FT[C(t)] = ∫ C(t) exp(−iωt) dt"}<br /><br />
+          {"  Peaks in g(ω) = vibrational frequencies of the material"}<br />
+          {"  Compare directly to INS (inelastic neutron scattering) data"}<br /><br />
+          <span style={{ color: T.muted }}>Advantage over harmonic phonon calculations: VACF includes anharmonicity!</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ22 */}
+      <FAQAccordion title={"MQ22. What is the Green-Kubo relation and how does it connect to transport properties?"} color={MD.prop} isOpen={openQ === "MQ22"} onClick={() => toggle("MQ22")}>
+        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌀</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The Green-Kubo relations are a deep result of statistical mechanics: ANY transport coefficient (diffusion, viscosity, thermal conductivity) can be written as the time integral of an autocorrelation function. It{"’"}s a bridge from microscopic fluctuations to macroscopic transport.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.prop, fontWeight: 700 }}>General form:</span><br />
+          {"  L = (1/kBT) ∫₀^∞ ⟨J(0)·J(t)⟩ dt"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Specific transport coefficients:</span><br />
+          {"  Diffusion:       D = (1/3) ∫₀^∞ ⟨v(0)·v(t)⟩ dt"}<br />
+          {"  Viscosity:       η = (V/kBT) ∫₀^∞ ⟨σ_xy(0)·σ_xy(t)⟩ dt"}<br />
+          {"  Thermal cond:    κ = (V/kBT²) ∫₀^∞ ⟨J_q(0)·J_q(t)⟩ dt"}<br /><br />
+          {"  σ_xy = off-diagonal stress tensor component"}<br />
+          {"  J_q = heat current vector"}<br /><br />
+          <span style={{ color: T.muted }}>Alternative: Einstein relation (MSD method) — equivalent but sometimes noisier.</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ23 */}
+      <FAQAccordion title={"MQ23. Why can’t classical MD correctly describe heat capacity below the Debye temperature?"} color={MD.warn} isOpen={openQ === "MQ23"} onClick={() => toggle("MQ23")}>
+        <div style={{ display: "flex", gap: 10, background: MD.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.warn + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>❄️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Classical MD treats every vibration mode as having energy kBT. But quantum mechanics says modes with ℏω {">"} kBT are "frozen" — they don{"’"}t contribute. At low T, most modes are frozen, so Cv → 0. Classical MD can{"’"}t capture this and always gives Cv = 3NkB.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Classical equipartition (WRONG at low T):</span><br />
+          {"  ⟨E_mode⟩ = kBT  for every mode"}<br />
+          {"  Cv = 3NkB  (Dulong-Petit, always)"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Quantum (CORRECT):</span><br />
+          {"  ⟨E_mode⟩ = ℏω × [½ + 1/(exp(ℏω/kBT) − 1)]"}<br />
+          {"  At T << ℏω/kB: mode frozen, ⟨E⟩ → ½ℏω (zero-point only)"}<br />
+          {"  At T >> ℏω/kB: mode active, ⟨E⟩ → kBT (classical limit)"}<br /><br />
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>Cu example (Debye T = 343 K):</span><br />
+          {"  At 300 K: Cv(exp) = 24.4 J/(mol·K) < 3R = 24.9 (close to classical)"}<br />
+          {"  At 50 K:  Cv(exp) = 6.5 J/(mol·K) << 3R (quantum effects huge)"}<br />
+          {"  Classical MD would give 24.9 at BOTH temperatures — wrong at 50 K!"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ24 */}
+      <FAQAccordion title={"MQ24. What is the Parrinello-Rahman barostat and how does it differ from Berendsen?"} color={MD.thermo} isOpen={openQ === "MQ24"} onClick={() => toggle("MQ24")}>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎈</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Berendsen barostat: a pump that rigidly pushes the walls to hit the target pressure. Parrinello-Rahman: the walls are elastic membranes with inertia — they overshoot, bounce back, and naturally fluctuate. PR gives the correct NPT ensemble; Berendsen does not.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>Parrinello-Rahman: cell matrix h becomes a dynamic variable</span><br />
+          {"  W × d²h/dt² = V × (P_int − P_ext)  + thermostat coupling"}<br />
+          {"  W = fictitious cell mass (controls coupling speed)"}<br /><br />
+          {"  Cell can change volume AND shape (all 6 strain components)"}<br />
+          {"  Correct NPT ensemble (proper fluctuations)"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Berendsen barostat (for equilibration only):</span><br />
+          {"  Scale cell by factor μ = [1 − (βΔt/τ_P)(P_target − P)]^(1/3)"}<br />
+          {"  Drives P toward target exponentially fast"}<br />
+          {"  But suppresses pressure fluctuations → wrong ensemble"}<br /><br />
+          <span style={{ color: MD.main }}>VASP: ISIF=3 activates cell relaxation. SMASS controls thermostat.</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ25 */}
+      <FAQAccordion title={"MQ25. How do you detect a phase transition in an MD simulation?"} color={MD.cls} isOpen={openQ === "MQ25"} onClick={() => toggle("MQ25")}>
+        <div style={{ display: "flex", gap: 10, background: MD.cls + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.cls + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔄</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like watching ice melt: the g(r) peaks suddenly broaden, the MSD jumps from near-zero to linear, and the volume changes discontinuously. Phase transitions leave clear fingerprints in MD observables.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.cls, fontWeight: 700 }}>Signatures of melting in MD:</span><br />
+          {"  1. g(r): sharp peaks → broad peaks (long-range order lost)"}<br />
+          {"  2. MSD: plateau → linear (atoms start diffusing)"}<br />
+          {"  3. Lindemann criterion: √⟨u²⟩/a > 0.1 (atoms vibrate > 10% of lattice spacing)"}<br />
+          {"  4. Volume: discontinuous jump (latent heat of fusion)"}<br />
+          {"  5. PE: jump at T_melt (latent heat)"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Superheating artifact:</span><br />
+          {"  In MD, perfect crystals often superheat (melt at T >> T_melt)"}<br />
+          {"  Because there’s no nucleation site for the liquid phase"}<br />
+          {"  Fix: introduce a liquid-solid interface or use coexistence methods"}<br /><br />
+          <span style={{ color: T.muted }}>Cu melting: exp = 1358 K. MD with EAM typically gives 1300-1400 K.</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ26 */}
+      <FAQAccordion title={"MQ26. What is the Langevin thermostat and when would you choose it over Nosé-Hoover?"} color={MD.main} isOpen={openQ === "MQ26"} onClick={() => toggle("MQ26")}>
+        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌧️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Nosé-Hoover: a deterministic feedback controller. Langevin: atoms are buffeted by random kicks (like Brownian motion) plus a drag force. Langevin is stochastic — every run gives a different trajectory. Good for sampling, but it disturbs dynamical properties (diffusion, VACF).</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.main, fontWeight: 700 }}>Langevin equation of motion:</span><br />
+          {"  m·a = F − γ·m·v + R(t)"}<br /><br />
+          {"  F = conservative force from potential"}<br />
+          {"  −γmv = friction (dissipation)"}<br />
+          {"  R(t) = random force (fluctuation)"}<br />
+          {"  ⟨R(t)⟩ = 0,  ⟨R(t)R(t’)⟩ = 2γmkBT·δ(t−t’)"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Choose Langevin when:</span><br />
+          {"  • Equilibration (stochastic kicks help escape local minima)"}<br />
+          {"  • Free energy calculations (enhanced sampling)"}<br />
+          {"  • Systems that don’t equilibrate well with Nosé-Hoover"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>DON’T use Langevin for:</span><br />
+          {"  • Diffusion coefficients (friction modifies dynamics)"}<br />
+          {"  • VACF / vibrational spectra (random forces add noise)"}<br />
+          {"  • Any dynamical property that depends on real-time correlations"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ27 */}
+      <FAQAccordion title={"MQ27. How do you compute thermal conductivity from MD?"} color={MD.prop} isOpen={openQ === "MQ27"} onClick={() => toggle("MQ27")}>
+        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌡️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Two approaches: (1) Apply a temperature gradient and measure heat flow (NEMD — like putting one end of a rod on a stove). (2) Watch spontaneous heat fluctuations at equilibrium and use Green-Kubo (EMD — like measuring how quickly a hot spot dissipates).</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.prop, fontWeight: 700 }}>Method 1: Green-Kubo (equilibrium MD)</span><br />
+          {"  κ = (V/3kBT²) ∫₀^∞ ⟨J(0)·J(t)⟩ dt"}<br />
+          {"  J = heat current = Σᵢ eᵢvᵢ + ½ Σᵢⱼ (Fᵢⱼ·vᵢ)rᵢⱼ"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Method 2: NEMD (non-equilibrium MD)</span><br />
+          {"  Apply T gradient: T_hot on one side, T_cold on other"}<br />
+          {"  Measure heat flux J_q in steady state"}<br />
+          {"  κ = −J_q / (dT/dx)  (Fourier’s law)"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Challenges:</span><br />
+          {"  • Needs VERY long simulations (100+ ps) for convergence"}<br />
+          {"  • Finite-size effects: κ depends on box length (1/κ ∝ 1/L)"}<br />
+          {"  • Classical MD overestimates κ at low T (all modes active)"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ28 */}
+      <FAQAccordion title={"MQ28. What is the neighbor list and why does it make MD scale as O(N) instead of O(N²)?"} color={MD.newton} isOpen={openQ === "MQ28"} onClick={() => toggle("MQ28")}>
+        <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>📋</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Checking every atom pair is O(N²). But with a cutoff, each atom only interacts with ~50 neighbors. A neighbor list pre-computes who{"’"}s nearby (rebuilt every 10-20 steps). This makes force computation O(N) — essential for million-atom simulations.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.newton, fontWeight: 700 }}>Without neighbor list: O(N²)</span><br />
+          {"  Check all N(N-1)/2 pairs"}<br />
+          {"  N = 10⁶ → 5×10¹¹ pair checks per step → impossible"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>With Verlet neighbor list: O(N)</span><br />
+          {"  Build list of neighbors within r_cut + r_skin"}<br />
+          {"  r_skin ~ 2 Å buffer (so list stays valid 10-20 steps)"}<br />
+          {"  Each atom has ~50 neighbors (constant, independent of N)"}<br />
+          {"  Rebuild when any atom moves > r_skin/2"}<br /><br />
+          <span style={{ color: MD.prop, fontWeight: 700 }}>Cell list (linked-cell method):</span><br />
+          {"  Divide space into cells of size r_cut"}<br />
+          {"  Only check atoms in neighboring cells (27 cells in 3D)"}<br />
+          {"  Building the list itself is O(N), not O(N²)"}<br /><br />
+          <span style={{ color: T.muted }}>LAMMPS uses cell lists. VASP uses direct N² (only ~100 atoms).</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ29 */}
+      <FAQAccordion title={"MQ29. What is the Ewald summation and why is it needed for charged systems?"} color={MD.thermo} isOpen={openQ === "MQ29"} onClick={() => toggle("MQ29")}>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>⚡</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Coulomb forces (1/r) decay SO slowly that you can{"’"}t just cut them off — the error is huge. Ewald splits 1/r into a short-range part (real space) and long-range part (Fourier space), each converging exponentially fast. Without Ewald, ionic systems give garbage energies.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>The problem:</span><br />
+          {"  Coulomb: V = qᵢqⱼ/r  decays as 1/r"}<br />
+          {"  In 3D periodic system: sum over ALL images → conditionally convergent"}<br />
+          {"  Truncation at r_cut introduces ~10% error for ionic systems"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Ewald splits 1/r:</span><br />
+          {"  1/r = erfc(αr)/r + erf(αr)/r"}<br />
+          {"  erfc part: short-range, sum in real space (few terms)"}<br />
+          {"  erf part: smooth, sum in reciprocal space (few G-vectors)"}<br /><br />
+          <span style={{ color: MD.prop, fontWeight: 700 }}>Cost: O(N^{3/2}) for standard Ewald</span><br />
+          {"  PME/PPPM: O(N log N) using FFT — used in LAMMPS/GROMACS"}<br />
+          {"  VASP: plane-wave basis handles this naturally via G-space"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ30 */}
+      <FAQAccordion title={"MQ30. What is the Arrhenius equation and how does MD verify it?"} color={MD.cls} isOpen={openQ === "MQ30"} onClick={() => toggle("MQ30")}>
+        <div style={{ display: "flex", gap: 10, background: MD.cls + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.cls + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>📈</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Run MD at several temperatures (e.g., 800, 1000, 1200 K), measure diffusion D at each T, plot ln(D) vs 1/T. If it{"’"}s a straight line → Arrhenius behavior. The slope gives the activation energy E_a. This is how you extract energy barriers from MD without ever finding the transition state.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.cls, fontWeight: 700 }}>Arrhenius equation:</span><br />
+          {"  D(T) = D₀ × exp(−E_a / kBT)"}<br />
+          {"  ln(D) = ln(D₀) − E_a/(kBT)"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>MD procedure:</span><br />
+          {"  1. Run NVT MD at T₁=800K, T₂=1000K, T₃=1200K, T₄=1500K"}<br />
+          {"  2. Compute D from MSD at each T"}<br />
+          {"  3. Plot ln(D) vs 1/T"}<br />
+          {"  4. Slope = −E_a/kB → E_a"}<br /><br />
+          <span style={{ color: MD.cls, fontWeight: 700 }}>Example — Cu vacancy in CuInSe₂:</span><br />
+          {"  D(800K) = 6.9×10⁻⁸ cm²/s"}<br />
+          {"  D(1000K) = 2.1×10⁻⁶ cm²/s"}<br />
+          {"  Slope → E_a ≈ 0.72 eV (matches NEB calculation!)"}<br /><br />
+          <span style={{ color: T.muted }}>Need at least 4 temperature points for a reliable fit.</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ31 */}
+      <FAQAccordion title={"MQ31. What is enhanced sampling and why can’t regular MD access rare events?"} color={MD.aimd} isOpen={openQ === "MQ31"} onClick={() => toggle("MQ31")}>
+        <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🏔️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine a ball in a deep valley with a 1 eV wall. At 300 K (kBT = 0.026 eV), the probability of jumping over is exp(−1/0.026) = 10⁻¹⁷. That{"’"}s once every 10⁹ seconds — but MD can only simulate 10⁻⁹ seconds. The event is "rare" — it{"’"}ll never happen in brute-force MD.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.aimd, fontWeight: 700 }}>The timescale problem:</span><br />
+          {"  Barrier E_a = 1 eV at T = 300 K"}<br />
+          {"  Rate = ν₀ × exp(−E_a/kBT) = 10¹³ × exp(−38.7) = 10¹³ × 10⁻¹⁷"}<br />
+          {"       = 10⁻⁴ /s → one event every 10,000 seconds"}<br />
+          {"  MD can simulate ~10⁻⁹ s → will NEVER see this event"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Enhanced sampling methods:</span><br />
+          {"  Metadynamics: add bias potential that fills visited minima → system escapes"}<br />
+          {"  Umbrella sampling: constrain system along reaction coordinate, compute free energy"}<br />
+          {"  Replica exchange (REMD): run copies at different T, swap configurations"}<br />
+          {"  NEB: find minimum energy path between two states (not dynamics)"}<br />
+          {"  Accelerated MD: bias the PES to reduce barriers while tracking real time"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ32 */}
+      <FAQAccordion title={"MQ32. How does an MLFF (machine learning force field) fit into the MD framework?"} color={MD.main} isOpen={openQ === "MQ32"} onClick={() => toggle("MQ32")}>
+        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🧠</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>MLFF replaces the force calculator in the MD loop. Instead of DFT (slow, exact) or classical FF (fast, approximate), use a neural network trained on DFT data. It{"’"}s DFT accuracy at classical speed — the best of both worlds, if you trust the training data.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.main, fontWeight: 700 }}>MD loop with MLFF:</span><br />
+          {"  1. Compute descriptors from atomic positions (ACE, SOAP, etc.)"}<br />
+          {"  2. E = NN(descriptors)  ← neural network prediction"}<br />
+          {"  3. F = −∂E/∂R (auto-differentiation through NN)"}<br />
+          {"  4. Verlet integration (same as always)"}<br /><br />
+          <span style={{ color: MD.prop, fontWeight: 700 }}>Speed comparison (64 atoms):</span><br />
+          {"  DFT force:    ~60 s/step"}<br />
+          {"  MLFF force:   ~0.01 s/step  (6000× faster)"}<br />
+          {"  Classical FF: ~0.001 s/step (60,000× faster)"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>The danger: extrapolation</span><br />
+          {"  MLFF only reliable for configurations SIMILAR to training data"}<br />
+          {"  New phases, extreme T/P, novel defects → can give garbage"}<br />
+          {"  Always validate: compare MLFF forces to DFT for test configs"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ33 */}
+      <FAQAccordion title={"MQ33. How do you handle bond breaking/formation in MD?"} color={MD.aimd} isOpen={openQ === "MQ33"} onClick={() => toggle("MQ33")}>
+        <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>💔</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Classical force fields with fixed bonds CAN{"’"}T break bonds — the harmonic spring just stretches to infinity. For chemistry (catalysis, corrosion, combustion), you need either AIMD, reactive force fields (ReaxFF), or MLFFs trained on bond-breaking DFT data.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.aimd, fontWeight: 700 }}>Options for reactive MD:</span><br /><br />
+          {"  1. AIMD: always correct (DFT handles electrons explicitly)"}<br />
+          {"     Cost: ~100 atoms, ~10 ps. Too short for most reactions."}<br /><br />
+          {"  2. ReaxFF: bond-order formalism (bonds form/break smoothly)"}<br />
+          {"     b.o. = exp[p(r/r₀)^q] — bond order goes to 0 as r → ∞"}<br />
+          {"     Cost: ~10,000 atoms, ~1 ns. Good for combustion, interfaces."}<br /><br />
+          {"  3. MLFF trained on reactive trajectories:"}<br />
+          {"     Must include bond-breaking configurations in training set"}<br />
+          {"     ~1,000 atoms, ~100 ps. Emerging as best option."}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Classical FF (Morse, LJ, EAM): NO bond breaking!</span><br />
+          {"  Harmonic: F = −k(r−r₀) → infinite force at large r (unphysical)"}<br />
+          {"  Morse: V → 0 at r→∞ (dissociates correctly but no recombination)"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ34 */}
+      <FAQAccordion title={"MQ34. What is the correlation time and why does it affect statistical error?"} color={MD.prop} isOpen={openQ === "MQ34"} onClick={() => toggle("MQ34")}>
+        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>⏰</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Consecutive MD frames are NOT independent samples — atom 1{"’"}s position at t=100 fs is nearly the same as at t=101 fs. The correlation time τ_c tells you how long you must wait between INDEPENDENT samples. Your effective sample size is N_eff = t_total / τ_c, not t_total / Δt.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.prop, fontWeight: 700 }}>Autocorrelation function of observable A:</span><br />
+          {"  C_A(t) = ⟨δA(0)·δA(t)⟩ / ⟨δA²⟩"}<br />
+          {"  δA = A − ⟨A⟩"}<br /><br />
+          {"  Correlation time: τ_c = ∫₀^∞ C_A(t) dt"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Statistical error with correlations:</span><br />
+          {"  σ²(⟨A⟩) = (⟨δA²⟩ / N_frames) × 2τ_c/Δt"}<br />
+          {"  Error is √(2τ_c/Δt) times LARGER than naive estimate"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Typical correlation times:</span><br />
+          {"  Velocity:     ~0.1-0.5 ps (fast)"}<br />
+          {"  Temperature:  ~0.5-2 ps"}<br />
+          {"  Stress tensor: ~1-5 ps"}<br />
+          {"  Diffusion:    ~10-100 ps (slow! → need long runs)"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ35 */}
+      <FAQAccordion title={"MQ35. What is the Maxwell-Boltzmann speed distribution and how do you verify it?"} color={MD.thermo} isOpen={openQ === "MQ35"} onClick={() => toggle("MQ35")}>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🎯</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>If your NVT simulation is correctly sampling the canonical ensemble, the SPEED distribution of atoms must follow the Maxwell-Boltzmann curve — a specific bell-like shape that depends only on T and m. Plotting this is a simple but powerful sanity check.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>Maxwell-Boltzmann speed distribution:</span><br />
+          {"  f(v) = 4π (m/2πkBT)^{3/2} × v² × exp(−mv²/2kBT)"}<br /><br />
+          {"  Most probable speed: v_p = √(2kBT/m)"}<br />
+          {"  Mean speed:          ⟨v⟩ = √(8kBT/πm)"}<br />
+          {"  RMS speed:           v_rms = √(3kBT/m)"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Cu atoms at 300 K:</span><br />
+          {"  v_p = √(2 × 0.02585 eV / 63.546 amu) = 280 m/s"}<br />
+          {"  ⟨v⟩ = 316 m/s"}<br />
+          {"  v_rms = 343 m/s"}<br /><br />
+          <span style={{ color: T.muted }}>Histogram v from your NVT trajectory and overlay the analytic curve.</span><br />
+          <span style={{ color: T.muted }}>If they don{"’"}t match → thermostat is broken or system not equilibrated.</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ36 */}
+      <FAQAccordion title={"MQ36. What is the difference between microcanonical (NVE) and canonical (NVT) averages?"} color={MD.newton} isOpen={openQ === "MQ36"} onClick={() => toggle("MQ36")}>
+        <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>📊</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>NVE samples states at EXACTLY one energy (a thin shell on the energy surface). NVT samples states at all energies weighted by exp(−E/kBT) (a broad distribution). For large N they{"’"}re equivalent, but for small cells (N{"<"}100), the difference matters.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.newton, fontWeight: 700 }}>NVE (microcanonical):</span><br />
+          {"  All states with energy E are equally probable"}<br />
+          {"  P(state) ∝ δ(H − E)"}<br />
+          {"  T is an OUTPUT (computed from KE)"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>NVT (canonical):</span><br />
+          {"  States weighted by Boltzmann factor"}<br />
+          {"  P(state) ∝ exp(−H/kBT)"}<br />
+          {"  T is an INPUT (controlled by thermostat)"}<br /><br />
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>Equivalence for large N:</span><br />
+          {"  ΔT/T ~ 1/√N → 0 as N → ∞"}<br />
+          {"  For N > 1000: NVE ≈ NVT (fluctuations negligible)"}<br />
+          {"  For N < 100: differences can be 5-10% for fluctuation-dependent properties"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ37 */}
+      <FAQAccordion title={"MQ37. How do constraints (SHAKE/RATTLE) allow larger time steps?"} color={MD.warn} isOpen={openQ === "MQ37"} onClick={() => toggle("MQ37")}>
+        <div style={{ display: "flex", gap: 10, background: MD.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.warn + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔒</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The fastest vibrations (O-H stretches at ~3600 cm⁻¹) force Δt {"<"} 0.5 fs. But these high-frequency modes rarely matter for the properties you care about. SHAKE freezes these bond lengths → the fastest remaining vibration is slower → you can use Δt = 2 fs. 4× speed boost for free!</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.warn, fontWeight: 700 }}>SHAKE algorithm:</span><br />
+          {"  Constrain specific bond lengths: |rᵢ − rⱼ|² = d²"}<br />
+          {"  After Verlet step, iteratively correct positions to satisfy constraints"}<br />
+          {"  Removes highest-frequency DOF → larger Δt allowed"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>RATTLE: velocity version of SHAKE</span><br />
+          {"  Also constrains velocities to be consistent: (rᵢ−rⱼ)·(vᵢ−vⱼ) = 0"}<br /><br />
+          <span style={{ color: MD.newton, fontWeight: 700 }}>Impact on time step:</span><br />
+          {"  Without constraints (O-H): Δt = 0.5 fs"}<br />
+          {"  With SHAKE on O-H bonds:   Δt = 2.0 fs (4× faster!)"}<br />
+          {"  Total speedup: 4× with almost no accuracy loss"}<br /><br />
+          <span style={{ color: T.muted }}>Common in biomolecular MD (GROMACS: LINCS algorithm).</span><br />
+          <span style={{ color: T.muted }}>Rarely used in materials science MD (no O-H bonds in metals).</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ38 */}
+      <FAQAccordion title={"MQ38. What is the stress tensor in MD and how does it relate to elastic constants?"} color={MD.prop} isOpen={openQ === "MQ38"} onClick={() => toggle("MQ38")}>
+        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>📐</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The stress tensor σ has 6 independent components (3 normal + 3 shear). In MD, it comes from the virial: kinetic contribution (atoms moving) + force contribution (atoms pushing/pulling). By applying small strains and measuring stress changes, you get elastic constants.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.prop, fontWeight: 700 }}>Stress tensor from MD:</span><br />
+          {"  σ_αβ = (1/V) [Σᵢ mᵢ vᵢα vᵢβ + ½ Σᵢⱼ Fᵢⱼα rᵢⱼβ]"}<br /><br />
+          {"  α,β = x,y,z (9 components, 6 independent by symmetry)"}<br />
+          {"  Diagonal: σ_xx, σ_yy, σ_zz (normal stresses → pressure)"}<br />
+          {"  Off-diag: σ_xy, σ_xz, σ_yz (shear stresses)"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Elastic constants from stress-strain:</span><br />
+          {"  Apply small strain ε_αβ → measure σ_αβ → Cᵢⱼ = ∂σᵢ/∂εⱼ"}<br /><br />
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>From fluctuations (Born-Huang relation):</span><br />
+          {"  Cᵢⱼ = (⟨σᵢσⱼ⟩ − ⟨σᵢ⟩⟨σⱼ⟩)V/(kBT) + Born term"}<br />
+          {"  Advantage: no need to apply strain — compute from equilibrium MD"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ39 */}
+      <FAQAccordion title={"MQ39. How do you compute free energy from MD? Why can’t you just use E_total?"} color={MD.thermo} isOpen={openQ === "MQ39"} onClick={() => toggle("MQ39")}>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌊</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Free energy G = H − TS includes entropy. MD gives you E and H easily, but entropy is the VOLUME of accessible phase space — you can{"’"}t measure a volume by visiting points one at a time (MD trajectory). You need special techniques like thermodynamic integration or free energy perturbation.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>The entropy problem:</span><br />
+          {"  G = H − TS = E + PV − TS"}<br />
+          {"  MD directly gives: ⟨E⟩, ⟨P⟩, ⟨V⟩"}<br />
+          {"  MD does NOT directly give: S (entropy)"}<br /><br />
+          {"  S = kB ln(Ω) where Ω = number of accessible microstates"}<br />
+          {"  You can’t count Ω by sampling — it’s a VOLUME, not an average"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Free energy methods:</span><br />
+          {"  Thermodynamic integration: ∫ ⟨∂H/∂λ⟩ dλ  (λ switches between systems)"}<br />
+          {"  Free energy perturbation: ΔG = −kBT ln⟨exp(−ΔH/kBT)⟩"}<br />
+          {"  Metadynamics: reconstruct free energy surface from bias potential"}<br />
+          {"  Harmonic approx: S ≈ kB Σ ln(kBT/ℏωᵢ) (quick, approximate)"}<br /><br />
+          <span style={{ color: T.muted }}>All require specialized setup — there{"’"}s no "one-click" free energy in VASP.</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ40 */}
+      <FAQAccordion title={"MQ40. What determines whether you should use AIMD, MLFF-MD, or classical MD?"} color={MD.main} isOpen={openQ === "MQ40"} onClick={() => toggle("MQ40")}>
+        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🗺️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The decision tree is: Do you need quantum accuracy? (yes → AIMD or MLFF). Can you afford AIMD? (if N{"<"}100 and t{"<"}10ps → yes). Do you have good training data? (yes → MLFF). Is there a validated classical FF? (yes → classical). Otherwise → you have a research problem.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.main, fontWeight: 700 }}>Decision matrix:</span><br /><br />
+          {"  ┌─────────────────┬──────────┬───────────┬──────────┐"}<br />
+          {"  │                 │  AIMD    │  MLFF-MD  │ Classical│"}<br />
+          {"  ├─────────────────┼──────────┼───────────┼──────────┤"}<br />
+          {"  │ Max atoms       │  ~200    │  ~10,000  │  ~10⁶   │"}<br />
+          {"  │ Max time        │  ~50 ps  │  ~10 ns   │  ~μs    │"}<br />
+          {"  │ Bond breaking   │  ✓       │  if trained│  ✗*     │"}<br />
+          {"  │ Charge transfer │  ✓       │  if trained│  ✗      │"}<br />
+          {"  │ Setup effort    │  Low     │  High     │  Medium  │"}<br />
+          {"  │ Accuracy        │  DFT     │  ≈DFT     │  ~OK     │"}<br />
+          {"  │ Cost (CPU-hrs)  │  10,000  │  100      │  1       │"}<br />
+          {"  └─────────────────┴──────────┴───────────┴──────────┘"}<br /><br />
+          <span style={{ color: T.muted }}>* ReaxFF can handle bond breaking but with lower accuracy.</span><br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Rule of thumb:</span><br />
+          {"  Start with AIMD (small cell, short time) to understand physics."}<br />
+          {"  If you need larger/longer → train MLFF on AIMD data."}<br />
+          {"  If MLFF unavailable and classical FF exists → use classical."}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ41 */}
+      <FAQAccordion title={"MQ41. What is the minimum image convention and why can it cause artifacts?"} color={MD.newton} isOpen={openQ === "MQ41"} onClick={() => toggle("MQ41")}>
+        <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>📐</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>With PBC, atom j has infinite copies. The minimum image convention says: only interact with the CLOSEST copy. But if r_cut {">"} L/2, an atom sees multiple copies of the same atom — double counting forces and producing nonsense. This is why r_cut must be less than half the box length.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.newton, fontWeight: 700 }}>Minimum image: for pair (i,j), use closest periodic copy</span><br />
+          {"  Δx = xⱼ − xᵢ"}<br />
+          {"  if Δx > L/2: Δx -= L"}<br />
+          {"  if Δx < -L/2: Δx += L"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>{"Artifact when r_cut > L/2:"}</span><br />
+          {"  Atom i interacts with atom j AND its image j’"}<br />
+          {"  Forces are double-counted → energy is wrong"}<br />
+          {"  For long-range potentials (Coulomb): ALWAYS use Ewald, never truncate"}<br /><br />
+          <span style={{ color: T.muted }}>{"Safe check: in your MD output, verify r_cut < L_min/2 where L_min is the"}</span><br />
+          <span style={{ color: T.muted }}>shortest box dimension.</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ42 */}
+      <FAQAccordion title={"MQ42. How do you compute the melting temperature from MD?"} color={MD.cls} isOpen={openQ === "MQ42"} onClick={() => toggle("MQ42")}>
+        <div style={{ display: "flex", gap: 10, background: MD.cls + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.cls + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌡️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The most reliable method: create a slab with half solid and half liquid at the interface. Run NPT and find the temperature where neither phase grows. That{"’"}s T_melt. Simply heating a perfect crystal gives the wrong answer (superheating by 20-30%).</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.cls, fontWeight: 700 }}>Method 1: Coexistence method (most reliable)</span><br />
+          {"  1. Create slab: solid | liquid | solid (periodic)"}<br />
+          {"  2. Run NPT at trial temperature"}<br />
+          {"  3. If solid grows → T < T_melt (raise T)"}<br />
+          {"  4. If liquid grows → T > T_melt (lower T)"}<br />
+          {"  5. Bracket and iterate → T_melt ± 10 K"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>Method 2: Heating (WRONG for accurate T_melt)</span><br />
+          {"  Heat perfect crystal → melts at T_superheat >> T_melt"}<br />
+          {"  Superheating can be 20-30% above true T_melt"}<br />
+          {"  OK for qualitative estimate, not for publication"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Method 3: Free energy crossing</span><br />
+          {"  Compute G(T) for solid and liquid phases separately"}<br />
+          {"  T_melt = T where G_solid = G_liquid"}<br />
+          {"  Most accurate but requires thermodynamic integration"}
+        </div>
+      </FAQAccordion>
+
+      {/* MQ43 */}
+      <FAQAccordion title={"MQ43. What is the Nosé-Hoover chain and why is a single thermostat sometimes insufficient?"} color={MD.thermo} isOpen={openQ === "MQ43"} onClick={() => toggle("MQ43")}>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>⛓️</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>A single Nosé-Hoover thermostat can get "stuck" for small systems or stiff harmonic systems — it doesn{"’"}t properly sample the canonical ensemble. The fix: chain multiple thermostats together. Thermostat 1 controls the atoms, thermostat 2 controls thermostat 1, thermostat 3 controls thermostat 2... This ensures proper ergodic sampling.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.thermo, fontWeight: 700 }}>Nosé-Hoover chain (length M):</span><br />
+          {"  dξ₁/dt = (1/Q₁)[Σ mᵢvᵢ² − 3NkBT] − ξ₁ξ₂"}<br />
+          {"  dξ₂/dt = (1/Q₂)[Q₁ξ₁² − kBT] − ξ₂ξ₃"}<br />
+          {"  dξₖ/dt = (1/Qₖ)[Qₖ₋₁ξₖ₋₁² − kBT] − ξₖξₖ₊₁"}<br /><br />
+          {"  Chain length M = 3-5 is typical"}<br />
+          {"  Each thermostat has its own mass Qₖ"}<br /><br />
+          <span style={{ color: MD.warn, fontWeight: 700 }}>When single NH fails:</span><br />
+          {"  • Small systems (N < 10): single NH doesn’t sample properly"}<br />
+          {"  • Stiff harmonic oscillator: ξ oscillates but doesn’t explore"}<br />
+          {"  • Low-dimensional systems: insufficient chaos for ergodicity"}<br /><br />
+          <span style={{ color: T.muted }}>VASP uses a single NH thermostat — fine for N ≥ 64 (typical AIMD).</span>
+        </div>
+      </FAQAccordion>
+
+      {/* MQ44 */}
+      <FAQAccordion title={"MQ44. How do you handle quantum nuclear effects (tunneling, zero-point energy) in MD?"} color={MD.aimd} isOpen={openQ === "MQ44"} onClick={() => toggle("MQ44")}>
+        <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🌀</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Classical MD treats nuclei as point particles obeying Newton{"’"}s laws. But light nuclei (H, Li, He) exhibit quantum effects: zero-point energy (atoms vibrate even at 0 K) and tunneling (atoms pass through energy barriers). Path integral MD treats nuclei as quantum "rings" of beads, capturing these effects.</span></div>
+        <div style={mdMathBlock}>
+          <span style={{ color: MD.aimd, fontWeight: 700 }}>When quantum nuclear effects matter:</span><br />
+          {"  ℏω_max >> kBT (when highest vibrational frequency >> thermal energy)"}<br /><br />
+          {"  H in metals:    ω ~ 4000 cm⁻¹ → ℏω = 0.50 eV >> kBT(300K) = 0.026 eV ✓"}<br />
+          {"  Li in battery:  ω ~ 600 cm⁻¹  → ℏω = 0.074 eV > kBT ✓ (marginal)"}<br />
+          {"  Cu in bulk:     ω ~ 300 cm⁻¹  → ℏω = 0.037 eV ≈ kBT ✗ (classical OK)"}<br /><br />
+          <span style={{ color: MD.main, fontWeight: 700 }}>Path Integral MD (PIMD):</span><br />
+          {"  Replace each atom with P ‘beads’ connected by springs"}<br />
+          {"  Ring polymer: P copies of the system, coupled harmonically"}<br />
+          {"  In the P → ∞ limit, recovers exact quantum statistics"}<br />
+          {"  Cost: P × cost of regular MD (typically P = 16-64)"}<br /><br />
+          <span style={{ color: T.muted }}>For materials science (heavy atoms, T {">"} 300 K): usually not needed.</span><br />
+          <span style={{ color: T.muted }}>For hydrogen diffusion, proton transfer, ice: essential.</span>
+        </div>
+      </FAQAccordion>
+    </div>
+  );
+}
+
 const MD_SECTIONS = [
   { id: "intro", block: "foundations", label: "What is MD?", color: T.md_main, Component: MDIntroSection, nextReason: "MD simulates atomic motion — but what drives it? Newton’s second law F = ma governs each atom’s trajectory. The force comes from the interatomic potential (force field or DFT), connecting Chapter 3’s force fields to real dynamics." },
   { id: "newton", block: "foundations", label: "Equations of Motion", color: T.md_newton, Component: MDNewtonSection, nextReason: "Continuous equations of motion must be discretized for a computer. The Velocity Verlet integrator advances positions and velocities by finite time steps while conserving total energy — the algorithmic heart of every MD code." },
@@ -11926,6 +13018,7 @@ const MD_SECTIONS = [
   { id: "classical", block: "methods", label: "Classical MD", color: T.md_class, Component: MDClassicalSection, nextReason: "Trajectories are generated. Now we extract physical observables: radial distribution function, mean-squared displacement, diffusion coefficient, vibrational spectrum, viscosity — connecting atomic trajectories to measurable material properties." },
   { id: "properties", block: "analysis", label: "Properties", color: T.md_prop, Component: MDPropertiesSection, nextReason: "Properties defined. MD in practice requires choosing timestep, cutoff radius, equilibration length, production length, and analysis protocols — the engineering decisions that determine whether results are reliable and reproducible." },
   { id: "practice", block: "analysis", label: "MD in Practice", color: T.md_main, Component: MDPracticeSection, nextReason: "Abstract protocols become concrete in the 16-atom CdTe example: initialization, energy minimization, NVT equilibration, production run, and extraction of the radial distribution function — all shown step by step with real numbers." },
+  { id: "md_faq", block: "analysis", label: "Big Questions", color: T.md_thermo, Component: MDFAQSection, nextReason: "The deep conceptual questions are answered. Now see the 16-atom Cu example where every concept materializes in real numbers — initialization, forces, integration, ensembles, and property extraction." },
   { id: "example16", block: "examples", label: "16-Atom Example", color: T.md_class, Component: MDExample16Section, nextReason: "Theory and practice covered. The MD movie ties everything together — animated scenes of atoms moving, forces computing, integrators stepping, and properties emerging from atomic trajectories." },
   { id: "md_movie", block: "examples", label: "MD Movie", color: T.md_main, Component: MDMovieSection, nextReason: "MD mastered. Chapter 5 (Monte Carlo) offers an alternative sampling strategy: instead of time evolution, stochastic trial moves sample configuration space — especially powerful for equilibrium thermodynamics and rare-event problems inaccessible to MD." },
 ];
