@@ -19427,6 +19427,379 @@ function CarrierConcentrationSection() {
   );
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// EXPERIMENTAL CHARACTERIZATION OF DEFECTS (DLTS, PL)
+// ═══════════════════════════════════════════════════════════════════════════
+
+function DLTSSection() {
+  const [openItem, setOpenItem] = useState("dlts_what");
+  const toggle = (id) => setOpenItem(openItem === id ? null : id);
+  const [Et, setEt] = useState(0.45);
+  const [Eg, setEg] = useState(1.5);
+  const [sigma, setSigma] = useState(1e-15);
+  const [T1, setT1] = useState(200);
+  const [T2, setT2] = useState(400);
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setTick(t => t + 1), 80);
+    return () => clearInterval(id);
+  }, []);
+
+  const kB = 8.617e-5;
+  const vth0 = 1e7;
+  const Nc = 2.5e19;
+  const en = (Tv) => sigma * vth0 * Nc * Math.exp(-Et / (kB * Tv));
+  const tau = (Tv) => 1 / en(Tv);
+
+  const t1_fill = 0.001;
+  const rate_window_t1 = 0.001;
+  const rate_window_t2 = 0.01;
+  const C_t1 = (Tv) => Math.exp(-en(Tv) * rate_window_t1);
+  const C_t2 = (Tv) => Math.exp(-en(Tv) * rate_window_t2);
+  const dltsSignal = (Tv) => C_t1(Tv) - C_t2(Tv);
+
+  const dltsPeakT = (() => {
+    let maxS = 0, peakT = 200;
+    for (let tv = 50; tv <= 500; tv += 1) {
+      const s = dltsSignal(tv);
+      if (s > maxS) { maxS = s; peakT = tv; }
+    }
+    return peakT;
+  })();
+
+  const enAtPeak = en(dltsPeakT);
+  const tauAtPeak = tau(dltsPeakT);
+
+  const W = 460, H = 220, pad = { l: 55, r: 20, t: 25, b: 35 };
+  const pw = W - pad.l - pad.r, ph = H - pad.t - pad.b;
+  const toX = (tv) => pad.l + ((tv - 50) / 450) * pw;
+  const toY = (s) => pad.t + (1 - s / 0.4) * ph;
+
+  const animPhase = tick * 0.08;
+  const fillLevel = 0.5 + 0.4 * Math.sin(animPhase);
+  const emitLevel = Math.max(0, 1 - fillLevel);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <FAQAccordion title="What is DLTS? (Deep Level Transient Spectroscopy)" color={T.fnv_warm} isOpen={openItem === "dlts_what"} onClick={() => toggle("dlts_what")}>
+        <div style={{ display: "flex", gap: 10, background: T.fnv_warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.fnv_warm + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>🔬</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like fishing for defects in a semiconductor. You fill a trap with a pulse (bait), then watch how fast it empties (the fish escapes). The emission rate depends on temperature — scan T and you get a peak at a characteristic temperature for each defect. The peak position gives the trap depth E_t, and the peak height gives the trap density N_t.</span></div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          DLTS measures the thermal emission rate of carriers from deep traps in a semiconductor junction. A voltage pulse fills the traps, then the capacitance transient is monitored as traps emit carriers. By scanning temperature, each defect produces a peak at its characteristic temperature.
+        </div>
+        <div style={mdMathBlock}>
+          <span style={{ color: T.fnv_warm, fontWeight: 700 }}>DLTS principle — 4 steps:</span><br /><br />
+          {"  1. Reverse bias: traps empty (depletion region wide)"}<br />
+          {"  2. Fill pulse: forward/zero bias fills traps with carriers"}<br />
+          {"  3. Return to reverse bias: traps emit carriers thermally"}<br />
+          {"  4. Capacitance decreases as traps emit → exponential transient"}<br /><br />
+          <span style={{ color: T.fnv_elec, fontWeight: 700 }}>Thermal emission rate:</span><br />
+          {"  eₙ = σₙ · v_th · N_c · exp(−E_t / k_BT)"}<br /><br />
+          {"  σₙ = capture cross-section (cm²)"}<br />
+          {"  v_th = thermal velocity (cm/s)"}<br />
+          {"  N_c = conduction band DOS (cm⁻³)"}<br />
+          {"  E_t = trap depth below conduction band (eV)"}<br />
+          {"  k_BT = thermal energy (eV)"}
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="Animated: DLTS Measurement Cycle" color={T.fnv_elec} isOpen={openItem === "dlts_anim"} onClick={() => toggle("dlts_anim")}>
+        <svg width={400} height={250} style={{ background: T.surface, borderRadius: 10, border: `1px solid ${T.border}`, display: "block", margin: "0 auto", overflow: "hidden" }}>
+          {/* Band diagram */}
+          <rect x={20} y={20} width={360} height={210} rx={6} fill={T.bg} />
+          {/* CB */}
+          <line x1={40} y1={50} x2={360} y2={50} stroke={T.fnv_elec} strokeWidth={2} />
+          <text x={35} y={46} textAnchor="end" fill={T.fnv_elec} fontSize={9} fontWeight={700}>CB</text>
+          {/* VB */}
+          <line x1={40} y1={200} x2={360} y2={200} stroke={T.fnv_warn} strokeWidth={2} />
+          <text x={35} y={204} textAnchor="end" fill={T.fnv_warn} fontSize={9} fontWeight={700}>VB</text>
+          {/* Trap level */}
+          <line x1={120} y1={50 + (Et / Eg) * 150} x2={280} y2={50 + (Et / Eg) * 150} stroke={T.fnv_warm} strokeWidth={2.5} strokeDasharray="8 4" />
+          <text x={290} y={50 + (Et / Eg) * 150 + 4} fill={T.fnv_warm} fontSize={9} fontWeight={700}>E_t = {Et.toFixed(2)} eV</text>
+          {/* Animated electron in trap */}
+          {fillLevel > 0.5 && <circle cx={200} cy={50 + (Et / Eg) * 150} r={6} fill={T.fnv_elec} opacity={fillLevel}>
+            <animate attributeName="opacity" values="1;0.5;1" dur="0.6s" repeatCount="indefinite" />
+          </circle>}
+          {/* Emission arrow */}
+          {emitLevel > 0.3 && <>
+            <line x1={200} y1={50 + (Et / Eg) * 150 - 8} x2={200} y2={58} stroke={T.fnv_accent} strokeWidth={2} markerEnd="url(#arrowDLTS)" opacity={emitLevel} />
+            <defs><marker id="arrowDLTS" markerWidth={8} markerHeight={6} refX={8} refY={3} orient="auto"><polygon points="0 0, 8 3, 0 6" fill={T.fnv_accent} /></marker></defs>
+            <text x={210} y={80} fill={T.fnv_accent} fontSize={9} fontWeight={700} opacity={emitLevel}>emission</text>
+          </>}
+          {/* Capacitance transient */}
+          <text x={200} y={235} textAnchor="middle" fill={T.muted} fontSize={9}>
+            {fillLevel > 0.7 ? "Step 2: Trap FILLED — electron captured" : fillLevel > 0.3 ? "Step 3: Trap EMITTING — electron escaping to CB" : "Step 1: Trap EMPTY — reverse bias"}
+          </text>
+          {/* Band gap label */}
+          <line x1={380} y1={55} x2={380} y2={195} stroke={T.muted} strokeWidth={0.5} />
+          <text x={385} y={125} fill={T.muted} fontSize={8} transform="rotate(90,385,125)">E_g = {Eg.toFixed(1)} eV</text>
+        </svg>
+      </FAQAccordion>
+
+      <FAQAccordion title="Interactive: DLTS Spectrum Simulator" color={T.fnv_accent} isOpen={openItem === "dlts_sim"} onClick={() => toggle("dlts_sim")}>
+        <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+          <div style={{ flex: 1, minWidth: 220 }}>
+            <SliderRow label="E_t — trap depth" value={Et} min={0.05} max={1.2} step={0.01} onChange={setEt} color={T.fnv_warm} unit=" eV" />
+            <SliderRow label="E_g — band gap" value={Eg} min={0.5} max={3.0} step={0.1} onChange={setEg} color={T.fnv_elec} unit=" eV" />
+            <SliderRow label="σ — capture cross-section" value={Math.log10(sigma)} min={-18} max={-12} step={0.5} onChange={(v) => setSigma(Math.pow(10, v))} color={T.fnv_accent} unit="" format={v => `10^${v.toFixed(1)} cm²`} />
+          </div>
+          <div style={{ flex: 1, minWidth: 260 }}>
+            <svg width={W} height={H} style={{ background: T.bg, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "0 auto 10px" }}>
+              <rect x={pad.l} y={pad.t} width={pw} height={ph} fill={T.surface} />
+              {[100, 200, 300, 400, 500].map(tv => (
+                <g key={tv}>
+                  <line x1={toX(tv)} y1={pad.t} x2={toX(tv)} y2={pad.t + ph} stroke={T.border} strokeWidth={0.5} strokeDasharray="3,3" />
+                  <text x={toX(tv)} y={H - 8} textAnchor="middle" fill={T.muted} fontSize={8}>{tv}</text>
+                </g>
+              ))}
+              {/* DLTS signal curve */}
+              <polyline
+                points={Array.from({ length: 100 }, (_, i) => {
+                  const tv = 50 + i * 4.5;
+                  const s = dltsSignal(tv);
+                  return `${toX(tv)},${toY(Math.max(0, s))}`;
+                }).join(" ")}
+                fill="none" stroke={T.fnv_warm} strokeWidth={2.5}
+              />
+              {/* Peak marker */}
+              <circle cx={toX(dltsPeakT)} cy={toY(dltsSignal(dltsPeakT))} r={5} fill={T.fnv_warm} stroke="#fff" strokeWidth={1.5} />
+              <text x={toX(dltsPeakT) + 8} y={toY(dltsSignal(dltsPeakT)) - 8} fill={T.fnv_warm} fontSize={9} fontWeight={700}>T_peak = {dltsPeakT} K</text>
+              <text x={pad.l + pw / 2} y={H - 2} textAnchor="middle" fill={T.muted} fontSize={9}>Temperature (K)</text>
+              <text x={12} y={pad.t + ph / 2} textAnchor="middle" fill={T.muted} fontSize={9} transform={`rotate(-90,12,${pad.t + ph / 2})`}>DLTS Signal (a.u.)</text>
+            </svg>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+              <ResultBox label="Peak temperature" value={`${dltsPeakT} K`} color={T.fnv_warm} sub="DLTS peak" />
+              <ResultBox label="e_n at peak" value={enAtPeak.toExponential(2)} color={T.fnv_elec} sub="s⁻¹" />
+              <ResultBox label="τ at peak" value={tauAtPeak < 1 ? (tauAtPeak * 1e3).toFixed(2) + " ms" : tauAtPeak.toFixed(3) + " s"} color={T.fnv_accent} sub="emission time" />
+              <ResultBox label="E_t / E_g" value={(Et / Eg * 100).toFixed(1) + "%"} color={T.fnv_main} sub={Et / Eg < 0.2 ? "Shallow" : "Deep"} />
+            </div>
+          </div>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="Step-by-Step Numerical Example: DLTS of V_Cu in CdTe" color={T.fnv_elec} isOpen={openItem === "dlts_example"} onClick={() => toggle("dlts_example")}>
+        <div style={mdMathBlock}>
+          <span style={{ color: T.fnv_elec, fontWeight: 800, fontSize: 14 }}>Given: Cu vacancy in CdTe</span><br />
+          {"  E_t = 0.35 eV (trap depth below CB)"}<br />
+          {"  σ = 2×10⁻¹⁵ cm² (capture cross-section)"}<br />
+          {"  v_th = 10⁷ cm/s (thermal velocity)"}<br />
+          {"  N_c = 7.5×10¹⁷ cm⁻³ (CB density of states at 300 K)"}<br /><br />
+
+          <span style={{ color: T.fnv_warm, fontWeight: 800, fontSize: 14 }}>Step 1: Emission rate at T = 300 K</span><br />
+          {"  eₙ = σ · v_th · N_c · exp(−E_t / k_BT)"}<br />
+          {"     = 2×10⁻¹⁵ × 10⁷ × 7.5×10¹⁷ × exp(−0.35 / 0.02585)"}<br />
+          {"     = 1.5×10¹⁰ × exp(−13.54)"}<br />
+          {"     = 1.5×10¹⁰ × 1.32×10⁻⁶"}<br />
+          {"     = "}<span style={{ color: T.fnv_elec, fontWeight: 700 }}>{"1.98×10⁴ s⁻¹"}</span><br /><br />
+
+          <span style={{ color: T.fnv_warm, fontWeight: 800, fontSize: 14 }}>Step 2: Emission time constant</span><br />
+          {"  τ = 1/eₙ = 1 / 1.98×10⁴ = "}<span style={{ color: T.fnv_elec, fontWeight: 700 }}>{"50.5 μs"}</span><br /><br />
+
+          <span style={{ color: T.fnv_warm, fontWeight: 800, fontSize: 14 }}>Step 3: DLTS peak temperature</span><br />
+          {"  For rate window t₁ = 1 ms, t₂ = 10 ms:"}<br />
+          {"  Peak occurs when eₙ = ln(t₂/t₁) / (t₂ − t₁)"}<br />
+          {"                     = ln(10) / 0.009 = 256 s⁻¹"}<br />
+          {"  Solve: 256 = 1.5×10¹⁰ × exp(−0.35 / k_BT_peak)"}<br />
+          {"  −0.35 / k_BT_peak = ln(256 / 1.5×10¹⁰) = −17.57"}<br />
+          {"  k_BT_peak = 0.35 / 17.57 = 0.01992 eV"}<br />
+          {"  T_peak = 0.01992 / 8.617×10⁻⁵ = "}<span style={{ color: T.fnv_warm, fontWeight: 700 }}>{"231 K"}</span><br /><br />
+
+          <span style={{ color: T.fnv_warm, fontWeight: 800, fontSize: 14 }}>Step 4: Arrhenius plot (activation energy)</span><br />
+          {"  Plot ln(eₙ/T²) vs 1/T → slope = −E_t/k_B"}<br />
+          {"  At T₁ = 200 K: eₙ = 8.2 s⁻¹,     ln(eₙ/T²) = −9.49"}<br />
+          {"  At T₂ = 300 K: eₙ = 1.98×10⁴,     ln(eₙ/T²) = −1.51"}<br />
+          {"  Slope = (−1.51 − (−9.49)) / (1/300 − 1/200)"}<br />
+          {"        = 7.98 / (−0.00167) = −4,780 K"}<br />
+          {"  E_t = slope × k_B = 4780 × 8.617×10⁻⁵ = "}<span style={{ color: T.fnv_elec, fontWeight: 700 }}>{"0.412 eV"}</span><br />
+          <span style={{ color: T.muted }}>{"  (Close to input 0.35 eV — the approximation in T² correction gives ~15% error)"}</span>
+        </div>
+      </FAQAccordion>
+    </div>
+  );
+}
+
+function PLSection() {
+  const [openItem, setOpenItem] = useState("pl_what");
+  const toggle = (id) => setOpenItem(openItem === id ? null : id);
+  const [Eg_pl, setEgPl] = useState(1.5);
+  const [Et_pl, setEtPl] = useState(0.3);
+  const [T_pl, setTPl] = useState(10);
+  const [fwhm, setFwhm] = useState(0.05);
+  const [plTick, setPlTick] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setPlTick(t => t + 1), 100);
+    return () => clearInterval(id);
+  }, []);
+
+  const kB = 8.617e-5;
+  const kT = kB * T_pl;
+  const Ebbe = Eg_pl;
+  const Edefect = Eg_pl - Et_pl;
+  const thermalBroad = Math.max(fwhm, 1.8 * kT);
+
+  const gaussian = (E, E0, w) => Math.exp(-((E - E0) ** 2) / (2 * w * w));
+
+  const W = 460, H = 220, pad = { l: 55, r: 20, t: 25, b: 35 };
+  const pw = W - pad.l - pad.r, ph = H - pad.t - pad.b;
+  const Emin = 0.5, Emax = 2.5;
+  const toX = (E) => pad.l + ((E - Emin) / (Emax - Emin)) * pw;
+  const toY = (I) => pad.t + (1 - I) * ph;
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <FAQAccordion title="What is Photoluminescence (PL) Spectroscopy?" color={T.fnv_accent} isOpen={openItem === "pl_what"} onClick={() => toggle("pl_what")}>
+        <div style={{ display: "flex", gap: 10, background: T.fnv_accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.fnv_accent + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>💡</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Shine a laser on a semiconductor — electrons get excited to the conduction band. When they fall back down, they emit light. If they fall to a defect level first, the light has LESS energy than the band gap. By measuring the emitted light spectrum, you can identify which defects are present and how deep they are.</span></div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          PL spectroscopy excites electrons above the band gap, then measures the spectrum of emitted photons as they recombine. Band-to-band recombination gives a peak at E_g. Defect-mediated recombination gives peaks at E_g − E_t (defect below CB) or E_t (defect above VB). At low temperature (4-10 K), peaks are sharp and resolvable.
+        </div>
+        <div style={mdMathBlock}>
+          <span style={{ color: T.fnv_accent, fontWeight: 700 }}>PL transitions:</span><br /><br />
+          {"  Band-to-band (BB):   hν = E_g"}<br />
+          {"  Free-to-bound (FB):  hν = E_g − E_t  (electron CB → defect)"}<br />
+          {"  Bound-to-free (BF):  hν = E_g − E_t  (defect → hole VB)"}<br />
+          {"  Donor-acceptor pair (DAP): hν = E_g − E_D − E_A + e²/4πε₀εr"}<br /><br />
+          <span style={{ color: T.fnv_warm, fontWeight: 700 }}>Temperature dependence:</span><br />
+          {"  Low T (4-10 K): sharp peaks, bound excitons visible"}<br />
+          {"  High T (300 K): broad peaks, thermal quenching"}<br />
+          {"  Quenching: I(T) = I₀ / [1 + A·exp(−E_a/k_BT)]"}<br />
+          {"  E_a = activation energy for non-radiative recombination"}
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="Animated: PL Emission Process" color={T.fnv_elec} isOpen={openItem === "pl_anim"} onClick={() => toggle("pl_anim")}>
+        <svg width={400} height={260} style={{ background: T.surface, borderRadius: 10, border: `1px solid ${T.border}`, display: "block", margin: "0 auto", overflow: "hidden" }}>
+          <rect x={20} y={15} width={360} height={230} rx={6} fill={T.bg} />
+          {/* CB */}
+          <line x1={40} y1={45} x2={360} y2={45} stroke={T.fnv_elec} strokeWidth={2} />
+          <text x={35} y={42} textAnchor="end" fill={T.fnv_elec} fontSize={9} fontWeight={700}>CB</text>
+          {/* VB */}
+          <line x1={40} y1={210} x2={360} y2={210} stroke={T.fnv_warn} strokeWidth={2} />
+          <text x={35} y={214} textAnchor="end" fill={T.fnv_warn} fontSize={9} fontWeight={700}>VB</text>
+          {/* Defect level */}
+          <line x1={180} y1={45 + (Et_pl / Eg_pl) * 165} x2={300} y2={45 + (Et_pl / Eg_pl) * 165} stroke={T.fnv_warm} strokeWidth={2} strokeDasharray="6 3" />
+          <text x={310} y={45 + (Et_pl / Eg_pl) * 165 + 4} fill={T.fnv_warm} fontSize={8}>defect E_t={Et_pl.toFixed(2)}</text>
+
+          {/* Laser excitation arrow */}
+          {plTick % 30 < 10 && <>
+            <line x1={80} y1={205} x2={80} y2={50} stroke="#9333ea" strokeWidth={2.5} markerEnd="url(#arrowPL)" />
+            <defs><marker id="arrowPL" markerWidth={8} markerHeight={6} refX={8} refY={3} orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#9333ea" /></marker></defs>
+            <text x={60} y={130} fill="#9333ea" fontSize={9} fontWeight={700} transform="rotate(-90,60,130)">LASER</text>
+          </>}
+          {/* Electron at CB */}
+          {plTick % 30 >= 10 && plTick % 30 < 20 && <circle cx={120} cy={45} r={5} fill={T.fnv_elec}><animate attributeName="cy" values="45;45" dur="0.5s" /></circle>}
+
+          {/* BB emission */}
+          {plTick % 30 >= 15 && plTick % 30 < 25 && <>
+            <line x1={120} y1={50} x2={120} y2={205} stroke={T.fnv_accent} strokeWidth={2} strokeDasharray="4 2" />
+            <text x={130} y={130} fill={T.fnv_accent} fontSize={9} fontWeight={700}>hν = E_g = {Eg_pl.toFixed(2)} eV</text>
+          </>}
+
+          {/* Defect emission */}
+          {plTick % 30 >= 20 && <>
+            <line x1={240} y1={50} x2={240} y2={45 + (Et_pl / Eg_pl) * 165 - 5} stroke={T.fnv_warm} strokeWidth={2} strokeDasharray="4 2" />
+            <line x1={240} y1={45 + (Et_pl / Eg_pl) * 165 + 5} x2={240} y2={205} stroke={T.fnv_warm} strokeWidth={2} strokeDasharray="4 2" />
+            <text x={250} y={45 + (Et_pl / Eg_pl) * 165 + 20} fill={T.fnv_warm} fontSize={9} fontWeight={700}>hν = {(Eg_pl - Et_pl).toFixed(2)} eV</text>
+          </>}
+
+          <text x={200} y={250} textAnchor="middle" fill={T.muted} fontSize={9}>
+            {plTick % 30 < 10 ? "Laser excites electron across band gap" : plTick % 30 < 20 ? "Band-to-band recombination: hν = E_g" : "Defect-mediated: hν = E_g − E_t"}
+          </text>
+        </svg>
+      </FAQAccordion>
+
+      <FAQAccordion title="Interactive: PL Spectrum Simulator" color={T.fnv_warm} isOpen={openItem === "pl_spectrum"} onClick={() => toggle("pl_spectrum")}>
+        <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+          <div style={{ flex: 1, minWidth: 220 }}>
+            <SliderRow label="E_g — band gap" value={Eg_pl} min={0.5} max={3.0} step={0.05} onChange={setEgPl} color={T.fnv_elec} unit=" eV" />
+            <SliderRow label="E_t — defect depth" value={Et_pl} min={0.05} max={1.5} step={0.01} onChange={setEtPl} color={T.fnv_warm} unit=" eV" />
+            <SliderRow label="T — temperature" value={T_pl} min={4} max={300} step={1} onChange={setTPl} color={T.fnv_accent} unit=" K" format={v => v.toFixed(0)} />
+            <SliderRow label="FWHM — linewidth" value={fwhm} min={0.005} max={0.2} step={0.005} onChange={setFwhm} color={T.fnv_main} unit=" eV" format={v => (v * 1000).toFixed(0) + " meV"} />
+          </div>
+          <div style={{ flex: 1, minWidth: 260 }}>
+            <svg width={W} height={H} style={{ background: T.bg, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "0 auto 10px" }}>
+              <rect x={pad.l} y={pad.t} width={pw} height={ph} fill={T.surface} />
+              {[0.5, 1.0, 1.5, 2.0, 2.5].map(E => E >= Emin && E <= Emax && (
+                <g key={E}>
+                  <line x1={toX(E)} y1={pad.t} x2={toX(E)} y2={pad.t + ph} stroke={T.border} strokeWidth={0.5} strokeDasharray="3,3" />
+                  <text x={toX(E)} y={H - 8} textAnchor="middle" fill={T.muted} fontSize={8}>{E.toFixed(1)}</text>
+                </g>
+              ))}
+              {/* BB peak */}
+              <polyline
+                points={Array.from({ length: 200 }, (_, i) => {
+                  const E = Emin + (i / 200) * (Emax - Emin);
+                  const I = gaussian(E, Ebbe, thermalBroad) * (T_pl < 50 ? 0.3 : 0.7);
+                  return `${toX(E)},${toY(I)}`;
+                }).join(" ")}
+                fill="none" stroke={T.fnv_elec} strokeWidth={2}
+              />
+              {/* Defect peak */}
+              <polyline
+                points={Array.from({ length: 200 }, (_, i) => {
+                  const E = Emin + (i / 200) * (Emax - Emin);
+                  const quench = 1 / (1 + 50 * Math.exp(-0.1 / (kB * Math.max(T_pl, 4))));
+                  const I = gaussian(E, Edefect, thermalBroad * 0.8) * quench;
+                  return `${toX(E)},${toY(I)}`;
+                }).join(" ")}
+                fill="none" stroke={T.fnv_warm} strokeWidth={2}
+              />
+              <text x={toX(Ebbe) + 5} y={toY(T_pl < 50 ? 0.25 : 0.65)} fill={T.fnv_elec} fontSize={8} fontWeight={700}>BB ({Ebbe.toFixed(2)} eV)</text>
+              {Edefect > Emin && <text x={toX(Edefect) - 5} y={toY(0.8) + 15} fill={T.fnv_warm} fontSize={8} fontWeight={700} textAnchor="end">Defect ({Edefect.toFixed(2)} eV)</text>}
+              <text x={pad.l + pw / 2} y={H - 2} textAnchor="middle" fill={T.muted} fontSize={9}>Photon Energy (eV)</text>
+              <text x={12} y={pad.t + ph / 2} textAnchor="middle" fill={T.muted} fontSize={9} transform={`rotate(-90,12,${pad.t + ph / 2})`}>PL Intensity (a.u.)</text>
+            </svg>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+              <ResultBox label="BB peak" value={`${Ebbe.toFixed(3)} eV`} color={T.fnv_elec} sub={`${(1240 / Ebbe).toFixed(0)} nm`} />
+              <ResultBox label="Defect peak" value={`${Edefect.toFixed(3)} eV`} color={T.fnv_warm} sub={`${(1240 / Edefect).toFixed(0)} nm`} />
+              <ResultBox label="k_BT" value={`${(kT * 1000).toFixed(1)} meV`} color={T.fnv_accent} sub={`at ${T_pl} K`} />
+              <ResultBox label="Broadening" value={`${(thermalBroad * 1000).toFixed(0)} meV`} color={T.fnv_main} sub={T_pl > 100 ? "thermal" : "intrinsic"} />
+            </div>
+          </div>
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="Step-by-Step Numerical Example: PL of CdTe with V_Cd" color={T.fnv_main} isOpen={openItem === "pl_example"} onClick={() => toggle("pl_example")}>
+        <div style={mdMathBlock}>
+          <span style={{ color: T.fnv_main, fontWeight: 800, fontSize: 14 }}>Given: CdTe with Cd vacancy</span><br />
+          {"  E_g(CdTe) = 1.50 eV at 10 K"}<br />
+          {"  V_Cd creates acceptor level at E_VB + 0.15 eV"}<br />
+          {"  → E_t = E_g − 0.15 = 1.35 eV below CB"}<br />
+          {"  Measurement at T = 10 K, laser λ = 532 nm (2.33 eV)"}<br /><br />
+
+          <span style={{ color: T.fnv_elec, fontWeight: 800, fontSize: 14 }}>Step 1: Identify expected PL peaks</span><br />
+          {"  Band-to-band:    hν_BB = E_g = 1.50 eV → λ = 1240/1.50 = 827 nm"}<br />
+          {"  Free-to-bound:   hν_FB = E_g − E_A = 1.50 − 0.15 = 1.35 eV → λ = 919 nm"}<br />
+          {"  Bound exciton:   hν_BX = E_g − E_x = 1.50 − 0.01 = 1.49 eV → λ = 832 nm"}<br /><br />
+
+          <span style={{ color: T.fnv_warm, fontWeight: 800, fontSize: 14 }}>Step 2: Peak linewidth</span><br />
+          {"  At 10 K: k_BT = 8.617×10⁻⁵ × 10 = 0.86 meV"}<br />
+          {"  Thermal broadening: ~1.8 k_BT ≈ 1.6 meV"}<br />
+          {"  Phonon replica spacing: ℏω_LO(CdTe) = 21 meV"}<br />
+          {"  → Expect sharp zero-phonon line + phonon sidebands at 21 meV intervals"}<br /><br />
+
+          <span style={{ color: T.fnv_accent, fontWeight: 800, fontSize: 14 }}>Step 3: Temperature-dependent quenching</span><br />
+          {"  At T = 10 K:  I(10K) = I₀ (maximum, no quenching)"}<br />
+          {"  At T = 100 K: I = I₀ / [1 + 50·exp(−0.15/0.00862)]"}<br />
+          {"               = I₀ / [1 + 50·exp(−17.4)]"}<br />
+          {"               = I₀ / [1 + 50·2.8×10⁻⁸] ≈ I₀ (still no quenching)"}<br />
+          {"  At T = 200 K: I = I₀ / [1 + 50·exp(−0.15/0.01723)]"}<br />
+          {"               = I₀ / [1 + 50·exp(−8.7)]"}<br />
+          {"               = I₀ / [1 + 50·1.66×10⁻⁴] ≈ I₀ / 1.008 (barely quenched)"}<br />
+          {"  At T = 300 K: I = I₀ / [1 + 50·exp(−0.15/0.02585)]"}<br />
+          {"               = I₀ / [1 + 50·0.00298]"}<br />
+          {"               = I₀ / 1.149 → "}<span style={{ color: T.fnv_warn, fontWeight: 700 }}>{"13% intensity loss at RT"}</span><br /><br />
+
+          <span style={{ color: T.fnv_main, fontWeight: 800, fontSize: 14 }}>Step 4: Defect identification</span><br />
+          {"  Observed: 1.35 eV peak → E_g − hν = 1.50 − 1.35 = 0.15 eV"}<br />
+          {"  Compare to DFT: V_Cd(2−/−) transition at E_VB + 0.14 eV"}<br />
+          {"  → "}<span style={{ color: T.fnv_main, fontWeight: 700 }}>{"Match! The 1.35 eV PL peak is identified as V_Cd"}</span>
+        </div>
+      </FAQAccordion>
+    </div>
+  );
+}
+
 // ── DEFECT SEMICONDUCTOR MODULE ──
 
 const DS_BLOCKS = [
@@ -19435,6 +19808,7 @@ const DS_BLOCKS = [
   { id: "entropy",   label: "Entropy Components",       color: T.eo_valence },
   { id: "workflow",  label: "Workflow & Transitions",    color: T.eo_cond },
   { id: "diagrams", label: "Defect Diagrams",            color: T.fnv_accent },
+  { id: "exptchar", label: "Experimental Characterization", color: T.fnv_warm },
   { id: "fnvcorr",  label: "FNV Correction",            color: T.fnv_main },
 ];
 
@@ -19456,6 +19830,8 @@ const DS_SECTIONS = [
   { id:"chempoteff", block:"diagrams", label:"Chemical Potentials",     color:T.fnv_align,  Component:ChemPotEffectSection, nextReason:"Chemical potentials determine which defects form. Combining native donors and acceptors reveals whether the material can be doped p- or n-type." },
   { id:"dopability", block:"diagrams", label:"Dopability",              color:T.fnv_warn,   Component:DopabilitySection, nextReason:"Dopability windows are established. The final step connects defect formation energies to actual carrier concentrations via the charge neutrality equation." },
   { id:"carriers",  block:"diagrams", label:"Carrier Concentrations",   color:T.fnv_accent, Component:CarrierConcentrationSection, nextReason:"Carrier concentrations complete the defect picture. The FNV correction ensures the underlying DFT formation energies are accurate for charged defects." },
+  { id:"dlts",      block:"exptchar", label:"DLTS",                     color:T.fnv_warm,   Component:DLTSSection, nextReason:"DLTS identifies trap depths and emission rates from capacitance transients. Photoluminescence provides complementary information — the radiative recombination spectrum reveals defect energy levels directly from emitted photon energies." },
+  { id:"pl",        block:"exptchar", label:"Photoluminescence",        color:T.fnv_accent, Component:PLSection, nextReason:"PL identifies defect levels from emission spectra. The FNV correction ensures that the DFT formation energies used to predict these levels are accurate for charged defects in periodic supercells." },
   { id:"fnvcorr",   block:"fnvcorr",  label:"FNV Correction",           color:T.fnv_main,   Component:FNVCorrectionModule },
 ];
 
