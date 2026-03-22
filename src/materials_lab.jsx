@@ -20872,18 +20872,18 @@ function DefectSemiModule() {
 // MODULE TABS
 // ═══════════════════════════════════════════════════════════════════════════
 const MODULE_TABS = [
-  { id: "electrons",    chapter: 1,  label: "Atoms World",               color: T.eo_e,       desc: "From quantum foundations to crystal properties — the building blocks of all materials", topics: 21 },
-  { id: "dft",          chapter: 2,  label: "DFT Basics",                color: T.eo_e,       desc: "Density functional theory from first principles", topics: 14 },
-  { id: "convexhull",   chapter: 3,  label: "Computational Phase Diagram", color: T.eo_e,       desc: "Phase stability, convex hull, and chemical potential diagrams", topics: 12 },
-  { id: "md",           chapter: 4,  label: "Molecular Dynamics",        color: T.eo_e,       desc: "Classical and ab initio molecular dynamics", topics: 10 },
-  { id: "defectsemi",   chapter: 5,  label: "Defects in Semiconductors", color: T.eo_e,       desc: "Point defect thermodynamics — formation energy, entropy, equilibrium concentrations, defect diagrams, and FNV correction", topics: 18 },
-  { id: "cdtesolar",    chapter: 6,  label: "CdTe Solar Cell",           color: T.eo_e,       desc: "CdTe device physics and defect engineering", topics: 15 },
-  { id: "forcefield",   chapter: 7,  label: "Force Fields",              color: T.eo_e,       desc: "Classical and machine-learned interatomic potentials — from harmonic bonds to ReaxFF and EAM", topics: 12 },
-  { id: "pipeline",     chapter: 8,  label: "MLFF Pipeline",             color: T.eo_e,       desc: "DefectNet force field: graph neural network step by step", topics: 14 },
-  { id: "llmdatamining", chapter: 9, label: "LLM Data Mining",           color: T.eo_e,       desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", topics: 3 },
-  { id: "characterization", chapter: 10, label: "Materials Characterization", color: T.eo_e, desc: "XRD, XPS, SEM, TEM, AFM, STM, Raman, XANES — interactive guides to every major characterization technique", topics: 18 },
-  { id: "mlintro", chapter: 11, label: "Introduction to ML", color: T.eo_e, desc: "Machine learning foundations, algorithms, neural networks, and applications in materials science", topics: 20 },
-  { id: "synthesis", chapter: 12, label: "Materials Synthesis", color: T.eo_e, desc: "CVD, PVD, sol-gel, ALD, MBE, spin coating, hydrothermal — step-by-step animated synthesis methods", topics: 8 },
+  { id: "electrons",        chapter: 1,  label: "Atoms World",               color: T.eo_e, desc: "From quantum foundations to crystal properties — the building blocks of all materials", topics: 21 },
+  { id: "synthesis",        chapter: 2,  label: "Materials Synthesis",        color: T.eo_e, desc: "CVD, PVD, sol-gel, ALD, MBE, spin coating, hydrothermal — step-by-step animated synthesis methods", topics: 8 },
+  { id: "characterization", chapter: 3,  label: "Materials Characterization", color: T.eo_e, desc: "XRD, XPS, SEM, TEM, AFM, STM, Raman, XANES — interactive guides to every major characterization technique", topics: 18 },
+  { id: "dft",              chapter: 4,  label: "DFT Basics",                color: T.eo_e, desc: "Density functional theory from first principles", topics: 14 },
+  { id: "md",               chapter: 5,  label: "Molecular Dynamics",        color: T.eo_e, desc: "Classical and ab initio molecular dynamics", topics: 10 },
+  { id: "convexhull",       chapter: 6,  label: "Computational Phase Diagram", color: T.eo_e, desc: "Phase stability, convex hull, and chemical potential diagrams", topics: 12 },
+  { id: "defectsemi",       chapter: 7,  label: "Defects in Semiconductors", color: T.eo_e, desc: "Point defect thermodynamics — formation energy, entropy, equilibrium concentrations, defect diagrams, and FNV correction", topics: 18 },
+  { id: "cdtesolar",        chapter: 8,  label: "CdTe Solar Cell",           color: T.eo_e, desc: "CdTe device physics and defect engineering", topics: 15 },
+  { id: "forcefield",       chapter: 9,  label: "Force Fields",              color: T.eo_e, desc: "Classical and machine-learned interatomic potentials — from harmonic bonds to ReaxFF and EAM", topics: 12 },
+  { id: "pipeline",         chapter: 10, label: "MLFF Pipeline",             color: T.eo_e, desc: "DefectNet force field: graph neural network step by step", topics: 14 },
+  { id: "mlintro",          chapter: 11, label: "Introduction to ML",        color: T.eo_e, desc: "Machine learning foundations, algorithms, neural networks, and applications in materials science", topics: 20 },
+  { id: "llmdatamining",    chapter: 12, label: "LLM Data Mining",           color: T.eo_e, desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", topics: 3 },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════

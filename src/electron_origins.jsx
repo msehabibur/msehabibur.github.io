@@ -8405,7 +8405,7 @@ function FAQAccordion({ title, color, isOpen, onClick, children }) {
 function AtomsBigQuestionsSection() {
   const [openQ, setOpenQ] = useState("AQ1");
   const toggle = (q) => setOpenQ(openQ === q ? null : q);
-  const mb = { fontFamily: "monospace", fontSize: 13, lineHeight: 1.9, background: T.surface, borderRadius: 10, padding: "14px 18px", border: `1px solid ${T.border}40`, marginBottom: 10 };
+  const mb = { fontFamily: "'Georgia', 'Times New Roman', serif", fontSize: 15, lineHeight: 2.0, background: T.surface, borderRadius: 12, padding: "18px 22px", border: `1px solid ${T.border}40`, marginBottom: 10 };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
