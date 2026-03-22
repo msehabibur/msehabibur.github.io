@@ -590,6 +590,31 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             </ul>
           </Card>
 
+          <SectionTitle color={T.blue}>Interactive Learning Modules</SectionTitle>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 12 }}>
+            {BLOG_CHAPTERS.map(ch => (
+              <div key={ch.id} onClick={() => onNavigate && onNavigate(ch.id)} style={{
+                background: T.panel, borderRadius: 12, border: `1px solid ${T.border}`,
+                padding: "18px 18px 14px", cursor: "pointer", transition: "all 0.2s",
+                position: "relative", overflow: "hidden",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = T.accent; e.currentTarget.style.boxShadow = `0 4px 16px ${T.accent}15`; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.boxShadow = "none"; }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                  <div>
+                    <div style={{ fontSize: 10, color: T.accent, fontWeight: 700, letterSpacing: 1 }}>
+                      CHAPTER {ch.chapter}
+                    </div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: T.ink }}>{ch.label}</div>
+                  </div>
+                </div>
+                <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.5 }}>{ch.desc}</div>
+                <div style={{ marginTop: 10, fontSize: 11, color: T.accent, fontWeight: 600 }}>Read chapter {"\u2192"}</div>
+              </div>
+            ))}
+          </div>
+
         </div>
       )}
 
