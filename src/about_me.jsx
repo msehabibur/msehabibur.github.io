@@ -202,7 +202,7 @@ const TABS = [
   { id: "conferences",   label: "Conferences" },
   { id: "awards",        label: "Awards" },
   { id: "software",      label: "Software" },
-  { id: "blog",          label: "Element 119" },
+  { id: "blog",          label: "MicroLab" },
 ];
 
 const BLOG_CHAPTERS = [
