@@ -13,6 +13,7 @@ import MLIntroModule from "./ml_intro.jsx";
 import SSSynthesisMovieModule from "./ss_synthesis_movie.jsx";
 import MongoDBMovieModule from "./mongodb_movie.jsx";
 import CdTeSolarCellModule from "./cdte_solar.jsx";
+import MaterialsSynthesisModule from "./materials_synthesis.jsx";
 import MDMovieModule from "./md_movie.jsx";
 import AboutMeModule from "./about_me.jsx";
 
@@ -20780,6 +20781,7 @@ const MODULE_TABS = [
   { id: "llmdatamining", chapter: 9, label: "LLM Data Mining",           color: T.eo_e,       desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", topics: 3 },
   { id: "characterization", chapter: 10, label: "Materials Characterization", color: T.eo_e, desc: "XRD, XPS, SEM, TEM, AFM, STM, Raman, XANES — interactive guides to every major characterization technique", topics: 18 },
   { id: "mlintro", chapter: 11, label: "Introduction to ML", color: T.eo_e, desc: "Machine learning foundations, algorithms, neural networks, and applications in materials science", topics: 20 },
+  { id: "synthesis", chapter: 12, label: "Materials Synthesis", color: T.eo_e, desc: "CVD, PVD, sol-gel, ALD, MBE, spin coating, hydrothermal — step-by-step animated synthesis methods", topics: 8 },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -20963,6 +20965,7 @@ export default function MaterialsLab({ initialModule = null, blogMode = false })
       {module === "defectsemi" && <ErrorBoundary><DefectSemiModule /></ErrorBoundary>}
       {module === "characterization" && <ErrorBoundary><CharacterizationModule /></ErrorBoundary>}
       {module === "mlintro" && <ErrorBoundary><MLIntroModule /></ErrorBoundary>}
+      {module === "synthesis" && <MaterialsSynthesisModule />}
     </div>
   );
 }
