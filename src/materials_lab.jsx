@@ -6104,7 +6104,7 @@ const DFT_BLOCKS = [
   { id: "foundations", label: "Theoretical Foundations",  color: T.dft_main },
   { id: "functionals", label: "XC Functionals",          color: T.dft_xc },
   { id: "basissets",   label: "Basis Sets",              color: T.dft_eqn },
-  { id: "examples",    label: "Worked Examples",            color: T.dft_accent },
+  { id: "examples",    label: "Numerical Parameters",       color: T.dft_accent },
   { id: "movies",      label: "Movies",                   color: T.dft_warm },
 ];
 
@@ -10559,9 +10559,9 @@ const DFT_SECTIONS = [
   { id: "basis_intro", block: "basissets", label: "What is a Basis Set?", color: T.dft_eqn, Component: DFTBasisIntroSection, nextReason: "A basis set is chosen based on your system. For periodic crystals (solids), plane waves are the natural choice — they exploit translational symmetry perfectly and converge systematically by increasing a single parameter." },
   { id: "basis_pw",    block: "basissets", label: "Plane-Wave DFT",      color: T.dft_basis, Component: DFTPlaneWavesSection, nextReason: "Plane waves work beautifully for periodic systems, but what about molecules in vacuum? Gaussian basis sets are localized on atoms and designed for isolated systems — the workhorse of quantum chemistry." },
   { id: "basis_gto",   block: "basissets", label: "Gaussian DFT",        color: T.dft_accent, Component: DFTGaussianSection, nextReason: "Both approaches have strengths. The comparison reveals when each is ideal and how modern codes blur the boundary with hybrid methods like PAW and numerical atomic orbitals." },
-  { id: "basis_compare", block: "basissets", label: "PW vs Gaussian",    color: T.dft_warm, Component: DFTBasisCompareSection, nextReason: "Basis sets understood. The Worked Example lets you explore key DFT settings interactively — energy cutoff, k-point meshes, smearing, convergence thresholds — seeing how each knob affects convergence and accuracy." },
+  { id: "basis_compare", block: "basissets", label: "PW vs Gaussian",    color: T.dft_warm, Component: DFTBasisCompareSection, nextReason: "Basis sets understood. Numerical Parameters lets you explore key DFT settings interactively — energy cutoff, k-point meshes, smearing, convergence thresholds — seeing how each knob affects convergence and accuracy." },
 
-  { id: "dft_params",  block: "examples", label: "Worked Example",   color: T.dft_basis, Component: DFTParamsLabSection, nextReason: "Worked example complete. Now learn how DFT computes two of the most important material properties: band structure (which electron energies are allowed at each k-point) and density of states (how many states exist at each energy)." },
+  { id: "dft_params",  block: "examples", label: "Numerical Parameters",   color: T.dft_basis, Component: DFTParamsLabSection, nextReason: "Numerical parameters complete. Now learn how DFT computes two of the most important material properties: band structure (which electron energies are allowed at each k-point) and density of states (how many states exist at each energy)." },
   { id: "bands_dos",   block: "examples", label: "Band Structure & DOS", color: T.dft_xc, Component: DFTBandsDOSSection, nextReason: "Band structure and DOS understood. H and He give exact benchmarks — the only atoms where we can compare DFT approximations against known analytical solutions." },
   { id: "h_he_example", block: "examples", label: "H & He Analytic", color: T.dft_eqn, Component: DFTHHeExampleSection, nextReason: "H and He give exact benchmarks. The Na atom example now applies the full SCF machinery numerically — showing every iteration, orbital, and energy convergence in a real multi-electron system." },
   { id: "na_example",   block: "examples", label: "Na Atom Example",  color: T.dft_accent, Component: DFTNaExampleSection, nextReason: "Na atom done. The next example walks through every single SCF step with actual numbers — guessing the initial density, building v_KS, solving the eigenvalue problem with Davidson iteration, and checking convergence." },
