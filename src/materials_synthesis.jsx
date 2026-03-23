@@ -205,6 +205,27 @@ function CVDSection() {
           </div>
         </div>
       </FAQAccordion>
+
+      <FAQAccordion title="Solar Cell Absorbers by CVD" color={T.syn_main} isOpen={openItem === "cvd_solar"} onClick={() => toggle("cvd_solar")}>
+        <div style={{ fontSize: 11, lineHeight: 1.6, color: T.muted, marginBottom: 8 }}>CVD is widely used for depositing solar cell absorber layers and buffer/window layers. Here are key materials grown by CVD for photovoltaics:</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+          {[
+            { mat: "CdTe", eg: "1.44 eV", method: "Close-Space Sublimation (CSS)", recipe: "CdTe powder source at 600-640°C, substrate 550-580°C, N₂/O₂ ambient, 1-20 Torr. Growth rate 1-5 μm/min. First Solar uses Vapor Transport Deposition (VTD) variant.", eff: "~22.1% (First Solar record)", color: T.syn_cvd },
+            { mat: "CdSe₁₋ₓTeₓ", eg: "1.36-1.44 eV (tunable)", method: "CSS / co-sublimation", recipe: "CdSe and CdTe co-deposited or graded. CdSe layer first (~100 nm), then CdTe (~3 μm). Interdiffusion during CdCl₂ treatment creates graded CdSe₁₋ₓTeₓ alloy at junction.", eff: "~22.1% (graded bandgap boosts Jsc)", color: T.syn_main },
+            { mat: "CIGS (CuIn₁₋ₓGaₓSe₂)", eg: "1.0-1.7 eV (x-dependent)", method: "MOCVD / 3-stage co-evaporation", recipe: "Metal-organic precursors (Cu, In, Ga alkyls) + H₂Se at 400-550°C. Or hybrid: sputter metals then selenize in H₂Se/Se vapor at 500-550°C.", eff: "~23.6% (lab record, ZSW)", color: T.syn_pvd },
+            { mat: "a-Si:H (amorphous silicon)", eg: "1.7-1.8 eV", method: "PECVD", recipe: "SiH₄ + H₂ plasma at 200-250°C. RF power 10-50 mW/cm². H₂ dilution controls crystallinity. p-i-n structure deposited sequentially.", eff: "~14% (single junction), ~13% (tandem)", color: T.syn_sol },
+            { mat: "GaAs", eg: "1.42 eV (direct)", method: "MOCVD", recipe: "TMGa + AsH₃ at 600-700°C, V/III ratio ~50-100. Growth rate 1-3 μm/hr. AlGaAs window layer on top. Lift-off for flexible cells.", eff: "~29.1% (Alta Devices, single junction record)", color: T.syn_ald },
+          ].map(s => (
+            <div key={s.mat} style={{ background: s.color + "06", border: `1px solid ${s.color}18`, borderRadius: 8, padding: "8px 10px" }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: s.color }}>{s.mat}</div>
+              <div style={{ fontSize: 10, color: T.ink, marginTop: 2 }}>E<sub>g</sub> = {s.eg}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 4 }}><b>Method:</b> {s.method}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 2 }}><b>Recipe:</b> {s.recipe}</div>
+              <div style={{ fontSize: 10, color: s.color, fontWeight: 700, marginTop: 4 }}>Best η: {s.eff}</div>
+            </div>
+          ))}
+        </div>
+      </FAQAccordion>
     </div>
   );
 }
@@ -319,6 +340,27 @@ function PVDSection() {
 
           <text x={210} y={248} textAnchor="middle" fill={T.muted} fontSize={9} fontWeight={600}>{step.title}</text>
         </svg>
+      </FAQAccordion>
+
+      <FAQAccordion title="Solar Cell Absorbers by PVD" color={T.syn_main} isOpen={openItem === "pvd_solar"} onClick={() => toggle("pvd_solar")}>
+        <div style={{ fontSize: 11, lineHeight: 1.6, color: T.muted, marginBottom: 8 }}>PVD (sputtering, evaporation, PLD) is a primary deposition method for many solar absorber and contact layers:</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+          {[
+            { mat: "CZTS (Cu₂ZnSnS₄)", eg: "1.45-1.6 eV", method: "Co-sputtering + sulfurization", recipe: "Sputter Cu/Zn/Sn metal stack (~700 nm total) onto Mo-coated glass. Sulfurize in S₂/N₂ at 550-580°C for 30-60 min. Or reactive sputtering from CZTS target in Ar/H₂S.", eff: "~11.0% (earth-abundant alternative to CIGS)", color: T.syn_pvd },
+            { mat: "CIGS (CuIn₁₋ₓGaₓSe₂)", eg: "1.0-1.7 eV", method: "3-stage co-evaporation", recipe: "Stage 1: In+Ga+Se at 350°C. Stage 2: Cu+Se at 550°C (Cu-rich). Stage 3: In+Ga+Se at 550°C (back to Cu-poor). Se overpressure throughout. ~2 μm thick.", eff: "~23.6% (ZSW record)", color: T.syn_cvd },
+            { mat: "CdTe", eg: "1.44 eV", method: "RF magnetron sputtering", recipe: "CdTe target, Ar gas, 5-20 mTorr, substrate at 200-300°C. Post-deposition CdCl₂ treatment at 400°C. Slower than CSS but excellent uniformity for research cells.", eff: "~22.1% (CSS is preferred industrially)", color: T.syn_main },
+            { mat: "Sb₂Se₃", eg: "1.1-1.3 eV", method: "Thermal evaporation", recipe: "Sb₂Se₃ powder evaporated at 350-400°C, substrate at 300°C. 1D ribbon crystal structure — orient [001] perpendicular to substrate. Post-anneal in Se vapor.", eff: "~10.5% (emerging absorber)", color: T.syn_sol },
+            { mat: "Cu₂O (cuprous oxide)", eg: "2.0-2.1 eV", method: "Reactive sputtering", recipe: "Cu target in Ar/O₂ (O₂ 10-30%). Substrate RT-300°C. Phase-pure Cu₂O requires careful O₂ control. Wide-gap for tandem top cell or transparent PV.", eff: "~8.1% (oxide PV, all-earth-abundant)", color: T.syn_ald },
+          ].map(s => (
+            <div key={s.mat} style={{ background: s.color + "06", border: `1px solid ${s.color}18`, borderRadius: 8, padding: "8px 10px" }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: s.color }}>{s.mat}</div>
+              <div style={{ fontSize: 10, color: T.ink, marginTop: 2 }}>E<sub>g</sub> = {s.eg}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 4 }}><b>Method:</b> {s.method}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 2 }}><b>Recipe:</b> {s.recipe}</div>
+              <div style={{ fontSize: 10, color: s.color, fontWeight: 700, marginTop: 4 }}>Best η: {s.eff}</div>
+            </div>
+          ))}
+        </div>
       </FAQAccordion>
     </div>
   );
@@ -444,6 +486,27 @@ function SolGelSection() {
 
           <text x={210} y={238} textAnchor="middle" fill={T.muted} fontSize={9} fontWeight={600}>{step.title}</text>
         </svg>
+      </FAQAccordion>
+
+      <FAQAccordion title="Solar Cell Absorbers by Sol-Gel" color={T.syn_main} isOpen={openItem === "sg_solar"} onClick={() => toggle("sg_solar")}>
+        <div style={{ fontSize: 11, lineHeight: 1.6, color: T.muted, marginBottom: 8 }}>Sol-gel is a low-cost, solution-based route for depositing oxide and chalcogenide thin films for solar cells — no vacuum needed:</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+          {[
+            { mat: "MAPbI₃ (CH₃NH₃PbI₃)", eg: "1.55 eV", method: "Sol-gel spin/dip coating", recipe: "Dissolve PbI₂ + MAI (1:1) in DMF:DMSO (4:1) at 1M. Spin at 4000 rpm, anti-solvent drip (chlorobenzene) at 15s. Anneal 100°C 10 min. Perovskite crystallizes in seconds.", eff: "~26.1% (perovskite single junction record)", color: T.syn_sol },
+            { mat: "CsₓFA₁₋ₓPb(I₁₋ᵧBrᵧ)₃", eg: "1.2-2.3 eV (tunable)", method: "Mixed-cation sol-gel", recipe: "FAI + CsI + PbI₂ + PbBr₂ in DMF:DMSO. Cs stabilizes the black phase. Typical Cs₀.₀₅FA₀.₉₅Pb(I₀.₉₅Br₀.₀₅)₃. Anti-solvent method or vacuum flash.", eff: "~26.1% (state-of-art perovskite)", color: T.syn_cvd },
+            { mat: "CZTS (Cu₂ZnSnS₄)", eg: "1.5 eV", method: "Sol-gel + sulfurization", recipe: "Dissolve CuCl₂ + ZnCl₂ + SnCl₂ in 2-methoxyethanol + MEA. Spin coat 3-5 layers, dry at 300°C between coats. Sulfurize in S vapor at 550°C, 30 min.", eff: "~8.5% (low-cost earth-abundant)", color: T.syn_pvd },
+            { mat: "Sb₂S₃", eg: "1.7-1.8 eV", method: "Chemical bath / sol-gel", recipe: "SbCl₃ in acetone + Na₂S₂O₃ aqueous solution. Deposit at 5-10°C for 2 hrs. Anneal at 300°C in N₂. Or spin coat Sb₂S₃-thiourea complex, anneal 250°C.", eff: "~7.5% (wide-gap, Cd-free alternative to CdS)", color: T.syn_main },
+            { mat: "SnO₂ (ETL for perovskites)", eg: "3.6 eV", method: "Sol-gel spin coating", recipe: "SnCl₂·2H₂O in ethanol (0.1M). Spin 3000 rpm, anneal 150°C. Or SnO₂ nanoparticle colloidal solution (Alfa Aesar 15%). Electron transport layer for perovskite cells.", eff: "Used in >25% perovskite cells as ETL", color: T.syn_ald },
+          ].map(s => (
+            <div key={s.mat} style={{ background: s.color + "06", border: `1px solid ${s.color}18`, borderRadius: 8, padding: "8px 10px" }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: s.color }}>{s.mat}</div>
+              <div style={{ fontSize: 10, color: T.ink, marginTop: 2 }}>E<sub>g</sub> = {s.eg}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 4 }}><b>Method:</b> {s.method}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 2 }}><b>Recipe:</b> {s.recipe}</div>
+              <div style={{ fontSize: 10, color: s.color, fontWeight: 700, marginTop: 4 }}>Best η: {s.eff}</div>
+            </div>
+          ))}
+        </div>
       </FAQAccordion>
     </div>
   );
@@ -583,6 +646,27 @@ function ALDSection() {
           <text x={210} y={208} textAnchor="middle" fill={T.muted} fontSize={9} fontWeight={600}>{step.title}</text>
         </svg>
       </FAQAccordion>
+
+      <FAQAccordion title="Solar Cell Absorbers by ALD" color={T.syn_main} isOpen={openItem === "ald_solar"} onClick={() => toggle("ald_solar")}>
+        <div style={{ fontSize: 11, lineHeight: 1.6, color: T.muted, marginBottom: 8 }}>ALD excels at ultrathin, conformal layers — perfect for passivation, buffer, and interface engineering in solar cells:</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+          {[
+            { mat: "Al₂O₃ (passivation)", eg: "~8.8 eV (insulator)", method: "Thermal ALD", recipe: "TMA + H₂O at 150-200°C. ~1 Å/cycle, 10-30 nm total. Provides excellent surface passivation for Si and CIGS cells — reduces surface recombination velocity from ~10⁵ to ~10 cm/s.", eff: "Enables >26% c-Si cells (PERC/TOPCon)", color: T.syn_ald },
+            { mat: "TiO₂ (ETL for perovskites)", eg: "3.2 eV", method: "Thermal ALD", recipe: "TDMAT + H₂O at 150°C. ~0.5 Å/cycle. Compact, pinhole-free electron transport layer. Superior to sol-gel TiO₂ for blocking holes. 10-30 nm thick.", eff: "Used in >24% perovskite cells", color: T.syn_cvd },
+            { mat: "ZnO (TCO / buffer)", eg: "3.3 eV", method: "Thermal ALD", recipe: "DEZn + H₂O at 150-200°C. ~1.8 Å/cycle. Intrinsic or Al-doped (AZO). Buffer layer for CIGS replacing toxic CdS. Also used as TCO with Al doping.", eff: "Cd-free CIGS buffer → ~21% cells", color: T.syn_main },
+            { mat: "SnO₂ (ETL for perovskites)", eg: "3.6 eV", method: "Thermal ALD", recipe: "TDMASn + H₂O at 100-150°C. ~1.2 Å/cycle. Pin-hole free at just 15 nm. Better energy alignment than TiO₂ for wide-gap perovskites. Low-T compatible with flexible substrates.", eff: "Enables >25% perovskite cells", color: T.syn_pvd },
+            { mat: "Ga₂O₃ (passivation for CIGS)", eg: "4.8 eV", method: "Plasma-enhanced ALD", recipe: "TMGa + O₂ plasma at 150°C. Passivates CIGS surface states. Ultrathin 2-5 nm layer between CIGS absorber and CdS/ZnO buffer. Reduces interface recombination.", eff: "Boosts CIGS Voc by 30-50 mV", color: T.syn_sol },
+          ].map(s => (
+            <div key={s.mat} style={{ background: s.color + "06", border: `1px solid ${s.color}18`, borderRadius: 8, padding: "8px 10px" }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: s.color }}>{s.mat}</div>
+              <div style={{ fontSize: 10, color: T.ink, marginTop: 2 }}>E<sub>g</sub> = {s.eg}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 4 }}><b>Method:</b> {s.method}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 2 }}><b>Recipe:</b> {s.recipe}</div>
+              <div style={{ fontSize: 10, color: s.color, fontWeight: 700, marginTop: 4 }}>Best η: {s.eff}</div>
+            </div>
+          ))}
+        </div>
+      </FAQAccordion>
     </div>
   );
 }
@@ -662,6 +746,27 @@ function MBESection() {
           <text x={210} y={260} textAnchor="middle" fill={T.muted} fontSize={9}>Shutters control which beams reach substrate — monolayer control</text>
         </svg>
       </FAQAccordion>
+
+      <FAQAccordion title="Solar Cell Absorbers by MBE" color={T.syn_main} isOpen={openItem === "mbe_solar"} onClick={() => toggle("mbe_solar")}>
+        <div style={{ fontSize: 11, lineHeight: 1.6, color: T.muted, marginBottom: 8 }}>MBE produces the highest-quality single-crystal films — record-efficiency III-V solar cells are grown by MBE:</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+          {[
+            { mat: "GaAs", eg: "1.42 eV (direct)", method: "MBE on GaAs(100)", recipe: "Ga + As₄ beams, substrate 580-620°C, As/Ga BEP ratio ~15-20. Growth rate ~1 μm/hr. AlGaAs window + back surface field. Epitaxial lift-off for lightweight flexible cells.", eff: "~29.1% (single junction world record)", color: T.syn_mbe },
+            { mat: "InGaP/GaAs/InGaAs (triple junction)", eg: "1.9/1.42/1.0 eV", method: "MBE multi-layer", recipe: "Lattice-matched InGaP (top, 1.9 eV) / GaAs (middle, 1.42 eV) / InGaAs (bottom, ~1.0 eV). Tunnel junctions between each cell. Total thickness ~10 μm.", eff: "~39.2% (1-sun), ~47.6% (concentrated)", color: T.syn_cvd },
+            { mat: "CdTe/CdSe quantum dots", eg: "Tunable (QD size)", method: "MBE self-assembly", recipe: "CdTe on ZnTe or CdSe on ZnSe. Stranski-Krastanov growth mode forms QDs at ~2-5 ML coverage. QD size 3-8 nm controls bandgap. Intermediate band solar cell concept.", eff: "Research stage (intermediate band PV)", color: T.syn_pvd },
+            { mat: "GaSb", eg: "0.73 eV", method: "MBE on GaSb(100)", recipe: "Ga + Sb beams, substrate 500-530°C. Low bandgap for thermophotovoltaic (TPV) cells — converts infrared/heat radiation to electricity. Often in tandem with GaAs.", eff: "~32% (TPV, thermal radiation)", color: T.syn_sol },
+            { mat: "Perovskite/Si tandem (III-V tunnel junction by MBE)", eg: "1.7/1.12 eV", method: "MBE for recombination layer", recipe: "n⁺⁺-GaAs/p⁺⁺-GaAs tunnel junction (~20 nm) grown by MBE on Si. Perovskite top cell deposited by solution. MBE provides atomically sharp doping interface.", eff: "Tandem concept >30% target", color: T.syn_ald },
+          ].map(s => (
+            <div key={s.mat} style={{ background: s.color + "06", border: `1px solid ${s.color}18`, borderRadius: 8, padding: "8px 10px" }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: s.color }}>{s.mat}</div>
+              <div style={{ fontSize: 10, color: T.ink, marginTop: 2 }}>E<sub>g</sub> = {s.eg}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 4 }}><b>Method:</b> {s.method}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 2 }}><b>Recipe:</b> {s.recipe}</div>
+              <div style={{ fontSize: 10, color: s.color, fontWeight: 700, marginTop: 4 }}>Best η: {s.eff}</div>
+            </div>
+          ))}
+        </div>
+      </FAQAccordion>
     </div>
   );
 }
@@ -718,6 +823,27 @@ function SpinCoatingSection() {
           </div>
         </div>
       </FAQAccordion>
+
+      <FAQAccordion title="Solar Cell Absorbers by Spin Coating" color={T.syn_main} isOpen={openItem === "sc_solar"} onClick={() => toggle("sc_solar")}>
+        <div style={{ fontSize: 11, lineHeight: 1.6, color: T.muted, marginBottom: 8 }}>Spin coating is the dominant lab-scale method for perovskite and organic solar cells — simple, fast, and cheap:</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+          {[
+            { mat: "MAPbI₃ (methylammonium lead iodide)", eg: "1.55 eV", method: "1-step anti-solvent", recipe: "1.2M PbI₂ + MAI in DMF:DMSO (4:1). Spin 1000 rpm 10s then 4000 rpm 30s. Drip chlorobenzene at 15s mark. Anneal 100°C, 10 min. Golden-brown mirror film.", eff: "~21% (single cation)", color: T.syn_spin },
+            { mat: "FAPbI₃ (formamidinium lead iodide)", eg: "1.48 eV", method: "2-step sequential", recipe: "Step 1: Spin PbI₂ in DMF (1.3M) at 3000 rpm. Step 2: Dip in FAI/IPA solution (10 mg/mL) for 5 min at 60°C. Anneal 150°C, 15 min. MACl additive stabilizes black α-phase.", eff: "~25.7% (with MACl additive)", color: T.syn_cvd },
+            { mat: "RbCsMAFA perovskite (quadruple cation)", eg: "1.53-1.63 eV", method: "1-step spin coating", recipe: "FAI + MABr + CsI + RbI + PbI₂ + PbBr₂ in DMF:DMSO. Typical: Rb₀.₀₅Cs₀.₀₅MA₀.₁₅FA₀.₇₅Pb(I₀.₈₃Br₀.₁₇)₃. Anti-solvent at 25s. Anneal 100°C, 1hr.", eff: "~26.1% (quadruple cation record)", color: T.syn_pvd },
+            { mat: "Sn-Pb perovskite (narrow gap)", eg: "1.2-1.3 eV", method: "1-step in glovebox", recipe: "FASnI₃ + MAPbI₃ mixed (50:50). SnF₂ additive (10 mol%) prevents Sn²⁺ oxidation. MUST spin in N₂ glovebox (<0.1 ppm O₂). Anti-solvent toluene. Bottom cell for all-perovskite tandem.", eff: "~23.1% (in 4T tandem)", color: T.syn_main },
+            { mat: "PM6:Y6 (organic solar cell)", eg: "1.4 eV (optical gap)", method: "Spin from solution", recipe: "PM6:Y6 (1:1.2 w/w) in chloroform + 0.5% DIO additive, 16 mg/mL. Spin 3000 rpm 30s. Anneal 100°C 10 min. BHJ morphology with 20-30 nm domain size.", eff: "~19.3% (organic PV record)", color: T.syn_sol },
+          ].map(s => (
+            <div key={s.mat} style={{ background: s.color + "06", border: `1px solid ${s.color}18`, borderRadius: 8, padding: "8px 10px" }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: s.color }}>{s.mat}</div>
+              <div style={{ fontSize: 10, color: T.ink, marginTop: 2 }}>E<sub>g</sub> = {s.eg}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 4 }}><b>Method:</b> {s.method}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 2 }}><b>Recipe:</b> {s.recipe}</div>
+              <div style={{ fontSize: 10, color: s.color, fontWeight: 700, marginTop: 4 }}>Best η: {s.eff}</div>
+            </div>
+          ))}
+        </div>
+      </FAQAccordion>
     </div>
   );
 }
@@ -747,6 +873,27 @@ function HydrothermalSection() {
           {"  TiO₂ nanotubes: TiO₂ powder + 10M NaOH, 150°C, 24 hrs"}<br />
           {"  BaTiO₃:         BaCl₂ + TiO₂ + NaOH, 200°C, 12 hrs"}<br />
           {"  Zeolites:       Na₂SiO₃ + Al₂O₃ + template, 180°C, 48 hrs"}
+        </div>
+      </FAQAccordion>
+
+      <FAQAccordion title="Solar Cell Absorbers by Hydrothermal" color={T.syn_main} isOpen={openItem === "ht_solar"} onClick={() => toggle("ht_solar")}>
+        <div style={{ fontSize: 11, lineHeight: 1.6, color: T.muted, marginBottom: 8 }}>Hydrothermal synthesis produces nanostructured materials for solar cells — nanowires, nanoparticles, and quantum dots:</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+          {[
+            { mat: "ZnO nanowire arrays (ETL)", eg: "3.3 eV", method: "Hydrothermal growth on seed layer", recipe: "Seed: spin coat Zn acetate/ethanol, anneal 350°C. Growth: 25mM Zn(NO₃)₂ + 25mM HMTA in water, 90°C, 4 hrs. Nanowires ~50 nm dia, ~1 μm long. Direct electron pathway for perovskite/DSSC cells.", eff: "Enables ~18% perovskite on nanowire ETL", color: T.syn_hydro },
+            { mat: "TiO₂ nanoparticles (mesoporous ETL)", eg: "3.2 eV", method: "Hydrothermal crystallization", recipe: "Ti(OBu)₄ + HNO₃ + water, autoclave 200°C, 12 hrs. Produces ~20 nm anatase nanoparticles. Paste with ethyl cellulose/terpineol, doctor blade, sinter 500°C. Mesoporous scaffold for perovskite.", eff: "Standard in >25% mesoscopic perovskite cells", color: T.syn_cvd },
+            { mat: "CZTS nanocrystal ink", eg: "1.5 eV", method: "Hot-injection / hydrothermal", recipe: "CuCl₂ + ZnCl₂ + SnCl₄ + thiourea in ethylene glycol, 200°C autoclave, 24 hrs. Wash, disperse in hexanethiol. Spin/blade coat, selenize at 500°C. Low-cost ink-based absorber.", eff: "~9.0% (nanocrystal ink approach)", color: T.syn_pvd },
+            { mat: "CdSe quantum dots (QD solar cell)", eg: "1.7-2.5 eV (size-tunable)", method: "Hydrothermal in oleic acid", recipe: "CdO + Se powder + oleic acid + octadecene, 220°C autoclave, 4 hrs. QD size 3-6 nm controls bandgap. Ligand exchange to MPA for film deposition. Layer-by-layer spin coating.", eff: "~13.4% (PbS QD, CdSe as shell/ETL)", color: T.syn_main },
+            { mat: "Bi₂S₃ nanorods (emerging absorber)", eg: "1.3-1.7 eV", method: "Hydrothermal on FTO", recipe: "Bi(NO₃)₃ + Na₂S₂O₃ + EDTA in water, pH 2-3. Autoclave at 150°C, 12 hrs on FTO substrate. Vertically aligned nanorods ~200 nm dia. Non-toxic, earth-abundant absorber.", eff: "~1.5% (early stage, rapidly improving)", color: T.syn_sol },
+          ].map(s => (
+            <div key={s.mat} style={{ background: s.color + "06", border: `1px solid ${s.color}18`, borderRadius: 8, padding: "8px 10px" }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: s.color }}>{s.mat}</div>
+              <div style={{ fontSize: 10, color: T.ink, marginTop: 2 }}>E<sub>g</sub> = {s.eg}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 4 }}><b>Method:</b> {s.method}</div>
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 2 }}><b>Recipe:</b> {s.recipe}</div>
+              <div style={{ fontSize: 10, color: s.color, fontWeight: 700, marginTop: 4 }}>Best η: {s.eff}</div>
+            </div>
+          ))}
         </div>
       </FAQAccordion>
     </div>
