@@ -771,7 +771,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               }}>G</div>
               <div>
                 <div style={{ fontSize: 11, color: T.muted, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase" }}>Google Scholar</div>
-                <div style={{ fontSize: 20, fontWeight: 900, color: T.ink }}>740+ Citations</div>
+                <div style={{ fontSize: 20, fontWeight: 900, color: T.ink }}>760+ Citations</div>
                 <div style={{ fontSize: 12, color: T.muted }}>h-index: 18 · i10-index: 18</div>
               </div>
             </a>
