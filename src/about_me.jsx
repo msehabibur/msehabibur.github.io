@@ -542,7 +542,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
       {tab === "overview" && (
         <div>
           <Card style={{ textAlign: "center", padding: "36px 24px" }}>
-            <img src="/habibur.jpeg" alt="Md Habibur Rahman" style={{
+            <img src="/habibur.jpeg?v=2" alt="Md Habibur Rahman" style={{
               width: 110, height: 110, borderRadius: "50%", objectFit: "cover",
               margin: "0 auto 16px", display: "block",
               border: `3px solid ${T.accent}`,
