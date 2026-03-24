@@ -291,7 +291,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Gollapalli, P., Manganaris, P., Yadav, S.K., Pilania, G., DeCost, B., Choudhary, K., Mannodi-Kanakkithodi, A.",
     title: "Accelerating defect predictions in semiconductors using graph neural networks",
     journal: "APL Machine Learning, 2, 016122",
-    year: "2024", me: true, citations: 45,
+    year: "2024", me: true, citations: 50,
     abstract: "We develop a graph neural network framework for predicting point defect properties in semiconductors directly from crystal structure. Trained on a curated dataset of DFT-computed defect formation energies across multiple semiconductor families, the model achieves chemical accuracy while reducing computational cost by orders of magnitude, enabling rapid screening of defect-tolerant materials for optoelectronic applications.",
     highlights: ["Builds crystal graph convolutional neural network (CGCNN) and ALIGNN models trained on 1,500+ DFT defect calculations", "Covers vacancies, antisites, and substitutionals across 12 zinc-blende semiconductors (group IV, III-V, II-VI)", "Achieves MAE of 0.3 eV on defect formation energies\u2014sufficient to rank-order dominant defects per material", "Screens 100+ unexplored host-defect combinations and identifies 15 defect-tolerant candidates for validation"],
     link: "https://doi.org/10.1063/5.0176333",
@@ -488,7 +488,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
   // Set the mutable theme so all sub-components pick it up
   T = dark ? DARK : LIGHT;
 
-  const totalCitations = PUBLICATIONS.reduce((s, p) => s + (p.citations || 0), 0);
+  const totalCitations = 760;
 
   return (
     <div style={{
@@ -804,6 +804,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             { title: "2025 LLM Hackathon for Applications in Materials Science & Chemistry Winner — Abstrax Prize", org: "LLM Hackathon for Materials Science & Engineering", color: T.pink, link: "https://llmhackathon.github.io/awards/", github: "https://github.com/msehabibur/gcxgc_peakcards" },
             { title: "2025 Vashti L. Magoon Research Excellence Award", org: "Purdue University", color: T.accent, link: "https://engineering.purdue.edu/Engr/People/Awards/Graduate/ptRecipientListing?group_id=237384&show_sub_groups=1" },
             { title: "2025 Materials Informatics Fellowship", org: "GE Aerospace, Summer 2025 Internship", color: T.blue },
+            { title: "Frederick N. Andrews Environmental Travel Grant ($1,500)", org: "Purdue University Graduate School \u2014 Selected from many exceptional interdisciplinary applications across Purdue University for approved conference travel expenses.", color: T.green },
           ].map((award, i) => (
             <Card key={i} style={{ padding: "14px 16px", marginBottom: 10 }}>
               <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
