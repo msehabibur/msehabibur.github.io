@@ -382,32 +382,97 @@ function XRDSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.struct} formula="XRD of Silicon powder with Cu K\u03b1">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> Silicon powder measured using Cu K\u03b1 radiation (\u03bb = 1.5406 \u00c5). Identify the crystal structure and lattice parameter from the first diffraction peak.
+      <Card title="Numerical Example: A Day in the XRD Lab" color={C.struct} formula="XRD of Silicon powder with Cu Kα">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> A colleague hands you a jar of fine white powder and says, "We think this is high-purity silicon for our semiconductor project, but we need to confirm -- and check for any crystalline impurities." You take the powder to the XRD lab. You pack it into an aluminum sample holder, pressing with a glass slide to get a flat, uniform surface (important: random grain orientations give reliable peak intensities). You mount it in the Bruker D8 diffractometer and set up a θ-2θ scan.
         </div>
+
+        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine shining a flashlight through a chain-link fence at a specific angle. At most angles, the light just passes through or gets absorbed. But at one special angle, the light bounces perfectly off each row of wires and adds up into a bright reflection. XRD does the same thing with X-rays and planes of atoms -- only at specific angles (where Bragg's law is satisfied) do you get a bright "peak."
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the Instrument:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="X-ray wavelength (\u03bb)" value="1.5406 \u00c5 (Cu K\u03b1)" />
-          <InfoRow label="First peak 2\u03b8" value="28.44\u00b0" />
-          <InfoRow label="Peak Miller indices (hkl)" value="(111)" />
-          <InfoRow label="Peak intensity" value="100% (strongest)" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="X-ray source" value="Cu Kα (λ = 1.5406 Å)" />
+          <InfoRow label="Generator settings" value="40 kV, 40 mA" />
+          <InfoRow label="Scan range" value="10° to 90° 2θ" />
+          <InfoRow label="Step size" value="0.02° (fine enough to resolve peak shapes)" />
+          <InfoRow label="Dwell time per step" value="0.5 s (total scan ~33 min)" />
+          <InfoRow label="Why Cu Kα?" value="Most common lab source; good resolution for metals/ceramics" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Detector Records:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="Bragg's law: n\u03bb = 2d sin\u03b8" result="" color={C.struct} />
-          <CalcRow eq="\u03b8 = 28.44\u00b0 / 2" result="14.22\u00b0" color={C.struct} />
-          <CalcRow eq="d = 1.5406 / (2 \u00d7 sin 14.22\u00b0)" result="3.135 \u00c5" color={C.struct} />
-          <CalcRow eq="a = d \u00d7 \u221a(h\u00b2+k\u00b2+l\u00b2) = 3.135 \u00d7 \u221a3" result="5.431 \u00c5" color={C.struct} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Output" value="Intensity (counts) vs 2θ angle" />
+          <InfoRow label="Background level" value="~50 counts (flat, no amorphous hump)" />
+          <InfoRow label="First strong peak" value="28.44° 2θ, ~12,000 counts" />
+          <InfoRow label="Additional peaks" value="47.30°, 56.12°, 69.13°, 76.38°, 88.03°" />
+          <InfoRow label="Any unexpected peaks?" value="None -- pattern is clean" />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Focus on the First Peak (28.44° 2θ):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Peak position" value="2θ = 28.44°" />
+          <InfoRow label="Peak intensity" value="100% (strongest in pattern)" />
+          <InfoRow label="FWHM" value="0.12° (sharp → large crystallites)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Calculate d-spacing (Bragg's Law):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Bragg's law: nλ = 2d sinθ (n = 1)" result="" color={C.struct} />
+          <CalcRow eq="θ = 28.44° / 2 = 14.22°" result="" color={C.struct} />
+          <CalcRow eq="d = λ / (2 sinθ) = 1.5406 / (2 × sin 14.22°)" result="" color={C.struct} />
+          <CalcRow eq="d = 1.5406 / (2 × 0.2457)" result="3.135 Å" color={C.struct} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 5 -- Calculate Lattice Parameter:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="For cubic: d = a / √(h² + k² + l²)" result="" color={C.struct} />
+          <CalcRow eq="First peak of Si is (111), so h²+k²+l² = 3" result="" color={C.struct} />
+          <CalcRow eq="a = d × √3 = 3.135 × 1.732" result="5.431 Å" color={C.struct} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 6 -- Phase Identification (Match to Database):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="JCPDS/ICDD card match" value="27-1402 (Silicon, diamond cubic)" />
+          <InfoRow label="Reference a" value="5.4309 Å (your value: 5.431 Å → excellent match)" />
+          <InfoRow label="Space group" value="Fd3̄m (#227)" />
+          <InfoRow label="All 6 peaks accounted for?" value="Yes -- no unmatched peaks" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full Pattern Statistics:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Phase identified" value="Silicon (diamond cubic), single phase" />
+          <InfoRow label="Lattice parameter a" value="5.431 ± 0.001 Å" />
+          <InfoRow label="Crystallite size (Scherrer)" value="> 200 nm (instrument-limited FWHM)" />
+          <InfoRow label="Amorphous content" value="None detected (flat background)" />
+          <InfoRow label="Impurity phases" value="None detected to XRD sensitivity (~1-2 wt%)" />
+        </div>
+
         <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Lattice parameter a = 5.431 \u00c5 matches silicon diamond cubic structure (JCPDS 27-1402, a = 5.431 \u00c5). No impurity peaks detected in the full pattern, confirming single-phase crystalline Si.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The powder is confirmed as phase-pure crystalline silicon with lattice parameter a = 5.431 Å, matching the reference value exactly. No extra peaks means no crystalline impurity phases (like SiO₂ or SiC) above the ~1-2 wt% detection limit. The sharp peaks (FWHM = 0.12°) indicate large, well-crystallized grains -- this is not nanocrystalline or amorphous material.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>What if the results looked different?</strong> If you saw a broad hump centered at ~22° 2θ with no sharp peaks, the powder would be amorphous SiO₂ (silica glass), not crystalline Si. If you saw the Si peaks PLUS extra peaks at 26.6° and 20.8°, you would have a quartz (SiO₂) impurity. If the Si peaks were very broad (FWHM &gt; 1°), the crystallites would be nanoscale -- you could estimate their size with the Scherrer equation.
           </div>
         </div>
       </Card>
@@ -547,32 +612,97 @@ function EBSDSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.struct} formula="EBSD of Ni alloy grain boundary">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> EBSD mapping of a nickel superalloy after annealing at 800\u00b0C. Determine the grain boundary character between two adjacent grains.
+      <Card title="Numerical Example: A Day in the EBSD Lab" color={C.struct} formula="Grain boundary character in Ni superalloy">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> You are studying a nickel-based superalloy (Inconel 718) turbine blade that was annealed at 800°C for 2 hours.
+          Your goal: understand the grain boundary network, because high-angle grain boundaries are weak spots for creep failure at high temperature.
+          You polish the sample down to 0.05 µm colloidal silica, mount it in the SEM at 70° tilt, and start the EBSD scan.
         </div>
+
+        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine each grain is a book lying on a table. Two books lying almost flat but tilted slightly differently (say 5° apart) -- that is a low-angle boundary. Two books where one is flat and one is standing up (45° apart) -- that is a high-angle boundary. EBSD reads the exact "tilt" of every book across the entire table.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the Scan:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="Grain 1 Euler angles (\u03c6\u2081, \u03a6, \u03c6\u2082)" value="(45\u00b0, 32\u00b0, 67\u00b0)" />
-          <InfoRow label="Grain 2 Euler angles (\u03c6\u2081, \u03a6, \u03c6\u2082)" value="(48\u00b0, 35\u00b0, 70\u00b0)" />
-          <InfoRow label="Step size" value="0.5 \u00b5m" />
-          <InfoRow label="Indexing confidence (CI)" value="0.92" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="SEM accelerating voltage" value="20 kV" />
+          <InfoRow label="Working distance" value="15 mm" />
+          <InfoRow label="Sample tilt" value="70° (required for EBSD)" />
+          <InfoRow label="Step size chosen" value="0.5 µm (smaller than smallest expected grain)" />
+          <InfoRow label="Scan area" value="200 x 200 µm (400 x 400 = 160,000 points)" />
+          <InfoRow label="Time per point" value="~30 ms (total scan: ~80 min)" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Detector Records (at each of 160,000 points):</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="Convert Euler angles to orientation matrices g\u2081, g\u2082" result="" color={C.struct} />
-          <CalcRow eq="Misorientation matrix \u0394g = g\u2082 \u00b7 g\u2081\u207b\u00b9" result="" color={C.struct} />
-          <CalcRow eq="Misorientation angle \u03b8 = arccos[(tr(\u0394g) - 1) / 2]" result="\u2248 5\u00b0" color={C.struct} />
-          <CalcRow eq="Boundary type: \u03b8 < 15\u00b0" result="Low-angle GB" color={C.struct} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Kikuchi pattern (raw)" value="Bands of diffracted electrons on phosphor screen" />
+          <InfoRow label="Software auto-indexes bands" value="Finds zone axes, matches to Ni FCC crystal" />
+          <InfoRow label="Output per pixel" value="Three Euler angles (φ₁, Φ, φ₂) = crystal orientation" />
+          <InfoRow label="Confidence Index (CI)" value="0.92 (scale 0-1; above 0.1 is reliable)" />
+          <InfoRow label="Image Quality (IQ)" value="Higher = sharper Kikuchi bands = less deformation" />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Example: Two Adjacent Grains from Your Map:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Grain A orientation (φ₁, Φ, φ₂)" value="(45.2°, 32.1°, 67.4°)" />
+          <InfoRow label="Grain B orientation (φ₁, Φ, φ₂)" value="(48.0°, 35.3°, 70.1°)" />
+          <InfoRow label="Both grains" value="Indexed as FCC Ni (CI > 0.9)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Calculate the Misorientation:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Convert each set of Euler angles to a 3x3 rotation matrix" result="g_A, g_B" color={C.struct} />
+          <CalcRow eq="Compute misorientation: Δg = g_B · g_A⁻¹" result="3x3 matrix" color={C.struct} />
+          <CalcRow eq="Extract angle: θ = arccos[(trace(Δg) - 1) / 2]" result="" color={C.struct} />
+          <CalcRow eq="trace(Δg) = 2.989 (close to 3 means small rotation)" result="" color={C.struct} />
+          <CalcRow eq="θ = arccos[(2.989 - 1) / 2] = arccos(0.9945)" result="≈ 5.0°" color={C.struct} />
+          <CalcRow eq="Apply FCC crystal symmetry (24 operators)" result="Minimum angle = 5.0°" color={C.struct} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 5 -- Classify the Boundary:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="θ = 5° vs. threshold 15°" result="5° < 15° → LAGB" color={C.struct} />
+          <CalcRow eq="Low-angle GB (LAGB)" result="Sub-grain boundary" color={C.struct} />
+          <CalcRow eq="Brandon criterion for CSL: Δθ < 15°/Σ^(1/2)" result="" color={C.struct} />
+          <CalcRow eq="Not a special CSL boundary (Σ3, Σ5, etc.)" result="General LAGB" color={C.struct} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 6 -- Full Map Statistics (from all 160,000 scan points):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Total grains detected" value="342" />
+          <InfoRow label="Average grain diameter" value="12.4 µm" />
+          <InfoRow label="Low-angle GBs (< 15°)" value="28% of all boundaries" />
+          <InfoRow label="High-angle GBs (> 15°)" value="72% of all boundaries" />
+          <InfoRow label="Σ3 twin boundaries" value="38% of HAGBs (common in FCC Ni)" />
+          <InfoRow label="Average CI across map" value="0.87 (excellent indexing quality)" />
+          <InfoRow label="Dominant texture" value="Weak {100} cube texture from recrystallization" />
+        </div>
+
         <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Misorientation of ~5\u00b0 classifies this as a low-angle grain boundary (LAGB, less than 15\u00b0 threshold). This is likely a sub-grain boundary formed by dislocation rearrangement during recovery in the 800\u00b0C anneal. LAGBs have lower energy and are more resistant to corrosion than high-angle boundaries.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The specific boundary between Grain A and B has only 5° misorientation -- a low-angle grain boundary (LAGB). This means the two grains are almost the same crystal, separated by an array of dislocations that rearranged during the 800°C anneal (a process called recovery). LAGBs are desirable: they resist crack initiation and corrosion better than random high-angle boundaries.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            Looking at the full map: 38% of all high-angle boundaries are Σ3 twins -- this is excellent. Σ3 twin boundaries have very low energy, resist oxidation, and don't contribute to intergranular cracking. This high twin fraction is a signature of the annealing treatment and is deliberately engineered in "grain boundary engineering" to improve creep life and corrosion resistance in turbine blades.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>Bottom line:</strong> This alloy's grain boundary network looks healthy for high-temperature service. The combination of 28% LAGBs + 38% Σ3 twins means most boundaries are resistant to degradation. If you saw mostly random HAGBs with few twins, you would recommend a different heat treatment.
           </div>
         </div>
       </Card>
@@ -697,32 +827,90 @@ function TEMDiffractionSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.struct} formula="SAED of BCC iron at 200 kV">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> Selected area electron diffraction (SAED) of a BCC iron thin foil at 200 kV accelerating voltage. Identify the crystal structure from the diffraction ring pattern.
+      <Card title="Numerical Example: A Day in the TEM Diffraction Lab" color={C.struct} formula="SAED of BCC iron at 200 kV">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> You are investigating the crystal structure of an iron thin foil that was electropolished from a bulk sample of what should be pure α-iron (BCC). You prepared the foil by jet electropolishing in a perchloric acid/ethanol solution until you got a small hole with electron-transparent edges. You insert the 3 mm disc into the TEM specimen holder, load it into a 200 kV JEOL TEM, and switch to diffraction mode.
         </div>
+
+        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine throwing a handful of pebbles at a picket fence. Most pebbles miss, but at certain angles they ricochet off the regularly spaced slats in a predictable pattern. In SAED, electrons are the pebbles and atomic planes are the slats. If you have a single crystal, you get an orderly pattern of bright dots (one for each set of planes). If you have many tiny crystals at random orientations, those dots smear into concentric rings.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the TEM:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="Accelerating voltage" value="200 kV" />
-          <InfoRow label="Electron wavelength (\u03bb)" value="0.02508 \u00c5" />
-          <InfoRow label="Camera length (L)" value="500 mm" />
-          <InfoRow label="First ring radius (R\u2081)" value="6.18 mm" />
+          <InfoRow label="Electron wavelength (relativistic)" value="0.02508 Å (much smaller than X-rays!)" />
+          <InfoRow label="Camera length L" value="500 mm (set via intermediate lens excitation)" />
+          <InfoRow label="Selected area aperture" value="200 µm (selects ~2 µm region on sample)" />
+          <InfoRow label="Why 200 kV?" value="Good penetration through ~100 nm foil; small λ for sharp spots" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Detector Records:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="d = \u03bbL / R (camera equation)" result="" color={C.struct} />
-          <CalcRow eq="d\u2081 = 0.02508 \u00d7 500 / 6.18" result="2.028 \u00c5" color={C.struct} />
-          <CalcRow eq="Compare: BCC Fe (110) d-spacing" result="2.027 \u00c5 \u2713" color={C.struct} />
-          <CalcRow eq="Ratio check: d\u2081/d\u2082 = \u221a2 for BCC" result="Confirms BCC" color={C.struct} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Pattern on screen" value="Bright spot at center (transmitted beam) + ring pattern" />
+          <InfoRow label="Ring vs spot pattern" value="Rings → polycrystalline (many grains in selected area)" />
+          <InfoRow label="First ring radius R₁" value="6.18 mm (measured from CCD image)" />
+          <InfoRow label="Second ring radius R₂" value="8.74 mm" />
+          <InfoRow label="Third ring radius R₃" value="10.71 mm" />
+          <InfoRow label="Ring sharpness" value="Sharp, well-defined → crystalline grains (not amorphous)" />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Measure the First Ring:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Ring 1 radius R₁" value="6.18 mm" />
+          <InfoRow label="Ring 1 intensity" value="Strong (consistent with (110) being BCC's strongest reflection)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Calculate d-spacing (Camera Equation):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Camera equation: Rd = λL" result="" color={C.struct} />
+          <CalcRow eq="d₁ = λL / R₁ = 0.02508 × 500 / 6.18" result="" color={C.struct} />
+          <CalcRow eq="d₁ = 12.54 / 6.18" result="2.028 Å" color={C.struct} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 5 -- Identify the Structure Using Ring Ratios:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="d₂ = λL / R₂ = 12.54 / 8.74" result="1.435 Å" color={C.struct} />
+          <CalcRow eq="d₃ = λL / R₃ = 12.54 / 10.71" result="1.171 Å" color={C.struct} />
+          <CalcRow eq="Ratio R₂/R₁ = 8.74/6.18" result="1.414 = √2" color={C.struct} />
+          <CalcRow eq="Ratio R₃/R₁ = 10.71/6.18" result="1.732 = √3" color={C.struct} />
+          <CalcRow eq="√2, √3 sequence → BCC structure" result="Confirmed BCC!" color={C.struct} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 6 -- Match to Reference (BCC Fe, a = 2.866 Å):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Ring 1: d = 2.028 Å" value="BCC (110): d = 2.027 Å ✓" />
+          <InfoRow label="Ring 2: d = 1.435 Å" value="BCC (200): d = 1.433 Å ✓" />
+          <InfoRow label="Ring 3: d = 1.171 Å" value="BCC (211): d = 1.170 Å ✓" />
+          <InfoRow label="Lattice parameter from d₁" value="a = d₁ × √2 = 2.028 × 1.414 = 2.868 Å" />
+          <InfoRow label="Reference a for α-Fe" value="2.866 Å (within 0.1% error)" />
+        </div>
+
         <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            First ring d-spacing of 2.028 \u00c5 matches BCC Fe (110) at 2.027 \u00c5. The [001] zone axis pattern confirms BCC structure. Ring pattern (rather than spots) indicates polycrystalline or nanocrystalline sample.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The ring pattern confirms this is polycrystalline (many small grains) rather than a single crystal (which would give discrete spots). The ring radii follow the √2, √3 ratio sequence, which is the fingerprint of a BCC structure. All three measured d-spacings match α-iron (BCC, a = 2.866 Å) to within measurement error.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            The sharp rings (not diffuse halos) tell you the grains are crystalline, not amorphous. If you had tilted to a single grain and seen a spot pattern instead, you could index the zone axis and determine that specific grain's orientation. If unexpected extra rings appeared (say at d = 2.52 Å), you would suspect an oxide phase like Fe₃O₄ forming on the foil surface during preparation.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>Bottom line:</strong> This is confirmed as polycrystalline α-iron (BCC) with no detectable secondary phases. The ring pattern also tells you the selected area contains enough randomly oriented grains to produce complete rings -- if you had only a few grains, you would see spotty, incomplete rings.
           </div>
         </div>
       </Card>
@@ -1061,35 +1249,95 @@ function XPSSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.surface} formula="XPS of CdTe solar cell surface">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> XPS survey of a CdTe thin-film solar cell surface using Al K\u03b1 source (h\u03bd = 1486.6 eV). Determine surface stoichiometry and check for oxidation.
+      <Card title="Numerical Example: A Day in the XPS Lab" color={C.surface} formula="XPS of CdTe solar cell surface">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> Your CdTe thin-film solar cell has been sitting in a drawer for two weeks and the efficiency dropped from 14.2% to 12.8%. You suspect the CdTe surface oxidized during storage, which would create a resistive barrier at the back contact. You load the sample into the XPS ultra-high vacuum (UHV) chamber through the loadlock, pump down, and wait for the pressure to reach &lt; 5 × 10⁻⁹ torr before transferring to the analysis chamber.
         </div>
+
+        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine throwing tennis balls (X-ray photons) at a wall of differently-weighted bricks. Each brick type needs a specific amount of energy to knock it loose. By measuring how fast the knocked-out bricks fly, you figure out how tightly each one was held -- and that tells you exactly what material the wall is made of and whether it has rusted (oxidized).
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the Measurement:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="Source" value="Al K\u03b1, h\u03bd = 1486.6 eV" />
-          <InfoRow label="Cd 3d\u2085/\u2082 binding energy" value="405.0 eV" />
-          <InfoRow label="Te 3d\u2085/\u2082 binding energy" value="572.9 eV" />
-          <InfoRow label="Cd 3d\u2085/\u2082 peak area (corrected)" value="18,450 counts" />
-          <InfoRow label="Te 3d\u2085/\u2082 peak area (corrected)" value="16,050 counts" />
-          <InfoRow label="Work function (\u03c6)" value="4.5 eV" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="X-ray source" value="Al Kα (monochromated), hν = 1486.6 eV" />
+          <InfoRow label="Chamber pressure" value="3 × 10⁻⁹ torr (UHV needed so surface stays clean)" />
+          <InfoRow label="Beam spot size" value="400 µm (area-averaging multiple grains)" />
+          <InfoRow label="Pass energy (survey)" value="160 eV (fast overview)" />
+          <InfoRow label="Pass energy (high-res)" value="20 eV (for chemical state analysis)" />
+          <InfoRow label="Work function (φ)" value="4.5 eV (instrument-calibrated)" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Detector Records:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="E_kin(Cd) = h\u03bd - E_B - \u03c6 = 1486.6 - 405.0 - 4.5" result="1077.1 eV" color={C.surface} />
-          <CalcRow eq="Cd/Te area ratio = 18450/16050" result="1.15" color={C.surface} />
-          <CalcRow eq="Apply sensitivity factors: Cd(SF=10.4), Te(SF=12.7)" result="" color={C.surface} />
-          <CalcRow eq="Cd at% = (18450/10.4) / [(18450/10.4)+(16050/12.7)]" result="58.4%" color={C.surface} />
-          <CalcRow eq="Cd:Te ratio" result="0.52 : 0.48" color={C.surface} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Survey scan (0-1400 eV)" value="Peaks visible for Cd, Te, C, O" />
+          <InfoRow label="Cd 3d doublet" value="405.0 eV (3d₅/₂) and 411.7 eV (3d₃/₂)" />
+          <InfoRow label="Te 3d doublet" value="572.9 eV (3d₅/₂) and 583.3 eV (3d₃/₂)" />
+          <InfoRow label="C 1s peak" value="284.8 eV (adventitious carbon from air exposure)" />
+          <InfoRow label="O 1s peak" value="531.0 eV (very weak -- good sign!)" />
+          <InfoRow label="Analysis depth" value="~5-10 nm (only the top few atomic layers)" />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Check for Oxidation (High-Res Te 3d Region):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Te 3d₅/₂ position" value="572.9 eV (matches CdTe reference)" />
+          <InfoRow label="TeO₂ expected position" value="576.4 eV (3.5 eV higher if oxidized)" />
+          <InfoRow label="Any shoulder at 576.4 eV?" value="None detected -- no TeO₂!" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Calculate Kinetic Energy:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="E_kin = hν - E_bind - φ" result="" color={C.surface} />
+          <CalcRow eq="E_kin(Cd 3d₅/₂) = 1486.6 - 405.0 - 4.5" result="1077.1 eV" color={C.surface} />
+          <CalcRow eq="E_kin(Te 3d₅/₂) = 1486.6 - 572.9 - 4.5" result="909.2 eV" color={C.surface} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 5 -- Quantify Cd:Te Ratio (from Peak Areas):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Cd 3d₅/₂ peak area (Shirley background subtracted)" result="18,450 counts" color={C.surface} />
+          <CalcRow eq="Te 3d₅/₂ peak area (Shirley background subtracted)" result="16,050 counts" color={C.surface} />
+          <CalcRow eq="Sensitivity factors: Cd(SF=10.4), Te(SF=12.7)" result="" color={C.surface} />
+          <CalcRow eq="Normalized Cd = 18450 / 10.4" result="1774" color={C.surface} />
+          <CalcRow eq="Normalized Te = 16050 / 12.7" result="1264" color={C.surface} />
+          <CalcRow eq="Cd at% = 1774 / (1774 + 1264) × 100" result="58.4%" color={C.surface} />
+          <CalcRow eq="Te at% = 1264 / (1774 + 1264) × 100" result="41.6%" color={C.surface} />
+          <CalcRow eq="Cd:Te ratio" result="1.40 (Cd-rich surface)" color={C.surface} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full Surface Composition:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Cd" value="42.1 at% (including C and O in total)" />
+          <InfoRow label="Te" value="30.0 at%" />
+          <InfoRow label="C (adventitious)" value="22.3 at% (surface contamination)" />
+          <InfoRow label="O" value="5.6 at% (minor -- mostly from C-O bonds)" />
+          <InfoRow label="Cd:Te (excluding C, O)" value="1.40 : 1 (Cd-enriched)" />
+        </div>
+
         <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Near-stoichiometric CdTe surface with slight Cd excess (Cd:Te = 0.52:0.48). No TeO\u2082 peak observed at 576.4 eV, confirming no surface oxidation. The slight Cd enrichment is typical of CdCl\u2082-treated CdTe films.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The critical finding: no TeO₂ peak at 576.4 eV. The surface has NOT oxidized despite two weeks in air. The efficiency drop must be caused by something else (perhaps back contact degradation or moisture ingress at edges).
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            The Cd:Te ratio of 1.40 shows significant Cd enrichment at the surface. This is actually typical and expected after CdCl₂ treatment -- chlorine preferentially removes Te during the process, leaving a Cd-rich surface layer. For the back contact, this Cd-rich surface may need etching with a bromine-methanol solution to restore a Te-rich surface that makes better ohmic contact.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>Bottom line:</strong> Surface oxidation is ruled out as the cause of efficiency loss. The Cd-rich surface is normal for CdCl₂-treated CdTe. If you HAD seen a TeO₂ shoulder, you would recommend storing the samples in a nitrogen glovebox or applying the back contact immediately after CdCl₂ treatment.
           </div>
         </div>
       </Card>
@@ -1272,34 +1520,83 @@ function AESSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.surface} formula="AES of S segregation on steel GB">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> Auger electron spectroscopy on an intergranular fracture surface of a stainless steel specimen. Detect and quantify sulfur segregation at the grain boundary.
+      <Card title="Numerical Example: A Day in the AES Lab" color={C.surface} formula="AES of S segregation on steel grain boundary">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> A stainless steel pipe in a chemical plant failed catastrophically along grain boundaries after 15 years of service at 500°C. The failure investigation team sends you a piece of the pipe. You need to determine WHY the grain boundaries failed -- the prime suspect is sulfur segregation, which is known to embrittle steel grain boundaries. You notch the sample and fracture it inside the UHV AES chamber to expose fresh grain boundary surfaces that have never seen air.
         </div>
+
+        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine a crime scene investigator dusting a doorknob for fingerprints. AES does something similar -- it scans a freshly broken surface with an electron beam and "dusts" for chemical fingerprints. But instead of ink powder, it detects Auger electrons that carry the unique energy signature of each element. The key advantage: you can point the beam at a specific spot (like a grain boundary facet) with ~10 nm precision.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the Measurement:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="S LMM Auger energy" value="152 eV" />
-          <InfoRow label="S peak-to-peak height (dN/dE)" value="15 units" />
-          <InfoRow label="Fe LMM Auger energy" value="703 eV" />
-          <InfoRow label="Fe peak-to-peak height (dN/dE)" value="85 units" />
-          <InfoRow label="Sensitivity factor S" value="0.82" />
-          <InfoRow label="Sensitivity factor Fe" value="0.21" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Chamber pressure" value="2 × 10⁻¹⁰ torr (UHV -- critical for clean fracture surface)" />
+          <InfoRow label="Primary beam energy" value="5 keV" />
+          <InfoRow label="Beam current" value="10 nA" />
+          <InfoRow label="Beam spot on fracture facet" value="~50 nm (aimed at a flat grain boundary facet)" />
+          <InfoRow label="Why fracture in UHV?" value="Air exposure would instantly oxidize S and mask the signal" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Detector Records:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="Normalized S = peak/SF = 15 / 0.82" result="18.3" color={C.surface} />
-          <CalcRow eq="Normalized Fe = peak/SF = 85 / 0.21" result="404.8" color={C.surface} />
-          <CalcRow eq="S/Fe atomic ratio = 18.3 / 404.8" result="0.045" color={C.surface} />
-          <CalcRow eq="S concentration" result="\u2248 4.5 at%" color={C.surface} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Spectrum type" value="dN/dE (differentiated) vs kinetic energy" />
+          <InfoRow label="Major peaks visible" value="Fe LMM (703 eV), Cr LMM (529 eV), S LMM (152 eV)" />
+          <InfoRow label="Also detected" value="Small O KLL (510 eV), C KLL (272 eV) -- minimal" />
+          <InfoRow label="S peak" value="Clearly visible at 152 eV -- sulfur is present!" />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Measure Peak-to-Peak Heights:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="S LMM peak-to-peak (dN/dE)" value="15 units" />
+          <InfoRow label="Fe LMM peak-to-peak (dN/dE)" value="85 units" />
+          <InfoRow label="Cr LMM peak-to-peak (dN/dE)" value="22 units" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Calculate Concentrations:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Formula: C_i = (I_i / S_i) / Σ(I_j / S_j)" result="" color={C.surface} />
+          <CalcRow eq="Sensitivity factors: S(0.82), Fe(0.21), Cr(0.29)" result="" color={C.surface} />
+          <CalcRow eq="Normalized S = 15 / 0.82" result="18.3" color={C.surface} />
+          <CalcRow eq="Normalized Fe = 85 / 0.21" result="404.8" color={C.surface} />
+          <CalcRow eq="Normalized Cr = 22 / 0.29" result="75.9" color={C.surface} />
+          <CalcRow eq="Total = 18.3 + 404.8 + 75.9" result="499.0" color={C.surface} />
+          <CalcRow eq="S at% = 18.3 / 499.0 × 100" result="3.7 at%" color={C.surface} />
+          <CalcRow eq="Fe at% = 404.8 / 499.0 × 100" result="81.1 at%" color={C.surface} />
+          <CalcRow eq="Cr at% = 75.9 / 499.0 × 100" result="15.2 at%" color={C.surface} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full Grain Boundary Composition:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Sulfur at grain boundary" value="3.7 at% (bulk steel has &lt; 0.01 at% S)" />
+          <InfoRow label="Enrichment factor" value="~370× above bulk level" />
+          <InfoRow label="Comparison: grain interior (moved beam)" value="S not detected (&lt; 0.1 at%)" />
+          <InfoRow label="Cr at grain boundary" value="15.2 at% (slightly depleted from bulk 18 at%)" />
+        </div>
+
         <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            4.5 at% sulfur at the grain boundary is well above the bulk level (typically less than 0.01 at%). This severe S segregation is a classic cause of temper embrittlement in steels, weakening grain boundaries and promoting intergranular fracture.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The smoking gun: 3.7 at% sulfur at the grain boundary is ~370 times the bulk level. This is classic temper embrittlement. During 15 years at 500°C, sulfur atoms diffused from the grain interiors and segregated to the grain boundaries, weakening the atomic bonds across the boundary. This explains the intergranular fracture mode.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            The slight Cr depletion (15.2 vs 18 at% bulk) at the boundary is also concerning -- it suggests the boundary may also be sensitized (Cr-depleted), making it vulnerable to intergranular corrosion on top of the embrittlement.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>Bottom line:</strong> Sulfur segregation caused this failure. The recommendation: use a lower-sulfur steel grade (&lt; 0.005 wt% S), or add elements like Ce or La that bind sulfur as harmless precipitates in the grain interior rather than letting it migrate to boundaries.
           </div>
         </div>
       </Card>
@@ -1427,33 +1724,82 @@ function SIMSSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.surface} formula="SIMS depth profile of B implant in Si">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> SIMS depth profiling of a boron-implanted silicon wafer (10 keV, 1\u00d710\u00b9\u2075 dose) using O\u2082\u207a primary beam at 5 keV.
+      <Card title="Numerical Example: A Day in the SIMS Lab" color={C.surface} formula="SIMS depth profile of B implant in Si">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> A semiconductor fab just implanted boron into silicon wafers at 10 keV with a target dose of 1 × 10¹⁵ atoms/cm². Before they build transistors on these wafers, they need to verify that the boron went to the correct depth and the dose is right. You load one of the test wafers into the SIMS instrument (a CAMECA IMS-7f) and set up an O₂⁺ primary beam -- oxygen primary ions are chosen because they enhance the ionization probability of electropositive elements like boron, giving much better sensitivity.
         </div>
+
+        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine a sandblaster slowly eroding a painted wall layer by layer, and a camera catching each chip of paint as it flies off to identify the color. SIMS works the same way: primary ions sandblast the sample surface atom by atom, and a mass spectrometer catches and identifies each sputtered ion. By tracking how the composition changes as you dig deeper, you build a depth profile.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the Measurement:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="Primary beam" value="O\u2082\u207a at 5 keV" />
-          <InfoRow label="Sputter rate" value="1.5 nm/min" />
-          <InfoRow label="B\u207a counts at t = 5 min" value="3.2 \u00d7 10\u2075 counts/s" />
-          <InfoRow label="Si matrix signal" value="2.8 \u00d7 10\u2076 counts/s" />
-          <InfoRow label="RSF (B in Si with O\u2082\u207a)" value="1.84 \u00d7 10\u00b2\u00b2 atoms/cm\u00b3" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Primary beam" value="O₂⁺ at 5 keV (enhances B⁺ yield)" />
+          <InfoRow label="Primary beam current" value="50 nA" />
+          <InfoRow label="Raster area" value="200 × 200 µm (sputter crater)" />
+          <InfoRow label="Detected area (gated)" value="Central 60 µm diameter (avoids crater edges)" />
+          <InfoRow label="Mass resolution M/ΔM" value="~4000 (separates ¹¹B from interfering species)" />
+          <InfoRow label="Why O₂⁺ for boron?" value="O₂⁺ oxidizes the surface, boosting B⁺ ion yield by ~100×" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Detector Records:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="Depth at 5 min = 1.5 nm/min \u00d7 5 min" result="7.5 nm" color={C.surface} />
-          <CalcRow eq="[B] = (B counts \u00d7 RSF) / Si matrix signal" result="" color={C.surface} />
-          <CalcRow eq="[B] = (3.2\u00d710\u2075 \u00d7 1.84\u00d710\u00b2\u00b2) / 2.8\u00d710\u2076" result="2.1 \u00d7 10\u00b9\u2078 atoms/cm\u00b3" color={C.surface} />
-          <CalcRow eq="Peak depth from profile maximum" result="\u2248 8 nm" color={C.surface} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Output" value="¹¹B⁺ counts/s and ²⁸Si⁺ counts/s vs sputtering time" />
+          <InfoRow label="Si matrix signal" value="2.8 × 10⁶ counts/s (constant -- this is the reference)" />
+          <InfoRow label="B signal initially" value="Low (~1000 counts/s at surface)" />
+          <InfoRow label="B signal rising" value="Increases rapidly with depth" />
+          <InfoRow label="B signal at peak (t ≈ 5 min)" value="3.2 × 10⁵ counts/s" />
+          <InfoRow label="B signal after peak" value="Drops off as you pass through the implant" />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Convert Time to Depth:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Sputter rate (measured by profilometry of crater)" result="1.5 nm/min" color={C.surface} />
+          <CalcRow eq="Depth at peak signal (t = 5 min) = 1.5 × 5" result="7.5 nm" color={C.surface} />
+          <CalcRow eq="Total crater depth after 20 min = 1.5 × 20" result="30 nm" color={C.surface} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Convert Counts to Concentration (Using RSF):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="[B] = (B counts × RSF) / Si matrix counts" result="" color={C.surface} />
+          <CalcRow eq="RSF for B in Si with O₂⁺ (from reference)" result="1.84 × 10²² atoms/cm³" color={C.surface} />
+          <CalcRow eq="[B] at peak = (3.2×10⁵ × 1.84×10²²) / 2.8×10⁶" result="" color={C.surface} />
+          <CalcRow eq="[B] at peak = 5.89×10²⁷ / 2.8×10⁶" result="2.1 × 10¹⁸ atoms/cm³" color={C.surface} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full Profile Results:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Peak B concentration" value="2.1 × 10¹⁸ atoms/cm³" />
+          <InfoRow label="Peak depth (Rp)" value="~8 nm (projected range)" />
+          <InfoRow label="Profile width (ΔRp)" value="~5 nm (straggle)" />
+          <InfoRow label="Integrated dose" value="1.05 × 10¹⁵ atoms/cm² (within 5% of target)" />
+          <InfoRow label="SRIM prediction for 10 keV B in Si" value="Rp = 7.8 nm, ΔRp = 4.2 nm" />
+        </div>
+
         <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Boron implant peak at ~8 nm depth with concentration ~2\u00d710\u00b9\u2078 atoms/cm\u00b3, consistent with the 10 keV implant at 1\u00d710\u00b9\u2075 dose. The profile shape matches SRIM simulation predictions for this implant condition.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The boron implant profile matches the specification: peak depth ~8 nm agrees with SRIM simulation for 10 keV, and the integrated dose of 1.05 × 10¹⁵ is within 5% of the target 1 × 10¹⁵ atoms/cm². The implanter is performing correctly.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            The profile shape (Gaussian-like with a slight tail toward the surface) is expected for low-energy implants. After subsequent annealing to activate the dopant, you would re-measure by SIMS to check for diffusion broadening -- if the profile spreads too much, the transistor junction depth would be wrong.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>Bottom line:</strong> Implant verified. If the dose were off by &gt; 10%, you would recalibrate the ion implanter. If the depth were wrong, you would check the implant energy. SIMS is the gold standard for dopant profiling because it can detect B down to ~10¹⁵ atoms/cm³ -- that is parts per billion sensitivity, far beyond what any other technique can do.
           </div>
         </div>
       </Card>
@@ -1631,34 +1977,87 @@ function EDSSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.surface} formula="EDS of 304 stainless steel">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> SEM-EDS analysis of a stainless steel sample at 20 kV. Determine composition and verify the alloy grade.
+      <Card title="Numerical Example: A Day in the EDS Lab" color={C.surface} formula="EDS of 304 stainless steel">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> Your company received a shipment of stainless steel plate labeled "304 grade" for a food processing application. Before accepting the material, you need to verify the composition meets the AISI 304 specification (17-20 wt% Cr, 8-11 wt% Ni). You cut a small coupon, polish it to 1 µm diamond finish, and load it into the SEM. The SDD (silicon drift detector) EDS system is already cooled and ready.
         </div>
+
+        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            When you hit a piano key, you get a note at a specific frequency. Each element is like a different piano -- when the electron beam "plays" it, the element sings its own characteristic X-ray frequency. Iron sings at 6.40 keV, chromium at 5.41 keV, nickel at 7.47 keV. The EDS detector listens to all these notes simultaneously and tells you how much of each element is present.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the SEM-EDS:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="Fe K\u03b1 (6.40 keV)" value="45,230 counts" />
-          <InfoRow label="Cr K\u03b1 (5.41 keV)" value="12,180 counts" />
-          <InfoRow label="Ni K\u03b1 (7.47 keV)" value="5,840 counts" />
-          <InfoRow label="Si K\u03b1 (1.74 keV)" value="320 counts" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="Accelerating voltage" value="20 kV" />
+          <InfoRow label="Why 20 kV?" value="Overvoltage for Ni Kα (7.47 keV): 20/7.47 = 2.7× (need > 2×)" />
+          <InfoRow label="Working distance" value="10 mm (optimal for this detector geometry)" />
+          <InfoRow label="Detector" value="SDD, 30 mm², ~130 eV resolution at Mn Kα" />
+          <InfoRow label="Acquisition time" value="60 seconds live time (good statistics)" />
+          <InfoRow label="Dead time" value="~25% (healthy -- not too high, not too low)" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Detector Records:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="Apply ZAF correction (atomic #, absorption, fluorescence)" result="" color={C.surface} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Full spectrum" value="0 to 20 keV energy range" />
+          <InfoRow label="Dominant peak" value="Fe Kα at 6.40 keV (tallest -- iron is the matrix)" />
+          <InfoRow label="Second peak" value="Cr Kα at 5.41 keV (clearly visible)" />
+          <InfoRow label="Third peak" value="Ni Kα at 7.47 keV (moderate height)" />
+          <InfoRow label="Small peak" value="Si Kα at 1.74 keV (just above background)" />
+          <InfoRow label="Total counts in spectrum" value="~450,000 (good statistics)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Raw Peak Intensities:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Fe Kα net counts" value="45,230" />
+          <InfoRow label="Cr Kα net counts" value="12,180" />
+          <InfoRow label="Ni Kα net counts" value="5,840" />
+          <InfoRow label="Si Kα net counts" value="320" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Apply ZAF Corrections:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Z correction (atomic number effect on e⁻ penetration)" result="Applied" color={C.surface} />
+          <CalcRow eq="A correction (X-ray absorption in sample)" result="Applied" color={C.surface} />
+          <CalcRow eq="F correction (secondary fluorescence)" result="Applied" color={C.surface} />
           <CalcRow eq="Fe wt% (ZAF corrected)" result="73.8 wt%" color={C.surface} />
           <CalcRow eq="Cr wt% (ZAF corrected)" result="17.5 wt%" color={C.surface} />
           <CalcRow eq="Ni wt% (ZAF corrected)" result="8.2 wt%" color={C.surface} />
           <CalcRow eq="Si wt% (ZAF corrected)" result="0.5 wt%" color={C.surface} />
+          <CalcRow eq="Total" result="100.0 wt% (normalized)" color={C.surface} />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full Results vs AISI 304 Specification:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Cr: 17.5 wt%" value="Spec: 17-20 wt% ✓ (passes)" />
+          <InfoRow label="Ni: 8.2 wt%" value="Spec: 8-11 wt% ✓ (passes)" />
+          <InfoRow label="Si: 0.5 wt%" value="Spec: < 1.0 wt% ✓ (passes)" />
+          <InfoRow label="Fe: balance (73.8 wt%)" value="As expected for 304" />
+          <InfoRow label="Note" value="C not detected by EDS (too light, Z=6)" />
+        </div>
+
         <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Composition (Fe-17.5Cr-8.2Ni-0.5Si) matches AISI 304 stainless steel specification (Fe-18Cr-8Ni nominal). Si trace is from deoxidation during steelmaking. The 20 kV beam ensures adequate overvoltage for all K\u03b1 lines detected.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The composition (Fe-17.5Cr-8.2Ni-0.5Si) falls within the AISI 304 specification on all measurable elements. The shipment is genuine 304 stainless steel. The Si at 0.5 wt% is from deoxidation during steelmaking and is normal.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            One limitation: EDS cannot reliably measure carbon (the C Kα peak at 0.277 keV is heavily absorbed and overlaps with background). To verify the carbon content (&lt; 0.08 wt% for 304, &lt; 0.03 wt% for 304L), you would need WDS (wavelength dispersive spectroscopy) or combustion analysis.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>Bottom line:</strong> Material accepted. If the Cr had been below 17% or Ni below 8%, you would reject the shipment -- it could be a cheaper grade like 430 (ferritic, no Ni) sold as 304, which would corrode in the food processing environment.
           </div>
         </div>
       </Card>
@@ -1943,34 +2342,92 @@ function XANESSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.spec} formula="Fe K-edge XANES of iron oxide">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> Fe K-edge XANES measurement of an unknown iron oxide powder at a synchrotron beamline. Determine the iron oxidation state and coordination geometry.
+      <Card title="Numerical Example: A Day at the Synchrotron XANES Beamline" color={C.spec} formula="Fe K-edge XANES of iron oxide">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> An archaeologist brings you a rust-colored powder scraped from an ancient Roman nail found in a waterlogged site. They need to know the exact iron oxide phase -- is it hematite (α-Fe₂O₃), magnetite (Fe₃O₄), or goethite (α-FeOOH)? This matters because the oxide phase tells them about the burial environment (oxidizing vs reducing). You take the sample to a synchrotron beamline for Fe K-edge XANES, which can precisely determine the iron oxidation state and coordination geometry.
         </div>
+
+        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Think of tuning a radio dial past a station. Below the station frequency, you hear nothing. Right at the frequency, you hear a loud burst. Past it, the signal wobbles. In XANES, you tune X-ray energy past an element's absorption edge. The exact energy where absorption jumps tells you the oxidation state (like which station you are on), and the shape of the "wobbles" tells you the local atomic arrangement.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up at the Beamline:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="Sample absorption edge E\u2080" value="7126 eV" />
-          <InfoRow label="Fe metal standard E\u2080" value="7112 eV" />
-          <InfoRow label="Fe\u2082O\u2083 standard E\u2080" value="7126 eV" />
-          <InfoRow label="FeO standard E\u2080" value="7119 eV" />
-          <InfoRow label="Pre-edge peak energy" value="7114 eV" />
-          <InfoRow label="Pre-edge intensity (normalized)" value="0.05" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Beamline" value="Fe K-edge (scan ~7050-7250 eV)" />
+          <InfoRow label="Monochromator" value="Si(111) double crystal, ΔE/E ~ 10⁻⁴" />
+          <InfoRow label="Sample preparation" value="Powder mixed with BN, pressed into 7 mm pellet" />
+          <InfoRow label="Detection mode" value="Transmission (thin pellet optimized for 1 absorption length)" />
+          <InfoRow label="Standards measured first" value="Fe metal foil, FeO, Fe₂O₃, Fe₃O₄ (same beamline session)" />
+          <InfoRow label="Energy calibration" value="Fe metal foil edge defined as 7112.0 eV" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Detector Records:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Pre-edge region (7050-7110 eV)" value="Flat, slowly rising absorption" />
+          <InfoRow label="Small pre-edge peak" value="7114 eV (very weak)" />
+          <InfoRow label="Main edge jump" value="Sharp rise centered at 7126 eV" />
+          <InfoRow label="White line (absorption maximum)" value="Strong peak just above edge" />
+          <InfoRow label="Post-edge oscillations" value="EXAFS wiggles extending to ~7400 eV" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Compare Edge Position to Standards:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Fe metal standard E₀" value="7112 eV (Fe⁰)" />
+          <InfoRow label="FeO standard E₀" value="7119 eV (Fe²⁺)" />
+          <InfoRow label="Fe₃O₄ standard E₀" value="7122 eV (mixed Fe²⁺/Fe³⁺)" />
+          <InfoRow label="Fe₂O₃ standard E₀" value="7126 eV (Fe³⁺)" />
+          <InfoRow label="Your sample E₀" value="7126 eV" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Determine Oxidation State:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
           <CalcRow eq="Edge shift from Fe metal = 7126 - 7112" result="+14 eV" color={C.spec} />
-          <CalcRow eq="Compare: FeO shift = 7119 - 7112 = +7 eV (Fe\u00b2\u207a)" result="" color={C.spec} />
-          <CalcRow eq="Compare: Fe\u2082O\u2083 shift = 7126 - 7112 = +14 eV (Fe\u00b3\u207a)" result="Match!" color={C.spec} />
-          <CalcRow eq="Pre-edge intensity 0.05 (weak) \u2192 centrosymmetric site" result="Octahedral" color={C.spec} />
+          <CalcRow eq="FeO shift (Fe²⁺) = 7119 - 7112" result="+7 eV (no match)" color={C.spec} />
+          <CalcRow eq="Fe₃O₄ shift (mixed) = 7122 - 7112" result="+10 eV (no match)" color={C.spec} />
+          <CalcRow eq="Fe₂O₃ shift (Fe³⁺) = 7126 - 7112" result="+14 eV → MATCH" color={C.spec} />
+          <CalcRow eq="Oxidation state conclusion" result="Fe³⁺" color={C.spec} />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 5 -- Determine Coordination from Pre-edge:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Pre-edge peak at 7114 eV (1s → 3d transition)" result="" color={C.spec} />
+          <CalcRow eq="Pre-edge intensity (normalized)" result="0.05 (weak)" color={C.spec} />
+          <CalcRow eq="Tetrahedral Fe³⁺ pre-edge" result="~0.15 (strong -- allowed by mixing)" color={C.spec} />
+          <CalcRow eq="Octahedral Fe³⁺ pre-edge" result="~0.05 (weak -- dipole forbidden)" color={C.spec} />
+          <CalcRow eq="Your sample matches" result="Octahedral Fe³⁺" color={C.spec} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full XANES Fingerprinting:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Edge position" value="7126 eV → Fe³⁺" />
+          <InfoRow label="Pre-edge" value="Weak → octahedral coordination" />
+          <InfoRow label="White line shape" value="Matches α-Fe₂O₃ (hematite) standard" />
+          <InfoRow label="Ruled out" value="Magnetite (wrong edge), goethite (different white line)" />
+          <InfoRow label="Phase identification" value="α-Fe₂O₃ (hematite)" />
+        </div>
+
         <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Absorption edge at 7126 eV matches Fe\u00b3\u207a (Fe\u2082O\u2083). The weak pre-edge peak (intensity 0.05) indicates octahedral coordination (centrosymmetric -- 1s\u21923d transition is dipole-forbidden). Sample is identified as hematite (\u03b1-Fe\u2082O\u2083).
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Scientist</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The powder is hematite (α-Fe₂O₃): pure Fe³⁺ in octahedral coordination. For the archaeologist, this means the burial environment was oxidizing (access to air or oxygenated water). If the nail had been in a reducing environment (deep waterlogged anaerobic sediment), you would expect magnetite (Fe₃O₄) with its mixed Fe²⁺/Fe³⁺ edge at 7122 eV.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            The power of XANES here is that it works on powders, amorphous materials, and mixtures -- unlike XRD, which requires crystallinity, XANES gives oxidation state information regardless of crystallographic order. If the sample were a mixture of hematite and magnetite, you could do linear combination fitting of the XANES spectra to determine the fraction of each phase.
           </div>
         </div>
       </Card>
@@ -2233,42 +2690,99 @@ function RamanSection() {
         <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Key Insight</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            {ramanPreset === "Si" && "The 520 cm\u207B\u00B9 peak of silicon is the most commonly used calibration standard in Raman spectroscopy. Stress in thin films shifts this peak: compressive stress shifts it up, tensile stress shifts it down."}
-            {ramanPreset === "Diamond" && "Diamond's sharp 1332 cm\u207B\u00B9 peak distinguishes it from graphite. The sp\u00B3 bonding gives a single strong peak, making Raman the gold standard for verifying diamond quality."}
+            {ramanPreset === "Si" && "The 520 cm⁻¹ peak of silicon is the most commonly used calibration standard in Raman spectroscopy. Stress in thin films shifts this peak: compressive stress shifts it up, tensile stress shifts it down."}
+            {ramanPreset === "Diamond" && "Diamond's sharp 1332 cm⁻¹ peak distinguishes it from graphite. The sp³ bonding gives a single strong peak, making Raman the gold standard for verifying diamond quality."}
             {ramanPreset === "Graphene" && "The 2D/G peak ratio identifies the number of graphene layers: monolayer has I(2D)/I(G) > 2. The D peak only appears with defects -- a pristine graphene sheet has no D peak at all."}
             {ramanPreset === "CdS" && "CdS shows longitudinal optical (LO) phonon modes with clear overtones (2LO, 3LO). The ratio of overtone to fundamental intensity is related to electron-phonon coupling strength."}
           </div>
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.spec} formula="Raman spectroscopy of TiO\u2082 film">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> Raman measurement of a TiO\u2082 thin film deposited by sol-gel on glass, using a 532 nm laser. Determine the crystal phase and assess crystallinity.
+      <Card title="Numerical Example: A Day in the Raman Lab" color={C.spec} formula="Raman spectroscopy of TiO₂ film">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> You deposited a TiO₂ thin film by sol-gel on a glass substrate and annealed it at 450°C for 2 hours. The film is intended for photocatalytic water purification, which requires the anatase phase (not rutile -- anatase has better photocatalytic activity). Before testing the photocatalysis, you need to confirm the film crystallized into anatase. You place the sample under the confocal Raman microscope, focus the 532 nm laser through the 50× objective, and acquire a spectrum.
         </div>
+
+        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine bouncing a ball off a trampoline. Most of the time the ball bounces back with the same energy (Rayleigh scattering). But occasionally the trampoline is vibrating, and the ball picks up or loses a tiny bit of energy from the vibration. By measuring how much energy the ball gained or lost, you can figure out how fast the trampoline was vibrating. Raman does this with photons and molecular vibrations -- each crystal phase has its own vibration frequencies.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the Raman Microscope:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="Peak 1 (very strong)" value="144 cm\u207b\u00b9" />
-          <InfoRow label="Peak 2" value="399 cm\u207b\u00b9" />
-          <InfoRow label="Peak 3" value="513 cm\u207b\u00b9" />
-          <InfoRow label="Peak 4" value="639 cm\u207b\u00b9" />
-          <InfoRow label="FWHM of 144 cm\u207b\u00b9 peak" value="8 cm\u207b\u00b9" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Laser wavelength" value="532 nm (Nd:YAG doubled)" />
+          <InfoRow label="Laser power at sample" value="5 mW (low to avoid heating the film)" />
+          <InfoRow label="Objective" value="50× (spot size ~1 µm)" />
+          <InfoRow label="Spectral range" value="100-1000 cm⁻¹ (covers all TiO₂ modes)" />
+          <InfoRow label="Acquisition time" value="10 seconds × 3 accumulations" />
+          <InfoRow label="Why 532 nm?" value="Good efficiency; minimal fluorescence for oxides" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Detector Records:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="Anatase reference peaks" result="144, 399, 513, 639 cm\u207b\u00b9" color={C.spec} />
-          <CalcRow eq="Rutile reference peaks" result="447, 612 cm\u207b\u00b9" color={C.spec} />
-          <CalcRow eq="Peaks at 447 or 612 cm\u207b\u00b9?" result="None detected" color={C.spec} />
-          <CalcRow eq="Phase identification" result="Pure anatase TiO\u2082" color={C.spec} />
-          <CalcRow eq="FWHM 8 cm\u207b\u00b9 \u2192 grain size estimate" result="~15 nm" color={C.spec} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Spectrum" value="Intensity vs Raman shift (cm⁻¹)" />
+          <InfoRow label="Dominant peak" value="Very strong, sharp peak at 144 cm⁻¹" />
+          <InfoRow label="Additional peaks" value="399, 513, 639 cm⁻¹ (moderate intensity)" />
+          <InfoRow label="Background" value="Smooth, no broad fluorescence hump" />
+          <InfoRow label="Glass substrate signal?" value="Minimal (confocal rejects out-of-focus signal)" />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Measure Peak Positions Precisely:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Peak 1" value="144 cm⁻¹ (very strong, Eg mode)" />
+          <InfoRow label="Peak 2" value="399 cm⁻¹ (medium, B1g mode)" />
+          <InfoRow label="Peak 3" value="513 cm⁻¹ (medium, A1g + B1g)" />
+          <InfoRow label="Peak 4" value="639 cm⁻¹ (medium, Eg mode)" />
+          <InfoRow label="FWHM of 144 cm⁻¹ peak" value="8 cm⁻¹" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Phase Identification by Peak Matching:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Anatase reference peaks" result="144, 399, 513, 639 cm⁻¹" color={C.spec} />
+          <CalcRow eq="Your peaks" result="144, 399, 513, 639 cm⁻¹ → ALL match anatase" color={C.spec} />
+          <CalcRow eq="Rutile signature peaks" result="447 cm⁻¹ (Eg), 612 cm⁻¹ (A1g)" color={C.spec} />
+          <CalcRow eq="Any peaks at 447 or 612 cm⁻¹?" result="None detected" color={C.spec} />
+          <CalcRow eq="Phase conclusion" result="Pure anatase TiO₂" color={C.spec} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 5 -- Assess Crystallinity from FWHM:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="FWHM of 144 cm⁻¹ peak" result="8 cm⁻¹" color={C.spec} />
+          <CalcRow eq="Bulk single crystal anatase FWHM" result="~6 cm⁻¹" color={C.spec} />
+          <CalcRow eq="Phonon confinement broadening" result="Δω ∝ 1/d (grain size d)" color={C.spec} />
+          <CalcRow eq="Estimated grain size from correlation" result="~15 nm" color={C.spec} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full Results:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Phase" value="Pure anatase TiO₂ (no rutile, no brookite)" />
+          <InfoRow label="Crystallinity" value="Good (FWHM only 2 cm⁻¹ broader than single crystal)" />
+          <InfoRow label="Estimated grain size" value="~15 nm" />
+          <InfoRow label="Uniformity (5 spots checked)" value="Same spectrum everywhere -- uniform film" />
+          <InfoRow label="144 cm⁻¹ peak shift" value="None (no residual stress detected)" />
+        </div>
+
         <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            All four peaks match anatase TiO\u2082 with no rutile peaks detected -- pure anatase phase. The sharp 144 cm\u207b\u00b9 peak (FWHM = 8 cm\u207b\u00b9) indicates good crystallinity with estimated grain size of ~15 nm (narrower FWHM corresponds to larger, more ordered grains).
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The 450°C anneal successfully crystallized the sol-gel film into pure anatase -- exactly the phase needed for photocatalysis. No rutile peaks means the annealing temperature was well below the anatase-to-rutile transition (typically 600-700°C). The ~15 nm grain size from FWHM analysis is reasonable for a sol-gel film annealed at 450°C.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>What if the results were different?</strong> If you saw peaks at 447 and 612 cm⁻¹ alongside the anatase peaks, the film would be a mixed anatase/rutile phase -- you could estimate the ratio from relative peak intensities. If the 144 cm⁻¹ peak were very broad (FWHM &gt; 20 cm⁻¹) or absent entirely, the film would be amorphous and you would need a higher annealing temperature.
           </div>
         </div>
       </Card>
@@ -2578,34 +3092,83 @@ function PLSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.spec} formula="PL of GaAs wafer at 10 K">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> Low-temperature photoluminescence of an undoped GaAs wafer at 10 K, excited with a 532 nm laser (2.33 eV). Identify emission features and assess crystal quality.
+      <Card title="Numerical Example: A Day in the PL Lab" color={C.spec} formula="PL of GaAs wafer at 10 K">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> A GaAs wafer supplier claims their new wafer has "ultra-high purity" suitable for high-electron-mobility transistor (HEMT) fabrication. Low-temperature PL is the gold standard for evaluating semiconductor crystal quality -- defects and impurities that are invisible to XRD or even TEM show up as telltale emission peaks. You mount the wafer on the cold finger of a closed-cycle helium cryostat, cool to 10 K, and focus a 532 nm laser on the surface.
         </div>
+
+        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine throwing a ball high into the air (excitation) and listening to the sound it makes when it lands (emission). A perfectly smooth floor makes one clean "thud" at a single pitch. But if there are holes or bumps (defects), the ball makes additional sounds at different pitches. Low-temperature PL works the same way: a perfect crystal emits one sharp peak at the bandgap energy, but defects create additional peaks at lower energies.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the Measurement:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="Excitation wavelength" value="532 nm (2.33 eV)" />
-          <InfoRow label="Peak 1 wavelength" value="819 nm (1.514 eV)" />
-          <InfoRow label="Peak 1 FWHM" value="3.2 meV" />
-          <InfoRow label="Peak 2 wavelength" value="831 nm (1.493 eV)" />
-          <InfoRow label="GaAs bandgap at 10 K" value="1.519 eV" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Temperature" value="10 K (closed-cycle He cryostat)" />
+          <InfoRow label="Excitation laser" value="532 nm (2.33 eV) -- well above GaAs bandgap" />
+          <InfoRow label="Laser power" value="10 mW (low to avoid heating)" />
+          <InfoRow label="Spectrometer" value="0.75 m focal length, 1200 g/mm grating" />
+          <InfoRow label="Detector" value="LN₂-cooled CCD (InGaAs for near-IR)" />
+          <InfoRow label="Why 10 K?" value="Thermal broadening frozen out; defect peaks resolved" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Detector Records:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="Peak 1 offset = E_gap - E_peak1 = 1.519 - 1.514" result="5 meV" color={C.spec} />
-          <CalcRow eq="5 meV below bandgap \u2192 exciton binding energy" result="Free exciton (FX)" color={C.spec} />
-          <CalcRow eq="Peak 2 offset = E_gap - E_peak2 = 1.519 - 1.493" result="26 meV" color={C.spec} />
-          <CalcRow eq="26 meV below band edge" result="Donor-acceptor pair (DAP)" color={C.spec} />
-          <CalcRow eq="FWHM = 3.2 meV (narrow)" result="High crystal quality" color={C.spec} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Emission spectrum" value="Intensity vs photon energy (or wavelength)" />
+          <InfoRow label="Dominant peak (Peak 1)" value="1.514 eV (819 nm) -- very sharp" />
+          <InfoRow label="Second peak (Peak 2)" value="1.493 eV (831 nm) -- broader, weaker" />
+          <InfoRow label="Deep-level emission" value="None visible (no broad bands at 0.8-1.2 eV)" />
+          <InfoRow label="Peak 1 FWHM" value="3.2 meV (extremely narrow)" />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Identify Peak 1 (the Dominant Emission):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="GaAs bandgap at 10 K" result="1.519 eV" color={C.spec} />
+          <CalcRow eq="Peak 1 energy" result="1.514 eV" color={C.spec} />
+          <CalcRow eq="Offset below bandgap = 1.519 - 1.514" result="5 meV" color={C.spec} />
+          <CalcRow eq="GaAs free exciton binding energy (literature)" result="4.2 meV" color={C.spec} />
+          <CalcRow eq="5 meV ≈ exciton binding energy" result="→ Free exciton (FX) peak" color={C.spec} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Identify Peak 2:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Peak 2 energy" result="1.493 eV" color={C.spec} />
+          <CalcRow eq="Offset below bandgap = 1.519 - 1.493" result="26 meV" color={C.spec} />
+          <CalcRow eq="Known GaAs transitions at ~26 meV below Eg" result="Donor-acceptor pair (DAP)" color={C.spec} />
+          <CalcRow eq="DAP involves residual Si donor + C acceptor" result="Common in GaAs" color={C.spec} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full PL Assessment:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Free exciton (FX) at 1.514 eV" value="Dominant -- excellent sign" />
+          <InfoRow label="FX FWHM" value="3.2 meV (< 5 meV = high quality)" />
+          <InfoRow label="DAP at 1.493 eV" value="Weak (FX/DAP intensity ratio > 10)" />
+          <InfoRow label="Deep-level bands" value="None (no EL2, no dislocation bands)" />
+          <InfoRow label="Overall quality grade" value="Excellent -- suitable for HEMT" />
+        </div>
+
         <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            The 1.514 eV peak is the free exciton (FX) emission at 5 meV below the bandgap (exciton binding energy in GaAs). The 1.493 eV peak is a donor-acceptor pair (DAP) transition. The narrow FWHM of 3.2 meV indicates high crystal quality with low defect density.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The dominant free exciton peak with FWHM of only 3.2 meV is the hallmark of a high-quality GaAs crystal. In poor material, the FX peak would be broad (&gt; 10 meV) or absent entirely, replaced by defect-related bands. The weak DAP peak tells you there are some residual Si and C impurities, but the high FX/DAP intensity ratio (&gt; 10) means these are at very low concentrations.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            The absence of deep-level emission (no broad bands below 1.3 eV) means there are no significant EL2 deep traps or dislocation networks. This wafer is indeed high quality and suitable for HEMT epitaxy.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>Bottom line:</strong> The supplier's claim holds up. If the FX peak had been absent and you saw only DAP or broad defect bands, you would reject the wafer. PL at 10 K is far more sensitive to crystal quality than room-temperature PL, where thermal broadening masks everything.
           </div>
         </div>
       </Card>
@@ -2887,32 +3450,80 @@ function UVVisSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.spec} formula="UV-Vis of ZnO nanoparticles">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> UV-Vis absorption spectroscopy of a ZnO nanoparticle suspension in ethanol. Determine the optical bandgap using the Tauc plot method.
+      <Card title="Numerical Example: A Day in the UV-Vis Lab" color={C.spec} formula="UV-Vis of ZnO nanoparticles">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> You synthesized ZnO nanoparticles by a sol-gel method and need to confirm they have the right bandgap for UV-blocking sunscreen applications. If the particles are small enough (below ~5 nm), quantum confinement will blue-shift the bandgap above the bulk value of 3.37 eV. You disperse a small amount of your white nanoparticle powder in ethanol by ultrasonication, transfer the colloidal suspension to a quartz cuvette (glass absorbs UV!), and load it into the UV-Vis spectrophotometer.
         </div>
+
+        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Think of a window with a colored tint. White light goes in, and some colors come out dimmer (absorbed) while others pass through freely (transmitted). UV-Vis shines every color of light (from UV through visible) through your sample one wavelength at a time, measuring how much is absorbed at each color. ZnO strongly absorbs UV but lets visible light through -- that is why it makes a good invisible sunscreen.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the Measurement:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="Strong absorption region" value="< 370 nm" />
-          <InfoRow label="Absorption edge" value="368 nm" />
-          <InfoRow label="Bandgap type" value="Direct (n = 2)" />
-          <InfoRow label="Bulk ZnO bandgap" value="3.37 eV" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Instrument" value="Double-beam UV-Vis spectrophotometer" />
+          <InfoRow label="Scan range" value="200-800 nm" />
+          <InfoRow label="Cuvette" value="Quartz, 1 cm path length" />
+          <InfoRow label="Reference cuvette" value="Pure ethanol (baseline subtraction)" />
+          <InfoRow label="Scan speed" value="120 nm/min, 1 nm steps" />
+          <InfoRow label="Why quartz?" value="Glass absorbs below 300 nm; quartz transmits to 190 nm" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Detector Records:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="Tauc relation: (\u03b1h\u03bd)\u00b2 = A(h\u03bd - E_g) for direct gap" result="" color={C.spec} />
-          <CalcRow eq="Plot (\u03b1h\u03bd)\u00b2 vs h\u03bd" result="" color={C.spec} />
-          <CalcRow eq="Linear fit extrapolation to (\u03b1h\u03bd)\u00b2 = 0" result="h\u03bd = 3.37 eV" color={C.spec} />
-          <CalcRow eq="Compare: bulk ZnO E_g" result="3.37 eV (match)" color={C.spec} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Output" value="Absorbance (A) vs wavelength (nm)" />
+          <InfoRow label="Below 350 nm" value="Strong absorption (A > 2)" />
+          <InfoRow label="350-370 nm" value="Sharp absorption edge (drops rapidly)" />
+          <InfoRow label="Above 380 nm" value="Near-zero absorption (transparent in visible)" />
+          <InfoRow label="Absorption edge midpoint" value="~368 nm" />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Convert to Energy and Build Tauc Plot:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Convert wavelength to energy: E = 1240 / λ(nm)" result="" color={C.spec} />
+          <CalcRow eq="At absorption edge 368 nm: E = 1240/368" result="3.37 eV" color={C.spec} />
+          <CalcRow eq="ZnO is a direct bandgap semiconductor" result="Use n = 2" color={C.spec} />
+          <CalcRow eq="Tauc relation: (αhν)² = A(hν - Eg)" result="" color={C.spec} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Extract Bandgap from Tauc Plot:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Plot (αhν)² vs hν" result="" color={C.spec} />
+          <CalcRow eq="Find the linear region above the absorption edge" result="" color={C.spec} />
+          <CalcRow eq="Fit a straight line to the linear portion" result="" color={C.spec} />
+          <CalcRow eq="Extrapolate to (αhν)² = 0 (x-axis intercept)" result="Eg = 3.37 eV" color={C.spec} />
+          <CalcRow eq="Compare: bulk ZnO Eg (literature)" result="3.37 eV → exact match" color={C.spec} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full Results:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Optical bandgap" value="3.37 eV (direct)" />
+          <InfoRow label="Absorption edge wavelength" value="368 nm (UV-A region)" />
+          <InfoRow label="Visible transparency" value="Excellent (A < 0.05 above 400 nm)" />
+          <InfoRow label="Quantum confinement?" value="No (Eg = bulk value → particles > 10 nm)" />
+          <InfoRow label="Scattering baseline" value="Slight rise at short wavelengths (Rayleigh scattering)" />
+        </div>
+
         <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Bandgap of 3.37 eV matches bulk ZnO, indicating no quantum confinement effect (particles are larger than ~10 nm). Absorption onset at 368 nm confirms UV cutoff, with full transparency in the visible range -- ideal for transparent conducting oxide applications.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The bandgap of 3.37 eV matches bulk ZnO exactly, meaning your nanoparticles are large enough (probably &gt; 20 nm based on the Bohr exciton radius of ZnO being ~2.3 nm) that quantum confinement does not kick in. The sharp absorption edge at 368 nm with full transparency above 400 nm is ideal for UV-blocking applications.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>What if the results were different?</strong> If the bandgap had been 3.5 eV or higher (absorption edge at ~354 nm), you would have quantum-confined particles below ~5 nm. If you saw a gradual absorption tail extending into the visible range (Urbach tail), it would indicate poor crystallinity or surface defect states. If the absorbance exceeded 3.0 in the UV, the concentration is too high and you would dilute the suspension.
           </div>
         </div>
       </Card>
@@ -3152,33 +3763,83 @@ function SEMSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.micro} formula="SEM of CdTe thin film cross-section">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> Cross-sectional SEM imaging of a CdTe thin-film solar cell at 15 kV. Measure grain size distribution and film thickness.
+      <Card title="Numerical Example: A Day in the SEM Lab" color={C.micro} formula="SEM cross-section of CdTe solar cell">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> You fabricated a CdTe thin-film solar cell and just completed the CdCl₂ treatment (a critical annealing step that grows the grains and improves efficiency). You need to measure the grain size after treatment -- larger grains mean fewer grain boundaries and better device performance. You cleave the glass substrate to expose a fresh cross-section, sputter-coat it with ~5 nm of gold to prevent charging, and load it into the FE-SEM.
         </div>
+
+        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine photographing a loaf of sliced bread from the side -- you can see each slice (grain), measure how thick they are, and check if any have holes. SEM cross-section imaging does exactly this: you cleave through the solar cell stack and photograph it edge-on, revealing every layer and every grain within each layer.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the SEM:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="Accelerating voltage" value="15 kV" />
-          <InfoRow label="Number of grains measured" value="25" />
-          <InfoRow label="Average grain diameter" value="2.3 \u00b5m" />
-          <InfoRow label="Standard deviation" value="0.8 \u00b5m" />
-          <InfoRow label="Film thickness (cross-section)" value="4.5 \u00b5m" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Accelerating voltage" value="15 kV (good compromise: resolution vs depth)" />
+          <InfoRow label="Working distance" value="5 mm (short for best SE resolution)" />
+          <InfoRow label="Detector" value="In-lens SE (best surface detail)" />
+          <InfoRow label="Gold coating" value="~5 nm (prevents charging on cleaved surface)" />
+          <InfoRow label="Magnification" value="10,000× for grain measurement" />
+          <InfoRow label="Why 15 kV?" value="Enough signal for good contrast; not so high that interaction volume blurs features" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Image Shows:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="Mean grain size = \u03a3d\u1d62 / N = 57.5 / 25" result="2.3 \u00b5m" color={C.micro} />
-          <CalcRow eq="Std dev = \u221a[\u03a3(d\u1d62 - d\u0304)\u00b2 / (N-1)]" result="0.8 \u00b5m" color={C.micro} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Cross-section layers visible" value="Glass / FTO / CdS / CdTe / back contact" />
+          <InfoRow label="CdTe layer" value="Columnar grains visible edge-on" />
+          <InfoRow label="Grain boundaries" value="Visible as bright lines (SE edge effect)" />
+          <InfoRow label="Voids" value="A few small voids at some grain boundaries" />
+          <InfoRow label="Film thickness" value="Directly measurable from image" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Measure Grain Diameters (25 Grains):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Measurement method" value="Line intercept on cross-section image" />
+          <InfoRow label="Number of grains measured" value="25 (across 3 different regions)" />
+          <InfoRow label="Scale bar verification" value="Calibrated against known standard" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Calculate Statistics:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Mean grain size d̄ = Σdᵢ / N = 57.5 / 25" result="2.3 µm" color={C.micro} />
+          <CalcRow eq="Std dev σ = √[Σ(dᵢ - d̄)² / (N-1)]" result="0.8 µm" color={C.micro} />
+          <CalcRow eq="Film thickness from cross-section" result="4.5 µm" color={C.micro} />
           <CalcRow eq="Grain size / film thickness = 2.3 / 4.5" result="0.51" color={C.micro} />
-          <CalcRow eq="Grain aspect ratio" result="\u2248 columnar structure" color={C.micro} />
+          <CalcRow eq="Grain aspect ratio ≈ 0.5" result="Columnar (grains span ~half the film)" color={C.micro} />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full SEM Results:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Mean grain diameter" value="2.3 ± 0.8 µm" />
+          <InfoRow label="Smallest grain measured" value="0.9 µm" />
+          <InfoRow label="Largest grain measured" value="4.1 µm" />
+          <InfoRow label="Film thickness" value="4.5 µm (target was 4-5 µm)" />
+          <InfoRow label="CdS window layer" value="~100 nm (visible as thin bright line)" />
+          <InfoRow label="Voids" value="~3 per 10 µm of boundary (small, < 200 nm)" />
+        </div>
+
         <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Average grain size (2.3 \u00b5m) is about half the film thickness (4.5 \u00b5m), indicating columnar grain structure. Grain size above 1 \u00b5m suggests effective CdCl\u2082 treatment promoting grain growth. Some voids visible at grain boundaries may affect device performance.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The CdCl₂ treatment worked well: average grain size 2.3 µm is above the 1 µm threshold needed for good solar cell performance. Grains span roughly half the film thickness, indicating a columnar structure where most grain boundaries extend from top to bottom -- this is actually desirable because it means photogenerated carriers only need to travel laterally ~1 µm to reach a grain boundary (which can assist collection).
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            The few small voids at grain boundaries are a minor concern -- they could act as shunt paths if the back contact metal fills them. If void density were much higher, you would adjust the CdCl₂ treatment temperature or time.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>Bottom line:</strong> Film microstructure looks good for a solar cell targeting &gt; 14% efficiency. If grains had been &lt; 0.5 µm (no CdCl₂ treatment or too low temperature), you would expect much lower efficiency due to recombination at grain boundaries.
           </div>
         </div>
       </Card>
@@ -3329,31 +3990,81 @@ function TEMImagingSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.micro} formula="HR-TEM of CdTe lattice fringes">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> High-resolution TEM imaging of a CdTe thin film. Measure lattice fringe spacings from FFT and identify the crystal zone axis.
+      <Card title="Numerical Example: A Day in the HR-TEM Lab" color={C.micro} formula="HR-TEM of CdTe lattice fringes">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> You need to verify at the atomic level that individual grains in your CdTe solar cell absorber are single-crystalline with the correct zinc-blende structure. You prepared a cross-section TEM sample using FIB (focused ion beam): a Ga⁺ beam cut a thin lamella from the CdTe layer, thinned it to ~60 nm, and welded it to a copper half-grid. You load it in the 200 kV TEM and tilt the grain to a zone axis where you see crisp lattice fringes.
         </div>
+
+        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine looking at a chain-link fence from far away -- you just see a blur. But if you walk closer and look through at exactly the right angle, the rows of links line up and you see a clear repeating pattern. HR-TEM is like getting your eye so close to the crystal that you can see the individual rows of atoms as bright and dark fringes. The spacing and angles of these fringes tell you exactly what crystal structure you have.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the TEM:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="Fringe spacing d\u2081 (from FFT)" value="3.74 \u00c5" />
-          <InfoRow label="Fringe spacing d\u2082 (from FFT)" value="2.29 \u00c5" />
-          <InfoRow label="Angle between fringes" value="54.7\u00b0" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Accelerating voltage" value="200 kV" />
+          <InfoRow label="Sample thickness" value="~60 nm (FIB-prepared cross-section)" />
+          <InfoRow label="Imaging mode" value="HR-TEM (phase contrast)" />
+          <InfoRow label="Defocus" value="Scherzer defocus (~-40 nm for this microscope)" />
+          <InfoRow label="Magnification" value="500,000× (lattice fringes visible)" />
+          <InfoRow label="Why Scherzer defocus?" value="Optimizes phase contrast transfer for lattice imaging" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Image Shows:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="CdTe (111) d-spacing (reference)" result="3.742 \u00c5 \u2713" color={C.micro} />
-          <CalcRow eq="CdTe (220) d-spacing (reference)" result="2.290 \u00c5 \u2713" color={C.micro} />
-          <CalcRow eq="Angle between (111) and (220)" result="54.7\u00b0 \u2713" color={C.micro} />
-          <CalcRow eq="Zone axis from cross product" result="[1\u03051\u03052] zone axis" color={C.micro} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Lattice fringes" value="Two sets of parallel lines crossing at an angle" />
+          <InfoRow label="Fringe set 1" value="Wider spacing, strong contrast" />
+          <InfoRow label="Fringe set 2" value="Narrower spacing, moderate contrast" />
+          <InfoRow label="Grain boundary nearby" value="Abrupt change in fringe orientation" />
+          <InfoRow label="Defects visible?" value="No stacking faults or dislocations in this area" />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Measure from FFT (Digital Diffraction Pattern):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Perform FFT of the HR-TEM image" value="Spots appear (like a diffraction pattern)" />
+          <InfoRow label="Fringe spacing d₁ (from FFT spot distance)" value="3.74 Å" />
+          <InfoRow label="Fringe spacing d₂ (from FFT spot distance)" value="2.29 Å" />
+          <InfoRow label="Angle between fringe sets" value="54.7°" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Index the Planes and Zone Axis:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="CdTe zinc-blende, a = 6.481 Å" result="" color={C.micro} />
+          <CalcRow eq="d₁ = 3.74 Å → CdTe (111): d = a/√3 = 3.742 Å" result="✓ match" color={C.micro} />
+          <CalcRow eq="d₂ = 2.29 Å → CdTe (220): d = a/√8 = 2.291 Å" result="✓ match" color={C.micro} />
+          <CalcRow eq="Angle (111)-(220) in cubic" result="54.74° ✓ match" color={C.micro} />
+          <CalcRow eq="Zone axis = (111) × (220) cross product" result="[1̄1̄2] zone axis" color={C.micro} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full HR-TEM Results:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Crystal structure confirmed" value="Zinc-blende (F4̄3m)" />
+          <InfoRow label="Zone axis" value="[1̄1̄2]" />
+          <InfoRow label="d-spacing accuracy" value="Within 0.5% of reference" />
+          <InfoRow label="Stacking faults" value="None observed in this 20 × 20 nm region" />
+          <InfoRow label="Grain boundary character" value="Sharp, no amorphous interlayer" />
+          <InfoRow label="FIB damage layer" value="~2 nm amorphous on surface (can be removed by low-kV cleaning)" />
+        </div>
+
         <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Lattice fringes match CdTe zinc-blende structure viewed along the [112] zone axis. Both d-spacings and inter-planar angle agree with reference values. No extended defects (stacking faults, dislocations) visible in this region, indicating single-crystal quality.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The grain is confirmed as single-crystalline CdTe in the zinc-blende structure. Both d-spacings and the inter-planar angle match the reference values perfectly, and the absence of stacking faults or dislocations in this region indicates high crystallographic quality within the grain. The sharp grain boundary (no amorphous interlayer) is good for carrier transport -- an amorphous layer would create a recombination barrier.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>What if you saw something different?</strong> If the fringes were wavy or had periodic interruptions, you would have stacking faults (common in CdTe). If the FFT showed streaks instead of sharp spots, it would indicate heavy defect density. If no fringes were visible at all despite thin sample, the grain might be amorphous (the CdCl₂ treatment may have failed for that region).
           </div>
         </div>
       </Card>
@@ -3642,32 +4353,82 @@ function AFMSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.micro} formula="AFM roughness of polished Si wafer">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> Tapping mode AFM scan of a CMP-polished silicon wafer surface. Quantify surface roughness for epitaxial growth qualification.
+      <Card title="Numerical Example: A Day in the AFM Lab" color={C.micro} formula="AFM of polished Si wafer">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> Before growing an epitaxial GaAs layer on a silicon wafer, you must verify the wafer surface is ultra-smooth. Even a single scratch or particle can nucleate defects that propagate through the entire epitaxial film. The incoming wafer specification requires RMS roughness Rq &lt; 0.5 nm. You place the wafer on the AFM stage, engage a tapping-mode cantilever, and scan a 5 × 5 µm area.
         </div>
+
+        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine running your fingertip across a table to check if it is smooth. Your finger cannot feel bumps smaller than ~1 mm. Now imagine a finger so tiny it can feel bumps as small as the width of a single atom (~0.1 nm). That is what the AFM tip does -- it traces the surface with sub-angstrom vertical sensitivity, building a topographic map of every tiny bump and valley.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the AFM:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="Scan area" value="5 \u00d7 5 \u00b5m" />
-          <InfoRow label="Pixel resolution" value="512 \u00d7 512" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Mode" value="Tapping (intermittent contact)" />
+          <InfoRow label="Cantilever" value="Si, k ~ 40 N/m, f₀ ~ 300 kHz" />
+          <InfoRow label="Tip radius" value="~8 nm (new, sharp tip for best lateral resolution)" />
+          <InfoRow label="Scan area" value="5 × 5 µm" />
+          <InfoRow label="Pixel resolution" value="512 × 512 (= 262,144 height measurements)" />
+          <InfoRow label="Scan rate" value="1 Hz (1 line per second, ~9 min total)" />
+          <InfoRow label="Why tapping mode?" value="Avoids scratching the delicate polished surface" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Image Shows:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Height image" value="Extremely flat with sub-nm features" />
+          <InfoRow label="Color scale" value="±1.5 nm (total Z range fits in 3 nm)" />
+          <InfoRow label="Surface features" value="Faint atomic steps visible (~0.3 nm height)" />
+          <InfoRow label="Scratches" value="None detected" />
+          <InfoRow label="Particles" value="None detected (clean surface)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Raw Height Statistics (from 262,144 pixels):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="Z range (max - min)" value="2.8 nm" />
-          <InfoRow label="Max peak-to-valley" value="2.1 nm" />
+          <InfoRow label="Max peak-to-valley (Rt)" value="2.1 nm" />
+          <InfoRow label="Mean height z̄" value="0.00 nm (leveled by plane fit)" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 4 -- Calculate Roughness:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="R_q (RMS) = \u221a[\u03a3(z\u1d62 - z\u0304)\u00b2 / N]" result="0.18 nm" color={C.micro} />
-          <CalcRow eq="R_a (arithmetic avg) = \u03a3|z\u1d62 - z\u0304| / N" result="0.14 nm" color={C.micro} />
-          <CalcRow eq="Spec requirement: R_q < 0.5 nm" result="PASS" color={C.micro} />
-          <CalcRow eq="Scratches or particles detected" result="None" color={C.micro} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Rq (RMS roughness) = √[Σ(zᵢ - z̄)² / N]" result="" color={C.micro} />
+          <CalcRow eq="N = 512 × 512 = 262,144 pixels" result="" color={C.micro} />
+          <CalcRow eq="Rq" result="0.18 nm" color={C.micro} />
+          <CalcRow eq="Ra (arithmetic average) = Σ|zᵢ - z̄| / N" result="0.14 nm" color={C.micro} />
+          <CalcRow eq="Spec requirement: Rq < 0.5 nm" result="0.18 < 0.5 → PASS" color={C.micro} />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full AFM Results:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Rq (RMS roughness)" value="0.18 nm (sub-angstrom!)" />
+          <InfoRow label="Ra (arithmetic roughness)" value="0.14 nm" />
+          <InfoRow label="Z range" value="2.8 nm" />
+          <InfoRow label="Scratches detected" value="None in 5 × 5 µm scan" />
+          <InfoRow label="Particles detected" value="None" />
+          <InfoRow label="Atomic steps visible?" value="Yes (0.3 nm height, consistent with Si step height)" />
+          <InfoRow label="Qualification" value="PASS -- suitable for epitaxial growth" />
+        </div>
+
         <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            RMS roughness R_q = 0.18 nm is excellent for a polished Si wafer (specification requires less than 0.5 nm). The atomically smooth surface is suitable for epitaxial growth. No scratches or particulate contamination detected across the 5\u00d75 \u00b5m scan area.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Rq = 0.18 nm is exceptional -- this is less than the diameter of a single silicon atom (0.22 nm). The visible atomic steps confirm the CMP (chemical mechanical polishing) achieved an epi-ready surface. The wafer passes the &lt; 0.5 nm specification with large margin and is approved for epitaxial growth.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>What would cause a FAIL?</strong> Rq &gt; 0.5 nm could come from CMP scratches (linear features in the height map), slurry particle contamination (bright spots 5-50 nm tall), or inadequate final cleaning (organic residue creating ~1 nm bumps). If any of these were present, you would send the wafer back for re-polishing or re-cleaning before loading it into the expensive epitaxy reactor.
           </div>
         </div>
       </Card>
@@ -3944,34 +4705,93 @@ function STMSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.micro} formula="STM of Si(111)-7\u00d77 reconstruction">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> Constant-current STM imaging of a clean Si(111) surface under UHV. Bias = -2.0 V (filled states), tunneling current I = 0.1 nA. Verify the 7\u00d77 reconstruction.
+      <Card title="Numerical Example: A Day in the STM Lab" color={C.micro} formula="STM of Si(111)-7×7 reconstruction">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> You are studying clean silicon surfaces for semiconductor processing research. You prepare a Si(111) sample by flash-annealing it to 1200°C in ultra-high vacuum (UHV) by passing a direct current through the wafer piece. The flash removes the native oxide and, upon cooling, the surface atoms rearrange into the famous 7×7 reconstruction. You approach a tungsten STM tip (electrochemically etched to atomic sharpness) and begin scanning.
         </div>
+
+        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine holding a metal needle so close to a surface that electrons can magically "jump" across the gap without touching -- that is quantum tunneling. The current depends exponentially on the gap distance: move 1 Å closer and the current increases ~10×. By scanning this needle and keeping the current constant (the needle rises over bumps and dips over valleys), you trace out the position of individual atoms.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the STM:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="Bias voltage" value="-2.0 V (filled states)" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Chamber pressure" value="5 × 10⁻¹¹ torr (UHV -- atomically clean surface)" />
+          <InfoRow label="Sample preparation" value="Flash anneal to 1200°C, slow cool through 850°C" />
+          <InfoRow label="Tip material" value="Electrochemically etched tungsten" />
+          <InfoRow label="Bias voltage" value="-2.0 V (sample negative → image filled states)" />
           <InfoRow label="Tunneling current setpoint" value="0.1 nA" />
-          <InfoRow label="Unit cell size measured" value="2.69 nm" />
+          <InfoRow label="Scan mode" value="Constant current (tip height = topography)" />
+          <InfoRow label="Scan area" value="20 × 20 nm" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Image Shows:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Overall pattern" value="Beautiful periodic array of triangular unit cells" />
+          <InfoRow label="Bright protrusions" value="12 per unit cell, arranged in two triangular halves" />
+          <InfoRow label="Dark spots" value="Corner holes at vertices of each unit cell" />
+          <InfoRow label="Asymmetry" value="One triangular half is slightly brighter than the other" />
+          <InfoRow label="Corrugation" value="Adatoms appear ~0.08 nm above background" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Measure the Unit Cell:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Unit cell size (measured)" value="2.69 nm" />
           <InfoRow label="Si(111) surface lattice constant" value="0.384 nm" />
           <InfoRow label="Adatoms per unit cell" value="12 (6 per half)" />
           <InfoRow label="Corner hole depth" value="0.15 nm" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 4 -- Verify the 7×7 Reconstruction:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="Reconstruction periodicity = 2.69 / 0.384" result="7.0\u00d7" color={C.micro} />
-          <CalcRow eq="Expected for 7\u00d77: 7 \u00d7 0.384 nm" result="2.688 nm \u2713" color={C.micro} />
-          <CalcRow eq="Adatom corrugation amplitude" result="0.08 nm" color={C.micro} />
-          <CalcRow eq="Faulted vs unfaulted half brightness" result="Faulted half brighter" color={C.micro} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Periodicity = unit cell / surface lattice constant" result="" color={C.micro} />
+          <CalcRow eq="= 2.69 nm / 0.384 nm" result="7.0×" color={C.micro} />
+          <CalcRow eq="Expected for 7×7: 7 × 0.384 nm" result="2.688 nm" color={C.micro} />
+          <CalcRow eq="Measured vs expected" result="2.69 ≈ 2.688 nm ✓" color={C.micro} />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 5 -- Check the DAS Model Features:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="12 adatoms per unit cell" result="✓ matches DAS model" color={C.micro} />
+          <CalcRow eq="Corner holes at unit cell vertices" result="✓ observed (depth 0.15 nm)" color={C.micro} />
+          <CalcRow eq="Faulted half brighter at -2 V bias?" result="✓ Yes (more filled states)" color={C.micro} />
+          <CalcRow eq="Adatom corrugation" result="0.08 nm (typical for filled-state imaging)" color={C.micro} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full STM Results:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Reconstruction confirmed" value="Si(111)-7×7 DAS" />
+          <InfoRow label="Unit cell periodicity" value="2.69 nm (7× surface lattice)" />
+          <InfoRow label="Surface defect density" value="< 1 missing adatom per 50 unit cells" />
+          <InfoRow label="Terrace width" value="~100 nm between atomic steps" />
+          <InfoRow label="Step height" value="0.314 nm (one Si(111) bilayer)" />
+        </div>
+
         <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Unit cell of 2.69 nm confirms the classic DAS (dimer-adatom-stacking fault) 7\u00d77 reconstruction. 12 adatoms per unit cell with corner holes match the DAS model. The faulted half appears brighter at negative bias (more filled states), confirming the electronic asymmetry between the two halves.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Scientist</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The 7×7 reconstruction is the most complex and well-known surface reconstruction in materials science. Your image perfectly matches the DAS (dimer-adatom-stacking fault) model proposed by Takayanagi in 1985: 12 adatoms, corner holes, and the faulted/unfaulted half asymmetry are all present. The very low defect density (less than 1 missing adatom per 50 unit cells) confirms an excellent preparation.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            The brightness asymmetry between the two halves is a purely electronic effect: the faulted half has slightly higher local density of states (LDOS) at the Fermi level, so more electrons tunnel from it at -2 V bias. If you reversed the bias to +2 V (empty states), the asymmetry would change -- this demonstrates that STM images are NOT purely topographic but also reflect electronic structure.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>Bottom line:</strong> This is a textbook-perfect Si(111)-7×7 surface. The STM is working at true atomic resolution. If you had seen a disordered surface without the 7×7 pattern, it would mean the flash anneal was insufficient or the UHV had a leak contaminating the surface.
           </div>
         </div>
       </Card>
@@ -4112,31 +4932,88 @@ function SynchrotronSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.adv} formula="SAXS of SiO\u2082 nanoparticles">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> Small-angle X-ray scattering (SAXS) at a synchrotron beamline (12 keV) to measure SiO\u2082 nanoparticle size in colloidal suspension.
+      <Card title="Numerical Example: A Day at the Synchrotron SAXS Beamline" color={C.adv} formula="SAXS of SiO₂ nanoparticles">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> You synthesized silica (SiO₂) nanoparticles by the Stöber process and need an accurate size measurement. DLS (dynamic light scattering) in your home lab gave ~35 nm, but DLS measures the hydrodynamic diameter including the solvation shell. You want the true particle diameter, so you bring your colloidal suspension to a synchrotron SAXS beamline where the intense, collimated X-ray beam gives highly precise scattering data.
         </div>
+
+        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine shining a flashlight through fog. The tiny water droplets scatter the light, and by measuring how the brightness varies with angle, you can figure out the droplet size. Larger droplets scatter light into narrower angles, smaller droplets scatter more broadly. SAXS does the same thing with X-rays and nanoparticles -- the scattering pattern at small angles encodes the particle size and shape.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up at the Beamline:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="X-ray energy" value="12 keV (\u03bb = 1.033 \u00c5)" />
-          <InfoRow label="Scattering data" value="I(q) vs q" />
-          <InfoRow label="Guinier plot slope (ln I vs q\u00b2)" value="-56.3 \u00c5\u00b2" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="X-ray energy" value="12 keV (λ = 1.033 Å)" />
+          <InfoRow label="Sample" value="SiO₂ suspension in ethanol, 1 mg/mL" />
+          <InfoRow label="Sample holder" value="1 mm quartz capillary (flow cell)" />
+          <InfoRow label="Background" value="Pure ethanol (measured separately for subtraction)" />
+          <InfoRow label="Detector" value="2D Pilatus detector, 2 m sample-to-detector distance" />
+          <InfoRow label="Exposure time" value="1 second (synchrotron is very bright!)" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Detector Records:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="Guinier: slope = -R_g\u00b2/3 = -56.3" result="" color={C.adv} />
-          <CalcRow eq="R_g = \u221a(56.3 \u00d7 3) = \u221a168.9" result="13.0 nm" color={C.adv} />
-          <CalcRow eq="For sphere: R = R_g \u00d7 \u221a(5/3)" result="16.8 nm" color={C.adv} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="2D pattern" value="Concentric rings (isotropic scattering)" />
+          <InfoRow label="After azimuthal averaging" value="I(q) vs q curve" />
+          <InfoRow label="q = 4π sinθ / λ" value="q range: 0.005 to 0.5 Å⁻¹" />
+          <InfoRow label="Low-q region" value="Flat (Guinier plateau)" />
+          <InfoRow label="Intermediate q" value="Steep drop-off" />
+          <InfoRow label="High q" value="Oscillations (form factor fringes for monodisperse spheres)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Guinier Analysis (Low-q Region):</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Guinier approximation: ln I(q) = ln I(0) - Rg²q²/3" result="" color={C.adv} />
+          <CalcRow eq="Plot ln I vs q² (should be linear at low q)" result="" color={C.adv} />
+          <CalcRow eq="Linear fit slope" result="-56.3 Å²" color={C.adv} />
+          <CalcRow eq="Guinier validity: q_max × Rg < 1.3" result="✓ satisfied" color={C.adv} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Calculate Radius of Gyration:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Slope = -Rg² / 3 = -56.3" result="" color={C.adv} />
+          <CalcRow eq="Rg² = 56.3 × 3 = 168.9 Å²" result="" color={C.adv} />
+          <CalcRow eq="Rg = √168.9" result="13.0 nm" color={C.adv} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 5 -- Convert to Particle Diameter:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="For a solid sphere: R = Rg × √(5/3)" result="" color={C.adv} />
+          <CalcRow eq="R = 13.0 × √(5/3) = 13.0 × 1.291" result="16.8 nm" color={C.adv} />
           <CalcRow eq="Diameter = 2R" result="33.6 nm" color={C.adv} />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full SAXS Results:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Radius of gyration Rg" value="13.0 ± 0.2 nm" />
+          <InfoRow label="Particle diameter (sphere model)" value="33.6 ± 0.5 nm" />
+          <InfoRow label="DLS diameter (for comparison)" value="35 nm (slightly larger due to solvation shell)" />
+          <InfoRow label="Polydispersity" value="Low (clean Guinier region, visible form factor fringes)" />
+          <InfoRow label="Particle shape" value="Spherical (isotropic 2D pattern)" />
+        </div>
+
         <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Nanoparticle radius of gyration R_g = 13 nm, corresponding to ~34 nm diameter spheres. This matches independently measured DLS result of 35 nm. The clean linear Guinier region indicates monodisperse (narrow size distribution) particles.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Scientist</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The SAXS-derived diameter of 33.6 nm agrees well with the DLS value of 35 nm -- the 1.4 nm difference is the solvation shell that DLS sees but SAXS does not. The clean linear Guinier region and visible form factor fringes at higher q confirm the particles are monodisperse spheres, exactly what the Stöber process should produce.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>Why synchrotron SAXS?</strong> A lab SAXS instrument could do this measurement too, but would need ~30 minutes of exposure instead of 1 second, and the data would be noisier. The synchrotron advantage is speed and data quality -- critical if you are doing time-resolved studies (watching nanoparticle growth in real time) or have limited sample volume.
           </div>
         </div>
       </Card>
@@ -4269,35 +5146,95 @@ function InSituTEMSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.adv} formula="In-situ TEM of Cu nanoparticle oxidation">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> In-situ TEM heating experiment watching Cu nanoparticle oxidation at 300\u00b0C. Measure oxide shell growth kinetics in real time.
+      <Card title="Numerical Example: A Day in the In-Situ TEM Lab" color={C.adv} formula="In-situ TEM of Cu nanoparticle oxidation">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> You are studying copper oxidation kinetics at the nanoscale because your company makes copper nanoparticle inks for printed electronics. The inks degrade when Cu nanoparticles oxidize, so you need to understand the kinetics to design better passivation strategies. You drop-cast Cu nanoparticles onto a MEMS-based heating TEM chip, load it in an environmental TEM (ETEM), introduce 1 mbar of O₂, and ramp to 300°C while recording video at 5 frames per second.
         </div>
+
+        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Most TEM imaging is like taking a photograph of a finished painting. In-situ TEM is like filming the artist while they paint -- you watch the process happen in real time. Here you are filming copper particles as they grow an oxide shell, frame by frame, at atomic resolution.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the In-Situ Experiment:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="Temperature" value="300\u00b0C (MEMS heater)" />
-          <InfoRow label="Oxide thickness at t = 0 min" value="0 nm" />
-          <InfoRow label="Oxide thickness at t = 5 min" value="2.1 nm" />
-          <InfoRow label="Oxide thickness at t = 10 min" value="3.0 nm" />
-          <InfoRow label="Oxide thickness at t = 20 min" value="4.2 nm" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Heating holder" value="MEMS chip (Protochips Aduro) -- minimal drift" />
+          <InfoRow label="Temperature" value="300°C (ramp rate 100°C/min)" />
+          <InfoRow label="Gas environment" value="1 mbar O₂ (ETEM differentially pumped)" />
+          <InfoRow label="TEM voltage" value="200 kV (low dose to minimize beam effects)" />
+          <InfoRow label="Recording" value="Direct electron detector, 5 fps, 2048 × 2048 pixels" />
+          <InfoRow label="Why MEMS heater?" value="Drift &lt; 1 nm/min vs ~10 nm/min for old furnace holders" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- What You See in the Video:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="Parabolic law: x\u00b2 = k \u00d7 t" result="" color={C.adv} />
-          <CalcRow eq="At t=5: (2.1)\u00b2/5 = 0.88" result="" color={C.adv} />
-          <CalcRow eq="At t=10: (3.0)\u00b2/10 = 0.90" result="" color={C.adv} />
-          <CalcRow eq="At t=20: (4.2)\u00b2/20 = 0.88" result="" color={C.adv} />
-          <CalcRow eq="Rate constant k (average)" result="0.88 nm\u00b2/min" color={C.adv} />
-          <CalcRow eq="Oxide shell lattice fringes" result="d = 2.47 \u00c5 (Cu\u2082O)" color={C.adv} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="t = 0 min" value="Clean Cu nanoparticle, ~20 nm diameter, single crystal" />
+          <InfoRow label="t = 2 min" value="Thin shell (~1 nm) appears around the particle" />
+          <InfoRow label="t = 5 min" value="Shell clearly visible, ~2 nm thick, shows lattice fringes" />
+          <InfoRow label="t = 10 min" value="Shell grows to ~3 nm, Cu core is shrinking" />
+          <InfoRow label="t = 20 min" value="Shell is ~4 nm thick, slowing down noticeably" />
+          <InfoRow label="Shell lattice fringes" value="d = 2.47 Å visible in the oxide shell" />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Measure Oxide Thickness at Each Time Point:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="t = 0 min" value="x = 0 nm" />
+          <InfoRow label="t = 5 min" value="x = 2.1 nm" />
+          <InfoRow label="t = 10 min" value="x = 3.0 nm" />
+          <InfoRow label="t = 20 min" value="x = 4.2 nm" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 4 -- Fit to Parabolic Growth Law:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Parabolic law: x² = k × t (diffusion-limited)" result="" color={C.adv} />
+          <CalcRow eq="At t = 5 min: k = (2.1)² / 5 = 4.41 / 5" result="0.88 nm²/min" color={C.adv} />
+          <CalcRow eq="At t = 10 min: k = (3.0)² / 10 = 9.0 / 10" result="0.90 nm²/min" color={C.adv} />
+          <CalcRow eq="At t = 20 min: k = (4.2)² / 20 = 17.64 / 20" result="0.88 nm²/min" color={C.adv} />
+          <CalcRow eq="Average rate constant k" result="0.88 ± 0.01 nm²/min" color={C.adv} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 5 -- Identify the Oxide Phase:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Lattice fringes in shell: d = 2.47 Å" result="" color={C.adv} />
+          <CalcRow eq="Cu₂O (111) reference: d = 2.465 Å" result="✓ match" color={C.adv} />
+          <CalcRow eq="CuO (111) reference: d = 2.323 Å" result="✗ no match" color={C.adv} />
+          <CalcRow eq="Oxide identification" result="Cu₂O (cuprous oxide)" color={C.adv} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full In-Situ Results:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Oxide phase" value="Cu₂O (cuprous oxide, not CuO)" />
+          <InfoRow label="Growth kinetics" value="Parabolic (x² ∝ t)" />
+          <InfoRow label="Rate constant at 300°C" value="0.88 nm²/min" />
+          <InfoRow label="Growth mechanism" value="Diffusion-limited (Cu⁺ ions through oxide shell)" />
+          <InfoRow label="Oxide shell at t = 20 min" value="4.2 nm (approaching self-limiting thickness)" />
+          <InfoRow label="Core-shell interface" value="Coherent (no void formation observed)" />
+        </div>
+
         <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Oxide growth follows parabolic kinetics (x\u00b2 \u221d t), confirming diffusion-limited growth. Rate constant k = 0.88 nm\u00b2/min at 300\u00b0C. Lattice fringes in the shell (d = 2.47 \u00c5) match Cu\u2082O(111), identifying the oxide as cuprous oxide (Cu\u2082O), not CuO.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The parabolic kinetics (x² ∝ t, constant k) prove the growth is diffusion-limited -- Cu⁺ ions must diffuse through the growing oxide shell to reach the gas interface, and this gets slower as the shell thickens. This is good news for the ink application: the oxide is self-limiting and will not consume the entire particle at 300°C.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            The oxide is Cu₂O (Cu⁺), not CuO (Cu²⁺). This matters because Cu₂O is a p-type semiconductor that can actually be beneficial as a contact layer, while CuO is more resistive. For the printed electronics application, a thin Cu₂O shell (&lt; 5 nm) is tolerable -- it can be reduced back to Cu during sintering in forming gas (N₂/H₂).
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>Bottom line:</strong> The in-situ TEM experiment directly reveals the mechanism (diffusion-limited), the product (Cu₂O), and the kinetics (k = 0.88 nm²/min) -- information that ex-situ techniques could only infer indirectly.
           </div>
         </div>
       </Card>
@@ -4498,7 +5435,7 @@ function APTSection() {
               background: el.show ? el.color + "18" : T.surface,
               border: el.show ? `1.5px solid ${el.color}` : `1px solid ${T.border}`,
               color: el.show ? el.color : T.muted,
-            }}>{el.show ? "\u2713 " : ""}{el.label}</button>
+            }}>{el.show ? "✓ " : ""}{el.label}</button>
           ))}
         </div>
 
@@ -4618,33 +5555,95 @@ function APTSection() {
         </div>
       </Card>
 
-      <Card title="Numerical Example" color={C.adv} formula="APT of Cu precipitate in RPV steel">
-        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
-          <strong>Scenario:</strong> Atom probe tomography of neutron-irradiated reactor pressure vessel (RPV) steel. Identify and characterize Cu-rich precipitates responsible for embrittlement.
+      <Card title="Numerical Example: A Day in the APT Lab" color={C.adv} formula="APT of Cu precipitate in RPV steel">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> A nuclear reactor pressure vessel (RPV) steel is showing an increased ductile-to-brittle transition temperature (ΔDBTT = +40°C) after 20 years of neutron irradiation. The leading theory: nanoscale Cu-rich precipitates form under irradiation and block dislocation motion. But these precipitates are only 2-5 nm in diameter -- invisible to SEM, TEM, and even STEM-EDS. Atom probe tomography is the only technique that can detect and chemically analyze individual precipitates this small. You FIB-prepare a needle-shaped specimen from the irradiated surveillance capsule material.
         </div>
+
+        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine peeling an apple atom by atom. Each atom that comes off is identified (apple? peel? seed?) and its 3D position is recorded. After removing millions of atoms, you reassemble them on a computer and have a 3D atomic map of the entire apple. APT does this with a metal needle: an enormous electric field rips atoms off one at a time, a detector identifies each one, and software reconstructs a 3D atom-by-atom map of the material.
+          </div>
+        </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data Recorded:</strong>
+          <strong style={{ color: T.ink }}>Step 1 -- Prepare and Run the Atom Probe:</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 12 }}>
-          <InfoRow label="TOF peaks identified" value="Fe\u207a (55.845 Da), Cu\u207a (63.546 Da), C\u207a (12.000 Da)" />
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Specimen preparation" value="FIB annular milling to < 80 nm tip radius" />
+          <InfoRow label="Instrument" value="LEAP 5000 XR (local electrode atom probe)" />
+          <InfoRow label="Temperature" value="50 K (cryo to reduce fracture)" />
+          <InfoRow label="Voltage range" value="5,000-12,000 V (increases as tip blunts)" />
+          <InfoRow label="Laser pulse" value="355 nm UV, 200 pJ, 200 kHz" />
+          <InfoRow label="Detection efficiency" value="~57% (some ions miss the detector)" />
+          <InfoRow label="Total ions collected" value="~15 million" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Mass Spectrum Shows:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Dominant peaks" value="Fe⁺ (55.845 Da), Fe²⁺ (27.923 Da)" />
+          <InfoRow label="Alloying elements" value="Cu⁺ (63.546 Da), Mn⁺ (54.938 Da), Ni⁺ (58.693 Da)" />
+          <InfoRow label="Light elements" value="C⁺ (12.000 Da), Si²⁺ (14.003 Da)" />
+          <InfoRow label="Mass resolving power" value="M/ΔM ~ 1000 (FWHM)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- 3D Reconstruction Reveals Precipitates:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="Matrix composition" value="95.2 at% Fe, 0.3 at% Cu, 0.1 at% C" />
-          <InfoRow label="Precipitate core composition" value="82.3 at% Cu, 12.5 at% Fe" />
-          <InfoRow label="Precipitate shell enrichment" value="2.1 at% Mn, 1.8 at% Ni, 1.3 at% Si" />
-          <InfoRow label="Isoconcentration surface (10 at% Cu)" value="Diameter = 3.2 nm" />
+          <InfoRow label="Cu isoconcentration surface (10 at%)" value="Reveals ~12 precipitates in the volume" />
+          <InfoRow label="Precipitate size (from isosurface)" value="Diameter = 3.2 nm (average)" />
+          <InfoRow label="Precipitate shape" value="Roughly spherical" />
         </div>
+
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step-by-step Calculation:</strong>
+          <strong style={{ color: T.ink }}>Step 4 -- Proxigram Analysis (Composition Across Interface):</strong>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 12 }}>
-          <CalcRow eq="Cu enrichment: precipitate/matrix = 82.3/0.3" result="274\u00d7 enriched" color={C.adv} />
-          <CalcRow eq="Precipitate volume = (4/3)\u03c0r\u00b3 = (4/3)\u03c0(1.6)\u00b3" result="17.2 nm\u00b3" color={C.adv} />
-          <CalcRow eq="Atoms per precipitate \u2248 V \u00d7 84.3 atoms/nm\u00b3" result="\u2248 1,450 atoms" color={C.adv} />
-          <CalcRow eq="Number density from reconstruction" result="\u2248 5 \u00d7 10\u00b2\u00b3 m\u207b\u00b3" color={C.adv} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Precipitate core composition" result="82.3 at% Cu, 12.5 at% Fe" color={C.adv} />
+          <CalcRow eq="Cu enrichment = precipitate/matrix = 82.3/0.3" result="274× enrichment" color={C.adv} />
+          <CalcRow eq="Shell enrichment: Mn" result="2.1 at% (3× matrix level)" color={C.adv} />
+          <CalcRow eq="Shell enrichment: Ni" result="1.8 at% (2.5× matrix level)" color={C.adv} />
+          <CalcRow eq="Shell enrichment: Si" result="1.3 at% (2× matrix level)" color={C.adv} />
         </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 5 -- Calculate Precipitate Properties:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Precipitate volume = (4/3)πr³ = (4/3)π(1.6)³" result="17.2 nm³" color={C.adv} />
+          <CalcRow eq="BCC iron atom density" result="84.3 atoms/nm³" color={C.adv} />
+          <CalcRow eq="Atoms per precipitate ≈ 17.2 × 84.3" result="≈ 1,450 atoms" color={C.adv} />
+          <CalcRow eq="Number density (12 in analyzed volume)" result="≈ 5 × 10²³ m⁻³" color={C.adv} />
+          <CalcRow eq="Volume fraction = N × V" result="≈ 0.086% (close to total Cu content)" color={C.adv} />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Full APT Results:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Precipitate type" value="Cu-rich with Mn/Ni/Si-enriched shell" />
+          <InfoRow label="Average diameter" value="3.2 nm (~1,450 atoms each)" />
+          <InfoRow label="Number density" value="~5 × 10²³ m⁻³" />
+          <InfoRow label="Cu enrichment" value="274× above matrix level" />
+          <InfoRow label="Shell chemistry" value="Mn, Ni, Si enriched (Cottrell atmosphere)" />
+          <InfoRow label="Precipitate-free zone width" value="~8 nm around grain boundaries" />
+        </div>
+
         <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
-          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
-          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
-            Cu-rich precipitate (3.2 nm diameter) with Mn/Ni/Si enrichment at the interface -- classic composition for neutron-irradiation embrittlement in RPV steels. The small size (3.2 nm) confirms early-stage precipitation. These nanoscale precipitates impede dislocation motion, raising the ductile-to-brittle transition temperature.
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation -- What This Tells the Engineer</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            These 3.2 nm Cu-rich precipitates are the smoking gun for the +40°C DBTT shift. At a number density of 5 × 10²³ m⁻³, they create a dense forest of obstacles to dislocation motion. Using the Russell-Brown hardening model, this precipitate population would contribute ~100 MPa of hardening -- consistent with the measured increase in yield strength.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            The Mn/Ni/Si-enriched shell around the Cu core is a classic signature of late-stage irradiation-enhanced precipitation. The shell forms because these solutes are dragged to the precipitate interface by radiation-induced point defect fluxes. This core-shell structure is unique to irradiation -- thermal aging produces Cu precipitates WITHOUT the Mn/Ni/Si shell.
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
+            <strong>Bottom line:</strong> APT provided the definitive evidence that cannot be obtained by any other technique: the 3D chemistry of individual 3 nm precipitates. These results will be used to update the reactor's remaining life prediction model and determine whether the vessel can safely continue operating or needs to be annealed to dissolve the precipitates.
           </div>
         </div>
       </Card>
