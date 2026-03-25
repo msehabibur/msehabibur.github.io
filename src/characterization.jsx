@@ -7399,6 +7399,166 @@ function SynchrotronSection() {
           </div>
         </div>
       </Card>
+
+      <Card title="Numerical Example 2: Synchrotron XRF Mapping of Biological Tissue" color={C.adv} formula="µ-XRF of trace metals in brain tissue">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> A neuroscience lab suspects abnormal copper accumulation in brain tissue from a Wilson's disease mouse model. Synchrotron X-ray fluorescence (µ-XRF) can map trace metals at micron resolution -- no other technique can simultaneously image multiple elements at ppm sensitivity in intact tissue sections.
+        </div>
+
+        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine pointing a UV flashlight at a mineral collection in the dark -- each mineral glows a different color based on its composition. Synchrotron µ-XRF does the same thing: the intense X-ray beam excites each element to emit its own characteristic fluorescence, and by scanning pixel by pixel, you paint a map of every element in the tissue.
+          </div>
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up at the Microprobe Beamline:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Beamline" value="Hard X-ray microprobe, 12 keV incident energy" />
+          <InfoRow label="Beam focus" value="2 × 2 µm spot (Kirkpatrick-Baez mirrors)" />
+          <InfoRow label="Sample" value="10 µm brain tissue section on Si₃N₄ window" />
+          <InfoRow label="Scan area" value="500 × 500 µm (250 × 250 pixels)" />
+          <InfoRow label="Dwell time" value="0.5 s per pixel" />
+          <InfoRow label="Elements detected" value="Cu Kα (8.04 keV), Zn Kα (8.63 keV), Fe Kα (6.40 keV)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Element Maps Show:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Fe map" value="Uniform distribution, ~50 µg/g (ppm) throughout" />
+          <InfoRow label="Zn map" value="Concentrated in hippocampal neurons (~120 ppm), low elsewhere (~20 ppm)" />
+          <InfoRow label="Cu map (normal regions)" value="~5 ppm (typical background)" />
+          <InfoRow label="Cu map (hotspot)" value="~350 ppm -- 70× enrichment!" />
+          <InfoRow label="Hotspot size" value="~40 × 30 µm region" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Quantify Cu at the Hotspot:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Cu Kα peak area at hotspot" result="4,280 counts" color={C.adv} />
+          <CalcRow eq="NIST standard sensitivity: 12.2 counts/ppm/s" result="at 0.5 s dwell" color={C.adv} />
+          <CalcRow eq="[Cu] = 4280 / (12.2 × 0.5)" result="350 ppm (calibrated)" color={C.adv} />
+          <CalcRow eq="Cu/Zn ratio at hotspot = 350 / 45" result="7.8" color={C.adv} />
+          <CalcRow eq="Normal brain Cu/Zn ratio" result="0.2–0.5" color={C.adv} />
+        </div>
+
+        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Massive Cu accumulation (350 ppm vs normal ~5 ppm) in a localized region confirms Wilson's disease pathology. The Cu hotspot co-localizes with cell death markers identified by histology. Normal Zn distribution in the hippocampus rules out general metal dyshomeostasis -- this is Cu-specific toxicity. Synchrotron µ-XRF is the only technique that can map multiple trace elements simultaneously at ppm sensitivity with µm resolution in intact tissue.
+          </div>
+        </div>
+      </Card>
+
+      <Card title="Numerical Example 3: High-Pressure XRD in a Diamond Anvil Cell" color={C.adv} formula="FeO phase transition at 70 GPa">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> Study the pressure-induced phase transition of FeO from rock-salt (B1) to NiAs-type (B8) structure -- relevant to Earth's lower mantle mineralogy. Only synchrotron XRD can penetrate the diamond anvil cell (DAC) with enough flux and collimation to get useful diffraction from a ~50 µm sample.
+        </div>
+
+        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine squeezing a sample between the tips of two diamonds while shining an incredibly bright, pencil-thin X-ray beam through the gap. At pressures exceeding those at the bottom of the ocean by a million times, atoms rearrange into entirely new crystal structures. The synchrotron beam is the only flashlight bright and narrow enough to see through the diamond windows and read the crystal's new atomic arrangement.
+          </div>
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 1 -- Setup:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="X-ray energy" value="30.5 keV (λ = 0.4066 Å) -- high energy to penetrate diamonds" />
+          <InfoRow label="Sample chamber" value="Diamond anvil cell, Re gasket, ~50 µm sample hole" />
+          <InfoRow label="Pressure medium" value="Ne (quasi-hydrostatic to >50 GPa)" />
+          <InfoRow label="Pressure calibration" value="Ruby fluorescence (R1 line shift)" />
+          <InfoRow label="Beam size" value="5 × 5 µm (smaller than sample chamber)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 2 -- Diffraction Patterns vs Pressure:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="0 GPa" value="Rock-salt FeO pattern, a = 4.307 Å" />
+          <InfoRow label="20 GPa" value="Same structure, compressed: a = 4.112 Å" />
+          <InfoRow label="70 GPa" value="New peaks appear alongside old (mixed phase)" />
+          <InfoRow label="90 GPa" value="Only new pattern remains -- transformation complete" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Equation of State and Phase Analysis:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="V₀ = a³ = (4.307)³" result="79.89 Å³" color={C.adv} />
+          <CalcRow eq="V(20 GPa) = (4.112)³" result="69.55 Å³" color={C.adv} />
+          <CalcRow eq="V/V₀ = 69.55 / 79.89" result="0.871 (12.9% compression)" color={C.adv} />
+          <CalcRow eq="Birch-Murnaghan EOS fit: K₀" result="152 GPa" color={C.adv} />
+          <CalcRow eq="Pressure derivative K'" result="4.2" color={C.adv} />
+          <CalcRow eq="Phase transition onset P_tr" result="~70 GPa" color={C.adv} />
+          <CalcRow eq="New phase indexed: B8 (NiAs-type)" result="a = 2.95 Å, c = 5.62 Å" color={C.adv} />
+        </div>
+
+        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            FeO undergoes a rock-salt → NiAs structural transition at ~70 GPa, consistent with lower mantle conditions (~80–135 GPa). The 12.9% volume reduction at 20 GPa and bulk modulus K₀ = 152 GPa constrain mineralogical models of the core-mantle boundary. This data is only obtainable with synchrotron radiation -- the combination of high energy (to penetrate diamonds), tight collimation (to fit through the ~50 µm gasket hole), and extreme brightness (to diffract from a tiny sample volume) is impossible with any lab source.
+          </div>
+        </div>
+      </Card>
+
+      <Card title="Numerical Example 4: XMCD for Spin and Orbital Moment Separation" color={C.adv} formula="Fe L-edge XMCD of Fe/Pt multilayer">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> Measure the spin and orbital magnetic moments of Fe in a thin-film Fe/Pt multilayer for spintronics. X-ray Magnetic Circular Dichroism (XMCD) separates spin and orbital contributions to the magnetic moment -- something impossible with SQUID magnetometry, which only measures total moment.
+        </div>
+
+        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Circularly polarized X-rays carry angular momentum, like a spinning frisbee. When these spinning photons are absorbed by a magnetic atom, the absorption depends on whether the photon spin is parallel or antiparallel to the atom's magnetic moment. The difference between left and right circular polarization absorption -- the dichroism -- directly reveals both the spin and orbital parts of the atom's magnetism separately, something no other technique can do.
+          </div>
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 1 -- Setup at the Soft X-ray Beamline:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Edge" value="Fe L₂,₃-edge (706–722 eV)" />
+          <InfoRow label="Polarization" value="Left (µ⁺) and right (µ⁻) circular" />
+          <InfoRow label="Applied field" value="±1 T (to saturate magnetization)" />
+          <InfoRow label="Sample" value="[Fe(2 nm)/Pt(3 nm)]×10 multilayer on MgO" />
+          <InfoRow label="Detection" value="Total electron yield (TEY) mode" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 2 -- Raw XAS and XMCD Spectra:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="XAS (average µ⁺ + µ⁻)" value="L₃ peak at 708.2 eV, L₂ at 721.0 eV" />
+          <InfoRow label="XMCD at L₃ (µ⁺ − µ⁻)" value="−0.42 (negative peak)" />
+          <InfoRow label="XMCD at L₂ (µ⁺ − µ⁻)" value="+0.18 (positive peak)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Apply Sum Rules to Extract Moments:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Integrals: p = ∫L₃ XMCD dE" result="−2.10" color={C.adv} />
+          <CalcRow eq="q = ∫(L₃+L₂) XMCD dE = −2.10 + 0.85" result="−1.25" color={C.adv} />
+          <CalcRow eq="r = ∫(L₃+L₂) XAS dE" result="12.5" color={C.adv} />
+          <CalcRow eq="n_h (3d holes for Fe)" result="3.4" color={C.adv} />
+          <CalcRow eq="m_orb = −(4q·n_h) / (3r) = −4(−1.25)(3.4) / 37.5" result="0.45 µB" color={C.adv} />
+          <CalcRow eq="m_spin = −(6p−4q)·n_h / r = (12.6−3.4)×3.4 / 12.5" result="2.50 µB" color={C.adv} />
+        </div>
+
+        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Fe spin moment = 2.50 µB (close to bulk Fe 2.22 µB -- slightly enhanced at the interface). Orbital moment = 0.45 µB (bulk Fe = 0.09 µB -- a 5× enhancement!). The large orbital moment enhancement at the Fe/Pt interface is caused by spin-orbit coupling from the heavy Pt atoms, which breaks orbital quenching. This enhanced orbital moment directly correlates with perpendicular magnetic anisotropy needed for spintronic memory devices (STT-MRAM). XMCD with sum rules is the only technique that separates spin and orbital contributions element-specifically.
+          </div>
+        </div>
+      </Card>
     </div>
   );
 }
@@ -7617,6 +7777,169 @@ function InSituTEMSection() {
           </div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
             <strong>Bottom line:</strong> The in-situ TEM experiment directly reveals the mechanism (diffusion-limited), the product (Cu₂O), and the kinetics (k = 0.88 nm²/min) -- information that ex-situ techniques could only infer indirectly.
+          </div>
+        </div>
+      </Card>
+
+      <Card title="Numerical Example 2: Nanoparticle Sintering During Catalyst Aging" color={C.adv} formula="Pt/Al₂O₃ catalyst degradation at 600°C">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> A Pt/Al₂O₃ catalyst for automotive exhaust treatment loses activity over time. You load the catalyst powder onto a MEMS heating chip and watch Pt nanoparticles sinter (grow larger) during heating to understand whether degradation proceeds by Ostwald ripening or particle migration and coalescence.
+        </div>
+
+        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine watching raindrops on a car windshield. Small drops stay put and slowly evaporate (Ostwald ripening -- small particles shrink, large ones grow). But sometimes drops slide across the glass and merge into bigger drops (migration and coalescence). Both mechanisms make fewer, bigger drops. In-situ TEM lets you watch which mechanism dominates for catalyst nanoparticles -- and that determines the engineering fix.
+          </div>
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 1 -- Set Up the Heating Experiment:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Holder" value="MEMS heating chip (DENSsolutions Wildfire)" />
+          <InfoRow label="TEM" value="200 kV, low-dose imaging to minimize beam effects" />
+          <InfoRow label="Temperature ramp" value="25°C → 600°C at 10°C/min, hold 60 min" />
+          <InfoRow label="Recording" value="Image every 2 minutes, 2048 × 2048 pixels" />
+          <InfoRow label="Particles tracked" value="50 individual Pt nanoparticles" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 2 -- Particle Size Evolution:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Initial (25°C)" value="d̄ = 2.8 nm, σ = 0.6 nm, N = 50 particles" />
+          <InfoRow label="600°C / 10 min" value="d̄ = 3.5 nm" />
+          <InfoRow label="600°C / 30 min" value="d̄ = 4.8 nm" />
+          <InfoRow label="600°C / 60 min" value="d̄ = 6.2 nm, σ = 2.1 nm, N = 22 particles" />
+          <InfoRow label="Particles lost" value="28 out of 50 (56% consumed by coalescence)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Determine the Sintering Mechanism:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Power law model: dⁿ − d₀ⁿ = k·t" result="" color={C.adv} />
+          <CalcRow eq="Ostwald ripening (n = 3): r²" result="0.89" color={C.adv} />
+          <CalcRow eq="Particle migration/coalescence (n = 4): r²" result="0.96 ← better fit" color={C.adv} />
+          <CalcRow eq="Rate constant k = (6.2³ − 2.8³) / 60" result="≈ 3.6 nm³/min" color={C.adv} />
+          <CalcRow eq="Video evidence: particles physically move and merge" result="✓ PMC confirmed" color={C.adv} />
+        </div>
+
+        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Sintering proceeds primarily by particle migration and coalescence (PMC), not Ostwald ripening -- the particles physically slide across the support and merge. This means the engineering solution is to anchor particles more firmly (stronger metal-support interaction) rather than just lowering the operating temperature. Recommendation: switch to CeO₂ support (stronger Pt-CeO₂ anchoring due to metal-oxide bonding) or encapsulate Pt in a porous oxide shell. Only in-situ TEM can directly distinguish these two mechanisms by watching individual particles in real time.
+          </div>
+        </div>
+      </Card>
+
+      <Card title="Numerical Example 3: Lithiation of Silicon Anode in Real Time" color={C.adv} formula="Si nanowire battery anode swelling">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> Silicon is a promising Li-ion battery anode material (10× the capacity of graphite), but it swells ~300% during lithiation, causing fracture and capacity fade. You mount a single Si nanowire on a specialized electrochemistry TEM holder and watch it lithiate in real time to understand why nano-Si survives but micron-Si fractures.
+        </div>
+
+        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine inflating a balloon very slowly. A thin balloon expands uniformly without popping. But a thick-walled balloon develops uneven stress and eventually bursts. Similarly, thin Si nanowires can accommodate lithium insertion by expanding plastically, while thick Si particles crack from the internal stress. In-situ TEM lets you watch this inflation in real time at atomic resolution.
+          </div>
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 1 -- Electrochemistry Holder Setup:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Working electrode" value="Si nanowire (d = 80 nm, L = 2 µm)" />
+          <InfoRow label="Counter electrode" value="Li metal with native Li₂O solid electrolyte" />
+          <InfoRow label="Applied potential" value="−2 V to drive lithiation" />
+          <InfoRow label="TEM voltage" value="200 kV, low dose" />
+          <InfoRow label="Recording" value="10 fps, bright-field + selected area diffraction" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 2 -- What the Video Shows:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Lithiation front" value="Propagates from Li source at ~52 nm/s" />
+          <InfoRow label="Reaction interface" value="Sharp c-Si → a-LixSi boundary" />
+          <InfoRow label="Behind the front" value="Wire diameter visibly swells" />
+          <InfoRow label="Full lithiation time" value="~38 seconds for 2 µm wire" />
+          <InfoRow label="Fracture observed?" value="No -- 80 nm wire survives intact!" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Quantify the Volume Expansion:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Initial wire diameter" result="80 nm" color={C.adv} />
+          <CalcRow eq="Final wire diameter (fully lithiated)" result="136 nm" color={C.adv} />
+          <CalcRow eq="Radial expansion = (d_final/d_initial)²" result="(136/80)² = 2.89×" color={C.adv} />
+          <CalcRow eq="Radial area expansion" result="189%" color={C.adv} />
+          <CalcRow eq="Axial elongation observed" result="~15%" color={C.adv} />
+          <CalcRow eq="Total volumetric expansion (189% + 15%)" result="≈ 280% (matches Li₁₅Si₄)" color={C.adv} />
+          <CalcRow eq="Theoretical for full lithiation to Li₁₅Si₄" result="280% -- consistent!" color={C.adv} />
+        </div>
+
+        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The 80 nm Si nanowire survives 280% volume expansion without fracture because its diameter is below the critical size for crack nucleation (~150 nm for crystalline Si). The amorphous Li₁₅Si₄ product flows plastically to accommodate strain. Larger wires (&gt;300 nm) crack at the reaction front due to tensile hoop stress exceeding the fracture strength. This directly explains why nano-Si anodes work but micron-Si anodes fail catastrophically, and provides the design rule: keep Si features below 150 nm for crack-free cycling.
+          </div>
+        </div>
+      </Card>
+
+      <Card title="Numerical Example 4: Austenite → Ferrite + Pearlite Transformation in Steel" color={C.adv} formula="In-situ phase transformation during cooling">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> Watch the most important phase transformation in metallurgy in real time: austenite (FCC) decomposing into ferrite (BCC) + pearlite during cooling. A thin foil of 0.4 wt% C steel is heated to 900°C (fully austenitic) and slowly cooled while recording diffraction patterns and images.
+        </div>
+
+        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine watching ice crystals form on a windowpane in time-lapse -- small nuclei appear, then grow and branch until the entire pane is covered. The austenite-to-ferrite transformation is similar: ferrite nuclei appear at grain boundaries and grow into the austenite, and then pearlite (alternating layers of ferrite and cementite) fills in the remaining space, like a striped wallpaper. In-situ TEM lets you watch this happen at the nanoscale.
+          </div>
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 1 -- Setup:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Holder" value="MEMS heating/cooling chip in 200 kV TEM" />
+          <InfoRow label="Sample" value="Thin foil of 0.4 wt% C plain carbon steel" />
+          <InfoRow label="Protocol" value="Heat to 900°C (full austenite), cool at 5°C/min" />
+          <InfoRow label="Recording" value="Diffraction patterns + dark-field images every 10 s" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 2 -- What Happens During Cooling:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="900°C" value="Single FCC pattern (austenite, a = 3.65 Å)" />
+          <InfoRow label="755°C" value="New BCC spots appear (ferrite nucleation!)" />
+          <InfoRow label="730°C" value="BCC spots growing, FCC fading -- ferrite consuming austenite" />
+          <InfoRow label="700°C" value="Dark-field: ferrite grains at prior austenite grain boundaries" />
+          <InfoRow label="680°C" value="Pearlite colonies nucleate at ferrite/austenite interfaces" />
+          <InfoRow label="Pearlite spacing" value="180 nm lamellar spacing (ferrite + cementite)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Quantify Undercooling and Pearlite Spacing:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Equilibrium Ae₃ for 0.4 wt% C" result="810°C" color={C.adv} />
+          <CalcRow eq="Observed ferrite nucleation" result="755°C" color={C.adv} />
+          <CalcRow eq="Undercooling ΔT = Ae₃ − T_nuc = 810 − 755" result="55°C" color={C.adv} />
+          <CalcRow eq="Ferrite growth rate at 730°C" result="0.8 µm/min" color={C.adv} />
+          <CalcRow eq="Pearlite undercooling ΔT_p = 727 − 680" result="47°C" color={C.adv} />
+          <CalcRow eq="Theoretical min spacing λ = 2σT_e / (ΔH·ΔT_p)" result="~50 nm" color={C.adv} />
+          <CalcRow eq="Measured spacing (continuous cooling)" result="180 nm (coarser than minimum)" color={C.adv} />
+        </div>
+
+        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Directly observed the textbook austenite decomposition sequence: ferrite nucleates at grain boundaries with 55°C undercooling, grows into austenite at 0.8 µm/min, then the remaining carbon-enriched austenite transforms to pearlite at 680°C. The 180 nm pearlite spacing predicts a hardness of ~280 HV (finer spacing = harder steel). This is the only way to watch this transformation in real time at the nanoscale -- it validates over a century of indirect observations from dilatometry and quench-and-look experiments.
           </div>
         </div>
       </Card>
@@ -8026,6 +8349,164 @@ function APTSection() {
           </div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
             <strong>Bottom line:</strong> APT provided the definitive evidence that cannot be obtained by any other technique: the 3D chemistry of individual 3 nm precipitates. These results will be used to update the reactor's remaining life prediction model and determine whether the vessel can safely continue operating or needs to be annealed to dissolve the precipitates.
+          </div>
+        </div>
+      </Card>
+
+      <Card title="Numerical Example 2: Grain Boundary Segregation in Steel" color={C.adv} formula="P and Mn segregation at prior austenite GB">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> A low-alloy steel (Fe-0.5Mn-0.03P) is susceptible to temper embrittlement after heat treatment at 500°C. The suspected cause is phosphorus segregation to prior austenite grain boundaries, but the segregation layer is only a few atomic layers thick -- invisible to any technique except atom probe tomography.
+        </div>
+
+        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine a brick wall where someone replaced the mortar between two bricks with a thin layer of chalk. The wall looks fine from the outside, but that one weak layer makes it easy to snap in half. Phosphorus segregation at grain boundaries is like that chalk layer -- just a few atoms thick, but enough to make the steel brittle. APT is the only microscope that can see and measure this invisible poison layer.
+          </div>
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 1 -- Specimen Preparation:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Target feature" value="Prior austenite grain boundary (identified by EBSD)" />
+          <InfoRow label="FIB lift-out" value="Across a known GB, sharpened to &lt;80 nm tip" />
+          <InfoRow label="APT mode" value="Voltage pulsed, 50 K, detection efficiency 52%" />
+          <InfoRow label="Total ions" value="~8 million" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 2 -- 3D Reconstruction Shows a Planar Feature:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Matrix composition" value="Fe 99.2 at%, Mn 0.5 at%, P 0.02 at%, C 0.28 at%" />
+          <InfoRow label="At grain boundary (±1 nm)" value="P jumps to 8.5 at% (425× enriched!)" />
+          <InfoRow label="Mn at boundary" value="3.2 at% (6.4× enriched)" />
+          <InfoRow label="C at boundary" value="1.8 at% (6.4× enriched)" />
+          <InfoRow label="P segregation width (FWHM)" value="2.1 nm (~5 atomic layers)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Calculate Interfacial Excess and Compare to Theory:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Gibbsian interfacial excess Γ_P" result="" color={C.adv} />
+          <CalcRow eq="Γ = ∫(C_GB − C_bulk) dz over 2.1 nm" result="" color={C.adv} />
+          <CalcRow eq="≈ (8.5−0.02)/100 × 2.1 nm × 8.5×10²⁸ atoms/m³" result="≈ 15.1 atoms/nm²" color={C.adv} />
+          <CalcRow eq="McLean equilibrium model with ΔG_seg(P) ≈ −34 kJ/mol" result="" color={C.adv} />
+          <CalcRow eq="At T = 773 K (500°C temper): predicted Γ" result="≈ 14 atoms/nm²" color={C.adv} />
+          <CalcRow eq="Measured vs predicted" result="15.1 vs 14 -- excellent match!" color={C.adv} />
+        </div>
+
+        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Phosphorus is massively enriched at the grain boundary (425× above matrix level) -- this is the direct cause of temper embrittlement. The 2.1 nm segregation width means P occupies only ~5 atomic layers at the boundary, yet this is enough to reduce the grain boundary cohesive energy and cause intergranular fracture. The McLean equilibrium model prediction (14 atoms/nm²) matches the measurement (15.1 atoms/nm²), confirming equilibrium segregation at 500°C. Mn co-segregation further weakens the boundary. Fix: reduce P to &lt;0.005 wt% in steelmaking, or add Mo (which competes with P for GB sites and repels it from boundaries).
+          </div>
+        </div>
+      </Card>
+
+      <Card title="Numerical Example 3: III-V Semiconductor Heterointerface" color={C.adv} formula="APT of InGaAs/InP quantum well interface">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> An MBE-grown InGaAs quantum well laser has lower-than-expected photoluminescence intensity. The interfaces may not be atomically sharp. APT can reveal interface composition and sharpness at the atomic level -- something no other technique can do with simultaneous 3D, sub-nm, all-element sensitivity.
+        </div>
+
+        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Imagine stacking red and blue Lego layers to make a perfect sandwich. If a few red bricks accidentally end up in the blue layer near the interface, the boundary is not sharp -- it is graded. For a quantum well laser, interface sharpness at the atomic level determines how tightly electrons are confined and how brightly the device shines. APT reads out every atom's identity and position to check if the "Lego stacking" was perfect.
+          </div>
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 1 -- Specimen Preparation and Run:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Sample" value="FIB lift-out perpendicular to InGaAs/InP interface" />
+          <InfoRow label="APT mode" value="Laser-pulsed, 50 K, 160 kHz, 40 pJ laser energy" />
+          <InfoRow label="Mass spectrum peaks" value="In²⁺ (57.4 Da), Ga⁺ (69.7 Da), As²⁺ (37.5 Da), P⁺ (31.0 Da)" />
+          <InfoRow label="Molecular ion overlap" value="P₂⁺ at 31.0 Da -- resolved by isotope ratios" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 2 -- Layer Compositions:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="InGaAs layer" value="In 51.2%, Ga 48.8% (group III) → In₀.₅₁Ga₀.₄₉As" />
+          <InfoRow label="Target composition" value="In₀.₅₃Ga₀.₄₇As (lattice-matched to InP)" />
+          <InfoRow label="InP layer" value="In 50.1%, P 49.9% → stoichiometric ✓" />
+          <InfoRow label="Interface width (10–90% As/P)" value="1.2 nm" />
+          <InfoRow label="Ga tail into InP" value="2.5 nm exponential decay (carryover!)" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Quantify Interface Imperfection:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Ga segregation length (exponential fit)" result="λ = 0.8 nm" color={C.adv} />
+          <CalcRow eq="Interface roughness (composition map)" result="σ = 0.4 nm RMS (1–2 monolayers)" color={C.adv} />
+          <CalcRow eq="Lattice mismatch: In₀.₅₁Ga₀.₄₉As on InP" result="Δa/a = −0.02% (nearly matched)" color={C.adv} />
+          <CalcRow eq="First 2.5 nm of InP is really In(Ga)P" result="graded, not abrupt!" color={C.adv} />
+        </div>
+
+        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            The 2.5 nm Ga tail into the InP layer is a growth artifact -- Ga atoms carry over from the InGaAs layer during the group-III source switch in MBE. This creates a graded interface instead of the intended abrupt junction, reducing quantum confinement and explaining the weak photoluminescence. Fix: insert a 5-second growth interrupt at each interface to allow Ga desorption before starting InP growth. APT is the only technique with simultaneous 3D, sub-nm, all-element capability to detect this subtle but device-killing interface imperfection.
+          </div>
+        </div>
+      </Card>
+
+      <Card title="Numerical Example 4: Oxide Scale on Ni-base Superalloy" color={C.adv} formula="APT of Cr₂O₃ / Al₂O₃ oxidation layers">
+        <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+          <strong>The Experiment:</strong> A Ni-base superalloy (similar to Inconel 718) was oxidized at 800°C for 100 hours in air. Understanding the oxide scale structure and internal oxidation is critical for predicting component lifetime in jet engines and gas turbines. APT provides atom-by-atom chemistry through each layer of the complex oxide scale.
+        </div>
+
+        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            When you leave a cast-iron pan in water, it rusts -- a thick, porous, non-protective layer. But a stainless steel pan forms a thin, invisible, self-healing Cr₂O₃ film that protects the metal underneath. Superalloys do even better: they form a dual-layer defense with Cr₂O₃ on the outside and Al₂O₃ fingers extending inward. APT reads the exact composition of each nano-layer to determine whether this defense is holding.
+          </div>
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 1 -- Specimen Preparation:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="FIB lift-out" value="Through oxide scale into alloy substrate" />
+          <InfoRow label="APT mode" value="Voltage-pulsed, 60 K" />
+          <InfoRow label="Reconstruction" value="Layered structure visible from surface inward" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 2 -- Layer-by-Layer Composition:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <InfoRow label="Layer 1 (outer scale)" value="Cr₂O₃: Cr 39.8 at%, O 60.2 at%" />
+          <InfoRow label="Scale thickness" value="180 nm (thin -- good, parabolic growth)" />
+          <InfoRow label="Layer 2 (internal oxide)" value="Al₂O₃ precipitates: Al 39.5%, O 59.8%, Ni 0.7% (trapped)" />
+          <InfoRow label="Internal oxide size" value="5–15 nm precipitates" />
+          <InfoRow label="Internal oxidation depth" value="350 nm below the external scale" />
+          <InfoRow label="Layer 3 (depleted alloy)" value="Cr drops from 19.2 at% (bulk) to 11.3 at% within 50 nm of scale" />
+        </div>
+
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
+          <strong style={{ color: T.ink }}>Step 3 -- Diffusion and Depletion Analysis:</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+          <CalcRow eq="Cr depletion depth from volume diffusion" result="" color={C.adv} />
+          <CalcRow eq="x ≈ √(D_Cr × t) = √(2×10⁻¹⁷ × 3.6×10⁵)" result="85 nm (predicted)" color={C.adv} />
+          <CalcRow eq="Measured Cr depletion depth" result="~50 nm" color={C.adv} />
+          <CalcRow eq="Faster than volume diffusion → GB diffusion contributing" result="" color={C.adv} />
+          <CalcRow eq="Cr at depletion zone minimum" result="11.3 at%" color={C.adv} />
+          <CalcRow eq="Critical Cr for Cr₂O₃ maintenance" result="10.5 at%" color={C.adv} />
+          <CalcRow eq="Safety margin: 11.3 − 10.5" result="0.8 at% (can still self-heal)" color={C.adv} />
+        </div>
+
+        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+          <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Classic dual-scale oxidation: a protective Cr₂O₃ external scale (180 nm, thin due to parabolic growth kinetics) plus internal Al₂O₃ precipitates extending 350 nm below the surface. The Cr depletion zone reaching 11.3 at% is still above the critical 10.5 at% threshold needed to maintain the protective Cr₂O₃ scale -- the alloy can still self-heal if the scale is damaged. However, the internal Al₂O₃ finger-like precipitates could act as crack initiation sites under thermal cycling (jet engine startup/shutdown). APT reveals the exact composition at each interface with sub-nm resolution -- information impossible to obtain from SEM/EDS alone at this scale.
           </div>
         </div>
       </Card>
