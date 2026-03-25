@@ -8214,6 +8214,56 @@ function DFTManyBodySection() {
           <span style={{ color: T.muted }}>Nobel Prize in Chemistry 1998 (Walter Kohn)</span>
         </div>
       </Card>
+
+      <Card collapsible title="Worked Examples — Why Exact Solutions Fail" color={D.eqn}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10 }}>Example 1: Memory to store Ψ for a water molecule</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>H₂O has 10 electrons → Ψ(r₁, r₂, ... r₁₀) lives in 30 dimensions</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Discretize each coordinate on 50 grid points<br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Total grid points = 50³⁰ = 50³⁰ ≈ 9.3 × 10⁵⁰<br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Each point stores 1 complex number = 16 bytes<br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Memory = 16 × 9.3 × 10⁵⁰ ≈ <span style={{ color: D.warn, fontWeight: 700 }}>1.5 × 10⁵² bytes</span><br /><br />
+          <span style={{ color: D.warn }}>Observable universe has ~10⁸⁰ atoms. Each atom as 1 byte = 10⁸⁰ bytes.</span><br />
+          <span style={{ color: D.warn }}>We need 10⁵² bytes for just 10 electrons — already astronomical!</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10, marginTop: 14 }}>Example 2: Electron-electron interaction count</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>How many pairwise interactions for N electrons?</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Number of pairs = N(N−1)/2<br /><br />
+          {"  H₂ (N=2):     2(1)/2 = 1 pair"}<br />
+          {"  O atom (N=8):  8(7)/2 = 28 pairs"}<br />
+          {"  Fe (N=26):     26(25)/2 = 325 pairs"}<br />
+          {"  CdTe 64-atom (N≈1920):  1920(1919)/2 = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"1,842,240 pairs"}</span><br /><br />
+          <span style={{ color: T.muted }}>Each pair adds a 1/|rᵢ − rⱼ| coupling term — all must be solved simultaneously.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10, marginTop: 14 }}>Example 3: Computational cost scaling — exact vs DFT</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>Full Configuration Interaction (exact) vs DFT for Si crystal</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Si unit cell: 2 atoms, 28 electrons<br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> FCI scales as O(N!) — factorial growth<br />
+          {"  FCI: 28! ≈ 3 × 10²⁹ operations"}<br />
+          {"  At 10¹⁵ FLOPS (petaflop): ~10¹⁴ seconds ≈ "}<span style={{ color: D.warn, fontWeight: 700 }}>{"3 million years"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> DFT scales as O(N³)<br />
+          {"  DFT: 28³ ≈ 22,000 operations per SCF step"}<br />
+          {"  With ~10 SCF steps + prefactor: ~"}<span style={{ color: D.basis, fontWeight: 700 }}>{"30 seconds on a laptop"}</span><br /><br />
+          <span style={{ color: D.basis }}>DFT achieves ~95-99% accuracy at a billionth of the cost!</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10, marginTop: 14 }}>Example 4: Wavefunction vs density — dimensionality savings</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>Compare storage for Ψ vs n(r) on a 100-point grid per axis</span><br /><br />
+          {"  System       | N_e  | Ψ dimensions | Ψ grid pts     | n(r) grid pts"}<br />
+          {"  ─────────────┼──────┼──────────────┼────────────────┼──────────────"}<br />
+          {"  H            |  1   | 3            | 10⁶            | 10⁶"}<br />
+          {"  He           |  2   | 6            | 10¹²           | 10⁶"}<br />
+          {"  C            |  6   | 18           | 10³⁶           | 10⁶"}<br />
+          {"  Fe           | 26   | 78           | 10¹⁵⁶          | 10⁶"}<br />
+          {"  64-atom cell |1920  | 5760         | 10¹¹⁵²⁰        | "}<span style={{ color: D.basis, fontWeight: 700 }}>{"10⁶"}</span><br /><br />
+          <span style={{ color: D.basis, fontWeight: 700 }}>n(r) is ALWAYS 3D (10⁶ points) regardless of electron count!</span>
+        </div>
+      </Card>
     </div>
   );
 }
@@ -8289,6 +8339,54 @@ function DFTHohenbergKohnSection() {
         }}>
           E<Sub>xc</Sub> is where ALL the difficulty lives. Every DFT functional (LDA, PBE, HSE, etc.)
           is a different approximation for this one term.
+        </div>
+      </Card>
+
+      <Card collapsible title="Worked Examples — HK Theorems in Action" color={D.eqn}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10 }}>Example 1: Density uniquely determines V_ext — H vs He⁺</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>Both H and He⁺ have 1 electron, but different nuclei (Z=1 vs Z=2)</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Hydrogen (Z=1) ground-state density:<br />
+          {"  n_H(r) = (1/πa₀³) e^(−2r/a₀),  a₀ = 0.529 Å"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> He⁺ (Z=2) ground-state density:<br />
+          {"  n_He⁺(r) = (8/πa₀³) e^(−4r/a₀)  — much tighter!"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Compare at r = a₀:<br />
+          {"  n_H(a₀)   = (1/πa₀³) e⁻² = 0.0585/a₀³"}<br />
+          {"  n_He⁺(a₀) = (8/πa₀³) e⁻⁴ = 0.0467/a₀³"}<br /><br />
+          <span style={{ color: D.basis, fontWeight: 700 }}>Different V_ext → different n(r). HK Theorem 1 confirmed: the mapping is unique.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10, marginTop: 14 }}>Example 2: Variational principle — trial density for He</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>Use HK Theorem 2: the true density minimizes E[n]</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Try a hydrogenic density with variational Z_eff:<br />
+          {"  n_trial(r) = 2 × (Z_eff³/πa₀³) e^(−2Z_eff r/a₀)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Compute E[n] for different Z_eff (atomic units):<br />
+          {"  Z_eff = 2.00: E = −2.750 Ha  (no screening)"}<br />
+          {"  Z_eff = 1.80: E = −2.847 Ha  (getting better)"}<br />
+          {"  Z_eff = 1.6875: E = −2.848 Ha  ← "}<span style={{ color: D.basis, fontWeight: 700 }}>{"minimum!"}</span><br />
+          {"  Z_eff = 1.50: E = −2.840 Ha  (overscreened)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Compare to exact: E_exact = −2.9037 Ha<br />
+          {"  Error = |−2.848 − (−2.9037)| = 0.056 Ha = 1.5 eV"}<br /><br />
+          <span style={{ color: D.basis }}>The variational minimum at Z_eff = 27/16 ≈ 1.6875 means each electron "sees" an effective nuclear charge of 1.69, not 2.0 — the other electron screens the nucleus.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10, marginTop: 14 }}>Example 3: Energy functional decomposition for Li atom</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>Li (Z=3, 3 electrons: 1s² 2s¹) — PBE functional decomposition</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Kinetic energy (non-interacting KS electrons):<br />
+          {"  T_s[n] = +7.4327 Ha"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> External potential (Z=3 nucleus):<br />
+          {"  V_ext[n] = ∫ n(r)(−3/r) dr = −17.1546 Ha"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Hartree energy (classical e⁻-e⁻ repulsion):<br />
+          {"  E_H[n] = ½∫∫ n(r)n(r')/|r−r'| drdr' = +4.1173 Ha"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Exchange-correlation:<br />
+          {"  E_x[n] = −1.7810 Ha  (exchange: same-spin avoidance)"}<br />
+          {"  E_c[n] = −0.0455 Ha  (correlation: dynamic avoidance)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 5:</span> Total:<br />
+          {"  E = 7.433 − 17.155 + 4.117 − 1.781 − 0.046 = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"-7.431 Ha = -202.2 eV"}</span><br />
+          {"  Experiment: -203.5 eV (error: 0.6%)"}<br /><br />
+          <span style={{ color: T.muted }}>Notice: |E_xc| {"<"} 25% of |E_total|, but it determines ALL chemistry!</span>
         </div>
       </Card>
     </div>
@@ -8398,6 +8496,63 @@ function DFTKohnShamSection() {
         <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.6 }}>
           Energy drops rapidly in the first few iterations, then converges exponentially.
           8 iterations is typical for a well-behaved system.
+        </div>
+      </Card>
+
+      <Card collapsible title="Worked Examples — Building V_eff Step by Step" color={D.accent}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.accent, marginBottom: 10 }}>Example 1: V_eff for Be atom (Z=4, 4 electrons: 1s² 2s²)</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>Construct V_eff(r) at r = 1 bohr from the nucleus</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> External potential (nucleus Z=4):<br />
+          {"  V_ext(r=1) = −Z/r = −4/1 = −4.000 Ha"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Hartree potential (electron density at r=1):<br />
+          {"  n(r=1) ≈ 0.85 e⁻/bohr³ (from initial guess)"}<br />
+          {"  V_H(r=1) = ∫ n(r')/|r−r'| dr' ≈ +2.37 Ha"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> XC potential (LDA):<br />
+          {"  V_xc(r=1) = δE_xc/δn = −(3/π)^(1/3) n^(1/3) ≈ −0.72 Ha"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Total effective potential:<br />
+          {"  V_eff(1) = −4.000 + 2.37 + (−0.72) = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"-2.35 Ha"}</span><br /><br />
+          <span style={{ color: T.muted }}>The electron at r=1 bohr "feels" −2.35 Ha, not −4.0 Ha. Other electrons screen the nucleus by 41%!</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.accent, marginBottom: 10, marginTop: 14 }}>Example 2: Density mixing — preventing SCF oscillation</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>Linear mixing for a Si calculation at one grid point</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Iteration 1 input density: n_in = 0.045 e⁻/ų<br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Solve KS → output density: n_out = 0.068 e⁻/ų<br />
+          {"  (Big change: Δn = 0.023)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> If we use n_out directly → SCF might oscillate!<br />
+          {"  Instead, mix with α = 0.3:"}<br />
+          {"  n_mix = α × n_out + (1−α) × n_in"}<br />
+          {"  n_mix = 0.3 × 0.068 + 0.7 × 0.045 = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"0.0519 e⁻/ų"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Next iterations (same point):<br />
+          {"  Iter 2: n_in=0.0519, n_out=0.0557, n_mix=0.0530"}<br />
+          {"  Iter 3: n_in=0.0530, n_out=0.0541, n_mix=0.0533"}<br />
+          {"  Iter 4: n_in=0.0533, n_out=0.0536, n_mix=0.0534"}<br />
+          {"  Iter 5: n_in=0.0534, n_out=0.0534 ← "}<span style={{ color: D.basis, fontWeight: 700 }}>{"converged!"}</span><br /><br />
+          <span style={{ color: T.muted }}>Without mixing (α=1), this would oscillate between 0.045 and 0.068 forever.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.accent, marginBottom: 10, marginTop: 14 }}>Example 3: KS eigenvalues for carbon atom (Z=6)</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>Converged KS orbital energies (PBE) for C: 1s² 2s² 2p²</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Solve KS equations self-consistently → eigenvalues:<br />
+          {"  ε(1s) = −273.4 eV  (deep core, tightly bound)"}<br />
+          {"  ε(2s) = −13.6 eV   (inner valence)"}<br />
+          {"  ε(2p) = −5.4 eV    (outer valence, HOMO)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Build density from occupied orbitals:<br />
+          {"  n(r) = 2|ψ_1s|² + 2|ψ_2s|² + 2|ψ_2p|²"}<br />
+          {"  ∫ n(r) dr = 2 + 2 + 2 = 6 electrons ✓"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Check Koopmans' theorem:<br />
+          {"  −ε(2p) = 5.4 eV ≈ ionization energy"}<br />
+          {"  Experiment: IE(C) = 11.26 eV"}<br />
+          {"  PBE underestimates due to SIE (typical!)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Total energy decomposition:<br />
+          {"  T_s = +37.64 Ha    (kinetic)"}<br />
+          {"  V_ext = −88.90 Ha  (nuclear attraction)"}<br />
+          {"  E_H = +20.67 Ha    (Hartree)"}<br />
+          {"  E_xc = −5.07 Ha    (exchange-correlation)"}<br />
+          {"  E_total = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"-37.79 Ha = -1028.4 eV"}</span>
         </div>
       </Card>
     </div>
@@ -8574,6 +8729,73 @@ function DFTLDASection() {
           </tbody>
         </table>
       </Card>
+
+      <Card collapsible title="Worked Examples — LDA Calculations Step by Step" color={D.warm}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 10 }}>Example 1: LDA exchange energy for a uniform electron gas</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>Calculate ε_x for metallic Na (r_s = 3.93 bohr)</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> The Wigner-Seitz radius r_s relates to density:<br />
+          {"  n = 3/(4π r_s³) = 3/(4π × 3.93³) = 0.00393 e⁻/bohr³"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> LDA exchange energy per electron (Dirac formula):<br />
+          {"  ε_x(n) = −(3/4)(3n/π)^(1/3)"}<br />
+          {"  ε_x = −(3/4)(3 × 0.00393/π)^(1/3)"}<br />
+          {"  ε_x = −(3/4)(0.00375)^(1/3)"}<br />
+          {"  ε_x = −(3/4)(0.1554) = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"-0.1165 Ha = -3.17 eV"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Total exchange energy (per electron in Na bulk):<br />
+          {"  E_x = ∫ n(r) ε_x(n(r)) dr ≈ 0.00393 × (−0.1165) × Ω"}<br />
+          {"  Per atom: E_x ≈ −0.1165 Ha = −3.17 eV"}<br /><br />
+          <span style={{ color: T.muted }}>For Na metal, LDA exchange captures ~97% of the exact exchange energy.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 10, marginTop: 14 }}>Example 2: LDA lattice constant of Si — the overbinding problem</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>Compute Si lattice constant by energy vs volume curve</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Calculate total energy at different lattice constants:<br />
+          {"  a = 5.20 Å: E = −7.8421 eV/atom"}<br />
+          {"  a = 5.30 Å: E = −7.8689 eV/atom"}<br />
+          {"  a = 5.40 Å: E = −7.8712 eV/atom ← minimum"}<br />
+          {"  a = 5.50 Å: E = −7.8583 eV/atom"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Fit to Birch-Murnaghan equation of state:<br />
+          {"  a_LDA = "}<span style={{ color: D.warm, fontWeight: 700 }}>{"5.40 Å"}</span><br />
+          {"  a_expt = 5.43 Å"}<br />
+          {"  Error  = (5.40 − 5.43)/5.43 = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"-0.55% (underestimates)"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Also get bulk modulus from curvature:<br />
+          {"  B_LDA  = 97 GPa"}<br />
+          {"  B_expt = 99 GPa"}<br />
+          {"  Error  = −2%   (excellent for LDA!)"}<br /><br />
+          <span style={{ color: T.muted }}>LDA consistently underestimates lattice constants by ~1% (overbinding).</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 10, marginTop: 14 }}>Example 3: LDA cohesive energy of Cu metal</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>Cohesive energy = E_atom − E_bulk (per atom)</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Calculate isolated Cu atom energy (in large box):<br />
+          {"  E_atom = −1.312 eV  (PBE-PAW, spin-polarized)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Calculate Cu FCC bulk energy per atom:<br />
+          {"  E_bulk = −4.947 eV/atom  (12×12×12 k-mesh)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Cohesive energy:<br />
+          {"  E_coh(LDA) = |E_bulk − E_atom| = |−4.947 − (−1.312)| = "}<span style={{ color: D.warm, fontWeight: 700 }}>{"3.635 eV"}</span><br />
+          {"  E_coh(expt) = 3.49 eV"}<br />
+          {"  Error = (3.635 − 3.49)/3.49 = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"+4.2% (overbinds)"}</span><br /><br />
+          <span style={{ color: T.muted }}>LDA systematically overbinds: cohesive energies are 5-20% too large.</span><br />
+          <span style={{ color: T.muted }}>PBE gives 3.51 eV — much closer to experiment.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 10, marginTop: 14 }}>Example 4: LDA band gap of GaAs — the gap problem</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>Compute GaAs band gap at Γ point</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Run SCF with LDA, 8×8×8 k-mesh, ENCUT = 400 eV<br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Extract KS eigenvalues at Γ:<br />
+          {"  Valence band maximum (VBM): ε_VBM = 0.000 eV (reference)"}<br />
+          {"  Conduction band min (CBM):  ε_CBM = 0.300 eV"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> LDA band gap = CBM − VBM:<br />
+          {"  E_gap(LDA) = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"0.30 eV"}</span><br />
+          {"  E_gap(expt) = 1.42 eV"}<br />
+          {"  Underestimate: 0.30/1.42 = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"79% too small!"}</span><br /><br />
+          <span style={{ color: T.muted }}>This massive error is the #1 failure of LDA/GGA.</span><br />
+          <span style={{ color: T.muted }}>HSE06 gives 1.32 eV — much closer to the 1.42 eV experiment.</span>
+        </div>
+      </Card>
     </div>
   );
 }
@@ -8637,6 +8859,58 @@ function DFTGGASection() {
           {"  PBEsol:     a = 6.49 Å  (closer, +0.2%)"}<br />
           {"  Experiment: a = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"6.48 Å"}</span><br /><br />
           <span style={{ color: T.muted }}>PBE overestimates lattice constants slightly. PBEsol (revised for solids) is better for structures.</span>
+        </div>
+      </Card>
+
+      <Card collapsible title="More Worked Examples — PBE in Practice" color={D.basis}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.basis, marginBottom: 10 }}>Example 1: Reduced density gradient — where GGA matters</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.basis, fontWeight: 700 }}>Calculate s(r) = |∇n|/(2k_F n) at two points in Si crystal</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> At the Si-Si bond center (smooth density):<br />
+          {"  n = 0.044 e⁻/bohr³,  |∇n| = 0.012 e⁻/bohr⁴"}<br />
+          {"  k_F = (3π²n)^(1/3) = (3π² × 0.044)^(1/3) = 1.08 bohr⁻¹"}<br />
+          {"  s = 0.012/(2 × 1.08 × 0.044) = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"0.126  (small → LDA is OK here)"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Near the Si nucleus (rapidly varying):<br />
+          {"  n = 2.8 e⁻/bohr³,  |∇n| = 18.5 e⁻/bohr⁴"}<br />
+          {"  k_F = (3π² × 2.8)^(1/3) = 4.34 bohr⁻¹"}<br />
+          {"  s = 18.5/(2 × 4.34 × 2.8) = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"0.762  (large → GGA correction is essential!)"}</span><br /><br />
+          <span style={{ color: T.muted }}>Where s is large, LDA and GGA give very different E_xc. Near nuclei and in tails, GGA matters most.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.basis, marginBottom: 10, marginTop: 14 }}>Example 2: PBE atomization energy of H₂O</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.basis, fontWeight: 700 }}>Atomization energy = E(atoms) − E(molecule)</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Calculate isolated atom energies (PBE, big box):<br />
+          {"  E(H) = −1.116 eV  (spin-polarized)"}<br />
+          {"  E(O) = −4.570 eV  (spin-polarized, triplet)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Calculate H₂O molecule energy:<br />
+          {"  E(H₂O) = −14.219 eV"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Atomization energy:<br />
+          {"  E_at = 2×E(H) + E(O) − E(H₂O)"}<br />
+          {"  E_at = 2(−1.116) + (−4.570) − (−14.219)"}<br />
+          {"  E_at(PBE) = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"9.51 eV = 219.3 kcal/mol"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Compare to experiment:<br />
+          {"  E_at(expt) = 9.51 eV = 219.3 kcal/mol"}<br />
+          {"  Error = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"< 0.1% — PBE is excellent for covalent bonds!"}</span><br /><br />
+          <span style={{ color: T.muted }}>PBE atomization energies are typically within ±0.1 eV/bond for strong covalent bonds.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.basis, marginBottom: 10, marginTop: 14 }}>Example 3: Formation energy of vacancy in Si</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.basis, fontWeight: 700 }}>How much energy to remove one Si atom from the crystal?</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Calculate perfect 64-atom Si supercell:<br />
+          {"  E_perfect = −346.472 eV  (PBE, 3×3×3 k-mesh)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Remove 1 atom, relax remaining 63 atoms:<br />
+          {"  E_vacancy = −340.821 eV  (63 atoms + 1 vacancy)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Chemical potential of Si (bulk energy per atom):<br />
+          {"  μ_Si = E_perfect/64 = −346.472/64 = −5.414 eV/atom"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Vacancy formation energy:<br />
+          {"  E_f = E_vacancy − (63/64) × E_perfect"}<br />
+          {"  E_f = −340.821 − (63 × −5.414)"}<br />
+          {"  E_f = −340.821 + 341.082 = "}<br />
+          {"  E_f(PBE) = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"3.67 eV"}</span><br />
+          {"  E_f(expt) ≈ 3.6 ± 0.5 eV"}<br /><br />
+          <span style={{ color: T.muted }}>PBE gives good defect formation energies for neutral defects in semiconductors.</span>
         </div>
       </Card>
     </div>
@@ -8708,6 +8982,68 @@ function DFTHSESection() {
         <div style={{ fontSize: 12, color: T.muted, marginTop: 10, lineHeight: 1.6 }}>
           Strategy: relax structures with PBE, then do a single HSE calculation for accurate band gaps.
           Never relax with HSE unless you have unlimited compute.
+        </div>
+      </Card>
+
+      <Card collapsible title="Worked Examples — HSE06 Step by Step" color={D.xc}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.xc, marginBottom: 10 }}>Example 1: How HSE06 mixes exchange for Si</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.xc, fontWeight: 700 }}>Decompose E_xc at a point in the Si bond region</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> PBE exchange energy density at bond center:<br />
+          {"  ε_x^PBE = −0.437 Ha/e⁻"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Exact (HF) exchange at same point:<br />
+          {"  ε_x^HF = −0.512 Ha/e⁻  (larger magnitude)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> HSE06 splits by range (ω = 0.2 Å⁻¹):<br />
+          {"  Short-range: mix 25% HF + 75% PBE"}<br />
+          {"  ε_x^SR(HSE) = 0.25 × (−0.485) + 0.75 × (−0.410) = −0.429 Ha/e⁻"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Long-range: 100% PBE<br />
+          {"  ε_x^LR(HSE) = −0.027 Ha/e⁻  (PBE long-range part)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 5:</span> Add PBE correlation (unchanged):<br />
+          {"  ε_c^PBE = −0.031 Ha/e⁻"}<br />
+          {"  ε_xc^HSE = −0.429 + (−0.027) + (−0.031) = "}<span style={{ color: D.xc, fontWeight: 700 }}>{"-0.487 Ha/e⁻"}</span><br /><br />
+          <span style={{ color: T.muted }}>The 25% HF exchange removes part of the self-interaction, opening the gap.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.xc, marginBottom: 10, marginTop: 14 }}>Example 2: Si band structure — PBE vs HSE06</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.xc, fontWeight: 700 }}>Compare KS eigenvalues at high-symmetry k-points</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> PBE band structure (eV, VBM = 0):<br />
+          {"  k-point  | VB (top) | CB (bottom) | Gap"}<br />
+          {"  ─────────┼──────────┼─────────────┼──────"}<br />
+          {"  Γ        |  0.00    |  2.53       | 2.53 (direct)"}<br />
+          {"  X        | −2.84    |  0.61       | 0.61 (indirect)"}<br />
+          {"  L        | −1.21    |  1.50       | 1.50"}<br />
+          {"  Indirect gap (Γ→X): "}<span style={{ color: D.warn, fontWeight: 700 }}>{"0.61 eV"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> HSE06 band structure (eV, VBM = 0):<br />
+          {"  k-point  | VB (top) | CB (bottom) | Gap"}<br />
+          {"  ─────────┼──────────┼─────────────┼──────"}<br />
+          {"  Γ        |  0.00    |  3.32       | 3.32 (direct)"}<br />
+          {"  X        | −2.98    |  1.14       | 1.14 (indirect)"}<br />
+          {"  L        | −1.35    |  2.08       | 2.08"}<br />
+          {"  Indirect gap (Γ→X): "}<span style={{ color: D.xc, fontWeight: 700 }}>{"1.14 eV"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Compare to experiment:<br />
+          {"  E_gap(expt) = 1.17 eV"}<br />
+          {"  PBE error:  |0.61 − 1.17| = 0.56 eV (48% too low)"}<br />
+          {"  HSE error:  |1.14 − 1.17| = 0.03 eV ("}<span style={{ color: D.xc, fontWeight: 700 }}>{"2.6% error — excellent!"}</span>{")"}<br /><br />
+          <span style={{ color: T.muted }}>HSE06 shifts conduction bands up by ~0.5 eV uniformly (scissor-like correction).</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.xc, marginBottom: 10, marginTop: 14 }}>Example 3: HSE06 computational cost scaling</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.xc, fontWeight: 700 }}>Wall time comparison: PBE vs HSE06 for Si supercells</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Setup: VASP, 4×4×4 k-mesh, ENCUT=400 eV, 32 cores<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Timing results:<br />
+          {"  System    | Atoms | PBE time | HSE time | Ratio"}<br />
+          {"  ──────────┼───────┼──────────┼──────────┼───────"}<br />
+          {"  Si unit   |   2   | 12 sec   | 3.5 min  | 18x"}<br />
+          {"  2×2×2     |  16   | 2 min    | 1.8 hrs  | 54x"}<br />
+          {"  3×3×3     |  54   | 15 min   | 24 hrs   | 96x"}<br />
+          {"  4×4×4     | 128   | 45 min   | ~8 days  | 256x"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Cost scaling analysis:<br />
+          {"  PBE:  O(N³)  — doubling atoms → 8× cost"}<br />
+          {"  HSE:  O(N⁴)  — doubling atoms → 16× cost"}<br /><br />
+          <span style={{ color: D.warn, fontWeight: 700 }}>Strategy: relax with PBE, then single-point HSE for band gap.</span><br />
+          <span style={{ color: T.muted }}>For 128+ atoms, HSE becomes impractical without massive HPC resources.</span>
         </div>
       </Card>
     </div>
@@ -8793,6 +9129,70 @@ function DFTDFTUSection() {
           ))}
         </div>
       </Card>
+
+      <Card collapsible title="Worked Examples — DFT+U in Practice" color={D.warm}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 10 }}>Example 1: The U penalty function — FeO d-electrons</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>E_U = (U−J)/2 × Σ_i n_i(1 − n_i), with U=4 eV, J=0</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> PBE without U — Fe 3d occupations (delocalized):<br />
+          {"  d_xy: n = 0.72,  d_xz: n = 0.68,  d_yz: n = 0.70"}<br />
+          {"  d_z²: n = 0.65,  d_x²-y²: n = 0.63"}<br />
+          {"  (All partially occupied → delocalized → PBE says metal!)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> U penalty for each orbital:<br />
+          {"  E_U(d_xy)    = 4/2 × 0.72 × (1−0.72) = 0.403 eV"}<br />
+          {"  E_U(d_xz)    = 4/2 × 0.68 × (1−0.68) = 0.435 eV"}<br />
+          {"  E_U(d_yz)    = 4/2 × 0.70 × (1−0.70) = 0.420 eV"}<br />
+          {"  E_U(d_z²)    = 4/2 × 0.65 × (1−0.65) = 0.455 eV"}<br />
+          {"  E_U(d_x²-y²) = 4/2 × 0.63 × (1−0.63) = 0.466 eV"}<br />
+          {"  Total penalty: "}<span style={{ color: D.warn, fontWeight: 700 }}>{"2.18 eV per Fe atom"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> With U=4 — Fe 3d re-converged occupations:<br />
+          {"  d_xy: n = 0.98,  d_xz: n = 0.97,  d_yz: n = 0.97"}<br />
+          {"  d_z²: n = 0.95,  d_x²-y²: n = 0.12"}<br />
+          {"  (Nearly integer → localized → insulator!)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> New penalty is much smaller:<br />
+          {"  E_U(d_xy) = 4/2 × 0.98 × 0.02 = 0.039 eV"}<br />
+          {"  Total penalty: "}<span style={{ color: D.basis, fontWeight: 700 }}>{"0.25 eV (10× smaller — electrons localized)"}</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 10, marginTop: 14 }}>Example 2: FeO band gap vs U value</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>Scan U from 0 to 7 eV for FeO rock-salt structure</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Calculate band gap for each U:<br />
+          {"  U = 0 eV:  gap = 0.0 eV  (metal — WRONG)"}<br />
+          {"  U = 2 eV:  gap = 0.8 eV  (small gap opens)"}<br />
+          {"  U = 3 eV:  gap = 1.5 eV"}<br />
+          {"  U = 4 eV:  gap = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"2.1 eV"}</span><br />
+          {"  U = 5 eV:  gap = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"2.5 eV  ← best match"}</span><br />
+          {"  U = 6 eV:  gap = 3.0 eV  (overestimates)"}<br />
+          {"  U = 7 eV:  gap = 3.4 eV  (too large)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Experiment: gap = 2.4 eV<br />
+          {"  Best U ≈ 4.5-5.0 eV for Fe 3d in FeO"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Also check magnetic moment:<br />
+          {"  U = 0 eV:  μ = 3.3 μ_B  (too low)"}<br />
+          {"  U = 5 eV:  μ = 3.7 μ_B  (expt: 3.6-4.2 μ_B ✓)"}<br /><br />
+          <span style={{ color: T.muted }}>U should reproduce BOTH gap AND magnetic moment. If not, the method may not be appropriate.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 10, marginTop: 14 }}>Example 3: Linear response U calculation for NiO</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>Self-consistent U from density response (Cococcioni method)</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Apply small perturbation α to Ni 3d potential:<br />
+          {"  α = −0.10, −0.05, 0.00, +0.05, +0.10 eV"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Measure occupation response χ = dn/dα:<br />
+          {"  Non-interacting: χ₀ = −0.82 (bare response)"}<br />
+          {"  Self-consistent:  χ  = −0.35 (screened response)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Compute U from inverse responses:<br />
+          {"  U = χ₀⁻¹ − χ⁻¹"}<br />
+          {"  U = (−1/0.82) − (−1/0.35)"}<br />
+          {"  U = −1.22 + 2.86 = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"1.64 eV"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Iterate (U changes the response):<br />
+          {"  Round 1: U = 1.64 eV → redo SCF"}<br />
+          {"  Round 2: U = 5.12 eV → redo SCF"}<br />
+          {"  Round 3: U = 5.28 eV → redo SCF"}<br />
+          {"  Round 4: U = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"5.30 eV ← converged!"}</span><br /><br />
+          <span style={{ color: T.muted }}>Literature U for NiO: 5.0-6.3 eV. Linear response gives U ≈ 5.3 eV — no fitting needed!</span>
+        </div>
+      </Card>
     </div>
   );
 }
@@ -8870,6 +9270,64 @@ function DFTSelfInteractionSection() {
           </tbody>
         </table>
       </Card>
+
+      <Card collapsible title="Worked Examples — Quantifying Self-Interaction Error" color={D.warn}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.warn, marginBottom: 10 }}>Example 1: SIE in hydrogen atom — the exact test</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warn, fontWeight: 700 }}>For 1 electron, E_H + E_x must exactly cancel (no self-repulsion)</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Hartree self-repulsion of H 1s density:<br />
+          {"  E_H = ½∫∫ n(r)n(r')/|r−r'| drdr' = 5/16 Ha = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"+0.3125 Ha"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Exact exchange must cancel this:<br />
+          {"  E_x(exact) = −0.3125 Ha  → E_H + E_x = 0 ✓"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> LDA exchange gives:<br />
+          {"  E_x(LDA) = −(3/4)(3/π)^(1/3) ∫ n^(4/3) dr = −0.2680 Ha"}<br />
+          {"  SIE(LDA) = E_H + E_x(LDA) = 0.3125 − 0.2680 = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"+0.0445 Ha = +1.21 eV"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> PBE exchange gives:<br />
+          {"  E_x(PBE) = −0.2943 Ha  (gradient correction helps)"}<br />
+          {"  SIE(PBE) = 0.3125 − 0.2943 = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"+0.0182 Ha = +0.50 eV"}</span><br /><br />
+          <span style={{ color: T.muted }}>PBE halves the SIE vs LDA, but +0.50 eV is still chemically significant!</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.warn, marginBottom: 10, marginTop: 14 }}>Example 2: H₂⁺ dissociation — SIE at its worst</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warn, fontWeight: 700 }}>H₂⁺ (1 electron, 2 protons) — stretch the bond</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> At equilibrium (R = 1.06 Å):<br />
+          {"  E(exact) = −0.603 Ha,  E(PBE) = −0.596 Ha"}<br />
+          {"  Error: 0.007 Ha = 0.19 eV (small, acceptable)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> At large separation (R = 10 Å):<br />
+          {"  Exact: H₂⁺ → H + H⁺ (electron localizes on ONE proton)"}<br />
+          {"  E(exact) = −0.500 Ha"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> PBE at R = 10 Å:<br />
+          {"  PBE: H₂⁺ → H^(0.5) + H^(0.5) (electron splits equally!)"}<br />
+          {"  E(PBE) = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"-0.535 Ha"}</span><br />
+          {"  Error: 0.035 Ha = 0.95 eV (huge!)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Why? SIE stabilizes fractional charges:<br />
+          {"  Each H^(0.5) has half an electron"}<br />
+          {"  SIE makes half-integer occupation artificially stable"}<br />
+          {"  The electron refuses to localize → wrong dissociation limit"}<br /><br />
+          <span style={{ color: D.warn }}>This is the classic SIE demonstration — PBE gives qualitatively wrong physics!</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.warn, marginBottom: 10, marginTop: 14 }}>Example 3: Band gap errors across semiconductors — SIE fingerprint</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warn, fontWeight: 700 }}>Systematic gap underestimation correlates with orbital localization</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Calculate PBE gaps and compare to experiment:<br />
+          {"  Material  | PBE gap | Expt gap | Error  | Dominant orbital"}<br />
+          {"  ──────────┼─────────┼──────────┼────────┼─────────────────"}<br />
+          {"  Si        | 0.61 eV | 1.17 eV  | −48%   | sp (delocalized)"}<br />
+          {"  GaAs      | 0.47 eV | 1.42 eV  | −67%   | sp"}<br />
+          {"  ZnO       | 0.81 eV | 3.37 eV  | −76%   | Zn-3d + O-2p"}<br />
+          {"  NiO       | 0.0  eV | 4.0  eV  | −100%  | Ni-3d (very localized)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Pattern: more localized orbitals → worse SIE:<br />
+          {"  sp semiconductors: ~50% error (tolerable)"}<br />
+          {"  d-electron systems: ~75-100% error (catastrophic)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Why? SIE is proportional to orbital self-overlap:<br />
+          {"  SIE ∝ ∫∫ |ψ_i(r)|² |ψ_i(r')|² / |r−r'| drdr'"}<br />
+          {"  Localized d-orbitals have large self-overlap → large SIE"}<br />
+          {"  Delocalized sp-bands spread out → smaller SIE"}<br /><br />
+          <span style={{ color: D.basis }}>Rule of thumb: if your system has d or f electrons, expect PBE gaps to be very wrong.</span>
+        </div>
+      </Card>
     </div>
   );
 }
@@ -8925,6 +9383,67 @@ function DFTBasisIntroSection() {
               <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.desc}</div>
             </div>
           ))}
+        </div>
+      </Card>
+
+      <Card collapsible title="Worked Examples — Basis Set Expansion" color={D.eqn}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10 }}>Example 1: Expanding H 1s orbital in STO-3G (3 Gaussians)</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>Approximate the exact 1s = e^(−r) with 3 Gaussians</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> The STO-3G basis uses 3 primitive Gaussians:<br />
+          {"  χ(r) = c₁ e^(−α₁r²) + c₂ e^(−α₂r²) + c₃ e^(−α₃r²)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Optimized exponents and coefficients:<br />
+          {"  α₁ = 3.4253,  c₁ = 0.1543  (tight, captures cusp)"}<br />
+          {"  α₂ = 0.6239,  c₂ = 0.5353  (medium range)"}<br />
+          {"  α₃ = 0.1689,  c₃ = 0.4446  (diffuse, captures tail)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Evaluate at r = 0 (nucleus):<br />
+          {"  χ(0) = 0.1543 + 0.5353 + 0.4446 = 1.134"}<br />
+          {"  Exact: ψ(0) = 1/√π = 0.564  (after normalization)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Energy comparison:<br />
+          {"  STO-3G: E = −0.4666 Ha = −12.70 eV"}<br />
+          {"  Exact:  E = −0.5000 Ha = −13.61 eV"}<br />
+          {"  Error: "}<span style={{ color: D.warn, fontWeight: 700 }}>{"0.91 eV (6.7%) — only 3 functions!"}</span><br /><br />
+          <span style={{ color: T.muted }}>Adding more Gaussians (cc-pVDZ: 5, cc-pVTZ: 14) converges toward the exact answer.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10, marginTop: 14 }}>Example 2: Convergence with basis set size for H₂</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>H₂ bond energy with increasing Gaussian basis quality</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Calculate E(H₂) and E(H) at each basis level:<br /><br />
+          {"  Basis     | # funcs/atom | E(H₂)      | E(H)      | D_e"}<br />
+          {"  ──────────┼──────────────┼────────────┼───────────┼──────"}<br />
+          {"  STO-3G    |    1         | −1.117 Ha  | −0.467 Ha | 5.0 eV"}<br />
+          {"  6-31G*    |    5         | −1.127 Ha  | −0.499 Ha | 3.5 eV"}<br />
+          {"  cc-pVDZ   |    5         | −1.131 Ha  | −0.499 Ha | 3.6 eV"}<br />
+          {"  cc-pVTZ   |   14         | −1.133 Ha  | −0.500 Ha | 3.6 eV"}<br />
+          {"  cc-pVQZ   |   30         | −1.134 Ha  | −0.500 Ha | "}<span style={{ color: D.basis, fontWeight: 700 }}>{"3.6 eV"}</span><br />
+          {"  CBS limit |    ∞         | −1.134 Ha  | −0.500 Ha | 3.6 eV"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Experiment: D_e = 4.75 eV (includes zero-point)<br />
+          {"  D_0(expt) = 4.48 eV, D_e(expt) = 4.75 eV"}<br /><br />
+          <span style={{ color: T.muted }}>STO-3G is terrible. DZ gets you most of the way. TZ/QZ differences are small.</span><br />
+          <span style={{ color: T.muted }}>Note: remaining error is from PBE functional, not basis incompleteness.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10, marginTop: 14 }}>Example 3: How many basis functions for a water molecule?</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>Count functions in H₂O (2 H atoms + 1 O atom)</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> STO-3G (minimal):<br />
+          {"  O: 1s, 2s, 2px, 2py, 2pz = 5 functions"}<br />
+          {"  H: 1s = 1 function each, ×2 = 2"}<br />
+          {"  Total: "}<span style={{ color: D.basis, fontWeight: 700 }}>{"7 basis functions"}</span>{" → 7×7 matrix to diagonalize"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> cc-pVDZ (double-zeta + polarization):<br />
+          {"  O: 2×(s) + 2×(p) + 1×(d) = 2 + 6 + 5 = 13 functions"}<br />
+          {"  H: 2×(s) + 1×(p) = 2 + 3 = 5 each, ×2 = 10"}<br />
+          {"  Total: "}<span style={{ color: D.basis, fontWeight: 700 }}>{"24 basis functions"}</span>{" → 24×24 matrix"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> cc-pVTZ (triple-zeta + polarization):<br />
+          {"  O: 3×(s) + 3×(p) + 2×(d) + 1×(f) = 3 + 9 + 10 + 7 = 30"}<br />
+          {"  H: 3×(s) + 2×(p) + 1×(d) = 3 + 6 + 5 = 14 each, ×2 = 28"}<br />
+          {"  Total: "}<span style={{ color: D.basis, fontWeight: 700 }}>{"58 basis functions"}</span>{" → 58×58 matrix"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Cost scales as N³ to N⁴:<br />
+          {"  STO-3G: 7³ ≈ 343 operations (instant)"}<br />
+          {"  cc-pVDZ: 24³ ≈ 13,824 (milliseconds)"}<br />
+          {"  cc-pVTZ: 58³ ≈ 195,112 (seconds)"}<br /><br />
+          <span style={{ color: T.muted }}>For DFT: cc-pVTZ is usually sufficient. For CCSD(T): even DZ is expensive.</span>
         </div>
       </Card>
     </div>
@@ -8985,6 +9504,69 @@ function DFTGaussianSection() {
               <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.strength}</div>
             </div>
           ))}
+        </div>
+      </Card>
+
+      <Card collapsible title="Worked Examples — Gaussian Basis Sets in Practice" color={D.accent}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.accent, marginBottom: 10 }}>Example 1: H₂O energy convergence with basis set quality</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>PBE total energy of water molecule at experimental geometry</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Run PBE with increasing basis sets:<br />
+          {"  Basis       | # functions | E_total (Ha)   | ΔE vs CBS"}<br />
+          {"  ─────────────┼─────────────┼────────────────┼──────────"}<br />
+          {"  STO-3G       |     7       | −75.5606       | +489 mHa"}<br />
+          {"  6-31G*       |    19       | −76.0119       | +38 mHa"}<br />
+          {"  cc-pVDZ      |    24       | −76.0267       | +23 mHa"}<br />
+          {"  cc-pVTZ      |    58       | −76.0438       | +5.6 mHa"}<br />
+          {"  cc-pVQZ      |   115       | −76.0484       | +1.0 mHa"}<br />
+          {"  cc-pV5Z      |   201       | −76.0492       | +0.2 mHa"}<br />
+          {"  CBS limit    |     ∞       | "}<span style={{ color: D.basis, fontWeight: 700 }}>{"-76.0494 Ha"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Cost (single-point, 1 core):<br />
+          {"  STO-3G: 0.1 sec,  cc-pVDZ: 0.5 sec,  cc-pVTZ: 8 sec"}<br />
+          {"  cc-pVQZ: 2 min,   cc-pV5Z: 45 min"}<br /><br />
+          <span style={{ color: T.muted }}>Sweet spot: cc-pVTZ gives 99.99% of CBS energy at reasonable cost.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.accent, marginBottom: 10, marginTop: 14 }}>Example 2: Basis Set Superposition Error (BSSE) in water dimer</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>(H₂O)₂ binding energy — the ghost orbital problem</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Naive binding energy (cc-pVDZ, PBE):<br />
+          {"  E(dimer) = −152.0712 Ha"}<br />
+          {"  E(mono_A) = −76.0267 Ha"}<br />
+          {"  E(mono_B) = −76.0267 Ha"}<br />
+          {"  ΔE_bind = E(dimer) − 2×E(mono) = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"-0.0178 Ha = -11.2 kcal/mol"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> The BSSE problem:<br />
+          {"  In the dimer, each monomer 'borrows' basis functions from its partner"}<br />
+          {"  This artificially lowers E(dimer) → overbinds!"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Counterpoise (CP) correction (Boys-Bernardi):<br />
+          {"  Recalculate each monomer using the full dimer basis:"}<br />
+          {"  E(A in dimer basis) = −76.0289 Ha  (lower by 0.0022 Ha)"}<br />
+          {"  E(B in dimer basis) = −76.0289 Ha"}<br />
+          {"  BSSE = 2 × 0.0022 = 0.0044 Ha = 2.8 kcal/mol"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Corrected binding energy:<br />
+          {"  ΔE_CP = −0.0178 + 0.0044 = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"-0.0134 Ha = -8.4 kcal/mol"}</span><br />
+          {"  Expt: ~5.0 kcal/mol (remaining error from PBE missing dispersion)"}<br /><br />
+          <span style={{ color: T.muted }}>BSSE is 25% of binding energy with DZ! With TZ it drops to ~5%. Always check.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.accent, marginBottom: 10, marginTop: 14 }}>Example 3: Why polarization functions matter — NH₃ inversion</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.accent, fontWeight: 700 }}>NH₃ pyramidal → planar inversion barrier</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Without polarization (6-31G, no *):<br />
+          {"  E(pyramidal) = −56.1684 Ha"}<br />
+          {"  E(planar)    = −56.1637 Ha"}<br />
+          {"  Barrier = 0.0047 Ha = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"2.9 kcal/mol"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> With polarization (6-31G*, adds d on N):<br />
+          {"  E(pyramidal) = −56.1923 Ha"}<br />
+          {"  E(planar)    = −56.1841 Ha"}<br />
+          {"  Barrier = 0.0082 Ha = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"5.2 kcal/mol"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Experiment: barrier = 5.8 kcal/mol<br />
+          {"  Without d-polarization: 50% error!"}<br />
+          {"  With d-polarization:    10% error"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Why? The pyramidal N needs d-orbital flexibility to<br />
+          {"  describe the lone pair bending. Without d functions,"}<br />
+          {"  the basis cannot represent the bonding angle accurately."}<br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>Rule: always use at least polarized double-zeta (6-31G* or cc-pVDZ) for chemistry.</span>
         </div>
       </Card>
     </div>
@@ -9065,6 +9647,67 @@ function DFTBasisCompareSection() {
           ))}
         </div>
       </Card>
+
+      <Card collapsible title="Worked Examples — PW vs Gaussian Head to Head" color={D.warm}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 10 }}>Example 1: Si bulk — PW wins for periodic systems</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>Compute Si lattice constant with both approaches</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Plane waves (VASP, PAW-PBE):<br />
+          {"  ENCUT = 400 eV, 8×8×8 k-mesh"}<br />
+          {"  # basis functions: ~2,700 per k-point (automatic)"}<br />
+          {"  a = 5.47 Å, time = 25 sec on 4 cores"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Gaussians (CRYSTAL, PBE, POB-TZVP basis):<br />
+          {"  Manually choose basis: 22 functions per Si atom"}<br />
+          {"  44 basis functions total + 8×8×8 k-mesh"}<br />
+          {"  a = 5.47 Å, time = 45 sec on 4 cores"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Same answer! But key differences:<br />
+          {"  PW: no BSSE, automatic convergence (just increase ENCUT)"}<br />
+          {"  Gaussian: possible BSSE, must carefully choose basis set"}<br />
+          {"  PW: natural for periodicity via Bloch theorem"}<br />
+          {"  Gaussian: needs k-point machinery added to atom-centred code"}<br /><br />
+          <span style={{ color: D.basis, fontWeight: 700 }}>Verdict: PW is simpler and more robust for bulk crystals.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 10, marginTop: 14 }}>Example 2: Benzene molecule — Gaussians win for molecules</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>Compute C₆H₆ atomization energy with both approaches</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Gaussians (ORCA, PBE/cc-pVTZ):<br />
+          {"  Basis: 14 funcs/C + 5 funcs/H = 6×14 + 6×5 = 114 functions"}<br />
+          {"  E(C₆H₆) = −232.1547 Ha"}<br />
+          {"  Time: 12 sec on 4 cores"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Plane waves (VASP, PAW-PBE, molecule in box):<br />
+          {"  Need 15×15×15 Å box with vacuum → Ω = 3375 ų"}<br />
+          {"  At ENCUT = 400 eV: ~55,000 plane waves!"}<br />
+          {"  E(C₆H₆) = −232.1543 Ha"}<br />
+          {"  Time: 180 sec on 4 cores (15× slower)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Why PW is wasteful here:<br />
+          {"  PW fills the ENTIRE box uniformly with basis functions"}<br />
+          {"  But the molecule only occupies ~10% of the box volume"}<br />
+          {"  90% of plane waves describe empty vacuum!"}<br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>Verdict: Gaussians are 15× faster for isolated molecules.</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 10, marginTop: 14 }}>Example 3: Memory comparison for different systems</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.warm, fontWeight: 700 }}>RAM needed for the KS Hamiltonian matrix</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> 64-atom Si supercell (bulk):<br />
+          {"  PW (ENCUT=400):  N = 21,600 PW → H matrix: 21,600² × 16 bytes"}<br />
+          {"                   = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"7.1 GB"}</span>{" (but stored sparse + FFT: ~200 MB)"}<br />
+          {"  Gaussian (DZP):  N = 64 × 13 = 832 → H matrix: 832² × 16"}<br />
+          {"                   = "}<span style={{ color: D.accent, fontWeight: 700 }}>{"11 MB"}</span>{" (but dense: 4-center integrals ~500 MB)"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Caffeine molecule in vacuum (C₈H₁₀N₄O₂):<br />
+          {"  PW (15Å box):    N = 48,000 PW → FFT grid: ~600 MB"}<br />
+          {"  Gaussian (TZP):  N = 24×14 = 336 → H matrix: 1.7 MB"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Summary:<br />
+          {"  System      | PW memory | Gaussian memory | Winner"}<br />
+          {"  ─────────────┼───────────┼─────────────────┼────────"}<br />
+          {"  64-atom Si   | 200 MB    | 500 MB          | PW"}<br />
+          {"  Caffeine     | 600 MB    | 2 MB            | Gaussian"}<br />
+          {"  128-atom slab| 800 MB    | 2 GB            | PW"}<br />
+          {"  Protein (200)| 30 GB     | 500 MB          | Gaussian"}<br /><br />
+          <span style={{ color: T.muted }}>PW wins for compact periodic systems; Gaussians win for large isolated molecules.</span>
+        </div>
+      </Card>
     </div>
   );
 }
@@ -9124,6 +9767,69 @@ function DFTPlaneWavesSection() {
               <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.desc}</div>
             </div>
           ))}
+        </div>
+      </Card>
+
+      <Card collapsible title="Worked Examples — Plane Waves in Practice" color={D.eqn}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10 }}>Example 1: How many plane waves for Si at ENCUT = 400 eV?</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>Count the number of G-vectors included in the basis</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Si FCC lattice constant a = 5.43 Å<br />
+          {"  Unit cell volume: Ω = a³/4 = 40.0 ų"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Maximum |G| from energy cutoff:<br />
+          {"  |k+G|²/2 < E_cut  (atomic units)"}<br />
+          {"  E_cut = 400 eV = 14.70 Ha"}<br />
+          {"  |G|_max = √(2 × 14.70) = 5.42 bohr⁻¹"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Number of G-vectors inside the sphere:<br />
+          {"  N_PW = (4π/3)|G_max|³ × Ω/(2π)³"}<br />
+          {"  N_PW ≈ (4π/3)(5.42)³ × 40.0/(2π)³"}<br />
+          {"  N_PW ≈ "}<span style={{ color: D.basis, fontWeight: 700 }}>{"~2,700 plane waves per k-point"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Matrix to diagonalize: 2700 × 2700<br />
+          {"  With 4 occupied bands (8 valence electrons / 2):"}<br />
+          {"  Only need lowest 4 eigenvalues → iterative solvers (Davidson)"}<br /><br />
+          <span style={{ color: T.muted }}>At ENCUT = 520 eV: ~4,200 PW. At 300 eV: ~1,800 PW. Scales as E_cut^(3/2).</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10, marginTop: 14 }}>Example 2: ENCUT convergence test for CdTe</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>Find the converged ENCUT for CdTe (PAW-PBE, 6×6×6 k-mesh)</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Run total energy at increasing ENCUT:<br />
+          {"  ENCUT (eV) | E_total (eV/atom) | ΔE vs 600 eV"}<br />
+          {"  ────────────┼───────────────────┼─────────────"}<br />
+          {"  200         | −3.8142           | +58.2 meV"}<br />
+          {"  250         | −3.8583           | +14.1 meV"}<br />
+          {"  300         | −3.8688           | +3.6 meV"}<br />
+          {"  350         | −3.8712           | +1.2 meV"}<br />
+          {"  400         | −3.8720           | +0.4 meV  ✓"}<br />
+          {"  450         | −3.8723           | +0.1 meV  ✓"}<br />
+          {"  600         | −3.8724           | reference"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Convergence criterion: ΔE {"<"} 1 meV/atom<br />
+          {"  Converged at ENCUT = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"350-400 eV"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> VASP POTCAR recommendation: ENMAX = 226 eV (Te)<br />
+          {"  Rule of thumb: use 1.3-1.5 × max(ENMAX) = 294-339 eV"}<br />
+          {"  We use 400 eV for safety margin"}<br /><br />
+          <span style={{ color: T.muted }}>Always converge ENCUT for YOUR system — don't blindly trust defaults!</span>
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10, marginTop: 14 }}>Example 3: k-point convergence for Cu metal</div>
+        <div style={mathBlock}>
+          <span style={{ color: D.eqn, fontWeight: 700 }}>Cu FCC: find the converged k-mesh (PAW-PBE, ENCUT=400 eV)</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Run total energy at increasing k-mesh density:<br />
+          {"  k-mesh   | k-points (IBZ) | E_total (eV/atom) | ΔE vs 20³"}<br />
+          {"  ──────────┼────────────────┼───────────────────┼──────────"}<br />
+          {"  4×4×4     |     10         | −3.7284           | +32.1 meV"}<br />
+          {"  6×6×6     |     28         | −3.7541           | +6.4 meV"}<br />
+          {"  8×8×8     |     60         | −3.7589           | +1.6 meV"}<br />
+          {"  10×10×10  |    110         | −3.7601           | +0.4 meV ✓"}<br />
+          {"  12×12×12  |    182         | −3.7604           | +0.1 meV ✓"}<br />
+          {"  20×20×20  |   1540         | −3.7605           | reference"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Metals need DENSER k-meshes than semiconductors<br />
+          {"  Cu (metal): converges at ~10×10×10"}<br />
+          {"  Si (semiconductor): converges at ~6×6×6"}<br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Why? Metals have sharp Fermi surface features<br />
+          {"  Must sample k-space finely to capture the Fermi surface"}<br />
+          {"  ISMEAR = 1 (Methfessel-Paxton) + SIGMA = 0.2 helps for metals"}<br /><br />
+          <span style={{ color: T.muted }}>Rule: metals need 2-3× denser k-mesh than semiconductors of similar cell size.</span>
         </div>
       </Card>
     </div>
