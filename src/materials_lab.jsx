@@ -11658,6 +11658,59 @@ function MDIntroSection() {
             ))}
           </div>
         </FAQAccordion>
+
+        <FAQAccordion title="Worked Examples — MD Basics" color={MD.main} isOpen={openItem === "intro_examples"} onClick={() => toggle("intro_examples")}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.main, marginBottom: 10 }}>Example 1: Maxwell-Boltzmann velocity initialization for Cu at 300 K</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.main, fontWeight: 700 }}>Initialize velocities from Gaussian distribution</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> RMS velocity from equipartition:<br />
+            {"  ½ m v² = ³⁄₂ k_B T  →  v_rms = √(3 k_B T / m)"}<br />
+            {"  m(Cu) = 63.546 amu = 63.546 × 1.661×10⁻²⁷ = 1.056×10⁻²⁵ kg"}<br />
+            {"  k_B T = 1.381×10⁻²³ × 300 = 4.143×10⁻²¹ J"}<br />
+            {"  v_rms = √(3 × 4.143×10⁻²¹ / 1.056×10⁻²⁵) = "}<span style={{ color: MD.main, fontWeight: 700 }}>{"343 m/s"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> Each velocity component drawn from Gaussian:<br />
+            {"  σ_v = √(k_B T / m) = 343/√3 = 198 m/s"}<br />
+            {"  v_x ~ N(0, 198²),  v_y ~ N(0, 198²),  v_z ~ N(0, 198²)"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> Sample 3 components for atom #1:<br />
+            {"  v_x = +142 m/s,  v_y = −231 m/s,  v_z = +87 m/s"}<br />
+            {"  |v| = √(142² + 231² + 87²) = 286 m/s"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 4:</span> Remove center-of-mass velocity:<br />
+            {"  v_COM = (1/N) Σ v_i → subtract from all atoms"}<br />
+            {"  This ensures the crystal doesn't drift through space"}<br /><br />
+            <span style={{ color: T.muted }}>At 300 K, Cu atoms move at ~343 m/s ≈ 0.034 Å/fs — tiny per timestep!</span>
+          </div>
+
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.main, marginBottom: 10, marginTop: 14 }}>Example 2: How far does an atom move in one timestep?</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.main, fontWeight: 700 }}>Si atom at 1000 K, Δt = 2 fs</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> Thermal velocity:<br />
+            {"  v_rms = √(3 k_B T / m_Si) = √(3 × 8.617×10⁻⁵ × 1000 / 28) eV/amu"}<br />
+            {"  Convert: v_rms = √(3 × 1.381×10⁻²³ × 1000 / (28 × 1.661×10⁻²⁷))"}<br />
+            {"  v_rms = "}<span style={{ color: MD.main, fontWeight: 700 }}>{"944 m/s"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> Displacement in one step (no force):<br />
+            {"  Δr ≈ v × Δt = 944 × 2×10⁻¹⁵ = 1.89×10⁻¹² m = "}<span style={{ color: MD.main, fontWeight: 700 }}>{"0.019 Å"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> Compare to bond length:<br />
+            {"  Si-Si bond = 2.35 Å → displacement = 0.019/2.35 = 0.8% of bond"}<br />
+            {"  → Small enough for Verlet to be accurate!"}<br /><br />
+            <span style={{ color: T.muted }}>If Δr {">"} 5% of bond length, your timestep is too large.</span>
+          </div>
+
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.main, marginBottom: 10, marginTop: 14 }}>Example 3: How many MD steps for meaningful diffusion?</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.main, fontWeight: 700 }}>Cu vacancy diffusion at 800 K, D ≈ 10⁻⁹ cm²/s</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> Einstein relation: MSD = 6Dt<br />
+            {"  To observe 1 hop (~2.5 Å = 2.5×10⁻⁸ cm):"}<br />
+            {"  MSD ≈ (2.5×10⁻⁸)² = 6.25×10⁻¹⁶ cm²"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> Time needed:<br />
+            {"  t = MSD / (6D) = 6.25×10⁻¹⁶ / (6 × 10⁻⁹)"}<br />
+            {"  t = 1.04×10⁻⁷ s = "}<span style={{ color: MD.main, fontWeight: 700 }}>{"104 ns"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> MD steps needed (Δt = 2 fs):<br />
+            {"  N_steps = 104×10⁻⁹ / 2×10⁻¹⁵ = "}<span style={{ color: MD.warn, fontWeight: 700 }}>{"52 million steps!"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 4:</span> AIMD at ~60 s/step: 52M × 60 = 3.1 billion seconds ≈ 100 years<br />
+            {"  MLFF at ~0.01 s/step: 52M × 0.01 = 520,000 s ≈ "}<span style={{ color: MD.main, fontWeight: 700 }}>{"6 days"}</span><br /><br />
+            <span style={{ color: T.muted }}>Slow diffusion processes REQUIRE MLFF or classical MD — AIMD is far too expensive.</span>
+          </div>
+        </FAQAccordion>
       </div>
   );
 }
@@ -12154,6 +12207,57 @@ function MDEnsemblesSection() {
             </tbody>
           </table>
         </FAQAccordion>
+
+        <FAQAccordion title="Worked Examples — Ensemble Calculations" color={MD.thermo} isOpen={openItem === "ens_examples"} onClick={() => toggle("ens_examples")}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.thermo, marginBottom: 10 }}>Example 1: Temperature fluctuations in NVE — why small cells are bad</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.thermo, fontWeight: 700 }}>ΔT/T = 1/√(3N/2) for the microcanonical ensemble</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> For a 32-atom cell at T = 800 K:<br />
+            {"  ΔT = 800 / √(3×32/2) = 800 / √48 = 800 / 6.93 = "}<span style={{ color: MD.warn, fontWeight: 700 }}>{"±115 K (14%!)"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> For a 128-atom cell:<br />
+            {"  ΔT = 800 / √(192) = 800 / 13.86 = "}<span style={{ color: MD.main, fontWeight: 700 }}>{"±58 K (7%)"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> For a 512-atom cell:<br />
+            {"  ΔT = 800 / √(768) = 800 / 27.71 = "}<span style={{ color: MD.main, fontWeight: 700 }}>{"±29 K (3.6%)"}</span><br /><br />
+            <span style={{ color: T.muted }}>Rule: need N {">"} 100 atoms for T fluctuations {"<"} 10%. With 32 atoms, T swings wildly.</span>
+          </div>
+
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.thermo, marginBottom: 10, marginTop: 14 }}>Example 2: Berendsen thermostat velocity rescaling</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.thermo, fontWeight: 700 }}>64-atom Cu at T_target = 300 K, current T_inst = 450 K, τ = 100 fs, Δt = 2 fs</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> Rescaling factor:<br />
+            {"  λ = √(1 + Δt/τ × (T_target/T_inst − 1))"}<br />
+            {"  λ = √(1 + 2/100 × (300/450 − 1))"}<br />
+            {"  λ = √(1 + 0.02 × (−0.333))"}<br />
+            {"  λ = √(1 − 0.00667) = √0.9933 = "}<span style={{ color: MD.thermo, fontWeight: 700 }}>{"0.9967"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> Scale all velocities:<br />
+            {"  v_new = 0.9967 × v_old  (slow atoms down by 0.33%)"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> New temperature:<br />
+            {"  T_new ≈ λ² × T_old = 0.9933 × 450 = "}<span style={{ color: MD.thermo, fontWeight: 700 }}>{"447 K"}</span><br />
+            {"  After 50 steps: T → ~390 K"}<br />
+            {"  After 150 steps: T → ~310 K"}<br />
+            {"  After 300 steps: T → ~301 K  ← equilibrated"}<br /><br />
+            <span style={{ color: T.muted }}>Berendsen is great for fast equilibration but produces wrong fluctuations for production.</span>
+          </div>
+
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.thermo, marginBottom: 10, marginTop: 14 }}>Example 3: NPT thermal expansion of Si</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.thermo, fontWeight: 700 }}>Measure Si lattice constant at different T using NPT MD</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> Run NPT MD (P = 0 kbar) at each temperature:<br />
+            {"  T (K)  | a (Å)   | ΔV/V₀"}<br />
+            {"  ───────┼─────────┼────────"}<br />
+            {"  0      | 5.431   | 0.00%"}<br />
+            {"  300    | 5.436   | +0.09%"}<br />
+            {"  600    | 5.443   | +0.22%"}<br />
+            {"  1000   | 5.454   | +0.42%"}<br />
+            {"  1500   | 5.472   | +0.76%"}<br />
+            {"  1687   | 5.480   | ~melts!"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> Linear thermal expansion coefficient:<br />
+            {"  α = (1/a)(da/dT) = (5.454−5.436)/(5.431×700)"}<br />
+            {"  α = "}<span style={{ color: MD.thermo, fontWeight: 700 }}>{"4.7 × 10⁻⁶ K⁻¹"}</span><br />
+            {"  Experiment: α = 2.6-4.5 × 10⁻⁶ K⁻¹  ✓"}<br /><br />
+            <span style={{ color: T.muted }}>NPT MD naturally gives thermal expansion — impossible with static DFT!</span>
+          </div>
+        </FAQAccordion>
       </div>
   );
 }
@@ -12263,6 +12367,66 @@ PREC    = Normal  # (not Accurate)
 EDIFF   = 1E-5    # Looser SCF (still fine for forces)
 ALGO    = VeryFast # RMM-DIIS (faster SCF)
 NELMIN  = 4       # Minimum SCF steps`}</pre>
+          </div>
+        </FAQAccordion>
+
+        <FAQAccordion title="Worked Examples — AIMD Calculations" color={MD.aimd} isOpen={openItem === "aimd_examples"} onClick={() => toggle("aimd_examples")}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.aimd, marginBottom: 10 }}>Example 1: AIMD melting point of Si</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.aimd, fontWeight: 700 }}>Determine T_melt by heating a 64-atom Si supercell</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> Run NVT-AIMD at increasing temperatures:<br />
+            {"  T = 1200 K: 5 ps, MSD(Si) = 0.12 Å² at 5 ps → solid (vibrating)"}<br />
+            {"  T = 1400 K: 5 ps, MSD(Si) = 0.18 Å² → still solid"}<br />
+            {"  T = 1600 K: 5 ps, MSD(Si) = 0.25 Å² → solid, but softer"}<br />
+            {"  T = 1800 K: 5 ps, MSD(Si) = 8.4 Å² → "}<span style={{ color: MD.warn, fontWeight: 700 }}>{"LIQUID!"}</span><br />
+            {"  T = 2000 K: 5 ps, MSD(Si) = 15.7 Å² → liquid"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> Confirm with RDF g(r):<br />
+            {"  1600 K: sharp peaks at 2.35, 3.84, 4.50 Å → crystalline ✓"}<br />
+            {"  1800 K: first peak broadened, no second peak → liquid ✓"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> T_melt(AIMD-PBE) ≈ 1700 ± 100 K<br />
+            {"  Experiment: T_melt(Si) = 1687 K"}<br />
+            {"  Error: ~1% — "}<span style={{ color: MD.aimd, fontWeight: 700 }}>{"excellent agreement!"}</span><br /><br />
+            <span style={{ color: T.muted }}>Cost: 5 temperatures × 2500 steps × 60 s/step = ~210 hours on 32 cores.</span>
+          </div>
+
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.aimd, marginBottom: 10, marginTop: 14 }}>Example 2: Li-ion diffusion in Li₃PS₄ solid electrolyte</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.aimd, fontWeight: 700 }}>Extract Li⁺ diffusivity from AIMD at 600 K</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> Setup: 64-atom Li₃PS₄ cell, NVT, T = 600 K, Δt = 2 fs<br />
+            {"  Run 20 ps (10,000 steps). Equilibrate first 5 ps, analyze last 15 ps."}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> Compute MSD of Li atoms only:<br />
+            {"  t = 5 ps:  MSD(Li) = 2.3 Å²"}<br />
+            {"  t = 10 ps: MSD(Li) = 5.1 Å²"}<br />
+            {"  t = 15 ps: MSD(Li) = 7.6 Å²"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> Diffusion coefficient from Einstein relation:<br />
+            {"  D = MSD / (6t) = slope / 6"}<br />
+            {"  slope = (7.6 − 2.3)/(15 − 5) = 0.53 Å²/ps"}<br />
+            {"  D = 0.53/6 = 0.088 Å²/ps = "}<span style={{ color: MD.aimd, fontWeight: 700 }}>{"8.8 × 10⁻⁶ cm²/s"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 4:</span> Extrapolate to room temperature using Arrhenius:<br />
+            {"  Run also at 800 K, 1000 K → fit ln(D) vs 1/T"}<br />
+            {"  E_a = 0.25 eV (activation energy)"}<br />
+            {"  D(300K) = D(600K) × exp(−E_a/k_B × (1/300 − 1/600))"}<br />
+            {"  D(300K) ≈ "}<span style={{ color: MD.aimd, fontWeight: 700 }}>{"1.2 × 10⁻⁸ cm²/s"}</span><br /><br />
+            <span style={{ color: T.muted }}>This is a superionic conductor — D {">"} 10⁻⁸ cm²/s means good Li battery electrolyte!</span>
+          </div>
+
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.aimd, marginBottom: 10, marginTop: 14 }}>Example 3: Vibrational spectrum from AIMD velocity autocorrelation</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.aimd, fontWeight: 700 }}>Extract phonon DOS of CuInSe₂ from AIMD trajectory</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> Run NVT-AIMD at 300 K for 10 ps on 64-atom cell<br />
+            {"  Save velocities every step (NBLOCK = 1 in VASP)"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> Compute velocity autocorrelation function (VACF):<br />
+            {"  C(t) = ⟨v(0) · v(t)⟩ / ⟨v(0) · v(0)⟩"}<br />
+            {"  C(0) = 1.0 (by definition)"}<br />
+            {"  C(20 fs) ≈ 0.3 (decaying)"}<br />
+            {"  C(100 fs) ≈ −0.1 (oscillatory)"}<br />
+            {"  C(500 fs) ≈ 0.0 (decorrelated)"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> Fourier transform → phonon DOS:<br />
+            {"  g(ω) = ∫ C(t) e^(iωt) dt"}<br />
+            {"  Peak at ~5 THz: Se-Cu stretching mode (149 cm⁻¹)"}<br />
+            {"  Peak at ~6.5 THz: In-Se stretching (195 cm⁻¹)"}<br />
+            {"  Broad band 2-8 THz: acoustic + optical modes"}<br /><br />
+            <span style={{ color: T.muted }}>VACF-derived DOS includes anharmonic effects automatically — better than harmonic phonons at high T!</span>
           </div>
         </FAQAccordion>
       </div>
@@ -12389,6 +12553,61 @@ function MDClassicalSection() {
                 <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.4 }}>{item.desc}</div>
               </div>
             ))}
+          </div>
+        </FAQAccordion>
+
+        <FAQAccordion title="Worked Examples — Force Field Calculations" color={MD.cls} isOpen={openItem === "cls_examples"} onClick={() => toggle("cls_examples")}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.cls, marginBottom: 10 }}>Example 1: Lennard-Jones potential for Ar — step by step</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.cls, fontWeight: 700 }}>Two Ar atoms: ε = 0.0104 eV, σ = 3.40 Å</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> Equilibrium distance:<br />
+            {"  r_min = 2^(1/6) × σ = 1.1225 × 3.40 = "}<span style={{ color: MD.cls, fontWeight: 700 }}>{"3.816 Å"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> At r = 3.816 Å (equilibrium):<br />
+            {"  V(r_min) = −ε = "}<span style={{ color: MD.cls, fontWeight: 700 }}>{"-0.0104 eV"}</span>{", F = 0"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> At r = 3.0 Å (compressed):<br />
+            {"  (σ/r)⁶ = (3.40/3.0)⁶ = (1.133)⁶ = 2.197"}<br />
+            {"  (σ/r)¹² = 2.197² = 4.826"}<br />
+            {"  V = 4 × 0.0104 × (4.826 − 2.197) = "}<span style={{ color: MD.warn, fontWeight: 700 }}>{"0.109 eV (repulsive!)"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 4:</span> At r = 5.0 Å (stretched):<br />
+            {"  (σ/r)⁶ = (3.40/5.0)⁶ = (0.68)⁶ = 0.0989"}<br />
+            {"  V = 4 × 0.0104 × (0.00978 − 0.0989) = "}<span style={{ color: MD.main, fontWeight: 700 }}>{"-0.00371 eV (weakly attractive)"}</span><br /><br />
+            <span style={{ color: T.muted }}>At r = 2.5σ = 8.5 Å, V ≈ −10⁻⁵ eV → negligible. This sets the cutoff radius.</span>
+          </div>
+
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.cls, marginBottom: 10, marginTop: 14 }}>Example 2: EAM force for Cu — embedding energy</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.cls, fontWeight: 700 }}>EAM energy: E_i = F(ρ_i) + ½ Σ_j φ(r_ij)</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> Cu FCC with 12 nearest neighbors at r = 2.556 Å:<br />
+            {"  Each neighbor contributes electron density: ρ_j(r) = 0.302 e⁻"}<br />
+            {"  Total host density: ρ_i = 12 × 0.302 = "}<span style={{ color: MD.cls, fontWeight: 700 }}>{"3.624 e⁻"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> Embedding energy (energy to place atom in electron gas):<br />
+            {"  F(ρ) = −√ρ × 1.554 eV  (Foiles-Baskes-Daw fit)"}<br />
+            {"  F(3.624) = −√3.624 × 1.554 = −1.904 × 1.554 = "}<span style={{ color: MD.cls, fontWeight: 700 }}>{"-2.959 eV"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> Pair potential contribution:<br />
+            {"  φ(2.556) = 0.093 eV per pair"}<br />
+            {"  ½ × 12 × 0.093 = +0.558 eV (repulsive)"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 4:</span> Total energy per atom:<br />
+            {"  E_i = −2.959 + 0.558 = "}<span style={{ color: MD.cls, fontWeight: 700 }}>{"-2.401 eV/atom"}</span><br />
+            {"  Cohesive energy = |E_i| = 2.40 eV  → not bad!"}<br />
+            {"  Experimental: 3.49 eV  (EAM is approximate)"}<br /><br />
+            <span style={{ color: T.muted }}>EAM captures metallic bonding qualitatively — embedding in electron gas mimics band structure.</span>
+          </div>
+
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.cls, marginBottom: 10, marginTop: 14 }}>Example 3: Classical vs AIMD timing comparison</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.cls, fontWeight: 700 }}>Run 10 ps MD on 1000-atom Cu at 600 K</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> Number of steps (Δt = 2 fs):<br />
+            {"  N_steps = 10,000 fs / 2 fs = 5,000 steps"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> AIMD (VASP, 32 cores):<br />
+            {"  sec/step ≈ (1000/64)² × 60 = 14,648 s/step"}<br />
+            {"  Total: 5000 × 14,648 = 73M seconds ≈ "}<span style={{ color: MD.warn, fontWeight: 700 }}>{"2.3 years (impossible!)"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> Classical MD (LAMMPS-EAM, 4 cores):<br />
+            {"  sec/step ≈ 0.005 s (1000 atoms with EAM is trivial)"}<br />
+            {"  Total: 5000 × 0.005 = 25 s = "}<span style={{ color: MD.main, fontWeight: 700 }}>{"25 seconds!"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 4:</span> MLFF (MACE, 4 cores):<br />
+            {"  sec/step ≈ 0.5 s"}<br />
+            {"  Total: 5000 × 0.5 = 2500 s = "}<span style={{ color: MD.aimd, fontWeight: 700 }}>{"42 minutes"}</span><br /><br />
+            <span style={{ color: T.muted }}>Classical MD: instant but inaccurate. MLFF: fast AND DFT-accurate. AIMD: too expensive for large cells.</span>
           </div>
         </FAQAccordion>
       </div>
@@ -12585,6 +12804,68 @@ function MDPracticeSection() {
                 <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.fix}</div>
               </div>
             ))}
+          </div>
+        </FAQAccordion>
+
+        <FAQAccordion title="Worked Examples — Real MD Workflows" color={MD.main} isOpen={openItem === "prac_examples"} onClick={() => toggle("prac_examples")}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.main, marginBottom: 10 }}>Example 1: Cu vacancy diffusion coefficient from MSD</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.main, fontWeight: 700 }}>256-atom Cu FCC with 1 vacancy, NVT at 900 K, 50 ps production</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> Track MSD of all Cu atoms (vacancy hops cause jumps):<br />
+            {"  t = 10 ps:  MSD = 0.45 Å²  (thermal vibration only)"}<br />
+            {"  t = 20 ps:  MSD = 1.12 Å²  (1 vacancy hop occurred)"}<br />
+            {"  t = 30 ps:  MSD = 1.89 Å²"}<br />
+            {"  t = 40 ps:  MSD = 2.78 Å²"}<br />
+            {"  t = 50 ps:  MSD = 3.51 Å²"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> Linear fit (exclude first 5 ps for equilibration):<br />
+            {"  slope = (3.51 − 0.45)/(50 − 10) = 0.0765 Å²/ps"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> Self-diffusion coefficient:<br />
+            {"  D = slope / (6) = 0.0765 / 6 = 0.01275 Å²/ps"}<br />
+            {"  D = "}<span style={{ color: MD.main, fontWeight: 700 }}>{"1.275 × 10⁻⁵ cm²/s"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 4:</span> Vacancy diffusivity (accounts for dilution):<br />
+            {"  D_vacancy = D × N_atoms / N_vacancies = 1.275×10⁻⁵ × 255/1"}<br />
+            {"  D_vacancy = "}<span style={{ color: MD.main, fontWeight: 700 }}>{"3.25 × 10⁻³ cm²/s"}</span><br /><br />
+            <span style={{ color: T.muted }}>Experimental D_vacancy(Cu, 900K) ≈ 10⁻³ cm²/s — good agreement!</span>
+          </div>
+
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.main, marginBottom: 10, marginTop: 14 }}>Example 2: Convergence testing — timestep validation</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.main, fontWeight: 700 }}>NVE energy conservation test for CuInSe₂ (64 atoms)</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> Run 5 ps NVE at different Δt, measure energy drift:<br />
+            {"  Δt (fs) | E drift (meV/atom/ps) | Verdict"}<br />
+            {"  ────────┼────────────────────────┼──────────"}<br />
+            {"  0.5     | 0.002                  | Excellent"}<br />
+            {"  1.0     | 0.015                  | Good ✓"}<br />
+            {"  2.0     | 0.12                   | Acceptable ✓"}<br />
+            {"  3.0     | 0.95                   | Marginal"}<br />
+            {"  5.0     | 8.4                    | FAIL ✗"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> Acceptable threshold: drift {"<"} 1 meV/atom/ps<br />
+            {"  → Use Δt = 2 fs for CuInSe₂ (Se is heaviest: 79 amu)"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> If H atoms present (e.g., water):<br />
+            {"  O-H vibration period ≈ 9 fs → need Δt < 0.9 fs"}<br />
+            {"  → Use Δt = 0.5 fs or constrain H bonds (SHAKE algorithm)"}<br /><br />
+            <span style={{ color: T.muted }}>Always run NVE energy conservation test before production runs!</span>
+          </div>
+
+          <div style={{ fontSize: 12, fontWeight: 700, color: MD.main, marginBottom: 10, marginTop: 14 }}>Example 3: Radial distribution function — solid vs liquid</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: MD.main, fontWeight: 700 }}>g(r) for 512-atom Cu at two temperatures</span><br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 1:</span> At T = 300 K (solid FCC):<br />
+            {"  g(r) peaks at:  r₁ = 2.56 Å (12 neighbors, 1st shell)"}<br />
+            {"                  r₂ = 3.62 Å (6 neighbors, 2nd shell)"}<br />
+            {"                  r₃ = 4.43 Å (24 neighbors, 3rd shell)"}<br />
+            {"  Peak width ≈ 0.15 Å (thermal broadening)"}<br />
+            {"  g(r) = 0 between peaks (crystalline order)"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 2:</span> At T = 1500 K (liquid):<br />
+            {"  g(r) first peak: r₁ = 2.55 Å (shifted slightly)"}<br />
+            {"  Peak width ≈ 0.4 Å (much broader)"}<br />
+            {"  No clear 2nd/3rd peaks — oscillates toward g(r) = 1"}<br />
+            {"  g(r) never reaches 0 between peaks (liquid disorder)"}<br /><br />
+            <span style={{ fontWeight: 700, color: MD.newton }}>Step 3:</span> Coordination number from g(r):<br />
+            {"  N_coord = 4π ρ ∫₀^r_min r² g(r) dr"}<br />
+            {"  Solid (integrate to first minimum at 3.1 Å): N = "}<span style={{ color: MD.main, fontWeight: 700 }}>{"12.0"}</span><br />
+            {"  Liquid (integrate to first minimum at 3.5 Å): N = "}<span style={{ color: MD.main, fontWeight: 700 }}>{"12.8"}</span><br /><br />
+            <span style={{ color: T.muted }}>g(r) is the fingerprint of structure — sharp peaks = crystal, broad = liquid, split = amorphous.</span>
           </div>
         </FAQAccordion>
       </div>
@@ -14941,6 +15222,52 @@ function CHThermoSection() {
             <strong style={{ color: CH.unstab }}>{">"} 100 meV/atom:</strong> Very unlikely to exist under equilibrium conditions at any temperature.
           </div>
         </Card>
+
+        <Card collapsible title="Worked Examples — Thermodynamic Calculations" color={CH.accent}>
+          <div style={chMathBlock}>
+            <div style={{ color: CH.accent, fontWeight: 700, marginBottom: 8 }}>Example 1: Vibrational entropy stabilization of anatase TiO₂</div>
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 1:</span> 0 K hull energies:<br />
+            {"  ΔH_f(rutile) = −3.46 eV/atom (ON the hull — stable)"}<br />
+            {"  ΔH_f(anatase) = −3.44 eV/atom (20 meV ABOVE hull)"}<br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 2:</span> Compute phonon entropy from phonon DOS:<br />
+            {"  S_vib(rutile, 300K) = 48.2 J/mol/K = 0.500 meV/atom/K"}<br />
+            {"  S_vib(anatase, 300K) = 49.1 J/mol/K = 0.509 meV/atom/K"}<br />
+            {"  ΔS = 0.009 meV/atom/K (anatase has higher entropy)"}<br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 3:</span> At what T does −TΔS overcome the 20 meV gap?<br />
+            {"  T × ΔS = 20 meV → T = 20/0.009 = "}<span style={{ color: CH.accent, fontWeight: 700 }}>{"~2200 K"}</span><br /><br />
+            <span style={{ color: T.muted }}>Anatase can{"'"}t be entropy-stabilized at reasonable T. It exists because of kinetic trapping during low-T synthesis, not thermodynamic stability.</span>
+          </div>
+
+          <div style={chMathBlock}>
+            <div style={{ color: CH.accent, fontWeight: 700, marginBottom: 8 }}>Example 2: Configurational entropy in a high-entropy alloy</div>
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 1:</span> 5-component equimolar HEA: CrMnFeCoNi<br />
+            {"  S_config = −k_B Σ x_i ln(x_i) = −k_B × 5 × (0.2 × ln 0.2)"}<br />
+            {"  S_config = −k_B × 5 × (0.2 × −1.609) = k_B × 1.609"}<br />
+            {"  S_config = "}<span style={{ color: CH.accent, fontWeight: 700 }}>{"1.609 k_B = 0.139 meV/atom/K"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 2:</span> −TS at T = 1000 K:<br />
+            {"  −TS = −1000 × 0.139 = "}<span style={{ color: CH.accent, fontWeight: 700 }}>{"-139 meV/atom"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 3:</span> If HEA is 100 meV/atom above hull at 0 K:<br />
+            {"  G(1000K) = 100 − 139 = −39 meV/atom"}<br />
+            {"  → "}<span style={{ color: CH.stable, fontWeight: 700 }}>{"Below the hull at 1000 K — entropy-stabilized!"}</span><br /><br />
+            <span style={{ color: T.muted }}>This is why HEAs are synthesized at high T then quenched — entropy keeps them stable.</span>
+          </div>
+
+          <div style={chMathBlock}>
+            <div style={{ color: CH.accent, fontWeight: 700, marginBottom: 8 }}>Example 3: Zero-point energy correction for light elements</div>
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 1:</span> LiH formation energy without ZPE:<br />
+            {"  ΔH_f(DFT) = E(LiH) − E(Li) − ½E(H₂)"}<br />
+            {"  ΔH_f(DFT) = −0.912 eV/atom"}<br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 2:</span> ZPE from phonon calculations:<br />
+            {"  ZPE(LiH) = ½ Σ ħω_i = 0.195 eV/f.u."}<br />
+            {"  ZPE(Li) = 0.032 eV/atom"}<br />
+            {"  ZPE(½H₂) = 0.132 eV"}<br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 3:</span> Corrected formation energy:<br />
+            {"  ΔZPE = 0.195 − 0.032 − 0.132 = +0.031 eV/f.u."}<br />
+            {"  ΔH_f(corrected) = −0.912 + 0.031 = "}<span style={{ color: CH.accent, fontWeight: 700 }}>{"-0.881 eV/atom"}</span><br />
+            {"  Experiment: −0.870 eV/atom"}<br /><br />
+            <span style={{ color: T.muted }}>ZPE correction is 3% here — small but important for accurate hull positions involving H, Li, Be.</span>
+          </div>
+        </Card>
       </div>
   );
 }
@@ -15061,6 +15388,55 @@ function CHChemPotSection() {
             temperature, or precursor ratios) drives phase transitions. This is how materials scientists
             <strong style={{ color: CH.accent }}> design synthesis recipes</strong> — by targeting specific chemical potential conditions
             that favor the desired phase.
+          </div>
+        </Card>
+
+        <Card collapsible title="Worked Examples — Chemical Potential Calculations" color={CH.warm}>
+          <div style={chMathBlock}>
+            <div style={{ color: CH.warm, fontWeight: 700, marginBottom: 8 }}>Example 1: Chemical potential bounds for Cu₂S</div>
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 1:</span> Formation energy of Cu₂S:<br />
+            {"  ΔH_f(Cu₂S) = −1.99 eV per formula unit"}<br />
+            {"  Constraint: 2μ_Cu + μ_S = −1.99 eV"}<br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 2:</span> Cu-rich limit (μ_Cu = 0, pure Cu stable):<br />
+            {"  μ_S = −1.99 − 2(0) = "}<span style={{ color: CH.warm, fontWeight: 700 }}>{"-1.99 eV"}</span><br />
+            {"  (S is very unfavorable — deeply S-poor conditions)"}<br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 3:</span> S-rich limit (μ_S = 0, pure S stable):<br />
+            {"  2μ_Cu = −1.99 − 0 → μ_Cu = "}<span style={{ color: CH.warm, fontWeight: 700 }}>{"-0.995 eV"}</span><br />
+            {"  (Cu is unfavorable — deeply Cu-poor conditions)"}<br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 4:</span> Allowed range for Cu₂S stability:<br />
+            {"  −0.995 ≤ μ_Cu ≤ 0  (width = 0.995 eV)"}<br />
+            {"  −1.99 ≤ μ_S ≤ 0   (width = 1.99 eV)"}<br /><br />
+            <span style={{ color: T.muted }}>Wide stability window → Cu₂S is easy to synthesize. Narrow windows → difficult to stabilize.</span>
+          </div>
+
+          <div style={chMathBlock}>
+            <div style={{ color: CH.warm, fontWeight: 700, marginBottom: 8 }}>Example 2: Defect formation energy depends on μ</div>
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 1:</span> Cu vacancy in Cu₂S:<br />
+            {"  E_f[V_Cu] = E[Cu₂S + V_Cu] − E[Cu₂S] + μ_Cu"}<br />
+            {"  E_f[V_Cu] = (−12.20) − (−13.55) + μ_Cu"}<br />
+            {"  E_f[V_Cu] = 1.35 + μ_Cu"}<br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 2:</span> Cu-rich conditions (μ_Cu = 0):<br />
+            {"  E_f[V_Cu] = 1.35 + 0 = "}<span style={{ color: CH.stable, fontWeight: 700 }}>{"1.35 eV (high — few vacancies)"}</span><br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 3:</span> Cu-poor conditions (μ_Cu = −0.995 eV):<br />
+            {"  E_f[V_Cu] = 1.35 + (−0.995) = "}<span style={{ color: CH.unstab, fontWeight: 700 }}>{"0.36 eV (low — many vacancies!)"}</span><br /><br />
+            <span style={{ color: T.muted }}>Cu-poor growth creates Cu vacancies — this is how p-type doping works in Cu₂S and CuInSe₂!</span>
+          </div>
+
+          <div style={chMathBlock}>
+            <div style={{ color: CH.warm, fontWeight: 700, marginBottom: 8 }}>Example 3: Sulfur partial pressure to chemical potential</div>
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 1:</span> Relate μ_S to experimental S₂ partial pressure:<br />
+            {"  μ_S(T,P) = ½[E(S₂) + μ°(T) + k_BT ln(P_S₂/P°)]"}<br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 2:</span> At T = 800 K, standard state S₂:<br />
+            {"  μ°(800K) includes zero-point, translational, rotational, vibrational entropy"}<br />
+            {"  μ°(800K) ≈ −1.27 eV (from JANAF tables)"}<br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 3:</span> At P_S₂ = 10⁻⁵ atm (typical CVD):<br />
+            {"  k_BT ln(P/P°) = 8.617×10⁻⁵ × 800 × ln(10⁻⁵)"}<br />
+            {"  = 0.0689 × (−11.51) = −0.793 eV"}<br /><br />
+            <span style={{ fontWeight: 700, color: CH.main }}>Step 4:</span> Total:<br />
+            {"  μ_S(800K, 10⁻⁵ atm) = ½[−4.12 + (−1.27) + (−0.793)]"}<br />
+            {"  μ_S ≈ "}<span style={{ color: CH.warm, fontWeight: 700 }}>{"-3.09 eV"}</span><br />
+            {"  Δμ_S = μ_S − E(S_ref) = −3.09 − (−4.12) = "}<span style={{ color: CH.warm, fontWeight: 700 }}>{"-0.97 eV"}</span><br /><br />
+            <span style={{ color: T.muted }}>This Δμ_S value can be plotted on the chemical potential diagram to find which phase is stable at these CVD conditions.</span>
           </div>
         </Card>
       </div>
@@ -16507,6 +16883,59 @@ function CHKineticsSection() {
             <br/>4. <strong>Rapid quench to {"<"}200°C</strong> (kinetics: freeze CZTS before Cu₂S can nucleate during slow cooling)
             <br/>5. <strong>Post-anneal at 200–300°C</strong> (kinetics: Cu-Zn disorder barrier is only 0.2 eV — cannot prevent this)
           </div>
+        </div>
+      </Card>
+
+      <Card collapsible title="Worked Examples — Kinetics & Metastability" color={CH.unstab}>
+        <div style={chMathBlock}>
+          <div style={{ color: CH.unstab, fontWeight: 700, marginBottom: 8 }}>Example 1: Arrhenius rate — can Cu₂S form at 200°C?</div>
+          <span style={{ fontWeight: 700, color: CH.main }}>Step 1:</span> Activation energy for Cu₂S nucleation: E_a = 0.8 eV<br />
+          {"  Rate = A × exp(−E_a / k_BT)"}<br /><br />
+          <span style={{ fontWeight: 700, color: CH.main }}>Step 2:</span> At T = 200°C = 473 K:<br />
+          {"  k_BT = 8.617×10⁻⁵ × 473 = 0.0408 eV"}<br />
+          {"  E_a / k_BT = 0.8 / 0.0408 = 19.6"}<br />
+          {"  exp(−19.6) = "}<span style={{ color: CH.unstab, fontWeight: 700 }}>{"3.4 × 10⁻⁹"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: CH.main }}>Step 3:</span> At T = 550°C = 823 K:<br />
+          {"  k_BT = 0.0709 eV"}<br />
+          {"  E_a / k_BT = 0.8 / 0.0709 = 11.3"}<br />
+          {"  exp(−11.3) = "}<span style={{ color: CH.stable, fontWeight: 700 }}>{"1.2 × 10⁻⁵"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: CH.main }}>Step 4:</span> Rate ratio:<br />
+          {"  k(550°C) / k(200°C) = 1.2×10⁻⁵ / 3.4×10⁻⁹ = "}<span style={{ color: CH.warm, fontWeight: 700 }}>{"~3500× faster"}</span><br /><br />
+          <span style={{ color: T.muted }}>At 200°C: Cu₂S takes weeks. At 550°C: minutes. Temperature is the master knob!</span>
+        </div>
+
+        <div style={chMathBlock}>
+          <div style={{ color: CH.unstab, fontWeight: 700, marginBottom: 8 }}>Example 2: Diamond metastability — lifetime calculation</div>
+          <span style={{ fontWeight: 700, color: CH.main }}>Step 1:</span> Diamond → graphite: E_above_hull = 0.020 eV/atom<br />
+          {"  Activation barrier: E_a ≈ 5.0 eV (sp³→sp² bond breaking)"}<br /><br />
+          <span style={{ fontWeight: 700, color: CH.main }}>Step 2:</span> Rate at room temperature (300 K):<br />
+          {"  k_BT = 0.0259 eV"}<br />
+          {"  E_a / k_BT = 5.0 / 0.0259 = 193"}<br />
+          {"  exp(−193) = 10⁻⁸⁴"}<br /><br />
+          <span style={{ fontWeight: 700, color: CH.main }}>Step 3:</span> Attempt frequency ν₀ ≈ 10¹³ Hz (Debye frequency):<br />
+          {"  Rate = 10¹³ × 10⁻⁸⁴ = 10⁻⁷¹ s⁻¹"}<br />
+          {"  Lifetime = 1/rate = 10⁷¹ s ≈ "}<span style={{ color: CH.stable, fontWeight: 700 }}>{"3 × 10⁶³ years"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: CH.main }}>Step 4:</span> Universe age = 1.4 × 10¹⁰ years<br />
+          {"  Diamond lifetime / universe age = 10⁵³"}<br /><br />
+          <span style={{ color: T.muted }}>Diamond is "forever" because the kinetic barrier is enormous, even though graphite is thermodynamically more stable.</span>
+        </div>
+
+        <div style={chMathBlock}>
+          <div style={{ color: CH.unstab, fontWeight: 700, marginBottom: 8 }}>Example 3: Avrami equation — CZTS crystallization kinetics</div>
+          <span style={{ fontWeight: 700, color: CH.main }}>Step 1:</span> Avrami equation for phase transformation:<br />
+          {"  f(t) = 1 − exp(−k × t^n)"}<br />
+          {"  f = fraction transformed, k = rate constant, n = Avrami exponent"}<br /><br />
+          <span style={{ fontWeight: 700, color: CH.main }}>Step 2:</span> For CZTS at 550°C: k = 0.003 min⁻³, n = 3 (3D nucleation + growth)<br />
+          {"  t = 5 min:   f = 1 − exp(−0.003 × 125) = 1 − exp(−0.375) = 31%"}<br />
+          {"  t = 10 min:  f = 1 − exp(−0.003 × 1000) = 1 − exp(−3.0) = 95%"}<br />
+          {"  t = 15 min:  f = 1 − exp(−0.003 × 3375) = 1 − exp(−10.1) = "}<span style={{ color: CH.stable, fontWeight: 700 }}>{"99.996%"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: CH.main }}>Step 3:</span> Half-life (f = 50%):<br />
+          {"  t₀.₅ = (ln2 / k)^(1/n) = (0.693 / 0.003)^(1/3)"}<br />
+          {"  t₀.₅ = (231)^(0.333) = "}<span style={{ color: CH.warm, fontWeight: 700 }}>{"6.1 minutes"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: CH.main }}>Step 4:</span> Compare at 400°C (k = 0.0001 min⁻³):<br />
+          {"  t₀.₅ = (6930)^(0.333) = 19 minutes"}<br />
+          {"  t for 99%: ~35 minutes (vs ~12 minutes at 550°C)"}<br /><br />
+          <span style={{ color: T.muted }}>At 550°C: CZTS fully crystallized in ~15 min. At 400°C: needs 35 min. Below 300°C: impractically slow.</span>
         </div>
       </Card>
     </div>
