@@ -5374,14 +5374,10 @@ function CrystalSymmetrySection() {
           {/* Legend */}
           {lattice === "Zincblende" && (
             <>
-              <circle cx={30} cy={330} r={5} fill={T.eo_e} />
-              <text x={40} y={334} fontSize={13} fill={T.muted}>
-                Anion (Te)
-              </text>
-              <circle cx={110} cy={330} r={5} fill={T.eo_hole} />
-              <text x={120} y={334} fontSize={13} fill={T.muted}>
-                Cation (Zn)
-              </text>
+              <circle cx={200} cy={20} r={5} fill={T.eo_e} />
+              <text x={210} y={24} fontSize={10} fill={T.muted}>Anion (Te)</text>
+              <circle cx={280} cy={20} r={5} fill={T.eo_hole} />
+              <text x={290} y={24} fontSize={10} fill={T.muted}>Cation (Zn)</text>
             </>
           )}
         </svg>
@@ -5853,8 +5849,8 @@ function ReciprocalSpaceSection() {
             b{"ᵢ"} {"·"} a{"ⱼ"} = 2{"π"}{"δ"}{"ᵢⱼ"}
           </text>
 
-          <text x={170} y={315} textAnchor="middle" fontSize={13} fill={T.dim}>
-            (Reciprocal lattice vectors are orthogonal to real-space planes)
+          <text x={170} y={315} textAnchor="middle" fontSize={9} fill={T.dim}>
+            (Reciprocal vectors orthogonal to real-space planes)
           </text>
         </svg>
 
@@ -6205,9 +6201,9 @@ function BandSection() {
           {/* Valence band */}
           <rect x={20} y={VBtop} width={W - 40} height={60} rx={4}
             fill={T.eo_valence + "22"} stroke={T.eo_valence} strokeWidth={1.5} />
-          <text x={30} y={VBtop + 22} fill={T.eo_valence} fontSize={12} fontWeight="bold">Valence Band</text>
-          <text x={30} y={VBtop + 38} fill={T.muted} fontSize={12}>All states filled with electrons</text>
-          <text x={30} y={VBtop + 52} fill={T.muted} fontSize={12}>from Zn and Te atoms</text>
+          <text x={30} y={VBtop + 18} fill={T.eo_valence} fontSize={11} fontWeight="bold">Valence Band</text>
+          <text x={30} y={VBtop + 32} fill={T.muted} fontSize={9}>All states filled with electrons</text>
+          <text x={30} y={VBtop + 44} fill={T.muted} fontSize={9}>from Zn and Te atoms</text>
 
           {/* Conduction band */}
           <rect x={20} y={40} width={W - 40} height={55} rx={4}
@@ -6259,8 +6255,8 @@ function BandSection() {
           {/* Filled electrons in VB (dots) */}
           {Array.from({ length: 8 }, (_, i) => (
             <circle key={i}
-              cx={35 + i * 33} cy={VBtop + 32}
-              r={5} fill={T.eo_valence} opacity={0.7} />
+              cx={35 + i * 33} cy={VBtop + 52}
+              r={4} fill={T.eo_valence} opacity={0.7} />
           ))}
         </svg>
 
@@ -6699,8 +6695,8 @@ function DensityOfStatesSection() {
 
           <line x1={marginL} y1={eToY(eFermiActual)} x2={marginL + plotW} y2={eToY(eFermiActual)}
             stroke={T.eo_hole} strokeWidth={2} strokeDasharray="6,4" />
-          <text x={marginL + plotW + 2} y={eToY(eFermiActual) + 4}
-            fontSize={12} fill={T.eo_hole} fontFamily="monospace">E_F</text>
+          <text x={marginL + plotW - 2} y={eToY(eFermiActual) - 5}
+            textAnchor="end" fontSize={11} fill={T.eo_hole} fontFamily="monospace" fontWeight="bold">E_F</text>
 
           <line x1={marginL} y1={eToY(Ev)} x2={marginL + plotW} y2={eToY(Ev)}
             stroke={T.eo_valence} strokeWidth={1} opacity={0.5} />
@@ -7411,8 +7407,8 @@ function InsulatorExplorer() {
         <text x={bandL - 5} y={Ev_y + 5} textAnchor="end" fill={mat.color} fontSize={12} fontFamily="monospace">VB</text>
 
         {/* Band gap label */}
-        <line x1={30} y1={Ec_y + 10} x2={30} y2={Ev_y - 10} stroke={T.muted} strokeWidth={1} strokeDasharray="3,3" />
-        <text x={20} y={gapMid + 4} textAnchor="middle" fill={T.muted} fontSize={12} fontFamily="monospace" transform={`rotate(-90, 20, ${gapMid})`}>
+        <line x1={bandR + 10} y1={Ec_y + 10} x2={bandR + 10} y2={Ev_y - 10} stroke={T.muted} strokeWidth={1} strokeDasharray="3,3" />
+        <text x={bandR + 16} y={gapMid + 4} fill={T.muted} fontSize={11} fontFamily="monospace">
           {mat.gap} eV
         </text>
 
@@ -7443,7 +7439,7 @@ function InsulatorExplorer() {
           </text>
         )}
 
-        <text x={170} y={330} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight="bold" fontFamily="monospace">
+        <text x={170} y={20} textAnchor="middle" fill={T.ink} fontSize={12} fontWeight="bold" fontFamily="monospace">
           {mat.label} Band Diagram
         </text>
       </svg>
@@ -7725,13 +7721,13 @@ function MaterialClassesSection() {
             {/* Conduction band */}
             <rect x={bandL} y={CBbot - bandH} width={bandW} height={bandH} rx={4}
               fill={T.eo_cond + "22"} stroke={T.eo_cond} strokeWidth={1.5} />
-            <text x={W / 2} y={CBbot - bandH / 2 + 4} textAnchor="middle" fill={T.eo_cond} fontSize={12} fontWeight="bold">Conduction Band (CBM)</text>
+            <text x={W / 2} y={CBbot - bandH - 6} textAnchor="middle" fill={T.eo_cond} fontSize={11} fontWeight="bold">Conduction Band (CBM)</text>
 
             {/* Band gap label */}
             {gapPx > 10 && <>
               <rect x={bandL} y={CBbot} width={bandW} height={gapPx} fill={T.eo_gap + "08"} />
-              <line x1={bandR + 8} y1={CBbot} x2={bandR + 8} y2={VBtop} stroke={T.eo_gap} strokeWidth={1.5} markerStart="url(#arrowUp)" markerEnd="url(#arrowDown)" />
-              <text x={bandR + 14} y={(CBbot + VBtop) / 2 + 4} fill={T.eo_gap} fontSize={13} fontWeight="bold" textAnchor="start">
+              <line x1={bandL - 10} y1={CBbot} x2={bandL - 10} y2={VBtop} stroke={T.eo_gap} strokeWidth={1.5} markerStart="url(#arrowUp)" markerEnd="url(#arrowDown)" />
+              <text x={bandL - 14} y={(CBbot + VBtop) / 2 + 4} fill={T.eo_gap} fontSize={11} fontWeight="bold" textAnchor="end">
                 E_g = {sel.bandGap} eV
               </text>
             </>}
@@ -7739,12 +7735,12 @@ function MaterialClassesSection() {
             {/* Valence band */}
             <rect x={bandL} y={VBtop} width={bandW} height={bandH} rx={4}
               fill={T.eo_valence + "22"} stroke={T.eo_valence} strokeWidth={1.5} />
-            <text x={W / 2} y={VBtop + bandH / 2 + 4} textAnchor="middle" fill={T.eo_valence} fontSize={12} fontWeight="bold">Valence Band (VBM)</text>
+            <text x={W / 2} y={VBtop + bandH + 14} textAnchor="middle" fill={T.eo_valence} fontSize={11} fontWeight="bold">Valence Band (VBM)</text>
 
             {/* Overlap indicator for metals */}
             {selected === "metal" && (
-              <text x={W / 2} y={VBtop + bandH + 16} textAnchor="middle" fill={T.eo_e} fontSize={13} fontWeight="bold">
-                ↑ Bands OVERLAP ↓ No Gap
+              <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.eo_e} fontSize={11} fontWeight="bold">
+                Bands OVERLAP — No Gap
               </text>
             )}
 
@@ -7813,7 +7809,7 @@ function MaterialClassesSection() {
             )}
 
             {/* Example label */}
-            <text x={W / 2} y={H - 2} textAnchor="middle" fill={T.muted} fontSize={13}>Examples: {sel.example}</text>
+            <text x={W / 2} y={H - 8} textAnchor="middle" fill={T.muted} fontSize={11}>Examples: {sel.example}</text>
           </svg>
 
           {/* ── BAND GAP COMPARISON BAR ── */}
