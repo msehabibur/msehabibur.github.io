@@ -142,7 +142,9 @@ export default function DefectMovieModule() {
 
   // Smooth fade-in / fade-out between scenes
   const fadeIn = clamp01(t * 8);       // fade in over first ~12%
-  const fadeOut = clamp01((1 - t) * 8); // fade out over last ~12%
+  const isLastScene = sceneIdx === SCENES.length - 1;
+  const keepVisible = isLastScene || !playing; // don't fade out on last scene or when paused
+  const fadeOut = keepVisible ? 1 : clamp01((1 - t) * 8);
   const sceneOpacity = Math.min(fadeIn, fadeOut);
 
   // ═══════════════════════════════════════════════════════════════════════
