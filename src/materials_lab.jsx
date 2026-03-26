@@ -8287,9 +8287,9 @@ function DFTHohenbergKohnSection() {
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 700 }}>The ground-state energy E is a unique functional of n(r)</span><br /><br />
-          E = E[n(r)]<br /><br />
-          <span style={{ color: T.muted }}>Two different external potentials cannot produce the same n(r).</span><br />
-          <span style={{ color: T.muted }}>Therefore n(r) uniquely determines everything: V_ext, Ψ, and E.</span>
+          <span style={{ fontFamily: "Georgia, serif" }}>E = E[n(<strong>r</strong>)]</span><br /><br />
+          <span style={{ color: T.muted }}>Two different external potentials cannot produce the same n(<strong>r</strong>).</span><br />
+          <span style={{ color: T.muted }}>Therefore n(<strong>r</strong>) uniquely determines everything: V<sub>ext</sub>, Ψ, and E.</span>
         </div>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink }}>
           This is profound: the 3-variable density contains the same physics as the
@@ -8301,7 +8301,7 @@ function DFTHohenbergKohnSection() {
       <Card collapsible title="Hohenberg-Kohn Theorem 2 - Variational Principle" color={D.basis}>
         <div style={mathBlock}>
           <span style={{ color: D.basis, fontWeight: 700 }}>The true ground-state n(r) minimizes E[n]</span><br /><br />
-          E[n_true] ≤ E[n_trial]  for any trial density n_trial<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>E[n<sub>true</sub>] ≤ E[n<sub>trial</sub>]  for any trial density n<sub>trial</sub></span><br /><br />
           <span style={{ color: T.muted }}>This gives us a strategy: search over densities to find the minimum.</span>
         </div>
       </Card>
@@ -8343,46 +8343,46 @@ function DFTHohenbergKohnSection() {
       </Card>
 
       <Card collapsible title="Worked Examples — HK Theorems in Action" color={D.eqn}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10 }}>Example 1: Density uniquely determines V_ext — H vs He⁺</div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10 }}>Example 1: Density uniquely determines V<sub>ext</sub> — H vs He⁺</div>
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 700 }}>Both H and He⁺ have 1 electron, but different nuclei (Z=1 vs Z=2)</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Hydrogen (Z=1) ground-state density:<br />
-          {"  n_H(r) = (1/πa₀³) e^(−2r/a₀),  a₀ = 0.529 Å"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>H</sub>(<strong>r</strong>) = (<sup>1</sup>&frasl;<sub>πa₀³</sub>) e<sup>−2r/a₀</sup>,  a₀ = 0.529 Å</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> He⁺ (Z=2) ground-state density:<br />
-          {"  n_He⁺(r) = (8/πa₀³) e^(−4r/a₀)  — much tighter!"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>He⁺</sub>(<strong>r</strong>) = (<sup>8</sup>&frasl;<sub>πa₀³</sub>) e<sup>−4r/a₀</sup>  — much tighter!</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Compare at r = a₀:<br />
-          {"  n_H(a₀)   = (1/πa₀³) e⁻² = 0.0585/a₀³"}<br />
-          {"  n_He⁺(a₀) = (8/πa₀³) e⁻⁴ = 0.0467/a₀³"}<br /><br />
-          <span style={{ color: D.basis, fontWeight: 700 }}>Different V_ext → different n(r). HK Theorem 1 confirmed: the mapping is unique.</span>
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>H</sub>(a₀)   = (<sup>1</sup>&frasl;<sub>πa₀³</sub>) e⁻² = 0.0585/a₀³</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>He⁺</sub>(a₀) = (<sup>8</sup>&frasl;<sub>πa₀³</sub>) e⁻⁴ = 0.0467/a₀³</span><br /><br />
+          <span style={{ color: D.basis, fontWeight: 700 }}>Different V<sub>ext</sub> → different n(<strong>r</strong>). HK Theorem 1 confirmed: the mapping is unique.</span>
         </div>
 
         <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10, marginTop: 14 }}>Example 2: Variational principle — trial density for He</div>
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 700 }}>Use HK Theorem 2: the true density minimizes E[n]</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Try a hydrogenic density with variational Z_eff:<br />
-          {"  n_trial(r) = 2 × (Z_eff³/πa₀³) e^(−2Z_eff r/a₀)"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>trial</sub>(<strong>r</strong>) = 2 × (Z<sub>eff</sub>³&frasl;πa₀³) e<sup>−2Z<sub>eff</sub> r/a₀</sup></span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Compute E[n] for different Z_eff (atomic units):<br />
-          {"  Z_eff = 2.00: E = −2.750 Ha  (no screening)"}<br />
-          {"  Z_eff = 1.80: E = −2.847 Ha  (getting better)"}<br />
-          {"  Z_eff = 1.6875: E = −2.848 Ha  ← "}<span style={{ color: D.basis, fontWeight: 700 }}>{"minimum!"}</span><br />
-          {"  Z_eff = 1.50: E = −2.840 Ha  (overscreened)"}<br /><br />
-          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Compare to exact: E_exact = −2.9037 Ha<br />
-          {"  Error = |−2.848 − (−2.9037)| = 0.056 Ha = 1.5 eV"}<br /><br />
-          <span style={{ color: D.basis }}>The variational minimum at Z_eff = 27/16 ≈ 1.6875 means each electron "sees" an effective nuclear charge of 1.69, not 2.0 — the other electron screens the nucleus.</span>
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Z<sub>eff</sub> = 2.00: E = −2.750 Ha  (no screening)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Z<sub>eff</sub> = 1.80: E = −2.847 Ha  (getting better)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Z<sub>eff</sub> = 1.6875: E = −2.848 Ha  ← </span><span style={{ color: D.basis, fontWeight: 700 }}>{"minimum!"}</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Z<sub>eff</sub> = 1.50: E = −2.840 Ha  (overscreened)</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Compare to exact: E<sub>exact</sub> = −2.9037 Ha<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Error = |−2.848 − (−2.9037)| = 0.056 Ha = 1.5 eV</span><br /><br />
+          <span style={{ color: D.basis }}>The variational minimum at Z<sub>eff</sub> = 27/16 ≈ 1.6875 means each electron {'"'}sees{'"'} an effective nuclear charge of 1.69, not 2.0 — the other electron screens the nucleus.</span>
         </div>
 
         <div style={{ fontSize: 12, fontWeight: 700, color: D.eqn, marginBottom: 10, marginTop: 14 }}>Example 3: Energy functional decomposition for Li atom</div>
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 700 }}>Li (Z=3, 3 electrons: 1s² 2s¹) — PBE functional decomposition</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Kinetic energy (non-interacting KS electrons):<br />
-          {"  T_s[n] = +7.4327 Ha"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}T<sub>s</sub>[n] = +7.4327 Ha</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> External potential (Z=3 nucleus):<br />
-          {"  V_ext[n] = ∫ n(r)(−3/r) dr = −17.1546 Ha"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}V<sub>ext</sub>[n] = ∫ n(<strong>r</strong>)(−3/r) d<strong>r</strong> = −17.1546 Ha</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Hartree energy (classical e⁻-e⁻ repulsion):<br />
-          {"  E_H[n] = ½∫∫ n(r)n(r')/|r−r'| drdr' = +4.1173 Ha"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>H</sub>[n] = ½∫∫ n(<strong>r</strong>)n(<strong>r</strong>′)/|<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>d<strong>r</strong>′ = +4.1173 Ha</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Exchange-correlation:<br />
-          {"  E_x[n] = −1.7810 Ha  (exchange: same-spin avoidance)"}<br />
-          {"  E_c[n] = −0.0455 Ha  (correlation: dynamic avoidance)"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>x</sub>[n] = −1.7810 Ha  (exchange: same-spin avoidance)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>c</sub>[n] = −0.0455 Ha  (correlation: dynamic avoidance)</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 5:</span> Total:<br />
           {"  E = 7.433 − 17.155 + 4.117 − 1.781 − 0.046 = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"-7.431 Ha = -202.2 eV"}</span><br />
           {"  Experiment: -203.5 eV (error: 0.6%)"}<br /><br />
@@ -8458,11 +8458,11 @@ function DFTKohnShamSection() {
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           {[
             { step: "1", text: "Guess initial density n(r) (from superposition of atomic densities)", color: D.basis },
-            { step: "2", text: "Build V_eff(r) = V_ext + V_H[n] + V_xc[n]", color: D.main },
-            { step: "3", text: "Solve KS equations: [−ħ²/2m ∇² + V_eff] ψ_i = ε_i ψ_i", color: D.eqn },
-            { step: "4", text: "Compute new density: n_new(r) = Σ_i |ψ_i(r)|²", color: D.warm },
-            { step: "5", text: "Mix: n_mix = α n_new + (1-α) n_old  (prevents oscillation)", color: D.accent },
-            { step: "6", text: "Converged? |E_new - E_old| < EDIFF? If not, go to step 2", color: D.warn },
+            { step: "2", text: <span>Build V<sub>eff</sub>(<strong>r</strong>) = V<sub>ext</sub> + V<sub>H</sub>[n] + V<sub>xc</sub>[n]</span>, color: D.main },
+            { step: "3", text: <span>Solve KS equations: [−<sup>ℏ²</sup>&frasl;<sub>2m</sub> ∇² + V<sub>eff</sub>] ψ<sub>i</sub> = ε<sub>i</sub> ψ<sub>i</sub></span>, color: D.eqn },
+            { step: "4", text: <span>Compute new density: n<sub>new</sub>(<strong>r</strong>) = Σ<sub>i</sub> |ψ<sub>i</sub>(<strong>r</strong>)|²</span>, color: D.warm },
+            { step: "5", text: <span>Mix: n<sub>mix</sub> = α n<sub>new</sub> + (1−α) n<sub>old</sub>  (prevents oscillation)</span>, color: D.accent },
+            { step: "6", text: <span>Converged? |E<sub>new</sub> − E<sub>old</sub>| {"<"} EDIFF? If not, go to step 2</span>, color: D.warn },
           ].map(item => (
             <div key={item.step} style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{
@@ -8500,36 +8500,36 @@ function DFTKohnShamSection() {
       </Card>
 
       <Card collapsible title="Worked Examples — Building V_eff Step by Step" color={D.accent}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: D.accent, marginBottom: 10 }}>Example 1: V_eff for Be atom (Z=4, 4 electrons: 1s² 2s²)</div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: D.accent, marginBottom: 10 }}>Example 1: V<sub>eff</sub> for Be atom (Z=4, 4 electrons: 1s² 2s²)</div>
         <div style={mathBlock}>
-          <span style={{ color: D.accent, fontWeight: 700 }}>Construct V_eff(r) at r = 1 bohr from the nucleus</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>Construct V<sub>eff</sub>(<strong>r</strong>) at r = 1 bohr from the nucleus</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> External potential (nucleus Z=4):<br />
-          {"  V_ext(r=1) = −Z/r = −4/1 = −4.000 Ha"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}V<sub>ext</sub>(r=1) = −Z/r = −4/1 = −4.000 Ha</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Hartree potential (electron density at r=1):<br />
           {"  n(r=1) ≈ 0.85 e⁻/bohr³ (from initial guess)"}<br />
-          {"  V_H(r=1) = ∫ n(r')/|r−r'| dr' ≈ +2.37 Ha"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}V<sub>H</sub>(r=1) = ∫ n(<strong>r</strong>′)/|<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>′ ≈ +2.37 Ha</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> XC potential (LDA):<br />
-          {"  V_xc(r=1) = δE_xc/δn = −(3/π)^(1/3) n^(1/3) ≈ −0.72 Ha"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}V<sub>xc</sub>(r=1) = δE<sub>xc</sub>/δn = −(3/π)<sup>1/3</sup> n<sup>1/3</sup> ≈ −0.72 Ha</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Total effective potential:<br />
-          {"  V_eff(1) = −4.000 + 2.37 + (−0.72) = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"-2.35 Ha"}</span><br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}V<sub>eff</sub>(1) = −4.000 + 2.37 + (−0.72) = </span><span style={{ color: D.basis, fontWeight: 700 }}>{"-2.35 Ha"}</span><br /><br />
           <span style={{ color: T.muted }}>The electron at r=1 bohr "feels" −2.35 Ha, not −4.0 Ha. Other electrons screen the nucleus by 41%!</span>
         </div>
 
         <div style={{ fontSize: 12, fontWeight: 700, color: D.accent, marginBottom: 10, marginTop: 14 }}>Example 2: Density mixing — preventing SCF oscillation</div>
         <div style={mathBlock}>
           <span style={{ color: D.accent, fontWeight: 700 }}>Linear mixing for a Si calculation at one grid point</span><br /><br />
-          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Iteration 1 input density: n_in = 0.045 e⁻/ų<br />
-          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Solve KS → output density: n_out = 0.068 e⁻/ų<br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Iteration 1 input density: n<sub>in</sub> = 0.045 e⁻/ų<br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Solve KS → output density: n<sub>out</sub> = 0.068 e⁻/ų<br />
           {"  (Big change: Δn = 0.023)"}<br /><br />
-          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> If we use n_out directly → SCF might oscillate!<br />
-          {"  Instead, mix with α = 0.3:"}<br />
-          {"  n_mix = α × n_out + (1−α) × n_in"}<br />
-          {"  n_mix = 0.3 × 0.068 + 0.7 × 0.045 = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"0.0519 e⁻/ų"}</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> If we use n<sub>out</sub> directly → SCF might oscillate!<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Instead, mix with α = 0.3:</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>mix</sub> = α × n<sub>out</sub> + (1−α) × n<sub>in</sub></span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>mix</sub> = 0.3 × 0.068 + 0.7 × 0.045 = </span><span style={{ color: D.basis, fontWeight: 700 }}>{"0.0519 e⁻/ų"}</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Next iterations (same point):<br />
-          {"  Iter 2: n_in=0.0519, n_out=0.0557, n_mix=0.0530"}<br />
-          {"  Iter 3: n_in=0.0530, n_out=0.0541, n_mix=0.0533"}<br />
-          {"  Iter 4: n_in=0.0533, n_out=0.0536, n_mix=0.0534"}<br />
-          {"  Iter 5: n_in=0.0534, n_out=0.0534 ← "}<span style={{ color: D.basis, fontWeight: 700 }}>{"converged!"}</span><br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Iter 2: n<sub>in</sub>=0.0519, n<sub>out</sub>=0.0557, n<sub>mix</sub>=0.0530</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Iter 3: n<sub>in</sub>=0.0530, n<sub>out</sub>=0.0541, n<sub>mix</sub>=0.0533</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Iter 4: n<sub>in</sub>=0.0533, n<sub>out</sub>=0.0536, n<sub>mix</sub>=0.0534</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Iter 5: n<sub>in</sub>=0.0534, n<sub>out</sub>=0.0534 ← </span><span style={{ color: D.basis, fontWeight: 700 }}>{"converged!"}</span><br /><br />
           <span style={{ color: T.muted }}>Without mixing (α=1), this would oscillate between 0.045 and 0.068 forever.</span>
         </div>
 
@@ -8541,18 +8541,18 @@ function DFTKohnShamSection() {
           {"  ε(2s) = −13.6 eV   (inner valence)"}<br />
           {"  ε(2p) = −5.4 eV    (outer valence, HOMO)"}<br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Build density from occupied orbitals:<br />
-          {"  n(r) = 2|ψ_1s|² + 2|ψ_2s|² + 2|ψ_2p|²"}<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n(<strong>r</strong>) = 2|ψ<sub>1s</sub>|² + 2|ψ<sub>2s</sub>|² + 2|ψ<sub>2p</sub>|²</span><br />
           {"  ∫ n(r) dr = 2 + 2 + 2 = 6 electrons ✓"}<br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Check Koopmans' theorem:<br />
           {"  −ε(2p) = 5.4 eV ≈ ionization energy"}<br />
           {"  Experiment: IE(C) = 11.26 eV"}<br />
           {"  PBE underestimates due to SIE (typical!)"}<br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Total energy decomposition:<br />
-          {"  T_s = +37.64 Ha    (kinetic)"}<br />
-          {"  V_ext = −88.90 Ha  (nuclear attraction)"}<br />
-          {"  E_H = +20.67 Ha    (Hartree)"}<br />
-          {"  E_xc = −5.07 Ha    (exchange-correlation)"}<br />
-          {"  E_total = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"-37.79 Ha = -1028.4 eV"}</span>
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}T<sub>s</sub> = +37.64 Ha    (kinetic)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}V<sub>ext</sub> = −88.90 Ha  (nuclear attraction)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>H</sub> = +20.67 Ha    (Hartree)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>xc</sub> = −5.07 Ha    (exchange-correlation)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>total</sub> = </span><span style={{ color: D.basis, fontWeight: 700 }}>{"-37.79 Ha = -1028.4 eV"}</span>
         </div>
       </Card>
     </div>
@@ -8569,7 +8569,7 @@ function DFTXCFunctionalsSection() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {[
-            { rung: "5", name: "Double Hybrid", example: "B2PLYP", input: "n, ∇n, τ, ψ_occ, ψ_virt", cost: "1000x", color: D.warn },
+            { rung: "5", name: "Double Hybrid", example: "B2PLYP", input: <span>n, ∇n, τ, ψ<sub>occ</sub>, ψ<sub>virt</sub></span>, cost: "1000x", color: D.warn },
             { rung: "4", name: "Hybrid", example: "HSE06, PBE0", input: "n, ∇n, + exact exchange", cost: "10-100x", color: D.xc },
             { rung: "3", name: "meta-GGA", example: "SCAN, r2SCAN", input: "n, ∇n, τ (KE density)", cost: "2-3x", color: D.accent },
             { rung: "2", name: "GGA", example: "PBE, PBEsol", input: "n(r) + ∇n(r)", cost: "1x (baseline)", color: D.basis },
@@ -8655,8 +8655,8 @@ function DFTLDASection() {
           The XC energy per electron is taken from exact quantum Monte Carlo simulations of that gas.
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.warm, fontWeight: 700 }}>E_xc[n] = ∫ n(r) ε_xc(n(r)) dr</span><br /><br />
-          <span style={{ color: T.muted }}>ε_xc(n) = exact result for a uniform gas at density n</span><br />
+          <span style={{ color: D.warm, fontWeight: 700, fontFamily: "Georgia, serif" }}>E<sub>xc</sub>[n] = ∫ n(<strong>r</strong>) ε<sub>xc</sub>(n(<strong>r</strong>)) d<strong>r</strong></span><br /><br />
+          <span style={{ color: T.muted }}>ε<sub>xc</sub>(n) = exact result for a uniform gas at density n</span><br />
           <span style={{ color: T.muted }}>Known numerically from quantum Monte Carlo (Ceperley-Alder, 1980)</span>
         </div>
       </Card>
@@ -8733,17 +8733,17 @@ function DFTLDASection() {
       <Card collapsible title="Worked Examples — LDA Calculations Step by Step" color={D.warm}>
         <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 10 }}>Example 1: LDA exchange energy for a uniform electron gas</div>
         <div style={mathBlock}>
-          <span style={{ color: D.warm, fontWeight: 700 }}>Calculate ε_x for metallic Na (r_s = 3.93 bohr)</span><br /><br />
-          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> The Wigner-Seitz radius r_s relates to density:<br />
-          {"  n = 3/(4π r_s³) = 3/(4π × 3.93³) = 0.00393 e⁻/bohr³"}<br /><br />
+          <span style={{ color: D.warm, fontWeight: 700, fontFamily: "Georgia, serif" }}>Calculate ε<sub>x</sub> for metallic Na (r<sub>s</sub> = 3.93 bohr)</span><br /><br />
+          <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> The Wigner-Seitz radius r<sub>s</sub> relates to density:<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n = 3/(4π r<sub>s</sub>³) = 3/(4π × 3.93³) = 0.00393 e⁻/bohr³</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> LDA exchange energy per electron (Dirac formula):<br />
-          {"  ε_x(n) = −(3/4)(3n/π)^(1/3)"}<br />
-          {"  ε_x = −(3/4)(3 × 0.00393/π)^(1/3)"}<br />
-          {"  ε_x = −(3/4)(0.00375)^(1/3)"}<br />
-          {"  ε_x = −(3/4)(0.1554) = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"-0.1165 Ha = -3.17 eV"}</span><br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub>(n) = −(3/4)(3n/π)<sup>1/3</sup></span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub> = −(3/4)(3 × 0.00393/π)<sup>1/3</sup></span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub> = −(3/4)(0.00375)<sup>1/3</sup></span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub> = −(3/4)(0.1554) = </span><span style={{ color: D.basis, fontWeight: 700 }}>{"-0.1165 Ha = -3.17 eV"}</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Total exchange energy (per electron in Na bulk):<br />
-          {"  E_x = ∫ n(r) ε_x(n(r)) dr ≈ 0.00393 × (−0.1165) × Ω"}<br />
-          {"  Per atom: E_x ≈ −0.1165 Ha = −3.17 eV"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>x</sub> = ∫ n(<strong>r</strong>) ε<sub>x</sub>(n(<strong>r</strong>)) d<strong>r</strong> ≈ 0.00393 × (−0.1165) × Ω</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Per atom: E<sub>x</sub> ≈ −0.1165 Ha = −3.17 eV</span><br /><br />
           <span style={{ color: T.muted }}>For Na metal, LDA exchange captures ~97% of the exact exchange energy.</span>
         </div>
 
@@ -8756,26 +8756,26 @@ function DFTLDASection() {
           {"  a = 5.40 Å: E = −7.8712 eV/atom ← minimum"}<br />
           {"  a = 5.50 Å: E = −7.8583 eV/atom"}<br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Fit to Birch-Murnaghan equation of state:<br />
-          {"  a_LDA = "}<span style={{ color: D.warm, fontWeight: 700 }}>{"5.40 Å"}</span><br />
-          {"  a_expt = 5.43 Å"}<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}a<sub>LDA</sub> = </span><span style={{ color: D.warm, fontWeight: 700 }}>{"5.40 Å"}</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}a<sub>expt</sub> = 5.43 Å</span><br />
           {"  Error  = (5.40 − 5.43)/5.43 = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"-0.55% (underestimates)"}</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Also get bulk modulus from curvature:<br />
-          {"  B_LDA  = 97 GPa"}<br />
-          {"  B_expt = 99 GPa"}<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}B<sub>LDA</sub>  = 97 GPa</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}B<sub>expt</sub> = 99 GPa</span><br />
           {"  Error  = −2%   (excellent for LDA!)"}<br /><br />
           <span style={{ color: T.muted }}>LDA consistently underestimates lattice constants by ~1% (overbinding).</span>
         </div>
 
         <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 10, marginTop: 14 }}>Example 3: LDA cohesive energy of Cu metal</div>
         <div style={mathBlock}>
-          <span style={{ color: D.warm, fontWeight: 700 }}>Cohesive energy = E_atom − E_bulk (per atom)</span><br /><br />
+          <span style={{ color: D.warm, fontWeight: 700, fontFamily: "Georgia, serif" }}>Cohesive energy = E<sub>atom</sub> − E<sub>bulk</sub> (per atom)</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Calculate isolated Cu atom energy (in large box):<br />
-          {"  E_atom = −1.312 eV  (PBE-PAW, spin-polarized)"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>atom</sub> = −1.312 eV  (PBE-PAW, spin-polarized)</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Calculate Cu FCC bulk energy per atom:<br />
-          {"  E_bulk = −4.947 eV/atom  (12×12×12 k-mesh)"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>bulk</sub> = −4.947 eV/atom  (12×12×12 k-mesh)</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Cohesive energy:<br />
-          {"  E_coh(LDA) = |E_bulk − E_atom| = |−4.947 − (−1.312)| = "}<span style={{ color: D.warm, fontWeight: 700 }}>{"3.635 eV"}</span><br />
-          {"  E_coh(expt) = 3.49 eV"}<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>coh</sub>(LDA) = |E<sub>bulk</sub> − E<sub>atom</sub>| = |−4.947 − (−1.312)| = </span><span style={{ color: D.warm, fontWeight: 700 }}>{"3.635 eV"}</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>coh</sub>(expt) = 3.49 eV</span><br />
           {"  Error = (3.635 − 3.49)/3.49 = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"+4.2% (overbinds)"}</span><br /><br />
           <span style={{ color: T.muted }}>LDA systematically overbinds: cohesive energies are 5-20% too large.</span><br />
           <span style={{ color: T.muted }}>PBE gives 3.51 eV — much closer to experiment.</span>
@@ -8786,11 +8786,11 @@ function DFTLDASection() {
           <span style={{ color: D.warm, fontWeight: 700 }}>Compute GaAs band gap at Γ point</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Run SCF with LDA, 8×8×8 k-mesh, ENCUT = 400 eV<br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Extract KS eigenvalues at Γ:<br />
-          {"  Valence band maximum (VBM): ε_VBM = 0.000 eV (reference)"}<br />
-          {"  Conduction band min (CBM):  ε_CBM = 0.300 eV"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Valence band maximum (VBM): ε<sub>VBM</sub> = 0.000 eV (reference)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Conduction band min (CBM):  ε<sub>CBM</sub> = 0.300 eV</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> LDA band gap = CBM − VBM:<br />
-          {"  E_gap(LDA) = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"0.30 eV"}</span><br />
-          {"  E_gap(expt) = 1.42 eV"}<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>gap</sub>(LDA) = </span><span style={{ color: D.warn, fontWeight: 700 }}>{"0.30 eV"}</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>gap</sub>(expt) = 1.42 eV</span><br />
           {"  Underestimate: 0.30/1.42 = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"79% too small!"}</span><br /><br />
           <span style={{ color: T.muted }}>This massive error is the #1 failure of LDA/GGA.</span><br />
           <span style={{ color: T.muted }}>HSE06 gives 1.32 eV — much closer to the 1.42 eV experiment.</span>
@@ -8823,9 +8823,9 @@ function DFTGGASection() {
           the most widely used GGA.
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.basis, fontWeight: 700 }}>E_xc[n] = ∫ n(r) ε_xc(n, ∇n) dr</span><br /><br />
-          <span style={{ color: T.muted }}>LDA: ε_xc depends only on n(r)</span><br />
-          <span style={{ color: D.basis }}>GGA: ε_xc depends on n(r) AND |∇n(r)|</span><br /><br />
+          <span style={{ color: D.basis, fontWeight: 700, fontFamily: "Georgia, serif" }}>E<sub>xc</sub>[n] = ∫ n(<strong>r</strong>) ε<sub>xc</sub>(n, ∇n) d<strong>r</strong></span><br /><br />
+          <span style={{ color: T.muted }}>LDA: ε<sub>xc</sub> depends only on n(<strong>r</strong>)</span><br />
+          <span style={{ color: D.basis }}>GGA: ε<sub>xc</sub> depends on n(<strong>r</strong>) AND |∇n(<strong>r</strong>)|</span><br /><br />
           <span style={{ color: T.muted }}>The gradient captures inhomogeneity - real materials are not uniform electron gas!</span>
         </div>
       </Card>
@@ -8868,13 +8868,13 @@ function DFTGGASection() {
           <span style={{ color: D.basis, fontWeight: 700 }}>Calculate s(r) = |∇n|/(2k_F n) at two points in Si crystal</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> At the Si-Si bond center (smooth density):<br />
           {"  n = 0.044 e⁻/bohr³,  |∇n| = 0.012 e⁻/bohr⁴"}<br />
-          {"  k_F = (3π²n)^(1/3) = (3π² × 0.044)^(1/3) = 1.08 bohr⁻¹"}<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}k<sub>F</sub> = (3π²n)<sup>1/3</sup> = (3π² × 0.044)<sup>1/3</sup> = 1.08 bohr⁻¹</span><br />
           {"  s = 0.012/(2 × 1.08 × 0.044) = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"0.126  (small → LDA is OK here)"}</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Near the Si nucleus (rapidly varying):<br />
           {"  n = 2.8 e⁻/bohr³,  |∇n| = 18.5 e⁻/bohr⁴"}<br />
-          {"  k_F = (3π² × 2.8)^(1/3) = 4.34 bohr⁻¹"}<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}k<sub>F</sub> = (3π² × 2.8)<sup>1/3</sup> = 4.34 bohr⁻¹</span><br />
           {"  s = 18.5/(2 × 4.34 × 2.8) = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"0.762  (large → GGA correction is essential!)"}</span><br /><br />
-          <span style={{ color: T.muted }}>Where s is large, LDA and GGA give very different E_xc. Near nuclei and in tails, GGA matters most.</span>
+          <span style={{ color: T.muted }}>Where s is large, LDA and GGA give very different E<sub>xc</sub>. Near nuclei and in tails, GGA matters most.</span>
         </div>
 
         <div style={{ fontSize: 12, fontWeight: 700, color: D.basis, marginBottom: 10, marginTop: 14 }}>Example 2: PBE atomization energy of H₂O</div>
@@ -8886,11 +8886,11 @@ function DFTGGASection() {
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Calculate H₂O molecule energy:<br />
           {"  E(H₂O) = −14.219 eV"}<br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Atomization energy:<br />
-          {"  E_at = 2×E(H) + E(O) − E(H₂O)"}<br />
-          {"  E_at = 2(−1.116) + (−4.570) − (−14.219)"}<br />
-          {"  E_at(PBE) = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"9.51 eV = 219.3 kcal/mol"}</span><br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>at</sub> = 2×E(H) + E(O) − E(H₂O)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>at</sub> = 2(−1.116) + (−4.570) − (−14.219)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>at</sub>(PBE) = </span><span style={{ color: D.basis, fontWeight: 700 }}>{"9.51 eV = 219.3 kcal/mol"}</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Compare to experiment:<br />
-          {"  E_at(expt) = 9.51 eV = 219.3 kcal/mol"}<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>at</sub>(expt) = 9.51 eV = 219.3 kcal/mol</span><br />
           {"  Error = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"< 0.1% — PBE is excellent for covalent bonds!"}</span><br /><br />
           <span style={{ color: T.muted }}>PBE atomization energies are typically within ±0.1 eV/bond for strong covalent bonds.</span>
         </div>
@@ -8899,17 +8899,17 @@ function DFTGGASection() {
         <div style={mathBlock}>
           <span style={{ color: D.basis, fontWeight: 700 }}>How much energy to remove one Si atom from the crystal?</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Calculate perfect 64-atom Si supercell:<br />
-          {"  E_perfect = −346.472 eV  (PBE, 3×3×3 k-mesh)"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>perfect</sub> = −346.472 eV  (PBE, 3×3×3 k-mesh)</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Remove 1 atom, relax remaining 63 atoms:<br />
-          {"  E_vacancy = −340.821 eV  (63 atoms + 1 vacancy)"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>vacancy</sub> = −340.821 eV  (63 atoms + 1 vacancy)</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Chemical potential of Si (bulk energy per atom):<br />
-          {"  μ_Si = E_perfect/64 = −346.472/64 = −5.414 eV/atom"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}μ<sub>Si</sub> = E<sub>perfect</sub>/64 = −346.472/64 = −5.414 eV/atom</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Vacancy formation energy:<br />
-          {"  E_f = E_vacancy − (63/64) × E_perfect"}<br />
-          {"  E_f = −340.821 − (63 × −5.414)"}<br />
-          {"  E_f = −340.821 + 341.082 = "}<br />
-          {"  E_f(PBE) = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"3.67 eV"}</span><br />
-          {"  E_f(expt) ≈ 3.6 ± 0.5 eV"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>f</sub> = E<sub>vacancy</sub> − (63/64) × E<sub>perfect</sub></span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>f</sub> = −340.821 − (63 × −5.414)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>f</sub> = −340.821 + 341.082 = </span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>f</sub>(PBE) = </span><span style={{ color: D.basis, fontWeight: 700 }}>{"3.67 eV"}</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>f</sub>(expt) ≈ 3.6 ± 0.5 eV</span><br /><br />
           <span style={{ color: T.muted }}>PBE gives good defect formation energies for neutral defects in semiconductors.</span>
         </div>
       </Card>
@@ -8938,7 +8938,7 @@ function DFTHSESection() {
           75% PBE exchange, but only at <strong>short range</strong>. Long-range exchange stays pure PBE.
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.xc, fontWeight: 700, fontSize: 14 }}>E_xc = α E_x_HF,SR + (1-α) E_x_PBE,SR + E_x_PBE,LR + E_c_PBE</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700, fontSize: 14, fontFamily: "Georgia, serif" }}>E<sub>xc</sub> = α E<sub>x</sub><sup>HF,SR</sup> + (1−α) E<sub>x</sub><sup>PBE,SR</sup> + E<sub>x</sub><sup>PBE,LR</sup> + E<sub>c</sub><sup>PBE</sup></span><br /><br />
           α = 0.25  (mixing parameter - 25% exact exchange)<br />
           ω = 0.2 Å⁻¹  (range-separation parameter)<br /><br />
           <span style={{ color: D.xc }}>SR = short range (exact exchange here)</span><br />
@@ -8954,9 +8954,9 @@ function DFTHSESection() {
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.xc, fontWeight: 700 }}>CuInSe₂ band gap:</span><br /><br />
-          {"  PBE:    E_gap = 0.01 eV  (essentially zero - metallic!)"}<br />
-          {"  HSE06:  E_gap = "}<span style={{ color: D.xc, fontWeight: 700 }}>{"1.04 eV"}</span><br />
-          {"  Expt:   E_gap = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"1.04 eV"}</span><br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}PBE:    E<sub>gap</sub> = 0.01 eV  (essentially zero — metallic!)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}HSE06:  E<sub>gap</sub> = </span><span style={{ color: D.xc, fontWeight: 700 }}>{"1.04 eV"}</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Expt:   E<sub>gap</sub> = </span><span style={{ color: D.basis, fontWeight: 700 }}>{"1.04 eV"}</span><br /><br />
           <span style={{ color: T.muted }}>HSE nails it. PBE predicts CuInSe₂ is a metal (it is not!).</span>
         </div>
       </Card>
@@ -8988,19 +8988,19 @@ function DFTHSESection() {
       <Card collapsible title="Worked Examples — HSE06 Step by Step" color={D.xc}>
         <div style={{ fontSize: 12, fontWeight: 700, color: D.xc, marginBottom: 10 }}>Example 1: How HSE06 mixes exchange for Si</div>
         <div style={mathBlock}>
-          <span style={{ color: D.xc, fontWeight: 700 }}>Decompose E_xc at a point in the Si bond region</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700 }}>Decompose E<sub>xc</sub> at a point in the Si bond region</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> PBE exchange energy density at bond center:<br />
-          {"  ε_x^PBE = −0.437 Ha/e⁻"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub><sup>PBE</sup> = −0.437 Ha/e⁻</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Exact (HF) exchange at same point:<br />
-          {"  ε_x^HF = −0.512 Ha/e⁻  (larger magnitude)"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub><sup>HF</sup> = −0.512 Ha/e⁻  (larger magnitude)</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> HSE06 splits by range (ω = 0.2 Å⁻¹):<br />
           {"  Short-range: mix 25% HF + 75% PBE"}<br />
-          {"  ε_x^SR(HSE) = 0.25 × (−0.485) + 0.75 × (−0.410) = −0.429 Ha/e⁻"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub><sup>SR</sup>(HSE) = 0.25 × (−0.485) + 0.75 × (−0.410) = −0.429 Ha/e⁻</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Long-range: 100% PBE<br />
-          {"  ε_x^LR(HSE) = −0.027 Ha/e⁻  (PBE long-range part)"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub><sup>LR</sup>(HSE) = −0.027 Ha/e⁻  (PBE long-range part)</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 5:</span> Add PBE correlation (unchanged):<br />
-          {"  ε_c^PBE = −0.031 Ha/e⁻"}<br />
-          {"  ε_xc^HSE = −0.429 + (−0.027) + (−0.031) = "}<span style={{ color: D.xc, fontWeight: 700 }}>{"-0.487 Ha/e⁻"}</span><br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>c</sub><sup>PBE</sup> = −0.031 Ha/e⁻</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>xc</sub><sup>HSE</sup> = −0.429 + (−0.027) + (−0.031) = </span><span style={{ color: D.xc, fontWeight: 700 }}>{"-0.487 Ha/e⁻"}</span><br /><br />
           <span style={{ color: T.muted }}>The 25% HF exchange removes part of the self-interaction, opening the gap.</span>
         </div>
 
@@ -9022,9 +9022,9 @@ function DFTHSESection() {
           {"  L        | −1.35    |  2.08       | 2.08"}<br />
           {"  Indirect gap (Γ→X): "}<span style={{ color: D.xc, fontWeight: 700 }}>{"1.14 eV"}</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Compare to experiment:<br />
-          {"  E_gap(expt) = 1.17 eV"}<br />
-          {"  PBE error:  |0.61 − 1.17| = 0.56 eV (48% too low)"}<br />
-          {"  HSE error:  |1.14 − 1.17| = 0.03 eV ("}<span style={{ color: D.xc, fontWeight: 700 }}>{"2.6% error — excellent!"}</span>{")"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>gap</sub>(expt) = 1.17 eV</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}PBE error:  |0.61 − 1.17| = 0.56 eV (48% too low)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}HSE error:  |1.14 − 1.17| = 0.03 eV (</span><span style={{ color: D.xc, fontWeight: 700 }}>{"2.6% error — excellent!"}</span>{")"}<br /><br />
           <span style={{ color: T.muted }}>HSE06 shifts conduction bands up by ~0.5 eV uniformly (scissor-like correction).</span>
         </div>
 
@@ -9086,12 +9086,12 @@ function DFTDFTUSection() {
           forces electrons to either fully occupy or fully vacate, localizing them correctly.
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.xc, fontWeight: 700, fontSize: 14 }}>E_DFT+U = E_DFT + (U-J)/2 Σ_i n_i(1 - n_i)</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700, fontSize: 14, fontFamily: "Georgia, serif" }}>E<sub>DFT+U</sub> = E<sub>DFT</sub> + <sup>(U−J)</sup>&frasl;<sub>2</sub> Σ<sub>i</sub> n<sub>i</sub>(1 − n<sub>i</sub>)</span><br /><br />
           <span style={{ color: D.xc }}>U</span> = on-site Coulomb repulsion (2-8 eV typical)<br />
           <span style={{ color: D.accent }}>J</span> = exchange parameter (~0.5-1 eV, often set to 0)<br />
-          <span style={{ color: D.warm }}>n_i</span> = occupation of orbital i (0 to 1)<br /><br />
-          <span style={{ color: T.muted }}>When n_i = 0 or 1: penalty = 0 (fully empty/full)</span><br />
-          <span style={{ color: T.muted }}>When n_i = 0.5: penalty = maximum (half-filled = delocalized)</span>
+          <span style={{ color: D.warm }}>n<sub>i</sub></span> = occupation of orbital i (0 to 1)<br /><br />
+          <span style={{ color: T.muted }}>When n<sub>i</sub> = 0 or 1: penalty = 0 (fully empty/full)</span><br />
+          <span style={{ color: T.muted }}>When n<sub>i</sub> = 0.5: penalty = maximum (half-filled = delocalized)</span>
         </div>
       </Card>
 
@@ -9133,24 +9133,24 @@ function DFTDFTUSection() {
       <Card collapsible title="Worked Examples — DFT+U in Practice" color={D.warm}>
         <div style={{ fontSize: 12, fontWeight: 700, color: D.warm, marginBottom: 10 }}>Example 1: The U penalty function — FeO d-electrons</div>
         <div style={mathBlock}>
-          <span style={{ color: D.warm, fontWeight: 700 }}>E_U = (U−J)/2 × Σ_i n_i(1 − n_i), with U=4 eV, J=0</span><br /><br />
+          <span style={{ color: D.warm, fontWeight: 700, fontFamily: "Georgia, serif" }}>E<sub>U</sub> = <sup>(U−J)</sup>&frasl;<sub>2</sub> × Σ<sub>i</sub> n<sub>i</sub>(1 − n<sub>i</sub>), with U=4 eV, J=0</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> PBE without U — Fe 3d occupations (delocalized):<br />
           {"  d_xy: n = 0.72,  d_xz: n = 0.68,  d_yz: n = 0.70"}<br />
           {"  d_z²: n = 0.65,  d_x²-y²: n = 0.63"}<br />
           {"  (All partially occupied → delocalized → PBE says metal!)"}<br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> U penalty for each orbital:<br />
-          {"  E_U(d_xy)    = 4/2 × 0.72 × (1−0.72) = 0.403 eV"}<br />
-          {"  E_U(d_xz)    = 4/2 × 0.68 × (1−0.68) = 0.435 eV"}<br />
-          {"  E_U(d_yz)    = 4/2 × 0.70 × (1−0.70) = 0.420 eV"}<br />
-          {"  E_U(d_z²)    = 4/2 × 0.65 × (1−0.65) = 0.455 eV"}<br />
-          {"  E_U(d_x²-y²) = 4/2 × 0.63 × (1−0.63) = 0.466 eV"}<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>U</sub>(d<sub>xy</sub>)    = 4/2 × 0.72 × (1−0.72) = 0.403 eV</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>U</sub>(d<sub>xz</sub>)    = 4/2 × 0.68 × (1−0.68) = 0.435 eV</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>U</sub>(d<sub>yz</sub>)    = 4/2 × 0.70 × (1−0.70) = 0.420 eV</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>U</sub>(d<sub>z²</sub>)    = 4/2 × 0.65 × (1−0.65) = 0.455 eV</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>U</sub>(d<sub>x²−y²</sub>) = 4/2 × 0.63 × (1−0.63) = 0.466 eV</span><br />
           {"  Total penalty: "}<span style={{ color: D.warn, fontWeight: 700 }}>{"2.18 eV per Fe atom"}</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> With U=4 — Fe 3d re-converged occupations:<br />
           {"  d_xy: n = 0.98,  d_xz: n = 0.97,  d_yz: n = 0.97"}<br />
           {"  d_z²: n = 0.95,  d_x²-y²: n = 0.12"}<br />
           {"  (Nearly integer → localized → insulator!)"}<br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> New penalty is much smaller:<br />
-          {"  E_U(d_xy) = 4/2 × 0.98 × 0.02 = 0.039 eV"}<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>U</sub>(d<sub>xy</sub>) = 4/2 × 0.98 × 0.02 = 0.039 eV</span><br />
           {"  Total penalty: "}<span style={{ color: D.basis, fontWeight: 700 }}>{"0.25 eV (10× smaller — electrons localized)"}</span>
         </div>
 
@@ -9182,7 +9182,7 @@ function DFTDFTUSection() {
           {"  Non-interacting: χ₀ = −0.82 (bare response)"}<br />
           {"  Self-consistent:  χ  = −0.35 (screened response)"}<br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Compute U from inverse responses:<br />
-          {"  U = χ₀⁻¹ − χ⁻¹"}<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}U = χ₀⁻¹ − χ⁻¹</span><br />
           {"  U = (−1/0.82) − (−1/0.35)"}<br />
           {"  U = −1.22 + 2.86 = "}<span style={{ color: D.basis, fontWeight: 700 }}>{"1.64 eV"}</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> Iterate (U changes the response):<br />
@@ -9219,8 +9219,8 @@ function DFTSelfInteractionSection() {
           <strong style={{ color: D.warn }}> the electron repels itself</strong>.
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.warn, fontWeight: 700 }}>Exact: E_H[n_i] + E_x[n_i] = 0  (for one electron)</span><br /><br />
-          <span style={{ color: D.warn }}>LDA/GGA: E_H[n_i] + E_x[n_i] ≠ 0  (incomplete cancellation!)</span><br /><br />
+          <span style={{ color: D.warn, fontWeight: 700, fontFamily: "Georgia, serif" }}>Exact: E<sub>H</sub>[n<sub>i</sub>] + E<sub>x</sub>[n<sub>i</sub>] = 0  (for one electron)</span><br /><br />
+          <span style={{ color: D.warn, fontFamily: "Georgia, serif" }}>LDA/GGA: E<sub>H</sub>[n<sub>i</sub>] + E<sub>x</sub>[n<sub>i</sub>] ≠ 0  (incomplete cancellation!)</span><br /><br />
           <span style={{ color: T.muted }}>This residual = self-interaction error</span>
         </div>
       </Card>
@@ -9274,17 +9274,17 @@ function DFTSelfInteractionSection() {
       <Card collapsible title="Worked Examples — Quantifying Self-Interaction Error" color={D.warn}>
         <div style={{ fontSize: 12, fontWeight: 700, color: D.warn, marginBottom: 10 }}>Example 1: SIE in hydrogen atom — the exact test</div>
         <div style={mathBlock}>
-          <span style={{ color: D.warn, fontWeight: 700 }}>For 1 electron, E_H + E_x must exactly cancel (no self-repulsion)</span><br /><br />
+          <span style={{ color: D.warn, fontWeight: 700, fontFamily: "Georgia, serif" }}>For 1 electron, E<sub>H</sub> + E<sub>x</sub> must exactly cancel (no self-repulsion)</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 1:</span> Hartree self-repulsion of H 1s density:<br />
-          {"  E_H = ½∫∫ n(r)n(r')/|r−r'| drdr' = 5/16 Ha = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"+0.3125 Ha"}</span><br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>H</sub> = ½∫∫ n(<strong>r</strong>)n(<strong>r</strong>′)/|<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>d<strong>r</strong>′ = <sup>5</sup>&frasl;<sub>16</sub> Ha = </span><span style={{ color: D.warn, fontWeight: 700 }}>{"+0.3125 Ha"}</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 2:</span> Exact exchange must cancel this:<br />
-          {"  E_x(exact) = −0.3125 Ha  → E_H + E_x = 0 ✓"}<br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>x</sub>(exact) = −0.3125 Ha  → E<sub>H</sub> + E<sub>x</sub> = 0 ✓</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> LDA exchange gives:<br />
-          {"  E_x(LDA) = −(3/4)(3/π)^(1/3) ∫ n^(4/3) dr = −0.2680 Ha"}<br />
-          {"  SIE(LDA) = E_H + E_x(LDA) = 0.3125 − 0.2680 = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"+0.0445 Ha = +1.21 eV"}</span><br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>x</sub>(LDA) = −(3/4)(3/π)<sup>1/3</sup> ∫ n<sup>4/3</sup> d<strong>r</strong> = −0.2680 Ha</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}SIE(LDA) = E<sub>H</sub> + E<sub>x</sub>(LDA) = 0.3125 − 0.2680 = </span><span style={{ color: D.warn, fontWeight: 700 }}>{"+0.0445 Ha = +1.21 eV"}</span><br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 4:</span> PBE exchange gives:<br />
-          {"  E_x(PBE) = −0.2943 Ha  (gradient correction helps)"}<br />
-          {"  SIE(PBE) = 0.3125 − 0.2943 = "}<span style={{ color: D.warn, fontWeight: 700 }}>{"+0.0182 Ha = +0.50 eV"}</span><br /><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>x</sub>(PBE) = −0.2943 Ha  (gradient correction helps)</span><br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}SIE(PBE) = 0.3125 − 0.2943 = </span><span style={{ color: D.warn, fontWeight: 700 }}>{"+0.0182 Ha = +0.50 eV"}</span><br /><br />
           <span style={{ color: T.muted }}>PBE halves the SIE vs LDA, but +0.50 eV is still chemically significant!</span>
         </div>
 
@@ -9322,7 +9322,7 @@ function DFTSelfInteractionSection() {
           {"  sp semiconductors: ~50% error (tolerable)"}<br />
           {"  d-electron systems: ~75-100% error (catastrophic)"}<br /><br />
           <span style={{ fontWeight: 700, color: D.main }}>Step 3:</span> Why? SIE is proportional to orbital self-overlap:<br />
-          {"  SIE ∝ ∫∫ |ψ_i(r)|² |ψ_i(r')|² / |r−r'| drdr'"}<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}SIE ∝ ∫∫ |ψ<sub>i</sub>(<strong>r</strong>)|² |ψ<sub>i</sub>(<strong>r</strong>′)|² / |<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>d<strong>r</strong>′</span><br />
           {"  Localized d-orbitals have large self-overlap → large SIE"}<br />
           {"  Delocalized sp-bands spread out → smaller SIE"}<br /><br />
           <span style={{ color: D.basis }}>Rule of thumb: if your system has d or f electrons, expect PBE gaps to be very wrong.</span>
@@ -9343,9 +9343,9 @@ function DFTBasisIntroSection() {
           finite set of known functions (the basis set):
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.eqn, fontWeight: 700 }}>φ_i(r) = Σ_j c_ij χ_j(r)</span><br /><br />
-          <span style={{ color: T.muted }}>χ_j = basis functions (known shapes)</span><br />
-          <span style={{ color: T.muted }}>c_ij = expansion coefficients (what DFT solves for)</span><br /><br />
+          <span style={{ color: D.eqn, fontWeight: 700, fontFamily: "Georgia, serif" }}>φ<sub>i</sub>(<strong>r</strong>) = Σ<sub>j</sub> c<sub>ij</sub> χ<sub>j</sub>(<strong>r</strong>)</span><br /><br />
+          <span style={{ color: T.muted }}>χ<sub>j</sub> = basis functions (known shapes)</span><br />
+          <span style={{ color: T.muted }}>c<sub>ij</sub> = expansion coefficients (what DFT solves for)</span><br /><br />
           <span style={{ color: D.eqn }}>Larger basis → more accurate → more expensive</span>
         </div>
       </Card>
@@ -10881,9 +10881,9 @@ function DFTSCFWalkthroughSection() {
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.main, fontWeight: 700 }}>Known exact answer (to compare against):</span><br />
-          <span style={{ color: T.muted }}>E_total = −2.9037 hartree (from highly accurate calculations)</span><br />
+          <span style={{ color: T.muted }}>E<sub>total</sub> = −2.9037 hartree (from highly accurate calculations)</span><br />
           <span style={{ color: T.muted }}>ε₁ₛ = −0.9179 hartree (orbital eigenvalue)</span><br />
-          <span style={{ color: T.muted }}>n(r) = (2/π)(Z_eff)³ exp(−2 Z_eff r) with Z_eff ≈ 1.69</span>
+          <span style={{ color: T.muted }}>n(<strong>r</strong>) = (2/π)(Z<sub>eff</sub>)³ exp(−2 Z<sub>eff</sub> r) with Z<sub>eff</sub> ≈ 1.69</span>
         </div>
       </Card>
 
@@ -10914,28 +10914,28 @@ function DFTSCFWalkthroughSection() {
 
       <Card collapsible title="Step 2: Build the KS Effective Potential" color={D.xc}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-          From n⁰(r), compute the three pieces of v_KS:
+          From n⁰(<strong>r</strong>), compute the three pieces of v<sub>KS</sub>:
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.basis, fontWeight: 700 }}>v_ext(r) = −Z/r = −2/r</span><br />
+          <span style={{ color: D.basis, fontWeight: 700, fontFamily: "Georgia, serif" }}>v<sub>ext</sub>(<strong>r</strong>) = −Z/r = −2/r</span><br />
           <span style={{ color: T.muted }}>Nuclear attraction (known exactly, never changes)</span><br /><br />
-          <span style={{ color: D.main, fontWeight: 700 }}>v_H(r) = ∫ n⁰(r')/|r−r'| dr'</span><br />
+          <span style={{ color: D.main, fontWeight: 700, fontFamily: "Georgia, serif" }}>v<sub>H</sub>(<strong>r</strong>) = ∫ n⁰(<strong>r</strong>′)/|<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>′</span><br />
           <span style={{ color: T.muted }}>Hartree potential from guess density (solve Poisson equation)</span><br />
-          <span style={{ color: T.muted }}>At r = 0: v_H(0) = 1.985 hartree (numerical integration)</span><br />
-          <span style={{ color: T.muted }}>At r = 1: v_H(1) = 0.573 hartree</span><br /><br />
-          <span style={{ color: D.xc, fontWeight: 700 }}>v_xc(r) = δE_xc[n⁰]/δn (from LDA formula)</span><br />
-          <span style={{ color: T.muted }}>Using Slater exchange: v_x(r) = −(3/π)^(1/3) × n(r)^(1/3) × (4/3)</span><br />
-          <span style={{ color: T.muted }}>At r = 0: v_xc(0) = −1.376 hartree</span><br />
-          <span style={{ color: T.muted }}>At r = 1: v_xc(1) = −0.548 hartree</span><br /><br />
-          <span style={{ color: D.accent, fontWeight: 700 }}>v_KS(r) = v_ext + v_H + v_xc</span><br />
-          <span style={{ color: D.accent }}>At r = 0: v_KS(0) = −∞ + 1.985 − 1.376 (dominated by −Z/r)</span><br />
-          <span style={{ color: D.accent }}>At r = 1: v_KS(1) = −2.0 + 0.573 − 0.548 = −1.975 hartree</span>
+          <span style={{ color: T.muted }}>At r = 0: v<sub>H</sub>(0) = 1.985 hartree (numerical integration)</span><br />
+          <span style={{ color: T.muted }}>At r = 1: v<sub>H</sub>(1) = 0.573 hartree</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 700, fontFamily: "Georgia, serif" }}>v<sub>xc</sub>(<strong>r</strong>) = δE<sub>xc</sub>[n⁰]/δn (from LDA formula)</span><br />
+          <span style={{ color: T.muted, fontFamily: "Georgia, serif" }}>Using Slater exchange: v<sub>x</sub>(<strong>r</strong>) = −(3/π)<sup>1/3</sup> × n(<strong>r</strong>)<sup>1/3</sup> × (4/3)</span><br />
+          <span style={{ color: T.muted }}>At r = 0: v<sub>xc</sub>(0) = −1.376 hartree</span><br />
+          <span style={{ color: T.muted }}>At r = 1: v<sub>xc</sub>(1) = −0.548 hartree</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700, fontFamily: "Georgia, serif" }}>v<sub>KS</sub>(<strong>r</strong>) = v<sub>ext</sub> + v<sub>H</sub> + v<sub>xc</sub></span><br />
+          <span style={{ color: D.accent }}>At r = 0: v<sub>KS</sub>(0) = −∞ + 1.985 − 1.376 (dominated by −Z/r)</span><br />
+          <span style={{ color: D.accent }}>At r = 1: v<sub>KS</sub>(1) = −2.0 + 0.573 − 0.548 = −1.975 hartree</span>
         </div>
       </Card>
 
       <Card collapsible title="Step 3: Solve the Eigenvalue Problem — The Davidson Algorithm" color={D.accent}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-          Now we solve [−½∇² + v_KS(r)] φ_i = ε_i φ_i. On a grid/basis, this becomes a <strong>matrix eigenvalue problem</strong> H·c = ε·c.
+          Now we solve [−½∇² + v<sub>KS</sub>(<strong>r</strong>)] φ<sub>i</sub> = ε<sub>i</sub> φ<sub>i</sub>. On a grid/basis, this becomes a <strong>matrix eigenvalue problem</strong> H·c = ε·c.
           For large systems (1000s of basis functions), full diagonalisation costs O(N³). The <strong style={{ color: D.accent }}>Davidson algorithm</strong> finds just the lowest few eigenvalues iteratively, costing O(N² × k) where k = number of eigenvalues needed.
         </div>
         <div style={mathBlock}>
@@ -11008,7 +11008,7 @@ function DFTSCFWalkthroughSection() {
           <span style={{ color: T.muted }}>  5   −0.8793     −2.8623       7×10⁻⁴</span><br />
           <span style={{ color: T.muted }}>  ...</span><br />
           <span style={{ color: D.basis }}>  12  −0.8793     −2.8627       9×10⁻⁷ ✓ converged!</span><br /><br />
-          <span style={{ color: D.accent }}>Final LDA result: E_total = −2.8627 Ha (exact: −2.9037 Ha)</span><br />
+          <span style={{ color: D.accent }}>Final LDA result: E<sub>total</sub> = −2.8627 Ha (exact: −2.9037 Ha)</span><br />
           <span style={{ color: T.muted }}>LDA error: +0.041 Ha = +1.1 eV (correlation is underestimated)</span><br />
           <span style={{ color: T.muted }}>PBE would give: −2.893 Ha (error = +0.011 Ha = 0.3 eV, much better!)</span>
         </div>
@@ -11018,9 +11018,9 @@ function DFTSCFWalkthroughSection() {
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {[
             { step: "1. Guess n⁰(r)", what: "Superposition of atomic densities (or hydrogen-like)", cost: "Negligible", color: D.eqn },
-            { step: "2. Build v_KS", what: "v_ext (known) + v_H (Poisson) + v_xc (LDA/PBE formula)", cost: "O(N log N) via FFT", color: D.xc },
+            { step: <span>2. Build v<sub>KS</sub></span>, what: <span>v<sub>ext</sub> (known) + v<sub>H</sub> (Poisson) + v<sub>xc</sub> (LDA/PBE formula)</span>, cost: "O(N log N) via FFT", color: D.xc },
             { step: "3. Solve Hφ = εφ", what: "Davidson iteration for lowest eigenvalues/vectors", cost: "O(N² × k) per SCF step", color: D.accent },
-            { step: "4. New density", what: "n(r) = Σ f_i |φ_i|² from occupied orbitals", cost: "O(N × k)", color: D.basis },
+            { step: "4. New density", what: <span>n(<strong>r</strong>) = Σ f<sub>i</sub> |φ<sub>i</sub>|² from occupied orbitals</span>, cost: "O(N × k)", color: D.basis },
             { step: "5. Mix & check", what: "Pulay/Broyden mixing, check |n_new − n_old| < tol", cost: "O(N)", color: D.warn },
             { step: "6. Repeat 2-5", what: "Typically 10-50 SCF iterations to converge", cost: "Total: O(N³) per SCF cycle", color: D.main },
           ].map(item => (
@@ -11049,12 +11049,12 @@ function DFTBandsDOSSection() {
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 700 }}>From the KS equations, at each k-point:</span><br /><br />
-          <span style={{ color: D.eqn }}>[-1/2 nabla^2 + v_KS(r)] psi_nk(r) = epsilon_nk psi_nk(r)</span><br /><br />
+          <span style={{ color: D.eqn, fontFamily: "Georgia, serif" }}>[−<sup>1</sup>&frasl;<sub>2</sub> ∇² + v<sub>KS</sub>(<strong>r</strong>)] ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>) = ε<sub>n<strong>k</strong></sub> ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>)</span><br /><br />
           <span style={{ color: T.muted }}>n = band index (1, 2, 3, ... for each orbital)</span><br />
-          <span style={{ color: T.muted }}>k = crystal momentum vector (point in the Brillouin zone)</span><br />
-          <span style={{ color: T.muted }}>epsilon_nk = KS eigenvalue = energy of band n at k-point k</span><br />
-          <span style={{ color: T.muted }}>psi_nk(r) = Bloch wavefunction = e^(ik.r) u_nk(r)</span><br /><br />
-          <span style={{ color: D.accent, fontWeight: 700 }}>The band structure IS the set of all epsilon_nk plotted vs k.</span>
+          <span style={{ color: T.muted }}><strong>k</strong> = crystal momentum vector (point in the Brillouin zone)</span><br />
+          <span style={{ color: T.muted }}>ε<sub>n<strong>k</strong></sub> = KS eigenvalue = energy of band n at k-point <strong>k</strong></span><br />
+          <span style={{ color: T.muted }}>ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>) = Bloch wavefunction = e<sup>i<strong>k</strong>·<strong>r</strong></sup> u<sub>n<strong>k</strong></sub>(<strong>r</strong>)</span><br /><br />
+          <span style={{ color: D.accent, fontWeight: 700 }}>The band structure IS the set of all ε<sub>n<strong>k</strong></sub> plotted vs <strong>k</strong>.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginTop: 10 }}>
           <strong style={{ color: D.eqn }}>How to compute it step by step:</strong>
@@ -11084,16 +11084,16 @@ function DFTBandsDOSSection() {
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.xc, fontWeight: 700 }}>Total DOS:</span><br /><br />
-          <span style={{ color: D.xc }}>g(E) = sum_n integral_BZ delta(E - epsilon_nk) dk / (2*pi)^3</span><br /><br />
+          <span style={{ color: D.xc, fontFamily: "Georgia, serif" }}>g(E) = Σ<sub>n</sub> ∫<sub>BZ</sub> δ(E − ε<sub>n<strong>k</strong></sub>) d<strong>k</strong> / (2π)³</span><br /><br />
           <span style={{ color: T.muted }}>g(E) = number of states per unit energy per unit volume</span><br />
-          <span style={{ color: T.muted }}>delta(E - epsilon_nk) = Dirac delta (counts states at energy E)</span><br />
+          <span style={{ color: T.muted }}>δ(E − ε<sub>n<strong>k</strong></sub>) = Dirac delta (counts states at energy E)</span><br />
           <span style={{ color: T.muted }}>The integral runs over the entire Brillouin zone</span><br />
           <span style={{ color: T.muted }}>The sum runs over all bands n</span><br /><br />
           <span style={{ color: D.xc, fontWeight: 700 }}>In practice (discrete k-mesh):</span><br /><br />
-          <span style={{ color: D.xc }}>g(E) = (1/N_k) sum_n sum_k delta(E - epsilon_nk)</span><br /><br />
-          <span style={{ color: T.muted }}>N_k = total number of k-points in the mesh</span><br />
+          <span style={{ color: D.xc, fontFamily: "Georgia, serif" }}>g(E) = (<sup>1</sup>&frasl;<sub>N<sub>k</sub></sub>) Σ<sub>n</sub> Σ<sub><strong>k</strong></sub> δ(E − ε<sub>n<strong>k</strong></sub>)</span><br /><br />
+          <span style={{ color: T.muted }}>N<sub>k</sub> = total number of k-points in the mesh</span><br />
           <span style={{ color: T.muted }}>The delta function is broadened (Gaussian or Lorentzian) for smooth plots:</span><br /><br />
-          <span style={{ color: D.accent }}>{"delta(x) → (1 / sigma√(2π)) × exp(-x² / 2σ²)"}</span><br />
+          <span style={{ color: D.accent, fontFamily: "Georgia, serif" }}>δ(x) → (<sup>1</sup>&frasl;<sub>σ√(2π)</sub>) × exp(−x² / 2σ²)</span><br />
           <span style={{ color: T.muted }}>sigma = smearing width (typically 0.05-0.2 eV)</span><br />
           <span style={{ color: T.muted }}>Too small sigma = noisy. Too large = features washed out.</span>
         </div>
@@ -11106,10 +11106,10 @@ function DFTBandsDOSSection() {
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.accent, fontWeight: 700 }}>Projected DOS onto atom A, orbital l:</span><br /><br />
-          <span style={{ color: D.accent }}>g_Al(E) = (1/N_k) sum_n sum_k |{"<"}Y_lm^A | psi_nk{">"}|^2 * delta(E - epsilon_nk)</span><br /><br />
-          <span style={{ color: T.muted }}>Y_lm^A = spherical harmonic centred on atom A</span><br />
+          <span style={{ color: D.accent, fontFamily: "Georgia, serif" }}>g<sub>Al</sub>(E) = (<sup>1</sup>&frasl;<sub>N<sub>k</sub></sub>) Σ<sub>n</sub> Σ<sub><strong>k</strong></sub> |⟨Y<sub>lm</sub><sup>A</sup> | ψ<sub>n<strong>k</strong></sub>⟩|² × δ(E − ε<sub>n<strong>k</strong></sub>)</span><br /><br />
+          <span style={{ color: T.muted }}>Y<sub>lm</sub><sup>A</sup> = spherical harmonic centred on atom A</span><br />
           <span style={{ color: T.muted }}>l = 0 (s), 1 (p), 2 (d), 3 (f)</span><br />
-          <span style={{ color: T.muted }}>|{"<"}Y_lm | psi_nk{">"}|^2 = weight of orbital character in state nk</span><br /><br />
+          <span style={{ color: T.muted }}>|⟨Y<sub>lm</sub> | ψ<sub>n<strong>k</strong></sub>⟩|² = weight of orbital character in state n<strong>k</strong></span><br /><br />
           <span style={{ color: D.accent, fontWeight: 700 }}>What PDOS tells you:</span><br />
           <span style={{ color: T.muted }}>- Which atom dominates at each energy (e.g. Cu-3d vs S-3p)</span><br />
           <span style={{ color: T.muted }}>- The orbital character of bands (s, p, d contributions)</span><br />
