@@ -26,6 +26,12 @@ const T = {
   warn: "#dc2626", accent: "#d97706", warm: "#b45309",
 };
 
+const mathBlock = {
+  fontFamily: "'Courier New', monospace", fontSize: 12, lineHeight: 1.9,
+  background: "#f8f9fa", border: "1px solid #e5e7eb", borderRadius: 10,
+  padding: "14px 18px", marginBottom: 10, color: T.ink, whiteSpace: "pre-wrap",
+};
+
 const PARAM_SECTIONS = [
   { id: "bz",       label: "1. Brillouin Zone",   color: T.main  },
   { id: "kpoints",  label: "2. KPOINTS Mesh",     color: T.eqn   },
@@ -574,6 +580,47 @@ function SecEncut() {
         </div>
       </Card>
 
+      <Card title="Worked Example: What are k and G? Plane Wave at ENCUT = 5 eV" color={T.basis}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Let's build a plane wave step by step for a simple 1D crystal with lattice constant a = 3 Å.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: T.basis, fontWeight: 700 }}>Step 1: What is k? (Crystal momentum)</span><br />
+          {"  k lives in the first Brillouin zone: -\u03C0/a < k \u2264 \u03C0/a"}<br />
+          {"  For a = 3 \u00C5: -\u03C0/3 < k \u2264 \u03C0/3 \u00C5\u207B\u00B9 = -1.047 to +1.047 \u00C5\u207B\u00B9"}<br />
+          {"  Pick k = 0.5 \u00C5\u207B\u00B9 (a specific k-point in the BZ)"}<br /><br />
+
+          <span style={{ color: T.basis, fontWeight: 700 }}>Step 2: What is G? (Reciprocal lattice vector)</span><br />
+          {"  G = n \u00D7 (2\u03C0/a) where n = 0, \u00B11, \u00B12, ..."}<br />
+          {"  For a = 3 \u00C5: G = n \u00D7 2.094 \u00C5\u207B\u00B9"}<br />
+          {"  G\u2080 = 0, G\u2081 = 2.094, G\u208B\u2081 = -2.094, G\u2082 = 4.189, ..."}<br /><br />
+
+          <span style={{ color: T.basis, fontWeight: 700 }}>Step 3: The plane wave basis function</span><br />
+          {"  Each basis function is: \u03C6_G(r) = (1/\u221A\u03A9) \u00D7 e^(i(k+G)\u00B7r)"}<br />
+          {"  For k = 0.5, G\u2080 = 0:  \u03C6\u2080(r) = (1/\u221A\u03A9) \u00D7 e^(i \u00D7 0.5 \u00D7 r)"}<br />
+          {"  For k = 0.5, G\u2081 = 2.094:  \u03C6\u2081(r) = (1/\u221A\u03A9) \u00D7 e^(i \u00D7 2.594 \u00D7 r)"}<br /><br />
+
+          <span style={{ color: T.accent, fontWeight: 700 }}>Step 4: Which G's survive at ENCUT = 5 eV?</span><br />
+          {"  Kinetic energy of plane wave: E_kin = \u210F\u00B2|k+G|\u00B2/(2m\u2091)"}<br />
+          {"  Convert: E(eV) = 7.62 \u00D7 |k+G|\u00B2  (with k+G in \u00C5\u207B\u00B9)"}<br /><br />
+
+          {"  G\u2080:  |k+G| = |0.5 + 0| = 0.500 \u00C5\u207B\u00B9  \u2192  E = 7.62 \u00D7 0.25 = "}<span style={{ color: T.basis, fontWeight: 700 }}>{"1.91 eV \u2713"}</span><br />
+          {"  G\u2081:  |k+G| = |0.5 + 2.094| = 2.594 \u00C5\u207B\u00B9  \u2192  E = 7.62 \u00D7 6.73 = "}<span style={{ color: T.warn, fontWeight: 700 }}>{"51.3 eV \u2717 (> 5 eV)"}</span><br />
+          {"  G\u208B\u2081: |k+G| = |0.5 - 2.094| = 1.594 \u00C5\u207B\u00B9  \u2192  E = 7.62 \u00D7 2.54 = "}<span style={{ color: T.warn, fontWeight: 700 }}>{"19.4 eV \u2717 (> 5 eV)"}</span><br /><br />
+
+          <span style={{ color: T.eqn, fontWeight: 700 }}>Result: At ENCUT = 5 eV, ONLY G\u2080 survives! The wavefunction is just:</span><br />
+          {"  \u03C8_k(r) = c\u2080 \u00D7 e^(i \u00D7 0.5 \u00D7 r)"}<br />
+          {"  This is terrible \u2014 just one sine wave, no detail at all."}<br /><br />
+
+          <span style={{ color: T.basis, fontWeight: 700 }}>At ENCUT = 400 eV:</span><br />
+          {"  |k+G|_max = \u221A(2 \u00D7 400 / 7.62) = 10.25 \u00C5\u207B\u00B9"}<br />
+          {"  G's from n = -5 to +5 survive \u2192 11 plane waves per k-point (1D)"}<br />
+          {"  In 3D: G\u2081, G\u2082, G\u2083 in each direction \u2192 ~2,700 plane waves total"}<br /><br />
+
+          <span style={{ color: T.muted }}>This is why ENCUT = 5 eV gives nonsense but ENCUT = 400 eV is enough for most materials.</span>
+        </div>
+      </Card>
+
       <Card title="Interactive Convergence Test" color={T.basis}>
         <SliderRow label="ENCUT" value={encut} min={200} max={600} step={50}
           onChange={setEncut} color={T.basis} unit=" eV"
@@ -676,6 +723,56 @@ function SecEncut() {
               </div>
             );
           })}
+        </div>
+      </Card>
+
+      <Card title="PREC and LREAL — Precision Controls" color={T.warn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Two often-overlooked VASP tags that control numerical precision:
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
+          <div style={{ background: T.warn + "08", border: `1px solid ${T.warn}20`, borderRadius: 10, padding: "10px 14px" }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: T.warn, marginBottom: 6, fontFamily: "monospace" }}>PREC = Accurate</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+              Controls the FFT grid density and wrap-around errors.<br /><br />
+              <strong>Normal:</strong> FFT grid just large enough for charge density (2 × G_max). Fine for rough relaxations.<br /><br />
+              <strong>Accurate:</strong> Adds 25% more grid points — avoids aliasing (wrap-around) errors in forces. <strong style={{ color: T.warn }}>Essential for:</strong><br />
+              • Phonon calculations (forces must be exact to ~0.001 eV/Å)<br />
+              • Stress tensor (ISIF = 3, cell optimization)<br />
+              • Formation energy differences (need meV accuracy)<br /><br />
+              <strong>Cost:</strong> ~20-30% more memory, ~10% slower. Always worth it for production runs.
+            </div>
+          </div>
+          <div style={{ background: T.eqn + "08", border: `1px solid ${T.eqn}20`, borderRadius: 10, padding: "10px 14px" }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: T.eqn, marginBottom: 6, fontFamily: "monospace" }}>LREAL = .FALSE.</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+              Controls whether PAW projections are done in real or reciprocal space.<br /><br />
+              <strong>.FALSE.:</strong> Projections computed in reciprocal space (exact). No approximation. Required for small cells ({"<"}20 atoms).<br /><br />
+              <strong>Auto:</strong> Uses real-space projection with a finite cutoff radius. Faster for large cells ({">"}~50 atoms) but introduces a small error (~0.1–1 meV/atom).<br /><br />
+              <strong style={{ color: T.eqn }}>Rule of thumb:</strong><br />
+              • {"<"} 20 atoms — LREAL = .FALSE. (exact)<br />
+              • 20–100 atoms — LREAL = Auto (acceptable error)<br />
+              • {">"} 100 atoms — LREAL = Auto (necessary for speed)<br /><br />
+              <strong>Why it matters:</strong> Real-space projection truncates the PAW augmentation at a sphere boundary. For small cells, this sphere can overlap with its periodic image — large errors. For big cells, the overlap is negligible.
+            </div>
+          </div>
+        </div>
+
+        <div style={mathBlock}>
+          <span style={{ color: T.warn, fontWeight: 700 }}>Example: Effect of PREC on Si phonon frequency</span><br /><br />
+          {"  PREC = Normal:  \u03C9(\u0393\u2082\u2085') = 15.21 THz (FFT grid: 24\u00D724\u00D724)"}<br />
+          {"  PREC = Accurate: \u03C9(\u0393\u2082\u2085') = 15.53 THz (FFT grid: 32\u00D732\u00D732)"}<br />
+          {"  Experiment:      \u03C9(\u0393\u2082\u2085') = 15.53 THz"}<br /><br />
+          {"  PREC = Normal gives "}<span style={{ color: T.warn, fontWeight: 700 }}>2% error</span>{" due to wrap-around \u2014 completely avoidable!"}<br /><br />
+          <span style={{ color: T.eqn, fontWeight: 700 }}>Example: LREAL effect on 8-atom Si cell</span><br /><br />
+          {"  LREAL = .FALSE.: E = -43.3847 eV (exact projections)"}<br />
+          {"  LREAL = Auto:    E = -43.3812 eV (real-space projections)"}<br />
+          {"  Error: 3.5 meV/atom \u2014 acceptable for relaxations, NOT for formation energies"}<br /><br />
+          {"  For a 216-atom supercell:"}<br />
+          {"  LREAL = .FALSE.: 12 min/SCF step"}<br />
+          {"  LREAL = Auto:    4 min/SCF step (3\u00D7 faster)"}<br />
+          {"  Error: 0.2 meV/atom \u2014 negligible. Use LREAL = Auto for big cells."}
         </div>
       </Card>
     </div>
@@ -925,15 +1022,15 @@ function SecAlgo() {
            "All-bands CG: zigzag path — alternating conjugate directions, many small steps"}
         </div>
         <svg viewBox="0 0 400 160" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e5e7eb" }}>
-          <path d="M0,150 Q100,140 150,100 Q200,40 250,30 Q300,40 350,100 Q400,140 400,150" fill={sel.color + "08"} stroke={sel.color + "30"} strokeWidth={1.5} />
-          <circle cx={250} cy={30} r={4} fill={T.xc} />
-          <text x={250} y={22} textAnchor="middle" fontSize={9} fill={T.xc} fontWeight="700">E_min</text>
+          <path d="M0,30 Q100,40 150,80 Q200,140 250,150 Q300,140 350,80 Q400,40 400,30" fill={sel.color + "08"} stroke={sel.color + "30"} strokeWidth={1.5} />
+          <circle cx={250} cy={150} r={4} fill={T.xc} />
+          <text x={250} y={162} textAnchor="middle" fontSize={9} fill={T.xc} fontWeight="700">E_min</text>
 
           {algo === "Normal" && (() => {
             const phase = aFrame % 120;
             const step = Math.floor(phase / 30);
             const subPhase = (phase % 30) / 30;
-            const positions = [{x:60, y:138}, {x:120, y:115}, {x:180, y:70}, {x:230, y:38}];
+            const positions = [{x:60, y:42}, {x:120, y:65}, {x:180, y:110}, {x:230, y:142}];
             const pos = positions[Math.min(step, positions.length - 1)];
             const nextPos = positions[Math.min(step + 1, positions.length - 1)];
             const cx = pos.x + (nextPos.x - pos.x) * subPhase;
@@ -962,16 +1059,16 @@ function SecAlgo() {
             if (isDavidson) {
               const t = phase / switchPoint;
               cx = 50 + t * 120;
-              cy = 145 - t * 60;
+              cy = 35 + t * 60;
             } else {
               const t = (phase - switchPoint) / (120 - switchPoint);
               cx = 170 + t * 80;
-              cy = 85 - t * 55 + Math.sin(t * 6) * 5;
+              cy = 95 + t * 55 + Math.sin(t * 6) * 5;
             }
             return (
               <g>
                 <polyline fill="none" stroke={T.xc + "40"} strokeWidth={1.5} strokeDasharray="4,4"
-                  points="50,145 90,130 130,110 170,85" />
+                  points="50,35 90,50 130,70 170,95" />
                 {!isDavidson && <polyline fill="none" stroke={T.xc} strokeWidth={2}
                   points={`170,85 ${cx},${cy}`} />}
                 <rect x={cx - 30} y={cy - 28} width={60} height={14} rx={4} fill={isDavidson ? T.main + "20" : T.accent + "20"} />
@@ -987,7 +1084,7 @@ function SecAlgo() {
             const phase = aFrame % 120;
             const t = phase / 120;
             const cx = 350 + (250 - 350) * t + Math.sin(t * 12) * 30 * (1 - t);
-            const valleyY = 150 - 120 * Math.exp(-((cx - 250) ** 2) / 5000);
+            const valleyY = 30 + 120 * Math.exp(-((cx - 250) ** 2) / 5000);
             const cy = valleyY - 5;
             return (
               <g>
@@ -995,7 +1092,7 @@ function SecAlgo() {
                   points={Array.from({length: Math.floor(phase / 2)}, (_, i) => {
                     const tt = (i * 2) / 120;
                     const xx = 350 + (250 - 350) * tt + Math.sin(tt * 12) * 30 * (1 - tt);
-                    const yy = 150 - 120 * Math.exp(-((xx - 250) ** 2) / 5000) - 5;
+                    const yy = 30 + 120 * Math.exp(-((xx - 250) ** 2) / 5000) - 5;
                     return `${xx},${yy}`;
                   }).join(" ")} />
                 <circle cx={cx} cy={cy} r={7} fill={T.accent} />
@@ -1007,10 +1104,10 @@ function SecAlgo() {
           {algo === "All" && (() => {
             const phase = aFrame % 120;
             const zigzag = [
-              {x: 40, y: 145}, {x: 80, y: 135}, {x: 100, y: 128},
-              {x: 130, y: 118}, {x: 145, y: 108}, {x: 165, y: 92},
-              {x: 180, y: 78}, {x: 195, y: 62}, {x: 210, y: 48},
-              {x: 225, y: 38}, {x: 240, y: 33}, {x: 250, y: 30}
+              {x: 40, y: 35}, {x: 80, y: 45}, {x: 100, y: 52},
+              {x: 130, y: 62}, {x: 145, y: 72}, {x: 165, y: 88},
+              {x: 180, y: 102}, {x: 195, y: 118}, {x: 210, y: 132},
+              {x: 225, y: 142}, {x: 240, y: 147}, {x: 250, y: 150}
             ];
             const visCount = Math.min(zigzag.length, Math.floor(phase / 10) + 1);
             const pts = zigzag.slice(0, visCount);
@@ -1110,6 +1207,57 @@ function SecAlgo() {
               <div style={{ color: T.muted }}>{item.desc}</div>
             </InfoBox>
           ))}
+        </div>
+      </Card>
+
+      <Card title="How Each Algorithm Works — Step by Step with Numbers" color={T.accent}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Imagine you have a 3×3 Hamiltonian matrix (a toy version of the real 2700×2700 matrix).
+          You need the lowest eigenvalue (ground state energy). Here's how each ALGO approaches it:
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: T.main, fontWeight: 700 }}>ALGO = Normal (Block Davidson)</span><br />
+          {"  H = [[5, 1, 0], [1, 3, 1], [0, 1, 4]]  (Hamiltonian)"}<br />
+          {"  Guess: v\u2081 = [1, 0, 0] (start with first orbital)"}<br /><br />
+          {"  Iteration 1:"}<br />
+          {"    Hv\u2081 = [5, 1, 0]  \u2192  Rayleigh quotient \u03C1 = v\u2081\u00B7Hv\u2081/v\u2081\u00B7v\u2081 = 5.00"}<br />
+          {"    Residual: r = Hv\u2081 - \u03C1v\u2081 = [0, 1, 0]  \u2192  |r| = 1.00"}<br />
+          {"    Expand subspace: solve H in span{v\u2081, r} \u2192 2\u00D72 problem"}<br />
+          {"    New eigenvalue estimate: "}<span style={{ color: T.main, fontWeight: 700 }}>{"\u03C1 = 2.38"}</span><br /><br />
+          {"  Iteration 2:"}<br />
+          {"    New residual |r| = 0.12"}<br />
+          {"    Expand to 3\u00D73 subspace \u2192 "}<span style={{ color: T.main, fontWeight: 700 }}>{"\u03C1 = 2.268"}</span><br /><br />
+          {"  Iteration 3:"}<br />
+          {"    |r| = 0.003 \u2192 "}<span style={{ color: T.basis, fontWeight: 700 }}>{"\u03C1 = 2.2679 \u2713 converged"}</span><br />
+          {"  Exact lowest eigenvalue: 2.2679. Davidson found it in 3 iterations."}<br /><br />
+          <span style={{ color: T.muted }}>Davidson is robust: guaranteed to converge, but builds a growing subspace (memory).</span>
+        </div>
+
+        <div style={mathBlock}>
+          <span style={{ color: T.accent, fontWeight: 700 }}>ALGO = VeryFast (RMM-DIIS)</span><br />
+          {"  Same H, same guess v\u2081 = [1, 0, 0]"}<br /><br />
+          {"  Uses residual minimization: minimize |Hv - \u03B5v|\u00B2 directly"}<br />
+          {"  Keeps last 4-5 trial vectors, fits a polynomial to predict the next"}<br /><br />
+          {"  Iteration 1: \u03C1 = 5.00, |r| = 1.00"}<br />
+          {"  Iteration 2: \u03C1 = 2.15 (jumps aggressively!), |r| = 0.35"}<br />
+          {"  Iteration 3: \u03C1 = 2.31 (overshot, oscillating), |r| = 0.18"}<br />
+          {"  Iteration 4: \u03C1 = 2.27, |r| = 0.01 \u2192 "}<span style={{ color: T.basis, fontWeight: 700 }}>{"converged \u2713"}</span><br /><br />
+          <span style={{ color: T.muted }}>RMM-DIIS can overshoot but uses constant memory. Don't use from random start!</span>
+        </div>
+
+        <div style={mathBlock}>
+          <span style={{ color: T.eqn, fontWeight: 700 }}>ALGO = All (Conjugate Gradient)</span><br />
+          {"  Steepest descent with conjugate correction:"}<br /><br />
+          {"  Iteration 1: gradient g\u2081 = Hv\u2081 - \u03C1v\u2081 = [0, 1, 0]"}<br />
+          {"    Search direction d\u2081 = -g\u2081 = [0, -1, 0]"}<br />
+          {"    Line search along d\u2081 \u2192 \u03C1 = 3.00"}<br /><br />
+          {"  Iteration 2: g\u2082 = new gradient"}<br />
+          {"    \u03B2 = |g\u2082|\u00B2/|g\u2081|\u00B2 (conjugate correction)"}<br />
+          {"    d\u2082 = -g\u2082 + \u03B2 \u00D7 d\u2081 (conjugate direction)"}<br />
+          {"    Line search \u2192 \u03C1 = 2.45"}<br /><br />
+          {"  ... iterations 3-7: slowly zigzags to minimum ..."}<br />
+          {"  Iteration 8: \u03C1 = 2.2680 \u2192 "}<span style={{ color: T.basis, fontWeight: 700 }}>{"converged \u2713"}</span><br /><br />
+          <span style={{ color: T.muted }}>CG uses minimal memory (one direction at a time) but needs many iterations. Best for huge systems.</span>
         </div>
       </Card>
     </div>
