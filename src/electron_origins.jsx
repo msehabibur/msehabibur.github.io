@@ -51,6 +51,49 @@ function AnalogyBox({ children }) {
   );
 }
 
+/* ─── Numerical-Example Helpers (matching characterization.jsx pattern) ─── */
+function NCard({ title, color, formula, children }) {
+  return (
+    <div style={{ background: T.panel, border: `1.5px solid ${(color || T.eo_e)}44`, borderLeft: `4px solid ${color || T.eo_e}`, borderRadius: 10, padding: "16px 18px", marginBottom: 14 }}>
+      {(title || formula) && (
+        <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 10, flexWrap: "wrap" }}>
+          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || T.eo_e, textTransform: "uppercase", fontWeight: 700 }}>{title}</div>}
+          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || T.eo_e) + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || T.eo_e)}33` }}>{formula}</div>}
+        </div>
+      )}
+      {children}
+    </div>
+  );
+}
+
+function InfoRow({ label, value }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
+      <span style={{ color: T.muted }}>{label}</span>
+      <span style={{ color: T.ink, fontWeight: 600 }}>{value}</span>
+    </div>
+  );
+}
+
+function CalcRow({ eq, result, color }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "3px 0", borderBottom: `1px solid ${T.border}`, fontSize: 11 }}>
+      <span style={{ color: T.ink, fontFamily: "monospace" }}>{eq}</span>
+      <span style={{ color: color || T.eo_e, fontWeight: 700, fontFamily: "monospace" }}>{result}</span>
+    </div>
+  );
+}
+
+function ResultBox({ label, value, color, sub }) {
+  return (
+    <div style={{ background: (color || T.eo_e) + "0a", border: `1px solid ${(color || T.eo_e)}22`, borderRadius: 8, padding: "8px 12px", textAlign: "center" }}>
+      <div style={{ fontSize: 9, color: T.muted, letterSpacing: 1, marginBottom: 2 }}>{label}</div>
+      <div style={{ fontSize: 16, fontWeight: 800, color: color || T.eo_e, fontFamily: "monospace" }}>{value}</div>
+      {sub && <div style={{ fontSize: 9, color: T.muted, marginTop: 2 }}>{sub}</div>}
+    </div>
+  );
+}
+
 // --- Section 1: AtomicModelsSection ---
 function AtomicModelsSection() {
   const [model, setModel] = useState(0);
@@ -1396,19 +1439,6 @@ function WaveDualitySection() {
           </div>
         </div>
 
-        {/* Key insight — quantum only, beside animation */}
-        {mode === "quantum" && (
-          <div style={{ flexShrink: 0, width: 280, background: "#06b6d418", border: "1.5px solid #06b6d433", borderLeft: "4px solid #06b6d4", borderRadius: 8, padding: 16, alignSelf: "flex-start" }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: "#06b6d4", marginBottom: 8 }}>Why this matters for materials science</div>
-            <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.75 }}>
-              Every electron in a CdTe crystal behaves this way. Its wavefunction ψ is not localised to one atom — it spreads
-              over the entire crystal lattice. When Bloch solved the Schrödinger equation for periodic crystals, he found that
-              these spreading wavefunctions form <strong>energy bands</strong> — the conduction band and valence band that determine
-              whether CdTe absorbs light and conducts electricity. The "weirdness" of quantum mechanics is precisely why solar
-              cells work.
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Step-by-step explanation */}
@@ -1468,6 +1498,20 @@ function WaveDualitySection() {
           </div>
         </div>
       </div>
+
+      {/* Why this matters — full width, below de Broglie */}
+      {mode === "quantum" && (
+        <div style={{ background: "#06b6d418", border: "1.5px solid #06b6d433", borderLeft: "4px solid #06b6d4", borderRadius: 8, padding: 16 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "#06b6d4", marginBottom: 8 }}>Why this matters for materials science</div>
+          <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.75 }}>
+            Every electron in a CdTe crystal behaves this way. Its wavefunction ψ is not localised to one atom — it spreads
+            over the entire crystal lattice. When Bloch solved the Schrödinger equation for periodic crystals, he found that
+            these spreading wavefunctions form <strong>energy bands</strong> — the conduction band and valence band that determine
+            whether CdTe absorbs light and conducts electricity. The "weirdness" of quantum mechanics is precisely why solar
+            cells work.
+          </div>
+        </div>
+      )}
     </div>
   );
 }
