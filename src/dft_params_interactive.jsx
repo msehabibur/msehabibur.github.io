@@ -617,10 +617,39 @@ function SecEncut() {
 
           <span style={{ color: T.basis, fontWeight: 700 }}>At ENCUT = 400 eV:</span><br />
           {"  |k+G|_max = \u221A(2 \u00D7 400 / 7.62) = 10.25 \u00C5\u207B\u00B9"}<br />
-          {"  G's from n = -5 to +5 survive \u2192 11 plane waves per k-point (1D)"}<br />
-          {"  In 3D: G\u2081, G\u2082, G\u2083 in each direction \u2192 ~2,700 plane waves total"}<br /><br />
+          {"  G = n \u00D7 2.094 \u00C5\u207B\u00B9, so |k + G| = |0.5 + 2.094n|"}<br />
+          {"  Include all n where 7.62 \u00D7 |0.5 + 2.094n|\u00B2 < 400 eV:"}<br /><br />
+          {"  n = -5: k+G = 0.5 + (-10.470) = -9.970  \u2192 E = 7.62 \u00D7 99.4 = "}<span style={{ color: T.basis, fontWeight: 700 }}>{"757 eV \u2714"}</span><br />
+          {"  n = -4: k+G = 0.5 + (-8.376)  = -7.876  \u2192 E = 7.62 \u00D7 62.0 = "}<span style={{ color: T.basis, fontWeight: 700 }}>{"473 eV \u2718 (>400)"}</span><br />
+          {"  Wait \u2014 let\u2019s redo carefully:"}<br /><br />
+          {"  n   |  G = 2.094n  |  k+G = 0.5+G  |  |k+G|\u00B2   |  E (eV)    | Include?"}<br />
+          {"  \u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500"}<br />
+          {"  -5  |  -10.470     |  -9.970        |  99.40     |  757.4     | \u2718"}<br />
+          {"  -4  |  -8.376      |  -7.876        |  62.03     |  472.7     | \u2718"}<br />
+          {"  -3  |  -6.282      |  -5.782        |  33.43     |  254.9     | \u2714"}<br />
+          {"  -2  |  -4.188      |  -3.688        |  13.60     |  103.6     | \u2714"}<br />
+          {"  -1  |  -2.094      |  -1.594        |   2.54     |   19.4     | \u2714"}<br />
+          {"   0  |   0.000      |   0.500        |   0.25     |    1.9     | \u2714"}<br />
+          {"  +1  |  +2.094      |  +2.594        |   6.73     |   51.3     | \u2714"}<br />
+          {"  +2  |  +4.188      |  +4.688        |  21.98     |  167.5     | \u2714"}<br />
+          {"  +3  |  +6.282      |  +6.782        |  46.00     |  350.5     | \u2714"}<br />
+          {"  +4  |  +8.376      |  +8.876        |  78.78     |  600.3     | \u2718"}<br />
+          {"  +5  |  +10.470     |  +10.970       | 120.34     |  917.0     | \u2718"}<br /><br />
+          <span style={{ color: T.basis, fontWeight: 700 }}>{"Result: n = -3 to +3 survive \u2192 7 plane waves (1D at this k-point)"}</span><br /><br />
+          {"  The 7 plane waves are:"}<br />
+          {"  \u03C6\u2083(r) = (1/\u221A\u03A9) e^(i\u00D7(-5.782)\u00D7r)   [high-freq, leftward]"}<br />
+          {"  \u03C6\u2082(r) = (1/\u221A\u03A9) e^(i\u00D7(-3.688)\u00D7r)"}<br />
+          {"  \u03C6\u2081(r) = (1/\u221A\u03A9) e^(i\u00D7(-1.594)\u00D7r)"}<br />
+          {"  \u03C6\u2080(r) = (1/\u221A\u03A9) e^(i\u00D7(+0.500)\u00D7r)   [lowest energy, 1.9 eV]"}<br />
+          {"  \u03C6\u2081(r) = (1/\u221A\u03A9) e^(i\u00D7(+2.594)\u00D7r)"}<br />
+          {"  \u03C6\u2082(r) = (1/\u221A\u03A9) e^(i\u00D7(+4.688)\u00D7r)"}<br />
+          {"  \u03C6\u2083(r) = (1/\u221A\u03A9) e^(i\u00D7(+6.782)\u00D7r)   [high-freq, rightward]"}<br /><br />
+          {"  The KS orbital is then: \u03C8_k(r) = c\u2083\u03C6\u2083 + c\u2082\u03C6\u2082 + ... + c\u2083\u03C6\u2083"}<br />
+          {"  DFT finds the coefficients c_n by diagonalizing a 7\u00D77 Hamiltonian matrix."}<br /><br />
+          {"  In 3D: each direction gets ~7 G-values \u2192 7\u00D77\u00D77 = 343 G-vectors"}<br />
+          {"  (inside a sphere, not a cube: actual count \u2248 "}<span style={{ color: T.basis, fontWeight: 700 }}>{"~2,700"}</span>{" for Si at 400 eV)"}<br /><br />
 
-          <span style={{ color: T.muted }}>This is why ENCUT = 5 eV gives nonsense but ENCUT = 400 eV is enough for most materials.</span>
+          <span style={{ color: T.muted }}>This is why ENCUT = 5 eV gives nonsense (1 plane wave) but ENCUT = 400 eV is enough for most materials.</span>
         </div>
       </Card>
 
