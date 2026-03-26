@@ -1836,7 +1836,7 @@ function SchrodingerSection() {
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
       {/* LEFT: SVG */}
       <div style={{ flexShrink: 0 }}>
-        <svg viewBox="0 0 320 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 320 }}>
+        <svg viewBox="0 0 320 520" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 320 }}>
           <text x={160} y={16} textAnchor="middle" fontSize={13} fill={T.ink} fontWeight="bold">
             Hydrogen Atom {"—"} {orb.name} orbital
           </text>
@@ -1876,24 +1876,24 @@ function SchrodingerSection() {
             </g>
           )}
 
-          {/* Energy level diagram (right side) */}
-          <rect x={255} y={22} width={60} height={200} rx={4} fill={T.bg} stroke={T.border} strokeWidth={0.5} />
-          <text x={285} y={34} textAnchor="middle" fontSize={12} fill={T.muted}>Energy (eV)</text>
+          {/* Energy level diagram (centered below R(r) curve) */}
+          <rect x={80} y={320} width={160} height={185} rx={6} fill={T.bg} stroke={T.border} strokeWidth={0.5} />
+          <text x={160} y={335} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight="bold">Energy Level Diagram (eV)</text>
           {[1, 2, 3, 4].map(n => {
             const eN = energyN(n);
-            const yE = 42 + (1 - (eN + 13.6) / 13.6) * 160;
+            const yE = 348 + (1 - (eN + 13.6) / 13.6) * 130;
             const isSel = n === nQ;
             return (
               <g key={n} onClick={() => setNQ(n)} style={{ cursor: "pointer" }}>
-                <line x1={261} y1={yE} x2={305} y2={yE} stroke={isSel ? T.eo_valence : T.dim} strokeWidth={isSel ? 2 : 1} />
-                <text x={309} y={yE + 3} fontSize={12} fill={isSel ? T.eo_valence : T.muted}>n={n}</text>
-                <text x={259} y={yE + 3} textAnchor="end" fontSize={12} fill={isSel ? T.eo_valence : T.muted}>{eN.toFixed(1)}</text>
+                <line x1={110} y1={yE} x2={210} y2={yE} stroke={isSel ? T.eo_valence : T.dim} strokeWidth={isSel ? 2.5 : 1} />
+                <text x={218} y={yE + 4} fontSize={11} fill={isSel ? T.eo_valence : T.muted} fontWeight={isSel ? 700 : 400}>n={n}</text>
+                <text x={103} y={yE + 4} textAnchor="end" fontSize={11} fill={isSel ? T.eo_valence : T.muted} fontWeight={isSel ? 700 : 400}>{eN.toFixed(1)}</text>
               </g>
             );
           })}
-          <text x={259} y={213} textAnchor="end" fontSize={12} fill={T.muted}>0 eV</text>
-          <line x1={261} y1={208} x2={305} y2={208} stroke={T.dim} strokeWidth={0.5} strokeDasharray="2,2" />
-          <text x={285} y={218} textAnchor="middle" fontSize={12} fill={T.eo_gap}>free</text>
+          <text x={103} y={498} textAnchor="end" fontSize={11} fill={T.muted}>0 eV</text>
+          <line x1={110} y1={494} x2={210} y2={494} stroke={T.dim} strokeWidth={0.5} strokeDasharray="3,3" />
+          <text x={160} y={508} textAnchor="middle" fontSize={11} fill={T.eo_gap}>free (ionized)</text>
         </svg>
 
         <div style={{ marginTop: 8, display: "flex", gap: 8, justifyContent: "center" }}>
