@@ -6430,8 +6430,8 @@ function Synthesis3DView({ selected, frame }) {
 
   // Isometric projection helper
   const iso = (x, y, z) => ({
-    sx: 200 + (x - y) * 0.866 * 0.7,
-    sy: 120 + (x + y) * 0.5 * 0.7 - z * 0.8,
+    sx: 140 + (x - y) * 0.866 * 0.6,
+    sy: 110 + (x + y) * 0.5 * 0.6 - z * 0.7,
   });
 
   const configs = {
@@ -6463,14 +6463,14 @@ function Synthesis3DView({ selected, frame }) {
   };
 
   const cfg = configs[selected];
-  const W = 400, H = 260;
+  const W = 280, H = 220;
 
   // Substrate grid (isometric)
   const substrate = [];
-  for (let i = -3; i <= 3; i++) {
-    for (let j = -3; j <= 3; j++) {
+  for (let i = -2; i <= 2; i++) {
+    for (let j = -2; j <= 2; j++) {
       const { sx, sy } = iso(i * 22, j * 22, 0);
-      if (sx > 20 && sx < W - 20 && sy > 60 && sy < H - 30)
+      if (sx > 15 && sx < W - 15 && sy > 50 && sy < H - 25)
         substrate.push({ x: sx, y: sy });
     }
   }
@@ -6491,22 +6491,16 @@ function Synthesis3DView({ selected, frame }) {
 
   // Gas molecules falling from top
   const gasMols = [];
-  for (let i = 0; i < 8; i++) {
-    const gx = 60 + (i * 47 + t * 30) % 280;
+  for (let i = 0; i < 6; i++) {
+    const gx = 40 + (i * 40 + t * 25) % 200;
     const baseY = 15 + ((t * 40 + i * 60) % 90);
     const gy = baseY;
     gasMols.push({ x: gx, y: gy, opacity: 0.5 + 0.3 * Math.sin(t + i) });
   }
 
   return (
-    <div style={{ background: T.panel, borderRadius: 12, border: `1.5px solid ${cfg.color}44`, padding: 14, marginBottom: 14 }}>
-      <div style={{ fontSize: 13, fontWeight: 800, color: cfg.color, marginBottom: 4, textAlign: "center" }}>
-        Synthesis: {cfg.label}
-      </div>
-      <div style={{ fontSize: 11, color: T.muted, textAlign: "center", marginBottom: 8, lineHeight: 1.6 }}>
-        {cfg.desc}
-      </div>
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", background: `linear-gradient(180deg, #1a1d2e 0%, #22263a 100%)`, borderRadius: 10, display: "block" }}>
+    <div>
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", background: `linear-gradient(180deg, #1a1d2e 0%, #22263a 100%)`, borderRadius: 10, display: "block", border: `1.5px solid ${cfg.color}33` }}>
         {/* Temperature label */}
         <text x={W / 2} y={18} textAnchor="middle" fontSize={10} fill="#ef4444" fontWeight="bold" fontFamily="monospace">
           {selected === "blackP" ? "1 GPa, 200°C" : selected === "hBN" ? "1000°C" : selected === "graphene" ? "1050°C" : "700–800°C"}
@@ -6548,8 +6542,8 @@ function Synthesis3DView({ selected, frame }) {
         })}
 
         {/* Glow around growth front */}
-        <circle cx={200} cy={130} r={Math.min(t * 6, 60)} fill="none" stroke={cfg.color} strokeWidth={1} opacity={0.15} />
-        <circle cx={200} cy={130} r={Math.min(t * 4, 40)} fill="none" stroke={cfg.color} strokeWidth={0.8} opacity={0.25} />
+        <circle cx={140} cy={110} r={Math.min(t * 5, 45)} fill="none" stroke={cfg.color} strokeWidth={1} opacity={0.15} />
+        <circle cx={140} cy={110} r={Math.min(t * 3, 30)} fill="none" stroke={cfg.color} strokeWidth={0.8} opacity={0.25} />
 
         {/* Legend */}
         <g transform={`translate(15, ${H - 50})`}>
@@ -6561,6 +6555,7 @@ function Synthesis3DView({ selected, frame }) {
           <text x={10} y={29} fontSize={9} fill="#9ca3b4">Precursor gas</text>
         </g>
       </svg>
+      <div style={{ fontSize: 10, color: T.muted, textAlign: "center", marginTop: 4, lineHeight: 1.5 }}>{cfg.desc}</div>
     </div>
   );
 }
@@ -6569,6 +6564,7 @@ function TwoDMaterialsSection() {
   const [selected, setSelected] = useState("graphene");
   const [layers, setLayers] = useState(1);
   const [frame, setFrame] = useState(0);
+  const [viewMode, setViewMode] = useState("structure"); // "structure" or "synthesis"
 
   useEffect(() => {
     const id = setInterval(() => setFrame(f => f + 1), 50);
@@ -6583,6 +6579,13 @@ function TwoDMaterialsSection() {
       properties: ["Highest known electrical conductivity", "Strongest material ever measured (130 GPa)", "Extremely high thermal conductivity (~5000 W/mK)", "Optically transparent (97.7%)"],
       applications: "Flexible electronics, sensors, composites, batteries",
       synthesis: "Mechanical exfoliation, CVD on Cu foil, epitaxial growth on SiC",
+      synthSteps: [
+        { step: "1. Substrate prep", detail: "Polish Cu foil (25 μm), anneal at 1000°C in H₂/Ar for 30 min to enlarge grains and remove oxide" },
+        { step: "2. Carbon source", detail: "Introduce CH₄ gas (5–35 sccm) mixed with H₂ at 1000–1050°C; methane decomposes on Cu surface" },
+        { step: "3. Nucleation", detail: "Carbon adatoms diffuse on Cu, nucleate hexagonal islands at grain boundaries and defects" },
+        { step: "4. Growth", detail: "Islands expand laterally, merge into continuous monolayer; Cu acts as self-limiting catalyst (low C solubility)" },
+        { step: "5. Transfer", detail: "Spin-coat PMMA on graphene/Cu, etch Cu in FeCl₃, transfer PMMA/graphene to target substrate, dissolve PMMA in acetone" },
+      ],
       gapVsLayers: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     },
     MoS2: {
@@ -6592,6 +6595,13 @@ function TwoDMaterialsSection() {
       properties: ["Direct band gap in monolayer (1.8 eV)", "Strong photoluminescence", "High on/off ratio in transistors", "Valley polarization for valleytronics"],
       applications: "Photodetectors, transistors, catalysis (HER), flexible optoelectronics",
       synthesis: "Mechanical exfoliation, CVD, liquid-phase exfoliation",
+      synthSteps: [
+        { step: "1. Precursors", detail: "Place MoO₃ powder in center of tube furnace, sulfur powder upstream at lower temperature zone" },
+        { step: "2. Substrate", detail: "SiO₂/Si wafer placed face-down above MoO₃; surface cleaned with piranha or O₂ plasma" },
+        { step: "3. Ramp & sulfurize", detail: "Heat to 700°C at 15°C/min under Ar flow; sulfur melts at 115°C, vapor carried downstream to react with MoO₃" },
+        { step: "4. Growth", detail: "MoO₃₋ₓ + S → MoS₂ triangular islands nucleate, grow into equilateral triangles 10–100 μm; hold 15 min" },
+        { step: "5. Cool down", detail: "Rapid cool under Ar to preserve monolayer quality; slow cooling causes multilayer growth" },
+      ],
       gapVsLayers: [1.8, 1.6, 1.5, 1.4, 1.35, 1.3, 1.28, 1.25, 1.23, 1.2],
     },
     hBN: {
@@ -6601,6 +6611,13 @@ function TwoDMaterialsSection() {
       properties: ["Ultrawide band gap insulator (6 eV)", "Atomically flat surface — ideal substrate", "Chemically inert and thermally stable", "Deep UV emitter"],
       applications: "Substrate/encapsulant for 2D devices, deep UV LEDs, tunneling barriers",
       synthesis: "CVD, mechanical exfoliation, high-pressure synthesis",
+      synthSteps: [
+        { step: "1. Precursor", detail: "Ammonia borane (NH₃·BH₃) or borazine (B₃N₃H₆) as single-source B and N precursor" },
+        { step: "2. Substrate", detail: "Cu or Ni foil, annealed at 1000°C in H₂ to flatten surface and remove oxide" },
+        { step: "3. Deposition", detail: "Precursor vapor carried into furnace at 1000°C; decomposes on metal surface releasing B and N atoms" },
+        { step: "4. Growth", detail: "B-N pairs assemble into hexagonal lattice; Ni allows multilayer (high B solubility), Cu gives monolayer" },
+        { step: "5. Transfer", detail: "PMMA-assisted wet transfer (same as graphene); hBN used as atomically flat substrate for other 2D devices" },
+      ],
       gapVsLayers: [6.0, 5.95, 5.9, 5.87, 5.85, 5.83, 5.82, 5.81, 5.8, 5.8],
     },
     WS2: {
@@ -6610,6 +6627,13 @@ function TwoDMaterialsSection() {
       properties: ["Largest direct band gap among TMDs (2.1 eV)", "Strong spin-orbit coupling", "Excellent valley coherence", "High quantum yield PL"],
       applications: "LEDs, photodetectors, spintronic devices, sensors",
       synthesis: "CVD, mechanical exfoliation, MOCVD",
+      synthSteps: [
+        { step: "1. Precursors", detail: "WO₃ powder (center zone) + sulfur powder (upstream); same two-zone setup as MoS₂" },
+        { step: "2. Substrate", detail: "SiO₂/Si wafer; seed promoters (PTAS, NaCl) can be added to enhance nucleation density" },
+        { step: "3. Growth", detail: "800°C under Ar/H₂; S vapor reduces WO₃ → WS₂ monolayer triangles with strong PL" },
+        { step: "4. Optimization", detail: "H₂ flow controls triangle size vs coverage; higher H₂ gives larger single crystals but slower coalescence" },
+        { step: "5. Characterization", detail: "PL mapping confirms monolayer (strong emission at 620 nm); Raman shows E′ and A′₁ modes" },
+      ],
       gapVsLayers: [2.1, 1.8, 1.65, 1.55, 1.5, 1.45, 1.42, 1.4, 1.38, 1.35],
     },
     blackP: {
@@ -6619,6 +6643,13 @@ function TwoDMaterialsSection() {
       properties: ["Tunable band gap: 0.3 eV (bulk) to 2.0 eV (monolayer)", "High carrier mobility (~1000 cm²/Vs)", "Anisotropic electrical/optical properties", "Puckered structure gives unique mechanics"],
       applications: "IR photodetectors, flexible electronics, thermoelectrics",
       synthesis: "Mechanical exfoliation, CVD (challenging), liquid exfoliation",
+      synthSteps: [
+        { step: "1. Bulk synthesis", detail: "Red phosphorus heated to 200°C at 1 GPa in a multi-anvil press for hours → converts to layered black phosphorus" },
+        { step: "2. Crystal growth", detail: "Alternative: Sn/I₂ flux method at 600°C produces mm-scale single crystals; slower but higher quality" },
+        { step: "3. Exfoliation", detail: "Scotch-tape mechanical exfoliation (same as graphene); yields few-layer flakes 5–20 μm" },
+        { step: "4. Encapsulation", detail: "CRITICAL: black P degrades in air within hours (reacts with O₂ and H₂O); must encapsulate with hBN in glovebox" },
+        { step: "5. Device fabrication", detail: "All lithography and contact deposition done under inert atmosphere; Al₂O₃ or hBN capping layer applied immediately" },
+      ],
       gapVsLayers: [2.0, 1.2, 0.8, 0.6, 0.5, 0.45, 0.4, 0.37, 0.35, 0.3],
     },
   };
@@ -6720,9 +6751,6 @@ function TwoDMaterialsSection() {
         2D materials are like single sheets of paper peeled from a thick book. A single sheet of graphene is one atom thick — the thinnest material possible — yet it is stronger than steel and conducts electricity better than copper. By stacking different 2D "pages" (graphene, MoS₂, hBN), scientists build "van der Waals heterostructures" — designer sandwiches with properties impossible in any single bulk material.
       </AnalogyBox>
 
-      {/* ── 3D Synthesis Animation ── */}
-      <Synthesis3DView selected={selected} frame={frame} />
-
       {/* Material selector */}
       <div style={{ display: "flex", gap: 4, marginBottom: 14, flexWrap: "wrap" }}>
         {Object.entries(materials2D).map(([id, m]) => (
@@ -6737,14 +6765,30 @@ function TwoDMaterialsSection() {
 
       {/* Main content: SVG left, info right */}
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 14 }}>
-        {/* Left: Structure SVG */}
-        <div style={{ flex: "1 1 340px", minWidth: 280 }}>
-          <svg viewBox="0 0 340 340" style={{ width: "100%", background: T.surface, borderRadius: 10, border: `1.5px solid ${mat.color}33` }}>
-            {drawHexLattice()}
-            <text x={170} y={330} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight="bold" fontFamily="monospace">
-              {mat.label} Structure
-            </text>
-          </svg>
+        {/* Left: Structure / Synthesis toggle */}
+        <div style={{ flex: "1 1 280px", minWidth: 240 }}>
+          {/* Toggle buttons */}
+          <div style={{ display: "flex", marginBottom: 6, borderRadius: 6, overflow: "hidden", border: `1.5px solid ${mat.color}44` }}>
+            {["structure", "synthesis"].map(mode => (
+              <button key={mode} onClick={() => setViewMode(mode)} style={{
+                flex: 1, padding: "5px 8px", fontSize: 11, fontWeight: 700, border: "none", cursor: "pointer",
+                background: viewMode === mode ? mat.color + "22" : T.surface,
+                color: viewMode === mode ? mat.color : T.muted,
+                borderBottom: `2px solid ${viewMode === mode ? mat.color : "transparent"}`,
+              }}>{mode === "structure" ? "Crystal Structure" : "Synthesis Animation"}</button>
+            ))}
+          </div>
+
+          {viewMode === "structure" ? (
+            <svg viewBox="0 0 280 280" style={{ width: "100%", background: T.surface, borderRadius: 10, border: `1.5px solid ${mat.color}33` }}>
+              {drawHexLattice()}
+              <text x={140} y={272} textAnchor="middle" fill={T.ink} fontSize={11} fontWeight="bold" fontFamily="monospace">
+                {mat.label} Structure
+              </text>
+            </svg>
+          ) : (
+            <Synthesis3DView selected={selected} frame={frame} />
+          )}
         </div>
 
         {/* Right: Info panels */}
@@ -6773,10 +6817,23 @@ function TwoDMaterialsSection() {
             <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.6 }}>{mat.applications}</div>
           </div>
 
-          {/* Synthesis */}
+          {/* Synthesis step-by-step */}
           <div style={{ background: T.surface, borderRadius: 8, padding: "10px 14px", border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Synthesis Methods</div>
-            <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.6 }}>{mat.synthesis}</div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: mat.color, marginBottom: 6 }}>Synthesis — Step by Step</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              {mat.synthSteps.map((s, i, arr) => (
+                <div key={i} style={{ display: "flex", gap: 8, alignItems: "stretch" }}>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 16, flexShrink: 0 }}>
+                    <div style={{ width: 10, height: 10, borderRadius: "50%", background: mat.color, border: `2px solid ${T.panel}`, boxShadow: `0 0 0 1.5px ${mat.color}40`, flexShrink: 0, marginTop: 4 }} />
+                    {i < arr.length - 1 && <div style={{ width: 1.5, flex: 1, background: mat.color + "30" }} />}
+                  </div>
+                  <div style={{ paddingBottom: 8 }}>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: T.ink }}>{s.step}</div>
+                    <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.5 }}>{s.detail}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Thin Film Growth mini-panel */}
