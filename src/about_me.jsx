@@ -941,6 +941,39 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               border: `1px solid ${T.green}30`,
             }}>Visit on nanoHUB {"\u2192"}</a>
           </Card>
+
+          {/* MATAIStudio */}
+          <Card style={{ marginBottom: 14 }}>
+            <div style={{ fontSize: 16, fontWeight: 800, marginBottom: 4, color: T.blue }}>MATAIStudio</div>
+            <div style={{ fontSize: 13, color: T.muted, lineHeight: 1.5, marginBottom: 4 }}>
+              An AI-Powered Platform for Materials Science Discovery and Analysis
+            </div>
+            <div style={{ fontSize: 12, color: T.muted, marginBottom: 10 }}>
+              Rahman, Md Habibur & Mannodi-Kanakkithodi, A. · nanoHUB Tool (2026)
+            </div>
+            {/* Flowchart */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 0, marginBottom: 12 }}>
+              {["AI-driven materials science studio for accelerated discovery", "Integration of machine learning models with materials databases", "Interactive tools for property prediction and materials screening", "Deployed on nanoHUB for broad research community access"].map((h, i, arr) => (
+                <div key={i} style={{ display: "flex", alignItems: "stretch", gap: 0 }}>
+                  <div style={{ width: 24, display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
+                    <div style={{
+                      width: 10, height: 10, borderRadius: "50%", background: T.blue,
+                      border: `2px solid ${T.panel}`, boxShadow: `0 0 0 2px ${T.blue}40`,
+                      flexShrink: 0, marginTop: 6,
+                    }} />
+                    {i < arr.length - 1 && <div style={{ width: 2, flex: 1, background: T.blue + "30" }} />}
+                  </div>
+                  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.5, padding: "4px 0 10px 8px" }}>{h}</div>
+                </div>
+              ))}
+            </div>
+            <a href="https://nanohub.org/tools/mataistudio" target="_blank" rel="noopener noreferrer" style={{
+              display: "inline-flex", alignItems: "center", gap: 4,
+              padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 600,
+              background: T.blue + "10", color: T.blue, textDecoration: "none",
+              border: `1px solid ${T.blue}30`,
+            }}>Visit on nanoHUB {"\u2192"}</a>
+          </Card>
         </div>
       )}
 
