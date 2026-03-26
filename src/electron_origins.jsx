@@ -7399,84 +7399,9 @@ function ThermodynamicsSection() {
           Thermodynamics is like accounting for energy. The first law says energy is conserved {"—"} you can{"'"}t create money from nothing. The second law says entropy (disorder) always increases {"—"} a clean room naturally gets messy, never the reverse. Free energy (G = H - TS) is like your bank balance: reactions {"'"}spend{"'"} enthalpy (H) and {"'"}earn{"'"} from entropy (TS). At equilibrium, the account is balanced. Temperature is like the exchange rate {"—"} higher T makes entropy worth more.
         </AnalogyBox>
 
-      {/* ── REACTION COORDINATE DIAGRAM ── */}
-      <div style={{ background: T.panel, borderRadius: 12, border: `1.5px solid ${T.eo_e}33`, padding: 16, marginBottom: 6 }}>
-        <div style={{ fontSize: 14, fontWeight: 800, color: T.eo_e, marginBottom: 8, textAlign: "center" }}>Reaction Coordinate Diagram</div>
-        <svg viewBox="0 0 420 220" style={{ width: "100%", background: T.surface, borderRadius: 8, display: "block" }}>
-          {/* Axes */}
-          <line x1={50} y1={195} x2={390} y2={195} stroke={T.dim} strokeWidth={1} />
-          <line x1={50} y1={195} x2={50} y2={15} stroke={T.dim} strokeWidth={1} />
-          <text x={210} y={215} textAnchor="middle" fontSize={11} fill={T.muted} fontWeight="bold">Reaction Coordinate</text>
-          <text x={15} y={110} fontSize={11} fill={T.muted} fontWeight="bold" transform="rotate(-90,15,110)">Free Energy G</text>
-
-          {/* Energy curve */}
-          <path d="M 70,140 C 100,140 130,140 160,140 C 180,140 190,50 210,50 C 230,50 240,140 260,160 C 280,160 340,160 370,160"
-            fill="none" stroke={T.eo_e} strokeWidth={3} />
-
-          {/* Fill under reactants */}
-          <path d="M 70,140 L 160,140 L 160,195 L 70,195 Z" fill={T.eo_e + "08"} />
-          {/* Fill under products */}
-          <path d="M 260,160 L 370,160 L 370,195 L 260,195 Z" fill={T.eo_valence + "08"} />
-
-          {/* Reactant level */}
-          <line x1={70} y1={140} x2={160} y2={140} stroke={T.eo_e} strokeWidth={2} strokeDasharray="6,3" />
-          <text x={115} y={133} textAnchor="middle" fontSize={11} fill={T.eo_e} fontWeight="bold">Reactants</text>
-          <text x={115} y={155} textAnchor="middle" fontSize={10} fill={T.muted}>G_reactants</text>
-
-          {/* Product level */}
-          <line x1={260} y1={160} x2={370} y2={160} stroke={T.eo_valence} strokeWidth={2} strokeDasharray="6,3" />
-          <text x={315} y={153} textAnchor="middle" fontSize={11} fill={T.eo_valence} fontWeight="bold">Products</text>
-          <text x={315} y={175} textAnchor="middle" fontSize={10} fill={T.muted}>G_products</text>
-
-          {/* Transition state */}
-          <circle cx={210} cy={50} r={5} fill={T.eo_hole} />
-          <text x={210} y={38} textAnchor="middle" fontSize={11} fill={T.eo_hole} fontWeight="bold">Transition State (TS)</text>
-
-          {/* Ea arrow (activation energy) */}
-          <line x1={175} y1={140} x2={175} y2={52} stroke={T.eo_hole} strokeWidth={1.5} strokeDasharray="4,2" />
-          <polygon points="175,56 171,66 179,66" fill={T.eo_hole} />
-          <text x={163} y={95} textAnchor="end" fontSize={12} fill={T.eo_hole} fontWeight="bold">E{"ₐ"}</text>
-
-          {/* Delta G arrow */}
-          <line x1={380} y1={140} x2={380} y2={160} stroke={dgColor} strokeWidth={2} />
-          <polygon points={dG < 0 ? "380,157 376,150 384,150" : "380,143 376,150 384,150"} fill={dgColor} />
-          <text x={395} y={153} fontSize={11} fill={dgColor} fontWeight="bold">{"Δ"}G</text>
-
-          {/* Animated ball rolling over barrier */}
-          {(() => {
-            const bPhase = (frame * 0.015) % 1;
-            const bx = 70 + bPhase * 300;
-            let by;
-            if (bPhase < 0.3) by = 140;
-            else if (bPhase < 0.5) { const p = (bPhase - 0.3) / 0.2; by = 140 - Math.sin(p * Math.PI) * 90; }
-            else if (bPhase < 0.7) { const p = (bPhase - 0.5) / 0.2; by = 50 + Math.sin(p * Math.PI * 0.5) * 110; }
-            else by = 160;
-            return <circle cx={bx} cy={by - 6} r={7} fill={T.eo_e} opacity={0.85}>
-              <animate attributeName="opacity" values="0.6;1;0.6" dur="1s" repeatCount="indefinite" />
-            </circle>;
-          })()}
-
-          {/* Labels in boxes */}
-          <rect x={55} y={5} width={140} height={18} rx={4} fill={T.eo_e + "15"} />
-          <text x={125} y={17} textAnchor="middle" fontSize={9} fill={T.eo_e} fontWeight="bold">{"Δ"}G {"<"} 0: spontaneous (exergonic)</text>
-          <rect x={230} y={5} width={140} height={18} rx={4} fill={T.eo_hole + "15"} />
-          <text x={300} y={17} textAnchor="middle" fontSize={9} fill={T.eo_hole} fontWeight="bold">E{"ₐ"} = kinetic barrier height</text>
-        </svg>
-        <div style={{ display: "flex", gap: 10, marginTop: 8, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
-          <div style={{ flex: 1, background: T.surface, borderRadius: 6, padding: 8, border: `1px solid ${T.border}` }}>
-            <strong style={{ color: T.eo_e }}>{"Δ"}G = G_products {"−"} G_reactants</strong><br />
-            {"Δ"}G {"<"} 0: reaction is thermodynamically favorable (exergonic). {"Δ"}G {">"} 0: unfavorable (endergonic). {"Δ"}G = 0: equilibrium.
-          </div>
-          <div style={{ flex: 1, background: T.surface, borderRadius: 6, padding: 8, border: `1px solid ${T.border}` }}>
-            <strong style={{ color: T.eo_hole }}>E{"ₐ"} = activation energy</strong><br />
-            Even if {"Δ"}G {"<"} 0, the reaction needs energy to get over the barrier. Higher T {"→"} more atoms have enough thermal energy to cross E{"ₐ"} (Arrhenius).
-          </div>
-        </div>
-      </div>
-
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "stretch" }}>
-      <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10, display: "flex", alignItems: "center" }}>
-        <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
+      {/* ── REACTION COORDINATE (full width, top of section) ── */}
+      <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
+        <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W, display: "block", margin: "0 auto" }}>
           <path d={curvePath} fill="none" stroke={T.eo_core} strokeWidth={2.5} />
 
           <line x1={xToSvg(0.25)} y1={yToSvg(Gval)} x2={xToSvg(0.75)} y2={yToSvg(Gval)}
@@ -7523,7 +7448,7 @@ function ThermodynamicsSection() {
         </svg>
       </div>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_core }}>
             Thermodynamics
@@ -7638,7 +7563,6 @@ function ThermodynamicsSection() {
             Thermodynamics tells us what's stable — but kinetics tells us how fast we get there. Next we explore activation barriers, reaction rates, and the Arrhenius equation that governs every diffusion, nucleation, and phase transformation in materials science.
           </div>
         </div>
-      </div>
       </div>
     </div>
   );
