@@ -277,19 +277,19 @@ function AtomicModelsSection() {
               </g>
             )}
             {orbitRadii.map((_, i) => {
-              const lvlX = 295, lvlY = 50 + i * 30;
+              const lvlX = 50, lvlY = 80 + i * 30;
               const isCurrent = (i + 1) === bohrLevel;
               return (
                 <g key={`e${i}`} onClick={() => {
                   if (i + 1 !== bohrLevel && !bohrTransition) setBohrTransition({ from: bohrLevel, to: i + 1 });
                 }} style={{ cursor: "pointer" }}>
                   <line x1={lvlX - 20} y1={lvlY} x2={lvlX + 20} y2={lvlY} stroke={isCurrent ? T.eo_e : T.dim} strokeWidth={isCurrent ? 2.5 : 1.5} />
-                  <text x={lvlX + 25} y={lvlY + 3} fill={isCurrent ? T.eo_e : T.muted} fontSize={12} fontFamily="monospace">{energies[i]} eV</text>
+                  <text x={lvlX - 24} y={lvlY + 4} textAnchor="end" fill={isCurrent ? T.eo_e : T.muted} fontSize={10} fontFamily="monospace">{energies[i]}</text>
                   {isCurrent && <circle cx={lvlX} cy={lvlY - 5} r={3} fill={T.eo_e} />}
                 </g>
               );
             })}
-            <text x={295} y={38} textAnchor="middle" fill={T.ink} fontSize={13} fontFamily="monospace" fontWeight="bold">Energy</text>
+            <text x={50} y={68} textAnchor="middle" fill={T.ink} fontSize={11} fontFamily="monospace" fontWeight="bold">E (eV)</text>
             {bohrTransition && bohrTransition.to === 2 && transitionAnim > 0.1 && (
               <text x={cx} y={cy + 148} textAnchor="middle" fill={transColor} fontSize={13} fontFamily="monospace" fontWeight="bold">
                 Balmer: n={bohrTransition.from}→2
