@@ -6425,9 +6425,155 @@ function MaterialClassesSection() {
 
 // ─── Section: 2D Materials & Thin Films ─────────────────────────────────────
 
+function Synthesis3DView({ selected, frame }) {
+  const t = frame * 0.03;
+
+  // Isometric projection helper
+  const iso = (x, y, z) => ({
+    sx: 200 + (x - y) * 0.866 * 0.7,
+    sy: 120 + (x + y) * 0.5 * 0.7 - z * 0.8,
+  });
+
+  const configs = {
+    graphene: {
+      label: "CVD Growth on Cu Foil",
+      color: "#6b7280",
+      desc: "CH₄ gas decomposes on hot Cu surface → carbon atoms self-assemble into honeycomb lattice",
+    },
+    MoS2: {
+      label: "CVD: MoO₃ + S Vapor",
+      color: "#0d9488",
+      desc: "MoO₃ powder + sulfur vapor at 700°C → MoS₂ triangular islands nucleate and grow on SiO₂/Si",
+    },
+    hBN: {
+      label: "CVD from Borazine (B₃N₃H₆)",
+      color: "#ec4899",
+      desc: "Borazine precursor decomposes on Cu/Ni foil at 1000°C → atomically flat hBN monolayer",
+    },
+    WS2: {
+      label: "CVD: WO₃ + S Vapor",
+      color: "#1d4ed8",
+      desc: "WO₃ + sulfur at 800°C → large-area WS₂ monolayer with strong PL",
+    },
+    blackP: {
+      label: "High-Pressure Synthesis",
+      color: "#7c3aed",
+      desc: "Red phosphorus → black phosphorus at 1 GPa, 200°C, then mechanical exfoliation to monolayer",
+    },
+  };
+
+  const cfg = configs[selected];
+  const W = 400, H = 260;
+
+  // Substrate grid (isometric)
+  const substrate = [];
+  for (let i = -3; i <= 3; i++) {
+    for (let j = -3; j <= 3; j++) {
+      const { sx, sy } = iso(i * 22, j * 22, 0);
+      if (sx > 20 && sx < W - 20 && sy > 60 && sy < H - 30)
+        substrate.push({ x: sx, y: sy });
+    }
+  }
+
+  // Growing 2D layer atoms (animated)
+  const layerAtoms = [];
+  const nAtoms = 30;
+  for (let i = 0; i < nAtoms; i++) {
+    const angle = i * 2.399;
+    const growR = Math.min(1, (t - i * 0.08)) * 2.5;
+    if (growR <= 0) continue;
+    const gx = Math.cos(angle) * growR * 18;
+    const gy = Math.sin(angle) * growR * 18;
+    const { sx, sy } = iso(gx, gy, 20);
+    const opacity = Math.min(1, growR * 0.5);
+    layerAtoms.push({ x: sx, y: sy, opacity, delay: i });
+  }
+
+  // Gas molecules falling from top
+  const gasMols = [];
+  for (let i = 0; i < 8; i++) {
+    const gx = 60 + (i * 47 + t * 30) % 280;
+    const baseY = 15 + ((t * 40 + i * 60) % 90);
+    const gy = baseY;
+    gasMols.push({ x: gx, y: gy, opacity: 0.5 + 0.3 * Math.sin(t + i) });
+  }
+
+  return (
+    <div style={{ background: T.panel, borderRadius: 12, border: `1.5px solid ${cfg.color}44`, padding: 14, marginBottom: 14 }}>
+      <div style={{ fontSize: 13, fontWeight: 800, color: cfg.color, marginBottom: 4, textAlign: "center" }}>
+        Synthesis: {cfg.label}
+      </div>
+      <div style={{ fontSize: 11, color: T.muted, textAlign: "center", marginBottom: 8, lineHeight: 1.6 }}>
+        {cfg.desc}
+      </div>
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", background: `linear-gradient(180deg, #1a1d2e 0%, #22263a 100%)`, borderRadius: 10, display: "block" }}>
+        {/* Temperature label */}
+        <text x={W / 2} y={18} textAnchor="middle" fontSize={10} fill="#ef4444" fontWeight="bold" fontFamily="monospace">
+          {selected === "blackP" ? "1 GPa, 200°C" : selected === "hBN" ? "1000°C" : selected === "graphene" ? "1050°C" : "700–800°C"}
+        </text>
+
+        {/* Gas molecules raining down */}
+        {gasMols.map((g, i) => (
+          <g key={`gas-${i}`} opacity={g.opacity}>
+            <circle cx={g.x} cy={g.y} r={3.5} fill={cfg.color} opacity={0.5} />
+            <line x1={g.x} y1={g.y + 4} x2={g.x + (Math.sin(t + i) * 3)} y2={g.y + 12} stroke={cfg.color} strokeWidth={0.8} opacity={0.3} strokeDasharray="2,2" />
+          </g>
+        ))}
+
+        {/* Substrate (Cu foil / SiO2) — isometric grid */}
+        {substrate.map((s, i) => (
+          <rect key={`sub-${i}`} x={s.x - 8} y={s.y - 3} width={16} height={6} rx={1}
+            fill="#b8860b22" stroke="#b8860b44" strokeWidth={0.5}
+            transform={`rotate(-30, ${s.x}, ${s.y})`} />
+        ))}
+        <text x={W / 2} y={H - 8} textAnchor="middle" fontSize={10} fill="#b8860b" fontFamily="monospace" fontWeight="bold">
+          {selected === "blackP" ? "High-pressure anvil" : selected === "MoS2" || selected === "WS2" ? "SiO₂/Si substrate" : "Cu foil substrate"}
+        </text>
+
+        {/* Growing 2D material layer — hexagonal atoms appearing */}
+        {layerAtoms.map((a, i) => {
+          const pulse = 1 + 0.15 * Math.sin(t * 3 + i);
+          const atomR = 4 * pulse;
+          return (
+            <g key={`atom-${i}`} opacity={a.opacity}>
+              <circle cx={a.x} cy={a.y} r={atomR + 2} fill={cfg.color} opacity={0.15} />
+              <circle cx={a.x} cy={a.y} r={atomR} fill={cfg.color} opacity={0.8} />
+              {/* Bond lines to nearby atoms */}
+              {layerAtoms.filter((b, j) => j < i && Math.hypot(a.x - b.x, a.y - b.y) < 28).slice(0, 3).map((b, k) => (
+                <line key={`bond-${i}-${k}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y}
+                  stroke={cfg.color} strokeWidth={1} opacity={0.4} />
+              ))}
+            </g>
+          );
+        })}
+
+        {/* Glow around growth front */}
+        <circle cx={200} cy={130} r={Math.min(t * 6, 60)} fill="none" stroke={cfg.color} strokeWidth={1} opacity={0.15} />
+        <circle cx={200} cy={130} r={Math.min(t * 4, 40)} fill="none" stroke={cfg.color} strokeWidth={0.8} opacity={0.25} />
+
+        {/* Legend */}
+        <g transform={`translate(15, ${H - 50})`}>
+          <circle cx={0} cy={0} r={4} fill={cfg.color} />
+          <text x={10} y={3} fontSize={9} fill="#9ca3b4">{selected === "MoS2" ? "Mo + S atoms" : selected === "WS2" ? "W + S atoms" : selected === "hBN" ? "B + N atoms" : selected === "blackP" ? "P atoms" : "C atoms"}</text>
+          <rect x={-5} y={10} width={10} height={4} rx={1} fill="#b8860b44" stroke="#b8860b" strokeWidth={0.5} />
+          <text x={10} y={17} fontSize={9} fill="#9ca3b4">Substrate</text>
+          <circle cx={0} cy={26} r={3} fill={cfg.color} opacity={0.5} />
+          <text x={10} y={29} fontSize={9} fill="#9ca3b4">Precursor gas</text>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 function TwoDMaterialsSection() {
   const [selected, setSelected] = useState("graphene");
   const [layers, setLayers] = useState(1);
+  const [frame, setFrame] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setFrame(f => f + 1), 50);
+    return () => clearInterval(id);
+  }, []);
 
   const materials2D = {
     graphene: {
@@ -6573,6 +6719,9 @@ function TwoDMaterialsSection() {
       <AnalogyBox>
         2D materials are like single sheets of paper peeled from a thick book. A single sheet of graphene is one atom thick — the thinnest material possible — yet it is stronger than steel and conducts electricity better than copper. By stacking different 2D "pages" (graphene, MoS₂, hBN), scientists build "van der Waals heterostructures" — designer sandwiches with properties impossible in any single bulk material.
       </AnalogyBox>
+
+      {/* ── 3D Synthesis Animation ── */}
+      <Synthesis3DView selected={selected} frame={frame} />
 
       {/* Material selector */}
       <div style={{ display: "flex", gap: 4, marginBottom: 14, flexWrap: "wrap" }}>
@@ -7249,6 +7398,82 @@ function ThermodynamicsSection() {
       <AnalogyBox>
           Thermodynamics is like accounting for energy. The first law says energy is conserved {"—"} you can{"'"}t create money from nothing. The second law says entropy (disorder) always increases {"—"} a clean room naturally gets messy, never the reverse. Free energy (G = H - TS) is like your bank balance: reactions {"'"}spend{"'"} enthalpy (H) and {"'"}earn{"'"} from entropy (TS). At equilibrium, the account is balanced. Temperature is like the exchange rate {"—"} higher T makes entropy worth more.
         </AnalogyBox>
+
+      {/* ── REACTION COORDINATE DIAGRAM ── */}
+      <div style={{ background: T.panel, borderRadius: 12, border: `1.5px solid ${T.eo_e}33`, padding: 16, marginBottom: 6 }}>
+        <div style={{ fontSize: 14, fontWeight: 800, color: T.eo_e, marginBottom: 8, textAlign: "center" }}>Reaction Coordinate Diagram</div>
+        <svg viewBox="0 0 420 220" style={{ width: "100%", background: T.surface, borderRadius: 8, display: "block" }}>
+          {/* Axes */}
+          <line x1={50} y1={195} x2={390} y2={195} stroke={T.dim} strokeWidth={1} />
+          <line x1={50} y1={195} x2={50} y2={15} stroke={T.dim} strokeWidth={1} />
+          <text x={210} y={215} textAnchor="middle" fontSize={11} fill={T.muted} fontWeight="bold">Reaction Coordinate</text>
+          <text x={15} y={110} fontSize={11} fill={T.muted} fontWeight="bold" transform="rotate(-90,15,110)">Free Energy G</text>
+
+          {/* Energy curve */}
+          <path d="M 70,140 C 100,140 130,140 160,140 C 180,140 190,50 210,50 C 230,50 240,140 260,160 C 280,160 340,160 370,160"
+            fill="none" stroke={T.eo_e} strokeWidth={3} />
+
+          {/* Fill under reactants */}
+          <path d="M 70,140 L 160,140 L 160,195 L 70,195 Z" fill={T.eo_e + "08"} />
+          {/* Fill under products */}
+          <path d="M 260,160 L 370,160 L 370,195 L 260,195 Z" fill={T.eo_valence + "08"} />
+
+          {/* Reactant level */}
+          <line x1={70} y1={140} x2={160} y2={140} stroke={T.eo_e} strokeWidth={2} strokeDasharray="6,3" />
+          <text x={115} y={133} textAnchor="middle" fontSize={11} fill={T.eo_e} fontWeight="bold">Reactants</text>
+          <text x={115} y={155} textAnchor="middle" fontSize={10} fill={T.muted}>G_reactants</text>
+
+          {/* Product level */}
+          <line x1={260} y1={160} x2={370} y2={160} stroke={T.eo_valence} strokeWidth={2} strokeDasharray="6,3" />
+          <text x={315} y={153} textAnchor="middle" fontSize={11} fill={T.eo_valence} fontWeight="bold">Products</text>
+          <text x={315} y={175} textAnchor="middle" fontSize={10} fill={T.muted}>G_products</text>
+
+          {/* Transition state */}
+          <circle cx={210} cy={50} r={5} fill={T.eo_hole} />
+          <text x={210} y={38} textAnchor="middle" fontSize={11} fill={T.eo_hole} fontWeight="bold">Transition State (TS)</text>
+
+          {/* Ea arrow (activation energy) */}
+          <line x1={175} y1={140} x2={175} y2={52} stroke={T.eo_hole} strokeWidth={1.5} strokeDasharray="4,2" />
+          <polygon points="175,56 171,66 179,66" fill={T.eo_hole} />
+          <text x={163} y={95} textAnchor="end" fontSize={12} fill={T.eo_hole} fontWeight="bold">E{"ₐ"}</text>
+
+          {/* Delta G arrow */}
+          <line x1={380} y1={140} x2={380} y2={160} stroke={dgColor} strokeWidth={2} />
+          <polygon points={dG < 0 ? "380,157 376,150 384,150" : "380,143 376,150 384,150"} fill={dgColor} />
+          <text x={395} y={153} fontSize={11} fill={dgColor} fontWeight="bold">{"Δ"}G</text>
+
+          {/* Animated ball rolling over barrier */}
+          {(() => {
+            const bPhase = (frame * 0.015) % 1;
+            const bx = 70 + bPhase * 300;
+            let by;
+            if (bPhase < 0.3) by = 140;
+            else if (bPhase < 0.5) { const p = (bPhase - 0.3) / 0.2; by = 140 - Math.sin(p * Math.PI) * 90; }
+            else if (bPhase < 0.7) { const p = (bPhase - 0.5) / 0.2; by = 50 + Math.sin(p * Math.PI * 0.5) * 110; }
+            else by = 160;
+            return <circle cx={bx} cy={by - 6} r={7} fill={T.eo_e} opacity={0.85}>
+              <animate attributeName="opacity" values="0.6;1;0.6" dur="1s" repeatCount="indefinite" />
+            </circle>;
+          })()}
+
+          {/* Labels in boxes */}
+          <rect x={55} y={5} width={140} height={18} rx={4} fill={T.eo_e + "15"} />
+          <text x={125} y={17} textAnchor="middle" fontSize={9} fill={T.eo_e} fontWeight="bold">{"Δ"}G {"<"} 0: spontaneous (exergonic)</text>
+          <rect x={230} y={5} width={140} height={18} rx={4} fill={T.eo_hole + "15"} />
+          <text x={300} y={17} textAnchor="middle" fontSize={9} fill={T.eo_hole} fontWeight="bold">E{"ₐ"} = kinetic barrier height</text>
+        </svg>
+        <div style={{ display: "flex", gap: 10, marginTop: 8, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+          <div style={{ flex: 1, background: T.surface, borderRadius: 6, padding: 8, border: `1px solid ${T.border}` }}>
+            <strong style={{ color: T.eo_e }}>{"Δ"}G = G_products {"−"} G_reactants</strong><br />
+            {"Δ"}G {"<"} 0: reaction is thermodynamically favorable (exergonic). {"Δ"}G {">"} 0: unfavorable (endergonic). {"Δ"}G = 0: equilibrium.
+          </div>
+          <div style={{ flex: 1, background: T.surface, borderRadius: 6, padding: 8, border: `1px solid ${T.border}` }}>
+            <strong style={{ color: T.eo_hole }}>E{"ₐ"} = activation energy</strong><br />
+            Even if {"Δ"}G {"<"} 0, the reaction needs energy to get over the barrier. Higher T {"→"} more atoms have enough thermal energy to cross E{"ₐ"} (Arrhenius).
+          </div>
+        </div>
+      </div>
+
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "stretch" }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10, display: "flex", alignItems: "center" }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
