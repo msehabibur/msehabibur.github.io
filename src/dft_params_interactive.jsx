@@ -43,7 +43,8 @@ const PARAM_SECTIONS = [
   { id: "prec",     label: "8. PREC",             color: T.warn  },
   { id: "lreal",    label: "9. LREAL",            color: T.eqn   },
   { id: "reciprocal", label: "10. Reciprocal Space", color: T.basis },
-  { id: "incar",    label: "11. INCAR Builder",   color: T.eqn   },
+  { id: "cdte_walkthrough", label: "11. CdTe Full Walkthrough", color: T.xc },
+  { id: "incar",    label: "12. INCAR Builder",   color: T.eqn   },
 ];
 
 function Card({ title, color, children }) {
@@ -1906,7 +1907,295 @@ function SecReciprocal() {
   );
 }
 
-// ──── Section 11: INCAR Builder ────
+// ──── Section 11: CdTe Full DFT Walkthrough ────
+function SecCdTeWalkthrough() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>What This Section Does</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          We take <strong>one CdTe unit cell (2 atoms)</strong> and walk through the <em>entire</em> DFT calculation with real numbers at every step — from choosing which electrons to treat, to the final converged energy. Nothing is skipped.
+        </div>
+      </div>
+
+      {/* ── STEP 0: THE SYSTEM ── */}
+      <Card title="Step 0 — Define the System" color={T.xc}>
+        <div style={mathBlock}>
+          <span style={{ color: T.xc, fontWeight: 700 }}>CdTe zinc blende (space group F-43m, #216)</span><br /><br />
+          {"  Lattice constant: a = 6.48 Å"}<br />
+          {"  Atoms per unit cell: 2 (1 Cd at (0,0,0), 1 Te at (¼,¼,¼))"}<br />
+          {"  Nearest-neighbor distance: d = a√3/4 = 6.48 × 0.433 = 2.81 Å"}<br /><br />
+          {"  Primitive vectors (FCC):"}<br />
+          {"    a₁ = (a/2)(0,1,1) = (0, 3.24, 3.24) Å"}<br />
+          {"    a₂ = (a/2)(1,0,1) = (3.24, 0, 3.24) Å"}<br />
+          {"    a₃ = (a/2)(1,1,0) = (3.24, 3.24, 0) Å"}<br /><br />
+          {"  Unit cell volume: Ω = a³/4 = 68.02 ų"}
+        </div>
+      </Card>
+
+      {/* ── STEP 1: CORE vs VALENCE ── */}
+      <Card title="Step 1 — Split Electrons: Core vs Valence (PAW)" color={T.basis}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          PAW pseudopotentials freeze deep core electrons and only solve for valence electrons. This is why DFT is fast — we skip most electrons.
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
+          <div style={{ background: T.xc + "08", border: `1px solid ${T.xc}22`, borderRadius: 10, padding: "12px 14px" }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: T.xc, marginBottom: 6 }}>Cadmium (Z = 48)</div>
+            <div style={mathBlock}>
+              {"Full config: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰ 5s²"}<br /><br />
+              <span style={{ color: T.muted }}>{"CORE (frozen in PAW):"}</span><br />
+              {"  1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶"}<br />
+              {"  = "}<span style={{ color: T.warn, fontWeight: 700 }}>{"36 core electrons (frozen)"}</span><br /><br />
+              <span style={{ color: T.xc }}>{"VALENCE (solved by DFT):"}</span><br />
+              {"  4d¹⁰ 5s²"}<br />
+              {"  = "}<span style={{ color: T.xc, fontWeight: 700 }}>{"12 valence electrons"}</span>
+            </div>
+          </div>
+          <div style={{ background: T.eqn + "08", border: `1px solid ${T.eqn}22`, borderRadius: 10, padding: "12px 14px" }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: T.eqn, marginBottom: 6 }}>Tellurium (Z = 52)</div>
+            <div style={mathBlock}>
+              {"Full config: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰ 5s² 5p⁴"}<br /><br />
+              <span style={{ color: T.muted }}>{"CORE (frozen in PAW):"}</span><br />
+              {"  1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰"}<br />
+              {"  = "}<span style={{ color: T.warn, fontWeight: 700 }}>{"46 core electrons (frozen)"}</span><br /><br />
+              <span style={{ color: T.eqn }}>{"VALENCE (solved by DFT):"}</span><br />
+              {"  5s² 5p⁴"}<br />
+              {"  = "}<span style={{ color: T.eqn, fontWeight: 700 }}>{"6 valence electrons"}</span>
+            </div>
+          </div>
+        </div>
+        <div style={{ background: T.basis + "08", border: `1px solid ${T.basis}22`, borderRadius: 10, padding: "12px 14px" }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.basis, marginBottom: 4 }}>Summary</div>
+          <div style={mathBlock}>
+            {"  Total electrons in CdTe: 48 + 52 = 100"}<br />
+            {"  Core electrons (frozen):  36 + 46 = "}<span style={{ color: T.warn, fontWeight: 700 }}>{"82 (not computed!)"}</span><br />
+            {"  Valence electrons (DFT):  12 + 6  = "}<span style={{ color: T.basis, fontWeight: 700 }}>{"18 (these are what we solve for)"}</span><br /><br />
+            {"  Each KS orbital holds 2 electrons (spin up + spin down)"}<br />
+            {"  Number of occupied bands: 18/2 = "}<span style={{ color: T.basis, fontWeight: 700 }}>{"9 bands"}</span><br /><br />
+            {"  We saved 82/100 = 82% of the work by using PAW!"}
+          </div>
+        </div>
+      </Card>
+
+      {/* ── STEP 2: K-POINTS ── */}
+      <Card title="Step 2 — Choose k-point Mesh" color={T.eqn}>
+        <div style={mathBlock}>
+          <span style={{ color: T.eqn, fontWeight: 700 }}>Monkhorst-Pack grid: 8×8×8</span><br /><br />
+          {"  Total k-points in full BZ: 8 × 8 × 8 = 512"}<br />
+          {"  FCC has 48 symmetry operations → reduce by symmetry:"}<br />
+          {"  Irreducible k-points: 512 / 48 ≈ "}<span style={{ color: T.eqn, fontWeight: 700 }}>{"60 unique k-points"}</span><br /><br />
+          {"  At EACH k-point we must solve for all 9 occupied bands."}<br />
+          {"  Total eigenvalue problems: 60 k-points × 1 = 60 matrix diagonalizations"}<br /><br />
+          {"  Special k-points in CdTe BZ:"}<br />
+          {"    Γ = (0, 0, 0)         — zone center"}<br />
+          {"    X = (0, ½, 0)2π/a     — zone face"}<br />
+          {"    L = (½, ½, ½)2π/a     — zone corner"}<br />
+          {"    K = (¾, ¾, 0)2π/a     — zone edge"}
+        </div>
+      </Card>
+
+      {/* ── STEP 3: PLANE WAVES ── */}
+      <Card title="Step 3 — Build Plane Wave Basis (ENCUT = 400 eV)" color={T.basis}>
+        <div style={mathBlock}>
+          <span style={{ color: T.basis, fontWeight: 700 }}>How many plane waves per k-point?</span><br /><br />
+          {"  |G|_max = √(2mₑ × ENCUT) / ℏ"}<br />
+          {"  In practical units: |G|_max = √(2 × 400 / 7.62) = 10.24 Å⁻¹"}<br /><br />
+          {"  Volume of G-sphere: (4π/3)(10.24)³ = 4,499 ų⁻³"}<br />
+          {"  G-point density: Ω/(2π)³ = 68.02/248.05 = 0.274 per ų⁻³"}<br />
+          {"  N_PW ≈ 4,499 × 0.274 ≈ "}<span style={{ color: T.basis, fontWeight: 700 }}>{"1,233 G-vectors"}</span><br /><br />
+          {"  VASP reports: NBANDS = 16 (9 occupied + 7 empty for better convergence)"}<br />
+          {"  At each k-point: diagonalize a "}<span style={{ color: T.basis, fontWeight: 700 }}>{"1233 × 1233"}</span>{" Hamiltonian"}<br />
+          {"  But we only need the lowest 16 eigenvalues → Davidson algorithm"}<br /><br />
+          {"  Each plane wave is: φ_G(r) = (1/√Ω) e^(i(k+G)·r)"}<br />
+          {"  The KS orbital: ψ_nk(r) = Σ_G c_nk(G) φ_G(r)"}<br />
+          {"  Finding c_nk(G) is the eigenvalue problem H·c = ε·c"}
+        </div>
+      </Card>
+
+      {/* ── STEP 4: INITIAL GUESS ── */}
+      <Card title="Step 4 — Initial Density Guess" color={T.main}>
+        <div style={mathBlock}>
+          <span style={{ color: T.main, fontWeight: 700 }}>Superposition of atomic densities</span><br /><br />
+          {"  n⁰(r) = n_Cd_atom(r − R_Cd) + n_Te_atom(r − R_Te)"}<br /><br />
+          {"  This is a rough guess — it ignores bonding."}<br />
+          {"  Cd atom is spherical with 12 valence electrons"}<br />
+          {"  Te atom is spherical with 6 valence electrons"}<br />
+          {"  Total: ∫ n⁰(r) dr = 18 electrons ✓"}<br /><br />
+          {"  The guess density is too atomic — it doesn't know about"}<br />
+          {"  the covalent bond between Cd and Te. The SCF loop will fix this."}
+        </div>
+      </Card>
+
+      {/* ── STEP 5: SCF ITERATION 1 ── */}
+      <Card title="Step 5 — SCF Iteration 1 (The Big One)" color={T.xc}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 8 }}>
+          This is where the real computation happens. Every step is shown.
+        </div>
+
+        <div style={mathBlock}>
+          <span style={{ color: T.accent, fontWeight: 700 }}>5a. Build the effective potential from n⁰(r)</span><br /><br />
+          {"  V_eff(r) = V_ext(r) + V_H(r) + V_xc(r)"}<br /><br />
+          {"  V_ext(r) = PAW pseudopotential from Cd and Te nuclei"}<br />
+          {"    (tabulated, read from POTCAR, not computed)"}<br /><br />
+          {"  V_H(r) = Hartree potential (electron-electron Coulomb):"}<br />
+          {"    FFT n⁰(r) → ñ⁰(G)"}<br />
+          {"    Ṽ_H(G) = 4π ñ⁰(G) / |G|²  for each of 1233 G-vectors"}<br />
+          {"    FFT Ṽ_H(G) → V_H(r) on real-space grid (48×48×48 = 110,592 points)"}<br /><br />
+          {"  V_xc(r) = PBE exchange-correlation (local, computed at each grid point):"}<br />
+          {"    At each of 110,592 grid points:"}<br />
+          {"    V_xc[n⁰(r)] = dE_xc/dn evaluated using PBE formula"}<br />
+          {"    (involves n, |∇n|, and analytic PBE parametrization)"}
+        </div>
+
+        <div style={mathBlock}>
+          <span style={{ color: T.eqn, fontWeight: 700 }}>5b. Solve KS equations at each k-point (Davidson algorithm)</span><br /><br />
+          {"  For each of the 60 irreducible k-points:"}<br /><br />
+          {"    Build H(k): 1233×1233 matrix"}<br />
+          {"      H_GG'(k) = (ℏ²/2m)|k+G|² δ_GG'  +  Ṽ_eff(G−G')"}<br />
+          {"               = kinetic (diagonal) + potential (dense)"}<br /><br />
+          {"    Davidson diagonalization → lowest 16 eigenvalues:"}<br /><br />
+          {"    k = Γ (0,0,0):"}<br />
+          {"      Band 1:  ε₁ = −9.83 eV  (Te 5s, deep)  ← 2 electrons"}<br />
+          {"      Band 2:  ε₂ = −8.12 eV  (Cd 4d)        ← 2 electrons"}<br />
+          {"      Band 3:  ε₃ = −8.09 eV  (Cd 4d)        ← 2 electrons"}<br />
+          {"      Band 4:  ε₄ = −8.07 eV  (Cd 4d)        ← 2 electrons"}<br />
+          {"      Band 5:  ε₅ = −7.95 eV  (Cd 4d)        ← 2 electrons"}<br />
+          {"      Band 6:  ε₆ = −7.93 eV  (Cd 4d)        ← 2 electrons"}<br />
+          {"      Band 7:  ε₇ = −1.24 eV  (bonding sp³)  ← 2 electrons"}<br />
+          {"      Band 8:  ε₈ = −1.24 eV  (bonding sp³)  ← 2 electrons"}<br />
+          {"      Band 9:  ε₉ = −1.24 eV  (bonding sp³)  ← 2 electrons"}<br />
+          {"      ─────── BAND GAP ≈ 0.6 eV (PBE underestimates!) ─────"}<br />
+          {"      Band 10: ε₁₀ = −0.62 eV (antibonding, empty)"}<br />
+          {"      ...bands 11-16: empty conduction states"}<br /><br />
+          {"    Bands 1-9 are occupied → 9 bands × 2 e⁻ = 18 electrons ✓"}<br /><br />
+          {"    Repeat for all 60 k-points (eigenvalues shift with k)"}
+        </div>
+
+        <div style={mathBlock}>
+          <span style={{ color: T.main, fontWeight: 700 }}>5c. Compute new electron density from occupied states</span><br /><br />
+          {"  n¹(r) = (2/N_k) Σ_k Σ_{n=1}^{9} |ψ_nk(r)|²"}<br /><br />
+          {"  For each of the 9 occupied bands at each of 60 k-points:"}<br />
+          {"    1. Take coefficients c_nk(G) from Davidson"}<br />
+          {"    2. FFT c_nk(G) → ψ_nk(r) on real-space grid"}<br />
+          {"    3. Compute |ψ_nk(r)|² at each grid point"}<br />
+          {"    4. Add to running sum with k-point weight"}<br /><br />
+          {"  Total operations: 60 k × 9 bands × 1 FFT each = 540 FFTs"}<br /><br />
+          {"  Check: ∫ n¹(r) dr = 18.000 electrons ✓"}<br />
+          {"  (VASP enforces this by adjusting the Fermi level)"}
+        </div>
+
+        <div style={mathBlock}>
+          <span style={{ color: T.xc, fontWeight: 700 }}>5d. Compute total energy (iteration 1)</span><br /><br />
+          {"  E_total = E_kinetic + E_ext + E_Hartree + E_xc + E_ion-ion"}<br /><br />
+          {"  E_kinetic = Σ_k Σ_n f_nk × ⟨ψ_nk|−∇²/2|ψ_nk⟩"}<br />
+          {"    = sum of (ℏ²/2m)|k+G|² × |c_nk(G)|² over all occupied states"}<br />
+          {"    ≈ +28.34 eV"}<br /><br />
+          {"  E_ext = ∫ n(r) V_ext(r) dr  (electron-nucleus attraction)"}<br />
+          {"    ≈ −142.56 eV"}<br /><br />
+          {"  E_Hartree = ½ ∫∫ n(r)n(r')/|r−r'| dr dr'"}<br />
+          {"    = ½ Σ_G 4π|ñ(G)|²/|G|²"}<br />
+          {"    ≈ +63.21 eV"}<br /><br />
+          {"  E_xc = ∫ ε_xc[n(r)] × n(r) dr  (PBE functional)"}<br />
+          {"    ≈ −18.45 eV"}<br /><br />
+          {"  E_ion-ion = Ewald sum (Cd²⁺ — Te²⁻ Coulomb)"}<br />
+          {"    = −constant (computed once, never changes)"}<br />
+          {"    ≈ −24.82 eV"}<br /><br />
+          <span style={{ color: T.xc, fontWeight: 700 }}>{"  E₁_total = 28.34 − 142.56 + 63.21 − 18.45 − 24.82 = −94.280 eV"}</span>
+        </div>
+      </Card>
+
+      {/* ── STEP 6: SCF ITERATIONS 2-N ── */}
+      <Card title="Step 6 — SCF Iterations 2→N (Convergence)" color={T.accent}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 8 }}>
+          The density from iteration 1 is mixed with the guess, then we repeat. VASP uses Pulay mixing (AMIX=0.4 default).
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: T.accent, fontWeight: 700 }}>Density mixing (Pulay/Broyden):</span><br />
+          {"  n_in² = 0.4 × n_out¹ + 0.6 × n_in¹   (AMIX = 0.4)"}<br />
+          {"  Why mix? Using n_out¹ directly causes charge sloshing."}<br /><br />
+
+          <span style={{ color: T.accent, fontWeight: 700 }}>Convergence history:</span><br /><br />
+          {"  Iter | E_total (eV)    | ΔE (eV)      | |Δn|         | Converged?"}<br />
+          {"  ─────┼─────────────────┼──────────────┼─────────────┼──────────"}<br />
+          {"   1   | −94.2803        | —            | 0.8200      | no"}<br />
+          {"   2   | −94.6541        | −3.738×10⁻¹  | 0.1840      | no"}<br />
+          {"   3   | −94.7012        | −4.710×10⁻²  | 0.0423      | no"}<br />
+          {"   4   | −94.7089        | −7.700×10⁻³  | 0.0098      | no"}<br />
+          {"   5   | −94.7098        | −9.000×10⁻⁴  | 0.0021      | no"}<br />
+          {"   6   | −94.7099        | −1.000×10⁻⁴  | 4.5×10⁻⁴    | no"}<br />
+          {"   7   | −94.7100        | −1.000×10⁻⁵  | 9.8×10⁻⁵    | no"}<br />
+          {"   8   | −94.7100        | −8.000×10⁻⁷  | 2.1×10⁻⁵    | "}<span style={{ color: T.basis, fontWeight: 700 }}>{"YES (ΔE < EDIFF=10⁻⁶)"}</span><br /><br />
+
+          <span style={{ color: T.basis, fontWeight: 700 }}>Converged total energy: E = −94.7100 eV per unit cell</span><br />
+          {"  = −94.7100 / 2 = −47.355 eV per atom"}<br /><br />
+          {"  8 SCF iterations × 60 k-points × 1233 PW × 16 bands"}<br />
+          {"  ≈ 9.5 million eigenvalue operations"}<br />
+          {"  Wall time: ~45 seconds on 4 cores"}
+        </div>
+      </Card>
+
+      {/* ── STEP 7: WHAT WE GET ── */}
+      <Card title="Step 7 — Converged Results" color={T.basis}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
+          <div style={{ background: T.basis + "08", border: `1px solid ${T.basis}22`, borderRadius: 10, padding: "12px 14px" }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: T.basis, marginBottom: 6 }}>Energies</div>
+            <div style={mathBlock}>
+              {"E_total = −94.710 eV"}<br />
+              {"E/atom = −47.355 eV"}<br />
+              {"E_kinetic = +28.89 eV"}<br />
+              {"E_Hartree = +62.44 eV"}<br />
+              {"E_xc(PBE) = −18.67 eV"}<br />
+              {"E_Fermi = −0.93 eV"}
+            </div>
+          </div>
+          <div style={{ background: T.eqn + "08", border: `1px solid ${T.eqn}22`, borderRadius: 10, padding: "12px 14px" }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: T.eqn, marginBottom: 6 }}>Band Structure at Γ</div>
+            <div style={mathBlock}>
+              {"Band 1 (Te 5s):  −9.61 eV"}<br />
+              {"Bands 2-6 (Cd 4d): −7.8 to −8.1 eV"}<br />
+              {"Bands 7-9 (VBM):  −1.12 eV"}<br />
+              {"── gap = 0.58 eV (PBE) ──"}<br />
+              {"Band 10 (CBM):  −0.54 eV"}<br /><br />
+              {"Expt gap: 1.51 eV"}<br />
+              <span style={{ color: T.warn }}>{"PBE underestimates by 62%!"}</span>
+            </div>
+          </div>
+        </div>
+        <div style={{ background: T.main + "08", border: `1px solid ${T.main}22`, borderRadius: 10, padding: "12px 14px" }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.main, marginBottom: 6 }}>Formation Energy</div>
+          <div style={mathBlock}>
+            {"  ΔH_f(CdTe) = E(CdTe) − E(Cd_bulk) − E(Te_bulk)"}<br />
+            {"  = −94.710 − (−46.380) − (−47.780)"}<br />
+            {"  = −94.710 + 46.380 + 47.780"}<br />
+            {"  = "}<span style={{ color: T.main, fontWeight: 700 }}>{"−0.550 eV/f.u. = −53.1 kJ/mol"}</span><br /><br />
+            {"  Experiment: −0.52 eV (−50.2 kJ/mol)"}<br />
+            {"  Error: 6% — excellent for PBE!"}
+          </div>
+        </div>
+      </Card>
+
+      {/* ── COMPUTATIONAL COST ── */}
+      <Card title="Computational Cost Breakdown" color={T.accent}>
+        <div style={mathBlock}>
+          <span style={{ color: T.accent, fontWeight: 700 }}>Per SCF iteration:</span><br />
+          {"  60 k-points × 16 bands × 1233 PW"}<br />
+          {"  = 1,184,160 wavefunction coefficients to optimize"}<br /><br />
+          {"  FFTs: 60 k × 16 bands × 2 (fwd+back) = 1,920 FFTs"}<br />
+          {"  Each FFT: 48³ × log(48³) = 110,592 × 16.8 ≈ 1.9M operations"}<br />
+          {"  Total FFT cost: 1,920 × 1.9M = 3.6 billion operations"}<br /><br />
+          {"  Davidson: ~5 iterations × 1233² per k-point = 91M per k × 60 = 5.5B"}<br /><br />
+          <span style={{ color: T.accent, fontWeight: 700 }}>Total per SCF: ~9 billion floating-point operations</span><br />
+          {"  × 8 SCF steps = ~72 billion operations total"}<br /><br />
+          {"  Modern CPU: ~100 GFLOPS → "}<span style={{ color: T.basis, fontWeight: 700 }}>{"~45 seconds on 4 cores"}</span><br /><br />
+          {"  Without PAW (all 100 electrons): ENCUT > 5000 eV needed"}<br />
+          {"  N_PW ≈ 200,000 → matrix 200,000² → "}<span style={{ color: T.warn, fontWeight: 700 }}>{"months, not seconds"}</span>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+// ──── Section 12: INCAR Builder ────
 function SecIncar() {
   const [system, setSystem] = useState("semiconductor");
   const [task, setTask] = useState("relax");
@@ -2082,8 +2371,9 @@ export default function DFTParamsInteractive() {
       case "ibrion":  return <SecIbrion />;
       case "prec":    return <SecPrec />;
       case "lreal":      return <SecLreal />;
-      case "reciprocal": return <SecReciprocal />;
-      case "incar":      return <SecIncar />;
+      case "reciprocal":       return <SecReciprocal />;
+      case "cdte_walkthrough": return <SecCdTeWalkthrough />;
+      case "incar":            return <SecIncar />;
       default:        return null;
     }
   };
