@@ -40,7 +40,9 @@ const PARAM_SECTIONS = [
   { id: "algo",     label: "5. ALGO — SCF",        color: T.accent },
   { id: "ediff",    label: "6. EDIFF & EDIFFG",   color: T.main  },
   { id: "ibrion",   label: "7. IBRION & NSW",     color: T.warm  },
-  { id: "incar",    label: "8. INCAR Builder",    color: T.eqn   },
+  { id: "prec",     label: "8. PREC",             color: T.warn  },
+  { id: "lreal",    label: "9. LREAL",            color: T.eqn   },
+  { id: "incar",    label: "10. INCAR Builder",   color: T.eqn   },
 ];
 
 function Card({ title, color, children }) {
@@ -726,55 +728,7 @@ function SecEncut() {
         </div>
       </Card>
 
-      <Card title="PREC and LREAL — Precision Controls" color={T.warn}>
-        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
-          Two often-overlooked VASP tags that control numerical precision:
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
-          <div style={{ background: T.warn + "08", border: `1px solid ${T.warn}20`, borderRadius: 10, padding: "10px 14px" }}>
-            <div style={{ fontSize: 13, fontWeight: 800, color: T.warn, marginBottom: 6, fontFamily: "monospace" }}>PREC = Accurate</div>
-            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
-              Controls the FFT grid density and wrap-around errors.<br /><br />
-              <strong>Normal:</strong> FFT grid just large enough for charge density (2 × G_max). Fine for rough relaxations.<br /><br />
-              <strong>Accurate:</strong> Adds 25% more grid points — avoids aliasing (wrap-around) errors in forces. <strong style={{ color: T.warn }}>Essential for:</strong><br />
-              • Phonon calculations (forces must be exact to ~0.001 eV/Å)<br />
-              • Stress tensor (ISIF = 3, cell optimization)<br />
-              • Formation energy differences (need meV accuracy)<br /><br />
-              <strong>Cost:</strong> ~20-30% more memory, ~10% slower. Always worth it for production runs.
-            </div>
-          </div>
-          <div style={{ background: T.eqn + "08", border: `1px solid ${T.eqn}20`, borderRadius: 10, padding: "10px 14px" }}>
-            <div style={{ fontSize: 13, fontWeight: 800, color: T.eqn, marginBottom: 6, fontFamily: "monospace" }}>LREAL = .FALSE.</div>
-            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
-              Controls whether PAW projections are done in real or reciprocal space.<br /><br />
-              <strong>.FALSE.:</strong> Projections computed in reciprocal space (exact). No approximation. Required for small cells ({"<"}20 atoms).<br /><br />
-              <strong>Auto:</strong> Uses real-space projection with a finite cutoff radius. Faster for large cells ({">"}~50 atoms) but introduces a small error (~0.1–1 meV/atom).<br /><br />
-              <strong style={{ color: T.eqn }}>Rule of thumb:</strong><br />
-              • {"<"} 20 atoms — LREAL = .FALSE. (exact)<br />
-              • 20–100 atoms — LREAL = Auto (acceptable error)<br />
-              • {">"} 100 atoms — LREAL = Auto (necessary for speed)<br /><br />
-              <strong>Why it matters:</strong> Real-space projection truncates the PAW augmentation at a sphere boundary. For small cells, this sphere can overlap with its periodic image — large errors. For big cells, the overlap is negligible.
-            </div>
-          </div>
-        </div>
-
-        <div style={mathBlock}>
-          <span style={{ color: T.warn, fontWeight: 700 }}>Example: Effect of PREC on Si phonon frequency</span><br /><br />
-          {"  PREC = Normal:  \u03C9(\u0393\u2082\u2085') = 15.21 THz (FFT grid: 24\u00D724\u00D724)"}<br />
-          {"  PREC = Accurate: \u03C9(\u0393\u2082\u2085') = 15.53 THz (FFT grid: 32\u00D732\u00D732)"}<br />
-          {"  Experiment:      \u03C9(\u0393\u2082\u2085') = 15.53 THz"}<br /><br />
-          {"  PREC = Normal gives "}<span style={{ color: T.warn, fontWeight: 700 }}>2% error</span>{" due to wrap-around \u2014 completely avoidable!"}<br /><br />
-          <span style={{ color: T.eqn, fontWeight: 700 }}>Example: LREAL effect on 8-atom Si cell</span><br /><br />
-          {"  LREAL = .FALSE.: E = -43.3847 eV (exact projections)"}<br />
-          {"  LREAL = Auto:    E = -43.3812 eV (real-space projections)"}<br />
-          {"  Error: 3.5 meV/atom \u2014 acceptable for relaxations, NOT for formation energies"}<br /><br />
-          {"  For a 216-atom supercell:"}<br />
-          {"  LREAL = .FALSE.: 12 min/SCF step"}<br />
-          {"  LREAL = Auto:    4 min/SCF step (3\u00D7 faster)"}<br />
-          {"  Error: 0.2 meV/atom \u2014 negligible. Use LREAL = Auto for big cells."}
-        </div>
-      </Card>
+      {/* PREC and LREAL moved to their own tabs (8 and 9) */}
     </div>
   );
 }
@@ -1021,10 +975,10 @@ function SecAlgo() {
            algo === "VeryFast" ? "VeryFast: rockets toward minimum but may overshoot and oscillate" :
            "All-bands CG: zigzag path — alternating conjugate directions, many small steps"}
         </div>
-        <svg viewBox="0 0 400 160" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e5e7eb" }}>
-          <path d="M0,30 Q100,40 150,80 Q200,140 250,150 Q300,140 350,80 Q400,40 400,30" fill={sel.color + "08"} stroke={sel.color + "30"} strokeWidth={1.5} />
-          <circle cx={250} cy={150} r={4} fill={T.xc} />
-          <text x={250} y={162} textAnchor="middle" fontSize={9} fill={T.xc} fontWeight="700">E_min</text>
+        <svg viewBox="0 0 400 180" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e5e7eb" }}>
+          <path d="M0,30 Q100,40 150,80 Q200,130 250,140 Q300,130 350,80 Q400,40 400,30" fill={sel.color + "08"} stroke={sel.color + "30"} strokeWidth={1.5} />
+          <circle cx={250} cy={140} r={4} fill={T.xc} />
+          <text x={250} y={158} textAnchor="middle" fontSize={9} fill={T.xc} fontWeight="700">E_min</text>
 
           {algo === "Normal" && (() => {
             const phase = aFrame % 120;
@@ -1456,20 +1410,20 @@ function SecIbrion() {
            ibrion === -1 ? "No movement — atoms stay fixed (single-point calculation)" :
            "Finite differences: wiggle each atom to measure curvature (forces)"}
         </div>
-        <svg viewBox="0 0 400 150" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e5e7eb" }}>
-          <path d="M10,130 Q80,120 140,90 Q200,40 260,25 Q310,30 350,60 Q380,90 400,130" fill={T.warm + "08"} stroke={T.warm + "30"} strokeWidth={1.5} />
-          <circle cx={260} cy={25} r={4} fill={T.xc} />
-          <text x={260} y={17} textAnchor="middle" fontSize={9} fill={T.xc} fontWeight="700">minimum</text>
+        <svg viewBox="0 0 400 170" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e5e7eb" }}>
+          <path d="M10,20 Q80,30 140,60 Q200,110 260,130 Q310,120 350,90 Q380,60 400,20" fill={T.warm + "08"} stroke={T.warm + "30"} strokeWidth={1.5} />
+          <circle cx={260} cy={130} r={4} fill={T.xc} />
+          <text x={260} y={148} textAnchor="middle" fontSize={9} fill={T.xc} fontWeight="700">E_min</text>
 
           {ibrion === -1 && (
             <g>
-              <circle cx={100} cy={95} r={8} fill={T.muted} />
-              <text x={100} y={120} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight="700">fixed (no relaxation)</text>
+              <circle cx={100} cy={55} r={8} fill={T.muted} />
+              <text x={100} y={78} textAnchor="middle" fontSize={10} fill={T.muted} fontWeight="700">fixed (no relaxation)</text>
             </g>
           )}
 
           {ibrion === 2 && (() => {
-            const steps = [{x:50, y:128}, {x:100, y:105}, {x:150, y:80}, {x:200, y:50}, {x:240, y:30}, {x:260, y:25}];
+            const steps = [{x:50, y:22}, {x:100, y:45}, {x:150, y:70}, {x:200, y:100}, {x:240, y:125}, {x:260, y:130}];
             const visCount = Math.min(steps.length, Math.floor(ibFrame / 25) + 1);
             const pts = steps.slice(0, visCount);
             const last = pts[pts.length - 1];
@@ -1483,7 +1437,7 @@ function SecIbrion() {
           })()}
 
           {ibrion === 1 && (() => {
-            const steps = [{x:50, y:128}, {x:160, y:75}, {x:245, y:28}, {x:260, y:25}];
+            const steps = [{x:50, y:22}, {x:160, y:75}, {x:245, y:127}, {x:260, y:130}];
             const visCount = Math.min(steps.length, Math.floor(ibFrame / 35) + 1);
             const pts = steps.slice(0, visCount);
             const last = pts[pts.length - 1];
@@ -1498,19 +1452,19 @@ function SecIbrion() {
 
           {(ibrion === 5 || ibrion === 6) && (() => {
             const atomX = 260;
-            const atomY = 25;
+            const atomY = 130;
             const disp = 15 * Math.sin(ibFrame * 0.12);
             return (
               <g>
                 <circle cx={atomX + disp} cy={atomY} r={7} fill={T.accent} />
                 <line x1={atomX - 18} y1={atomY} x2={atomX + 18} y2={atomY} stroke={T.accent + "40"} strokeWidth={1} strokeDasharray="3,3" />
-                <text x={atomX} y={atomY + 25} textAnchor="middle" fontSize={9} fill={T.accent} fontWeight="700">
+                <text x={atomX} y={atomY - 18} textAnchor="middle" fontSize={9} fill={T.accent} fontWeight="700">
                   {ibrion === 5 ? "measuring force constants" : "measuring elastic response"}
                 </text>
-                <line x1={atomX} y1={atomY - 12} x2={atomX + 15} y2={atomY - 12} stroke={T.warn} strokeWidth={1.5} />
-                <line x1={atomX} y1={atomY - 12} x2={atomX - 15} y2={atomY - 12} stroke={T.warn} strokeWidth={1.5} />
-                <text x={atomX + 20} y={atomY - 14} fontSize={8} fill={T.warn}>+{"\u03B4"}</text>
-                <text x={atomX - 28} y={atomY - 14} fontSize={8} fill={T.warn}>-{"\u03B4"}</text>
+                <line x1={atomX} y1={atomY + 12} x2={atomX + 15} y2={atomY + 12} stroke={T.warn} strokeWidth={1.5} />
+                <line x1={atomX} y1={atomY + 12} x2={atomX - 15} y2={atomY + 12} stroke={T.warn} strokeWidth={1.5} />
+                <text x={atomX + 20} y={atomY + 16} fontSize={8} fill={T.warn}>+{"\u03B4"}</text>
+                <text x={atomX - 28} y={atomY + 16} fontSize={8} fill={T.warn}>-{"\u03B4"}</text>
               </g>
             );
           })()}
@@ -1601,7 +1555,138 @@ function SecIbrion() {
   );
 }
 
-// ──── Section 8: INCAR Builder ────
+// ──── Section 8: PREC ────
+function SecPrec() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Think of PREC as choosing between a low-resolution and high-resolution camera. <strong>Normal</strong> is like a 720p camera — fine for viewing the big picture but blurs fine details. <strong>Accurate</strong> is 4K — every detail is sharp. The FFT grid is the pixel count: more grid points = more pixels = no aliasing artifacts. For forces and phonons, you need every pixel to be right.
+        </div>
+      </div>
+
+      <Card title="What PREC Controls" color={T.warn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          <strong style={{ color: T.warn }}>PREC</strong> sets the FFT grid density used to represent the charge density and potentials in real space.
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {[
+            { prec: "Normal", grid: "2 × G_max", desc: "Minimum grid that avoids obvious errors. The charge density is smooth enough but forces can have wrap-around errors of ~10 meV/Å.", when: "Quick tests, initial relaxations where forces don't need to be exact.", color: T.muted },
+            { prec: "Accurate", grid: "2.5 × G_max (25% more points)", desc: "Eliminates wrap-around (aliasing) errors. Forces are correct to ~0.1 meV/Å. Stress tensor is reliable.", when: "Production relaxations, phonons, elastic constants, formation energies, anything published.", color: T.warn },
+            { prec: "High", grid: "3 × G_max (50% more points)", desc: "Overkill for most purposes. Only needed for very hard pseudopotentials or debugging.", when: "Almost never. Only if Accurate still shows grid artifacts.", color: T.accent },
+          ].map(item => (
+            <div key={item.prec} style={{ background: item.color + "08", border: `1px solid ${item.color}22`, borderRadius: 10, padding: "10px 14px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                <div style={{ fontSize: 13, fontWeight: 800, color: item.color, fontFamily: "monospace" }}>PREC = {item.prec}</div>
+                <div style={{ fontSize: 11, color: item.color }}>{item.grid}</div>
+              </div>
+              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>{item.desc}</div>
+              <div style={{ fontSize: 11, color: T.muted, marginTop: 4, fontStyle: "italic" }}>When to use: {item.when}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card title="Wrap-Around Error — Why PREC Matters" color={T.warn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          When you multiply two functions on an FFT grid (e.g., density × potential), high-frequency components can alias into low frequencies if the grid is too coarse. This is called <strong>wrap-around error</strong>.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: T.warn, fontWeight: 700 }}>Example: Si phonon frequency at Gamma</span><br /><br />
+          {"  PREC = Normal:   FFT grid 24×24×24"}<br />
+          {"  ω(Γ₂₅') = 15.21 THz"}<br /><br />
+          {"  PREC = Accurate: FFT grid 32×32×32"}<br />
+          {"  ω(Γ₂₅') = 15.53 THz"}<br /><br />
+          {"  Experiment:      ω(Γ₂₅') = 15.53 THz"}<br /><br />
+          {"  PREC = Normal gives "}<span style={{ color: T.warn, fontWeight: 700 }}>{"2.1% error"}</span>{" — entirely from aliasing!"}<br /><br />
+          <span style={{ color: T.warn, fontWeight: 700 }}>CdTe formation energy:</span><br />
+          {"  PREC = Normal:   ΔH_f = -0.48 eV/atom"}<br />
+          {"  PREC = Accurate: ΔH_f = -0.52 eV/atom"}<br />
+          {"  The 40 meV/atom difference can flip stability predictions on the convex hull!"}
+        </div>
+      </Card>
+
+      <Card title="Recommendation" color={T.basis}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          <strong style={{ color: T.basis }}>Always use PREC = Accurate</strong> for production calculations. The ~10% speed cost is negligible compared to the risk of publishing wrong phonon frequencies or incorrect phase stability.
+          The only exception: quick pre-relaxations where you just need atoms roughly in place before a final Accurate run.
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+// ──── Section 9: LREAL ────
+function SecLreal() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          PAW projections compute how much of each atomic orbital is "inside" each atom. <strong>LREAL = .FALSE.</strong> does this calculation exactly using all plane waves (reciprocal space). <strong>LREAL = Auto</strong> approximates the same thing by only looking within a sphere around each atom (real space) — much faster for big cells, but the sphere has a finite radius, so you miss contributions from the edges. For small cells, the sphere overlaps with its own periodic image, causing errors.
+        </div>
+      </div>
+
+      <Card title="LREAL: Real vs Reciprocal Space Projections" color={T.eqn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          The PAW method needs to evaluate overlap integrals {"<"}p_i|ψ_nk{">"} between projector functions p_i and KS orbitals.
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {[
+            { val: ".FALSE.", desc: "Compute projections in reciprocal space. Exact — no truncation error. Cost scales as N_pw × N_proj. Dominant cost for small cells.", when: "< 20 atoms. Always for phonons, elastic constants, and high-precision work.", color: T.eqn },
+            { val: "Auto", desc: "Compute projections in real space within a cutoff sphere around each atom. The radius is set automatically. Scales as N_atoms × N_grid_in_sphere. Much faster for large cells.", when: "> 50 atoms. MD runs, large supercell relaxations, defect calculations.", color: T.accent },
+            { val: ".TRUE.", desc: "Same as Auto but with a user-defined (or default) cutoff. Rarely used — Auto picks good cutoffs automatically.", when: "Almost never. Use Auto instead.", color: T.muted },
+          ].map(item => (
+            <div key={item.val} style={{ background: item.color + "08", border: `1px solid ${item.color}22`, borderRadius: 10, padding: "10px 14px" }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: item.color, fontFamily: "monospace", marginBottom: 4 }}>LREAL = {item.val}</div>
+              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>{item.desc}</div>
+              <div style={{ fontSize: 11, color: T.muted, marginTop: 4, fontStyle: "italic" }}>When: {item.when}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card title="Numerical Impact" color={T.eqn}>
+        <div style={mathBlock}>
+          <span style={{ color: T.eqn, fontWeight: 700 }}>8-atom Si cell (small — LREAL matters!):</span><br /><br />
+          {"  LREAL = .FALSE.: E = -43.3847 eV  (exact)"}<br />
+          {"  LREAL = Auto:    E = -43.3812 eV  (real-space)"}<br />
+          {"  Error: "}<span style={{ color: T.warn, fontWeight: 700 }}>{"3.5 meV/atom"}</span><br />
+          {"  → Unacceptable for formation energies (need < 1 meV/atom)"}<br /><br />
+          <span style={{ color: T.eqn, fontWeight: 700 }}>64-atom Si supercell (medium):</span><br /><br />
+          {"  LREAL = .FALSE.: E = -347.076 eV, time = 8.2 min/SCF"}<br />
+          {"  LREAL = Auto:    E = -347.074 eV, time = 3.1 min/SCF"}<br />
+          {"  Error: "}<span style={{ color: T.basis, fontWeight: 700 }}>{"0.03 meV/atom — negligible"}</span><br />
+          {"  Speedup: "}<span style={{ color: T.basis, fontWeight: 700 }}>{"2.6×"}</span><br /><br />
+          <span style={{ color: T.eqn, fontWeight: 700 }}>216-atom CdTe supercell (large — LREAL essential):</span><br /><br />
+          {"  LREAL = .FALSE.: 12 min/SCF step"}<br />
+          {"  LREAL = Auto:    4 min/SCF step"}<br />
+          {"  Error: 0.2 meV/atom"}<br />
+          {"  Speedup: "}<span style={{ color: T.basis, fontWeight: 700 }}>{"3× — saves hours over 50+ ionic steps"}</span>
+        </div>
+      </Card>
+
+      <Card title="Decision Flowchart" color={T.basis}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          {[
+            { q: "Is your cell < 20 atoms?", a: "→ LREAL = .FALSE. (always)", color: T.eqn },
+            { q: "Is your cell 20–50 atoms?", a: "→ Test both. If energy differs < 1 meV/atom, use Auto.", color: T.accent },
+            { q: "Is your cell > 50 atoms?", a: "→ LREAL = Auto (necessary for speed)", color: T.basis },
+            { q: "Are you computing phonons or elastic constants?", a: "→ LREAL = .FALSE. regardless of cell size", color: T.warn },
+          ].map((item, i) => (
+            <div key={i} style={{ display: "flex", gap: 8, alignItems: "center", background: item.color + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${item.color}18` }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: item.color, minWidth: 220 }}>{item.q}</div>
+              <div style={{ fontSize: 11, color: T.ink }}>{item.a}</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+// ──── Section 10: INCAR Builder ────
 function SecIncar() {
   const [system, setSystem] = useState("semiconductor");
   const [task, setTask] = useState("relax");
@@ -1775,6 +1860,8 @@ export default function DFTParamsInteractive() {
       case "algo":    return <SecAlgo />;
       case "ediff":   return <SecEdiff />;
       case "ibrion":  return <SecIbrion />;
+      case "prec":    return <SecPrec />;
+      case "lreal":   return <SecLreal />;
       case "incar":   return <SecIncar />;
       default:        return null;
     }
