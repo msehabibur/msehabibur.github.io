@@ -42,7 +42,8 @@ const PARAM_SECTIONS = [
   { id: "ibrion",   label: "7. IBRION & NSW",     color: T.warm  },
   { id: "prec",     label: "8. PREC",             color: T.warn  },
   { id: "lreal",    label: "9. LREAL",            color: T.eqn   },
-  { id: "incar",    label: "10. INCAR Builder",   color: T.eqn   },
+  { id: "reciprocal", label: "10. Reciprocal Space", color: T.basis },
+  { id: "incar",    label: "11. INCAR Builder",   color: T.eqn   },
 ];
 
 function Card({ title, color, children }) {
@@ -1686,7 +1687,197 @@ function SecLreal() {
   );
 }
 
-// ──── Section 10: INCAR Builder ────
+// ──── Section 10: Reciprocal Space in DFT ────
+function SecReciprocal() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Why Reciprocal Space?</div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          In a periodic crystal, the electron density repeats every unit cell. Computing anything in real space means dealing with an infinite crystal. But in reciprocal space (Fourier space), periodicity becomes a discrete set of G-vectors — turning an infinite problem into a finite sum. This is why DFT codes like VASP work in reciprocal space: convolutions become multiplications, derivatives become multiplications by ik, and the Kohn-Sham equations become a matrix eigenvalue problem you can solve on a computer.
+        </div>
+      </div>
+
+      <Card title="Real Space → Reciprocal Space: The Fourier Transform" color={T.basis}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Any periodic function f(r) (like electron density) can be written as a sum of plane waves:
+        </div>
+        <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center",
+          background: T.basis + "08", padding: "14px 18px", borderRadius: 10, color: T.basis, marginBottom: 12 }}>
+          f(r) = Σ<sub>G</sub> f̃(G) e<sup>iG·r</sup>
+          &nbsp;&nbsp;&nbsp;⟺&nbsp;&nbsp;&nbsp;
+          f̃(G) = (1/Ω) ∫<sub>cell</sub> f(r) e<sup>−iG·r</sup> dr
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
+          <div style={{ background: T.main + "08", border: `1px solid ${T.main}22`, borderRadius: 10, padding: "10px 14px" }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: T.main, marginBottom: 4 }}>Real Space</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+              • Functions defined on a 3D grid of points<br />
+              • Convolution (Hartree potential) = expensive O(N²)<br />
+              • Derivatives = finite differences (approximate)<br />
+              • Kinetic energy = hard to compute<br />
+              • Good for: local operations (V_xc, forces)
+            </div>
+          </div>
+          <div style={{ background: T.basis + "08", border: `1px solid ${T.basis}22`, borderRadius: 10, padding: "10px 14px" }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: T.basis, marginBottom: 4 }}>Reciprocal Space</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+              • Functions stored as Fourier coefficients f̃(G)<br />
+              • Convolution → simple multiplication O(N)<br />
+              • Derivatives → multiply by iG (exact!)<br />
+              • Kinetic energy = |k+G|²/2 (diagonal!)<br />
+              • Good for: Hartree potential, kinetic energy, plane wave basis
+            </div>
+          </div>
+        </div>
+        <div style={{ background: T.accent + "08", border: `1px solid ${T.accent}22`, borderRadius: 8, padding: "10px 14px" }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.accent, marginBottom: 4 }}>The Key Insight</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            VASP switches between real and reciprocal space using the <strong>Fast Fourier Transform (FFT)</strong> — O(N log N) cost. It computes V_xc in real space (local), V_Hartree in reciprocal space (convolution → multiplication), and kinetic energy in reciprocal space (diagonal). This dual approach is the engine of every plane-wave DFT code.
+          </div>
+        </div>
+      </Card>
+
+      <Card title="Complete Worked Example: Si Unit Cell" color={T.eqn}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 8 }}>
+          Let{"'"}s convert a real-space quantity to reciprocal space step by step for a silicon unit cell.
+        </div>
+        <div style={mathBlock}>
+          <span style={{ color: T.eqn, fontWeight: 700 }}>Step 1: Define the real-space lattice</span><br /><br />
+          {"  Si FCC: a = 5.43 Å"}<br />
+          {"  Primitive vectors (FCC):"}<br />
+          {"    a₁ = (a/2)(0, 1, 1) = (0, 2.715, 2.715) Å"}<br />
+          {"    a₂ = (a/2)(1, 0, 1) = (2.715, 0, 2.715) Å"}<br />
+          {"    a₃ = (a/2)(1, 1, 0) = (2.715, 2.715, 0) Å"}<br /><br />
+          {"  Unit cell volume: Ω = a₁ · (a₂ × a₃) = a³/4 = "}<span style={{ color: T.eqn, fontWeight: 700 }}>{"40.03 ų"}</span><br /><br />
+
+          <span style={{ color: T.eqn, fontWeight: 700 }}>Step 2: Compute reciprocal lattice vectors</span><br /><br />
+          {"  b₁ = 2π(a₂ × a₃) / Ω"}<br /><br />
+          {"  a₂ × a₃ = |i        j        k      |"}<br />
+          {"             |2.715    0        2.715  |"}<br />
+          {"             |2.715    2.715    0      |"}<br />
+          {"           = i(0×0 − 2.715×2.715) − j(2.715×0 − 2.715×2.715) + k(2.715×2.715 − 0×2.715)"}<br />
+          {"           = (−7.371, 7.371, 7.371) ų"}<br /><br />
+          {"  b₁ = 2π × (−7.371, 7.371, 7.371) / 40.03"}<br />
+          {"     = "}<span style={{ color: T.basis, fontWeight: 700 }}>{"(−1.157, 1.157, 1.157) Å⁻¹"}</span><br /><br />
+          {"  Similarly:"}<br />
+          {"  b₂ = (1.157, −1.157, 1.157) Å⁻¹"}<br />
+          {"  b₃ = (1.157, 1.157, −1.157) Å⁻¹"}<br /><br />
+          {"  Check: a₁ · b₁ = 0×(−1.157) + 2.715×1.157 + 2.715×1.157"}<br />
+          {"        = 0 + 3.142 + 3.142 = "}<span style={{ color: T.basis, fontWeight: 700 }}>{"6.283 = 2π ✓"}</span><br />
+          {"  Check: a₁ · b₂ = 0×1.157 + 2.715×(−1.157) + 2.715×1.157 = 0 ✓"}<br /><br />
+
+          <span style={{ color: T.eqn, fontWeight: 700 }}>Step 3: Build the G-vector set (determines ENCUT)</span><br /><br />
+          {"  G = n₁b₁ + n₂b₂ + n₃b₃  where n₁, n₂, n₃ are integers"}<br /><br />
+          {"  G(0,0,0) = (0, 0, 0)  →  |G|² = 0"}<br />
+          {"  G(1,0,0) = (−1.157, 1.157, 1.157)  →  |G|² = 4.02 Å⁻²"}<br />
+          {"  G(1,1,0) = (0, 0, 2.314)  →  |G|² = 5.35 Å⁻²"}<br />
+          {"  G(1,1,1) = (1.157, 1.157, 1.157)  →  |G|² = 4.02 Å⁻²"}<br /><br />
+          {"  Kinetic energy: E_G = ℏ²|G|²/(2mₑ) = 7.62 × |G|² (eV, with G in Å⁻¹)"}<br /><br />
+          {"  G(0,0,0): E = 0 eV           ✓ always included"}<br />
+          {"  G(1,0,0): E = 7.62 × 4.02 = "}<span style={{ color: T.basis, fontWeight: 700 }}>{"30.6 eV  ✓ (< ENCUT=400)"}</span><br />
+          {"  G(1,1,0): E = 7.62 × 5.35 = "}<span style={{ color: T.basis, fontWeight: 700 }}>{"40.8 eV  ✓"}</span><br />
+          {"  G(5,5,5): E = 7.62 × 100.4 = "}<span style={{ color: T.warn, fontWeight: 700 }}>{"765 eV  ✗ (> ENCUT=400)"}</span><br /><br />
+
+          <span style={{ color: T.eqn, fontWeight: 700 }}>Step 4: Count the plane waves at ENCUT = 400 eV</span><br /><br />
+          {"  |G|_max = √(2 × 400 / 7.62) = √(104.99) = 10.25 Å⁻¹"}<br />
+          {"  All G's inside a sphere of radius 10.25 Å⁻¹ are included"}<br />
+          {"  Volume of G-sphere: (4π/3)(10.25)³ = 4510 ų⁻³"}<br />
+          {"  G-points per unit volume: 1/Ω* = Ω/(2π)³ = 40.03/248.05 = 0.161"}<br />
+          {"  N_PW ≈ 4510 × 0.161 = "}<span style={{ color: T.basis, fontWeight: 700 }}>{"~726 G-vectors"}</span><br />
+          {"  With 2 atoms/cell and 2 k-points spin: "}<span style={{ color: T.basis, fontWeight: 700 }}>{"~2,700 plane waves per k-point"}</span>
+        </div>
+      </Card>
+
+      <Card title="Why Reciprocal Space Makes DFT Efficient" color={T.accent}>
+        <div style={mathBlock}>
+          <span style={{ color: T.accent, fontWeight: 700 }}>The Hartree potential: real space vs reciprocal space</span><br /><br />
+          {"  Real space: V_H(r) = ∫ n(r')/|r−r'| dr'"}<br />
+          {"  This is a 6D integral (3D for r, 3D for r')!"}<br />
+          {"  On an N-point grid: O(N²) operations"}<br />
+          {"  For N = 64³ = 262,144: that's 6.9 × 10¹⁰ operations — impossibly slow"}<br /><br />
+          <span style={{ color: T.accent, fontWeight: 700 }}>In reciprocal space (Poisson equation):</span><br />
+          {"  ∇²V_H = −4πn(r)  →  Fourier transform both sides:"}<br />
+          {"  −|G|²Ṽ_H(G) = −4π ñ(G)"}<br />
+          {"  Ṽ_H(G) = 4π ñ(G) / |G|²"}<br /><br />
+          {"  Just DIVIDE each Fourier coefficient by |G|²!"}<br />
+          {"  Cost: O(N) — one division per G-vector"}<br />
+          {"  For N = 2,700: only 2,700 divisions!"}<br /><br />
+          <span style={{ color: T.basis, fontWeight: 700 }}>Speedup: 6.9×10¹⁰ / 2,700 = 25 million times faster</span><br /><br />
+
+          <span style={{ color: T.accent, fontWeight: 700 }}>Numerical example for Si:</span><br /><br />
+          {"  Given: ñ(G₁₁₁) = 0.234 electrons/ų  (Fourier coeff of density)"}<br />
+          {"         |G₁₁₁|² = 4.02 Å⁻²"}<br /><br />
+          {"  Ṽ_H(G₁₁₁) = 4π × 0.234 / 4.02 = "}<span style={{ color: T.basis, fontWeight: 700 }}>{"0.731 Ha·Å² = 19.9 eV·Å²"}</span><br /><br />
+          {"  That's it — one multiplication and one division."}<br />
+          {"  In real space, this single G-component would require"}<br />
+          {"  integrating over the entire unit cell."}
+        </div>
+      </Card>
+
+      <Card title="The Kinetic Energy is Diagonal in Reciprocal Space" color={T.eqn}>
+        <div style={mathBlock}>
+          <span style={{ color: T.eqn, fontWeight: 700 }}>Real space kinetic energy:</span><br />
+          {"  T̂ψ = −(ℏ²/2m)∇²ψ   (second derivative — needs finite differences)"}<br /><br />
+          <span style={{ color: T.eqn, fontWeight: 700 }}>Reciprocal space kinetic energy:</span><br />
+          {"  T̂ψ_G = (ℏ²/2m)|k+G|² × c_G   (just multiply by a number!)"}<br /><br />
+          {"  The kinetic energy operator is DIAGONAL in the plane wave basis."}<br />
+          {"  This means the kinetic part of the Hamiltonian matrix is:"}<br /><br />
+          {"  H_GG'(kinetic) = (ℏ²/2m)|k+G|² × δ_GG'"}<br /><br />
+          {"  For Si at k=Γ with ENCUT=400:"}<br />
+          {"  H is 2700×2700 but the kinetic part has only 2700 nonzero entries"}<br />
+          {"  (on the diagonal). In real space, ∇² couples all grid points — dense matrix!"}
+        </div>
+      </Card>
+
+      <Card title="Complete SCF Cycle: Where Each Space is Used" color={T.main}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          {[
+            { step: "1. Store ψ_nk(G)", space: "Reciprocal", why: "Compact: only ~2,700 coefficients per band per k-point", color: T.basis },
+            { step: "2. Compute kinetic energy T̂ψ", space: "Reciprocal", why: "Diagonal: just multiply each c_G by |k+G|²/2", color: T.basis },
+            { step: "3. FFT ψ(G) → ψ(r)", space: "G → R", why: "Need real-space ψ to compute density n(r) = Σ|ψ(r)|²", color: T.accent },
+            { step: "4. Compute n(r) = Σ|ψ_nk(r)|²", space: "Real", why: "Squaring is pointwise — trivial in real space", color: T.main },
+            { step: "5. Compute V_xc[n(r)]", space: "Real", why: "XC is a local functional of n(r) — must be in real space", color: T.xc },
+            { step: "6. FFT n(r) → ñ(G)", space: "R → G", why: "Need ñ(G) to compute Hartree potential", color: T.accent },
+            { step: "7. Compute Ṽ_H(G) = 4πñ(G)/|G|²", space: "Reciprocal", why: "Poisson equation is algebraic in G-space", color: T.basis },
+            { step: "8. FFT V_H(G) → V_H(r)", space: "G → R", why: "Add V_H(r) + V_xc(r) + V_ext(r) in real space", color: T.accent },
+            { step: "9. Apply V_eff(r)ψ(r)", space: "Real", why: "Potential × wavefunction is pointwise multiplication", color: T.main },
+            { step: "10. FFT result → reciprocal", space: "R → G", why: "Back to G-space to add kinetic term and diagonalize", color: T.accent },
+          ].map((item, i, arr) => (
+            <div key={i} style={{ display: "flex", gap: 10, alignItems: "stretch" }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 18, flexShrink: 0 }}>
+                <div style={{ width: 10, height: 10, borderRadius: "50%", background: item.color, flexShrink: 0, marginTop: 6 }} />
+                {i < arr.length - 1 && <div style={{ width: 1.5, flex: 1, background: item.color + "30" }} />}
+              </div>
+              <div style={{ paddingBottom: 8, flex: 1 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: T.ink }}>{item.step}</div>
+                  <div style={{ fontSize: 9, fontWeight: 700, color: item.color, background: item.color + "15", padding: "1px 6px", borderRadius: 4 }}>{item.space}</div>
+                </div>
+                <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.5 }}>{item.why}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ background: T.main + "08", border: `1px solid ${T.main}22`, borderRadius: 8, padding: "10px 14px", marginTop: 10 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.main, marginBottom: 4 }}>Cost Summary for Si (2 atoms, ENCUT=400, 8×8×8 k-mesh)</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            • FFT: 4 transforms/SCF step × 2,700 PW × O(N log N) ≈ <strong>44,000 operations</strong><br />
+            • Hartree: 2,700 divisions = <strong>2,700 operations</strong><br />
+            • Kinetic: 2,700 multiplications = <strong>2,700 operations</strong><br />
+            • V_xc: 32³ = 32,768 grid evaluations<br />
+            • Diagonalization (Davidson): 2,700 × 4 bands × ~10 iterations ≈ <strong>108,000 operations</strong><br />
+            <br />
+            Without reciprocal space: Hartree alone would be 32,768² = <strong>1.07 billion operations</strong>.<br />
+            <strong style={{ color: T.basis }}>Reciprocal space makes DFT possible.</strong>
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+// ──── Section 11: INCAR Builder ────
 function SecIncar() {
   const [system, setSystem] = useState("semiconductor");
   const [task, setTask] = useState("relax");
@@ -1861,8 +2052,9 @@ export default function DFTParamsInteractive() {
       case "ediff":   return <SecEdiff />;
       case "ibrion":  return <SecIbrion />;
       case "prec":    return <SecPrec />;
-      case "lreal":   return <SecLreal />;
-      case "incar":   return <SecIncar />;
+      case "lreal":      return <SecLreal />;
+      case "reciprocal": return <SecReciprocal />;
+      case "incar":      return <SecIncar />;
       default:        return null;
     }
   };
