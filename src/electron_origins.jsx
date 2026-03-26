@@ -4848,24 +4848,22 @@ function MolecularOrbitalSection() {
           {stage === 2 && (
             <>
               {/* Bonding + antibonding */}
-              {drawLevel(170, 210, 80, T.eo_valence, "σ (bonding)", true, "bond")}
-              {drawLevel(170, 100, 80, T.eo_gap, "σ* (antibonding)", false, "antibond")}
-              <text x={280} y={214} fontSize={13} fill={T.eo_valence}>
-                HOMO
-              </text>
-              <text x={280} y={104} fontSize={13} fill={T.eo_gap}>
-                LUMO
-              </text>
+              {drawLevel(150, 210, 70, T.eo_valence, "", true, "bond")}
+              {drawLevel(150, 100, 70, T.eo_gap, "", false, "antibond")}
+              <text x={190} y={224} fontSize={10} fill={T.eo_valence}>σ (bonding)</text>
+              <text x={190} y={210} fontSize={10} fill={T.eo_valence} fontWeight={700}>HOMO</text>
+              <text x={190} y={114} fontSize={10} fill={T.eo_gap}>σ* (antibonding)</text>
+              <text x={190} y={100} fontSize={10} fill={T.eo_gap} fontWeight={700}>LUMO</text>
               {/* Dashed lines connecting to atomic levels */}
-              <line x1={80} y1={160} x2={130} y2={210} stroke={T.dim} strokeDasharray="3,3" />
-              <line x1={80} y1={160} x2={130} y2={100} stroke={T.dim} strokeDasharray="3,3" />
-              <line x1={260} y1={160} x2={210} y2={210} stroke={T.dim} strokeDasharray="3,3" />
-              <line x1={260} y1={160} x2={210} y2={100} stroke={T.dim} strokeDasharray="3,3" />
-              {drawLevel(80, 160, 40, T.eo_e, "", true, "al")}
-              {drawLevel(260, 160, 40, T.eo_hole, "", true, "ar")}
+              <line x1={70} y1={160} x2={115} y2={210} stroke={T.dim} strokeDasharray="3,3" />
+              <line x1={70} y1={160} x2={115} y2={100} stroke={T.dim} strokeDasharray="3,3" />
+              <line x1={240} y1={160} x2={185} y2={210} stroke={T.dim} strokeDasharray="3,3" />
+              <line x1={240} y1={160} x2={185} y2={100} stroke={T.dim} strokeDasharray="3,3" />
+              {drawLevel(70, 160, 40, T.eo_e, "", true, "al")}
+              {drawLevel(240, 160, 40, T.eo_hole, "", true, "ar")}
               {/* Gap arrow */}
-              <line x1={155} y1={200} x2={155} y2={110} stroke={T.eo_gap} strokeWidth={1.5} markerEnd="url(#arrowMO)" />
-              <text x={137} y={158} fontSize={13} fill={T.eo_gap} fontWeight={600}>
+              <line x1={110} y1={200} x2={110} y2={110} stroke={T.eo_gap} strokeWidth={1.5} markerEnd="url(#arrowMO)" />
+              <text x={95} y={158} fontSize={11} fill={T.eo_gap} fontWeight={600}>
                 Gap
               </text>
               <defs>
@@ -4881,7 +4879,7 @@ function MolecularOrbitalSection() {
               {/* 4 levels splitting */}
               {[240, 220, 100, 80].map((y, i) => {
                 const isBonding = i < 2;
-                return drawLevel(170, y, 70, isBonding ? T.eo_valence : T.eo_gap, i === 0 ? "bonding" : i === 3 ? "antibonding" : "", isBonding, `lv${i}`);
+                return drawLevel(150, y, 60, isBonding ? T.eo_valence : T.eo_gap, i === 0 ? "bonding" : i === 3 ? "anti-bond" : "", isBonding, `lv${i}`);
               })}
               <rect x={140} y={105} width={60} height={10} fill={T.eo_gap} opacity={0.08} />
               <rect x={140} y={215} width={60} height={30} fill={T.eo_valence} opacity={0.08} />
