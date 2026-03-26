@@ -2328,19 +2328,19 @@ function SchrodingerSection() {
           <text x={160} y={335} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight="bold">Energy Level Diagram (eV)</text>
           {[1, 2, 3, 4].map(n => {
             const eN = energyN(n);
-            const yE = 348 + (1 - (eN + 13.6) / 13.6) * 130;
+            const yE = 345 + [135, 85, 55, 35][n - 1];
             const isSel = n === nQ;
             return (
               <g key={n} onClick={() => setNQ(n)} style={{ cursor: "pointer" }}>
                 <line x1={110} y1={yE} x2={210} y2={yE} stroke={isSel ? T.eo_valence : T.dim} strokeWidth={isSel ? 2.5 : 1} />
-                <text x={218} y={yE + 4} fontSize={11} fill={isSel ? T.eo_valence : T.muted} fontWeight={isSel ? 700 : 400}>n={n}</text>
-                <text x={103} y={yE + 4} textAnchor="end" fontSize={11} fill={isSel ? T.eo_valence : T.muted} fontWeight={isSel ? 700 : 400}>{eN.toFixed(1)}</text>
+                <text x={218} y={yE + 4} fontSize={10} fill={isSel ? T.eo_valence : T.muted} fontWeight={isSel ? 700 : 400}>n={n}</text>
+                <text x={103} y={yE + 4} textAnchor="end" fontSize={10} fill={isSel ? T.eo_valence : T.muted} fontWeight={isSel ? 700 : 400}>{eN.toFixed(1)}</text>
               </g>
             );
           })}
-          <text x={103} y={498} textAnchor="end" fontSize={11} fill={T.muted}>0 eV</text>
+          <text x={103} y={498} textAnchor="end" fontSize={10} fill={T.muted}>0 eV</text>
           <line x1={110} y1={494} x2={210} y2={494} stroke={T.dim} strokeWidth={0.5} strokeDasharray="3,3" />
-          <text x={160} y={508} textAnchor="middle" fontSize={11} fill={T.eo_gap}>free (ionized)</text>
+          <text x={160} y={508} textAnchor="middle" fontSize={10} fill={T.eo_gap}>free (ionized)</text>
         </svg>
 
         <div style={{ marginTop: 8, display: "flex", gap: 8, justifyContent: "center" }}>
@@ -3889,7 +3889,7 @@ function ChemicalBondingSection() {
           Chemical bonding is like sharing or stealing toys. In an ionic bond (NaCl), one atom steals an electron from another — like a bully taking a toy, creating a positive and negative ion that attract. In a covalent bond (Si), atoms share electrons equally — like kids sharing toys nicely. In a metallic bond (Cu), everyone throws their toys into a communal pile that all atoms share — that's the electron sea. The type of sharing determines everything: hardness, conductivity, melting point.
         </AnalogyBox>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-      <div style={{ minWidth: 340 }}>
+      <div style={{ width: 340, maxWidth: 340, flexShrink: 0 }}>
         <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <defs>
             <marker id="arrowPolar" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill={T.muted} /></marker>
