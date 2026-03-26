@@ -7408,12 +7408,436 @@ function ThermodynamicsSection() {
           background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Coming Next: Phase Diagrams {"→"}</div>
+          <div style={{ fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Coming Next: Kinetics {"→"}</div>
           <div style={{ color: T.ink }}>
-            Free energy determines stability, but real materials contain multiple elements at varying temperatures. Phase diagrams map out which phases exist under every condition — the recipe book for crystal growth.
+            Thermodynamics tells us what's stable — but kinetics tells us how fast we get there. Next we explore activation barriers, reaction rates, and the Arrhenius equation that governs every diffusion, nucleation, and phase transformation in materials science.
           </div>
         </div>
       </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Kinetics Section ─────────────────────────────────────────────────────
+
+function KineticsSection() {
+  const [ea, setEa] = useState(0.5);
+  const [temp, setTemp] = useState(600);
+  const [frame, setFrame] = useState(0);
+  const [avramiT, setAvramiT] = useState(300);
+
+  useEffect(() => {
+    const id = setInterval(() => setFrame(f => f + 1), 50);
+    return () => clearInterval(id);
+  }, []);
+
+  const kB = 8.617e-5; // eV/K
+  const rate = 1e13 * Math.exp(-ea / (kB * temp));
+  const logRate = Math.log10(rate || 1e-50);
+
+  // Arrhenius for several materials
+  const arrheniusExamples = [
+    { name: "Vacancy diffusion in Si", ea: 0.43, D0: "0.015 cm²/s", color: T.eo_e },
+    { name: "O interstitial in Si", ea: 2.44, D0: "0.19 cm²/s", color: T.eo_hole },
+    { name: "Grain growth in Cu", ea: 1.2, D0: "—", color: T.eo_valence },
+    { name: "Li in LiFePO₄", ea: 0.30, D0: "10⁻⁸ cm²/s", color: T.eo_cond },
+  ];
+
+  // Avrami: f(t) = 1 - exp(-k*t^n)
+  const avK = 1.2e-4, avN = 2.5;
+  const avramiF = 1 - Math.exp(-avK * Math.pow(avramiT, avN));
+  const t50 = Math.pow(Math.log(2) / avK, 1 / avN);
+
+  // SVG energy barrier
+  const W = 340, H = 180;
+  const barrierY = 30, reactY = 110, prodY = 130;
+  const barrierScale = Math.min(1, ea / 2.5);
+  const adjBarrierY = reactY - (reactY - barrierY) * barrierScale;
+  const ballX = 60 + ((frame * 0.8) % 220);
+  const onBarrier = ballX > 120 && ballX < 220;
+  const ballY = onBarrier
+    ? adjBarrierY + (reactY - adjBarrierY) * Math.pow(Math.abs(ballX - 170) / 50, 2)
+    : (ballX <= 120 ? reactY : prodY);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div style={{ background: T.panel, borderRadius: 14, padding: 20, border: `1.5px solid ${T.border}`, boxShadow: "0 2px 12px #0001" }}>
+        <SectionTitle color={T.eo_e}>Kinetics: Rates, Barriers & Reaction Dynamics</SectionTitle>
+
+        <AnalogyBox>
+          Thermodynamics tells you whether water <em>can</em> flow downhill. Kinetics tells you <em>how fast</em> — is the path a steep waterfall or a gently sloping channel? A diamond is thermodynamically unstable relative to graphite, but the kinetic barrier is so enormous that diamonds last billions of years. In materials science, kinetics determines whether a phase transformation, diffusion process, or defect reaction actually happens on a practical timescale.
+        </AnalogyBox>
+
+        {/* ── ARRHENIUS EQUATION ── */}
+        <div style={{ fontSize: 14, fontWeight: 800, color: T.eo_e, marginBottom: 10 }}>The Arrhenius Equation</div>
+
+        <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 14 }}>
+          {/* Left: Energy barrier SVG */}
+          <div style={{ flex: 1, minWidth: 280 }}>
+            <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+              {/* Energy axis */}
+              <text x={8} y={14} fontSize={9} fill={T.muted}>Energy</text>
+              <line x1={20} y1={20} x2={20} y2={H - 10} stroke={T.dim} strokeWidth={1} />
+              <line x1={20} y1={20} x2={16} y2={28} stroke={T.dim} strokeWidth={1} />
+              <line x1={20} y1={20} x2={24} y2={28} stroke={T.dim} strokeWidth={1} />
+
+              {/* Reaction coordinate */}
+              <text x={W - 70} y={H - 2} fontSize={9} fill={T.muted}>Reaction coordinate</text>
+
+              {/* Energy path */}
+              <path d={`M 30,${reactY} C 80,${reactY} 120,${adjBarrierY} 170,${adjBarrierY} C 220,${adjBarrierY} 260,${prodY} 320,${prodY}`}
+                fill="none" stroke={T.eo_e} strokeWidth={2.5} opacity={0.7} />
+
+              {/* Labels */}
+              <text x={40} y={reactY + 16} fontSize={9} fill={T.ink} fontWeight={600}>Reactants</text>
+              <text x={260} y={prodY + 16} fontSize={9} fill={T.ink} fontWeight={600}>Products</text>
+              <text x={155} y={adjBarrierY - 8} fontSize={9} fill={T.eo_hole} fontWeight={700} textAnchor="middle">Eₐ = {ea.toFixed(2)} eV</text>
+
+              {/* Ea arrow */}
+              <line x1={145} y1={reactY} x2={145} y2={adjBarrierY + 4} stroke={T.eo_hole} strokeWidth={1.5} strokeDasharray="4,2" />
+              <line x1={142} y1={adjBarrierY + 10} x2={145} y2={adjBarrierY + 4} stroke={T.eo_hole} strokeWidth={1.5} />
+              <line x1={148} y1={adjBarrierY + 10} x2={145} y2={adjBarrierY + 4} stroke={T.eo_hole} strokeWidth={1.5} />
+
+              {/* Animated ball */}
+              <circle cx={ballX} cy={ballY - 6} r={6} fill={T.eo_e} opacity={0.8} />
+            </svg>
+
+            <div style={{ marginTop: 8 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: T.muted, marginBottom: 2 }}>
+                <span>Activation energy Eₐ</span>
+                <span style={{ color: T.eo_hole, fontWeight: 700 }}>{ea.toFixed(2)} eV</span>
+              </div>
+              <input type="range" min={0.1} max={3.0} step={0.05} value={ea} onChange={e => setEa(+e.target.value)}
+                style={{ width: "100%", accentColor: T.eo_hole }} />
+            </div>
+            <div style={{ marginTop: 6 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: T.muted, marginBottom: 2 }}>
+                <span>Temperature</span>
+                <span style={{ color: T.eo_e, fontWeight: 700 }}>{temp} K</span>
+              </div>
+              <input type="range" min={200} max={2000} step={10} value={temp} onChange={e => setTemp(+e.target.value)}
+                style={{ width: "100%", accentColor: T.eo_e }} />
+            </div>
+          </div>
+
+          {/* Right: live results */}
+          <div style={{ flex: 1, minWidth: 260 }}>
+            <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}33`, borderRadius: 8, padding: 14, marginBottom: 10 }}>
+              <div style={{ fontSize: 15, fontWeight: 800, color: T.eo_e, marginBottom: 6, fontFamily: "'Georgia',serif" }}>
+                k = A · exp(−Eₐ / k<sub>B</sub>T)
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <InfoRow label="Attempt frequency A" value="10¹³ s⁻¹ (typical)" />
+                <InfoRow label="Eₐ" value={`${ea.toFixed(2)} eV`} />
+                <InfoRow label="Temperature" value={`${temp} K`} />
+                <InfoRow label="kBT" value={`${(kB * temp).toFixed(4)} eV`} />
+                <InfoRow label="Eₐ / kBT" value={(ea / (kB * temp)).toFixed(1)} />
+                <InfoRow label="Rate constant k" value={rate > 0.01 ? rate.toExponential(2) + " s⁻¹" : rate.toExponential(2) + " s⁻¹"} />
+                <InfoRow label="log₁₀(k)" value={logRate.toFixed(1)} />
+              </div>
+            </div>
+
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginBottom: 10 }}>
+              <strong>Physical meaning:</strong> At {temp} K with Eₐ = {ea.toFixed(2)} eV,
+              {ea / (kB * temp) > 40 ? " the barrier is insurmountable — the process is frozen." :
+               ea / (kB * temp) > 20 ? " the process is extremely slow — geological timescales." :
+               ea / (kB * temp) > 10 ? " the process occurs slowly — hours to days at lab scale." :
+               ea / (kB * temp) > 5 ? " the process is fast enough for practical applications." :
+               " the process is very fast — nearly every attempt succeeds."}
+            </div>
+
+            <div style={{ fontSize: 10, fontWeight: 700, color: T.muted, marginBottom: 6, letterSpacing: 1 }}>MATERIALS EXAMPLES</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+              {arrheniusExamples.map((ex, i) => {
+                const r = 1e13 * Math.exp(-ex.ea / (kB * temp));
+                return (
+                  <div key={i} style={{ display: "flex", justifyContent: "space-between", fontSize: 10, padding: "2px 0", borderBottom: `1px solid ${T.border}44` }}>
+                    <span style={{ color: ex.color, fontWeight: 600 }}>{ex.name}</span>
+                    <span style={{ color: T.ink, fontFamily: "monospace" }}>Eₐ={ex.ea} eV → k={r.toExponential(1)} s⁻¹</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* ── TRANSITION STATE THEORY ── */}
+        <div style={{ fontSize: 14, fontWeight: 800, color: T.eo_e, marginBottom: 8, marginTop: 8 }}>Transition State Theory</div>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 14 }}>
+          <div style={{ flex: 1, minWidth: 260, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_e, marginBottom: 6 }}>Eyring Equation</div>
+            <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 8 }}>
+              k = (k<sub>B</sub>T / h) × exp(−ΔG‡ / k<sub>B</sub>T)
+            </div>
+            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
+              Unlike Arrhenius, Eyring separates the barrier into enthalpy (ΔH‡) and entropy (ΔS‡) contributions:
+              ΔG‡ = ΔH‡ − TΔS‡. This explains why some reactions speed up more than Arrhenius predicts —
+              the entropy of the transition state matters. In diffusion, a loose transition state (high ΔS‡) gives a larger pre-exponential factor.
+            </div>
+          </div>
+          <div style={{ flex: 1, minWidth: 260, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_valence, marginBottom: 6 }}>How Catalysts Work</div>
+            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
+              A catalyst provides an <strong style={{ color: T.ink }}>alternative reaction pathway</strong> with a lower activation energy.
+              It does NOT change ΔG of the reaction — only how fast equilibrium is reached.
+              In materials science: Pt surfaces catalyze H₂ dissociation (Eₐ drops from 4.5 eV in gas phase to ~0.7 eV on Pt).
+              CdCl₂ treatment in CdTe solar cells acts as a flux, lowering the barrier for grain boundary passivation and recrystallization.
+            </div>
+          </div>
+        </div>
+
+        {/* ── LE CHATELIER'S PRINCIPLE ── */}
+        <div style={{ fontSize: 14, fontWeight: 800, color: T.eo_e, marginBottom: 8 }}>Le Chatelier{"'"}s Principle</div>
+        <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>The Principle</div>
+          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+            When a system at equilibrium is subjected to a change in concentration, temperature, or pressure,
+            the system shifts to partially counteract the imposed change and establish a new equilibrium.
+          </div>
+        </div>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 14 }}>
+          {[
+            { title: "Temperature", color: T.eo_hole, icon: "🔥",
+              text: "Increasing T shifts equilibrium toward endothermic direction. CaCO₃ → CaO + CO₂ is endothermic — heating drives decomposition. This is how cement is made (calcination at 900°C). For ZnTe growth, higher T favors decomposition, limiting maximum growth temperature." },
+            { title: "Pressure", color: T.eo_cond, icon: "⬇️",
+              text: "Increasing P favors the denser (smaller volume) phase. Graphite → diamond requires ~5 GPa because diamond is 50% denser. In sputtering, Ar pressure controls whether films grow dense (low P, high energy) or columnar (high P, thermalized atoms)." },
+            { title: "Concentration", color: T.eo_valence, icon: "🧪",
+              text: "Adding more reactant shifts equilibrium toward products. In semiconductor growth, increasing Te overpressure during ZnTe MBE suppresses Te vacancies (V_Te) because the system shifts to consume excess Te. This is why II-VI growth uses VI/II ratio > 1." },
+          ].map((item, i) => (
+            <div key={i} style={{ flex: 1, minWidth: 200, background: item.color + "08", border: `1px solid ${item.color}33`, borderRadius: 8, padding: 12 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: item.color, marginBottom: 4 }}>{item.icon} {item.title}</div>
+              <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>{item.text}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── REACTION ORDER & AVRAMI ── */}
+        <div style={{ fontSize: 14, fontWeight: 800, color: T.eo_e, marginBottom: 8 }}>Reaction Kinetics in Materials</div>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 12 }}>
+          <div style={{ flex: 1, minWidth: 260, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_e, marginBottom: 6 }}>Reaction Orders</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+              <InfoRow label="Zero-order" value="d[A]/dt = −k → [A] = [A]₀ − kt" />
+              <InfoRow label="First-order" value="d[A]/dt = −k[A] → [A] = [A]₀ e⁻ᵏᵗ" />
+              <InfoRow label="Second-order" value="d[A]/dt = −k[A]² → 1/[A] = 1/[A]₀ + kt" />
+              <InfoRow label="Half-life (1st order)" value="t₁/₂ = ln(2)/k = 0.693/k" />
+            </div>
+            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7, marginTop: 8 }}>
+              <strong style={{ color: T.ink }}>Materials example:</strong> Radioactive decay (first-order), oxide layer growth on Si (parabolic/second-order at long times via Deal-Grove model), and corrosion of metals (often zero-order when limited by O₂ transport).
+            </div>
+          </div>
+          <div style={{ flex: 1, minWidth: 260, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_valence, marginBottom: 6 }}>JMA / Avrami Equation</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: T.ink, marginBottom: 6, fontFamily: "'Georgia',serif" }}>
+              f(t) = 1 − exp(−kt<sup>n</sup>)
+            </div>
+            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7, marginBottom: 8 }}>
+              Describes phase transformations via nucleation + growth.
+              The Avrami exponent <strong style={{ color: T.ink }}>n</strong> encodes the transformation mechanism:
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+              <InfoRow label="n ≈ 1" value="Surface nucleation, 1D growth" />
+              <InfoRow label="n ≈ 2" value="Constant nucleation rate, 1D growth" />
+              <InfoRow label="n ≈ 2.5" value="Constant nucleation, 2D growth" />
+              <InfoRow label="n ≈ 3" value="Constant nucleation, 2D growth (or instantaneous 3D)" />
+              <InfoRow label="n ≈ 4" value="Constant nucleation, 3D growth" />
+            </div>
+            <div style={{ marginTop: 8 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: T.muted, marginBottom: 2 }}>
+                <span>Time</span>
+                <span style={{ color: T.eo_valence, fontWeight: 700 }}>{avramiT} s → f = {(avramiF * 100).toFixed(1)}%</span>
+              </div>
+              <input type="range" min={10} max={1000} step={10} value={avramiT} onChange={e => setAvramiT(+e.target.value)}
+                style={{ width: "100%", accentColor: T.eo_valence }} />
+              <div style={{ fontSize: 10, color: T.muted, marginTop: 4 }}>
+                n = {avN}, k = {avK} s⁻ⁿ (recrystallization of cold-worked Cu at 250°C) · t₅₀ = {t50.toFixed(0)} s
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── DFT AND KINETICS ── */}
+        <div style={{ fontSize: 14, fontWeight: 800, color: T.eo_e, marginBottom: 8, marginTop: 8 }}>How Accurately Can DFT Model Kinetics?</div>
+
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 12 }}>
+          <div style={{ flex: 1, minWidth: 260, background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}33`, borderRadius: 8, padding: 12 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_valence, marginBottom: 6 }}>✓ What DFT Does Well</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+              • <strong>Migration barriers via NEB</strong> — Nudged Elastic Band method maps minimum-energy paths between states, typically accurate to 0.1–0.3 eV<br />
+              • <strong>Diffusion pathways</strong> — Identifies which path (vacancy, interstitial, kick-out) has the lowest barrier<br />
+              • <strong>Transition state geometry</strong> — Finds saddle points on the potential energy surface<br />
+              • <strong>Relative barrier comparison</strong> — Even if absolute values are off by 0.2 eV, ranking of mechanisms is usually correct<br />
+              • <strong>Defect migration</strong> — Vacancy/interstitial hops in Si, metals, and oxides are well-described
+            </div>
+          </div>
+          <div style={{ flex: 1, minWidth: 260, background: T.eo_gap + "08", border: `1px solid ${T.eo_gap}33`, borderRadius: 8, padding: 12 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_gap, marginBottom: 6 }}>✗ Where DFT Struggles</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+              • <strong>Pre-exponential factor</strong> — Requires phonon calculations (expensive) + harmonic approximation breaks down at high T<br />
+              • <strong>Entropic contributions</strong> — GGA-DFT gives 0 K energies; finite-T entropy needs AIMD or quasi-harmonic approx<br />
+              • <strong>Long timescales</strong> — AIMD limited to ~ps-ns; real diffusion/nucleation occurs on µs-s timescales<br />
+              • <strong>Strongly correlated systems</strong> — Transition metal oxides, f-electron systems: barriers can be off by 0.5+ eV<br />
+              • <strong>Van der Waals</strong> — Standard DFT misses dispersion; need vdW-DF or DFT-D3 corrections for layered materials<br />
+              • <strong>Band gap errors</strong> — PBE underestimates gaps by 30–50%, affecting charged defect barriers; HSE06 helps but is 10–100× more expensive
+            </div>
+          </div>
+        </div>
+
+        {/* DFT accuracy table */}
+        <div style={{ background: T.panel, borderRadius: 8, padding: 12, border: `1.5px solid ${T.border}`, marginBottom: 14 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_e, marginBottom: 8 }}>DFT vs Experiment: Activation Barriers</div>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10 }}>
+              <thead>
+                <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                  {["Process", "DFT (eV)", "Expt (eV)", "Error", "Method"].map(h => (
+                    <th key={h} style={{ padding: "5px 8px", textAlign: "left", color: T.muted, fontWeight: 700 }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { proc: "Vacancy migration in Si", dft: "0.45", expt: "0.43", err: "+0.02", method: "PBE-NEB", color: T.eo_valence },
+                  { proc: "O interstitial in Si", dft: "2.3", expt: "2.44", err: "−0.14", method: "PBE-NEB", color: T.eo_valence },
+                  { proc: "Li diffusion in LiFePO₄", dft: "0.27", expt: "0.30", err: "−0.03", method: "GGA+U NEB", color: T.eo_valence },
+                  { proc: "N vacancy in GaN", dft: "2.6", expt: "2.4–4.1", err: "~0.2–1.5", method: "HSE-NEB", color: T.eo_photon },
+                  { proc: "Cu self-diffusion", dft: "0.72", expt: "0.70", err: "+0.02", method: "PBE-NEB", color: T.eo_valence },
+                  { proc: "H diffusion in Pd", dft: "0.16", expt: "0.23", err: "−0.07", method: "PBE-NEB", color: T.eo_photon },
+                  { proc: "CO oxidation on Pt(111)", dft: "0.7", expt: "1.0", err: "−0.3", method: "RPBE", color: T.eo_hole },
+                  { proc: "Perovskite ion migration", dft: "0.2–0.8", expt: "0.3–1.0", err: "~0.1–0.3", method: "PBE/HSE", color: T.eo_photon },
+                ].map((row, i) => (
+                  <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.surface : T.panel }}>
+                    <td style={{ padding: "4px 8px", color: T.ink, fontWeight: 600 }}>{row.proc}</td>
+                    <td style={{ padding: "4px 8px", color: T.eo_e, fontFamily: "monospace" }}>{row.dft}</td>
+                    <td style={{ padding: "4px 8px", color: T.ink, fontFamily: "monospace" }}>{row.expt}</td>
+                    <td style={{ padding: "4px 8px", color: Math.abs(parseFloat(row.err)) > 0.2 ? T.eo_hole : T.eo_valence, fontFamily: "monospace", fontWeight: 700 }}>{row.err}</td>
+                    <td style={{ padding: "4px 8px", color: T.muted }}>{row.method}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div style={{ fontSize: 10, color: T.muted, marginTop: 8, lineHeight: 1.6 }}>
+            <strong style={{ color: T.ink }}>Rule of thumb:</strong> DFT-PBE gives migration barriers within ±0.1–0.3 eV for simple defects in covalent/metallic systems.
+            Charged defects, surface reactions, and strongly correlated materials may need HSE06 or beyond.
+            Since k ∝ exp(−Eₐ/k<sub>B</sub>T), a 0.2 eV error at 300 K changes the rate by ~2500×.
+            At 1000 K, the same error changes it by only ~10×.
+          </div>
+        </div>
+
+        {/* Machine-learned force fields bridge */}
+        <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}33`, borderRadius: 8, padding: 12, marginBottom: 14 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_cond, marginBottom: 4 }}>Bridging the Gap: ML Force Fields</div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+            Universal machine-learned force fields (M3GNet, CHGNet, MACE-MP) trained on millions of DFT calculations can
+            run molecular dynamics 10,000× faster than AIMD while retaining near-DFT accuracy. This allows simulation of
+            diffusion, phase transformations, and nucleation at realistic timescales (nanoseconds) and system sizes (thousands of atoms) —
+            exactly the regime where pure DFT fails. These are the models powering tools like <strong>Materials Informatics Studio</strong> on nanoHUB.
+          </div>
+        </div>
+
+        {/* ── NUMERICAL EXAMPLES ── */}
+        <NCard title="Numerical Example: Vacancy Diffusion in Silicon" color={T.eo_e} formula={"D = D₀ exp(−Eₐ/kBT)"}>
+          <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+            <strong>The Experiment:</strong> You are modeling dopant activation in a silicon wafer. Dopants move via a vacancy mechanism — they swap positions with neighboring vacancies. The vacancy migration barrier is Eₐ = 0.43 eV (experiment) or 0.45 eV (DFT-PBE), with D₀ = 0.015 cm²/s. Calculate the diffusion coefficient at room temperature (300 K) and at processing temperature (1000°C = 1273 K).
+          </div>
+          <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine a crowded parking lot where cars can only move when there{"'"}s an empty space next to them. At low temperature (slow day), empty spaces are rare and cars barely move. At high temperature (busy day), spaces open up constantly and cars shuffle rapidly. The activation energy is the effort needed for a car to squeeze into the empty spot.</div>
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 1 — Given values:</strong></div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+            <InfoRow label="Eₐ (experiment)" value="0.43 eV" />
+            <InfoRow label="Eₐ (DFT-PBE)" value="0.45 eV" />
+            <InfoRow label="D₀" value="0.015 cm²/s" />
+            <InfoRow label="kB" value="8.617 × 10⁻⁵ eV/K" />
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 2 — Calculate D at 300 K:</strong></div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+            <CalcRow eq="kBT = 8.617×10⁻⁵ × 300 = 0.02585 eV" result="" color={T.eo_e} />
+            <CalcRow eq="Eₐ/kBT = 0.43 / 0.02585 = 16.63" result="" color={T.eo_e} />
+            <CalcRow eq="D = 0.015 × exp(−16.63)" result="" color={T.eo_e} />
+            <CalcRow eq="D(300 K)" result="8.9 × 10⁻¹⁰ cm²/s" color={T.eo_e} />
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 3 — Calculate D at 1273 K:</strong></div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+            <CalcRow eq="kBT = 8.617×10⁻⁵ × 1273 = 0.1097 eV" result="" color={T.eo_e} />
+            <CalcRow eq="Eₐ/kBT = 0.43 / 0.1097 = 3.92" result="" color={T.eo_e} />
+            <CalcRow eq="D = 0.015 × exp(−3.92)" result="" color={T.eo_e} />
+            <CalcRow eq="D(1273 K)" result="2.96 × 10⁻⁴ cm²/s" color={T.eo_e} />
+          </div>
+          <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
+            <ResultBox label="D at 300 K" value="8.9×10⁻¹⁰" color={T.eo_e} sub="cm²/s (frozen)" />
+            <ResultBox label="D at 1273 K" value="2.96×10⁻⁴" color={T.eo_e} sub="cm²/s (fast)" />
+            <ResultBox label="Ratio" value="3.3×10⁵" color={T.eo_hole} sub="× faster at 1273 K" />
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 4 — DFT accuracy check:</strong></div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+            <CalcRow eq="Using DFT Eₐ = 0.45 eV instead of 0.43:" result="" color={T.eo_hole} />
+            <CalcRow eq="D_DFT(300 K) = 0.015 × exp(−0.45/0.02585)" result="3.9 × 10⁻¹⁰ cm²/s" color={T.eo_hole} />
+            <CalcRow eq="Error factor at 300 K: 8.9/3.9" result="~2.3× overestimate of barrier" color={T.eo_hole} />
+            <CalcRow eq="D_DFT(1273 K) = 0.015 × exp(−0.45/0.1097)" result="2.44 × 10⁻⁴ cm²/s" color={T.eo_hole} />
+            <CalcRow eq="Error factor at 1273 K: 2.96/2.44" result="~1.2× (much smaller!)" color={T.eo_valence} />
+          </div>
+          <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+              Vacancy diffusion is essentially frozen at room temperature (D ~ 10⁻¹⁰ cm²/s) but rapid at 1000°C (D ~ 10⁻⁴ cm²/s) — a 300,000× increase. This is why dopant activation requires annealing at high temperatures. DFT{"'"}s 0.02 eV overestimate of the barrier causes a 2.3× error at 300 K but only 1.2× at 1273 K — high-T predictions are much more forgiving because the exponential sensitivity decreases as kBT grows.
+            </div>
+          </div>
+        </NCard>
+
+        <NCard title="Numerical Example: Avrami Kinetics — Recrystallization of Cold-Worked Copper" color={T.eo_e} formula={"f(t) = 1 − exp(−kt^n)"}>
+          <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+            <strong>The Experiment:</strong> You cold-rolled a copper sheet to 50% reduction, introducing a high dislocation density (~10¹⁵ m⁻²). You anneal at 250°C and monitor the fraction recrystallized over time using hardness measurements. The Avrami parameters are n = 2.5 and k = 1.2 × 10⁻⁴ s⁻ⁿ. Calculate the recrystallized fraction at 60, 120, 300, and 600 seconds, and find the half-recrystallization time t₅₀.
+          </div>
+          <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine popcorn kernels in a microwave. At first, nothing happens (nucleation lag). Then a few pop, then many pop rapidly (growth phase), then the rate slows as few un-popped kernels remain. The S-shaped curve of popping fraction vs time is exactly the Avrami equation. The exponent n tells you whether kernels pop independently (like 3D nucleation) or in chains (like 1D growth).</div>
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 1 — Given values:</strong></div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+            <InfoRow label="Avrami exponent n" value="2.5 (nucleation + 2D growth)" />
+            <InfoRow label="Rate constant k" value="1.2 × 10⁻⁴ s⁻ⁿ" />
+            <InfoRow label="Temperature" value="250°C (523 K)" />
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 2 — Calculate f(t) at each time:</strong></div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+            <CalcRow eq="t = 60 s:  kt^n = 1.2×10⁻⁴ × 60^2.5 = 1.2×10⁻⁴ × 27,885" result="kt^n = 3.35" color={T.eo_e} />
+            <CalcRow eq="f(60) = 1 − exp(−3.35)" result="f = 96.5%" color={T.eo_e} />
+            <CalcRow eq="t = 120 s: kt^n = 1.2×10⁻⁴ × 120^2.5 = 1.2×10⁻⁴ × 157,744" result="kt^n = 18.9" color={T.eo_e} />
+            <CalcRow eq="f(120) = 1 − exp(−18.9)" result="f ≈ 100%" color={T.eo_e} />
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 3 — Find t₅₀ (half-recrystallization time):</strong></div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+            <CalcRow eq="Set f = 0.5: 0.5 = 1 − exp(−kt₅₀^n)" result="" color={T.eo_e} />
+            <CalcRow eq="exp(−kt₅₀^n) = 0.5 → kt₅₀^n = ln(2) = 0.693" result="" color={T.eo_e} />
+            <CalcRow eq="t₅₀^n = 0.693 / k = 0.693 / 1.2×10⁻⁴ = 5775" result="" color={T.eo_e} />
+            <CalcRow eq="t₅₀ = 5775^(1/2.5) = 5775^0.4" result="t₅₀ = 38.1 s" color={T.eo_e} />
+          </div>
+          <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
+            <ResultBox label="f at 60 s" value="96.5%" color={T.eo_e} sub="nearly complete" />
+            <ResultBox label="t₅₀" value="38.1 s" color={T.eo_e} sub="half-recrystallized" />
+          </div>
+          <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 700, marginBottom: 4, textTransform: "uppercase" }}>Interpretation</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+              Recrystallization at 250°C is remarkably fast — 50% complete in just 38 seconds and essentially done by 60 seconds. The sigmoidal shape is characteristic: slow nucleation → rapid growth → saturation. The Avrami exponent n = 2.5 suggests a combination of continuous nucleation with two-dimensional growth of new grains consuming the deformed matrix. At lower temperatures, k decreases exponentially (it follows Arrhenius!), making the same transformation take hours or days. This is why annealing temperature must be carefully controlled in metallurgical processing.
+            </div>
+          </div>
+        </NCard>
+
+        {/* Coming Next */}
+        <div style={{
+          background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
+          borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+        }}>
+          <div style={{ fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Coming Next: Phase Diagrams {"→"}</div>
+          <div style={{ color: T.ink }}>
+            Kinetics tells us how fast — phase diagrams tell us where we end up. Next we map out which phases are stable under every combination of temperature and composition — the recipe book for crystal growth.
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -10245,6 +10669,7 @@ const ELECTRON_SECTIONS = [
 
   // ── Act 5: Can We Make It? ──
   { id: "thermoBasics",    block: "design", label: "Thermodynamics",         icon: "\u{1F525}", color: T.eo_e, Component: ThermodynamicsSection },
+  { id: "kinetics",        block: "design", label: "Kinetics",              icon: "⏱️", color: T.eo_e, Component: KineticsSection },
   { id: "phase",           block: "design", label: "Phase Diagrams",         icon: "\u{1F5FA}️", color: T.eo_e, Component: PhaseDiagramSection },
   { id: "chemPot",         block: "design", label: "Chemical Potential",     icon: "\u{2697}️",  color: T.eo_e, Component: ChemicalPotentialSection },
   { id: "atomToDevice",    block: "design", label: "From Atom to Device",    icon: "\u{1F680}", color: T.eo_e, Component: AtomToDeviceSection },
