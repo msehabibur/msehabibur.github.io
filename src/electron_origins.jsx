@@ -254,7 +254,7 @@ function AtomicModelsSection() {
             {orbitRadii.map((r, i) => (
               <g key={i}>
                 <circle cx={cx} cy={cy} r={r} fill="none" stroke={i + 1 === bohrLevel ? T.eo_e : T.dim} strokeWidth={i + 1 === bohrLevel ? 2 : 1} strokeDasharray={i + 1 === bohrLevel ? "none" : "4,3"} opacity={i + 1 === bohrLevel ? 1 : 0.5} />
-                <text x={cx + r + 4} y={cy + 15} fill={T.muted} fontSize={12} fontFamily="monospace">n={i + 1}</text>
+                <text x={cx} y={cy - r - 4} textAnchor="middle" fill={T.muted} fontSize={10} fontFamily="monospace">n={i + 1}</text>
                 <circle cx={cx + r} cy={cy - 16} r={8} fill="transparent" stroke="none" style={{ cursor: "pointer" }} onClick={() => {
                   if (i + 1 !== bohrLevel && !bohrTransition) {
                     setBohrTransition({ from: bohrLevel, to: i + 1 });
