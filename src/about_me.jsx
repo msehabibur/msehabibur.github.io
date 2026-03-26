@@ -944,16 +944,16 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
 
           {/* MATAIStudio */}
           <Card style={{ marginBottom: 14 }}>
-            <div style={{ fontSize: 16, fontWeight: 800, marginBottom: 4, color: T.blue }}>MATAIStudio</div>
+            <div style={{ fontSize: 16, fontWeight: 800, marginBottom: 4, color: T.blue }}>Materials Informatics Studio</div>
             <div style={{ fontSize: 13, color: T.muted, lineHeight: 1.5, marginBottom: 4 }}>
-              An AI-Powered Platform for Materials Science Discovery and Analysis
+              An Integrated nanoHUB Platform for Computational Material Design
             </div>
             <div style={{ fontSize: 12, color: T.muted, marginBottom: 10 }}>
-              Rahman, Md Habibur & Mannodi-Kanakkithodi, A. · nanoHUB Tool (2026)
+              Rahman, Md Habibur; Desai, Rushik & Mannodi-Kanakkithodi, Arun Kumar · nanoHUB Tool (2026)
             </div>
             {/* Flowchart */}
             <div style={{ display: "flex", flexDirection: "column", gap: 0, marginBottom: 12 }}>
-              {["AI-driven materials science studio for accelerated discovery", "Integration of machine learning models with materials databases", "Interactive tools for property prediction and materials screening", "Deployed on nanoHUB for broad research community access"].map((h, i, arr) => (
+              {["Interactive toolkit leveraging universal ML force fields (M3GNet, CHGNet, MACE-MP) for near-DFT accuracy at 3–4 orders of magnitude lower cost", "Universal Defect Simulator: end-to-end defect characterization with MD capabilities (NVT, NPT, Langevin ensembles)", "Surface Adsorption Simulator: automated slab generation, 50+ molecule library, and intelligent adsorption site detection for catalysis studies", "Diffusion Pathway Simulator: NEB methods with MLFF acceleration for migration barrier mapping and ion transport prediction"].map((h, i, arr) => (
                 <div key={i} style={{ display: "flex", alignItems: "stretch", gap: 0 }}>
                   <div style={{ width: 24, display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
                     <div style={{
