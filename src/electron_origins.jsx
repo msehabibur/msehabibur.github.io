@@ -6427,135 +6427,86 @@ function MaterialClassesSection() {
 
 function Synthesis3DView({ selected, frame }) {
   const t = frame * 0.03;
+  const cfg = {
+    graphene: { color: "#6b7280", temp: "1050°C", sub: "Cu foil", desc: "CH₄ → C honeycomb on Cu" },
+    MoS2:     { color: "#0d9488", temp: "700°C",  sub: "SiO₂/Si", desc: "MoO₃ + S → MoS₂ triangles" },
+    hBN:      { color: "#ec4899", temp: "1000°C", sub: "Cu/Ni foil", desc: "Borazine → hBN honeycomb" },
+    WS2:      { color: "#1d4ed8", temp: "800°C",  sub: "SiO₂/Si", desc: "WO₃ + S → WS₂ monolayer" },
+    blackP:   { color: "#7c3aed", temp: "200°C / 1 GPa", sub: "Anvil press", desc: "Red P → Black P layers" },
+  }[selected];
 
-  // Isometric projection helper
-  const iso = (x, y, z) => ({
-    sx: 140 + (x - y) * 0.866 * 0.6,
-    sy: 110 + (x + y) * 0.5 * 0.6 - z * 0.7,
-  });
+  const W = 240, H = 200;
+  const cx = W / 2, cy = 115;
+  const hexR = 12; // honeycomb cell size
 
-  const configs = {
-    graphene: {
-      label: "CVD Growth on Cu Foil",
-      color: "#6b7280",
-      desc: "CH₄ gas decomposes on hot Cu surface → carbon atoms self-assemble into honeycomb lattice",
-    },
-    MoS2: {
-      label: "CVD: MoO₃ + S Vapor",
-      color: "#0d9488",
-      desc: "MoO₃ powder + sulfur vapor at 700°C → MoS₂ triangular islands nucleate and grow on SiO₂/Si",
-    },
-    hBN: {
-      label: "CVD from Borazine (B₃N₃H₆)",
-      color: "#ec4899",
-      desc: "Borazine precursor decomposes on Cu/Ni foil at 1000°C → atomically flat hBN monolayer",
-    },
-    WS2: {
-      label: "CVD: WO₃ + S Vapor",
-      color: "#1d4ed8",
-      desc: "WO₃ + sulfur at 800°C → large-area WS₂ monolayer with strong PL",
-    },
-    blackP: {
-      label: "High-Pressure Synthesis",
-      color: "#7c3aed",
-      desc: "Red phosphorus → black phosphorus at 1 GPa, 200°C, then mechanical exfoliation to monolayer",
-    },
-  };
-
-  const cfg = configs[selected];
-  const W = 280, H = 220;
-
-  // Substrate grid (isometric)
-  const substrate = [];
-  for (let i = -2; i <= 2; i++) {
-    for (let j = -2; j <= 2; j++) {
-      const { sx, sy } = iso(i * 22, j * 22, 0);
-      if (sx > 15 && sx < W - 15 && sy > 50 && sy < H - 25)
-        substrate.push({ x: sx, y: sy });
+  // Build honeycomb grid positions (axial coords → pixel)
+  const hexAtoms = [];
+  const maxRing = 4;
+  for (let q = -maxRing; q <= maxRing; q++) {
+    for (let r = -maxRing; r <= maxRing; r++) {
+      if (Math.abs(q + r) > maxRing) continue;
+      const px = cx + hexR * 1.5 * q;
+      const py = cy + hexR * (Math.sqrt(3) * (r + q * 0.5));
+      const dist = Math.hypot(px - cx, py - cy);
+      hexAtoms.push({ x: px, y: py, dist });
     }
   }
+  hexAtoms.sort((a, b) => a.dist - b.dist);
 
-  // Growing 2D layer atoms (animated)
-  const layerAtoms = [];
-  const nAtoms = 30;
-  for (let i = 0; i < nAtoms; i++) {
-    const angle = i * 2.399;
-    const growR = Math.min(1, (t - i * 0.08)) * 2.5;
-    if (growR <= 0) continue;
-    const gx = Math.cos(angle) * growR * 18;
-    const gy = Math.sin(angle) * growR * 18;
-    const { sx, sy } = iso(gx, gy, 20);
-    const opacity = Math.min(1, growR * 0.5);
-    layerAtoms.push({ x: sx, y: sy, opacity, delay: i });
-  }
+  // Growth front radius expands over time
+  const growRadius = ((t * 0.6) % 3.5) * 25;
 
-  // Gas molecules falling from top
-  const gasMols = [];
-  for (let i = 0; i < 6; i++) {
-    const gx = 40 + (i * 40 + t * 25) % 200;
-    const baseY = 15 + ((t * 40 + i * 60) % 90);
-    const gy = baseY;
-    gasMols.push({ x: gx, y: gy, opacity: 0.5 + 0.3 * Math.sin(t + i) });
+  // Gas molecules
+  const gas = [];
+  for (let i = 0; i < 5; i++) {
+    const gx = 30 + (i * 50 + t * 20) % (W - 60);
+    const gy = 10 + ((t * 35 + i * 45) % 55);
+    gas.push({ x: gx, y: gy, op: 0.3 + 0.3 * Math.sin(t * 2 + i) });
   }
 
   return (
     <div>
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", background: `linear-gradient(180deg, #1a1d2e 0%, #22263a 100%)`, borderRadius: 10, display: "block", border: `1.5px solid ${cfg.color}33` }}>
-        {/* Temperature label */}
-        <text x={W / 2} y={18} textAnchor="middle" fontSize={10} fill="#ef4444" fontWeight="bold" fontFamily="monospace">
-          {selected === "blackP" ? "1 GPa, 200°C" : selected === "hBN" ? "1000°C" : selected === "graphene" ? "1050°C" : "700–800°C"}
-        </text>
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", background: `linear-gradient(180deg, #0f1117 0%, #1a1d2e 100%)`, borderRadius: 8, display: "block", border: `1.5px solid ${cfg.color}33` }}>
+        <text x={W / 2} y={14} textAnchor="middle" fontSize={9} fill="#ef4444" fontWeight="bold" fontFamily="monospace">{cfg.temp}</text>
 
-        {/* Gas molecules raining down */}
-        {gasMols.map((g, i) => (
-          <g key={`gas-${i}`} opacity={g.opacity}>
-            <circle cx={g.x} cy={g.y} r={3.5} fill={cfg.color} opacity={0.5} />
-            <line x1={g.x} y1={g.y + 4} x2={g.x + (Math.sin(t + i) * 3)} y2={g.y + 12} stroke={cfg.color} strokeWidth={0.8} opacity={0.3} strokeDasharray="2,2" />
+        {/* Gas precursors */}
+        {gas.map((g, i) => (
+          <g key={i} opacity={g.op}>
+            <circle cx={g.x} cy={g.y} r={2.5} fill={cfg.color} />
+            <line x1={g.x} y1={g.y + 3} x2={g.x} y2={g.y + 10} stroke={cfg.color} strokeWidth={0.5} opacity={0.4} strokeDasharray="1,2" />
           </g>
         ))}
 
-        {/* Substrate (Cu foil / SiO2) — isometric grid */}
-        {substrate.map((s, i) => (
-          <rect key={`sub-${i}`} x={s.x - 8} y={s.y - 3} width={16} height={6} rx={1}
-            fill="#b8860b22" stroke="#b8860b44" strokeWidth={0.5}
-            transform={`rotate(-30, ${s.x}, ${s.y})`} />
-        ))}
-        <text x={W / 2} y={H - 8} textAnchor="middle" fontSize={10} fill="#b8860b" fontFamily="monospace" fontWeight="bold">
-          {selected === "blackP" ? "High-pressure anvil" : selected === "MoS2" || selected === "WS2" ? "SiO₂/Si substrate" : "Cu foil substrate"}
-        </text>
+        {/* Substrate base line */}
+        <rect x={20} y={cy + 50} width={W - 40} height={18} rx={3} fill="#b8860b11" stroke="#b8860b33" strokeWidth={0.5} />
+        <text x={W / 2} y={cy + 63} textAnchor="middle" fontSize={8} fill="#b8860b" fontFamily="monospace">{cfg.sub}</text>
 
-        {/* Growing 2D material layer — hexagonal atoms appearing */}
-        {layerAtoms.map((a, i) => {
-          const pulse = 1 + 0.15 * Math.sin(t * 3 + i);
-          const atomR = 4 * pulse;
+        {/* Honeycomb lattice growing outward */}
+        {hexAtoms.map((atom, i) => {
+          if (atom.dist > growRadius) return null;
+          const fadein = Math.min(1, (growRadius - atom.dist) / 15);
+          const pulse = 1 + 0.08 * Math.sin(t * 4 + i);
+          const ar = 3.5 * pulse;
           return (
-            <g key={`atom-${i}`} opacity={a.opacity}>
-              <circle cx={a.x} cy={a.y} r={atomR + 2} fill={cfg.color} opacity={0.15} />
-              <circle cx={a.x} cy={a.y} r={atomR} fill={cfg.color} opacity={0.8} />
-              {/* Bond lines to nearby atoms */}
-              {layerAtoms.filter((b, j) => j < i && Math.hypot(a.x - b.x, a.y - b.y) < 28).slice(0, 3).map((b, k) => (
-                <line key={`bond-${i}-${k}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y}
-                  stroke={cfg.color} strokeWidth={1} opacity={0.4} />
+            <g key={i} opacity={fadein}>
+              {/* Bonds to neighbors */}
+              {hexAtoms.filter((b, j) => j < i && b.dist <= growRadius && Math.hypot(atom.x - b.x, atom.y - b.y) < hexR * 1.9).map((b, k) => (
+                <line key={k} x1={atom.x} y1={atom.y} x2={b.x} y2={b.y}
+                  stroke={cfg.color} strokeWidth={1.2} opacity={fadein * 0.5} />
               ))}
+              {/* Atom glow + atom */}
+              <circle cx={atom.x} cy={atom.y} r={ar + 2} fill={cfg.color} opacity={0.1} />
+              <circle cx={atom.x} cy={atom.y} r={ar} fill={cfg.color} opacity={0.85} />
             </g>
           );
         })}
 
-        {/* Glow around growth front */}
-        <circle cx={140} cy={110} r={Math.min(t * 5, 45)} fill="none" stroke={cfg.color} strokeWidth={1} opacity={0.15} />
-        <circle cx={140} cy={110} r={Math.min(t * 3, 30)} fill="none" stroke={cfg.color} strokeWidth={0.8} opacity={0.25} />
+        {/* Growth front ring */}
+        <circle cx={cx} cy={cy} r={growRadius} fill="none" stroke={cfg.color} strokeWidth={0.8} opacity={0.2} strokeDasharray="3,3" />
 
-        {/* Legend */}
-        <g transform={`translate(15, ${H - 50})`}>
-          <circle cx={0} cy={0} r={4} fill={cfg.color} />
-          <text x={10} y={3} fontSize={9} fill="#9ca3b4">{selected === "MoS2" ? "Mo + S atoms" : selected === "WS2" ? "W + S atoms" : selected === "hBN" ? "B + N atoms" : selected === "blackP" ? "P atoms" : "C atoms"}</text>
-          <rect x={-5} y={10} width={10} height={4} rx={1} fill="#b8860b44" stroke="#b8860b" strokeWidth={0.5} />
-          <text x={10} y={17} fontSize={9} fill="#9ca3b4">Substrate</text>
-          <circle cx={0} cy={26} r={3} fill={cfg.color} opacity={0.5} />
-          <text x={10} y={29} fontSize={9} fill="#9ca3b4">Precursor gas</text>
-        </g>
+        {/* Label */}
+        <text x={W / 2} y={H - 6} textAnchor="middle" fontSize={8} fill="#9ca3b4" fontFamily="monospace">{cfg.desc}</text>
       </svg>
-      <div style={{ fontSize: 10, color: T.muted, textAlign: "center", marginTop: 4, lineHeight: 1.5 }}>{cfg.desc}</div>
     </div>
   );
 }
@@ -6658,91 +6609,141 @@ function TwoDMaterialsSection() {
   const currentGap = mat.gapVsLayers[Math.min(layers - 1, 9)];
 
   // Hexagonal lattice drawing helper
-  const drawHexLattice = () => {
-    const elements = [];
-    const hexR = 20;
-    const rows = 5, cols = 5;
-    const dx = hexR * 1.8;
-    const dy = hexR * 1.55;
-    const ox = 40, oy = 40;
+  // 3D isometric projection
+  const iso3d = (x, y, z) => ({
+    px: 120 + (x - y) * 0.75,
+    py: 100 + (x + y) * 0.43 - z * 0.9,
+  });
 
-    if (selected === "graphene") {
-      // Single layer hexagonal - all carbon
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const x = ox + c * dx + (r % 2) * dx * 0.5;
-          const y = oy + r * dy;
-          if (x > 320 || y > 300) continue;
-          elements.push(
-            <g key={`${r}-${c}`}>
-              <circle cx={x} cy={y} r={10} fill="#6b728033" stroke="#6b7280" strokeWidth={1.5} />
-              <text x={x} y={y + 4} textAnchor="middle" fill="#6b7280" fontSize={12} fontWeight="bold" fontFamily="monospace">C</text>
-              {c < cols - 1 && <line x1={x + 10} y1={y} x2={x + dx - 10} y2={y} stroke="#6b728066" strokeWidth={1} />}
-              {r < rows - 1 && <line x1={x} y1={y + 10} x2={ox + c * dx + ((r + 1) % 2) * dx * 0.5} y2={oy + (r + 1) * dy - 10} stroke="#6b728066" strokeWidth={1} />}
-            </g>
-          );
-        }
-      }
-    } else if (selected === "MoS2" || selected === "WS2") {
-      // TMD: 3-layer sandwich S-M-S (side view representation)
-      const metalLabel = selected === "MoS2" ? "Mo" : "W";
-      const metalColor = mat.atomColors[metalLabel];
-      const sColor = "#eab308";
-      for (let r = 0; r < 3; r++) {
-        for (let c = 0; c < 6; c++) {
-          const x = 30 + c * 50;
-          const y = 80 + r * 70;
-          const isS = r === 0 || r === 2;
-          const col = isS ? sColor : metalColor;
-          const label = isS ? "S" : metalLabel;
-          elements.push(
-            <g key={`${r}-${c}`}>
-              <circle cx={x} cy={y} r={12} fill={col + "33"} stroke={col} strokeWidth={1.5} />
-              <text x={x} y={y + 4} textAnchor="middle" fill={col} fontSize={12} fontWeight="bold" fontFamily="monospace">{label}</text>
-            </g>
-          );
-        }
-      }
-      elements.push(<text key="layer-top" x={320} y={84} textAnchor="end" fill={sColor} fontSize={12} fontFamily="monospace">S layer</text>);
-      elements.push(<text key="layer-mid" x={320} y={154} textAnchor="end" fill={metalColor} fontSize={12} fontFamily="monospace">{metalLabel} layer</text>);
-      elements.push(<text key="layer-bot" x={320} y={224} textAnchor="end" fill={sColor} fontSize={12} fontFamily="monospace">S layer</text>);
-    } else if (selected === "hBN") {
-      // Alternating B and N in hexagonal
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const x = ox + c * dx + (r % 2) * dx * 0.5;
-          const y = oy + r * dy;
-          if (x > 320 || y > 300) continue;
-          const isB = (r + c) % 2 === 0;
-          const col = isB ? "#ec4899" : "#3b82f6";
-          const label = isB ? "B" : "N";
-          elements.push(
-            <g key={`${r}-${c}`}>
-              <circle cx={x} cy={y} r={10} fill={col + "33"} stroke={col} strokeWidth={1.5} />
-              <text x={x} y={y + 4} textAnchor="middle" fill={col} fontSize={12} fontWeight="bold" fontFamily="monospace">{label}</text>
-              {c < cols - 1 && <line x1={x + 10} y1={y} x2={x + dx - 10} y2={y} stroke={T.border} strokeWidth={1} />}
-            </g>
-          );
-        }
-      }
-    } else if (selected === "blackP") {
-      // Puckered structure: two offset rows
-      for (let r = 0; r < 4; r++) {
-        for (let c = 0; c < 5; c++) {
-          const x = 40 + c * 60;
-          const yBase = 60 + r * 65;
-          const y = yBase + (c % 2 === 0 ? 0 : 15); // puckered offset
-          elements.push(
-            <g key={`${r}-${c}`}>
-              <circle cx={x} cy={y} r={12} fill="#7c3aed33" stroke="#7c3aed" strokeWidth={1.5} />
-              <text x={x} y={y + 4} textAnchor="middle" fill="#7c3aed" fontSize={12} fontWeight="bold" fontFamily="monospace">P</text>
-              {c < 4 && <line x1={x + 12} y1={y} x2={x + 60 - 12} y2={yBase + ((c + 1) % 2 === 0 ? 0 : 15)} stroke="#7c3aed44" strokeWidth={1} />}
-            </g>
-          );
-        }
+  const drawHexLattice = () => {
+    const bonds = [];
+    const atoms = [];
+    const hR = 14; // hex spacing
+    const maxRing = 3;
+
+    // Generate hex grid positions
+    const positions = [];
+    for (let q = -maxRing; q <= maxRing; q++) {
+      for (let r = -maxRing; r <= maxRing; r++) {
+        if (Math.abs(q + r) > maxRing) continue;
+        const fx = hR * 1.5 * q;
+        const fy = hR * (Math.sqrt(3) * (r + q * 0.5));
+        positions.push({ q, r, fx, fy });
       }
     }
-    return elements;
+
+    if (selected === "graphene") {
+      // Bonds first (behind atoms)
+      positions.forEach((a, i) => {
+        positions.forEach((b, j) => {
+          if (j <= i) return;
+          const d = Math.hypot(a.fx - b.fx, a.fy - b.fy);
+          if (d < hR * 1.9) {
+            const p1 = iso3d(a.fx, a.fy, 0);
+            const p2 = iso3d(b.fx, b.fy, 0);
+            bonds.push(<line key={`b-${i}-${j}`} x1={p1.px} y1={p1.py} x2={p2.px} y2={p2.py} stroke="#6b728055" strokeWidth={1.5} />);
+          }
+        });
+      });
+      // Atoms with 3D shading
+      positions.forEach((a, i) => {
+        const { px, py } = iso3d(a.fx, a.fy, 0);
+        atoms.push(
+          <g key={`a-${i}`}>
+            <circle cx={px} cy={py + 1} r={6} fill="#00000020" /> {/* shadow */}
+            <circle cx={px} cy={py} r={6} fill="#9ca3af" stroke="#6b7280" strokeWidth={1} />
+            <circle cx={px - 1.5} cy={py - 1.5} r={2} fill="#d1d5db" opacity={0.6} /> {/* highlight */}
+          </g>
+        );
+      });
+    } else if (selected === "MoS2" || selected === "WS2") {
+      const mCol = selected === "MoS2" ? "#0d9488" : "#1d4ed8";
+      const sCol = "#eab308";
+      const mLabel = selected === "MoS2" ? "Mo" : "W";
+      // 3 layers: S top (z=12), Metal mid (z=0), S bottom (z=-12)
+      [{ z: -12, col: sCol, label: "S", r: 5 }, { z: 0, col: mCol, label: mLabel, r: 6.5 }, { z: 12, col: sCol, label: "S", r: 5 }].forEach((layer, li) => {
+        positions.forEach((a, i) => {
+          if (Math.abs(a.q) + Math.abs(a.r) + Math.abs(a.q + a.r) > maxRing * 2 - 1) return;
+          const { px, py } = iso3d(a.fx, a.fy, layer.z);
+          // Bonds within layer
+          if (li === 1) {
+            positions.forEach((b, j) => {
+              if (j <= i || Math.abs(b.q) + Math.abs(b.r) + Math.abs(b.q + b.r) > maxRing * 2 - 1) return;
+              if (Math.hypot(a.fx - b.fx, a.fy - b.fy) < hR * 1.9) {
+                const p2 = iso3d(b.fx, b.fy, layer.z);
+                bonds.push(<line key={`mb-${i}-${j}`} x1={px} y1={py} x2={p2.px} y2={p2.py} stroke={mCol + "33"} strokeWidth={1} />);
+              }
+            });
+          }
+          atoms.push(
+            <g key={`l${li}-${i}`}>
+              <circle cx={px} cy={py + 1} r={layer.r} fill="#00000015" />
+              <circle cx={px} cy={py} r={layer.r} fill={layer.col + "cc"} stroke={layer.col} strokeWidth={0.8} />
+              <circle cx={px - 1} cy={py - 1} r={layer.r * 0.35} fill="#ffffff33" />
+            </g>
+          );
+        });
+      });
+      atoms.push(<text key="lbl-s1" x={225} y={70} fontSize={9} fill={sCol} fontWeight="bold">S</text>);
+      atoms.push(<text key="lbl-m" x={225} y={95} fontSize={9} fill={mCol} fontWeight="bold">{mLabel}</text>);
+      atoms.push(<text key="lbl-s2" x={225} y={120} fontSize={9} fill={sCol} fontWeight="bold">S</text>);
+    } else if (selected === "hBN") {
+      positions.forEach((a, i) => {
+        positions.forEach((b, j) => {
+          if (j <= i) return;
+          if (Math.hypot(a.fx - b.fx, a.fy - b.fy) < hR * 1.9) {
+            const p1 = iso3d(a.fx, a.fy, 0);
+            const p2 = iso3d(b.fx, b.fy, 0);
+            bonds.push(<line key={`b-${i}-${j}`} x1={p1.px} y1={p1.py} x2={p2.px} y2={p2.py} stroke="#a855f733" strokeWidth={1.5} />);
+          }
+        });
+      });
+      positions.forEach((a, i) => {
+        const isB = (a.q + a.r + 100) % 2 === 0;
+        const col = isB ? "#ec4899" : "#3b82f6";
+        const { px, py } = iso3d(a.fx, a.fy, 0);
+        atoms.push(
+          <g key={`a-${i}`}>
+            <circle cx={px} cy={py + 1} r={5.5} fill="#00000018" />
+            <circle cx={px} cy={py} r={5.5} fill={col + "cc"} stroke={col} strokeWidth={0.8} />
+            <circle cx={px - 1} cy={py - 1} r={2} fill="#ffffff33" />
+            <text x={px} y={py + 3} textAnchor="middle" fill="#fff" fontSize={6} fontWeight="bold">{isB ? "B" : "N"}</text>
+          </g>
+        );
+      });
+    } else if (selected === "blackP") {
+      // Puckered: alternating z-heights
+      const pPositions = [];
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 5; c++) {
+          const fx = (c - 2) * 16;
+          const fy = (r - 1.5) * 20;
+          const z = (c % 2 === 0 ? 6 : -6); // puckered
+          pPositions.push({ fx, fy, z });
+        }
+      }
+      pPositions.forEach((a, i) => {
+        pPositions.forEach((b, j) => {
+          if (j <= i) return;
+          if (Math.hypot(a.fx - b.fx, a.fy - b.fy) < 22) {
+            const p1 = iso3d(a.fx, a.fy, a.z);
+            const p2 = iso3d(b.fx, b.fy, b.z);
+            bonds.push(<line key={`b-${i}-${j}`} x1={p1.px} y1={p1.py} x2={p2.px} y2={p2.py} stroke="#7c3aed33" strokeWidth={1.5} />);
+          }
+        });
+      });
+      pPositions.forEach((a, i) => {
+        const { px, py } = iso3d(a.fx, a.fy, a.z);
+        atoms.push(
+          <g key={`a-${i}`}>
+            <circle cx={px} cy={py + 1} r={6} fill="#00000018" />
+            <circle cx={px} cy={py} r={6} fill="#7c3aedcc" stroke="#7c3aed" strokeWidth={0.8} />
+            <circle cx={px - 1.5} cy={py - 1.5} r={2} fill="#ffffff33" />
+          </g>
+        );
+      });
+    }
+    return [...bonds, ...atoms];
   };
 
   return (
@@ -6766,7 +6767,7 @@ function TwoDMaterialsSection() {
       {/* Main content: SVG left, info right */}
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 14 }}>
         {/* Left: Structure / Synthesis toggle */}
-        <div style={{ flex: "1 1 280px", minWidth: 240 }}>
+        <div style={{ flex: "1 1 240px", minWidth: 220, maxWidth: 280 }}>
           {/* Toggle buttons */}
           <div style={{ display: "flex", marginBottom: 6, borderRadius: 6, overflow: "hidden", border: `1.5px solid ${mat.color}44` }}>
             {["structure", "synthesis"].map(mode => (
@@ -6780,10 +6781,10 @@ function TwoDMaterialsSection() {
           </div>
 
           {viewMode === "structure" ? (
-            <svg viewBox="0 0 280 280" style={{ width: "100%", background: T.surface, borderRadius: 10, border: `1.5px solid ${mat.color}33` }}>
+            <svg viewBox="0 0 240 210" style={{ width: "100%", background: `radial-gradient(ellipse at center, ${mat.color}08 0%, ${T.surface} 70%)`, borderRadius: 10, border: `1.5px solid ${mat.color}33` }}>
               {drawHexLattice()}
-              <text x={140} y={272} textAnchor="middle" fill={T.ink} fontSize={11} fontWeight="bold" fontFamily="monospace">
-                {mat.label} Structure
+              <text x={120} y={200} textAnchor="middle" fill={mat.color} fontSize={10} fontWeight="bold" fontFamily="monospace">
+                {mat.label} — 3D Structure
               </text>
             </svg>
           ) : (
