@@ -1909,6 +1909,9 @@ function SecReciprocal() {
 
 // ──── Section 11: CdTe Full DFT Walkthrough ────
 function SecCdTeWalkthrough() {
+  const eq = { fontFamily: "Georgia, serif", fontSize: 14, color: T.ink };
+  const eqc = (color) => ({ ...eq, color, fontWeight: 700 });
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
@@ -1920,16 +1923,29 @@ function SecCdTeWalkthrough() {
 
       {/* ── STEP 0: THE SYSTEM ── */}
       <Card title="Step 0 — Define the System" color={T.xc}>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          <span style={eqc(T.xc)}>CdTe zinc blende</span> (space group F4̄3m, #216)
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: `1px solid ${T.border}44` }}>
+            <span style={{ color: T.muted }}>Lattice constant</span>
+            <span style={eq}><em>a</em> = 6.48 Å</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: `1px solid ${T.border}44` }}>
+            <span style={{ color: T.muted }}>Atoms per cell</span>
+            <span style={eq}>2 &nbsp;(Cd at origin, Te at <sup>1</sup>&frasl;<sub>4</sub>, <sup>1</sup>&frasl;<sub>4</sub>, <sup>1</sup>&frasl;<sub>4</sub>)</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: `1px solid ${T.border}44` }}>
+            <span style={{ color: T.muted }}>Nearest-neighbor distance</span>
+            <span style={eq}><em>d</em> = <sup><em>a</em>√3</sup>&frasl;<sub>4</sub> = <sup>6.48 × 1.732</sup>&frasl;<sub>4</sub> = 2.81 Å</span>
+          </div>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 6 }}>Primitive vectors (FCC):</div>
         <div style={mathBlock}>
-          <span style={{ color: T.xc, fontWeight: 700 }}>CdTe zinc blende (space group F-43m, #216)</span><br /><br />
-          {"  Lattice constant: a = 6.48 Å"}<br />
-          {"  Atoms per unit cell: 2 (1 Cd at (0,0,0), 1 Te at (¼,¼,¼))"}<br />
-          {"  Nearest-neighbor distance: d = a√3/4 = 6.48 × 0.433 = 2.81 Å"}<br /><br />
-          {"  Primitive vectors (FCC):"}<br />
-          {"    a₁ = (a/2)(0,1,1) = (0, 3.24, 3.24) Å"}<br />
-          {"    a₂ = (a/2)(1,0,1) = (3.24, 0, 3.24) Å"}<br />
-          {"    a₃ = (a/2)(1,1,0) = (3.24, 3.24, 0) Å"}<br /><br />
-          {"  Unit cell volume: Ω = a³/4 = 68.02 ų"}
+          <span style={eq}><strong>a</strong><sub>1</sub> = <sup><em>a</em></sup>&frasl;<sub>2</sub>(0, 1, 1) = (0, 3.24, 3.24) Å</span><br />
+          <span style={eq}><strong>a</strong><sub>2</sub> = <sup><em>a</em></sup>&frasl;<sub>2</sub>(1, 0, 1) = (3.24, 0, 3.24) Å</span><br />
+          <span style={eq}><strong>a</strong><sub>3</sub> = <sup><em>a</em></sup>&frasl;<sub>2</sub>(1, 1, 0) = (3.24, 3.24, 0) Å</span><br /><br />
+          <span style={eq}>Ω = <sup><em>a</em>³</sup>&frasl;<sub>4</sub> = <sup>6.48³</sup>&frasl;<sub>4</sub> = <strong>68.02 ų</strong></span>
         </div>
       </Card>
 
@@ -1941,88 +1957,129 @@ function SecCdTeWalkthrough() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
           <div style={{ background: T.xc + "08", border: `1px solid ${T.xc}22`, borderRadius: 10, padding: "12px 14px" }}>
             <div style={{ fontSize: 13, fontWeight: 800, color: T.xc, marginBottom: 6 }}>Cadmium (Z = 48)</div>
-            <div style={mathBlock}>
-              {"Full config: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰ 5s²"}<br /><br />
-              <span style={{ color: T.muted }}>{"CORE (frozen in PAW):"}</span><br />
-              {"  1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶"}<br />
-              {"  = "}<span style={{ color: T.warn, fontWeight: 700 }}>{"36 core electrons (frozen)"}</span><br /><br />
-              <span style={{ color: T.xc }}>{"VALENCE (solved by DFT):"}</span><br />
-              {"  4d¹⁰ 5s²"}<br />
-              {"  = "}<span style={{ color: T.xc, fontWeight: 700 }}>{"12 valence electrons"}</span>
+            <div style={{ fontSize: 11, lineHeight: 2.0, color: T.ink }}>
+              <span style={eq}>Full: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰ 5s²</span><br /><br />
+              <span style={{ color: T.muted, fontWeight: 700 }}>CORE (frozen):</span><br />
+              <span style={eq}>1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶</span><br />
+              = <span style={{ color: T.warn, fontWeight: 700, fontSize: 13 }}>36 electrons frozen</span><br /><br />
+              <span style={{ color: T.xc, fontWeight: 700 }}>VALENCE (DFT solves):</span><br />
+              <span style={eq}>4d¹⁰ 5s²</span> = <span style={{ color: T.xc, fontWeight: 700, fontSize: 13 }}>12 valence e⁻</span>
             </div>
           </div>
           <div style={{ background: T.eqn + "08", border: `1px solid ${T.eqn}22`, borderRadius: 10, padding: "12px 14px" }}>
             <div style={{ fontSize: 13, fontWeight: 800, color: T.eqn, marginBottom: 6 }}>Tellurium (Z = 52)</div>
-            <div style={mathBlock}>
-              {"Full config: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰ 5s² 5p⁴"}<br /><br />
-              <span style={{ color: T.muted }}>{"CORE (frozen in PAW):"}</span><br />
-              {"  1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰"}<br />
-              {"  = "}<span style={{ color: T.warn, fontWeight: 700 }}>{"46 core electrons (frozen)"}</span><br /><br />
-              <span style={{ color: T.eqn }}>{"VALENCE (solved by DFT):"}</span><br />
-              {"  5s² 5p⁴"}<br />
-              {"  = "}<span style={{ color: T.eqn, fontWeight: 700 }}>{"6 valence electrons"}</span>
+            <div style={{ fontSize: 11, lineHeight: 2.0, color: T.ink }}>
+              <span style={eq}>Full: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰ 5s² 5p⁴</span><br /><br />
+              <span style={{ color: T.muted, fontWeight: 700 }}>CORE (frozen):</span><br />
+              <span style={eq}>1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰</span><br />
+              = <span style={{ color: T.warn, fontWeight: 700, fontSize: 13 }}>46 electrons frozen</span><br /><br />
+              <span style={{ color: T.eqn, fontWeight: 700 }}>VALENCE (DFT solves):</span><br />
+              <span style={eq}>5s² 5p⁴</span> = <span style={{ color: T.eqn, fontWeight: 700, fontSize: 13 }}>6 valence e⁻</span>
             </div>
           </div>
         </div>
         <div style={{ background: T.basis + "08", border: `1px solid ${T.basis}22`, borderRadius: 10, padding: "12px 14px" }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: T.basis, marginBottom: 4 }}>Summary</div>
-          <div style={mathBlock}>
-            {"  Total electrons in CdTe: 48 + 52 = 100"}<br />
-            {"  Core electrons (frozen):  36 + 46 = "}<span style={{ color: T.warn, fontWeight: 700 }}>{"82 (not computed!)"}</span><br />
-            {"  Valence electrons (DFT):  12 + 6  = "}<span style={{ color: T.basis, fontWeight: 700 }}>{"18 (these are what we solve for)"}</span><br /><br />
-            {"  Each KS orbital holds 2 electrons (spin up + spin down)"}<br />
-            {"  Number of occupied bands: 18/2 = "}<span style={{ color: T.basis, fontWeight: 700 }}>{"9 bands"}</span><br /><br />
-            {"  We saved 82/100 = 82% of the work by using PAW!"}
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.basis, marginBottom: 8 }}>Summary</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
+              <span style={{ color: T.muted }}>Total electrons in CdTe</span>
+              <span style={eq}>48 + 52 = <strong>100</strong></span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
+              <span style={{ color: T.warn }}>Core (frozen by PAW)</span>
+              <span style={eq}>36 + 46 = <strong style={{ color: T.warn }}>82</strong> (not computed!)</span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
+              <span style={{ color: T.basis }}>Valence (solved by DFT)</span>
+              <span style={eq}>12 + 6 = <strong style={{ color: T.basis }}>18</strong></span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
+              <span style={{ color: T.muted }}>Occupied bands</span>
+              <span style={eq}><sup>18</sup>&frasl;<sub>2</sub> = <strong style={{ color: T.basis }}>9 bands</strong> (2 e⁻ per band)</span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0" }}>
+              <span style={{ color: T.muted }}>Work saved by PAW</span>
+              <span style={eq}><sup>82</sup>&frasl;<sub>100</sub> = <strong>82%</strong></span>
+            </div>
           </div>
         </div>
       </Card>
 
       {/* ── STEP 2: K-POINTS ── */}
       <Card title="Step 2 — Choose k-point Mesh" color={T.eqn}>
-        <div style={mathBlock}>
-          <span style={{ color: T.eqn, fontWeight: 700 }}>Monkhorst-Pack grid: 8×8×8</span><br /><br />
-          {"  Total k-points in full BZ: 8 × 8 × 8 = 512"}<br />
-          {"  FCC has 48 symmetry operations → reduce by symmetry:"}<br />
-          {"  Irreducible k-points: 512 / 48 ≈ "}<span style={{ color: T.eqn, fontWeight: 700 }}>{"60 unique k-points"}</span><br /><br />
-          {"  At EACH k-point we must solve for all 9 occupied bands."}<br />
-          {"  Total eigenvalue problems: 60 k-points × 1 = 60 matrix diagonalizations"}<br /><br />
-          {"  Special k-points in CdTe BZ:"}<br />
-          {"    Γ = (0, 0, 0)         — zone center"}<br />
-          {"    X = (0, ½, 0)2π/a     — zone face"}<br />
-          {"    L = (½, ½, ½)2π/a     — zone corner"}<br />
-          {"    K = (¾, ¾, 0)2π/a     — zone edge"}
+        <div style={{ fontSize: 14, fontWeight: 700, color: T.eqn, textAlign: "center", marginBottom: 12, fontFamily: "Georgia, serif" }}>
+          Monkhorst–Pack grid: 8 × 8 × 8
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 3, marginBottom: 14 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
+            <span style={{ color: T.muted }}>Total <strong>k</strong>-points in full BZ</span>
+            <span style={eq}>8 × 8 × 8 = <strong>512</strong></span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
+            <span style={{ color: T.muted }}>FCC symmetry operations</span>
+            <span style={eq}>48</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
+            <span style={{ color: T.eqn }}>Irreducible <strong>k</strong>-points</span>
+            <span style={eq}><sup>512</sup>&frasl;<sub>48</sub> ≈ <strong style={{ color: T.eqn }}>60</strong></span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0" }}>
+            <span style={{ color: T.muted }}>Diagonalizations needed</span>
+            <span style={eq}>60 (one per irreducible <strong>k</strong>)</span>
+          </div>
+        </div>
+        <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8 }}>
+          Special <strong>k</strong>-points: &nbsp;
+          <span style={eq}>Γ = (0, 0, 0)</span>, &nbsp;
+          <span style={eq}>X = (0, <sup>1</sup>&frasl;<sub>2</sub>, 0) · <sup>2π</sup>&frasl;<sub><em>a</em></sub></span>, &nbsp;
+          <span style={eq}>L = (<sup>1</sup>&frasl;<sub>2</sub>, <sup>1</sup>&frasl;<sub>2</sub>, <sup>1</sup>&frasl;<sub>2</sub>) · <sup>2π</sup>&frasl;<sub><em>a</em></sub></span>
         </div>
       </Card>
 
       {/* ── STEP 3: PLANE WAVES ── */}
       <Card title="Step 3 — Build Plane Wave Basis (ENCUT = 400 eV)" color={T.basis}>
-        <div style={mathBlock}>
-          <span style={{ color: T.basis, fontWeight: 700 }}>How many plane waves per k-point?</span><br /><br />
-          {"  |G|_max = √(2mₑ × ENCUT) / ℏ"}<br />
-          {"  In practical units: |G|_max = √(2 × 400 / 7.62) = 10.24 Å⁻¹"}<br /><br />
-          {"  Volume of G-sphere: (4π/3)(10.24)³ = 4,499 ų⁻³"}<br />
-          {"  G-point density: Ω/(2π)³ = 68.02/248.05 = 0.274 per ų⁻³"}<br />
-          {"  N_PW ≈ 4,499 × 0.274 ≈ "}<span style={{ color: T.basis, fontWeight: 700 }}>{"1,233 G-vectors"}</span><br /><br />
-          {"  VASP reports: NBANDS = 16 (9 occupied + 7 empty for better convergence)"}<br />
-          {"  At each k-point: diagonalize a "}<span style={{ color: T.basis, fontWeight: 700 }}>{"1233 × 1233"}</span>{" Hamiltonian"}<br />
-          {"  But we only need the lowest 16 eigenvalues → Davidson algorithm"}<br /><br />
-          {"  Each plane wave is: φ_G(r) = (1/√Ω) e^(i(k+G)·r)"}<br />
-          {"  The KS orbital: ψ_nk(r) = Σ_G c_nk(G) φ_G(r)"}<br />
-          {"  Finding c_nk(G) is the eigenvalue problem H·c = ε·c"}
+        <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center", background: T.basis + "08", padding: "12px 16px", borderRadius: 10, color: T.basis, marginBottom: 12 }}>
+          |<strong>G</strong>|<sub>max</sub> = √(<sup>2 m<sub>e</sub> × E<sub>cut</sub></sup>&frasl;<sub>ℏ²</sub>) = √(<sup>2 × 400</sup>&frasl;<sub>7.62</sub>) = <strong>10.24 Å⁻¹</strong>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 3, marginBottom: 14 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
+            <span style={{ color: T.muted }}>Volume of <strong>G</strong>-sphere</span>
+            <span style={eq}><sup>4π</sup>&frasl;<sub>3</sub> × (10.24)³ = 4,499 ų⁻³</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
+            <span style={{ color: T.muted }}><strong>G</strong>-point density</span>
+            <span style={eq}><sup>Ω</sup>&frasl;<sub>(2π)³</sub> = <sup>68.02</sup>&frasl;<sub>248.05</sub> = 0.274</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
+            <span style={{ color: T.basis }}><strong>N</strong><sub>PW</sub></span>
+            <span style={eq}>4,499 × 0.274 ≈ <strong style={{ color: T.basis }}>1,233 plane waves</strong></span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
+            <span style={{ color: T.muted }}>NBANDS</span>
+            <span style={eq}>16 (9 occupied + 7 empty)</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0" }}>
+            <span style={{ color: T.muted }}>Matrix to diagonalize</span>
+            <span style={eq}><strong>1233 × 1233</strong> per <strong>k</strong></span>
+          </div>
+        </div>
+        <div style={{ fontFamily: "Georgia, serif", fontSize: 13, textAlign: "center", background: T.basis + "06", padding: "10px 14px", borderRadius: 8, color: T.ink, lineHeight: 2.0 }}>
+          Each plane wave: &nbsp; φ<sub><strong>G</strong></sub>(<strong>r</strong>) = <sup>1</sup>&frasl;<sub>√Ω</sub> · e<sup>i(<strong>k</strong>+<strong>G</strong>)·<strong>r</strong></sup><br />
+          KS orbital: &nbsp; ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>) = Σ<sub><strong>G</strong></sub> c<sub>n<strong>k</strong></sub>(<strong>G</strong>) · φ<sub><strong>G</strong></sub>(<strong>r</strong>)<br />
+          Eigenvalue problem: &nbsp; <strong>H</strong> · <strong>c</strong> = ε · <strong>c</strong>
         </div>
       </Card>
 
       {/* ── STEP 4: INITIAL GUESS ── */}
       <Card title="Step 4 — Initial Density Guess" color={T.main}>
-        <div style={mathBlock}>
-          <span style={{ color: T.main, fontWeight: 700 }}>Superposition of atomic densities</span><br /><br />
-          {"  n⁰(r) = n_Cd_atom(r − R_Cd) + n_Te_atom(r − R_Te)"}<br /><br />
-          {"  This is a rough guess — it ignores bonding."}<br />
-          {"  Cd atom is spherical with 12 valence electrons"}<br />
-          {"  Te atom is spherical with 6 valence electrons"}<br />
-          {"  Total: ∫ n⁰(r) dr = 18 electrons ✓"}<br /><br />
-          {"  The guess density is too atomic — it doesn't know about"}<br />
-          {"  the covalent bond between Cd and Te. The SCF loop will fix this."}
+        <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center", background: T.main + "08", padding: "12px 16px", borderRadius: 10, color: T.main, marginBottom: 12 }}>
+          n⁰(<strong>r</strong>) = n<sub>Cd</sub><sup>atom</sup>(<strong>r</strong> − <strong>R</strong><sub>Cd</sub>) + n<sub>Te</sub><sup>atom</sup>(<strong>r</strong> − <strong>R</strong><sub>Te</sub>)
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          Superposition of free-atom densities — a rough guess that ignores bonding.<br />
+          Cd contributes 12 valence e⁻, Te contributes 6 valence e⁻.<br />
+          Check: ∫ n⁰(<strong>r</strong>) d<strong>r</strong> = 18 electrons ✓<br />
+          The guess is too "atomic" — the SCF loop will redistribute charge into the Cd–Te bond.
         </div>
       </Card>
 
@@ -2032,105 +2089,137 @@ function SecCdTeWalkthrough() {
           This is where the real computation happens. Every step is shown.
         </div>
 
-        <div style={mathBlock}>
-          <span style={{ color: T.accent, fontWeight: 700 }}>5a. Build the effective potential from n⁰(r)</span><br /><br />
-          {"  V_eff(r) = V_ext(r) + V_H(r) + V_xc(r)"}<br /><br />
-          {"  V_ext(r) = PAW pseudopotential from Cd and Te nuclei"}<br />
-          {"    (tabulated, read from POTCAR, not computed)"}<br /><br />
-          {"  V_H(r) = Hartree potential (electron-electron Coulomb):"}<br />
-          {"    FFT n⁰(r) → ñ⁰(G)"}<br />
-          {"    Ṽ_H(G) = 4π ñ⁰(G) / |G|²  for each of 1233 G-vectors"}<br />
-          {"    FFT Ṽ_H(G) → V_H(r) on real-space grid (48×48×48 = 110,592 points)"}<br /><br />
-          {"  V_xc(r) = PBE exchange-correlation (local, computed at each grid point):"}<br />
-          {"    At each of 110,592 grid points:"}<br />
-          {"    V_xc[n⁰(r)] = dE_xc/dn evaluated using PBE formula"}<br />
-          {"    (involves n, |∇n|, and analytic PBE parametrization)"}
+        <div style={{ background: T.accent + "06", border: `1px solid ${T.accent}18`, borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.accent, marginBottom: 8 }}>5a. Build the effective potential from n⁰(<strong>r</strong>)</div>
+          <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.2 }}>
+            V<sub>eff</sub>(<strong>r</strong>) = V<sub>ext</sub>(<strong>r</strong>) + V<sub>H</sub>(<strong>r</strong>) + V<sub>xc</sub>(<strong>r</strong>)
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+            <strong style={{ color: T.accent }}>V<sub>ext</sub>(<strong>r</strong>)</strong> — PAW pseudopotential (read from POTCAR, not computed)<br /><br />
+            <strong style={{ color: T.accent }}>V<sub>H</sub>(<strong>r</strong>)</strong> — Hartree potential (e⁻–e⁻ Coulomb):<br />
+            &nbsp;&nbsp;FFT: n⁰(<strong>r</strong>) → ñ⁰(<strong>G</strong>)<br />
+            &nbsp;&nbsp;<span style={{ fontFamily: "Georgia, serif", fontSize: 13 }}>Ṽ<sub>H</sub>(<strong>G</strong>) = <sup>4π ñ⁰(<strong>G</strong>)</sup>&frasl;<sub>|<strong>G</strong>|²</sub></span> &nbsp;for each of 1,233 <strong>G</strong>-vectors<br />
+            &nbsp;&nbsp;FFT: Ṽ<sub>H</sub>(<strong>G</strong>) → V<sub>H</sub>(<strong>r</strong>) on 48³ = 110,592 grid points<br /><br />
+            <strong style={{ color: T.accent }}>V<sub>xc</sub>(<strong>r</strong>)</strong> — PBE exchange-correlation:<br />
+            &nbsp;&nbsp;At each of 110,592 grid points: <span style={{ fontFamily: "Georgia, serif" }}>V<sub>xc</sub> = <sup>δE<sub>xc</sub></sup>&frasl;<sub>δn</sub></span>
+          </div>
         </div>
 
-        <div style={mathBlock}>
-          <span style={{ color: T.eqn, fontWeight: 700 }}>5b. Solve KS equations at each k-point (Davidson algorithm)</span><br /><br />
-          {"  For each of the 60 irreducible k-points:"}<br /><br />
-          {"    Build H(k): 1233×1233 matrix"}<br />
-          {"      H_GG'(k) = (ℏ²/2m)|k+G|² δ_GG'  +  Ṽ_eff(G−G')"}<br />
-          {"               = kinetic (diagonal) + potential (dense)"}<br /><br />
-          {"    Davidson diagonalization → lowest 16 eigenvalues:"}<br /><br />
-          {"    k = Γ (0,0,0):"}<br />
-          {"      Band 1:  ε₁ = −9.83 eV  (Te 5s, deep)  ← 2 electrons"}<br />
-          {"      Band 2:  ε₂ = −8.12 eV  (Cd 4d)        ← 2 electrons"}<br />
-          {"      Band 3:  ε₃ = −8.09 eV  (Cd 4d)        ← 2 electrons"}<br />
-          {"      Band 4:  ε₄ = −8.07 eV  (Cd 4d)        ← 2 electrons"}<br />
-          {"      Band 5:  ε₅ = −7.95 eV  (Cd 4d)        ← 2 electrons"}<br />
-          {"      Band 6:  ε₆ = −7.93 eV  (Cd 4d)        ← 2 electrons"}<br />
-          {"      Band 7:  ε₇ = −1.24 eV  (bonding sp³)  ← 2 electrons"}<br />
-          {"      Band 8:  ε₈ = −1.24 eV  (bonding sp³)  ← 2 electrons"}<br />
-          {"      Band 9:  ε₉ = −1.24 eV  (bonding sp³)  ← 2 electrons"}<br />
-          {"      ─────── BAND GAP ≈ 0.6 eV (PBE underestimates!) ─────"}<br />
-          {"      Band 10: ε₁₀ = −0.62 eV (antibonding, empty)"}<br />
-          {"      ...bands 11-16: empty conduction states"}<br /><br />
-          {"    Bands 1-9 are occupied → 9 bands × 2 e⁻ = 18 electrons ✓"}<br /><br />
-          {"    Repeat for all 60 k-points (eigenvalues shift with k)"}
+        <div style={{ background: T.eqn + "06", border: `1px solid ${T.eqn}18`, borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.eqn, marginBottom: 8 }}>5b. Solve Kohn–Sham equations (Davidson algorithm)</div>
+          <div style={{ fontFamily: "Georgia, serif", fontSize: 13, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.0 }}>
+            H<sub><strong>GG</strong>′</sub>(<strong>k</strong>) = <sup>ℏ²</sup>&frasl;<sub>2m<sub>e</sub></sub> |<strong>k</strong>+<strong>G</strong>|² δ<sub><strong>GG</strong>′</sub> + Ṽ<sub>eff</sub>(<strong>G</strong>−<strong>G</strong>′)
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>For each of 60 irreducible <strong>k</strong>-points, diagonalize the 1233×1233 matrix → lowest 16 eigenvalues:</div>
+          <div style={{ fontFamily: "'Courier New', monospace", fontSize: 11, background: "#f8f9fa", borderRadius: 8, padding: 12, lineHeight: 2.0, color: T.ink }}>
+            <strong style={{ color: T.eqn }}>At <strong>k</strong> = Γ (0,0,0):</strong><br />
+            Band 1: &nbsp; ε<sub>1</sub> = −9.83 eV &nbsp; (Te 5<em>s</em>, deep) &nbsp; ← 2e⁻<br />
+            Band 2: &nbsp; ε<sub>2</sub> = −8.12 eV &nbsp; (Cd 4<em>d</em>) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ← 2e⁻<br />
+            Band 3: &nbsp; ε<sub>3</sub> = −8.09 eV &nbsp; (Cd 4<em>d</em>) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ← 2e⁻<br />
+            Band 4: &nbsp; ε<sub>4</sub> = −8.07 eV &nbsp; (Cd 4<em>d</em>) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ← 2e⁻<br />
+            Band 5: &nbsp; ε<sub>5</sub> = −7.95 eV &nbsp; (Cd 4<em>d</em>) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ← 2e⁻<br />
+            Band 6: &nbsp; ε<sub>6</sub> = −7.93 eV &nbsp; (Cd 4<em>d</em>) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ← 2e⁻<br />
+            Band 7: &nbsp; ε<sub>7</sub> = −1.24 eV &nbsp; (bonding <em>sp</em>³) &nbsp; ← 2e⁻<br />
+            Band 8: &nbsp; ε<sub>8</sub> = −1.24 eV &nbsp; (bonding <em>sp</em>³) &nbsp; ← 2e⁻<br />
+            Band 9: &nbsp; ε<sub>9</sub> = −1.24 eV &nbsp; (bonding <em>sp</em>³) &nbsp; ← 2e⁻<br />
+            <span style={{ color: T.warn }}>════════ BAND GAP ≈ 0.6 eV ════════</span><br />
+            Band 10: ε<sub>10</sub> = −0.62 eV &nbsp; (antibonding, <em>empty</em>)
+          </div>
+          <div style={{ fontSize: 11, color: T.muted, marginTop: 8 }}>Bands 1–9 occupied → 9 × 2 = 18 electrons ✓ &nbsp; Repeat for all 60 <strong>k</strong>-points.</div>
         </div>
 
-        <div style={mathBlock}>
-          <span style={{ color: T.main, fontWeight: 700 }}>5c. Compute new electron density from occupied states</span><br /><br />
-          {"  n¹(r) = (2/N_k) Σ_k Σ_{n=1}^{9} |ψ_nk(r)|²"}<br /><br />
-          {"  For each of the 9 occupied bands at each of 60 k-points:"}<br />
-          {"    1. Take coefficients c_nk(G) from Davidson"}<br />
-          {"    2. FFT c_nk(G) → ψ_nk(r) on real-space grid"}<br />
-          {"    3. Compute |ψ_nk(r)|² at each grid point"}<br />
-          {"    4. Add to running sum with k-point weight"}<br /><br />
-          {"  Total operations: 60 k × 9 bands × 1 FFT each = 540 FFTs"}<br /><br />
-          {"  Check: ∫ n¹(r) dr = 18.000 electrons ✓"}<br />
-          {"  (VASP enforces this by adjusting the Fermi level)"}
+        <div style={{ background: T.main + "06", border: `1px solid ${T.main}18`, borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.main, marginBottom: 8 }}>5c. Compute new electron density</div>
+          <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.0 }}>
+            n<sup>(1)</sup>(<strong>r</strong>) = <sup>2</sup>&frasl;<sub>N<sub>k</sub></sub> Σ<sub><strong>k</strong></sub> Σ<sub>n=1</sub><sup>9</sup> |ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>)|²
+          </div>
+          <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+            For each of 9 occupied bands at each of 60 <strong>k</strong>-points:<br />
+            &nbsp;&nbsp;1. Take c<sub>n<strong>k</strong></sub>(<strong>G</strong>) from Davidson<br />
+            &nbsp;&nbsp;2. FFT: c<sub>n<strong>k</strong></sub>(<strong>G</strong>) → ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>)<br />
+            &nbsp;&nbsp;3. Square: |ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>)|² at each grid point<br />
+            &nbsp;&nbsp;4. Add to running sum with <strong>k</strong>-point weight<br /><br />
+            Total: 60 × 9 = <strong>540 FFTs</strong> &nbsp;&nbsp; Check: ∫ n<sup>(1)</sup>(<strong>r</strong>) d<strong>r</strong> = 18.000 e⁻ ✓
+          </div>
         </div>
 
-        <div style={mathBlock}>
-          <span style={{ color: T.xc, fontWeight: 700 }}>5d. Compute total energy (iteration 1)</span><br /><br />
-          {"  E_total = E_kinetic + E_ext + E_Hartree + E_xc + E_ion-ion"}<br /><br />
-          {"  E_kinetic = Σ_k Σ_n f_nk × ⟨ψ_nk|−∇²/2|ψ_nk⟩"}<br />
-          {"    = sum of (ℏ²/2m)|k+G|² × |c_nk(G)|² over all occupied states"}<br />
-          {"    ≈ +28.34 eV"}<br /><br />
-          {"  E_ext = ∫ n(r) V_ext(r) dr  (electron-nucleus attraction)"}<br />
-          {"    ≈ −142.56 eV"}<br /><br />
-          {"  E_Hartree = ½ ∫∫ n(r)n(r')/|r−r'| dr dr'"}<br />
-          {"    = ½ Σ_G 4π|ñ(G)|²/|G|²"}<br />
-          {"    ≈ +63.21 eV"}<br /><br />
-          {"  E_xc = ∫ ε_xc[n(r)] × n(r) dr  (PBE functional)"}<br />
-          {"    ≈ −18.45 eV"}<br /><br />
-          {"  E_ion-ion = Ewald sum (Cd²⁺ — Te²⁻ Coulomb)"}<br />
-          {"    = −constant (computed once, never changes)"}<br />
-          {"    ≈ −24.82 eV"}<br /><br />
-          <span style={{ color: T.xc, fontWeight: 700 }}>{"  E₁_total = 28.34 − 142.56 + 63.21 − 18.45 − 24.82 = −94.280 eV"}</span>
+        <div style={{ background: T.xc + "06", border: `1px solid ${T.xc}18`, borderRadius: 10, padding: "12px 16px" }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.xc, marginBottom: 8 }}>5d. Total energy (iteration 1)</div>
+          <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.0 }}>
+            E<sub>total</sub> = E<sub>kin</sub> + E<sub>ext</sub> + E<sub>H</sub> + E<sub>xc</sub> + E<sub>ion-ion</sub>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: `1px solid ${T.border}44` }}>
+              <span style={{ fontFamily: "Georgia, serif" }}>E<sub>kin</sub> = Σ<sub>n<strong>k</strong></sub> f<sub>n<strong>k</strong></sub> ⟨ψ<sub>n<strong>k</strong></sub>| −<sup>∇²</sup>&frasl;<sub>2</sub> |ψ<sub>n<strong>k</strong></sub>⟩</span>
+              <span style={{ color: T.basis, fontWeight: 700 }}>+28.34 eV</span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: `1px solid ${T.border}44` }}>
+              <span style={{ fontFamily: "Georgia, serif" }}>E<sub>ext</sub> = ∫ n(<strong>r</strong>) V<sub>ext</sub>(<strong>r</strong>) d<strong>r</strong></span>
+              <span style={{ color: T.warn, fontWeight: 700 }}>−142.56 eV</span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: `1px solid ${T.border}44` }}>
+              <span style={{ fontFamily: "Georgia, serif" }}>E<sub>H</sub> = <sup>1</sup>&frasl;<sub>2</sub> ∫∫ <sup>n(<strong>r</strong>) n(<strong>r</strong>′)</sup>&frasl;<sub>|<strong>r</strong>−<strong>r</strong>′|</sub> d<strong>r</strong> d<strong>r</strong>′</span>
+              <span style={{ color: T.basis, fontWeight: 700 }}>+63.21 eV</span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: `1px solid ${T.border}44` }}>
+              <span style={{ fontFamily: "Georgia, serif" }}>E<sub>xc</sub> = ∫ ε<sub>xc</sub>[n] · n(<strong>r</strong>) d<strong>r</strong></span>
+              <span style={{ color: T.warn, fontWeight: 700 }}>−18.45 eV</span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: `1px solid ${T.border}44` }}>
+              <span style={{ fontFamily: "Georgia, serif" }}>E<sub>ion-ion</sub> (Ewald, Cd²⁺–Te²⁻)</span>
+              <span style={{ color: T.warn, fontWeight: 700 }}>−24.82 eV</span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, padding: "8px 0", fontWeight: 700, fontFamily: "Georgia, serif" }}>
+              <span style={{ color: T.xc }}>E<sub>total</sub><sup>(1)</sup></span>
+              <span style={{ color: T.xc }}>−94.280 eV</span>
+            </div>
+          </div>
         </div>
       </Card>
 
       {/* ── STEP 6: SCF ITERATIONS 2-N ── */}
       <Card title="Step 6 — SCF Iterations 2→N (Convergence)" color={T.accent}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 8 }}>
-          The density from iteration 1 is mixed with the guess, then we repeat. VASP uses Pulay mixing (AMIX=0.4 default).
+          The density from iteration 1 is mixed with the guess, then we repeat.
         </div>
-        <div style={mathBlock}>
-          <span style={{ color: T.accent, fontWeight: 700 }}>Density mixing (Pulay/Broyden):</span><br />
-          {"  n_in² = 0.4 × n_out¹ + 0.6 × n_in¹   (AMIX = 0.4)"}<br />
-          {"  Why mix? Using n_out¹ directly causes charge sloshing."}<br /><br />
-
-          <span style={{ color: T.accent, fontWeight: 700 }}>Convergence history:</span><br /><br />
-          {"  Iter | E_total (eV)    | ΔE (eV)      | |Δn|         | Converged?"}<br />
-          {"  ─────┼─────────────────┼──────────────┼─────────────┼──────────"}<br />
-          {"   1   | −94.2803        | —            | 0.8200      | no"}<br />
-          {"   2   | −94.6541        | −3.738×10⁻¹  | 0.1840      | no"}<br />
-          {"   3   | −94.7012        | −4.710×10⁻²  | 0.0423      | no"}<br />
-          {"   4   | −94.7089        | −7.700×10⁻³  | 0.0098      | no"}<br />
-          {"   5   | −94.7098        | −9.000×10⁻⁴  | 0.0021      | no"}<br />
-          {"   6   | −94.7099        | −1.000×10⁻⁴  | 4.5×10⁻⁴    | no"}<br />
-          {"   7   | −94.7100        | −1.000×10⁻⁵  | 9.8×10⁻⁵    | no"}<br />
-          {"   8   | −94.7100        | −8.000×10⁻⁷  | 2.1×10⁻⁵    | "}<span style={{ color: T.basis, fontWeight: 700 }}>{"YES (ΔE < EDIFF=10⁻⁶)"}</span><br /><br />
-
-          <span style={{ color: T.basis, fontWeight: 700 }}>Converged total energy: E = −94.7100 eV per unit cell</span><br />
-          {"  = −94.7100 / 2 = −47.355 eV per atom"}<br /><br />
-          {"  8 SCF iterations × 60 k-points × 1233 PW × 16 bands"}<br />
-          {"  ≈ 9.5 million eigenvalue operations"}<br />
-          {"  Wall time: ~45 seconds on 4 cores"}
+        <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center", background: T.accent + "08", padding: "12px 16px", borderRadius: 10, color: T.ink, marginBottom: 12 }}>
+          n<sub>in</sub><sup>(2)</sup> = 0.4 × n<sub>out</sub><sup>(1)</sup> + 0.6 × n<sub>in</sub><sup>(1)</sup> &nbsp;&nbsp; (Pulay mixing, AMIX = 0.4)
+        </div>
+        <div style={{ overflowX: "auto", marginBottom: 14 }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11, fontFamily: "'Courier New', monospace" }}>
+            <thead>
+              <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                {["Iter", "E_total (eV)", "ΔE (eV)", "|Δn|", ""].map(h => (
+                  <th key={h} style={{ padding: "6px 8px", textAlign: h === "" ? "center" : "right", color: T.muted, fontWeight: 700 }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { i: 1, e: "−94.2803", de: "—", dn: "0.8200", ok: false },
+                { i: 2, e: "−94.6541", de: "−3.738×10⁻¹", dn: "0.1840", ok: false },
+                { i: 3, e: "−94.7012", de: "−4.710×10⁻²", dn: "0.0423", ok: false },
+                { i: 4, e: "−94.7089", de: "−7.700×10⁻³", dn: "0.0098", ok: false },
+                { i: 5, e: "−94.7098", de: "−9.000×10⁻⁴", dn: "0.0021", ok: false },
+                { i: 6, e: "−94.7099", de: "−1.000×10⁻⁴", dn: "4.5×10⁻⁴", ok: false },
+                { i: 7, e: "−94.7100", de: "−1.000×10⁻⁵", dn: "9.8×10⁻⁵", ok: false },
+                { i: 8, e: "−94.7100", de: "−8.000×10⁻⁷", dn: "2.1×10⁻⁵", ok: true },
+              ].map(row => (
+                <tr key={row.i} style={{ borderBottom: `1px solid ${T.border}`, background: row.ok ? T.basis + "08" : "transparent" }}>
+                  <td style={{ padding: "5px 8px", textAlign: "right", fontWeight: 700 }}>{row.i}</td>
+                  <td style={{ padding: "5px 8px", textAlign: "right" }}>{row.e}</td>
+                  <td style={{ padding: "5px 8px", textAlign: "right" }}>{row.de}</td>
+                  <td style={{ padding: "5px 8px", textAlign: "right" }}>{row.dn}</td>
+                  <td style={{ padding: "5px 8px", textAlign: "center", color: row.ok ? T.basis : T.muted, fontWeight: 700 }}>{row.ok ? "✓ converged" : ""}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+          <span style={{ fontFamily: "Georgia, serif", fontSize: 14, color: T.basis, fontWeight: 700 }}>Converged: E = −94.7100 eV</span> per unit cell<br />
+          <span style={{ fontFamily: "Georgia, serif" }}>= <sup>−94.7100</sup>&frasl;<sub>2</sub> = −47.355 eV per atom</span><br />
+          Wall time: ~45 seconds on 4 cores
         </div>
       </Card>
 
@@ -2139,56 +2228,75 @@ function SecCdTeWalkthrough() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
           <div style={{ background: T.basis + "08", border: `1px solid ${T.basis}22`, borderRadius: 10, padding: "12px 14px" }}>
             <div style={{ fontSize: 12, fontWeight: 700, color: T.basis, marginBottom: 6 }}>Energies</div>
-            <div style={mathBlock}>
-              {"E_total = −94.710 eV"}<br />
-              {"E/atom = −47.355 eV"}<br />
-              {"E_kinetic = +28.89 eV"}<br />
-              {"E_Hartree = +62.44 eV"}<br />
-              {"E_xc(PBE) = −18.67 eV"}<br />
-              {"E_Fermi = −0.93 eV"}
+            <div style={{ display: "flex", flexDirection: "column", gap: 2, fontFamily: "Georgia, serif", fontSize: 12 }}>
+              {[
+                { l: "E_total", v: "−94.710 eV" },
+                { l: "E / atom", v: "−47.355 eV" },
+                { l: "E_kin", v: "+28.89 eV" },
+                { l: "E_H", v: "+62.44 eV" },
+                { l: "E_xc (PBE)", v: "−18.67 eV" },
+                { l: "E_Fermi", v: "−0.93 eV" },
+              ].map(r => (
+                <div key={r.l} style={{ display: "flex", justifyContent: "space-between", padding: "2px 0", borderBottom: `1px solid ${T.border}33` }}>
+                  <span style={{ color: T.muted }}><span dangerouslySetInnerHTML={{ __html: r.l.replace(/_(\w+)/g, '<sub>$1</sub>') }} /></span>
+                  <span style={{ fontWeight: 600 }}>{r.v}</span>
+                </div>
+              ))}
             </div>
           </div>
           <div style={{ background: T.eqn + "08", border: `1px solid ${T.eqn}22`, borderRadius: 10, padding: "12px 14px" }}>
             <div style={{ fontSize: 12, fontWeight: 700, color: T.eqn, marginBottom: 6 }}>Band Structure at Γ</div>
-            <div style={mathBlock}>
-              {"Band 1 (Te 5s):  −9.61 eV"}<br />
-              {"Bands 2-6 (Cd 4d): −7.8 to −8.1 eV"}<br />
-              {"Bands 7-9 (VBM):  −1.12 eV"}<br />
-              {"── gap = 0.58 eV (PBE) ──"}<br />
-              {"Band 10 (CBM):  −0.54 eV"}<br /><br />
-              {"Expt gap: 1.51 eV"}<br />
-              <span style={{ color: T.warn }}>{"PBE underestimates by 62%!"}</span>
+            <div style={{ fontFamily: "'Courier New', monospace", fontSize: 11, lineHeight: 1.8 }}>
+              Band 1 (Te 5<em>s</em>): &nbsp; −9.61 eV<br />
+              Bands 2–6 (Cd 4<em>d</em>): −7.8 to −8.1 eV<br />
+              Bands 7–9 (VBM): &nbsp; −1.12 eV<br />
+              <span style={{ color: T.warn }}>━━ gap = 0.58 eV (PBE) ━━</span><br />
+              Band 10 (CBM): &nbsp; −0.54 eV<br /><br />
+              Expt gap: 1.51 eV<br />
+              <span style={{ color: T.warn, fontWeight: 700 }}>PBE underestimates by 62%</span>
             </div>
           </div>
         </div>
         <div style={{ background: T.main + "08", border: `1px solid ${T.main}22`, borderRadius: 10, padding: "12px 14px" }}>
           <div style={{ fontSize: 12, fontWeight: 700, color: T.main, marginBottom: 6 }}>Formation Energy</div>
-          <div style={mathBlock}>
-            {"  ΔH_f(CdTe) = E(CdTe) − E(Cd_bulk) − E(Te_bulk)"}<br />
-            {"  = −94.710 − (−46.380) − (−47.780)"}<br />
-            {"  = −94.710 + 46.380 + 47.780"}<br />
-            {"  = "}<span style={{ color: T.main, fontWeight: 700 }}>{"−0.550 eV/f.u. = −53.1 kJ/mol"}</span><br /><br />
-            {"  Experiment: −0.52 eV (−50.2 kJ/mol)"}<br />
-            {"  Error: 6% — excellent for PBE!"}
+          <div style={{ fontFamily: "Georgia, serif", fontSize: 13, lineHeight: 2.2, color: T.ink }}>
+            ΔH<sub>f</sub>(CdTe) = E(CdTe) − E(Cd<sub>bulk</sub>) − E(Te<sub>bulk</sub>)<br />
+            &nbsp;&nbsp;= −94.710 − (−46.380) − (−47.780)<br />
+            &nbsp;&nbsp;= <strong style={{ color: T.main }}>−0.550 eV/f.u.</strong> = −53.1 kJ/mol<br />
+            Experiment: −0.52 eV (−50.2 kJ/mol) → <strong>6% error</strong>
           </div>
         </div>
       </Card>
 
       {/* ── COMPUTATIONAL COST ── */}
       <Card title="Computational Cost Breakdown" color={T.accent}>
-        <div style={mathBlock}>
-          <span style={{ color: T.accent, fontWeight: 700 }}>Per SCF iteration:</span><br />
-          {"  60 k-points × 16 bands × 1233 PW"}<br />
-          {"  = 1,184,160 wavefunction coefficients to optimize"}<br /><br />
-          {"  FFTs: 60 k × 16 bands × 2 (fwd+back) = 1,920 FFTs"}<br />
-          {"  Each FFT: 48³ × log(48³) = 110,592 × 16.8 ≈ 1.9M operations"}<br />
-          {"  Total FFT cost: 1,920 × 1.9M = 3.6 billion operations"}<br /><br />
-          {"  Davidson: ~5 iterations × 1233² per k-point = 91M per k × 60 = 5.5B"}<br /><br />
-          <span style={{ color: T.accent, fontWeight: 700 }}>Total per SCF: ~9 billion floating-point operations</span><br />
-          {"  × 8 SCF steps = ~72 billion operations total"}<br /><br />
-          {"  Modern CPU: ~100 GFLOPS → "}<span style={{ color: T.basis, fontWeight: 700 }}>{"~45 seconds on 4 cores"}</span><br /><br />
-          {"  Without PAW (all 100 electrons): ENCUT > 5000 eV needed"}<br />
-          {"  N_PW ≈ 200,000 → matrix 200,000² → "}<span style={{ color: T.warn, fontWeight: 700 }}>{"months, not seconds"}</span>
+        <div style={{ display: "flex", flexDirection: "column", gap: 3, marginBottom: 14 }}>
+          {[
+            { l: "Wavefunction coefficients", v: "60 k × 16 bands × 1,233 PW = 1,184,160" },
+            { l: "FFTs per SCF step", v: "60 × 16 × 2 = 1,920" },
+            { l: "FFT cost each", v: "48³ × log₂(48³) ≈ 1.9 × 10⁶" },
+            { l: "Total FFT cost", v: "1,920 × 1.9M = 3.6 × 10⁹" },
+            { l: "Davidson cost", v: "~5 iter × 1,233² × 60 k = 5.5 × 10⁹" },
+            { l: "Total per SCF", v: "~9 × 10⁹ FLOP" },
+            { l: "× 8 SCF steps", v: "~72 × 10⁹ FLOP total" },
+          ].map(r => (
+            <div key={r.l} style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
+              <span style={{ color: T.muted }}>{r.l}</span>
+              <span style={{ fontFamily: "Georgia, serif", fontWeight: 600 }}>{r.v}</span>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: "flex", gap: 10 }}>
+          <div style={{ flex: 1, background: T.basis + "10", borderRadius: 8, padding: 10, textAlign: "center" }}>
+            <div style={{ fontSize: 10, color: T.muted }}>With PAW (18 e⁻)</div>
+            <div style={{ fontSize: 16, fontWeight: 800, color: T.basis }}>~45 sec</div>
+            <div style={{ fontSize: 10, color: T.muted }}>on 4 cores</div>
+          </div>
+          <div style={{ flex: 1, background: T.warn + "10", borderRadius: 8, padding: 10, textAlign: "center" }}>
+            <div style={{ fontSize: 10, color: T.muted }}>Without PAW (100 e⁻)</div>
+            <div style={{ fontSize: 16, fontWeight: 800, color: T.warn }}>~months</div>
+            <div style={{ fontSize: 10, color: T.muted }}>ENCUT {">"} 5000, N<sub>PW</sub> ≈ 200,000</div>
+          </div>
         </div>
       </Card>
     </div>
