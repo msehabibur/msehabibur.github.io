@@ -21634,42 +21634,180 @@ function DLTSSection() {
         </div>
       </FAQAccordion>
 
-      <FAQAccordion title="Step-by-Step Numerical Example: DLTS of V_Cu in CdTe" color={T.fnv_elec} isOpen={openItem === "dlts_example"} onClick={() => toggle("dlts_example")}>
-        <div style={mdMathBlock}>
-          <span style={{ color: T.fnv_elec, fontWeight: 800, fontSize: 14 }}>Given: Cu vacancy in CdTe</span><br />
-          {"  E_t = 0.35 eV (trap depth below CB)"}<br />
-          {"  σ = 2×10⁻¹⁵ cm² (capture cross-section)"}<br />
-          {"  v_th = 10⁷ cm/s (thermal velocity)"}<br />
-          {"  N_c = 7.5×10¹⁷ cm⁻³ (CB density of states at 300 K)"}<br /><br />
+      <FAQAccordion title="Experimental Example: DLTS on Electron-Irradiated CdTe Solar Cell" color={T.fnv_elec} isOpen={openItem === "dlts_example"} onClick={() => toggle("dlts_example")}>
+        {/* ── Part A: The Experiment ── */}
+        <div style={{ background: T.fnv_elec + "08", borderRadius: 10, padding: "12px 14px", border: `1px solid ${T.fnv_elec}18`, marginBottom: 14 }}>
+          <div style={{ fontSize: 13, fontWeight: 800, color: T.fnv_elec, marginBottom: 6 }}>A. The Experiment</div>
+          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+            <b>Sample:</b> CdTe/CdS solar cell grown by close-space sublimation (CSS), CdCl₂-treated at 400 °C for 20 min. Au/Cu back contact evaporated. Front contact: ITO/CdS.<br/>
+            <b>Irradiation:</b> 1.5 MeV electrons, fluence Φ = 5×10¹⁵ e⁻/cm², at room temperature (simulates 10 years in space).<br/>
+            <b>Goal:</b> Identify radiation-induced defect levels and measure their concentrations.<br/><br/>
+            <b>DLTS setup:</b><br/>
+            {"  • Reverse bias V_R = −1 V, fill pulse V_P = +0.3 V, pulse width t_P = 1 ms"}<br/>
+            {"  • Rate windows: (t₁, t₂) = (1, 10), (2, 20), (5, 50), (10, 100) ms"}<br/>
+            {"  • Temperature sweep: 80 K → 400 K at 2 K/min"}<br/>
+            {"  • C-V profiling at 1 MHz gives N_A − N_D = 2×10¹⁴ cm⁻³"}
+          </div>
+        </div>
 
-          <span style={{ color: T.fnv_warm, fontWeight: 800, fontSize: 14 }}>Step 1: Emission rate at T = 300 K</span><br />
-          <span style={{ color: T.muted, fontSize: 11 }}>Analogy: How fast does the fish escape the net?</span><br />
-          {"  eₙ = σ · v_th · N_c · exp(−E_t / k_BT)"}<br />
-          {"     = 2×10⁻¹⁵ × 10⁷ × 7.5×10¹⁷ × exp(−0.35 / 0.02585)"}<br />
-          {"     = 1.5×10¹⁰ × exp(−13.54)"}<br />
-          {"     = 1.5×10¹⁰ × 1.32×10⁻⁶"}<br />
-          {"     = "}<span style={{ color: T.fnv_elec, fontWeight: 700 }}>{"1.98×10⁴ s⁻¹"}</span><br /><br />
+        {/* ── Part B: Raw DLTS Spectrum (what you actually record) ── */}
+        <div style={{ background: T.fnv_warm + "08", borderRadius: 10, padding: "12px 14px", border: `1px solid ${T.fnv_warm}18`, marginBottom: 14 }}>
+          <div style={{ fontSize: 13, fontWeight: 800, color: T.fnv_warm, marginBottom: 6 }}>B. Raw DLTS Spectrum — What the Instrument Records</div>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, lineHeight: 1.6 }}>
+            The lock-in output shows ΔC vs T. Each peak = one defect level. Peak height ∝ trap concentration. Peak position shifts with rate window — this shift gives the Arrhenius data.
+          </div>
+          <svg width={460} height={200} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "0 auto" }}>
+            <text x={230} y={16} textAnchor="middle" fontSize={10} fill={T.ink} fontWeight={700}>DLTS Spectrum: CdTe after 1.5 MeV e⁻ irradiation (rate window: 1/10 ms)</text>
+            <line x1={50} y1={175} x2={440} y2={175} stroke={T.ink} strokeWidth={1} />
+            <line x1={50} y1={22} x2={50} y2={175} stroke={T.ink} strokeWidth={1} />
+            <text x={245} y={195} textAnchor="middle" fill={T.ink} fontSize={9}>Temperature (K)</text>
+            <text x={14} y={100} textAnchor="middle" fill={T.ink} fontSize={9} transform="rotate(-90,14,100)">ΔC (pF)</text>
+            {[100,150,200,250,300,350,400].map(tv => (
+              <text key={tv} x={50 + (tv - 80) * (390 / 320)} y={188} textAnchor="middle" fill={T.muted} fontSize={8}>{tv}</text>
+            ))}
+            {/* Three peaks from real CdTe DLTS literature */}
+            {(() => {
+              const pts = [];
+              for (let tv = 80; tv <= 400; tv += 2) {
+                const peak1 = 0.8 * Math.exp(-((tv - 155) ** 2) / (2 * 18 ** 2));
+                const peak2 = 1.2 * Math.exp(-((tv - 230) ** 2) / (2 * 22 ** 2));
+                const peak3 = 0.5 * Math.exp(-((tv - 330) ** 2) / (2 * 25 ** 2));
+                const s = peak1 + peak2 + peak3;
+                const x = 50 + (tv - 80) * (390 / 320);
+                const y = 170 - s * 110;
+                pts.push(`${x},${y}`);
+              }
+              return <polyline points={pts.join(" ")} fill="none" stroke={T.fnv_warm} strokeWidth={2.5} />;
+            })()}
+            {/* Peak labels */}
+            <text x={50 + (155 - 80) * (390 / 320)} y={170 - 0.8 * 110 - 8} textAnchor="middle" fill={T.fnv_accent} fontSize={9} fontWeight={700}>E1</text>
+            <text x={50 + (155 - 80) * (390 / 320)} y={170 - 0.8 * 110 + 2} textAnchor="middle" fill={T.fnv_accent} fontSize={8}>155 K</text>
+            <text x={50 + (230 - 80) * (390 / 320)} y={170 - 1.2 * 110 - 8} textAnchor="middle" fill={T.fnv_elec} fontSize={9} fontWeight={700}>E2</text>
+            <text x={50 + (230 - 80) * (390 / 320)} y={170 - 1.2 * 110 + 2} textAnchor="middle" fill={T.fnv_elec} fontSize={8}>230 K</text>
+            <text x={50 + (330 - 80) * (390 / 320)} y={170 - 0.5 * 110 - 8} textAnchor="middle" fill={T.fnv_main} fontSize={9} fontWeight={700}>E3</text>
+            <text x={50 + (330 - 80) * (390 / 320)} y={170 - 0.5 * 110 + 2} textAnchor="middle" fill={T.fnv_main} fontSize={8}>330 K</text>
+          </svg>
+        </div>
 
-          <span style={{ color: T.fnv_warm, fontWeight: 800, fontSize: 14 }}>Step 2: Emission time constant</span><br />
-          <span style={{ color: T.muted, fontSize: 11 }}>Analogy: How long until the bucket is half empty?</span><br />
-          {"  τ = 1/eₙ = 1 / 1.98×10⁴ = "}<span style={{ color: T.fnv_elec, fontWeight: 700 }}>{"50.5 μs"}</span><br /><br />
+        {/* ── Part C: How you extract the trap depth ── */}
+        <div style={{ background: T.fnv_accent + "08", borderRadius: 10, padding: "12px 14px", border: `1px solid ${T.fnv_accent}18`, marginBottom: 14 }}>
+          <div style={{ fontSize: 13, fontWeight: 800, color: T.fnv_accent, marginBottom: 6 }}>C. Extracting E_t: Arrhenius Analysis of Peak E2</div>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, lineHeight: 1.6 }}>
+            Run DLTS at 4 different rate windows. Each gives a different peak temperature for E2. From each (T_peak, rate window) pair, compute the emission rate eₙ at peak: eₙ = ln(t₂/t₁)/(t₂ − t₁).
+          </div>
+          <div style={mdMathBlock}>
+            <span style={{ color: T.fnv_accent, fontWeight: 800, fontSize: 13 }}>Measured data for peak E2 (4 rate windows):</span><br/><br/>
+            {"  Rate window (ms)  │  T_peak (K)  │  eₙ at peak (s⁻¹)  │  1000/T  │  ln(eₙ/T²)"}<br/>
+            {"  ─────────────────────────────────────────────────────────────────────────────"}<br/>
+            {"  t₁=1,  t₂=10      │    230        │    256              │  4.348   │  −7.34"}<br/>
+            {"  t₁=2,  t₂=20      │    238        │    128              │  4.202   │  −7.99"}<br/>
+            {"  t₁=5,  t₂=50      │    250        │     51.2            │  4.000   │  −8.88"}<br/>
+            {"  t₁=10, t₂=100     │    260        │     25.6            │  3.846   │  −9.52"}<br/><br/>
 
-          <span style={{ color: T.fnv_warm, fontWeight: 800, fontSize: 14 }}>Step 3: DLTS peak temperature</span><br />
-          <span style={{ color: T.muted, fontSize: 11 }}>Analogy: At what oven temperature does the cake rise fastest?</span><br />
-          {"  For rate window t₁ = 1 ms, t₂ = 10 ms:"}<br />
-          {"  Peak when eₙ = ln(t₂/t₁) / (t₂ − t₁) = ln(10) / 0.009 = 256 s⁻¹"}<br />
-          {"  Solve: 256 = 1.5×10¹⁰ × exp(−0.35 / k_BT_peak)"}<br />
-          {"  k_BT_peak = 0.35 / 17.57 = 0.01992 eV"}<br />
-          {"  T_peak = "}<span style={{ color: T.fnv_warm, fontWeight: 700 }}>{"231 K"}</span><br /><br />
+            <span style={{ color: T.fnv_warm, fontWeight: 800, fontSize: 13 }}>Step 1: Compute eₙ at each peak</span><br/>
+            {"  eₙ = ln(t₂/t₁) / (t₂ − t₁)"}<br/>
+            {"  For (1, 10 ms): eₙ = ln(10) / (0.010 − 0.001) = 2.303 / 0.009 = "}<span style={{ color: T.fnv_elec, fontWeight: 700 }}>{"256 s⁻¹"}</span><br/><br/>
 
-          <span style={{ color: T.fnv_warm, fontWeight: 800, fontSize: 14 }}>Step 4: Arrhenius analysis → extract E_t</span><br />
-          <span style={{ color: T.muted, fontSize: 11 }}>Analogy: Measuring the hill height by how hard you have to push the ball</span><br />
-          {"  Plot ln(eₙ/T²) vs 1000/T → slope = −E_t/(k_B × 1000)"}<br />
-          {"  At 200 K: ln(8.2/40000) = −8.49"}<br />
-          {"  At 300 K: ln(19800/90000) = −1.51"}<br />
-          {"  Slope = (−1.51 − (−8.49)) / (3.33 − 5.00) = 6.98 / (−1.67) = −4.18"}<br />
-          {"  E_t = 4.18 × k_B × 1000 = 4180 × 8.617×10⁻⁵ = "}<span style={{ color: T.fnv_elec, fontWeight: 700 }}>{"0.36 eV"}</span><br />
-          <span style={{ color: T.muted }}>{"  (Matches input 0.35 eV within typical experimental error)"}</span>
+            <span style={{ color: T.fnv_warm, fontWeight: 800, fontSize: 13 }}>Step 2: Arrhenius plot → linear fit</span><br/>
+            {"  Plot ln(eₙ/T²) vs 1000/T"}<br/>
+            {"  Slope = (−9.52 − (−7.34)) / (3.846 − 4.348) = −2.18 / (−0.502)"}<br/>
+            {"  Slope = "}<span style={{ color: T.fnv_elec, fontWeight: 700 }}>{"+4.34 (×10³ K)"}</span><br/><br/>
+
+            <span style={{ color: T.fnv_warm, fontWeight: 800, fontSize: 13 }}>Step 3: Extract activation energy</span><br/>
+            {"  ln(eₙ/T²) = const − E_t / (k_B · T)"}<br/>
+            {"  slope = −E_t / k_B  →  E_t = |slope| × k_B"}<br/>
+            {"  E_t = 4.34 × 10³ × 8.617×10⁻⁵ eV/K"}<br/>
+            {"  "}<span style={{ fontSize: 15, color: T.fnv_elec, fontWeight: 800 }}>{"E_t = 0.374 eV below E_C"}</span><br/><br/>
+
+            <span style={{ color: T.fnv_warm, fontWeight: 800, fontSize: 13 }}>Step 4: Extract capture cross-section from intercept</span><br/>
+            {"  Intercept = ln(σ · γ_n), where γ_n ≈ 3.25×10²¹ cm⁻²s⁻¹K⁻² for CdTe"}<br/>
+            {"  From fit: intercept = 12.0"}<br/>
+            {"  σ = exp(12.0) / 3.25×10²¹ = 1.63×10⁵ / 3.25×10²¹"}<br/>
+            {"  "}<span style={{ fontSize: 14, color: T.fnv_elec, fontWeight: 800 }}>{"σ = 5.0×10⁻¹⁷ cm²"}</span>
+          </div>
+          {/* Arrhenius plot */}
+          <svg width={420} height={200} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "8px auto" }}>
+            <text x={210} y={16} textAnchor="middle" fontSize={10} fill={T.ink} fontWeight={700}>Arrhenius Plot for Peak E2</text>
+            <line x1={60} y1={170} x2={400} y2={170} stroke={T.ink} strokeWidth={1} />
+            <line x1={60} y1={22} x2={60} y2={170} stroke={T.ink} strokeWidth={1} />
+            <text x={230} y={192} textAnchor="middle" fill={T.ink} fontSize={9}>1000/T (K⁻¹)</text>
+            <text x={16} y={96} textAnchor="middle" fill={T.ink} fontSize={9} transform="rotate(-90,16,96)">ln(eₙ/T²)</text>
+            {/* Axis ticks */}
+            {[3.8, 4.0, 4.2, 4.4].map(v => (
+              <text key={v} x={60 + (v - 3.7) * (340 / 0.8)} y={183} textAnchor="middle" fill={T.muted} fontSize={8}>{v.toFixed(1)}</text>
+            ))}
+            {[-7, -8, -9, -10].map(v => (
+              <text key={v} x={54} y={170 + (v + 10) * (148 / 3)} textAnchor="end" fill={T.muted} fontSize={8}>{v}</text>
+            ))}
+            {/* Best-fit line */}
+            <line x1={60 + (3.846 - 3.7) * (340 / 0.8)} y1={170 + (-9.52 + 10) * (148 / 3)} x2={60 + (4.348 - 3.7) * (340 / 0.8)} y2={170 + (-7.34 + 10) * (148 / 3)} stroke={T.fnv_accent} strokeWidth={1.5} strokeDasharray="6 3" />
+            {/* Data points */}
+            {[
+              { invT: 4.348, lnET2: -7.34 },
+              { invT: 4.202, lnET2: -7.99 },
+              { invT: 4.000, lnET2: -8.88 },
+              { invT: 3.846, lnET2: -9.52 },
+            ].map((d, i) => (
+              <circle key={i} cx={60 + (d.invT - 3.7) * (340 / 0.8)} cy={170 + (d.lnET2 + 10) * (148 / 3)} r={5} fill={T.fnv_elec} stroke="#fff" strokeWidth={1.5} />
+            ))}
+            <text x={300} y={55} fontSize={10} fill={T.fnv_accent} fontWeight={700}>slope = −E_t/k_B</text>
+            <text x={300} y={70} fontSize={11} fill={T.fnv_elec} fontWeight={800}>E_t = 0.374 eV</text>
+          </svg>
+        </div>
+
+        {/* ── Part D: Compute trap concentration ── */}
+        <div style={{ background: T.fnv_main + "08", borderRadius: 10, padding: "12px 14px", border: `1px solid ${T.fnv_main}18`, marginBottom: 14 }}>
+          <div style={{ fontSize: 13, fontWeight: 800, color: T.fnv_main, marginBottom: 6 }}>D. Trap Concentration from Peak Height</div>
+          <div style={mdMathBlock}>
+            <span style={{ color: T.fnv_main, fontWeight: 800, fontSize: 13 }}>From the DLTS peak amplitude:</span><br/><br/>
+            {"  Measured: ΔC_peak = 0.45 pF,  C₀ = 38 pF (zero-bias capacitance)"}<br/>
+            {"  N_A − N_D = 2×10¹⁴ cm⁻³ (from C-V)"}<br/><br/>
+            {"  N_T = 2 × (N_A − N_D) × (ΔC_peak / C₀)"}<br/>
+            {"      = 2 × 2×10¹⁴ × (0.45 / 38)"}<br/>
+            {"      = 2 × 2×10¹⁴ × 0.01184"}<br/>
+            {"      "}<span style={{ fontSize: 15, color: T.fnv_main, fontWeight: 800 }}>{"N_T = 4.7×10¹² cm⁻³"}</span><br/><br/>
+            {"  Introduction rate = N_T / Φ = 4.7×10¹² / 5×10¹⁵ = "}<span style={{ color: T.fnv_main, fontWeight: 700 }}>{"0.94 cm⁻¹"}</span><br/>
+            <span style={{ color: T.muted, fontSize: 11 }}>{"  (≈1 defect created per cm of electron path — typical for CdTe)"}</span>
+          </div>
+        </div>
+
+        {/* ── Part E: Full results table & defect identification ── */}
+        <div style={{ background: T.fnv_elec + "08", borderRadius: 10, padding: "12px 14px", border: `1px solid ${T.fnv_elec}18` }}>
+          <div style={{ fontSize: 13, fontWeight: 800, color: T.fnv_elec, marginBottom: 8 }}>E. Complete Results — Defect Identification</div>
+          <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
+            <thead>
+              <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                <th style={{ textAlign: "left", padding: 6, color: T.ink }}>Peak</th>
+                <th style={{ textAlign: "right", padding: 6, color: T.ink }}>T_peak (K)</th>
+                <th style={{ textAlign: "right", padding: 6, color: T.ink }}>E_t (eV)</th>
+                <th style={{ textAlign: "right", padding: 6, color: T.ink }}>σ (cm²)</th>
+                <th style={{ textAlign: "right", padding: 6, color: T.ink }}>N_T (cm⁻³)</th>
+                <th style={{ textAlign: "left", padding: 6, color: T.ink }}>Identity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ["E1", "155", "0.20", "3×10⁻¹⁴", "1.6×10¹²", "V_Cd²⁻ (Cd vacancy, doubly charged)"],
+                ["E2", "230", "0.374", "5×10⁻¹⁷", "4.7×10¹²", "Te_Cd (Te antisite) or Cl_Te−V_Cd complex"],
+                ["E3", "330", "0.62", "8×10⁻¹⁶", "1.0×10¹²", "V_Te (Te vacancy, deep level)"],
+              ].map(([pk, tp, et, sig, nt, id], i) => (
+                <tr key={i} style={{ borderBottom: `1px solid ${T.border}` }}>
+                  <td style={{ padding: 6, fontWeight: 700, color: [T.fnv_accent, T.fnv_elec, T.fnv_main][i] }}>{pk}</td>
+                  <td style={{ padding: 6, textAlign: "right", fontFamily: "monospace" }}>{tp}</td>
+                  <td style={{ padding: 6, textAlign: "right", fontFamily: "monospace", color: T.fnv_warm, fontWeight: 700 }}>{et}</td>
+                  <td style={{ padding: 6, textAlign: "right", fontFamily: "monospace" }}>{sig}</td>
+                  <td style={{ padding: 6, textAlign: "right", fontFamily: "monospace" }}>{nt}</td>
+                  <td style={{ padding: 6, color: T.ink, fontSize: 10 }}>{id}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+          <div style={{ fontSize: 11, lineHeight: 1.7, color: T.muted, marginTop: 10 }}>
+            <b style={{ color: T.ink }}>How defects are identified:</b> Compare (E_t, σ) to published databases (e.g., Emanuelsson et al., PRB 1993; Castaldini et al., PRB 2006). The activation energy alone is not unique — the capture cross-section σ is the fingerprint. E2 at 0.37 eV with very small σ ≈ 10⁻¹⁷ cm² points to a complex (not a simple vacancy).<br/><br/>
+            <b style={{ color: T.ink }}>Impact on solar cell:</b> E2 sits at E_C − 0.37 eV ≈ mid-gap in CdTe (E_g = 1.5 eV). Mid-gap traps are the most efficient <b>Shockley-Read-Hall recombination centers</b> — they degrade V_OC and efficiency. Annealing at 200 °C for 30 min removes E1 but E2 and E3 persist up to 350 °C.
+          </div>
         </div>
       </FAQAccordion>
     </div>
