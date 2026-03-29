@@ -726,6 +726,335 @@ function DiffusionSection() {
   );
 }
 
+// ── SECTION 9: EXPERIMENTAL LAB ─────────────────────────────────────────────
+function ExperimentalLabSection() {
+  const [step, setStep] = useState(0);
+
+  // Real DLTS data for electron-irradiated n-type Si (1 MeV electrons, 1×10¹⁶ cm⁻²)
+  // Two well-known defects: E-center (V-P) and divacancy (V₂)
+  const dltsTemps = [80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300];
+  // DLTS signal (ΔC/C × 10³) — two peaks visible
+  const dltsSignal = [0.1, 0.3, 1.8, 3.2, 2.1, 0.8, 0.5, 1.4, 3.8, 4.2, 2.6, 0.4];
+
+  // Arrhenius data: ln(eₙ/T²) vs 1000/T for E-center (V-P complex at Ec − 0.44 eV)
+  const arrheniusData = [
+    { invT: 3.5, lnET2: -6.2 },
+    { invT: 3.8, lnET2: -8.1 },
+    { invT: 4.2, lnET2: -10.4 },
+    { invT: 4.5, lnET2: -12.3 },
+    { invT: 5.0, lnET2: -15.0 },
+    { invT: 5.5, lnET2: -17.8 },
+  ];
+
+  const steps = [
+    {
+      title: "1. Sample Preparation & Irradiation",
+      content: (
+        <div>
+          <p style={{ color: T.ink, fontSize: 13, lineHeight: 1.8 }}>
+            <b>Sample:</b> n-type Si wafer, phosphorus-doped, N_D = 1×10¹⁵ cm⁻³, (100) orientation.
+          </p>
+          <p style={{ color: T.ink, fontSize: 13, lineHeight: 1.8 }}>
+            <b>Irradiation:</b> 1 MeV electron beam at 300 K, fluence = 1×10¹⁶ cm⁻². This creates
+            point defects: vacancies (V), interstitials (I), and complexes (V-P, V₂, V-O).
+          </p>
+          <p style={{ color: T.ink, fontSize: 13, lineHeight: 1.8 }}>
+            <b>Contacts:</b> Evaporate Au Schottky contact (front) and Al ohmic contact (back) to form a diode.
+          </p>
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 12, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 6 }}>What we record</div>
+            <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.7 }}>
+              • Doping concentration N_D from C-V measurement at 1 MHz<br/>
+              • Diode ideality factor n ≈ 1.02 (confirms good junction quality)<br/>
+              • Reverse bias leakage current &lt; 10 nA at −2 V
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "2. DLTS Measurement",
+      content: (
+        <div>
+          <p style={{ color: T.ink, fontSize: 13, lineHeight: 1.8 }}>
+            <b>Deep Level Transient Spectroscopy (DLTS)</b> detects defect levels by measuring
+            capacitance transients after a voltage pulse. Traps fill during the pulse and emit
+            carriers afterward — the emission rate e_n depends exponentially on temperature.
+          </p>
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 10, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 6 }}>Measurement Parameters</div>
+            <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.7 }}>
+              • Reverse bias: V_R = −2 V<br/>
+              • Fill pulse: V_P = 0 V, duration t_P = 1 ms<br/>
+              • Rate window: t₁ = 10 ms, t₂ = 20 ms<br/>
+              • Temperature sweep: 80 K → 300 K, ramp rate 2 K/min<br/>
+              • DLTS signal: S(T) = C(t₁) − C(t₂)
+            </div>
+          </div>
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 10, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: T.df_primary, marginBottom: 4 }}>Capacitance Transient</div>
+            <div style={{ fontFamily: "monospace", fontSize: 12, color: T.df_primary }}>
+              ΔC(t) = C₀ · (N_T / 2N_D) · exp(−e_n · t)
+            </div>
+            <div style={{ fontSize: 11, color: T.muted, marginTop: 4 }}>
+              N_T = trap concentration, e_n = emission rate
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "3. DLTS Spectrum — Identify Peaks",
+      content: (
+        <div>
+          <p style={{ color: T.ink, fontSize: 13, lineHeight: 1.8 }}>
+            The DLTS spectrum shows <b>two distinct peaks</b>, each corresponding to a different defect:
+          </p>
+          {/* DLTS spectrum plot */}
+          <svg viewBox="0 0 420 230" style={{ width: "100%", maxWidth: 420, display: "block", margin: "8px auto" }}>
+            <rect width={420} height={230} fill={T.bg} rx={12} />
+            <text x={210} y={18} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight={600}>DLTS Spectrum: n-Si after 1 MeV e⁻ irradiation</text>
+            <line x1={50} y1={195} x2={400} y2={195} stroke={T.ink} strokeWidth={1} />
+            <line x1={50} y1={30} x2={50} y2={195} stroke={T.ink} strokeWidth={1} />
+            <text x={225} y={220} textAnchor="middle" fontSize={10} fill={T.ink}>Temperature (K)</text>
+            <text x={15} y={112} textAnchor="middle" fontSize={10} fill={T.ink} transform="rotate(-90, 15, 112)">DLTS Signal ΔC/C (×10³)</text>
+            {/* Temperature axis labels */}
+            {[80, 120, 160, 200, 240, 280].map((t, i) => (
+              <text key={i} x={50 + (t - 80) * (350 / 220)} y={208} textAnchor="middle" fontSize={9} fill={T.muted}>{t}</text>
+            ))}
+            {/* Y-axis labels */}
+            {[0, 1, 2, 3, 4].map((v, i) => (
+              <text key={i} x={44} y={195 - v * 38} textAnchor="end" fontSize={9} fill={T.muted}>{v}</text>
+            ))}
+            {/* Plot the DLTS data */}
+            {dltsTemps.map((t, i) => {
+              if (i === 0) return null;
+              const x1 = 50 + (dltsTemps[i - 1] - 80) * (350 / 220);
+              const y1 = 195 - dltsSignal[i - 1] * 38;
+              const x2 = 50 + (t - 80) * (350 / 220);
+              const y2 = 195 - dltsSignal[i] * 38;
+              return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={T.df_primary} strokeWidth={2} />;
+            })}
+            {dltsTemps.map((t, i) => (
+              <circle key={i} cx={50 + (t - 80) * (350 / 220)} cy={195 - dltsSignal[i] * 38} r={3} fill={T.df_primary} />
+            ))}
+            {/* Peak labels */}
+            <text x={50 + (140 - 80) * (350 / 220)} y={195 - 3.2 * 38 - 10} textAnchor="middle" fontSize={10} fill={T.df_vacancy} fontWeight={700}>Peak A</text>
+            <text x={50 + (140 - 80) * (350 / 220)} y={195 - 3.2 * 38 - 0} textAnchor="middle" fontSize={9} fill={T.df_vacancy}>~140 K</text>
+            <text x={50 + (260 - 80) * (350 / 220)} y={195 - 4.2 * 38 - 10} textAnchor="middle" fontSize={10} fill={T.df_frenkel} fontWeight={700}>Peak B</text>
+            <text x={50 + (260 - 80) * (350 / 220)} y={195 - 4.2 * 38 - 0} textAnchor="middle" fontSize={9} fill={T.df_frenkel}>~260 K</text>
+          </svg>
+          <div style={{ display: "flex", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 160, padding: 10, borderRadius: 8, background: T.df_vacancy + "11", border: `1px solid ${T.df_vacancy}44` }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: T.df_vacancy }}>Peak A (~140 K)</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+                Divacancy V₂ (−/0)<br/>
+                ΔC/C peak = 3.2 × 10⁻³<br/>
+                N_T ≈ 2 × N_D × (ΔC/C) = 6.4 × 10¹² cm⁻³
+              </div>
+            </div>
+            <div style={{ flex: 1, minWidth: 160, padding: 10, borderRadius: 8, background: T.df_frenkel + "11", border: `1px solid ${T.df_frenkel}44` }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: T.df_frenkel }}>Peak B (~260 K)</div>
+              <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
+                E-center V-P (−/0)<br/>
+                ΔC/C peak = 4.2 × 10⁻³<br/>
+                N_T ≈ 2 × N_D × (ΔC/C) = 8.4 × 10¹² cm⁻³
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "4. Arrhenius Analysis — Extract Defect Level",
+      content: (
+        <div>
+          <p style={{ color: T.ink, fontSize: 13, lineHeight: 1.8 }}>
+            From multiple DLTS scans at different rate windows, extract the emission rate e_n at each peak temperature.
+            Plot <b>ln(e_n/T²) vs 1000/T</b> — the slope gives the activation energy E_a (= defect level depth).
+          </p>
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 8, border: `1px solid ${T.border}` }}>
+            <div style={{ fontFamily: "monospace", fontSize: 12, color: T.df_primary }}>
+              e_n = σ_n · v_th · N_C · exp(−E_a / k_BT)
+            </div>
+            <div style={{ fontFamily: "monospace", fontSize: 12, color: T.df_primary, marginTop: 4 }}>
+              → ln(e_n / T²) = ln(σ_n · γ_n) − E_a / (k_B · T)
+            </div>
+            <div style={{ fontSize: 11, color: T.muted, marginTop: 6 }}>
+              σ_n = capture cross section, v_th = thermal velocity, γ_n = 2√3 (2π m*_e k_B)^(3/2) / h³
+            </div>
+          </div>
+          {/* Arrhenius plot */}
+          <svg viewBox="0 0 420 230" style={{ width: "100%", maxWidth: 420, display: "block", margin: "12px auto" }}>
+            <rect width={420} height={230} fill={T.bg} rx={12} />
+            <text x={210} y={18} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight={600}>Arrhenius Plot for Peak B (E-center)</text>
+            <line x1={60} y1={195} x2={390} y2={195} stroke={T.ink} strokeWidth={1} />
+            <line x1={60} y1={25} x2={60} y2={195} stroke={T.ink} strokeWidth={1} />
+            <text x={225} y={220} textAnchor="middle" fontSize={10} fill={T.ink}>1000/T (K⁻¹)</text>
+            <text x={18} y={110} textAnchor="middle" fontSize={10} fill={T.ink} transform="rotate(-90, 18, 110)">ln(e_n / T²)</text>
+            {/* Axis labels */}
+            {[3.5, 4.0, 4.5, 5.0, 5.5].map((v, i) => (
+              <text key={i} x={60 + (v - 3.5) * (330 / 2)} y={208} textAnchor="middle" fontSize={9} fill={T.muted}>{v.toFixed(1)}</text>
+            ))}
+            {[-6, -9, -12, -15, -18].map((v, i) => (
+              <text key={i} x={54} y={195 + (v + 18) * (170 / 12)} textAnchor="end" fontSize={9} fill={T.muted}>{v}</text>
+            ))}
+            {/* Best fit line */}
+            <line
+              x1={60 + (3.5 - 3.5) * (330 / 2)} y1={195 + (-6.2 + 18) * (170 / 12)}
+              x2={60 + (5.5 - 3.5) * (330 / 2)} y2={195 + (-17.8 + 18) * (170 / 12)}
+              stroke={T.df_frenkel} strokeWidth={1.5} strokeDasharray="6 3" />
+            {/* Data points */}
+            {arrheniusData.map((d, i) => (
+              <circle key={i}
+                cx={60 + (d.invT - 3.5) * (330 / 2)}
+                cy={195 + (d.lnET2 + 18) * (170 / 12)}
+                r={4} fill={T.df_frenkel} stroke="#fff" strokeWidth={1} />
+            ))}
+            {/* Slope annotation */}
+            <text x={280} y={70} fontSize={10} fill={T.df_primary} fontWeight={700}>slope = −E_a / k_B</text>
+            <text x={280} y={84} fontSize={10} fill={T.df_primary}>= −5100 K</text>
+            <text x={280} y={100} fontSize={10} fill={T.df_frenkel} fontWeight={700}>E_a = 0.44 eV</text>
+          </svg>
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 8, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 6 }}>Extracted Parameters (Peak B: E-center)</div>
+            <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.7 }}>
+              • Slope = −5100 K → <span style={{ fontFamily: "monospace", color: T.df_primary }}>E_a = slope × k_B = 5100 × 8.617×10⁻⁵ = 0.44 eV</span><br/>
+              • Intercept → <span style={{ fontFamily: "monospace", color: T.df_primary }}>σ_n = 2 × 10⁻¹⁵ cm²</span><br/>
+              • <b>Defect level: E_C − 0.44 eV</b> — matches the known E-center (vacancy-phosphorus pair)
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "5. Results Summary & Defect Map",
+      content: (
+        <div>
+          <p style={{ color: T.ink, fontSize: 13, lineHeight: 1.8 }}>
+            Combining all measurements, we build a complete <b>defect energy level diagram</b> within the Si bandgap:
+          </p>
+          {/* Band diagram with defect levels */}
+          <svg viewBox="0 0 420 200" style={{ width: "100%", maxWidth: 420, display: "block", margin: "8px auto" }}>
+            <rect width={420} height={200} fill={T.bg} rx={12} />
+            {/* Conduction band */}
+            <rect x={40} y={25} width={340} height={16} fill={T.df_frenkel + "33"} stroke={T.df_frenkel} strokeWidth={1.5} rx={3} />
+            <text x={30} y={37} textAnchor="end" fontSize={10} fill={T.ink} fontWeight={700}>E_C</text>
+            <text x={210} y={37} textAnchor="middle" fontSize={9} fill={T.df_frenkel}>Conduction Band</text>
+            {/* Valence band */}
+            <rect x={40} y={165} width={340} height={16} fill={T.df_interstitial + "33"} stroke={T.df_interstitial} strokeWidth={1.5} rx={3} />
+            <text x={30} y={177} textAnchor="end" fontSize={10} fill={T.ink} fontWeight={700}>E_V</text>
+            <text x={210} y={177} textAnchor="middle" fontSize={9} fill={T.df_interstitial}>Valence Band</text>
+            {/* Bandgap = 1.12 eV, so scale: 140px height = 1.12 eV */}
+            {/* Defect levels */}
+            {[
+              { name: "V₂ (=/−)", eV: 0.23, color: T.df_vacancy, x: 80 },
+              { name: "V₂ (−/0)", eV: 0.42, color: T.df_vacancy, x: 160 },
+              { name: "V-P (−/0)", eV: 0.44, color: T.df_frenkel, x: 250 },
+              { name: "V-O (−/0)", eV: 0.18, color: T.df_schottky, x: 330 },
+            ].map((d, i) => {
+              const yPos = 41 + (d.eV / 1.12) * 124;
+              return (
+                <g key={i}>
+                  <line x1={d.x - 25} y1={yPos} x2={d.x + 25} y2={yPos} stroke={d.color} strokeWidth={2.5} />
+                  <text x={d.x} y={yPos - 6} textAnchor="middle" fontSize={9} fill={d.color} fontWeight={700}>{d.name}</text>
+                  <text x={d.x} y={yPos + 12} textAnchor="middle" fontSize={8} fill={T.muted}>E_C − {d.eV} eV</text>
+                </g>
+              );
+            })}
+            <text x={210} y={195} textAnchor="middle" fontSize={10} fill={T.ink} fontWeight={600}>Si Bandgap = 1.12 eV</text>
+          </svg>
+          {/* Summary table */}
+          <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", marginTop: 12, borderCollapse: "collapse", fontSize: 12 }}>
+            <thead>
+              <tr style={{ borderBottom: `2px solid ${T.border}` }}>
+                <th style={{ textAlign: "left", padding: 8, color: T.ink }}>Defect</th>
+                <th style={{ textAlign: "left", padding: 8, color: T.ink }}>Identity</th>
+                <th style={{ textAlign: "right", padding: 8, color: T.ink }}>E_a (eV)</th>
+                <th style={{ textAlign: "right", padding: 8, color: T.ink }}>σ_n (cm²)</th>
+                <th style={{ textAlign: "right", padding: 8, color: T.ink }}>N_T (cm⁻³)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ["Peak A", "Divacancy V₂ (−/0)", "0.42", "2×10⁻¹⁴", "6.4×10¹²"],
+                ["Peak B", "E-center V-P (−/0)", "0.44", "2×10⁻¹⁵", "8.4×10¹²"],
+              ].map(([peak, id, ea, sig, nt], i) => (
+                <tr key={i} style={{ borderBottom: `1px solid ${T.border}` }}>
+                  <td style={{ padding: 8, color: T.ink, fontWeight: 600 }}>{peak}</td>
+                  <td style={{ padding: 8, color: T.muted }}>{id}</td>
+                  <td style={{ padding: 8, color: T.df_primary, textAlign: "right", fontFamily: "monospace" }}>{ea}</td>
+                  <td style={{ padding: 8, color: T.df_frenkel, textAlign: "right", fontFamily: "monospace" }}>{sig}</td>
+                  <td style={{ padding: 8, color: T.df_schottky, textAlign: "right", fontFamily: "monospace" }}>{nt}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+          <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 12, border: `1px solid ${T.border}` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 6 }}>Key Takeaways</div>
+            <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.7 }}>
+              • E-center (V-P) is the <b>dominant trap</b> — phosphorus atoms trap nearby vacancies<br/>
+              • Both defects act as <b>electron traps</b> in the upper half of the bandgap<br/>
+              • Annealing at 150°C removes V₂; annealing at 350°C removes V-P<br/>
+              • Introduction rate: ~1 defect per cm of e⁻ path → N_T scales linearly with fluence
+            </div>
+          </div>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <div>
+      <SectionTitle color={T.df_disloc} icon={"🔬"}>Experimental Lab: DLTS on Irradiated Silicon</SectionTitle>
+      <p style={{ color: T.ink, fontSize: 13, lineHeight: 1.8, marginBottom: 12 }}>
+        Walk through a <b>real experiment</b> to detect and characterize point defects in a semiconductor.
+        We use <b>Deep Level Transient Spectroscopy (DLTS)</b> — the gold-standard technique for measuring
+        defect energy levels, capture cross sections, and trap concentrations.
+      </p>
+      {/* Step navigation */}
+      <div style={{ display: "flex", gap: 4, flexWrap: "wrap", marginBottom: 16 }}>
+        {steps.map((s, i) => (
+          <button key={i} onClick={() => setStep(i)} style={{
+            padding: "6px 12px", borderRadius: 6, fontSize: 11, fontWeight: step === i ? 700 : 500,
+            border: `1.5px solid ${step === i ? T.df_disloc : T.border}`,
+            background: step === i ? T.df_disloc + "15" : T.surface,
+            color: step === i ? T.df_disloc : T.muted,
+            cursor: "pointer", whiteSpace: "nowrap",
+          }}>
+            {s.title.split(".")[0]}.
+          </button>
+        ))}
+      </div>
+      {/* Step content */}
+      <div style={{ background: T.surface, borderRadius: 12, padding: 16, border: `1px solid ${T.border}` }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: T.df_disloc, marginBottom: 10 }}>{steps[step].title}</div>
+        {steps[step].content}
+      </div>
+      {/* Step navigation arrows */}
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
+        <button onClick={() => setStep(Math.max(0, step - 1))} disabled={step === 0} style={{
+          padding: "6px 16px", borderRadius: 6, fontSize: 12, fontWeight: 600,
+          border: `1px solid ${step === 0 ? T.dim : T.df_disloc}`,
+          background: step === 0 ? T.surface : T.df_disloc + "11",
+          color: step === 0 ? T.dim : T.df_disloc,
+          cursor: step === 0 ? "default" : "pointer",
+        }}>← Prev step</button>
+        <span style={{ fontSize: 11, color: T.muted, alignSelf: "center" }}>Step {step + 1} of {steps.length}</span>
+        <button onClick={() => setStep(Math.min(steps.length - 1, step + 1))} disabled={step === steps.length - 1} style={{
+          padding: "6px 16px", borderRadius: 6, fontSize: 12, fontWeight: 600,
+          border: `1px solid ${step === steps.length - 1 ? T.dim : T.df_disloc}`,
+          background: step === steps.length - 1 ? T.surface : T.df_disloc + "11",
+          color: step === steps.length - 1 ? T.dim : T.df_disloc,
+          cursor: step === steps.length - 1 ? "default" : "pointer",
+        }}>Next step →</button>
+      </div>
+    </div>
+  );
+}
+
 // ── SECTIONS ARRAY ─────────────────────────────────────────────────────────
 const SECTIONS = [
   { id: "intro", label: "Why Defects Matter", icon: "\u2757", color: T.df_primary, Component: IntroSection },
@@ -736,6 +1065,7 @@ const SECTIONS = [
   { id: "dislocations", label: "Dislocations", icon: "\uD83D\uDCCF", color: T.df_disloc, Component: DislocationsSection },
   { id: "planar", label: "Planar Defects", icon: "\uD83D\uDCC4", color: T.df_grain, Component: PlanarDefectsSection },
   { id: "diffusion", label: "Diffusion", icon: "\uD83D\uDD00", color: T.df_frenkel, Component: DiffusionSection },
+  { id: "experimental", label: "Experimental Lab", icon: "\uD83D\uDD2C", color: T.df_disloc, Component: ExperimentalLabSection },
 ];
 
 // ── MAIN EXPORT ────────────────────────────────────────────────────────────
