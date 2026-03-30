@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
-// Reuse the same module components from materials_lab
-import MaterialsLab from "./materials_lab.jsx";
+// Reuse the same module components from micro_lab
+import MicroLab from "./micro_lab.jsx";
 
 // Theme
 const LIGHT = {
@@ -39,10 +39,10 @@ export default function ScientificBlog() {
   const { chapterId } = useParams();
   const navigate = useNavigate();
 
-  // If a chapter is selected via URL, render full MaterialsLab with that chapter active
-  // We pass the chapter selection through by rendering MaterialsLab with initial module
+  // If a chapter is selected via URL, render full MicroLab with that chapter active
+  // We pass the chapter selection through by rendering MicroLab with initial module
   if (chapterId) {
-    return <MaterialsLab initialModule={chapterId} blogMode />;
+    return <MicroLab initialModule={chapterId} blogMode />;
   }
 
   return (

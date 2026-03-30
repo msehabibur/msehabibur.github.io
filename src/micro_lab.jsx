@@ -18161,8 +18161,8 @@ const FNV_STEPS = [
 ];
 
 function FNVCorrectionModule() {
-  const [active, setActive] = useState("problem");
-  const stepIdx = FNV_STEPS.findIndex(s => s.id === active);
+  const [openItem, setOpenItem] = useState("problem");
+  const toggle = (id) => setOpenItem(openItem === id ? null : id);
 
   const F = {
     main:   T.fnv_main,
@@ -18303,12 +18303,10 @@ function FNVCorrectionModule() {
     );
   };
 
-  const renderSection = () => {
-    switch (active) {
-
-    case "problem": return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <Card title="The Periodic Supercell Problem" color={F.warn}>
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <FAQAccordion title="The Periodic Supercell Problem" color={F.warn} isOpen={openItem === "problem"} onClick={() => toggle("problem")}>
+        <Card title="Why Charged Defects Need Correction" color={F.warn}>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 14 }}>
             When you calculate a <strong style={{ color: F.main }}>charged defect</strong> in DFT
             (e.g., a Cu vacancy with charge {hl("-1", F.warn)} in CuInSe₂), you use a
@@ -18367,11 +18365,9 @@ function FNVCorrectionModule() {
             You need a correction.
           </div>
         </Card>
-      </div>
-    );
+      </FAQAccordion>
 
-    case "overview": return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <FAQAccordion title="What is FNV?" color={F.main} isOpen={openItem === "overview"} onClick={() => toggle("overview")}>
         <Card title="What FNV Stands For" color={F.main}>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink }}>
             <strong style={{ color: F.main }}>F</strong>reysoldt,{" "}
@@ -18433,10 +18429,10 @@ function FNVCorrectionModule() {
             <span style={{ color: F.main }}>{"                                               add FNV here"}</span>
           </div>
         </Card>
-      </div>
-    );
+      </FAQAccordion>
 
-    case "model": {
+      <FAQAccordion title="Model Charge & Electrostatic Correction" color={F.elec} isOpen={openItem === "model"} onClick={() => toggle("model")}>
+        {(() => {
       // Gaussian curve SVG
       const GaussianPlot = () => {
         const W = 520, H = 260, pad = { t: 30, r: 30, b: 45, l: 60 };
@@ -18547,8 +18543,7 @@ function FNVCorrectionModule() {
         );
       };
 
-      return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      return (<>
         <Card title="Step 1 - Model the Defect Charge" color={F.main}>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             FNV models the defect as a <strong style={{ color: F.main }}>Gaussian charge distribution</strong> centered
@@ -18902,13 +18897,12 @@ function FNVCorrectionModule() {
             screening → smaller correction needed).
           </div>
         </Card>
-      </div>
-    );
-    }
+      </>)
+        })()}
+      </FAQAccordion>
 
-    case "elec": return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <Card title="Step 2 - E_periodic (Lattice Sum)" color={F.warn}>
+      <FAQAccordion title="Electrostatic Correction" color={F.elec} isOpen={openItem === "elec"} onClick={() => toggle("elec")}>
+        <Card title={"E_periodic (Lattice Sum)"} color={F.warn}>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             For the Gaussian charge repeated periodically (like your supercell), calculate the
             electrostatic energy using an <strong style={{ color: F.warn }}>Ewald summation</strong>:
@@ -18966,12 +18960,10 @@ function FNVCorrectionModule() {
             </div>
           </div>
         </Card>
-      </div>
-    );
+      </FAQAccordion>
 
-    case "align": return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <Card title={"Step 5 - Potential Alignment (ΔV)"} color={F.align}>
+      <FAQAccordion title="Potential Alignment (ΔV)" color={F.align} isOpen={openItem === "align"} onClick={() => toggle("align")}>
+        <Card title={"How FNV Finds the Potential Shift"} color={F.align}>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             The jellium background charge shifts the absolute electrostatic potential of your
             whole supercell by some unknown amount. This means your defect formation energy has an
@@ -19105,12 +19097,10 @@ function FNVCorrectionModule() {
             </div>
           </div>
         </Card>
-      </div>
-    );
+      </FAQAccordion>
 
-    case "example": return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <Card title={"Numerical Example - Cu Vacancy in CuInSe₂"} color={F.main}>
+      <FAQAccordion title={"Numerical Example — V_Cu in CuInSe₂"} color={F.accent} isOpen={openItem === "example"} onClick={() => toggle("example")}>
+        <Card title={"Cu Vacancy (q = −1) in 64-atom CuInSe₂"} color={F.main}>
           <div style={{ fontSize: 13, color: T.muted, marginBottom: 14, lineHeight: 1.6 }}>
             V_Cu with charge q = {hl("-1", F.warn)} in a 64-atom CuInSe₂ supercell ({"ε ≈"} 13.6)
           </div>
@@ -19178,11 +19168,9 @@ function FNVCorrectionModule() {
             ))}
           </div>
         </Card>
-      </div>
-    );
+      </FAQAccordion>
 
-    case "validate": return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <FAQAccordion title="Validation & Code" color={F.align} isOpen={openItem === "validate"} onClick={() => toggle("validate")}>
         <Card title="Key Validation Checks" color={F.warn}>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {[
@@ -19256,82 +19244,7 @@ print(f"  q * dV:   {result.alignment_correction:.4f} eV")`}</pre>
             directly comparable in a database.
           </div>
         </Card>
-      </div>
-    );
-
-    default: return null;
-    }
-  };
-
-  return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px" }}>
-      {/* Header */}
-      <div style={{ marginBottom: 24 }}>
-        <div style={{ fontSize: 10, letterSpacing: 4, color: T.muted, textTransform: "uppercase", marginBottom: 4 }}>
-          Charged Defect Calculations
-        </div>
-        <div style={{ fontSize: 22, fontWeight: 800, color: F.main, marginBottom: 6 }}>
-          FNV Charge Correction - How It Works
-        </div>
-        <div style={{ fontSize: 13, color: T.muted, lineHeight: 1.6 }}>
-          Freysoldt–Neugebauer–Van de Walle correction for periodic image charge
-          interactions in charged defect supercell calculations.
-        </div>
-      </div>
-
-      {/* Step navigation */}
-      <div style={{
-        display: "flex", gap: 4, marginBottom: 22, flexWrap: "wrap",
-        background: T.panel, padding: "8px 10px", borderRadius: 12,
-        border: `1px solid ${T.border}`,
-      }}>
-        {FNV_STEPS.map((s, i) => (
-          <button key={s.id} onClick={() => setActive(s.id)} style={{
-            padding: "8px 16px", borderRadius: 8, fontSize: 12, cursor: "pointer",
-            background: active === s.id ? F.main + "12" : "transparent",
-            border: `1.5px solid ${active === s.id ? F.main : "transparent"}`,
-            color: active === s.id ? F.main : T.muted,
-            fontWeight: active === s.id ? 700 : 500,
-            fontFamily: "inherit",
-            display: "flex", alignItems: "center", gap: 6,
-            transition: "all 0.15s ease",
-          }}>
-            <span style={{
-              width: 22, height: 22, borderRadius: 6,
-              background: active === s.id ? F.main + "18" : T.surface,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: 12, fontWeight: 700,
-              color: active === s.id ? F.main : T.dim,
-              border: `1px solid ${active === s.id ? F.main + "40" : T.border}`,
-            }}>{i + 1}</span>
-            {s.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Content */}
-      {renderSection()}
-      <NextTopicCard sections={FNV_STEPS} activeId={active} />
-
-      {/* Prev / Next */}
-      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 20 }}>
-        <button onClick={() => stepIdx > 0 && setActive(FNV_STEPS[stepIdx - 1].id)} style={{
-          padding: "8px 20px", borderRadius: 8, fontSize: 13, cursor: stepIdx > 0 ? "pointer" : "default",
-          background: stepIdx > 0 ? F.main + "12" : T.surface,
-          border: `1.5px solid ${stepIdx > 0 ? F.main : T.border}`,
-          color: stepIdx > 0 ? F.main : T.dim,
-          fontWeight: 700, fontFamily: "inherit",
-          opacity: stepIdx > 0 ? 1 : 0.5,
-        }}>← Previous</button>
-        <button onClick={() => stepIdx < FNV_STEPS.length - 1 && setActive(FNV_STEPS[stepIdx + 1].id)} style={{
-          padding: "8px 20px", borderRadius: 8, fontSize: 13, cursor: stepIdx < FNV_STEPS.length - 1 ? "pointer" : "default",
-          background: stepIdx < FNV_STEPS.length - 1 ? F.main + "12" : T.surface,
-          border: `1.5px solid ${stepIdx < FNV_STEPS.length - 1 ? F.main : T.border}`,
-          color: stepIdx < FNV_STEPS.length - 1 ? F.main : T.dim,
-          fontWeight: 700, fontFamily: "inherit",
-          opacity: stepIdx < FNV_STEPS.length - 1 ? 1 : 0.5,
-        }}>Next →</button>
-      </div>
+      </FAQAccordion>
     </div>
   );
 }
@@ -21462,10 +21375,10 @@ function DLTSSection() {
   const enAtPeak = en(dltsPeakT);
   const tauAtPeak = tau(dltsPeakT);
 
-  const W = 460, H = 220, pad = { l: 55, r: 20, t: 25, b: 35 };
+  const W = 520, H = 300, pad = { l: 65, r: 25, t: 30, b: 50 };
   const pw = W - pad.l - pad.r, ph = H - pad.t - pad.b;
   const toX = (tv) => pad.l + ((tv - 50) / 450) * pw;
-  const toY = (s) => pad.t + (1 - s / 0.4) * ph;
+  const toY = (s) => pad.t + (1 - s / 0.45) * ph;
 
   const trapY = 50 + (Et / Eg) * 150;
 
@@ -21496,9 +21409,25 @@ function DLTSSection() {
           {"  E_t = trap depth below CB (eV) — the quantity we want!"}<br />
           {"  k_BT = thermal energy (25.8 meV at 300 K)"}
         </div>
+        <div style={{ background: T.fnv_elec + "08", borderRadius: 10, padding: "10px 14px", border: `1px solid ${T.fnv_elec}18`, marginTop: 12 }}>
+          <div style={{ fontSize: 13, fontWeight: 800, color: T.fnv_elec, marginBottom: 6 }}>What is a Rate Window?</div>
+          <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
+            A <b>rate window</b> is a pair of sampling times (t₁, t₂) used to measure the capacitance transient after the fill pulse. Instead of recording the full transient curve, the DLTS instrument samples the capacitance at just two times — t₁ and t₂ — and outputs the difference <b>ΔC = C(t₁) − C(t₂)</b>.
+          </div>
+          <div style={mdMathBlock}>
+            <span style={{ color: T.fnv_accent, fontWeight: 700 }}>Why it works:</span><br />
+            {"  • At low T: emission is very slow → C(t₁) ≈ C(t₂) → ΔC ≈ 0"}<br />
+            {"  • At high T: emission is very fast → traps already empty by t₁ → ΔC ≈ 0"}<br />
+            {"  • At the right T: emission rate matches the rate window → maximum ΔC → DLTS peak!"}<br /><br />
+            <span style={{ color: T.fnv_warm, fontWeight: 700 }}>The emission rate at the peak is fixed by the rate window:</span><br />
+            {"  eₙ(peak) = ln(t₂/t₁) / (t₂ − t₁)"}<br /><br />
+            {"  Example: t₁ = 1 ms, t₂ = 10 ms  →  eₙ = ln(10) / 0.009 = 256 s⁻¹"}<br /><br />
+            <span style={{ color: T.fnv_elec, fontWeight: 700 }}>Key insight:</span>{" Different rate windows shift the peak to different temperatures. By repeating the temperature scan with 3–4 rate windows, you get multiple (T_peak, eₙ) pairs — enough to build an Arrhenius plot and extract the trap depth E_t."}
+          </div>
+        </div>
       </FAQAccordion>
 
-      <FAQAccordion title="Interactive: Step-by-Step DLTS Measurement (click each step)" color={T.fnv_elec} isOpen={openItem === "dlts_steps"} onClick={() => toggle("dlts_steps")}>
+      <FAQAccordion title="Interactive: Step-by-Step DLTS Measurement" color={T.fnv_elec} isOpen={openItem === "dlts_steps"} onClick={() => toggle("dlts_steps")}>
         {/* Step selector buttons */}
         <div style={{ display: "flex", gap: 6, marginBottom: 12, flexWrap: "wrap" }}>
           {dltsSteps.map((s, i) => (
@@ -21529,7 +21458,7 @@ function DLTSSection() {
           <text x={35} y={214} textAnchor="end" fill={T.fnv_warn} fontSize={10} fontWeight={700}>VB</text>
           {/* Trap level always shown */}
           <line x1={100} y1={trapY} x2={300} y2={trapY} stroke={T.fnv_warm} strokeWidth={2.5} strokeDasharray="8 4" />
-          <text x={310} y={trapY + 4} fill={T.fnv_warm} fontSize={10} fontWeight={700}>E_t = {Et.toFixed(2)} eV</text>
+          <text x={310} y={trapY + 4} fill={T.fnv_warm} fontSize={11} fontWeight={700}>{"E"}<tspan fontSize={8} dy={3}>{"t"}</tspan><tspan dy={-3}>{" = " + Et.toFixed(2) + " eV"}</tspan></text>
 
           {/* Step 1: Empty trap, depletion shown */}
           {dltsStep === 0 && <>
@@ -21597,9 +21526,9 @@ function DLTSSection() {
       <FAQAccordion title="Interactive: DLTS Spectrum Simulator" color={T.fnv_accent} isOpen={openItem === "dlts_sim"} onClick={() => toggle("dlts_sim")}>
         <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
           <div style={{ flex: 1, minWidth: 220 }}>
-            <SliderRow label="E_t — trap depth" value={Et} min={0.05} max={1.2} step={0.01} onChange={setEt} color={T.fnv_warm} unit=" eV" />
-            <SliderRow label="E_g — band gap" value={Eg} min={0.5} max={3.0} step={0.1} onChange={setEg} color={T.fnv_elec} unit=" eV" />
-            <SliderRow label="σ — capture cross-section" value={Math.log10(sigma)} min={-18} max={-12} step={0.5} onChange={(v) => setSigma(Math.pow(10, v))} color={T.fnv_accent} unit="" format={v => `10^${v.toFixed(1)} cm²`} />
+            <SliderRow label={<>E<sub>t</sub> — trap depth</>} value={Et} min={0.05} max={1.2} step={0.01} onChange={setEt} color={T.fnv_warm} unit=" eV" />
+            <SliderRow label={<>E<sub>g</sub> — band gap</>} value={Eg} min={0.5} max={3.0} step={0.1} onChange={setEg} color={T.fnv_elec} unit=" eV" />
+            <SliderRow label={<>σ<sub>n</sub> — capture cross-section</>} value={Math.log10(sigma)} min={-18} max={-12} step={0.5} onChange={(v) => setSigma(Math.pow(10, v))} color={T.fnv_accent} unit="" format={v => `10^${v.toFixed(1)} cm²`} />
             <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6, background: T.fnv_warm + "08", borderRadius: 8, padding: "8px 12px" }}>
               {Et / Eg < 0.15 && <span style={{ color: T.fnv_accent, fontWeight: 700 }}>Shallow trap — fast emission, low T peak. Acts as a dopant.</span>}
               {Et / Eg >= 0.15 && Et / Eg < 0.4 && <span style={{ color: T.fnv_warm }}>Moderate depth — mid-T DLTS peak. Common for point defects.</span>}
@@ -21607,28 +21536,39 @@ function DLTSSection() {
             </div>
           </div>
           <div style={{ flex: 1, minWidth: 260 }}>
-            <svg width={W} height={H} style={{ background: T.bg, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "0 auto 10px" }}>
+            <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 540, background: T.bg, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "0 auto 10px" }}>
               <rect x={pad.l} y={pad.t} width={pw} height={ph} fill={T.surface} />
+              {/* Y-axis ticks */}
+              {[0, 0.1, 0.2, 0.3, 0.4].map(v => (
+                <g key={v}>
+                  <line x1={pad.l - 4} y1={toY(v)} x2={pad.l} y2={toY(v)} stroke={T.ink} strokeWidth={1} />
+                  <line x1={pad.l} y1={toY(v)} x2={pad.l + pw} y2={toY(v)} stroke={T.border} strokeWidth={0.5} strokeDasharray="3,3" />
+                  <text x={pad.l - 8} y={toY(v) + 3} textAnchor="end" fill={T.muted} fontSize={10}>{v.toFixed(1)}</text>
+                </g>
+              ))}
               {[100, 200, 300, 400, 500].map(tv => (
                 <g key={tv}>
                   <line x1={toX(tv)} y1={pad.t} x2={toX(tv)} y2={pad.t + ph} stroke={T.border} strokeWidth={0.5} strokeDasharray="3,3" />
-                  <text x={toX(tv)} y={H - 8} textAnchor="middle" fill={T.muted} fontSize={8}>{tv}</text>
+                  <text x={toX(tv)} y={H - 18} textAnchor="middle" fill={T.muted} fontSize={11}>{tv}</text>
                 </g>
               ))}
+              {/* Axes */}
+              <line x1={pad.l} y1={pad.t} x2={pad.l} y2={pad.t + ph} stroke={T.ink} strokeWidth={1} />
+              <line x1={pad.l} y1={pad.t + ph} x2={pad.l + pw} y2={pad.t + ph} stroke={T.ink} strokeWidth={1} />
               <polyline points={Array.from({ length: 100 }, (_, i) => {
                 const tv = 50 + i * 4.5; const s = dltsSignal(tv);
                 return `${toX(tv)},${toY(Math.max(0, s))}`;
               }).join(" ")} fill="none" stroke={T.fnv_warm} strokeWidth={2.5} />
               <circle cx={toX(dltsPeakT)} cy={toY(dltsSignal(dltsPeakT))} r={5} fill={T.fnv_warm} stroke="#fff" strokeWidth={1.5} />
-              <text x={toX(dltsPeakT) + 8} y={toY(dltsSignal(dltsPeakT)) - 8} fill={T.fnv_warm} fontSize={9} fontWeight={700}>T_peak = {dltsPeakT} K</text>
-              <text x={pad.l + pw / 2} y={H - 2} textAnchor="middle" fill={T.muted} fontSize={9}>Temperature (K)</text>
-              <text x={12} y={pad.t + ph / 2} textAnchor="middle" fill={T.muted} fontSize={9} transform={`rotate(-90,12,${pad.t + ph / 2})`}>DLTS Signal (a.u.)</text>
+              <text x={toX(dltsPeakT) + 8} y={toY(dltsSignal(dltsPeakT)) - 10} fill={T.fnv_warm} fontSize={12} fontWeight={700}>{"T"}<tspan fontSize={9} dy={3}>{"peak"}</tspan><tspan dy={-3}>{" = " + dltsPeakT + " K"}</tspan></text>
+              <text x={pad.l + pw / 2} y={H - 2} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight={600}>Temperature (K)</text>
+              <text x={16} y={pad.t + ph / 2} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight={600} transform={`rotate(-90,16,${pad.t + ph / 2})`}>DLTS Signal (a.u.)</text>
             </svg>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
               <ResultBox label="Peak temperature" value={`${dltsPeakT} K`} color={T.fnv_warm} sub="DLTS peak" />
-              <ResultBox label="e_n at peak" value={enAtPeak.toExponential(2)} color={T.fnv_elec} sub="s⁻¹" />
+              <ResultBox label={<>e<sub>n</sub> at peak</>} value={enAtPeak.toExponential(2)} color={T.fnv_elec} sub="s⁻¹" />
               <ResultBox label="τ at peak" value={tauAtPeak < 0.001 ? (tauAtPeak * 1e6).toFixed(1) + " μs" : tauAtPeak < 1 ? (tauAtPeak * 1e3).toFixed(2) + " ms" : tauAtPeak.toFixed(3) + " s"} color={T.fnv_accent} sub="emission time" />
-              <ResultBox label="E_t / E_g" value={(Et / Eg * 100).toFixed(1) + "%"} color={T.fnv_main} sub={Et / Eg < 0.2 ? "Shallow" : "Deep"} />
+              <ResultBox label={<>E<sub>t</sub> / E<sub>g</sub></>} value={(Et / Eg * 100).toFixed(1) + "%"} color={T.fnv_main} sub={Et / Eg < 0.2 ? "Shallow" : "Deep"} />
             </div>
           </div>
         </div>
@@ -21656,14 +21596,14 @@ function DLTSSection() {
           <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, lineHeight: 1.6 }}>
             The lock-in output shows ΔC vs T. Each peak = one defect level. Peak height ∝ trap concentration. Peak position shifts with rate window — this shift gives the Arrhenius data.
           </div>
-          <svg width={460} height={200} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "0 auto" }}>
-            <text x={230} y={16} textAnchor="middle" fontSize={10} fill={T.ink} fontWeight={700}>DLTS Spectrum: CdTe after 1.5 MeV e⁻ irradiation (rate window: 1/10 ms)</text>
-            <line x1={50} y1={175} x2={440} y2={175} stroke={T.ink} strokeWidth={1} />
-            <line x1={50} y1={22} x2={50} y2={175} stroke={T.ink} strokeWidth={1} />
-            <text x={245} y={195} textAnchor="middle" fill={T.ink} fontSize={9}>Temperature (K)</text>
-            <text x={14} y={100} textAnchor="middle" fill={T.ink} fontSize={9} transform="rotate(-90,14,100)">ΔC (pF)</text>
+          <svg viewBox="0 0 520 260" style={{ width: "100%", maxWidth: 540, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "0 auto" }}>
+            <text x={280} y={20} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={700}>DLTS Spectrum: CdTe after 1.5 MeV e⁻ irradiation (rate window: 1/10 ms)</text>
+            <line x1={65} y1={210} x2={490} y2={210} stroke={T.ink} strokeWidth={1} />
+            <line x1={65} y1={30} x2={65} y2={210} stroke={T.ink} strokeWidth={1} />
+            <text x={278} y={250} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight={600}>Temperature (K)</text>
+            <text x={20} y={120} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight={600} transform="rotate(-90,20,120)">ΔC (pF)</text>
             {[100,150,200,250,300,350,400].map(tv => (
-              <text key={tv} x={50 + (tv - 80) * (390 / 320)} y={188} textAnchor="middle" fill={T.muted} fontSize={8}>{tv}</text>
+              <text key={tv} x={65 + (tv - 80) * (425 / 320)} y={226} textAnchor="middle" fill={T.muted} fontSize={10}>{tv}</text>
             ))}
             {/* Three peaks from real CdTe DLTS literature */}
             {(() => {
@@ -21673,19 +21613,19 @@ function DLTSSection() {
                 const peak2 = 1.2 * Math.exp(-((tv - 230) ** 2) / (2 * 22 ** 2));
                 const peak3 = 0.5 * Math.exp(-((tv - 330) ** 2) / (2 * 25 ** 2));
                 const s = peak1 + peak2 + peak3;
-                const x = 50 + (tv - 80) * (390 / 320);
-                const y = 170 - s * 110;
+                const x = 65 + (tv - 80) * (425 / 320);
+                const y = 205 - s * 130;
                 pts.push(`${x},${y}`);
               }
               return <polyline points={pts.join(" ")} fill="none" stroke={T.fnv_warm} strokeWidth={2.5} />;
             })()}
             {/* Peak labels */}
-            <text x={50 + (155 - 80) * (390 / 320)} y={170 - 0.8 * 110 - 8} textAnchor="middle" fill={T.fnv_accent} fontSize={9} fontWeight={700}>E1</text>
-            <text x={50 + (155 - 80) * (390 / 320)} y={170 - 0.8 * 110 + 2} textAnchor="middle" fill={T.fnv_accent} fontSize={8}>155 K</text>
-            <text x={50 + (230 - 80) * (390 / 320)} y={170 - 1.2 * 110 - 8} textAnchor="middle" fill={T.fnv_elec} fontSize={9} fontWeight={700}>E2</text>
-            <text x={50 + (230 - 80) * (390 / 320)} y={170 - 1.2 * 110 + 2} textAnchor="middle" fill={T.fnv_elec} fontSize={8}>230 K</text>
-            <text x={50 + (330 - 80) * (390 / 320)} y={170 - 0.5 * 110 - 8} textAnchor="middle" fill={T.fnv_main} fontSize={9} fontWeight={700}>E3</text>
-            <text x={50 + (330 - 80) * (390 / 320)} y={170 - 0.5 * 110 + 2} textAnchor="middle" fill={T.fnv_main} fontSize={8}>330 K</text>
+            <text x={65 + (155 - 80) * (425 / 320)} y={205 - 0.8 * 130 - 10} textAnchor="middle" fill={T.fnv_accent} fontSize={11} fontWeight={700}>E1</text>
+            <text x={65 + (155 - 80) * (425 / 320)} y={205 - 0.8 * 130 + 3} textAnchor="middle" fill={T.fnv_accent} fontSize={10}>155 K</text>
+            <text x={65 + (230 - 80) * (425 / 320)} y={205 - 1.2 * 130 - 10} textAnchor="middle" fill={T.fnv_elec} fontSize={11} fontWeight={700}>E2</text>
+            <text x={65 + (230 - 80) * (425 / 320)} y={205 - 1.2 * 130 + 3} textAnchor="middle" fill={T.fnv_elec} fontSize={10}>230 K</text>
+            <text x={65 + (330 - 80) * (425 / 320)} y={205 - 0.5 * 130 - 10} textAnchor="middle" fill={T.fnv_main} fontSize={11} fontWeight={700}>E3</text>
+            <text x={65 + (330 - 80) * (425 / 320)} y={205 - 0.5 * 130 + 3} textAnchor="middle" fill={T.fnv_main} fontSize={10}>330 K</text>
           </svg>
         </div>
 
@@ -21726,21 +21666,31 @@ function DLTSSection() {
             {"  "}<span style={{ fontSize: 14, color: T.fnv_elec, fontWeight: 800 }}>{"σ = 5.0×10⁻¹⁷ cm²"}</span>
           </div>
           {/* Arrhenius plot */}
-          <svg width={420} height={200} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "8px auto" }}>
-            <text x={210} y={16} textAnchor="middle" fontSize={10} fill={T.ink} fontWeight={700}>Arrhenius Plot for Peak E2</text>
-            <line x1={60} y1={170} x2={400} y2={170} stroke={T.ink} strokeWidth={1} />
-            <line x1={60} y1={22} x2={60} y2={170} stroke={T.ink} strokeWidth={1} />
-            <text x={230} y={192} textAnchor="middle" fill={T.ink} fontSize={9}>1000/T (K⁻¹)</text>
-            <text x={16} y={96} textAnchor="middle" fill={T.ink} fontSize={9} transform="rotate(-90,16,96)">ln(eₙ/T²)</text>
-            {/* Axis ticks */}
+          <svg viewBox="0 0 500 280" style={{ width: "100%", maxWidth: 540, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "8px auto" }}>
+            <text x={270} y={22} textAnchor="middle" fontSize={13} fill={T.ink} fontWeight={700}>Arrhenius Plot for Peak E2</text>
+            {/* Axes */}
+            <line x1={75} y1={230} x2={460} y2={230} stroke={T.ink} strokeWidth={1} />
+            <line x1={75} y1={35} x2={75} y2={230} stroke={T.ink} strokeWidth={1} />
+            {/* Axis labels */}
+            <text x={270} y={268} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight={600}>1000/T (K⁻¹)</text>
+            <text x={20} y={132} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight={600} transform="rotate(-90,20,132)">ln(eₙ/T²)</text>
+            {/* X-axis ticks */}
             {[3.8, 4.0, 4.2, 4.4].map(v => (
-              <text key={v} x={60 + (v - 3.7) * (340 / 0.8)} y={183} textAnchor="middle" fill={T.muted} fontSize={8}>{v.toFixed(1)}</text>
+              <g key={v}>
+                <line x1={75 + (v - 3.7) * (385 / 0.8)} y1={230} x2={75 + (v - 3.7) * (385 / 0.8)} y2={235} stroke={T.ink} strokeWidth={1} />
+                <text x={75 + (v - 3.7) * (385 / 0.8)} y={248} textAnchor="middle" fill={T.muted} fontSize={11}>{v.toFixed(1)}</text>
+              </g>
             ))}
+            {/* Y-axis ticks */}
             {[-7, -8, -9, -10].map(v => (
-              <text key={v} x={54} y={170 + (v + 10) * (148 / 3)} textAnchor="end" fill={T.muted} fontSize={8}>{v}</text>
+              <g key={v}>
+                <line x1={70} y1={230 + (v + 10) * (195 / 3)} x2={75} y2={230 + (v + 10) * (195 / 3)} stroke={T.ink} strokeWidth={1} />
+                <line x1={75} y1={230 + (v + 10) * (195 / 3)} x2={460} y2={230 + (v + 10) * (195 / 3)} stroke={T.border} strokeWidth={0.5} strokeDasharray="3,3" />
+                <text x={65} y={230 + (v + 10) * (195 / 3) + 4} textAnchor="end" fill={T.muted} fontSize={11}>{v}</text>
+              </g>
             ))}
             {/* Best-fit line */}
-            <line x1={60 + (3.846 - 3.7) * (340 / 0.8)} y1={170 + (-9.52 + 10) * (148 / 3)} x2={60 + (4.348 - 3.7) * (340 / 0.8)} y2={170 + (-7.34 + 10) * (148 / 3)} stroke={T.fnv_accent} strokeWidth={1.5} strokeDasharray="6 3" />
+            <line x1={75 + (3.846 - 3.7) * (385 / 0.8)} y1={230 + (-9.52 + 10) * (195 / 3)} x2={75 + (4.348 - 3.7) * (385 / 0.8)} y2={230 + (-7.34 + 10) * (195 / 3)} stroke={T.fnv_accent} strokeWidth={2} strokeDasharray="6 3" />
             {/* Data points */}
             {[
               { invT: 4.348, lnET2: -7.34 },
@@ -21748,10 +21698,10 @@ function DLTSSection() {
               { invT: 4.000, lnET2: -8.88 },
               { invT: 3.846, lnET2: -9.52 },
             ].map((d, i) => (
-              <circle key={i} cx={60 + (d.invT - 3.7) * (340 / 0.8)} cy={170 + (d.lnET2 + 10) * (148 / 3)} r={5} fill={T.fnv_elec} stroke="#fff" strokeWidth={1.5} />
+              <circle key={i} cx={75 + (d.invT - 3.7) * (385 / 0.8)} cy={230 + (d.lnET2 + 10) * (195 / 3)} r={6} fill={T.fnv_elec} stroke="#fff" strokeWidth={2} />
             ))}
-            <text x={300} y={55} fontSize={10} fill={T.fnv_accent} fontWeight={700}>slope = −E_t/k_B</text>
-            <text x={300} y={70} fontSize={11} fill={T.fnv_elec} fontWeight={800}>E_t = 0.374 eV</text>
+            <text x={350} y={70} fontSize={12} fill={T.fnv_accent} fontWeight={700}>slope = −E_t/k_B</text>
+            <text x={350} y={90} fontSize={14} fill={T.fnv_elec} fontWeight={800}>E_t = 0.374 eV</text>
           </svg>
         </div>
 
@@ -21836,7 +21786,7 @@ function PLSection() {
   const thermalBroad = Math.max(fwhm, 1.8 * kT);
   const gaussian = (E, E0, w) => Math.exp(-((E - E0) ** 2) / (2 * w * w));
 
-  const W = 460, H = 220, pad = { l: 55, r: 20, t: 25, b: 35 };
+  const W = 520, H = 300, pad = { l: 65, r: 25, t: 30, b: 50 };
   const pw = W - pad.l - pad.r, ph = H - pad.t - pad.b;
   const Emin = 0.5, Emax = 2.5;
   const toX = (E) => pad.l + ((E - Emin) / (Emax - Emin)) * pw;
@@ -21872,7 +21822,7 @@ function PLSection() {
         </div>
       </FAQAccordion>
 
-      <FAQAccordion title="Interactive: Step-by-Step PL Process (click each step)" color={T.fnv_elec} isOpen={openItem === "pl_steps"} onClick={() => toggle("pl_steps")}>
+      <FAQAccordion title="Interactive: Step-by-Step PL Process" color={T.fnv_elec} isOpen={openItem === "pl_steps"} onClick={() => toggle("pl_steps")}>
         {/* Step selector */}
         <div style={{ display: "flex", gap: 6, marginBottom: 12, flexWrap: "wrap" }}>
           {plSteps.map((s, i) => (
@@ -21894,62 +21844,57 @@ function PLSection() {
         </div>
 
         {/* Animated diagram — different for each step */}
-        <svg width={420} height={280} style={{ background: T.surface, borderRadius: 10, border: `1px solid ${T.border}`, display: "block", margin: "0 auto", overflow: "hidden" }}>
-          <rect x={15} y={15} width={390} height={250} rx={6} fill={T.bg} />
-          <line x1={40} y1={45} x2={380} y2={45} stroke={T.fnv_elec} strokeWidth={2.5} />
-          <text x={35} y={42} textAnchor="end" fill={T.fnv_elec} fontSize={10} fontWeight={700}>CB</text>
-          <line x1={40} y1={210} x2={380} y2={210} stroke={T.fnv_warn} strokeWidth={2.5} />
-          <text x={35} y={214} textAnchor="end" fill={T.fnv_warn} fontSize={10} fontWeight={700}>VB</text>
-          <line x1={200} y1={defectY} x2={320} y2={defectY} stroke={T.fnv_warm} strokeWidth={2} strokeDasharray="6 3" />
-          <text x={330} y={defectY + 4} fill={T.fnv_warm} fontSize={9}>E_t</text>
+        <svg viewBox="0 0 480 300" style={{ width: "100%", maxWidth: 540, background: T.surface, borderRadius: 10, border: `1px solid ${T.border}`, display: "block", margin: "0 auto" }}>
+          <rect x={15} y={15} width={450} height={260} rx={6} fill={T.bg} />
+          <line x1={50} y1={50} x2={430} y2={50} stroke={T.fnv_elec} strokeWidth={2.5} />
+          <text x={44} y={47} textAnchor="end" fill={T.fnv_elec} fontSize={12} fontWeight={700}>CB</text>
+          <line x1={50} y1={220} x2={430} y2={220} stroke={T.fnv_warn} strokeWidth={2.5} />
+          <text x={44} y={224} textAnchor="end" fill={T.fnv_warn} fontSize={12} fontWeight={700}>VB</text>
+          <line x1={220} y1={defectY} x2={360} y2={defectY} stroke={T.fnv_warm} strokeWidth={2} strokeDasharray="6 3" />
+          <text x={368} y={defectY + 4} fill={T.fnv_warm} fontSize={11} fontWeight={700}>{"E"}<tspan fontSize={9} dy={3}>{"t"}</tspan></text>
 
           {/* Step 1: Laser excitation */}
           {plStep === 0 && <>
-            <line x1={100} y1={208} x2={100} y2={47} stroke="#9333ea" strokeWidth={3} />
-            <polygon points="96,50 104,50 100,42" fill="#9333ea" />
-            <circle cx={100} cy={208} r={6} fill={T.fnv_warn + "cc"} />
-            <text x={115} y={130} fill="#9333ea" fontSize={12} fontWeight={800}>hν {">"} E_g</text>
-            <text x={115} y={148} fill="#9333ea" fontSize={10}>(laser photon)</text>
-            <text x={100} y={230} textAnchor="middle" fill={T.muted} fontSize={10}>Electron absorbs photon, jumps VB → CB</text>
+            <line x1={130} y1={218} x2={130} y2={52} stroke="#9333ea" strokeWidth={3} />
+            <polygon points="126,55 134,55 130,47" fill="#9333ea" />
+            <circle cx={130} cy={218} r={6} fill={T.fnv_warn + "cc"} />
+            <text x={148} y={135} fill="#9333ea" fontSize={13} fontWeight={800}>{"hν > E"}<tspan fontSize={10} dy={3}>{"g"}</tspan></text>
+            <text x={148} y={155} fill="#9333ea" fontSize={11}>(laser photon)</text>
+            <text x={240} y={250} textAnchor="middle" fill={T.muted} fontSize={12}>Electron absorbs photon, jumps VB → CB</text>
           </>}
 
           {/* Step 2: Thermalization */}
           {plStep === 1 && <>
-            <circle cx={150} cy={45 - 20 + (plTick * 2 % 20)} r={5} fill={T.fnv_elec} />
-            {[0, 1, 2, 3].map(i => <text key={i} x={170 + i * 15} y={40 + i * 5} fill={T.fnv_accent} fontSize={8} opacity={0.3 + i * 0.2}>~</text>)}
-            <text x={250} y={35} fill={T.fnv_accent} fontSize={10} fontWeight={700}>phonons (heat)</text>
-            <text x={210} y={55} textAnchor="middle" fill={T.fnv_elec} fontSize={11} fontWeight={700}>electron settles at CB bottom</text>
-            <text x={210} y={230} textAnchor="middle" fill={T.muted} fontSize={10}>Excess energy lost as heat in ~100 fs</text>
+            <circle cx={180} cy={50 - 20 + (plTick * 2 % 20)} r={5} fill={T.fnv_elec} />
+            {[0, 1, 2, 3].map(i => <text key={i} x={200 + i * 18} y={44 + i * 5} fill={T.fnv_accent} fontSize={10} opacity={0.3 + i * 0.2}>~</text>)}
+            <text x={290} y={40} fill={T.fnv_accent} fontSize={12} fontWeight={700}>phonons (heat)</text>
+            <text x={240} y={62} textAnchor="middle" fill={T.fnv_elec} fontSize={12} fontWeight={700}>electron settles at CB bottom</text>
+            <text x={240} y={250} textAnchor="middle" fill={T.muted} fontSize={12}>Excess energy lost as heat in ~100 fs</text>
           </>}
 
           {/* Step 3: BB recombination */}
           {plStep === 2 && <>
-            <circle cx={150} cy={48} r={6} fill={T.fnv_elec} />
-            <line x1={150} y1={55} x2={150} y2={205} stroke={T.fnv_accent} strokeWidth={3} />
-            <polygon points="146,202 154,202 150,210" fill={T.fnv_accent} />
-            {/* Photon wave */}
-            <text x={170} y={130} fill={T.fnv_accent} fontSize={13} fontWeight={800}>hν = E_g = {Eg_pl.toFixed(2)} eV</text>
-            <text x={170} y={150} fill={T.fnv_accent} fontSize={10}>λ = {(1240 / Eg_pl).toFixed(0)} nm</text>
-            {/* Wavy photon */}
-            <path d={`M 135 ${130} Q 125 ${125}, 115 ${130} Q 105 ${135}, 95 ${130} Q 85 ${125}, 75 ${130}`} fill="none" stroke={T.fnv_accent} strokeWidth={2} />
-            <text x={210} y={230} textAnchor="middle" fill={T.fnv_accent} fontSize={10} fontWeight={700}>Direct recombination — brightest peak!</text>
+            <circle cx={180} cy={53} r={6} fill={T.fnv_elec} />
+            <line x1={180} y1={60} x2={180} y2={215} stroke={T.fnv_accent} strokeWidth={3} />
+            <polygon points="176,212 184,212 180,220" fill={T.fnv_accent} />
+            <text x={200} y={135} fill={T.fnv_accent} fontSize={14} fontWeight={800}>{"hν = E"}<tspan fontSize={11} dy={3}>{"g"}</tspan><tspan dy={-3}>{" = " + Eg_pl.toFixed(2) + " eV"}</tspan></text>
+            <text x={200} y={155} fill={T.fnv_accent} fontSize={11}>λ = {(1240 / Eg_pl).toFixed(0)} nm</text>
+            <path d={`M 165 ${135} Q 155 ${130}, 145 ${135} Q 135 ${140}, 125 ${135} Q 115 ${130}, 105 ${135}`} fill="none" stroke={T.fnv_accent} strokeWidth={2} />
+            <text x={240} y={250} textAnchor="middle" fill={T.fnv_accent} fontSize={12} fontWeight={700}>Direct recombination — brightest peak!</text>
           </>}
 
           {/* Step 4: Defect-mediated */}
           {plStep === 3 && <>
-            <circle cx={250} cy={48} r={5} fill={T.fnv_elec} />
-            {/* Step down to defect */}
-            <line x1={250} y1={55} x2={250} y2={defectY - 5} stroke={T.fnv_warm} strokeWidth={2} />
-            <polygon points="247,{defectY - 7} 253,{defectY - 7} 250,{defectY - 2}" fill={T.fnv_warm} />
-            <circle cx={250} cy={defectY} r={5} fill={T.fnv_warm} />
-            {/* Step down to VB */}
-            <line x1={250} y1={defectY + 8} x2={250} y2={205} stroke={T.fnv_warm} strokeWidth={2} />
-            <polygon points="247,202 253,202 250,210" fill={T.fnv_warm} />
-            {/* Photon */}
-            <text x={270} y={defectY + 30} fill={T.fnv_warm} fontSize={12} fontWeight={800}>hν = {(Eg_pl - Et_pl).toFixed(2)} eV</text>
-            <text x={270} y={defectY + 48} fill={T.fnv_warm} fontSize={10}>λ = {(1240 / (Eg_pl - Et_pl)).toFixed(0)} nm</text>
-            <path d={`M 235 ${defectY + 35} Q 225 ${defectY + 30}, 215 ${defectY + 35} Q 205 ${defectY + 40}, 195 ${defectY + 35}`} fill="none" stroke={T.fnv_warm} strokeWidth={2} />
-            <text x={210} y={230} textAnchor="middle" fill={T.fnv_warm} fontSize={10} fontWeight={700}>Defect emission — lower energy, identifies the defect!</text>
+            <circle cx={280} cy={53} r={5} fill={T.fnv_elec} />
+            <line x1={280} y1={60} x2={280} y2={defectY - 5} stroke={T.fnv_warm} strokeWidth={2} />
+            <polygon points={`277,${defectY - 7} 283,${defectY - 7} 280,${defectY - 2}`} fill={T.fnv_warm} />
+            <circle cx={280} cy={defectY} r={5} fill={T.fnv_warm} />
+            <line x1={280} y1={defectY + 8} x2={280} y2={215} stroke={T.fnv_warm} strokeWidth={2} />
+            <polygon points="277,212 283,212 280,220" fill={T.fnv_warm} />
+            <text x={300} y={defectY + 30} fill={T.fnv_warm} fontSize={13} fontWeight={800}>hν = {(Eg_pl - Et_pl).toFixed(2)} eV</text>
+            <text x={300} y={defectY + 48} fill={T.fnv_warm} fontSize={11}>λ = {(1240 / (Eg_pl - Et_pl)).toFixed(0)} nm</text>
+            <path d={`M 265 ${defectY + 35} Q 255 ${defectY + 30}, 245 ${defectY + 35} Q 235 ${defectY + 40}, 225 ${defectY + 35}`} fill="none" stroke={T.fnv_warm} strokeWidth={2} />
+            <text x={240} y={250} textAnchor="middle" fill={T.fnv_warm} fontSize={12} fontWeight={700}>Defect emission — lower energy, identifies the defect!</text>
           </>}
         </svg>
       </FAQAccordion>
@@ -21957,8 +21902,8 @@ function PLSection() {
       <FAQAccordion title="Interactive: PL Spectrum Simulator" color={T.fnv_warm} isOpen={openItem === "pl_spectrum"} onClick={() => toggle("pl_spectrum")}>
         <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
           <div style={{ flex: 1, minWidth: 220 }}>
-            <SliderRow label="E_g — band gap" value={Eg_pl} min={0.5} max={3.0} step={0.05} onChange={setEgPl} color={T.fnv_elec} unit=" eV" />
-            <SliderRow label="E_t — defect depth" value={Et_pl} min={0.05} max={1.5} step={0.01} onChange={setEtPl} color={T.fnv_warm} unit=" eV" />
+            <SliderRow label={<>E<sub>g</sub> — band gap</>} value={Eg_pl} min={0.5} max={3.0} step={0.05} onChange={setEgPl} color={T.fnv_elec} unit=" eV" />
+            <SliderRow label={<>E<sub>t</sub> — defect depth</>} value={Et_pl} min={0.05} max={1.5} step={0.01} onChange={setEtPl} color={T.fnv_warm} unit=" eV" />
             <SliderRow label="T — temperature" value={T_pl} min={4} max={300} step={1} onChange={setTPl} color={T.fnv_accent} unit=" K" format={v => v.toFixed(0)} />
             <SliderRow label="FWHM — linewidth" value={fwhm} min={0.005} max={0.2} step={0.005} onChange={setFwhm} color={T.fnv_main} unit=" eV" format={v => (v * 1000).toFixed(0) + " meV"} />
             <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6, background: T.fnv_accent + "08", borderRadius: 8, padding: "8px 12px" }}>
@@ -21968,17 +21913,20 @@ function PLSection() {
             </div>
           </div>
           <div style={{ flex: 1, minWidth: 260 }}>
-            <svg width={W} height={H} style={{ background: T.bg, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "0 auto 10px" }}>
+            <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 540, background: T.bg, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "0 auto 10px" }}>
               <rect x={pad.l} y={pad.t} width={pw} height={ph} fill={T.surface} />
+              {/* Axes */}
+              <line x1={pad.l} y1={pad.t} x2={pad.l} y2={pad.t + ph} stroke={T.ink} strokeWidth={1} />
+              <line x1={pad.l} y1={pad.t + ph} x2={pad.l + pw} y2={pad.t + ph} stroke={T.ink} strokeWidth={1} />
               {[0.5, 1.0, 1.5, 2.0, 2.5].map(E => E >= Emin && E <= Emax && (
-                <g key={E}><line x1={toX(E)} y1={pad.t} x2={toX(E)} y2={pad.t + ph} stroke={T.border} strokeWidth={0.5} strokeDasharray="3,3" /><text x={toX(E)} y={H - 8} textAnchor="middle" fill={T.muted} fontSize={8}>{E.toFixed(1)}</text></g>
+                <g key={E}><line x1={toX(E)} y1={pad.t} x2={toX(E)} y2={pad.t + ph} stroke={T.border} strokeWidth={0.5} strokeDasharray="3,3" /><text x={toX(E)} y={H - 18} textAnchor="middle" fill={T.muted} fontSize={11}>{E.toFixed(1)}</text></g>
               ))}
               <polyline points={Array.from({ length: 200 }, (_, i) => { const E = Emin + (i / 200) * (Emax - Emin); const I = gaussian(E, Ebbe, thermalBroad) * (T_pl < 50 ? 0.3 : 0.7); return `${toX(E)},${toY(I)}`; }).join(" ")} fill="none" stroke={T.fnv_elec} strokeWidth={2} />
               <polyline points={Array.from({ length: 200 }, (_, i) => { const E = Emin + (i / 200) * (Emax - Emin); const quench = 1 / (1 + 50 * Math.exp(-0.1 / (kB * Math.max(T_pl, 4)))); const I = gaussian(E, Edefect, thermalBroad * 0.8) * quench; return `${toX(E)},${toY(I)}`; }).join(" ")} fill="none" stroke={T.fnv_warm} strokeWidth={2} />
-              {Ebbe >= Emin && Ebbe <= Emax && <text x={toX(Ebbe) + 5} y={toY(T_pl < 50 ? 0.25 : 0.65)} fill={T.fnv_elec} fontSize={8} fontWeight={700}>BB ({Ebbe.toFixed(2)} eV)</text>}
-              {Edefect >= Emin && Edefect <= Emax && <text x={toX(Edefect) - 5} y={toY(0.8) + 15} fill={T.fnv_warm} fontSize={8} fontWeight={700} textAnchor="end">Defect ({Edefect.toFixed(2)} eV)</text>}
-              <text x={pad.l + pw / 2} y={H - 2} textAnchor="middle" fill={T.muted} fontSize={9}>Photon Energy (eV)</text>
-              <text x={12} y={pad.t + ph / 2} textAnchor="middle" fill={T.muted} fontSize={9} transform={`rotate(-90,12,${pad.t + ph / 2})`}>PL Intensity (a.u.)</text>
+              {Ebbe >= Emin && Ebbe <= Emax && <text x={toX(Ebbe) + 5} y={toY(T_pl < 50 ? 0.25 : 0.65)} fill={T.fnv_elec} fontSize={11} fontWeight={700}>BB ({Ebbe.toFixed(2)} eV)</text>}
+              {Edefect >= Emin && Edefect <= Emax && <text x={toX(Edefect) - 5} y={toY(0.8) + 15} fill={T.fnv_warm} fontSize={11} fontWeight={700} textAnchor="end">Defect ({Edefect.toFixed(2)} eV)</text>}
+              <text x={pad.l + pw / 2} y={H - 2} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight={600}>Photon Energy (eV)</text>
+              <text x={16} y={pad.t + ph / 2} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight={600} transform={`rotate(-90,16,${pad.t + ph / 2})`}>PL Intensity (a.u.)</text>
             </svg>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
               <ResultBox label="BB peak" value={`${Ebbe.toFixed(3)} eV`} color={T.fnv_elec} sub={`${(1240 / Ebbe).toFixed(0)} nm`} />
@@ -22203,7 +22151,7 @@ function LLMDataMiningModule() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// UNIFIED SHELL: MaterialsLab
+// UNIFIED SHELL: MicroLab
 // ═══════════════════════════════════════════════════════════════════════════
 // Dark theme overrides for the main shell
 const T_DARK = {
@@ -22215,7 +22163,7 @@ const T_DARK = {
   muted:   "#9ca3b4",
 };
 
-export default function MaterialsLab({ initialModule = null, blogMode = false }) {
+export default function MicroLab({ initialModule = null, blogMode = false }) {
   const [module, setModule] = useState(initialModule);
   const [dark, setDark] = useState(false);
 
