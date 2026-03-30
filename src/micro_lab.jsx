@@ -21666,39 +21666,44 @@ function DLTSSection() {
             {"  "}<span style={{ fontSize: 14, color: T.fnv_elec, fontWeight: 800 }}>{"σ = 5.0×10⁻¹⁷ cm²"}</span>
           </div>
           {/* Arrhenius plot */}
-          <svg viewBox="0 0 500 280" style={{ width: "100%", maxWidth: 540, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "8px auto" }}>
+          <svg viewBox="0 0 500 310" style={{ width: "100%", maxWidth: 540, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "8px auto" }}>
             <text x={270} y={22} textAnchor="middle" fontSize={13} fill={T.ink} fontWeight={700}>Arrhenius Plot for Peak E2</text>
-            {/* Axes */}
-            <line x1={75} y1={230} x2={460} y2={230} stroke={T.ink} strokeWidth={1} />
-            <line x1={75} y1={35} x2={75} y2={230} stroke={T.ink} strokeWidth={1} />
+            {/* Axes — y range: -6.5 to -10.5 mapped to 40..240 */}
+            <line x1={75} y1={240} x2={460} y2={240} stroke={T.ink} strokeWidth={1} />
+            <line x1={75} y1={35} x2={75} y2={240} stroke={T.ink} strokeWidth={1} />
             {/* Axis labels */}
-            <text x={270} y={268} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight={600}>1000/T (K⁻¹)</text>
-            <text x={20} y={132} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight={600} transform="rotate(-90,20,132)">ln(eₙ/T²)</text>
-            {/* X-axis ticks */}
-            {[3.8, 4.0, 4.2, 4.4].map(v => (
-              <g key={v}>
-                <line x1={75 + (v - 3.7) * (385 / 0.8)} y1={230} x2={75 + (v - 3.7) * (385 / 0.8)} y2={235} stroke={T.ink} strokeWidth={1} />
-                <text x={75 + (v - 3.7) * (385 / 0.8)} y={248} textAnchor="middle" fill={T.muted} fontSize={11}>{v.toFixed(1)}</text>
-              </g>
-            ))}
-            {/* Y-axis ticks */}
-            {[-7, -8, -9, -10].map(v => (
-              <g key={v}>
-                <line x1={70} y1={230 + (v + 10) * (195 / 3)} x2={75} y2={230 + (v + 10) * (195 / 3)} stroke={T.ink} strokeWidth={1} />
-                <line x1={75} y1={230 + (v + 10) * (195 / 3)} x2={460} y2={230 + (v + 10) * (195 / 3)} stroke={T.border} strokeWidth={0.5} strokeDasharray="3,3" />
-                <text x={65} y={230 + (v + 10) * (195 / 3) + 4} textAnchor="end" fill={T.muted} fontSize={11}>{v}</text>
-              </g>
-            ))}
-            {/* Best-fit line */}
-            <line x1={75 + (3.846 - 3.7) * (385 / 0.8)} y1={230 + (-9.52 + 10) * (195 / 3)} x2={75 + (4.348 - 3.7) * (385 / 0.8)} y2={230 + (-7.34 + 10) * (195 / 3)} stroke={T.fnv_accent} strokeWidth={2} strokeDasharray="6 3" />
-            {/* Data points */}
+            <text x={270} y={290} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight={600}>1000/T (K⁻¹)</text>
+            <text x={20} y={140} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight={600} transform="rotate(-90,20,140)">ln(eₙ/T²)</text>
+            {/* X-axis ticks: 3.8 to 4.4 mapped to x: 75..460 */}
+            {[3.8, 4.0, 4.2, 4.4].map(v => {
+              const x = 75 + (v - 3.8) * (385 / 0.6);
+              return (
+                <g key={v}>
+                  <line x1={x} y1={240} x2={x} y2={245} stroke={T.ink} strokeWidth={1} />
+                  <text x={x} y={262} textAnchor="middle" fill={T.muted} fontSize={11}>{v.toFixed(1)}</text>
+                </g>
+              );
+            })}
+            {/* Y-axis ticks: -7 to -10, mapped so -7→65, -10→240 */}
+            {[-7, -8, -9, -10].map(v => {
+              const y = 65 + (v + 7) * (-175 / 3);
+              return (
+                <g key={v}>
+                  <line x1={70} y1={y} x2={75} y2={y} stroke={T.ink} strokeWidth={1} />
+                  <line x1={75} y1={y} x2={460} y2={y} stroke={T.border} strokeWidth={0.5} strokeDasharray="3,3" />
+                  <text x={65} y={y + 4} textAnchor="end" fill={T.muted} fontSize={11}>{v}</text>
+                </g>
+              );
+            })}
+            {/* Best-fit line & data points: x = 75 + (invT - 3.8) * (385/0.6), y = 65 + (lnET2 + 7) * (-175/3) */}
+            <line x1={75 + (3.846 - 3.8) * (385 / 0.6)} y1={65 + (-9.52 + 7) * (-175 / 3)} x2={75 + (4.348 - 3.8) * (385 / 0.6)} y2={65 + (-7.34 + 7) * (-175 / 3)} stroke={T.fnv_accent} strokeWidth={2} strokeDasharray="6 3" />
             {[
               { invT: 4.348, lnET2: -7.34 },
               { invT: 4.202, lnET2: -7.99 },
               { invT: 4.000, lnET2: -8.88 },
               { invT: 3.846, lnET2: -9.52 },
             ].map((d, i) => (
-              <circle key={i} cx={75 + (d.invT - 3.7) * (385 / 0.8)} cy={230 + (d.lnET2 + 10) * (195 / 3)} r={6} fill={T.fnv_elec} stroke="#fff" strokeWidth={2} />
+              <circle key={i} cx={75 + (d.invT - 3.8) * (385 / 0.6)} cy={65 + (d.lnET2 + 7) * (-175 / 3)} r={6} fill={T.fnv_elec} stroke="#fff" strokeWidth={2} />
             ))}
             <text x={350} y={70} fontSize={12} fill={T.fnv_accent} fontWeight={700}>slope = −E_t/k_B</text>
             <text x={350} y={90} fontSize={14} fill={T.fnv_elec} fontWeight={800}>E_t = 0.374 eV</text>
