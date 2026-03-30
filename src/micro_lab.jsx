@@ -21375,10 +21375,12 @@ function DLTSSection() {
   const enAtPeak = en(dltsPeakT);
   const tauAtPeak = tau(dltsPeakT);
 
+  const peakSignal = dltsSignal(dltsPeakT);
+  const yMax = Math.max(0.1, Math.ceil(peakSignal * 12) / 10);
   const W = 520, H = 300, pad = { l: 65, r: 25, t: 30, b: 50 };
   const pw = W - pad.l - pad.r, ph = H - pad.t - pad.b;
   const toX = (tv) => pad.l + ((tv - 50) / 450) * pw;
-  const toY = (s) => pad.t + (1 - s / 0.45) * ph;
+  const toY = (s) => pad.t + (1 - s / yMax) * ph;
 
   const trapY = 50 + (Et / Eg) * 150;
 
@@ -21539,11 +21541,11 @@ function DLTSSection() {
             <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 540, background: T.bg, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", margin: "0 auto 10px" }}>
               <rect x={pad.l} y={pad.t} width={pw} height={ph} fill={T.surface} />
               {/* Y-axis ticks */}
-              {[0, 0.1, 0.2, 0.3, 0.4].map(v => (
+              {Array.from({ length: 5 }, (_, i) => +(yMax * i / 4).toFixed(2)).map(v => (
                 <g key={v}>
                   <line x1={pad.l - 4} y1={toY(v)} x2={pad.l} y2={toY(v)} stroke={T.ink} strokeWidth={1} />
                   <line x1={pad.l} y1={toY(v)} x2={pad.l + pw} y2={toY(v)} stroke={T.border} strokeWidth={0.5} strokeDasharray="3,3" />
-                  <text x={pad.l - 8} y={toY(v) + 3} textAnchor="end" fill={T.muted} fontSize={10}>{v.toFixed(1)}</text>
+                  <text x={pad.l - 8} y={toY(v) + 3} textAnchor="end" fill={T.muted} fontSize={10}>{v.toFixed(2)}</text>
                 </g>
               ))}
               {[100, 200, 300, 400, 500].map(tv => (
@@ -21555,9 +21557,9 @@ function DLTSSection() {
               {/* Axes */}
               <line x1={pad.l} y1={pad.t} x2={pad.l} y2={pad.t + ph} stroke={T.ink} strokeWidth={1} />
               <line x1={pad.l} y1={pad.t + ph} x2={pad.l + pw} y2={pad.t + ph} stroke={T.ink} strokeWidth={1} />
-              <polyline points={Array.from({ length: 100 }, (_, i) => {
-                const tv = 50 + i * 4.5; const s = dltsSignal(tv);
-                return `${toX(tv)},${toY(Math.max(0, s))}`;
+              <polyline points={Array.from({ length: 300 }, (_, i) => {
+                const tv = 50 + i * 1.5; const s = dltsSignal(tv);
+                return `${toX(tv)},${toY(Math.max(0, Math.min(s, yMax)))}`;
               }).join(" ")} fill="none" stroke={T.fnv_warm} strokeWidth={2.5} />
               <circle cx={toX(dltsPeakT)} cy={toY(dltsSignal(dltsPeakT))} r={5} fill={T.fnv_warm} stroke="#fff" strokeWidth={1.5} />
               <text x={toX(dltsPeakT) + 8} y={toY(dltsSignal(dltsPeakT)) - 10} fill={T.fnv_warm} fontSize={12} fontWeight={700}>{"T"}<tspan fontSize={9} dy={3}>{"peak"}</tspan><tspan dy={-3}>{" = " + dltsPeakT + " K"}</tspan></text>
