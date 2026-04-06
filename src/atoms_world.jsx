@@ -7632,7 +7632,7 @@ function MaterialClassesSection() {
  const cur = info[selected];
 
  // ── ANIMATED BAND DIAGRAM ──
- const W = 380, H = 260;
+ const W = 380, H = 280;
  const bandW = 200, bandL = (W - bandW) / 2 - 20, bandR = bandL + bandW;
  const bandH = 28;
  // Center the band diagram vertically: compute gap in pixels, then place symmetrically
@@ -7776,7 +7776,7 @@ function MaterialClassesSection() {
  <circle key={i} cx={x} cy={y} r={i % 3 === 0 ? 6 : 4}
  fill={i % 3 === 0 ? sel.color : sel.color + "66"} />
  ))}
- <text x={W / 2} y={VBtop + bandH + 18} textAnchor="middle" fill={T.muted} fontSize={13}>Wiggling polymer chain (weak inter-chain forces)</text>
+ <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.muted} fontSize={11}>Wiggling polymer chain (weak inter-chain forces)</text>
  </g>
  )}
 
@@ -7798,13 +7798,12 @@ function MaterialClassesSection() {
  fontSize={a.isIon ? 8 : 7} fontWeight="bold">{a.isIon ? "+" : "–"}</text>
  </g>
  ))}
- <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.muted} fontSize={13}>Rigid ionic/covalent lattice (barely vibrating)</text>
+ <text x={W / 2} y={H - 10} textAnchor="middle" fill={T.muted} fontSize={11}>Rigid ionic/covalent lattice (barely vibrating)</text>
  </g>
  )}
 
- {/* Example label */}
- <text x={W / 2} y={28} textAnchor="middle" fill={T.muted} fontSize={11}>Examples: {sel.example}</text>
  </svg>
+ <div style={{ textAlign: "center", fontSize: 11, color: T.muted, marginTop: 4 }}>Examples: {sel.example}</div>
 
  {/* ── BAND GAP COMPARISON BAR ── */}
  <div style={{ marginTop: 10, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
@@ -9568,9 +9567,9 @@ function KineticsSection() {
  <div style={{ fontSize: 14, fontWeight: 800, color: T.eo_e, marginBottom: 10 }}>The Arrhenius Equation</div>
 
  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginBottom: 14 }}>
- {/* Energy barrier SVG */}
- <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
- <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 320, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+ {/* Energy barrier SVG — centered */}
+ <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+ <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 300, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
  {/* Y-axis: Energy */}
  <line x1={25} y1={15} x2={25} y2={H - 20} stroke={T.dim} strokeWidth={1} />
  <line x1={25} y1={15} x2={21} y2={23} stroke={T.dim} strokeWidth={1} />
@@ -9585,7 +9584,7 @@ function KineticsSection() {
 
  {/* Energy path */}
  <path d={`M 35,${reactY} C 70,${reactY} 100,${adjBarrierY} 140,${adjBarrierY} C 180,${adjBarrierY} 210,${prodY} 260,${prodY}`}
- fill="none" stroke={T.eo_e} strokeWidth={2.5} opacity={0.7} />
+ fill="none" stroke={T.accent} strokeWidth={2.5} opacity={0.7} />
 
  {/* Labels */}
  <text x={45} y={reactY + 14} fontSize={9} fill={T.ink} fontWeight={600}>Reactants</text>
@@ -9598,24 +9597,27 @@ function KineticsSection() {
  <line x1={123} y1={adjBarrierY + 10} x2={120} y2={adjBarrierY + 4} stroke={T.accent} strokeWidth={1.5} />
 
  {/* Animated ball */}
- <circle cx={ballX} cy={ballY - 6} r={6} fill={T.eo_e} opacity={0.8} />
+ <circle cx={ballX} cy={ballY - 6} r={6} fill={T.accent} opacity={0.8} />
  </svg>
+ </div>
 
- <div style={{ marginTop: 8 }}>
+ {/* Sliders — stacked below the figure */}
+ <div style={{ width: "100%", maxWidth: 300 }}>
+ <div style={{ marginBottom: 8 }}>
  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: T.muted, marginBottom: 2 }}>
- <span>Activation energy Eₐ</span>
- <span style={{ color: T.eo_hole, fontWeight: 700 }}>{ea.toFixed(2)} eV</span>
+ <span>Activation energy E<sub>a</sub></span>
+ <span style={{ color: T.accent, fontWeight: 700 }}>{ea.toFixed(2)} eV</span>
  </div>
  <input type="range" min={0.1} max={3.0} step={0.05} value={ea} onChange={e => setEa(+e.target.value)}
- style={{ width: "100%", accentColor: T.eo_hole }} />
+ style={{ width: "100%", accentColor: T.accent }} />
  </div>
- <div style={{ marginTop: 6 }}>
+ <div>
  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: T.muted, marginBottom: 2 }}>
  <span>Temperature</span>
- <span style={{ color: T.eo_e, fontWeight: 700 }}>{temp} K</span>
+ <span style={{ color: T.accent, fontWeight: 700 }}>{temp} K</span>
  </div>
  <input type="range" min={200} max={2000} step={10} value={temp} onChange={e => setTemp(+e.target.value)}
- style={{ width: "100%", accentColor: T.eo_e }} />
+ style={{ width: "100%", accentColor: T.accent }} />
  </div>
  </div>
 
