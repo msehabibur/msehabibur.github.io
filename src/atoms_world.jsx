@@ -5235,8 +5235,8 @@ function CrystalSymmetrySection() {
  const rx = x * cosA - z * sinA;
  const rz = x * sinA + z * cosA;
  const ry2 = y * cosB - rz * sinB;
- const px = 200 + rx * 65;
- const py = 205 - ry2 * 65;
+ const px = 250 + rx * 85;
+ const py = 255 - ry2 * 85;
  const depth = rz * cosB + y * sinB;
  return { px, py, depth };
  };
@@ -5293,8 +5293,8 @@ function CrystalSymmetrySection() {
  </AnalogyBox>
  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
  <div style={{ flexShrink: 0 }}>
- <svg viewBox="0 0 400 400" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 420 }}>
- <text x={200} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
+ <svg viewBox="0 0 500 500" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 520 }}>
+ <text x={250} y={20} textAnchor="middle" fontSize={14} fontWeight={700} fill={T.ink}>
  {lattice} Structure
  </text>
 
@@ -5338,7 +5338,7 @@ function CrystalSymmetrySection() {
  })}
 
  {/* Lattice parameter labels */}
- <text x={200} y={370} textAnchor="middle" fontSize={12} fill={T.muted}>
+ <text x={250} y={470} textAnchor="middle" fontSize={12} fill={T.muted}>
  a = b = c{lattice === "Simple Cubic" ? "" : " | α=β=γ=90°"}
  </text>
 
@@ -5368,10 +5368,10 @@ function CrystalSymmetrySection() {
  {/* Legend */}
  {lattice === "Zincblende" && (
  <>
- <circle cx={120} cy={392} r={5} fill={T.eo_e} />
- <text x={130} y={396} fontSize={10} fill={T.muted}>Anion (Te)</text>
- <circle cx={240} cy={392} r={5} fill={T.eo_hole} />
- <text x={250} y={396} fontSize={10} fill={T.muted}>Cation (Zn)</text>
+ <circle cx={150} cy={485} r={6} fill={T.eo_e} />
+ <text x={162} y={489} fontSize={11} fill={T.muted}>Anion (Te)</text>
+ <circle cx={280} cy={485} r={6} fill={T.eo_hole} />
+ <text x={292} y={489} fontSize={11} fill={T.muted}>Cation (Zn)</text>
  </>
  )}
  </svg>
@@ -7238,14 +7238,14 @@ function SemiconductorDopingTool() {
 
  return (
  <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: "1.5px solid #7c3aed33" }}>
- <div style={{ fontSize: 13, fontWeight: 800, color: "#7c3aed", marginBottom: 10 }}>Interactive Semiconductor Doping Simulator</div>
- <div style={{ fontSize: 12, color: T.muted, marginBottom: 10, lineHeight: 1.6 }}>
- Select a host semiconductor and dopant type to see how doping creates free carriers. Watch the extra electron or hole bounce around!
+ <div style={{ fontSize: 13, fontWeight: 800, color: T.accent, marginBottom: 10, textAlign: "center" }}>Interactive Semiconductor Doping Simulator</div>
+ <div style={{ fontSize: 12, color: T.muted, marginBottom: 10, lineHeight: 1.6, textAlign: "center" }}>
+ Select a host semiconductor and dopant type to see how doping creates free carriers.
  </div>
 
  {/* Controls */}
- <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
- <div>
+ <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12, justifyContent: "center" }}>
+ <div style={{ textAlign: "center" }}>
  <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Host Material</div>
  <div style={{ display: "flex", gap: 4 }}>
  {hosts.map(h => (
@@ -7258,9 +7258,9 @@ function SemiconductorDopingTool() {
  ))}
  </div>
  </div>
- <div>
+ <div style={{ textAlign: "center" }}>
  <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Dopant Type</div>
- <div style={{ display: "flex", gap: 4 }}>
+ <div style={{ display: "flex", gap: 4, justifyContent: "center" }}>
  {["n-type", "p-type"].map(d => (
  <button key={d} onClick={() => setDopantType(d)} style={{
  padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 600,
@@ -7274,7 +7274,7 @@ function SemiconductorDopingTool() {
  </div>
 
  {/* Concentration slider */}
- <div style={{ marginBottom: 12 }}>
+ <div style={{ marginBottom: 12, maxWidth: 374, margin: "0 auto 12px auto" }}>
  <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Dopant Concentration: {concDisplay}</div>
  <input type="range" min={14} max={18} step={0.5} value={concentration} onChange={e => setConcentration(Number(e.target.value))}
  style={{ width: "100%", accentColor: "#7c3aed" }} />
@@ -7317,13 +7317,13 @@ function SemiconductorDopingTool() {
  </div>
 
  {/* Info panels */}
- <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+ <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center", maxWidth: 374, margin: "0 auto" }}>
  {[
  { label: "Carrier Type", value: carrierLabel, color: carrierColor },
- { label: "Conductivity", value: conductivityChange, color: "#7c3aed" },
- { label: "Fermi Level", value: fermiShift, color: "#7c3aed" },
+ { label: "Conductivity", value: conductivityChange, color: T.accent },
+ { label: "Fermi Level", value: fermiShift, color: T.accent },
  ].map(p => (
- <div key={p.label} style={{ flex: 1, minWidth: 90, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+ <div key={p.label} style={{ flex: 1, minWidth: 90, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}`, textAlign: "center" }}>
  <div style={{ fontSize: 12, color: T.muted, marginBottom: 4 }}>{p.label}</div>
  <div style={{ fontSize: 12, fontWeight: 700, color: p.color, fontFamily: "monospace" }}>{p.value}</div>
  </div>
@@ -10525,11 +10525,104 @@ function PhaseDiagramSection() {
  </div>
  </NCard>
 
+ {/* ── CZTS QUATERNARY PHASE DIAGRAM ── */}
+ <NCard title="Real-World Example: Cu₂ZnSnS₄ (CZTS) Quaternary Phase Diagram" color={T.accent} formula={"Cu₂ZnSnS₄ — 4-component system"}>
+ <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+ CZTS is a promising solar cell absorber made from earth-abundant elements: Cu, Zn, Sn, and S.
+ Unlike binary Cu-Ni, CZTS has <strong>4 components</strong>, making its phase diagram a 3D tetrahedron
+ with Cu, Zn, Sn, and S at the four corners. The challenge is that CZTS competes with many
+ secondary phases (CuS, ZnS, SnS₂, Cu₂SnS₃) that can form instead.
+ </div>
+
+ {/* Tetrahedron SVG */}
+ <div style={{ display: "flex", justifyContent: "center", marginBottom: 14 }}>
+ <svg viewBox="0 0 340 320" style={{ width: "100%", maxWidth: 340, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+ {/* Tetrahedron edges */}
+ <polygon points="170,20 30,280 310,280" fill={T.accent + "06"} stroke={T.accent} strokeWidth={1.5} />
+ <line x1={170} y1={20} x2={220} y2={160} stroke={T.accent} strokeWidth={1} strokeDasharray="4,3" />
+ <line x1={30} y1={280} x2={220} y2={160} stroke={T.accent} strokeWidth={1} strokeDasharray="4,3" />
+ <line x1={310} y1={280} x2={220} y2={160} stroke={T.accent} strokeWidth={1} strokeDasharray="4,3" />
+
+ {/* Corner labels */}
+ <text x={170} y={14} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>S</text>
+ <text x={18} y={296} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>Cu</text>
+ <text x={320} y={296} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>Sn</text>
+ <text x={232} y={155} fontSize={13} fontWeight={700} fill={T.ink}>Zn</text>
+
+ {/* CZTS point — inside tetrahedron */}
+ <circle cx={155} cy={175} r={8} fill={T.accent} opacity={0.8} />
+ <text x={155} y={179} textAnchor="middle" fill="#fff" fontSize={7} fontWeight={700}>CZTS</text>
+
+ {/* Secondary phases as smaller dots */}
+ {[
+ { x: 100, y: 150, label: "CuS" },
+ { x: 200, y: 90, label: "ZnS" },
+ { x: 230, y: 200, label: "SnS₂" },
+ { x: 130, y: 210, label: "Cu₂S" },
+ { x: 180, y: 220, label: "Cu₂SnS₃" },
+ ].map((p, i) => (
+ <g key={i}>
+ <circle cx={p.x} cy={p.y} r={4} fill={T.muted} opacity={0.6} />
+ <text x={p.x + 8} y={p.y + 4} fontSize={9} fill={T.muted}>{p.label}</text>
+ </g>
+ ))}
+
+ {/* Tie lines from CZTS to competing phases */}
+ {[[100,150],[200,90],[230,200],[130,210],[180,220]].map(([x,y], i) => (
+ <line key={i} x1={155} y1={175} x2={x} y2={y} stroke={T.accent} strokeWidth={0.5} opacity={0.3} />
+ ))}
+
+ <text x={170} y={310} textAnchor="middle" fontSize={10} fill={T.muted}>
+ Cu₂ZnSnS₄ quaternary phase space
+ </text>
+ </svg>
+ </div>
+
+ <div style={{ fontSize: 12, fontWeight: 700, color: T.accent, marginBottom: 8 }}>Why CZTS is hard to make</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, marginBottom: 12 }}>
+ CZTS sits inside this 4-component tetrahedron, surrounded by competing phases on all sides.
+ The formation energy of CZTS is only about −0.05 eV/atom — barely stable.
+ Any small shift in composition pushes you into a secondary phase:
+ </div>
+ <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+ <InfoRow label="Too much Cu" value="→ Cu₂S or Cu₂SnS₃ forms (metallic, shorts the cell)" />
+ <InfoRow label="Too much Zn" value="→ ZnS forms (insulating, blocks current)" />
+ <InfoRow label="Too little S" value="→ SnS or metallic Sn forms (kills device)" />
+ <InfoRow label="Ideal" value="→ Narrow window: Cu-poor, Zn-rich conditions" />
+ </div>
+
+ <div style={{ fontSize: 12, fontWeight: 700, color: T.accent, marginBottom: 8 }}>How to construct this phase diagram</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, marginBottom: 12 }}>
+ Building a quaternary phase diagram requires combining experiments and computation:
+ </div>
+ <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 14 }}>
+ {[
+ { step: "1. Calculate formation energies", detail: "Use DFT (density functional theory) to compute the total energy of every known phase: Cu₂ZnSnS₄, CuS, ZnS, SnS₂, Cu₂SnS₃, Cu₂S, SnS, and the pure elements. Subtract elemental references to get formation energy per atom." },
+ { step: "2. Build the convex hull", detail: "Plot all phases in composition-energy space. The convex hull connects the lowest-energy phases at each composition. Phases ON the hull are stable; phases ABOVE it will decompose." },
+ { step: "3. Check CZTS stability", detail: "If CZTS sits on the hull, it is thermodynamically stable. Its energy must be lower than any combination of competing phases at the same overall composition (Cu:Zn:Sn:S = 2:1:1:4)." },
+ { step: "4. Map the stability region", detail: "Vary the chemical potentials (μ_Cu, μ_Zn, μ_Sn, μ_S) and find the range where CZTS is the ground state. This gives the stability polygon — a narrow window in chemical potential space." },
+ { step: "5. Connect to growth conditions", detail: "Each point in the stability polygon corresponds to specific lab conditions (source temperatures, pressures, flux ratios). Cu-poor, Zn-rich conditions map to the part of the polygon that avoids Cu₂S and Cu₂SnS₃ — this is where the best solar cells are made." },
+ ].map(({ step, detail }) => (
+ <div key={step} style={{ paddingLeft: 12, borderLeft: `3px solid ${T.accent}`, marginBottom: 4 }}>
+ <div style={{ fontSize: 11, fontWeight: 700, color: T.accent, marginBottom: 2 }}>{step}</div>
+ <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>{detail}</div>
+ </div>
+ ))}
+ </div>
+
+ <div style={{ background: T.accent + "08", border: `1px solid ${T.accent}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ fontSize: 9, letterSpacing: 2, color: T.accent, fontWeight: 700, marginBottom: 4 }}>Key takeaway</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+ Binary phase diagrams (like Cu-Ni) have simple liquidus/solidus curves. But real materials like CZTS solar cells live in quaternary space with dozens of competing phases. The tools are the same (free energy minimization, lever rule, Gibbs phase rule), but the complexity grows enormously. This is why computational phase diagrams (CALPHAD + DFT) are essential for modern materials design.
+ </div>
+ </div>
+ </NCard>
+
  <div style={{
- background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
+ background: `${T.accent}11`, border: `1px solid ${T.accent}44`,
  borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
  }}>
- <div style={{ fontWeight: "bold", color: T.eo_e, marginBottom: 4 }}>Coming Next: Chemical Potential {"→"}</div>
+ <div style={{ fontWeight: "bold", color: T.accent, marginBottom: 4 }}>Coming Next: Chemical Potential</div>
  <div style={{ color: T.ink }}>
  Phase diagrams show bulk stability, but thin-film growth requires controlling individual element chemical potentials. The stability polygon tells us the narrow window of conditions where our desired phase forms without competing phases.
  </div>
