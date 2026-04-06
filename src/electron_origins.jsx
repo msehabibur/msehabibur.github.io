@@ -474,11 +474,11 @@ function AtomicModelsSection() {
       <AnalogyBox>
           Imagine you are looking at an object through a series of increasingly powerful microscopes. <strong>Dalton</strong> saw a solid marble. <strong>Thomson</strong> cracked it open and found raisins in a pudding. <strong>Rutherford</strong> zoomed in and discovered the marble is 99.99% empty space with a tiny dense core. <strong>Bohr</strong> saw electrons orbiting like planets. Finally, <strong>quantum mechanics</strong> revealed there are no orbits at all {"—"} just fuzzy probability clouds showing where the electron is <em>likely</em> to be. Each model did not destroy the last; it refined it.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <div style={{ flexShrink: 0 }}>
         {renderSVG()}
       </div>
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
           {models.map((md, i) => (
             <button key={i} onClick={() => setModel(i)} style={{
