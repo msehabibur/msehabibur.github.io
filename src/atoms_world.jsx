@@ -10590,30 +10590,135 @@ function PhaseDiagramSection() {
  <InfoRow label="Too little S" value="→ SnS or metallic Sn forms (kills device)" />
  <InfoRow label="Ideal" value="→ Narrow window: Cu-poor, Zn-rich conditions" />
  </div>
+ </NCard>
 
- <div style={{ fontSize: 12, fontWeight: 700, color: T.accent, marginBottom: 8 }}>How to construct this phase diagram</div>
- <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, marginBottom: 12 }}>
- Building a quaternary phase diagram requires combining experiments and computation:
+ {/* ── NUMERICAL EXAMPLE: CZTS Formation Energy ── */}
+ <NCard title="Numerical Example: Is CZTS stable? DFT formation energy calculation" color={T.accent} formula={"ΔH_f = E(CZTS) − 2E(Cu) − E(Zn) − E(Sn) − 4E(S)"}>
+ <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
+ <strong>The question:</strong> We ran DFT calculations (using VASP with PBE functional) on Cu₂ZnSnS₄ and all competing phases. Is CZTS thermodynamically stable, or will it decompose into simpler compounds?
  </div>
- <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 14 }}>
+
+ <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 1 — Get DFT total energies (per formula unit):</strong></div>
+ <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+ <InfoRow label="E(Cu₂ZnSnS₄)" value="−36.884 eV (8 atoms → −4.611 eV/atom)" />
+ <InfoRow label="E(Cu, FCC)" value="−3.726 eV/atom" />
+ <InfoRow label="E(Zn, HCP)" value="−1.266 eV/atom" />
+ <InfoRow label="E(Sn, diamond)" value="−3.783 eV/atom" />
+ <InfoRow label="E(S, orthorhombic)" value="−4.124 eV/atom" />
+ </div>
+
+ <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 2 — Calculate formation energy:</strong></div>
+ <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+ <CalcRow eq="ΔH_f = E(CZTS) − [2×E(Cu) + 1×E(Zn) + 1×E(Sn) + 4×E(S)]" result="" color={T.accent} />
+ <CalcRow eq="Reference sum = 2(−3.726) + (−1.266) + (−3.783) + 4(−4.124)" result="" color={T.accent} />
+ <CalcRow eq="= −7.452 − 1.266 − 3.783 − 16.496" result="= −28.997 eV" color={T.accent} />
+ <CalcRow eq="ΔH_f = −36.884 − (−28.997)" result="" color={T.accent} />
+ <CalcRow eq="ΔH_f = −36.884 + 28.997" result="= −7.887 eV total" color={T.accent} />
+ <CalcRow eq="Per atom: −7.887 / 8" result="= −0.986 eV/atom" color={T.accent} />
+ </div>
+
+ <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 3 — But is it stable against decomposition? Check competing reactions:</strong></div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, marginBottom: 8 }}>
+ Having a negative formation energy from elements is not enough. We must check if CZTS is lower in energy than every possible combination of binary and ternary phases at the same composition:
+ </div>
+ <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
+ <CalcRow eq="Reaction 1: Cu₂ZnSnS₄ → Cu₂S + ZnS + SnS₂" result="" color={T.accent} />
+ <CalcRow eq="ΔE₁ = E(Cu₂S) + E(ZnS) + E(SnS₂) − E(CZTS)" result="+0.12 eV (CZTS wins)" color={T.accent} />
+ <CalcRow eq="Reaction 2: Cu₂ZnSnS₄ → Cu₂SnS₃ + ZnS" result="" color={T.accent} />
+ <CalcRow eq="ΔE₂ = E(Cu₂SnS₃) + E(ZnS) − E(CZTS)" result="+0.04 eV (barely stable)" color={T.accent} />
+ <CalcRow eq="Reaction 3: Cu₂ZnSnS₄ → 2CuS + ZnS + SnS" result="" color={T.accent} />
+ <CalcRow eq="ΔE₃ = 2E(CuS) + E(ZnS) + E(SnS) − E(CZTS)" result="+0.38 eV (CZTS wins)" color={T.accent} />
+ </div>
+
+ <div style={{ background: T.accent + "08", border: `1px solid ${T.accent}22`, borderRadius: 8, padding: "10px 12px", marginBottom: 14 }}>
+ <div style={{ fontSize: 9, letterSpacing: 2, color: T.accent, fontWeight: 700, marginBottom: 4 }}>Result</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
+ All decomposition reactions have positive ΔE, so CZTS sits on the convex hull and is thermodynamically stable.
+ But reaction 2 has only +0.04 eV — CZTS is barely stable against Cu₂SnS₃ + ZnS.
+ This tiny margin is why growing pure CZTS without secondary phases is so difficult in practice.
+ </div>
+ </div>
+
+ <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 4 — Build the convex hull (what it looks like):</strong></div>
+
+ {/* Convex hull diagram */}
+ <div style={{ display: "flex", justifyContent: "center", marginBottom: 14 }}>
+ <svg viewBox="0 0 340 200" style={{ width: "100%", maxWidth: 340, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+ {/* Axes */}
+ <line x1={40} y1={170} x2={320} y2={170} stroke={T.dim} strokeWidth={1} />
+ <line x1={40} y1={170} x2={40} y2={20} stroke={T.dim} strokeWidth={1} />
+ <text x={180} y={195} textAnchor="middle" fontSize={10} fill={T.muted}>Composition (Cu₂S → ZnS → SnS₂)</text>
+ <text x={14} y={95} textAnchor="middle" fontSize={10} fill={T.muted} transform="rotate(-90,14,95)">Energy (eV/atom)</text>
+
+ {/* Elemental reference line */}
+ <line x1={50} y1={140} x2={310} y2={140} stroke={T.dim} strokeWidth={1} strokeDasharray="4,3" />
+ <text x={315} y={138} fontSize={8} fill={T.dim}>elements</text>
+
+ {/* Convex hull line */}
+ <polyline points="50,140 100,105 155,60 200,55 250,70 310,140"
+ fill="none" stroke={T.accent} strokeWidth={2} />
+
+ {/* Hull fill */}
+ <polygon points="50,140 100,105 155,60 200,55 250,70 310,140"
+ fill={T.accent} opacity={0.06} />
+
+ {/* Stable phases on hull */}
  {[
- { step: "1. Calculate formation energies", detail: "Use DFT (density functional theory) to compute the total energy of every known phase: Cu₂ZnSnS₄, CuS, ZnS, SnS₂, Cu₂SnS₃, Cu₂S, SnS, and the pure elements. Subtract elemental references to get formation energy per atom." },
- { step: "2. Build the convex hull", detail: "Plot all phases in composition-energy space. The convex hull connects the lowest-energy phases at each composition. Phases ON the hull are stable; phases ABOVE it will decompose." },
- { step: "3. Check CZTS stability", detail: "If CZTS sits on the hull, it is thermodynamically stable. Its energy must be lower than any combination of competing phases at the same overall composition (Cu:Zn:Sn:S = 2:1:1:4)." },
- { step: "4. Map the stability region", detail: "Vary the chemical potentials (μ_Cu, μ_Zn, μ_Sn, μ_S) and find the range where CZTS is the ground state. This gives the stability polygon — a narrow window in chemical potential space." },
- { step: "5. Connect to growth conditions", detail: "Each point in the stability polygon corresponds to specific lab conditions (source temperatures, pressures, flux ratios). Cu-poor, Zn-rich conditions map to the part of the polygon that avoids Cu₂S and Cu₂SnS₃ — this is where the best solar cells are made." },
- ].map(({ step, detail }) => (
- <div key={step} style={{ paddingLeft: 12, borderLeft: `3px solid ${T.accent}`, marginBottom: 4 }}>
- <div style={{ fontSize: 11, fontWeight: 700, color: T.accent, marginBottom: 2 }}>{step}</div>
- <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>{detail}</div>
- </div>
+ { x: 50, y: 140, label: "Cu" },
+ { x: 100, y: 105, label: "Cu₂S" },
+ { x: 155, y: 60, label: "CZTS", highlight: true },
+ { x: 200, y: 55, label: "ZnS" },
+ { x: 250, y: 70, label: "SnS₂" },
+ { x: 310, y: 140, label: "S" },
+ ].map((p, i) => (
+ <g key={i}>
+ <circle cx={p.x} cy={p.y} r={p.highlight ? 7 : 5} fill={p.highlight ? T.accent : T.accent} opacity={p.highlight ? 1 : 0.6} />
+ <text x={p.x} y={p.y - 10} textAnchor="middle" fontSize={9} fontWeight={p.highlight ? 700 : 400}
+ fill={p.highlight ? T.accent : T.muted}>{p.label}</text>
+ </g>
  ))}
+
+ {/* Unstable phase above hull */}
+ <circle cx={178} cy={78} r={4} fill={T.muted} opacity={0.4} />
+ <text x={178} y={72} textAnchor="middle" fontSize={8} fill={T.muted}>Cu₂SnS₃</text>
+ <line x1={178} y1={82} x2={178} y2={58} stroke={T.muted} strokeWidth={0.5} strokeDasharray="2,2" />
+ <text x={195} y={88} fontSize={7} fill={T.muted}>above hull = unstable</text>
+
+ <text x={155} y={45} textAnchor="middle" fontSize={9} fontWeight={700} fill={T.accent}>on hull = stable</text>
+ </svg>
+ </div>
+
+ <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 5 — Map the stability polygon (chemical potential space):</strong></div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, marginBottom: 8 }}>
+ The stability polygon shows the allowed range of chemical potentials (μ<sub>Cu</sub>, μ<sub>Zn</sub>) where CZTS is the ground state.
+ Each boundary of the polygon is where a competing phase becomes equally stable:
+ </div>
+ <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+ <InfoRow label="Top boundary" value="μ_Cu too high → Cu₂S forms" />
+ <InfoRow label="Right boundary" value="μ_Zn too high → ZnS forms" />
+ <InfoRow label="Bottom boundary" value="μ_Cu too low → SnS₂ forms" />
+ <InfoRow label="Left boundary" value="μ_Zn too low → Cu₂SnS₃ forms" />
+ <InfoRow label="Best devices" value="Cu-poor corner (low μ_Cu, high μ_Zn)" />
+ </div>
+
+ <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 6 — Connect to lab conditions:</strong></div>
+ <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+ <InfoRow label="Cu-poor" value="Lower Cu source temperature in MBE/PVD" />
+ <InfoRow label="Zn-rich" value="Excess Zn flux (Zn is volatile, excess evaporates)" />
+ <InfoRow label="S-rich" value="Always use excess sulfur (prevents Sn loss as SnS)" />
+ <InfoRow label="Typical recipe" value="Cu/(Zn+Sn) ≈ 0.8, Zn/Sn ≈ 1.2" />
+ <InfoRow label="Best efficiency" value="12.6% (IBM, 2013) — limited by secondary phases" />
  </div>
 
  <div style={{ background: T.accent + "08", border: `1px solid ${T.accent}22`, borderRadius: 8, padding: "10px 12px" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.accent, fontWeight: 700, marginBottom: 4 }}>Key takeaway</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
- Binary phase diagrams (like Cu-Ni) have simple liquidus/solidus curves. But real materials like CZTS solar cells live in quaternary space with dozens of competing phases. The tools are the same (free energy minimization, lever rule, Gibbs phase rule), but the complexity grows enormously. This is why computational phase diagrams (CALPHAD + DFT) are essential for modern materials design.
+ Building a phase diagram for a real quaternary material requires:
+ (1) DFT formation energies for all competing phases,
+ (2) convex hull construction to find which phases are stable,
+ (3) chemical potential mapping to find the growth window,
+ (4) connecting chemical potentials to lab conditions (source fluxes, temperatures).
+ CZTS shows why computational thermodynamics is essential — the stability window is so narrow that trial-and-error experiments alone could never find it.
  </div>
  </div>
  </NCard>
