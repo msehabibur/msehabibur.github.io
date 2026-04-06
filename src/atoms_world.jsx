@@ -1,11 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-
-const T = {
-  bg: "#f0f2f5", panel: "#ffffff", surface: "#f7f8fa", border: "#d4d8e0",
-  ink: "#1a1e2e", muted: "#6b7280", dim: "#c0c6d0",
-  eo_e: "#2563eb", eo_hole: "#ea580c", eo_photon: "#ca8a04",
-  eo_valence: "#059669", eo_core: "#7c3aed", eo_gap: "#dc2626", eo_cond: "#0284c7",
-};
+import { T, FONT, LAYOUT, ANALOGY, BUTTON, PANEL, SVG } from "./sectionStyles.js";
 
 // ── TINY HELPERS ───────────────────────────────────────────────────────────
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -44,9 +38,9 @@ function SectionTitle({ color, children }) {
 
 function AnalogyBox({ children }) {
   return (
-    <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "10px 16px", marginBottom: 12, width: "100%", flexShrink: 0, alignSelf: "flex-start" }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
-      <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>{children}</div>
+    <div style={ANALOGY.box}>
+      <div style={ANALOGY.title}>Simple Analogy</div>
+      <div style={ANALOGY.body}>{children}</div>
     </div>
   );
 }
@@ -936,11 +930,11 @@ function AufbauPrincipleSection() {
       <AnalogyBox>
           Filling electron orbitals is like filling seats in a movie theater. Everyone wants the best seats (lowest energy) first. The front row fills before the back. But there's a twist — each seat can only hold two people (Pauli exclusion), and within each row, people spread out to separate seats before doubling up (Hund's rule). The order isn't always front-to-back either: sometimes the balcony (4s) fills before the back of the main floor (3d) because it's slightly more comfortable (lower energy).
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <div style={{ flexShrink: 0 }}>
         {renderSVG()}
       </div>
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 8 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 6, padding: 10 }}>
           <div style={{ fontSize: 11, fontWeight: "bold", marginBottom: 6 }}>Element: {elements[Z] || `Z=${Z}`} (Z={Z})</div>
           <input type="range" min={1} max={36} value={Math.min(Z, 36)} onChange={e => { setZ(+e.target.value); setAnimStep(999); }}
@@ -1453,11 +1447,11 @@ function ElectronOriginsZnTeSection() {
       <AnalogyBox>
           Think of Zn and Te atoms as two people bringing ingredients to a potluck. Zinc brings 2 outer electrons (from its 4s orbital), and Tellurium brings 6 (from 5s and 5p). When they combine in a crystal, they pool their electrons into shared 'community bowls' — the valence and conduction bands. The valence band is the main dish everyone eats from (full), and the conduction band is dessert that nobody has reached yet (empty).
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <div style={{ flexShrink: 0 }}>
         {renderSVG()}
       </div>
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 8 }}>
         <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
           {stages.map((s, i) => (
             <button key={i} onClick={() => { setStage(i); if (i === 1) { setBondProgress(0); setBonding(false); } }} style={{
@@ -1928,9 +1922,9 @@ function WaveDualitySection() {
         ))}
       </div>
 
-      {/* Animation + Why this matters side by side */}
-      <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-        <div style={{ flex: 1, minWidth: 300 }}>
+      {/* Animation + Why this matters */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+        <div style={{ width: "100%" }}>
           {/* Animation */}
           <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 10, overflow: "hidden" }}>
             <svg viewBox={`0 0 ${W} ${H}`} style={{ display: "block", background: "#0f172a", width: "100%", maxWidth: W }}>
@@ -1980,8 +1974,8 @@ function WaveDualitySection() {
       </div>
 
       {/* de Broglie section */}
-      <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-        <div style={{ flex: 1, minWidth: 220, background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+        <div style={{ width: "100%", background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 8, color: T.eo_e }}>de Broglie Wavelength λ = h / mv</div>
           <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>Select a particle:</div>
           <input type="range" min={0} max={2} step={1} value={massIdx}
@@ -2280,8 +2274,8 @@ function SchrodingerSection() {
       <AnalogyBox>
           The Schr&ouml;dinger equation is like a recipe book for quantum mechanics. Give it the 'kitchen setup' (potential energy landscape) and it tells you every possible 'dish' (wavefunction) the electron can make, along with its 'calorie count' (energy). The wavefunction isn't the electron itself — it's a probability cloud showing where the electron is likely to be found, like a heat map of a cat's favorite napping spots in your house.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-      {/* LEFT: SVG */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+      {/* SVG */}
       <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 320 520" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 320 }}>
           <text x={160} y={16} textAnchor="middle" fontSize={13} fill={T.ink} fontWeight="bold">
@@ -2358,8 +2352,8 @@ function SchrodingerSection() {
         </div>
       </div>
 
-      {/* RIGHT: Info */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
+      {/* Info */}
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 12 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 14, fontWeight: "bold", marginBottom: 10, color: T.eo_valence }}>
             The Schr{"ö"}dinger Equation
@@ -2778,8 +2772,8 @@ function QuantumNumbersSection() {
       <AnalogyBox>
           Quantum numbers are like an address system for electrons. The principal quantum number (n) is the city (energy level). The angular momentum number (l) is the street (orbital shape: s, p, d, f). The magnetic number (ml) is the house number (orientation in space). The spin number (ms) is which side of the bed you sleep on (up or down). No two electrons can have the same full address — that's the Pauli exclusion principle.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-      {/* LEFT: SVG */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+      {/* SVG */}
       <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 320 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 320 }}>
           {!showAll ? (
@@ -2877,7 +2871,7 @@ function QuantumNumbersSection() {
       </div>
 
       {/* RIGHT */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
         {/* Quantum number selectors */}
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 14, fontWeight: "bold", marginBottom: 10, color: T.eo_core }}>
@@ -3264,8 +3258,8 @@ function PeriodicTrendsSection() {
       <AnalogyBox>
           The periodic table is like a seating chart that reveals personality. Moving left to right across a row, atoms grip their electrons tighter (higher ionization energy) and shrink in size — like a crowd squeezing into fewer seats. Moving down a column, atoms get larger and hold electrons more loosely — like moving from a cramped apartment to a mansion where you lose track of your belongings. These trends predict how atoms will bond, react, and behave in materials.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-      {/* LEFT: SVG */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+      {/* SVG */}
       <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           {/* Title */}
@@ -3325,7 +3319,7 @@ function PeriodicTrendsSection() {
       </div>
 
       {/* RIGHT */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
         {/* Property toggle */}
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
           <div style={{ fontSize: 12, fontWeight: "bold", color: T.eo_gap, marginBottom: 8 }}>
@@ -3695,7 +3689,7 @@ function AtomSection() {
       <AnalogyBox>
           An atom is like a tiny solar system — but weirder. The nucleus (sun) contains nearly all the mass, and electrons (planets) orbit around it. But unlike planets, electrons don't have fixed orbits. Instead, they exist as fuzzy probability clouds — imagine a blurred long-exposure photo of a firefly. The electron could be anywhere in that cloud, but some regions are much more likely than others. Those likely regions are what we call orbitals.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       {/* Atom selector */}
       <div style={{ display: "flex", flexDirection: "column", gap: 8, minWidth: 80 }}>
         {atoms.map((at, i) => (
@@ -3888,7 +3882,7 @@ function ChemicalBondingSection() {
       <AnalogyBox>
           Chemical bonding is like sharing or stealing toys. In an ionic bond (NaCl), one atom steals an electron from another — like a bully taking a toy, creating a positive and negative ion that attract. In a covalent bond (Si), atoms share electrons equally — like kids sharing toys nicely. In a metallic bond (Cu), everyone throws their toys into a communal pile that all atoms share — that's the electron sea. The type of sharing determines everything: hardness, conductivity, melting point.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <div style={{ width: 340, maxWidth: 340, flexShrink: 0 }}>
         <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <defs>
@@ -4406,8 +4400,8 @@ function HybridizationSection() {
       <AnalogyBox>
           {`Hybridization is like mixing paint colors. A carbon atom has separate s and p orbitals (like separate red, blue, yellow paints). But when it bonds, it blends them into hybrid orbitals (like mixing paints to get new colors). sp³ hybridization mixes 1s + 3p to create 4 identical orbitals pointing to the corners of a tetrahedron — this is why methane (CH₄) and diamond have their specific shapes. The mixing happens because hybrid orbitals overlap better with neighbors, making stronger bonds.`}
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-      <div style={{ minWidth: 340 }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+      <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 340 340" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <text x={170} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
             {hybridType} Hybridization
@@ -4813,8 +4807,8 @@ function MolecularOrbitalSection() {
       <AnalogyBox>
           Molecular orbital theory is like what happens when two guitar strings vibrate near each other. They can vibrate in phase (both moving the same direction = bonding orbital, lower energy, stable) or out of phase (moving opposite = antibonding orbital, higher energy, unstable). When two atoms approach, their atomic orbitals combine the same way — creating bonding MOs that hold atoms together and antibonding MOs that push them apart. The net result determines if the molecule is stable.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-      <div style={{ minWidth: 340 }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+      <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <text x={170} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
             {info.title}
@@ -5297,8 +5291,8 @@ function CrystalSymmetrySection() {
       <AnalogyBox>
           Crystal symmetry is like wallpaper patterns. Just as a wallpaper designer creates a beautiful pattern by repeating a small tile in a specific arrangement, nature builds crystals by stacking identical unit cells in 3D. The unit cell is the smallest 'tile' that contains all the information. The 14 Bravais lattices are like 14 fundamental tile shapes. Knowing the tile tells you everything about the full wall — that's why crystallographers obsess over unit cells.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-      <div style={{ minWidth: 340 }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+      <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 340 340" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <text x={170} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
             {lattice} Structure
@@ -5728,8 +5722,8 @@ function ReciprocalSpaceSection() {
       <AnalogyBox>
           Reciprocal space is like sheet music for a crystal. Real space shows you the actual atoms and their positions (like seeing musicians on a stage). Reciprocal space shows you the 'frequencies' and 'wavelengths' that matter — the spatial periodicities of the crystal (like reading the musical score). X-ray diffraction patterns directly photograph reciprocal space. Brillouin zones are like octaves — they organize all possible wavelengths into a compact, repeating framework.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-      <div style={{ minWidth: 340 }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+      <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 340 320" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 340 }}>
           <text x={170} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
             {showReciprocal ? "Reciprocal Space" : "Real Space"} ({latticeType})
@@ -6192,9 +6186,9 @@ function BandSection() {
       <AnalogyBox>
           {`Energy bands are like floors in a building. In a single atom, electrons live on specific floors (discrete energy levels). But when trillions of atoms pack into a crystal, their floors merge into continuous ramps (bands). The valence band is the ground floor — full of residents (electrons). The conduction band is the upper floor — empty, with room to roam freely. The band gap is the staircase between them: easy to climb in semiconductors, impossible in insulators, nonexistent in metals.`}
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       {/* Band diagram */}
-      <div style={{ flex: "0 0 340px" }}>
+      <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
           <rect width={320} height={320} fill={T.bg} rx={10} />
 
@@ -6288,7 +6282,7 @@ function BandSection() {
       </div>
 
       {/* Explanation */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 12 }}>
         <div style={{
           background: T.surface, borderRadius: 10, padding: 14,
           border: `1px solid ${T.border}`,
@@ -6649,7 +6643,7 @@ function DensityOfStatesSection() {
       <AnalogyBox>
           The density of states is like a histogram of apartment availability in a building. At each 'floor' (energy level), it counts how many 'rooms' (quantum states) exist for electrons. A tall bar means many states are available at that energy — electrons have lots of options. A gap (zero bar) means no states exist — electrons are forbidden there. The Fermi level is like the current waterline: all rooms below are occupied, rooms above are empty (at 0 K).
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
 
       {/* Left: smaller SVG + controls */}
       <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: 10 }}>
@@ -6754,7 +6748,7 @@ function DensityOfStatesSection() {
       </div>
 
       {/* Right: text panels — fills remaining width */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_e }}>Density of States (DOS)</div>
           <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.5 }}>
@@ -7711,9 +7705,9 @@ function MaterialClassesSection() {
         ))}
       </div>
 
-      <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-        {/* ── LEFT: ANIMATED VISUALIZATION ── */}
-        <div style={{ flex: "0 0 350px" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+        {/* ── ANIMATED VISUALIZATION ── */}
+        <div style={{ flexShrink: 0 }}>
           <svg viewBox={`0 0 ${W} ${H}`} style={{ display: "block", width: "100%", maxWidth: 350, margin: "0 auto", background: T.surface, borderRadius: 10, border: `1.5px solid ${sel.color}33` }}>
             {/* Title */}
             <text x={W / 2} y={20} textAnchor="middle" fill={sel.color} fontSize={13} fontWeight="bold">{sel.label} Band Structure</text>
@@ -7833,8 +7827,8 @@ function MaterialClassesSection() {
           </div>
         </div>
 
-        {/* ── RIGHT: DETAILS ── */}
-        <div style={{ flex: 1, minWidth: 280, overflow: "hidden" }}>
+        {/* ── DETAILS ── */}
+        <div style={{ width: "100%", overflow: "hidden" }}>
           {/* Analogy for selected material */}
           <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
             <div style={{ fontSize: 12, fontWeight: 700, color: "#b45309", marginBottom: 4 }}>{sel.label} Analogy</div>
@@ -8431,10 +8425,10 @@ function TwoDMaterialsSection() {
         ))}
       </div>
 
-      {/* Main content: SVG left, info right */}
-      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 14 }}>
-        {/* Left: Structure / Synthesis toggle */}
-        <div style={{ flex: "1 1 240px", minWidth: 220, maxWidth: 280 }}>
+      {/* Main content */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginBottom: 14 }}>
+        {/* Structure / Synthesis toggle */}
+        <div style={{ width: "100%", maxWidth: 340 }}>
           {/* Toggle buttons */}
           <div style={{ display: "flex", marginBottom: 6, borderRadius: 6, overflow: "hidden", border: `1.5px solid ${mat.color}44` }}>
             {["structure", "synthesis"].map(mode => (
@@ -8460,7 +8454,7 @@ function TwoDMaterialsSection() {
         </div>
 
         {/* Right: Info panels */}
-        <div style={{ flex: "1 1 300px", minWidth: 250, display: "flex", flexDirection: "column", gap: 10 }}>
+        <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
           {/* Basic info */}
           <div style={{ background: T.panel, borderRadius: 10, padding: 12, border: `1.5px solid ${mat.color}33` }}>
             <div style={{ fontSize: 14, fontWeight: 800, color: mat.color, marginBottom: 6 }}>{mat.label}</div>
@@ -8785,7 +8779,7 @@ function SemiconductorDopingSection() {
       <AnalogyBox>
           Doping a semiconductor is like adding a few VIP guests to a sold-out concert. In n-type doping, you add atoms with an extra electron (like a guest who brings an extra ticket) {"—"} now there{"'"}s a free carrier in the conduction band. In p-type doping, you add atoms missing an electron (like a guest who needs a ticket) {"—"} this creates a {"'"}hole{"'"} in the valence band. These tiny impurities (1 in a million atoms) dramatically change conductivity, like adding a single drop of dye to a glass of water.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={bandL} y={Ev_y} width={bandR - bandL} height={50}
@@ -8876,7 +8870,7 @@ function SemiconductorDopingSection() {
         </svg>
       </div>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_core }}>
             Semiconductor Doping
@@ -9013,7 +9007,7 @@ function CarrierTransportSection() {
       <AnalogyBox>
           Carrier transport is like traffic flow on a highway. Electrons are cars, voltage is the slope of the road (makes cars roll), and resistance is traffic congestion. In drift, cars move because the road is tilted (electric field pushes them). In diffusion, cars spread from crowded areas to empty ones {"—"} like people leaving a packed concert. Mobility is how fast a car can go in traffic {"—"} higher in metals (empty highway) than in doped semiconductors (bumpy road with obstacles).
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           {Array.from({ length: nAtoms }, (_, i) => {
@@ -9083,7 +9077,7 @@ function CarrierTransportSection() {
         </svg>
       </div>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_e }}>
             Carrier Transport
@@ -9573,9 +9567,9 @@ function KineticsSection() {
         {/* ── ARRHENIUS EQUATION ── */}
         <div style={{ fontSize: 14, fontWeight: 800, color: T.eo_e, marginBottom: 10 }}>The Arrhenius Equation</div>
 
-        <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 14 }}>
-          {/* Left: Energy barrier SVG */}
-          <div style={{ flex: 1, minWidth: 280 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginBottom: 14 }}>
+          {/* Energy barrier SVG */}
+          <div style={{ width: "100%" }}>
             <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
               {/* Energy axis */}
               <text x={8} y={14} fontSize={9} fill={T.muted}>Energy</text>
@@ -9622,8 +9616,8 @@ function KineticsSection() {
             </div>
           </div>
 
-          {/* Right: live results */}
-          <div style={{ flex: 1, minWidth: 260 }}>
+          {/* Live results */}
+          <div style={{ width: "100%" }}>
             <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}33`, borderRadius: 8, padding: 14, marginBottom: 10 }}>
               <div style={{ fontSize: 15, fontWeight: 800, color: T.eo_e, marginBottom: 6, fontFamily: "'Georgia',serif" }}>
                 k = A · exp(−Eₐ / k<sub>B</sub>T)
@@ -10142,7 +10136,7 @@ function PhaseDiagramSection() {
       <AnalogyBox>
           A phase diagram is like a weather map for materials. Instead of predicting rain or sunshine based on pressure and temperature, it predicts which crystal structure (phase) is stable. The boundaries between phases are like weather fronts {"—"} cross them and the material transforms. The eutectic point is like the perfect storm where multiple phases coexist. Engineers use phase diagrams the way pilots use weather charts: to navigate safely through processing conditions.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "stretch" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={mL} y={mT} width={pW} height={toSY(solidusT) - mT}
@@ -10615,7 +10609,7 @@ function ChemicalPotentialSection() {
       <AnalogyBox>
           Chemical potential is like water pressure in connected tanks. Each tank (phase or species) has a water level (chemical potential). At equilibrium, water flows until all connected tanks reach the same level. If you add atoms to a crystal, the chemical potential tells you how much the system{"'"}s energy changes {"—"} like how much the water level rises when you pour more in. In defect physics, it controls which defects form: change the {"'"}pressure{"'"} (growth conditions) and different defects become favorable.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "stretch" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
           <rect x={mL} y={mT} width={toSX(-0.5) - mL} height={pH_}
@@ -11063,9 +11057,9 @@ function DefectSection() {
       <AnalogyBox>
           Crystal defects are like typos in a perfectly written book. A vacancy is a missing letter. An interstitial is an extra letter squeezed in. A substitution is the wrong letter in the right place. An antisite is two letters swapped. Just as typos can change the meaning of a sentence, defects change a crystal{"'"}s properties {"—"} a single vacancy in ZnTe can turn an insulator into a p-type semiconductor. Defects aren{"'"}t mistakes; they{"'"}re features that engineers deliberately create.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       {/* Diagram */}
-      <div style={{ flex: "0 0 340px" }}>
+      <div style={{ flexShrink: 0 }}>
         <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
           <rect width={320} height={320} fill={T.bg} rx={10} />
 
@@ -11154,7 +11148,7 @@ function DefectSection() {
       </div>
 
       {/* Info */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 12 }}>
         <div style={{
           background: cs.color + "11",
           border: `1px solid ${cs.color}44`,
@@ -11289,7 +11283,7 @@ function DefectThermodynamicsSection() {
       <AnalogyBox>
           Defect thermodynamics is like calculating the cost of leaving a seat empty in an airplane. The formation energy is the {"'"}ticket price{"'"} {"—"} how much energy it costs to create the defect. But empty seats also increase entropy (disorder = more seating arrangements), which nature loves. At any temperature, there{"'"}s an equilibrium number of defects that minimizes the total cost (free energy). Higher temperature = more defects, just as a hotter economy tolerates more vacancies.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <svg
         width={340} height={320}
         style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, cursor: dragging ? "grabbing" : "default" }}
@@ -11367,7 +11361,7 @@ function DefectThermodynamicsSection() {
         </text>
       </svg>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ background: T.panel, padding: 14, borderRadius: 8, border: `1px solid ${T.border}` }}>
           <div style={{ fontWeight: "bold", fontSize: 13, marginBottom: 8 }}>Formation Energy Formula</div>
           <div style={{ fontSize: 11, background: T.surface, padding: 8, borderRadius: 4, lineHeight: 1.6 }}>
@@ -11484,7 +11478,7 @@ function PhononsSection() {
       <AnalogyBox>
           Phonons are like 'the wave' in a stadium. When fans stand up and sit down in sequence, a wave travels through the crowd — but no individual fan moves far. Similarly, phonons are quantized vibrations traveling through a crystal lattice. Acoustic phonons are like bass notes (atoms move in sync, low frequency). Optical phonons are like treble notes (adjacent atoms move opposite, high frequency). Phonons carry heat, scatter electrons, and determine thermal conductivity.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
         style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
 
@@ -11549,7 +11543,7 @@ function PhononsSection() {
         <text x={dispMargin.l + dispW / 2} y={dispY0 + dispH + 12} textAnchor="middle" fontSize={13} fill={T.muted}>k</text>
       </svg>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ background: T.panel, padding: 14, borderRadius: 8, border: `1px solid ${T.border}` }}>
           <div style={{ fontWeight: "bold", fontSize: 13, marginBottom: 8 }}>Mode Selection</div>
           <div style={{ display: "flex", gap: 8 }}>
@@ -11699,7 +11693,7 @@ function OpticalPropertiesSection() {
       <AnalogyBox>
           Optical properties are like a bouncer at a club. When a photon (light particle) arrives at a material, the bouncer checks its energy. If the photon's energy matches the band gap, it gets absorbed — the material is opaque at that color. If the energy is too low, the photon passes through — the material is transparent. If it gets reflected, the material is shiny. This is why glass (big gap) is transparent to visible light, silicon (small gap) absorbs it, and metals reflect it.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
         style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
 
@@ -11757,7 +11751,7 @@ function OpticalPropertiesSection() {
         <text x={specRight} y={specBot + 10} textAnchor="end" fontSize={13} fill={T.muted}>4.0 eV</text>
       </svg>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ background: T.panel, padding: 14, borderRadius: 8, border: `1px solid ${T.border}` }}>
           <div style={{ fontWeight: "bold", fontSize: 13, marginBottom: 8 }}>Photon Energy</div>
           <input type="range" min={0.5} max={4.0} step={0.05} value={photonE}
@@ -11892,7 +11886,7 @@ function DielectricResponseSection() {
       <AnalogyBox>
           Dielectric response is how a material 'answers the phone' when an electric field 'calls.' Apply a field, and the positive and negative charges inside shift slightly (polarize) — like people leaning when a bus brakes. The dielectric constant measures how strongly the material responds. A high dielectric constant means strong polarization (everyone leans a lot). This matters for capacitors, gate oxides in transistors, and screening of charged defects.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
         style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
 
@@ -11956,7 +11950,7 @@ function DielectricResponseSection() {
         <text x={specLeft + specW / 2} y={specY0 + specH + 10} textAnchor="middle" fontSize={13} fill={T.muted}>ω →</text>
       </svg>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ background: T.panel, padding: 14, borderRadius: 8, border: `1px solid ${T.border}` }}>
           <div style={{ fontWeight: "bold", fontSize: 13, marginBottom: 8 }}>Electric Field</div>
           <button onClick={() => setFieldOn(!fieldOn)}
@@ -12121,7 +12115,7 @@ function RecombinationSection() {
       <AnalogyBox>
           Recombination is like an excited kid who jumped onto a table (conduction band) falling back to the floor (valence band). The energy released can come out as light (radiative recombination — that's how LEDs work) or as heat (non-radiative — through defects acting like hidden slides). Shockley-Read-Hall recombination happens when a defect creates a 'stepping stone' in the band gap — the electron steps down in two hops instead of one big jump. This limits solar cell efficiency.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
         style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
         <text x={svgW / 2} y={14} textAnchor="middle" fontSize={13} fontWeight="bold" fill={T.ink}>
@@ -12130,7 +12124,7 @@ function RecombinationSection() {
         {mechanisms.map((m, i) => drawPanel(m, i))}
       </svg>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ background: T.panel, padding: 14, borderRadius: 8, border: `1px solid ${T.border}` }}>
           <div style={{ fontWeight: "bold", fontSize: 13, marginBottom: 8 }}>Mechanism</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -12305,7 +12299,7 @@ function AtomToDeviceSection() {
       <AnalogyBox>
           Building a device from atoms is like constructing a skyscraper from individual bricks. First you understand the brick (atom: quantum mechanics). Then how bricks bond (chemical bonding). Then how stacked bricks form patterns (crystal structure). Then how electron highways emerge in the pattern (band structure). Then how imperfections change the highways (defects). Finally, you engineer all of this into a working device — a solar cell, transistor, or LED. Every chapter in this module is one floor of that skyscraper.
         </AnalogyBox>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
       <svg viewBox={`0 0 ${svgW} ${svgH}`}
         style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
 
@@ -12370,7 +12364,7 @@ function AtomToDeviceSection() {
         })()}
       </svg>
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ background: T.panel, padding: 14, borderRadius: 8, border: `1px solid ${T.border}` }}>
           <div style={{ fontWeight: "bold", fontSize: 14, marginBottom: 8, color: stages[activeStage].color }}>
             {stages[activeStage].label}

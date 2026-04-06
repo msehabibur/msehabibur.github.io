@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import LLMLearningModule from "./llm_learning.jsx";
 import LLMMovieModule from "./llm_movie.jsx";
 import DefectNetFlowAnimation from "./defectnet_flow_animation.jsx";
-import ElectronOriginsModule from "./electron_origins.jsx";
+import ElectronOriginsModule from "./atoms_world.jsx";
 import DefectMovieModule from "./defect_movie.jsx";
 import ChalcoMovieModule from "./chalco_movie.jsx";
 import DFTMovieModule from "./dft_movie.jsx";
