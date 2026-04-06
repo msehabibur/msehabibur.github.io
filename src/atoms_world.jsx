@@ -5338,7 +5338,7 @@ function CrystalSymmetrySection() {
  })}
 
  {/* Lattice parameter labels */}
- <text x={250} y={470} textAnchor="middle" fontSize={12} fill={T.muted}>
+ <text x={250} y={470} textAnchor="middle" fontSize={14} fill={T.muted}>
  a = b = c{lattice === "Simple Cubic" ? "" : " | α=β=γ=90°"}
  </text>
 
@@ -5368,10 +5368,10 @@ function CrystalSymmetrySection() {
  {/* Legend */}
  {lattice === "Zincblende" && (
  <>
- <circle cx={150} cy={485} r={6} fill={T.eo_e} />
- <text x={162} y={489} fontSize={11} fill={T.muted}>Anion (Te)</text>
- <circle cx={280} cy={485} r={6} fill={T.eo_hole} />
- <text x={292} y={489} fontSize={11} fill={T.muted}>Cation (Zn)</text>
+ <circle cx={150} cy={485} r={8} fill={T.eo_e} />
+ <text x={164} y={489} fontSize={13} fill={T.muted}>Anion (Te)</text>
+ <circle cx={280} cy={485} r={8} fill={T.eo_hole} />
+ <text x={294} y={489} fontSize={13} fill={T.muted}>Cation (Zn)</text>
  </>
  )}
  </svg>
@@ -6985,13 +6985,13 @@ function PolymerBuilder() {
 
  return (
  <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: "1.5px solid #7c3aed33" }}>
- <div style={{ fontSize: 13, fontWeight: 800, color: "#7c3aed", marginBottom: 10 }}>Interactive Polymer Builder</div>
+ <div style={{ fontSize: 13, fontWeight: 800, color: T.accent, marginBottom: 10, textAlign: "center" }}>Interactive Polymer Builder</div>
  <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, lineHeight: 1.6 }}>
  Click monomers below to build a polymer chain. Each monomer links end-to-end through addition polymerization. Watch how the chain grows and properties change!
  </div>
 
  {/* Monomer buttons */}
- <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
+ <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12, justifyContent: "center" }}>
  {monomers.map(m => (
  <button key={m.id} onClick={() => addMonomer(m)} style={{
  padding: "6px 10px", borderRadius: 6, fontSize: 11, fontWeight: 600,
@@ -7007,7 +7007,7 @@ function PolymerBuilder() {
  </div>
 
  {/* Chain visualization */}
- <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ width: "100%", maxWidth: svgW, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+ <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ width: "100%", maxWidth: 374, display: "block", margin: "0 auto", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
  {chain.length === 0 && (
  <text x={svgW / 2} y={svgH / 2 + 4} textAnchor="middle" fill={T.muted} fontSize={12}>Click a monomer to start building</text>
  )}
@@ -7127,13 +7127,13 @@ function MetalAlloyExplorer() {
 
  return (
  <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: "1.5px solid #7c3aed33" }}>
- <div style={{ fontSize: 13, fontWeight: 800, color: "#7c3aed", marginBottom: 10 }}>Interactive Metal Alloy Explorer</div>
+ <div style={{ fontSize: 13, fontWeight: 800, color: T.accent, marginBottom: 10, textAlign: "center" }}>Interactive Metal Alloy Explorer</div>
  <div style={{ fontSize: 12, color: T.muted, marginBottom: 10, lineHeight: 1.6 }}>
  Pick a base metal and alloying element to see how alloys form. Adjust the percentage and watch the crystal lattice change!
  </div>
 
  {/* Controls */}
- <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
+ <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12, justifyContent: "center" }}>
  <div>
  <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Base Metal</div>
  <div style={{ display: "flex", gap: 4 }}>
@@ -7223,7 +7223,7 @@ function SemiconductorDopingTool() {
  const carrierColor = dopantType === "n-type" ? "#7c3aed" : "#7c3aed";
  const fermiShift = dopantType === "n-type" ? "Shifts UP toward conduction band" : "Shifts DOWN toward valence band";
 
- const concDisplay = `10^${concentration} cm⁻³`;
+ const concDisplay = <span>10<sup>{concentration}</sup> cm<sup>-3</sup></span>;
  const conductivityChange = concentration <= 15 ? "Low" : concentration <= 16 ? "Moderate" : concentration <= 17 ? "High" : "Very High";
 
  // 5x5 grid, dopant at (2,2)
@@ -7279,7 +7279,7 @@ function SemiconductorDopingTool() {
  <input type="range" min={14} max={18} step={0.5} value={concentration} onChange={e => setConcentration(Number(e.target.value))}
  style={{ width: "100%", accentColor: "#7c3aed" }} />
  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: T.muted }}>
- <span>10^14</span><span>10^18</span>
+ <span>10<sup>14</sup></span><span>10<sup>18</sup></span>
  </div>
  </div>
 
@@ -7722,8 +7722,8 @@ function MaterialClassesSection() {
  {gapPx > 10 && <>
  <rect x={bandL} y={CBbot} width={bandW} height={gapPx} fill={T.eo_gap + "08"} />
  <line x1={bandL - 10} y1={CBbot} x2={bandL - 10} y2={VBtop} stroke={T.eo_gap} strokeWidth={1.5} markerStart="url(#arrowUp)" markerEnd="url(#arrowDown)" />
- <text x={bandL - 14} y={(CBbot + VBtop) / 2 + 4} fill={T.eo_gap} fontSize={11} fontWeight="bold" textAnchor="end">
- E_g = {sel.bandGap} eV
+ <text x={bandL - 14} y={(CBbot + VBtop) / 2 + 4} fill={T.accent} fontSize={11} fontWeight="bold" textAnchor="end">
+ Eg = {sel.bandGap} eV
  </text>
  </>}
 
@@ -7807,8 +7807,8 @@ function MaterialClassesSection() {
  <div style={{ textAlign: "center", fontSize: 11, color: T.muted, marginTop: 4 }}>Examples: {sel.example}</div>
 
  {/* ── BAND GAP COMPARISON BAR ── */}
- <div style={{ marginTop: 10, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
- <div style={{ fontSize: 10, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>BAND GAP COMPARISON</div>
+ <div style={{ marginTop: 10, maxWidth: 374, margin: "10px auto 0 auto", background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+ <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 1 }}>Band Gap Comparison</div>
  {matTypes.map(m => (
  <div key={m.id} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
  <div style={{ width: 85, fontSize: 10, fontWeight: selected === m.id ? 700 : 400, color: selected === m.id ? m.color : T.muted }}>{m.label}</div>
