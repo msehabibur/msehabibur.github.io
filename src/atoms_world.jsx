@@ -5235,8 +5235,8 @@ function CrystalSymmetrySection() {
  const rx = x * cosA - z * sinA;
  const rz = x * sinA + z * cosA;
  const ry2 = y * cosB - rz * sinB;
- const px = 170 + rx * 55;
- const py = 175 - ry2 * 55;
+ const px = 200 + rx * 65;
+ const py = 205 - ry2 * 65;
  const depth = rz * cosB + y * sinB;
  return { px, py, depth };
  };
@@ -5293,8 +5293,8 @@ function CrystalSymmetrySection() {
  </AnalogyBox>
  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
  <div style={{ flexShrink: 0 }}>
- <svg viewBox="0 0 340 340" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 374 }}>
- <text x={170} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
+ <svg viewBox="0 0 400 400" style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%", maxWidth: 420 }}>
+ <text x={200} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
  {lattice} Structure
  </text>
 
@@ -5338,7 +5338,7 @@ function CrystalSymmetrySection() {
  })}
 
  {/* Lattice parameter labels */}
- <text x={170} y={310} textAnchor="middle" fontSize={12} fill={T.muted}>
+ <text x={200} y={370} textAnchor="middle" fontSize={12} fill={T.muted}>
  a = b = c{lattice === "Simple Cubic" ? "" : " | α=β=γ=90°"}
  </text>
 
@@ -5368,10 +5368,10 @@ function CrystalSymmetrySection() {
  {/* Legend */}
  {lattice === "Zincblende" && (
  <>
- <circle cx={100} cy={332} r={5} fill={T.eo_e} />
- <text x={110} y={336} fontSize={10} fill={T.muted}>Anion (Te)</text>
- <circle cx={210} cy={332} r={5} fill={T.eo_hole} />
- <text x={220} y={336} fontSize={10} fill={T.muted}>Cation (Zn)</text>
+ <circle cx={120} cy={392} r={5} fill={T.eo_e} />
+ <text x={130} y={396} fontSize={10} fill={T.muted}>Anion (Te)</text>
+ <circle cx={240} cy={392} r={5} fill={T.eo_hole} />
+ <text x={250} y={396} fontSize={10} fill={T.muted}>Cation (Zn)</text>
  </>
  )}
  </svg>
@@ -6303,17 +6303,14 @@ function BandSection() {
  <div style={{ background: T.surface, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
  <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, letterSpacing: 0.5 }}>Where do free electrons come from?</div>
  {[
- { icon: "", title: "Always: from atom valence electrons", desc: "ALL electrons in the crystal originally came from Zn and Te atoms. Valence band = reservoir of these electrons.", color: T.eo_valence },
- { icon: "", title: "Thermal: kT energy kicks them up", desc: `At 300K, kT=0.026eV. Gap=2.26eV. Chance = e^(-87) ≈ 10⁻³⁸. Almost zero for ZnTe.`, color: T.eo_hole },
- { icon: "", title: "Light: photon energy > band gap", desc: "Photon of 2.5eV hits a valence electron and kicks it to conduction band. This is photovoltaics!", color: T.eo_photon },
- { icon: "", title: "Defect: missing atom creates gap states", desc: "V_Zn vacancy creates states inside gap. Electrons from Te dangling bonds sit there. Much easier to excite.", color: T.eo_gap },
- ].map(({ icon, title, desc, color }) => (
- <div key={title} style={{ display: "flex", gap: 10, marginBottom: 10 }}>
- <div style={{ fontSize: 18, flex: "0 0 24px" }}>{icon}</div>
- <div>
+ { title: "Always: from atom valence electrons", desc: "ALL electrons in the crystal originally came from Zn and Te atoms. Valence band = reservoir of these electrons.", color: T.eo_valence },
+ { title: "Thermal: kT energy kicks them up", desc: `At 300K, kT=0.026eV. Gap=2.26eV. Chance = e^(-87) ≈ 10⁻³⁸. Almost zero for ZnTe.`, color: T.eo_hole },
+ { title: "Light: photon energy > band gap", desc: "Photon of 2.5eV hits a valence electron and kicks it to conduction band. This is photovoltaics!", color: T.eo_photon },
+ { title: "Defect: missing atom creates gap states", desc: "V_Zn vacancy creates states inside gap. Electrons from Te dangling bonds sit there. Much easier to excite.", color: T.eo_gap },
+ ].map(({ title, desc, color }) => (
+ <div key={title} style={{ marginBottom: 10, paddingLeft: 12, borderLeft: `3px solid ${color}` }}>
  <div style={{ fontSize: 12, fontWeight: 700, color, marginBottom: 3 }}>{title}</div>
  <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>{desc}</div>
- </div>
  </div>
  ))}
  </div>
@@ -7287,6 +7284,7 @@ function SemiconductorDopingTool() {
  </div>
 
  {/* Lattice SVG */}
+ <div style={{ display: "flex", justifyContent: "center" }}>
  <svg viewBox="0 0 340 340" style={{ width: "100%", maxWidth: 374, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, marginBottom: 12 }}>
  {Array.from({ length: gridN }, (_, row) =>
  Array.from({ length: gridN }, (_, col) => {
@@ -7316,6 +7314,7 @@ function SemiconductorDopingTool() {
  {host} doped with {dopant} ({dopantType})
  </text>
  </svg>
+ </div>
 
  {/* Info panels */}
  <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
@@ -7391,6 +7390,7 @@ function InsulatorExplorer() {
  </div>
 
  {/* Band diagram SVG */}
+ <div style={{ display: "flex", justifyContent: "center" }}>
  <svg viewBox="0 0 340 340" style={{ width: "100%", maxWidth: 374, background: T.surface, borderRadius: 8, border: `1px solid ${isBreakdown ? "#7c3aed" : T.border}`, marginBottom: 12 }}>
  {/* Conduction band */}
  <rect x={bandL} y={Ec_y - 10} width={bandR - bandL} height={20} fill={mat.color + "22"} stroke={mat.color} strokeWidth={1.5} rx={4} />
@@ -7437,6 +7437,7 @@ function InsulatorExplorer() {
  {mat.label} Band Diagram
  </text>
  </svg>
+ </div>
 
  {/* Dielectric strength comparison */}
  <div style={{ background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
@@ -10202,7 +10203,7 @@ function PhaseDiagramSection() {
  </svg>
 
  {/* Synthesis Reaction Animation — below phase diagram */}
- <div style={{ marginTop: 8, fontSize: 13, fontWeight: 700, color: T.accent, marginBottom: 4 }}>Cu-Ni Alloy — Solidification Process</div>
+ <div style={{ marginTop: 8, fontSize: 13, fontWeight: 700, color: T.accent, marginBottom: 4, textAlign: "center" }}>Cu-Ni Alloy — Solidification Process</div>
  <svg viewBox="0 0 400 180" style={{ width: "100%", maxWidth: W, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
  {(() => {
  const t = frame * 0.04;
@@ -10230,8 +10231,8 @@ function PhaseDiagramSection() {
  const productX = 300, productY = 50;
  return <g>
  {/* Step labels */}
- {["Precursors", "Mix", "Heat", "Cool", "Product"].map((s, i) => (
- <text key={i} x={20 + i * 78} y={12} textAnchor="middle" fontSize={12} fontFamily="monospace"
+ {["Precursor", "Mix", "Heat", "Cool", "Product"].map((s, i) => (
+ <text key={i} x={45 + i * 75} y={12} textAnchor="middle" fontSize={12} fontFamily="monospace"
  fill={stage === i ? T.eo_e : T.dim} fontWeight={stage === i ? 700 : 400}>{s}</text>
  ))}
  {/* Zn bottle */}
@@ -11485,7 +11486,7 @@ function PhononsSection() {
  </AnalogyBox>
  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
  <svg viewBox={`0 0 ${svgW} ${svgH}`}
- style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
+ style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: 374 }}>
 
  <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fontWeight="bold" fill={T.ink}>
  {mode === "acoustic" ? "Acoustic Mode" : "Optical Mode"}
@@ -11700,7 +11701,7 @@ function OpticalPropertiesSection() {
  </AnalogyBox>
  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
  <svg viewBox={`0 0 ${svgW} ${svgH}`}
- style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
+ style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: 374 }}>
 
  <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fontWeight="bold" fill={T.ink}>
  Photon Absorption ({gapType} gap)
@@ -11893,7 +11894,7 @@ function DielectricResponseSection() {
  </AnalogyBox>
  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
  <svg viewBox={`0 0 ${svgW} ${svgH}`}
- style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
+ style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: 374 }}>
 
  <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fontWeight="bold" fill={T.ink}>
  Dielectric Response
@@ -12122,7 +12123,7 @@ function RecombinationSection() {
  </AnalogyBox>
  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
  <svg viewBox={`0 0 ${svgW} ${svgH}`}
- style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
+ style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: 374 }}>
  <text x={svgW / 2} y={14} textAnchor="middle" fontSize={13} fontWeight="bold" fill={T.ink}>
  Recombination Mechanisms
  </text>
@@ -12306,7 +12307,7 @@ function AtomToDeviceSection() {
  </AnalogyBox>
  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
  <svg viewBox={`0 0 ${svgW} ${svgH}`}
- style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: svgW }}>
+ style={{ background: T.panel, borderRadius: 8, border: `1px solid ${T.border}`, flexShrink: 0, width: "100%", maxWidth: 374 }}>
 
  <text x={svgW / 2} y={20} textAnchor="middle" fontSize={13} fontWeight="bold" fill={T.ink}>
  From Atoms to Devices
