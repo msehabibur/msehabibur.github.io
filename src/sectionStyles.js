@@ -2,12 +2,17 @@
 // SECTION STYLES — Shared metadata for consistent styling across all modules
 // ══════════════════════════════════════════════════════════════════════════════
 
+// ── Single accent color ──────────────────────────────────────────────────────
+const ACCENT = "#7c3aed"; // purple — used everywhere for borders, highlights, active states
+
 // ── Theme colors (canonical source) ──────────────────────────────────────────
 export const T = {
   bg: "#f0f2f5", panel: "#ffffff", surface: "#f7f8fa", border: "#d4d8e0",
   ink: "#1a1e2e", muted: "#6b7280", dim: "#c0c6d0",
-  eo_e: "#2563eb", eo_hole: "#ea580c", eo_photon: "#ca8a04",
-  eo_valence: "#059669", eo_core: "#7c3aed", eo_gap: "#dc2626", eo_cond: "#0284c7",
+  accent: ACCENT,
+  // Keep semantic aliases all pointing to the same purple
+  eo_e: ACCENT, eo_hole: ACCENT, eo_photon: ACCENT,
+  eo_valence: ACCENT, eo_core: ACCENT, eo_gap: ACCENT, eo_cond: ACCENT,
 };
 
 // ── Font sizes ───────────────────────────────────────────────────────────────
@@ -48,7 +53,7 @@ export const LAYOUT = {
   },
 
   // SVG max width
-  svgMaxWidth: 340,
+  svgMaxWidth: 374,
 
   // Border radius
   radiusSm: 4,
@@ -60,8 +65,8 @@ export const LAYOUT = {
 // ── Analogy box ──────────────────────────────────────────────────────────────
 export const ANALOGY = {
   box: {
-    background: "#fffbeb",
-    border: "1.5px solid #f59e0b33",
+    background: ACCENT + "08",
+    border: `1.5px solid ${ACCENT}33`,
     borderRadius: LAYOUT.radiusXl,
     padding: "10px 16px",
     marginBottom: 12,
@@ -72,7 +77,7 @@ export const ANALOGY = {
   title: {
     fontSize: FONT.base,
     fontWeight: 700,
-    color: "#b45309",
+    color: ACCENT,
     marginBottom: 4,
   },
   body: {
@@ -91,11 +96,11 @@ export const BUTTON = {
     borderRadius: LAYOUT.radiusSm,
   },
   // Helper to get active/inactive button style
-  toggle: (isActive, activeColor = T.eo_e) => ({
+  toggle: (isActive) => ({
     padding: "5px 8px",
     borderRadius: LAYOUT.radiusSm,
-    border: `1px solid ${isActive ? activeColor : T.border}`,
-    background: isActive ? activeColor : T.panel,
+    border: `1px solid ${isActive ? ACCENT : T.border}`,
+    background: isActive ? ACCENT : T.panel,
     color: isActive ? "#fff" : T.ink,
     fontFamily: "monospace",
     fontSize: FONT.sm,
@@ -135,29 +140,28 @@ export const PANEL = {
 
 // ── NCard (numerical example cards) ──────────────────────────────────────────
 export const NCARD = {
-  container: (color = T.eo_e) => ({
+  container: () => ({
     background: T.panel,
-    border: `1.5px solid ${color}44`,
-    borderLeft: `4px solid ${color}`,
+    border: `1.5px solid ${ACCENT}44`,
+    borderLeft: `4px solid ${ACCENT}`,
     borderRadius: LAYOUT.radiusXl,
     padding: "16px 18px",
     marginBottom: 14,
   }),
-  title: (color = T.eo_e) => ({
+  title: () => ({
     fontSize: FONT.base,
     letterSpacing: 2,
-    color: color,
-    textTransform: "uppercase",
+    color: ACCENT,
     fontWeight: 700,
   }),
-  formula: (color = T.eo_e) => ({
+  formula: () => ({
     fontFamily: "'Georgia',serif",
     fontSize: FONT.lg,
     color: T.ink,
-    background: color + "11",
+    background: ACCENT + "11",
     padding: "2px 10px",
     borderRadius: LAYOUT.radiusSm,
-    border: `1px solid ${color}33`,
+    border: `1px solid ${ACCENT}33`,
   }),
 };
 
