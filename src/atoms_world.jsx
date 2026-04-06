@@ -5368,10 +5368,10 @@ function CrystalSymmetrySection() {
  {/* Legend */}
  {lattice === "Zincblende" && (
  <>
- <circle cx={200} cy={20} r={5} fill={T.eo_e} />
- <text x={210} y={24} fontSize={10} fill={T.muted}>Anion (Te)</text>
- <circle cx={280} cy={20} r={5} fill={T.eo_hole} />
- <text x={290} y={24} fontSize={10} fill={T.muted}>Cation (Zn)</text>
+ <circle cx={100} cy={332} r={5} fill={T.eo_e} />
+ <text x={110} y={336} fontSize={10} fill={T.muted}>Anion (Te)</text>
+ <circle cx={210} cy={332} r={5} fill={T.eo_hole} />
+ <text x={220} y={336} fontSize={10} fill={T.muted}>Cation (Zn)</text>
  </>
  )}
  </svg>
@@ -7803,7 +7803,7 @@ function MaterialClassesSection() {
  )}
 
  {/* Example label */}
- <text x={W / 2} y={H - 8} textAnchor="middle" fill={T.muted} fontSize={11}>Examples: {sel.example}</text>
+ <text x={W / 2} y={28} textAnchor="middle" fill={T.muted} fontSize={11}>Examples: {sel.example}</text>
  </svg>
 
  {/* ── BAND GAP COMPARISON BAR ── */}
@@ -9569,8 +9569,8 @@ function KineticsSection() {
 
  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginBottom: 14 }}>
  {/* Energy barrier SVG */}
- <div style={{ width: "100%" }}>
- <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+ <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+ <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 320, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
  {/* Y-axis: Energy */}
  <line x1={25} y1={15} x2={25} y2={H - 20} stroke={T.dim} strokeWidth={1} />
  <line x1={25} y1={15} x2={21} y2={23} stroke={T.dim} strokeWidth={1} />
@@ -10071,61 +10071,60 @@ function PhaseDiagramSection() {
  const pW = W - mL - mR;
  const pH_ = H - mT - mB;
 
- const Tmin = 200, Tmax = 1200;
+ // Cu-Ni isomorphous system (complete solid solution)
+ const Tmin = 900, Tmax = 1600;
  const tempK = Tmin + tempFrac * (Tmax - Tmin);
+ const meltCu = 1085; // Cu melting point (°C)
+ const meltNi = 1455; // Ni melting point (°C)
 
  const toSX = (c) => mL + c * pW;
  const toSY = (t) => mT + (1 - (t - Tmin) / (Tmax - Tmin)) * pH_;
 
- const eutecticX = 0.4;
- const eutecticT = 500;
- const meltA = 1000;
- const meltB = 900;
+ // Liquidus: smooth curve between Cu and Ni melting points
+ const liquidus = (x) => meltCu + (meltNi - meltCu) * x - 80 * Math.sin(Math.PI * x);
+ // Solidus: below liquidus, same endpoints
+ const solidus = (x) => meltCu + (meltNi - meltCu) * x - 180 * Math.sin(Math.PI * x);
 
- const liquidusL = (x) => meltA + (eutecticT - meltA) * (x / eutecticX);
- const liquidusR = (x) => meltB + (eutecticT - meltB) * ((1 - x) / (1 - eutecticX));
- const liquidus = (x) => x <= eutecticX ? liquidusL(x) : liquidusR(x);
-
- const solidusT = eutecticT;
-
- let liquidusPath = "M" + toSX(0).toFixed(1) + "," + toSY(meltA).toFixed(1);
+ let liquidusPath = "M" + toSX(0).toFixed(1) + "," + toSY(meltCu).toFixed(1);
+ let solidusPath = "M" + toSX(0).toFixed(1) + "," + toSY(meltCu).toFixed(1);
  for (let i = 1; i <= 50; i++) {
  const x = i / 50;
- const lt = liquidus(x);
- liquidusPath += "L" + toSX(x).toFixed(1) + "," + toSY(lt).toFixed(1);
+ liquidusPath += "L" + toSX(x).toFixed(1) + "," + toSY(liquidus(x)).toFixed(1);
+ solidusPath += "L" + toSX(x).toFixed(1) + "," + toSY(solidus(x)).toFixed(1);
  }
 
- let twoPhaseFill = "M" + toSX(0).toFixed(1) + "," + toSY(meltA).toFixed(1);
- for (let i = 0; i <= 50; i++) {
+ // Two-phase region fill (between liquidus and solidus)
+ let twoPhaseFill = liquidusPath;
+ for (let i = 50; i >= 0; i--) {
  const x = i / 50;
- twoPhaseFill += "L" + toSX(x).toFixed(1) + "," + toSY(liquidus(x)).toFixed(1);
+ twoPhaseFill += "L" + toSX(x).toFixed(1) + "," + toSY(solidus(x)).toFixed(1);
  }
- twoPhaseFill += "L" + toSX(1).toFixed(1) + "," + toSY(solidusT).toFixed(1);
- twoPhaseFill += "L" + toSX(0).toFixed(1) + "," + toSY(solidusT).toFixed(1) + "Z";
+ twoPhaseFill += "Z";
 
  const cx = toSX(compX);
  const cy = toSY(tempK);
 
  const liqT = liquidus(compX);
+ const solT = solidus(compX);
  let phase;
  if (tempK > liqT) {
  phase = "Liquid";
- } else if (tempK > solidusT) {
+ } else if (tempK > solT) {
  phase = "Liquid + Solid (two-phase)";
  } else {
- phase = "Solid (alpha + beta)";
+ phase = "Solid (FCC solid solution)";
  }
 
- const inTwoPhase = tempK <= liqT && tempK > solidusT;
+ const inTwoPhase = tempK <= liqT && tempK > solT;
  let leverFracLiq = 0;
  if (inTwoPhase) {
- let xL = 0, xS = 0;
- if (compX <= eutecticX) {
- xL = eutecticX * (1 - (tempK - solidusT) / (liquidusL(0) - solidusT));
- xS = 0;
- } else {
- xL = eutecticX + (1 - eutecticX) * ((tempK - solidusT) / (liquidusR(1) - solidusT));
- xS = 1;
+ // Find liquidus and solidus compositions at this temperature using inverse
+ // Simple linear interpolation for lever rule
+ let xL = compX, xS = compX;
+ for (let i = 0; i <= 100; i++) {
+ const xx = i / 100;
+ if (Math.abs(liquidus(xx) - tempK) < 5) xL = xx;
+ if (Math.abs(solidus(xx) - tempK) < 5) xS = xx;
  }
  const denom = Math.abs(xL - xS);
  leverFracLiq = denom > 0.01 ? Math.abs(compX - xS) / denom : 0.5;
@@ -10142,65 +10141,66 @@ function PhaseDiagramSection() {
  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
  <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 10 }}>
  <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 6, width: "100%", maxWidth: W }}>
- <rect x={mL} y={mT} width={pW} height={toSY(solidusT) - mT}
- fill={T.eo_cond} opacity={0.06} />
+ {/* Liquid region */}
+ <rect x={mL} y={mT} width={pW} height={pH_}
+ fill={T.accent} opacity={0.03} />
 
- <path d={twoPhaseFill} fill={T.eo_photon} opacity={0.1} />
+ {/* Two-phase region fill */}
+ <path d={twoPhaseFill} fill={T.accent} opacity={0.1} />
 
- <rect x={mL} y={toSY(solidusT)} width={pW} height={pH_ - (toSY(solidusT) - mT)}
- fill={T.eo_core} opacity={0.06} />
-
- <path d={liquidusPath} fill="none" stroke={T.eo_e} strokeWidth={2.5} />
-
- <line x1={mL} y1={toSY(solidusT)} x2={mL + pW} y2={toSY(solidusT)}
- stroke={T.eo_hole} strokeWidth={2} />
-
- <circle cx={toSX(eutecticX)} cy={toSY(eutecticT)} r={5}
- fill={T.eo_gap} stroke="#fff" strokeWidth={1.5} />
- <text x={toSX(eutecticX) + 8} y={toSY(eutecticT) - 6}
- fontSize={13} fill={T.eo_gap} fontFamily="monospace" fontWeight={700}>
- Eutectic
- </text>
-
+ {/* Solid region label area */}
  <text x={mL + pW / 2} y={mT + 15} textAnchor="middle"
- fontSize={12} fill={T.eo_cond} fontFamily="monospace" opacity={0.7}>Liquid</text>
- <text x={mL + pW * 0.2} y={toSY((solidusT + liqT) / 2)}
- fontSize={13} fill={T.eo_photon} fontFamily="monospace" opacity={0.6}>L+S</text>
- <text x={mL + pW / 2} y={toSY(solidusT) + 20} textAnchor="middle"
- fontSize={12} fill={T.eo_core} fontFamily="monospace" opacity={0.7}>
- Solid (alpha + beta)
+ fontSize={12} fill={T.accent} fontFamily="monospace" opacity={0.7}>Liquid</text>
+ <text x={mL + pW * 0.5} y={toSY((liquidus(compX) + solidus(compX)) / 2)}
+ textAnchor="middle" fontSize={12} fill={T.accent} fontFamily="monospace" opacity={0.6}>L + S</text>
+ <text x={mL + pW / 2} y={H - mB - 15} textAnchor="middle"
+ fontSize={12} fill={T.accent} fontFamily="monospace" opacity={0.7}>
+ Solid (FCC)
  </text>
 
- <line x1={cx} y1={mT} x2={cx} y2={H - mB}
- stroke={T.eo_hole} strokeWidth={1} strokeDasharray="3,3" opacity={0.5} />
- <line x1={mL} y1={cy} x2={mL + pW} y2={cy}
- stroke={T.eo_hole} strokeWidth={1} strokeDasharray="3,3" opacity={0.5} />
- <circle cx={cx} cy={cy} r={6} fill={T.eo_hole} opacity={pulse}
- stroke={T.eo_hole} strokeWidth={2} />
+ {/* Liquidus curve */}
+ <path d={liquidusPath} fill="none" stroke={T.accent} strokeWidth={2.5} />
+ {/* Solidus curve */}
+ <path d={solidusPath} fill="none" stroke={T.accent} strokeWidth={2} strokeDasharray="6,3" />
 
+ {/* Legend */}
+ <line x1={mL + 10} y1={mT + 30} x2={mL + 35} y2={mT + 30} stroke={T.accent} strokeWidth={2.5} />
+ <text x={mL + 40} y={mT + 34} fontSize={10} fill={T.muted}>Liquidus</text>
+ <line x1={mL + 100} y1={mT + 30} x2={mL + 125} y2={mT + 30} stroke={T.accent} strokeWidth={2} strokeDasharray="6,3" />
+ <text x={mL + 130} y={mT + 34} fontSize={10} fill={T.muted}>Solidus</text>
+
+ {/* Crosshair cursor */}
+ <line x1={cx} y1={mT} x2={cx} y2={H - mB}
+ stroke={T.accent} strokeWidth={1} strokeDasharray="3,3" opacity={0.5} />
+ <line x1={mL} y1={cy} x2={mL + pW} y2={cy}
+ stroke={T.accent} strokeWidth={1} strokeDasharray="3,3" opacity={0.5} />
+ <circle cx={cx} cy={cy} r={6} fill={T.accent} opacity={pulse}
+ stroke={T.accent} strokeWidth={2} />
+
+ {/* Axes */}
  <line x1={mL} y1={mT} x2={mL} y2={H - mB} stroke={T.border} strokeWidth={1} />
  <line x1={mL} y1={H - mB} x2={W - mR} y2={H - mB} stroke={T.border} strokeWidth={1} />
 
- <text x={W / 2} y={H - 8} textAnchor="middle" fontSize={13} fill={T.muted}
- fontFamily="monospace">Composition (% B)</text>
- <text x={mL - 5} y={H - mB + 16} textAnchor="end" fontSize={13} fill={T.dim}
+ <text x={W / 2} y={H - 8} textAnchor="middle" fontSize={12} fill={T.muted}
+ fontFamily="monospace">Composition (wt% Ni)</text>
+ <text x={mL - 5} y={H - mB + 16} textAnchor="end" fontSize={11} fill={T.dim}
  fontFamily="monospace">0%</text>
- <text x={mL + pW + 2} y={H - mB + 16} fontSize={13} fill={T.dim}
+ <text x={mL + pW + 2} y={H - mB + 16} fontSize={11} fill={T.dim}
  fontFamily="monospace">100%</text>
 
- <text x={14} y={H / 2} textAnchor="middle" fontSize={13} fill={T.muted}
- fontFamily="monospace" transform={`rotate(-90,14,${H / 2})`}>Temperature (K)</text>
- {[Tmin, 500, 800, Tmax].map((tv, i) => (
+ <text x={14} y={H / 2} textAnchor="middle" fontSize={12} fill={T.muted}
+ fontFamily="monospace" transform={`rotate(-90,14,${H / 2})`}>Temperature (°C)</text>
+ {[Tmin, 1100, 1300, Tmax].map((tv, i) => (
  <text key={i} x={mL - 6} y={toSY(tv) + 3} textAnchor="end"
- fontSize={13} fill={T.dim} fontFamily="monospace">{tv}</text>
+ fontSize={10} fill={T.dim} fontFamily="monospace">{tv}</text>
  ))}
 
- <text x={mL + 4} y={H - mB - 4} fontSize={13} fill={T.dim} fontFamily="monospace">Zn</text>
- <text x={mL + pW - 10} y={H - mB - 4} fontSize={13} fill={T.dim} fontFamily="monospace">Te</text>
+ <text x={mL + 4} y={H - mB - 4} fontSize={12} fill={T.dim} fontFamily="monospace">Cu</text>
+ <text x={mL + pW - 10} y={H - mB - 4} fontSize={12} fill={T.dim} fontFamily="monospace">Ni</text>
  </svg>
 
  {/* Synthesis Reaction Animation — below phase diagram */}
- <div style={{ marginTop: 8, fontSize: 13, fontWeight: 700, color: T.eo_e, marginBottom: 4 }}>ZnTe Synthesis — Reaction Process</div>
+ <div style={{ marginTop: 8, fontSize: 13, fontWeight: 700, color: T.accent, marginBottom: 4 }}>Cu-Ni Alloy — Solidification Process</div>
  <svg viewBox="0 0 400 180" style={{ width: "100%", maxWidth: W, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
  {(() => {
  const t = frame * 0.04;
@@ -10331,15 +10331,14 @@ function PhaseDiagramSection() {
 
  <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
  <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
- Phase diagrams map stability. For CZTS, we need Cu2ZnSnS4
- to be stable against decomposing into CuS + ZnS + SnS2.
+ Cu-Ni is a classic isomorphous system: Cu and Ni are fully miscible in both liquid and solid (FCC) phases at all compositions. The liquidus and solidus curves define the two-phase region.
  </div>
  </div>
 
  <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
  <div style={{ fontSize: 11, fontWeight: 600, marginBottom: 4, color: T.eo_e }}>The Story</div>
  <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
- Gibbs's phase rule F = C - P + 2 governs how many independent variables you can change without altering coexisting phases. Binary phase diagrams were historically determined by thermal analysis -- melting mixtures and recording cooling curves. Today, CALPHAD methods combine these measurements with DFT calculations to predict phase stability in complex multicomponent systems like CZTS.
+ Gibbs phase rule F = C - P + 2 tells how many variables you can change without changing the number of phases. For Cu-Ni (C=2), in the two-phase region (P=2), F=2: you can independently vary temperature and composition. At the melting point of pure Cu or Ni (P=2, C=1), F=0: the temperature is fixed.
  </div>
  </div>
 
@@ -10348,8 +10347,7 @@ function PhaseDiagramSection() {
  Key Insight
  </div>
  <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
- Multinary compounds have complex phase spaces -
- competing phases - narrow stability windows.
+ Cu-Ni alloys are used in coins, marine hardware, and heat exchangers because the complete solid solution gives tunable strength and corrosion resistance across all compositions.
  </div>
  </div>
 
@@ -10668,8 +10666,9 @@ function ChemicalPotentialSection() {
  </svg>
 
  {/* MBE Growth Animation — below stability polygon */}
- <div style={{ marginTop: 8, fontSize: 13, fontWeight: 700, color: T.eo_valence, marginBottom: 4 }}>MBE Thin Film Growth</div>
- <svg viewBox="0 0 400 170" style={{ width: "100%", maxWidth: W, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
+ <div style={{ marginTop: 8, fontSize: 13, fontWeight: 700, color: T.accent, marginBottom: 4, textAlign: "center" }}>MBE Thin Film Growth</div>
+ <div style={{ display: "flex", justifyContent: "center" }}>
+ <svg viewBox="0 0 400 170" style={{ width: "100%", maxWidth: 374, background: T.surface, borderRadius: 6, border: `1px solid ${T.border}` }}>
  {(() => {
  const t = frame * 0.05;
  const chX = 20, chY = 15, chW = 170, chH = 110;
@@ -10741,10 +10740,11 @@ function ChemicalPotentialSection() {
  })()}
  </svg>
  </div>
+ </div>
 
- <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
+ <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 6 }}>
  <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
- <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.eo_valence }}>
+ <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: T.accent }}>
  Chemical Potentials
  </div>
  <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.5 }}>
