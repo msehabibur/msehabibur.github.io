@@ -7236,16 +7236,27 @@ function SemiconductorDopingTool() {
  const concDisplay = <span>10<sup>{concentration}</sup> cm<sup>-3</sup></span>;
  const conductivityChange = concentration <= 15 ? "Low" : concentration <= 16 ? "Moderate" : concentration <= 17 ? "High" : "Very High";
 
- // 5 rows x 6 columns grid, dopant at (2,3)
+ // 5 rows x 6 columns grid
  const gridRows = 5;
  const gridCols = 6;
  const spacing = 52;
  const offset = 25;
- const dopantRow = 2, dopantCol = 3;
 
- // Bouncing carrier animation
- const bx = offset + dopantCol * spacing + Math.sin(frame * 0.08) * 20;
- const by = offset + dopantRow * spacing - 20 + Math.cos(frame * 0.06) * 15;
+ // Number of dopants scales with concentration (10^14=1, 10^18=5)
+ const numDopants = Math.max(1, Math.min(5, Math.round((concentration - 14) / 1 + 1)));
+ const dopantPositions = [
+ { row: 2, col: 3 },
+ { row: 0, col: 5 },
+ { row: 4, col: 1 },
+ { row: 1, col: 0 },
+ { row: 3, col: 4 },
+ ].slice(0, numDopants);
+
+ // Each dopant produces a bouncing carrier
+ const carriers = dopantPositions.map((d, i) => ({
+ x: offset + d.col * spacing + Math.sin(frame * 0.08 + i * 1.8) * 22,
+ y: offset + d.row * spacing - 18 + Math.cos(frame * 0.06 + i * 2.1) * 16,
+ }));
 
  return (
  <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: "1.5px solid #7c3aed33" }}>
@@ -7301,7 +7312,7 @@ function SemiconductorDopingTool() {
  Array.from({ length: gridCols }, (_, col) => {
  const x = offset + col * spacing;
  const y = offset + row * spacing;
- const isDopant = row === dopantRow && col === dopantCol;
+ const isDopant = dopantPositions.some(d => d.row === row && d.col === col);
  const atomColor = isDopant ? carrierColor : "#6b7280";
  const atomLabel = isDopant ? dopant : (host === "Si" ? "Si" : host === "GaAs" ? ((row + col) % 2 === 0 ? "Ga" : "As") : ((row + col) % 2 === 0 ? "Cd" : "Te"));
  return (
@@ -7314,13 +7325,17 @@ function SemiconductorDopingTool() {
  );
  })
  )}
- {/* Bouncing carrier */}
- <circle cx={bx} cy={by} r={6} fill={carrierColor} opacity={0.8}>
- <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite" />
+ {/* Bouncing carriers — one per dopant */}
+ {carriers.map((c, i) => (
+ <g key={`carrier${i}`}>
+ <circle cx={c.x} cy={c.y} r={6} fill={carrierColor} opacity={0.8}>
+ <animate attributeName="opacity" values="0.5;1;0.5" dur={`${0.8 + i * 0.2}s`} repeatCount="indefinite" />
  </circle>
- <text x={bx} y={by - 10} textAnchor="middle" fill={carrierColor} fontSize={12} fontWeight="bold" fontFamily="monospace">
+ <text x={c.x} y={c.y - 10} textAnchor="middle" fill={carrierColor} fontSize={11} fontWeight="bold" fontFamily="monospace">
  {dopantType === "n-type" ? "e⁻" : "h⁺"}
  </text>
+ </g>
+ ))}
  <text x={155} y={298} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight="bold" fontFamily="monospace">
  {host} doped with {dopant} ({dopantType})
  </text>
