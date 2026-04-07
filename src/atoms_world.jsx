@@ -10655,54 +10655,131 @@ function PhaseDiagramSection() {
  </div>
  </div>
 
- <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 4 — Build the convex hull (what it looks like):</strong></div>
+ <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 4 — 3D phase diagram (rotating tetrahedron):</strong></div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginBottom: 8 }}>
+ The quaternary Cu-Zn-Sn-S system lives in a 3D tetrahedron. Each corner is a pure element. CZTS and all competing phases sit inside. The convex hull wraps around the lowest-energy phases — anything above it will decompose.
+ </div>
 
- {/* Convex hull diagram */}
+ {/* 3D rotating tetrahedron */}
+ {(() => {
+ const t = frame * 0.012;
+ const cosA = Math.cos(t), sinA = Math.sin(t);
+ const tiltB = 0.45;
+ const cosB = Math.cos(tiltB), sinB = Math.sin(tiltB);
+ const cx3 = 220, cy3 = 210, sc = 140;
+
+ const proj = (x, y, z) => {
+ const rx = x * cosA - z * sinA;
+ const rz = x * sinA + z * cosA;
+ const ry2 = y * cosB - rz * sinB;
+ const depth = rz * cosB + y * sinB;
+ return { px: cx3 + rx * sc, py: cy3 - ry2 * sc, depth };
+ };
+
+ // Tetrahedron corners (unit tetrahedron)
+ const corners = [
+ { pos: [0, 1.1, 0], label: "S", color: T.ink },
+ { pos: [-1, -0.4, -0.6], label: "Cu", color: T.ink },
+ { pos: [1, -0.4, -0.6], label: "Sn", color: T.ink },
+ { pos: [0, -0.4, 1], label: "Zn", color: T.ink },
+ ];
+
+ // Phases inside tetrahedron (barycentric-ish coordinates)
+ const phases = [
+ { pos: [-0.15, 0.15, 0.1], label: "CZTS", eV: "−0.986", stable: true, r: 10 },
+ { pos: [-0.5, 0.3, -0.3], label: "CuS", eV: "−0.63", stable: true, r: 6 },
+ { pos: [0.0, 0.35, 0.5], label: "ZnS", eV: "−0.91", stable: true, r: 6 },
+ { pos: [0.5, 0.3, -0.1], label: "SnS₂", eV: "−0.72", stable: true, r: 6 },
+ { pos: [-0.45, -0.05, -0.1], label: "Cu₂S", eV: "−0.41", stable: true, r: 6 },
+ { pos: [0.1, 0.0, -0.2], label: "Cu₂SnS₃", eV: "−0.52", stable: false, r: 5 },
+ { pos: [0.35, -0.1, 0.2], label: "SnS", eV: "−0.38", stable: true, r: 5 },
+ ];
+
+ const projCorners = corners.map(c => ({ ...c, ...proj(...c.pos) }));
+ const projPhases = phases.map(p => ({ ...p, ...proj(...p.pos) }));
+
+ // Edges of tetrahedron
+ const edges = [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
+
+ // Sort all points by depth for painter's algorithm
+ const allPoints = [
+ ...projPhases.map(p => ({ ...p, type: "phase" })),
+ ...projCorners.map(p => ({ ...p, type: "corner" })),
+ ].sort((a, b) => a.depth - b.depth);
+
+ return (
  <div style={{ display: "flex", justifyContent: "center", marginBottom: 14 }}>
- <svg viewBox="0 0 340 200" style={{ width: "100%", maxWidth: 340, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
- {/* Axes */}
- <line x1={40} y1={170} x2={320} y2={170} stroke={T.dim} strokeWidth={1} />
- <line x1={40} y1={170} x2={40} y2={20} stroke={T.dim} strokeWidth={1} />
- <text x={180} y={195} textAnchor="middle" fontSize={10} fill={T.muted}>Composition (Cu₂S → ZnS → SnS₂)</text>
- <text x={14} y={95} textAnchor="middle" fontSize={10} fill={T.muted} transform="rotate(-90,14,95)">Energy (eV/atom)</text>
+ <svg viewBox="0 0 440 420" style={{ width: "100%", maxWidth: 440, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+ <text x={220} y={20} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>
+ 3D Quaternary Phase Diagram (Cu-Zn-Sn-S)
+ </text>
+ <text x={220} y={36} textAnchor="middle" fontSize={10} fill={T.muted}>
+ Auto-rotating — phases shown with formation energies
+ </text>
 
- {/* Elemental reference line */}
- <line x1={50} y1={140} x2={310} y2={140} stroke={T.dim} strokeWidth={1} strokeDasharray="4,3" />
- <text x={315} y={138} fontSize={8} fill={T.dim}>elements</text>
-
- {/* Convex hull line */}
- <polyline points="50,140 100,105 155,60 200,55 250,70 310,140"
- fill="none" stroke={T.accent} strokeWidth={2} />
-
- {/* Hull fill */}
- <polygon points="50,140 100,105 155,60 200,55 250,70 310,140"
- fill={T.accent} opacity={0.06} />
-
- {/* Stable phases on hull */}
- {[
- { x: 50, y: 140, label: "Cu" },
- { x: 100, y: 105, label: "Cu₂S" },
- { x: 155, y: 60, label: "CZTS", highlight: true },
- { x: 200, y: 55, label: "ZnS" },
- { x: 250, y: 70, label: "SnS₂" },
- { x: 310, y: 140, label: "S" },
- ].map((p, i) => (
- <g key={i}>
- <circle cx={p.x} cy={p.y} r={p.highlight ? 7 : 5} fill={p.highlight ? T.accent : T.accent} opacity={p.highlight ? 1 : 0.6} />
- <text x={p.x} y={p.y - 10} textAnchor="middle" fontSize={9} fontWeight={p.highlight ? 700 : 400}
- fill={p.highlight ? T.accent : T.muted}>{p.label}</text>
- </g>
+ {/* Tetrahedron edges */}
+ {edges.map(([a, b], i) => (
+ <line key={i} x1={projCorners[a].px} y1={projCorners[a].py}
+ x2={projCorners[b].px} y2={projCorners[b].py}
+ stroke={T.accent} strokeWidth={1.5} opacity={0.3} />
  ))}
 
- {/* Unstable phase above hull */}
- <circle cx={178} cy={78} r={4} fill={T.muted} opacity={0.4} />
- <text x={178} y={72} textAnchor="middle" fontSize={8} fill={T.muted}>Cu₂SnS₃</text>
- <line x1={178} y1={82} x2={178} y2={58} stroke={T.muted} strokeWidth={0.5} strokeDasharray="2,2" />
- <text x={195} y={88} fontSize={7} fill={T.muted}>above hull = unstable</text>
+ {/* Tetrahedron faces (transparent) */}
+ {[[0,1,2],[0,1,3],[0,2,3],[1,2,3]].map((face, i) => (
+ <polygon key={i}
+ points={face.map(f => `${projCorners[f].px},${projCorners[f].py}`).join(" ")}
+ fill={T.accent} opacity={0.03} stroke="none" />
+ ))}
 
- <text x={155} y={45} textAnchor="middle" fontSize={9} fontWeight={700} fill={T.accent}>on hull = stable</text>
+ {/* Tie lines from CZTS to competing phases */}
+ {projPhases.filter(p => p.label !== "CZTS").map((p, i) => (
+ <line key={i} x1={projPhases[0].px} y1={projPhases[0].py}
+ x2={p.px} y2={p.py}
+ stroke={T.accent} strokeWidth={0.5} opacity={0.15}
+ strokeDasharray="3,3" />
+ ))}
+
+ {/* Render all points sorted by depth */}
+ {allPoints.map((p, i) => {
+ if (p.type === "corner") {
+ return (
+ <g key={`c${i}`}>
+ <circle cx={p.px} cy={p.py} r={8} fill={T.accent} opacity={0.9} />
+ <text x={p.px} y={p.py + 4} textAnchor="middle" fill="#fff" fontSize={10} fontWeight={700}>{p.label}</text>
+ <text x={p.px} y={p.py + 22} textAnchor="middle" fill={T.ink} fontSize={12} fontWeight={700}>{p.label}</text>
+ </g>
+ );
+ }
+ const opacity = p.stable ? 0.85 : 0.4;
+ return (
+ <g key={`p${i}`}>
+ <circle cx={p.px} cy={p.py} r={p.r} fill={p.stable ? T.accent : T.muted} opacity={opacity}
+ stroke={p.label === "CZTS" ? T.accent : "none"} strokeWidth={p.label === "CZTS" ? 2 : 0} />
+ {p.label === "CZTS" && <circle cx={p.px} cy={p.py} r={p.r + 4} fill="none" stroke={T.accent} strokeWidth={1.5} opacity={0.3 + 0.2 * Math.sin(frame * 0.1)} />}
+ <text x={p.px + p.r + 4} y={p.py - 4} fontSize={11} fontWeight={p.label === "CZTS" ? 700 : 500}
+ fill={p.stable ? T.accent : T.muted}>{p.label}</text>
+ <text x={p.px + p.r + 4} y={p.py + 8} fontSize={9}
+ fill={T.muted}>{p.eV} eV/at</text>
+ {!p.stable && <text x={p.px + p.r + 4} y={p.py + 20} fontSize={8} fill={T.muted}>(unstable)</text>}
+ </g>
+ );
+ })}
+
+ {/* Legend */}
+ <circle cx={30} cy={385} r={6} fill={T.accent} opacity={0.85} />
+ <text x={42} y={389} fontSize={10} fill={T.muted}>Stable (on hull)</text>
+ <circle cx={160} cy={385} r={5} fill={T.muted} opacity={0.4} />
+ <text x={172} y={389} fontSize={10} fill={T.muted}>Unstable (above hull)</text>
+ <circle cx={310} cy={385} r={8} fill={T.accent} opacity={0.9} />
+ <text x={324} y={389} fontSize={10} fill={T.muted}>CZTS target</text>
+
+ <text x={220} y={410} textAnchor="middle" fontSize={10} fill={T.muted}>
+ Formation energies from DFT (PBE functional)
+ </text>
  </svg>
  </div>
+ );
+ })()}
 
  <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 5 — Map the stability polygon (chemical potential space):</strong></div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, marginBottom: 8 }}>
