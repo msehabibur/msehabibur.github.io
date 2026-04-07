@@ -7236,11 +7236,12 @@ function SemiconductorDopingTool() {
  const concDisplay = <span>10<sup>{concentration}</sup> cm<sup>-3</sup></span>;
  const conductivityChange = concentration <= 15 ? "Low" : concentration <= 16 ? "Moderate" : concentration <= 17 ? "High" : "Very High";
 
- // 5x5 grid, dopant at (2,2)
- const gridN = 5;
- const spacing = 56;
- const offset = 30;
- const dopantRow = 2, dopantCol = 2;
+ // 5 rows x 6 columns grid, dopant at (2,3)
+ const gridRows = 5;
+ const gridCols = 6;
+ const spacing = 52;
+ const offset = 25;
+ const dopantRow = 2, dopantCol = 3;
 
  // Bouncing carrier animation
  const bx = offset + dopantCol * spacing + Math.sin(frame * 0.08) * 20;
@@ -7295,9 +7296,9 @@ function SemiconductorDopingTool() {
 
  {/* Lattice SVG */}
  <div style={{ display: "flex", justifyContent: "center" }}>
- <svg viewBox="0 0 340 340" style={{ width: "100%", maxWidth: 374, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, marginBottom: 12 }}>
- {Array.from({ length: gridN }, (_, row) =>
- Array.from({ length: gridN }, (_, col) => {
+ <svg viewBox="0 0 360 310" style={{ width: "100%", maxWidth: 400, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, marginBottom: 12 }}>
+ {Array.from({ length: gridRows }, (_, row) =>
+ Array.from({ length: gridCols }, (_, col) => {
  const x = offset + col * spacing;
  const y = offset + row * spacing;
  const isDopant = row === dopantRow && col === dopantCol;
@@ -7305,8 +7306,8 @@ function SemiconductorDopingTool() {
  const atomLabel = isDopant ? dopant : (host === "Si" ? "Si" : host === "GaAs" ? ((row + col) % 2 === 0 ? "Ga" : "As") : ((row + col) % 2 === 0 ? "Cd" : "Te"));
  return (
  <g key={`${row}-${col}`}>
- {col < gridN - 1 && <line x1={x + 14} y1={y} x2={x + spacing - 14} y2={y} stroke={T.border} strokeWidth={1.5} />}
- {row < gridN - 1 && <line x1={x} y1={y + 14} x2={x} y2={y + spacing - 14} stroke={T.border} strokeWidth={1.5} />}
+ {col < gridCols - 1 && <line x1={x + 14} y1={y} x2={x + spacing - 14} y2={y} stroke={T.border} strokeWidth={1.5} />}
+ {row < gridRows - 1 && <line x1={x} y1={y + 14} x2={x} y2={y + spacing - 14} stroke={T.border} strokeWidth={1.5} />}
  <circle cx={x} cy={y} r={14} fill={isDopant ? carrierColor + "22" : "#6b728022"} stroke={atomColor} strokeWidth={isDopant ? 2.5 : 1.5} />
  <text x={x} y={y + 4} textAnchor="middle" fill={atomColor} fontSize={12} fontWeight={isDopant ? "bold" : "normal"} fontFamily="monospace">{atomLabel}</text>
  </g>
@@ -7320,7 +7321,7 @@ function SemiconductorDopingTool() {
  <text x={bx} y={by - 10} textAnchor="middle" fill={carrierColor} fontSize={12} fontWeight="bold" fontFamily="monospace">
  {dopantType === "n-type" ? "e⁻" : "h⁺"}
  </text>
- <text x={170} y={330} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight="bold" fontFamily="monospace">
+ <text x={180} y={298} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight="bold" fontFamily="monospace">
  {host} doped with {dopant} ({dopantType})
  </text>
  </svg>
