@@ -7163,13 +7163,14 @@ function MetalAlloyExplorer() {
  </div>
 
  {/* Percentage slider */}
- <div style={{ marginBottom: 12 }}>
- <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Alloy Percentage: {percentage}%</div>
+ <div style={{ marginBottom: 12, maxWidth: 374, margin: "0 auto 12px auto" }}>
+ <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4, textAlign: "center" }}>Alloy Percentage: {percentage}%</div>
  <input type="range" min={0} max={30} value={percentage} onChange={e => setPercentage(Number(e.target.value))}
- style={{ width: "100%", accentColor: baseColor }} />
+ style={{ width: "100%", accentColor: T.accent }} />
  </div>
 
  {/* Lattice SVG */}
+ <div style={{ display: "flex", justifyContent: "center" }}>
  <svg viewBox="0 0 340 340" style={{ width: "100%", maxWidth: 374, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, marginBottom: 12 }}>
  {atoms.map((a, i) => (
  <g key={i}>
@@ -7183,13 +7184,14 @@ function MetalAlloyExplorer() {
  {name} ({percentage}% {alloyElement})
  </text>
  </svg>
+ </div>
 
  {/* Property bars */}
- <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+ <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center", maxWidth: 374, margin: "0 auto" }}>
  {[
- { label: "Strength", value: props.strength, color: "#7c3aed" },
- { label: "Conductivity", value: props.conductivity, color: "#7c3aed" },
- { label: "Corrosion Resistance", value: props.corrosion, color: "#7c3aed" },
+ { label: "Strength", value: props.strength, color: T.accent },
+ { label: "Conductivity", value: props.conductivity, color: T.accent },
+ { label: "Corrosion Resistance", value: props.corrosion, color: T.accent },
  ].map(p => (
  <div key={p.label} style={{ flex: 1, minWidth: 90, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
  <div style={{ fontSize: 12, color: T.muted, marginBottom: 4 }}>{p.label}</div>
@@ -7634,7 +7636,7 @@ function MaterialClassesSection() {
 
  // ── ANIMATED BAND DIAGRAM ──
  const W = 380, H = 280;
- const bandW = 200, bandL = (W - bandW) / 2 - 20, bandR = bandL + bandW;
+ const bandW = 180, bandL = (W - 180) / 2, bandR = bandL + 180;
  const bandH = 28;
  // Center the band diagram vertically: compute gap in pixels, then place symmetrically
  const gapPxRaw = selected === "metal" ? 0 : Math.min(100, sel.bandGap * 20);
@@ -7720,10 +7722,12 @@ function MaterialClassesSection() {
 
  {/* Band gap label */}
  {gapPx > 10 && <>
- <rect x={bandL} y={CBbot} width={bandW} height={gapPx} fill={T.eo_gap + "08"} />
- <line x1={bandL - 10} y1={CBbot} x2={bandL - 10} y2={VBtop} stroke={T.eo_gap} strokeWidth={1.5} markerStart="url(#arrowUp)" markerEnd="url(#arrowDown)" />
- <text x={bandL - 14} y={(CBbot + VBtop) / 2 + 4} fill={T.accent} fontSize={11} fontWeight="bold" textAnchor="end">
- Eg = {sel.bandGap} eV
+ <rect x={bandL} y={CBbot} width={bandW} height={gapPx} fill={T.accent + "08"} />
+ <line x1={bandR + 8} y1={CBbot} x2={bandR + 8} y2={VBtop} stroke={T.accent} strokeWidth={1.5} />
+ <line x1={bandR + 4} y1={CBbot} x2={bandR + 12} y2={CBbot} stroke={T.accent} strokeWidth={1} />
+ <line x1={bandR + 4} y1={VBtop} x2={bandR + 12} y2={VBtop} stroke={T.accent} strokeWidth={1} />
+ <text x={bandR + 16} y={(CBbot + VBtop) / 2 + 4} fill={T.accent} fontSize={11} fontWeight="bold" textAnchor="start">
+ {sel.bandGap} eV
  </text>
  </>}
 
