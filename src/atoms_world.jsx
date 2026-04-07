@@ -7296,7 +7296,7 @@ function SemiconductorDopingTool() {
 
  {/* Lattice SVG */}
  <div style={{ display: "flex", justifyContent: "center" }}>
- <svg viewBox="0 0 360 310" style={{ width: "100%", maxWidth: 400, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, marginBottom: 12 }}>
+ <svg viewBox="0 0 310 310" style={{ width: "100%", maxWidth: 374, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, marginBottom: 12 }}>
  {Array.from({ length: gridRows }, (_, row) =>
  Array.from({ length: gridCols }, (_, col) => {
  const x = offset + col * spacing;
@@ -7321,7 +7321,7 @@ function SemiconductorDopingTool() {
  <text x={bx} y={by - 10} textAnchor="middle" fill={carrierColor} fontSize={12} fontWeight="bold" fontFamily="monospace">
  {dopantType === "n-type" ? "e⁻" : "h⁺"}
  </text>
- <text x={180} y={298} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight="bold" fontFamily="monospace">
+ <text x={155} y={298} textAnchor="middle" fill={T.ink} fontSize={13} fontWeight="bold" fontFamily="monospace">
  {host} doped with {dopant} ({dopantType})
  </text>
  </svg>
