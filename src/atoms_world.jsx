@@ -7111,9 +7111,17 @@ function MetalAlloyExplorer() {
 
  const key = `${base}+${alloyElement}`;
  const name = alloyNames[key] || `${base}-${alloyElement} Alloy`;
- const props = alloyProps[key] || { strength: 50, conductivity: 50, corrosion: 50 };
- const baseColor = "#7c3aed";
- const alloyColor = "#7c3aed";
+ const baseProps = { strength: 30, conductivity: 70, corrosion: 40 };
+ const targetProps = alloyProps[key] || { strength: 50, conductivity: 50, corrosion: 50 };
+ // Properties scale with alloy percentage (0% = pure base, 30% = full alloy effect)
+ const pctFactor = Math.min(percentage / 30, 1);
+ const props = {
+ strength: Math.round(baseProps.strength + (targetProps.strength - baseProps.strength) * pctFactor),
+ conductivity: Math.round(baseProps.conductivity + (targetProps.conductivity - baseProps.conductivity) * pctFactor),
+ corrosion: Math.round(baseProps.corrosion + (targetProps.corrosion - baseProps.corrosion) * pctFactor),
+ };
+ const baseColor = T.accent;
+ const alloyColor = T.accent;
 
  // Generate lattice positions with some alloy atoms
  const gridSize = 8;
@@ -7359,7 +7367,7 @@ function InsulatorExplorer() {
  const voltageRatio = voltage / mat.breakdownV;
 
  // Band diagram coordinates
- const bandL = 40, bandR = 300;
+ const bandL = 60, bandR = 280;
  const Ev_y = 250, Ec_y = 80;
  const gapMid = (Ev_y + Ec_y) / 2;
 
@@ -7403,8 +7411,10 @@ function InsulatorExplorer() {
  <text x={bandL - 5} y={Ev_y + 5} textAnchor="end" fill={mat.color} fontSize={12} fontFamily="monospace">VB</text>
 
  {/* Band gap label */}
- <line x1={bandR + 10} y1={Ec_y + 10} x2={bandR + 10} y2={Ev_y - 10} stroke={T.muted} strokeWidth={1} strokeDasharray="3,3" />
- <text x={bandR + 16} y={gapMid + 4} fill={T.muted} fontSize={11} fontFamily="monospace">
+ <line x1={bandL - 10} y1={Ec_y + 10} x2={bandL - 10} y2={Ev_y - 10} stroke={T.muted} strokeWidth={1} strokeDasharray="3,3" />
+ <line x1={bandL - 14} y1={Ec_y + 10} x2={bandL - 6} y2={Ec_y + 10} stroke={T.muted} strokeWidth={1} />
+ <line x1={bandL - 14} y1={Ev_y - 10} x2={bandL - 6} y2={Ev_y - 10} stroke={T.muted} strokeWidth={1} />
+ <text x={bandL - 18} y={gapMid + 4} fill={T.muted} fontSize={11} fontFamily="monospace" textAnchor="end">
  {mat.gap} eV
  </text>
 
@@ -7499,13 +7509,13 @@ function CeramicExplorer() {
 
  return (
  <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: `1.5px solid ${mainColor}33` }}>
- <div style={{ fontSize: 13, fontWeight: 800, color: mainColor, marginBottom: 10 }}>Interactive Ceramic Property Explorer</div>
- <div style={{ fontSize: 12, color: T.muted, marginBottom: 10, lineHeight: 1.6 }}>
- Select a ceramic to compare properties on the radar chart. Each axis represents a normalized property (0-100 scale).
+ <div style={{ fontSize: 13, fontWeight: 800, color: mainColor, marginBottom: 10, textAlign: "center" }}>Interactive Ceramic Property Explorer</div>
+ <div style={{ fontSize: 12, color: T.muted, marginBottom: 10, lineHeight: 1.6, textAlign: "center" }}>
+ Select a ceramic to compare properties on the radar chart.
  </div>
 
  {/* Selector */}
- <div style={{ display: "flex", gap: 4, marginBottom: 12, flexWrap: "wrap" }}>
+ <div style={{ display: "flex", gap: 4, marginBottom: 12, flexWrap: "wrap", justifyContent: "center" }}>
  {Object.entries(ceramics).map(([id, c]) => (
  <button key={id} onClick={() => setSelected(id)} style={{
  padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 600,
@@ -7517,6 +7527,7 @@ function CeramicExplorer() {
  </div>
 
  {/* Radar chart SVG */}
+ <div style={{ display: "flex", justifyContent: "center" }}>
  <svg viewBox="0 0 340 340" style={{ width: "100%", maxWidth: 374, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, marginBottom: 12 }}>
  {/* Grid rings */}
  {[20, 40, 60, 80, 100].map(pct => {
@@ -7551,14 +7562,15 @@ function CeramicExplorer() {
  {cer.label} Properties
  </text>
  </svg>
+ </div>
 
  {/* Info panels */}
- <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
- <div style={{ flex: 1, minWidth: 140, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+ <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center", maxWidth: 374, margin: "0 auto" }}>
+ <div style={{ flex: 1, minWidth: 140, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}`, textAlign: "center" }}>
  <div style={{ fontSize: 12, color: T.muted, marginBottom: 4 }}>Crystal Structure</div>
  <div style={{ fontSize: 12, fontWeight: 700, color: mainColor, fontFamily: "monospace" }}>{cer.crystal}</div>
  </div>
- <div style={{ flex: 1, minWidth: 140, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}` }}>
+ <div style={{ flex: 1, minWidth: 140, background: T.surface, borderRadius: 8, padding: 10, border: `1px solid ${T.border}`, textAlign: "center" }}>
  <div style={{ fontSize: 12, color: T.muted, marginBottom: 4 }}>Key Application</div>
  <div style={{ fontSize: 12, fontWeight: 600, color: T.ink }}>{cer.app}</div>
  </div>
@@ -10540,43 +10552,43 @@ function PhaseDiagramSection() {
 
  {/* Tetrahedron SVG */}
  <div style={{ display: "flex", justifyContent: "center", marginBottom: 14 }}>
- <svg viewBox="0 0 340 320" style={{ width: "100%", maxWidth: 340, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
+ <svg viewBox="0 0 440 420" style={{ width: "100%", maxWidth: 440, background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
  {/* Tetrahedron edges */}
- <polygon points="170,20 30,280 310,280" fill={T.accent + "06"} stroke={T.accent} strokeWidth={1.5} />
- <line x1={170} y1={20} x2={220} y2={160} stroke={T.accent} strokeWidth={1} strokeDasharray="4,3" />
- <line x1={30} y1={280} x2={220} y2={160} stroke={T.accent} strokeWidth={1} strokeDasharray="4,3" />
- <line x1={310} y1={280} x2={220} y2={160} stroke={T.accent} strokeWidth={1} strokeDasharray="4,3" />
+ <polygon points="220,30 40,360 400,360" fill={T.accent + "06"} stroke={T.accent} strokeWidth={2} />
+ <line x1={220} y1={30} x2={290} y2={210} stroke={T.accent} strokeWidth={1.5} strokeDasharray="5,4" />
+ <line x1={40} y1={360} x2={290} y2={210} stroke={T.accent} strokeWidth={1.5} strokeDasharray="5,4" />
+ <line x1={400} y1={360} x2={290} y2={210} stroke={T.accent} strokeWidth={1.5} strokeDasharray="5,4" />
 
  {/* Corner labels */}
- <text x={170} y={14} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>S</text>
- <text x={18} y={296} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>Cu</text>
- <text x={320} y={296} textAnchor="middle" fontSize={13} fontWeight={700} fill={T.ink}>Sn</text>
- <text x={232} y={155} fontSize={13} fontWeight={700} fill={T.ink}>Zn</text>
+ <text x={220} y={22} textAnchor="middle" fontSize={16} fontWeight={700} fill={T.ink}>S</text>
+ <text x={25} y={380} textAnchor="middle" fontSize={16} fontWeight={700} fill={T.ink}>Cu</text>
+ <text x={415} y={380} textAnchor="middle" fontSize={16} fontWeight={700} fill={T.ink}>Sn</text>
+ <text x={308} y={205} fontSize={16} fontWeight={700} fill={T.ink}>Zn</text>
 
  {/* CZTS point — inside tetrahedron */}
- <circle cx={155} cy={175} r={8} fill={T.accent} opacity={0.8} />
- <text x={155} y={179} textAnchor="middle" fill="#fff" fontSize={7} fontWeight={700}>CZTS</text>
+ <circle cx={200} cy={230} r={12} fill={T.accent} opacity={0.85} />
+ <text x={200} y={234} textAnchor="middle" fill="#fff" fontSize={9} fontWeight={700}>CZTS</text>
 
  {/* Secondary phases as smaller dots */}
  {[
- { x: 100, y: 150, label: "CuS" },
- { x: 200, y: 90, label: "ZnS" },
- { x: 230, y: 200, label: "SnS₂" },
- { x: 130, y: 210, label: "Cu₂S" },
- { x: 180, y: 220, label: "Cu₂SnS₃" },
+ { x: 130, y: 195, label: "CuS" },
+ { x: 260, y: 115, label: "ZnS" },
+ { x: 300, y: 260, label: "SnS₂" },
+ { x: 160, y: 275, label: "Cu₂S" },
+ { x: 240, y: 290, label: "Cu₂SnS₃" },
  ].map((p, i) => (
  <g key={i}>
- <circle cx={p.x} cy={p.y} r={4} fill={T.muted} opacity={0.6} />
- <text x={p.x + 8} y={p.y + 4} fontSize={9} fill={T.muted}>{p.label}</text>
+ <circle cx={p.x} cy={p.y} r={6} fill={T.muted} opacity={0.5} />
+ <text x={p.x + 10} y={p.y + 5} fontSize={11} fill={T.muted} fontWeight={600}>{p.label}</text>
  </g>
  ))}
 
  {/* Tie lines from CZTS to competing phases */}
- {[[100,150],[200,90],[230,200],[130,210],[180,220]].map(([x,y], i) => (
- <line key={i} x1={155} y1={175} x2={x} y2={y} stroke={T.accent} strokeWidth={0.5} opacity={0.3} />
+ {[[130,195],[260,115],[300,260],[160,275],[240,290]].map(([x,y], i) => (
+ <line key={i} x1={200} y1={230} x2={x} y2={y} stroke={T.accent} strokeWidth={0.8} opacity={0.25} />
  ))}
 
- <text x={170} y={310} textAnchor="middle" fontSize={10} fill={T.muted}>
+ <text x={220} y={405} textAnchor="middle" fontSize={12} fill={T.muted}>
  Cu₂ZnSnS₄ quaternary phase space
  </text>
  </svg>
