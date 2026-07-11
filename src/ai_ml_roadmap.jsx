@@ -440,6 +440,246 @@ const CURRICULUM = SECTIONS.flatMap((section) =>
   section.topics.map((topic) => ({ ...topic, sectionId: section.id, sectionLabel: section.label, block: section.block })),
 );
 
+// The roadmap is also a course. These guides are the teaching layer; the detailed
+// topic map below each guide remains available for planning and progress tracking.
+const SECTION_GUIDES = {
+  "math-toolchain": {
+    lead: "Modern ML uses automatic differentiation and high-level libraries, but the underlying ideas are not optional. Shapes, uncertainty, and optimization determine whether you can recognize a broken model, choose a loss, or interpret a metric.",
+    units: [
+      { title: "Linear algebra is the language of data", lesson: "A feature vector x is a row of measurements. A weight vector w says how strongly each measurement influences a prediction, and the dot product w·x combines them into one score. Matrices simply apply many such transformations at once, which is why every neural-network layer is written as a matrix multiplication.", formula: "z = w·x + b", example: "If x = [2, 3] and w = [0.4, −0.1], then z = 0.4×2 − 0.1×3 = 0.5. The sign and size of each weight tell you how that feature changes the score." },
+      { title: "Calculus tells a model how to improve", lesson: "Training is repeated measurement and correction. A loss function says how wrong the current prediction is; its derivative says which small change would reduce that error most quickly. The chain rule lets that feedback travel through every layer, which is exactly what backpropagation automates.", formula: "w ← w − η ∂L/∂w", example: "For a prediction that is too large, a positive gradient reduces the weight. The learning rate η controls the step: too large overshoots, too small makes learning painfully slow." },
+      { title: "Probability and information quantify uncertainty", lesson: "A classifier should not only name a class; it should report how confident it is. Cross-entropy compares the probability assigned to the correct answer with what actually happened, while KL divergence measures how far two probability distributions differ.", formula: "L = −Σ yᵢ log(pᵢ)", example: "If the true class receives probability 0.90, the loss is small. If it receives 0.01, the loss is large, so the model receives a strong correction." },
+      { title: "The toolchain makes the reasoning repeatable", lesson: "Use uv and pyproject.toml to pin the exact environment, NumPy to reason about array shapes, Polars or pandas to inspect data, and scikit-learn Pipelines to keep preprocessing attached to the model. Tracking runs in MLflow or W&B turns an experiment from a memory into evidence.", example: "A reproducible run records the dataset version, split seed, package lockfile, GPU, parameters, metrics, and saved model—not only the final score." },
+    ],
+    practice: ["Implement a two-feature linear predictor with NumPy and print every intermediate shape.", "Derive one gradient by hand for mean-squared error, then verify it with PyTorch autograd.", "Create a tiny uv project whose pyproject.toml, plot, and run metadata recreate the same result twice."],
+  },
+  "data-eda": {
+    lead: "Most model failures begin before model code exists. Treat the dataset as an instrument that can be miscalibrated: inspect what each column means, decide what information is available at prediction time, and test whether the split resembles the real future.",
+    units: [
+      { title: "Start with the prediction contract", lesson: "Write down the target, prediction time, unit of observation, and acceptable error before loading data. This immediately exposes forbidden columns: any field created after the outcome, or aggregated using future records, is leakage.", example: "For churn prediction on 1 July, a support ticket opened on 15 July cannot be a feature—even if it predicts churn perfectly." },
+      { title: "Choose the split that matches deployment", lesson: "Random splits work only when rows are independent and identically distributed. Use stratification for rare classes, group splits when one customer or patient has many rows, and time-based splits whenever tomorrow is the real test.", example: "A time-series model trained through March should validate on April and test on May; shuffling lets it learn the future." },
+      { title: "Preprocess inside the training fold", lesson: "Imputation, scaling, encoding, feature selection, and outlier rules learn from data. Fit them only on training rows, then apply the frozen transform to validation and test rows through a Pipeline or ColumnTransformer.", example: "Computing a global mean before splitting leaks information from validation data into every standardized training example." },
+    ],
+    practice: ["Audit a CSV for duplicate IDs, missingness, impossible ranges, and target leakage.", "Compare a random split with a time-based split and explain why their scores differ.", "Build a Pipeline with numeric imputation, categorical encoding, and a baseline classifier."],
+  },
+  "classical-ml": {
+    lead: "Classical ML is the control group for every ambitious model. It gives fast baselines, exposes data problems, and teaches the trade-offs that deep learning still inherits: capacity, distance, margin, impurity, and uncertainty.",
+    units: [
+      { title: "Fit the simplest credible baseline", lesson: "Linear and logistic regression answer a useful first question: can an additive relationship solve the task? They are fast, interpretable, and often surprisingly competitive after good preprocessing.", formula: "p(y=1|x) = 1 / (1 + e^(−z))", example: "A logistic model can show whether income, tenure, and support contacts independently predict churn before you add nonlinear trees." },
+      { title: "Use trees for nonlinear tabular structure", lesson: "Trees split the data into regions; random forests reduce variance by averaging many trees; boosting builds trees sequentially to correct prior errors. Compare them with a held-out validation set rather than assuming a library wins.", example: "CatBoost may simplify high-cardinality categories, while LightGBM may train faster on a large numeric table." },
+      { title: "Cluster and project with a question in mind", lesson: "PCA summarizes linear variance. t-SNE and UMAP are visualization tools for local neighborhoods, not proof of real clusters. Clustering should lead to a follow-up test: are the discovered groups stable and useful?", example: "A UMAP island might reflect batch effects instead of a meaningful customer segment." },
+    ],
+    practice: ["Benchmark logistic regression, random forest, and gradient boosting using the same Pipeline and split.", "Plot PCA before t-SNE or UMAP, then label any clusters with original features.", "Explain when k-NN becomes unreliable as feature dimension increases."],
+  },
+  "evaluation-features": {
+    lead: "A good score is an argument, not a number. You need a metric that reflects the harm of each error, a validation design that mimics use, and features that are available and reproducible at inference time.",
+    units: [
+      { title: "Read the confusion matrix before the headline metric", lesson: "Accuracy hides the distribution of errors. Precision answers “when we alert, how often are we right?”; recall answers “how many true cases did we catch?”; F1 balances the two; ROC-AUC and PR-AUC evaluate ranking across thresholds.", example: "For fraud with 1% positives, 99% accuracy can be achieved by predicting no fraud at all. Recall and PR-AUC reveal that failure." },
+      { title: "Diagnose bias and variance with curves", lesson: "If both training and validation error are high, the model or features underfit. If training error is low but validation error is high, the model may memorize. Learning curves show whether more data is likely to help; validation curves show which knob is unstable.", example: "A growing validation gap after epoch 12 suggests early stopping, regularization, or more data—not simply more epochs." },
+      { title: "Engineer features without leaking the answer", lesson: "Transforms can expose scale, seasonality, text patterns, interactions, and categorical structure. Every feature must be computed from information known at the prediction time and fitted only within the training partition.", example: "Encode hour-of-day as sin and cos so 23:00 and 00:00 are neighbors instead of opposite ends of a number line." },
+    ],
+    practice: ["Use the metric lab to change false positives and false negatives, then justify a threshold.", "Create a learning curve for an underfit and an overfit model.", "Add a target encoder safely with out-of-fold training statistics."],
+  },
+  "neural-pytorch": {
+    lead: "Neural networks are not magic functions; they are repeated linear transformations, nonlinear gates, and a disciplined optimization loop. PyTorch makes every part inspectable, which is why it is the best place to learn the mechanics.",
+    units: [
+      { title: "Forward pass: turn inputs into logits", lesson: "Each layer maps a batch of features to a new representation. Activations such as ReLU, GELU, and SiLU let stacked layers model nonlinear relationships. The final layer produces logits; the loss interprets them for the task.", formula: "h = activation(Wx + b)", example: "For ten digit classes, a network emits ten logits. Cross-entropy compares their softmax probabilities with the true digit." },
+      { title: "Backward pass: assign credit", lesson: "Autograd builds a computation graph during the forward pass. Calling backward on a scalar loss accumulates a gradient for every trainable parameter; the optimizer then takes one update step.", example: "Always call zero_grad before the next batch, otherwise gradients accumulate and you silently change the effective update." },
+      { title: "Control generalization and stability", lesson: "Initialization keeps early signals from exploding or vanishing. Learning rate, batch size, weight decay, dropout, schedulers, and early stopping determine how quickly the model learns and whether it memorizes.", example: "AdamW with a small validation-driven schedule is a common default, but it still needs a baseline and a learning-rate check." },
+    ],
+    practice: ["Write a Dataset, DataLoader, nn.Module, train loop, and evaluation loop without a notebook template.", "Deliberately overfit 20 examples, then verify the loss can approach zero.", "Save and reload a state_dict with optimizer, scheduler, epoch, and random-state metadata."],
+  },
+  "repro-projects": {
+    lead: "A result you cannot reproduce is not an engineering result. These projects are deliberately end-to-end: they test data discipline, metrics, training, documentation, and the ability to explain a decision later.",
+    units: [
+      { title: "Reproducibility has layers", lesson: "Seed random number generators, pin packages, track configuration, control data ordering, and record hardware. Deterministic execution may cost speed, so document exactly what is deterministic and what is only best-effort reproducible.", example: "A checkpoint without the split seed and preprocessing version cannot recreate a result even if the weights are available." },
+      { title: "Tabular baseline project", lesson: "Start with an honest Kaggle-style dataset, build a leakage-safe Pipeline, compare logistic regression and LightGBM under stratified cross-validation, and log metrics and artifacts. The goal is not a leaderboard score; it is a defensible baseline that another person can rerun.", example: "Report mean and spread of F1 across folds, not a single lucky split." },
+      { title: "MNIST twice, for two different lessons", lesson: "A NumPy MLP teaches forward/backward mechanics. A PyTorch CNN teaches data loading, convolution, device handling, and standard training practice. Comparing them teaches why frameworks are useful without hiding the math.", example: "Keep the seed, train/test split, and evaluation plot common so the comparison is meaningful." },
+    ],
+    practice: ["Recreate an experiment from its MLflow run without asking the original author for code changes.", "Write a short run card: data, split, environment, hardware, parameters, metrics, artifacts, limitations.", "Review another notebook for leakage in five minutes and write the evidence you found."],
+  },
+  "architectures": {
+    lead: "Architectures encode assumptions about structure. A convolution assumes nearby pixels relate, a recurrent model assumes a sequential state, and a transformer assumes relationships can span the whole context. Choose the assumption before the brand name.",
+    units: [
+      { title: "From CNNs to Transformers", lesson: "CNNs use local filters and translation-friendly feature hierarchies. Vision Transformers turn image patches into tokens and learn global interactions; Swin restores locality with shifted windows for efficiency.", example: "For a small labeled image dataset, transfer learning from a pretrained CNN can beat training a ViT from scratch." },
+      { title: "Attention, position, and decoding", lesson: "Self-attention lets every token weigh other tokens. Multi-head attention learns several relations at once; positional encodings, RoPE, and ALiBi give the model an order; KV caching prevents recomputing the prompt during generation.", formula: "Attention(Q,K,V) = softmax(QKᵀ / √d)V", example: "A decoder can reuse cached keys and values from a 4,000-token prompt while generating each new token." },
+      { title: "Generative capacity without full compute", lesson: "Diffusion learns to reverse noise into data. Mixture-of-Experts activates only a few expert blocks per token, increasing capacity while keeping active compute lower than a dense model of the same parameter count.", example: "Both need careful evaluation: attractive samples or a low average loss can still hide mode collapse, routing imbalance, or unsafe outputs." },
+    ],
+    practice: ["Map an encoder-only, decoder-only, and encoder-decoder task to the right architecture.", "Trace tensor shapes through one attention block.", "Compare a ResNet transfer-learning baseline with a small ViT on the same split."],
+  },
+  "scale-tuning": {
+    lead: "Scaling does not mean “use more GPUs.” It means accounting for precision, memory, communication, batch size, and the experiment budget so extra hardware actually increases useful throughput.",
+    units: [
+      { title: "Spend memory deliberately", lesson: "Mixed precision reduces model and activation memory. Gradient accumulation simulates a larger batch, while checkpointing trades extra computation for lower activation storage. The compute planner gives a first estimate; a profiler decides whether it is true.", example: "A model that does not fit may need FSDP and checkpointing before it needs a smaller batch." },
+      { title: "Pick the smallest distributed strategy that works", lesson: "DDP is simple when the full model fits per GPU. FSDP and ZeRO shard state when it does not. Accelerate centralizes device and precision boilerplate, but it does not remove the need to understand samplers, checkpoints, and failure recovery.", example: "Changing from DDP to FSDP affects checkpoint format, effective batch, communication, and debugging—not only memory." },
+      { title: "Tune as an experiment", lesson: "Manual sweeps build intuition; random search samples more useful combinations than grids; Bayesian optimization and ASHA reduce expensive trial waste. Always record the search space, stopping rule, seeds, and compute consumed.", example: "A trial that stops early due to ASHA should not be compared as if it had the same training budget as the winner." },
+    ],
+    practice: ["Calculate effective batch size and a learning-rate hypothesis for a multi-GPU run.", "Run a short mixed-precision comparison and measure memory, throughput, and loss stability.", "Use Optuna or a random sweep only after defining a fixed validation protocol."],
+  },
+  "nlp-vision": {
+    lead: "NLP and vision pipelines turn raw human data into consistent model inputs. Their most important design decisions are often data representation, augmentation, and evaluation—not the final backbone.",
+    units: [
+      { title: "Tokenization sets the unit of language", lesson: "BPE, WordPiece, SentencePiece, and tiktoken break text into reusable subwords. The choice changes token cost, multilingual behavior, code handling, and the effective context window. Sentence embeddings and cross-encoders then solve different retrieval speed-versus-quality problems.", example: "A bi-encoder can search millions of documents quickly; a cross-encoder reranks the top candidates more accurately." },
+      { title: "Vision starts with data geometry", lesson: "Normalization and augmentation must preserve labels. A crop that is harmless for classification may invalidate a detection box, so transforms must update images, masks, and boxes together.", example: "Use transfer learning first: train a new head, inspect errors, then unfreeze selectively with a lower learning rate." },
+      { title: "Choose task-specific evidence", lesson: "Detection needs box quality and recall, segmentation needs mask overlap, OCR needs text accuracy, video needs temporal coverage, and multimodal models need grounded image-text tests. A single accuracy score is rarely enough.", example: "A model that captions a photo fluently may still misread the small text that matters to an OCR task." },
+    ],
+    practice: ["Tokenize the same English, code, and emoji string with two tokenizers and compare length.", "Apply an augmentation to an image and its bounding boxes, then visually verify alignment.", "Benchmark bi-encoder retrieval followed by cross-encoder reranking on a small labeled set."],
+  },
+  "huggingface-finetune": {
+    lead: "The Hugging Face stack is useful because it makes the model, tokenizer, dataset, trainer, accelerator, and published artifact explicit. Fine-tuning is a controlled behavior change—not a substitute for fresh knowledge or good evaluation.",
+    units: [
+      { title: "Make the data and template match", lesson: "The tokenizer and chat template define what the model sees. Normalize ShareGPT or Alpaca-like examples into the target format, mask tokens that should not be learned, and inspect actual tokenized samples before running a job.", example: "A mismatched assistant boundary can train the model to continue the user message rather than answer it." },
+      { title: "Start with parameter-efficient adaptation", lesson: "LoRA trains small low-rank updates; QLoRA keeps the base model quantized to lower memory; IA³ and prefix tuning change other small parameter sets. Full fine-tuning costs more and should earn its extra complexity with a measured improvement.", example: "Rank and target modules decide adapter capacity; increasing them without a held-out evaluation only increases cost." },
+      { title: "Evaluate side effects", lesson: "SFT, DPO, ORPO, KTO, GRPO, and RLAIF optimize different signals. Evaluate target behavior before and after tuning, but also test broad capabilities and safety to detect catastrophic forgetting or reward hacking.", example: "A domain-tuned model can improve terminology while becoming worse at basic instruction following if the data is narrow." },
+    ],
+    practice: ["Inspect ten tokenized chat examples before launching SFT.", "Run a small LoRA rank sweep and plot quality versus memory and training time.", "Write a model card that states the base model, dataset, template, evaluation, limitations, and license."],
+  },
+  "prompt-rag": {
+    lead: "Prompting, RAG, and fine-tuning solve different problems. The useful question is not “which is best?” but “which component changes instructions, brings current evidence, or changes a repeated behavior?”",
+    units: [
+      { title: "Prompts are executable interfaces", lesson: "Separate durable system policy, task-specific user content, examples, tools, and output schema. Version every change and test it against a golden set, because a prompt is a production dependency rather than a paragraph of prose.", example: "A few-shot example should match the requested output schema and edge cases, not merely demonstrate a happy path." },
+      { title: "Structured output protects downstream systems", lesson: "JSON mode, function calling, Outlines, Instructor, and schema-constrained generation reduce syntax failures. They still require semantic validation: a well-formed amount, URL, or tool call can be unsafe or wrong.", example: "Validate an extracted date range, authorize the operation, and only then let a tool use it." },
+      { title: "RAG is an information-retrieval system first", lesson: "Chunking, embeddings, hybrid BM25+dense search, reranking, query rewriting, and citations all influence answer quality. Measure retrieval recall and ranking separately from faithfulness and final-answer usefulness.", example: "If the needed document never enters the candidate set, no larger generator or clever prompt can cite it correctly." },
+    ],
+    practice: ["Use the approach chooser for a changing, cited knowledge task and explain its recommendation.", "Build a small hybrid retriever, then compare recall before and after a cross-encoder reranker.", "Add a JSON schema and a semantic validator to one model-backed workflow."],
+  },
+  "intermediate-eval-projects": {
+    lead: "LLM evaluation must catch regressions before users do. Treat a golden set, a retrieval benchmark, and a red-team suite as versioned test assets—not as an end-of-project demo.",
+    units: [
+      { title: "Separate measurement layers", lesson: "Holdout or time-series validation tests generalization. Bootstrap confidence intervals and paired tests test whether a change is likely real. RAGAS, Promptfoo, DeepEval, and lm-eval-harness cover different layers, so combine them rather than seeking one universal score.", example: "A RAG change can raise answer fluency while lowering citation faithfulness; separate metrics reveal the trade-off." },
+      { title: "Build systems that can fail safely", lesson: "Golden cases, schema checks, latency budgets, toxicity and jailbreak probes, and regression thresholds belong in CI. LLM-as-judge can scale review, but needs a rubric, random order, calibration against people, and bias checks.", example: "A quality gate can block deployment when faithfulness falls or p95 latency exceeds the stated budget." },
+      { title: "Make the intermediate projects operational", lesson: "The RAG project proves retrieval, citations, streaming, and evaluation at realistic corpus size. The QLoRA project proves that adaptation has a held-out lift, a documented training run, and a reusable artifact.", example: "A 5% lift is only meaningful when it comes from a held-out set and the comparison uses the same prompt or evaluator." },
+    ],
+    practice: ["Create ten golden examples with expected evidence, structured output, and failure cases.", "Run a paired before/after evaluation and report a confidence interval.", "Write a CI rule that fails when a regression exceeds an agreed threshold."],
+  },
+  "llm-internals": {
+    lead: "LLM internals matter because performance and context limits are not mysterious. They follow from attention’s quadratic work, cache memory, precision, active parameters, and the way requests are scheduled.",
+    units: [
+      { title: "Trace one transformer block", lesson: "Tokens become embeddings, attention mixes context, an FFN transforms each token, and residual paths keep the original signal available. Parameter count and memory follow directly from hidden size, layer count, vocabulary, and precision.", example: "Doubling context length roughly quadruples dense attention work, while KV cache grows linearly with generated context." },
+      { title: "Reuse work during generation", lesson: "KV caches, prefix caches, paged attention, FlashAttention, and speculative decoding avoid recomputing or moving unnecessary data. They improve throughput only when the workload, batching policy, and hardware permit reuse.", example: "Two users with the same long system prompt can share a cached prefix instead of paying to process it twice." },
+      { title: "Trade precision, capacity, and quality honestly", lesson: "GPTQ, AWQ, GGUF, FP8, and INT4 reduce memory and can improve throughput, but require task-specific quality tests. MoE increases total capacity by routing to a few experts, which adds load-balancing and serving complexity.", example: "A quantized model may preserve general chat quality but fail on a narrow reasoning or multilingual slice." },
+    ],
+    practice: ["Estimate KV-cache memory for one model, context length, batch, and precision.", "Compare dense attention, sliding-window attention, and ring attention for a long-context workload.", "Benchmark a quantized model on a representative quality set before choosing it for serving."],
+  },
+  "serving-agents": {
+    lead: "Inference is a queueing and systems problem. Agents add another layer: a model can suggest actions, but only the application may authorize and execute them.",
+    units: [
+      { title: "Serve according to the workload", lesson: "vLLM, SGLang, TensorRT-LLM, LMDeploy, Triton, Ollama, llama.cpp, ONNX Runtime, and OpenVINO target different hardware and deployment constraints. Choose from model support, batch behavior, latency, operational maturity, and whether the workload is cloud, local, CPU, or edge.", example: "Continuous batching improves throughput when requests arrive steadily; it can hurt tail latency if admission control is missing." },
+      { title: "Stream and protect capacity", lesson: "SSE and WebSockets let clients see generated tokens early. Queues, batching, rate limits, budgets, and autoscaling protect the service when demand spikes; observe token throughput and tail latency rather than only average latency.", example: "A request that starts quickly but stalls after 50 tokens is a user-visible failure even if average latency looks acceptable." },
+      { title: "Treat tool calls as untrusted requests", lesson: "Agent frameworks coordinate state and tools, but no framework replaces argument validation, least privilege, timeouts, sandboxing, audit logs, and human approval where needed. Memory should have retention and consent rules.", example: "A retrieved web page can contain an instruction to export data; it is evidence to inspect, not authority to execute." },
+    ],
+    practice: ["Define an SLO for first-token latency, tokens/sec, and error rate for a test endpoint.", "Implement one tool schema with validation, authorization, timeout, and audit logging.", "Load-test continuous batching with several prompt lengths and inspect p50 and p95 latency."],
+  },
+  "distributed": {
+    lead: "Distributed training succeeds when hardware topology, parallelism strategy, data loading, and checkpointing agree. Adding GPUs without measuring communication simply creates more expensive waiting.",
+    units: [
+      { title: "Know where bytes travel", lesson: "NVLink, PCIe, and InfiniBand have very different bandwidth and latency. NCCL collectives such as all-reduce, all-gather, and reduce-scatter synchronize gradients or shards; their cost shapes which parallelism is worthwhile.", example: "A model that is compute-bound on one node can become communication-bound across slow interconnects." },
+      { title: "Compose parallelism deliberately", lesson: "Data parallelism scales replicas, tensor parallelism splits layer math, pipeline parallelism splits layers across stages, and sequence parallelism partitions long activations. 3D parallelism combines them when a single strategy cannot fit or feed the model.", example: "Pipeline stages need balanced work; one slow stage stalls every other accelerator." },
+      { title: "Design for restart, not only success", lesson: "Sharded checkpoints must restore model, optimizer, scheduler, sampler, and data position. Elastic training and failure recovery are engineering requirements for long jobs, not optional polish.", example: "A resumed job with a different sampler order can silently duplicate or skip data and invalidate the learning curve." },
+    ],
+    practice: ["Read one profiler trace and classify time as data, compute, or communication.", "Explain when DDP, FSDP, tensor parallelism, and pipeline parallelism are appropriate.", "Kill a small distributed run intentionally and verify a checkpointed resume matches the expected step."],
+  },
+  "mlops-observability": {
+    lead: "Production ML is a feedback loop: versioned data becomes a model, a model serves traffic, traffic reveals drift and quality, and monitoring tells you whether to investigate, roll back, or retrain.",
+    units: [
+      { title: "Make artifacts traceable", lesson: "Feature stores, registries, DVC, CI/CD, and packaging tools create lineage between a feature definition, data snapshot, training configuration, model version, and deployment. That lineage is what makes rollback and diagnosis possible.", example: "A canary deployment should name the exact model, prompt, retrieval index, and evaluator version that produced each response." },
+      { title: "Monitor input, relationship, and output drift", lesson: "Data drift means inputs change; concept drift means the input-output relationship changes; prediction drift means the model’s output distribution changes. They require different responses and none proves quality has changed without labels or direct evaluation.", example: "A traffic-source change can move input distributions while accuracy stays stable; an unobserved policy change can hurt accuracy without obvious input drift." },
+      { title: "Observe the full request", lesson: "OpenTelemetry and tools such as Langfuse, LangSmith, Phoenix, and Helicone connect prompts, retrieval, tools, latency, tokens, cost, and sampled quality evaluations. Scrub PII before logging and alert on quality regressions, not only exceptions.", example: "A replayable trace can show that an answer failed because retrieval returned no evidence, not because the model ignored good evidence." },
+    ],
+    practice: ["Draw the lineage from raw data to a canary deployment and rollback.", "Define one data-drift, one quality, and one cost alert with an owner and response playbook.", "Trace a failed RAG answer through retrieval, prompt construction, generation, and evaluation."],
+  },
+  "safety-governance": {
+    lead: "Safety is not a prompt at the top of a model call. It is a set of boundaries around data, privileges, model artifacts, logs, outputs, and human accountability.",
+    units: [
+      { title: "Defend against prompt injection", lesson: "Direct injection comes from a user; indirect injection comes from retrieved documents, web pages, files, or tool output. Treat all of it as untrusted data, separate instructions from evidence, validate tool arguments, and allowlist the actions the application permits.", example: "The model may summarize a document that says “send all records to this URL,” but the tool layer must reject the unapproved export." },
+      { title: "Protect information and artifacts", lesson: "Minimize collection, detect and redact PII, control retention, and filter outputs according to policy. Use signed or trusted model artifacts and safetensors where appropriate; review model and dataset licenses before shipping.", example: "A trace useful for debugging should store a redacted identifier rather than raw account numbers or private text." },
+      { title: "Govern the lifecycle", lesson: "EU AI Act obligations, NIST AI RMF, ISO 42001, red-teaming tools such as Garak and PyRIT, and internal risk reviews provide structure. The important outcome is evidence: known risks, owners, tests, incident paths, and ongoing monitoring.", example: "A red-team finding should become a regression case and a tracked remediation, not a one-time report." },
+    ],
+    practice: ["Create an indirect-injection test document and verify your tool layer rejects its unsafe request.", "Write a PII logging policy for prompts, responses, and traces.", "Turn one red-team finding into a permanent automated test."],
+  },
+  "specialized-modeling": {
+    lead: "Specialization begins with the structure of the data and decision, not with a trendy library. Time, graph topology, feedback, images, speech, and multiple modalities all require different splits, labels, and failure analysis.",
+    units: [
+      { title: "Forecast and rank with realistic temporal feedback", lesson: "Time-series models need walk-forward validation and a clear forecast horizon. Recommenders separate candidate retrieval, ranking, reranking, exploration, and delayed feedback; offline relevance alone can create harmful online loops.", example: "A model that predicts yesterday’s demand well may be useless if its feature latency makes it unavailable at tomorrow’s decision time." },
+      { title: "Respect graph and reinforcement structure", lesson: "Graph ML propagates information along edges, so train/test splits must prevent leaking connected neighborhoods. Reinforcement learning optimizes a policy through reward, but offline evaluation, exploration risk, and reward misspecification are central problems.", example: "Randomly splitting nodes in a citation graph can leak the test node’s neighborhood into training." },
+      { title: "Evaluate generative, speech, and multimodal systems by use", lesson: "Diffusion adaptation, ASR, TTS, and vision-language models need more than attractive samples. Test identity, grounding, transcription error, consent, latency, safety, and the task’s real output quality.", example: "A multimodal model should be tested on whether it points to the correct region or source, not only whether its caption sounds plausible." },
+    ],
+    practice: ["Build a walk-forward split for one forecasting task.", "Explain a graph split that avoids neighborhood leakage.", "Define task-specific metrics for OCR, speech transcription, and a vision-language question-answering task."],
+  },
+  "hardware-research": {
+    lead: "Hardware knowledge prevents expensive surprises, and research literacy prevents persuasive but weak claims. In both cases, measure the bottleneck, state assumptions, and compare against an honest baseline.",
+    units: [
+      { title: "Account for memory before launch", lesson: "Persistent state includes weights, gradients, and optimizer state; activations depend on batch, sequence, hidden size, layers, precision, and checkpointing. CPU/NVMe offload can increase capacity but adds transfer costs, so use it only after measuring.", example: "The compute planner is a rough lower bound. Real jobs also need room for fragmentation, temporary buffers, and collectives." },
+      { title: "Profile before optimizing", lesson: "torch.profiler identifies framework operations, Nsight Systems identifies whole-system stalls, and Nsight Compute identifies kernel behavior. MFU/HFU and cost-per-token metrics make throughput comparable across runs.", example: "A custom Triton kernel is justified only when the trace shows a stable, bandwidth-bound hot path worth maintaining." },
+      { title: "Read and reproduce claims critically", lesson: "Start with abstract, figures, results, and baselines, then inspect methods. A clean ablation changes one thing at a time with matched budgets and uncertainty; open source should include code, weights, evaluation, environment, and a candid model card.", example: "A claimed improvement without a strong baseline, confidence interval, or compute comparison is a hypothesis to test—not a conclusion." },
+    ],
+    practice: ["Estimate model-state and activation memory for a planned run, then compare with measured peak memory.", "Use a profiler trace to choose one bottleneck and quantify an improvement.", "Write a three-row ablation table with a causal question for each row."],
+  },
+  "advanced-projects": {
+    lead: "Advanced projects prove that a model can survive operations, not only a notebook. They require reliability, budgets, evaluation, security, deployment, and a written account of trade-offs.",
+    units: [
+      { title: "Production LLM platform", lesson: "A multi-tenant vLLM service must manage continuous batching, compatible APIs, budgets, rate limits, tracing, prompt-injection defenses, and uptime over time. A Helm chart or equivalent deployment artifact is part of the deliverable because repeatable operation is the point.", example: "A high tokens/sec number is incomplete without concurrency, prompt length, latency percentile, model, and quality settings." },
+      { title: "Agent with evaluations", lesson: "A useful agent uses narrow tools with Pydantic-validated arguments, a golden test set, CI quality gates, traces, and autoscaling. Each tool should have least privilege and an observable failure path.", example: "A 50-case suite can include happy paths, malformed inputs, adversarial retrieved text, tool outages, and policy boundaries." },
+      { title: "The completion checks are operating skills", lesson: "Choosing LoRA versus continued pretraining, profiling a bottleneck, detecting drift, patching injection, reproducing a paper, and recovering a multi-node job all require evidence. The goal is a documented decision, not an impressive-sounding tool list.", example: "A postmortem that names the failed metric, root cause, mitigation, and regression test is stronger evidence than a successful demo." },
+    ],
+    practice: ["Write an SLO and a seven-day soak-test plan for an LLM endpoint.", "Design a 50-case agent suite that includes at least ten adversarial cases.", "Run a failure-recovery drill and document what state was restored."],
+  },
+  interview: {
+    lead: "Strong interviews sound like good engineering reviews: clarify the objective, state assumptions, choose an evaluation, identify failure modes, and make trade-offs explicit.",
+    units: [
+      { title: "Explain fundamentals with a decision", lesson: "Do not recite bias-variance or Adam definitions in isolation. Connect them to a learning curve, a data regime, a gradient behavior, or a choice of regularization and show how you would test the hypothesis.", example: "If validation loss rises while training loss falls, propose early stopping and a split audit before claiming the model needs more capacity." },
+      { title: "Calculate, then design", lesson: "Attention complexity, KV-cache memory, parameter count, and tokenization are common calculations because they reveal system constraints. In system design, map data, features, training, serving, monitoring, rollout, and recovery in order.", example: "For search, separate candidate generation, ranking, reranking, metrics, feedback, and diversity constraints rather than calling it one model." },
+      { title: "Practice evidence-based stories", lesson: "Prepare STAR stories about an ambiguity, a failure, and a shipped outcome. For live paper critique, name the claim, data, baseline, threats to validity, and the single experiment that would most change your mind.", example: "A good behavioral answer gives scope, your decision, the measurable result, and what you learned—not just the tools used." },
+    ],
+    practice: ["Implement scaled dot-product attention from scratch and test shapes on a toy input.", "Solve one grouped time-series validation scenario aloud.", "Rehearse three STAR stories with a metric and a failure mode in each."],
+  },
+  "applied-llm": {
+    lead: "Applied LLM engineering is about turning uncertain generation into bounded, observable product behavior. The core loop is evidence retrieval, structured action, evaluation, monitoring, and disciplined cost control.",
+    units: [
+      { title: "Build evidence-backed responses", lesson: "Hybrid retrieval, rerankers, citations, and structured output should each be tested. The model should say what evidence it used, and the application should reject answers or tool calls that do not meet the schema and policy.", example: "Citations are not decorations: verify they support the exact claim placed next to them." },
+      { title: "Make tools narrow and observable", lesson: "MCP, LangGraph, Semantic Kernel, and related frameworks can organize state and tools, but application-level permissions remain the security boundary. Use validation, tracing, rate limits, and replayable failures.", example: "A calendar tool should accept a typed event request, verify the user, and record the operation—not execute arbitrary natural language." },
+      { title: "Optimize after measuring", lesson: "Caching, routing, batching, distillation, and model selection trade cost, latency, and quality. Measure by task slice, not only a blended average, so savings do not silently remove the behavior your users need.", example: "Route simple extraction to a smaller model only after a golden set shows its schema and accuracy are sufficient." },
+    ],
+    practice: ["Create a cited-answer evaluator that checks both schema and supporting evidence.", "Add one typed MCP-style tool with audit logging.", "Compare a small and large model on quality, p95 latency, and cost for the same task."],
+  },
+  "research-foundation": {
+    lead: "Foundation-model work joins systems engineering, data curation, and scientific method. The standard is reproducible evidence: a result should survive a smaller budget, a different seed, and another person’s implementation.",
+    units: [
+      { title: "Study readable training systems", lesson: "nanoGPT, LitGPT, and Levanter expose different levels of abstraction around tokenization, data loading, optimization, parallelism, and checkpoints. Read them to connect equations with a real training loop, not to copy a recipe blindly.", example: "Trace how a batch becomes logits, loss, gradients, optimizer updates, and a saved checkpoint in one codebase." },
+      { title: "Treat data as the model’s curriculum", lesson: "Pretraining quality depends on curation, deduplication, contamination checks, domain balance, licensing, and documentation. Scaling laws help allocate a budget, but only within the regime and assumptions actually measured.", example: "A benchmark answer appearing in the training corpus invalidates a headline evaluation score regardless of parameter count." },
+      { title: "Publish a reproducible result", lesson: "Long-context methods, distillation, compression, and custom kernels should include matched baselines, accuracy slices, throughput, memory, cost, and limitations. A Hub release needs immutable revisions and enough code/configuration to recreate the artifact.", example: "A faster kernel without a numerical-tolerance test or benchmark script is not a reliable contribution." },
+    ],
+    practice: ["Reproduce a small result from a paper and write down every deviation.", "Run a near-duplicate search across train and benchmark text.", "Publish a minimal model card with data provenance, environment, metrics, limitations, and license."],
+  },
+  "cv-platform": {
+    lead: "Computer-vision and MLOps specializations meet at the same requirement: a model must move from labeled data to a reliable deployment with measured quality, cost, and failure modes.",
+    units: [
+      { title: "Match visual tasks to annotations", lesson: "Detection, segmentation, OCR, VLMs, diffusion, video, 3D, and edge inference all need different labels and metrics. Evaluate the actual target: boxes, masks, text, grounded answers, temporal actions, render quality, or on-device latency.", example: "A document model should be tested on layout, tables, formula fidelity, and cited source regions—not only character accuracy." },
+      { title: "Build a platform that preserves lineage", lesson: "Kubernetes, KServe, Kubeflow, Ray, feature stores, DVC/LakeFS, CI/CD, and registries are useful when they reduce repeated work across teams. Their value is reproducible jobs, controlled rollout, and observable resource use—not complexity for its own sake.", example: "A training job should consume an immutable data version and register the resulting model with its configuration and evaluation." },
+      { title: "Operate GPUs like a budget", lesson: "Autoscaling, spot instances, reservations, MIG partitioning, and canaries can reduce cost, but need queue, utilization, latency, and quality signals. Drift monitoring must lead to an owned response rather than an unattended dashboard.", example: "A cheap spot training run is a poor choice if the checkpoint/restart strategy loses more time than it saves." },
+    ],
+    practice: ["Define metrics and error taxonomy for one detection or OCR task.", "Sketch a data-version-to-canary-deployment pipeline with rollback.", "Compare on-device latency and quality for a quantized and non-quantized model."],
+  },
+  "data-centric": {
+    lead: "Data-centric AI improves the examples, labels, and documentation that make learning possible. It is often the highest-leverage place to invest when a model has already reached the limits of noisy or unrepresentative data.",
+    units: [
+      { title: "Audit labels before scaling models", lesson: "Cleanlab and targeted review can surface suspicious labels, but the goal is prioritization for domain experts—not blind deletion. Track which issues are label errors, ambiguous cases, missing classes, or policy disagreements.", example: "A model can appear inconsistent when the same input pattern has two legitimate but undocumented labels." },
+      { title: "Spend annotation budget where it changes decisions", lesson: "Active learning chooses uncertain, diverse, or high-impact examples; weak supervision combines noisy rules; synthetic data can fill gaps. Each needs an evaluation that checks whether it adds real coverage rather than duplicate artifacts.", example: "Generate rare support cases only after checking that they do not copy training examples or teach the model a fabricated policy." },
+      { title: "Document limits honestly", lesson: "Datasheets and model cards record collection, consent, composition, transformations, intended use, gaps, and risks. They turn hidden assumptions into reviewable engineering constraints.", example: "A model card should say which languages, devices, groups, and edge cases were not evaluated." },
+    ],
+    practice: ["Sample and review the 20 most suspicious labels from a classifier.", "Design one active-learning round with a labeling budget and an expected metric.", "Write a short datasheet for a dataset you already use."],
+  },
+  resources: {
+    lead: "Resources are useful when they answer the next concrete question in a build. Use official documentation for APIs, courses for a structured ramp, books for durable concepts, and papers or leaderboards to inspect evidence—not as an endless reading queue.",
+    units: [
+      { title: "Use primary documentation while implementing", lesson: "PyTorch, Transformers, TRL, PEFT, vLLM, RAGAS, and lm-evaluation-harness documentation is the source for current APIs and behavior. Read the smallest relevant page, build a minimal example, and save a working reference in your project notes.", example: "When a trainer argument changes, the versioned documentation and your lockfile are more reliable than a copied tutorial." },
+      { title: "Use courses and books to connect concepts", lesson: "fast.ai, CS231n, CS224n, Hugging Face Learn, Karpathy’s series, Raschka’s book, Chip Huyen’s systems text, and Goodfellow’s Deep Learning each serve different learning styles. Pair a chapter or lecture with a small implementation.", example: "After learning attention from CS224n, implement a toy attention module and inspect its weights." },
+      { title: "Use research feeds critically", lesson: "Papers with Code and Daily Papers are discovery tools. Before adopting a result, read the primary paper, inspect the evaluation, check code and license, and ask whether the benchmark resembles your task.", example: "A leaderboard result without a reproducible configuration is a lead to investigate, not an engineering decision." },
+    ],
+    practice: ["Create a personal reference index with one official source and one runnable example per tool you use.", "Choose one course lesson and pair it with a two-hour coding exercise.", "Review one trending paper using claim, evidence, baseline, compute, and reproducibility as headings."],
+  },
+};
+
 // Audit anchors: 28 navigable sections and 343 named topic explanations.
 
 function AnalogyBox({ children }) {
@@ -482,6 +722,40 @@ function ProgressBar({ value, max, label }) {
   );
 }
 
+function GuidedLesson({ section }) {
+  const guide = SECTION_GUIDES[section.id];
+  if (!guide) return null;
+
+  return (
+    <div style={{ ...LAYOUT.section, marginBottom: 18 }}>
+      <div style={{ ...PANEL.base, borderLeft: `4px solid ${T.accent}`, lineHeight: 1.8, fontSize: FONT.base }}>
+        <div style={{ fontSize: FONT.lg, fontWeight: 800, color: T.accent, marginBottom: 6 }}>Core lesson</div>
+        {guide.lead}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 10 }}>
+        {guide.units.map((unit) => (
+          <article key={unit.title} style={{ ...PANEL.base, display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ fontSize: FONT.lg, fontWeight: 800, color: T.ink }}>{unit.title}</div>
+            <div style={{ fontSize: FONT.base, color: T.ink, lineHeight: 1.75 }}>{unit.lesson}</div>
+            {unit.formula && (
+              <div style={{ fontFamily: "Georgia, serif", fontSize: FONT.md, color: T.accent, background: T.accent + "0d", border: `1px solid ${T.accent}33`, borderRadius: LAYOUT.radiusMd, padding: "7px 9px", textAlign: "center" }}>{unit.formula}</div>
+            )}
+            <div style={{ fontSize: FONT.sm, color: T.muted, lineHeight: 1.65 }}><strong style={{ color: T.ink }}>Worked use case.</strong> {unit.example}</div>
+          </article>
+        ))}
+      </div>
+
+      <div style={{ ...PANEL.base, background: T.accent + "08" }}>
+        <div style={{ fontSize: FONT.lg, fontWeight: 800, color: T.accent, marginBottom: 7 }}>Practice before moving on</div>
+        <ol style={{ margin: 0, paddingLeft: 22, display: "flex", flexDirection: "column", gap: 5, color: T.ink, fontSize: FONT.base, lineHeight: 1.7 }}>
+          {guide.practice.map((task) => <li key={task}>{task}</li>)}
+        </ol>
+      </div>
+    </div>
+  );
+}
+
 function StageOverview({ completed }) {
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 8, marginBottom: 14 }}>
@@ -501,6 +775,7 @@ function StageOverview({ completed }) {
 }
 
 function TopicExplorer({ section, completed, openTopics, onToggleOpen, onToggleComplete }) {
+  const [showCoverageMap, setShowCoverageMap] = useState(false);
   const done = section.topics.filter((topic) => completed.has(topic.id)).length;
   const allOpen = section.topics.every((topic) => openTopics.has(topic.id));
   return (
@@ -508,12 +783,20 @@ function TopicExplorer({ section, completed, openTopics, onToggleOpen, onToggleC
       <div style={PANEL.base}>
         <ProgressBar value={done} max={section.topics.length} label="Section completion" />
         <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 10 }}>
+          <button type="button" onClick={() => setShowCoverageMap((value) => !value)} style={BUTTON.toggle(showCoverageMap)}>
+            {showCoverageMap ? "Hide complete topic map" : `Open complete topic map (${section.topics.length} topics)`}
+          </button>
           <button type="button" onClick={() => onToggleOpen(section.topics.map((topic) => topic.id), !allOpen)} style={BUTTON.toggle(allOpen)}>
             {allOpen ? "Collapse all explanations" : "Expand all explanations"}
           </button>
         </div>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      {!showCoverageMap && (
+        <div style={{ ...PANEL.base, fontSize: FONT.base, lineHeight: 1.75, color: T.muted }}>
+          The guided lesson above is the teaching path. Open the complete topic map when you want to review every item from the roadmap, mark progress, or search for a specific tool.
+        </div>
+      )}
+      {showCoverageMap && <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {section.topics.map((topic, index) => {
           const isOpen = openTopics.has(topic.id);
           const isDone = completed.has(topic.id);
@@ -536,7 +819,7 @@ function TopicExplorer({ section, completed, openTopics, onToggleOpen, onToggleC
             </div>
           );
         })}
-      </div>
+      </div>}
     </div>
   );
 }
@@ -896,7 +1179,10 @@ export default function AIMLRoadmap() {
         {section.kind === "labs" ? (
           <DecisionLabs section={section} completed={completed} onToggleComplete={toggleComplete} />
         ) : (
-          <TopicExplorer section={section} completed={completed} openTopics={openTopics} onToggleOpen={toggleOpen} onToggleComplete={toggleComplete} />
+          <>
+            <GuidedLesson section={section} />
+            <TopicExplorer section={section} completed={completed} openTopics={openTopics} onToggleOpen={toggleOpen} onToggleComplete={toggleComplete} />
+          </>
         )}
       </main>
 
