@@ -553,11 +553,32 @@ const SECTION_GUIDES = {
     practice: ["Create ten golden examples with expected evidence, structured output, and failure cases.", "Run a paired before/after evaluation and report a confidence interval.", "Write a CI rule that fails when a regression exceeds an agreed threshold."],
   },
   "llm-internals": {
-    lead: "LLM internals matter because performance and context limits are not mysterious. They follow from attention’s quadratic work, cache memory, precision, active parameters, and the way requests are scheduled.",
+    lead: "LLM internals matter because every production choice has a physical cost. A longer prompt is not just “more text”; it means more attention work, more KV-cache memory, more scheduler pressure, and sometimes lower quality if the model cannot use distant evidence. Learn the internals so you can predict the bottleneck before a cloud bill or latency graph teaches it to you.",
     units: [
-      { title: "Trace one transformer block", lesson: "Tokens become embeddings, attention mixes context, an FFN transforms each token, and residual paths keep the original signal available. Parameter count and memory follow directly from hidden size, layer count, vocabulary, and precision.", example: "Doubling context length roughly quadruples dense attention work, while KV cache grows linearly with generated context." },
-      { title: "Reuse work during generation", lesson: "KV caches, prefix caches, paged attention, FlashAttention, and speculative decoding avoid recomputing or moving unnecessary data. They improve throughput only when the workload, batching policy, and hardware permit reuse.", example: "Two users with the same long system prompt can share a cached prefix instead of paying to process it twice." },
-      { title: "Trade precision, capacity, and quality honestly", lesson: "GPTQ, AWQ, GGUF, FP8, and INT4 reduce memory and can improve throughput, but require task-specific quality tests. MoE increases total capacity by routing to a few experts, which adds load-balancing and serving complexity.", example: "A quantized model may preserve general chat quality but fail on a narrow reasoning or multilingual slice." },
+      {
+        title: "Trace one transformer block",
+        analogy: "Think of a transformer block as a reading room. Attention decides which earlier pages each word should reread, the feed-forward network rewrites each word’s private notes, and the residual path keeps the original notes from being lost.",
+        lesson: "Tokens become embeddings, then each block applies attention, a feed-forward network, normalization, and residual addition. The important habit is to track tensor shapes: batch, sequence length, hidden size, heads, and head dimension. Once you can trace those shapes, parameter count, activation memory, attention cost, and KV-cache size stop feeling mysterious.",
+        formula: "dense attention work grows roughly with sequence_length²; KV cache grows with layers × tokens × heads × head_dim × precision",
+        example: "Practical use case: before serving a 32k-context assistant, estimate whether latency is dominated by prefill attention, decode KV-cache reads, or model weights. If users send huge prompts but generate short answers, prefill is the pain. If many users generate long answers at once, KV-cache memory and decode scheduling become the pain.",
+        lab: "Tiny exercise: pick a model size, context length, batch size, and precision. Estimate whether doubling context length hurts compute, cache memory, or both.",
+      },
+      {
+        title: "Reuse work during generation",
+        analogy: "Generation is like answering from a long shared manual. If every customer includes the same manual in the prompt, prefix caching is photocopying the notes once instead of rereading the manual for every customer.",
+        lesson: "KV caches store previous keys and values so the model computes only the new token during decoding. Prefix caching reuses a shared prompt prefix across requests. Paged attention stores cache blocks flexibly so memory fragmentation does not waste GPU space. FlashAttention reduces memory traffic inside attention. Speculative decoding lets a small draft model propose tokens that the large model verifies.",
+        formula: "without cache: recompute old tokens each step; with KV cache: compute the new query, key, and value, then attend over saved K/V",
+        example: "Practical use case: a support bot has a 3,000-token system policy and product manual prefix. With prefix caching, many users can share that processed prefix, reducing first-token latency and GPU work. Without admission control, though, a few very long chats can still fill cache memory and slow everyone down.",
+        lab: "Tiny exercise: list three prompts in your app that share a prefix. Decide which part should be cached, which part is user-specific, and when the cache should expire.",
+      },
+      {
+        title: "Trade precision, capacity, and quality honestly",
+        analogy: "Quantization is packing the same library onto smaller shelves. MoE is hiring many specialists but calling only a few for each question. Both can save work, but both can fail in very specific corners.",
+        lesson: "GPTQ, AWQ, GGUF, FP8, and INT4 reduce memory and can improve throughput, but lower precision changes numerical behavior. MoE increases total parameter capacity by routing each token to a subset of experts, which can improve capability per active FLOP but makes serving less predictable because tokens may crowd the same experts.",
+        formula: "memory roughly equals parameters × bytes_per_parameter, but quality is measured on tasks, not by the compression ratio",
+        example: "Practical use case: an INT4 model may look fine on casual chat but fail on chemistry, Bengali text, code, or arithmetic. A top-2 MoE model may be fast on average but slow for one domain if many tokens route to the same expert. The only honest answer is a benchmark sliced by the work you actually serve.",
+        lab: "Tiny exercise: create a five-slice eval set: general chat, coding, math, your domain, and multilingual examples. Compare the base model and quantized model on accuracy, latency, memory, and failure examples.",
+      },
     ],
     practice: ["Estimate KV-cache memory for one model, context length, batch, and precision.", "Compare dense attention, sliding-window attention, and ring attention for a long-context workload.", "Benchmark a quantized model on a representative quality set before choosing it for serving."],
   },
@@ -894,11 +915,17 @@ function GuidedLesson({ section }) {
         {guide.units.map((unit) => (
           <article key={unit.title} style={{ ...PANEL.base, display: "flex", flexDirection: "column", gap: 8 }}>
             <div style={{ fontSize: FONT.lg, fontWeight: 800, color: T.ink }}>{unit.title}</div>
+            {unit.analogy && (
+              <div style={{ fontSize: FONT.sm, color: T.muted, lineHeight: 1.65 }}><strong style={{ color: T.accent }}>Simple analogy.</strong> {unit.analogy}</div>
+            )}
             <div style={{ fontSize: FONT.base, color: T.ink, lineHeight: 1.75 }}>{unit.lesson}</div>
             {unit.formula && (
               <div style={{ fontFamily: "Georgia, serif", fontSize: FONT.md, color: T.accent, background: T.accent + "0d", border: `1px solid ${T.accent}33`, borderRadius: LAYOUT.radiusMd, padding: "7px 9px", textAlign: "center" }}>{unit.formula}</div>
             )}
-            <div style={{ fontSize: FONT.sm, color: T.muted, lineHeight: 1.65 }}><strong style={{ color: T.ink }}>Worked use case.</strong> {unit.example}</div>
+            <div style={{ fontSize: FONT.sm, color: T.muted, lineHeight: 1.65 }}><strong style={{ color: T.ink }}>Practical use case.</strong> {unit.example}</div>
+            {unit.lab && (
+              <div style={{ fontSize: FONT.sm, color: T.muted, lineHeight: 1.65 }}><strong style={{ color: T.ink }}>Simple exercise.</strong> {unit.lab}</div>
+            )}
           </article>
         ))}
       </div>
