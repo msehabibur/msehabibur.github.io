@@ -747,15 +747,93 @@ const TOPIC_DEEP_DIVES = {
   },
 };
 
+const TOPIC_TEACHING_EXTRAS = {
+  "CNN building blocks (conv, pool, batchnorm, residual)": {
+    analogy: "A CNN is like a quality inspector moving the same small stencil across an image. The stencil does not care where it is used; it asks, “does this local pattern appear here?”",
+    math: "A convolution is a shared-weight dot product over small windows. If an input is H x W x C and you apply F filters of size k x k, each output location is built from k*k*C multiplications per filter. Residual blocks add y = x + F(x), which keeps gradients and information moving.",
+    useCase: "Use CNN blocks for images where local texture, edges, defects, cells, handwritten digits, or document regions matter. They are strong when the same pattern can appear anywhere in the image.",
+    check: "If the smallest defect is 6 pixels wide, can your stride, pooling, and feature-map resolution still preserve it?",
+  },
+  "ResNet, EfficientNet, ConvNeXt": {
+    analogy: "These are different factory layouts for visual feature extraction: ResNet adds bypass lanes, EfficientNet scales the factory evenly, and ConvNeXt renovates the old CNN factory with newer design habits.",
+    math: "ResNet stabilizes deep composition with x + F(x). EfficientNet balances depth, width, and resolution under a compute budget. ConvNeXt changes kernel size, normalization, and block layout while keeping convolutional locality.",
+    useCase: "Use them as pretrained backbones for classification, defect detection, medical image triage, OCR preprocessing, or any image task where you need strong features before adding a task-specific head.",
+    check: "Are you comparing architectures fairly with the same input size, augmentations, training schedule, and pretrained checkpoint?",
+  },
+  "RNN, LSTM, GRU and their limits": {
+    analogy: "A recurrent model is like reading a sentence with a notebook that has only one page. At each word, it updates the note and carries it forward.",
+    math: "The hidden state update repeats across time. Because gradients pass through many repeated multiplications, they can vanish or explode. LSTM and GRU gates learn when to write, erase, and reveal information.",
+    useCase: "Use GRUs or LSTMs for compact sequential signals like sensor data, short time series, event streams, or small text models where latency and simplicity beat transformer scale.",
+    check: "Does the prediction depend on information hundreds or thousands of steps back? If yes, recurrence may be the wrong memory system.",
+  },
+  "Transformer encoder, decoder, encoder-decoder": {
+    analogy: "An encoder is a study group where everyone can talk before the answer. A decoder is a writer who can only see what has already been written. Encoder-decoder is a translator who reads the source first, then writes the target.",
+    math: "The key difference is the attention mask. Encoders use bidirectional attention, decoders use causal attention, and encoder-decoder models add cross-attention from decoder queries to encoder keys and values.",
+    useCase: "Use encoders for classification, embeddings, reranking, and token labels. Use decoders for chat and next-token generation. Use encoder-decoder models for translation, summarization, and input-conditioned generation.",
+    check: "Can you name which tokens each position is allowed to attend to in your task?",
+  },
+  "Self-attention, multi-head attention, KV cache": {
+    analogy: "Self-attention is a meeting where each token chooses which other tokens to listen to. Multi-head attention runs several meetings at once, each with a different agenda. The KV cache is the meeting notes saved so you do not repeat the whole discussion.",
+    math: "Attention computes softmax(QK^T / sqrt(d))V. Queries ask, keys match, values carry content. During generation, cached K and V tensors avoid recomputing previous prompt tokens.",
+    useCase: "Use attention when relationships can be long-range: a variable name and later usage in code, a pronoun and earlier noun, or a table value and a question. Use KV caching to make chat generation fast enough to serve.",
+    check: "If context length doubles, what happens to attention compute and KV-cache memory?",
+  },
+  "Positional encodings: sinusoidal, learned, RoPE, ALiBi": {
+    analogy: "Position encodings are seat numbers. Without them, the model knows who is in the room but not where anyone is sitting.",
+    math: "Sinusoidal and learned encodings add position vectors. RoPE rotates query/key dimensions so relative distance changes the dot product. ALiBi adds a distance penalty directly to attention scores.",
+    useCase: "Use this knowledge when choosing or extending models for long documents, code repositories, transcripts, or RAG contexts where order and distance change the answer.",
+    check: "Does the model merely accept a long context, or can it retrieve and use evidence from the far end of that context?",
+  },
+  "Vision Transformers (ViT, Swin)": {
+    analogy: "ViT cuts an image into tiles and lets every tile talk to every other tile. Swin makes tiles talk inside neighborhoods first, then shifts the neighborhoods so information spreads.",
+    math: "A 224x224 image with 16x16 patches becomes 196 tokens. Attention cost grows roughly with token_count squared, so smaller patches and larger images quickly become expensive.",
+    useCase: "Use ViT-style models for global visual reasoning, image retrieval, and multimodal backbones. Use Swin-style hierarchy when high resolution matters but full global attention is too costly.",
+    check: "Is your patch size small enough to represent the object, cell, crack, symbol, or visual cue you care about?",
+  },
+  "Diffusion model basics (DDPM, DDIM)": {
+    analogy: "Diffusion is like learning to restore a photo after many levels of static are added. Generation starts from pure static and repeatedly cleans it.",
+    math: "Training samples a timestep t, adds known Gaussian noise, and trains the network to predict noise or denoised content. DDPM samples stochastically through many steps; DDIM can use fewer, more deterministic steps.",
+    useCase: "Use diffusion for image generation, inpainting, super-resolution, design variation, synthetic training data, and controlled editing when you need high-quality samples rather than one deterministic output.",
+    check: "Are you evaluating only pretty samples, or also prompt adherence, diversity, memorization, safety, and downstream usefulness?",
+  },
+  "Mixture-of-Experts (MoE) intuition": {
+    analogy: "MoE is like a help desk with specialists. A router decides which few specialists should handle each request instead of making every specialist read every ticket.",
+    math: "A router produces scores over experts, chooses top-k, runs only those feed-forward blocks, and combines their outputs. The model has high total parameters but lower active parameters per token.",
+    useCase: "Use MoE when you need more model capacity under a compute budget, especially for broad workloads with different languages, domains, or reasoning styles. Serving needs careful load balancing.",
+    check: "Are expert loads balanced, or is one expert overloaded while others sit idle?",
+  },
+};
+
 function fallbackTopicLesson(topic, section, index) {
   const guide = SECTION_GUIDES[section.id];
   const unit = guide?.units[index % guide.units.length];
+  const subject = topic.title.split(":")[0].replace(/\s*\(.+\)\s*$/, "").trim();
   return {
+    analogy: `Think of ${subject} as one control on the ML workbench: it changes how the system sees data, learns from feedback, or proves that a result is trustworthy.`,
     core: topic.explanation,
-    mechanics: unit?.lesson || "Identify the data representation, objective, constraints, and evaluation signal before adopting an implementation.",
-    example: unit?.example || "Build the smallest isolated example first, record its input and output, then compare it against a simple baseline.",
+    math: unit?.formula || "Ask what object is being transformed, what quantity is optimized, and what signal tells the model it improved. Most topics reduce to shapes, probabilities, loss, gradients, memory, latency, or a measured error rate.",
+    useCase: unit?.example || "Use it when a project needs a specific decision: cleaner features, faster training, safer output, better retrieval, lower latency, or a more reliable evaluation.",
+    example: `Tiny practical move: take one real dataset or prompt, apply only “${topic.title}”, and compare the before/after result against a simple baseline.`,
     pitfall: "Do not treat a library name or aggregate metric as evidence. Fix the split, baseline, measurement, and failure slices before increasing system complexity.",
+    check: `Can you explain when you would use “${topic.title}”, what input it needs, and what metric would prove it helped?`,
     practice: `Create a minimal experiment for “${topic.title}”, state the success metric in advance, and write down one failure mode you expect to inspect.`,
+  };
+}
+
+function enrichTopicLesson(topic, section, index) {
+  const base = fallbackTopicLesson(topic, section, index);
+  const lesson = TOPIC_DEEP_DIVES[topic.title] || {};
+  const extras = TOPIC_TEACHING_EXTRAS[topic.title] || {};
+  const subject = topic.title.split(":")[0].replace(/\s*\(.+\)\s*$/, "").trim();
+  return {
+    analogy: extras.analogy || lesson.analogy || base.analogy,
+    core: lesson.core || base.core,
+    math: extras.math || lesson.math || lesson.formula || base.math,
+    useCase: extras.useCase || lesson.useCase || lesson.example || base.useCase,
+    example: lesson.example || base.example,
+    pitfall: lesson.pitfall || base.pitfall,
+    check: extras.check || lesson.check || `Can you point to the input, output, and success metric for ${subject} in a real project?`,
+    practice: lesson.practice || base.practice,
   };
 }
 
@@ -836,11 +914,13 @@ function GuidedLesson({ section }) {
 }
 
 function TopicLesson({ topic, section, index }) {
-  const lesson = TOPIC_DEEP_DIVES[topic.title] || fallbackTopicLesson(topic, section, index);
+  const lesson = enrichTopicLesson(topic, section, index);
   const panels = [
+    ["Simple analogy", lesson.analogy],
     ["What it is", lesson.core],
-    ["How it works", lesson.mechanics],
-    ["Worked reasoning", lesson.example],
+    ["Math intuition", lesson.math],
+    ["Practical use case", lesson.useCase],
+    ["Tiny example", lesson.example],
     ["Common mistake", lesson.pitfall],
   ];
 
@@ -857,6 +937,10 @@ function TopicLesson({ topic, section, index }) {
       <div style={{ ...PANEL.base, borderLeft: `4px solid ${T.accent}`, background: T.accent + "08" }}>
         <div style={{ fontSize: FONT.sm, fontWeight: 800, color: T.accent, marginBottom: 5 }}>Practice task</div>
         <div style={{ fontSize: FONT.base, color: T.ink, lineHeight: 1.75 }}>{lesson.practice}</div>
+      </div>
+      <div style={{ ...PANEL.base, background: T.surface }}>
+        <div style={{ fontSize: FONT.sm, fontWeight: 800, color: T.accent, marginBottom: 5 }}>Check yourself</div>
+        <div style={{ fontSize: FONT.base, color: T.ink, lineHeight: 1.75 }}>{lesson.check}</div>
       </div>
     </div>
   );
