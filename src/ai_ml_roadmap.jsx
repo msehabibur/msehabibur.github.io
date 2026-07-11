@@ -680,6 +680,85 @@ const SECTION_GUIDES = {
   },
 };
 
+const TOPIC_DEEP_DIVES = {
+  "CNN building blocks (conv, pool, batchnorm, residual)": {
+    core: "A convolutional network is built from a small number of ideas that are reused many times. Convolutions look for local patterns with shared filters, pooling or striding changes spatial resolution, normalization stabilizes the distribution seen by later layers, and residual paths preserve an easy route for information and gradients.",
+    mechanics: "A 3×3 convolution slides the same nine weights over every image location, producing a feature map. Early filters often respond to edges and texture; later layers combine those responses into shapes and objects. A residual block computes F(x) and returns x + F(x), so the network can learn a small correction instead of having to relearn the identity mapping.",
+    example: "For a 32×32 image, a stack might use a 3×3 convolution, normalization, ReLU, then stride 2 to reach 16×16. A skip connection lets the original 16×16 representation bypass two convolutions; if the new layers are not useful yet, the block can behave close to an identity function.",
+    pitfall: "Do not assume pooling is always beneficial. Aggressive downsampling can discard the small object or thin defect that your application needs to detect. Check intermediate feature-map resolution against the smallest meaningful structure in the data.",
+    practice: "Build one residual block in PyTorch, print the tensor shapes after every operation, and compare a shallow plain CNN with a residual version on the same small dataset.",
+  },
+  "ResNet, EfficientNet, ConvNeXt": {
+    core: "These are three design philosophies for strong visual backbones. ResNet made very deep networks practical with skip connections. EfficientNet scales depth, width, and input resolution together. ConvNeXt modernizes convolutions using training and architectural choices learned from transformer-era vision models.",
+    mechanics: "ResNet asks each block to learn a residual correction. EfficientNet starts with a baseline and scales several dimensions with a constrained multiplier instead of making one dimension huge. ConvNeXt keeps convolution but uses larger kernels, inverted bottlenecks, layer normalization, and updated training recipes.",
+    example: "If you have limited labeled images, start with a pretrained ResNet or ConvNeXt and fine-tune a classification head. If latency and input resolution are fixed, benchmark candidate EfficientNet variants instead of assuming the largest model is best.",
+    pitfall: "Comparing backbone names without controlling preprocessing, augmentation, input size, and pretrained weights produces misleading conclusions. A weaker backbone with the correct data pipeline can outperform a larger one trained poorly.",
+    practice: "Fine-tune two pretrained backbones with identical splits, augmentations, epochs, and metric reporting. Record accuracy, calibration, inference latency, parameter count, and failure examples.",
+  },
+  "RNN, LSTM, GRU and their limits": {
+    core: "Recurrent models process a sequence one step at a time while carrying a hidden state. LSTMs and GRUs add gates that decide what to remember, forget, and expose, which helps them retain information longer than a basic RNN.",
+    mechanics: "A vanilla RNN repeatedly updates hₜ = f(Wxₜ + Uhₜ₋₁). Repeated multiplication can shrink or explode gradients across long sequences. LSTM cells use separate input, forget, and output gates around a memory cell; GRUs offer a simpler gated alternative.",
+    example: "For a short sensor sequence, a GRU can summarize prior readings before predicting the next state. For a long document, however, the sequential recurrence prevents full parallel training and can struggle to connect distant facts.",
+    pitfall: "A gate does not solve every long-context problem. If a model must compare tokens thousands of positions apart, inspect whether recurrence has the required memory and whether a transformer or retrieval system better matches the task.",
+    practice: "Train a small RNN and GRU on the same sequence task. Plot validation loss as sequence length grows and explain where each model begins to fail.",
+  },
+  "Transformer encoder, decoder, encoder-decoder": {
+    core: "Transformer families differ in which tokens can attend to which other tokens. An encoder builds contextual representations from an entire input. A decoder generates left-to-right, seeing only earlier tokens. An encoder-decoder model reads a source sequence and generates a target sequence while attending back to the encoded source.",
+    mechanics: "Encoder attention is usually bidirectional, so every input token can use context on both sides. Decoder self-attention uses a causal mask so position t cannot see future positions. Encoder-decoder models add cross-attention: decoder queries attend to encoder keys and values, which lets each generated token focus on relevant source content.",
+    example: "Document classification is naturally encoder-style: read the whole document and classify it. Next-token chat generation is decoder-style. Translation is encoder-decoder: encode the source sentence, then generate the target sentence one token at a time while cross-attending to the source.",
+    pitfall: "Do not choose a decoder merely because it is popular. If the task needs a fixed embedding, pair scoring, token labels, or bidirectional context without generation, an encoder model is often simpler, faster, and easier to evaluate.",
+    practice: "For classification, translation, and chat completion, identify the attention masks, model family, input/output tensors, loss, and evaluation metric you would use before writing code.",
+  },
+  "Self-attention, multi-head attention, KV cache": {
+    core: "Self-attention lets each token decide which other tokens matter for its representation. Multi-head attention runs several attention patterns in parallel. During autoregressive generation, the KV cache stores previously computed keys and values so the model does not reprocess the whole prompt for every new token.",
+    mechanics: "Each token becomes a query Q, key K, and value V. Similarity scores QKᵀ determine how strongly each query mixes the values: softmax(QKᵀ/√d)V. Heads use different learned projections, then their outputs are combined. The cache grows with layers, tokens, heads, head dimension, batch size, and precision.",
+    formula: "Attention(Q,K,V) = softmax(QKᵀ / √d)V",
+    example: "When generating the 101st token after a 100-token prompt, caching means the model computes Q, K, and V only for the new token and reuses the first 100 K/V pairs. Without the cache it would recompute all 100 positions again.",
+    pitfall: "Attention weights are not automatically explanations. They show one internal routing pattern, but a high weight does not prove causal importance. Use ablations or controlled tests before making interpretability claims.",
+    practice: "Implement scaled dot-product attention for a four-token toy sequence. Print the attention matrix, change one token, and explain which rows and outputs change.",
+  },
+  "Positional encodings: sinusoidal, learned, RoPE, ALiBi": {
+    core: "Attention alone is permutation-invariant: without position information, the sequences “dog bites man” and “man bites dog” look like the same bag of tokens. Positional methods inject order in different ways and strongly affect whether a model can handle contexts longer than its training range.",
+    mechanics: "Sinusoidal encodings add deterministic waves of several frequencies to token embeddings. Learned embeddings add trainable position vectors but may not extrapolate beyond their trained length. RoPE rotates query and key pairs by a position-dependent angle, making relative distance appear naturally in the dot product. ALiBi adds a distance-dependent bias directly to attention scores.",
+    example: "A model trained with learned positions up to 2,048 tokens has no learned vector for position 2,049 unless it is extended. RoPE scaling and ALiBi offer different strategies for handling longer context, but both require measurement rather than assumption.",
+    pitfall: "Long-context support is not just a configuration number. Test retrieval, reasoning, perplexity, latency, and memory at the lengths your application needs; a model can accept 32k tokens while failing to use distant evidence.",
+    practice: "Plot sinusoidal position vectors for several positions, then compare how a learned-table, RoPE, and ALiBi model would handle an input beyond its training length.",
+  },
+  "Vision Transformers (ViT, Swin)": {
+    core: "Vision Transformers convert an image into a sequence of patches and apply transformer blocks to those patch tokens. ViT uses global attention across patches. Swin uses local windows that shift between layers, giving a hierarchical representation with lower cost for large images.",
+    mechanics: "An image is divided into fixed-size patches; each flattened patch is projected into an embedding and given positional information. ViT can compare any patch with any other patch in a layer, but that cost grows quickly with image resolution. Swin restricts attention to windows and shifts the window partition in later blocks so information can cross boundaries.",
+    example: "For high-resolution microscopy, a ViT may capture global morphology but require substantial memory. A windowed model can retain more local detail at the same budget, though it may need enough stages to connect distant regions.",
+    pitfall: "Patch size is a scientific decision. If a patch is larger than the defect or feature of interest, the first representation may already have lost the signal. Match resolution, patch size, and augmentation to the smallest meaningful structure.",
+    practice: "Calculate the number of tokens produced by a 224×224 image with 16×16 patches, then repeat for 8×8 patches and discuss the attention-cost change.",
+  },
+  "Diffusion model basics (DDPM, DDIM)": {
+    core: "Diffusion models learn to turn noise into data. During training, known noise is added to a real example at many noise levels; the network learns to predict or remove that noise. Sampling starts from random noise and repeatedly applies the learned denoising direction.",
+    mechanics: "A DDPM uses a stochastic reverse process with many small denoising steps. DDIM uses a related non-Markovian formulation that can follow a more deterministic path and often sample in fewer steps. The conditioning signal—text, class, image, or control input—guides the denoiser at every step.",
+    example: "To generate an image from text, the model begins with a random latent and repeatedly removes noise while conditioning on the text embedding. Fewer sampling steps are faster but can reduce fidelity or diversity, so evaluate the trade-off on the intended task.",
+    pitfall: "A visually compelling sample is not proof of a useful model. Check prompt adherence, diversity, memorization, bias, safety, provenance, and downstream task performance—especially when fine-tuning on a small private dataset.",
+    practice: "Write the forward noising and reverse denoising loops in pseudocode. Then compare output quality and latency at three DDIM step counts on the same prompts.",
+  },
+  "Mixture-of-Experts (MoE) intuition": {
+    core: "A Mixture-of-Experts layer replaces one dense feed-forward network with many expert networks and a router. For each token, the router activates only a small number of experts, so the model can have much larger total parameter capacity without running every parameter for every token.",
+    mechanics: "The router scores experts for each token, chooses top-k experts, sends tokens to those experts, and combines their outputs. Training adds a load-balancing objective so a few popular experts do not receive all traffic. Serving must handle token routing, communication, and uneven expert load efficiently.",
+    example: "In a top-2 MoE with eight experts, each token may use only two FFN blocks. A multilingual or code-heavy batch may route disproportionately to particular experts, which can create a throughput bottleneck even though total FLOPs look low.",
+    pitfall: "Sparse activation does not mean simple serving. Poor load balance, capacity limits, token drops, and cross-device routing can erase theoretical speed gains. Always measure expert utilization and tail latency by workload slice.",
+    practice: "Simulate routing 100 tokens across eight experts, calculate expert load, and compare a balanced versus collapsed routing distribution.",
+  },
+};
+
+function fallbackTopicLesson(topic, section, index) {
+  const guide = SECTION_GUIDES[section.id];
+  const unit = guide?.units[index % guide.units.length];
+  return {
+    core: topic.explanation,
+    mechanics: unit?.lesson || "Identify the data representation, objective, constraints, and evaluation signal before adopting an implementation.",
+    example: unit?.example || "Build the smallest isolated example first, record its input and output, then compare it against a simple baseline.",
+    pitfall: "Do not treat a library name or aggregate metric as evidence. Fix the split, baseline, measurement, and failure slices before increasing system complexity.",
+    practice: `Create a minimal experiment for “${topic.title}”, state the success metric in advance, and write down one failure mode you expect to inspect.`,
+  };
+}
+
 // Audit anchors: 28 navigable sections and 343 named topic explanations.
 
 function AnalogyBox({ children }) {
@@ -756,6 +835,33 @@ function GuidedLesson({ section }) {
   );
 }
 
+function TopicLesson({ topic, section, index }) {
+  const lesson = TOPIC_DEEP_DIVES[topic.title] || fallbackTopicLesson(topic, section, index);
+  const panels = [
+    ["What it is", lesson.core],
+    ["How it works", lesson.mechanics],
+    ["Worked reasoning", lesson.example],
+    ["Common mistake", lesson.pitfall],
+  ];
+
+  return (
+    <div style={{ padding: "0 14px 14px", display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 8 }}>
+        {panels.map(([label, body]) => (
+          <div key={label} style={{ ...PANEL.base, background: label === "Common mistake" ? T.surface : T.panel }}>
+            <div style={{ fontSize: FONT.sm, fontWeight: 800, color: T.accent, marginBottom: 5 }}>{label}</div>
+            <div style={{ fontSize: FONT.base, color: T.ink, lineHeight: 1.75 }}>{body}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ ...PANEL.base, borderLeft: `4px solid ${T.accent}`, background: T.accent + "08" }}>
+        <div style={{ fontSize: FONT.sm, fontWeight: 800, color: T.accent, marginBottom: 5 }}>Practice task</div>
+        <div style={{ fontSize: FONT.base, color: T.ink, lineHeight: 1.75 }}>{lesson.practice}</div>
+      </div>
+    </div>
+  );
+}
+
 function StageOverview({ completed }) {
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 8, marginBottom: 14 }}>
@@ -787,7 +893,7 @@ function TopicExplorer({ section, completed, openTopics, onToggleOpen, onToggleC
             {showCoverageMap ? "Hide complete topic map" : `Open complete topic map (${section.topics.length} topics)`}
           </button>
           <button type="button" onClick={() => onToggleOpen(section.topics.map((topic) => topic.id), !allOpen)} style={BUTTON.toggle(allOpen)}>
-            {allOpen ? "Collapse all explanations" : "Expand all explanations"}
+            {allOpen ? "Collapse all mini-lessons" : "Expand all mini-lessons"}
           </button>
         </div>
       </div>
@@ -811,11 +917,7 @@ function TopicExplorer({ section, completed, openTopics, onToggleOpen, onToggleC
                   {isDone ? "Completed" : "Mark done"}
                 </button>
               </div>
-              {isOpen && (
-                <div id={detailId} style={{ padding: "0 12px 12px", color: T.muted, fontSize: FONT.base, lineHeight: 1.75 }}>
-                  {topic.explanation}
-                </div>
-              )}
+              {isOpen && <div id={detailId}><TopicLesson topic={topic} section={section} index={index} /></div>}
             </div>
           );
         })}
