@@ -218,6 +218,7 @@ const BLOG_CHAPTERS = [
   { id: "pipeline",         chapter: 10, label: "MLFF Pipeline",              desc: "DefectNet force field: graph neural network architecture, training, and deployment", icon: "\u{1F9E0}" },
   { id: "mlintro",          chapter: 11, label: "Introduction to ML",         desc: "Machine learning foundations, algorithms, neural networks, and applications in materials science", icon: "\u{1F916}" },
   { id: "llmdatamining",    chapter: 12, label: "LLM Data Mining",            desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", icon: "\u{1F4DA}" },
+  { id: "aimlroadmap",      chapter: 13, label: "AI / ML Roadmap (2026)",      desc: "A complete path from math and classical ML to deep learning, LLM systems, production, research, and interview readiness", icon: "" },
 ];
 
 const PUBLICATIONS = [

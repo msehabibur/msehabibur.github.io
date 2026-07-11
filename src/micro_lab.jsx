@@ -10,6 +10,7 @@ import DFTParamsMovieModule from "./dft_params_movie.jsx";
 import DFTParamsInteractive from "./dft_params_interactive.jsx";
 import CharacterizationModule from "./characterization.jsx";
 import MLIntroModule from "./ml_intro.jsx";
+import AIMLRoadmapModule from "./ai_ml_roadmap.jsx";
 import SSSynthesisMovieModule from "./ss_synthesis_movie.jsx";
 import MongoDBMovieModule from "./mongodb_movie.jsx";
 import CdTeSolarCellModule from "./cdte_solar.jsx";
@@ -191,6 +192,18 @@ const CHAPTER_REFERENCES = {
     "Pedregosa, F. et al. Scikit-learn: Machine Learning in Python. JMLR 12, 2825 (2011)",
     "Paszke, A. et al. PyTorch: An Imperative Style, High-Performance Deep Learning Library. NeurIPS (2019)",
     "Rupp, M. et al. Fast and Accurate Modeling of Molecular Atomization Energies with Machine Learning. Phys. Rev. Lett. 108, 058301 (2012)",
+  ],
+  aimlroadmap: [
+    "Goodfellow, I., Bengio, Y. & Courville, A. Deep Learning. MIT Press (2016)",
+    "Hastie, T., Tibshirani, R. & Friedman, J. The Elements of Statistical Learning, 2nd ed. Springer (2009)",
+    "Murphy, K.P. Probabilistic Machine Learning: An Introduction. MIT Press (2022)",
+    "Vaswani, A. et al. Attention Is All You Need. NeurIPS (2017)",
+    "He, K. et al. Deep Residual Learning for Image Recognition. CVPR (2016)",
+    "Hu, E.J. et al. LoRA: Low-Rank Adaptation of Large Language Models. ICLR (2022)",
+    "Lewis, P. et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS (2020)",
+    "Dettmers, T. et al. QLoRA: Efficient Finetuning of Quantized LLMs. NeurIPS (2023)",
+    "Huyen, C. Designing Machine Learning Systems. O'Reilly Media (2022)",
+    "Paszke, A. et al. PyTorch: An Imperative Style, High-Performance Deep Learning Library. NeurIPS (2019)",
   ],
   synthesis: [
     "Ohring, M. Materials Science of Thin Films, 2nd ed. Academic Press (2001)",
@@ -22112,6 +22125,7 @@ const MODULE_TABS = [
   { id: "pipeline",         chapter: 10, label: "MLFF Pipeline",             color: T.eo_e, desc: "DefectNet force field: graph neural network step by step", topics: 14 },
   { id: "mlintro",          chapter: 11, label: "Introduction to ML",        color: T.eo_e, desc: "Machine learning foundations, algorithms, neural networks, and applications in materials science", topics: 20 },
   { id: "llmdatamining",    chapter: 12, label: "LLM Data Mining",           color: T.eo_e, desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", topics: 3 },
+  { id: "aimlroadmap",      chapter: 13, label: "AI / ML Roadmap (2026)",     color: T.eo_e, desc: "A complete path from foundations to modern deep learning, LLM systems, production, research, and interview readiness", topics: 28 },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -22295,6 +22309,7 @@ export default function MicroLab({ initialModule = null, blogMode = false }) {
       {module === "defectsemi" && <ErrorBoundary><DefectSemiModule /></ErrorBoundary>}
       {module === "characterization" && <ErrorBoundary><CharacterizationModule /></ErrorBoundary>}
       {module === "mlintro" && <ErrorBoundary><><MLIntroModule /><ChapterReferences chapterId="mlintro" /></></ErrorBoundary>}
+      {module === "aimlroadmap" && <ErrorBoundary><><AIMLRoadmapModule /><div style={{ padding: "0 24px 24px" }}><ChapterReferences chapterId="aimlroadmap" /></div></></ErrorBoundary>}
       {module === "synthesis" && <><MaterialsSynthesisModule /><ChapterReferences chapterId="synthesis" /></>}
     </div>
   );
