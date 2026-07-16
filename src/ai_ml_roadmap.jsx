@@ -1170,6 +1170,522 @@ function enrichTopicLesson(topic, section, index) {
   };
 }
 
+// Per-unit rigor layer: code, formulas, and concrete numbers merged into each
+// guided-lesson card by title. Keys must match unit titles exactly.
+const UNIT_RIGOR = {
+  "Linear algebra is the language of data": {
+    code: `X = np.random.randn(32, 20)   # 32 samples, 20 features
+W = np.random.randn(20, 8)    # layer weights
+Y = X @ W                     # (32, 8): shapes must chain
+U, S, Vt = np.linalg.svd(X, full_matrices=False)
+print(S[0] / S[-1])           # condition number: huge → unstable fits`,
+    numbers: "A 7B-parameter model is 7×10⁹ of exactly these numbers: one 4096×4096 layer holds 16.8M weights, and a single forward matmul over a 2,048-token batch costs ≈ 2×4096²×2048 ≈ 69 GFLOPs.",
+    lab: "Predict the output shape of (64×128) @ (128×32), then break the inner dimension on purpose and read the error message.",
+  },
+  "Calculus tells a model how to improve": {
+    code: `w = torch.tensor([0.5, 1.0], requires_grad=True)
+x = torch.tensor([2.0, 3.0]); y = torch.tensor(10.0)
+loss = (w @ x - y) ** 2
+loss.backward()
+print(w.grad)   # tensor([-24., -36.]) — matches the hand math`,
+    numbers: "With η = 0.01 the update moves w to [0.74, 1.36] and the loss falls 36.0 → 18.7; with η = 0.5 the same step overshoots to w = [12.5, 19.0] and the loss explodes to 5,184.",
+    lab: "Derive ∂L/∂b for the same data point (answer: −12), then confirm it with autograd.",
+  },
+  "Probability and information quantify uncertainty": {
+    code: `-math.log(0.90)   # 0.105 — confident and correct: tiny loss
+-math.log(0.01)   # 4.61  — confident and wrong: 44× the push`,
+    numbers: "Bayes with real numbers: a test with 90% sensitivity and a 5% false-positive rate on a 1%-prevalence disease gives P(disease | positive) = 0.9×0.01 / (0.9×0.01 + 0.05×0.99) ≈ 15% — most positives are false.",
+    lab: "Redo that Bayes computation at 10% prevalence (answer ≈ 67%) and notice how the same test changes meaning.",
+  },
+  "The toolchain makes the reasoning repeatable": {
+    code: `uv init exp && cd exp && uv add numpy polars scikit-learn mlflow
+uv run python train.py    # uv.lock pins every transitive version
+git rev-parse HEAD        # code hash goes into the run record`,
+    numbers: "A complete run record is seven facts: code hash, data hash, config, lockfile, seed, hardware, metric. Missing any one is the difference between “we measured 0.78” and “we remember 0.78.”",
+    lab: "Delete .venv, run uv sync, rerun the experiment, and confirm the metric reproduces to the last digit.",
+  },
+  "Start with the prediction contract": {
+    code: `df = pl.read_parquet("churn.parquet")
+df.null_count()                        # missingness per column
+df.group_by("id").len().filter(pl.col("len") > 1)   # duplicates
+df.filter(pl.col("event_ts") > pl.col("label_ts"))  # post-outcome rows`,
+    numbers: "In a typical audit, 2% duplicated IDs or a single post-outcome column is enough to fully explain a leaderboard-looking validation score.",
+    lab: "Write the one-sentence prediction contract (target, prediction time, unit, error cost) for a dataset you already have, then mark every column allowed or forbidden.",
+  },
+  "Choose the split that matches deployment": {
+    code: `from sklearn.model_selection import GroupKFold, TimeSeriesSplit
+GroupKFold(5).split(X, y, groups=df["customer_id"])
+TimeSeriesSplit(n_splits=4, test_size=90).split(X)  # past → future only`,
+    numbers: "With 12 rows per customer and an 80/20 random split, 1 − 0.8¹² ≈ 93% of customers appear on both sides — the model meets almost every test customer during training.",
+    lab: "Run the same model under a random and a grouped split and report both scores; the gap is your leakage estimate.",
+  },
+  "Preprocess inside the training fold": {
+    code: `pipe = Pipeline([
+  ("prep", ColumnTransformer([
+    ("num", make_pipeline(SimpleImputer(), StandardScaler()), num_cols),
+    ("cat", OneHotEncoder(handle_unknown="ignore"), cat_cols)])),
+  ("clf", LogisticRegression(max_iter=1000))])
+cross_val_score(pipe, X, y, cv=5)   # transforms refit per fold`,
+    numbers: "Fitting a scaler on all rows before splitting typically inflates small-data scores by 1–5 points; with target encoding the inflation can exceed 10 points.",
+    lab: "Fit a StandardScaler before the split and inside a Pipeline on the same small dataset, and measure the score difference.",
+  },
+  "Fit the simplest credible baseline": {
+    code: `clf = LogisticRegression(class_weight="balanced", max_iter=2000)
+clf.fit(X_tr, y_tr)
+np.exp(clf.coef_[0])   # odds ratios per standardized feature`,
+    numbers: "z = −2 + 1.5×1.2 + 0.8×0.5 = 0.2 → p = 1/(1+e⁻⁰·²) = 0.55; the 1.5 coefficient means one standard unit multiplies the odds by e¹·⁵ ≈ 4.5.",
+    lab: "Fit logistic regression and LightGBM on the same Pipeline; if the gap is under ~2 points, ship the interpretable one.",
+  },
+  "Use trees for nonlinear tabular structure": {
+    formula: "Fₖ(x) = Fₖ₋₁(x) + η·hₖ(x), where hₖ is fit to the current residuals",
+    code: `lgbm = LGBMClassifier(n_estimators=2000, learning_rate=0.05)
+lgbm.fit(X_tr, y_tr, eval_set=[(X_va, y_va)],
+         callbacks=[early_stopping(100)])`,
+    numbers: "A typical tabular result shape: logistic 0.74 AUC, random forest 0.79, tuned boosting 0.81 — and the boosting gain evaporates if the validation fold leaks.",
+    lab: "Plot validation AUC versus n_estimators and find where early stopping fires.",
+  },
+  "Cluster and project with a question in mind": {
+    formula: "PCA: maximize Var(Xw) subject to ‖w‖ = 1 → top eigenvectors of the covariance",
+    code: `for k in range(2, 10):
+    labels = KMeans(k, n_init=10).fit_predict(Xs)
+    print(k, silhouette_score(Xs, labels))`,
+    numbers: "A silhouette that never beats ~0.25 across k is telling you there are no compact clusters — a t-SNE plot of the same data will still draw pretty islands.",
+    lab: "Rerun UMAP with three random seeds; only structure that survives all three is worth investigating.",
+  },
+  "Read the confusion matrix before the headline metric": {
+    code: `p, r, thr = precision_recall_curve(y_va, scores)
+cost = 500 * fn_at(thr) + 10 * fp_at(thr)
+best = thr[np.argmin(cost)]   # decision from costs, not 0.5`,
+    numbers: "At 1% prevalence a useless model scores 99% accuracy, and ROC-AUC can read 0.95 while PR-AUC sits at 0.35 — precision-recall space is where rare-event models are honest.",
+    lab: "Sweep the threshold from 0.1 to 0.9, plot total cost, and report the argmin instead of the default.",
+  },
+  "Diagnose bias and variance with curves": {
+    code: `LearningCurveDisplay.from_estimator(pipe, X, y, cv=5,
+    train_sizes=np.linspace(0.1, 1.0, 6))`,
+    numbers: "Train 0.95 / validation 0.71 with a widening gap = variance: regularize or get data. Train 0.72 / validation 0.70, both flat = bias: add capacity or features — more data will not help.",
+    lab: "Produce both failure shapes with one model by moving max_depth from 2 to 40.",
+  },
+  "Engineer features without leaking the answer": {
+    code: `oof = np.zeros(len(df))
+for tr, va in StratifiedKFold(5).split(df, y):
+    m = y.iloc[tr].groupby(df["city"].iloc[tr]).mean()
+    oof[va] = df["city"].iloc[va].map(m).fillna(y.iloc[tr].mean())`,
+    numbers: "Cyclical encoding in numbers: hour 23 → (sin, cos) = (−0.26, 0.97) and hour 0 → (0, 1) — neighbors again, distance 0.26 instead of 23.",
+    lab: "Add one out-of-fold target-encoded feature and check that cross-validation does not jump implausibly.",
+  },
+  "Forward pass: turn inputs into logits": {
+    code: `net = nn.Sequential(nn.Linear(784, 256), nn.GELU(),
+                    nn.Linear(256, 10))
+logits = net(x)                     # (batch, 784) → (batch, 10)
+loss = F.cross_entropy(logits, y)   # softmax lives in the loss`,
+    numbers: "Count parameters by hand once: 784×256 + 256 + 256×10 + 10 = 203,530 — after that, framework summaries stop being magic.",
+    lab: "Print the tensor shape after every layer for one batch and annotate which dimension is which.",
+  },
+  "Backward pass: assign credit": {
+    code: `for xb, yb in loader:
+    opt.zero_grad(set_to_none=True)
+    loss = F.cross_entropy(model(xb), yb)
+    loss.backward()
+    clip_grad_norm_(model.parameters(), 1.0)
+    opt.step()`,
+    numbers: "Numeric sanity checks: initial loss for 10 balanced classes ≈ ln(10) = 2.303; a 20-sample overfit run must reach ~0 loss — if it cannot, the wiring is broken, not the hyperparameters.",
+    lab: "Comment out zero_grad and watch the effective update silently grow batch over batch.",
+  },
+  "Control generalization and stability": {
+    formula: "He init: Var(W) = 2/fan_in keeps ReLU activation variance constant across layers",
+    code: `opt = torch.optim.AdamW(model.parameters(),
+                        lr=3e-4, weight_decay=0.01)
+sched = CosineAnnealingLR(opt, T_max=total_steps)`,
+    numbers: "A defensible default: AdamW lr 3×10⁻⁴, weight decay 0.01, cosine schedule with 3–5% warmup — then justify every deviation with a validation curve, not a blog post.",
+    lab: "Train with lr 3e-5, 3e-4, and 3e-3 for two epochs each and keep the three loss curves side by side.",
+  },
+  "Reproducibility has layers": {
+    code: `def seed_all(s=42):
+    random.seed(s); np.random.seed(s)
+    torch.manual_seed(s); torch.cuda.manual_seed_all(s)
+    torch.use_deterministic_algorithms(True)`,
+    numbers: "Reproducibility is six pinned facts — code hash, data hash, config, environment lock, seed, hardware. Five out of six still means “cannot reproduce.”",
+    lab: "Run the same training twice with identical seeds and diff the metric files; then flip one flag and watch determinism break.",
+  },
+  "Tabular baseline project": {
+    code: `with mlflow.start_run():
+    mlflow.log_params({"model": "lgbm", "cv": "strat-5fold", "seed": 42})
+    s = cross_val_score(pipe, X, y, cv=skf, scoring="f1")
+    mlflow.log_metrics({"f1_mean": s.mean(), "f1_std": s.std()})`,
+    numbers: "Report 0.706 ± 0.011 across folds, never the lucky fold’s 0.721; a reviewer who reruns your work should land inside the interval.",
+    lab: "Hand the run to someone else and count the questions they must ask you; each question is a missing artifact.",
+  },
+  "MNIST twice, for two different lessons": {
+    code: `# the entire NumPy learning step
+h = np.maximum(0, X @ W1)
+d = (softmax(h @ W2) - Y) / len(X)
+W2 -= lr * h.T @ d
+W1 -= lr * X.T @ ((d @ W2.T) * (h > 0))`,
+    numbers: "Expected outcome: the NumPy MLP lands ≈ 97–98% test accuracy and the PyTorch CNN ≈ 99.2%; the gap is the convolutional prior, not the framework.",
+    lab: "Verify one gradient from the NumPy version against torch.autograd on the same batch.",
+  },
+  "From CNNs to Transformers": {
+    code: `x = torch.randn(1, 3, 224, 224)
+p = x.unfold(2, 16, 16).unfold(3, 16, 16)    # 14×14 patch grid
+tokens = p.reshape(1, 196, 768) @ W_embed     # (1, 196, d_model)`,
+    numbers: "A 3×3 conv with 256 channels spends 9×256² ≈ 590k weights reused at every position; ViT-Base spends 86M parameters but sees the whole image from layer 1.",
+    lab: "Compute the receptive field after three stride-2 3×3 convs (answer: 15 pixels) and compare it with the smallest object you must detect.",
+  },
+  "Attention, position, and decoding": {
+    code: `s = Q @ K.transpose(-2, -1) / math.sqrt(d_head)
+s = s.masked_fill(causal_mask, -torch.inf)
+out = s.softmax(-1) @ V        # (B, heads, L, d_head)`,
+    numbers: "For d_model 512 with 8 heads, each head works in 64 dimensions; the Q/K/V/O projections cost 4×512² ≈ 1.05M parameters per layer before the FFN’s 8×512² ≈ 2.1M.",
+    lab: "Print the (L, L) attention matrix for a 6-token toy input and verify every row sums to 1.",
+  },
+  "Generative capacity without full compute": {
+    numbers: "Mixtral-style top-2 MoE: 8 experts, ~47B total parameters, ~13B active per token — dense-13B compute with far larger capacity, paid for in memory and routing complexity.",
+    lab: "For a top-2, 8-expert layer, work out the load if routing collapses onto 2 experts (50% of all tokens each) and what that does to tail latency.",
+  },
+  "Spend memory deliberately": {
+    formula: "state ≈ params × (2 + 2 + 8) B — bf16 weights + grads, fp32 Adam moments; +4 B/param with an fp32 master copy",
+    code: `policy = MixedPrecision(param_dtype=torch.bfloat16)
+model = FSDP(model, mixed_precision=policy,
+             auto_wrap_policy=transformer_auto_wrap_policy)`,
+    numbers: "7B model → 84 GB of optimizer-attached state: impossible on one 80 GB GPU, 10.5 GB/GPU under FSDP on 8; activation checkpointing then trades ~30% recompute for a several-fold activation cut.",
+    lab: "Estimate memory with the compute planner, then compare torch.cuda.max_memory_allocated() after 20 real steps.",
+  },
+  "Pick the smallest distributed strategy that works": {
+    code: `torchrun --nproc_per_node 8 train.py --strategy fsdp`,
+    numbers: "DDP moves ~2× gradient bytes per step; FSDP/ZeRO-3 gathers ~3× parameter bytes but divides state by N. Which wins is a property of your interconnect, not of the library.",
+    lab: "Switch a small run from DDP to FSDP and diff three things: checkpoint format, per-GPU memory, tokens/s.",
+  },
+  "Tune as an experiment": {
+    code: `study = optuna.create_study(direction="maximize",
+    pruner=optuna.pruners.HyperbandPruner())
+study.optimize(objective, n_trials=50)`,
+    numbers: "Random search with 60 trials has a ~95% chance of landing in the top 5% of any search space (1 − 0.95⁶⁰ ≈ 0.954); grids spend that budget on redundant corners.",
+    lab: "Freeze the validation protocol in writing, then compare a 20-trial random sweep against your best hand-tuning.",
+  },
+  "Tokenization sets the unit of language": {
+    code: `enc = tiktoken.get_encoding("cl100k_base")
+len(enc.encode("internationalization"))   # ≈ 3 subwords
+len(enc.encode("আন্তর্জাতিকীকরণ"))          # often 10+ tokens`,
+    numbers: "An 8k context holds ~6,000 English words but up to 3× fewer for scripts the tokenizer fragments — cost, latency, and context budgets are all per token, never per word.",
+    lab: "Tokenize one English, one Bengali, and one code snippet with two tokenizers and tabulate the counts.",
+  },
+  "Vision starts with data geometry": {
+    code: `tf = A.Compose(
+  [A.RandomCrop(384, 384), A.HorizontalFlip(0.5)],
+  bbox_params=A.BboxParams(format="pascal_voc",
+                           min_visibility=0.3))
+out = tf(image=img, bboxes=boxes, class_labels=ids)`,
+    numbers: "ImageNet normalization (mean [0.485, 0.456, 0.406], std [0.229, 0.224, 0.225]) is glued to the pretrained weights — change it and transfer learning quietly degrades.",
+    lab: "Draw the boxes after augmentation for 10 samples; one misaligned box means the label pipeline is broken, not the model.",
+  },
+  "Choose task-specific evidence": {
+    formula: "WER = (S + D + I) / N — substitutions, deletions, insertions over reference words",
+    numbers: "An OCR line with 2 substitutions and 1 deletion over 40 characters has CER = 3/40 = 7.5%; whether that is acceptable depends entirely on whether the digits were among the errors.",
+    lab: "Before training, write the one metric that would veto shipping for OCR, detection, and VQA on your data.",
+  },
+  "Make the data and template match": {
+    code: `tok = AutoTokenizer.from_pretrained(model_id)
+txt = tok.apply_chat_template(msgs, tokenize=False)
+print(txt)   # read the actual boundaries before training`,
+    numbers: "Loss-mask check: only assistant tokens should carry loss — in a 900-token example with a 700-token context, ~200 tokens train; if all 900 do, the model is learning to imitate users.",
+    lab: "Print ten tokenized examples with their loss masks and count masked versus trained tokens.",
+  },
+  "Start with parameter-efficient adaptation": {
+    code: `cfg = LoraConfig(r=16, lora_alpha=32, lora_dropout=0.05,
+                 target_modules=["q_proj", "v_proj"])
+model = get_peft_model(base, cfg)
+model.print_trainable_parameters()   # ≈ 8.4M / 7B = 0.12%`,
+    numbers: "QLoRA arithmetic: 4-bit base ≈ 3.5 GB + adapters ≈ 0.1 GB + activations — a full 7B fine-tune inside a 24 GB consumer GPU.",
+    lab: "Sweep r ∈ {4, 16, 64}, plot held-out quality against trainable parameters, and stop where the curve flattens.",
+  },
+  "Evaluate side effects": {
+    numbers: "A domain SFT that lifts in-domain accuracy 72% → 86% while dropping MMLU 64% → 58% is a net regression for a general assistant — measure both directions before shipping.",
+    lab: "Run the same 20-prompt broad-capability probe before and after tuning and diff the answers line by line.",
+  },
+  "Prompts are executable interfaces": {
+    code: `PROMPT = {"id": "support@7", "system": SYSTEM,
+          "schema": Answer, "examples": FEWSHOT}
+# any change: bump the id, rerun the golden set, diff pass rates`,
+    numbers: "A 50-case golden set with per-case pass/fail turns “the prompt feels better” into “42/50 → 47/50, with regressions on cases 12 and 31.”",
+    lab: "Version one production prompt, change one word, rerun its golden set, and record the diff.",
+  },
+  "Structured output protects downstream systems": {
+    code: `class Refund(BaseModel):
+    order_id: str
+    amount: condecimal(gt=0, le=10_000)
+Refund.model_validate_json(response_text)  # schema first, policy second`,
+    numbers: "Constrained decoding removes syntax failures; the remaining risk is semantic — a perfectly valid amount=9,999 refund still needs the authorization check no schema can express.",
+    lab: "Put one semantic validator (date ranges, allowlisted IDs) behind a schema and count what it catches in a week.",
+  },
+  "RAG is an information-retrieval system first": {
+    code: `d = index.search(embed(q), k=50)
+s = bm25.search(q, k=50)
+cand = rrf_fuse(d, s)[:20]
+top = cross_encoder.rerank(q, cand)[:5]`,
+    numbers: "Measure per stage: recall@50 = 0.82 caps everything downstream; recall@5 after reranking = 0.74; faithfulness given evidence = 0.90 → end-to-end ceiling ≈ 0.67.",
+    lab: "Compute recall@k at every stage of your pipeline for 50 labeled queries and mark the binding constraint.",
+  },
+  "Separate measurement layers": {
+    code: `d = []
+for _ in range(10_000):
+    i = np.random.randint(0, n, n)
+    d.append(b[i].mean() - a[i].mean())
+lo, hi = np.percentile(d, [2.5, 97.5])   # ship only if 0 < lo`,
+    numbers: "With n = 200 and an observed +4-point gap, the bootstrap interval typically spans several points on each side — the experiment often cannot yet distinguish the change from zero.",
+    lab: "Bootstrap one past A/B comparison you believed and check whether zero sits inside the interval.",
+  },
+  "Build systems that can fail safely": {
+    code: `assert faithfulness >= 0.90
+assert schema_valid_rate >= 0.99
+assert p95_ms <= 800
+assert jailbreaks_blocked == suite.total   # a gate, not a report`,
+    numbers: "LLM-as-judge needs calibration first: measure agreement with human labels on ~100 cases; below ~85% agreement the judge is another model to debug, not an oracle.",
+    lab: "Randomize answer order for your judge and measure position bias; a swing above ~3 points means the rubric needs work.",
+  },
+  "Make the intermediate projects operational": {
+    numbers: "A defensible RAG report is six numbers: corpus 25k chunks, recall@5 = 0.74, faithfulness 0.92, p95 = 1.8 s, cost $0.004/query, evaluated on 200 versioned golden cases.",
+    lab: "Write the six-number report for your own project; every blank cell is remaining work.",
+  },
+  "Trace one transformer block": {
+    code: `kv = 2 * layers * kv_heads * head_dim * bytes    # per token
+print(kv * context * batch / 2**30, "GiB")       # cache budget`,
+    numbers: "Llama-2-7B-class: 2×32×32×128×2 B = 0.5 MiB per token → 2 GiB per 4k sequence → 32 GiB for a 16-sequence batch, before the 14 GB of weights.",
+  },
+  "Reuse work during generation": {
+    numbers: "A 3,000-token shared system prefix is ~1.5 GiB of KV cache computed once with prefix caching; without it, every request re-pays the full prefill for the same bytes.",
+  },
+  "Trade precision, capacity, and quality honestly": {
+    numbers: "INT4 cuts a 7B model from 14 GB to ~3.5 GB and often costs under a point on broad benchmarks — but slice-level failures (arithmetic, low-resource languages, code) hide inside that average.",
+  },
+  "Serve according to the workload": {
+    code: `vllm serve meta-llama/Llama-3.1-8B-Instruct \\
+  --max-num-seqs 64 --enable-prefix-caching \\
+  --gpu-memory-utilization 0.90`,
+    numbers: "Continuous batching typically lifts throughput 3–10× over static batching on the same hardware, because decode slots refill the moment any sequence finishes.",
+    lab: "Load-test one endpoint at 1×, 2×, and 4× expected traffic and plot p50/p95 first-token latency.",
+  },
+  "Stream and protect capacity": {
+    formula: "Little’s law: L = λ × W — in-flight requests = arrival rate × residence time",
+    numbers: "6 req/s × 7.7 s residence = 46 concurrent > 32 slots → an unbounded queue; one replica’s true capacity is 32/7.7 ≈ 4.2 req/s.",
+    lab: "Compute L = λW for your endpoint’s worst hour and compare it with the configured concurrency.",
+  },
+  "Treat tool calls as untrusted requests": {
+    code: `class SendEmail(BaseModel):
+    to: EmailStr
+    body: constr(max_length=5000)
+def run(req: SendEmail, ctx):
+    require(req.to in ctx.allowlist and ctx.scope.can_email)
+    audit(ctx, req); return smtp.send(req, timeout=10)`,
+    numbers: "Every call passes four gates — schema, policy, scope, audit. Measured on a 40-case injection suite, those gates took attack success from 35% to 2.5%.",
+    lab: "Write the allowlist and scope for one real tool, then add a deny-test for each rule.",
+  },
+  "Know where bytes travel": {
+    formula: "ring all-reduce traffic per GPU ≈ 2(N−1)/N × payload ≈ 2× for large N",
+    numbers: "14 GB of bf16 gradients on 8 GPUs = 24.5 GB on the wire per step: 82 ms at NVLink’s ~300 GB/s, 19.6 s at 10 GbE’s 1.25 GB/s — the same job, 240× apart.",
+    lab: "Compute bytes-per-step for your model and divide by your measured (not nameplate) bandwidth.",
+  },
+  "Compose parallelism deliberately": {
+    formula: "pipeline bubble ≈ (stages − 1) / (microbatches + stages − 1)",
+    numbers: "4 stages with 16 microbatches idle ≈ 3/19 ≈ 16% of the pipeline; with only 4 microbatches the bubble grows to 3/7 ≈ 43% — microbatch count is not a detail.",
+    lab: "For your target model, write down which axis (data, tensor, pipeline, sequence) breaks first and why.",
+  },
+  "Design for restart, not only success": {
+    code: `state = {"model": m.state_dict(), "opt": o.state_dict(),
+         "sched": s.state_dict(), "step": step,
+         "sampler": sampler.state_dict(),
+         "rng": torch.get_rng_state()}
+dcp.save(state, checkpoint_id=f"step_{step}")`,
+    numbers: "Checkpoint every 30 minutes on a 512-GPU job and a failure costs at most 30 min × 512 = 256 GPU-hours; an hourly cadence doubles that exposure.",
+    lab: "Kill a 2-GPU toy run mid-epoch and prove the resumed loss curve overlays the uninterrupted one.",
+  },
+  "Make artifacts traceable": {
+    code: `mlflow.register_model(run.info.artifact_uri, "churn-clf")
+deploy = {"model": "churn-clf@14", "data": "dvc:a1b2c3",
+          "prompt": "support@7", "index": "idx-2026-07-01"}`,
+    numbers: "Rollback readiness is one question: from a bad production answer, how many minutes to the exact model, data snapshot, prompt, and index that produced it? More than ~15 means lineage is broken.",
+    lab: "Pick one production prediction and reconstruct its full lineage; log every hop that required a human memory.",
+  },
+  "Monitor input, relationship, and output drift": {
+    formula: "PSI = Σ (liveᵢ − trainᵢ) × ln(liveᵢ / trainᵢ)",
+    numbers: "Convention: PSI < 0.10 stable, 0.10–0.25 investigate, > 0.25 act. The five-bin example in the worked panel below lands at 0.052 — movement, not an incident.",
+    lab: "Compute PSI daily for your top five features and alert at 0.25 with a named owner.",
+  },
+  "Observe the full request": {
+    code: `span = tracer.start_span("rag.answer")
+span.set_attribute("retrieval.recall_hit", hit)
+span.set_attribute("tokens.total", usage.total)
+span.set_attribute("evidence.count", len(docs))`,
+    numbers: "Sampling 5% of traces for quality review at 100k requests/day yields 5,000 judged answers — enough to catch a small weekly regression before users report it.",
+    lab: "Trace one failed answer end to end and name the failing stage from the trace alone.",
+  },
+  "Defend against prompt injection": {
+    code: `ctx = f"<evidence trust='untrusted' src='{url}'>{doc}</evidence>"
+if call.name not in session.allowlist:
+    deny(call, reason="unapproved tool")`,
+    numbers: "Defense-in-depth, measured: a 40-variant attack suite succeeded 35% of the time against prompt-only defenses and 2.5% after provenance tags + argument allowlists + scoped credentials.",
+    lab: "Hide an exfiltration instruction in a test document, find which boundary stops it, and turn the case into CI.",
+  },
+  "Protect information and artifacts": {
+    code: `model = AutoModel.from_pretrained(repo, use_safetensors=True)
+log.info(redact(prompt))    # PII scrubbed before storage`,
+    numbers: "Retention is numbers, not vibes: raw prompts 30 days, redacted traces 13 months, aggregates indefinitely — written down and enforced in code.",
+    lab: "Grep one day of logs for emails and account numbers; every hit is a redaction bug with a location.",
+  },
+  "Govern the lifecycle": {
+    numbers: "A useful risk register row has five fields: risk, owner, test, mitigation, review date. Twenty filled rows beat a hundred-page policy nobody executes.",
+    lab: "Convert one red-team finding into a regression test with a tracked owner and a deadline.",
+  },
+  "Forecast and rank with realistic temporal feedback": {
+    code: `for tr, va in TimeSeriesSplit(4, test_size=90).split(X):
+    model.fit(X[tr], y[tr])
+    print(mae(y[va], model.predict(X[va])))`,
+    numbers: "Random CV reported MAE 3.1%; walk-forward reported 7.8% — the 2.5× gap is exactly the future the random split let the model peek at.",
+    lab: "Rebuild one existing evaluation as walk-forward and report both numbers side by side.",
+  },
+  "Respect graph and reinforcement structure": {
+    numbers: "In a citation graph under an 80/20 random node split, a test node with 20 neighbors has ~16 of them in training — its neighborhood is memorized; mask edges or split communities instead.",
+    lab: "Design the split for a friendship-graph churn model and defend it against neighborhood leakage.",
+  },
+  "Evaluate generative, speech, and multimodal systems by use": {
+    numbers: "ASR at 8% WER sounds fine until you slice: 4% on read speech, 23% on accented phone audio — the deployment population decides which number is real.",
+    lab: "Pick the three slices that matter for your task and report the metric per slice, never blended.",
+  },
+  "Account for memory before launch": {
+    code: `torch.cuda.reset_peak_memory_stats()
+step(batch)
+peak = torch.cuda.max_memory_allocated() / 2**30
+print(f"{peak:.1f} GiB vs planned")`,
+    numbers: "Planner says 62 GB, profiler says 71 GB: the 9 GB delta is fragmentation, temporary buffers, and collectives — always plan 10–20% headroom.",
+    lab: "Estimate then measure peak memory for one run and explain every GB of the difference.",
+  },
+  "Profile before optimizing": {
+    code: `with torch.profiler.profile(with_stack=True) as prof:
+    for _ in range(10): step(next(it))
+print(prof.key_averages()
+      .table(sort_by="cuda_time_total", row_limit=15))`,
+    numbers: "MFU = tokens/s × 6N ÷ peak FLOPs: 42k tokens/s on a 1.3B model over 8×A100 = 330/2,496 ≈ 13% — a data-pipeline smell, not a GPU shortage.",
+    lab: "Classify one training step’s time into data, compute, and communication from a single trace.",
+  },
+  "Read and reproduce claims critically": {
+    numbers: "The audit that matters: a claimed +6.2 becomes +1.5 after compute-matching, with ±1.1 seed noise — read the appendix before the abstract convinces you.",
+    lab: "Reproduce one small table from a paper you cite and document every deviation you needed.",
+  },
+  "Production LLM platform": {
+    code: `slo:
+  first_token_p95_ms: 800
+  availability_month_pct: 99.5   # 3.6 h error budget
+  min_tokens_per_sec: 2000
+alert: page at 25% budget burn in 1 h`,
+    numbers: "A throughput claim is five numbers: tokens/s at a stated concurrency, prompt length, output length, model, and percentile — “3,000 tokens/s” alone is marketing.",
+    lab: "Write the five-number throughput statement for your endpoint and reproduce it twice.",
+  },
+  "Agent with evaluations": {
+    numbers: "A serious 50-case suite: 25 happy paths, 10 malformed inputs, 10 adversarial documents, 5 tool outages — the last 25 are where agents actually fail.",
+    lab: "Add three tool-outage cases and verify the agent degrades to a safe answer instead of hallucinating success.",
+  },
+  "The completion checks are operating skills": {
+    numbers: "A postmortem has five sections: timeline, failed metric, root cause, mitigation, regression test. Any empty section means the incident will repeat.",
+    lab: "Run one failure drill — kill a replica mid-load — and write the five-section postmortem.",
+  },
+  "Explain fundamentals with a decision": {
+    numbers: "“Validation loss rises after epoch 12 while train falls” → answer with a decision: early-stop at 12, audit the split, add regularization, and only then discuss capacity.",
+    lab: "Answer three classic questions aloud, each ending with a decision and the experiment that would test it.",
+  },
+  "Calculate, then design": {
+    code: `def sdpa(Q, K, V, mask=None):
+    s = Q @ K.transpose(-2, -1) / math.sqrt(Q.shape[-1])
+    if mask is not None:
+        s = s.masked_fill(mask, -torch.inf)
+    return s.softmax(-1) @ V`,
+    numbers: "Three two-minute drills: GPT-2-small = 12·12·768² + 50,257×768 ≈ 124M; KV cache/token = 2·layers·kv_heads·head_dim·bytes; dense attention FLOPs ≈ 2·L²·d per layer.",
+    lab: "Time yourself on all three calculations; under two minutes each is interview-ready.",
+  },
+  "Practice evidence-based stories": {
+    numbers: "A STAR answer that lands carries one metric and one failure: “cut p95 from 2.1 s to 640 ms — and my first attempt broke cache correctness, here is how I caught it.”",
+    lab: "Write three stories with a measured result in each and rehearse the 90-second versions.",
+  },
+  "Build evidence-backed responses": {
+    code: `for claim, cite in extract_claims(answer):
+    ok = entails(corpus[cite], claim)   # NLI or judged rubric
+    if not ok: flag(claim, cite)`,
+    numbers: "Faithfulness is per claim, not per answer: an answer with 5 claims and 1 unsupported is 80% faithful and 100% risky if the wrong claim is the one acted on.",
+    lab: "Run the claim-level checker on 20 answers and read every flagged pair yourself.",
+  },
+  "Make tools narrow and observable": {
+    numbers: "Tool observability is four numbers per tool per day: call count, validation-failure rate, p95 latency, permission denials — a spike in any one is an incident signal.",
+    lab: "Instrument one tool with those four numbers and set an alert on each.",
+  },
+  "Optimize after measuring": {
+    numbers: "From the worked example below: routing the measured 60% slice to a small model cut $1,050/day to $448/day (−57%) with quality pinned per slice by a golden set.",
+    lab: "Compute the all-large versus routed daily cost for your own traffic mix before touching any code.",
+  },
+  "Study readable training systems": {
+    code: `logits, loss = model(X, Y)
+loss.backward()
+clip_grad_norm_(model.parameters(), 1.0)
+opt.step(); opt.zero_grad(set_to_none=True)`,
+    numbers: "nanoGPT is roughly 300 lines of model plus 300 of training loop — small enough to trace a batch from tokens to checkpoint in one sitting. Do that once before touching a 100k-line trainer.",
+    lab: "Trace one batch through nanoGPT and write down the tensor shape at every boundary.",
+  },
+  "Treat data as the model’s curriculum": {
+    formula: "C ≈ 6·N·D; compute-optimal D ≈ 20·N inside the measured regime",
+    numbers: "A 10²¹-FLOP budget → N ≈ 2.9B, D ≈ 58B tokens; the same budget on a 7B model leaves 3.4 tokens per parameter — undertrained by construction.",
+    lab: "Run an n-gram overlap scan between your training corpus and your benchmark before quoting any score.",
+  },
+  "Publish a reproducible result": {
+    numbers: "A kernel contribution needs three artifacts: a numerical-tolerance test (max |Δ| under bf16 noise), a benchmark script with hardware pinned, and an accuracy slice table — speed alone is not a result.",
+    lab: "Package one past result with code, environment, seeds, and a one-command repro script; time a colleague running it.",
+  },
+  "Match visual tasks to annotations": {
+    formula: "IoU = |A ∩ B| / |A ∪ B| — a detection counts only above the chosen IoU threshold",
+    numbers: "Two 100×100 boxes offset by 50 px: intersection 2,500, union 17,500 → IoU 0.14 — visually close, but scored as a false positive plus a false negative at IoU ≥ 0.5.",
+    lab: "Compute IoU by hand for three of your model’s predictions and check them against the evaluator.",
+  },
+  "Build a platform that preserves lineage": {
+    code: `train_job:
+  data: dvc://defects@v14          # immutable snapshot
+  out:  registry://detector@git_sha
+  gate: mAP50 >= 0.62 and p95_ms <= 40`,
+    numbers: "A healthy platform answers in one query: which data version, config, and code produced model @14 — and which endpoints serve it right now.",
+    lab: "Draw your current path from labeling to deployment and circle every step that is a person remembering something.",
+  },
+  "Operate GPUs like a budget": {
+    numbers: "Spot GPUs at a 60–70% discount pay off only if restart losses stay smaller: a 30-minute checkpoint cadence with ~2 preemptions/day on a 24 h job loses ~4% — fine; hourly cadence with hourly preemptions is not.",
+    lab: "Compute the break-even preemption rate for spot training with your checkpoint cadence.",
+  },
+  "Audit labels before scaling models": {
+    code: `from cleanlab.filter import find_label_issues
+idx = find_label_issues(labels, pred_probs,
+        return_indices_ranked_by="self_confidence")
+review(idx[:200])   # experts see the worst first`,
+    numbers: "A 500-example audit finding 40 wrong labels = 8% ± 2.4% noise → measured ceiling ≈ 92%: a model “stuck” at 88% is 4 points from perfect, not 12.",
+    lab: "Audit 200 random labels from your training set and compute the noise ceiling before the next model change.",
+  },
+  "Spend annotation budget where it changes decisions": {
+    numbers: "Disagreement-ranked review: 1,200 flagged items caught ~70% of an estimated 800 errors for $360; blanket re-review of all 10,000 costs $3,000 for the same fixes.",
+    lab: "Design one active-learning round — budget, selection rule, and the metric you expect to move — then check the prediction.",
+  },
+  "Document limits honestly": {
+    numbers: "The most useful line in a model card is the coverage table: languages, devices, demographics, edge cases — with “not evaluated” written wherever it is true.",
+    lab: "Write the not-evaluated list for a model you already shipped; every entry is a risk you now know about.",
+  },
+  "Use primary documentation while implementing": {
+    code: `uv add "transformers==4.57.1"
+# one runnable minimal example per tool you depend on
+uv run python examples/minimal_sft.py`,
+    numbers: "One pinned, runnable example per dependency is cheap insurance: at upgrade time, re-locking and rerunning the examples tells you in minutes exactly what broke.",
+    lab: "Create the reference index: one official doc link plus one runnable example for your top five tools.",
+  },
+  "Use courses and books to connect concepts": {
+    numbers: "A useful rule: pair every hour of lecture video with two hours of implementation — the ratio matters more than the course brand.",
+    lab: "After one attention lecture, implement sdpa() from memory and test it against the framework built-in.",
+  },
+  "Use research feeds critically": {
+    numbers: "The 30-minute audit — compute parity, seed variance, contamination, task match — is what shrinks a claimed +6.2 to +1.5 ± 1.1 in the worked example below.",
+    lab: "Run the four-question audit on the last paper that impressed you.",
+  },
+};
+
 // Audit anchors: 28 navigable sections, 343 named topic explanations, and 26 section worked examples.
 
 function AnalogyBox({ children }) {
@@ -1223,23 +1739,34 @@ function GuidedLesson({ section }) {
         {guide.lead}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 10 }}>
-        {guide.units.map((unit) => (
-          <article key={unit.title} style={{ ...PANEL.base, display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ fontSize: FONT.lg, fontWeight: 800, color: T.ink }}>{unit.title}</div>
-            {unit.analogy && (
-              <div style={{ fontSize: FONT.sm, color: T.muted, lineHeight: 1.65 }}><strong style={{ color: T.accent }}>Simple analogy.</strong> {unit.analogy}</div>
-            )}
-            <div style={{ fontSize: FONT.base, color: T.ink, lineHeight: 1.75 }}>{unit.lesson}</div>
-            {unit.formula && (
-              <div style={{ fontFamily: "Georgia, serif", fontSize: FONT.md, color: T.accent, background: T.accent + "0d", border: `1px solid ${T.accent}33`, borderRadius: LAYOUT.radiusMd, padding: "7px 9px", textAlign: "center" }}>{unit.formula}</div>
-            )}
-            <div style={{ fontSize: FONT.sm, color: T.muted, lineHeight: 1.65 }}><strong style={{ color: T.ink }}>Practical use case.</strong> {unit.example}</div>
-            {unit.lab && (
-              <div style={{ fontSize: FONT.sm, color: T.muted, lineHeight: 1.65 }}><strong style={{ color: T.ink }}>Simple exercise.</strong> {unit.lab}</div>
-            )}
-          </article>
-        ))}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 10 }}>
+        {guide.units.map((unit) => {
+          const rigor = UNIT_RIGOR[unit.title] || {};
+          const formula = unit.formula || rigor.formula;
+          const lab = unit.lab || rigor.lab;
+          return (
+            <article key={unit.title} style={{ ...PANEL.base, display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ fontSize: FONT.lg, fontWeight: 800, color: T.ink }}>{unit.title}</div>
+              {unit.analogy && (
+                <div style={{ fontSize: FONT.sm, color: T.muted, lineHeight: 1.65 }}><strong style={{ color: T.accent }}>Simple analogy.</strong> {unit.analogy}</div>
+              )}
+              <div style={{ fontSize: FONT.base, color: T.ink, lineHeight: 1.75 }}>{unit.lesson}</div>
+              {formula && (
+                <div style={{ fontFamily: "Georgia, serif", fontSize: FONT.md, color: T.accent, background: T.accent + "0d", border: `1px solid ${T.accent}33`, borderRadius: LAYOUT.radiusMd, padding: "7px 9px", textAlign: "center" }}>{formula}</div>
+              )}
+              {rigor.code && (
+                <pre style={{ margin: 0, padding: "9px 11px", background: T.surface, border: `1px solid ${T.border}`, borderRadius: LAYOUT.radiusMd, fontSize: FONT.sm, lineHeight: 1.6, overflowX: "auto", color: T.ink, whiteSpace: "pre" }}>{rigor.code}</pre>
+              )}
+              <div style={{ fontSize: FONT.sm, color: T.muted, lineHeight: 1.65 }}><strong style={{ color: T.ink }}>Practical use case.</strong> {unit.example}</div>
+              {rigor.numbers && (
+                <div style={{ fontSize: FONT.sm, color: T.muted, lineHeight: 1.65 }}><strong style={{ color: T.ink }}>Concrete numbers.</strong> {rigor.numbers}</div>
+              )}
+              {lab && (
+                <div style={{ fontSize: FONT.sm, color: T.muted, lineHeight: 1.65 }}><strong style={{ color: T.ink }}>Simple exercise.</strong> {lab}</div>
+              )}
+            </article>
+          );
+        })}
       </div>
 
       {guide.workedExample && (
