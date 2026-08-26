@@ -862,7 +862,7 @@ function SecIsmear() {
 
         {ismear >= 0 && (
           <>
-            <SliderRow label="SIGMA" value={sigma} min={0.01} max={0.5} step={0.01}
+            <SliderRow label="Sigma" value={sigma} min={0.01} max={0.5} step={0.01}
               onChange={setSigma} color={T.xc} unit=" eV"
               desc={sigma <= 0.05 ? "Small — sharp step, best for insulators" :
                     sigma <= 0.15 ? "Moderate — good for metals" :
@@ -1371,7 +1371,7 @@ function SecEdiff() {
           <strong style={{ color: T.accent }}>EDIFFG {">"} 0:</strong> converge on <em>energy change</em> — less reliable
         </div>
 
-        <SliderRow label="EDIFFG" value={ediffg} min={-0.1} max={-0.005} step={0.005}
+        <SliderRow label="Ediffg" value={ediffg} min={-0.1} max={-0.005} step={0.005}
           onChange={setEdiffg} color={T.accent} unit=" eV/Å"
           desc={Math.abs(ediffg) <= 0.01 ? "Tight — good for defect calculations" :
                 Math.abs(ediffg) <= 0.03 ? "Standard — OK for most relaxations" :

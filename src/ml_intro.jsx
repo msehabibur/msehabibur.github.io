@@ -11,7 +11,7 @@ function labelShift(pts) {
     const cur = order[k], prev = order[k - 1];
     if (Math.abs(cur.x - prev.x) > 52) continue;
     const gap = (cur.y + out[cur.i]) - (prev.y + out[prev.i]);
-    if (gap < 28) out[cur.i] = out[prev.i] + (28 - gap);
+    if (gap < 28) out[cur.i] = Math.min(46, out[prev.i] + (28 - gap));
   }
   return out;
 }
@@ -265,8 +265,8 @@ function WhatIsMLSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="SAMPLES" value="6" color={C} sub="materials" />
-            <ResultBox label="FEATURES" value="2" color={C} sub="per sample" />
+            <ResultBox label="Samples" value="6" color={C} sub="materials" />
+            <ResultBox label="Features" value="2" color={C} sub="per sample" />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -425,7 +425,7 @@ function LinearRegressionSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="SSE" value={sse.toFixed(2)} color={C} />
+            <ResultBox label="Sse" value={sse.toFixed(2)} color={C} />
             <ResultBox label="RMSE" value={rmse.toFixed(3)} color={C} />
           </div>
 
@@ -585,8 +585,8 @@ function OverfittingSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="TRAIN RMSE" value={trainRMSE.toFixed(3)} color={C} sub="lower is better" />
-            <ResultBox label="TEST RMSE" value={testRMSE.toFixed(3)} color="#30717f" sub="lower is better" />
+            <ResultBox label="Train RMSE" value={trainRMSE.toFixed(3)} color={C} sub="lower is better" />
+            <ResultBox label="Test RMSE" value={testRMSE.toFixed(3)} color="#30717f" sub="lower is better" />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -718,7 +718,7 @@ function CrossValidationSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="MEAN MAE" value={meanMAE.toFixed(3)} color={C} />
+            <ResultBox label="Mean MAE" value={meanMAE.toFixed(3)} color={C} />
             <ResultBox label="± STD" value={stdMAE.toFixed(4)} color={M.accent} />
           </div>
 
@@ -872,8 +872,8 @@ function DecisionTreeSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="WEIGHTED MSE" value={mseAfter.toFixed(4)} color={C} />
-            <ResultBox label="MSE REDUCTION" value={mseReduction.toFixed(4)} color={M.accent} />
+            <ResultBox label="Weighted MSE" value={mseAfter.toFixed(4)} color={C} />
+            <ResultBox label="MSE Reduction" value={mseReduction.toFixed(4)} color={M.accent} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -994,8 +994,8 @@ function RandomForestSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="RF PREDICTION" value={rfPred.toFixed(3) + " eV"} color={C} sub="InP bandgap" />
-            <ResultBox label="ERROR" value={error.toFixed(3) + " eV"} color={M.accent} sub={`actual = ${actual} eV`} />
+            <ResultBox label="RF Prediction" value={rfPred.toFixed(3) + " eV"} color={C} sub="InP bandgap" />
+            <ResultBox label="Error" value={error.toFixed(3) + " eV"} color={M.accent} sub={`actual = ${actual} eV`} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -1143,8 +1143,8 @@ function SVMSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="TOTAL LOSS" value={totalLoss.toFixed(3)} color={C} />
-            <ResultBox label="SUPPORT VECTORS" value={`${nSV} / 6`} color={M.accent} sub="outside ε-tube" />
+            <ResultBox label="Total loss" value={totalLoss.toFixed(3)} color={C} />
+            <ResultBox label="Support vectors" value={`${nSV} / 6`} color={M.accent} sub="outside ε-tube" />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -1306,8 +1306,8 @@ function PCASection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="COMPONENTS KEPT" value={nComp.toString()} color={C} sub={`of 3 original`} />
-            <ResultBox label="VARIANCE KEPT" value={`${(cumulative[nComp - 1] * 100).toFixed(1)}%`} color={M.accent} />
+            <ResultBox label="Components kept" value={nComp.toString()} color={C} sub={`of 3 original`} />
+            <ResultBox label="Variance kept" value={`${(cumulative[nComp - 1] * 100).toFixed(1)}%`} color={M.accent} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -1443,7 +1443,7 @@ function PerceptronSection() {
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
             <ResultBox label="WEIGHTED SUM (z)" value={z.toFixed(3)} color={C} />
-            <ResultBox label="OUTPUT" value={output.toFixed(4)} color={output > 0.5 ? "#3c8e9f" : "#30717f"} />
+            <ResultBox label="Output" value={output.toFixed(4)} color={output > 0.5 ? "#3c8e9f" : "#30717f"} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -1575,7 +1575,7 @@ function DNNSection() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
             <ResultBox label="h₁" value={h1.toFixed(3)} color={C} />
             <ResultBox label="h₂" value={h2.toFixed(3)} color={C} />
-            <ResultBox label="OUTPUT" value={output.toFixed(3)} color={output > 0.5 ? "#3c8e9f" : "#30717f"} />
+            <ResultBox label="Output" value={output.toFixed(3)} color={output > 0.5 ? "#3c8e9f" : "#30717f"} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -1716,8 +1716,8 @@ function BackpropSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="LOSS" value={cur.loss.toFixed(5)} color="#30717f" sub={`step ${step}`} />
-            <ResultBox label="PREDICTION" value={cur.yhat.toFixed(4)} color={C} sub={`target: ${yTrue}`} />
+            <ResultBox label="Loss" value={cur.loss.toFixed(5)} color="#30717f" sub={`step ${step}`} />
+            <ResultBox label="Prediction" value={cur.yhat.toFixed(4)} color={C} sub={`target: ${yTrue}`} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -1823,8 +1823,8 @@ function CNNSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="CONVOLUTION" value="Local" color={C} sub="spatial patterns" />
-            <ResultBox label="PARAMS" value="9" color={C} sub="per 3×3 kernel" />
+            <ResultBox label="Convolution" value="Local" color={C} sub="spatial patterns" />
+            <ResultBox label="Params" value="9" color={C} sub="per 3×3 kernel" />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -1935,8 +1935,8 @@ function TransformerSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="ATTENTION" value="Global" color={C} sub="any-to-any" />
-            <ResultBox label="COMPLEXITY" value="O(n²)" color={C} sub="in sequence length" />
+            <ResultBox label="Attention" value="Global" color={C} sub="any-to-any" />
+            <ResultBox label="Complexity" value="O(n²)" color={C} sub="in sequence length" />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -2149,7 +2149,7 @@ function FeatureEngineeringSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="MEAN EN" value={meanEN.toFixed(2)} color={C} sub={c.name} />
+            <ResultBox label="Mean EN" value={meanEN.toFixed(2)} color={C} sub={c.name} />
             <ResultBox label="ΔEN (ionicity)" value={diffEN.toFixed(2)} color={M.accent} sub="bond character" />
           </div>
 
@@ -2430,7 +2430,7 @@ function AutoencoderSection() {
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
             <ResultBox label="DECODED Eg" value={decodedBG.toFixed(2) + " eV"} color={C} />
-            <ResultBox label="NEAREST" value={nearest.name} color={M.accent} sub={`d = ${nearestIdx.d.toFixed(2)}`} />
+            <ResultBox label="Nearest" value={nearest.name} color={M.accent} sub={`d = ${nearestIdx.d.toFixed(2)}`} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -2517,9 +2517,9 @@ function AutoencoderSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="RECON LOSS" value={reconLoss.toFixed(4)} color={C} sub="fidelity" />
-            <ResultBox label="KL LOSS" value={klTotal.toFixed(4)} color={M.accent} sub="smoothness" />
-            <ResultBox label="TOTAL ELBO" value={elboLoss.toFixed(4)} color="#30717f" sub="minimize" />
+            <ResultBox label="Recon loss" value={reconLoss.toFixed(4)} color={C} sub="fidelity" />
+            <ResultBox label="KL Loss" value={klTotal.toFixed(4)} color={M.accent} sub="smoothness" />
+            <ResultBox label="Total ELBO" value={elboLoss.toFixed(4)} color="#30717f" sub="minimize" />
           </div>
 
           <CommonMistakes mistakes={[
@@ -2646,8 +2646,8 @@ function DiffusionModelSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="FORWARD" value="Add noise" color={C} sub="structure → noise" />
-            <ResultBox label="REVERSE" value="Remove noise" color={M.accent} sub="noise → structure" />
+            <ResultBox label="Forward" value="Add noise" color={C} sub="structure → noise" />
+            <ResultBox label="Reverse" value="Remove noise" color={M.accent} sub="noise → structure" />
           </div>
         </div>
       </div>
@@ -2716,7 +2716,7 @@ function DiffusionModelSection() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
             <ResultBox label="VAE" value="Smooth" color={C} sub="latent space" />
             <ResultBox label="GAN" value="Sharp" color={M.accent} sub="output quality" />
-            <ResultBox label="DIFFUSION" value="Diverse" color="#30717f" sub="sample variety" />
+            <ResultBox label="Diffusion" value="Diverse" color="#30717f" sub="sample variety" />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -2908,8 +2908,8 @@ function ActiveLearningSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="EXPERIMENTS" value={known.length.toString()} color={C} sub="of ~100 possible" />
-            <ResultBox label="NEXT TEST" value={`${bestCandidate.x}% Cu`} color="#30717f" sub="highest uncertainty" />
+            <ResultBox label="Experiments" value={known.length.toString()} color={C} sub="of ~100 possible" />
+            <ResultBox label="Next test" value={`${bestCandidate.x}% Cu`} color="#30717f" sub="highest uncertainty" />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -3024,8 +3024,8 @@ function DataPipelineSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="CURRENT STAGE" value={cur.name} color={C} />
-            <ResultBox label="DATA SIZE" value={typeof cur.count === "string" ? cur.count : cur.count.toString()} color={M.accent} />
+            <ResultBox label="Current stage" value={cur.name} color={C} />
+            <ResultBox label="Data size" value={typeof cur.count === "string" ? cur.count : cur.count.toString()} color={M.accent} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -3157,8 +3157,8 @@ function HyperparamSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="CURRENT ERROR" value={currentError.toFixed(3)} color={C} />
-            <ResultBox label="BEST ERROR" value={minError.toFixed(3)} color={M.accent} sub={`lr=${lrValues[bestPos.i]}, h=${hsValues[bestPos.j]}`} />
+            <ResultBox label="Current error" value={currentError.toFixed(3)} color={C} />
+            <ResultBox label="Best error" value={minError.toFixed(3)} color={M.accent} sub={`lr=${lrValues[bestPos.i]}, h=${hsValues[bestPos.j]}`} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -3303,8 +3303,8 @@ function InterpretabilitySection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="PREDICTION" value={prediction.toFixed(2) + " eV"} color={C} sub={m.name} />
-            <ResultBox label="TOP FEATURE" value={m.features.sort((a, b) => Math.abs(b.shap) - Math.abs(a.shap))[0].name}
+            <ResultBox label="Prediction" value={prediction.toFixed(2) + " eV"} color={C} sub={m.name} />
+            <ResultBox label="Top feature" value={m.features.sort((a, b) => Math.abs(b.shap) - Math.abs(a.shap))[0].name}
               color={M.accent} sub={`SHAP = ${m.features[0].shap.toFixed(2)}`} />
           </div>
 

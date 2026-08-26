@@ -285,7 +285,7 @@ function XRDSection() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
           <ResultBox label="BRAGG ANGLE θ" value={valid ? `${thetaDeg.toFixed(2)}°` : "---"} color={C.struct} sub="angle of incidence" />
           <ResultBox label="2θ POSITION" value={valid ? `${twoTheta.toFixed(2)}°` : "---"} color={C.accent} sub="detector angle" />
-          <ResultBox label="PLANE SPACING" value={`${d.toFixed(3)} Å`} color={C.struct} sub="crystal lattice" />
+          <ResultBox label="Plane spacing" value={`${d.toFixed(3)} Å`} color={C.struct} sub="crystal lattice" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -425,7 +425,7 @@ function XRDSection() {
         <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="Peak position" value="2θ = 28.44°" />
           <InfoRow label="Peak intensity" value="100% (strongest in pattern)" />
-          <InfoRow label="FWHM" value="0.12° (sharp → large crystallites)" />
+          <InfoRow label="Fwhm" value="0.12° (sharp → large crystallites)" />
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
@@ -787,9 +787,9 @@ function EBSDSection() {
         <SliderRow label="Misorientation threshold" value={misor} min={2} max={60} step={1} onChange={setMisor} color={C.struct} unit="°" format={v => v.toString()} />
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 8 }}>
-          <ResultBox label="GRAINS" value={grains.length} color={C.struct} sub="mapped" />
+          <ResultBox label="Grains" value={grains.length} color={C.struct} sub="mapped" />
           <ResultBox label="HIGH-ANGLE GBs" value={gbCount} color={C.accent} sub={`> ${misor}°`} />
-          <ResultBox label="ANGULAR RES." value="~0.5°" color={C.struct} sub="typical" />
+          <ResultBox label="Angular res." value="~0.5°" color={C.struct} sub="typical" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -1186,8 +1186,8 @@ function TEMDiffractionSection() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
           <ResultBox label="λ ELECTRON" value={`${(lam * 1000).toFixed(3)} pm`} color={C.struct} sub={`at ${voltage} kV`} />
-          <ResultBox label="SPOT DISTANCE R" value={`${R.toFixed(1)} mm`} color={C.accent} sub={`d = ${d} Å`} />
-          <ResultBox label="CAMERA LENGTH" value={`${camL} mm`} color={C.struct} sub="adjustable" />
+          <ResultBox label="Spot distance R" value={`${R.toFixed(1)} mm`} color={C.accent} sub={`d = ${d} Å`} />
+          <ResultBox label="Camera length" value={`${camL} mm`} color={C.struct} sub="adjustable" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -1676,9 +1676,9 @@ function XPSSection() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="KINETIC ENERGY" value={valid ? `${eKin.toFixed(1)} eV` : "---"} color={C.surface} sub="measured" />
-          <ResultBox label="BINDING ENERGY" value={`${eBind.toFixed(1)} eV`} color={C.accent} sub="element + state ID" />
-          <ResultBox label="SENSITIVITY" value="~0.1 at%" color={C.surface} sub="except H, He" />
+          <ResultBox label="Kinetic energy" value={valid ? `${eKin.toFixed(1)} eV` : "---"} color={C.surface} sub="measured" />
+          <ResultBox label="Binding energy" value={`${eBind.toFixed(1)} eV`} color={C.accent} sub="element + state ID" />
+          <ResultBox label="Sensitivity" value="~0.1 at%" color={C.surface} sub="except H, He" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -2214,9 +2214,9 @@ function AESSection() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="AUGER ENERGY" value={`${eAuger} eV`} color={C.surface} sub="element fingerprint" />
-          <ResultBox label="DEPTH" value="1-3 nm" color={C.accent} sub="surface sensitive" />
-          <ResultBox label="SENSITIVITY" value="~0.1 at%" color={C.surface} sub="except H, He" />
+          <ResultBox label="Auger energy" value={`${eAuger} eV`} color={C.surface} sub="element fingerprint" />
+          <ResultBox label="Depth" value="1-3 nm" color={C.accent} sub="surface sensitive" />
+          <ResultBox label="Sensitivity" value="~0.1 at%" color={C.surface} sub="except H, He" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -2568,8 +2568,8 @@ function SIMSSection() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
           <ResultBox label="DEPTH (10 min)" value={`${depth.toFixed(0)} nm`} color={C.surface} sub="sputtered" />
-          <ResultBox label="MASS RES." value={`${massRes.toFixed(0)}`} color={C.accent} sub="M/ΔM (TOF)" />
-          <ResultBox label="SENSITIVITY" value="ppb" color={C.surface} sub="best case" />
+          <ResultBox label="Mass res." value={`${massRes.toFixed(0)}`} color={C.accent} sub="M/ΔM (TOF)" />
+          <ResultBox label="Sensitivity" value="ppb" color={C.surface} sub="best case" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -2974,8 +2974,8 @@ function EDSSection() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
           <ResultBox label="Kα ENERGY" value={`${eKalpha.toFixed(2)} keV`} color={C.surface} sub={`Z = ${zElement}`} />
-          <ResultBox label="OVERVOLTAGE" value={`${overvoltage.toFixed(1)}x`} color={overvoltage >= 2 ? C.spec : C.adv} sub={overvoltage >= 2 ? "sufficient" : "too low!"} />
-          <ResultBox label="DETECTION" value="~0.1 wt%" color={C.surface} sub="typical" />
+          <ResultBox label="Overvoltage" value={`${overvoltage.toFixed(1)}x`} color={overvoltage >= 2 ? C.spec : C.adv} sub={overvoltage >= 2 ? "sufficient" : "too low!"} />
+          <ResultBox label="Detection" value="~0.1 wt%" color={C.surface} sub="typical" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -3368,8 +3368,8 @@ function XANESSection() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="BOND DISTANCE" value={`${R.toFixed(2)} Å`} color={C.spec} sub="from EXAFS" />
-          <ResultBox label="COORDINATION" value={N.toString()} color={C.accent} sub="nearest neighbors" />
+          <ResultBox label="Bond distance" value={`${R.toFixed(2)} Å`} color={C.spec} sub="from EXAFS" />
+          <ResultBox label="Coordination" value={N.toString()} color={C.accent} sub="nearest neighbors" />
           <ResultBox label="σ² DISORDER" value={`${(sigma2 * 1000).toFixed(1)} ×10⁻³ Å²`} color={C.spec} sub="thermal + static" />
         </div>
 
@@ -3919,9 +3919,9 @@ function RamanSection() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="RAMAN SHIFT" value={`${ramanShift} cm⁻¹`} color={C.spec} sub="vibration frequency" />
+          <ResultBox label="Raman shift" value={`${ramanShift} cm⁻¹`} color={C.spec} sub="vibration frequency" />
           <ResultBox label="STOKES λ" value={`${stokesWL.toFixed(1)} nm`} color={C.accent} sub="scattered light" />
-          <ResultBox label="AS/S RATIO" value={ratio.toFixed(4)} color={C.spec} sub={`T = ${temp} K`} />
+          <ResultBox label="As/S ratio" value={ratio.toFixed(4)} color={C.spec} sub={`T = ${temp} K`} />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -4443,8 +4443,8 @@ function PLSection() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
           <ResultBox label="EMISSION λ" value={canExcite ? `${emWL.toFixed(0)} nm` : "---"} color={C.spec} sub="band-edge" />
-          <ResultBox label="DEFECT EMISSION" value={`${defectWL.toFixed(0)} nm`} color={C.adv} sub={`${defectLvl} eV below CB`} />
-          <ResultBox label="PL INTENSITY" value={`${(parseFloat(plIntensity) * 100).toFixed(0)}%`} color={C.accent} sub={`T = ${temperature} K`} />
+          <ResultBox label="Defect emission" value={`${defectWL.toFixed(0)} nm`} color={C.adv} sub={`${defectLvl} eV below CB`} />
+          <ResultBox label="PL Intensity" value={`${(parseFloat(plIntensity) * 100).toFixed(0)}%`} color={C.accent} sub={`T = ${temperature} K`} />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -4613,7 +4613,7 @@ function PLSection() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="Free exciton (FX) at 1.514 eV" value="Dominant -- excellent sign" />
-          <InfoRow label="FX FWHM" value="3.2 meV (< 5 meV = high quality)" />
+          <InfoRow label="FX Fwhm" value="3.2 meV (< 5 meV = high quality)" />
           <InfoRow label="DAP at 1.493 eV" value="Weak (FX/DAP intensity ratio > 10)" />
           <InfoRow label="Deep-level bands" value="None (no EL2, no dislocation bands)" />
           <InfoRow label="Overall quality grade" value="Excellent -- suitable for HEMT" />
@@ -4761,7 +4761,7 @@ function PLSection() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="PL peak" value="545 nm (2.275 eV)" />
-          <InfoRow label="FWHM" value="28 nm" />
+          <InfoRow label="Fwhm" value="28 nm" />
           <InfoRow label="Bulk CdSe bandgap (300 K)" value="1.74 eV" />
         </div>
 
@@ -4932,9 +4932,9 @@ function UVVisSection() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="ABSORBANCE" value={absorbance.toFixed(3)} color={C.spec} sub="A = εcl" />
-          <ResultBox label="TRANSMITTANCE" value={`${transmittance.toFixed(1)}%`} color={C.accent} sub="I/I₀" />
-          <ResultBox label="BANDGAP" value={`${bg} eV`} color={C.spec} sub={isDirect ? "direct" : "indirect"} />
+          <ResultBox label="Absorbance" value={absorbance.toFixed(3)} color={C.spec} sub="A = εcl" />
+          <ResultBox label="Transmittance" value={`${transmittance.toFixed(1)}%`} color={C.accent} sub="I/I₀" />
+          <ResultBox label="Bandgap" value={`${bg} eV`} color={C.spec} sub={isDirect ? "direct" : "indirect"} />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -5265,7 +5265,7 @@ function UVVisSection() {
         <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="LSPR peak" value="520 nm" />
           <InfoRow label="Absorbance at peak" value="1.2" />
-          <InfoRow label="FWHM" value="52 nm" />
+          <InfoRow label="Fwhm" value="52 nm" />
           <InfoRow label="Solution color" value="Ruby-red" />
         </div>
 
@@ -5431,9 +5431,9 @@ function SEMSection() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="RESOLUTION" value={`${resolution.toFixed(1)} nm`} color={C.micro} sub="SE imaging" />
-          <ResultBox label="DEPTH" value={`${(interactionDepth * 1000).toFixed(0)} nm`} color={C.accent} sub="interaction volume" />
-          <ResultBox label="MAGNIFICATION" value="10x-1Mx" color={C.micro} sub="typical range" />
+          <ResultBox label="Resolution" value={`${resolution.toFixed(1)} nm`} color={C.micro} sub="SE imaging" />
+          <ResultBox label="Depth" value={`${(interactionDepth * 1000).toFixed(0)} nm`} color={C.accent} sub="interaction volume" />
+          <ResultBox label="Magnification" value="10x-1Mx" color={C.micro} sub="typical range" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -5896,8 +5896,8 @@ function TEMImagingSection() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
           <ResultBox label="λ ELECTRON" value={`${lambdaPm.toFixed(2)} pm`} color={C.micro} sub={`at ${voltage} kV`} />
-          <ResultBox label="RESOLUTION" value={`~${resolution.toFixed(1)} Å`} color={C.accent} sub="point resolution" />
-          <ResultBox label="MAGNIFICATION" value="50x-1.5Mx" color={C.micro} sub="typical" />
+          <ResultBox label="Resolution" value={`~${resolution.toFixed(1)} Å`} color={C.accent} sub="point resolution" />
+          <ResultBox label="Magnification" value="50x-1.5Mx" color={C.micro} sub="typical" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -6292,9 +6292,9 @@ function AFMSection() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="NET FORCE" value={`${force.toFixed(3)} nN`} color={C.micro} sub="tip-surface" />
-          <ResultBox label="DEFLECTION" value={`${Math.abs(deflection).toFixed(3)} nm`} color={C.accent} sub="cantilever" />
-          <ResultBox label="RESOLUTION" value="~0.1 nm (Z)" color={C.micro} sub="vertical" />
+          <ResultBox label="Net force" value={`${force.toFixed(3)} nN`} color={C.micro} sub="tip-surface" />
+          <ResultBox label="Deflection" value={`${Math.abs(deflection).toFixed(3)} nm`} color={C.accent} sub="cantilever" />
+          <ResultBox label="Resolution" value="~0.1 nm (Z)" color={C.micro} sub="vertical" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -6833,9 +6833,9 @@ function STMSection() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="TUNNEL CURRENT" value={currentNorm.toExponential(2)} color={C.micro} sub="arb. units" />
+          <ResultBox label="Tunnel current" value={currentNorm.toExponential(2)} color={C.micro} sub="arb. units" />
           <ResultBox label="DECAY CONST κ" value={`${kappaInvAng.toFixed(2)} Å⁻¹`} color={C.accent} sub="inv. decay length" />
-          <ResultBox label="RESOLUTION" value="~0.1 nm" color={C.micro} sub="atomic" />
+          <ResultBox label="Resolution" value="~0.1 nm" color={C.micro} sub="atomic" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -7303,9 +7303,9 @@ function SynchrotronSection() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="CRITICAL ENERGY" value={`${criticalE.toFixed(1)} keV`} color={C.adv} sub={`at ${electronE} GeV`} />
-          <ResultBox label="BRILLIANCE" value={`~10²⁰`} color={C.accent} sub="undulator peak" />
-          <ResultBox label="TUNABILITY" value="Continuous" color={C.adv} sub="IR → hard X-ray" />
+          <ResultBox label="Critical energy" value={`${criticalE.toFixed(1)} keV`} color={C.adv} sub={`at ${electronE} GeV`} />
+          <ResultBox label="Brilliance" value={`~10²⁰`} color={C.accent} sub="undulator peak" />
+          <ResultBox label="Tunability" value="Continuous" color={C.adv} sub="IR → hard X-ray" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -7677,9 +7677,9 @@ function InSituTEMSection() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
-          <ResultBox label="TEMPERATURE" value={`${temperature} K`} color={C.adv} sub="MEMS heater" />
-          <ResultBox label="PHASE" value={phase} color={phase === "transformed" ? C.adv : C.struct} sub="current state" />
-          <ResultBox label="TIME RES." value="~ms" color={C.adv} sub="direct electron det." />
+          <ResultBox label="Temperature" value={`${temperature} K`} color={C.adv} sub="MEMS heater" />
+          <ResultBox label="Phase" value={phase} color={phase === "transformed" ? C.adv : C.struct} sub="current state" />
+          <ResultBox label="Time res." value="~ms" color={C.adv} sub="direct electron det." />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
@@ -8113,8 +8113,8 @@ function APTSection() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
           <ResultBox label="TOF (Fe)" value={`${tof.toFixed(1)} ns`} color={C.adv} sub="time of flight" />
-          <ResultBox label="DETECTION" value={`${(detEff * 100).toFixed(0)}%`} color={C.accent} sub="of evaporated ions" />
-          <ResultBox label="VOLUME" value="~100×100×300 nm" color={C.adv} sub="typical tip" />
+          <ResultBox label="Detection" value={`${(detEff * 100).toFixed(0)}%`} color={C.accent} sub="of evaporated ions" />
+          <ResultBox label="Volume" value="~100×100×300 nm" color={C.adv} sub="typical tip" />
         </div>
 
         <div style={{ marginTop: 10, fontSize: 11, color: T.muted, lineHeight: 1.6 }}>

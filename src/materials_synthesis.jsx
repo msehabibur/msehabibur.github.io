@@ -822,7 +822,7 @@ function SolGelSection() {
             </div>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 4 — Final Recipe:</strong></div>
             <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
-              <InfoRow label="TEOS" value="5.58 mL" />
+              <InfoRow label="Teos" value="5.58 mL" />
               <InfoRow label="DI water + HCl" value="1.80 mL (pH ≈ 2)" />
               <InfoRow label="Ethanol (balance)" value="42.62 mL" />
               <InfoRow label="Total" value="50.00 mL" />

@@ -5148,7 +5148,7 @@ function MolecularOrbitalSection() {
  <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
  <InfoRow label="MO filling" value="Same sequence as N₂" />
  <InfoRow label="Bond order" value="(10 − 4)/2 = 3 (triple bond)" />
- <InfoRow label="HOMO" value="σ₃ (concentrated on C)" />
+ <InfoRow label="Homo" value="σ₃ (concentrated on C)" />
  <InfoRow label="Bond length" value="1.128 Å (vs N₂: 1.098 Å)" />
  </div>
  <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 2 -- Dipole analysis:</strong></div>
