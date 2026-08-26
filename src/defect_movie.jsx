@@ -220,11 +220,11 @@ export default function DefectMovieModule() {
               <g opacity={infoOp}>
                 <text x={W / 2} y={305} textAnchor="middle" fill={P.muted} fontSize="10"
                   fontFamily="'Inter',sans-serif">
-                  Developed by Habibur Rahman {"\u00B7"} rahma103@purdue.edu
+                  Developed by Habibur Rahman {"\u00B7"} mhrahman@lbl.gov
                 </text>
                 <text x={W / 2} y={325} textAnchor="middle" fill={P.dim} fontSize="9"
                   fontFamily="'Inter',sans-serif">
-                  School of Materials Engineering, Purdue University
+                  Lawrence Berkeley National Laboratory
                 </text>
               </g>
             );
@@ -1940,7 +1940,7 @@ export default function DefectMovieModule() {
           position: "absolute", top: 10, right: 14, zIndex: 2,
           fontSize: 11, color: "#ffffff", fontWeight: 500, opacity: 0.85,
         }}>
-          Developed by Habibur Rahman {"\u00B7"} rahma103@purdue.edu
+          Developed by Habibur Rahman {"\u00B7"} mhrahman@lbl.gov
         </div>
 
         {/* SVG Scene */}

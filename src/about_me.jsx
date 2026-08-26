@@ -224,29 +224,80 @@ const BLOG_CHAPTERS = [
 const PUBLICATIONS = [
   // ── 2026 ──
   {
+    authors: "Rahman, Md Habibur, Biswas, M., Mannodi-Kanakkithodi, A.",
+    title: "DeFecT-FF: a machine learning force field framework for high throughput defect modeling in CdTe-based solar cells",
+    journal: "Physical Chemistry Chemical Physics, 28, 10718\u201310730",
+    year: "2026", me: true, citations: 8,
+    link: "https://doi.org/10.1039/D6CP00170J",
+    abstract: "The DeFecT-FF framework predicts energies and ground state configurations of native defects, extrinsic dopants and impurities, and defect complexes across Cd/Zn\u2013Te/Se/S compounds, important for CdTe-based solar cells.",
+  },
+  {
+    authors: "Rahman, Md Habibur, & Mannodi-Kanakkithodi, A.",
+    title: "Data-driven discovery of novel chalcogenide semiconductors for solar absorption",
+    journal: "EES Solar, 2, 984\u20131000",
+    year: "2026", me: true, citations: 0,
+    link: "https://doi.org/10.1039/D6EL00026F",
+    abstract: "This framework combines high-throughput computations and machine learning to drive the discovery of stable and defect-tolerant chalcogenide semiconductor alloys with attractive optoelectronic properties.",
+  },
+  {
+    authors: "Roy, A., Shen, K., MacBride, A., \u2026 Rahman, Md Habibur, et al. (353 authors)",
+    title: "From Knowledge to Action: Outcomes of the 2025 Large Language Model (LLM) Hackathon for Applications in Materials Science and Chemistry",
+    journal: "arXiv:2605.03205",
+    year: "2026", me: true, citations: 3,
+    link: "https://arxiv.org/abs/2605.03205",
+    abstract: "Large language models are rapidly changing how researchers in materials science and chemistry discover, organize and act on scientific knowledge. This paper analyses a broad set of community-developed LLM applications to identify emerging patterns across the research lifecycle, organised into knowledge infrastructure and agentic action.",
+  },
+  {
+    authors: "Lee, J., Neralla, H., Rhys Campbell, C., \u2026 Rahman, Md Habibur, et al. (27 authors)",
+    title: "Lessons learned from the 2025 agentic AI for science hackathon",
+    journal: "Machine Learning: Science and Technology, 7, 040501",
+    year: "2026", me: true, citations: 1,
+    link: "https://doi.org/10.1088/2632-2153/ae7f6a",
+    abstract: "The rapid emergence of agentic AI presents new opportunities and challenges for accelerating scientific discovery through tool-augmented reasoning, autonomous workflows and reproducible results. This paper reports what the community hackathon revealed about where such systems help and where they still fail.",
+  },
+  {
+    authors: "Rahman, Md Habibur, Desai, R., Mannodi-Kanakkithodi, A.",
+    title: "Material Informatics Studio: An Integrated nanoHUB Platform for Computational Material Design",
+    journal: "nanoHUB tool",
+    year: "2026", me: true, citations: 0,
+    link: "https://nanohub.org/resources/mataistudio",
+  },
+  {
+    authors: "Rahman, Md Habibur, & Mannodi-Kanakkithodi, A.",
+    title: "DefectDB: An Open Source Infrastructure for Defect Thermodynamics in II\u2013VI Semiconductors",
+    journal: "nanoHUB tool",
+    year: "2026", me: true, citations: 0,
+    link: "https://nanohub.org/resources/defectdatabase",
+  },
+  {
+    authors: "Rahman, Md Habibur, & Mannodi-Kanakkithodi, A.",
+    title: "ChalcoDB: An Open-Source Informatics Platform for Data-Driven Design of I\u2013II\u2013IV\u2013VI Chalcogenides",
+    journal: "nanoHUB tool",
+    year: "2026", me: true, citations: 0,
+    link: "https://nanohub.org/resources/chalcodb",
+  },
+  {
     authors: "Tenorio, M., Rahman, Md Habibur, Mannodi-Kanakkithodi, A., Chapman, J.",
     title: "Out-of-distribution machine learning for materials discovery: challenges and opportunities",
     journal: "Chemical Physics Reviews, 7 (1), 011317",
-    year: "2026", me: true, citations: 0,
+    year: "2026", me: true, citations: 6,
     link: "https://doi.org/10.1063/5.0228239",
     abstract: "This review examines the challenge of out-of-distribution (OOD) generalization in machine learning models for materials science. We survey methods for detecting and handling distribution shifts, discuss failure modes of ML models when extrapolating beyond training data, and highlight opportunities for robust materials discovery using uncertainty quantification, domain adaptation, and active learning strategies.",
     highlights: ["Reviews the challenge of out-of-distribution generalization in ML models for materials science", "Surveys methods for detecting and handling distribution shifts in materials property prediction", "Discusses failure modes of ML models when extrapolating beyond training data distributions", "Highlights opportunities using uncertainty quantification, domain adaptation, and active learning for robust materials discovery"],
   },
   // ── 2025 ──
   {
-    authors: "Rahman, Md Habibur, & Mannodi-Kanakkithodi, A.",
-    title: "DeFecT-FF: Accelerated Modeling of Defects in Cd-Zn-Te-Se-S Compounds Combining High-Throughput DFT and Machine Learning Force Fields",
-    journal: "arXiv preprint arXiv:2510.23514",
-    year: "2025", me: true, citations: 0,
-    abstract: "We present DeFecT-FF, a machine learning force field trained on high-throughput DFT data for modeling point defects in mixed II-VI semiconductor compounds (Cd-Zn-Te-Se-S). By combining systematic DFT calculations across multiple compositions with an equivariant graph neural network architecture, we achieve DFT-level accuracy at a fraction of the computational cost, enabling rapid screening of defect formation energies and migration barriers across the full compositional space.",
-    highlights: ["Presents DeFecT-FF, an ML force field for modeling point defects in mixed II-VI semiconductors (Cd-Zn-Te-Se-S)", "Combines systematic high-throughput DFT calculations across multiple compositions with equivariant graph neural network architecture", "Achieves DFT-level accuracy at a fraction of the computational cost for defect property predictions", "Enables rapid screening of defect formation energies and migration barriers across the full compositional space"],
-    link: "https://arxiv.org/abs/2510.23514",
+    authors: "Rahman, Md Habibur, Agrawal, I., Mannodi-Kanakkithodi, A.",
+    title: "Using Machine Learning to Explore Defect Configurations in Cd/Zn-Se/Te Compounds",
+    journal: "2025 IEEE 53rd Photovoltaic Specialists Conference (PVSC), 0717\u20130719",
+    year: "2025", me: true, citations: 3,
+    link: "https://doi.org/10.1109/PVSC59419.2025.11133092",
   },
   {
     authors: "Rahman, Md Habibur, Rojsatien, S., Krasikov, D., Chan, M.K.Y., Bertoni, M., Mannodi-Kanakkithodi, A.",
     title: "First principles investigation of dopants and defect complexes in CdSe\u2093Te\u2081\u208B\u2093",
     journal: "Solar Energy Materials and Solar Cells, 293, 113857",
-    year: "2025", me: true, citations: 3,
+    year: "2025", me: true, citations: 11,
     abstract: "We perform a comprehensive first-principles study of extrinsic dopants and defect complexes in CdSe\u2093Te\u2081\u208B\u2093 alloys, key absorber materials for high-efficiency thin-film solar cells. Using hybrid DFT calculations, we map out the formation energies, charge transition levels, and binding energies of dopant-vacancy complexes across compositions, identifying optimal doping strategies for carrier concentration control and defect passivation.",
     highlights: ["Comprehensive first-principles study of extrinsic dopants and defect complexes in CdSe\u2093Te\u2081\u208B\u2093 alloys for thin-film solar cells", "Uses hybrid DFT to compute formation energies, charge transition levels, and binding energies of dopant-vacancy complexes", "Maps dopant behavior across compositions to identify optimal doping strategies for carrier concentration control", "Provides guidance on defect passivation approaches in CdSeTe absorber materials"],
     link: "https://doi.org/10.1016/j.solmat.2025.113857",
@@ -255,7 +306,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Mannodi-Kanakkithodi, A.",
     title: "High-throughput screening of ternary and quaternary chalcogenide semiconductors for photovoltaics",
     journal: "Computational Materials Science 249, 113654",
-    year: "2025", me: true, citations: 6,
+    year: "2025", me: true, citations: 8,
     abstract: "We perform high-throughput first-principles calculations to screen ternary and quaternary chalcogenide semiconductors for photovoltaic applications. By computing band gaps, absorption spectra, and thermodynamic stability across a wide compositional space, we identify promising candidates with optimal optoelectronic properties for thin-film solar cells.",
     highlights: ["High-throughput first-principles screening of ternary and quaternary chalcogenide semiconductors for photovoltaics", "Computes band gaps, absorption spectra, and thermodynamic stability across a wide compositional space", "Identifies promising candidates with optimal optoelectronic properties for thin-film solar cell applications", "Covers a broad compositional space to systematically evaluate chalcogenides for PV suitability"],
     link: "https://doi.org/10.1016/j.commatsci.2024.113654",
@@ -264,7 +315,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Mannodi-Kanakkithodi, A.",
     title: "Defect modeling in semiconductors: the role of first principles simulations and machine learning",
     journal: "Journal of Physics: Materials, 8 (2), 022001",
-    year: "2025", me: true, citations: 16,
+    year: "2025", me: true, citations: 23,
     abstract: "This topical review covers the state-of-the-art in computational defect modeling for semiconductors. We discuss the theoretical foundations of defect thermodynamics, practical aspects of DFT supercell calculations including finite-size corrections, and emerging machine learning approaches that accelerate defect property predictions. The review bridges the gap between traditional first-principles methods and data-driven acceleration strategies.",
     highlights: ["Topical review covering state-of-the-art computational defect modeling for semiconductors", "Discusses theoretical foundations of defect thermodynamics and practical aspects of DFT supercell calculations", "Covers finite-size corrections and emerging ML approaches that accelerate defect property predictions", "Bridges the gap between traditional first-principles methods and data-driven acceleration strategies"],
     link: "https://doi.org/10.1088/2515-7639/adb181",
@@ -274,7 +325,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Biswas, M., Mannodi-Kanakkithodi, A.",
     title: "Understanding Defect-Mediated Ion Migration in Semiconductors using Atomistic Simulations and Machine Learning",
     journal: "ACS Materials Au, 4 (6), 557-573",
-    year: "2024", me: true, citations: 18,
+    year: "2024", me: true, citations: 35,
     abstract: "We investigate defect-mediated ion migration mechanisms in II-VI and halide perovskite semiconductors using a combination of nudged elastic band DFT calculations and machine learning models. By training graph neural networks on computed migration barriers, we enable rapid screening of diffusion pathways and identify compositional trends that govern ionic transport, critical for understanding device degradation and stability.",
     highlights: ["Investigates defect-mediated ion migration in II-VI and halide perovskite semiconductors using NEB DFT and ML", "Trains graph neural networks on computed migration barriers for rapid screening of diffusion pathways", "Identifies compositional trends governing ionic transport, critical for understanding device degradation", "Combines nudged elastic band calculations with ML to enable screening across multiple semiconductor families"],
     link: "https://doi.org/10.1021/acsmaterialsau.4c00095",
@@ -283,7 +334,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Sun, Y., Mannodi-Kanakkithodi, A.",
     title: "High-throughput screening of single atom co-catalysts in ZnIn\u2082S\u2084 for photocatalysis",
     journal: "Materials Advances, 5 (21), 8673-8683",
-    year: "2024", me: true, citations: 7,
+    year: "2024", me: true, citations: 9,
     abstract: "We perform high-throughput DFT screening of 30+ transition metal single-atom co-catalysts embedded in ZnIn\u2082S\u2084, a promising photocatalyst for hydrogen evolution. By computing adsorption energies, charge transfer, and catalytic activity descriptors, we identify optimal co-catalyst species that enhance photocatalytic performance and provide design rules for rational catalyst engineering.",
     highlights: ["High-throughput DFT screening of 30+ transition metal single-atom co-catalysts embedded in ZnIn\u2082S\u2084", "Computes adsorption energies, charge transfer, and catalytic activity descriptors for hydrogen evolution", "Identifies optimal co-catalyst species that enhance photocatalytic performance for H\u2082 production", "Provides design rules for rational catalyst engineering on earth-abundant ZnIn\u2082S\u2084 photocatalysts"],
     link: "https://doi.org/10.1039/D4MA00726C",
@@ -292,7 +343,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Gollapalli, P., Manganaris, P., Yadav, S.K., Pilania, G., DeCost, B., Choudhary, K., Mannodi-Kanakkithodi, A.",
     title: "Accelerating defect predictions in semiconductors using graph neural networks",
     journal: "APL Machine Learning, 2, 016122",
-    year: "2024", me: true, citations: 50,
+    year: "2024", me: true, citations: 53,
     abstract: "We develop a graph neural network framework for predicting point defect properties in semiconductors directly from crystal structure. Trained on a curated dataset of DFT-computed defect formation energies across multiple semiconductor families, the model achieves chemical accuracy while reducing computational cost by orders of magnitude, enabling rapid screening of defect-tolerant materials for optoelectronic applications.",
     highlights: ["Develops a graph neural network framework for predicting point defect properties directly from crystal structure", "Trained on a curated dataset of DFT-computed defect formation energies across multiple semiconductor families", "Achieves chemical accuracy while reducing computational cost by orders of magnitude vs. direct DFT", "Enables rapid screening of defect-tolerant materials for optoelectronic applications"],
     link: "https://doi.org/10.1063/5.0176333",
@@ -302,7 +353,7 @@ const PUBLICATIONS = [
     authors: "Han, C., Han, G., Rahman, Md Habibur, Mannodi-Kanakkithodi, A., Sun, Y.",
     title: "Photocatalytic Ketyl Radical Initiated C\u2013C Coupling on ZnIn\u2082S\u2084",
     journal: "Chemistry\u2014A European Journal, e202203785",
-    year: "2023", me: false, citations: 5,
+    year: "2023", me: false, citations: 11,
     abstract: "We demonstrate a novel photocatalytic strategy for C-C bond formation via ketyl radical intermediates on ZnIn\u2082S\u2084 semiconductor photocatalysts. Combined experimental and DFT studies reveal the mechanism of radical generation and coupling, providing insights into selective organic transformations driven by visible light on earth-abundant catalysts.",
     highlights: ["Demonstrates a novel photocatalytic C-C bond formation strategy via ketyl radical intermediates on ZnIn\u2082S\u2084", "Combined experimental and DFT studies reveal the mechanism of radical generation and coupling", "Provides insights into selective organic transformations driven by visible light on earth-abundant catalysts", "Establishes ZnIn\u2082S\u2084 as an effective semiconductor photocatalyst for ketyl radical-initiated C-C coupling"],
     link: "https://doi.org/10.1002/chem.202203785",
@@ -311,7 +362,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Yang, J., Sun, Y., Mannodi-Kanakkithodi, A.",
     title: "Defect engineering in ZnIn\u2082X\u2084 (X=S, Se, Te) semiconductors for improved photocatalysis",
     journal: "Surfaces and Interfaces, 39, 102960",
-    year: "2023", me: true, citations: 29,
+    year: "2023", me: true, citations: 31,
     abstract: "We systematically investigate native point defects in ZnIn\u2082X\u2084 (X = S, Se, Te) photocatalysts using first-principles calculations. By mapping defect formation energies and charge transition levels across the three chalcogenides, we establish composition-dependent defect engineering strategies to optimize carrier concentrations and photocatalytic activity for water splitting applications.",
     highlights: ["Systematic first-principles investigation of native point defects in ZnIn\u2082X\u2084 (X = S, Se, Te) photocatalysts", "Maps defect formation energies and charge transition levels across the three chalcogenide compositions", "Establishes composition-dependent defect engineering strategies to optimize carrier concentrations", "Targets improved photocatalytic activity for water splitting applications through defect control"],
     link: "https://doi.org/10.1016/j.surfin.2023.102960",
@@ -320,7 +371,7 @@ const PUBLICATIONS = [
     authors: "Singh, A., Yuan, B., Rahman, Md Habibur, et al.",
     title: "Two-Dimensional Halide Pb-Perovskite\u2013Double Perovskite Epitaxial Heterostructures",
     journal: "J. Am. Chem. Soc., 145 (36), 19885-19893",
-    year: "2023", me: false, citations: 45,
+    year: "2023", me: false, citations: 55,
     abstract: "We report the first epitaxial heterostructures between 2D lead halide perovskites and lead-free double perovskites, achieving atomically sharp interfaces. Through a combination of advanced electron microscopy, spectroscopy, and DFT calculations, we characterize the interfacial band alignment and charge transfer properties, opening new possibilities for stable, efficient perovskite optoelectronic devices.",
     highlights: ["Reports the first epitaxial heterostructures between 2D lead halide perovskites and lead-free double perovskites", "Achieves atomically sharp interfaces characterized by advanced electron microscopy and spectroscopy", "DFT calculations characterize the interfacial band alignment and charge transfer properties", "Opens new possibilities for stable, efficient perovskite optoelectronic devices"],
     link: "https://doi.org/10.1021/jacs.3c06127",
@@ -330,7 +381,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Jubair, Md, Rahaman, M.Z., Ahasan, M.S., Ostrikov, K.K., Roknuzzaman, Md",
     title: "RbSnX\u2083 (X=Cl, Br, I): promising lead-free metal halide perovskites for photovoltaics and optoelectronics",
     journal: "RSC Advances, 12 (12), 7497-7505",
-    year: "2022", me: true, citations: 99,
+    year: "2022", me: true, citations: 112,
     abstract: "We investigate RbSnX\u2083 (X = Cl, Br, I) as lead-free alternatives for perovskite photovoltaics using first-principles calculations. Comprehensive analysis of structural, electronic, optical, and mechanical properties reveals favorable band gaps, strong optical absorption, and good mechanical stability, establishing these materials as promising candidates for environmentally sustainable optoelectronic applications.",
     highlights: ["First-principles investigation of RbSnX\u2083 (X = Cl, Br, I) as lead-free alternatives for perovskite photovoltaics", "Comprehensive analysis of structural, electronic, optical, and mechanical properties reveals favorable band gaps", "Strong optical absorption and good mechanical stability established across all three compositions", "Identifies these materials as promising candidates for environmentally sustainable optoelectronic applications"],
     link: "https://doi.org/10.1039/D2RA00414C",
@@ -339,7 +390,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Rahaman, M.Z., Chowdhury, E.H., Motalab, M., Hossain, A.K.M.A., Roknuzzaman, Md",
     title: "Understanding the role of rare-earth metal doping on the electronic structure and optical characteristics of ZnO",
     journal: "Molecular Systems Design & Engineering, 7, 1516-1528",
-    year: "2022", me: true, citations: 34,
+    year: "2022", me: true, citations: 48,
     abstract: "Using density functional theory, we investigate the effects of rare-earth metal doping on the electronic and optical properties of ZnO. All tested RE-doped samples exhibit negative formation energies and mechanical stability. Doping with Ce, Nd, Pm, Sm, Eu, and Gd substantially increases absorption and optical conductivity in the visible range, while electronic band structure analysis reveals reduced effective bandgaps facilitating photoelectron transfer.",
     highlights: ["DFT study of rare-earth metal doping effects on electronic and optical properties of ZnO", "All RE-doped samples exhibit negative formation energies and mechanical stability", "Ce, Nd, Pm, Sm, Eu, and Gd doping substantially increases absorption and optical conductivity in the visible range", "Electronic band structure analysis reveals reduced effective bandgaps facilitating photoelectron transfer"],
     link: "https://doi.org/10.1039/D2ME00093H",
@@ -357,17 +408,25 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Chowdhury, E.H., Hong, S.",
     title: "Atomic-level investigation on the oxidation efficiency and corrosion resistance of lithium enhanced by the addition of two dimensional materials",
     journal: "RSC Advances 12 (9), 5458-5465",
-    year: "2022", me: true, citations: 2,
+    year: "2022", me: true, citations: 4,
     abstract: "We investigate the oxidation and corrosion resistance of lithium metal enhanced by two-dimensional material coatings using reactive molecular dynamics simulations. The addition of 2D materials such as graphene and hBN significantly improves the oxidation resistance of lithium surfaces, providing insights for designing protective coatings for lithium metal anodes in batteries.",
     highlights: ["Investigates oxidation and corrosion resistance of lithium metal enhanced by 2D material coatings", "Uses reactive molecular dynamics simulations to study Li surfaces coated with graphene and hBN", "2D material coatings significantly improve the oxidation resistance of lithium surfaces", "Provides insights for designing protective coatings for lithium metal anodes in batteries"],
     link: "https://doi.org/10.1039/D1RA07659K",
   },
   // ── 2021 ──
   {
+    authors: "Redwan, D.A., Chowdhury, E.H., Rahman, Md Habibur, Prince, H.A.",
+    title: "Numerical investigation on the electronic components' cooling for different coolants by finite element method",
+    journal: "Heat Transfer, 50 (5), 4643\u20134655",
+    year: "2021", me: true, citations: 5,
+    link: "https://doi.org/10.1002/htj.22093",
+    abstract: "A numerical simulation of the cooling performance of an aluminium finned heat sink attached to a silicon chip in a rectangular chamber, cooled by convective heat transfer using nine commercially available gases.",
+  },
+  {
     authors: "Rahman, Md Habibur, Chowdhury, E.H., Hong, S.",
     title: "High temperature oxidation of monolayer MoS\u2082 and its effect on mechanical properties: A ReaxFF molecular dynamics study",
     journal: "Surfaces and Interfaces 26, 101371",
-    year: "2021", me: true, citations: 48,
+    year: "2021", me: true, citations: 58,
     abstract: "We investigate the oxidation kinetics of monolayer MoS\u2082 at elevated temperatures (1400\u20131800 K) using ReaxFF molecular dynamics. Oxidation starts by O\u2082 adsorption on S atoms and forms oxy-sulfide solid solution. Tensile simulations show oxidation notably degrades fracture strength, fracture strain, Young\u2019s modulus, and fracture toughness, with a phase transition from 2H to 1T phase observed in both pristine and oxidized MoS\u2082.",
     highlights: ["ReaxFF MD study of monolayer MoS\u2082 oxidation kinetics at elevated temperatures (1400\u20131800 K)", "Oxidation initiates by O\u2082 adsorption on S atoms, forming oxy-sulfide solid solution", "Tensile simulations show oxidation notably degrades fracture strength, fracture strain, Young\u2019s modulus, and fracture toughness", "Phase transition from 2H to 1T observed in both pristine and oxidized MoS\u2082 under tensile loading"],
     link: "https://www.sciencedirect.com/science/article/pii/S246802302100448X",
@@ -376,7 +435,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Chowdhury, E.H., Redwan, D.A., Hong, S.",
     title: "Computational characterization of thermal and mechanical properties of single and bilayer germanene nanoribbon",
     journal: "Computational Materials Science, 190, 110272",
-    year: "2021", me: true, citations: 36,
+    year: "2021", me: true, citations: 40,
     abstract: "We employ equilibrium molecular dynamics simulations to reveal the mechanical strength, melting temperature, and phonon thermal conductivity of single-layer and bilayer germanene nanoribbon. Bilayer structures substantially reduce thermal conductivity compared to single-layer variants, while tensile strain increases phonon thermal conductivity. The study provides a comprehensive guideline for engineering the thermal conductivity of germanene for flexible nanoelectronics and thermoelectric devices.",
     highlights: ["Equilibrium MD simulations reveal mechanical strength, melting temperature, and thermal conductivity of germanene nanoribbons", "Bilayer structures substantially reduce thermal conductivity compared to single-layer variants", "Tensile strain increases phonon thermal conductivity in germanene nanoribbons", "Provides comprehensive guidelines for engineering thermal conductivity for flexible nanoelectronics and thermoelectrics"],
     link: "https://www.sciencedirect.com/science/article/abs/pii/S0927025620307229",
@@ -385,7 +444,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Chowdhury, E.H., Shahadat, M.R.B., Islam, M.M.",
     title: "Engineered defects to modulate the phonon thermal conductivity of silicene: A nonequilibrium molecular dynamics study",
     journal: "Computational Materials Science, 191, 110338",
-    year: "2021", me: true, citations: 37,
+    year: "2021", me: true, citations: 40,
     abstract: "We employ optimized Tersoff potential to extensively investigate the thermal conductivity of pristine and defective silicene using non-equilibrium molecular dynamics simulations, analyzing the influence of temperature, carbon doping, and monovacancy concentration on phonon thermal conductivity along armchair and zigzag directions. The study offers a comprehensive roadmap for engineering the thermal conductivity of silicene for the semiconductor industry.",
     highlights: ["NEMD with optimized Tersoff potential investigates thermal conductivity of pristine and defective silicene", "Analyzes influence of temperature, carbon doping, and monovacancy concentration on phonon thermal conductivity", "Studies thermal transport along both armchair and zigzag directions in silicene", "Offers a comprehensive roadmap for engineering silicene thermal conductivity for the semiconductor industry"],
     link: "https://doi.org/10.1016/j.commatsci.2021.110338",
@@ -394,7 +453,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Chowdhury, E.H., Redwan, D.A., Mitra, S., Hong, S.",
     title: "Nature of creep deformation in nanocrystalline cupronickel alloy: A molecular dynamics study",
     journal: "Results in Materials 10, 100191",
-    year: "2021", me: true, citations: 23,
+    year: "2021", me: true, citations: 26,
     abstract: "We use molecular dynamics to study the tensile, thermodynamic, and creep resistance of nanocrystalline cupronickel alloy. As copper content increases from 0 to 100%, the steady-state creep rate exhibits approximately a 12% increment, and the Cu\u2080.\u2085Ni\u2080.\u2085 alloy\u2019s creep rate increases dramatically under elevated stress, temperature, and decreasing grain size.",
     highlights: ["MD study of tensile, thermodynamic, and creep resistance of nanocrystalline cupronickel alloy", "Steady-state creep rate exhibits approximately 12% increment as copper content increases from 0 to 100%", "Cu\u2080.\u2085Ni\u2080.\u2085 alloy creep rate increases dramatically under elevated stress, temperature, and decreasing grain size", "Provides fundamental understanding of creep deformation mechanisms in nanocrystalline CuNi systems"],
     link: "https://www.sciencedirect.com/science/article/pii/S2590048X21000248",
@@ -403,7 +462,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Islam, M.S., Islam, M.S., Chowdhury, E.H., Bose, P., Jayan, R., Islam, M.M.",
     title: "Phonon thermal conductivity of the stanene/hBN van der Waals heterostructure",
     journal: "Physical Chemistry Chemical Physics, 23 (18), 11028-11038",
-    year: "2021", me: true, citations: 22,
+    year: "2021", me: true, citations: 29,
     abstract: "We employ classical non-equilibrium molecular dynamics to examine phonon thermal conductivity in hexagonal boron nitride-supported stanene. The bulk thermal conductivities at room temperature are ~15.20, ~550, and ~232 W m\u207B\u00B9 K\u207B\u00B9 for bare stanene, hBN, and stanene/hBN respectively, indicating intermediate thermal properties between constituents with applications in nanoelectronic and thermoelectric devices.",
     highlights: ["NEMD study of phonon thermal conductivity in hBN-supported stanene van der Waals heterostructure", "Room-temperature bulk thermal conductivities: ~15.20 (stanene), ~550 (hBN), ~232 W/mK (stanene/hBN)", "Heterostructure exhibits intermediate thermal properties between its constituent materials", "Relevant for nanoelectronic and thermoelectric device applications"],
     link: "https://doi.org/10.1039/D1CP00343G",
@@ -412,7 +471,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Chowdhury, E.H., Redwan, D.A., Mitra, S., Hong, S.",
     title: "Characterization of the mechanical properties of van der Waals heterostructures of stanene adsorbed on graphene, hexagonal boron-nitride and silicon carbide",
     journal: "Physical Chemistry Chemical Physics, 23 (9), 5244-5253",
-    year: "2021", me: true, citations: 18,
+    year: "2021", me: true, citations: 21,
     abstract: "We employ molecular dynamics simulations to investigate tensile strength in van der Waals heterostructures combining stanene with graphene, hexagonal boron nitride, and silicon carbide under armchair and zigzag loading at varying strain rates. The Sn/SiC heterostructure exhibits the lowest tensile strength while zigzag loading demonstrates superior strain tolerance, providing design insights for electronic, optoelectronic, and energy storage applications.",
     highlights: ["MD simulations of tensile strength in stanene/graphene, stanene/hBN, and stanene/SiC van der Waals heterostructures", "Studies armchair and zigzag loading directions at varying strain rates", "Sn/SiC heterostructure exhibits the lowest tensile strength; zigzag loading shows superior strain tolerance", "Provides design insights for electronic, optoelectronic, and energy storage applications"],
     link: "https://doi.org/10.1039/D0CP06426B",
@@ -421,7 +480,7 @@ const PUBLICATIONS = [
     authors: "Chowdhury, E.H., Rahman, Md Habibur, Fatema, S., Islam, M.M.",
     title: "Investigation of the mechanical properties and fracture mechanisms of graphene/WSe\u2082 vertical heterostructure: A molecular dynamics study",
     journal: "Computational Materials Science 188, 110231",
-    year: "2021", me: false, citations: 46,
+    year: "2021", me: false, citations: 48,
     abstract: "We investigate the mechanical properties and fracture mechanisms of graphene/WSe\u2082 vertical heterostructures using molecular dynamics simulations. The effects of temperature, strain rate, and layer stacking on tensile behavior are systematically analyzed, revealing the role of interlayer interactions in determining the mechanical response of this promising 2D heterostructure.",
     highlights: ["MD investigation of mechanical properties and fracture mechanisms of graphene/WSe\u2082 vertical heterostructures", "Systematically analyzes effects of temperature, strain rate, and layer stacking on tensile behavior", "Reveals the role of interlayer interactions in determining heterostructure mechanical response", "Provides fundamental understanding of fracture mechanisms in this promising 2D heterostructure"],
     link: "https://doi.org/10.1016/j.commatsci.2020.110231",
@@ -430,7 +489,7 @@ const PUBLICATIONS = [
     authors: "Chowdhury, E.H., Rahman, Md Habibur, Hong, S.",
     title: "Tensile strength and fracture mechanics of two-dimensional nanocrystalline silicon carbide",
     journal: "Computational Materials Science 197, 110580",
-    year: "2021", me: false, citations: 20,
+    year: "2021", me: false, citations: 29,
     abstract: "We investigate the tensile strength and fracture mechanics of two-dimensional nanocrystalline silicon carbide using molecular dynamics simulations. The effects of grain size, temperature, and strain rate on mechanical properties are systematically analyzed, providing insights into the deformation and failure mechanisms of this promising wide-bandgap semiconductor material.",
     highlights: ["MD investigation of tensile strength and fracture mechanics of 2D nanocrystalline silicon carbide", "Systematically analyzes effects of grain size, temperature, and strain rate on mechanical properties", "Provides insights into deformation and failure mechanisms of this wide-bandgap semiconductor", "Reveals fundamental fracture behavior relevant to SiC-based nanodevice applications"],
     link: "https://doi.org/10.1016/j.commatsci.2021.110580",
@@ -439,7 +498,7 @@ const PUBLICATIONS = [
     authors: "Mitra, S., Rahman, Md Habibur, Motalab, M., Rakib, T., Bose, P.",
     title: "Tuning the mechanical properties of functionally graded nickel and aluminium alloy at the nanoscale",
     journal: "RSC Advances 11 (49), 30705-30718",
-    year: "2021", me: false, citations: 18,
+    year: "2021", me: false, citations: 22,
     abstract: "We investigate the mechanical properties of functionally graded nickel-aluminium alloy at the nanoscale using molecular dynamics simulations. The effects of composition gradient, temperature, and strain rate on tensile behavior are systematically analyzed, revealing how functional grading can be used to tune mechanical properties for advanced structural applications.",
     highlights: ["MD investigation of mechanical properties of functionally graded nickel-aluminium alloy at the nanoscale", "Analyzes effects of composition gradient, temperature, and strain rate on tensile behavior", "Reveals how functional grading can tune mechanical properties for advanced structural applications", "Provides guidance on optimizing composition gradients for improved mechanical performance"],
     link: "https://doi.org/10.1039/D1RA04571G",
@@ -448,17 +507,54 @@ const PUBLICATIONS = [
     authors: "Chowdhury, E.H., Rahman, Md Habibur, Bose, P., Jayan, R., Islam, M.M.",
     title: "Atomistic investigation on the mechanical properties and failure behavior of zinc-blende cadmium selenide (CdSe) nanowire",
     journal: "Computational Materials Science, 186, 110001",
-    year: "2021", me: false, citations: 29,
+    year: "2021", me: false, citations: 34,
     abstract: "We investigate the mechanical properties and failure mechanism of zinc-blende CdSe nanowire at the atomistic level using molecular dynamics simulations. The effects of temperature (100\u2013600 K), nanowire size, loading along different crystal directions, and vacancy defects on uniaxial tensile behavior are analyzed. Young\u2019s modulus and ultimate strength show inverse relationship with temperature and defects.",
     highlights: ["Atomistic MD study of mechanical properties and failure mechanism of zinc-blende CdSe nanowire", "Analyzes effects of temperature (100\u2013600 K), nanowire size, crystal direction, and vacancy defects on tensile behavior", "Young\u2019s modulus and ultimate strength show inverse relationship with temperature and defect concentration", "Provides fundamental understanding of CdSe nanowire deformation and fracture at the atomic scale"],
     link: "https://www.sciencedirect.com/science/article/abs/pii/S0927025620304924",
   },
   // ── 2020 ──
   {
+    authors: "Rahman, Md Habibur, Mitra, S., Redwan, D.A.",
+    title: "Electronic Band Structure of Group IV 2D Materials: Graphene, Silicene, Germanene, Stanene using Tight Binding Approach",
+    journal: "2020 2nd International Conference on Advanced Information and Communication Technology (ICAICT), 207\u2013212",
+    year: "2020", me: true, citations: 8,
+    link: "https://doi.org/10.1109/ICAICT51780.2020.9333480",
+  },
+  {
+    authors: "Rahman, Md Habibur, Mitra, S., Motalab, M., Rakib, T.",
+    title: "Investigation on the Temperature and Size Dependent Mechanical Properties and Failure Behavior of Zinc Blende (ZB) Gallium Nitride (GaN) Semiconducting Nanowire",
+    journal: "2020 IEEE Region 10 Symposium (TENSYMP), 22\u201325",
+    year: "2020", me: true, citations: 7,
+    link: "https://doi.org/10.1109/TENSYMP50017.2020.9230906",
+  },
+  {
+    authors: "Rahman, Md Habibur, Chowdhury, E.H., Redwan, D.A., Prince, H.A., Amin, M.R.",
+    title: "Numerical Investigation of Convective Heat Transfer on a Dynamic Wall Heat Exchanger With Varying Amplitude and Frequency",
+    journal: "ASME International Mechanical Engineering Congress and Exposition, Volume 11: Heat Transfer and Thermal Engineering",
+    year: "2020", me: true, citations: 3,
+    link: "https://doi.org/10.1115/IMECE2020-23342",
+    abstract: "A study of the thermo-hydraulic performance of a dynamic wall heat exchanger as the amplitude and frequency of the oscillating waveform are varied, with the lower wall under constant heat flux and the upper insulating wall deforming sinusoidally.",
+  },
+  {
+    authors: "Redwan, D.A., Rahman, Md Habibur, Prince, H.A., Chowdhury, E.H., Amin, M.R.",
+    title: "Influence of Cu-Water and CNT-Water Nanofluid on Natural Convection Heat Transfer in a Triangular Solar Collector",
+    journal: "ASME International Mechanical Engineering Congress and Exposition, Volume 11: Heat Transfer and Thermal Engineering",
+    year: "2020", me: true, citations: 1,
+    link: "https://doi.org/10.1115/IMECE2020-23191",
+    abstract: "A numerical study of natural convection heat transfer in a right triangular solar collector filled with CNT-water and Cu-water nanofluids, with the inclined and bottom walls held at different temperatures.",
+  },
+  {
+    authors: "Chowdhury, E.H., Rahman, Md Habibur, Prince, H.A., Redwan, D.A., Rozin, E.H.",
+    title: "Investigation on High Frequency Based Ultrasound Tissue Therapy by Finite Element Method",
+    journal: "2020 2nd International Conference on Advanced Information and Communication Technology (ICAICT), 1\u20136",
+    year: "2020", me: true, citations: 1,
+    link: "https://doi.org/10.1109/ICAICT51780.2020.9333533",
+  },
+  {
     authors: "Rahman, Md Habibur, Mitra, S., Motalab, M., Bose, P.",
     title: "Investigation on the mechanical properties and fracture phenomenon of silicon doped graphene by molecular dynamics simulation",
     journal: "RSC Advances 10 (52), 31318-31332",
-    year: "2020", me: true, citations: 49,
+    year: "2020", me: true, citations: 52,
     abstract: "We investigate the mechanical properties and fracture phenomenon of silicon-doped graphene using molecular dynamics simulations. The effects of silicon doping concentration, temperature, and strain rate on tensile behavior are systematically analyzed, revealing how silicon substitution modifies the mechanical response and fracture mechanisms of graphene.",
     highlights: ["MD investigation of mechanical properties and fracture of silicon-doped graphene", "Systematically analyzes effects of Si doping concentration, temperature, and strain rate on tensile behavior", "Reveals how silicon substitution modifies the mechanical response and fracture mechanisms of graphene", "Provides insights into doping-induced changes in graphene mechanical performance"],
     link: "https://doi.org/10.1039/D0RA06085B",
@@ -467,7 +563,7 @@ const PUBLICATIONS = [
     authors: "Rahman, Md Habibur, Chowdhury, E.H., Islam, M.M.",
     title: "Understanding mechanical properties and failure mechanism of germanium-silicon alloy at nanoscale",
     journal: "Journal of Nanoparticle Research 22, 1-12",
-    year: "2020", me: true, citations: 29,
+    year: "2020", me: true, citations: 33,
     abstract: "We investigate the mechanical properties and failure mechanisms of germanium-silicon alloy at the nanoscale using molecular dynamics simulations. The effects of composition, temperature, and crystal orientation on tensile behavior are systematically analyzed, providing fundamental insights into the deformation and fracture of this important semiconductor alloy.",
     highlights: ["MD investigation of mechanical properties and failure mechanisms of Ge-Si alloy at the nanoscale", "Analyzes effects of composition, temperature, and crystal orientation on tensile behavior", "Provides fundamental insights into deformation and fracture of this important semiconductor alloy", "Covers the full composition range to establish structure-property relationships"],
     link: "https://doi.org/10.1007/s11051-020-05040-0",
@@ -476,7 +572,7 @@ const PUBLICATIONS = [
     authors: "Chowdhury, E.H., Rahman, Md Habibur, Bose, P., Jayan, R., Islam, M.M.",
     title: "Atomic-scale analysis of the physical strength and phonon transport mechanisms of monolayer \u03B2-bismuthene",
     journal: "Physical Chemistry Chemical Physics 22 (48), 28238-28255",
-    year: "2020", me: false, citations: 27,
+    year: "2020", me: false, citations: 30,
     abstract: "We perform atomic-scale analysis of the physical strength and phonon transport mechanisms of monolayer \u03B2-bismuthene using molecular dynamics simulations. The mechanical properties, thermal conductivity, and phonon dispersion are systematically characterized, providing fundamental understanding of this promising topological insulator material for thermoelectric and spintronic applications.",
     highlights: ["Atomic-scale MD analysis of physical strength and phonon transport in monolayer \u03B2-bismuthene", "Systematically characterizes mechanical properties, thermal conductivity, and phonon dispersion", "Provides fundamental understanding of this promising topological insulator material", "Relevant for thermoelectric and spintronic applications"],
     link: "https://doi.org/10.1039/D0CP04785F",
@@ -551,16 +647,17 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             }} />
             <div style={{ fontSize: 28, fontWeight: 500, marginBottom: 4 }}>Md Habibur Rahman</div>
             <div style={{ fontSize: 14, color: T.muted, marginBottom: 12 }}>
-              PhD Candidate, School of Materials Engineering, Purdue University
+              Postdoctoral Researcher, Lawrence Berkeley National Laboratory
             </div>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
+              <LinkBtn href="mailto:mhrahman@lbl.gov">mhrahman@lbl.gov</LinkBtn>
               <LinkBtn href="mailto:rahma103@purdue.edu">rahma103@purdue.edu</LinkBtn>
               <LinkBtn href="mailto:imd.habiburrahman@gmail.com">imd.habiburrahman@gmail.com</LinkBtn>
             </div>
             <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
               <LinkBtn href="https://github.com/msehabibur">GitHub</LinkBtn>
               <LinkBtn href="https://scholar.google.com/citations?user=vkAPzB0AAAAJ&hl=en">Google Scholar</LinkBtn>
-              <LinkBtn href="https://www.linkedin.com/in/habibur-rahman-55a932120/">LinkedIn</LinkBtn>
+              <LinkBtn href="https://www.linkedin.com/in/habibur-rahman-918466411/">LinkedIn</LinkBtn>
               <LinkBtn href="https://nanohub.org/members/274968/contributions">nanoHUB</LinkBtn>
               <LinkBtn href="https://github.com/msehabibur/DeepMSE">Tutorial</LinkBtn>
             </div>
@@ -588,7 +685,12 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               <li>AI/ML for Accelerated Materials Discovery</li>
               <li>Defect Engineering in Semiconductors</li>
               <li>Photovoltaics</li>
+              <li>Agentic System Design for Simulations at Scale</li>
+              <li>High-Throughput DFT Databases</li>
+              <li>Graph Neural Networks (GNN)</li>
               <li>Machine Learning Force Fields</li>
+              <li>Active Learning & Uncertainty Quantification</li>
+              <li>LLM-Based Data Mining (LangGraph)</li>
             </ul>
           </Card>
 
@@ -643,11 +745,23 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             <div style={{ marginBottom: 20 }}>
               <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
                 <strong style={{ fontSize: 15 }}>Purdue University</strong>
-                <span style={{ fontSize: 12, color: T.muted }}>Aug 2022 – Present</span>
+                <span style={{ fontSize: 12, color: T.muted }}>Aug 2022 – May 2026</span>
               </div>
               <div style={{ fontSize: 13, color: T.muted }}>West Lafayette, Indiana, USA</div>
               <div style={{ fontSize: 14, marginTop: 4 }}>
                 PhD in Materials Engineering
+              </div>
+              <div style={{ fontSize: 13, color: T.ink, marginTop: 6, lineHeight: 1.6 }}>
+                Thesis:{" "}
+                <a
+                  href="https://hammer.purdue.edu/articles/thesis/SIMULATING_AND_UNDERSTANDING_DEFECTS_IN_SEMICONDUCTORS_USING_DENSITY_FUNCTIONAL_THEORY_AND_MACHINE_LEARNING/32336814"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: T.accent, textDecoration: "none" }}
+                >
+                  Simulating and Understanding Defects in Semiconductors Using Density
+                  Functional Theory and Machine Learning
+                </a>
               </div>
               <Tag color={T.green}>CGPA: 3.91 / 4.00</Tag>
               <div style={{ marginTop: 6 }}>
@@ -728,6 +842,18 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
           <Card>
             <div style={{ marginBottom: 16 }}>
               <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
+                <strong style={{ fontSize: 14 }}>Postdoctoral Researcher, Lawrence Berkeley National Laboratory</strong>
+                <span style={{ fontSize: 12, color: T.muted }}>2026 – Present</span>
+              </div>
+              <div style={{ fontSize: 13, color: T.muted, marginTop: 2 }}>
+                Agentic system design for simulations at scale — high-throughput DFT databases,
+                graph neural networks, machine learning force fields, active learning and
+                uncertainty quantification, and LLM-based data mining
+              </div>
+              <div style={{ fontSize: 12, color: T.accent, marginTop: 2 }}>Berkeley, California</div>
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
                 <strong style={{ fontSize: 14 }}>Material Informatics Fellow Intern, GE Aerospace</strong>
                 <span style={{ fontSize: 12, color: T.muted }}>May 2025 – Aug 2025</span>
               </div>
@@ -739,7 +865,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
                 <strong style={{ fontSize: 14 }}>Graduate Research Assistant, Purdue University</strong>
-                <span style={{ fontSize: 12, color: T.muted }}>Aug 2022 – Present</span>
+                <span style={{ fontSize: 12, color: T.muted }}>Aug 2022 – May 2026</span>
               </div>
               <div style={{ fontSize: 13, color: T.muted, marginTop: 2 }}>
                 Modeling and Simulations of Semiconductors for Photovoltaics
@@ -772,8 +898,8 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               }}>G</div>
               <div>
                 <div style={{ fontSize: 11, color: T.muted, fontWeight: 500, letterSpacing: 1, textTransform: "none" }}>Google Scholar</div>
-                <div style={{ fontSize: 20, fontWeight: 500, color: T.ink }}>760+ Citations</div>
-                <div style={{ fontSize: 12, color: T.muted }}>h-index: 18 · i10-index: 18</div>
+                <div style={{ fontSize: 20, fontWeight: 500, color: T.ink }}>918 citations</div>
+                <div style={{ fontSize: 12, color: T.muted }}>h-index: 20 · i10-index: 23</div>
               </div>
             </a>
           </div>

@@ -21787,9 +21787,8 @@ export default function MicroLab({ initialModule = null, blogMode = false }) {
       {module === "synthesis" && <MaterialsSynthesisModule references={CHAPTER_REFERENCES["synthesis"] || []} />}
 
       <footer className="cs-credit">
-        Developed by Md Habibur Rahman · School of Materials Engineering, Purdue
-        University · West Lafayette, IN, USA ·{" "}
-        <a href="mailto:rahma103@purdue.edu">rahma103@purdue.edu</a>
+        Developed by Md Habibur Rahman · Lawrence Berkeley National Laboratory ·{" "}
+        <a href="mailto:mhrahman@lbl.gov">mhrahman@lbl.gov</a>
       </footer>
     </div>
   );

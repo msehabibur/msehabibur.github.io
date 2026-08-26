@@ -80,8 +80,8 @@ export default function ScientificBlog() {
       </div>
 
       <footer className="cs-credit">
-        Md Habibur Rahman · School of Materials Engineering, Purdue University ·{" "}
-        <a href="mailto:rahma103@purdue.edu">rahma103@purdue.edu</a>
+        Md Habibur Rahman · Lawrence Berkeley National Laboratory ·{" "}
+        <a href="mailto:mhrahman@lbl.gov">mhrahman@lbl.gov</a>
       </footer>
     </div>
   );

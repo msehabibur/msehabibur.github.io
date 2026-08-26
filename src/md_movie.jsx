@@ -186,11 +186,11 @@ export default function MDMovieModule() {
 
           <text x={W/2} y={395} textAnchor="middle" fill={P.muted} fontSize="10"
             fontFamily="'Inter',sans-serif" opacity={aOp}>
-            Habibur Rahman · Purdue University
+            Habibur Rahman · Lawrence Berkeley National Laboratory
           </text>
           <text x={W/2} y={410} textAnchor="middle" fill={P.dim} fontSize="9"
             fontFamily="'Inter',sans-serif" opacity={aOp}>
-            rahma103@purdue.edu
+            mhrahman@lbl.gov
           </text>
         </svg>
       );
@@ -1597,7 +1597,7 @@ export default function MDMovieModule() {
             </text>
             <text x={572} y={394} textAnchor="middle" fill={P.muted} fontSize="9"
               fontFamily="'Inter',sans-serif">
-              Habibur Rahman · Purdue University · rahma103@purdue.edu
+              Habibur Rahman · Lawrence Berkeley National Laboratory · mhrahman@lbl.gov
             </text>
           </g>
         </svg>
@@ -1634,7 +1634,7 @@ export default function MDMovieModule() {
           <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
         <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 500, opacity: 0.65 }}>
-          Habibur Rahman · rahma103@purdue.edu
+          Habibur Rahman · mhrahman@lbl.gov
         </div>
         <div style={{ opacity: fadeOpacity, transition: "opacity 0.25s ease-in-out", willChange: "opacity" }}>
           {renderScene()}

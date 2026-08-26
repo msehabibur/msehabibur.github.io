@@ -191,7 +191,7 @@
 
 
 // ── Single accent color ──────────────────────────────────────────────────────
-const ACCENT = "#7c3aed"; // purple
+const ACCENT = "#0d6b76"; // teal — matches the shell accent token
 
 // ══════════════════════════════════════════════════════════════════════════════
 // 1. THEME COLORS
@@ -268,8 +268,9 @@ export const ANALOGY = {
     marginBottom: 4,
   },
   body: {
-    fontSize: FONT.base,
-    lineHeight: 1.8,
+    fontFamily: '"IBM Plex Sans", -apple-system, sans-serif',
+    fontSize: FONT.md,
+    lineHeight: 1.7,
     color: T.ink,
   },
 };

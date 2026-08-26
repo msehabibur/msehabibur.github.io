@@ -179,7 +179,7 @@ export default function DFTParamsMovieModule() {
           <text x={W / 2} y={376} textAnchor="middle" fill={P.muted} fontSize="11"
             fontFamily="'Inter',sans-serif" opacity={aOp}>Habibur Rahman · Purdue University</text>
           <text x={W / 2} y={396} textAnchor="middle" fill={P.dim} fontSize="10"
-            fontFamily="'Inter',sans-serif" opacity={aOp}>rahma103@purdue.edu</text>
+            fontFamily="'Inter',sans-serif" opacity={aOp}>mhrahman@lbl.gov</text>
         </svg>
       );
     }
@@ -1958,7 +1958,7 @@ export default function DFTParamsMovieModule() {
           <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
         <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 500, opacity: 0.65 }}>
-          Habibur Rahman · rahma103@purdue.edu
+          Habibur Rahman · mhrahman@lbl.gov
         </div>
         <div style={{ opacity: fadeOpacity, transition: "opacity 0.25s ease-in-out", willChange: "opacity" }}>
           {renderScene()}

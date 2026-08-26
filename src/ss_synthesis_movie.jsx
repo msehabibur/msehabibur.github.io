@@ -161,7 +161,7 @@ export default function SSSynthesisMovieModule() {
 
           <text x={W/2} y={378} textAnchor="middle" fill={P.muted} fontSize="9"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.4)*3))}>
-            Habibur Rahman · Purdue University
+            Habibur Rahman · Lawrence Berkeley National Laboratory
           </text>
         </svg>
       );
@@ -986,7 +986,7 @@ export default function SSSynthesisMovieModule() {
           <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
         <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 500, opacity: 0.7 }}>
-          Habibur Rahman · rahma103@purdue.edu
+          Habibur Rahman · mhrahman@lbl.gov
         </div>
         <div style={{ opacity: fadeClass, transition: "opacity 0.25s ease-in-out" }}>
           {renderScene()}

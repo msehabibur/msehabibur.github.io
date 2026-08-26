@@ -144,7 +144,7 @@ export default function LLMMovieModule() {
           </text>
           <text x={W/2} y={310} textAnchor="middle" fill={P.muted} fontSize="10"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.6)*3))}>
-            Habibur Rahman · rahma103@purdue.edu · Purdue University
+            Habibur Rahman · mhrahman@lbl.gov · Lawrence Berkeley National Laboratory
           </text>
         </svg>
       );
@@ -891,7 +891,7 @@ export default function LLMMovieModule() {
             </text>
             <text x={W/2} y={384} textAnchor="middle" fill={P.dim} fontSize="8.5"
               fontFamily="'Inter',sans-serif">
-              Habibur Rahman · rahma103@purdue.edu · Purdue University
+              Habibur Rahman · mhrahman@lbl.gov · Lawrence Berkeley National Laboratory
             </text>
           </g>
         </svg>
@@ -1433,7 +1433,7 @@ export default function LLMMovieModule() {
           <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
         <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 500, opacity: 0.7 }}>
-          Habibur Rahman · rahma103@purdue.edu
+          Habibur Rahman · mhrahman@lbl.gov
         </div>
         <div style={{ opacity: fadeClass, transition: "opacity 0.25s ease-in-out", willChange: "opacity" }}>
           {renderScene()}
