@@ -230,6 +230,7 @@ const PUBLICATIONS = [
     year: "2026", me: true, citations: 8,
     link: "https://doi.org/10.1039/D6CP00170J",
     abstract: "The DeFecT-FF framework predicts energies and ground state configurations of native defects, extrinsic dopants and impurities, and defect complexes across Cd/Zn\u2013Te/Se/S compounds, important for CdTe-based solar cells.",
+    highlights: ["Presents DeFecT-FF, a machine learning force field framework for high-throughput defect modelling in CdTe-based solar cells", "Predicts energies and ground state configurations of native defects across Cd/Zn\u2013Te/Se/S compounds", "Extends the same framework to extrinsic dopants, impurities and defect complexes", "Targets the defect chemistry that governs CdTe-based photovoltaic performance"],
   },
   {
     authors: "Rahman, Md Habibur, & Mannodi-Kanakkithodi, A.",
@@ -238,6 +239,7 @@ const PUBLICATIONS = [
     year: "2026", me: true, citations: 0,
     link: "https://doi.org/10.1039/D6EL00026F",
     abstract: "This framework combines high-throughput computations and machine learning to drive the discovery of stable and defect-tolerant chalcogenide semiconductor alloys with attractive optoelectronic properties.",
+    highlights: ["Combines high-throughput computation with machine learning to search chalcogenide semiconductor alloys", "Screens for thermodynamic stability alongside optoelectronic quality rather than either alone", "Targets defect-tolerant compositions suited to solar absorption", "Delivers a discovery framework rather than a single candidate material"],
   },
   {
     authors: "Roy, A., Shen, K., MacBride, A., \u2026 Rahman, Md Habibur, et al. (353 authors)",
@@ -246,6 +248,7 @@ const PUBLICATIONS = [
     year: "2026", me: true, citations: 3,
     link: "https://arxiv.org/abs/2605.03205",
     abstract: "Large language models are rapidly changing how researchers in materials science and chemistry discover, organize and act on scientific knowledge. This paper analyses a broad set of community-developed LLM applications to identify emerging patterns across the research lifecycle, organised into knowledge infrastructure and agentic action.",
+    highlights: ["Analyses a broad set of community-developed LLM applications across materials science and chemistry", "Organises the projects into knowledge infrastructure and action systems as two complementary categories", "Documents the shift from single-purpose LLM tools toward integrated multi-agent workflows combining retrieval, reasoning, tool use and domain validation", "Offers a practical taxonomy for understanding emerging LLM-enabled scientific workflows"],
   },
   {
     authors: "Lee, J., Neralla, H., Rhys Campbell, C., \u2026 Rahman, Md Habibur, et al. (27 authors)",
@@ -254,27 +257,7 @@ const PUBLICATIONS = [
     year: "2026", me: true, citations: 1,
     link: "https://doi.org/10.1088/2632-2153/ae7f6a",
     abstract: "The rapid emergence of agentic AI presents new opportunities and challenges for accelerating scientific discovery through tool-augmented reasoning, autonomous workflows and reproducible results. This paper reports what the community hackathon revealed about where such systems help and where they still fail.",
-  },
-  {
-    authors: "Rahman, Md Habibur, Desai, R., Mannodi-Kanakkithodi, A.",
-    title: "Material Informatics Studio: An Integrated nanoHUB Platform for Computational Material Design",
-    journal: "nanoHUB tool",
-    year: "2026", me: true, citations: 0,
-    link: "https://nanohub.org/resources/mataistudio",
-  },
-  {
-    authors: "Rahman, Md Habibur, & Mannodi-Kanakkithodi, A.",
-    title: "DefectDB: An Open Source Infrastructure for Defect Thermodynamics in II\u2013VI Semiconductors",
-    journal: "nanoHUB tool",
-    year: "2026", me: true, citations: 0,
-    link: "https://nanohub.org/resources/defectdatabase",
-  },
-  {
-    authors: "Rahman, Md Habibur, & Mannodi-Kanakkithodi, A.",
-    title: "ChalcoDB: An Open-Source Informatics Platform for Data-Driven Design of I\u2013II\u2013IV\u2013VI Chalcogenides",
-    journal: "nanoHUB tool",
-    year: "2026", me: true, citations: 0,
-    link: "https://nanohub.org/resources/chalcodb",
+    highlights: ["Reports a model-agnostic community hackathon on agentic AI for science with 352 registered participants", "Benchmarks tool calling, asynchronous agents and multi-model reasoning across database retrieval, literature search and workflow automation", "Emphasises reproducibility, transparent tool usage and explicit agent-tool interaction over single-prompt question answering", "Identifies failure modes in contemporary chatbots and distils best practices for agent design in scientific contexts"],
   },
   {
     authors: "Tenorio, M., Rahman, Md Habibur, Mannodi-Kanakkithodi, A., Chapman, J.",
@@ -292,6 +275,8 @@ const PUBLICATIONS = [
     journal: "2025 IEEE 53rd Photovoltaic Specialists Conference (PVSC), 0717\u20130719",
     year: "2025", me: true, citations: 3,
     link: "https://doi.org/10.1109/PVSC59419.2025.11133092",
+    abstract: "To address the challenge of accurately and quickly predicting defect properties in semiconductors, we developed a workflow combining high-throughput density functional theory computations with active learning and crystal graph-based neural networks. Using a comprehensive DFT dataset of Cd/Zn-S/Se/Te configurations, we trained graph neural network models on over 6200 crystal structures to predict crystal formation energy for bulk and defective structures, then applied them to 13,000 hypothetical defects.",
+    highlights: ["Combines high-throughput DFT with active learning and crystal graph neural networks to predict defect properties", "Trains ALIGNN models on more than 6200 Cd/Zn-S/Se/Te crystal structures", "Predicts crystal formation energy for both bulk and defective structures at high accuracy", "Applies the trained models to 13,000 hypothetical defects in Cd\u2093Zn\u2081\u208B\u2093Te"],
   },
   {
     authors: "Rahman, Md Habibur, Rojsatien, S., Krasikov, D., Chan, M.K.Y., Bertoni, M., Mannodi-Kanakkithodi, A.",
@@ -421,6 +406,7 @@ const PUBLICATIONS = [
     year: "2021", me: true, citations: 5,
     link: "https://doi.org/10.1002/htj.22093",
     abstract: "A numerical simulation of the cooling performance of an aluminium finned heat sink attached to a silicon chip in a rectangular chamber, cooled by convective heat transfer using nine commercially available gases.",
+    highlights: ["Simulates the cooling performance of an aluminium finned heat sink attached to a silicon chip", "Places the heat sink in a rectangular chamber cooled by convective heat transfer", "Compares nine commercially available gases as coolants using the finite element method", "Identifies which coolant choices give the best thermal performance for electronic components"],
   },
   {
     authors: "Rahman, Md Habibur, Chowdhury, E.H., Hong, S.",
@@ -519,6 +505,8 @@ const PUBLICATIONS = [
     journal: "2020 2nd International Conference on Advanced Information and Communication Technology (ICAICT), 207\u2013212",
     year: "2020", me: true, citations: 8,
     link: "https://doi.org/10.1109/ICAICT51780.2020.9333480",
+    abstract: "2D nanomaterials such as graphene, silicene, germanene and stanene are among the emerging materials for transistor scaling, with potential application in electronic, semiconductor and optoelectronic devices. Here the nearest neighbour tight-binding approach is used to extract the electronic band structure of these analogous 2D nanomaterials across armchair nanoribbon widths.",
+    highlights: ["Applies a nearest neighbour tight-binding approach to graphene, silicene, germanene and stanene nanoribbons", "Extracts bandgaps of 1.91, 0.79, 0.80 and 0.60 eV for the four narrow 4-atom armchair nanoribbons", "Shows the gap collapsing to 0.35, 0.15, 0.15 and 0.11 eV at the wider 25-atom ribbon width", "Frames the results against the needs of transistor scaling in group IV two-dimensional materials"],
   },
   {
     authors: "Rahman, Md Habibur, Mitra, S., Motalab, M., Rakib, T.",
@@ -526,6 +514,8 @@ const PUBLICATIONS = [
     journal: "2020 IEEE Region 10 Symposium (TENSYMP), 22\u201325",
     year: "2020", me: true, citations: 7,
     link: "https://doi.org/10.1109/TENSYMP50017.2020.9230906",
+    abstract: "The mechanical properties of gallium nitride nanowire have drawn attention because of its use as an electronic and semiconducting material in LEDs, transistors, radars and Li-Fi communication systems. Molecular dynamics simulations with the Stillinger-Weber potential are used to explore the temperature-dependent mechanical properties of zinc-blende GaN nanowire under tensile loading from 100 K to 600 K.",
+    highlights: ["Uses molecular dynamics with the Stillinger-Weber potential to load zinc-blende GaN nanowire in tension", "Varies temperature from 100 K to 600 K and tracks the resulting mechanical response", "Separates the temperature dependence from the size dependence of strength and failure", "Connects the results to GaN device use in LEDs, transistors, radars and Li-Fi systems"],
   },
   {
     authors: "Rahman, Md Habibur, Chowdhury, E.H., Redwan, D.A., Prince, H.A., Amin, M.R.",
@@ -534,6 +524,7 @@ const PUBLICATIONS = [
     year: "2020", me: true, citations: 3,
     link: "https://doi.org/10.1115/IMECE2020-23342",
     abstract: "A study of the thermo-hydraulic performance of a dynamic wall heat exchanger as the amplitude and frequency of the oscillating waveform are varied, with the lower wall under constant heat flux and the upper insulating wall deforming sinusoidally.",
+    highlights: ["Investigates the thermo-hydraulic performance of a dynamic wall heat exchanger", "Varies both the amplitude and the frequency of the oscillating wall waveform", "Holds the lower wall at constant heat flux while the upper insulating wall deforms sinusoidally", "Maps how the oscillation parameters trade heat transfer against hydraulic cost"],
   },
   {
     authors: "Redwan, D.A., Rahman, Md Habibur, Prince, H.A., Chowdhury, E.H., Amin, M.R.",
@@ -542,6 +533,7 @@ const PUBLICATIONS = [
     year: "2020", me: true, citations: 1,
     link: "https://doi.org/10.1115/IMECE2020-23191",
     abstract: "A numerical study of natural convection heat transfer in a right triangular solar collector filled with CNT-water and Cu-water nanofluids, with the inclined and bottom walls held at different temperatures.",
+    highlights: ["Studies natural convection heat transfer in a right triangular solar collector", "Compares CNT-water and Cu-water nanofluids as the working fluid", "Holds the inclined and bottom walls at different temperatures to drive the convection", "Quantifies how nanoparticle choice changes collector heat transfer performance"],
   },
   {
     authors: "Chowdhury, E.H., Rahman, Md Habibur, Prince, H.A., Redwan, D.A., Rozin, E.H.",
@@ -549,6 +541,8 @@ const PUBLICATIONS = [
     journal: "2020 2nd International Conference on Advanced Information and Communication Technology (ICAICT), 1\u20136",
     year: "2020", me: true, citations: 1,
     link: "https://doi.org/10.1109/ICAICT51780.2020.9333533",
+    abstract: "High-intensity focused ultrasound is used both in cancer diagnosis and treatment and as a non-invasive cosmetic procedure for skin lifting and tightening. This model determines the effect of varying transducer frequency on the thermal response in the focal zone of a tissue phantom using multiphysics modelling.",
+    highlights: ["Models high-intensity focused ultrasound therapy in a tissue phantom by finite element method", "Couples the Helmholtz pressure acoustic equation with Pennes' bio-heat and Stefan-Boltzmann equations", "Solves the coupled system using the Galerkin weighted residual finite element method", "Determines how transducer frequency changes the thermal response in the focal zone"],
   },
   {
     authors: "Rahman, Md Habibur, Mitra, S., Motalab, M., Bose, P.",
