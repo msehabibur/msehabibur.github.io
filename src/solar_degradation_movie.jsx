@@ -12,7 +12,7 @@ const T = {
   border:  "var(--line)",
   ink:     "var(--ink)",
   muted:   "var(--muted)",
-  dim:     "var(--line)",
+  dim:     "var(--line)"
 };
 
 const C = {
@@ -31,14 +31,14 @@ const C = {
   healthy: "#7eb5bf",
   degrad:  "#388392",
   accent:  "#327785",
-  mitigation: "#3c8e9f",
+  mitigation: "#3c8e9f"
 };
 
 function Card({ children, style }) {
   return (
     <div style={{
       background: T.panel, borderRadius: 12, border: `1px solid ${T.border}`,
-      padding: "16px 18px", ...style,
+      padding: "16px 18px", ...style
     }}>{children}</div>
   );
 }
@@ -63,7 +63,7 @@ function EqnBlock({ equations, color }) {
     <div style={{ marginTop: 12, padding: "10px 14px", borderRadius: 8, background: (color || C.accent) + "08", border: `1px solid ${(color || C.accent)}22` }}>
       <div style={{ fontSize: 10, fontWeight: 500, color: color || C.accent, marginBottom: 6, letterSpacing: 1 }}>KEY Equations</div>
       {equations.map((eq, i) => (
-        <div key={i} style={{ fontSize: 11, fontFamily: "'IBM Plex Mono', monospace", color: T.ink, lineHeight: 1.8, paddingLeft: 8, borderLeft: `2px solid ${(color || C.accent)}44`, marginBottom: 4 }}>
+        <div key={i} style={{ fontSize: 11, fontFamily: "'IBM Plex Mono', monospace", color: T.ink, lineHeight: 1.8, paddingLeft: 8,  marginBottom: 4 }}>
           {eq}
         </div>
       ))}
@@ -446,7 +446,7 @@ function MoistureSection() {
       <div style={{ fontSize: 11, fontWeight: 500, color: T.ink, marginTop: 14, marginBottom: 8 }}>Chemical reactions</div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
         {reactions.map((r, i) => (
-          <Card key={i} style={{ padding: "10px 12px", borderLeft: `3px solid ${r.color}` }}>
+          <Card key={i} style={{ padding: "10px 12px" }}>
             <div style={{ fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", color: r.color, fontWeight: 500, marginBottom: 4 }}>
               {r.reactants} → {r.products}
             </div>
@@ -667,7 +667,7 @@ function JVDegradationSection() {
         <button onClick={() => setShowIdeal(!showIdeal)} style={{
           padding: "4px 12px", borderRadius: 6, fontSize: 10, cursor: "pointer",
           background: showIdeal ? C.healthy + "22" : T.bg, border: `1px solid ${showIdeal ? C.healthy : T.border}`,
-          color: showIdeal ? C.healthy : T.muted, fontWeight: 500, fontFamily: "inherit",
+          color: showIdeal ? C.healthy : T.muted, fontWeight: 500, fontFamily: "inherit"
         }}>Show Year 0 Reference</button>
       </div>
 
@@ -803,7 +803,7 @@ function MitigationSection() {
     <button onClick={() => setter(!value)} style={{
       padding: "10px 14px", borderRadius: 10, cursor: "pointer", textAlign: "left", width: "100%",
       background: value ? color + "15" : T.bg, border: `1.5px solid ${value ? color : T.border}`,
-      fontFamily: "inherit", transition: "all 0.15s",
+      fontFamily: "inherit", transition: "all 0.15s"
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
         <div style={{ width: 20, height: 20, borderRadius: 6, background: value ? color : T.dim, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, color: "#fff", fontWeight: 500 }}>
@@ -892,7 +892,7 @@ export default function SolarCellDegradationMovie() {
       maxWidth: 700,
       margin: "0 auto",
       fontFamily: "'IBM Plex Mono', 'JetBrains Mono', 'Fira Code', monospace",
-      color: T.ink,
+      color: T.ink
     }}>
       {/* Header */}
       <div style={{ marginBottom: 16 }}>
@@ -910,7 +910,7 @@ export default function SolarCellDegradationMovie() {
       {/* Section tabs */}
       <div style={{
         display: "flex", gap: 4, flexWrap: "wrap", marginBottom: 16,
-        padding: "8px 0", borderBottom: `1px solid ${T.border}`,
+        padding: "8px 0", borderBottom: `1px solid ${T.border}`
       }}>
         {DEGRAD_SECTIONS.map((s, i) => (
           <button key={s.id} onClick={() => setActive(s.id)} style={{
@@ -920,7 +920,7 @@ export default function SolarCellDegradationMovie() {
             color: active === s.id ? s.color : T.muted,
             cursor: "pointer", fontFamily: "inherit", fontWeight: active === s.id ? 500 : 400,
             display: "flex", alignItems: "center", gap: 5, whiteSpace: "nowrap",
-            transition: "all 0.15s",
+            transition: "all 0.15s"
           }}>
             <span style={{ fontSize: 9, color: active === s.id ? s.color : T.dim }}>{i + 1}.</span>
             {s.label}
@@ -940,7 +940,7 @@ export default function SolarCellDegradationMovie() {
       {/* Bottom nav */}
       <div style={{
         marginTop: 20, paddingTop: 12, borderTop: `1px solid ${T.border}`,
-        display: "flex", justifyContent: "space-between", alignItems: "center",
+        display: "flex", justifyContent: "space-between", alignItems: "center"
       }}>
         <button onClick={() => { if (secIdx > 0) setActive(DEGRAD_SECTIONS[secIdx - 1].id); }}
           disabled={secIdx === 0} style={{
@@ -948,7 +948,7 @@ export default function SolarCellDegradationMovie() {
           background: secIdx === 0 ? T.surface : sec.color + "18",
           border: `1px solid ${secIdx === 0 ? T.border : sec.color}`,
           color: secIdx === 0 ? T.muted : sec.color,
-          cursor: secIdx === 0 ? "default" : "pointer", fontFamily: "inherit", fontWeight: 500,
+          cursor: secIdx === 0 ? "default" : "pointer", fontFamily: "inherit", fontWeight: 500
         }}>{"\u2190"} Previous</button>
 
         <div style={{ display: "flex", gap: 4 }}>
@@ -956,7 +956,7 @@ export default function SolarCellDegradationMovie() {
             <div key={s.id} onClick={() => setActive(s.id)} style={{
               width: 7, height: 7, borderRadius: 4,
               background: active === s.id ? s.color : T.dim,
-              cursor: "pointer", transition: "all 0.2s",
+              cursor: "pointer", transition: "all 0.2s"
             }} />
           ))}
         </div>
@@ -967,7 +967,7 @@ export default function SolarCellDegradationMovie() {
           background: secIdx === DEGRAD_SECTIONS.length - 1 ? T.surface : sec.color + "18",
           border: `1px solid ${secIdx === DEGRAD_SECTIONS.length - 1 ? T.border : sec.color}`,
           color: secIdx === DEGRAD_SECTIONS.length - 1 ? T.muted : sec.color,
-          cursor: secIdx === DEGRAD_SECTIONS.length - 1 ? "default" : "pointer", fontFamily: "inherit", fontWeight: 500,
+          cursor: secIdx === DEGRAD_SECTIONS.length - 1 ? "default" : "pointer", fontFamily: "inherit", fontWeight: 500
         }}>Next {"\u2192"}</button>
       </div>
     </div>

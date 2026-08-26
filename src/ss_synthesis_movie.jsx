@@ -23,7 +23,7 @@ const P = {
   ok:      "#a5cbd2",
   warn:    "#539aa8",
   thermo:  "#77b1bc",   // thermodynamics
-  target:  "#9bc5ce",
+  target:  "#9bc5ce"
 };
 
 const SCENES = [
@@ -890,10 +890,10 @@ export default function SSSynthesisMovieModule() {
 
       const apps = [
         { title: "Cross-Validation", desc: "Compare recipes across groups — consistent pure = reliable route", icon: "✓", color: P.ok },
-        { title: "Failure Analysis", desc: "Conflicting results reveal hidden variables in synthesis", icon: "⚠", color: P.warn },
-        { title: "Exploration Gaps", desc: "Map unexplored synthesis space — find anthropogenic bias", icon: "🔍", color: P.lit },
-        { title: "ML Training Data", desc: "Predict synthesis outcomes with impurity-aware models", icon: "🤖", color: P.gpt },
-        { title: "Autonomous Labs", desc: "Guide high-throughput experiments with data-driven routes", icon: "🔬", color: P.thermo },
+        { title: "Failure Analysis", desc: "Conflicting results reveal hidden variables in synthesis", color: P.warn },
+        { title: "Exploration Gaps", desc: "Map unexplored synthesis space — find anthropogenic bias", color: P.lit },
+        { title: "ML Training Data", desc: "Predict synthesis outcomes with impurity-aware models", color: P.gpt },
+        { title: "Autonomous Labs", desc: "Guide high-throughput experiments with data-driven routes", color: P.thermo },
       ];
 
       return (
@@ -976,7 +976,7 @@ export default function SSSynthesisMovieModule() {
       {/* Cinema screen */}
       <div style={{
         background: P.bg, borderRadius: 16, overflow: "hidden",
-        border: `2px solid ${P.border}`, position: "relative",
+        border: `2px solid ${P.border}`, position: "relative"
       }}>
         <div style={{ position: "absolute", top: 10, left: 14, zIndex: 2, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ background: P.data+"25", border: `1px solid ${P.data}50`, padding: "3px 10px",
@@ -1001,7 +1001,7 @@ export default function SSSynthesisMovieModule() {
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.data}`,
           background: P.data+"15", cursor: "pointer", display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: 18, color: P.data, fontWeight: 500, fontFamily: "inherit",
+          justifyContent: "center", fontSize: 18, color: P.data, fontWeight: 500, fontFamily: "inherit"
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
@@ -1033,7 +1033,7 @@ export default function SSSynthesisMovieModule() {
                 border: `1px solid ${i === sceneIdx ? P.data : P.dim}`,
                 color: i === sceneIdx ? P.data : P.muted,
                 cursor: "pointer", fontFamily: "inherit", fontWeight: i === sceneIdx ? 500 : 400,
-                whiteSpace: "nowrap",
+                whiteSpace: "nowrap"
               }}>{sc.label}</button>
             ))}
           </div>

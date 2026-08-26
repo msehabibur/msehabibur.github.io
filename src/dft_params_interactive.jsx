@@ -23,13 +23,13 @@ const T = {
   bg: "var(--paper)", surface: "#ffffff", ink: "var(--ink)", muted: "var(--muted)",
   border: "#e0e0e0", dim: "var(--muted)",
   main: "#347a89", eqn: "#327785", xc: "#3c8e9f", basis: "#5094a1",
-  warn: "#30717f", accent: "#3d90a1", warm: "#2f6f7c",
+  warn: "#30717f", accent: "#3d90a1", warm: "#2f6f7c"
 };
 
 const mathBlock = {
   fontFamily: "'Courier New', monospace", fontSize: 12, lineHeight: 1.9,
   background: "#f7f9fa", border: "1px solid #e9f0f2", borderRadius: 10,
-  padding: "14px 18px", marginBottom: 10, color: T.ink, whiteSpace: "pre-wrap",
+  padding: "14px 18px", marginBottom: 10, color: T.ink, whiteSpace: "pre-wrap"
 };
 
 const PARAM_SECTIONS = [
@@ -51,7 +51,7 @@ function Card({ title, color, children }) {
   return (
     <div style={{
       background: T.surface, borderRadius: 14, padding: "18px 22px",
-      border: `1.5px solid ${color}20`, boxShadow: `0 2px 12px ${color}08`,
+      border: `1.5px solid ${color}20`, boxShadow: `0 2px 12px ${color}08`
     }}>
       {title && (
         <div style={{ fontSize: 14, fontWeight: 500, color, marginBottom: 12,
@@ -84,9 +84,8 @@ function SliderRow({ label, value, min, max, step, onChange, color, unit, desc }
 function InfoBox({ color, children, icon }) {
   return (
     <div style={{
-      background: color + "08", border: `1.5px solid ${color}20`,
-      borderLeft: `4px solid ${color}`, borderRadius: 10,
-      padding: "10px 14px", fontSize: 12, lineHeight: 1.7, color: T.ink,
+      background: color + "08", border: `1.5px solid ${color}20`,  borderRadius: 10,
+      padding: "10px 14px", fontSize: 12, lineHeight: 1.7, color: T.ink
     }}>
       {icon && <span style={{ marginRight: 6 }}>{icon}</span>}
       {children}
@@ -113,7 +112,7 @@ function SecBZ() {
         { label: "U", x: 245, y: 130, desc: "Between X and W" },
       ],
       path: "Γ → X → W → K → Γ → L → U → W → L → K",
-      edges: [[0,1],[1,3],[3,4],[4,0],[0,2],[2,5],[5,3],[3,2],[2,4]],
+      edges: [[0,1],[1,3],[3,4],[4,0],[0,2],[2,5],[5,3],[3,2],[2,4]]
     },
     bcc: {
       name: "BCC (Body-Centered Cubic)",
@@ -126,7 +125,7 @@ function SecBZ() {
         { label: "N", x: 230, y: 200, desc: "Face center (½,½,0)·π/a" },
       ],
       path: "Γ → H → N → Γ → P → H → P → N",
-      edges: [[0,1],[1,3],[3,0],[0,2],[2,1],[2,3]],
+      edges: [[0,1],[1,3],[3,0],[0,2],[2,1],[2,3]]
     },
     hex: {
       name: "Hexagonal",
@@ -141,8 +140,8 @@ function SecBZ() {
         { label: "H", x: 225, y: 220, desc: "Top hexagonal corner" },
       ],
       path: "Γ → M → K → Γ → A → L → H → A | L → M | K → H",
-      edges: [[0,1],[1,2],[2,0],[0,3],[3,4],[4,5],[5,3],[1,4],[2,5]],
-    },
+      edges: [[0,1],[1,2],[2,0],[0,3],[3,4],[4,5],[5,3],[1,4],[2,5]]
+    }
   };
 
   const L = lattices[lattice];
@@ -207,7 +206,7 @@ function SecBZ() {
             { label: "M", loc: "Midpoint of an edge", simple: "Wave flips in two directions at once. Important in 2D materials and surface states.", color: T.warn },
             { label: "L", loc: "Center of hexagonal face (FCC)", simple: "Wave flips along body diagonal (111). In GaAs, L-valleys matter for high-field electron transport.", color: T.eqn },
           ].map(pt => (
-            <div key={pt.label} style={{ background: pt.color + "08", border: `1.5px solid ${pt.color}20`, borderLeft: `4px solid ${pt.color}`, borderRadius: 8, padding: "8px 12px" }}>
+            <div key={pt.label} style={{ background: pt.color + "08", border: `1.5px solid ${pt.color}20`,  borderRadius: 8, padding: "8px 12px" }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: pt.color }}>{pt.label} <span style={{ fontWeight: 400, color: "var(--muted)", fontSize: 11 }}>— {pt.loc}</span></div>
               <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink, marginTop: 2 }}>{pt.simple}</div>
             </div>
@@ -228,7 +227,7 @@ function SecBZ() {
               background: lattice === k ? T.main : T.surface,
               color: lattice === k ? "#fff" : T.ink,
               border: `1.5px solid ${lattice === k ? T.main : T.border}`,
-              fontWeight: 500, fontFamily: "inherit",
+              fontWeight: 500, fontFamily: "inherit"
             }}>
               {k.toUpperCase()}
             </button>
@@ -240,7 +239,7 @@ function SecBZ() {
 
         <svg viewBox="0 0 300 300" style={{
           width: "100%", maxWidth: 380, margin: "0 auto", display: "block",
-          background: T.main + "05", borderRadius: 12, border: `1px solid ${T.main}15`,
+          background: T.main + "05", borderRadius: 12, border: `1px solid ${T.main}15`
         }}>
           {/* BZ boundary shape */}
           <polygon points={L.points.filter((_, i) => i > 0).map(p => `${p.x},${p.y}`).join(" ")}
@@ -319,7 +318,7 @@ function SecKpoints() {
     for (let j = 0; j < kDensity; j++) {
       gridPoints.push({
         x: 30 + (i + 0.5) * (240 / kDensity),
-        y: 30 + (j + 0.5) * (240 / kDensity),
+        y: 30 + (j + 0.5) * (240 / kDensity)
       });
     }
   }
@@ -388,7 +387,7 @@ function SecKpoints() {
 
         <svg viewBox="0 0 300 300" style={{
           width: "100%", maxWidth: 320, margin: "0 auto", display: "block",
-          background: T.eqn + "05", borderRadius: 12, border: `1px solid ${T.eqn}15`,
+          background: T.eqn + "05", borderRadius: 12, border: `1px solid ${T.eqn}15`
         }}>
           {/* BZ boundary */}
           <rect x={30} y={30} width={240} height={240} fill="none"
@@ -419,7 +418,7 @@ function SecKpoints() {
           marginTop: 10, padding: "10px 14px", borderRadius: 10,
           background: converged ? T.xc + "08" : T.warn + "08",
           border: `1.5px solid ${converged ? T.xc : T.warn}20`,
-          fontSize: 12, color: T.ink,
+          fontSize: 12, color: T.ink
         }}>
           <strong style={{ color: converged ? T.xc : T.warn }}>
             {kDensity}×{kDensity}×{kDensity}:
@@ -450,7 +449,7 @@ function SecKpoints() {
                   <tr key={i} onClick={() => setKDensity(row.k)}
                     style={{
                       cursor: "pointer", borderBottom: `1px solid ${T.border}`,
-                      background: isActive ? T.eqn + "10" : "transparent",
+                      background: isActive ? T.eqn + "10" : "transparent"
                     }}>
                     <td style={{ padding: "6px 8px", fontFamily: "monospace", fontWeight: isActive ? 500 : 400 }}>
                       {row.k}×{row.k}×{row.k}
@@ -481,7 +480,7 @@ function SecKpoints() {
           ].map(item => (
             <div key={item.label} style={{
               background: item.color + "08", border: `1px solid ${item.color}20`,
-              borderRadius: 10, padding: "10px 14px",
+              borderRadius: 10, padding: "10px 14px"
             }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: item.color }}>{item.label}</div>
               <div style={{ fontSize: 13, fontWeight: 500, color: T.ink, margin: "3px 0" }}>{item.val}</div>
@@ -662,7 +661,7 @@ function SecEncut() {
 
         <svg viewBox={`0 0 ${plotW + 50} ${plotH + 40}`} style={{
           width: "100%", maxWidth: 400, margin: "0 auto", display: "block",
-          background: T.basis + "03", borderRadius: 12,
+          background: T.basis + "03", borderRadius: 12
         }}>
           {/* Axes */}
           <line x1={padL} y1={plotH} x2={padL + plotW} y2={plotH}
@@ -714,7 +713,7 @@ function SecEncut() {
         </svg>
 
         <div style={{
-          marginTop: 8, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 8,
+          marginTop: 8, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 8
         }}>
           <div style={{ textAlign: "center", padding: 10, borderRadius: 10, background: T.basis + "08" }}>
             <div style={{ fontSize: 11, color: T.muted }}>Plane waves</div>
@@ -748,7 +747,7 @@ function SecEncut() {
                 <div style={{
                   width: "100%", height: h, borderRadius: "4px 4px 0 0", cursor: "pointer",
                   background: isActive ? T.basis : T.basis + "40",
-                  border: isActive ? `2px solid ${T.basis}` : "none",
+                  border: isActive ? `2px solid ${T.basis}` : "none"
                 }} />
                 <div style={{ fontSize: 8, color: isActive ? T.basis : T.muted, fontWeight: isActive ? 500 : 400, marginTop: 2 }}>
                   {d.encut}
@@ -851,7 +850,7 @@ function SecIsmear() {
             <div key={s.val} onClick={() => setIsmear(s.val)} style={{
               padding: "10px 14px", borderRadius: 10, cursor: "pointer",
               background: ismear === s.val ? s.color + "12" : T.surface,
-              border: `1.5px solid ${ismear === s.val ? s.color : T.border}`,
+              border: `1.5px solid ${ismear === s.val ? s.color : T.border}`
             }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: ismear === s.val ? s.color : T.ink }}>
                 {s.label}
@@ -871,7 +870,7 @@ function SecIsmear() {
 
             <svg viewBox={`0 0 ${plotW + 60} ${plotH + 40}`} style={{
               width: "100%", maxWidth: 380, margin: "0 auto", display: "block",
-              background: T.xc + "03", borderRadius: 12,
+              background: T.xc + "03", borderRadius: 12
             }}>
               <text x={plotW / 2 + 30} y={plotH + 34} textAnchor="middle" fontSize={10} fill={T.muted}>
                 ε − E_F (eV)
@@ -922,7 +921,7 @@ function SecIsmear() {
           ].map(item => (
             <div key={item.sys} style={{
               background: item.color + "08", border: `1px solid ${item.color}20`,
-              borderRadius: 10, padding: "10px 14px",
+              borderRadius: 10, padding: "10px 14px"
             }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: item.color }}>{item.sys}</div>
               <div style={{ fontSize: 12, fontWeight: 500, fontFamily: "monospace", color: T.ink, margin: "4px 0" }}>{item.rec}</div>
@@ -1118,7 +1117,7 @@ function SecAlgo() {
               padding: "10px 14px", borderRadius: 10, cursor: "pointer",
               background: algo === a.val ? a.color + "12" : T.surface,
               border: `1.5px solid ${algo === a.val ? a.color : T.border}`,
-              display: "flex", justifyContent: "space-between", alignItems: "center",
+              display: "flex", justifyContent: "space-between", alignItems: "center"
             }}>
               <div>
                 <div style={{ fontSize: 12, fontWeight: 500, color: algo === a.val ? a.color : T.ink }}>{a.label}</div>
@@ -1137,7 +1136,7 @@ function SecAlgo() {
         </div>
         <svg viewBox={`0 0 ${plotW + 50} ${plotH + 30}`} style={{
           width: "100%", maxWidth: 380, margin: "0 auto", display: "block",
-          background: sel.color + "03", borderRadius: 12,
+          background: sel.color + "03", borderRadius: 12
         }}>
           <text x={plotW / 2 + 25} y={plotH + 26} textAnchor="middle" fontSize={10} fill={T.muted}>
             SCF iteration
@@ -1264,7 +1263,7 @@ function SecEdiff() {
     "-5": { steps: 12, desc: "Moderate — OK for quick screening" },
     "-6": { steps: 15, desc: "Standard — good balance of accuracy and speed" },
     "-7": { steps: 19, desc: "Tight — needed for phonons, elastic constants" },
-    "-8": { steps: 24, desc: "Very tight — for benchmarks and reference calculations" },
+    "-8": { steps: 24, desc: "Very tight — for benchmarks and reference calculations" }
   };
 
   const cur = scfSteps[String(ediff)] || scfSteps["-6"];
@@ -1317,7 +1316,7 @@ function SecEdiff() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 10, marginTop: 8 }}>
           <div style={{
             background: T.main + "08", border: `2px solid ${T.main}30`,
-            borderRadius: 12, padding: "14px 16px",
+            borderRadius: 12, padding: "14px 16px"
           }}>
             <div style={{ fontSize: 13, fontWeight: 500, color: T.main }}>Inner Loop (SCF)</div>
             <div style={{ fontSize: 12, color: T.ink, marginTop: 6, lineHeight: 1.6 }}>
@@ -1328,7 +1327,7 @@ function SecEdiff() {
           </div>
           <div style={{
             background: T.accent + "08", border: `2px solid ${T.accent}30`,
-            borderRadius: 12, padding: "14px 16px",
+            borderRadius: 12, padding: "14px 16px"
           }}>
             <div style={{ fontSize: 13, fontWeight: 500, color: T.accent }}>Outer Loop (Ionic)</div>
             <div style={{ fontSize: 12, color: T.ink, marginTop: 6, lineHeight: 1.6 }}>
@@ -1353,7 +1352,7 @@ function SecEdiff() {
             <div key={e} onClick={() => setEdiff(e)} style={{
               flex: 1, padding: "8px 4px", borderRadius: 8, textAlign: "center", cursor: "pointer",
               background: ediff === e ? T.main + "15" : T.main + "05",
-              border: `1.5px solid ${ediff === e ? T.main : T.border}`,
+              border: `1.5px solid ${ediff === e ? T.main : T.border}`
             }}>
               <div style={{ fontSize: 10, fontWeight: 500, color: ediff === e ? T.main : T.muted }}>
                 10<sup>{e}</sup>
@@ -1386,7 +1385,7 @@ function SecEdiff() {
           ].map(item => (
             <div key={item.label} onClick={() => setEdiffg(parseFloat(item.val))} style={{
               textAlign: "center", padding: "10px 8px", borderRadius: 10, cursor: "pointer",
-              background: item.color + "08", border: `1.5px solid ${item.color}20`,
+              background: item.color + "08", border: `1.5px solid ${item.color}20`
             }}>
               <div style={{ fontSize: 11, fontWeight: 500, color: item.color }}>{item.label}</div>
               <div style={{ fontSize: 14, fontWeight: 500, fontFamily: "monospace", color: T.ink }}>{item.val}</div>
@@ -1516,7 +1515,7 @@ function SecIbrion() {
             <div key={m.val} onClick={() => setIbrion(m.val)} style={{
               padding: "10px 14px", borderRadius: 10, cursor: "pointer",
               background: ibrion === m.val ? m.color + "12" : T.surface,
-              border: `1.5px solid ${ibrion === m.val ? m.color : T.border}`,
+              border: `1.5px solid ${ibrion === m.val ? m.color : T.border}`
             }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: ibrion === m.val ? m.color : T.ink }}>
                 {m.label}
@@ -1533,13 +1532,13 @@ function SecIbrion() {
             <div key={i} style={{
               display: "flex", gap: 10, alignItems: "flex-start",
               padding: "8px 12px", borderRadius: 8,
-              background: sel.color + "06", borderLeft: `3px solid ${sel.color}`,
+              background: sel.color + "06" 
             }}>
               <div style={{
                 width: 22, height: 22, borderRadius: "50%", flexShrink: 0,
                 background: sel.color, color: "#fff", display: "flex",
                 alignItems: "center", justifyContent: "center",
-                fontSize: 11, fontWeight: 500,
+                fontSize: 11, fontWeight: 500
               }}>
                 {i + 1}
               </div>
@@ -1599,7 +1598,7 @@ function SecPrec() {
 
       <Card title="What PREC Controls" color={T.warn}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
-          <strong style={{ color: T.warn }}>PREC</strong> sets the FFT grid density used to represent the charge density and potentials in real space.
+          <strong style={{ color: T.warn }}>Prec</strong> sets the FFT grid density used to represent the charge density and potentials in real space.
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {[
@@ -1655,7 +1654,7 @@ function SecLreal() {
       <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
         <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-          PAW projections compute how much of each atomic orbital is "inside" each atom. <strong>LREAL = .FALSE.</strong> does this calculation exactly using all plane waves (reciprocal space). <strong>LREAL = Auto</strong> approximates the same thing by only looking within a sphere around each atom (real space) — much faster for big cells, but the sphere has a finite radius, so you miss contributions from the edges. For small cells, the sphere overlaps with its own periodic image, causing errors.
+          PAW projections compute how much of each atomic orbital is "inside" each atom. <strong>Lreal = .false.</strong> does this calculation exactly using all plane waves (reciprocal space). <strong>LREAL = Auto</strong> approximates the same thing by only looking within a sphere around each atom (real space) — much faster for big cells, but the sphere has a finite radius, so you miss contributions from the edges. For small cells, the sphere overlaps with its own periodic image, causing errors.
         </div>
       </div>
 
@@ -2314,22 +2313,22 @@ function SecIncar() {
       singlepoint: { ENCUT: 400, EDIFF: "1E-6", EDIFFG: null, ISMEAR: 0, SIGMA: 0.05, ALGO: "Fast", IBRION: -1, NSW: 0, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["LORBIT = 11  # projected DOS"] },
       dos: { ENCUT: 400, EDIFF: "1E-6", EDIFFG: null, ISMEAR: -5, SIGMA: null, ALGO: "Normal", IBRION: -1, NSW: 0, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["LORBIT = 11", "NEDOS = 2001", "EMIN = -10", "EMAX = 10"] },
       bands: { ENCUT: 400, EDIFF: "1E-6", EDIFFG: null, ISMEAR: 0, SIGMA: 0.05, ALGO: "Normal", IBRION: -1, NSW: 0, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["LORBIT = 11", "ICHARG = 11  # read CHGCAR"] },
-      phonon: { ENCUT: 500, EDIFF: "1E-8", EDIFFG: null, ISMEAR: 0, SIGMA: 0.05, ALGO: "Normal", IBRION: 5, NSW: 1, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["NFREE = 2  # central differences", "POTIM = 0.015  # displacement (Å)"] },
+      phonon: { ENCUT: 500, EDIFF: "1E-8", EDIFFG: null, ISMEAR: 0, SIGMA: 0.05, ALGO: "Normal", IBRION: 5, NSW: 1, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["NFREE = 2  # central differences", "POTIM = 0.015  # displacement (Å)"] }
     },
     metal: {
       relax: { ENCUT: 400, EDIFF: "1E-6", EDIFFG: "-0.02", ISMEAR: 1, SIGMA: 0.1, ALGO: "Fast", IBRION: 2, NSW: 50, ISIF: 3, LREAL: ".FALSE.", PREC: "Accurate", extra: [] },
       singlepoint: { ENCUT: 400, EDIFF: "1E-6", EDIFFG: null, ISMEAR: 1, SIGMA: 0.1, ALGO: "Fast", IBRION: -1, NSW: 0, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["LORBIT = 11"] },
       dos: { ENCUT: 400, EDIFF: "1E-6", EDIFFG: null, ISMEAR: -5, SIGMA: null, ALGO: "Normal", IBRION: -1, NSW: 0, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["LORBIT = 11", "NEDOS = 3001", "EMIN = -15", "EMAX = 10"] },
       bands: { ENCUT: 400, EDIFF: "1E-6", EDIFFG: null, ISMEAR: 1, SIGMA: 0.1, ALGO: "Normal", IBRION: -1, NSW: 0, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["LORBIT = 11", "ICHARG = 11"] },
-      phonon: { ENCUT: 500, EDIFF: "1E-8", EDIFFG: null, ISMEAR: 1, SIGMA: 0.1, ALGO: "Normal", IBRION: 5, NSW: 1, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["NFREE = 2", "POTIM = 0.015"] },
+      phonon: { ENCUT: 500, EDIFF: "1E-8", EDIFFG: null, ISMEAR: 1, SIGMA: 0.1, ALGO: "Normal", IBRION: 5, NSW: 1, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["NFREE = 2", "POTIM = 0.015"] }
     },
     defect: {
       relax: { ENCUT: 400, EDIFF: "1E-6", EDIFFG: "-0.01", ISMEAR: 0, SIGMA: 0.05, ALGO: "Fast", IBRION: 2, NSW: 100, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["# Fixed cell — defect in supercell"] },
       singlepoint: { ENCUT: 400, EDIFF: "1E-6", EDIFFG: null, ISMEAR: 0, SIGMA: 0.05, ALGO: "Fast", IBRION: -1, NSW: 0, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["LORBIT = 11", "# Use relaxed CONTCAR as POSCAR"] },
       dos: { ENCUT: 400, EDIFF: "1E-6", EDIFFG: null, ISMEAR: -5, SIGMA: null, ALGO: "Normal", IBRION: -1, NSW: 0, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["LORBIT = 11", "NEDOS = 2001"] },
       bands: { ENCUT: 400, EDIFF: "1E-6", EDIFFG: null, ISMEAR: 0, SIGMA: 0.05, ALGO: "Normal", IBRION: -1, NSW: 0, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["LORBIT = 11", "ICHARG = 11"] },
-      phonon: { ENCUT: 500, EDIFF: "1E-8", EDIFFG: null, ISMEAR: 0, SIGMA: 0.05, ALGO: "Normal", IBRION: 5, NSW: 1, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["NFREE = 2", "POTIM = 0.015"] },
-    },
+      phonon: { ENCUT: 500, EDIFF: "1E-8", EDIFFG: null, ISMEAR: 0, SIGMA: 0.05, ALGO: "Normal", IBRION: 5, NSW: 1, ISIF: 2, LREAL: ".FALSE.", PREC: "Accurate", extra: ["NFREE = 2", "POTIM = 0.015"] }
+    }
   };
 
   const p = presets[system]?.[task] || presets.semiconductor.relax;
@@ -2376,16 +2375,16 @@ function SecIncar() {
           <div style={{ fontSize: 11, fontWeight: 500, color: T.eqn, marginBottom: 6 }}>System Type</div>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {[
-              { val: "semiconductor", label: "Semiconductor", icon: "💎" },
-              { val: "metal", label: "Metal", icon: "🔩" },
-              { val: "defect", label: "Defect Calc", icon: "⚡" },
+              { val: "semiconductor", label: "Semiconductor", icon: "" },
+              { val: "metal", label: "Metal", icon: "" },
+              { val: "defect", label: "Defect Calc", icon: "" },
             ].map(s => (
               <button key={s.val} onClick={() => setSystem(s.val)} style={{
                 padding: "8px 16px", borderRadius: 8, fontSize: 12, cursor: "pointer",
                 background: system === s.val ? T.eqn : T.surface,
                 color: system === s.val ? "#fff" : T.ink,
                 border: `1.5px solid ${system === s.val ? T.eqn : T.border}`,
-                fontWeight: 500, fontFamily: "inherit",
+                fontWeight: 500, fontFamily: "inherit"
               }}>
                 {s.label}
               </button>
@@ -2408,7 +2407,7 @@ function SecIncar() {
                 background: task === t.val ? T.accent : T.surface,
                 color: task === t.val ? "#fff" : T.ink,
                 border: `1.5px solid ${task === t.val ? T.accent : T.border}`,
-                fontWeight: 500, fontFamily: "inherit",
+                fontWeight: 500, fontFamily: "inherit"
               }}>
                 {t.label}
               </button>
@@ -2422,7 +2421,7 @@ function SecIncar() {
           fontFamily: "'JetBrains Mono', 'Fira Code', monospace", fontSize: 12, lineHeight: 1.7,
           background: "#f7f9fa", color: "var(--ink)", borderRadius: 12,
           padding: "18px 20px", margin: 0, overflowX: "auto",
-          border: `2px solid ${T.eqn}40`, whiteSpace: "pre-wrap", wordBreak: "break-word",
+          border: `2px solid ${T.eqn}40`, whiteSpace: "pre-wrap", wordBreak: "break-word"
         }}>
           {incarText}
         </pre>
@@ -2446,7 +2445,7 @@ function SecIncar() {
             <div key={item.tag} style={{
               display: "flex", gap: 8, alignItems: "center",
               padding: "6px 10px", borderRadius: 8,
-              background: T.main + "05", border: `1px solid ${T.main}10`,
+              background: T.main + "05", border: `1px solid ${T.main}10`
             }}>
               <div style={{ fontFamily: "monospace", fontSize: 12, fontWeight: 500, color: T.main, minWidth: 65 }}>{item.tag}</div>
               <div style={{ fontFamily: "monospace", fontSize: 12, fontWeight: 500, color: T.ink, minWidth: 60 }}>{item.val}</div>
@@ -2498,7 +2497,7 @@ export default function DFTParamsInteractive() {
             border: `1.5px solid ${active === s.id ? (s.color || T.main) : T.border}`,
             fontWeight: active === s.id ? 500 : 500,
             fontFamily: "inherit",
-            boxShadow: active === s.id ? `0 2px 8px ${s.color}30` : "none",
+            boxShadow: active === s.id ? `0 2px 8px ${s.color}30` : "none"
           }}>
             {s.label}
           </button>
@@ -2518,7 +2517,7 @@ export default function DFTParamsInteractive() {
           border: `1.5px solid ${stepIdx > 0 ? (cur.color || T.main) : T.border}`,
           color: stepIdx > 0 ? (cur.color || T.main) : T.dim,
           fontWeight: 500, fontFamily: "inherit",
-          opacity: stepIdx > 0 ? 1 : 0.5,
+          opacity: stepIdx > 0 ? 1 : 0.5
         }}>
           {"\u2190"} Back
         </button>
@@ -2529,7 +2528,7 @@ export default function DFTParamsInteractive() {
           border: `1.5px solid ${stepIdx < PARAM_SECTIONS.length - 1 ? (cur.color || T.main) : T.border}`,
           color: stepIdx < PARAM_SECTIONS.length - 1 ? (cur.color || T.main) : T.dim,
           fontWeight: 500, fontFamily: "inherit",
-          opacity: stepIdx < PARAM_SECTIONS.length - 1 ? 1 : 0.5,
+          opacity: stepIdx < PARAM_SECTIONS.length - 1 ? 1 : 0.5
         }}>
           Next {"\u2192"}
         </button>

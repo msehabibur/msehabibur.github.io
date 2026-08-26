@@ -20,7 +20,7 @@ const P = {
   ok:      "#a5cbd2",
   warn:    "#539aa8",
   node:    "#9bc5ce",
-  chunk:   "#77b1bc",
+  chunk:   "#77b1bc"
 };
 
 const SCENES = [
@@ -826,19 +826,19 @@ export default function LLMMovieModule() {
           title: "Retrieval Layer",
           color: P.rag,
           op: c1Op, x: 18,
-          items: ["Chunk (1000 tok, 200 overlap)", "1536-d OpenAI embeddings", "FAISS cosine search (k=5)", "Grade: sim ≥ 0.70 → pass"],
+          items: ["Chunk (1000 tok, 200 overlap)", "1536-d OpenAI embeddings", "FAISS cosine search (k=5)", "Grade: sim ≥ 0.70 → pass"]
         },
         {
           title: "Agent Loop",
           color: P.agent,
           op: c2Op, x: 200,
-          items: ["Generate with graded context", "Groundedness check ≥ 0.75", "Retry: stricter cite-only prompt", "Confidence 3-way routing"],
+          items: ["Generate with graded context", "Groundedness check ≥ 0.75", "Retry: stricter cite-only prompt", "Confidence 3-way routing"]
         },
         {
           title: "Synthesis Output",
           color: P.llm,
           op: c3Op, x: 382,
-          items: ["Extract: material / T / precursor", "Aggregate across papers", "Uncertainty ranges (σ)", "JSON recipe → database"],
+          items: ["Extract: material / T / precursor", "Aggregate across papers", "Uncertainty ranges (σ)", "JSON recipe → database"]
         },
       ];
       return (
@@ -994,7 +994,7 @@ export default function LLMMovieModule() {
                   fontFamily="'Inter',sans-serif">source: page 7 · 847 tokens</text>
               </g>
             );
-          },
+          }
         },
         {
           label: "② Embed Chunks & Store in FAISS",
@@ -1063,7 +1063,7 @@ export default function LLMMovieModule() {
               <text x={DX+16} y={PY+188} fill={P.dim} fontSize="6.5"
                 fontFamily="'Inter',sans-serif">returns k nearest vectors to query</text>
             </g>
-          ),
+          )
         },
         {
           label: "③ Retrieve & Grade (cosine ≥ 0.70)",
@@ -1132,7 +1132,7 @@ export default function LLMMovieModule() {
                   fontFamily="'Inter',sans-serif" opacity={ease(clamp01((lt-0.7)*4))}>2 discarded — sim below grade threshold</text>
               </g>
             );
-          },
+          }
         },
         {
           label: "④ Generate + Groundedness Check",
@@ -1201,7 +1201,7 @@ export default function LLMMovieModule() {
                   fontFamily="'Inter',sans-serif">Max 2 retries → flag LOW if still failing</text>
               </g>
             </g>
-          ),
+          )
         },
         {
           label: "⑤ Confidence Score & Uncertainty",
@@ -1276,7 +1276,7 @@ export default function LLMMovieModule() {
                 ))}
               </g>
             );
-          },
+          }
         },
         {
           label: "⑥ Synthesize → JSON Recipe",
@@ -1337,7 +1337,7 @@ export default function LLMMovieModule() {
                 </g>
               </g>
             );
-          },
+          }
         },
       ];
 
@@ -1423,7 +1423,7 @@ export default function LLMMovieModule() {
       {/* Cinema screen */}
       <div style={{
         background: P.bg, borderRadius: 16, overflow: "hidden",
-        border: `2px solid ${P.border}`, position: "relative",
+        border: `2px solid ${P.border}`, position: "relative"
       }}>
         <div style={{ position: "absolute", top: 10, left: 14, zIndex: 2, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ background: P.rag+"25", border: `1px solid ${P.rag}50`, padding: "3px 10px",
@@ -1448,7 +1448,7 @@ export default function LLMMovieModule() {
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.rag}`,
           background: P.rag+"15", cursor: "pointer", display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: 18, color: P.rag, fontWeight: 500, fontFamily: "inherit",
+          justifyContent: "center", fontSize: 18, color: P.rag, fontWeight: 500, fontFamily: "inherit"
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
@@ -1495,7 +1495,7 @@ export default function LLMMovieModule() {
               background: i === codeStep ? P.chunk+"25" : "transparent",
               border: `1px solid ${i === codeStep ? P.chunk : P.border}`,
               color: i === codeStep ? P.chunk : i < codeStep ? P.llm : P.muted,
-              fontWeight: i === codeStep ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
+              fontWeight: i === codeStep ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s"
             }}>
               {label}
             </button>
@@ -1516,7 +1516,7 @@ export default function LLMMovieModule() {
             background: i === sceneIdx ? P.rag+"20" : "transparent",
             border: `1px solid ${i === sceneIdx ? P.rag : P.border}`,
             color: i === sceneIdx ? P.rag : i < sceneIdx ? P.llm : P.muted,
-            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
+            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s"
           }}>
             {i + 1}. {s.label}
           </button>

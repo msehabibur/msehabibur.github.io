@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import fx from "./fx.jsx";
 
 const T = {
   bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
   ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)",
   cs_primary: "#337886", cs_accent: "#7fb5c0", cs_lattice: "#5094a1",
   cs_symmetry: "#29616d", cs_miller: "#22515b", cs_cell: "#3c8f9f",
-  cs_pack: "#30727f", cs_struct: "#265b65",
+  cs_pack: "#30727f", cs_struct: "#265b65"
 };
 
 function Tag({ color, children }) {
@@ -24,7 +25,7 @@ function SectionTitle({ color, icon, children }) {
 function Card({ title, color, children }) {
   return (
     <div style={{ background: color + "08", border: `1px solid ${color}33`, borderRadius: 10, padding: 16, marginBottom: 14 }}>
-      {title && <div style={{ fontSize: 12, fontWeight: 500, color, marginBottom: 8, textTransform: "none", letterSpacing: 1 }}>{title}</div>}
+      {title && <div style={{ fontSize: 12, fontWeight: 500, color, marginBottom: 8, textTransform: "none", letterSpacing: 1 }}>{fx(title)}</div>}
       {children}
     </div>
   );
@@ -40,7 +41,7 @@ function BasicsSection() {
   const [showOrdered, setShowOrdered] = useState(true);
   return (
     <div>
-      <SectionTitle color={T.cs_primary} icon="🔷">Crystal Basics</SectionTitle>
+      <SectionTitle color={T.cs_primary} icon="">Crystal Basics</SectionTitle>
       <p style={{ color: T.muted, fontSize: 13, lineHeight: 1.7, marginBottom: 16 }}>
         A <Tag color={T.cs_primary}>Crystal</Tag> is a solid with atoms arranged in a periodically repeating pattern extending in all three dimensions. In contrast, an <Tag color={T.cs_accent}>Amorphous</Tag> solid has no long-range order.
       </p>
@@ -92,7 +93,7 @@ function BravaisSection() {
   const s = systems[sel];
   return (
     <div>
-      <SectionTitle color={T.cs_accent} icon="📐">Bravais Lattices</SectionTitle>
+      <SectionTitle color={T.cs_accent} icon="">Bravais Lattices</SectionTitle>
       <p style={{ color: T.muted, fontSize: 13, lineHeight: 1.7, marginBottom: 14 }}>
         There are <Tag color={T.cs_primary}>7 CRYSTAL SYSTEMS</Tag> and <Tag color={T.cs_accent}>14 BRAVAIS LATTICES</Tag>. Each system is defined by relationships between lattice parameters a, b, c and angles α, β, γ.
       </p>
@@ -137,7 +138,7 @@ function UnitCellSection() {
   const [showWS, setShowWS] = useState(false);
   return (
     <div>
-      <SectionTitle color={T.cs_lattice} icon="📦">Unit Cell</SectionTitle>
+      <SectionTitle color={T.cs_lattice} icon="">Unit Cell</SectionTitle>
       <p style={{ color: T.muted, fontSize: 13, lineHeight: 1.7, marginBottom: 14 }}>
         The <Tag color={T.cs_lattice}>Unit cell</Tag> is the smallest repeating unit that, when translated, fills all space. A <Tag color={T.cs_primary}>Primitive</Tag> cell contains exactly one lattice point; a <Tag color={T.cs_accent}>Conventional</Tag> cell may contain more for convenience.
       </p>
@@ -181,15 +182,15 @@ function UnitCellSection() {
 // ── SECTION 4: SYMMETRY OPERATIONS ──
 function SymmetrySection() {
   const ops = [
-    { name: "Rotation (Cₙ)", desc: "Rotation by 360°/n about an axis. Allowed: C₁, C₂, C₃, C₄, C₆", icon: "🔄" },
-    { name: "Reflection (σ)", desc: "Mirror reflection through a plane. Maps (x,y,z) → (x,y,-z) for σₕ", icon: "🪞" },
-    { name: "Inversion (i)", desc: "Every point (x,y,z) maps to (-x,-y,-z) through center of symmetry", icon: "🔃" },
-    { name: "Improper Rotation (Sₙ)", desc: "Rotation by 360°/n followed by reflection perpendicular to rotation axis", icon: "🌀" },
+    { name: "Rotation (Cₙ)", desc: "Rotation by 360°/n about an axis. Allowed: C₁, C₂, C₃, C₄, C₆", icon: "" },
+    { name: "Reflection (σ)", desc: "Mirror reflection through a plane. Maps (x,y,z) → (x,y,-z) for σₕ", icon: "" },
+    { name: "Inversion (i)", desc: "Every point (x,y,z) maps to (-x,-y,-z) through center of symmetry", icon: "" },
+    { name: "Improper Rotation (Sₙ)", desc: "Rotation by 360°/n followed by reflection perpendicular to rotation axis", icon: "" },
   ];
   const [sel, setSel] = useState(0);
   return (
     <div>
-      <SectionTitle color={T.cs_symmetry} icon="🔄">Symmetry Operations</SectionTitle>
+      <SectionTitle color={T.cs_symmetry} icon="">Symmetry Operations</SectionTitle>
       <p style={{ color: T.muted, fontSize: 13, lineHeight: 1.7, marginBottom: 14 }}>
         Symmetry operations transform a crystal into an indistinguishable configuration. The set of all symmetry operations forms a <Tag color={T.cs_symmetry}>Group</Tag>.
       </p>
@@ -251,7 +252,7 @@ function GroupsSection() {
   ];
   return (
     <div>
-      <SectionTitle color={T.cs_miller} icon="🏛️">Point & Space Groups</SectionTitle>
+      <SectionTitle color={T.cs_miller} icon="">Point & Space Groups</SectionTitle>
       <p style={{ color: T.muted, fontSize: 13, lineHeight: 1.7, marginBottom: 14 }}>
         <Tag color={T.cs_miller}>32 POINT GROUPS</Tag> describe all possible combinations of rotation and reflection symmetries. Combined with translational symmetry (glide planes, screw axes), they form <Tag color={T.cs_symmetry}>230 SPACE GROUPS</Tag>.
       </p>
@@ -292,7 +293,7 @@ function MillerSection() {
   const [sel, setSel] = useState(0);
   return (
     <div>
-      <SectionTitle color={T.cs_cell} icon="✂️">Miller Indices</SectionTitle>
+      <SectionTitle color={T.cs_cell} icon="">Miller Indices</SectionTitle>
       <p style={{ color: T.muted, fontSize: 13, lineHeight: 1.7, marginBottom: 10 }}>
         <Tag color={T.cs_cell}>Miller indices</Tag> (hkl) describe crystal plane orientations. Steps: find axis intercepts → take reciprocals → reduce to smallest integers.
       </p>
@@ -357,7 +358,7 @@ function StructuresSection() {
   const [sel, setSel] = useState(0);
   return (
     <div>
-      <SectionTitle color={T.cs_struct} icon="💎">Common Structures</SectionTitle>
+      <SectionTitle color={T.cs_struct} icon="">Common Structures</SectionTitle>
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 14 }}>
         {structures.map((s, i) => (
           <button key={s.name} onClick={() => setSel(i)} style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${sel === i ? T.cs_struct : T.border}`, background: sel === i ? T.cs_struct + "22" : "transparent", color: sel === i ? T.cs_struct : T.muted, cursor: "pointer", fontSize: 11, fontWeight: 500, fontFamily: "inherit" }}>{s.name}</button>
@@ -413,7 +414,7 @@ function PackingSection() {
   const [stacking, setStacking] = useState("fcc");
   return (
     <div>
-      <SectionTitle color={T.cs_pack} icon="🔵">Close Packing</SectionTitle>
+      <SectionTitle color={T.cs_pack} icon="">Close Packing</SectionTitle>
       <p style={{ color: T.muted, fontSize: 13, lineHeight: 1.7, marginBottom: 14 }}>
         Close-packed structures achieve the maximum packing efficiency of <Tag color={T.cs_pack}>74%</Tag>. The two arrangements differ only in their stacking sequence of hexagonal layers.
       </p>
@@ -473,14 +474,14 @@ function PackingSection() {
 
 // ── SECTIONS ARRAY ──
 const CRYSTAL_SECTIONS = [
-  { id: "basics",    label: "Crystal Basics",     icon: "🔷", color: T.cs_primary,  Component: BasicsSection },
-  { id: "bravais",   label: "Bravais Lattices",   icon: "📐", color: T.cs_accent,   Component: BravaisSection },
-  { id: "unitcell",  label: "Unit Cell",          icon: "📦", color: T.cs_lattice,  Component: UnitCellSection },
-  { id: "symmetry",  label: "Symmetry Ops",       icon: "🔄", color: T.cs_symmetry, Component: SymmetrySection },
-  { id: "groups",    label: "Point & Space Groups",icon: "🏛️", color: T.cs_miller,  Component: GroupsSection },
-  { id: "miller",    label: "Miller Indices",      icon: "✂️", color: T.cs_cell,    Component: MillerSection },
-  { id: "structures",label: "Common Structures",   icon: "💎", color: T.cs_struct,  Component: StructuresSection },
-  { id: "packing",   label: "Close Packing",       icon: "🔵", color: T.cs_pack,    Component: PackingSection },
+  { id: "basics",    label: "Crystal Basics",     color: T.cs_primary,  Component: BasicsSection },
+  { id: "bravais",   label: "Bravais Lattices",   color: T.cs_accent,   Component: BravaisSection },
+  { id: "unitcell",  label: "Unit Cell",          color: T.cs_lattice,  Component: UnitCellSection },
+  { id: "symmetry",  label: "Symmetry Ops",       color: T.cs_symmetry, Component: SymmetrySection },
+  { id: "groups",    label: "Point & Space Groups",color: T.cs_miller,  Component: GroupsSection },
+  { id: "miller",    label: "Miller Indices",      color: T.cs_cell,    Component: MillerSection },
+  { id: "structures",label: "Common Structures",   color: T.cs_struct,  Component: StructuresSection },
+  { id: "packing",   label: "Close Packing",       color: T.cs_pack,    Component: PackingSection },
 ];
 
 export default function CrystalStructuresModule() {

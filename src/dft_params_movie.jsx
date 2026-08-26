@@ -20,7 +20,7 @@ const P = {
   teal:    "#9bc5ce",
   red:     "#539aa8",
   ok:      "#a5cbd2",
-  warn:    "#539aa8",
+  warn:    "#539aa8"
 };
 
 const SCENES = [
@@ -129,7 +129,7 @@ export default function DFTParamsMovieModule() {
           tag,
           x: W / 2 + rx * Math.cos(angle + i * 0.45),
           y: 210 + ry * Math.sin(angle + i * 0.45),
-          col: [P.blue, P.green, P.purple, P.amber, P.pink, P.teal, P.red][i % 7],
+          col: [P.blue, P.green, P.purple, P.amber, P.pink, P.teal, P.red][i % 7]
         };
       });
 
@@ -163,7 +163,7 @@ export default function DFTParamsMovieModule() {
           </text>
           <text x={W / 2} y={140} textAnchor="middle" fill={P.purple} fontSize="11"
             fontFamily="'Inter',sans-serif" opacity={sOp * 0.85}>
-            ENCUT · KPOINTS · ISMEAR · ALGO · EDIFF · IBRION · PREC · LORBIT
+            ENCUT · KPOINTS · Ismear · ALGO · EDIFF · IBRION · prec · lorbit
           </text>
 
           <rect x={W / 2 - 200} y={280} width={400} height={62} rx="10"
@@ -1845,7 +1845,7 @@ export default function DFTParamsMovieModule() {
         ionic: P.green,
         proj: P.teal,
         output: P.blue,
-        blank: P.muted,
+        blank: P.muted
       };
 
       const plotCx = RX + RW / 2;
@@ -1948,7 +1948,7 @@ export default function DFTParamsMovieModule() {
         aspectRatio: "16/9",
         willChange: "transform",
         transform: "translateZ(0)",
-        contain: "layout paint",
+        contain: "layout paint"
       }}>
         <div style={{ position: "absolute", top: 10, left: 14, zIndex: 2, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ background: P.blue + "25", border: `1px solid ${P.blue}50`, padding: "3px 10px",
@@ -1973,7 +1973,7 @@ export default function DFTParamsMovieModule() {
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.blue}`,
           background: P.blue + "15", cursor: "pointer", display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: 18, color: P.blue, fontWeight: 500, fontFamily: "inherit",
+          justifyContent: "center", fontSize: 18, color: P.blue, fontWeight: 500, fontFamily: "inherit"
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
@@ -1981,13 +1981,13 @@ export default function DFTParamsMovieModule() {
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default",
           color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
-          fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4,
+          fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4
         }}>{"\u2190"}</button>
         <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default",
           color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
-          fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4,
+          fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4
         }}>{"\u2192"}</button>
 
         <div style={{ flex: 1, marginLeft: 8 }}>
@@ -2024,7 +2024,7 @@ export default function DFTParamsMovieModule() {
             background: i === sceneIdx ? P.blue + "20" : "transparent",
             border: `1px solid ${i === sceneIdx ? P.blue : P.border}`,
             color: i === sceneIdx ? P.blue : i < sceneIdx ? P.green : P.muted,
-            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
+            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s"
           }}>
             {i + 1}. {s.label}
           </button>

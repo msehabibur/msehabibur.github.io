@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import ChapterShell from "./chapter_shell.jsx";
+import fx from "./fx.jsx";
 
 const T = {
   bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
   ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)",
   syn_main: "#3c8e9f", syn_cvd: "#347a89", syn_pvd: "#327785", syn_sol: "#3d90a1",
-  syn_spin: "#5094a1", syn_ald: "#30717f", syn_mbe: "#5095a3", syn_hydro: "#3b8d9d",
+  syn_spin: "#5094a1", syn_ald: "#30717f", syn_mbe: "#5095a3", syn_hydro: "#3b8d9d"
 };
 
 function FAQAccordion({ title, color, isOpen, onClick, children }) {
@@ -46,11 +47,11 @@ function ResultBox({ label, value, color, sub }) {
 
 function Card({ title, color, formula, children }) {
   return (
-    <div style={{ background: T.panel, border: `1.5px solid ${(color || T.border)}44`, borderLeft: `4px solid ${color || "#347a89"}`, borderRadius: 10, padding: "16px 18px", marginBottom: 10 }}>
+    <div style={{ background: T.panel, border: `1.5px solid ${(color || T.border)}44`,  borderRadius: 10, padding: "16px 18px", marginBottom: 10 }}>
       {(title || formula) && (
         <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 10, flexWrap: "wrap" }}>
-          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#347a89", textTransform: "none", fontWeight: 500 }}>{title}</div>}
-          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || "#347a89") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#347a89")}33` }}>{formula}</div>}
+          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#347a89", textTransform: "none", fontWeight: 500 }}>{fx(title)}</div>}
+          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || "#347a89") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#347a89")}33` }}>{fx(formula)}</div>}
         </div>
       )}
       {children}
@@ -105,7 +106,7 @@ function SolarCellCard({ mat, eg, method, recipe, eff, color, steps }) {
               <button key={i} onClick={() => setActiveStep(i)} style={{
                 padding: "3px 8px", borderRadius: 6, border: `1.5px solid ${activeStep === i ? color : T.border}`,
                 background: activeStep === i ? color + "18" : T.bg, color: activeStep === i ? color : T.muted,
-                cursor: "pointer", fontSize: 9, fontFamily: "inherit", fontWeight: activeStep === i ? 500 : 400,
+                cursor: "pointer", fontSize: 9, fontFamily: "inherit", fontWeight: activeStep === i ? 500 : 400
               }}>{s.icon} {i + 1}</button>
             ))}
           </div>
@@ -136,15 +137,15 @@ function CVDSection() {
   useEffect(() => { const id = setInterval(() => setTick(t => t + 1), 80); return () => clearInterval(id); }, []);
 
   const steps = [
-    { title: "Step 1: Precursor Gas Flow", icon: "💨", color: T.syn_cvd,
+    { title: "Step 1: Precursor Gas Flow", color: T.syn_cvd,
       analogy: "Like spraying perfume into a room. Gaseous precursors (e.g., SiH₄ for Si, TiCl₄ for TiO₂) are carried by an inert gas (N₂ or Ar) into the reaction chamber. The flow rate controls how much material reaches the substrate." },
-    { title: "Step 2: Gas-Phase Reaction", icon: "⚗️", color: T.syn_sol,
+    { title: "Step 2: Gas-Phase Reaction", color: T.syn_sol,
       analogy: "Like cooking in mid-air. Precursor molecules partially decompose or react in the hot gas above the substrate. Temperature determines which reactions occur — too cold and nothing happens, too hot and you get powder (homogeneous nucleation) instead of a film." },
-    { title: "Step 3: Adsorption on Surface", icon: "🎯", color: T.syn_main,
+    { title: "Step 3: Adsorption on Surface", color: T.syn_main,
       analogy: "Like flies landing on a sticky surface. Reactive fragments adsorb onto the heated substrate. They diffuse across the surface looking for energetically favorable sites — step edges, kink sites, or existing islands." },
-    { title: "Step 4: Surface Diffusion & Reaction", icon: "🏃", color: T.syn_spin,
+    { title: "Step 4: Surface Diffusion & Reaction", color: T.syn_spin,
       analogy: "Like ants finding food. Adsorbed molecules crawl across the surface, meet other molecules, and react to form the film material. Higher substrate temperature = faster diffusion = larger crystalline grains." },
-    { title: "Step 5: Film Growth & Byproduct Desorption", icon: "📈", color: T.syn_pvd,
+    { title: "Step 5: Film Growth & Byproduct Desorption", color: T.syn_pvd,
       analogy: "Like building with LEGOs while sweeping away packaging. The film grows atom-by-atom while volatile byproducts (HCl, H₂, CO₂) desorb from the surface and are pumped away. The growth rate depends on temperature, pressure, and precursor flux." },
   ];
 
@@ -161,7 +162,7 @@ function CVDSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is CVD? (Chemical Vapor Deposition)" color={T.syn_cvd} isOpen={openItem === "cvd_what"} onClick={() => toggle("cvd_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_cvd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_cvd + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}>🏭</span>
+          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like invisible spray painting with chemistry. Gas-phase precursors flow over a hot substrate, decompose, and deposit a thin film atom by atom. The substrate never sees a liquid or solid source — everything arrives as vapor. CVD is the workhorse of the semiconductor industry: Si wafers, SiO₂ insulators, Si₃N₄ passivation, III-V LEDs, and diamond coatings.</span>
         </div>
         <div style={mb}>
@@ -189,7 +190,7 @@ function CVDSection() {
             <button key={i} onClick={() => setCvdStep(i)} style={{
               padding: "5px 10px", borderRadius: 8, border: `2px solid ${cvdStep === i ? s.color : T.border}`,
               background: cvdStep === i ? s.color + "18" : T.bg, color: cvdStep === i ? s.color : T.muted,
-              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: cvdStep === i ? 500 : 400,
+              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: cvdStep === i ? 500 : 400
             }}>{s.icon} {i + 1}</button>
           ))}
         </div>
@@ -450,13 +451,13 @@ function PVDSection() {
   useEffect(() => { const id = setInterval(() => setTick(t => t + 1), 80); return () => clearInterval(id); }, []);
 
   const pvdSteps = [
-    { title: "Step 1: Create Vacuum", icon: "🫧", color: T.syn_pvd,
+    { title: "Step 1: Create Vacuum", color: T.syn_pvd,
       analogy: "Like emptying a room of air so thrown baseballs travel in straight lines. At 10⁻⁶ Torr, the mean free path is ~50 meters — atoms travel from source to substrate without colliding with gas molecules." },
-    { title: "Step 2: Vaporize Source Material", icon: "🔥", color: T.syn_ald,
+    { title: "Step 2: Vaporize Source Material", color: T.syn_ald,
       analogy: "Like boiling water to make steam, but with metals. Thermal evaporation uses resistive heating (W boats) or e-beam heating. Sputtering uses Ar⁺ ions to knock atoms off a target — like microscopic billiards." },
-    { title: "Step 3: Transport Through Vacuum", icon: "✈️", color: T.syn_cvd,
+    { title: "Step 3: Transport Through Vacuum", color: T.syn_cvd,
       analogy: "Atoms fly in straight lines through vacuum — like bullets from a gun. In sputtering, Ar gas scatters them slightly, giving better step coverage. In evaporation, it's line-of-sight: shadowed areas get no film." },
-    { title: "Step 4: Condensation & Film Growth", icon: "❄️", color: T.syn_main,
+    { title: "Step 4: Condensation & Film Growth", color: T.syn_main,
       analogy: "Like frost forming on a cold window. Atoms arrive at the substrate, lose energy, and stick. Substrate temperature controls crystallinity: cold → amorphous, warm → polycrystalline, hot → epitaxial single crystal." },
   ];
 
@@ -466,7 +467,7 @@ function PVDSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is PVD? (Physical Vapor Deposition)" color={T.syn_pvd} isOpen={openItem === "pvd_what"} onClick={() => toggle("pvd_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_pvd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_pvd + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}>🎯</span>
+          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like spray painting with individual atoms. PVD physically moves material from a solid/liquid source to the substrate through vacuum — no chemical reactions involved. The source is vaporized (by heat, electron beam, or ion bombardment), and atoms condense on the cool substrate to form a thin film.</span>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 12 }}>
@@ -490,7 +491,7 @@ function PVDSection() {
             <button key={i} onClick={() => setPvdStep(i)} style={{
               padding: "5px 10px", borderRadius: 8, border: `2px solid ${pvdStep === i ? s.color : T.border}`,
               background: pvdStep === i ? s.color + "18" : T.bg, color: pvdStep === i ? s.color : T.muted,
-              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: pvdStep === i ? 500 : 400,
+              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: pvdStep === i ? 500 : 400
             }}>{s.icon} {i + 1}</button>
           ))}
         </div>
@@ -679,13 +680,13 @@ function SolGelSection() {
   useEffect(() => { const id = setInterval(() => setTick(t => t + 1), 100); return () => clearInterval(id); }, []);
 
   const steps = [
-    { title: "Step 1: Precursor Solution (Sol)", icon: "🧪", color: T.syn_sol,
+    { title: "Step 1: Precursor Solution (Sol)", color: T.syn_sol,
       analogy: "Like making a special soup. Dissolve metal alkoxides (e.g., TEOS for SiO₂, Ti-isopropoxide for TiO₂) in alcohol. The sol is a colloidal suspension — tiny particles floating in liquid, smaller than visible light wavelength." },
-    { title: "Step 2: Hydrolysis & Condensation", icon: "💧", color: T.syn_hydro,
+    { title: "Step 2: Hydrolysis & Condensation", color: T.syn_hydro,
       analogy: "Like gelatin setting. Add water → alkoxide groups hydrolyze (M-OR + H₂O → M-OH + ROH). Then M-OH groups condense (M-OH + HO-M → M-O-M + H₂O) forming a 3D network. The sol becomes a gel — a wet solid sponge." },
-    { title: "Step 3: Film Deposition (Spin/Dip Coating)", icon: "🌀", color: T.syn_spin,
+    { title: "Step 3: Film Deposition (Spin/Dip Coating)", color: T.syn_spin,
       analogy: "Like spreading pizza dough by spinning. Spin coating: drop sol on substrate, spin at 2000-6000 RPM → centrifugal force spreads a uniform film. Dip coating: dip substrate in sol, withdraw at controlled speed → film thickness controlled by withdrawal rate." },
-    { title: "Step 4: Drying & Calcination", icon: "🔥", color: T.syn_ald,
+    { title: "Step 4: Drying & Calcination", color: T.syn_ald,
       analogy: "Like firing pottery in a kiln. First dry at 100-200°C (remove solvent). Then calcine at 400-600°C (burn organics, crystallize). The wet gel shrinks ~30% as pores collapse. Final film: dense, crystalline oxide." },
   ];
 
@@ -695,7 +696,7 @@ function SolGelSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is Sol-Gel?" color={T.syn_sol} isOpen={openItem === "sg_what"} onClick={() => toggle("sg_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_sol + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_sol + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}>🧪</span>
+          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Chemistry in a beaker that becomes a solid film. Start with a liquid solution of metal compounds, trigger polymerization reactions, coat it on a substrate, and bake. No vacuum needed! Sol-gel is the cheapest way to make oxide thin films (TiO₂, SiO₂, ZnO, ITO) and the backbone of many coating industries.</span>
         </div>
         <div style={mb}>
@@ -717,7 +718,7 @@ function SolGelSection() {
             <button key={i} onClick={() => setSgStep(i)} style={{
               padding: "5px 10px", borderRadius: 8, border: `2px solid ${sgStep === i ? s.color : T.border}`,
               background: sgStep === i ? s.color + "18" : T.bg, color: sgStep === i ? s.color : T.muted,
-              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: sgStep === i ? 500 : 400,
+              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: sgStep === i ? 500 : 400
             }}>{s.icon} {i + 1}</button>
           ))}
         </div>
@@ -762,7 +763,7 @@ function SolGelSection() {
             <rect x={120} y={140} width={180} height={15} rx={3} fill={T.syn_main + "40"} stroke={T.syn_main} strokeWidth={1.5} />
             <text x={210} y={152} textAnchor="middle" fill={T.syn_main} fontSize={8}>Substrate</text>
             {/* Spinning arrows */}
-            <text x={210} y={90} textAnchor="middle" fill={T.syn_spin} fontSize={30} style={{ transform: `rotate(${tick * 10}deg)`, transformOrigin: "210px 90px" }}>🌀</text>
+            <text x={210} y={90} textAnchor="middle" fill={T.syn_spin} fontSize={30} style={{ transform: `rotate(${tick * 10}deg)`, transformOrigin: "210px 90px" }}></text>
             {/* Film spreading */}
             <rect x={130 - (tick % 30) * 1} y={133} width={160 + (tick % 30) * 2} height={7} rx={2} fill={T.syn_sol + "60"} />
             <text x={210} y={120} textAnchor="middle" fill={T.syn_spin} fontSize={11} fontWeight={500}>{(3000 + tick * 10 % 3000)} RPM</text>
@@ -775,7 +776,7 @@ function SolGelSection() {
             <rect x={120} y={113} width={180} height={7} rx={2} fill={T.syn_ald + "60"} stroke={T.syn_ald} strokeWidth={0.5} />
             {/* Heat waves */}
             {Array.from({ length: 5 }, (_, i) => (
-              <text key={i} x={140 + i * 35} y={155 + 5 * Math.sin(tick * 0.15 + i)} fill={T.syn_ald} fontSize={14} opacity={0.5 + 0.3 * Math.sin(tick * 0.1 + i)}>🔥</text>
+              <text key={i} x={140 + i * 35} y={155 + 5 * Math.sin(tick * 0.15 + i)} fill={T.syn_ald} fontSize={14} opacity={0.5 + 0.3 * Math.sin(tick * 0.1 + i)}></text>
             ))}
             {/* Organics burning off */}
             {Array.from({ length: 4 }, (_, i) => (
@@ -918,13 +919,13 @@ function ALDSection() {
   useEffect(() => { const id = setInterval(() => setTick(t => t + 1), 100); return () => clearInterval(id); }, []);
 
   const steps = [
-    { title: "Pulse A: First Precursor", icon: "1️⃣", color: T.syn_ald,
+    { title: "Pulse A: First Precursor", icon: "1⃣", color: T.syn_ald,
       analogy: "Like putting glue on a surface — one layer sticks, extra bounces off. Precursor A (e.g., TMA = trimethylaluminum) flows in and reacts with surface -OH groups. Once all sites are occupied, the reaction STOPS — it's self-limiting. This is the magic of ALD." },
-    { title: "Purge 1: Remove Excess", icon: "💨", color: T.syn_cvd,
+    { title: "Purge 1: Remove Excess", color: T.syn_cvd,
       analogy: "Like clearing the table before the next course. Inert gas (N₂/Ar) flushes out unreacted precursor A and byproducts. If you skip this, precursors A and B meet in the gas phase → CVD contamination → non-uniform film." },
-    { title: "Pulse B: Second Precursor", icon: "2️⃣", color: T.syn_hydro,
+    { title: "Pulse B: Second Precursor", icon: "2⃣", color: T.syn_hydro,
       analogy: "Like pouring water on the glued surface to set it. Precursor B (e.g., H₂O for oxides, NH₃ for nitrides) reacts with the chemisorbed A layer. Again self-limiting — one monolayer reacts, then stops. This completes one ALD cycle." },
-    { title: "Purge 2 → Repeat", icon: "🔄", color: T.syn_main,
+    { title: "Purge 2 → Repeat", color: T.syn_main,
       analogy: "Like building a brick wall one layer at a time. Purge again, then repeat from Pulse A. Each cycle deposits exactly ~1 Å (one atomic layer). 100 cycles = 10 nm. Perfect thickness control, perfect conformality." },
   ];
 
@@ -934,7 +935,7 @@ function ALDSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is ALD? (Atomic Layer Deposition)" color={T.syn_ald} isOpen={openItem === "ald_what"} onClick={() => toggle("ald_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_ald + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_ald + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}>🧱</span>
+          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The most precise thin-film technique — deposits exactly ONE atomic layer per cycle. ALD alternates between two self-limiting surface reactions. No matter how much precursor you flow, only one monolayer reacts. Repeat 100 times → exactly 10 nm. Used for gate oxides in every modern transistor (HfO₂), barrier layers, and passivation coatings.</span>
         </div>
         <div style={mb}>
@@ -955,7 +956,7 @@ function ALDSection() {
             <button key={i} onClick={() => setAldStep(i)} style={{
               padding: "5px 10px", borderRadius: 8, border: `2px solid ${aldStep === i ? s.color : T.border}`,
               background: aldStep === i ? s.color + "18" : T.bg, color: aldStep === i ? s.color : T.muted,
-              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: aldStep === i ? 500 : 400,
+              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: aldStep === i ? 500 : 400
             }}>{s.icon}</button>
           ))}
         </div>
@@ -1213,7 +1214,7 @@ function MBESection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is MBE? (Molecular Beam Epitaxy)" color={T.syn_mbe} isOpen={openItem === "mbe_what"} onClick={() => toggle("mbe_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_mbe + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_mbe + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}>🔬</span>
+          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The Rolls-Royce of thin-film deposition. Ultra-high vacuum (10⁻¹⁰ Torr), molecular beams of pure elements directed at a heated crystal substrate. Atoms land one at a time in perfect registry with the substrate lattice. Used for quantum wells, superlattices, 2D electron gases, and the highest-quality semiconductor heterostructures.</span>
         </div>
         <div style={mb}>
@@ -1413,13 +1414,13 @@ function SpinCoatingSection() {
   const thickness = 100 * Math.sqrt(visc / rpm) * conc / 5;
 
   const scSteps = [
-    { title: "Step 1: Dispense Solution", icon: "💧", color: T.syn_spin,
+    { title: "Step 1: Dispense Solution", color: T.syn_spin,
       analogy: "Like pouring pancake batter onto the center of a pan. A small volume (20-100 μL) of precursor solution is pipetted onto the center of the substrate. The amount must be enough to cover the surface when spread, but not so much that it flies off the edge." },
-    { title: "Step 2: Spin-Up (Acceleration)", icon: "🌀", color: T.syn_sol,
+    { title: "Step 2: Spin-Up (Acceleration)", color: T.syn_sol,
       analogy: "Like a figure skater starting to spin — the solution begins to spread outward. The substrate accelerates to the target RPM (typically 1000-6000 RPM) in 1-3 seconds. Centrifugal force pushes solution radially outward, rapidly thinning the film." },
-    { title: "Step 3: Steady-State Thinning", icon: "🎯", color: T.syn_main,
+    { title: "Step 3: Steady-State Thinning", color: T.syn_main,
       analogy: "Like wringing water from a towel — the film gets progressively thinner. At constant RPM, viscous flow and solvent evaporation work together. The film thins as t ∝ 1/√ω. Most excess material is flung off the edge within the first 10 seconds." },
-    { title: "Step 4: Edge Bead & Drying", icon: "🔥", color: T.syn_cvd,
+    { title: "Step 4: Edge Bead & Drying", color: T.syn_cvd,
       analogy: "Like a pizza crust being thicker at the rim. Surface tension at the substrate edge creates an 'edge bead' — a ring of thicker film 2-5 mm wide. Meanwhile, solvent evaporates, leaving behind a solid thin film. The final thickness is typically 10-1000 nm." },
   ];
 
@@ -1429,7 +1430,7 @@ function SpinCoatingSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is Spin Coating?" color={T.syn_spin} isOpen={openItem === "sc_what"} onClick={() => toggle("sc_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_spin + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_spin + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}>🌀</span>
+          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The simplest thin-film method: drop solution on substrate, spin fast, centrifugal force spreads it into a uniform thin film. The final thickness depends on spin speed, solution viscosity, and concentration. Used everywhere: photoresist in lithography, perovskite solar cells, organic electronics, sol-gel coatings. Cost: ~$5,000 for a spin coater vs ~$1M for a CVD system.</span>
         </div>
         <div style={mb}>
@@ -1451,7 +1452,7 @@ function SpinCoatingSection() {
             <button key={i} onClick={() => setScStep(i)} style={{
               padding: "5px 10px", borderRadius: 8, border: `2px solid ${scStep === i ? s.color : T.border}`,
               background: scStep === i ? s.color + "18" : T.bg, color: scStep === i ? s.color : T.muted,
-              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: scStep === i ? 500 : 400,
+              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: scStep === i ? 500 : 400
             }}>{s.icon} {i + 1}</button>
           ))}
         </div>
@@ -1600,7 +1601,7 @@ function SpinCoatingSection() {
               <InfoRow label="At 5000 RPM" value="thickness = 450 nm (too thin)" />
               <InfoRow label="Anti-solvent" value="Chlorobenzene at 15 s" />
             </div>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 2 — Fit the t ∝ ω^(-1/2) Model:</strong></div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 2 — Fit the t ∝ ω<sup>-1/2</sup> Model:</strong></div>
             <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
               <CalcRow eq="t = K / √ω" result="" color={T.syn_spin} />
               <CalcRow eq="From 2000 RPM data: K = 720 × √2000" result="K = 32,200 nm·√RPM" color={T.syn_spin} />
@@ -1714,15 +1715,15 @@ function HydrothermalSection() {
   useEffect(() => { const id = setInterval(() => setTick(t => t + 1), 80); return () => clearInterval(id); }, []);
 
   const htSteps = [
-    { title: "Step 1: Prepare Precursor Solution", icon: "🧪", color: T.syn_hydro,
+    { title: "Step 1: Prepare Precursor Solution", color: T.syn_hydro,
       analogy: "Like making a recipe — dissolve metal salts (Zn(NO₃)₂, TiCl₄, BaCl₂) and mineralizers (NaOH, KOH, HMTA) in water. The solution chemistry (pH, concentration, additives) determines what crystal phase and morphology you get." },
-    { title: "Step 2: Seal in Autoclave", icon: "🔒", color: T.syn_sol,
+    { title: "Step 2: Seal in Autoclave", color: T.syn_sol,
       analogy: "Like a pressure cooker for crystals. The Teflon liner holds the solution, and the stainless steel jacket seals it. Fill to 60-80% capacity — the remaining space allows steam pressure to build. Never overfill — the vessel can rupture at high temperature!" },
-    { title: "Step 3: Heat & Pressurize", icon: "🔥", color: T.syn_pvd,
+    { title: "Step 3: Heat & Pressurize", color: T.syn_pvd,
       analogy: "Like cooking in a sealed pot — temperature rises and pressure builds autogenously (from steam). At 200°C, pressure reaches ~16 atm. The superheated water becomes a powerful solvent that dissolves oxides and silicates that normal water cannot." },
-    { title: "Step 4: Nucleation & Crystal Growth", icon: "🔮", color: T.syn_main,
+    { title: "Step 4: Nucleation & Crystal Growth", color: T.syn_main,
       analogy: "Like rock candy forming on a string. As the solution becomes supersaturated, tiny crystal nuclei form. Then atoms add layer by layer to growing crystal faces. Slow growth (hours to days) produces well-faceted, high-quality crystals with few defects." },
-    { title: "Step 5: Cool, Wash & Harvest", icon: "✨", color: T.syn_ald,
+    { title: "Step 5: Cool, Wash & Harvest", color: T.syn_ald,
       analogy: "Like taking bread out of the oven. Cool the autoclave to room temperature (natural cooling or quenching). Open carefully — residual pressure! Wash the crystals (centrifuge, filter) to remove unreacted precursors. Dry at 60-80°C." },
   ];
 
@@ -1732,7 +1733,7 @@ function HydrothermalSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is Hydrothermal Synthesis?" color={T.syn_hydro} isOpen={openItem === "ht_what"} onClick={() => toggle("ht_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_hydro + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_hydro + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}>🫧</span>
+          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Nature{"'"}s own crystal growth method — like how quartz crystals form deep underground. Dissolve precursors in water, seal in a high-pressure vessel (autoclave), heat to 100-300°C. The supercritical water dissolves things that normal water can{"'"}t, and crystals grow slowly from solution. Perfect for ZnO nanowires, TiO₂ nanoparticles, and zeolites.</span>
         </div>
         <div style={mb}>
@@ -1755,7 +1756,7 @@ function HydrothermalSection() {
             <button key={i} onClick={() => setHtStep(i)} style={{
               padding: "5px 10px", borderRadius: 8, border: `2px solid ${htStep === i ? s.color : T.border}`,
               background: htStep === i ? s.color + "18" : T.bg, color: htStep === i ? s.color : T.muted,
-              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: htStep === i ? 500 : 400,
+              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: htStep === i ? 500 : 400
             }}>{s.icon} {i + 1}</button>
           ))}
         </div>
@@ -2077,14 +2078,14 @@ function SynthesisComparisonSection() {
 // MAIN MODULE
 // ═══════════════════════════════════════════════════════════════════════════
 const SYNTH_SECTIONS = [
-  { id: "cvd",      label: "CVD",               icon: "🏭", color: T.syn_cvd,   Component: CVDSection,    nextReason: "CVD uses gas-phase chemistry. PVD takes a simpler approach — physically vaporize the source material in vacuum and let atoms fly to the substrate." },
-  { id: "pvd",      label: "PVD",               icon: "🎯", color: T.syn_pvd,   Component: PVDSection,    nextReason: "PVD deposits atoms ballistically. Sol-gel takes a completely different approach — start from a liquid solution and build the film through wet chemistry." },
-  { id: "solgel",   label: "Sol-Gel",           icon: "🧪", color: T.syn_sol,   Component: SolGelSection, nextReason: "Sol-gel coats from solution. ALD takes precision to the extreme — depositing exactly one atomic layer per cycle through self-limiting surface reactions." },
-  { id: "ald",      label: "ALD",               icon: "🧱", color: T.syn_ald,   Component: ALDSection,    nextReason: "ALD gives atomic-level control. MBE takes this further with molecular beams in ultra-high vacuum — the ultimate tool for epitaxial heterostructures." },
-  { id: "mbe",      label: "MBE",               icon: "🔬", color: T.syn_mbe,   Component: MBESection,    nextReason: "MBE is the pinnacle of epitaxial growth. Spin coating is the opposite extreme — the simplest, cheapest method for solution-processed thin films." },
-  { id: "spin",     label: "Spin Coating",      icon: "🌀", color: T.syn_spin,  Component: SpinCoatingSection, nextReason: "Spin coating is simple and cheap. Hydrothermal synthesis grows crystals from solution under pressure — nature's own crystal growth method." },
-  { id: "hydro",    label: "Hydrothermal",      icon: "🫧", color: T.syn_hydro, Component: HydrothermalSection, nextReason: "All synthesis methods covered. The comparison table helps you choose the right technique for your material and application." },
-  { id: "compare",  label: "Comparison",        icon: "📊", color: T.syn_main,  Component: SynthesisComparisonSection },
+  { id: "cvd",      label: "CVD",               color: T.syn_cvd,   Component: CVDSection,    nextReason: "CVD uses gas-phase chemistry. PVD takes a simpler approach — physically vaporize the source material in vacuum and let atoms fly to the substrate." },
+  { id: "pvd",      label: "PVD",               color: T.syn_pvd,   Component: PVDSection,    nextReason: "PVD deposits atoms ballistically. Sol-gel takes a completely different approach — start from a liquid solution and build the film through wet chemistry." },
+  { id: "solgel",   label: "Sol-Gel",           color: T.syn_sol,   Component: SolGelSection, nextReason: "Sol-gel coats from solution. ALD takes precision to the extreme — depositing exactly one atomic layer per cycle through self-limiting surface reactions." },
+  { id: "ald",      label: "ALD",               color: T.syn_ald,   Component: ALDSection,    nextReason: "ALD gives atomic-level control. MBE takes this further with molecular beams in ultra-high vacuum — the ultimate tool for epitaxial heterostructures." },
+  { id: "mbe",      label: "MBE",               color: T.syn_mbe,   Component: MBESection,    nextReason: "MBE is the pinnacle of epitaxial growth. Spin coating is the opposite extreme — the simplest, cheapest method for solution-processed thin films." },
+  { id: "spin",     label: "Spin Coating",      color: T.syn_spin,  Component: SpinCoatingSection, nextReason: "Spin coating is simple and cheap. Hydrothermal synthesis grows crystals from solution under pressure — nature's own crystal growth method." },
+  { id: "hydro",    label: "Hydrothermal",      color: T.syn_hydro, Component: HydrothermalSection, nextReason: "All synthesis methods covered. The comparison table helps you choose the right technique for your material and application." },
+  { id: "compare",  label: "Comparison",        color: T.syn_main,  Component: SynthesisComparisonSection },
 ];
 
 export default function MaterialsSynthesisModule({ references = [] }) {

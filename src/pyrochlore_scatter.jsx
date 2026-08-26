@@ -132,7 +132,7 @@ export default function PyrochloreScatter() {
       padding: "16px 20px",
       maxWidth: 1100,
       margin: "0 auto",
-      fontFamily: "'Inter', 'Segoe UI', sans-serif",
+      fontFamily: "'Inter', 'Segoe UI', sans-serif"
     }}>
       {/* Title */}
       <div style={{ textAlign: "center", marginBottom: 10 }}>
@@ -147,7 +147,7 @@ export default function PyrochloreScatter() {
       {/* Filter bar */}
       <div style={{
         display: "flex", alignItems: "center", justifyContent: "center",
-        gap: 12, marginBottom: 10, flexWrap: "wrap",
+        gap: 12, marginBottom: 10, flexWrap: "wrap"
       }}>
         <span style={{ fontSize: 12, color: "var(--muted)", fontWeight: 500 }}>Filter Synthesis Prob:</span>
         {[[0, 1, "All"], [0.8, 1, "≥ 0.8 (Stable)"], [0.5, 0.8, "0.5–0.8"], [0, 0.5, "< 0.5 (Novel)"]].map(([lo, hi, label]) => {
@@ -159,7 +159,7 @@ export default function PyrochloreScatter() {
                 background: isActive ? "var(--ink)" : "#fff",
                 color: isActive ? "#fff" : "var(--muted)",
                 border: `1.5px solid ${isActive ? "var(--ink)" : "var(--line)"}`,
-                cursor: "pointer", transition: "all 0.15s",
+                cursor: "pointer", transition: "all 0.15s"
               }}>
               {label}
             </button>
@@ -174,7 +174,7 @@ export default function PyrochloreScatter() {
         {/* SVG Plot */}
         <svg viewBox={`0 0 ${W} ${H}`} style={{
           flex: "1 1 auto", minWidth: 0,
-          background: "#fff", borderRadius: 10, border: "1px solid #d4e2e5",
+          background: "#fff", borderRadius: 10, border: "1px solid #d4e2e5"
         }}>
           {/* Grid */}
           {xTicks.map(v => (
@@ -331,12 +331,12 @@ export default function PyrochloreScatter() {
         <div style={{
           width: 280, minWidth: 280, flexShrink: 0,
           background: "#fff", borderRadius: 10, border: "1px solid #d4e2e5",
-          overflow: "hidden", display: "flex", flexDirection: "column",
+          overflow: "hidden", display: "flex", flexDirection: "column"
         }}>
           {/* Header */}
           <div style={{
             padding: "12px 16px", borderBottom: "1px solid #edf3f4",
-            background: active ? spColor(active.sp) + "12" : "#f7f9fa",
+            background: active ? spColor(active.sp) + "12" : "#f7f9fa"
           }}>
             {active ? (
               <>
@@ -344,7 +344,7 @@ export default function PyrochloreScatter() {
                 <div style={{
                   display: "inline-block", marginTop: 4,
                   padding: "2px 10px", borderRadius: 4, fontSize: 11, fontWeight: 500,
-                  background: spBadge(active.sp).bg, color: spBadge(active.sp).color,
+                  background: spBadge(active.sp).bg, color: spBadge(active.sp).color
                 }}>
                   {spBadge(active.sp).text} Synthesis Prob.
                 </div>
@@ -367,8 +367,7 @@ export default function PyrochloreScatter() {
               ].map((p, i) => (
                 <div key={i} style={{
                   padding: "10px 12px", marginBottom: 8,
-                  background: "#f7f9fa", borderRadius: 8,
-                  borderLeft: `3px solid ${p.color}`,
+                  background: "#f7f9fa", borderRadius: 8 
                 }}>
                   <div style={{ fontSize: 11, color: "var(--muted)", fontWeight: 500, textTransform: "none", letterSpacing: 0.5 }}>
                     {p.label}
@@ -385,7 +384,7 @@ export default function PyrochloreScatter() {
                 <div style={{
                   padding: "8px 12px", borderRadius: 8,
                   background: "#f7fafa", border: "1px solid #7cb3be",
-                  fontSize: 11, color: "#255862", fontWeight: 500,
+                  fontSize: 11, color: "#255862", fontWeight: 500
                 }}>
                   ✓ In TBC design space (low κ + high CTE)
                 </div>
@@ -396,7 +395,7 @@ export default function PyrochloreScatter() {
                   marginTop: 10, width: "100%", padding: "6px 0",
                   background: "var(--paper)", border: "1.5px solid #d4e2e5",
                   borderRadius: 6, fontSize: 12, color: "var(--muted)",
-                  cursor: "pointer", fontWeight: 500,
+                  cursor: "pointer", fontWeight: 500
                 }}>
                   × Deselect
                 </button>
@@ -417,7 +416,7 @@ export default function PyrochloreScatter() {
 
           {/* Mini table at bottom */}
           <div style={{
-            borderTop: "1px solid #edf3f4", maxHeight: 180, overflowY: "auto",
+            borderTop: "1px solid #edf3f4", maxHeight: 180, overflowY: "auto"
           }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10 }}>
               <thead>
@@ -444,7 +443,7 @@ export default function PyrochloreScatter() {
                           background: isAct ? spColor(d.sp) + "18" : (i % 2 === 0 ? "#fff" : "#fafbfc"),
                           cursor: "pointer",
                           fontWeight: isAct ? 500 : 400,
-                          transition: "background 0.1s",
+                          transition: "background 0.1s"
                         }}
                       >
                         <td style={{ padding: "4px 8px", color: "var(--ink)" }}>{d.label}</td>

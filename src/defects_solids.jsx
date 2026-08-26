@@ -4,7 +4,7 @@ const T = {
   bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
   ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)",
   df_primary: "#30717f", df_vacancy: "#388392", df_interstitial: "#5299a7",
-  df_schottky: "#327785", df_frenkel: "#347a89", df_disloc: "#3c8f9f", df_grain: "#5095a3",
+  df_schottky: "#327785", df_frenkel: "#347a89", df_disloc: "#3c8f9f", df_grain: "#5095a3"
 };
 
 function Tag({ color, children }) {
@@ -12,7 +12,7 @@ function Tag({ color, children }) {
     <span style={{
       display: "inline-block", padding: "1px 8px", borderRadius: 4,
       fontSize: 11, fontWeight: 500, background: color + "22",
-      border: `1px solid ${color}55`, color, letterSpacing: 1,
+      border: `1px solid ${color}55`, color, letterSpacing: 1
     }}>{children}</span>
   );
 }
@@ -23,11 +23,11 @@ function SectionTitle({ color, icon, children }) {
       <div style={{
         width: 32, height: 32, borderRadius: 8,
         background: color + "22", border: `1px solid ${color}55`,
-        display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16,
+        display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16
       }}>{icon}</div>
       <div style={{
         fontSize: 15, fontWeight: 500, color,
-        letterSpacing: 1, textTransform: "none",
+        letterSpacing: 1, textTransform: "none"
       }}>{children}</div>
     </div>
   );
@@ -92,7 +92,7 @@ function IntroSection() {
           <button onClick={() => setShowDefect(!showDefect)} style={{
             marginTop: 8, padding: "6px 16px", borderRadius: 6,
             border: `1px solid ${T.df_primary}`, background: T.df_primary + "11",
-            color: T.df_primary, cursor: "pointer", fontSize: 12, fontWeight: 500,
+            color: T.df_primary, cursor: "pointer", fontSize: 12, fontWeight: 500
           }}>{showDefect ? "Show perfect" : "Introduce defect"}</button>
         </div>
       </div>
@@ -129,7 +129,7 @@ function PointDefectsSection() {
                 padding: "8px 14px", borderRadius: 8, textAlign: "left",
                 border: `2px solid ${activeDefects[d.type] ? d.color : T.border}`,
                 background: activeDefects[d.type] ? d.color + "15" : T.surface,
-                cursor: "pointer",
+                cursor: "pointer"
               }}>
                 <div style={{ fontSize: 13, fontWeight: 500, color: d.color }}>{d.label}</div>
                 <div style={{ fontSize: 11, color: T.muted }}>{d.desc}</div>
@@ -176,7 +176,7 @@ function PointDefectsSection() {
           <tr style={{ borderBottom: `2px solid ${T.border}` }}>
             <th style={{ textAlign: "left", padding: 8, color: T.ink }}>Material</th>
             <th style={{ textAlign: "left", padding: 8, color: T.ink }}>Defect</th>
-            <th style={{ textAlign: "right", padding: 8, color: T.ink }}>E_f (eV)</th>
+            <th style={{ textAlign: "right", padding: 8, color: T.ink }}>E<sub>f</sub> (eV)</th>
           </tr>
         </thead>
         <tbody>
@@ -211,7 +211,7 @@ function SchottkyFrenkelSection() {
             border: `2px solid ${defectType === t ? (t === "schottky" ? T.df_schottky : T.df_frenkel) : T.border}`,
             background: defectType === t ? (t === "schottky" ? T.df_schottky : T.df_frenkel) + "15" : T.surface,
             color: defectType === t ? (t === "schottky" ? T.df_schottky : T.df_frenkel) : T.muted,
-            cursor: "pointer", textTransform: "capitalize",
+            cursor: "pointer", textTransform: "capitalize"
           }}>{t}</button>
         ))}
       </div>
@@ -350,7 +350,7 @@ function KrogerVinkSection() {
           { sym: "\u2032", name: "Negative", desc: "Each \u2032 = -1 effective charge" },
         ].map((ch, i) => (
           <div key={i} style={{
-            padding: 12, borderRadius: 8, background: T.surface, border: `1px solid ${T.border}`, flex: 1, minWidth: 120,
+            padding: 12, borderRadius: 8, background: T.surface, border: `1px solid ${T.border}`, flex: 1, minWidth: 120
           }}>
             <div style={{ fontSize: 24, textAlign: "center", color: T.df_primary, fontWeight: 500 }}>{ch.sym}</div>
             <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, textAlign: "center" }}>{ch.name}</div>
@@ -483,7 +483,7 @@ function DislocationsSection() {
             border: `2px solid ${dislType === t ? T.df_disloc : T.border}`,
             background: dislType === t ? T.df_disloc + "15" : T.surface,
             color: dislType === t ? T.df_disloc : T.muted,
-            cursor: "pointer", textTransform: "capitalize",
+            cursor: "pointer", textTransform: "capitalize"
           }}>{t}</button>
         ))}
       </div>
@@ -700,7 +700,7 @@ function DiffusionSection() {
           <tr style={{ borderBottom: `2px solid ${T.border}` }}>
             <th style={{ textAlign: "left", padding: 8, color: T.ink }}>System</th>
             <th style={{ textAlign: "left", padding: 8, color: T.ink }}>Mechanism</th>
-            <th style={{ textAlign: "right", padding: 8, color: T.ink }}>E_A (eV)</th>
+            <th style={{ textAlign: "right", padding: 8, color: T.ink }}>E<sub>A</sub> (eV)</th>
             <th style={{ textAlign: "right", padding: 8, color: T.ink }}>D₀ (cm²/s)</th>
           </tr>
         </thead>
@@ -770,7 +770,7 @@ function ExperimentalLabSection() {
             </div>
           </div>
         </div>
-      ),
+      )
     },
     {
       title: "2. DLTS Measurement",
@@ -801,7 +801,7 @@ function ExperimentalLabSection() {
             </div>
           </div>
         </div>
-      ),
+      )
     },
     {
       title: "3. DLTS Spectrum — Identify Peaks",
@@ -863,7 +863,7 @@ function ExperimentalLabSection() {
             </div>
           </div>
         </div>
-      ),
+      )
     },
     {
       title: "4. Arrhenius Analysis — Extract Defect Level",
@@ -871,7 +871,7 @@ function ExperimentalLabSection() {
         <div>
           <p style={{ color: T.ink, fontSize: 13, lineHeight: 1.8 }}>
             From multiple DLTS scans at different rate windows, extract the emission rate e_n at each peak temperature.
-            Plot <b>ln(e_n/T²) vs 1000/T</b> — the slope gives the activation energy E_a (= defect level depth).
+            Plot <b>ln(e<sub>n</sub>/T²) vs 1000/T</b> — the slope gives the activation energy E_a (= defect level depth).
           </p>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 8, border: `1px solid ${T.border}` }}>
             <div style={{ fontFamily: "monospace", fontSize: 12, color: T.df_primary }}>
@@ -919,13 +919,13 @@ function ExperimentalLabSection() {
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 8, border: `1px solid ${T.border}` }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 6 }}>Extracted Parameters (Peak B: E-center)</div>
             <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.7 }}>
-              • Slope = −5100 K → <span style={{ fontFamily: "monospace", color: T.df_primary }}>E_a = slope × k_B = 5100 × 8.617×10⁻⁵ = 0.44 eV</span><br/>
-              • Intercept → <span style={{ fontFamily: "monospace", color: T.df_primary }}>σ_n = 2 × 10⁻¹⁵ cm²</span><br/>
-              • <b>Defect level: E_C − 0.44 eV</b> — matches the known E-center (vacancy-phosphorus pair)
+              • Slope = −5100 K → <span style={{ fontFamily: "monospace", color: T.df_primary }}>E<sub>a</sub> = slope × k<sub>B</sub> = 5100 × 8.617×10⁻⁵ = 0.44 eV</span><br/>
+              • Intercept → <span style={{ fontFamily: "monospace", color: T.df_primary }}>σ<sub>n</sub> = 2 × 10⁻¹⁵ cm²</span><br/>
+              • <b>Defect level: E<sub>C</sub> − 0.44 eV</b> — matches the known E-center (vacancy-phosphorus pair)
             </div>
           </div>
         </div>
-      ),
+      )
     },
     {
       title: "5. Results Summary & Defect Map",
@@ -971,9 +971,9 @@ function ExperimentalLabSection() {
               <tr style={{ borderBottom: `2px solid ${T.border}` }}>
                 <th style={{ textAlign: "left", padding: 8, color: T.ink }}>Defect</th>
                 <th style={{ textAlign: "left", padding: 8, color: T.ink }}>Identity</th>
-                <th style={{ textAlign: "right", padding: 8, color: T.ink }}>E_a (eV)</th>
-                <th style={{ textAlign: "right", padding: 8, color: T.ink }}>σ_n (cm²)</th>
-                <th style={{ textAlign: "right", padding: 8, color: T.ink }}>N_T (cm⁻³)</th>
+                <th style={{ textAlign: "right", padding: 8, color: T.ink }}>E<sub>a</sub> (eV)</th>
+                <th style={{ textAlign: "right", padding: 8, color: T.ink }}>σ<sub>n</sub> (cm²)</th>
+                <th style={{ textAlign: "right", padding: 8, color: T.ink }}>N<sub>T</sub> (cm⁻³)</th>
               </tr>
             </thead>
             <tbody>
@@ -1002,13 +1002,13 @@ function ExperimentalLabSection() {
             </div>
           </div>
         </div>
-      ),
+      )
     },
   ];
 
   return (
     <div>
-      <SectionTitle color={T.df_disloc} icon={"🔬"}>Experimental Lab: DLTS on Irradiated Silicon</SectionTitle>
+      <SectionTitle color={T.df_disloc} icon={""}>Experimental Lab: DLTS on Irradiated Silicon</SectionTitle>
       <p style={{ color: T.ink, fontSize: 13, lineHeight: 1.8, marginBottom: 12 }}>
         Walk through a <b>real experiment</b> to detect and characterize point defects in a semiconductor.
         We use <b>Deep Level Transient Spectroscopy (DLTS)</b> — the gold-standard technique for measuring
@@ -1022,7 +1022,7 @@ function ExperimentalLabSection() {
             border: `1.5px solid ${step === i ? T.df_disloc : T.border}`,
             background: step === i ? T.df_disloc + "15" : T.surface,
             color: step === i ? T.df_disloc : T.muted,
-            cursor: "pointer", whiteSpace: "nowrap",
+            cursor: "pointer", whiteSpace: "nowrap"
           }}>
             {s.title.split(".")[0]}.
           </button>
@@ -1040,7 +1040,7 @@ function ExperimentalLabSection() {
           border: `1px solid ${step === 0 ? T.dim : T.df_disloc}`,
           background: step === 0 ? T.surface : T.df_disloc + "11",
           color: step === 0 ? T.dim : T.df_disloc,
-          cursor: step === 0 ? "default" : "pointer",
+          cursor: step === 0 ? "default" : "pointer"
         }}>← Prev step</button>
         <span style={{ fontSize: 11, color: T.muted, alignSelf: "center" }}>Step {step + 1} of {steps.length}</span>
         <button onClick={() => setStep(Math.min(steps.length - 1, step + 1))} disabled={step === steps.length - 1} style={{
@@ -1048,7 +1048,7 @@ function ExperimentalLabSection() {
           border: `1px solid ${step === steps.length - 1 ? T.dim : T.df_disloc}`,
           background: step === steps.length - 1 ? T.surface : T.df_disloc + "11",
           color: step === steps.length - 1 ? T.dim : T.df_disloc,
-          cursor: step === steps.length - 1 ? "default" : "pointer",
+          cursor: step === steps.length - 1 ? "default" : "pointer"
         }}>Next step →</button>
       </div>
     </div>
@@ -1076,7 +1076,7 @@ export default function DefectsSolidsModule() {
   return (
     <div style={{
       background: T.bg, minHeight: "100vh", padding: 32,
-      fontFamily: "'Inter', -apple-system, sans-serif",
+      fontFamily: "'Inter', -apple-system, sans-serif"
     }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: 24 }}>
@@ -1091,7 +1091,7 @@ export default function DefectsSolidsModule() {
       {/* Tab navigation */}
       <div style={{
         display: "flex", gap: 4, overflowX: "auto", marginBottom: 20,
-        padding: "4px 0", borderBottom: `2px solid ${T.border}`,
+        padding: "4px 0", borderBottom: `2px solid ${T.border}`
       }}>
         {SECTIONS.map((s, i) => (
           <button key={s.id} onClick={() => setSec(i)} style={{
@@ -1101,7 +1101,7 @@ export default function DefectsSolidsModule() {
             background: i === sec ? s.color + "11" : "transparent",
             color: i === sec ? s.color : T.muted,
             cursor: "pointer", fontSize: 12, fontWeight: i === sec ? 500 : 500,
-            whiteSpace: "nowrap", transition: "all 0.2s",
+            whiteSpace: "nowrap", transition: "all 0.2s"
           }}>
             <span style={{ marginRight: 4 }}>{s.icon}</span>{s.label}
           </button>
@@ -1111,7 +1111,7 @@ export default function DefectsSolidsModule() {
       {/* Pipeline flow */}
       <div style={{
         display: "flex", alignItems: "center", gap: 2, marginBottom: 20,
-        overflowX: "auto", padding: "4px 0",
+        overflowX: "auto", padding: "4px 0"
       }}>
         {SECTIONS.map((s, i) => (
           <div key={s.id} style={{ display: "flex", alignItems: "center" }}>
@@ -1121,12 +1121,12 @@ export default function DefectsSolidsModule() {
               border: `2px solid ${i <= sec ? s.color : T.border}`,
               display: "flex", alignItems: "center", justifyContent: "center",
               cursor: "pointer", fontSize: 12, color: i <= sec ? "#fff" : T.muted,
-              fontWeight: 500, transition: "all 0.3s",
+              fontWeight: 500, transition: "all 0.3s"
             }}>{i + 1}</div>
             {i < SECTIONS.length - 1 && (
               <div style={{
                 width: 20, height: 2,
-                background: i < sec ? SECTIONS[i + 1].color : T.border,
+                background: i < sec ? SECTIONS[i + 1].color : T.border
               }} />
             )}
           </div>
@@ -1136,7 +1136,7 @@ export default function DefectsSolidsModule() {
       {/* Main content */}
       <div style={{
         background: T.panel, borderRadius: 16, padding: 28,
-        border: `1px solid ${T.border}`, boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
+        border: `1px solid ${T.border}`, boxShadow: "0 2px 12px rgba(0,0,0,0.04)"
       }}>
         <current.Component />
       </div>
@@ -1144,14 +1144,14 @@ export default function DefectsSolidsModule() {
       {/* Bottom navigation */}
       <div style={{
         display: "flex", justifyContent: "space-between", alignItems: "center",
-        marginTop: 20, padding: "0 8px",
+        marginTop: 20, padding: "0 8px"
       }}>
         <button onClick={() => setSec(Math.max(0, sec - 1))} disabled={sec === 0} style={{
           padding: "8px 20px", borderRadius: 8,
           border: `1px solid ${sec === 0 ? T.dim : current.color}`,
           background: sec === 0 ? T.surface : current.color + "11",
           color: sec === 0 ? T.dim : current.color,
-          cursor: sec === 0 ? "default" : "pointer", fontWeight: 500, fontSize: 13,
+          cursor: sec === 0 ? "default" : "pointer", fontWeight: 500, fontSize: 13
         }}>← Previous</button>
 
         {/* Dot indicators */}
@@ -1160,7 +1160,7 @@ export default function DefectsSolidsModule() {
             <div key={i} onClick={() => setSec(i)} style={{
               width: i === sec ? 18 : 8, height: 8, borderRadius: 4,
               background: i === sec ? s.color : i < sec ? s.color + "55" : T.dim,
-              cursor: "pointer", transition: "all 0.3s",
+              cursor: "pointer", transition: "all 0.3s"
             }} />
           ))}
         </div>
@@ -1170,7 +1170,7 @@ export default function DefectsSolidsModule() {
           border: `1px solid ${sec === SECTIONS.length - 1 ? T.dim : current.color}`,
           background: sec === SECTIONS.length - 1 ? T.surface : current.color + "11",
           color: sec === SECTIONS.length - 1 ? T.dim : current.color,
-          cursor: sec === SECTIONS.length - 1 ? "default" : "pointer", fontWeight: 500, fontSize: 13,
+          cursor: sec === SECTIONS.length - 1 ? "default" : "pointer", fontWeight: 500, fontSize: 13
         }}>Next →</button>
       </div>
     </div>

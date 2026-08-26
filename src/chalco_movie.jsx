@@ -25,7 +25,7 @@ const P = {
   ok:      "#a5cbd2",
   warn:    "#539aa8",
   chalco:  "#77b1bc",
-  teal:    "#9bc5ce",
+  teal:    "#9bc5ce"
 };
 
 // ── Scenes ──
@@ -526,7 +526,7 @@ export default function ChalcoMovieModule() {
             <text x={467} y={115} textAnchor="middle" fill={P.ink} fontSize="8">Band gap</text>
             <text x={467} y={130} textAnchor="middle" fill={P.ink} fontSize="8">Forces</text>
             <text x={467} y={145} textAnchor="middle" fill={P.ink} fontSize="8">Stress tensor</text>
-            <text x={467} y={160} textAnchor="middle" fill={P.ok} fontSize="8" fontWeight="500">SLME</text>
+            <text x={467} y={160} textAnchor="middle" fill={P.ok} fontSize="8" fontWeight="500">Slme</text>
           </g>
 
           {/* Details box */}
@@ -818,7 +818,7 @@ export default function ChalcoMovieModule() {
             <text x={485} y={78} textAnchor="middle" fill={P.chalco} fontSize="9" fontWeight="500">Predictions</text>
             <text x={485} y={95} textAnchor="middle" fill={P.ink} fontSize="8">Band gap</text>
             <text x={485} y={108} textAnchor="middle" fill={P.ink} fontSize="8">{"\u0394"}H decomp</text>
-            <text x={485} y={121} textAnchor="middle" fill={P.ink} fontSize="8">SLME</text>
+            <text x={485} y={121} textAnchor="middle" fill={P.ink} fontSize="8">Slme</text>
             <text x={485} y={134} textAnchor="middle" fill={P.ink} fontSize="8">Defect Eᶠ</text>
           </g>
 
@@ -1475,15 +1475,15 @@ export default function ChalcoMovieModule() {
   return (
     <div style={{
       maxWidth: 1100, margin: "0 auto", padding: "24px 20px",
-      fontFamily: "'Inter', -apple-system, sans-serif",
+      fontFamily: "'Inter', -apple-system, sans-serif"
     }}>
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
         <div style={{
-          fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "none", marginBottom: 4,
+          fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "none", marginBottom: 4
         }}>Animated Module</div>
         <div style={{
-          fontSize: 22, fontWeight: 500, color: P.chalco, marginBottom: 4,
+          fontSize: 22, fontWeight: 500, color: P.chalco, marginBottom: 4
         }}>ChalcoDB {"\u2014"} Data-Driven Chalcogenide Design</div>
         <div style={{ fontSize: 13, color: P.muted, lineHeight: 1.5 }}>
           From high-throughput DFT to machine learning: designing multinary chalcogenide solar absorbers.
@@ -1493,17 +1493,17 @@ export default function ChalcoMovieModule() {
       {/* Cinema screen */}
       <div style={{
         background: P.bg, borderRadius: 16, overflow: "hidden",
-        border: `2px solid ${P.border}`, position: "relative",
+        border: `2px solid ${P.border}`, position: "relative"
       }}>
         {/* Scene title overlay */}
         <div style={{
           position: "absolute", top: 10, left: 14, zIndex: 2,
-          display: "flex", alignItems: "center", gap: 8,
+          display: "flex", alignItems: "center", gap: 8
         }}>
           <span style={{
             background: P.chalco + "25", border: `1px solid ${P.chalco}50`,
             padding: "3px 10px", borderRadius: 6,
-            fontSize: 10, fontWeight: 500, color: P.chalco, letterSpacing: 1,
+            fontSize: 10, fontWeight: 500, color: P.chalco, letterSpacing: 1
           }}>Scene {sceneIdx + 1}/{SCENES.length}</span>
           <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
@@ -1511,7 +1511,7 @@ export default function ChalcoMovieModule() {
         {/* Author watermark */}
         <div style={{
           position: "absolute", top: 10, right: 14, zIndex: 2,
-          fontSize: 11, color: "#ffffff", fontWeight: 500, opacity: 0.85,
+          fontSize: 11, color: "#ffffff", fontWeight: 500, opacity: 0.85
         }}>
           Developed by Habibur Rahman {"\u00B7"} mhrahman@lbl.gov
         </div>
@@ -1521,12 +1521,12 @@ export default function ChalcoMovieModule() {
 
         {/* Scene progress bar */}
         <div style={{
-          height: 3, background: P.dim + "30", position: "relative",
+          height: 3, background: P.dim + "30", position: "relative"
         }}>
           <div style={{
             height: "100%", background: P.chalco,
             width: `${progress * 100}%`, borderRadius: 2,
-            transition: playing ? "none" : "width 0.1s",
+            transition: playing ? "none" : "width 0.1s"
           }} />
         </div>
       </div>
@@ -1535,13 +1535,13 @@ export default function ChalcoMovieModule() {
       <div style={{
         display: "flex", alignItems: "center", gap: 8, marginTop: 14,
         background: P.panel, padding: "10px 14px", borderRadius: 12,
-        border: `1px solid ${P.border}`,
+        border: `1px solid ${P.border}`
       }}>
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.chalco}`,
           background: P.chalco + "15", cursor: "pointer", display: "flex",
           alignItems: "center", justifyContent: "center", fontSize: 18,
-          color: P.chalco, fontWeight: 500, fontFamily: "inherit",
+          color: P.chalco, fontWeight: 500, fontFamily: "inherit"
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
@@ -1550,18 +1550,18 @@ export default function ChalcoMovieModule() {
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default",
           color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
-          fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4,
+          fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4
         }}>{"\u2190"}</button>
         <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default",
           color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
-          fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4,
+          fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4
         }}>{"\u2192"}</button>
 
         <div style={{ flex: 1, marginLeft: 8 }}>
           <div style={{
-            height: 6, background: P.dim + "30", borderRadius: 3, position: "relative", cursor: "pointer",
+            height: 6, background: P.dim + "30", borderRadius: 3, position: "relative", cursor: "pointer"
           }} onClick={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             const clickRatio = (e.clientX - rect.left) / rect.width;
@@ -1577,14 +1577,14 @@ export default function ChalcoMovieModule() {
           }}>
             <div style={{
               height: "100%", background: `linear-gradient(90deg, ${P.chalco}, ${P.dft}, ${P.mlff})`,
-              width: `${globalProgress * 100}%`, borderRadius: 3,
+              width: `${globalProgress * 100}%`, borderRadius: 3
             }} />
             {SCENES.map((_, i) => {
               const pos = SCENES.slice(0, i).reduce((s, sc) => s + sc.duration, 0) / totalDuration;
               return i > 0 ? (
                 <div key={i} style={{
                   position: "absolute", left: `${pos * 100}%`, top: -2,
-                  width: 1, height: 10, background: P.dim,
+                  width: 1, height: 10, background: P.dim
                 }} />
               ) : null;
             })}
@@ -1598,7 +1598,7 @@ export default function ChalcoMovieModule() {
 
       {/* Scene selector chips */}
       <div style={{
-        display: "flex", gap: 4, marginTop: 10, flexWrap: "wrap",
+        display: "flex", gap: 4, marginTop: 10, flexWrap: "wrap"
       }}>
         {SCENES.map((s, i) => (
           <button key={s.id} onClick={() => goScene(i)} style={{
@@ -1607,7 +1607,7 @@ export default function ChalcoMovieModule() {
             border: `1px solid ${i === sceneIdx ? P.chalco : P.border}`,
             color: i === sceneIdx ? P.chalco : i < sceneIdx ? P.mlff : P.muted,
             fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit",
-            transition: "all 0.15s",
+            transition: "all 0.15s"
           }}>
             {i + 1}. {s.label}
           </button>

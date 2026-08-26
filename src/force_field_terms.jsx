@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import fx from "./fx.jsx";
 # Plan: Merge 3 JSX Apps into One Unified Light-Gray App
 
 ## Context
@@ -107,16 +108,15 @@ function Card({ color, title, formula, children }) {
   return (
     <div style={{
       background: C.panel,
-      border: `1.5px solid ${color}44`,
-      borderLeft: `4px solid ${color}`,
+      border: `1.5px solid ${color}44`, 
       borderRadius: 10,
       padding: "16px 18px",
-      marginBottom: 0,
+      marginBottom: 0
     }}>
       <div style={{ display:"flex", alignItems:"baseline", gap:12, marginBottom:10 }}>
-        <div style={{ fontSize:13, fontWeight:500, color, letterSpacing:0.5 }}>{title}</div>
+        <div style={{ fontSize:13, fontWeight:500, color, letterSpacing:0.5 }}>{fx(title)}</div>
         <div style={{ fontFamily:"'Georgia',serif", fontSize:14, color:C.ink, background:color+"11",
-          padding:"2px 10px", borderRadius:4, border:`1px solid ${color}33` }}>{formula}</div>
+          padding:"2px 10px", borderRadius:4, border:`1px solid ${color}33` }}>{fx(formula)}</div>
       </div>
       {children}
     </div>
@@ -144,7 +144,7 @@ function ResultBox({ label, value, color, sub }) {
   return (
     <div style={{
       background: color+"11", border:`1px solid ${color}33`,
-      borderRadius:8, padding:"8px 12px", textAlign:"center",
+      borderRadius:8, padding:"8px 12px", textAlign:"center"
     }}>
       <div style={{ fontSize:10, color:C.muted, marginBottom:2 }}>{label}</div>
       <div style={{ fontSize:18, fontWeight:500, color, fontFamily:"monospace" }}>{value}</div>
@@ -452,7 +452,7 @@ function CoulombSection() {
                   flex:1, padding:"6px 0", borderRadius:6, fontSize:12, fontWeight:500,
                   background: qi===v ? C.coul+"33" : C.light,
                   border:`1.5px solid ${qi===v ? C.coul : C.border}`,
-                  color: qi===v ? C.coul : C.muted, cursor:"pointer",
+                  color: qi===v ? C.coul : C.muted, cursor:"pointer"
                 }}>{v>0?"+":""}{v}</button>
               ))}
             </div>
@@ -465,7 +465,7 @@ function CoulombSection() {
                   flex:1, padding:"6px 0", borderRadius:6, fontSize:12, fontWeight:500,
                   background: qj===v ? C.dih+"33" : C.light,
                   border:`1.5px solid ${qj===v ? C.dih : C.border}`,
-                  color: qj===v ? C.dih : C.muted, cursor:"pointer",
+                  color: qj===v ? C.dih : C.muted, cursor:"pointer"
                 }}>{v>0?"+":""}{v}</button>
               ))}
             </div>
@@ -797,7 +797,7 @@ const TABS = [
   { id:"bond",    label:"Bond",     icon:"⎯",  color:C.bond  },
   { id:"angle",   label:"Angle",    icon:"∠",  color:C.angle },
   { id:"vdw",     label:"vdW",      icon:"◎",  color:C.vdw   },
-  { id:"coulomb", label:"Coulomb",  icon:"⚡",  color:C.coul  },
+  { id:"coulomb", label:"Coulomb",  color:C.coul  },
   { id:"dihedral",label:"Dihedral", icon:"↻",  color:C.dih   },
   { id:"morse",   label:"Morse",    icon:"〜",  color:C.morse },
   { id:"compare", label:"Summary",  icon:"≡",  color:C.gold  },
@@ -827,7 +827,7 @@ export default function ForceFieldTerms() {
       fontFamily:"'Georgia', 'Times New Roman', serif",
       color:C.ink,
       display:"flex",
-      flexDirection:"column",
+      flexDirection:"column"
     }}>
       {/* Header */}
       <div style={{
@@ -837,7 +837,7 @@ export default function ForceFieldTerms() {
         display:"flex",
         alignItems:"center",
         justifyContent:"space-between",
-        position:"sticky", top:0, zIndex:10,
+        position:"sticky", top:0, zIndex:10
       }}>
         <div>
           <div style={{ fontSize:10, letterSpacing:4, color:C.muted, textTransform: "none", fontFamily:"sans-serif" }}>
@@ -859,7 +859,7 @@ export default function ForceFieldTerms() {
         gap:6,
         borderBottom:`1px solid ${C.border}`,
         background:C.panel,
-        overflowX:"auto",
+        overflowX:"auto"
       }}>
         {TABS.map((t,i)=>(
           <button key={t.id} onClick={()=>setActive(t.id)} style={{
@@ -875,7 +875,7 @@ export default function ForceFieldTerms() {
             display:"flex",
             alignItems:"center",
             gap:6,
-            whiteSpace:"nowrap",
+            whiteSpace:"nowrap"
           }}>
             <span style={{ fontSize:14 }}>{t.icon}</span>
             <span style={{ fontSize:10, color:active===t.id?t.color:C.dim, marginRight:2 }}>{i+1}.</span>
@@ -896,7 +896,7 @@ export default function ForceFieldTerms() {
         display:"flex",
         justifyContent:"space-between",
         alignItems:"center",
-        background:C.panel,
+        background:C.panel
       }}>
         <button onClick={()=>{
           const i=TABS.findIndex(t=>t.id===active);
@@ -907,7 +907,7 @@ export default function ForceFieldTerms() {
           border:`1.5px solid ${active===TABS[0].id ? C.border : tab.color}`,
           color: active===TABS[0].id ? C.muted : tab.color,
           cursor: active===TABS[0].id ? "default":"pointer",
-          fontFamily:"sans-serif", fontWeight:500,
+          fontFamily:"sans-serif", fontWeight:500
         }}>← Previous</button>
 
         <div style={{ display:"flex", gap:8 }}>
@@ -915,7 +915,7 @@ export default function ForceFieldTerms() {
             <div key={t.id} onClick={()=>setActive(t.id)} style={{
               width:10, height:10, borderRadius:5,
               background: active===t.id ? t.color : C.dim,
-              cursor:"pointer", transition:"all 0.2s",
+              cursor:"pointer", transition:"all 0.2s"
             }}/>
           ))}
         </div>
@@ -929,7 +929,7 @@ export default function ForceFieldTerms() {
           border:`1.5px solid ${active===TABS[TABS.length-1].id ? C.border : tab.color}`,
           color: active===TABS[TABS.length-1].id ? C.muted : tab.color,
           cursor: active===TABS[TABS.length-1].id ? "default":"pointer",
-          fontFamily:"sans-serif", fontWeight:500,
+          fontFamily:"sans-serif", fontWeight:500
         }}>Next →</button>
       </div>
     </div>
@@ -973,61 +973,57 @@ export default function ForceFieldTerms() {
         {[
           {
             title: "Electrical Conductivity",
-            icon: "⚡",
             value: defects === 0 ? "Intrinsic" : `×${conductivityRatio.toExponential(1)} increase`,
             detail: defects === 0
               ? "No free carriers. Near perfect insulator."
               : `${defects} vacancies × 2e each = ${defects * 2} extra carriers. Conductivity up by ~${conductivityRatio.toExponential(0)}×`,
             color: P.cond,
-            change: defects === 0 ? "none" : "HUGE",
+            change: defects === 0 ? "none" : "HUGE"
           },
           {
             title: "Carrier Lifetime (τ)",
-            icon: "⏱️",
+            icon: "⏱",
             value: defects === 0 ? "~1 ms" : `~${(defectLifetime * 1000).toFixed(2)} ms`,
             detail: defects === 0
               ? "No traps. Carriers survive long enough to reach contacts."
               : `SRH recombination at ${defects} trap centres. τ reduced by ${Math.round(intrinsicLifetime / defectLifetime)}×`,
             color: P.hole,
-            change: defects === 0 ? "none" : "BAD",
+            change: defects === 0 ? "none" : "BAD"
           },
           {
             title: "Solar Cell Efficiency",
-            icon: "☀️",
             value: defects === 0 ? "~25%" : `~${Math.max(5, 25 - efficiencyLoss).toFixed(0)}%`,
             detail: defects === 0
               ? "Maximum theoretical efficiency. No recombination losses."
               : `−${efficiencyLoss.toFixed(0)} percentage points lost. Carriers recombine at traps before reaching contacts.`,
             color: P.photon,
-            change: defects === 0 ? "none" : "BAD",
+            change: defects === 0 ? "none" : "BAD"
           },
           {
             title: "Mechanical Strength",
-            icon: "🔩",
             value: "Unchanged",
             detail: `${defects} atoms in 10¹¹ = ${(defects / 1e11 * 100).toFixed(10)}% change. Completely undetectable.`,
             color: P.muted,
-            change: "none",
+            change: "none"
           },
           {
             title: "Lattice Constant",
-            icon: "📏",
             value: "~0 change",
             detail: `Local distortion near vacancy ± 0.04 Å. Average lattice constant: change < 10⁻⁸ Å. Immeasurable.`,
             color: P.muted,
-            change: "none",
+            change: "none"
           },
         ].map(({ title, icon, value, detail, color, change }) => (
           <div key={title} style={{
             display: "flex", gap: 12, alignItems: "flex-start",
             padding: "10px 12px", borderRadius: 8,
             background: change !== "none" ? color + "11" : P.card,
-            border: `1px solid ${change !== "none" ? color + "44" : P.border}`,
+            border: `1px solid ${change !== "none" ? color + "44" : P.border}`
           }}>
             <div style={{ fontSize: 18, flex: "0 0 24px", marginTop: 2 }}>{icon}</div>
             <div style={{ flex: 1 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 3 }}>
-                <div style={{ fontSize: 13, fontWeight: 500, color: change !== "none" ? color : P.text }}>{title}</div>
+                <div style={{ fontSize: 13, fontWeight: 500, color: change !== "none" ? color : P.text }}>{fx(title)}</div>
                 <div style={{ fontSize: 14, fontWeight: 500, color: change !== "none" ? color : P.muted, fontFamily: "monospace" }}>
                   {value}
                 </div>
@@ -1039,7 +1035,7 @@ export default function ForceFieldTerms() {
 
         <div style={{
           padding: "10px 14px", borderRadius: 8,
-          background: P.gap + "11", border: `1px solid ${P.gap}44`,
+          background: P.gap + "11", border: `1px solid ${P.gap}44`
         }}>
           <div style={{ fontSize: 11, color: P.gap, fontWeight: 500, marginBottom: 4 }}>Why electrical/optical but not mechanical?</div>
           <div style={{ fontSize: 11, color: P.muted, lineHeight: 1.7 }}>
@@ -1055,12 +1051,12 @@ export default function ForceFieldTerms() {
 
 // ── MAIN APP ───────────────────────────────────────────────────────────────
 const SECTIONS = [
-  { id: "atom",    label: "Atom Structure",    icon: "⚛️",  color: P.core,    Component: AtomSection },
-  { id: "crystal", label: "Crystal Formation", icon: "💎",  color: P.valence, Component: CrystalSection },
-  { id: "bands",   label: "Energy Bands",      icon: "📊",  color: P.cond,    Component: BandSection },
-  { id: "defect",  label: "Defect States",     icon: "🕳️",  color: P.gap,     Component: DefectSection },
-  { id: "nelect",  label: "NELECT & Charge",   icon: "🔋",  color: P.e,       Component: NelectSection },
-  { id: "macro",   label: "Macro Properties",  icon: "🔬",  color: P.photon,  Component: MacroSection },
+  { id: "atom",    label: "Atom Structure",    color: P.core,    Component: AtomSection },
+  { id: "crystal", label: "Crystal Formation", color: P.valence, Component: CrystalSection },
+  { id: "bands",   label: "Energy Bands",      color: P.cond,    Component: BandSection },
+  { id: "defect",  label: "Defect States",     color: P.gap,     Component: DefectSection },
+  { id: "nelect",  label: "NELECT & Charge",   color: P.e,       Component: NelectSection },
+  { id: "macro",   label: "Macro Properties",  color: P.photon,  Component: MacroSection },
 ];
 
 export default function ElectronOrigins() {
@@ -1075,7 +1071,7 @@ export default function ElectronOrigins() {
       fontFamily: "'IBM Plex Mono', 'JetBrains Mono', 'Fira Code', monospace",
       color: P.text,
       display: "flex",
-      flexDirection: "column",
+      flexDirection: "column"
     }}>
       {/* Header */}
       <div style={{
@@ -1088,7 +1084,7 @@ export default function ElectronOrigins() {
         backdropFilter: "blur(12px)",
         position: "sticky",
         top: 0,
-        zIndex: 10,
+        zIndex: 10
       }}>
         <div>
           <div style={{ fontSize: 10, letterSpacing: 4, color: P.e, textTransform: "none" }}>
@@ -1097,7 +1093,7 @@ export default function ElectronOrigins() {
           <div style={{
             fontSize: 18, fontWeight: 500,
             background: `linear-gradient(90deg, ${P.e}, ${P.valence})`,
-            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"
           }}>
             Where Do Electrons Come From?
           </div>
@@ -1115,7 +1111,7 @@ export default function ElectronOrigins() {
         borderBottom: `1px solid ${P.border}`,
         background: P.panel,
         overflowX: "auto",
-        flexWrap: "wrap",
+        flexWrap: "wrap"
       }}>
         {SECTIONS.map((s, i) => (
           <button key={s.id} onClick={() => setActive(s.id)} style={{
@@ -1131,7 +1127,7 @@ export default function ElectronOrigins() {
             display: "flex",
             alignItems: "center",
             gap: 6,
-            whiteSpace: "nowrap",
+            whiteSpace: "nowrap"
           }}>
             <span>{s.icon}</span>
             <span style={{ fontSize: 10, color: active === s.id ? s.color : P.dim, marginRight: 2 }}>{i + 1}.</span>
@@ -1149,7 +1145,7 @@ export default function ElectronOrigins() {
               background: active === s.id ? s.color + "33" : "transparent",
               color: active === s.id ? s.color : P.dim,
               border: `1px solid ${active === s.id ? s.color + "66" : "transparent"}`,
-              whiteSpace: "nowrap",
+              whiteSpace: "nowrap"
             }}>{s.label}</div>
             {i < SECTIONS.length - 1 && <span style={{ color: P.dim, fontSize: 10 }}>→</span>}
           </div>
@@ -1169,7 +1165,7 @@ export default function ElectronOrigins() {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        background: P.panel,
+        background: P.panel
       }}>
         <button onClick={() => {
           const i = SECTIONS.findIndex(s => s.id === active);
@@ -1180,7 +1176,7 @@ export default function ElectronOrigins() {
           border: `1px solid ${active === SECTIONS[0].id ? P.border : sec.color}`,
           color: active === SECTIONS[0].id ? P.muted : sec.color,
           cursor: active === SECTIONS[0].id ? "default" : "pointer",
-          fontFamily: "inherit", fontWeight: 500,
+          fontFamily: "inherit", fontWeight: 500
         }}>← Previous</button>
 
         <div style={{ display: "flex", gap: 6 }}>
@@ -1188,7 +1184,7 @@ export default function ElectronOrigins() {
             <div key={s.id} onClick={() => setActive(s.id)} style={{
               width: 8, height: 8, borderRadius: 4,
               background: active === s.id ? s.color : P.dim,
-              cursor: "pointer", transition: "all 0.2s",
+              cursor: "pointer", transition: "all 0.2s"
             }} />
           ))}
         </div>
@@ -1202,7 +1198,7 @@ export default function ElectronOrigins() {
           border: `1px solid ${active === SECTIONS[SECTIONS.length - 1].id ? P.border : sec.color}`,
           color: active === SECTIONS[SECTIONS.length - 1].id ? P.muted : sec.color,
           cursor: active === SECTIONS[SECTIONS.length - 1].id ? "default" : "pointer",
-          fontFamily: "inherit", fontWeight: 500,
+          fontFamily: "inherit", fontWeight: 500
         }}>Next →</button>
       </div>
     </div>
@@ -1329,7 +1325,7 @@ export default function DefectNetPipeline() {
               padding: "8px 14px", borderRadius: 8, fontSize: 12, cursor: "pointer",
               background: molIdx === i ? `${m.color}22` : C.panel,
               border: `2px solid ${molIdx === i ? m.color : C.border}`,
-              color: molIdx === i ? m.color : C.muted, fontFamily: "inherit", fontWeight: 500,
+              color: molIdx === i ? m.color : C.muted, fontFamily: "inherit", fontWeight: 500
             }}>{m.name}</button>
           ))}
         </div>
@@ -1342,7 +1338,7 @@ export default function DefectNetPipeline() {
             padding: "7px 14px", borderRadius: 8, fontSize: 11, cursor: "pointer", whiteSpace: "nowrap",
             border: `1px solid ${active === sec.id ? sec.color : C.border}`,
             background: active === sec.id ? `${sec.color}22` : C.bg,
-            color: active === sec.id ? sec.color : C.muted, fontFamily: "inherit", fontWeight: active === sec.id ? 500 : 400,
+            color: active === sec.id ? sec.color : C.muted, fontFamily: "inherit", fontWeight: active === sec.id ? 500 : 400
           }}>{sec.label}</button>
         ))}
       </div>

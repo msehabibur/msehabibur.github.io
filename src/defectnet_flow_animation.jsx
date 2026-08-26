@@ -21,7 +21,7 @@ const T = {
   node: "#7ab2bd",
   nodeLight: "#ebf1f3",
   edge: "#accfd6",
-  particle: "#71adb9",
+  particle: "#71adb9"
 };
 
 // ─── PIPELINE STAGES ───────────────────────────────────────────────
@@ -32,7 +32,7 @@ const STAGES = [
     sub: "CdTe supercell with Cd vacancy",
     color: T.accent,
     bgColor: T.accentLight,
-    icon: "🔷",
+    icon: ""
   },
   {
     id: "graph",
@@ -40,7 +40,7 @@ const STAGES = [
     sub: "Atoms → nodes, bonds → edges (K=12 neighbors)",
     color: T.purple,
     bgColor: T.purpleLight,
-    icon: "🕸️",
+    icon: ""
   },
   {
     id: "features",
@@ -48,7 +48,7 @@ const STAGES = [
     sub: "Gaussian smearing + angular basis + charge/theory conditioning",
     color: T.green,
     bgColor: T.greenLight,
-    icon: "📊",
+    icon: ""
   },
   {
     id: "interaction",
@@ -56,7 +56,7 @@ const STAGES = [
     sub: "2-body (pairwise) + 3-body (angular) convolutions",
     color: T.highlight,
     bgColor: T.highlightLight,
-    icon: "⚡",
+    icon: ""
   },
   {
     id: "output",
@@ -64,7 +64,7 @@ const STAGES = [
     sub: "Energy E, Forces F, Stress σ",
     color: T.red,
     bgColor: T.redLight,
-    icon: "🎯",
+    icon: ""
   },
 ];
 
@@ -113,7 +113,7 @@ function NeuralNetMini({ cx, cy, w, h, activeLayer, t }) {
         lx: layerX[li],
         ly: cy - h / 2 + gap * (ni + 1),
         li,
-        ni,
+        ni
       });
     }
   });
@@ -228,7 +228,7 @@ export default function DefectNetFlowAnimation() {
     x: startX + i * (stageW + stageGap),
     y: stageY,
     cx: startX + i * (stageW + stageGap) + stageW / 2,
-    cy: stageY + stageH / 2,
+    cy: stageY + stageH / 2
   }));
 
   // detail panel area
@@ -242,7 +242,7 @@ export default function DefectNetFlowAnimation() {
       padding: 20,
       maxWidth: W + 40,
       margin: "0 auto",
-      fontFamily: "'Inter', 'Segoe UI', sans-serif",
+      fontFamily: "'Inter', 'Segoe UI', sans-serif"
     }}>
       {/* Title */}
       <div style={{ textAlign: "center", marginBottom: 12 }}>
@@ -263,7 +263,7 @@ export default function DefectNetFlowAnimation() {
             color: playing ? T.red : T.green,
             border: `1px solid ${playing ? T.red : T.green}`,
             borderRadius: 6, padding: "4px 14px", cursor: "pointer",
-            fontSize: 13, fontWeight: 500,
+            fontSize: 13, fontWeight: 500
           }}
         >
           {playing ? "⏸ Pause" : "▶ Play"}
@@ -277,7 +277,7 @@ export default function DefectNetFlowAnimation() {
               color: activeStage === i ? s.color : T.textMid,
               border: `1px solid ${activeStage === i ? s.color : T.border}`,
               borderRadius: 6, padding: "4px 10px", cursor: "pointer",
-              fontSize: 12, fontWeight: activeStage === i ? 500 : 400,
+              fontSize: 12, fontWeight: activeStage === i ? 500 : 400
             }}
           >
             {s.label.split(" ")[0]}
@@ -659,19 +659,19 @@ export default function DefectNetFlowAnimation() {
                 title: "Energy E",
                 eq: "ε_i = MLP(h_i) → E = Σ_i ε_i",
                 desc: "Per-atom energies summed\nto total system energy",
-                x: 60, color: "#3a8999",
+                x: 60, color: "#3a8999"
               },
               {
                 title: "Forces F",
                 eq: "F_i = −∂E / ∂r_i  (autograd)",
                 desc: "Analytical gradients via\nautomatic differentiation",
-                x: 350, color: "#3e93a4",
+                x: 350, color: "#3e93a4"
               },
               {
                 title: "Stress σ",
                 eq: "σ = (1/V) ∂E/∂ε |_{ε=0}",
                 desc: "Strain derivative for\nlattice optimization",
-                x: 640, color: "#5196a4",
+                x: 640, color: "#5196a4"
               },
             ].map((out, i) => {
               const isHighlighted = Math.floor(t % 3) === i;

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import ChapterShell from "./chapter_shell.jsx";
 import DefectMovieModule from "./defect_movie.jsx";
 import SolarCellDegradationMovie from "./solar_degradation_movie.jsx";
+import fx from "./fx.jsx";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // UNIFIED THEME — Light gray, readable on any screen (copy from materials_lab)
@@ -85,7 +86,7 @@ const T = {
   mc_ce:      "#327785",
   mc_kmc:     "#3d90a1",
   mc_accent:  "#5094a1",
-  mc_warn:    "#398797",
+  mc_warn:    "#398797"
 };
 
 // ── SHARED HELPERS ───────────────────────────────────────────────────────
@@ -98,8 +99,7 @@ function NextTopicCard({ sections, activeId }) {
   return (
     <div style={{
       marginTop: 28, padding: "14px 18px", borderRadius: 10,
-      background: col + "0a", border: `1.5px solid ${col}22`,
-      borderLeft: `4px solid ${col}`,
+      background: col + "0a", border: `1.5px solid ${col}22` 
     }}>
       <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.8 }}>
         {current.nextReason}
@@ -127,7 +127,7 @@ function Tag({ color, children }) {
       background: color + "22",
       border: `1px solid ${color}55`,
       color,
-      letterSpacing: 1,
+      letterSpacing: 1
     }}>{children}</span>
   );
 }
@@ -140,11 +140,11 @@ function SectionTitle({ color, icon, children }) {
         background: color + "22",
         border: `1px solid ${color}55`,
         display: "flex", alignItems: "center", justifyContent: "center",
-        fontSize: 16,
+        fontSize: 16
       }}>{icon}</div>
       <div style={{
         fontSize: 15, fontWeight: 500, color,
-        letterSpacing: 1, textTransform: "none",
+        letterSpacing: 1, textTransform: "none"
       }}>{children}</div>
     </div>
   );
@@ -153,19 +153,19 @@ function SectionTitle({ color, icon, children }) {
 // ── SHARED STYLES ─────────────────────────────────────────────────────────
 const infoBox = (color) => ({
   background: color + "08", border: `1px solid ${color}22`,
-  borderRadius: 8, padding: "10px 14px", marginBottom: 12,
+  borderRadius: 8, padding: "10px 14px", marginBottom: 12
 });
 const sectionPanel = {
   background: T.surface, borderRadius: 10, padding: 14,
-  border: `1px solid ${T.border}`, marginBottom: 12,
+  border: `1px solid ${T.border}`, marginBottom: 12
 };
 const labelUpper = {
   fontSize: 11, color: T.muted, marginBottom: 10,
-  letterSpacing: 2, textTransform: "none",
+  letterSpacing: 2, textTransform: "none"
 };
 const monoStep = {
   fontFamily: "monospace", fontSize: 11, lineHeight: 2.0,
-  color: T.ink, background: T.surface, borderRadius: 6, padding: "8px 10px",
+  color: T.ink, background: T.surface, borderRadius: 6, padding: "8px 10px"
 };
 
 // ── SECTION 1: ATOM STRUCTURE — Cd & Te ──────────────────────────────────
@@ -185,7 +185,7 @@ function AtomSection() {
       valence: 2, eneg: 1.69,
       config: "[Kr] 4d¹⁰ 5s²",
       desc: "Cadmium has 2 valence electrons in the outer 5s shell. These are loosely held (low electronegativity 1.69) and will be donated to form bonds with Te. The filled 4d shell acts as core electrons.",
-      orbitalNote: "5s orbital: spherical. Both electrons sit here. During sp³ hybridization, one electron promotes to 5p to create 4 equivalent hybrid orbitals.",
+      orbitalNote: "5s orbital: spherical. Both electrons sit here. During sp³ hybridization, one electron promotes to 5p to create 4 equivalent hybrid orbitals."
     },
     {
       sym: "Te", Z: 52, color: T.eo_hole,
@@ -194,7 +194,7 @@ function AtomSection() {
       valence: 6, eneg: 2.10,
       config: "[Kr] 4d¹⁰ 5s² 5p⁴",
       desc: "Tellurium has 6 valence electrons: 2 in 5s and 4 in 5p. The 5p shell needs 2 more electrons to be full — these come from Cd. Higher electronegativity (2.10) means Te pulls electron density toward itself.",
-      orbitalNote: "5s: spherical (2e). 5p: three dumbbell-shaped orbitals (4e total, 2 orbitals full + 1 half). The two empty slots accept Cd electrons.",
+      orbitalNote: "5s: spherical (2e). 5p: three dumbbell-shaped orbitals (4e total, 2 orbitals full + 1 half). The two empty slots accept Cd electrons."
     },
   ];
 
@@ -216,7 +216,7 @@ function AtomSection() {
             color: at.color,
             cursor: "pointer",
             fontSize: 16,
-            fontWeight: 500,
+            fontWeight: 500
           }}>{at.sym}<br /><span style={{ fontSize: 10, color: T.muted }}>Z={at.Z}</span></button>
         ))}
       </div>
@@ -290,7 +290,7 @@ function AtomSection() {
                 display: "flex", alignItems: "center", gap: 8,
                 padding: "4px 8px", borderRadius: 6, marginBottom: 2,
                 background: isV ? a.color + "15" : "transparent",
-                border: isV ? `1px solid ${a.color}33` : "1px solid transparent",
+                border: isV ? `1px solid ${a.color}33` : "1px solid transparent"
               }}>
                 <div style={{ fontSize: 10, color: isV ? a.color : T.muted, minWidth: 85, fontFamily: "monospace" }}>{a.labels[i]}</div>
                 <div style={{ display: "flex", gap: 2 }}>
@@ -298,7 +298,7 @@ function AtomSection() {
                     <div key={j} style={{
                       width: 7, height: 7, borderRadius: "50%",
                       background: isV ? a.color : T.eo_core,
-                      opacity: isV ? 1 : 0.5,
+                      opacity: isV ? 1 : 0.5
                     }} />
                   ))}
                   {count > 10 && <span style={{ fontSize: 9, color: T.muted }}>+{count - 10}</span>}
@@ -446,7 +446,7 @@ function CrystalSection() {
               flex: 1, padding: "5px 2px", fontSize: 9, borderRadius: 6,
               background: i === stage ? T.eo_valence + "22" : T.surface,
               border: `1px solid ${i === stage ? T.eo_valence : T.border}`,
-              color: i === stage ? T.eo_valence : T.muted, cursor: "pointer",
+              color: i === stage ? T.eo_valence : T.muted, cursor: "pointer"
             }}>{i + 1}</button>
           ))}
         </div>
@@ -621,19 +621,19 @@ function BandSection() {
   const ACTS = [
     {
       id: 0, label: "Isolated atoms",
-      desc: "Each isolated Cd and Te atom has sharp, discrete energy levels — like a quantum fingerprint. Cd's outer electrons sit in the 5s orbital; Te's in the 5p orbital. No interaction, no sharing.",
+      desc: "Each isolated Cd and Te atom has sharp, discrete energy levels — like a quantum fingerprint. Cd's outer electrons sit in the 5s orbital; Te's in the 5p orbital. No interaction, no sharing."
     },
     {
       id: 1, label: "2-atom molecule",
-      desc: "When Cd and Te bond, quantum mechanical interference splits every atomic level into two: a lower bonding state (electrons pulled between nuclei) and a higher antibonding state (electrons pushed out). 1 level → 2 levels.",
+      desc: "When Cd and Te bond, quantum mechanical interference splits every atomic level into two: a lower bonding state (electrons pulled between nuclei) and a higher antibonding state (electrons pushed out). 1 level → 2 levels."
     },
     {
       id: 2, label: "8-atom cluster",
-      desc: "With 8 atoms, each original atomic level splits into 8 closely spaced levels. They are starting to form clusters — embryonic bands. The gap between them is still visible but narrowing.",
+      desc: "With 8 atoms, each original atomic level splits into 8 closely spaced levels. They are starting to form clusters — embryonic bands. The gap between them is still visible but narrowing."
     },
     {
       id: 3, label: "Crystal  (N → ∞)",
-      desc: "In a real crystal (~10²³ atoms), the discrete levels merge into continuous energy bands. A forbidden gap of 1.44 eV opens. The lower band (VB) is fully filled with Te 5p electrons; the upper band (CB) is empty.",
+      desc: "In a real crystal (~10²³ atoms), the discrete levels merge into continuous energy bands. A forbidden gap of 1.44 eV opens. The lower band (VB) is fully filled with Te 5p electrons; the upper band (CB) is empty."
     },
   ];
 
@@ -872,7 +872,7 @@ function BandSection() {
               flex: 1, padding: "9px 6px", border: "none", borderRight: `1px solid ${T.border}`,
               background: act === i ? T.eo_cond + "15" : "transparent",
               borderBottom: act === i ? `2.5px solid ${T.eo_cond}` : "2.5px solid transparent",
-              cursor: "pointer", fontFamily: "inherit",
+              cursor: "pointer", fontFamily: "inherit"
             }}>
               <div style={{ fontSize: 10, fontWeight: 500, color: act === i ? T.eo_cond : T.muted, marginBottom: 2 }}>
                 Act {i + 1}
@@ -882,7 +882,7 @@ function BandSection() {
           ))}
           <button onClick={() => setPlaying(p => !p)} style={{
             padding: "9px 14px", border: "none", background: "transparent",
-            cursor: "pointer", fontSize: 16, color: T.muted,
+            cursor: "pointer", fontSize: 16, color: T.muted
           }}>{playing ? "⏸" : "▶"}</button>
         </div>
 
@@ -903,7 +903,7 @@ function BandSection() {
             <div key={i} onClick={() => { setAct(i); setPlaying(false); }} style={{
               width: act === i ? 22 : 8, height: 8, borderRadius: 4,
               background: act === i ? T.eo_cond : T.dim,
-              cursor: "pointer", transition: "all 0.3s",
+              cursor: "pointer", transition: "all 0.3s"
             }} />
           ))}
         </div>
@@ -954,7 +954,7 @@ function BandSection() {
                   flex: 1, padding: "6px 0", borderRadius: 6, fontSize: 11,
                   background: temp === i ? T.eo_hole + "22" : T.surface,
                   border: `1px solid ${temp === i ? T.eo_hole : T.border}`,
-                  color: temp === i ? T.eo_hole : T.muted, cursor: "pointer",
+                  color: temp === i ? T.eo_hole : T.muted, cursor: "pointer"
                 }}>{t}</button>
               ))}
             </div>
@@ -962,7 +962,7 @@ function BandSection() {
               padding: "7px 0", borderRadius: 6, fontSize: 11,
               background: light ? T.eo_photon + "22" : T.surface,
               border: `1px solid ${light ? T.eo_photon : T.border}`,
-              color: light ? T.eo_photon : T.muted, cursor: "pointer", fontWeight: light ? 500 : 400,
+              color: light ? T.eo_photon : T.muted, cursor: "pointer", fontWeight: light ? 500 : 400
             }}>{light ? "Light ON (hν > 1.44 eV)" : "Light OFF"}</button>
           </div>
         </div>
@@ -1014,7 +1014,7 @@ function BandSection() {
               <div key={title} style={{ display: "flex", gap: 8, marginBottom: 6 }}>
                 <div style={{ width: 4, borderRadius: 2, background: color, flexShrink: 0 }} />
                 <div>
-                  <div style={{ fontSize: 11, fontWeight: 500, color, marginBottom: 2 }}>{title}</div>
+                  <div style={{ fontSize: 11, fontWeight: 500, color, marginBottom: 2 }}>{fx(title)}</div>
                   <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.6 }}>{desc}</div>
                 </div>
               </div>
@@ -1261,7 +1261,7 @@ function DefectSection() {
               flex: 1, padding: "5px 2px", fontSize: 9, borderRadius: 6,
               background: i === charge ? T.eo_gap + "22" : T.surface,
               border: `1px solid ${i === charge ? T.eo_gap : T.border}`,
-              color: i === charge ? T.eo_gap : T.muted, cursor: "pointer",
+              color: i === charge ? T.eo_gap : T.muted, cursor: "pointer"
             }}>{cl}</button>
           ))}
         </div>
@@ -1305,10 +1305,10 @@ function DefectSection() {
         <div style={sectionPanel}>
           <div style={labelUpper}>Charge states & transition levels</div>
           <div style={monoStep}>
-            <div><span style={{ color: T.eo_gap }}>V_Cd⁰:</span> neutral, 5 electrons in gap states, acceptor</div>
-            <div><span style={{ color: T.eo_gap }}>V_Cd⁻¹:</span> captured 1 e⁻, transition level ε(0/−1) ~ VBM + 0.2 eV</div>
-            <div><span style={{ color: T.eo_gap }}>V_Cd⁻²:</span> captured 2 e⁻, transition level ε(−1/−2) ~ VBM + 0.4 eV</div>
-            <div style={{ color: T.muted }}>Both levels are shallow → V_Cd is an efficient p-type dopant</div>
+            <div><span style={{ color: T.eo_gap }}>V<sub>Cd</sub>⁰:</span> neutral, 5 electrons in gap states, acceptor</div>
+            <div><span style={{ color: T.eo_gap }}>V<sub>Cd</sub>⁻¹:</span> captured 1 e⁻, transition level ε(0/−1) ~ VBM + 0.2 eV</div>
+            <div><span style={{ color: T.eo_gap }}>V<sub>Cd</sub>⁻²:</span> captured 2 e⁻, transition level ε(−1/−2) ~ VBM + 0.4 eV</div>
+            <div style={{ color: T.muted }}>Both levels are shallow → V<sub>Cd</sub> is an efficient p-type dopant</div>
             <div style={{ color: T.muted }}>In 64-atom cell: 63 atoms, 254 valence electrons (lost 2 from Cd)</div>
           </div>
         </div>
@@ -1342,25 +1342,25 @@ function DefectConfigSection() {
       id: "vacancy", label: "V_Cd (Cd vacancy)", icon: "V", color: T.eo_gap,
       desc: "A Cd atom is missing from the lattice. The 4 neighboring Te atoms each have one broken sp³ bond → 4 dangling bonds create D1-D4 levels in the gap. Most common native defect in CdTe.",
       electronEffect: "Removes 2 valence electrons (Cd's contribution). 4 Te dangling bonds create acceptor states in the gap. V_Cd is a shallow acceptor — the primary source of p-type conductivity in CdTe.",
-      bandNote: "Acceptor levels near VBM: ε(0/−1) ~ VBM+0.2 eV, ε(−1/−2) ~ VBM+0.4 eV. Shallow → efficient p-type dopant.",
+      bandNote: "Acceptor levels near VBM: ε(0/−1) ~ VBM+0.2 eV, ε(−1/−2) ~ VBM+0.4 eV. Shallow → efficient p-type dopant."
     },
     {
       id: "interstitial", label: "Cd_i (Cd interstitial)", icon: "i", color: T.eo_cond,
       desc: "An extra Cd atom squeezed between lattice sites. Brings 2 extra valence electrons that don't belong to the bonding network. Forms in Cd-rich growth conditions.",
       electronEffect: "The extra Cd donates 2 electrons to shallow donor levels just below the conduction band. These easily thermalize to the CB → n-type conductivity. Compensates p-type V_Cd.",
-      bandNote: "Shallow donor: ε(+2/+1) ~ CBM−0.1 eV. Easily ionized at room temperature.",
+      bandNote: "Shallow donor: ε(+2/+1) ~ CBM−0.1 eV. Easily ionized at room temperature."
     },
     {
       id: "antisite_cd", label: "Cd_Te (Cd on Te site)", icon: "AS", color: T.eo_photon,
       desc: "A Cd atom sits on a Te site. Cd has only 2 valence electrons but the Te site expects 6 for bonding. Creates a deep level — the most harmful recombination center in CdTe.",
       electronEffect: "4 missing electrons create deep levels in mid-gap. Acts as a powerful electron trap and non-radiative recombination center. This is the 'killer defect' for CdTe solar cells.",
-      bandNote: "Deep mid-gap level: ε(+2/0) ~ VBM+0.7 eV. Deep = strong SRH recombination center.",
+      bandNote: "Deep mid-gap level: ε(+2/0) ~ VBM+0.7 eV. Deep = strong SRH recombination center."
     },
     {
       id: "antisite_te", label: "Te_Cd (Te on Cd site)", icon: "TA", color: T.eo_e,
       desc: "A Te atom sits on a Cd site. Te has 6 valence electrons but the Cd site expects only 2 for bonding. 4 extra electrons create donor levels.",
       electronEffect: "4 excess electrons fill deep donor states. Can act as a compensating donor that partially neutralizes p-type V_Cd defects, reducing net carrier concentration.",
-      bandNote: "Deep donor: ε(0/+1) ~ CBM−0.5 eV. Compensates V_Cd acceptors.",
+      bandNote: "Deep donor: ε(0/+1) ~ CBM−0.5 eV. Compensates V_Cd acceptors."
     },
   ];
 
@@ -1379,7 +1379,7 @@ function DefectConfigSection() {
 
   return (
     <div>
-    <div style={{ display: "flex", gap: 20 }}>
+    <div style={{ display: "flex", gap: 20, flexDirection: "column" }}>
       <div style={{ flex: "0 0 340px" }}>
         <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
           <rect width={320} height={320} fill={T.bg} rx={10} />
@@ -1499,7 +1499,7 @@ function DefectConfigSection() {
               border: `1px solid ${selDefect === i ? d.color : T.border}`,
               color: selDefect === i ? d.color : T.muted,
               cursor: "pointer", fontWeight: selDefect === i ? 500 : 400,
-              fontFamily: "inherit",
+              fontFamily: "inherit"
             }}>{d.label}</button>
           ))}
         </div>
@@ -1510,7 +1510,7 @@ function DefectConfigSection() {
         <div style={{
           background: dt.color + "11",
           border: `1px solid ${dt.color}44`,
-          borderRadius: 10, padding: 14,
+          borderRadius: 10, padding: 14
         }}>
           <div style={{ fontSize: 18, fontWeight: 500, color: dt.color, marginBottom: 8 }}>
             {dt.label}
@@ -1586,7 +1586,7 @@ function DefectElectronsSection() {
       defectLevels: [],
       desc: "All 64 atoms on their lattice sites. 32 Cd each donate 2e, 32 Te each contribute 6e = 256 valence electrons. VB completely full, CB completely empty. No free carriers — perfect semiconductor at 0 K.",
       gridNote: "32 Cd (green) + 32 Te (orange) = 64 atoms",
-      bandNote: "VB full (256 e⁻) | gap 1.44 eV | CB empty",
+      bandNote: "VB full (256 e⁻) | gap 1.44 eV | CB empty"
     },
     { label: "V_Cd (vacancy)", short: "V_Cd", color: T.eo_gap,
       atoms: 63, nelBase: 254, change: -2,
@@ -1599,7 +1599,7 @@ function DefectElectronsSection() {
       ],
       desc: "Remove 1 Cd atom → lose 2 valence electrons. The 4 neighboring Te atoms each have a broken sp³ bond — these 'dangling bonds' create 4 new energy levels (D1-D4) inside the band gap.",
       gridNote: "63 atoms — one Cd missing, 4 Te neighbors have dangling bonds",
-      bandNote: "NELECT = 254 | 2 holes created | p-type! Shallow acceptor.",
+      bandNote: "NELECT = 254 | 2 holes created | p-type! Shallow acceptor."
     },
     { label: "Cd_i (interstitial)", short: "Cd_i", color: T.eo_cond,
       atoms: 65, nelBase: 258, change: +2,
@@ -1609,7 +1609,7 @@ function DefectElectronsSection() {
       ],
       desc: "Squeeze 1 extra Cd into the lattice → gain 2 extra valence electrons. These don't fit in the VB (already full), so they sit in a shallow donor level just below the CB. Easily thermalized to CB → n-type.",
       gridNote: "65 atoms — 1 extra Cd squeezed between sites",
-      bandNote: "NELECT = 258 | 2 extra e⁻ | n-type! Shallow donor.",
+      bandNote: "NELECT = 258 | 2 extra e⁻ | n-type! Shallow donor."
     },
     { label: "Cd_Te (antisite)", short: "Cd_Te", color: T.eo_photon,
       atoms: 64, nelBase: 252, change: -4,
@@ -1620,7 +1620,7 @@ function DefectElectronsSection() {
       ],
       desc: "A Cd atom sits on a Te site. The Te site expected 6 valence electrons but Cd only brings 2 → 4 electrons missing. Deep levels appear at mid-gap (VBM + 0.7 eV). These are the 'killer defects' — the most effective recombination centers in CdTe.",
       gridNote: "64 atoms — but Cd on a Te site (wrong atom, wrong electron count)",
-      bandNote: "NELECT = 252 | 4 missing e⁻ | Deep mid-gap trap → SRH killer!",
+      bandNote: "NELECT = 252 | 4 missing e⁻ | Deep mid-gap trap → SRH killer!"
     },
   ];
 
@@ -1773,7 +1773,7 @@ function DefectElectronsSection() {
               background: defect === i ? dd.color + "22" : T.surface,
               border: `1.5px solid ${defect === i ? dd.color : T.border}`,
               color: defect === i ? dd.color : T.muted,
-              cursor: "pointer", fontWeight: defect === i ? 500 : 400, fontFamily: "inherit",
+              cursor: "pointer", fontWeight: defect === i ? 500 : 400, fontFamily: "inherit"
             }}>{dd.short}</button>
           ))}
         </div>
@@ -2034,7 +2034,7 @@ function RecombinationSection() {
         "In solar cells this represents the ideal energy conversion process",
         "Shockley-Queisser limit for CdTe at 1.44 eV: theoretical max ~32% efficiency",
         "Rate is proportional to n × p (electron and hole concentrations)",
-      ],
+      ]
     },
     {
       id: "nonradiative", label: "Non-Radiative", color: T.eo_gap,
@@ -2045,7 +2045,7 @@ function RecombinationSection() {
         "Energy goes to lattice vibrations (phonons = heat), not photons",
         "Dominant in CdTe — V_Cd and Cd_Te defects provide the trap levels",
         "This is the primary efficiency loss mechanism in CdTe solar cells",
-      ],
+      ]
     },
     {
       id: "srh", label: "SRH Model", color: T.eo_hole,
@@ -2057,7 +2057,7 @@ function RecombinationSection() {
         "τ = 1/(10¹⁴ × 10⁻¹⁵ × 10⁷) ≈ 10⁻⁶ s = 1 μs (typical CdTe carrier lifetime)",
         "Cd_Te antisite (deep mid-gap at 0.7 eV) is the most effective SRH center",
         "Reducing Cd_Te antisite density is the #1 priority for CdTe solar cell improvement",
-      ],
+      ]
     },
   ];
 
@@ -2066,7 +2066,7 @@ function RecombinationSection() {
 
   return (
     <div>
-    <div style={{ display: "flex", gap: 20 }}>
+    <div style={{ display: "flex", gap: 20, flexDirection: "column" }}>
       <div style={{ flex: "0 0 340px" }}>
         <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
           <rect width={320} height={320} fill={T.bg} rx={10} />
@@ -2230,7 +2230,7 @@ function RecombinationSection() {
               border: `1px solid ${mode === i ? md.color : T.border}`,
               color: mode === i ? md.color : T.muted,
               cursor: "pointer", fontWeight: mode === i ? 500 : 400,
-              fontFamily: "inherit",
+              fontFamily: "inherit"
             }}>{md.label}</button>
           ))}
         </div>
@@ -2241,7 +2241,7 @@ function RecombinationSection() {
         <div style={{
           background: m.color + "11",
           border: `1px solid ${m.color}44`,
-          borderRadius: 10, padding: 14,
+          borderRadius: 10, padding: 14
         }}>
           <div style={{ fontSize: 18, fontWeight: 500, color: m.color, marginBottom: 8 }}>
             {m.title}
@@ -2272,7 +2272,7 @@ function RecombinationSection() {
             ].map(({ label, output, note, color }) => (
               <div key={label} style={{
                 padding: "8px 10px", borderRadius: 8,
-                background: color + "11", border: `1px solid ${color}33`,
+                background: color + "11", border: `1px solid ${color}33`
               }}>
                 <div style={{ fontSize: 11, fontWeight: 500, color, marginBottom: 4 }}>{label}</div>
                 <div style={{ fontSize: 11, color: T.muted }}>Output: {output}</div>
@@ -2373,7 +2373,7 @@ function DefectThermoSection() {
         </div>
 
         <div style={sectionPanel}>
-          <div style={labelUpper}>Formation energies (neutral, E_F at mid-gap)</div>
+          <div style={labelUpper}>Formation energies (neutral, E<sub>F</sub> at mid-gap)</div>
           {[
             { name: "V_Cd", ef: EfVCd, color: T.eo_gap, note: "Lower in Cd-poor (Te-rich) conditions" },
             { name: "Cd_i", ef: EfCdi, color: T.eo_cond, note: "Lower in Cd-rich conditions" },
@@ -2397,13 +2397,13 @@ function DefectThermoSection() {
         <div style={sectionPanel}>
           <div style={labelUpper}>Equilibrium concentration</div>
           <div style={monoStep}>
-            <div>c = exp(−E_f / k_B T)</div>
+            <div>c = exp(−E<sub>f</sub> / k<sub>B</sub> T)</div>
             <div>T_growth = {Tgrowth}°C = {TK} K</div>
             <div>k_B T = {(kB * TK).toFixed(4)} eV</div>
-            <div style={{ marginTop: 4 }}><span style={{ color: T.eo_gap }}>V_Cd:</span> c = exp(−{EfVCd.toFixed(2)}/{(kB * TK).toFixed(4)}) = {concVCd.toExponential(2)}</div>
-            <div><span style={{ color: T.eo_cond }}>Cd_i:</span> c = exp(−{EfCdi.toFixed(2)}/{(kB * TK).toFixed(4)}) = {concCdi.toExponential(2)}</div>
+            <div style={{ marginTop: 4 }}><span style={{ color: T.eo_gap }}>V<sub>Cd</sub>:</span> c = exp(−{EfVCd.toFixed(2)}/{(kB * TK).toFixed(4)}) = {concVCd.toExponential(2)}</div>
+            <div><span style={{ color: T.eo_cond }}>Cd<sub>i</sub>:</span> c = exp(−{EfCdi.toFixed(2)}/{(kB * TK).toFixed(4)}) = {concCdi.toExponential(2)}</div>
             <div style={{ color: T.muted, marginTop: 4 }}>Per Cd site. In 64-atom cell ({Nsites} Cd sites):</div>
-            <div><span style={{ color: T.eo_gap }}>Expected V_Cd:</span> {(concVCd * Nsites).toExponential(2)} per cell</div>
+            <div><span style={{ color: T.eo_gap }}>Expected V<sub>Cd</sub>:</span> {(concVCd * Nsites).toExponential(2)} per cell</div>
           </div>
         </div>
 
@@ -2471,7 +2471,7 @@ function IVCurveSection() {
   }
 
   return (
-    <div style={{ display: "flex", gap: 20, fontFamily: "monospace", color: T.ink }}>
+    <div style={{ display: "flex", gap: 20, flexDirection: "column", fontFamily: "monospace", color: T.ink }}>
       {/* Left: plot + controls */}
       <div style={{ flexShrink: 0 }}>
         <svg viewBox={`0 0 ${W} ${H}`} style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, display: "block", width: "100%", maxWidth: W }}>
@@ -2528,7 +2528,7 @@ function IVCurveSection() {
 
         <div style={{ marginTop: 10, background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
           <div style={{ fontSize: 11, marginBottom: 5 }}>
-            <b>Defects (V_Cd):</b> <span style={{ color: T.eo_gap }}>{defects}</span>
+            <b>Defects (V<sub>Cd</sub>):</b> <span style={{ color: T.eo_gap }}>{defects}</span>
           </div>
           <input type="range" min={0} max={10} step={1} value={defects}
             onChange={e => setDefects(+e.target.value)} style={{ width: "100%" }} />
@@ -2549,7 +2549,7 @@ function IVCurveSection() {
             { label: "FF",   value: `${(FF * 100).toFixed(1)}%`,   desc: "Fill Factor",                color: T.eo_e,      tip: "MPP rectangle ÷ (Jsc × Voc) rectangle. Defects and series resistance both reduce FF by rounding the knee of the curve." },
             { label: "η",    value: `${eta.toFixed(1)}%`,          desc: "Efficiency",                 color: T.eo_photon, tip: "η = FF × Voc × Jsc / Pin. Move the defect slider to watch all four metrics fall together as recombination worsens." },
           ].map(m => (
-            <div key={m.label} style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12, borderLeft: `3px solid ${m.color}` }}>
+            <div key={m.label} style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 3 }}>
                 <span style={{ fontSize: 12, fontWeight: 500, color: m.color }}>{m.label}</span>
                 <span style={{ fontSize: 14, fontWeight: 500, color: m.color, fontFamily: "monospace" }}>{m.value}</span>
@@ -2579,7 +2579,7 @@ function IVCurveSection() {
           ))}
         </div>
 
-        <div style={{ background: T.eo_photon + "0a", border: `1px solid ${T.eo_photon}33`, borderLeft: `3px solid ${T.eo_photon}`, borderRadius: 8, padding: 12 }}>
+        <div style={{ background: T.eo_photon + "0a", border: `1px solid ${T.eo_photon}33`,  borderRadius: 8, padding: 12 }}>
           <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_photon, marginBottom: 4 }}>CdTe Record vs. Shockley–Queisser Limit</div>
           <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
             SQ limit (1.44 eV): η ≈ 32%, Voc ≈ 1.17 V — if every recombination event radiated a photon back out.<br />
@@ -2610,10 +2610,10 @@ function MacroSection() {
 
   return (
     <div>
-    <div style={{ display: "flex", gap: 20 }}>
+    <div style={{ display: "flex", gap: 20, flexDirection: "column" }}>
       <div style={{ flex: "0 0 300px" }}>
         <div style={sectionPanel}>
-          <div style={labelUpper}>V_Cd defects in 64-atom CdTe cell</div>
+          <div style={labelUpper}>V<sub>Cd</sub> defects in 64-atom CdTe cell</div>
           <div style={{ fontSize: 36, fontWeight: 500, color: T.eo_gap, textAlign: "center", marginBottom: 8 }}>
             {defects}
           </div>
@@ -2621,7 +2621,7 @@ function MacroSection() {
             onChange={e => setDefects(+e.target.value)}
             style={{ width: "100%", accentColor: T.eo_gap }} />
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: T.muted, marginTop: 4 }}>
-            <span>0 (perfect)</span><span>10 V_Cd</span>
+            <span>0 (perfect)</span><span>10 V<sub>Cd</sub></span>
           </div>
           <div style={{ marginTop: 8, fontSize: 11, color: T.muted, textAlign: "center" }}>
             {defects}/32 Cd sites = {(conc * 100).toFixed(1)}%
@@ -2685,63 +2685,59 @@ function MacroSection() {
         {[
           {
             title: "Carrier Lifetime (τ)",
-            icon: "⏱️",
+            icon: "⏱",
             value: defects === 0 ? "~1 μs" : `~${(defectLifetime * 1e6).toFixed(1)} ns`,
             detail: defects === 0
               ? "No traps. Maximum radiative lifetime (~1 μs for CdTe)."
               : `SRH at ${defects} V_Cd traps. τ = ${(defectLifetime * 1e9).toFixed(0)} ns (reduced ${Math.round(intrinsicLifetime / defectLifetime)}×)`,
             color: T.eo_hole,
-            change: defects === 0 ? "none" : "BAD",
+            change: defects === 0 ? "none" : "BAD"
           },
           {
             title: "Solar Cell Efficiency",
-            icon: "☀️",
             value: defects === 0 ? "~32%" : `~${Math.max(8, 32 - efficiencyLoss).toFixed(0)}%`,
             detail: defects === 0
               ? "Shockley-Queisser limit for 1.44 eV. Record CdTe: 22.1% (First Solar)."
               : `−${efficiencyLoss.toFixed(0)}% points. Carriers recombine at traps before reaching contacts.`,
             color: T.eo_photon,
-            change: defects === 0 ? "none" : "BAD",
+            change: defects === 0 ? "none" : "BAD"
           },
           {
             title: "Absorption Coefficient",
-            icon: "🔆",
             value: "~10⁵ cm⁻¹",
             detail: "CdTe's direct gap means 99% absorption in ~2 μm. 100× thinner than Si (indirect gap, ~200 μm). Defects barely affect absorption.",
             color: T.eo_cond,
-            change: "none",
+            change: "none"
           },
           {
             title: "p-type Doping (V_Cd)",
-            icon: "⚡",
             value: defects === 0 ? "Intrinsic" : `${defects * 2} holes`,
             detail: defects === 0
               ? "No acceptors. Intrinsic carrier density ~ 10⁶ cm⁻³."
               : `Each V_Cd⁻² contributes 2 holes. ${defects}× V_Cd = ${defects * 2} holes. p-type conductivity.`,
             color: T.eo_gap,
-            change: defects === 0 ? "none" : "HUGE",
+            change: defects === 0 ? "none" : "HUGE"
           },
           {
             title: "Lattice Constant",
-            icon: "📏",
             value: defects === 0 ? "a = 6.480 Å" : `a ≈ ${(6.48 - defects * 0.002).toFixed(3)} Å`,
             detail: defects === 0
               ? "Perfect CdTe zincblende: a = 6.48 Å."
               : `Local relaxation near V_Cd: neighbors move inward ~0.05 Å. Average a change: ${(defects * 0.002).toFixed(3)} Å (tiny).`,
             color: T.muted,
-            change: defects > 3 ? "BAD" : "none",
+            change: defects > 3 ? "BAD" : "none"
           },
         ].map(({ title, icon, value, detail, color, change }) => (
           <div key={title} style={{
             display: "flex", gap: 12, alignItems: "flex-start",
             padding: "10px 12px", borderRadius: 8,
             background: change !== "none" ? color + "11" : T.surface,
-            border: `1px solid ${change !== "none" ? color + "44" : T.border}`,
+            border: `1px solid ${change !== "none" ? color + "44" : T.border}`
           }}>
             <div style={{ fontSize: 18, flex: "0 0 24px", marginTop: 2 }}>{icon}</div>
             <div style={{ flex: 1 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 3 }}>
-                <div style={{ fontSize: 13, fontWeight: 500, color: change !== "none" ? color : T.ink }}>{title}</div>
+                <div style={{ fontSize: 13, fontWeight: 500, color: change !== "none" ? color : T.ink }}>{fx(title)}</div>
                 <div style={{ fontSize: 14, fontWeight: 500, color: change !== "none" ? color : T.muted, fontFamily: "monospace" }}>
                   {value}
                 </div>
@@ -2753,7 +2749,7 @@ function MacroSection() {
 
         <div style={{
           padding: "10px 14px", borderRadius: 8,
-          background: T.eo_gap + "11", border: `1px solid ${T.eo_gap}44`,
+          background: T.eo_gap + "11", border: `1px solid ${T.eo_gap}44`
         }}>
           <div style={{ fontSize: 11, color: T.eo_gap, fontWeight: 500, marginBottom: 4 }}>CdTe solar cell: The defect balancing act</div>
           <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
@@ -2769,7 +2765,7 @@ function MacroSection() {
 
         <div style={{
           background: `${T.eo_hole}11`, border: `1px solid ${T.eo_hole}44`,
-          borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6, marginTop: 10,
+          borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6, marginTop: 10
         }}>
           <div style={{ fontWeight: "500", color: T.eo_hole, marginBottom: 4 }}>Full Picture {"\u2192"}</div>
           <div style={{ color: T.ink }}>From individual Cd and Te atoms, through crystal bonding, band structure, and defect physics, to a working solar cell — every property traces back to the quantum mechanics of electrons. The challenge of CdTe photovoltaics is managing defects: enough V_Cd for p-type doping, but not so many that recombination kills the device.</div>
@@ -2802,7 +2798,7 @@ function SolarCellDeviceSection() {
       role: "Structural support and environmental protection",
       detail: "Transparent soda-lime glass lets sunlight through while protecting the cell from moisture, oxygen, and mechanical damage. Must have low iron content to maximize transmission in the solar spectrum.",
       bandgap: "~9 eV (fully transparent)",
-      iconColor: T.eo_cond,
+      iconColor: T.eo_cond
     },
     {
       id: "tco",
@@ -2814,7 +2810,7 @@ function SolarCellDeviceSection() {
       role: "Transparent conducting oxide \u2014 lets light in, collects electrons",
       detail: "Fluorine-doped tin oxide (FTO) or indium tin oxide (ITO). Must be simultaneously transparent (Eg > 3.5 eV) and conductive (\u03C1 ~ 10\u207B\u2074 \u03A9\u00B7cm). Acts as the n-side contact, collecting photogenerated electrons from the CdS window layer.",
       bandgap: "~3.6 eV",
-      iconColor: T.eo_e,
+      iconColor: T.eo_e
     },
     {
       id: "cds",
@@ -2826,7 +2822,7 @@ function SolarCellDeviceSection() {
       role: "n-type partner for the p-n junction \u2014 forms the heterojunction with CdTe",
       detail: "Cadmium sulfide is an n-type semiconductor (Eg = 2.4 eV). It forms the p-n heterojunction with CdTe. Must be thin enough to minimize parasitic absorption (photons absorbed here are lost). Deposited by chemical bath deposition (CBD). The CdS/CdTe interface is where the built-in electric field is strongest.",
       bandgap: "2.4 eV (absorbs blue/UV, transparent to red/IR)",
-      iconColor: T.eo_photon,
+      iconColor: T.eo_photon
     },
     {
       id: "cdte",
@@ -2838,7 +2834,7 @@ function SolarCellDeviceSection() {
       role: "Absorbs sunlight and generates electron-hole pairs \u2014 the heart of the cell",
       detail: "The main absorber layer. CdTe has a direct bandgap of 1.44 eV \u2014 nearly optimal for solar energy conversion (Shockley-Queisser limit: 32.1%). Its enormous absorption coefficient (\u03B1 > 10\u2075 cm\u207B\u00B9) means 99% of above-gap photons are absorbed in just 2 \u03BCm. p-type doping comes from native V_Cd vacancies. After deposition, CdCl\u2082 treatment at ~400\u00B0C recrystallizes grains and passivates grain boundary defects.",
       bandgap: "1.44 eV (absorbs visible + near-IR)",
-      iconColor: T.eo_valence,
+      iconColor: T.eo_valence
     },
     {
       id: "znte",
@@ -2850,7 +2846,7 @@ function SolarCellDeviceSection() {
       role: "Reduces back-contact barrier \u2014 prevents voltage loss at the rear",
       detail: "ZnTe (Eg = 2.26 eV) doped with Cu creates a p\u207A layer that reduces the Schottky barrier between CdTe and the metal back contact. Without it, a blocking contact forms that opposes current flow (rollover in J-V curves). The Cu diffuses slightly into CdTe, creating beneficial Cu_Cd shallow acceptors near the back surface. Too much Cu causes deep traps \u2014 careful control is essential.",
       bandgap: "2.26 eV",
-      iconColor: T.eo_core,
+      iconColor: T.eo_core
     },
     {
       id: "metal",
@@ -2862,7 +2858,7 @@ function SolarCellDeviceSection() {
       role: "Collects holes and provides rear electrical contact",
       detail: "A metal film (typically Mo, Ni, or Au) sputtered onto the ZnTe layer. Collects holes from the CdTe absorber. Must form an ohmic (non-blocking) contact with low resistance. Molybdenum is common in production cells due to its work function match and stability. The entire device is typically deposited in superstrate configuration: light enters through the glass.",
       bandgap: "Metal (no gap)",
-      iconColor: T.muted,
+      iconColor: T.muted
     },
   ];
 
@@ -2887,7 +2883,7 @@ function SolarCellDeviceSection() {
       delay: i * 18,
       absorbed: i < 9, // most get absorbed in CdTe
       absorbLayer: i < 1 ? 2 : 3, // first one in CdS, rest in CdTe
-      color: ["#bcd2d6", "#81b6c1", "#63a5b2", "#a2c9d1", "#c0d4d8"][i % 5],
+      color: ["#bcd2d6", "#81b6c1", "#63a5b2", "#a2c9d1", "#c0d4d8"][i % 5]
     }));
   }, []);
 
@@ -2895,7 +2891,7 @@ function SolarCellDeviceSection() {
   const carriers = useMemo(() => {
     return Array.from({ length: 8 }, (_, i) => ({
       id: i,
-      baseX: stackX + 40 + (i % 4) * 40,
+      baseX: stackX + 40 + (i % 4) * 40
     }));
   }, []);
 
@@ -2903,7 +2899,7 @@ function SolarCellDeviceSection() {
 
   return (
     <div>
-      <div style={{ display: "flex", gap: 20 }}>
+      <div style={{ display: "flex", gap: 20, flexDirection: "column" }}>
         {/* SVG Animation */}
         <div style={{ flex: "0 0 auto" }}>
           <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ background: T.bg, borderRadius: 10, border: `1px solid ${T.border}`, width: "100%", maxWidth: svgW }}>
@@ -3139,14 +3135,14 @@ function SolarCellDeviceSection() {
           {sel ? (
             <div style={{
               background: T.surface, borderRadius: 10, padding: 16,
-              border: `2px solid ${sel.iconColor}44`,
+              border: `2px solid ${sel.iconColor}44`
             }}>
               <button onClick={() => setSelectedLayer(null)} style={{
                 display: "flex", alignItems: "center", gap: 6,
                 padding: "4px 10px", borderRadius: 6, fontSize: 11,
                 background: T.bg, border: `1px solid ${T.border}`,
                 color: T.muted, cursor: "pointer", fontFamily: "inherit",
-                marginBottom: 12,
+                marginBottom: 12
               }}>
                 ← Back to all layers
               </button>
@@ -3154,7 +3150,7 @@ function SolarCellDeviceSection() {
                 <div style={{
                   width: 28, height: 28, borderRadius: 6,
                   background: sel.color, opacity: 0.9,
-                  border: `2px solid ${sel.iconColor}`,
+                  border: `2px solid ${sel.iconColor}`
                 }} />
                 <div>
                   <div style={{ fontSize: 14, fontWeight: 500, color: sel.iconColor }}>{sel.name}</div>
@@ -3165,7 +3161,7 @@ function SolarCellDeviceSection() {
                 fontSize: 12, fontWeight: 500, color: sel.iconColor,
                 marginBottom: 6, padding: "4px 10px", borderRadius: 6,
                 background: sel.iconColor + "11", border: `1px solid ${sel.iconColor}22`,
-                display: "inline-block",
+                display: "inline-block"
               }}>
                 {sel.role}
               </div>
@@ -3175,7 +3171,7 @@ function SolarCellDeviceSection() {
               <div style={{
                 marginTop: 10, fontSize: 11, color: T.muted,
                 fontFamily: "monospace", padding: "6px 10px",
-                background: T.bg, borderRadius: 6,
+                background: T.bg, borderRadius: 6
               }}>
                 Bandgap: {sel.bandgap}
               </div>
@@ -3188,11 +3184,11 @@ function SolarCellDeviceSection() {
                   display: "flex", alignItems: "center", gap: 10, padding: "6px 10px",
                   marginBottom: 4, borderRadius: 6, cursor: "pointer",
                   background: T.bg, border: `1px solid ${T.border}`,
-                  transition: "all 0.15s",
+                  transition: "all 0.15s"
                 }}>
                   <div style={{
                     width: 16, height: 16, borderRadius: 3,
-                    background: l.color, opacity: 0.85, flexShrink: 0,
+                    background: l.color, opacity: 0.85, flexShrink: 0
                   }} />
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: 12, fontWeight: 500, color: T.ink }}>{l.name}</div>
@@ -3223,7 +3219,7 @@ function SolarCellDeviceSection() {
                     width: 18, height: 18, borderRadius: "50%", flexShrink: 0,
                     background: s.color + "22", border: `1px solid ${s.color}44`,
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 9, fontWeight: 500, color: s.color,
+                    fontSize: 9, fontWeight: 500, color: s.color
                   }}>{s.step}</div>
                   <div style={{ fontSize: 11, color: T.ink }}>{s.text}</div>
                 </div>
@@ -3234,7 +3230,7 @@ function SolarCellDeviceSection() {
           {/* Record efficiency box */}
           <div style={{
             padding: "10px 14px", borderRadius: 8,
-            background: T.eo_photon + "11", border: `1px solid ${T.eo_photon}44`,
+            background: T.eo_photon + "11", border: `1px solid ${T.eo_photon}44`
           }}>
             <div style={{ fontSize: 11, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Record Efficiency</div>
             <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
@@ -3251,17 +3247,17 @@ function SolarCellDeviceSection() {
 
 // ── CdTe Example Module (wraps all CdTe-specific sections) ───────────────
 const CDTE_SUBSECTIONS = [
-  { id: "atom",    label: "Cd & Te Atoms",    icon: "⚛️",  color: T.eo_core,    Component: AtomSection },
-  { id: "crystal", label: "Crystal & sp³",    icon: "💎",  color: T.eo_valence, Component: CrystalSection },
-  { id: "bonds",   label: "Bond Nature",      icon: "🔗",  color: T.eo_valence, Component: BondNatureSection },
-  { id: "bands",   label: "Energy Bands",     icon: "📊",  color: T.eo_cond,    Component: BandSection },
-  { id: "config",  label: "Defect Types",     icon: "🔧",  color: T.eo_e,       Component: DefectConfigSection },
-  { id: "defect",  label: "Defect States",    icon: "🕳️",  color: T.eo_gap,     Component: DefectSection },
-  { id: "defect_e",label: "Defect Electrons", icon: "⚡",  color: T.eo_cond,    Component: DefectElectronsSection },
-  { id: "recomb",  label: "Recombination",    icon: "💡",  color: T.eo_photon,  Component: RecombinationSection },
-  { id: "thermo",  label: "Defect Thermo",    icon: "🌡️",  color: T.eo_core,    Component: DefectThermoSection },
-  { id: "macro",   label: "CdTe Solar Cell",  icon: "☀️",  color: T.eo_hole,    Component: MacroSection },
-  { id: "device",  label: "Device Animation", icon: "🎬",  color: T.eo_photon,  Component: SolarCellDeviceSection },
+  { id: "atom",    label: "Cd & Te Atoms",    color: T.eo_core,    Component: AtomSection },
+  { id: "crystal", label: "Crystal & sp³",    color: T.eo_valence, Component: CrystalSection },
+  { id: "bonds",   label: "Bond Nature",      color: T.eo_valence, Component: BondNatureSection },
+  { id: "bands",   label: "Energy Bands",     color: T.eo_cond,    Component: BandSection },
+  { id: "config",  label: "Defect Types",     color: T.eo_e,       Component: DefectConfigSection },
+  { id: "defect",  label: "Defect States",    color: T.eo_gap,     Component: DefectSection },
+  { id: "defect_e",label: "Defect Electrons", color: T.eo_cond,    Component: DefectElectronsSection },
+  { id: "recomb",  label: "Recombination",    color: T.eo_photon,  Component: RecombinationSection },
+  { id: "thermo",  label: "Defect Thermo",    color: T.eo_core,    Component: DefectThermoSection },
+  { id: "macro",   label: "CdTe Solar Cell",  color: T.eo_hole,    Component: MacroSection },
+  { id: "device",  label: "Device Animation", color: T.eo_photon,  Component: SolarCellDeviceSection },
 ];
 
 function CdTeExampleModule() {
@@ -3275,7 +3271,7 @@ function CdTeExampleModule() {
       <div style={{
         display: "flex", gap: 4, flexWrap: "wrap", marginBottom: 16,
         padding: "8px 12px", background: T.panel, borderRadius: 10,
-        border: `1px solid ${T.border}`,
+        border: `1px solid ${T.border}`
       }}>
         {CDTE_SUBSECTIONS.map((s, i) => (
           <button key={s.id} onClick={() => setActive(s.id)} style={{
@@ -3284,7 +3280,7 @@ function CdTeExampleModule() {
             background: active === s.id ? s.color + "22" : T.bg,
             color: active === s.id ? s.color : T.muted,
             cursor: "pointer", fontFamily: "inherit", fontWeight: active === s.id ? 500 : 400,
-            display: "flex", alignItems: "center", gap: 4, whiteSpace: "nowrap",
+            display: "flex", alignItems: "center", gap: 4, whiteSpace: "nowrap"
           }}>
             <span style={{ fontSize: 12 }}>{s.icon}</span>
             {s.label}
@@ -3331,35 +3327,35 @@ function CdTeManufacturingSection() {
   const mb = { fontFamily: "monospace", fontSize: 12, lineHeight: 1.9, background: T.surface, borderRadius: 10, padding: "14px 18px", border: `1px solid ${T.border}40`, marginBottom: 10 };
 
   const mfgSteps = [
-    { title: "Step 1: Glass Substrate Preparation", icon: "🪟", color: T.eo_cond,
+    { title: "Step 1: Glass Substrate Preparation", color: T.eo_cond,
       analogy: "Like cleaning a window before painting — any dust particle on the glass creates a pinhole in the solar cell. Substrates are cleaned with detergent, DI water, and UV-ozone to remove organics. The glass must be optically transparent (soda-lime or aluminosilicate, 2-3 mm thick).",
       details: "Soda-lime glass is cheap but Na diffusion can dope CdTe. Aluminosilicate (more expensive) avoids this. Substrate size: 60×120 cm² for production, 2.5×2.5 cm² for lab. Cleaning: ultrasonic in acetone → IPA → DI water → UV-ozone 15 min.",
       params: "Glass thickness: 2-3 mm | Transmittance: >90% at 400-850 nm | Roughness: <1 nm RMS" },
-    { title: "Step 2: TCO Deposition (Front Contact)", icon: "⚡", color: "#7eb5bf",
+    { title: "Step 2: TCO Deposition (Front Contact)", color: "#7eb5bf",
       analogy: "Like laying down a transparent electrical highway. The TCO (typically FTO or ITO) must be both electrically conductive AND optically transparent — a rare combination. Light passes through, but electrons have a clear road to the external circuit.",
       details: "FTO (SnO₂:F) deposited by APCVD at 500°C from SnCl₄ + HF precursors. Sheet resistance ~8 Ω/□, transparency >80%. ITO (In₂O₃:Sn) is better optically but more expensive. The TCO surface roughness scatters light (light trapping).",
       params: "R_sheet: 8-15 Ω/□ | Thickness: 300-500 nm | Carrier density: ~10²⁰ cm⁻³" },
-    { title: "Step 3: CdS Buffer Layer", icon: "🛡️", color: T.eo_photon,
+    { title: "Step 3: CdS Buffer Layer", color: T.eo_photon,
       analogy: "Like a diplomatic ambassador between two countries. CdS (E_g = 2.4 eV) sits between the TCO and CdTe, forming the n-type partner of the p-n junction. It's thin enough (50-80 nm) that most light passes through to CdTe, but thick enough to prevent shunting.",
       details: "Deposited by Chemical Bath Deposition (CBD): CdSO₄ + thiourea in NH₄OH at 65°C for 12 min. Or by sputtering/CSS. CBD gives the best junction quality because it conformally coats the rough TCO. Too thick → absorbs blue light (parasitic). Too thin → pinholes → shunts.",
       params: "Thickness: 50-80 nm | E_g: 2.4 eV | Type: n-type (~10¹⁷ cm⁻³) | Method: CBD at 65°C" },
-    { title: "Step 4: CdTe Absorber Deposition", icon: "☀️", color: T.eo_gap,
+    { title: "Step 4: CdTe Absorber Deposition", color: T.eo_gap,
       analogy: "Like pouring the main ingredient into the cake pan. This is where the magic happens — the CdTe layer absorbs sunlight and generates electron-hole pairs. Close-Space Sublimation (CSS) heats CdTe powder to ~600°C in vacuum; atoms sublime and recrystallize on the substrate above.",
       details: "CSS: source at 600-640°C, substrate at 550-580°C, gap ~2 mm, N₂/O₂ ambient at 1-20 Torr. Deposition rate: 1-5 μm/min. Vapor Transport Deposition (VTD) used in production (First Solar). As-deposited grains are small (1-2 μm) with many grain boundaries — not yet good for solar cells.",
       params: "Thickness: 3-5 μm | E_g: 1.44 eV | Crystal: zinc-blende | Grain size: 1-2 μm (as-deposited)" },
-    { title: "Step 5: CdCl₂ Activation Treatment", icon: "🔥", color: T.eo_hole,
+    { title: "Step 5: CdCl₂ Activation Treatment", color: T.eo_hole,
       analogy: "Like annealing steel — heating with a catalyst that reorganizes the internal structure. CdCl₂ treatment is THE critical step. It recrystallizes CdTe grains from 1-2 μm to 5-10 μm, passivates grain boundaries with Cl, and activates p-type doping. Without this step, efficiency drops from ~18% to ~5%.",
       details: "Apply CdCl₂ solution (saturated in methanol) or evaporate CdCl₂ onto CdTe surface. Anneal at 380-420°C for 20-30 min in dry air. Cl diffuses along grain boundaries, promotes recrystallization via vapor-phase transport. CdCl₂ acts as a flux — lowers the activation energy for grain boundary motion. Rinse with DI water to remove excess CdCl₂.",
       params: "Temperature: 390-420°C | Time: 20-30 min | Ambient: dry air | Grain growth: 1→5-10 μm" },
-    { title: "Step 6: Cu Doping & Back Contact", icon: "🔌", color: T.eo_core,
+    { title: "Step 6: Cu Doping & Back Contact", color: T.eo_core,
       analogy: "Like adding a pinch of spice to finish the dish. A tiny amount of Cu (~3 nm) is evaporated onto CdTe, then annealed at 200°C. Cu substitutes on Cd sites (Cu_Cd) creating a shallow acceptor that boosts p-type doping from ~10¹³ to ~10¹⁴-10¹⁵ cm⁻³. Too much Cu → deep traps → degradation.",
       details: "Evaporate 1-5 nm Cu, then 40 nm Au (or graphite/Mo). Anneal at 150-200°C for 20-45 min in N₂. Cu diffuses into CdTe — Cu_Cd is the primary acceptor. Back contact must be ohmic: CdTe has high electron affinity (4.3 eV) making ohmic contact difficult. ZnTe:Cu or Te-rich surface helps.",
       params: "Cu thickness: 1-5 nm | Anneal: 150-200°C, 20-45 min | Back metal: Au, Mo, or graphite" },
-    { title: "Step 7: Characterization & Testing", icon: "📊", color: T.eo_cond,
+    { title: "Step 7: Characterization & Testing", color: T.eo_cond,
       analogy: "Like a doctor's checkup — measure everything to see if the patient (solar cell) is healthy. J-V curves measure efficiency, EQE shows which wavelengths are collected, DLTS finds deep traps, PL identifies defect levels, and C-V profiling maps the doping profile.",
       details: "J-V under AM1.5G (100 mW/cm²): gives Voc, Jsc, FF, η. EQE(λ): photon-to-electron conversion vs wavelength. Dark J-V: reveals diode ideality factor n and recombination mechanism. DLTS: trap depth and density. PL at 10K: defect identification. C-V: doping profile N_A(x).",
       params: "Best lab cell: Voc=0.887 V, Jsc=31.7 mA/cm², FF=79.4%, η=22.1% (First Solar, 2016)" },
-    { title: "Step 8: Module Assembly & Encapsulation", icon: "🏭", color: "#5298a6",
+    { title: "Step 8: Module Assembly & Encapsulation", color: "#5298a6",
       analogy: "Like framing a painting and sealing it behind glass. Individual cells are scribed into series-connected strings (P1-P2-P3 laser scribing), then encapsulated between glass sheets with EVA lamination. The module must survive 25+ years of sun, rain, hail, and temperature cycling.",
       details: "Monolithic integration: P1 scribe (laser, through TCO), P2 scribe (mechanical, through CdTe), P3 scribe (laser, through back contact). This creates series-connected cells without wires. Encapsulation: front glass / EVA / cell / EVA / back glass. Lamination at 150°C, 15 min. Edge seal prevents moisture ingress.",
       params: "Module efficiency: 18-19% | Size: 60×120 cm² | Lifetime: 25+ years | Degradation: <0.5%/year" },
@@ -3380,7 +3376,7 @@ function CdTeManufacturingSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="Overview: How a CdTe Solar Cell is Made" color={T.eo_hole} isOpen={openItem === "mfg_overview"} onClick={() => toggle("mfg_overview")}>
         <div style={{ display: "flex", gap: 10, background: T.eo_hole + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.eo_hole + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}>🏭</span>
+          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
             Building a CdTe solar cell is like making a layered cake — each layer has a specific purpose, and the order matters. Glass (foundation) → TCO (transparent conductor) → CdS (n-type partner) → CdTe (light absorber) → CdCl₂ treatment (the secret sauce) → Cu doping + back contact → testing → encapsulation. Every step involves precise control of temperature, time, and chemistry.
           </span>
@@ -3410,7 +3406,7 @@ function CdTeManufacturingSection() {
             <button key={i} onClick={() => setMfgStep(i)} style={{
               padding: "5px 10px", borderRadius: 8, border: `2px solid ${mfgStep === i ? s.color : T.border}`,
               background: mfgStep === i ? s.color + "18" : T.bg, color: mfgStep === i ? s.color : T.muted,
-              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: mfgStep === i ? 500 : 400, transition: "all 0.2s",
+              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: mfgStep === i ? 500 : 400, transition: "all 0.2s"
             }}>{s.icon} {i + 1}</button>
           ))}
         </div>
@@ -3434,7 +3430,7 @@ function CdTeManufacturingSection() {
               {mfgStep >= 3 && [50, 100, 150, 200, 230].map((x, i) => (
                 <line key={i} x1={x} y1={25} x2={x} y2={120 + (tick * 2 + i * 10) % 15} stroke={T.eo_photon} strokeWidth={1.5} opacity={0.4 + 0.3 * Math.sin(tick * 0.1 + i)} strokeDasharray="4 3" />
               ))}
-              {mfgStep >= 3 && <text x={240} y={40} fill={T.eo_photon} fontSize={9} fontWeight={500}>☀️ light</text>}
+              {mfgStep >= 3 && <text x={240} y={40} fill={T.eo_photon} fontSize={9} fontWeight={500}> light</text>}
 
               {/* Layer stack */}
               {layerStack.map((layer, i) => layer.active && (
@@ -3508,7 +3504,7 @@ function CdTeManufacturingSection() {
 
       <FAQAccordion title="The CdCl₂ Treatment — Why It's the Most Important Step" color={T.eo_hole} isOpen={openItem === "mfg_cdcl2"} onClick={() => toggle("mfg_cdcl2")}>
         <div style={{ display: "flex", gap: 10, background: T.eo_hole + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.eo_hole + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}>🔥</span>
+          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Without CdCl₂ treatment, CdTe solar cells are only ~5% efficient. WITH it, they reach 22%+. This single step is responsible for a 4× improvement. It{"'"}s the "secret sauce" of CdTe technology — and it took decades to fully understand why it works.</span>
         </div>
         <div style={mb}>
@@ -3581,14 +3577,14 @@ function CdTeManufacturingSection() {
       <FAQAccordion title="Common Failure Modes & How to Fix Them" color={T.eo_gap} isOpen={openItem === "mfg_failures"} onClick={() => toggle("mfg_failures")}>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {[
-            { problem: "Low Voc (< 0.8 V)", cause: "Too many deep traps (V_Cd, Te_Cd). Insufficient CdCl₂ treatment or excess Cu.", fix: "Optimize CdCl₂ time/temp. Reduce Cu to 1-2 nm. Add MgZnO buffer instead of CdS.", icon: "📉", color: T.eo_gap },
-            { problem: "Low Jsc (< 25 mA/cm²)", cause: "CdS too thick (absorbs blue light). CdTe too thin. Poor light trapping.", fix: "Reduce CdS to 50 nm or use MgZnO. Increase CdTe to 4+ μm. Texture TCO surface.", icon: "🔅", color: T.eo_photon },
-            { problem: "Low FF (< 70%)", cause: "High series resistance (bad back contact) or shunting (pinholes in CdS).", fix: "NP etch before back contact. Ensure CdS fully covers TCO. Check for scribing damage.", icon: "📊", color: T.eo_cond },
-            { problem: "Shunting (J_dark too high)", cause: "Pinholes in CdS expose TCO to CdTe → direct metal-semiconductor contact.", fix: "Increase CdS thickness to 80+ nm. Or add high-resistivity buffer (MgZnO, ZnSnO).", icon: "⚡", color: T.eo_hole },
+            { problem: "Low Voc (< 0.8 V)", cause: "Too many deep traps (V_Cd, Te_Cd). Insufficient CdCl₂ treatment or excess Cu.", fix: "Optimize CdCl₂ time/temp. Reduce Cu to 1-2 nm. Add MgZnO buffer instead of CdS.", color: T.eo_gap },
+            { problem: "Low Jsc (< 25 mA/cm²)", cause: "CdS too thick (absorbs blue light). CdTe too thin. Poor light trapping.", fix: "Reduce CdS to 50 nm or use MgZnO. Increase CdTe to 4+ μm. Texture TCO surface.", color: T.eo_photon },
+            { problem: "Low FF (< 70%)", cause: "High series resistance (bad back contact) or shunting (pinholes in CdS).", fix: "NP etch before back contact. Ensure CdS fully covers TCO. Check for scribing damage.", color: T.eo_cond },
+            { problem: "Shunting (J_dark too high)", cause: "Pinholes in CdS expose TCO to CdTe → direct metal-semiconductor contact.", fix: "Increase CdS thickness to 80+ nm. Or add high-resistivity buffer (MgZnO, ZnSnO).", color: T.eo_hole },
             { problem: "Degradation over time", cause: "Cu migration from back contact through CdTe → creates deep donor Cu_i near junction.", fix: "Use diffusion barrier (ZnTe) between Cu and CdTe. Limit Cu to 1-2 nm. Proper encapsulation.", icon: "⏰", color: T.eo_core },
-            { problem: "Roll-over in J-V curve", cause: "Back contact barrier (Schottky barrier at CdTe/metal interface).", fix: "Te-rich surface etch + Cu/Au contact. Or use ZnTe:Cu intermediate layer.", icon: "🔄", color: "#7eb5bf" },
+            { problem: "Roll-over in J-V curve", cause: "Back contact barrier (Schottky barrier at CdTe/metal interface).", fix: "Te-rich surface etch + Cu/Au contact. Or use ZnTe:Cu intermediate layer.", color: "#7eb5bf" },
           ].map(item => (
-            <div key={item.problem} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}` }}>
+            <div key={item.problem} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15` }}>
               <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
                 <span style={{ fontSize: 14 }}>{item.icon}</span>
                 <span style={{ fontSize: 12, fontWeight: 500, color: item.color }}>{item.problem}</span>
@@ -3607,22 +3603,22 @@ function CdTeManufacturingSection() {
 // CHAPTER 2: CdTe SOLAR CELL MODULE (CdTe + N-type + P-type tabs)
 // ═══════════════════════════════════════════════════════════════════════════
 const CDTE_SOLAR_SECTIONS = [
-  { id: "atom",    label: "Cd & Te Atoms",        icon: "⚛️",  color: T.eo_core,    Component: AtomSection,              nextReason: "Cd and Te atoms have defined electron configurations that dictate how they interact. The next step is to see how these atoms arrange into the zinc-blende crystal lattice — the structural foundation from which every other CdTe property is derived." },
-  { id: "crystal", label: "Crystal & sp³",        icon: "💎",  color: T.eo_valence, Component: CrystalSection,           nextReason: "The sp³ tetrahedral arrangement is established. Now we ask: what holds these atoms in place? Understanding the mixed ionic-covalent bond character of CdTe explains its bandgap magnitude, mechanical stability, and why defects form as they do." },
-  { id: "bonds",   label: "Bond Nature",          icon: "🔗",  color: T.eo_valence, Component: BondNatureSection,        nextReason: "Atomic bonds, viewed quantum mechanically across the periodic crystal, smear into continuous energy bands via Bloch's theorem. The bonding orbitals form the valence band; antibonding orbitals form the conduction band — giving CdTe its 1.44 eV direct gap." },
-  { id: "bands",   label: "Energy Bands",         icon: "📊",  color: T.eo_cond,    Component: BandSection,              nextReason: "Pure CdTe has a 1.44 eV gap but no free carriers. Controlled conductivity requires doping. The next section covers both n-type and p-type doping in CdTe — showing which dopants are used, how they shift the Fermi level, and how they set up the p-n junction." },
-  { id: "doping",  label: "Doping (N & P type)",  icon: "⚗️",  color: "#3b8d9d",    Component: DopingModule, nextReason: "N-type and p-type semiconductors in isolation are just conductors. Bringing them together forms the p-n junction — the fundamental device that separates photogenerated electron-hole pairs and drives current through the external circuit." },
-  { id: "config",  label: "Defect Types",         icon: "🔧",  color: T.eo_e,       Component: DefectConfigSection,      nextReason: "Different defect structures create different energy levels inside the bandgap. We now map exactly where these levels sit and whether each defect acts as a donor, acceptor, or amphoteric center — the first step to understanding their electronic impact." },
-  { id: "defect",  label: "Defect States",        icon: "🕳️",  color: T.eo_gap,     Component: DefectSection,            nextReason: "Defect levels are positioned energetically. The critical next question: how are these levels populated? Fermi-level-dependent charge states and thermal ionization determine whether each defect is neutral, positively, or negatively charged at device operating conditions." },
-  { id: "defect_e",label: "Defect Electrons",     icon: "⚡",  color: T.eo_cond,    Component: DefectElectronsSection,   nextReason: "Charged mid-gap defect levels act as Shockley-Read-Hall recombination traps — the primary efficiency killer in CdTe. Carriers generated by light fall into these traps and recombine before reaching the junction, directly reducing Voc and fill factor." },
-  { id: "recomb",  label: "Recombination",        icon: "💡",  color: T.eo_photon,  Component: RecombinationSection,     nextReason: "To engineer lower recombination we must control defect concentrations. Defect thermodynamics — formation energy as a function of chemical potential and Fermi level — tells us which growth conditions suppress harmful traps and which inadvertently create them." },
-  { id: "thermo",  label: "Defect Thermo",        icon: "🌡️",  color: T.eo_core,    Component: DefectThermoSection,      nextReason: "With complete atomic-scale defect physics in hand, we zoom out to the full device. How do all these microscopic effects — doping, trapping, recombination — translate into macroscopic solar cell metrics: Voc, Jsc, fill factor, and efficiency?" },
-  { id: "macro",   label: "CdTe Solar Cell",      icon: "☀️",  color: T.eo_hole,    Component: MacroSection,             nextReason: "With defect physics established, we can now plot the full J-V curve — showing exactly how Voc, Jsc, fill factor, and efficiency emerge from the atomic-scale physics we've been building up." },
-  { id: "ivcurve", label: "J-V Curve & Efficiency", icon: "📈",  color: "#7eb5bf",    Component: IVCurveSection,           nextReason: "The J-V curve summarises all device physics in one plot. The Device Animation shows all of these microscopic processes — photon absorption, carrier generation, drift, and collection — happening simultaneously in real time." },
-  { id: "device",  label: "Device Animation",     icon: "🎬",  color: T.eo_photon,  Component: SolarCellDeviceSection,   nextReason: "The device is running. Now watch the full animated story — from atomistic simulations through defect physics to DFT and MLFF acceleration — in the DefectDB movie." },
-  { id: "defectmovie", label: "Movie",  icon: "🎥",  color: "#71adb9",    Component: DefectMovieModule,        nextReason: "The DefectDB movie covers the computational side. Now see how all these defect physics play out in real-world device aging — the Degradation Movie shows CdTe solar cells aging under light, heat, moisture, and mechanical stress." },
-  { id: "degradation", label: "Degradation Movie", icon: "⚡", color: "#388392", Component: SolarCellDegradationMovie, nextReason: "Degradation physics covered. Now see the full manufacturing process — from glass substrate to finished solar cell module — with step-by-step animated fabrication, CdCl₂ activation, Cu doping, and characterization." },
-  { id: "manufacturing", label: "Manufacturing", icon: "🏭", color: "#5298a6", Component: CdTeManufacturingSection },
+  { id: "atom",    label: "Cd & Te Atoms",        color: T.eo_core,    Component: AtomSection,              nextReason: "Cd and Te atoms have defined electron configurations that dictate how they interact. The next step is to see how these atoms arrange into the zinc-blende crystal lattice — the structural foundation from which every other CdTe property is derived." },
+  { id: "crystal", label: "Crystal & sp³",        color: T.eo_valence, Component: CrystalSection,           nextReason: "The sp³ tetrahedral arrangement is established. Now we ask: what holds these atoms in place? Understanding the mixed ionic-covalent bond character of CdTe explains its bandgap magnitude, mechanical stability, and why defects form as they do." },
+  { id: "bonds",   label: "Bond Nature",          color: T.eo_valence, Component: BondNatureSection,        nextReason: "Atomic bonds, viewed quantum mechanically across the periodic crystal, smear into continuous energy bands via Bloch's theorem. The bonding orbitals form the valence band; antibonding orbitals form the conduction band — giving CdTe its 1.44 eV direct gap." },
+  { id: "bands",   label: "Energy Bands",         color: T.eo_cond,    Component: BandSection,              nextReason: "Pure CdTe has a 1.44 eV gap but no free carriers. Controlled conductivity requires doping. The next section covers both n-type and p-type doping in CdTe — showing which dopants are used, how they shift the Fermi level, and how they set up the p-n junction." },
+  { id: "doping",  label: "Doping (N & P type)",  color: "#3b8d9d",    Component: DopingModule, nextReason: "N-type and p-type semiconductors in isolation are just conductors. Bringing them together forms the p-n junction — the fundamental device that separates photogenerated electron-hole pairs and drives current through the external circuit." },
+  { id: "config",  label: "Defect Types",         color: T.eo_e,       Component: DefectConfigSection,      nextReason: "Different defect structures create different energy levels inside the bandgap. We now map exactly where these levels sit and whether each defect acts as a donor, acceptor, or amphoteric center — the first step to understanding their electronic impact." },
+  { id: "defect",  label: "Defect States",        color: T.eo_gap,     Component: DefectSection,            nextReason: "Defect levels are positioned energetically. The critical next question: how are these levels populated? Fermi-level-dependent charge states and thermal ionization determine whether each defect is neutral, positively, or negatively charged at device operating conditions." },
+  { id: "defect_e",label: "Defect Electrons",     color: T.eo_cond,    Component: DefectElectronsSection,   nextReason: "Charged mid-gap defect levels act as Shockley-Read-Hall recombination traps — the primary efficiency killer in CdTe. Carriers generated by light fall into these traps and recombine before reaching the junction, directly reducing Voc and fill factor." },
+  { id: "recomb",  label: "Recombination",        color: T.eo_photon,  Component: RecombinationSection,     nextReason: "To engineer lower recombination we must control defect concentrations. Defect thermodynamics — formation energy as a function of chemical potential and Fermi level — tells us which growth conditions suppress harmful traps and which inadvertently create them." },
+  { id: "thermo",  label: "Defect Thermo",        color: T.eo_core,    Component: DefectThermoSection,      nextReason: "With complete atomic-scale defect physics in hand, we zoom out to the full device. How do all these microscopic effects — doping, trapping, recombination — translate into macroscopic solar cell metrics: Voc, Jsc, fill factor, and efficiency?" },
+  { id: "macro",   label: "CdTe Solar Cell",      color: T.eo_hole,    Component: MacroSection,             nextReason: "With defect physics established, we can now plot the full J-V curve — showing exactly how Voc, Jsc, fill factor, and efficiency emerge from the atomic-scale physics we've been building up." },
+  { id: "ivcurve", label: "J-V Curve & Efficiency", color: "#7eb5bf",    Component: IVCurveSection,           nextReason: "The J-V curve summarises all device physics in one plot. The Device Animation shows all of these microscopic processes — photon absorption, carrier generation, drift, and collection — happening simultaneously in real time." },
+  { id: "device",  label: "Device Animation",     color: T.eo_photon,  Component: SolarCellDeviceSection,   nextReason: "The device is running. Now watch the full animated story — from atomistic simulations through defect physics to DFT and MLFF acceleration — in the DefectDB movie." },
+  { id: "defectmovie", label: "Movie",  color: "#71adb9",    Component: DefectMovieModule,        nextReason: "The DefectDB movie covers the computational side. Now see how all these defect physics play out in real-world device aging — the Degradation Movie shows CdTe solar cells aging under light, heat, moisture, and mechanical stress." },
+  { id: "degradation", label: "Degradation Movie", color: "#388392", Component: SolarCellDegradationMovie, nextReason: "Degradation physics covered. Now see the full manufacturing process — from glass substrate to finished solar cell module — with step-by-step animated fabrication, CdCl₂ activation, Cu doping, and characterization." },
+  { id: "manufacturing", label: "Manufacturing", color: "#5298a6", Component: CdTeManufacturingSection },
 ];
 
 function CdTeSolarCellModule({ references = [] }) {
@@ -3908,7 +3904,7 @@ function DopingModule({ initialTab }) {
             background: tab === t.id ? t.color + "12" : T.surface,
             cursor: "pointer", fontFamily: "inherit", fontWeight: tab === t.id ? 500 : 500,
             fontSize: 12, color: tab === t.id ? t.color : T.muted,
-            transition: "all 0.15s",
+            transition: "all 0.15s"
           }}>{t.label}</button>
         ))}
       </div>
@@ -3932,7 +3928,7 @@ function DopingModule({ initialTab }) {
                   <button key={i} onClick={() => setSelN(i)} style={{
                     display: "block", width: "100%", textAlign: "left", padding: "7px 10px", borderRadius: 8,
                     marginBottom: 5, cursor: "pointer", background: selN === i ? d.color + "15" : T.bg,
-                    border: `1.5px solid ${selN === i ? d.color : T.border}`, fontFamily: "inherit", color: T.ink,
+                    border: `1.5px solid ${selN === i ? d.color : T.border}`, fontFamily: "inherit", color: T.ink
                   }}>
                     <span style={{ fontWeight: 500, color: d.color, marginRight: 8, fontFamily: "monospace" }}>{d.symbol}</span>
                     <span style={{ fontSize: 12 }}>{d.name}</span>
@@ -3955,7 +3951,7 @@ function DopingModule({ initialTab }) {
           </div>
           <div style={{ marginTop: 16, display: "flex", gap: 14, flexWrap: "wrap" }}>
             <div style={{ flex: "1 1 280px", background: T.panel, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-              <div style={{ fontSize: 11, fontWeight: 500, color: T.muted, marginBottom: 8 }}>Doping concentration N_D</div>
+              <div style={{ fontSize: 11, fontWeight: 500, color: T.muted, marginBottom: 8 }}>Doping concentration N<sub>D</sub></div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                 <input type="range" min={0} max={4} step={1} value={dopingLevel}
                   onChange={e => setDopingLevel(+e.target.value)} style={{ flex: 1, accentColor: CN.main }} />
@@ -4008,7 +4004,7 @@ function DopingModule({ initialTab }) {
                   <button key={i} onClick={() => setSelP(i)} style={{
                     display: "block", width: "100%", textAlign: "left", padding: "7px 10px", borderRadius: 8,
                     marginBottom: 5, cursor: "pointer", background: selP === i ? d.color + "15" : T.bg,
-                    border: `1.5px solid ${selP === i ? d.color : T.border}`, fontFamily: "inherit", color: T.ink,
+                    border: `1.5px solid ${selP === i ? d.color : T.border}`, fontFamily: "inherit", color: T.ink
                   }}>
                     <span style={{ fontWeight: 500, color: d.color, marginRight: 8, fontFamily: "monospace" }}>{d.symbol}</span>
                     <span style={{ fontSize: 12 }}>{d.name}</span>
@@ -4031,7 +4027,7 @@ function DopingModule({ initialTab }) {
           </div>
           <div style={{ marginTop: 16, display: "flex", gap: 14, flexWrap: "wrap" }}>
             <div style={{ flex: "1 1 280px", background: T.panel, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-              <div style={{ fontSize: 11, fontWeight: 500, color: T.muted, marginBottom: 8 }}>Doping concentration N_A</div>
+              <div style={{ fontSize: 11, fontWeight: 500, color: T.muted, marginBottom: 8 }}>Doping concentration N<sub>A</sub></div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                 <input type="range" min={0} max={4} step={1} value={dopingLevel}
                   onChange={e => setDopingLevel(+e.target.value)} style={{ flex: 1, accentColor: CP.main }} />

@@ -1,11 +1,12 @@
 import { useState, useMemo } from "react";
+import fx from "./fx.jsx";
 
 // ─── COLORS ────────────────────────────────────────────────────────────
 const C = {
   bg: "#0f2428", panel: "#0f2428", border: "#132d32",
   accent1: "#91bfc9", accent2: "#93c1ca", accent3: "#96c2cb",
   accent4: "#539aa8", accent5: "#77b1bc", accent6: "#6aa9b6",
-  text: "#eaf1f2", muted: "#368190", dim: "#1f4851",
+  text: "#eaf1f2", muted: "#368190", dim: "#1f4851"
 };
 
 // ─── MATH (every function used in the pipeline) ───────────────────────
@@ -44,7 +45,7 @@ const MOLECULES = [
       { id: 2, sym: "H", Z: 1, pos: [-0.757, 0.586, 0] },
     ],
     svgPos: [[200, 240], [340, 100], [60, 100]],
-    color: C.accent4,
+    color: C.accent4
   },
   {
     id: "nh3", name: "Ammonia (NH₃)", refEnergy: -19.54,
@@ -56,7 +57,7 @@ const MOLECULES = [
       { id: 3, sym: "H", Z: 1, pos: [-0.469, -0.813, 0] },
     ],
     svgPos: [[200, 90], [350, 240], [90, 210], [200, 320]],
-    color: C.accent3,
+    color: C.accent3
   },
 ];
 
@@ -197,8 +198,8 @@ const SECTIONS = [
 // ─── UI COMPONENTS ─────────────────────────────────────────────────────
 function Card({ title, color, children }) {
   return (
-    <div style={{ background: C.panel, border: `1px solid ${color || C.border}44`, borderLeft: `3px solid ${color || C.accent1}`, borderRadius: 10, padding: "14px 16px" }}>
-      {title && <div style={{ fontSize: 11, letterSpacing: 3, color: color || C.accent1, textTransform: "none", marginBottom: 10, fontWeight: 500 }}>{title}</div>}
+    <div style={{ background: C.panel, border: `1px solid ${color || C.border}44`,  borderRadius: 10, padding: "14px 16px" }}>
+      {title && <div style={{ fontSize: 11, letterSpacing: 3, color: color || C.accent1, textTransform: "none", marginBottom: 10, fontWeight: 500 }}>{fx(title)}</div>}
       {children}
     </div>
   );
@@ -622,7 +623,7 @@ function SecConv({ atoms, edges, triplets, gnn }) {
             padding: "8px 18px", borderRadius: 8, fontSize: 12, cursor: "pointer",
             background: tab === k ? `${C.accent4}22` : C.panel,
             border: `1px solid ${tab === k ? C.accent4 : C.border}`,
-            color: tab === k ? C.accent4 : C.muted, fontFamily: "inherit",
+            color: tab === k ? C.accent4 : C.muted, fontFamily: "inherit"
           }}>{l}</button>
         ))}
       </div>
@@ -772,7 +773,7 @@ function SecPredict({ atoms, gnn, mol }) {
             padding: "8px 18px", borderRadius: 8, fontSize: 12, cursor: "pointer", textTransform: "capitalize",
             background: tab === t ? `${C.accent3}22` : C.panel,
             border: `1px solid ${tab === t ? C.accent3 : C.border}`,
-            color: tab === t ? C.accent3 : C.muted, fontFamily: "inherit",
+            color: tab === t ? C.accent3 : C.muted, fontFamily: "inherit"
           }}>{t}</button>
         ))}
       </div>
@@ -785,7 +786,7 @@ function SecPredict({ atoms, gnn, mol }) {
                 For each atom, apply Linear(3→1) on final features h''_i:
               </div>
               <div style={{ fontSize: 11, fontFamily: "monospace", marginBottom: 8 }}>
-                <span style={{ color: C.muted }}>W_energy = </span><span style={{ color: C.accent3 }}>[{We[0].join(", ")}]</span>
+                <span style={{ color: C.muted }}>W<sub>energy</sub> = </span><span style={{ color: C.accent3 }}>[{We[0].join(", ")}]</span>
                 <span style={{ color: C.muted }}> b = </span><span style={{ color: C.accent3 }}>{be[0]}</span>
               </div>
               {atoms.map((a, i) => {
@@ -795,7 +796,7 @@ function SecPredict({ atoms, gnn, mol }) {
                     <div style={{ fontSize: 11, color: ELEM_COLOR[a.Z], fontWeight: 500, marginBottom: 4 }}>Atom {i} ({a.sym})</div>
                     <Vec v={h} color={C.accent2} label="h''_i:" />
                     <div style={{ fontSize: 10, fontFamily: "monospace" }}>
-                      <span style={{ color: C.muted }}>e_i = </span>
+                      <span style={{ color: C.muted }}>e<sub>i</sub> = </span>
                       {We[0].map((w, j) => <span key={j} style={{ color: C.text }}>{j > 0 ? " + " : ""}{w.toFixed(2)}×{h[j].toFixed(4)}</span>)}
                       <span style={{ color: C.muted }}> + ({be[0]}) = </span>
                       <span style={{ color: C.accent3, fontWeight: 500 }}>{gnn.rawE[i].toFixed(4)}</span>
@@ -963,7 +964,7 @@ export default function DefectNetPipeline() {
               padding: "8px 14px", borderRadius: 8, fontSize: 12, cursor: "pointer",
               background: molIdx === i ? `${m.color}22` : C.panel,
               border: `2px solid ${molIdx === i ? m.color : C.border}`,
-              color: molIdx === i ? m.color : C.muted, fontFamily: "inherit", fontWeight: 500,
+              color: molIdx === i ? m.color : C.muted, fontFamily: "inherit", fontWeight: 500
             }}>{m.name}</button>
           ))}
         </div>
@@ -976,7 +977,7 @@ export default function DefectNetPipeline() {
             padding: "7px 14px", borderRadius: 8, fontSize: 11, cursor: "pointer", whiteSpace: "nowrap",
             border: `1px solid ${active === sec.id ? sec.color : C.border}`,
             background: active === sec.id ? `${sec.color}22` : C.bg,
-            color: active === sec.id ? sec.color : C.muted, fontFamily: "inherit", fontWeight: active === sec.id ? 500 : 400,
+            color: active === sec.id ? sec.color : C.muted, fontFamily: "inherit", fontWeight: active === sec.id ? 500 : 400
           }}>{sec.label}</button>
         ))}
       </div>

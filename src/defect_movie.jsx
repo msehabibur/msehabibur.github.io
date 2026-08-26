@@ -23,7 +23,7 @@ const P = {
   heat:    "#93c1ca",
   photon:  "#bfd3d7",
   ok:      "#a5cbd2",
-  warn:    "#539aa8",
+  warn:    "#539aa8"
 };
 
 // ── Scenes ──
@@ -1101,7 +1101,7 @@ export default function DefectMovieModule() {
             const eMin = -549, eMax = -538;
             const pts = energies.slice(0, nSteps).map((e, i) => ({
               x: px + (i / (energies.length - 1)) * pw2,
-              y: py + ((eMax - e) / (eMax - eMin)) * ph2,
+              y: py + ((eMax - e) / (eMax - eMin)) * ph2
             }));
             return (
               <g>
@@ -1351,7 +1351,7 @@ export default function DefectMovieModule() {
                           );
                         })}
                         <circle cx={lx} cy={ny} r={4}
-                          fill={trainT > 0 ? `rgba(52,211,153,${pulse * 0.6})` : P.dim + "40"}
+                          fill={trainT > 0 ? `rgba(82,152,166,${pulse * 0.6})` : P.dim + "40"}
                           stroke={P.mlff + "60"} strokeWidth="0.8" />
                       </g>
                     );
@@ -1902,15 +1902,15 @@ export default function DefectMovieModule() {
   return (
     <div style={{
       maxWidth: 1100, margin: "0 auto", padding: "24px 20px",
-      fontFamily: "'Inter', -apple-system, sans-serif",
+      fontFamily: "'Inter', -apple-system, sans-serif"
     }}>
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
         <div style={{
-          fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "none", marginBottom: 4,
+          fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "none", marginBottom: 4
         }}>Animated Module</div>
         <div style={{
-          fontSize: 22, fontWeight: 500, color: P.defect, marginBottom: 4,
+          fontSize: 22, fontWeight: 500, color: P.defect, marginBottom: 4
         }}>DefectDB {"\u2014"} Solar Cells Under the Microscope</div>
         <div style={{ fontSize: 13, color: P.muted, lineHeight: 1.5 }}>
           Watch how defects destroy solar cell efficiency, and how DFT + machine learning fight back.
@@ -1920,17 +1920,17 @@ export default function DefectMovieModule() {
       {/* Cinema screen */}
       <div style={{
         background: P.bg, borderRadius: 16, overflow: "hidden",
-        border: `2px solid ${P.border}`, position: "relative",
+        border: `2px solid ${P.border}`, position: "relative"
       }}>
         {/* Scene title overlay */}
         <div style={{
           position: "absolute", top: 10, left: 14, zIndex: 2,
-          display: "flex", alignItems: "center", gap: 8,
+          display: "flex", alignItems: "center", gap: 8
         }}>
           <span style={{
             background: P.defect + "25", border: `1px solid ${P.defect}50`,
             padding: "3px 10px", borderRadius: 6,
-            fontSize: 10, fontWeight: 500, color: P.defect, letterSpacing: 1,
+            fontSize: 10, fontWeight: 500, color: P.defect, letterSpacing: 1
           }}>Scene {sceneIdx + 1}/{SCENES.length}</span>
           <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
@@ -1938,7 +1938,7 @@ export default function DefectMovieModule() {
         {/* Author watermark */}
         <div style={{
           position: "absolute", top: 10, right: 14, zIndex: 2,
-          fontSize: 11, color: "#ffffff", fontWeight: 500, opacity: 0.85,
+          fontSize: 11, color: "#ffffff", fontWeight: 500, opacity: 0.85
         }}>
           Developed by Habibur Rahman {"\u00B7"} mhrahman@lbl.gov
         </div>
@@ -1950,12 +1950,12 @@ export default function DefectMovieModule() {
 
         {/* Scene progress bar */}
         <div style={{
-          height: 3, background: P.dim + "30", position: "relative",
+          height: 3, background: P.dim + "30", position: "relative"
         }}>
           <div style={{
             height: "100%", background: P.solar,
             width: `${progress * 100}%`, borderRadius: 2,
-            transition: playing ? "none" : "width 0.1s",
+            transition: playing ? "none" : "width 0.1s"
           }} />
         </div>
       </div>
@@ -1964,14 +1964,14 @@ export default function DefectMovieModule() {
       <div style={{
         display: "flex", alignItems: "center", gap: 8, marginTop: 14,
         background: P.panel, padding: "10px 14px", borderRadius: 12,
-        border: `1px solid ${P.border}`,
+        border: `1px solid ${P.border}`
       }}>
         {/* Play / Pause */}
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.solar}`,
           background: P.solar + "15", cursor: "pointer", display: "flex",
           alignItems: "center", justifyContent: "center", fontSize: 18,
-          color: P.solar, fontWeight: 500, fontFamily: "inherit",
+          color: P.solar, fontWeight: 500, fontFamily: "inherit"
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
@@ -1981,19 +1981,19 @@ export default function DefectMovieModule() {
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default",
           color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
-          fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4,
+          fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4
         }}>{"\u2190"}</button>
         <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default",
           color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
-          fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4,
+          fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4
         }}>{"\u2192"}</button>
 
         {/* Global progress */}
         <div style={{ flex: 1, marginLeft: 8 }}>
           <div style={{
-            height: 6, background: P.dim + "30", borderRadius: 3, position: "relative", cursor: "pointer",
+            height: 6, background: P.dim + "30", borderRadius: 3, position: "relative", cursor: "pointer"
           }} onClick={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             const clickRatio = (e.clientX - rect.left) / rect.width;
@@ -2009,7 +2009,7 @@ export default function DefectMovieModule() {
           }}>
             <div style={{
               height: "100%", background: `linear-gradient(90deg, ${P.defect}, ${P.dft}, ${P.mlff})`,
-              width: `${globalProgress * 100}%`, borderRadius: 3,
+              width: `${globalProgress * 100}%`, borderRadius: 3
             }} />
             {/* Scene tick marks */}
             {SCENES.map((_, i) => {
@@ -2017,7 +2017,7 @@ export default function DefectMovieModule() {
               return i > 0 ? (
                 <div key={i} style={{
                   position: "absolute", left: `${pos * 100}%`, top: -2,
-                  width: 1, height: 10, background: P.dim,
+                  width: 1, height: 10, background: P.dim
                 }} />
               ) : null;
             })}
@@ -2032,7 +2032,7 @@ export default function DefectMovieModule() {
 
       {/* Scene selector chips */}
       <div style={{
-        display: "flex", gap: 4, marginTop: 10, flexWrap: "wrap",
+        display: "flex", gap: 4, marginTop: 10, flexWrap: "wrap"
       }}>
         {SCENES.map((s, i) => (
           <button key={s.id} onClick={() => goScene(i)} style={{
@@ -2041,7 +2041,7 @@ export default function DefectMovieModule() {
             border: `1px solid ${i === sceneIdx ? P.solar : P.border}`,
             color: i === sceneIdx ? P.solar : i < sceneIdx ? P.mlff : P.muted,
             fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit",
-            transition: "all 0.15s",
+            transition: "all 0.15s"
           }}>
             {i + 1}. {s.label}
           </button>

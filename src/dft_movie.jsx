@@ -20,7 +20,7 @@ const P = {
   teal:    "#9bc5ce",
   red:     "#539aa8",
   ok:      "#a5cbd2",
-  warn:    "#539aa8",
+  warn:    "#539aa8"
 };
 
 const SCENES = [
@@ -1431,7 +1431,7 @@ export default function DFTMovieModule() {
         aspectRatio: "4/3",
         willChange: "transform",
         transform: "translateZ(0)",
-        contain: "layout paint",
+        contain: "layout paint"
       }}>
         <div style={{ position: "absolute", top: 10, left: 14, zIndex: 2, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ background: P.blue+"25", border: `1px solid ${P.blue}50`, padding: "3px 10px",
@@ -1457,7 +1457,7 @@ export default function DFTMovieModule() {
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.blue}`,
           background: P.blue+"15", cursor: "pointer", display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: 18, color: P.blue, fontWeight: 500, fontFamily: "inherit",
+          justifyContent: "center", fontSize: 18, color: P.blue, fontWeight: 500, fontFamily: "inherit"
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
@@ -1465,13 +1465,13 @@ export default function DFTMovieModule() {
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default",
           color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
-          fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4,
+          fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4
         }}>{"\u2190"}</button>
         <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default",
           color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
-          fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4,
+          fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4
         }}>{"\u2192"}</button>
 
         {/* Global timeline scrubber */}
@@ -1546,7 +1546,7 @@ export default function DFTMovieModule() {
           output: [
             { icon: "\uD83D\uDCCA", text: "DFT outputs are like a medical checkup for a material: total energy (overall health), band structure (how electrons flow = blood test), DOS (electron population = blood cell count), forces (structural stability = bone density scan)." },
             { icon: "\uD83D\uDD2C", text: "Like getting a lab report: the raw numbers (energies, eigenvalues) need interpretation. Band gap tells you insulator vs metal (conductivity), forces tell you stability (will it hold its shape), charge density shows bonding (where the glue is)." },
-          ],
+          ]
         };
         const items = analogies[scene.id];
         if (!items) return null;
@@ -1605,7 +1605,7 @@ export default function DFTMovieModule() {
             background: i === sceneIdx ? P.blue+"20" : "transparent",
             border: `1px solid ${i === sceneIdx ? P.blue : P.border}`,
             color: i === sceneIdx ? P.blue : P.muted,
-            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
+            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s"
           }}>
             {i + 1}. {s.label}
           </button>

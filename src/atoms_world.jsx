@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import ChapterShell from "./chapter_shell.jsx";
 import { T, FONT, LAYOUT, ANALOGY, BUTTON, PANEL, SVG } from "./sectionStyles.js";
+import fx from "./fx.jsx";
 
 // ── TINY HELPERS ───────────────────────────────────────────────────────────
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -16,7 +17,7 @@ function Tag({ color, children }) {
  background: color + "22",
  border: `1px solid ${color}55`,
  color,
- letterSpacing: 1,
+ letterSpacing: 1
  }}>{children}</span>
  );
 }
@@ -26,7 +27,7 @@ function SectionTitle({ color, children }) {
  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
  <div style={{
  fontSize: 15, fontWeight: 500, color,
- letterSpacing: 0.5,
+ letterSpacing: 0.5
  }}>{children}</div>
  </div>
  );
@@ -49,11 +50,11 @@ function AnalogyBox({ children }) {
 /* ─── Numerical-Example Helpers (matching characterization.jsx pattern) ─── */
 function NCard({ title, color, formula, children }) {
  return (
- <div style={{ background: T.panel, border: `1.5px solid ${(color || T.eo_e)}44`, borderLeft: `4px solid ${color || T.eo_e}`, borderRadius: 10, padding: "16px 18px", marginBottom: 14 }}>
+ <div style={{ background: T.panel, border: `1.5px solid ${(color || T.eo_e)}44`,  borderRadius: 10, padding: "16px 18px", marginBottom: 14 }}>
  {(title || formula) && (
  <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 10, flexWrap: "wrap" }}>
- {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || T.eo_e, fontWeight: 500 }}>{title}</div>}
- {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || T.eo_e) + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || T.eo_e)}33` }}>{formula}</div>}
+ {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || T.eo_e, fontWeight: 500 }}>{fx(title)}</div>}
+ {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || T.eo_e) + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || T.eo_e)}33` }}>{fx(formula)}</div>}
  </div>
  )}
  {children}
@@ -479,7 +480,7 @@ function AtomicModelsSection() {
  <button key={i} onClick={() => setModel(i)} style={{
  padding: "5px 8px", borderRadius: 4, border: `1px solid ${model === i ? T.eo_e : T.border}`,
  background: model === i ? T.eo_e : T.panel, color: model === i ? "#fff" : T.ink,
- fontFamily: "monospace", fontSize: 11, cursor: "pointer", lineHeight: 1.2,
+ fontFamily: "monospace", fontSize: 11, cursor: "pointer", lineHeight: 1.2
  }}>
  {md.name}<br /><span style={{ fontSize: 9, opacity: 0.7 }}>{md.year}</span>
  </button>
@@ -507,7 +508,7 @@ function AtomicModelsSection() {
  {[3, 4, 5, 6].map(n => (
  <button key={n} onClick={() => { if (!bohrTransition) { setBohrLevel(n); setBohrTransition({ from: n, to: 2 }); } }} style={{
  padding: "3px 7px", borderRadius: 3, border: `1px solid ${balmerColors[n]}`,
- background: "transparent", color: balmerColors[n], fontFamily: "monospace", fontSize: 11, cursor: "pointer",
+ background: "transparent", color: balmerColors[n], fontFamily: "monospace", fontSize: 11, cursor: "pointer"
  }}>
  {n}→2
  </button>
@@ -522,11 +523,11 @@ function AtomicModelsSection() {
  <div style={{ position: "absolute", top: 14, left: 0, right: 0, height: 2, background: T.dim }} />
  {models.map((md, i) => (
  <div key={i} onClick={() => setModel(i)} style={{
- flex: 1, textAlign: "center", position: "relative", cursor: "pointer", zIndex: 1,
+ flex: 1, textAlign: "center", position: "relative", cursor: "pointer", zIndex: 1
  }}>
  <div style={{
  width: 8, height: 8, borderRadius: "50%", margin: "0 auto",
- background: model === i ? T.eo_e : T.dim, marginTop: 10,
+ background: model === i ? T.eo_e : T.dim, marginTop: 10
  }} />
  <div style={{ fontSize: 9, marginTop: 2, color: model === i ? T.eo_e : T.muted }}>{md.year}</div>
  </div>
@@ -912,17 +913,17 @@ function AufbauPrincipleSection() {
  {
  title: "Aufbau Principle",
  text: "Fill lowest energy orbital first. Order: 1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p → 5s → 4d → 5p. Note 4s fills before 3d because (n+l) is lower.",
- example: "C (Z=6): 1s² 2s² 2p² — fills 1s, then 2s, then starts 2p.",
+ example: "C (Z=6): 1s² 2s² 2p² — fills 1s, then 2s, then starts 2p."
  },
  {
  title: "Pauli Exclusion Principle",
  text: "No two electrons can have the same set of 4 quantum numbers (n, l, mₗ, mₛ). Each orbital holds max 2 electrons with opposite spin (↑↓).",
- example: "1s can hold ↑↓ = 2 electrons. Trying a 3rd is forbidden!",
+ example: "1s can hold ↑↓ = 2 electrons. Trying a 3rd is forbidden!"
  },
  {
  title: "Hund's Rule",
  text: "In degenerate orbitals (same energy), maximize unpaired spins first. Electrons spread out before pairing up.",
- example: "N (Z=7) 2p³: ↑ ↑ ↑ (correct) NOT ↑↓ ↑ _ (wrong — costs energy to pair).",
+ example: "N (Z=7) 2p³: ↑ ↑ ↑ (correct) NOT ↑↓ ↑ _ (wrong — costs energy to pair)."
  },
  ];
 
@@ -945,7 +946,7 @@ function AufbauPrincipleSection() {
  <button key={el.sym} onClick={() => { setZ(el.z); setAnimStep(999); }} style={{
  padding: "3px 6px", borderRadius: 3, border: `1px solid ${Z === el.z ? T.eo_e : T.border}`,
  background: Z === el.z ? T.eo_e : T.panel, color: Z === el.z ? "#fff" : T.ink,
- fontFamily: "monospace", fontSize: 11, cursor: "pointer",
+ fontFamily: "monospace", fontSize: 11, cursor: "pointer"
  }}>
  {el.sym}({el.z})
  </button>
@@ -956,7 +957,7 @@ function AufbauPrincipleSection() {
  </div>
  <button onClick={() => { setAnimStep(0); setPlaying(true); }} style={{
  padding: "5px 12px", borderRadius: 4, border: `1px solid ${T.eo_e}`,
- background: T.eo_e, color: "#fff", fontFamily: "monospace", fontSize: 11, cursor: "pointer",
+ background: T.eo_e, color: "#fff", fontFamily: "monospace", fontSize: 11, cursor: "pointer"
  }}>
  Animate Filling
  </button>
@@ -969,7 +970,7 @@ function AufbauPrincipleSection() {
  border: `1px solid ${showRule === i ? T.eo_core : T.border}`,
  background: showRule === i ? T.eo_core : T.panel,
  color: showRule === i ? "#fff" : T.ink,
- fontFamily: "monospace", fontSize: 11, cursor: "pointer",
+ fontFamily: "monospace", fontSize: 11, cursor: "pointer"
  }}>
  {r.title}
  </button>
@@ -1187,7 +1188,7 @@ function AufbauPrincipleSection() {
 
  <div style={{
  background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_core, marginBottom: 4 }}>Coming Next: Periodic Trends {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -1458,7 +1459,7 @@ function ElectronOriginsZnTeSection() {
  <button key={i} onClick={() => { setStage(i); if (i === 1) { setBondProgress(0); setBonding(false); } }} style={{
  padding: "4px 8px", borderRadius: 4, border: `1px solid ${stage === i ? T.eo_valence : T.border}`,
  background: stage === i ? T.eo_valence : T.panel, color: stage === i ? "#fff" : T.ink,
- fontFamily: "monospace", fontSize: 9, cursor: "pointer",
+ fontFamily: "monospace", fontSize: 9, cursor: "pointer"
  }}>
  {s}
  </button>
@@ -1658,7 +1659,7 @@ function ElectronOriginsZnTeSection() {
 
  <div style={{
  background: `${T.eo_valence}11`, border: `1px solid ${T.eo_valence}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_valence, marginBottom: 4 }}>Coming Next: Molecular Orbitals {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -1899,7 +1900,7 @@ function WaveDualitySection() {
  { head: "The electron went through BOTH slits", body: "Before measurement, the electron exists as a wavefunction ψ spread through space. ψ split at the barrier, went through both slits, and interfered with itself on the far side." },
  { head: "|ψ|² = probability", body: "The wave amplitude squared gives the probability of landing at each point. High |ψ|² → bright band. Zero |ψ|² → dark band. The electron is forced to land where its own wave says is likely." },
  { head: "Measurement collapses ψ", body: "The instant the electron hits the screen, the wavefunction collapses to one point. This is not ignorance — quantum mechanics says the position genuinely did not exist until then." },
- ],
+ ]
  };
 
  const col = MODES.find(m => m.id === mode).color;
@@ -1918,7 +1919,7 @@ function WaveDualitySection() {
  background: mode === m.id ? m.color + "18" : "transparent",
  borderBottom: `3px solid ${mode === m.id ? m.color : "transparent"}`,
  fontFamily: "inherit", fontSize: 11, fontWeight: mode === m.id ? 500 : 400,
- color: mode === m.id ? m.color : T.muted,
+ color: mode === m.id ? m.color : T.muted
  }}>{m.label}</button>
  ))}
  </div>
@@ -1963,7 +1964,7 @@ function WaveDualitySection() {
  width: 22, height: 22, borderRadius: "50%", flexShrink: 0,
  background: col + "20", border: `1.5px solid ${col}`,
  display: "flex", alignItems: "center", justifyContent: "center",
- fontSize: 9, fontWeight: 500, color: col,
+ fontSize: 9, fontWeight: 500, color: col
  }}>{i + 1}</div>
  <div style={{ paddingTop: 2 }}>
  <span style={{ fontWeight: 500, color: T.ink, fontSize: 12 }}>{s.head}: </span>
@@ -2009,7 +2010,7 @@ function WaveDualitySection() {
 
  {/* Why this matters — full width, below de Broglie */}
  {mode === "quantum" && (
- <div style={{ background: "#32778518", border: "1.5px solid #32778533", borderLeft: "4px solid #327785", borderRadius: 8, padding: 16 }}>
+ <div style={{ background: "#32778518", border: "1.5px solid #32778533",  borderRadius: 8, padding: 16 }}>
  <div style={{ fontSize: 12, fontWeight: 500, color: "#327785", marginBottom: 8 }}>Why this matters for materials science</div>
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.75 }}>
  Every electron in a CdTe crystal behaves this way. Its wavefunction ψ is not localised to one atom — it spreads
@@ -2345,7 +2346,7 @@ function SchrodingerSection() {
  padding: "5px 12px", fontFamily: "monospace", fontSize: 11,
  background: showPsi2 ? T.eo_valence : T.panel,
  color: showPsi2 ? "#fff" : T.ink,
- border: `1px solid ${T.eo_valence}`, borderRadius: 4, cursor: "pointer",
+ border: `1px solid ${T.eo_valence}`, borderRadius: 4, cursor: "pointer"
  }}
  >
  {showPsi2 ? "|ψ|² cloud" : "R(r) curve"}
@@ -2390,7 +2391,7 @@ function SchrodingerSection() {
  background: n === nQ ? T.eo_valence : T.surface,
  color: n === nQ ? "#fff" : T.ink,
  border: `1px solid ${n === nQ ? T.eo_valence : T.border}`,
- borderRadius: 4, cursor: "pointer",
+ borderRadius: 4, cursor: "pointer"
  }}>n={n}</button>
  ))}
  </div>
@@ -2598,7 +2599,7 @@ function SchrodingerSection() {
 
  <div style={{
  background: `${T.eo_valence}11`, border: `1px solid ${T.eo_valence}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_valence, marginBottom: 4 }}>Why This Leads to Quantum Numbers {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -2864,7 +2865,7 @@ function QuantumNumbersSection() {
  padding: "5px 14px", fontFamily: "monospace", fontSize: 11,
  background: showAll ? T.eo_core : T.panel,
  color: showAll ? "#fff" : T.ink,
- border: `1px solid ${T.eo_core}`, borderRadius: 4, cursor: "pointer",
+ border: `1px solid ${T.eo_core}`, borderRadius: 4, cursor: "pointer"
  }}>
  {showAll ? "Single Orbital View" : "Show All Orbitals"}
  </button>
@@ -2887,7 +2888,7 @@ function QuantumNumbersSection() {
  <button key={v} onClick={() => setN(v)} style={{
  width: 26, height: 24, fontSize: 11, fontFamily: "monospace",
  background: v === n ? T.eo_core : T.surface, color: v === n ? "#fff" : T.ink,
- border: `1px solid ${v === n ? T.eo_core : T.border}`, borderRadius: 3, cursor: "pointer",
+ border: `1px solid ${v === n ? T.eo_core : T.border}`, borderRadius: 3, cursor: "pointer"
  }}>{v}</button>
  ))}
  </div>
@@ -2902,7 +2903,7 @@ function QuantumNumbersSection() {
  minWidth: 30, height: 24, fontSize: 11, fontFamily: "monospace",
  background: v === l ? T.eo_e : T.surface, color: v === l ? "#fff" : T.ink,
  border: `1px solid ${v === l ? T.eo_e : T.border}`, borderRadius: 3, cursor: "pointer",
- padding: "0 4px",
+ padding: "0 4px"
  }}>{v} ({subshellNames[v]})</button>
  ))}
  </div>
@@ -2910,13 +2911,13 @@ function QuantumNumbersSection() {
 
  {/* ml */}
  <div style={{ marginBottom: 8 }}>
- <span style={{ fontSize: 11, color: T.muted }}>m_l (magnetic): </span>
+ <span style={{ fontSize: 11, color: T.muted }}>m<sub>l</sub> (magnetic): </span>
  <div style={{ display: "flex", gap: 4, marginTop: 4, flexWrap: "wrap" }}>
  {Array.from({ length: 2 * l + 1 }, (_, i) => i - l).map((v) => (
  <button key={v} onClick={() => setMl(v)} style={{
  width: 30, height: 24, fontSize: 11, fontFamily: "monospace",
  background: v === ml ? T.eo_cond : T.surface, color: v === ml ? "#fff" : T.ink,
- border: `1px solid ${v === ml ? T.eo_cond : T.border}`, borderRadius: 3, cursor: "pointer",
+ border: `1px solid ${v === ml ? T.eo_cond : T.border}`, borderRadius: 3, cursor: "pointer"
  }}>{v > 0 ? `+${v}` : v}</button>
  ))}
  </div>
@@ -2924,13 +2925,13 @@ function QuantumNumbersSection() {
 
  {/* ms */}
  <div>
- <span style={{ fontSize: 11, color: T.muted }}>m_s (spin): </span>
+ <span style={{ fontSize: 11, color: T.muted }}>m<sub>s</sub> (spin): </span>
  <div style={{ display: "flex", gap: 4, marginTop: 4 }}>
  {[0.5, -0.5].map((v) => (
  <button key={v} onClick={() => setMs(v)} style={{
  minWidth: 36, height: 24, fontSize: 11, fontFamily: "monospace",
  background: v === ms ? T.eo_hole : T.surface, color: v === ms ? "#fff" : T.ink,
- border: `1px solid ${v === ms ? T.eo_hole : T.border}`, borderRadius: 3, cursor: "pointer",
+ border: `1px solid ${v === ms ? T.eo_hole : T.border}`, borderRadius: 3, cursor: "pointer"
  }}>{v > 0 ? "+½" : "−½"}</button>
  ))}
  </div>
@@ -2956,7 +2957,7 @@ function QuantumNumbersSection() {
  fontSize: 10, padding: "2px 5px", borderRadius: 3,
  background: orb === orbitalName ? T.eo_e : T.surface,
  color: orb === orbitalName ? "#fff" : T.muted,
- border: `1px solid ${orb === orbitalName ? T.eo_e : T.border}`,
+ border: `1px solid ${orb === orbitalName ? T.eo_e : T.border}`
  }}>{orb}</span>
  ))}
  </div>
@@ -2971,7 +2972,7 @@ function QuantumNumbersSection() {
 
  <div style={{
  background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
- borderRadius: 8, padding: 12, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 12, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_core, marginBottom: 4 }}>
  Periodic Table Connection
@@ -3159,7 +3160,7 @@ function QuantumNumbersSection() {
 
  <div style={{
  background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_core, marginBottom: 4 }}>Coming Next: Aufbau & Pauli {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -3225,7 +3226,7 @@ function PeriodicTrendsSection() {
  en: { label: "Electronegativity", idx: 4, unit: "(Pauling)", min: 0.8, max: 3.5 },
  radius: { label: "Atomic Radius", idx: 5, unit: "(pm)", min: 50, max: 260 },
  ie: { label: "Ionization Energy", idx: 6, unit: "(eV)", min: 4, max: 14 },
- ea: { label: "Electron Affinity", idx: 7, unit: "(eV)", min: -1, max: 2.5 },
+ ea: { label: "Electron Affinity", idx: 7, unit: "(eV)", min: -1, max: 2.5 }
  };
 
  const pc = propConfig[property];
@@ -3233,20 +3234,11 @@ function PeriodicTrendsSection() {
  const valToColor = (val) => {
  let t = (val - pc.min) / (pc.max - pc.min);
  t = Math.max(0, Math.min(1, t));
- // blue → white → red
- if (t < 0.5) {
- const s = t / 0.5;
- const r = Math.round(37 + s * (255 - 37));
- const g = Math.round(99 + s * (255 - 99));
- const b = Math.round(235 + s * (255 - 235));
+ // one hue, pale to deep, so the scale reads with the rest of the site
+ const r = Math.round(229 - t * (229 - 16));
+ const g = Math.round(241 - t * (241 - 92));
+ const b = Math.round(243 - t * (243 - 104));
  return `rgb(${r},${g},${b})`;
- } else {
- const s = (t - 0.5) / 0.5;
- const r = Math.round(255 - s * (255 - 234));
- const g = Math.round(255 - s * (255 - 88));
- const b = Math.round(255 - s * (255 - 12));
- return `rgb(${r},${g},${b})`;
- }
  };
 
  const cellW = 26, cellH = 24;
@@ -3301,9 +3293,9 @@ function PeriodicTrendsSection() {
  {/* Color bar legend */}
  <defs>
  <linearGradient id="heatGrad" x1="0%" y1="0%" x2="100%" y2="0%">
- <stop offset="0%" stopColor="rgb(37,99,235)" />
+ <stop offset="0%" stopColor="rgb(52,122,137)" />
  <stop offset="50%" stopColor="rgb(255,255,255)" />
- <stop offset="100%" stopColor="rgb(234,88,12)" />
+ <stop offset="100%" stopColor="rgb(57,135,151)" />
  </linearGradient>
  </defs>
  <rect x={60} y={285} width={220} height={10} rx={3} fill="url(#heatGrad)" stroke={T.border} strokeWidth={0.5} />
@@ -3338,7 +3330,7 @@ function PeriodicTrendsSection() {
  background: property === key ? T.eo_gap : T.surface,
  color: property === key ? "#fff" : T.ink,
  border: `1px solid ${property === key ? T.eo_gap : T.border}`,
- borderRadius: 4, cursor: "pointer",
+ borderRadius: 4, cursor: "pointer"
  }}>{label}</button>
  ))}
  </div>
@@ -3353,7 +3345,7 @@ function PeriodicTrendsSection() {
  background: valToColor(selData[pc.idx]),
  display: "flex", alignItems: "center", justifyContent: "center",
  border: `2px solid ${T.ink}`,
- fontSize: 18, fontWeight: "500", color: T.ink,
+ fontSize: 18, fontWeight: "500", color: T.ink
  }}>
  {selData[0]}
  </div>
@@ -3438,7 +3430,7 @@ function PeriodicTrendsSection() {
 
  <div style={{
  background: `${T.eo_gap}11`, border: `1px solid ${T.eo_gap}44`,
- borderRadius: 8, padding: 12, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 12, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_gap, marginBottom: 4 }}>Key Insight</div>
  <div style={{ color: T.ink, fontSize: 11 }}>
@@ -3630,7 +3622,7 @@ function PeriodicTrendsSection() {
 
  <div style={{
  background: `${T.eo_core}11`, border: `1px solid ${T.eo_core}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_core, marginBottom: 4 }}>Coming Next: Chemical Bonding {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -3663,21 +3655,21 @@ function AtomSection() {
  shells: [2, 8, 18, 2],
  labels: ["1s²", "2s²2p⁶", "3s²3p⁶3d¹⁰", "4s²"],
  valence: 2,
- desc: "Zinc has 2 valence electrons in the outer 4s shell. These are loosely held and participate in bonding.",
+ desc: "Zinc has 2 valence electrons in the outer 4s shell. These are loosely held and participate in bonding."
  },
  {
  sym: "Te", Z: 52, color: T.eo_hole,
  shells: [2, 8, 18, 18, 6],
  labels: ["1s²", "2s²2p⁶", "3s²3p⁶3d¹⁰", "4s²4p⁶4d¹⁰", "5s²5p⁴"],
  valence: 6,
- desc: "Tellurium has 6 valence electrons in the outer 5s5p shells. These form bonds with Zn.",
+ desc: "Tellurium has 6 valence electrons in the outer 5s5p shells. These form bonds with Zn."
  },
  {
  sym: "Cu", Z: 29, color: T.eo_photon,
  shells: [2, 8, 18, 1],
  labels: ["1s²", "2s²2p⁶", "3s²3p⁶3d¹⁰", "4s¹"],
  valence: 1,
- desc: "Copper has 1 valence electron. This is why Cu forms monovalent bonds in kesterite structures.",
+ desc: "Copper has 1 valence electron. This is why Cu forms monovalent bonds in kesterite structures."
  },
  ];
 
@@ -3702,7 +3694,7 @@ function AtomSection() {
  color: at.color,
  cursor: "pointer",
  fontSize: 16,
- fontWeight: 500,
+ fontWeight: 500
  }}>{at.sym}<br /><span style={{ fontSize: 10, color: T.muted }}>Z={at.Z}</span></button>
  ))}
  </div>
@@ -3774,7 +3766,7 @@ function AtomSection() {
  display: "flex", alignItems: "center", gap: 10,
  padding: "5px 8px", borderRadius: 6, marginBottom: 3,
  background: isV ? a.color + "15" : "transparent",
- border: isV ? `1px solid ${a.color}33` : "1px solid transparent",
+ border: isV ? `1px solid ${a.color}33` : "1px solid transparent"
  }}>
  <div style={{ fontSize: 11, color: isV ? a.color : T.muted, minWidth: 90, fontFamily: "monospace" }}>{a.labels[i]}</div>
  <div style={{ display: "flex", gap: 3 }}>
@@ -3782,7 +3774,7 @@ function AtomSection() {
  <div key={j} style={{
  width: 8, height: 8, borderRadius: "50%",
  background: isV ? a.color : T.eo_core,
- opacity: isV ? 1 : 0.5,
+ opacity: isV ? 1 : 0.5
  }} />
  ))}
  </div>
@@ -3823,36 +3815,36 @@ function ChemicalBondingSection() {
  example: "Si-Si (Dc = 0), C-C, Ge-Ge",
  strength: "Strong (2-4 eV)",
  directionality: "Highly directional",
- conductivity: "Semiconductor/Insulator",
+ conductivity: "Semiconductor/Insulator"
  },
  "Polar Covalent": {
  desc: "Electrons shared unequally; partial charges develop on atoms.",
  example: "Zn-Te (Dc = 0.6), Ga-As (Dc = 0.4)",
  strength: "Strong (1.5-4 eV)",
  directionality: "Directional",
- conductivity: "Semiconductor",
+ conductivity: "Semiconductor"
  },
  Ionic: {
  desc: "Complete electron transfer; electrostatic attraction between ions.",
  example: "Na-Cl (Dc = 2.1), Mg-O (Dc = 2.3)",
  strength: "Strong (3-8 eV)",
  directionality: "Non-directional",
- conductivity: "Insulator (solid)",
+ conductivity: "Insulator (solid)"
  },
  Metallic: {
  desc: "Delocalized electron sea shared among all atoms.",
  example: "Cu, Al, Fe, Au",
  strength: "Moderate (1-4 eV)",
  directionality: "Non-directional",
- conductivity: "High conductor",
+ conductivity: "High conductor"
  },
  "Van der Waals": {
  desc: "Weak dipole-dipole or London dispersion forces between molecules.",
  example: "Graphite layers, molecular crystals",
  strength: "Weak (0.01-0.1 eV)",
  directionality: "Non-directional",
- conductivity: "Insulator",
- },
+ conductivity: "Insulator"
+ }
  };
 
  const info = bondTypes[bondType];
@@ -4053,7 +4045,7 @@ function ChemicalBondingSection() {
  background: T.surface,
  border: `1px solid ${T.border}`,
  borderRadius: 4,
- cursor: "pointer",
+ cursor: "pointer"
  }}
  >
  {p.label} (Dc={p.dchi})
@@ -4078,7 +4070,7 @@ function ChemicalBondingSection() {
  color: bondType === bt ? "#fff" : T.ink,
  border: `1px solid ${bondType === bt ? T.eo_e : T.border}`,
  borderRadius: 4,
- cursor: "pointer",
+ cursor: "pointer"
  }}
  >
  {bt}
@@ -4303,7 +4295,7 @@ function ChemicalBondingSection() {
 
  <div style={{
  background: `${T.eo_valence}11`, border: `1px solid ${T.eo_valence}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_valence, marginBottom: 4 }}>Coming Next: Hybridization {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -4334,22 +4326,22 @@ function HybridizationSection() {
  geometry: "Linear",
  angle: "180deg",
  angleNum: 180,
- colors: [T.eo_e, T.eo_hole],
+ colors: [T.eo_e, T.eo_hole]
  },
  sp2: {
  n: 3,
  geometry: "Trigonal Planar",
  angle: "120deg",
  angleNum: 120,
- colors: [T.eo_e, T.eo_hole, T.eo_valence],
+ colors: [T.eo_e, T.eo_hole, T.eo_valence]
  },
  sp3: {
  n: 4,
  geometry: "Tetrahedral",
  angle: "109.5deg",
  angleNum: 109.5,
- colors: [T.eo_e, T.eo_hole, T.eo_valence, T.eo_core],
- },
+ colors: [T.eo_e, T.eo_hole, T.eo_valence, T.eo_core]
+ }
  };
 
  const data = hybridData[hybridType];
@@ -4389,7 +4381,7 @@ function HybridizationSection() {
  const lobeAngles = {
  sp: [0, 180],
  sp2: [0, 120, 240],
- sp3: [0, 109.5, 220, 330],
+ sp3: [0, 109.5, 220, 330]
  };
 
  const pulse = 0.95 + 0.05 * Math.sin(frame * 0.1);
@@ -4472,7 +4464,7 @@ function HybridizationSection() {
  color: hybridType === h ? "#fff" : T.ink,
  border: `1px solid ${hybridType === h ? T.eo_core : T.border}`,
  borderRadius: 4,
- cursor: "pointer",
+ cursor: "pointer"
  }}
  >
  {h === "sp2" ? "sp²" : h === "sp3" ? "sp³" : h}
@@ -4491,7 +4483,7 @@ function HybridizationSection() {
  color: showMixing ? "#fff" : T.ink,
  border: `1px solid ${showMixing ? T.eo_valence : T.border}`,
  borderRadius: 4,
- cursor: "pointer",
+ cursor: "pointer"
  }}
  >
  {showMixing ? "Stop Mixing Animation" : "Animate Orbital Mixing"}
@@ -4524,7 +4516,7 @@ function HybridizationSection() {
  key={t}
  style={{
  borderBottom: `1px solid ${T.border}`,
- background: (t === "sp" && hybridType === "sp") || (t === "sp²" && hybridType === "sp2") || (t === "sp³" && hybridType === "sp3") ? "#32778508" : "transparent",
+ background: (t === "sp" && hybridType === "sp") || (t === "sp²" && hybridType === "sp2") || (t === "sp³" && hybridType === "sp3") ? "#32778508" : "transparent"
  }}
  >
  <td style={{ padding: "4px 6px", fontWeight: 500 }}>{t}</td>
@@ -4736,7 +4728,7 @@ function HybridizationSection() {
 
  <div style={{
  background: `${T.eo_valence}11`, border: `1px solid ${T.eo_valence}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_valence, marginBottom: 4 }}>Coming Next: Electron Origins {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -4764,20 +4756,20 @@ function MolecularOrbitalSection() {
  const stageInfo = {
  1: {
  title: "Two Isolated Atoms",
- desc: "Each atom has its own atomic orbital at the same energy. Electrons are localized on each atom.",
+ desc: "Each atom has its own atomic orbital at the same energy. Electrons are localized on each atom."
  },
  2: {
  title: "Molecular Orbitals (2 atoms)",
- desc: "When atoms bond, orbitals overlap. Constructive interference -> bonding MO (lower energy). Destructive -> antibonding MO (higher energy).",
+ desc: "When atoms bond, orbitals overlap. Constructive interference -> bonding MO (lower energy). Destructive -> antibonding MO (higher energy)."
  },
  3: {
  title: "4 Atoms -> 4 Levels",
- desc: "More atoms = more MOs. N atoms produce N molecular orbitals, spreading into bonding and antibonding groups.",
+ desc: "More atoms = more MOs. N atoms produce N molecular orbitals, spreading into bonding and antibonding groups."
  },
  4: {
  title: "N Atoms -> Energy Bands",
- desc: "In a crystal (N~10^23), discrete levels merge into continuous bands. Bonding MOs -> valence band. Antibonding MOs -> conduction band.",
- },
+ desc: "In a crystal (N~10^23), discrete levels merge into continuous bands. Bonding MOs -> valence band. Antibonding MOs -> conduction band."
+ }
  };
 
  const info = stageInfo[stage];
@@ -4846,9 +4838,9 @@ function MolecularOrbitalSection() {
  {drawLevel(150, 210, 70, T.eo_valence, "", true, "bond")}
  {drawLevel(150, 100, 70, T.eo_gap, "", false, "antibond")}
  <text x={190} y={224} fontSize={10} fill={T.eo_valence}>σ (bonding)</text>
- <text x={190} y={210} fontSize={10} fill={T.eo_valence} fontWeight={500}>HOMO</text>
+ <text x={190} y={210} fontSize={10} fill={T.eo_valence} fontWeight={500}>Homo</text>
  <text x={190} y={114} fontSize={10} fill={T.eo_gap}>σ* (antibonding)</text>
- <text x={190} y={100} fontSize={10} fill={T.eo_gap} fontWeight={500}>LUMO</text>
+ <text x={190} y={100} fontSize={10} fill={T.eo_gap} fontWeight={500}>Lumo</text>
  {/* Dashed lines connecting to atomic levels */}
  <line x1={70} y1={160} x2={115} y2={210} stroke={T.dim} strokeDasharray="3,3" />
  <line x1={70} y1={160} x2={115} y2={100} stroke={T.dim} strokeDasharray="3,3" />
@@ -4946,7 +4938,7 @@ function MolecularOrbitalSection() {
  color: stage === s ? "#fff" : T.ink,
  border: `1px solid ${stage === s ? T.eo_e : T.border}`,
  borderRadius: 4,
- cursor: "pointer",
+ cursor: "pointer"
  }}
  >
  Stage {s}
@@ -4986,7 +4978,7 @@ function MolecularOrbitalSection() {
  key={a}
  style={{
  borderBottom: `1px solid ${T.border}`,
- background: stage === i + 1 ? "#32778508" : "transparent",
+ background: stage === i + 1 ? "#32778508" : "transparent"
  }}
  >
  <td style={{ padding: "4px 6px" }}>{a}</td>
@@ -5000,9 +4992,9 @@ function MolecularOrbitalSection() {
 
  <div style={{ background: T.surface, borderRadius: 6, padding: 10, marginBottom: 10, border: `1px solid ${T.border}` }}>
  <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.5 }}>
- <strong>HOMO</strong> (Highest Occupied MO) {"→"} becomes <strong>VBM</strong> (Valence Band Maximum)
+ <strong>Homo</strong> (Highest Occupied MO) {"→"} becomes <strong>VBM</strong> (Valence Band Maximum)
  <br />
- <strong>LUMO</strong> (Lowest Unoccupied MO) {"→"} becomes <strong>CBM</strong> (Conduction Band Minimum)
+ <strong>Lumo</strong> (Lowest Unoccupied MO) {"→"} becomes <strong>CBM</strong> (Conduction Band Minimum)
  </div>
  </div>
 
@@ -5204,7 +5196,7 @@ function MolecularOrbitalSection() {
 
  <div style={{
  background: `${T.eo_cond}11`, border: `1px solid ${T.eo_cond}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_cond, marginBottom: 4 }}>Coming Next: Crystal Symmetry {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -5247,20 +5239,20 @@ function CrystalSymmetrySection() {
  atoms: [[0,0,0],[1,0,0],[0,1,0],[0,0,1],[1,1,0],[1,0,1],[0,1,1],[1,1,1]],
  types: [0,0,0,0,0,0,0,0],
  perCell: 1, coord: 6, packing: "52.4%", spaceGroup: "Pm-3m (#221)",
- examples: "Po (only element), alpha-Po",
+ examples: "Po (only element), alpha-Po"
  },
  BCC: {
  atoms: [[0,0,0],[1,0,0],[0,1,0],[0,0,1],[1,1,0],[1,0,1],[0,1,1],[1,1,1],[0.5,0.5,0.5]],
  types: [0,0,0,0,0,0,0,0,1],
  perCell: 2, coord: 8, packing: "68.0%", spaceGroup: "Im-3m (#229)",
- examples: "Fe, W, Cr, Na, K",
+ examples: "Fe, W, Cr, Na, K"
  },
  FCC: {
  atoms: [[0,0,0],[1,0,0],[0,1,0],[0,0,1],[1,1,0],[1,0,1],[0,1,1],[1,1,1],
  [0.5,0.5,0],[0.5,0,0.5],[0,0.5,0.5],[1,0.5,0.5],[0.5,1,0.5],[0.5,0.5,1]],
  types: [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
  perCell: 4, coord: 12, packing: "74.0%", spaceGroup: "Fm-3m (#225)",
- examples: "Cu, Al, Au, Ag, Ni",
+ examples: "Cu, Al, Au, Ag, Ni"
  },
  Zincblende: {
  atoms: [[0,0,0],[1,0,0],[0,1,0],[0,0,1],[1,1,0],[1,0,1],[0,1,1],[1,1,1],
@@ -5268,8 +5260,8 @@ function CrystalSymmetrySection() {
  [0.25,0.25,0.25],[0.75,0.75,0.25],[0.75,0.25,0.75],[0.25,0.75,0.75]],
  types: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1],
  perCell: 8, coord: 4, packing: "34.0%", spaceGroup: "F-43m (#216)",
- examples: "ZnTe, CdTe, GaAs, InP, Si",
- },
+ examples: "ZnTe, CdTe, GaAs, InP, Si"
+ }
  };
 
  const data = latticeData[lattice];
@@ -5280,7 +5272,7 @@ function CrystalSymmetrySection() {
 
  const projAtoms = data.atoms.map(([x, y, z]) => ({
  ...project(x - 0.5, y - 0.5, z - 0.5),
- type: data.types[data.atoms.indexOf([x, y, z])],
+ type: data.types[data.atoms.indexOf([x, y, z])]
  }));
 
  const projEdgeCorners = [[0,0,0],[1,0,0],[0,1,0],[0,0,1],[1,1,0],[1,0,1],[0,1,1],[1,1,1]].map(
@@ -5393,7 +5385,7 @@ function CrystalSymmetrySection() {
  border: `1px solid ${lattice === lt ? T.eo_core : T.border}`,
  borderRadius: 4,
  cursor: "pointer",
- whiteSpace: "nowrap",
+ whiteSpace: "nowrap"
  }}
  >
  {lt}
@@ -5451,7 +5443,7 @@ function CrystalSymmetrySection() {
  (l === "FCC" && lattice === "FCC") ||
  (l === "ZB" && lattice === "Zincblende")
  ? "#32778508"
- : "transparent",
+ : "transparent"
  }}
  >
  <td style={{ padding: "3px 4px", fontWeight: 500 }}>{l}</td>
@@ -5652,7 +5644,7 @@ function CrystalSymmetrySection() {
 
  <div style={{
  background: `${T.eo_cond}11`, border: `1px solid ${T.eo_cond}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_cond, marginBottom: 4 }}>Coming Next: Reciprocal Space {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -5862,7 +5854,7 @@ function ReciprocalSpaceSection() {
  color: !showReciprocal ? "#fff" : T.ink,
  border: `1px solid ${!showReciprocal ? T.eo_e : T.border}`,
  borderRadius: 4,
- cursor: "pointer",
+ cursor: "pointer"
  }}
  >
  Real Space
@@ -5879,7 +5871,7 @@ function ReciprocalSpaceSection() {
  color: showReciprocal ? "#fff" : T.ink,
  border: `1px solid ${showReciprocal ? T.eo_core : T.border}`,
  borderRadius: 4,
- cursor: "pointer",
+ cursor: "pointer"
  }}
  >
  Reciprocal Space
@@ -5900,7 +5892,7 @@ function ReciprocalSpaceSection() {
  color: latticeType === lt ? "#fff" : T.ink,
  border: `1px solid ${latticeType === lt ? T.eo_valence : T.border}`,
  borderRadius: 4,
- cursor: "pointer",
+ cursor: "pointer"
  }}
  >
  {lt}
@@ -6100,7 +6092,7 @@ function ReciprocalSpaceSection() {
  <InfoRow label="Speed of sound in Cu" value="v_s ≈ 3570 m/s (average)" />
  <InfoRow label="Boltzmann constant" value="k_B = 1.381 × 10⁻²³ J/K" />
  </div>
- <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 2 -- Calculate k_D and Θ_D:</strong></div>
+ <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 2 -- Calculate k<sub>D</sub> and Θ<sub>D</sub>:</strong></div>
  <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
  <CalcRow eq="k_D = (6π² × 8.49×10²⁸)^(1/3)" result="" color={T.eo_cond} />
  <CalcRow eq="k_D = (5.03 × 10³⁰)^(1/3)" result="= 1.713 × 10¹⁰ m⁻¹" color={T.eo_cond} />
@@ -6146,7 +6138,7 @@ function ReciprocalSpaceSection() {
 
  <div style={{
  background: `${T.eo_cond}11`, border: `1px solid ${T.eo_cond}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_cond, marginBottom: 4 }}>Coming Next: Energy Bands {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -6265,7 +6257,7 @@ function BandSection() {
  background: temp === i ? T.eo_hole + "22" : T.surface,
  border: `1px solid ${temp === i ? T.eo_hole : T.border}`,
  color: temp === i ? T.eo_hole : T.muted,
- cursor: "pointer",
+ cursor: "pointer"
  }}>{t}</button>
  ))}
  </div>
@@ -6275,7 +6267,7 @@ function BandSection() {
  border: `1px solid ${light ? T.eo_photon : T.border}`,
  color: light ? T.eo_photon : T.muted,
  cursor: "pointer",
- fontWeight: light ? 500 : 400,
+ fontWeight: light ? 500 : 400
  }}>
  {light ? " Light ON (photons hitting)" : " Light OFF"}
  </button>
@@ -6286,7 +6278,7 @@ function BandSection() {
  <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 12 }}>
  <div style={{
  background: T.surface, borderRadius: 10, padding: 14,
- border: `1px solid ${T.border}`,
+ border: `1px solid ${T.border}`
  }}>
  <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 0.5 }}>Current state</div>
  <div style={{ fontSize: 22, fontWeight: 500, color: totalExcited > 0 ? T.eo_e : T.eo_valence, marginBottom: 6 }}>
@@ -6309,8 +6301,8 @@ function BandSection() {
  { title: "Light: photon energy > band gap", desc: "Photon of 2.5eV hits a valence electron and kicks it to conduction band. This is photovoltaics!", color: T.eo_photon },
  { title: "Defect: missing atom creates gap states", desc: "V_Zn vacancy creates states inside gap. Electrons from Te dangling bonds sit there. Much easier to excite.", color: T.eo_gap },
  ].map(({ title, desc, color }) => (
- <div key={title} style={{ marginBottom: 10, paddingLeft: 12, borderLeft: `3px solid ${color}` }}>
- <div style={{ fontSize: 12, fontWeight: 500, color, marginBottom: 3 }}>{title}</div>
+ <div key={title} style={{ marginBottom: 10, paddingLeft: 12 }}>
+ <div style={{ fontSize: 12, fontWeight: 500, color, marginBottom: 3 }}>{fx(title)}</div>
  <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>{desc}</div>
  </div>
  ))}
@@ -6492,7 +6484,7 @@ function BandSection() {
 
  <div style={{
  background: `${T.eo_photon}11`, border: `1px solid ${T.eo_photon}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_photon, marginBottom: 4 }}>Coming Next: Density of States {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -6725,7 +6717,7 @@ function DensityOfStatesSection() {
  {/* Controls below SVG */}
  <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12, width: 260, boxSizing: "border-box" }}>
  <div style={{ fontSize: 11, marginBottom: 5 }}>
- <b>Fermi Level E_F:</b>{" "}
+ <b>Fermi Level E<sub>F</sub>:</b>{" "}
  <span style={{ color: T.eo_hole }}>{eFermiActual.toFixed(2)} eV</span>
  </div>
  <input type="range" min={0} max={1} step={0.01} value={eFermi}
@@ -6780,7 +6772,7 @@ function DensityOfStatesSection() {
  <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
  <div style={{ fontSize: 11, fontWeight: 500, marginBottom: 4, color: T.eo_photon }}>DFT Connection: Computing PDOS</div>
  <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
- In VASP, set <code style={{ background: T.panel, padding: "1px 4px", borderRadius: 3 }}>LORBIT=11</code> to project DOS onto atomic orbitals. The output <b>DOSCAR</b> contains total + atom/orbital-resolved DOS. Tools like <b>pymatgen</b>, <b>VASPKIT</b>, and <b>sumo</b> parse and plot PDOS. This reveals the orbital character of each band — essential for understanding optical transitions, bonding, and defect levels.
+ In VASP, set <code style={{ background: T.panel, padding: "1px 4px", borderRadius: 3 }}>Lorbit=11</code> to project DOS onto atomic orbitals. The output <b>DOSCAR</b> contains total + atom/orbital-resolved DOS. Tools like <b>pymatgen</b>, <b>VASPKIT</b>, and <b>sumo</b> parse and plot PDOS. This reveals the orbital character of each band — essential for understanding optical transitions, bonding, and defect levels.
  </div>
  </div>
 
@@ -6997,13 +6989,13 @@ function PolymerBuilder() {
  <button key={m.id} onClick={() => addMonomer(m)} style={{
  padding: "6px 10px", borderRadius: 6, fontSize: 11, fontWeight: 500,
  background: m.color + "15", border: `1.5px solid ${m.color}44`,
- color: m.color, cursor: "pointer",
+ color: m.color, cursor: "pointer"
  }}>+ {m.label}</button>
  ))}
  <button onClick={clearChain} style={{
  padding: "6px 10px", borderRadius: 6, fontSize: 11, fontWeight: 500,
  background: T.eo_gap + "15", border: `1.5px solid ${T.eo_gap}44`,
- color: T.eo_gap, cursor: "pointer",
+ color: T.eo_gap, cursor: "pointer"
  }}>Clear</button>
  </div>
 
@@ -7084,7 +7076,7 @@ function MetalAlloyExplorer() {
  "Cu+Zn": "Brass", "Cu+Sn": "Bronze", "Cu+Ni": "Cupronickel", "Cu+Cr": "Cu-Cr Alloy", "Cu+C": "Cu-C Composite",
  "Al+Zn": "Al-Zn Alloy", "Al+Sn": "Al-Sn Alloy", "Al+Ni": "Al-Ni Alloy", "Al+Cr": "Al-Cr Alloy", "Al+Cu": "Duralumin",
  "Fe+Zn": "Galvanized Steel", "Fe+Sn": "Tinplate Steel", "Fe+Ni": "Invar", "Fe+Cr": "Stainless Steel", "Fe+C": "Steel",
- "Ti+Zn": "Ti-Zn Alloy", "Ti+Sn": "Ti-Sn Alloy", "Ti+Ni": "Nitinol", "Ti+Cr": "Ti-Cr Alloy", "Ti+C": "Ti-C Composite",
+ "Ti+Zn": "Ti-Zn Alloy", "Ti+Sn": "Ti-Sn Alloy", "Ti+Ni": "Nitinol", "Ti+Cr": "Ti-Cr Alloy", "Ti+C": "Ti-C Composite"
  };
 
  const alloyProps = {
@@ -7107,7 +7099,7 @@ function MetalAlloyExplorer() {
  "Ti+Sn": { strength: 60, conductivity: 12, corrosion: 85 },
  "Ti+Ni": { strength: 75, conductivity: 10, corrosion: 90 },
  "Ti+Cr": { strength: 70, conductivity: 12, corrosion: 88 },
- "Ti+C": { strength: 85, conductivity: 8, corrosion: 92 },
+ "Ti+C": { strength: 85, conductivity: 8, corrosion: 92 }
  };
 
  const key = `${base}+${alloyElement}`;
@@ -7119,7 +7111,7 @@ function MetalAlloyExplorer() {
  const props = {
  strength: Math.round(baseProps.strength + (targetProps.strength - baseProps.strength) * pctFactor),
  conductivity: Math.round(baseProps.conductivity + (targetProps.conductivity - baseProps.conductivity) * pctFactor),
- corrosion: Math.round(baseProps.corrosion + (targetProps.corrosion - baseProps.corrosion) * pctFactor),
+ corrosion: Math.round(baseProps.corrosion + (targetProps.corrosion - baseProps.corrosion) * pctFactor)
  };
  const baseColor = T.accent;
  const alloyColor = T.accent;
@@ -7151,7 +7143,7 @@ function MetalAlloyExplorer() {
  padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 500,
  background: b === base ? baseColor + "22" : T.surface,
  border: `1.5px solid ${b === base ? baseColor : T.border}`,
- color: b === base ? baseColor : T.muted, cursor: "pointer",
+ color: b === base ? baseColor : T.muted, cursor: "pointer"
  }}>{b}</button>
  ))}
  </div>
@@ -7164,7 +7156,7 @@ function MetalAlloyExplorer() {
  padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 500,
  background: a === alloyElement ? alloyColor + "22" : T.surface,
  border: `1.5px solid ${a === alloyElement ? alloyColor : T.border}`,
- color: a === alloyElement ? alloyColor : T.muted, cursor: "pointer",
+ color: a === alloyElement ? alloyColor : T.muted, cursor: "pointer"
  }}>{a}</button>
  ))}
  </div>
@@ -7256,7 +7248,7 @@ function SemiconductorDopingTool() {
  // Each dopant produces a bouncing carrier
  const carriers = dopantPositions.map((d, i) => ({
  x: offset + d.col * spacing + Math.sin(frame * 0.08 + i * 1.8) * 22,
- y: offset + d.row * spacing - 18 + Math.cos(frame * 0.06 + i * 2.1) * 16,
+ y: offset + d.row * spacing - 18 + Math.cos(frame * 0.06 + i * 2.1) * 16
  }));
 
  return (
@@ -7276,7 +7268,7 @@ function SemiconductorDopingTool() {
  padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 500,
  background: h === host ? "#327785" + "22" : T.surface,
  border: `1.5px solid ${h === host ? "#327785" : T.border}`,
- color: h === host ? "#327785" : T.muted, cursor: "pointer",
+ color: h === host ? "#327785" : T.muted, cursor: "pointer"
  }}>{h}</button>
  ))}
  </div>
@@ -7289,7 +7281,7 @@ function SemiconductorDopingTool() {
  padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 500,
  background: d === dopantType ? carrierColor + "22" : T.surface,
  border: `1.5px solid ${d === dopantType ? carrierColor : T.border}`,
- color: d === dopantType ? carrierColor : T.muted, cursor: "pointer",
+ color: d === dopantType ? carrierColor : T.muted, cursor: "pointer"
  }}>{d}</button>
  ))}
  </div>
@@ -7320,7 +7312,7 @@ function SemiconductorDopingTool() {
  <g key={`${row}-${col}`}>
  {col < gridCols - 1 && <line x1={x + 14} y1={y} x2={x + spacing - 14} y2={y} stroke={T.border} strokeWidth={1.5} />}
  {row < gridRows - 1 && <line x1={x} y1={y + 14} x2={x} y2={y + spacing - 14} stroke={T.border} strokeWidth={1.5} />}
- <circle cx={x} cy={y} r={14} fill={isDopant ? carrierColor + "22" : "#6b728022"} stroke={atomColor} strokeWidth={isDopant ? 2.5 : 1.5} />
+ <circle cx={x} cy={y} r={14} fill={isDopant ? carrierColor + "22" : "#6c7b7e22"} stroke={atomColor} strokeWidth={isDopant ? 2.5 : 1.5} />
  <text x={x} y={y + 4} textAnchor="middle" fill={atomColor} fontSize={12} fontWeight={isDopant ? "500" : "normal"} fontFamily="monospace">{atomLabel}</text>
  </g>
  );
@@ -7376,7 +7368,7 @@ function InsulatorExplorer() {
  SiO2: { label: "SiO₂", breakdownV: 30, gap: 9.0, color: "#327785", dielectric: 30 },
  Diamond: { label: "Diamond", breakdownV: 20, gap: 5.5, color: "#327785", dielectric: 20 },
  Al2O3: { label: "Al₂O₃", breakdownV: 17, gap: 8.8, color: "#327785", dielectric: 17 },
- Glass: { label: "Glass", breakdownV: 12, gap: 7.0, color: "#327785", dielectric: 12 },
+ Glass: { label: "Glass", breakdownV: 12, gap: 7.0, color: "#327785", dielectric: 12 }
  };
 
  const mat = materials[material];
@@ -7402,7 +7394,7 @@ function InsulatorExplorer() {
  padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 500,
  background: id === material ? m.color + "22" : T.surface,
  border: `1.5px solid ${id === material ? m.color : T.border}`,
- color: id === material ? m.color : T.muted, cursor: "pointer",
+ color: id === material ? m.color : T.muted, cursor: "pointer"
  }}>{m.label}</button>
  ))}
  </div>
@@ -7500,7 +7492,7 @@ function CeramicExplorer() {
  BN: { label: "BN", crystal: "Hexagonal (like graphite) or cubic", app: "Cutting tools (cBN), lubricant (hBN), cosmetics",
  hardness: 85, melting: 75, thermalCond: 70, fracture: 25, cost: 80 },
  Si3N4: { label: "Si₃N₄", crystal: "Hexagonal", app: "Bearings, turbocharger rotors, engine parts",
- hardness: 80, melting: 70, thermalCond: 25, fracture: 60, cost: 70 },
+ hardness: 80, melting: 70, thermalCond: 25, fracture: 60, cost: 70 }
  };
 
  const cer = ceramics[selected];
@@ -7538,7 +7530,7 @@ function CeramicExplorer() {
  padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 500,
  background: id === selected ? mainColor + "22" : T.surface,
  border: `1.5px solid ${id === selected ? mainColor : T.border}`,
- color: id === selected ? mainColor : T.muted, cursor: "pointer",
+ color: id === selected ? mainColor : T.muted, cursor: "pointer"
  }}>{c.label}</button>
  ))}
  </div>
@@ -7625,7 +7617,7 @@ function MaterialClassesSection() {
  bandDesc: "Conduction band and valence band OVERLAP — there is no gap. Electrons can move freely with any tiny push of energy.",
  properties: ["Excellent electrical & thermal conductor", "Ductile & malleable (electron sea allows planes to slide)", "Shiny / reflective (free electrons absorb & re-emit photons)", "High melting point (strong metallic bond in transition metals)"],
  weakness: "Corrodes in oxidizing environments. Heavy. Cannot be transparent.",
- animation: "freeElectrons",
+ animation: "freeElectrons"
  },
  semiconductor: {
  analogy: "A semiconductor is like a library with a “quiet room” (valence band) and a “work room” (conduction band) separated by a locked door (band gap). At zero temperature, everyone sits quietly — no current flows. But heat the room (add thermal energy) or shine a flashlight (photon) and some readers gain enough energy to jump through the door into the work room, where they can move freely. The bigger the gap, the harder the jump.",
@@ -7633,7 +7625,7 @@ function MaterialClassesSection() {
  bandDesc: "Small band gap (0.1 – 4 eV). At 0 K: insulator. At room temperature: some electrons thermally excited across the gap.",
  properties: ["Conductivity tunable by doping (add impurities)", "Temperature-dependent conductivity (increases with T)", "Photosensitive (absorbs photons with E > E_gap)", "Foundation of all modern electronics (transistors, solar cells, LEDs)"],
  weakness: "Pure form is a poor conductor. Requires extreme purity for device fabrication.",
- animation: "gapJump",
+ animation: "gapJump"
  },
  insulator: {
  analogy: "An insulator is like a prison with an impossibly high wall (huge band gap). The inmates (electrons) are locked in their cells (valence band) and no amount of room-temperature energy can help them escape over the wall into freedom (conduction band). You would need an enormous energy boost — like a lightning strike — to force electrons across. That is why glass, rubber, and diamond do not conduct electricity under normal conditions.",
@@ -7641,7 +7633,7 @@ function MaterialClassesSection() {
  bandDesc: "Very large band gap (> 4 eV). Virtually no electrons in conduction band at room temperature.",
  properties: ["Excellent electrical insulator (used in capacitors, coatings)", "Often optically transparent (photon energy < band gap)", "High dielectric strength (resists breakdown)", "Thermally stable (strong bonds = high melting point)"],
  weakness: "Brittle. Cannot conduct electricity (a feature, not a bug, for insulation).",
- animation: "lockedElectrons",
+ animation: "lockedElectrons"
  },
  polymer: {
  analogy: "A polymer is like a bowl of cooked spaghetti. Each noodle (polymer chain) is made of thousands of repeating units (monomers) linked end-to-end by strong covalent bonds. But the noodles themselves are held together only by weak van der Waals forces — so the whole bowl is flexible and soft. Heat it up and the noodles slide past each other (melting). Pull a single noodle and it stretches before breaking (ductility). Most polymers are electrical insulators because electrons are locked within each chain.",
@@ -7649,7 +7641,7 @@ function MaterialClassesSection() {
  bandDesc: "Large band gap (3–8 eV for most). Conjugated polymers (polyacetylene) can have smaller gaps and conduct.",
  properties: ["Lightweight and flexible", "Easy to process (injection molding, extrusion)", "Chemical resistance (PE resists acids, bases)", "Electrical insulator (used for wire coatings, plastic housings)"],
  weakness: "Low melting point. Degrades under UV. Poor thermal conductor. Not recyclable (thermosets).",
- animation: "chainWiggle",
+ animation: "chainWiggle"
  },
  ceramic: {
  analogy: "A ceramic is like a brick wall — incredibly strong under compression (you can stack thousands of bricks) but shatter it with a sideways blow (brittle under tension). The atoms are locked in a rigid ionic or covalent network with no free electrons and no ability for planes to slide. This makes ceramics hard, heat-resistant, and electrically insulating — perfect for furnace linings, spark plugs, and thermal barrier coatings — but one crack propagates instantly because there is no electron sea to absorb the blow.",
@@ -7657,8 +7649,8 @@ function MaterialClassesSection() {
  bandDesc: "Large band gap (3–8 eV typically). Some exceptions: SiC (3.3 eV) is a wide-gap semiconductor.",
  properties: ["Extremely hard and wear-resistant", "Very high melting point (Al₂O₃: 2072°C)", "Excellent thermal insulator (space shuttle tiles)", "Chemically inert (resists corrosion, oxidation)"],
  weakness: "Brittle — catastrophic fracture with no warning. Difficult to machine or shape.",
- animation: "rigidLattice",
- },
+ animation: "rigidLattice"
+ }
  };
 
  const cur = info[selected];
@@ -7732,7 +7724,7 @@ function MaterialClassesSection() {
  background: selected === m.id ? m.color + "18" : T.surface,
  border: `1.5px solid ${selected === m.id ? m.color : T.border}`,
  color: selected === m.id ? m.color : T.muted, cursor: "pointer",
- transition: "all 0.2s",
+ transition: "all 0.2s"
  }}>{m.label}</button>
  ))}
  </div>
@@ -7849,7 +7841,7 @@ function MaterialClassesSection() {
  <div style={{
  width: `${Math.min(100, m.bandGap * 12)}%`, height: "100%",
  background: m.color, borderRadius: 6, transition: "width 0.5s",
- opacity: selected === m.id ? 1 : 0.4,
+ opacity: selected === m.id ? 1 : 0.4
  }} />
  </div>
  <div style={{ width: 50, fontSize: 10, color: m.color, fontWeight: 500, textAlign: "right" }}>
@@ -8126,7 +8118,7 @@ function Synthesis3DView({ selected, frame }) {
  MoS2: { color: "#327785", temp: "700°C", sub: "SiO₂/Si", desc: "MoO₃ + S → MoS₂ triangles" },
  hBN: { color: "#327785", temp: "1000°C", sub: "Cu/Ni foil", desc: "Borazine → hBN honeycomb" },
  WS2: { color: "#327785", temp: "800°C", sub: "SiO₂/Si", desc: "WO₃ + S → WS₂ monolayer" },
- blackP: { color: "#327785", temp: "200°C / 1 GPa", sub: "Anvil press", desc: "Red P → Black P layers" },
+ blackP: { color: "#327785", temp: "200°C / 1 GPa", sub: "Anvil press", desc: "Red P → Black P layers" }
  }[selected];
 
  const W = 240, H = 200;
@@ -8231,7 +8223,7 @@ function TwoDMaterialsSection() {
  { step: "4. Growth", detail: "Islands expand laterally, merge into continuous monolayer; Cu acts as self-limiting catalyst (low C solubility)" },
  { step: "5. Transfer", detail: "Spin-coat PMMA on graphene/Cu, etch Cu in FeCl₃, transfer PMMA/graphene to target substrate, dissolve PMMA in acetone" },
  ],
- gapVsLayers: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ gapVsLayers: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
  },
  MoS2: {
  label: "MoS₂", formula: "MoS₂", year: "2011 (monolayer transistor demonstrated)",
@@ -8247,7 +8239,7 @@ function TwoDMaterialsSection() {
  { step: "4. Growth", detail: "MoO₃₋ₓ + S → MoS₂ triangular islands nucleate, grow into equilateral triangles 10–100 μm; hold 15 min" },
  { step: "5. Cool down", detail: "Rapid cool under Ar to preserve monolayer quality; slow cooling causes multilayer growth" },
  ],
- gapVsLayers: [1.8, 1.6, 1.5, 1.4, 1.35, 1.3, 1.28, 1.25, 1.23, 1.2],
+ gapVsLayers: [1.8, 1.6, 1.5, 1.4, 1.35, 1.3, 1.28, 1.25, 1.23, 1.2]
  },
  hBN: {
  label: "hBN", formula: "BN", year: "2004 (2D form studied alongside graphene)",
@@ -8263,7 +8255,7 @@ function TwoDMaterialsSection() {
  { step: "4. Growth", detail: "B-N pairs assemble into hexagonal lattice; Ni allows multilayer (high B solubility), Cu gives monolayer" },
  { step: "5. Transfer", detail: "PMMA-assisted wet transfer (same as graphene); hBN used as atomically flat substrate for other 2D devices" },
  ],
- gapVsLayers: [6.0, 5.95, 5.9, 5.87, 5.85, 5.83, 5.82, 5.81, 5.8, 5.8],
+ gapVsLayers: [6.0, 5.95, 5.9, 5.87, 5.85, 5.83, 5.82, 5.81, 5.8, 5.8]
  },
  WS2: {
  label: "WS₂", formula: "WS₂", year: "2012 (monolayer PL demonstrated)",
@@ -8279,7 +8271,7 @@ function TwoDMaterialsSection() {
  { step: "4. Optimization", detail: "H₂ flow controls triangle size vs coverage; higher H₂ gives larger single crystals but slower coalescence" },
  { step: "5. Characterization", detail: "PL mapping confirms monolayer (strong emission at 620 nm); Raman shows E′ and A′₁ modes" },
  ],
- gapVsLayers: [2.1, 1.8, 1.65, 1.55, 1.5, 1.45, 1.42, 1.4, 1.38, 1.35],
+ gapVsLayers: [2.1, 1.8, 1.65, 1.55, 1.5, 1.45, 1.42, 1.4, 1.38, 1.35]
  },
  blackP: {
  label: "Black Phosphorus", formula: "P", year: "2014 (FET demonstrated)",
@@ -8295,8 +8287,8 @@ function TwoDMaterialsSection() {
  { step: "4. Encapsulation", detail: "CRITICAL: black P degrades in air within hours (reacts with O₂ and H₂O); must encapsulate with hBN in glovebox" },
  { step: "5. Device fabrication", detail: "All lithography and contact deposition done under inert atmosphere; Al₂O₃ or hBN capping layer applied immediately" },
  ],
- gapVsLayers: [2.0, 1.2, 0.8, 0.6, 0.5, 0.45, 0.4, 0.37, 0.35, 0.3],
- },
+ gapVsLayers: [2.0, 1.2, 0.8, 0.6, 0.5, 0.45, 0.4, 0.37, 0.35, 0.3]
+ }
  };
 
  const mat = materials2D[selected];
@@ -8306,7 +8298,7 @@ function TwoDMaterialsSection() {
  // 3D isometric projection
  const iso3d = (x, y, z) => ({
  px: 120 + (x - y) * 0.75,
- py: 100 + (x + y) * 0.43 - z * 0.9,
+ py: 100 + (x + y) * 0.43 - z * 0.9
  });
 
  const drawHexLattice = () => {
@@ -8335,7 +8327,7 @@ function TwoDMaterialsSection() {
  if (d < hR * 1.9) {
  const p1 = iso3d(a.fx, a.fy, 0);
  const p2 = iso3d(b.fx, b.fy, 0);
- bonds.push(<line key={`b-${i}-${j}`} x1={p1.px} y1={p1.py} x2={p2.px} y2={p2.py} stroke="#6b728055" strokeWidth={1.5} />);
+ bonds.push(<line key={`b-${i}-${j}`} x1={p1.px} y1={p1.py} x2={p2.px} y2={p2.py} stroke="#6c7b7e55" strokeWidth={1.5} />);
  }
  });
  });
@@ -8453,7 +8445,7 @@ function TwoDMaterialsSection() {
  padding: "6px 12px", borderRadius: 8, fontSize: 12, fontWeight: 500,
  background: id === selected ? m.color + "22" : T.surface,
  border: `1.5px solid ${id === selected ? m.color : T.border}`,
- color: id === selected ? m.color : T.muted, cursor: "pointer",
+ color: id === selected ? m.color : T.muted, cursor: "pointer"
  }}>{m.label}</button>
  ))}
  </div>
@@ -8469,7 +8461,7 @@ function TwoDMaterialsSection() {
  flex: 1, padding: "5px 8px", fontSize: 11, fontWeight: 500, border: "none", cursor: "pointer",
  background: viewMode === mode ? mat.color + "22" : T.surface,
  color: viewMode === mode ? mat.color : T.muted,
- borderBottom: `2px solid ${viewMode === mode ? mat.color : "transparent"}`,
+ borderBottom: `2px solid ${viewMode === mode ? mat.color : "transparent"}`
  }}>{mode === "structure" ? "Crystal Structure" : "Synthesis Animation"}</button>
  ))}
  </div>
@@ -8915,7 +8907,7 @@ function SemiconductorDopingSection() {
  padding: "5px 10px", borderRadius: 5, fontSize: 11, fontFamily: "monospace",
  cursor: "pointer", border: `1px solid ${dopingType === dt ? T.eo_core : T.border}`,
  background: dopingType === dt ? T.eo_core : T.panel,
- color: dopingType === dt ? "#fff" : T.ink,
+ color: dopingType === dt ? "#fff" : T.ink
  }}>
  {dt}
  </button>
@@ -8932,9 +8924,9 @@ function SemiconductorDopingSection() {
  <div style={{ fontSize: 12, fontWeight: 500, marginBottom: 8 }}>Carrier Concentration</div>
  <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8 }}>
  n_e = N_c exp(-(E_c - E_F)/kT)<br />
- <b>n_e</b> = <span style={{ color: T.eo_e }}>{ncVal.toExponential(1)} cm⁻³</span><br />
- <b>p_h</b> = <span style={{ color: T.eo_hole }}>{pvVal.toExponential(1)} cm⁻³</span><br />
- <span style={{ fontSize: 10, color: T.dim }}>n * p = n_i² (mass-action law)</span>
+ <b>n<sub>e</sub></b> = <span style={{ color: T.eo_e }}>{ncVal.toExponential(1)} cm⁻³</span><br />
+ <b>p<sub>h</sub></b> = <span style={{ color: T.eo_hole }}>{pvVal.toExponential(1)} cm⁻³</span><br />
+ <span style={{ fontSize: 10, color: T.dim }}>n * p = n<sub>i</sub>² (mass-action law)</span>
  </div>
  </div>
 
@@ -8965,7 +8957,7 @@ function SemiconductorDopingSection() {
 
  <div style={{
  background: `${T.eo_photon}11`, border: `1px solid ${T.eo_photon}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_photon, marginBottom: 4 }}>Coming Next: Carrier Transport {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -8987,7 +8979,7 @@ function CarrierTransportSection() {
  const [particles, setParticles] = useState(() =>
  Array.from({ length: 8 }, (_, i) => ({
  x: 40 + Math.random() * 240, y: 80 + Math.random() * 160,
- vx: (Math.random() - 0.5) * 3, vy: (Math.random() - 0.5) * 3,
+ vx: (Math.random() - 0.5) * 3, vy: (Math.random() - 0.5) * 3
  }))
  );
 
@@ -9122,7 +9114,7 @@ function CarrierTransportSection() {
  padding: "5px 10px", borderRadius: 5, fontSize: 11, fontFamily: "monospace",
  cursor: "pointer", border: `1px solid ${mode === m ? T.eo_e : T.border}`,
  background: mode === m ? T.eo_e : T.panel,
- color: mode === m ? "#fff" : T.ink,
+ color: mode === m ? "#fff" : T.ink
  }}>
  {label}
  </button>
@@ -9177,7 +9169,7 @@ function CarrierTransportSection() {
 
  <div style={{
  background: `${T.eo_photon}11`, border: `1px solid ${T.eo_photon}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_photon, marginBottom: 4 }}>Coming Next: Thermodynamics {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -9406,7 +9398,7 @@ function ThermodynamicsSection() {
  <InfoRow label="Mole fraction Cu" value="1 - x = 0.7" />
  <InfoRow label="Gas constant R" value="8.314 J/(mol·K)" />
  </div>
- <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 2 -- Calculate ΔS_mix and ΔG_mix:</strong></div>
+ <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 2 -- Calculate ΔS<sub>mix</sub> and ΔG<sub>mix</sub>:</strong></div>
  <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
  <CalcRow eq="ΔS_mix = -R[0.3 ln(0.3) + 0.7 ln(0.7)]" result="" color={T.eo_e} />
  <CalcRow eq="= -8.314 × [0.3(-1.204) + 0.7(-0.357)]" result="" color={T.eo_e} />
@@ -9535,7 +9527,7 @@ function ThermodynamicsSection() {
 
  <div style={{
  background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_e, marginBottom: 4 }}>Coming Next: Kinetics {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -9732,12 +9724,9 @@ function KineticsSection() {
  </div>
  <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 14 }}>
  {[
- { title: "Temperature", color: T.eo_hole, icon: "",
- text: "Increasing T shifts equilibrium toward endothermic direction. CaCO₃ → CaO + CO₂ is endothermic — heating drives decomposition. This is how cement is made (calcination at 900°C). For ZnTe growth, higher T favors decomposition, limiting maximum growth temperature." },
- { title: "Pressure", color: T.eo_cond, icon: "",
- text: "Increasing P favors the denser (smaller volume) phase. Graphite → diamond requires ~5 GPa because diamond is 50% denser. In sputtering, Ar pressure controls whether films grow dense (low P, high energy) or columnar (high P, thermalized atoms)." },
- { title: "Concentration", color: T.eo_valence, icon: "",
- text: "Adding more reactant shifts equilibrium toward products. In semiconductor growth, increasing Te overpressure during ZnTe MBE suppresses Te vacancies (V_Te) because the system shifts to consume excess Te. This is why II-VI growth uses VI/II ratio > 1." },
+ { title: "Temperature", color: T.eo_hole, text: "Increasing T shifts equilibrium toward endothermic direction. CaCO₃ → CaO + CO₂ is endothermic — heating drives decomposition. This is how cement is made (calcination at 900°C). For ZnTe growth, higher T favors decomposition, limiting maximum growth temperature." },
+ { title: "Pressure", color: T.eo_cond, text: "Increasing P favors the denser (smaller volume) phase. Graphite → diamond requires ~5 GPa because diamond is 50% denser. In sputtering, Ar pressure controls whether films grow dense (low P, high energy) or columnar (high P, thermalized atoms)." },
+ { title: "Concentration", color: T.eo_valence, text: "Adding more reactant shifts equilibrium toward products. In semiconductor growth, increasing Te overpressure during ZnTe MBE suppresses Te vacancies (V_Te) because the system shifts to consume excess Te. This is why II-VI growth uses VI/II ratio > 1." },
  ].map((item, i) => (
  <div key={i} style={{ flex: 1, minWidth: 200, background: item.color + "08", border: `1px solid ${item.color}33`, borderRadius: 8, padding: 12 }}>
  <div style={{ fontSize: 11, fontWeight: 500, color: item.color, marginBottom: 4 }}>{item.icon} {item.title}</div>
@@ -10078,7 +10067,7 @@ function KineticsSection() {
  {/* Coming Next */}
  <div style={{
  background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_e, marginBottom: 4 }}>Coming Next: Phase Diagrams {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -10835,7 +10824,7 @@ function PhaseDiagramSection() {
 
  <div style={{
  background: `${T.accent}11`, border: `1px solid ${T.accent}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.accent, marginBottom: 4 }}>Coming Next: Chemical Potential</div>
  <div style={{ color: T.ink }}>
@@ -11067,7 +11056,7 @@ function ChemicalPotentialSection() {
 
  <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
  <div style={{ fontSize: 11, marginBottom: 6 }}>
- <b>mu_A (Cu):</b>{" "}
+ <b>mu<sub>A</sub> (Cu):</b>{" "}
  <span style={{ color: T.eo_cond }}>{muA.toFixed(2)} eV</span>
  <span style={{ fontSize: 10, color: T.dim }}>{muA > -0.5 ? " (Cu-rich)" : muA < -2 ? " (Cu-poor)" : ""}</span>
  </div>
@@ -11076,7 +11065,7 @@ function ChemicalPotentialSection() {
  style={{ width: "100%" }} />
 
  <div style={{ fontSize: 11, marginTop: 10, marginBottom: 6 }}>
- <b>mu_B (Zn):</b>{" "}
+ <b>mu<sub>B</sub> (Zn):</b>{" "}
  <span style={{ color: T.eo_gap }}>{muB.toFixed(2)} eV</span>
  <span style={{ fontSize: 10, color: T.dim }}>{muB > -0.5 ? " (Zn-rich)" : muB < -2 ? " (Zn-poor)" : ""}</span>
  </div>
@@ -11100,7 +11089,7 @@ function ChemicalPotentialSection() {
  <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
  <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
  Defect formation energy depends on chemical potentials:<br />
- <b>E_f = E_defect - E_perfect + Sum(n_i * mu_i) + q * E_F</b>
+ <b>E<sub>f</sub> = E<sub>defect</sub> - E<sub>perfec</sub>t + Sum(n<sub>i</sub> * mu<sub>i</sub>) + q * E<sub>F</sub></b>
  </div>
  </div>
 
@@ -11293,7 +11282,7 @@ function ChemicalPotentialSection() {
 
  <div style={{
  background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_e, marginBottom: 4 }}>Coming Next: From Atom to Device {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -11327,7 +11316,7 @@ function DefectSection() {
  filling: [2, 2, 2, 2], // up to 4 defect levels, 0=empty,1=half,2=full
  color: T.eo_e,
  desc: "Two extra electrons added. All dangling bond states fully filled. Te atoms pull inward.",
- te_dist: "2.74 Å (inward)",
+ te_dist: "2.74 Å (inward)"
  },
  {
  q: -1, label: "q = −1",
@@ -11335,7 +11324,7 @@ function DefectSection() {
  filling: [2, 2, 2, 1],
  color: "#327785",
  desc: "One extra electron. Three full, one half-filled dangling bond state.",
- te_dist: "2.78 Å (inward)",
+ te_dist: "2.78 Å (inward)"
  },
  {
  q: 0, label: "q = 0",
@@ -11343,7 +11332,7 @@ function DefectSection() {
  filling: [2, 2, 1, 0],
  color: T.eo_valence,
  desc: "Neutral vacancy. Dangling bonds partially filled from Te atoms around the vacancy.",
- te_dist: "2.82 Å (reference)",
+ te_dist: "2.82 Å (reference)"
  },
  {
  q: +1, label: "q = +1",
@@ -11351,7 +11340,7 @@ function DefectSection() {
  filling: [2, 2, 0, 0],
  color: T.eo_hole,
  desc: "One electron removed. A hole appears in the defect level. Te atoms push outward.",
- te_dist: "2.86 Å (outward)",
+ te_dist: "2.86 Å (outward)"
  },
  {
  q: +2, label: "q = +2",
@@ -11359,7 +11348,7 @@ function DefectSection() {
  filling: [2, 0, 0, 0],
  color: T.eo_gap,
  desc: "Two electrons removed. Most dangling bonds empty. Te atoms pushed furthest out.",
- te_dist: "2.91 Å (outward)",
+ te_dist: "2.91 Å (outward)"
  },
  ];
 
@@ -11455,7 +11444,7 @@ function DefectSection() {
  background: charge === c.q ? c.color + "22" : T.surface,
  border: `1px solid ${charge === c.q ? c.color : T.border}`,
  color: charge === c.q ? c.color : T.muted,
- cursor: "pointer",
+ cursor: "pointer"
  }}>{c.label}</button>
  ))}
  </div>
@@ -11467,7 +11456,7 @@ function DefectSection() {
  background: cs.color + "11",
  border: `1px solid ${cs.color}44`,
  borderRadius: 10,
- padding: 14,
+ padding: 14
  }}>
  <div style={{ fontSize: 18, fontWeight: 500, color: cs.color, marginBottom: 8 }}>
  {cs.label} — {cs.nelect}
@@ -11491,7 +11480,7 @@ function DefectSection() {
  ].map(({ label, state, color }) => (
  <div key={label} style={{
  padding: "8px 10px", borderRadius: 8,
- background: color + "11", border: `1px solid ${color}33`,
+ background: color + "11", border: `1px solid ${color}33`
  }}>
  <div style={{ fontSize: 10, color: T.muted, marginBottom: 4 }}>{label}</div>
  <div style={{ fontSize: 12, color, fontFamily: "monospace" }}>{state}</div>
@@ -11512,7 +11501,7 @@ function DefectSection() {
  display: "flex", alignItems: "center", gap: 10,
  padding: "5px 8px", marginBottom: 4, borderRadius: 6,
  background: charge === bq ? color + "15" : "transparent",
- border: `1px solid ${charge === bq ? color + "44" : "transparent"}`,
+ border: `1px solid ${charge === bq ? color + "44" : "transparent"}`
  }}>
  <div style={{ fontSize: 11, color, minWidth: 55, fontFamily: "monospace" }}>q={bq > 0 ? "+" : ""}{bq}</div>
  <div style={{ fontSize: 12, color: T.ink, fontFamily: "monospace" }}>{te}e per Te atom</div>
@@ -11761,7 +11750,7 @@ function PhononsSection() {
  y: chainY,
  r: isHeavy ? 10 : 7,
  color: isHeavy ? T.eo_core : T.eo_valence,
- isHeavy,
+ isHeavy
  });
  }
 
@@ -11866,7 +11855,7 @@ function PhononsSection() {
  style={{
  flex: 1, padding: "6px 0", borderRadius: 4, border: `1px solid ${mode === m ? T.eo_e : T.border}`,
  background: mode === m ? T.eo_e : T.panel, color: mode === m ? "#fff" : T.ink,
- cursor: "pointer", fontFamily: "monospace", fontSize: 11, fontWeight: "500",
+ cursor: "pointer", fontFamily: "monospace", fontSize: 11, fontWeight: "500"
  }}>
  {m === "acoustic" ? "Acoustic (LA/TA)" : "Optical (LO/TO)"}
  </button>
@@ -12091,7 +12080,7 @@ function OpticalPropertiesSection() {
  style={{
  flex: 1, padding: "6px 0", borderRadius: 4, border: `1px solid ${gapType === g ? T.eo_e : T.border}`,
  background: gapType === g ? T.eo_e : T.panel, color: gapType === g ? "#fff" : T.ink,
- cursor: "pointer", fontFamily: "monospace", fontSize: 11, fontWeight: "500",
+ cursor: "pointer", fontFamily: "monospace", fontSize: 11, fontWeight: "500"
  }}>
  {g}
  </button>
@@ -12156,7 +12145,7 @@ function DielectricResponseSection() {
  x: cx + displacement,
  y: cy,
  isPositive,
- r: isPositive ? 9 : 7,
+ r: isPositive ? 9 : 7
  });
  }
  }
@@ -12272,7 +12261,7 @@ function DielectricResponseSection() {
  width: "100%", padding: "8px 0", borderRadius: 4,
  border: `1px solid ${fieldOn ? T.eo_gap : T.border}`,
  background: fieldOn ? T.eo_gap : T.panel, color: fieldOn ? "#fff" : T.ink,
- cursor: "pointer", fontFamily: "monospace", fontSize: 12, fontWeight: "500",
+ cursor: "pointer", fontFamily: "monospace", fontSize: 12, fontWeight: "500"
  }}>
  {fieldOn ? "E-Field ON" : "No Field"}
  </button>
@@ -12449,7 +12438,7 @@ function RecombinationSection() {
  border: `1px solid ${mechanism === m ? colors[m] : T.border}`,
  background: mechanism === m ? colors[m] : T.panel,
  color: mechanism === m ? "#fff" : T.ink,
- cursor: "pointer", fontFamily: "monospace", fontSize: 11, fontWeight: "500",
+ cursor: "pointer", fontFamily: "monospace", fontSize: 11, fontWeight: "500"
  }}>
  {labels[m]}
  </button>
@@ -12706,7 +12695,7 @@ function AtomToDeviceSection() {
 
  <div style={{
  background: `${T.eo_e}11`, border: `1px solid ${T.eo_e}44`,
- borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6,
+ borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6
  }}>
  <div style={{ fontWeight: "500", color: T.eo_e, marginBottom: 4 }}>Full Circle {"→"}</div>
  <div style={{ color: T.ink }}>
@@ -12730,7 +12719,7 @@ function FAQAccordion({ title, color, isOpen, onClick, children }) {
  <button onClick={onClick} style={{
  width: "100%", padding: "12px 16px", background: isOpen ? color + "12" : T.surface,
  border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10,
- fontFamily: "inherit", textAlign: "left",
+ fontFamily: "inherit", textAlign: "left"
  }}>
  <span style={{ fontSize: 14, color: isOpen ? color : T.muted, fontWeight: 500, transition: "transform 0.2s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}></span>
  <span style={{ fontSize: 13, fontWeight: 500, color: isOpen ? color : T.ink, flex: 1 }}>{title}</span>
@@ -13399,38 +13388,38 @@ const BLOCKS = [
 
 const ELECTRON_SECTIONS = [
  // ── Act 1: What is an Atom? ──
- { id: "atomicModels", block: "atom", label: "Atomic Models", icon: "", color: T.eo_core, Component: AtomicModelsSection },
- { id: "waveDuality", block: "atom", label: "Wave-Particle Duality", icon: "", color: T.eo_core, Component: WaveDualitySection },
- { id: "schrodinger", block: "atom", label: "Schrödinger Equation", icon: "", color: T.eo_core, Component: SchrodingerSection },
- { id: "quantumNums", block: "atom", label: "Quantum Numbers", icon: "", color: T.eo_core, Component: QuantumNumbersSection },
- { id: "aufbau", block: "atom", label: "Aufbau & Pauli", icon: "", color: T.eo_core, Component: AufbauPrincipleSection },
- { id: "periodic", block: "atom", label: "Periodic Trends", icon: "", color: T.eo_core, Component: PeriodicTrendsSection },
+ { id: "atomicModels", block: "atom", label: "Atomic Models", color: T.eo_core, Component: AtomicModelsSection },
+ { id: "waveDuality", block: "atom", label: "Wave-Particle Duality", color: T.eo_core, Component: WaveDualitySection },
+ { id: "schrodinger", block: "atom", label: "Schrödinger Equation", color: T.eo_core, Component: SchrodingerSection },
+ { id: "quantumNums", block: "atom", label: "Quantum Numbers", color: T.eo_core, Component: QuantumNumbersSection },
+ { id: "aufbau", block: "atom", label: "Aufbau & Pauli", color: T.eo_core, Component: AufbauPrincipleSection },
+ { id: "periodic", block: "atom", label: "Periodic Trends", color: T.eo_core, Component: PeriodicTrendsSection },
 
  // ── Act 2: How Atoms Bond ──
- { id: "chemBonding", block: "bonds", label: "Chemical Bonding", icon: "", color: T.eo_valence, Component: ChemicalBondingSection },
- { id: "hybridization", block: "bonds", label: "Hybridization", icon: "", color: T.eo_valence, Component: HybridizationSection },
- { id: "electronOrigins", block: "bonds", label: "How Atoms Bond", icon: "", color: T.eo_valence, Component: ElectronOriginsZnTeSection },
+ { id: "chemBonding", block: "bonds", label: "Chemical Bonding", color: T.eo_valence, Component: ChemicalBondingSection },
+ { id: "hybridization", block: "bonds", label: "Hybridization", color: T.eo_valence, Component: HybridizationSection },
+ { id: "electronOrigins", block: "bonds", label: "How Atoms Bond", color: T.eo_valence, Component: ElectronOriginsZnTeSection },
 
  // ── Act 3: From Molecules to Crystals ──
- { id: "molecularOrb", block: "crystals", label: "Molecular Orbitals", icon: "", color: T.eo_cond, Component: MolecularOrbitalSection },
- { id: "symmetry", block: "crystals", label: "Crystal Symmetry", icon: "", color: T.eo_cond, Component: CrystalSymmetrySection },
- { id: "reciprocal", block: "crystals", label: "Reciprocal Space", icon: "", color: T.eo_cond, Component: ReciprocalSpaceSection },
+ { id: "molecularOrb", block: "crystals", label: "Molecular Orbitals", color: T.eo_cond, Component: MolecularOrbitalSection },
+ { id: "symmetry", block: "crystals", label: "Crystal Symmetry", color: T.eo_cond, Component: CrystalSymmetrySection },
+ { id: "reciprocal", block: "crystals", label: "Reciprocal Space", color: T.eo_cond, Component: ReciprocalSpaceSection },
 
  // ── Act 4: Properties of the Crystal ──
- { id: "bands", block: "properties", label: "Energy Bands", icon: "", color: T.eo_photon, Component: BandSection },
- { id: "dos", block: "properties", label: "Density of States", icon: "", color: T.eo_photon, Component: DensityOfStatesSection },
- { id: "materialClasses", block: "properties", label: "Material Classes", icon: "", color: T.eo_photon, Component: MaterialClassesSection },
- { id: "twoDMaterials", block: "properties", label: "2D Materials", icon: "", color: T.eo_photon, Component: TwoDMaterialsSection },
+ { id: "bands", block: "properties", label: "Energy Bands", color: T.eo_photon, Component: BandSection },
+ { id: "dos", block: "properties", label: "Density of States", color: T.eo_photon, Component: DensityOfStatesSection },
+ { id: "materialClasses", block: "properties", label: "Material Classes", color: T.eo_photon, Component: MaterialClassesSection },
+ { id: "twoDMaterials", block: "properties", label: "2D Materials", color: T.eo_photon, Component: TwoDMaterialsSection },
 
  // ── Act 5: Can We Make It? ──
- { id: "thermoBasics", block: "design", label: "Thermodynamics", icon: "", color: T.eo_e, Component: ThermodynamicsSection },
- { id: "kinetics", block: "design", label: "Kinetics", icon: "", color: T.eo_e, Component: KineticsSection },
- { id: "phase", block: "design", label: "Phase Diagrams", icon: "", color: T.eo_e, Component: PhaseDiagramSection },
- { id: "chemPot", block: "design", label: "Chemical Potential", icon: "", color: T.eo_e, Component: ChemicalPotentialSection },
- { id: "atomToDevice", block: "design", label: "From Atom to Device", icon: "", color: T.eo_e, Component: AtomToDeviceSection },
+ { id: "thermoBasics", block: "design", label: "Thermodynamics", color: T.eo_e, Component: ThermodynamicsSection },
+ { id: "kinetics", block: "design", label: "Kinetics", color: T.eo_e, Component: KineticsSection },
+ { id: "phase", block: "design", label: "Phase Diagrams", color: T.eo_e, Component: PhaseDiagramSection },
+ { id: "chemPot", block: "design", label: "Chemical Potential", color: T.eo_e, Component: ChemicalPotentialSection },
+ { id: "atomToDevice", block: "design", label: "From Atom to Device", color: T.eo_e, Component: AtomToDeviceSection },
 
  // ── Act 6: Big Questions ──
- { id: "bigQuestions", block: "bigq", label: "Big Questions", icon: "", color: T.eo_gap, Component: AtomsBigQuestionsSection },
+ { id: "bigQuestions", block: "bigq", label: "Big Questions", color: T.eo_gap, Component: AtomsBigQuestionsSection },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════

@@ -33,7 +33,7 @@ const P = {
   ok:      "#a5cbd2",
   warn:    "#539aa8",
   chunk:   "#78b1bd",
-  mongo:   "#62a5b2",
+  mongo:   "#62a5b2"
 };
 
 export default function MongoDBMovieModule() {
@@ -414,7 +414,7 @@ export default function MongoDBMovieModule() {
               <text x={DX+16} y={PY2+118} fill={P.muted} fontSize="7"
                 fontFamily="monospace" opacity={ease(clamp01((lt-0.5)*4))}>mongodb+srv://user:***@cluster.mongodb.net</text>
             </g>
-          ),
+          )
         },
         {
           label: "\u2461 Document Schema",
@@ -462,7 +462,7 @@ export default function MongoDBMovieModule() {
                 ))}
               </g>
             );
-          },
+          }
         },
         {
           label: "\u2462 Insert Recipe",
@@ -510,7 +510,7 @@ export default function MongoDBMovieModule() {
                   fontFamily="monospace">{"\u2190"} new doc</text>
               </g>
             </g>
-          ),
+          )
         },
         {
           label: "\u2463 Query",
@@ -562,7 +562,7 @@ export default function MongoDBMovieModule() {
                 })}
               </g>
             );
-          },
+          }
         },
         {
           label: "\u2464 Aggregate",
@@ -618,7 +618,7 @@ export default function MongoDBMovieModule() {
                 </g>
               </g>
             );
-          },
+          }
         },
         {
           label: "\u2465 Full Pipeline",
@@ -671,7 +671,7 @@ export default function MongoDBMovieModule() {
                 })}
               </g>
             );
-          },
+          }
         },
       ];
 
@@ -775,7 +775,7 @@ export default function MongoDBMovieModule() {
                 </g>
               ))}
             </g>
-          ),
+          )
         },
         {
           label: "\u2461 LLM Extracts Recipe",
@@ -821,7 +821,7 @@ export default function MongoDBMovieModule() {
                   fontFamily="monospace" opacity={ease(clamp01((lt-0.4-i*0.08)*5))}>{f}</text>
               ))}
             </g>
-          ),
+          )
         },
         {
           label: "\u2462 Store in MongoDB",
@@ -874,7 +874,7 @@ export default function MongoDBMovieModule() {
                   fontFamily="monospace">{"{"}material: 1, confidence: -1{"}"}</text>
               </g>
             </g>
-          ),
+          )
         },
         {
           label: "\u2463 Query & Retrieve",
@@ -925,7 +925,7 @@ export default function MongoDBMovieModule() {
                 );
               })}
             </g>
-          ),
+          )
         },
         {
           label: "\u2464 Aggregate Stats",
@@ -978,7 +978,7 @@ export default function MongoDBMovieModule() {
                 ))}
               </g>
             </g>
-          ),
+          )
         },
         {
           label: "\u2465 Full Pipeline",
@@ -1031,7 +1031,7 @@ export default function MongoDBMovieModule() {
                 })}
               </g>
             );
-          },
+          }
         },
       ];
 
@@ -1111,7 +1111,7 @@ export default function MongoDBMovieModule() {
 
       <div style={{
         background: P.bg, borderRadius: 16, overflow: "hidden",
-        border: `2px solid ${P.border}`, position: "relative",
+        border: `2px solid ${P.border}`, position: "relative"
       }}>
         <div style={{ position: "absolute", top: 10, left: 14, zIndex: 2, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ background: P.mongo+"25", border: `1px solid ${P.mongo}50`, padding: "3px 10px",
@@ -1136,7 +1136,7 @@ export default function MongoDBMovieModule() {
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.mongo}`,
           background: P.mongo+"15", cursor: "pointer", display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: 18, color: P.mongo, fontWeight: 500, fontFamily: "inherit",
+          justifyContent: "center", fontSize: 18, color: P.mongo, fontWeight: 500, fontFamily: "inherit"
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
@@ -1176,7 +1176,7 @@ export default function MongoDBMovieModule() {
               background: i === pyStep ? P.mongo+"25" : "transparent",
               border: `1px solid ${i === pyStep ? P.mongo : P.border}`,
               color: i === pyStep ? P.mongo : i < pyStep ? P.rag : P.muted,
-              fontWeight: i === pyStep ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
+              fontWeight: i === pyStep ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s"
             }}>
               {label}
             </button>
@@ -1199,7 +1199,7 @@ export default function MongoDBMovieModule() {
               background: i === wfStep ? P.mongo+"25" : "transparent",
               border: `1px solid ${i === wfStep ? P.mongo : P.border}`,
               color: i === wfStep ? P.mongo : i < wfStep ? P.rag : P.muted,
-              fontWeight: i === wfStep ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
+              fontWeight: i === wfStep ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s"
             }}>
               {label}
             </button>
@@ -1220,7 +1220,7 @@ export default function MongoDBMovieModule() {
             background: i === sceneIdx ? P.mongo+"20" : "transparent",
             border: `1px solid ${i === sceneIdx ? P.mongo : P.border}`,
             color: i === sceneIdx ? P.mongo : i < sceneIdx ? P.rag : P.muted,
-            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
+            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s"
           }}>
             {i + 1}. {s.label}
           </button>

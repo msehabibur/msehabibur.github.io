@@ -20,7 +20,7 @@ const P = {
   teal:    "#9bc5ce",
   red:     "#539aa8",
   ok:      "#a5cbd2",
-  warn:    "#539aa8",
+  warn:    "#539aa8"
 };
 
 const SCENES = [
@@ -807,7 +807,7 @@ export default function MDMovieModule() {
             "Total energy E = KE + PE = const",
             "Natural Newtonian dynamics: F = ma",
             "T fluctuates around average",
-          ],
+          ]
         },
         {
           name: "NVT", subtitle: "Canonical",
@@ -818,7 +818,7 @@ export default function MDMovieModule() {
             "Nosé-Hoover: ṗᵢ = Fᵢ - ξ·pᵢ",
             "Energy exchanges with heat bath",
             "Most common for equilibrium sims",
-          ],
+          ]
         },
         {
           name: "NPT", subtitle: "Isothermal-Isobaric",
@@ -829,7 +829,7 @@ export default function MDMovieModule() {
             "Box volume V changes to fix P",
             "Closest to real lab conditions",
             "Used for density & phase transitions",
-          ],
+          ]
         },
       ];
 
@@ -842,7 +842,7 @@ export default function MDMovieModule() {
         baseAtoms.push({
           x: 440 + (i % 4) * 50 + 15,
           y: 120 + Math.floor(i / 4) * 50 + 15,
-          color: [P.blue, P.red, P.green, P.amber, P.purple, P.teal, P.pink][i % 7],
+          color: [P.blue, P.red, P.green, P.amber, P.purple, P.teal, P.pink][i % 7]
         });
       }
 
@@ -1449,7 +1449,7 @@ export default function MDMovieModule() {
           x: LX + 5,
           y: 40,
           w: 365,
-          h: 120,
+          h: 120
         },
         {
           title: "MD Workflow",
@@ -1463,7 +1463,7 @@ export default function MDMovieModule() {
           x: LX + 5,
           y: 170,
           w: 365,
-          h: 120,
+          h: 120
         },
         {
           title: "Common Force Fields",
@@ -1477,7 +1477,7 @@ export default function MDMovieModule() {
           x: LX + 5,
           y: 300,
           w: 365,
-          h: 110,
+          h: 110
         },
       ];
 
@@ -1624,7 +1624,7 @@ export default function MDMovieModule() {
         aspectRatio: "4/3",
         willChange: "transform",
         transform: "translateZ(0)",
-        contain: "layout paint",
+        contain: "layout paint"
       }}>
         <div style={{ position: "absolute", top: 10, left: 14, zIndex: 2, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ background: P.blue+"25", border: `1px solid ${P.blue}50`, padding: "3px 10px",
@@ -1650,7 +1650,7 @@ export default function MDMovieModule() {
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.blue}`,
           background: P.blue+"15", cursor: "pointer", display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: 18, color: P.blue, fontWeight: 500, fontFamily: "inherit",
+          justifyContent: "center", fontSize: 18, color: P.blue, fontWeight: 500, fontFamily: "inherit"
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
@@ -1658,13 +1658,13 @@ export default function MDMovieModule() {
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default",
           color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
-          fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4,
+          fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4
         }}>{"\u2190"}</button>
         <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default",
           color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
-          fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4,
+          fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4
         }}>{"\u2192"}</button>
 
         {/* Global timeline scrubber */}
@@ -1702,7 +1702,7 @@ export default function MDMovieModule() {
             background: i === sceneIdx ? P.blue+"20" : "transparent",
             border: `1px solid ${i === sceneIdx ? P.blue : P.border}`,
             color: i === sceneIdx ? P.blue : i < sceneIdx ? P.green : P.muted,
-            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
+            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s"
           }}>
             {i + 1}. {s.label}
           </button>

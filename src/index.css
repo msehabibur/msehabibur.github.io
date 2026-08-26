@@ -165,7 +165,7 @@ body{background:var(--paper); color:var(--ink)}
 .cs-stage{padding:0 22px; margin-top:16px; max-width:940px; margin-left:auto; margin-right:auto}
 .cs-next{
   margin:20px 22px 0; padding:12px 16px; background:var(--panel-2);
-  border:1px solid var(--line); border-left:2px solid var(--accent); border-radius:8px;
+  border:1px solid var(--line); border-radius:8px;
   font-family:"Newsreader",Georgia,serif; font-size:16px; line-height:1.55; color:var(--ink);
   text-align:justify; hyphens:auto;
 }
@@ -305,3 +305,41 @@ body{background:var(--paper); color:var(--ink)}
 .bl-desc{font-size:12.5px; line-height:1.5; color:var(--muted)}
 .bl-go{color:var(--muted); flex:none; font-size:13px}
 .bl-list button:hover .bl-go{color:var(--accent-ink)}
+
+/* ── figures and their explanations stack ──────────────────────────────
+   The reading stage is under 950px. Split into columns it left a short
+   chart on one side and a long stack of text on the other, so one side ran
+   empty. One column, not two or three narrow ones. */
+.cs-stage div[style*="grid-template-columns: 1fr 1fr"] {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+.cs-stage div[style*="flex: 0 0 200px"],
+.cs-stage div[style*="flex: 0 0 210px"],
+.cs-stage div[style*="flex: 0 0 280px"],
+.cs-stage div[style*="flex: 0 0 300px"],
+.cs-stage div[style*="flex: 0 0 320px"],
+.cs-stage div[style*="flex: 0 0 340px"],
+.cs-stage div[style*="flex: 0 0 350px"],
+.cs-stage div[style*="flex: 0 0 370px"],
+.cs-stage div[style*="flex: 0 0 380px"],
+.cs-stage div[style*="flex: 0 0 510px"],
+.cs-stage div[style*="flex: 1 1 260px"],
+.cs-stage div[style*="flex: 1 1 280px"],
+.cs-stage div[style*="flex: 1 1 300px"],
+.cs-stage div[style*="flex: 1 1 340px"],
+.cs-stage div[style*="flex: 1 1 380px"],
+.cs-stage div[style*="flex: 1 1 400px"],
+.cs-stage div[style*="flex: 1 1 420px"],
+.cs-stage div[style*="flex: 1 1 430px"],
+.cs-stage div[style*="flex: 1 1 440px"] {
+  flex: 1 1 100% !important;
+  max-width: 100% !important;
+}
+.cs-stage div[style*="display: flex"]:not([style*="flex-direction: column"]):not([style*="flex-direction: row-reverse"]) {
+  flex-wrap: wrap !important;
+}
+.cs-stage svg { max-width: 100%; height: auto; }
+/* a quiet halo keeps any label that still grazes another one legible */
+.cs-stage svg text { paint-order: stroke fill; stroke: var(--panel); stroke-width: 3px; stroke-linejoin: round; }
+/* table headers default to bold in every browser */
+.cs-page th, .cs-page b, .cs-page strong { font-weight: 500; }

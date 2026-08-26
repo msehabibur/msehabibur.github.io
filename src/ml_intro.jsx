@@ -1,12 +1,27 @@
 import React, { useState, useEffect, useMemo } from "react";
 import ChapterShell from "./chapter_shell.jsx";
+import fx from "./fx.jsx";
+
+// Materials sitting close together were printing their labels on top of one
+// another. Push each label down just enough to clear the one above it.
+function labelShift(pts) {
+  const out = new Array(pts.length).fill(0);
+  const order = pts.map((p, i) => ({ i, x: p.x, y: p.y })).sort((a, b) => a.y - b.y || a.x - b.x);
+  for (let k = 1; k < order.length; k++) {
+    const cur = order[k], prev = order[k - 1];
+    if (Math.abs(cur.x - prev.x) > 52) continue;
+    const gap = (cur.y + out[cur.i]) - (prev.y + out[prev.i]);
+    if (gap < 28) out[cur.i] = out[prev.i] + (28 - gap);
+  }
+  return out;
+}
 
 /* ─── Theme & Color Palette ─── */
 const T = {
   bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
   ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)", gold: "#3c8e9f",
   eo_e: "#347a89", eo_hole: "#398797", eo_photon: "#5095a3",
-  eo_valence: "#3c8e9f", eo_core: "#327785", eo_gap: "#30717f", eo_cond: "#3b8d9d",
+  eo_valence: "#3c8e9f", eo_core: "#327785", eo_gap: "#30717f", eo_cond: "#3b8d9d"
 };
 
 const M = {
@@ -15,17 +30,17 @@ const M = {
   nn: "#30717f",
   mat: "#3c8e9f",
   prac: "#347a89",
-  accent: "#3d90a1",
+  accent: "#3d90a1"
 };
 
 /* ─── Reusable Components ─── */
 function Card({ title, color, formula, children }) {
   return (
-    <div style={{ background: T.panel, border: `1.5px solid ${(color || T.border)}44`, borderLeft: `4px solid ${color || "#347a89"}`, borderRadius: 10, padding: "16px 18px" }}>
+    <div style={{ background: T.panel, border: `1.5px solid ${(color || T.border)}44`,  borderRadius: 10, padding: "16px 18px" }}>
       {(title || formula) && (
         <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 10, flexWrap: "wrap" }}>
-          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#347a89", textTransform: "none", fontWeight: 500 }}>{title}</div>}
-          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || "#347a89") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#347a89")}33` }}>{formula}</div>}
+          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#347a89", textTransform: "none", fontWeight: 500 }}>{fx(title)}</div>}
+          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || "#347a89") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#347a89")}33` }}>{fx(formula)}</div>}
         </div>
       )}
       {children}
@@ -356,7 +371,7 @@ function LinearRegressionSection() {
             {[1.15, 1.25, 1.35, 1.45].map(v => (
               <g key={v}>
                 <line x1={sx(v)} y1={svgH - 30} x2={sx(v)} y2={svgH - 25} stroke={T.dim} strokeWidth={1.5} />
-                <text x={sx(v)} y={svgH - 14} textAnchor="middle" fontSize={11} fill={T.ink}>{v.toFixed(2)}</text>
+                <text x={sx(v)} y={svgH - 19} textAnchor="middle" fontSize={11} fill={T.ink}>{v.toFixed(2)}</text>
               </g>
             ))}
             {[4.0, 4.5, 5.0, 5.5, 6.0].map(v => (
@@ -547,9 +562,9 @@ function OverfittingSection() {
             {testPts.map((p, i) => (
               <circle key={`te${i}`} cx={sx(p.x)} cy={sy(p.y)} r={5} fill="#30717f44" stroke="#30717f" strokeWidth={1.5} />
             ))}
-            <circle cx={250} cy={svgH - 15} r={4} fill={C + "44"} stroke={C} />
+            <circle cx={250} cy={svgH - 19} r={4} fill={C + "44"} stroke={C} />
             <text x={258} y={svgH - 12} fontSize={11} fill={T.muted}>Train</text>
-            <circle cx={290} cy={svgH - 15} r={4} fill="#30717f44" stroke="#30717f" />
+            <circle cx={290} cy={svgH - 19} r={4} fill="#30717f44" stroke="#30717f" />
             <text x={298} y={svgH - 12} fontSize={11} fill={T.muted}>Test</text>
           </svg>
         </div>
@@ -683,15 +698,15 @@ function CrossValidationSection() {
               );
             })}
             <rect x={30} y={svgH - 22} width={10} height={8} rx={2} fill={C + "55"} stroke={C} strokeWidth={1} />
-            <text x={44} y={svgH - 15} fontSize={11} fill={T.muted}>= Test fold</text>
+            <text x={44} y={svgH - 19} fontSize={11} fill={T.muted}>= Test fold</text>
             <rect x={110} y={svgH - 22} width={10} height={8} rx={2} fill={T.panel} stroke={T.border} strokeWidth={0.5} />
-            <text x={124} y={svgH - 15} fontSize={11} fill={T.muted}>= Train fold</text>
+            <text x={124} y={svgH - 19} fontSize={11} fill={T.muted}>= Train fold</text>
           </svg>
         </div>
 
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>K-FOLD VALIDATION SCORES (K=5)</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>K-FOLD validation scores (K=5)</div>
             <CalcRow eq="Total data points" result="10" color={C} />
             <CalcRow eq="Points per fold = 10 / 5" result="2" color={C} />
             {foldMAEs.map((mae, i) => (
@@ -769,6 +784,7 @@ function DecisionTreeSection() {
   const enMin = 1.7, enMax = 2.7, bgMin = 0, bgMax = 4;
   const sx = (v) => 40 + (v - enMin) / (enMax - enMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - bgMin) / (bgMax - bgMin) * (svgH - 50);
+  const labelDY = labelShift(materials.map(m => ({ x: sx(m.en), y: sy(m.bg) })));
 
   return (
     <Card color={C} title="Decision Tree Regression" formula="MSE = (1/N) Σ(yᵢ − ȳ)²">
@@ -796,7 +812,7 @@ function DecisionTreeSection() {
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={500}>Split on Mean Electronegativity ≤ {splitThreshold.toFixed(2)}</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={10} x2={40} y2={svgH - 30} stroke={T.border} />
-            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={12} fill={T.muted}>Mean Electronegativity</text>
+            <text x={svgW / 2} y={svgH - 1} textAnchor="middle" fontSize={12} fill={T.muted}>Mean Electronegativity</text>
             <text x={12} y={svgH / 2} fontSize={12} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Bandgap (eV)</text>
             {/* Split line */}
             <line x1={sx(splitThreshold)} y1={18} x2={sx(splitThreshold)} y2={svgH - 30} stroke={C} strokeWidth={2} strokeDasharray="5,3" />
@@ -818,15 +834,15 @@ function DecisionTreeSection() {
                 <circle cx={sx(m.en)} cy={sy(m.bg)} r={6}
                   fill={m.en <= splitThreshold ? "#3c8e9f33" : "#30717f33"}
                   stroke={m.en <= splitThreshold ? "#3c8e9f" : "#30717f"} strokeWidth={1.5} />
-                <text x={sx(m.en)} y={sy(m.bg) - 9} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={500}>{m.name}</text>
-                <text x={sx(m.en)} y={sy(m.bg) + 14} textAnchor="middle" fontSize={12} fill={T.muted}>{m.bg} eV</text>
+                <text x={sx(m.en)} y={sy(m.bg) - 9 - labelDY[i]} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={500}>{m.name}</text>
+                <text x={sx(m.en)} y={sy(m.bg) + 14 + labelDY[i]} textAnchor="middle" fontSize={12} fill={T.muted}>{m.bg} eV</text>
               </g>
             ))}
             {/* Axis ticks */}
             {[1.8, 2.0, 2.2, 2.4, 2.6].map(v => (
               <g key={v}>
                 <line x1={sx(v)} y1={svgH - 30} x2={sx(v)} y2={svgH - 25} stroke={T.dim} />
-                <text x={sx(v)} y={svgH - 16} textAnchor="middle" fontSize={11} fill={T.dim}>{v.toFixed(1)}</text>
+                <text x={sx(v)} y={svgH - 19} textAnchor="middle" fontSize={11} fill={T.dim}>{v.toFixed(1)}</text>
               </g>
             ))}
             {[0, 1, 2, 3, 4].map(v => (
@@ -1023,7 +1039,7 @@ function SVMSection() {
     ...m,
     residual: Math.abs(m.bg - m.yhat),
     loss: Math.max(0, Math.abs(m.bg - m.yhat) - epsilon),
-    isSV: Math.abs(m.bg - m.yhat) > epsilon,
+    isSV: Math.abs(m.bg - m.yhat) > epsilon
   }));
 
   const totalLoss = losses.reduce((s, l) => s + l.loss, 0);
@@ -1033,6 +1049,7 @@ function SVMSection() {
   const enMin = 1.7, enMax = 2.7, bgMin = 0, bgMax = 4;
   const sx = (v) => 40 + (v - enMin) / (enMax - enMin) * (svgW - 60);
   const sy = (v) => svgH - 30 - (v - bgMin) / (bgMax - bgMin) * (svgH - 50);
+  const labelDY = labelShift(materials.map(m => ({ x: sx(m.en), y: sy(m.bg) })));
 
   return (
     <Card color={C} title="Support Vector Regression" formula="Loss = max(0, |y − ŷ| − ε)">
@@ -1060,7 +1077,7 @@ function SVMSection() {
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={500}>Support Vector Regression: ε-Tube (ε = {epsilon.toFixed(2)})</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={10} x2={40} y2={svgH - 30} stroke={T.border} />
-            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={12} fill={T.muted}>Mean Electronegativity</text>
+            <text x={svgW / 2} y={svgH - 1} textAnchor="middle" fontSize={12} fill={T.muted}>Mean Electronegativity</text>
             <text x={12} y={svgH / 2} fontSize={12} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Bandgap (eV)</text>
             {/* ε-tube around each prediction */}
             {materials.map((m, i) => (
@@ -1085,7 +1102,7 @@ function SVMSection() {
                 <circle cx={sx(m.en)} cy={sy(m.bg)} r={6}
                   fill={m.isSV ? "#30717f44" : "#3c8e9f44"}
                   stroke={m.isSV ? "#30717f" : "#3c8e9f"} strokeWidth={2} />
-                <text x={sx(m.en)} y={sy(m.bg) - 9} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={500}>
+                <text x={sx(m.en)} y={sy(m.bg) - 9 - labelDY[i]} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={500}>
                   {m.name}{m.isSV ? " (SV)" : ""}
                 </text>
               </g>
@@ -1094,7 +1111,7 @@ function SVMSection() {
             {[1.8, 2.0, 2.2, 2.4, 2.6].map(v => (
               <g key={v}>
                 <line x1={sx(v)} y1={svgH - 30} x2={sx(v)} y2={svgH - 25} stroke={T.dim} />
-                <text x={sx(v)} y={svgH - 16} textAnchor="middle" fontSize={11} fill={T.dim}>{v.toFixed(1)}</text>
+                <text x={sx(v)} y={svgH - 19} textAnchor="middle" fontSize={11} fill={T.dim}>{v.toFixed(1)}</text>
               </g>
             ))}
             {[0, 1, 2, 3, 4].map(v => (
@@ -1465,7 +1482,7 @@ function DNNSection() {
     h2_1: 0.3, h2_2: 0.8,
     b1: 0.1, b2: -0.2,
     o1: 0.7, o2: -0.5,
-    bo: 0.15,
+    bo: 0.15
   };
 
   const z1 = w.h1_1 * x1 + w.h1_2 * x2 + w.b1;
@@ -1536,9 +1553,9 @@ function DNNSection() {
             <text x={262} y={109} textAnchor="middle" fontSize={12} fill={T.muted}>output</text>
 
             {/* Labels */}
-            <text x={50} y={svgH - 5} textAnchor="middle" fontSize={11} fill={T.dim}>Input</text>
-            <text x={158} y={svgH - 5} textAnchor="middle" fontSize={11} fill={T.dim}>Hidden</text>
-            <text x={262} y={svgH - 5} textAnchor="middle" fontSize={11} fill={T.dim}>Output</text>
+            <text x={50} y={svgH - 1} textAnchor="middle" fontSize={11} fill={T.dim}>Input</text>
+            <text x={158} y={svgH - 1} textAnchor="middle" fontSize={11} fill={T.dim}>Hidden</text>
+            <text x={262} y={svgH - 1} textAnchor="middle" fontSize={11} fill={T.dim}>Output</text>
           </svg>
         </div>
 
@@ -1894,7 +1911,7 @@ function TransformerSection() {
             {queryKey.map((row, i) => row.map((v, j) => (
               <g key={`a${i}${j}`}>
                 <rect x={65 + j * 55} y={44 + i * 35} width={50} height={30} rx={3}
-                  fill={`rgba(147,51,234,${v * 0.5})`} stroke={T.border} />
+                  fill={`rgba(52,123,138,${v * 0.5})`} stroke={T.border} />
                 <text x={90 + j * 55} y={63 + i * 35} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={500}>
                   {v.toFixed(1)}
                 </text>
@@ -1955,7 +1972,7 @@ function TransformerSection() {
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 1: Q, K, V MATRICES</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>Step 1: Q, K, V matrices</div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
               {[{ label: "Q (Query)", mat: Q, color: "#30717f" }, { label: "K (Key)", mat: K, color: "#347a89" }, { label: "V (Value)", mat: V, color: "#3c8e9f" }].map(({ label, mat, color }) => (
                 <div key={label} style={{ textAlign: "center" }}>
@@ -1973,7 +1990,7 @@ function TransformerSection() {
           </div>
 
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 2: QK^T (DOT PRODUCTS)</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>Step 2: QK<sup>T</sup> (DOT PRODUCTS)</div>
             <div style={{ fontFamily: "monospace", fontSize: 11, lineHeight: 1.8, color: T.ink }}>
               {["Fe₁", " O ", "Fe₂"].map((rowAtom, i) => (
                 <div key={i}>
@@ -2000,7 +2017,7 @@ function TransformerSection() {
           </div>
 
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 4: SOFTMAX (EACH ROW)</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>Step 4: softmax (each ROW)</div>
             {attnWeights.map((row, i) => (
               <CalcRow key={i} eq={`softmax(row ${i + 1})`}
                 result={`[${row.map(v => v.toFixed(3)).join(", ")}]`} color={C} />
@@ -2009,7 +2026,7 @@ function TransformerSection() {
           </div>
 
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 5: MULTIPLY BY V</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>Step 5: multiply BY V</div>
             {attnOutput.map((row, i) => (
               <CalcRow key={i} eq={`Output atom ${i + 1} = Σ(attn × V)`}
                 result={`[${row.map(v => v.toFixed(3)).join(", ")}]`} color={C} />
@@ -2039,17 +2056,17 @@ function FeatureEngineeringSection() {
     {
       name: "CdTe", a: "Cd", b: "Te",
       Za: 48, Zb: 52, ma: 112.41, mb: 127.60,
-      ena: 1.69, enb: 2.10, ra: 1.48, rb: 1.37,
+      ena: 1.69, enb: 2.10, ra: 1.48, rb: 1.37
     },
     {
       name: "GaAs", a: "Ga", b: "As",
       Za: 31, Zb: 33, ma: 69.72, mb: 74.92,
-      ena: 1.81, enb: 2.18, ra: 1.22, rb: 1.21,
+      ena: 1.81, enb: 2.18, ra: 1.22, rb: 1.21
     },
     {
       name: "ZnO", a: "Zn", b: "O",
       Za: 30, Zb: 8, ma: 65.38, mb: 16.00,
-      ena: 1.65, enb: 3.44, ra: 1.22, rb: 0.73,
+      ena: 1.65, enb: 3.44, ra: 1.22, rb: 0.73
     },
   ];
 
@@ -2215,7 +2232,7 @@ function PropertyPredictionSection() {
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={500}>Parity Plot: Predicted vs Actual Bandgap</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={10} x2={40} y2={svgH - 30} stroke={T.border} />
-            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={12} fill={T.muted}>Actual (eV)</text>
+            <text x={svgW / 2} y={svgH - 1} textAnchor="middle" fontSize={12} fill={T.muted}>Actual (eV)</text>
             <text x={10} y={svgH / 2} fontSize={12} fill={T.muted} transform={`rotate(-90,10,${svgH / 2})`}>Predicted (eV)</text>
             {/* Perfect line */}
             <line x1={sx(0)} y1={sy(0)} x2={sx(4)} y2={sy(4)} stroke={T.dim} strokeWidth={1} strokeDasharray="4,3" />
@@ -2242,7 +2259,7 @@ function PropertyPredictionSection() {
             {/* Axis ticks */}
             {[0, 1, 2, 3, 4].map(v => (
               <g key={v}>
-                <text x={sx(v)} y={svgH - 14} textAnchor="middle" fontSize={12} fill={T.ink}>{v}</text>
+                <text x={sx(v)} y={svgH - 19} textAnchor="middle" fontSize={12} fill={T.ink}>{v}</text>
                 <text x={32} y={sy(v) + 4} textAnchor="end" fontSize={12} fill={T.ink}>{v}</text>
               </g>
             ))}
@@ -2333,6 +2350,7 @@ function AutoencoderSection() {
   const svgW = 500, svgH = 240;
   const sx = (v) => svgW / 2 + v * 60;
   const sy = (v) => svgH / 2 - v * 55;
+  const labelDY = labelShift(knownMaterials.map(m => ({ x: sx(m.lx), y: sy(m.ly) })));
 
   return (
     <>
@@ -2369,7 +2387,7 @@ function AutoencoderSection() {
             {knownMaterials.map((m, i) => (
               <g key={i}>
                 <circle cx={sx(m.lx)} cy={sy(m.ly)} r={6} fill={C + "33"} stroke={C} strokeWidth={1.5} />
-                <text x={sx(m.lx)} y={sy(m.ly) - 9} textAnchor="middle" fontSize={11} fill={C} fontWeight={500}>{m.name}</text>
+                <text x={sx(m.lx)} y={sy(m.ly) - 9 - labelDY[i]} textAnchor="middle" fontSize={11} fill={C} fontWeight={500}>{m.name}</text>
               </g>
             ))}
             {/* Current point */}
@@ -2389,7 +2407,7 @@ function AutoencoderSection() {
                 padding: "4px 8px", fontSize: 9, borderRadius: 4, fontWeight: i % 2 === 0 ? 500 : 400,
                 background: i % 2 === 0 ? C + "15" : "transparent",
                 color: i % 2 === 0 ? C : T.muted,
-                border: i % 2 === 0 ? `1px solid ${C}33` : "none",
+                border: i % 2 === 0 ? `1px solid ${C}33` : "none"
               }}>{step}</div>
             ))}
           </div>
@@ -2573,7 +2591,7 @@ function DiffusionModelSection() {
                 <div key={i} style={{
                   flex: 1, textAlign: "center", padding: "8px 4px", borderRadius: 6,
                   background: i === diffStep ? C + "15" : T.panel,
-                  border: `1.5px solid ${i === diffStep ? C : T.border}`,
+                  border: `1.5px solid ${i === diffStep ? C : T.border}`
                 }}>
                   <div style={{ fontSize: 9, fontWeight: 500, color: i === diffStep ? C : T.muted }}>t={snap.t}</div>
                   {snap.values.map((v, j) => (
@@ -2604,7 +2622,7 @@ function DiffusionModelSection() {
 
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>REVERSE PROCESS: DENOISING</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>Reverse process: denoising</div>
             <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
               Starting from noise x₁₀₀ ~ N(0, I), the model iteratively denoises:
             </div>
@@ -2812,7 +2830,7 @@ function ActiveLearningSection() {
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={500}>Al-Cu Alloy Optimization: {known.length} experiments</text>
             <line x1={40} y1={svgH - 30} x2={svgW - 10} y2={svgH - 30} stroke={T.border} />
             <line x1={40} y1={20} x2={40} y2={svgH - 30} stroke={T.border} />
-            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={12} fill={T.muted}>Cu content (%)</text>
+            <text x={svgW / 2} y={svgH - 1} textAnchor="middle" fontSize={12} fill={T.muted}>Cu content (%)</text>
             <text x={12} y={svgH / 2} fontSize={12} fill={T.muted} transform={`rotate(-90,12,${svgH / 2})`}>Hardness (HV)</text>
             {/* True function (hidden from model) */}
             {Array.from({ length: 50 }, (_, i) => {
@@ -2852,7 +2870,7 @@ function ActiveLearningSection() {
             {[0, 20, 40, 60, 80, 100].map(v => (
               <g key={v}>
                 <line x1={sx(v)} y1={svgH - 30} x2={sx(v)} y2={svgH - 25} stroke={T.dim} />
-                <text x={sx(v)} y={svgH - 16} textAnchor="middle" fontSize={11} fill={T.dim}>{v}</text>
+                <text x={sx(v)} y={svgH - 19} textAnchor="middle" fontSize={11} fill={T.dim}>{v}</text>
               </g>
             ))}
             {[0, 30, 60, 90, 120].map(v => (
@@ -3085,7 +3103,7 @@ function HyperparamSection() {
         <div style={{ flex: "0 0 510px" }}>
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={500}>Validation Error Heatmap</text>
-            <text x={svgW / 2} y={svgH - 5} textAnchor="middle" fontSize={12} fill={T.muted}>Hidden Size</text>
+            <text x={svgW / 2} y={svgH - 1} textAnchor="middle" fontSize={12} fill={T.muted}>Hidden Size</text>
             <text x={10} y={svgH / 2} fontSize={12} fill={T.muted} transform={`rotate(-90,10,${svgH / 2})`}>Learning Rate</text>
             {/* Heatmap cells */}
             {errorGrid.map((row, i) => row.map((err, j) => {
@@ -3095,14 +3113,15 @@ function HyperparamSection() {
               const y = 25 + i * cellH;
               const maxErr = Math.max(...errorGrid.flat());
               const norm = (err - minError) / (maxErr - minError);
-              const r = Math.floor(220 * norm + 30);
-              const g = Math.floor(220 * (1 - norm) + 30);
+              // one hue, pale to deep, matching the rest of the site
+              const r = Math.floor(229 - norm * (229 - 16));
+              const g = Math.floor(241 - norm * (241 - 92));
               const isBest = i === bestPos.i && j === bestPos.j;
               const isCurrent = i === lrIdx && j === hsIdx;
               return (
                 <g key={`${i}${j}`} onClick={() => { setLrIdx(i); setHsIdx(j); }} style={{ cursor: "pointer" }}>
                   <rect x={x} y={y} width={cellW - 4} height={cellH - 4} rx={4}
-                    fill={`rgb(${r},${g},80)`} opacity={0.7}
+                    fill={`rgb(${r},${g},${Math.floor(243 - norm * (243 - 104))})`} opacity={0.7}
                     stroke={isCurrent ? "#fff" : isBest ? M.accent : "transparent"} strokeWidth={isCurrent ? 3 : isBest ? 2 : 0} />
                   <text x={x + cellW / 2 - 2} y={y + cellH / 2 + 1} textAnchor="middle" fontSize={12} fill="#fff" fontWeight={500}>
                     {err.toFixed(3)}
@@ -3360,13 +3379,13 @@ function MLSummarySection() {
           <div style={{ background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, overflow: "hidden" }}>
             <div style={{ display: "grid", gridTemplateColumns: "110px 60px 55px 55px 55px", fontSize: 8, fontWeight: 500, color: T.muted,
               padding: "6px 8px", background: T.panel, borderBottom: `1px solid ${T.border}`, letterSpacing: 1 }}>
-              <span>Method</span><span>TYPE</span><span>Interp</span><span>DATA</span><span>Speed</span>
+              <span>Method</span><span>Type</span><span>Interp</span><span>Data</span><span>Speed</span>
             </div>
             {methods.map((m, i) => (
               <div key={i} style={{
                 display: "grid", gridTemplateColumns: "110px 60px 55px 55px 55px", fontSize: 9, padding: "4px 8px",
                 borderBottom: `1px solid ${T.border}`, cursor: "pointer",
-                background: (i === compareA || i === compareB) ? C + "08" : "transparent",
+                background: (i === compareA || i === compareB) ? C + "08" : "transparent"
               }} onClick={() => compareA === i ? setCompareB(i) : setCompareA(i)}>
                 <span style={{ fontWeight: 500, color: m.color }}>{m.name}</span>
                 <span style={{ color: T.muted }}>{m.type}</span>

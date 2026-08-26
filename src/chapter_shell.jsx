@@ -14,7 +14,7 @@ export default function ChapterShell({
   active,
   onSelect,
   references = [],
-  children,
+  children
 }) {
   const [railOpen, setRailOpen] = useState(false);
 
@@ -29,7 +29,7 @@ export default function ChapterShell({
     : sections.some(s => s.block)
       ? [...new Set(sections.map(s => s.block))].map(id => ({
           label: title(id),
-          items: sections.filter(s => s.block === id),
+          items: sections.filter(s => s.block === id)
         }))
       : [{ label: null, items: sections }];
   const group = groups.find(g => g.items.some(s => s.id === active));

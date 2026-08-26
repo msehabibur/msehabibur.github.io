@@ -15,7 +15,7 @@ const LIGHT = {
   dim:     "var(--line)",
   accent:  "#327785",
   blue:    "#347a89",
-  green:   "#3c8e9f",
+  green:   "#3c8e9f"
 };
 
 const BLOG_CHAPTERS = [

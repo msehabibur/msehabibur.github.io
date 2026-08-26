@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
 import ChapterShell from "./chapter_shell.jsx";
+import fx from "./fx.jsx";
 
 /* ─── Theme ─── */
 const T = {
   bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
   ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)", gold: "#3c8e9f",
   eo_e: "#347a89", eo_hole: "#398797", eo_photon: "#5095a3",
-  eo_valence: "#3c8e9f", eo_core: "#327785", eo_gap: "#30717f", eo_cond: "#3b8d9d",
+  eo_valence: "#3c8e9f", eo_core: "#327785", eo_gap: "#30717f", eo_cond: "#3b8d9d"
 };
 
 /* ─── Characterization colors ─── */
@@ -16,17 +17,17 @@ const C = {
   spec: "#3c8e9f",
   micro: "#347a89",
   adv: "#30717f",
-  accent: "#3d90a1",
+  accent: "#3d90a1"
 };
 
 /* ─── Helper Components ─── */
 function Card({ title, color, formula, children }) {
   return (
-    <div style={{ background: T.panel, border: `1.5px solid ${(color || T.border)}44`, borderLeft: `4px solid ${color || "#347a89"}`, borderRadius: 10, padding: "16px 18px" }}>
+    <div style={{ background: T.panel, border: `1.5px solid ${(color || T.border)}44`,  borderRadius: 10, padding: "16px 18px" }}>
       {(title || formula) && (
         <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 10, flexWrap: "wrap" }}>
-          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#347a89", textTransform: "none", fontWeight: 500 }}>{title}</div>}
-          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || "#347a89") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#347a89")}33` }}>{formula}</div>}
+          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#347a89", textTransform: "none", fontWeight: 500 }}>{fx(title)}</div>}
+          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || "#347a89") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#347a89")}33` }}>{fx(formula)}</div>}
         </div>
       )}
       {children}
@@ -68,7 +69,7 @@ function CalcRow({ eq, result, color }) {
 
 function AnalogyBox({ text }) {
   return (
-    <div style={{ background: C.accent + "08", border: `1px solid ${C.accent}22`, borderLeft: `3px solid ${C.accent}`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+    <div style={{ background: C.accent + "08", border: `1px solid ${C.accent}22`,  borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
       <div style={{ fontSize: 9, letterSpacing: 2, color: C.accent, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Simple Analogy</div>
       <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.6, fontStyle: "italic" }}>{text}</div>
     </div>
@@ -128,7 +129,7 @@ function XRDSection() {
       { twoTheta: 56.83, hkl: "(400)", intensity: 5, d: 1.619 },
       { twoTheta: 62.41, hkl: "(331)", intensity: 10, d: 1.487 },
       { twoTheta: 71.23, hkl: "(422)", intensity: 12, d: 1.323 },
-    ]},
+    ]}
   }), []);
 
   useEffect(() => {
@@ -307,7 +308,7 @@ function XRDSection() {
               padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
               background: xrdPreset === key ? mat.color + "18" : T.surface,
               border: xrdPreset === key ? `1.5px solid ${mat.color}` : `1px solid ${T.border}`,
-              color: xrdPreset === key ? mat.color : T.muted,
+              color: xrdPreset === key ? mat.color : T.muted
             }}>{mat.label}</button>
           ))}
         </div>
@@ -1493,7 +1494,7 @@ function XPSSection() {
     Zn: { be: 1021.8, label: "Zn 2p₃/₂", color: "var(--muted)", peaks: [{ be: 1021.8, label: "Zn 2p₃/₂" }, { be: 1044.9, label: "Zn 2p₁/₂" }] },
     Cd: { be: 405.0, label: "Cd 3d₅/₂", color: "#327785", peaks: [{ be: 405.0, label: "Cd 3d₅/₂" }, { be: 411.7, label: "Cd 3d₃/₂" }] },
     Te: { be: 572.9, label: "Te 3d₅/₂", color: "#3c8e9f", peaks: [{ be: 572.9, label: "Te 3d₅/₂" }, { be: 583.3, label: "Te 3d₃/₂" }] },
-    S: { be: 162.0, label: "S 2p", color: "#5095a3", peaks: [{ be: 162.0, label: "S 2p" }] },
+    S: { be: 162.0, label: "S 2p", color: "#5095a3", peaks: [{ be: 162.0, label: "S 2p" }] }
   }), []);
 
   const chemShiftPeaks = useMemo(() => [
@@ -1700,7 +1701,7 @@ function XPSSection() {
               padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
               background: xpsElement === key ? C.surface + "18" : T.surface,
               border: xpsElement === key ? `1.5px solid ${C.surface}` : `1px solid ${T.border}`,
-              color: xpsElement === key ? C.surface : T.muted,
+              color: xpsElement === key ? C.surface : T.muted
             }}>{key} ({el.label})</button>
           ))}
         </div>
@@ -1753,7 +1754,7 @@ function XPSSection() {
             padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
             background: showChemShift ? C.accent + "18" : T.surface,
             border: showChemShift ? `1.5px solid ${C.accent}` : `1px solid ${T.border}`,
-            color: showChemShift ? C.accent : T.muted,
+            color: showChemShift ? C.accent : T.muted
           }}>
             {showChemShift ? "Hide" : "Show"} C 1s Chemical Shift Example
           </button>
@@ -3240,7 +3241,7 @@ function XANESSection() {
     Cu_K: { label: "Cu K-edge", energy: 8979, color: "#3d90a1", R: 2.55, N: 4 },
     Fe_K: { label: "Fe K-edge", energy: 7112, color: "#30717f", R: 2.48, N: 6 },
     Ti_K: { label: "Ti K-edge", energy: 4966, color: "#347a89", R: 1.96, N: 6 },
-    Zn_K: { label: "Zn K-edge", energy: 9659, color: "var(--muted)", R: 2.35, N: 4 },
+    Zn_K: { label: "Zn K-edge", energy: 9659, color: "var(--muted)", R: 2.35, N: 4 }
   }), []);
 
   useEffect(() => {
@@ -3391,7 +3392,7 @@ function XANESSection() {
               padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
               background: xanesEdge === key ? edge.color + "18" : T.surface,
               border: xanesEdge === key ? `1.5px solid ${edge.color}` : `1px solid ${T.border}`,
-              color: xanesEdge === key ? edge.color : T.muted,
+              color: xanesEdge === key ? edge.color : T.muted
             }}>{edge.label} ({edge.energy} eV)</button>
           ))}
         </div>
@@ -3441,7 +3442,7 @@ function XANESSection() {
             padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
             background: showOxComparison ? C.adv + "18" : T.surface,
             border: showOxComparison ? `1.5px solid ${C.adv}` : `1px solid ${T.border}`,
-            color: showOxComparison ? C.adv : T.muted,
+            color: showOxComparison ? C.adv : T.muted
           }}>
             {showOxComparison ? "Hide" : "Show"} Fe²⁺ vs Fe³⁺ Oxidation State Comparison
           </button>
@@ -3765,7 +3766,7 @@ function RamanSection() {
       { shift: 300, label: "1LO", intensity: 100 },
       { shift: 600, label: "2LO", intensity: 35 },
       { shift: 900, label: "3LO", intensity: 10 },
-    ]},
+    ]}
   }), []);
 
   useEffect(() => {
@@ -3942,7 +3943,7 @@ function RamanSection() {
               padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
               background: ramanPreset === key ? mat.color + "18" : T.surface,
               border: ramanPreset === key ? `1.5px solid ${mat.color}` : `1px solid ${T.border}`,
-              color: ramanPreset === key ? mat.color : T.muted,
+              color: ramanPreset === key ? mat.color : T.muted
             }}>{mat.label}</button>
           ))}
         </div>
@@ -4464,7 +4465,7 @@ function PLSection() {
             padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
             background: showDefectPL ? C.adv + "18" : T.surface,
             border: showDefectPL ? `1.5px solid ${C.adv}` : `1px solid ${T.border}`,
-            color: showDefectPL ? C.adv : T.muted,
+            color: showDefectPL ? C.adv : T.muted
           }}>{showDefectPL ? "Defect Peak: ON" : "Defect Peak: OFF"}</button>
         </div>
 
@@ -4960,7 +4961,7 @@ function UVVisSection() {
               padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
               background: uvPreset === m.id ? m.color + "18" : T.surface,
               border: uvPreset === m.id ? `1.5px solid ${m.color}` : `1px solid ${T.border}`,
-              color: uvPreset === m.id ? m.color : T.muted,
+              color: uvPreset === m.id ? m.color : T.muted
             }}>{m.label} ({m.eg} eV, {m.direct ? "direct" : "indirect"})</button>
           ))}
         </div>
@@ -5451,7 +5452,7 @@ function SEMSection() {
               padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
               background: semMode === mode ? C.micro + "18" : T.surface,
               border: semMode === mode ? `1.5px solid ${C.micro}` : `1px solid ${T.border}`,
-              color: semMode === mode ? C.micro : T.muted,
+              color: semMode === mode ? C.micro : T.muted
             }}>{mode === "SE" ? "Secondary Electron (SE)" : "Backscatter Electron (BSE)"}</button>
           ))}
         </div>
@@ -6316,7 +6317,7 @@ function AFMSection() {
               padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
               background: afmMode === m.id ? m.col + "18" : T.surface,
               border: afmMode === m.id ? `1.5px solid ${m.col}` : `1px solid ${T.border}`,
-              color: afmMode === m.id ? m.col : T.muted,
+              color: afmMode === m.id ? m.col : T.muted
             }}>{m.label}</button>
           ))}
         </div>
@@ -6854,11 +6855,11 @@ function STMSection() {
           <button onClick={() => { setStmScanning(true); setStmScanLine(0); setStmScanData([]); }} style={{
             padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
             background: stmScanning ? C.micro + "18" : C.micro + "08",
-            border: `1.5px solid ${C.micro}`, color: C.micro,
+            border: `1.5px solid ${C.micro}`, color: C.micro
           }}>{stmScanning ? "Scanning..." : "Run Scan"}</button>
           <button onClick={() => { setStmScanning(false); setStmScanLine(0); setStmScanData([]); }} style={{
             padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
-            background: T.surface, border: `1px solid ${T.border}`, color: T.muted,
+            background: T.surface, border: `1px solid ${T.border}`, color: T.muted
           }}>Reset</button>
         </div>
 
@@ -8140,7 +8141,7 @@ function APTSection() {
               padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
               background: el.show ? el.color + "18" : T.surface,
               border: el.show ? `1.5px solid ${el.color}` : `1px solid ${T.border}`,
-              color: el.show ? el.color : T.muted,
+              color: el.show ? el.color : T.muted
             }}>{el.show ? "✓ " : ""}{el.label}</button>
           ))}
         </div>
