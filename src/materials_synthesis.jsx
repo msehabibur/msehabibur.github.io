@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import ChapterShell from "./chapter_shell.jsx";
 
 const T = {
-  bg: "#f0f2f5", panel: "#ffffff", surface: "#f7f8fa", border: "#d4d8e0",
-  ink: "#1a1e2e", muted: "#6b7280", dim: "#c0c6d0",
-  syn_main: "#059669", syn_cvd: "#2563eb", syn_pvd: "#7c3aed", syn_sol: "#d97706",
-  syn_spin: "#0891b2", syn_ald: "#dc2626", syn_mbe: "#ca8a04", syn_hydro: "#0284c7",
+  bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
+  ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)",
+  syn_main: "#3c8e9f", syn_cvd: "#347a89", syn_pvd: "#327785", syn_sol: "#3d90a1",
+  syn_spin: "#5094a1", syn_ald: "#30717f", syn_mbe: "#5095a3", syn_hydro: "#3b8d9d",
 };
 
 function FAQAccordion({ title, color, isOpen, onClick, children }) {
@@ -14,7 +14,7 @@ function FAQAccordion({ title, color, isOpen, onClick, children }) {
       <button onClick={onClick} style={{ width: "100%", padding: "12px 16px", background: isOpen ? color + "12" : T.surface, border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10, fontFamily: "inherit", textAlign: "left" }}>
         <span style={{ fontSize: 16, color: isOpen ? color : T.muted, fontWeight: 500, transition: "transform 0.2s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}>▶</span>
         <span style={{ fontSize: 13, fontWeight: 500, color: isOpen ? color : T.ink, flex: 1 }}>{title}</span>
-        {isOpen && <span style={{ fontSize: 10, color, fontWeight: 500, padding: "2px 8px", background: color + "15", borderRadius: 6 }}>OPEN</span>}
+        {isOpen && <span style={{ fontSize: 10, color, fontWeight: 500, padding: "2px 8px", background: color + "15", borderRadius: 6 }}>Open</span>}
       </button>
       {isOpen && <div style={{ padding: "14px 18px", borderTop: `1px solid ${color}20`, background: T.surface }}>{children}</div>}
     </div>
@@ -46,11 +46,11 @@ function ResultBox({ label, value, color, sub }) {
 
 function Card({ title, color, formula, children }) {
   return (
-    <div style={{ background: T.panel, border: `1.5px solid ${(color || T.border)}44`, borderLeft: `4px solid ${color || "#2563eb"}`, borderRadius: 10, padding: "16px 18px", marginBottom: 10 }}>
+    <div style={{ background: T.panel, border: `1.5px solid ${(color || T.border)}44`, borderLeft: `4px solid ${color || "#347a89"}`, borderRadius: 10, padding: "16px 18px", marginBottom: 10 }}>
       {(title || formula) && (
         <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 10, flexWrap: "wrap" }}>
-          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#2563eb", textTransform: "none", fontWeight: 500 }}>{title}</div>}
-          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || "#2563eb") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#2563eb")}33` }}>{formula}</div>}
+          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#347a89", textTransform: "none", fontWeight: 500 }}>{title}</div>}
+          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || "#347a89") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#347a89")}33` }}>{formula}</div>}
         </div>
       )}
       {children}

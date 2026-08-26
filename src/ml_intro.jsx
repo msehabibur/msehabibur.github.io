@@ -3,29 +3,29 @@ import ChapterShell from "./chapter_shell.jsx";
 
 /* ─── Theme & Color Palette ─── */
 const T = {
-  bg: "#f0f2f5", panel: "#ffffff", surface: "#f7f8fa", border: "#d4d8e0",
-  ink: "#1a1e2e", muted: "#6b7280", dim: "#c0c6d0", gold: "#b8860b",
-  eo_e: "#2563eb", eo_hole: "#ea580c", eo_photon: "#ca8a04",
-  eo_valence: "#059669", eo_core: "#7c3aed", eo_gap: "#dc2626", eo_cond: "#0284c7",
+  bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
+  ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)", gold: "#3c8e9f",
+  eo_e: "#347a89", eo_hole: "#398797", eo_photon: "#5095a3",
+  eo_valence: "#3c8e9f", eo_core: "#327785", eo_gap: "#30717f", eo_cond: "#3b8d9d",
 };
 
 const M = {
-  found: "#0e7490",
-  algo: "#7c3aed",
-  nn: "#dc2626",
-  mat: "#059669",
-  prac: "#2563eb",
-  accent: "#d97706",
+  found: "#337886",
+  algo: "#327785",
+  nn: "#30717f",
+  mat: "#3c8e9f",
+  prac: "#347a89",
+  accent: "#3d90a1",
 };
 
 /* ─── Reusable Components ─── */
 function Card({ title, color, formula, children }) {
   return (
-    <div style={{ background: T.panel, border: `1.5px solid ${(color || T.border)}44`, borderLeft: `4px solid ${color || "#2563eb"}`, borderRadius: 10, padding: "16px 18px" }}>
+    <div style={{ background: T.panel, border: `1.5px solid ${(color || T.border)}44`, borderLeft: `4px solid ${color || "#347a89"}`, borderRadius: 10, padding: "16px 18px" }}>
       {(title || formula) && (
         <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 10, flexWrap: "wrap" }}>
-          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#2563eb", textTransform: "none", fontWeight: 500 }}>{title}</div>}
-          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || "#2563eb") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#2563eb")}33` }}>{formula}</div>}
+          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#347a89", textTransform: "none", fontWeight: 500 }}>{title}</div>}
+          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || "#347a89") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#347a89")}33` }}>{formula}</div>}
         </div>
       )}
       {children}
@@ -68,11 +68,11 @@ function CalcRow({ eq, result, color }) {
 
 function HowItWorks({ steps, color }) {
   return (
-    <div style={{ background: "#f0fdf4", border: "1.5px solid #05966933", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-      <div style={{ fontSize: 12, fontWeight: 500, color: "#059669", marginBottom: 6 }}>How It Works — Step by Step</div>
+    <div style={{ background: "#f8fafa", border: "1.5px solid #3c8e9f33", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+      <div style={{ fontSize: 12, fontWeight: 500, color: "#3c8e9f", marginBottom: 6 }}>How It Works — Step by Step</div>
       <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
         {steps.map((step, i) => (
-          <div key={i} style={{ marginBottom: 2 }}><strong style={{ color: color || "#059669" }}>{i + 1}.</strong> {step}</div>
+          <div key={i} style={{ marginBottom: 2 }}><strong style={{ color: color || "#3c8e9f" }}>{i + 1}.</strong> {step}</div>
         ))}
       </div>
     </div>
@@ -81,8 +81,8 @@ function HowItWorks({ steps, color }) {
 
 function CommonMistakes({ mistakes, color }) {
   return (
-    <div style={{ marginTop: 10, background: "#fef2f2", border: "1.5px solid #dc262633", borderRadius: 10, padding: "12px 16px" }}>
-      <div style={{ fontSize: 12, fontWeight: 500, color: "#dc2626", marginBottom: 6 }}>Common Mistakes — Watch Out!</div>
+    <div style={{ marginTop: 10, background: "#f2f5f6", border: "1.5px solid #30717f33", borderRadius: 10, padding: "12px 16px" }}>
+      <div style={{ fontSize: 12, fontWeight: 500, color: "#30717f", marginBottom: 6 }}>Common Mistakes — Watch Out!</div>
       <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
         {mistakes.map((m, i) => (
           <div key={i} style={{ marginBottom: 2 }}>&#x2717; {m}</div>
@@ -94,8 +94,8 @@ function CommonMistakes({ mistakes, color }) {
 
 function MatSciExample({ text, color }) {
   return (
-    <div style={{ marginTop: 10, background: "#eff6ff", border: "1.5px solid #2563eb33", borderRadius: 10, padding: "12px 16px" }}>
-      <div style={{ fontSize: 12, fontWeight: 500, color: "#2563eb", marginBottom: 4 }}>Materials Science Example</div>
+    <div style={{ marginTop: 10, background: "#f2f6f7", border: "1.5px solid #347a8933", borderRadius: 10, padding: "12px 16px" }}>
+      <div style={{ fontSize: 12, fontWeight: 500, color: "#347a89", marginBottom: 4 }}>Materials Science Example</div>
       <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>{text}</div>
     </div>
   );
@@ -115,7 +115,7 @@ const ML_BLOCKS = [
   { id: "foundations", label: "Foundations", color: M.found },
   { id: "algorithms", label: "Core Algorithms", color: M.algo },
   { id: "neuralnet", label: "Neural Networks", color: M.nn },
-  { id: "generative", label: "Generative & Advanced", color: "#9333ea" },
+  { id: "generative", label: "Generative & Advanced", color: "#347b8a" },
   { id: "matsci", label: "ML for Materials", color: M.mat },
   { id: "practical", label: "Practical Guide", color: M.prac },
 ];
@@ -128,12 +128,12 @@ function WhatIsMLSection() {
   const [highlight, setHighlight] = useState(-1);
 
   const materials = [
-    { name: "Si",   en: 1.90, radius: 1.17, label: "Semiconductor", color: "#2563eb" },
-    { name: "Ge",   en: 2.01, radius: 1.22, label: "Semiconductor", color: "#2563eb" },
-    { name: "GaAs", en: 2.18, radius: 1.26, label: "Semiconductor", color: "#2563eb" },
-    { name: "Fe",   en: 1.83, radius: 1.24, label: "Metal", color: "#ea580c" },
-    { name: "Cu",   en: 1.90, radius: 1.28, label: "Metal", color: "#ea580c" },
-    { name: "Al",   en: 1.61, radius: 1.43, label: "Metal", color: "#ea580c" },
+    { name: "Si",   en: 1.90, radius: 1.17, label: "Semiconductor", color: "#347a89" },
+    { name: "Ge",   en: 2.01, radius: 1.22, label: "Semiconductor", color: "#347a89" },
+    { name: "GaAs", en: 2.18, radius: 1.26, label: "Semiconductor", color: "#347a89" },
+    { name: "Fe",   en: 1.83, radius: 1.24, label: "Metal", color: "#398797" },
+    { name: "Cu",   en: 1.90, radius: 1.28, label: "Metal", color: "#398797" },
+    { name: "Al",   en: 1.61, radius: 1.43, label: "Metal", color: "#398797" },
   ];
 
   const types = [
@@ -147,8 +147,8 @@ function WhatIsMLSection() {
 
   return (
     <Card color={C} title="What Is Machine Learning?" formula="f(features) → prediction">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Teaching a child to sort toys: show examples with labels like "this is a car, this is a block" (supervised),
           let them group by similarity on their own (unsupervised), or reward with a sticker for correct guesses (reinforcement).
@@ -209,9 +209,9 @@ function WhatIsMLSection() {
               );
             })}
             {/* Legend */}
-            <circle cx={380} cy={30} r={5} fill="#2563eb33" stroke="#2563eb" strokeWidth={1} />
+            <circle cx={380} cy={30} r={5} fill="#347a8933" stroke="#347a89" strokeWidth={1} />
             <text x={392} y={34} fontSize={12} fill={T.muted}>Semiconductor</text>
-            <circle cx={380} cy={50} r={5} fill="#ea580c33" stroke="#ea580c" strokeWidth={1} />
+            <circle cx={380} cy={50} r={5} fill="#39879733" stroke="#398797" strokeWidth={1} />
             <text x={392} y={54} fontSize={12} fill={T.muted}>Metal</text>
           </svg>
 
@@ -234,18 +234,18 @@ function WhatIsMLSection() {
             <CalcRow eq="Features per sample" result="2" color={C} />
             <CalcRow eq="Feature 1: Electronegativity range" result="1.61 – 2.18" color={C} />
             <CalcRow eq="Feature 2: Radius range (Å)" result="1.17 – 1.43" color={C} />
-            <CalcRow eq="Class 0 (Semiconductor) count" result="3" color="#2563eb" />
-            <CalcRow eq="Class 1 (Metal) count" result="3" color="#ea580c" />
+            <CalcRow eq="Class 0 (Semiconductor) count" result="3" color="#347a89" />
+            <CalcRow eq="Class 1 (Metal) count" result="3" color="#398797" />
             <CalcRow eq="Class balance ratio" result="1.00" color={C} />
             <CalcRow eq="Dimensionality of feature space" result="2D" color={C} />
           </div>
 
           <div style={{ marginTop: 10, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ML Finds THE pattern</div>
-            <CalcRow eq="Mean EN (Semiconductors)" result={((1.90 + 2.01 + 2.18) / 3).toFixed(2)} color="#2563eb" />
-            <CalcRow eq="Mean EN (Metals)" result={((1.83 + 1.90 + 1.61) / 3).toFixed(2)} color="#ea580c" />
-            <CalcRow eq="Mean Radius (Semiconductors)" result={((1.17 + 1.22 + 1.26) / 3).toFixed(2) + " Å"} color="#2563eb" />
-            <CalcRow eq="Mean Radius (Metals)" result={((1.24 + 1.28 + 1.43) / 3).toFixed(2) + " Å"} color="#ea580c" />
+            <CalcRow eq="Mean EN (Semiconductors)" result={((1.90 + 2.01 + 2.18) / 3).toFixed(2)} color="#347a89" />
+            <CalcRow eq="Mean EN (Metals)" result={((1.83 + 1.90 + 1.61) / 3).toFixed(2)} color="#398797" />
+            <CalcRow eq="Mean Radius (Semiconductors)" result={((1.17 + 1.22 + 1.26) / 3).toFixed(2) + " Å"} color="#347a89" />
+            <CalcRow eq="Mean Radius (Metals)" result={((1.24 + 1.28 + 1.43) / 3).toFixed(2) + " Å"} color="#398797" />
             <CalcRow eq="Observation" result="Metals → larger radius" color={C} />
           </div>
 
@@ -325,8 +325,8 @@ function LinearRegressionSection() {
 
   return (
     <Card color={C} title="Linear Regression" formula="y = mx + b">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Drawing the best straight line through dots on a graph. The line should be as close as possible to all
           the data points. "Best" means the total squared distance from each point to the line is minimized.
@@ -371,7 +371,7 @@ function LinearRegressionSection() {
             {/* Error lines */}
             {predictions.map((p, i) => (
               <line key={i} x1={sx(p.x)} y1={sy(p.y)} x2={sx(p.x)} y2={sy(p.yhat)}
-                stroke="#dc262688" strokeWidth={1} strokeDasharray="2,2" />
+                stroke="#30717f88" strokeWidth={1} strokeDasharray="2,2" />
             ))}
             {/* Data points */}
             {data.map((d, i) => (
@@ -401,7 +401,7 @@ function LinearRegressionSection() {
             <div style={{ height: 6 }} />
             {predictions.map((p, i) => (
               <CalcRow key={i} eq={`error${i + 1} = ${p.y.toFixed(2)} − ${p.yhat.toFixed(2)}`}
-                result={errors[i].toFixed(2)} color="#dc2626" />
+                result={errors[i].toFixed(2)} color="#30717f" />
             ))}
             <div style={{ height: 6 }} />
             <CalcRow eq={`SSE = Σ error²`} result={sse.toFixed(3)} color={C} />
@@ -502,8 +502,8 @@ function OverfittingSection() {
 
   return (
     <Card color={C} title="Overfitting" formula="Train error ↓ ≠ Test error ↓">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A student who memorizes answers word-for-word passes practice exams but fails new ones.
           Overfitting is the same — the model "memorizes" training data instead of learning general patterns.
@@ -545,11 +545,11 @@ function OverfittingSection() {
             ))}
             {/* Test points */}
             {testPts.map((p, i) => (
-              <circle key={`te${i}`} cx={sx(p.x)} cy={sy(p.y)} r={5} fill="#dc262644" stroke="#dc2626" strokeWidth={1.5} />
+              <circle key={`te${i}`} cx={sx(p.x)} cy={sy(p.y)} r={5} fill="#30717f44" stroke="#30717f" strokeWidth={1.5} />
             ))}
             <circle cx={250} cy={svgH - 15} r={4} fill={C + "44"} stroke={C} />
             <text x={258} y={svgH - 12} fontSize={11} fill={T.muted}>Train</text>
-            <circle cx={290} cy={svgH - 15} r={4} fill="#dc262644" stroke="#dc2626" />
+            <circle cx={290} cy={svgH - 15} r={4} fill="#30717f44" stroke="#30717f" />
             <text x={298} y={svgH - 12} fontSize={11} fill={T.muted}>Test</text>
           </svg>
         </div>
@@ -561,17 +561,17 @@ function OverfittingSection() {
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>Calculation</div>
             <CalcRow eq="Train data points" result="8" color={C} />
-            <CalcRow eq="Test data points" result="4" color="#dc2626" />
+            <CalcRow eq="Test data points" result="4" color="#30717f" />
             <CalcRow eq="Model parameters (degree+1)" result={(Math.min(degree, 7) + 1).toString()} color={C} />
             <CalcRow eq={`Train RMSE`} result={trainRMSE.toFixed(3)} color={C} />
-            <CalcRow eq={`Test RMSE`} result={testRMSE.toFixed(3)} color="#dc2626" />
+            <CalcRow eq={`Test RMSE`} result={testRMSE.toFixed(3)} color="#30717f" />
             <CalcRow eq="Test/Train RMSE ratio" result={trainRMSE > 0.001 ? (testRMSE / trainRMSE).toFixed(2) : "—"} color={M.accent} />
             <CalcRow eq="True function" result="y = x²" color={T.muted} />
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
             <ResultBox label="TRAIN RMSE" value={trainRMSE.toFixed(3)} color={C} sub="lower is better" />
-            <ResultBox label="TEST RMSE" value={testRMSE.toFixed(3)} color="#dc2626" sub="lower is better" />
+            <ResultBox label="TEST RMSE" value={testRMSE.toFixed(3)} color="#30717f" sub="lower is better" />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -610,7 +610,7 @@ function CrossValidationSection() {
     return Array.from({ length: 10 }, (_, i) => ({ id: i + 1 }));
   }, []);
 
-  const foldColors = ["#2563eb", "#059669", "#dc2626", "#7c3aed", "#d97706"];
+  const foldColors = ["#347a89", "#3c8e9f", "#30717f", "#327785", "#3d90a1"];
   const svgW = 500, svgH = 240;
 
   const foldAssignments = [
@@ -623,8 +623,8 @@ function CrossValidationSection() {
 
   return (
     <Card color={C} title="K-Fold Cross-Validation" formula="Mean Absolute Error (MAE) = mean ± std over K folds">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A restaurant critic visits 5 times on different days to give a fair review. Each visit tests
           a different aspect. The average of all visits is more reliable than a single visit.
@@ -772,8 +772,8 @@ function DecisionTreeSection() {
 
   return (
     <Card color={C} title="Decision Tree Regression" formula="MSE = (1/N) Σ(yᵢ − ȳ)²">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A game of 20 Questions, but instead of guessing a category, you are guessing a number. Each question splits possibilities into two groups.
           The best question makes each group's values as similar as possible — measured by Mean Squared Error (MSE).
@@ -801,23 +801,23 @@ function DecisionTreeSection() {
             {/* Split line */}
             <line x1={sx(splitThreshold)} y1={18} x2={sx(splitThreshold)} y2={svgH - 30} stroke={C} strokeWidth={2} strokeDasharray="5,3" />
             {/* Shaded regions */}
-            <rect x={40} y={18} width={Math.max(0, sx(splitThreshold) - 40)} height={svgH - 48} fill="#059669" opacity={0.05} />
-            <rect x={sx(splitThreshold)} y={18} width={Math.max(0, svgW - 10 - sx(splitThreshold))} height={svgH - 48} fill="#dc2626" opacity={0.05} />
+            <rect x={40} y={18} width={Math.max(0, sx(splitThreshold) - 40)} height={svgH - 48} fill="#3c8e9f" opacity={0.05} />
+            <rect x={sx(splitThreshold)} y={18} width={Math.max(0, svgW - 10 - sx(splitThreshold))} height={svgH - 48} fill="#30717f" opacity={0.05} />
             {/* Prediction lines (mean of each side) */}
             {leftPts.length > 0 && (
               <line x1={40} y1={sy(leftPred)} x2={sx(splitThreshold)} y2={sy(leftPred)}
-                stroke="#059669" strokeWidth={2} strokeDasharray="6,3" />
+                stroke="#3c8e9f" strokeWidth={2} strokeDasharray="6,3" />
             )}
             {rightPts.length > 0 && (
               <line x1={sx(splitThreshold)} y1={sy(rightPred)} x2={svgW - 10} y2={sy(rightPred)}
-                stroke="#dc2626" strokeWidth={2} strokeDasharray="6,3" />
+                stroke="#30717f" strokeWidth={2} strokeDasharray="6,3" />
             )}
             {/* Data points */}
             {materials.map((m, i) => (
               <g key={i}>
                 <circle cx={sx(m.en)} cy={sy(m.bg)} r={6}
-                  fill={m.en <= splitThreshold ? "#05966933" : "#dc262633"}
-                  stroke={m.en <= splitThreshold ? "#059669" : "#dc2626"} strokeWidth={1.5} />
+                  fill={m.en <= splitThreshold ? "#3c8e9f33" : "#30717f33"}
+                  stroke={m.en <= splitThreshold ? "#3c8e9f" : "#30717f"} strokeWidth={1.5} />
                 <text x={sx(m.en)} y={sy(m.bg) - 9} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={500}>{m.name}</text>
                 <text x={sx(m.en)} y={sy(m.bg) + 14} textAnchor="middle" fontSize={12} fill={T.muted}>{m.bg} eV</text>
               </g>
@@ -847,10 +847,10 @@ function DecisionTreeSection() {
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>MSE Calculation</div>
             <CalcRow eq={`All 6 materials: mean bandgap ȳ`} result={`${allMean.toFixed(3)} eV`} color={C} />
             <CalcRow eq={`MSE before split = (1/6)Σ(yᵢ − ${allMean.toFixed(2)})²`} result={mseBefore.toFixed(4)} color={C} />
-            <CalcRow eq={`Left (≤ ${splitThreshold.toFixed(2)}): ${leftPts.length} materials`} result={`ȳ = ${leftPred.toFixed(3)} eV`} color="#059669" />
-            <CalcRow eq={`Left MSE = (1/${leftPts.length})Σ(yᵢ − ${leftPred.toFixed(2)})²`} result={mseLeft.toFixed(4)} color="#059669" />
-            <CalcRow eq={`Right (> ${splitThreshold.toFixed(2)}): ${rightPts.length} materials`} result={`ȳ = ${rightPred.toFixed(3)} eV`} color="#dc2626" />
-            <CalcRow eq={`Right MSE = (1/${rightPts.length})Σ(yᵢ − ${rightPred.toFixed(2)})²`} result={mseRight.toFixed(4)} color="#dc2626" />
+            <CalcRow eq={`Left (≤ ${splitThreshold.toFixed(2)}): ${leftPts.length} materials`} result={`ȳ = ${leftPred.toFixed(3)} eV`} color="#3c8e9f" />
+            <CalcRow eq={`Left MSE = (1/${leftPts.length})Σ(yᵢ − ${leftPred.toFixed(2)})²`} result={mseLeft.toFixed(4)} color="#3c8e9f" />
+            <CalcRow eq={`Right (> ${splitThreshold.toFixed(2)}): ${rightPts.length} materials`} result={`ȳ = ${rightPred.toFixed(3)} eV`} color="#30717f" />
+            <CalcRow eq={`Right MSE = (1/${rightPts.length})Σ(yᵢ − ${rightPred.toFixed(2)})²`} result={mseRight.toFixed(4)} color="#30717f" />
             <CalcRow eq={`Weighted MSE = (${leftPts.length}/6)×${mseLeft.toFixed(3)} + (${rightPts.length}/6)×${mseRight.toFixed(3)}`} result={mseAfter.toFixed(4)} color={C} />
             <CalcRow eq={`MSE Reduction = ${mseBefore.toFixed(4)} − ${mseAfter.toFixed(4)}`} result={mseReduction.toFixed(4)} color={M.accent} />
           </div>
@@ -910,12 +910,12 @@ function RandomForestSection() {
   const error = Math.abs(rfPred - actual);
 
   const svgW = 500, svgH = 240;
-  const treeColors = ["#2563eb", "#059669", "#d97706"];
+  const treeColors = ["#347a89", "#3c8e9f", "#3d90a1"];
 
   return (
     <Card color={C} title="Random Forest Regression" formula="Prediction = (1/N) Σ tree predictions">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A panel of judges scoring a gymnastics routine. Each judge sees the routine from a slightly different angle
           and has different expertise. The average score is more reliable than any single judge's opinion.
@@ -1036,8 +1036,8 @@ function SVMSection() {
 
   return (
     <Card color={C} title="Support Vector Regression" formula="Loss = max(0, |y − ŷ| − ε)">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Imagine a tube around a regression line. Predictions within the tube are "close enough" — they incur zero penalty.
           Only points outside the tube (where the error exceeds ε) are penalized. The tube width ε controls your tolerance.
@@ -1083,8 +1083,8 @@ function SVMSection() {
             {losses.map((m, i) => (
               <g key={i}>
                 <circle cx={sx(m.en)} cy={sy(m.bg)} r={6}
-                  fill={m.isSV ? "#dc262644" : "#05966944"}
-                  stroke={m.isSV ? "#dc2626" : "#059669"} strokeWidth={2} />
+                  fill={m.isSV ? "#30717f44" : "#3c8e9f44"}
+                  stroke={m.isSV ? "#30717f" : "#3c8e9f"} strokeWidth={2} />
                 <text x={sx(m.en)} y={sy(m.bg) - 9} textAnchor="middle" fontSize={12} fill={T.ink} fontWeight={500}>
                   {m.name}{m.isSV ? " (SV)" : ""}
                 </text>
@@ -1104,9 +1104,9 @@ function SVMSection() {
               </g>
             ))}
             {/* Legend */}
-            <circle cx={350} cy={25} r={4} fill="#05966944" stroke="#059669" strokeWidth={1.5} />
+            <circle cx={350} cy={25} r={4} fill="#3c8e9f44" stroke="#3c8e9f" strokeWidth={1.5} />
             <text x={358} y={28} fontSize={11} fill={T.muted}>Inside tube</text>
-            <circle cx={350} cy={40} r={4} fill="#dc262644" stroke="#dc2626" strokeWidth={1.5} />
+            <circle cx={350} cy={40} r={4} fill="#30717f44" stroke="#30717f" strokeWidth={1.5} />
             <text x={358} y={43} fontSize={11} fill={T.muted}>Support vector</text>
           </svg>
         </div>
@@ -1119,7 +1119,7 @@ function SVMSection() {
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ε-INSENSITIVE LOSS</div>
             {losses.map((m, i) => (
               <CalcRow key={i} eq={`${m.name}: |${m.bg.toFixed(2)} − ${m.yhat.toFixed(2)}| = ${m.residual.toFixed(2)}, loss = max(0, ${m.residual.toFixed(2)} − ${epsilon.toFixed(2)})`}
-                result={m.loss.toFixed(3) + (m.isSV ? " (SV)" : "")} color={m.isSV ? "#dc2626" : "#059669"} />
+                result={m.loss.toFixed(3) + (m.isSV ? " (SV)" : "")} color={m.isSV ? "#30717f" : "#3c8e9f"} />
             ))}
             <CalcRow eq="Total ε-insensitive loss" result={totalLoss.toFixed(3)} color={C} />
             <CalcRow eq="Support vectors (outside tube)" result={`${nSV} of 6`} color={M.accent} />
@@ -1197,8 +1197,8 @@ function PCASection() {
 
   return (
     <Card color={C} title="Principal Component Analysis" formula="Cov(X) → eigenvalues, eigenvectors">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Photographing a 3D object — find the best camera angle that captures the most information in a flat 2D picture.
           PCA finds the directions (principal components) along which data varies the most.
@@ -1334,8 +1334,8 @@ function PerceptronSection() {
 
   return (
     <Card color={C} title="Perceptron (Single Neuron)" formula={`output = ${actName}(w₁x₁ + w₂x₂ + b)`}>
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A voter weighing pros and cons before making a decision. Each argument (input) has a weight (importance).
           The voter adds up all weighted arguments, applies a threshold, and decides yes or no.
@@ -1357,12 +1357,12 @@ function PerceptronSection() {
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={16} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={500}>Single Neuron Diagram</text>
             {/* Input nodes */}
-            <circle cx={60} cy={60} r={18} fill="#2563eb15" stroke="#2563eb" strokeWidth={1.5} />
-            <text x={60} y={58} textAnchor="middle" fontSize={12} fill="#2563eb" fontWeight={500}>x₁</text>
+            <circle cx={60} cy={60} r={18} fill="#347a8915" stroke="#347a89" strokeWidth={1.5} />
+            <text x={60} y={58} textAnchor="middle" fontSize={12} fill="#347a89" fontWeight={500}>x₁</text>
             <text x={60} y={70} textAnchor="middle" fontSize={11} fill={T.muted}>{x1.toFixed(1)}</text>
 
-            <circle cx={60} cy={140} r={18} fill="#2563eb15" stroke="#2563eb" strokeWidth={1.5} />
-            <text x={60} y={138} textAnchor="middle" fontSize={12} fill="#2563eb" fontWeight={500}>x₂</text>
+            <circle cx={60} cy={140} r={18} fill="#347a8915" stroke="#347a89" strokeWidth={1.5} />
+            <text x={60} y={138} textAnchor="middle" fontSize={12} fill="#347a89" fontWeight={500}>x₂</text>
             <text x={60} y={150} textAnchor="middle" fontSize={11} fill={T.muted}>{x2.toFixed(1)}</text>
 
             {/* Weights on arrows */}
@@ -1382,9 +1382,9 @@ function PerceptronSection() {
 
             {/* Output */}
             <line x1={192} y1={100} x2={260} y2={100} stroke={C} strokeWidth={2} markerEnd="url(#arrowhead)" />
-            <circle cx={280} cy={100} r={20} fill={output > 0.5 ? "#05966920" : "#dc262620"}
-              stroke={output > 0.5 ? "#059669" : "#dc2626"} strokeWidth={2} />
-            <text x={280} y={97} textAnchor="middle" fontSize={11} fill={output > 0.5 ? "#059669" : "#dc2626"} fontWeight={500}>
+            <circle cx={280} cy={100} r={20} fill={output > 0.5 ? "#3c8e9f20" : "#30717f20"}
+              stroke={output > 0.5 ? "#3c8e9f" : "#30717f"} strokeWidth={2} />
+            <text x={280} y={97} textAnchor="middle" fontSize={11} fill={output > 0.5 ? "#3c8e9f" : "#30717f"} fontWeight={500}>
               {output.toFixed(3)}
             </text>
             <text x={280} y={110} textAnchor="middle" fontSize={11} fill={T.muted}>output</text>
@@ -1412,8 +1412,8 @@ function PerceptronSection() {
           <SliderRow label="w₁" value={w1} min={-2} max={2} step={0.1} onChange={setW1} color={C} />
           <SliderRow label="w₂" value={w2} min={-2} max={2} step={0.1} onChange={setW2} color={C} />
           <SliderRow label="bias (b)" value={bias} min={-2} max={2} step={0.1} onChange={setBias} color={M.accent} />
-          <SliderRow label="x₁" value={x1} min={-2} max={2} step={0.1} onChange={setX1} color="#2563eb" />
-          <SliderRow label="x₂" value={x2} min={-2} max={2} step={0.1} onChange={setX2} color="#2563eb" />
+          <SliderRow label="x₁" value={x1} min={-2} max={2} step={0.1} onChange={setX1} color="#347a89" />
+          <SliderRow label="x₂" value={x2} min={-2} max={2} step={0.1} onChange={setX2} color="#347a89" />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>Calculation</div>
@@ -1426,7 +1426,7 @@ function PerceptronSection() {
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
             <ResultBox label="WEIGHTED SUM (z)" value={z.toFixed(3)} color={C} />
-            <ResultBox label="OUTPUT" value={output.toFixed(4)} color={output > 0.5 ? "#059669" : "#dc2626"} />
+            <ResultBox label="OUTPUT" value={output.toFixed(4)} color={output > 0.5 ? "#3c8e9f" : "#30717f"} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -1479,8 +1479,8 @@ function DNNSection() {
 
   return (
     <Card color={C} title="Deep Neural Network (DNN)" formula="output = σ(W₂ · σ(W₁ · x + b₁) + b₂)">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           An assembly line with stations. Raw materials (inputs) pass through Station 1 (hidden layer 1),
           get partially processed, then move to Station 2 (output). Each station transforms the product in a specific way.
@@ -1502,11 +1502,11 @@ function DNNSection() {
           <svg width={svgW} height={svgH} style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}` }}>
             <text x={svgW / 2} y={14} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={500}>2-Layer Network: Forward Pass</text>
             {/* Input layer */}
-            <circle cx={50} cy={65} r={16} fill="#2563eb15" stroke="#2563eb" strokeWidth={1.5} />
-            <text x={50} y={62} textAnchor="middle" fontSize={12} fill="#2563eb" fontWeight={500}>x₁</text>
+            <circle cx={50} cy={65} r={16} fill="#347a8915" stroke="#347a89" strokeWidth={1.5} />
+            <text x={50} y={62} textAnchor="middle" fontSize={12} fill="#347a89" fontWeight={500}>x₁</text>
             <text x={50} y={73} textAnchor="middle" fontSize={12} fill={T.muted}>{x1.toFixed(1)}</text>
-            <circle cx={50} cy={140} r={16} fill="#2563eb15" stroke="#2563eb" strokeWidth={1.5} />
-            <text x={50} y={137} textAnchor="middle" fontSize={12} fill="#2563eb" fontWeight={500}>x₂</text>
+            <circle cx={50} cy={140} r={16} fill="#347a8915" stroke="#347a89" strokeWidth={1.5} />
+            <text x={50} y={137} textAnchor="middle" fontSize={12} fill="#347a89" fontWeight={500}>x₂</text>
             <text x={50} y={148} textAnchor="middle" fontSize={12} fill={T.muted}>{x2.toFixed(1)}</text>
 
             {/* Connections to hidden */}
@@ -1528,9 +1528,9 @@ function DNNSection() {
             <line x1={174} y1={140} x2={245} y2={100} stroke={C + "66"} strokeWidth={1} />
 
             {/* Output layer */}
-            <circle cx={262} cy={100} r={18} fill={output > 0.5 ? "#05966920" : "#dc262620"}
-              stroke={output > 0.5 ? "#059669" : "#dc2626"} strokeWidth={2} />
-            <text x={262} y={97} textAnchor="middle" fontSize={12} fill={output > 0.5 ? "#059669" : "#dc2626"} fontWeight={500}>
+            <circle cx={262} cy={100} r={18} fill={output > 0.5 ? "#3c8e9f20" : "#30717f20"}
+              stroke={output > 0.5 ? "#3c8e9f" : "#30717f"} strokeWidth={2} />
+            <text x={262} y={97} textAnchor="middle" fontSize={12} fill={output > 0.5 ? "#3c8e9f" : "#30717f"} fontWeight={500}>
               {output.toFixed(3)}
             </text>
             <text x={262} y={109} textAnchor="middle" fontSize={12} fill={T.muted}>output</text>
@@ -1558,7 +1558,7 @@ function DNNSection() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
             <ResultBox label="h₁" value={h1.toFixed(3)} color={C} />
             <ResultBox label="h₂" value={h2.toFixed(3)} color={C} />
-            <ResultBox label="OUTPUT" value={output.toFixed(3)} color={output > 0.5 ? "#059669" : "#dc2626"} />
+            <ResultBox label="OUTPUT" value={output.toFixed(3)} color={output > 0.5 ? "#3c8e9f" : "#30717f"} />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -1631,8 +1631,8 @@ function BackpropSection() {
 
   return (
     <Card color={C} title="Backpropagation" formula="w_new = w_old − η × ∂L/∂w">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A teacher tracing back which step caused the wrong answer on a math test. If the final answer is wrong,
           the teacher checks each intermediate step to find where the biggest mistake was, then corrects those steps the most.
@@ -1675,8 +1675,8 @@ function BackpropSection() {
               return <circle cx={cx} cy={cy} r={5} fill={C} stroke="#fff" strokeWidth={2} />;
             })()}
             {/* Target line */}
-            <line x1={40} y1={svgH - 32} x2={svgW - 10} y2={svgH - 32} stroke="#059669" strokeWidth={1} strokeDasharray="4,3" />
-            <text x={svgW - 12} y={svgH - 35} textAnchor="end" fontSize={11} fill="#059669">Target: Loss → 0</text>
+            <line x1={40} y1={svgH - 32} x2={svgW - 10} y2={svgH - 32} stroke="#3c8e9f" strokeWidth={1} strokeDasharray="4,3" />
+            <text x={svgW - 12} y={svgH - 35} textAnchor="end" fontSize={11} fill="#3c8e9f">Target: Loss → 0</text>
           </svg>
         </div>
 
@@ -1689,7 +1689,7 @@ function BackpropSection() {
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP {step} CALCULATION</div>
             <CalcRow eq={`Forward: h = σ(${cur.w1.toFixed(3)}×${x} + ${cur.b1.toFixed(3)})`} result={cur.h.toFixed(4)} color={C} />
             <CalcRow eq={`Forward: ŷ = σ(${cur.w2.toFixed(3)}×${cur.h.toFixed(3)} + ${cur.b2.toFixed(3)})`} result={cur.yhat.toFixed(4)} color={C} />
-            <CalcRow eq={`Loss = (${yTrue} − ${cur.yhat.toFixed(4)})²`} result={cur.loss.toFixed(5)} color="#dc2626" />
+            <CalcRow eq={`Loss = (${yTrue} − ${cur.yhat.toFixed(4)})²`} result={cur.loss.toFixed(5)} color="#30717f" />
             <CalcRow eq="∂L/∂w₂ (backprop)" result={cur.dL_dw2.toFixed(4)} color={C} />
             <CalcRow eq="∂L/∂w₁ (backprop chain)" result={cur.dL_dw1.toFixed(4)} color={C} />
             <CalcRow eq={`w₂_new = ${cur.w2.toFixed(3)} − ${lr}×${cur.dL_dw2.toFixed(4)}`}
@@ -1699,7 +1699,7 @@ function BackpropSection() {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
-            <ResultBox label="LOSS" value={cur.loss.toFixed(5)} color="#dc2626" sub={`step ${step}`} />
+            <ResultBox label="LOSS" value={cur.loss.toFixed(5)} color="#30717f" sub={`step ${step}`} />
             <ResultBox label="PREDICTION" value={cur.yhat.toFixed(4)} color={C} sub={`target: ${yTrue}`} />
           </div>
 
@@ -1739,8 +1739,8 @@ function CNNSection() {
 
   return (
     <Card color={C} title="Convolutional Neural Network (CNN)" formula="Conv: Σ(input × kernel)">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A Convolutional Neural Network (CNN) is like a magnifying glass sliding across a page, examining small patches one at a time.
           The magnifying glass (kernel) detects local patterns like edges, textures, and shapes. By stacking many layers, the network combines local patterns into global understanding: edges become shapes, shapes become objects.
@@ -1764,8 +1764,8 @@ function CNNSection() {
             <text x={70} y={35} textAnchor="middle" fontSize={12} fill={T.muted} fontWeight={500}>Input Patch</text>
             {inputPatch.map((row, i) => row.map((v, j) => (
               <g key={`i${i}${j}`}>
-                <rect x={30 + j * 28} y={40 + i * 28} width={26} height={26} rx={3} fill="#2563eb11" stroke="#2563eb44" />
-                <text x={43 + j * 28} y={57 + i * 28} textAnchor="middle" fontSize={11} fill="#2563eb" fontWeight={500}>{v}</text>
+                <rect x={30 + j * 28} y={40 + i * 28} width={26} height={26} rx={3} fill="#347a8911" stroke="#347a8944" />
+                <text x={43 + j * 28} y={57 + i * 28} textAnchor="middle" fontSize={11} fill="#347a89" fontWeight={500}>{v}</text>
               </g>
             )))}
             {/* Multiply sign */}
@@ -1835,7 +1835,7 @@ function CNNSection() {
    Transformer Section
    ════════════════════════════════════════════════════════════════ */
 function TransformerSection() {
-  const C = "#9333ea";
+  const C = "#347b8a";
 
   const attnTokens = ["Fe", "O", "forms", "rust"];
   const queryKey = [[0.9, 0.1, 0.0, 0.0], [0.1, 0.7, 0.1, 0.1], [0.0, 0.1, 0.8, 0.1], [0.0, 0.1, 0.1, 0.8]];
@@ -1864,8 +1864,8 @@ function TransformerSection() {
   return (
     <>
     <Card color={C} title="Transformer" formula="Attention(Q,K,V) = softmax(QK^T/√d_k)V">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A Transformer reads the whole page at once and decides which words relate to each other, no matter how far apart they are.
           Unlike a CNN that examines small patches sequentially, the Transformer computes attention scores between every pair of tokens simultaneously.
@@ -1943,8 +1943,8 @@ function TransformerSection() {
 
     {/* ── Self-Attention Numerical Example ── */}
     <Card color={C} title="Self-Attention — Full Numerical Example" formula="Attention(Q,K,V) = softmax(QK^T/√d_k)V">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Setup: Three Atoms in FeO</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Setup: Three Atoms in FeO</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Consider three atoms in an FeO crystal: Fe(1), O, Fe(2). Each atom is represented by an embedding vector of dimension d=2.
           We multiply each embedding by three learned weight matrices to get Query (Q), Key (K), and Value (V) vectors.
@@ -1957,7 +1957,7 @@ function TransformerSection() {
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>STEP 1: Q, K, V MATRICES</div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-              {[{ label: "Q (Query)", mat: Q, color: "#dc2626" }, { label: "K (Key)", mat: K, color: "#2563eb" }, { label: "V (Value)", mat: V, color: "#059669" }].map(({ label, mat, color }) => (
+              {[{ label: "Q (Query)", mat: Q, color: "#30717f" }, { label: "K (Key)", mat: K, color: "#347a89" }, { label: "V (Value)", mat: V, color: "#3c8e9f" }].map(({ label, mat, color }) => (
                 <div key={label} style={{ textAlign: "center" }}>
                   <div style={{ fontSize: 9, fontWeight: 500, color, marginBottom: 4 }}>{label}</div>
                   <div style={{ fontFamily: "monospace", fontSize: 11, lineHeight: 1.8 }}>
@@ -2065,8 +2065,8 @@ function FeatureEngineeringSection() {
 
   return (
     <Card color={C} title="Feature Engineering" formula="Material → numerical feature vector">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Describing a house with numbers before predicting its price: square footage, number of bedrooms, age, location score.
           Similarly, we describe a material with numbers: atomic mass, electronegativity, radius — so ML can work with it.
@@ -2191,8 +2191,8 @@ function PropertyPredictionSection() {
 
   return (
     <Card color={C} title="Bandgap Prediction" formula="MAE = Σ|pred − actual| / N">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Showing a student 8 solved examples and then asking them to predict the 9th. The closer their answers
           match the actual values, the better they have learned the concept. The parity plot shows predicted vs actual.
@@ -2337,8 +2337,8 @@ function AutoencoderSection() {
   return (
     <>
     <Card color={C} title="Variational Autoencoder (VAE)" formula="Encoder → Latent z → Decoder">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A recipe generator: compress known recipes into a "flavor space" (latent space), then explore new points in that
           space to generate novel recipes. The VAE does the same — encodes materials into a compact representation,
@@ -2373,13 +2373,13 @@ function AutoencoderSection() {
               </g>
             ))}
             {/* Current point */}
-            <circle cx={sx(latentX)} cy={sy(latentY)} r={7} fill="#dc262644" stroke="#dc2626" strokeWidth={2} />
-            <text x={sx(latentX)} y={sy(latentY) - 10} textAnchor="middle" fontSize={11} fill="#dc2626" fontWeight={500}>
+            <circle cx={sx(latentX)} cy={sy(latentY)} r={7} fill="#30717f44" stroke="#30717f" strokeWidth={2} />
+            <text x={sx(latentX)} y={sy(latentY) - 10} textAnchor="middle" fontSize={11} fill="#30717f" fontWeight={500}>
               ? ({decodedBG.toFixed(2)} eV)
             </text>
             {/* Line to nearest */}
             <line x1={sx(latentX)} y1={sy(latentY)} x2={sx(nearest.lx)} y2={sy(nearest.ly)}
-              stroke="#dc262644" strokeWidth={1} strokeDasharray="3,3" />
+              stroke="#30717f44" strokeWidth={1} strokeDasharray="3,3" />
           </svg>
 
           {/* Pipeline */}
@@ -2397,7 +2397,7 @@ function AutoencoderSection() {
 
         <div style={{ flex: 1, minWidth: 200 }}>
           <SliderRow label="Latent z₁" value={latentX} min={-2} max={2} step={0.1} onChange={setLatentX} color={C} />
-          <SliderRow label="Latent z₂" value={latentY} min={-2} max={2} step={0.1} onChange={setLatentY} color="#dc2626" />
+          <SliderRow label="Latent z₂" value={latentY} min={-2} max={2} step={0.1} onChange={setLatentY} color="#30717f" />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>Decode calculation</div>
@@ -2429,8 +2429,8 @@ function AutoencoderSection() {
 
     {/* ── VAE ELBO Loss Deep Dive ── */}
     <Card color={C} title="Variational Autoencoder Loss — ELBO" formula="L = Reconstruction + KL Divergence">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>The ELBO (Evidence Lower Bound)</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>The ELBO (Evidence Lower Bound)</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           The VAE loss has two parts that fight each other in a productive tension:
           <br/><strong>1. Reconstruction loss:</strong> How well can the decoder rebuild the original input from the latent code? This is measured as the squared difference between input and output. Low reconstruction loss means the VAE is faithful.
@@ -2501,7 +2501,7 @@ function AutoencoderSection() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
             <ResultBox label="RECON LOSS" value={reconLoss.toFixed(4)} color={C} sub="fidelity" />
             <ResultBox label="KL LOSS" value={klTotal.toFixed(4)} color={M.accent} sub="smoothness" />
-            <ResultBox label="TOTAL ELBO" value={elboLoss.toFixed(4)} color="#dc2626" sub="minimize" />
+            <ResultBox label="TOTAL ELBO" value={elboLoss.toFixed(4)} color="#30717f" sub="minimize" />
           </div>
 
           <CommonMistakes mistakes={[
@@ -2521,7 +2521,7 @@ function AutoencoderSection() {
    Diffusion Model Section
    ════════════════════════════════════════════════════════════════ */
 function DiffusionModelSection() {
-  const C = "#9333ea";
+  const C = "#347b8a";
 
   const [diffStep, setDiffStep] = useState(0);
 
@@ -2542,8 +2542,8 @@ function DiffusionModelSection() {
   return (
     <>
     <Card color={C} title="Diffusion Models for Materials" formula="x_t = √ᾱ_t·x₀ + √(1−ᾱ_t)·ε">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Imagine dropping ink into a glass of water. Over time, the ink spreads out until the water is uniformly cloudy — this is the <strong>forward process</strong> (adding noise). Now imagine watching a video of this in reverse: the cloudy water gradually organizes back into a sharp ink drop — this is the <strong>reverse process</strong> (denoising).
           <br/><br/>A diffusion model learns to reverse the noising process. Given pure noise, it learns to iteratively remove noise step by step until a valid crystal structure emerges. This is remarkably powerful because the model can generate diverse, high-quality structures by starting from different random noise samples.
@@ -2639,8 +2639,8 @@ function DiffusionModelSection() {
     <Card color={C} title="Generative Adversarial Networks & Model Comparison" formula="VAE vs GAN vs Diffusion">
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 510px" }}>
-          <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-            <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Generative Adversarial Networks (GANs)</div>
+          <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+            <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Generative Adversarial Networks (GANs)</div>
             <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
               A GAN is a two-player game between a <strong>Generator</strong> (G) and a <strong>Discriminator</strong> (D):
               <br/>G takes random noise z and generates a fake material.
@@ -2698,7 +2698,7 @@ function DiffusionModelSection() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
             <ResultBox label="VAE" value="Smooth" color={C} sub="latent space" />
             <ResultBox label="GAN" value="Sharp" color={M.accent} sub="output quality" />
-            <ResultBox label="DIFFUSION" value="Diverse" color="#dc2626" sub="sample variety" />
+            <ResultBox label="DIFFUSION" value="Diverse" color="#30717f" sub="sample variety" />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -2728,7 +2728,7 @@ function DiffusionModelSection() {
    Active Learning — Al-Cu Alloy Optimization
    ════════════════════════════════════════════════════════════════ */
 function ActiveLearningSection() {
-  const C = "#9333ea";
+  const C = "#347b8a";
   const [known, setKnown] = useState([
     { x: 0, y: 30 },
     { x: 4, y: 95 },
@@ -2787,8 +2787,8 @@ function ActiveLearningSection() {
 
   return (
     <Card color={C} title="Active Learning" formula="Next = argmax acquisition(x)">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy — Bayesian Optimization for Alloy Design</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy — Bayesian Optimization for Alloy Design</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Goal: find the Al-Cu alloy composition (0–100% Cu) that maximizes hardness. Experiments are expensive — each hardness test takes days.
           Instead of testing all compositions, we use a Gaussian Process (GP) surrogate model that predicts hardness ± uncertainty at untested compositions,
@@ -2845,9 +2845,9 @@ function ActiveLearningSection() {
             ))}
             {/* Suggested next point */}
             <circle cx={sx(bestCandidate.x)} cy={sy(predict(bestCandidate.x))} r={6}
-              fill="#dc262644" stroke="#dc2626" strokeWidth={2} />
+              fill="#30717f44" stroke="#30717f" strokeWidth={2} />
             <text x={sx(bestCandidate.x)} y={sy(predict(bestCandidate.x)) - 10}
-              textAnchor="middle" fontSize={11} fill="#dc2626" fontWeight={500}>Next? ({bestCandidate.x}% Cu)</text>
+              textAnchor="middle" fontSize={11} fill="#30717f" fontWeight={500}>Next? ({bestCandidate.x}% Cu)</text>
             {/* Axis ticks */}
             {[0, 20, 40, 60, 80, 100].map(v => (
               <g key={v}>
@@ -2884,14 +2884,14 @@ function ActiveLearningSection() {
             {known.map((p, i) => (
               <CalcRow key={i} eq={`${p.x}% Cu → hardness`} result={`${p.y} HV`} color={C} />
             ))}
-            <CalcRow eq={`Suggested next: ${bestCandidate.x}% Cu`} result={`unc = ${gpUnc.toFixed(1)}`} color="#dc2626" />
+            <CalcRow eq={`Suggested next: ${bestCandidate.x}% Cu`} result={`unc = ${gpUnc.toFixed(1)}`} color="#30717f" />
             <CalcRow eq={`GP prediction at ${bestCandidate.x}% Cu`} result={`${gpPred.toFixed(1)} ± ${gpUnc.toFixed(1)} HV`} color={C} />
             <CalcRow eq="Strategy" result="Max uncertainty (explore)" color={M.accent} />
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
             <ResultBox label="EXPERIMENTS" value={known.length.toString()} color={C} sub="of ~100 possible" />
-            <ResultBox label="NEXT TEST" value={`${bestCandidate.x}% Cu`} color="#dc2626" sub="highest uncertainty" />
+            <ResultBox label="NEXT TEST" value={`${bestCandidate.x}% Cu`} color="#30717f" sub="highest uncertainty" />
           </div>
 
           <div style={{ marginTop: 10, fontSize: 13, color: T.muted, lineHeight: 2.0,
@@ -2936,8 +2936,8 @@ function DataPipelineSection() {
 
   return (
     <Card color={C} title="ML Data Pipeline" formula="Data → Clean → Feature → Split → Train → Evaluate">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Cooking: shopping for ingredients (database) → washing and cleaning (clean) → chopping and measuring
           (featurize) → setting aside a taste test portion (split) → cooking (train) → tasting (evaluate).
@@ -3063,8 +3063,8 @@ function HyperparamSection() {
 
   return (
     <Card color={C} title="Hyperparameter Tuning" formula="Grid Search: try all (lr, hidden_size) pairs">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           Tuning a guitar — each string needs the right tension. Too loose or too tight and it sounds wrong.
           Hyperparameters are the "tuning knobs" of your ML model. Grid search tries every combination systematically.
@@ -3134,7 +3134,7 @@ function HyperparamSection() {
             <CalcRow eq="Total combinations = 4 × 4" result="16" color={C} />
             <CalcRow eq={`Current: lr=${lrValues[lrIdx]}, h=${hsValues[hsIdx]}`} result={`err = ${currentError.toFixed(3)}`} color={C} />
             <CalcRow eq={`Best: lr=${lrValues[bestPos.i]}, h=${hsValues[bestPos.j]}`} result={`err = ${minError.toFixed(3)}`} color={M.accent} />
-            <CalcRow eq={`Current vs Best`} result={`${((currentError - minError) / minError * 100).toFixed(1)}% worse`} color="#dc2626" />
+            <CalcRow eq={`Current vs Best`} result={`${((currentError - minError) / minError * 100).toFixed(1)}% worse`} color="#30717f" />
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
@@ -3203,8 +3203,8 @@ function InterpretabilitySection() {
 
   return (
     <Card color={C} title="Interpretability (SHapley Additive exPlanations)" formula="Prediction = Base + Σ SHAP values">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A doctor explaining why they recommend a treatment: "Your age adds risk (+), but your fitness reduces it (−),
           and your family history adds more (+). Overall score: moderate risk." SHAP does the same for ML predictions.
@@ -3252,10 +3252,10 @@ function InterpretabilitySection() {
                   <g key={i}>
                     <rect x={centerX + (running - f.shap - m.base) * barScale / 2} y={y}
                       width={barW} height={18} rx={3}
-                      fill={isPos ? "#dc262633" : "#05966933"} stroke={isPos ? "#dc2626" : "#059669"} strokeWidth={1} />
+                      fill={isPos ? "#30717f33" : "#3c8e9f33"} stroke={isPos ? "#30717f" : "#3c8e9f"} strokeWidth={1} />
                     <text x={25} y={y + 12} fontSize={11} fill={T.muted}>{f.name}</text>
                     <text x={svgW - 10} y={y + 12} textAnchor="end" fontSize={11}
-                      fill={isPos ? "#dc2626" : "#059669"} fontWeight={500}>
+                      fill={isPos ? "#30717f" : "#3c8e9f"} fontWeight={500}>
                       {isPos ? "+" : ""}{f.shap.toFixed(2)}
                     </text>
                   </g>
@@ -3277,7 +3277,7 @@ function InterpretabilitySection() {
               <CalcRow key={i}
                 eq={`+ ${f.name} (${f.value}) → SHAP`}
                 result={`${f.shap > 0 ? "+" : ""}${f.shap.toFixed(2)} eV`}
-                color={f.shap > 0 ? "#dc2626" : "#059669"} />
+                color={f.shap > 0 ? "#30717f" : "#3c8e9f"} />
             ))}
             <CalcRow eq={`Total SHAP sum`} result={`${totalShap > 0 ? "+" : ""}${totalShap.toFixed(2)} eV`} color={C} />
             <CalcRow eq={`Prediction = ${m.base.toFixed(1)} + ${totalShap.toFixed(2)}`} result={prediction.toFixed(2) + " eV"} color={M.accent} />
@@ -3336,8 +3336,8 @@ function MLSummarySection() {
 
   return (
     <Card color={C} title="ML Methods Comparison" formula="Choose the right tool for the job">
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
           A toolbox: you do not use a sledgehammer to hang a picture frame. Similarly, you do not need a billion-parameter
           neural network when 100 data points and linear regression will do. Choose the simplest method that works.
@@ -3370,7 +3370,7 @@ function MLSummarySection() {
               }} onClick={() => compareA === i ? setCompareB(i) : setCompareA(i)}>
                 <span style={{ fontWeight: 500, color: m.color }}>{m.name}</span>
                 <span style={{ color: T.muted }}>{m.type}</span>
-                <span style={{ color: m.interp === "High" ? "#059669" : m.interp === "Medium" ? M.accent : "#dc2626" }}>{m.interp}</span>
+                <span style={{ color: m.interp === "High" ? "#3c8e9f" : m.interp === "Medium" ? M.accent : "#30717f" }}>{m.interp}</span>
                 <span style={{ color: T.muted }}>{m.data}</span>
                 <span style={{ color: T.muted }}>{m.speed}</span>
               </div>

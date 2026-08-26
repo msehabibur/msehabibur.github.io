@@ -6,16 +6,16 @@ import MicroLab from "./micro_lab.jsx";
 
 // Theme
 const LIGHT = {
-  bg:      "#f0f2f5",
+  bg:      "var(--paper)",
   panel:   "#ffffff",
-  surface: "#f7f8fa",
-  border:  "#d4d8e0",
-  ink:     "#1a1e2e",
-  muted:   "#6b7280",
-  dim:     "#c0c6d0",
-  accent:  "#7c3aed",
-  blue:    "#2563eb",
-  green:   "#059669",
+  surface: "var(--sunk)",
+  border:  "var(--line)",
+  ink:     "var(--ink)",
+  muted:   "var(--muted)",
+  dim:     "var(--line)",
+  accent:  "#327785",
+  blue:    "#347a89",
+  green:   "#3c8e9f",
 };
 
 const BLOG_CHAPTERS = [
@@ -31,7 +31,6 @@ const BLOG_CHAPTERS = [
   { id: "pipeline",         chapter: 10, label: "MLFF Pipeline",              desc: "DefectNet force field: graph neural network architecture, training, and deployment", icon: "\u{1F9E0}" },
   { id: "mlintro",          chapter: 11, label: "Introduction to ML",         desc: "Machine learning foundations, algorithms, neural networks, and applications in materials science", icon: "\u{1F916}" },
   { id: "llmdatamining",    chapter: 12, label: "LLM Data Mining",            desc: "LangGraph architecture, solid-state synthesis text-mining, and MongoDB data management", icon: "\u{1F4DA}" },
-  { id: "aimlroadmap",      chapter: 13, label: "AI / ML Roadmap (2026)",      desc: "A complete path from math and classical ML to deep learning, LLM systems, production, research, and interview readiness", icon: "" },
 ];
 
 const T = LIGHT;

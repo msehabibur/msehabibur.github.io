@@ -21,14 +21,14 @@ Replace all 3 color objects (`C`, `P`, `C`) with one `T` object:
 
 | Key | Hex | Purpose |
 |-----|-----|---------|
-| bg | #f0f2f5 | Light gray background |
+| bg | #f0f4f5 | Light gray background |
 | panel | #ffffff | White panels |
-| surface | #f7f8fa | Off-white nested areas |
-| border | #d4d8e0 | Medium gray borders |
-| ink | #1a1e2e | Dark text (replaces text/ink) |
+| surface | #f6f8f9 | Off-white nested areas |
+| border | #d4e2e5 | Medium gray borders |
+| ink | #0f2428 | Dark text (replaces text/ink) |
 | muted | #6b7280 | Secondary text |
-| dim | #c0c6d0 | Faint elements |
-| gold | #b8860b | Marker accent |
+| dim | #bad1d5 | Faint elements |
+| gold | #3c8e9f | Marker accent |
 | dn1-dn6 | darkened accent colors | DefectNet semantic colors |
 | eo_e, eo_hole, etc. | darkened physics colors | Electron Origins colors |
 | ff_bond, ff_angle, etc. | darkened term colors | Force Field colors |

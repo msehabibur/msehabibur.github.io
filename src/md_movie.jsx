@@ -5,22 +5,22 @@ import { useState, useEffect, useRef, useCallback } from "react";
 // ═══════════════════════════════════════════════════════════════════════════
 
 const P = {
-  bg:      "#0c0f1a",
-  panel:   "#141825",
-  surface: "#1a1f30",
-  border:  "#2a3050",
-  ink:     "#e8ecf4",
-  muted:   "#7b8499",
-  dim:     "#3a4060",
-  blue:    "#38bdf8",
-  purple:  "#818cf8",
-  green:   "#34d399",
-  amber:   "#f59e0b",
-  pink:    "#f472b6",
-  teal:    "#2dd4bf",
-  red:     "#f87171",
-  ok:      "#4ade80",
-  warn:    "#f87171",
+  bg:      "#0f2428",
+  panel:   "#0f2428",
+  surface: "#0f2428",
+  border:  "#18393f",
+  ink:     "#f0f5f6",
+  muted:   "#3f94a5",
+  dim:     "#1f4a53",
+  blue:    "#91bfc9",
+  purple:  "#62a5b2",
+  green:   "#96c2cb",
+  amber:   "#71adb9",
+  pink:    "#84b8c2",
+  teal:    "#9bc5ce",
+  red:     "#539aa8",
+  ok:      "#a5cbd2",
+  warn:    "#539aa8",
 };
 
 const SCENES = [

@@ -9,7 +9,7 @@ class ParamErrorBoundary extends React.Component {
   static getDerivedStateFromError(error) { return { error }; }
   render() {
     if (this.state.error) return (
-      <div style={{ padding: 20, color: "#dc2626", fontSize: 13, fontFamily: "monospace", whiteSpace: "pre-wrap", background: "#fef2f2", borderRadius: 10, border: "1.5px solid #dc262630" }}>
+      <div style={{ padding: 20, color: "#30717f", fontSize: 13, fontFamily: "monospace", whiteSpace: "pre-wrap", background: "#f2f5f6", borderRadius: 10, border: "1.5px solid #30717f30" }}>
         <div style={{ fontSize: 16, fontWeight: 500, marginBottom: 8 }}>Error in Worked Example:</div>
         {this.state.error.toString()}
         <div style={{ marginTop: 8, color: "#999", fontSize: 11 }}>{this.state.error.stack}</div>
@@ -20,15 +20,15 @@ class ParamErrorBoundary extends React.Component {
 }
 
 const T = {
-  bg: "#f0f2f5", surface: "#ffffff", ink: "#1a1a2e", muted: "#6b7280",
-  border: "#e0e0e0", dim: "#9ca3af",
-  main: "#2563eb", eqn: "#7c3aed", xc: "#059669", basis: "#0891b2",
-  warn: "#dc2626", accent: "#d97706", warm: "#b45309",
+  bg: "var(--paper)", surface: "#ffffff", ink: "var(--ink)", muted: "var(--muted)",
+  border: "#e0e0e0", dim: "var(--muted)",
+  main: "#347a89", eqn: "#327785", xc: "#3c8e9f", basis: "#5094a1",
+  warn: "#30717f", accent: "#3d90a1", warm: "#2f6f7c",
 };
 
 const mathBlock = {
   fontFamily: "'Courier New', monospace", fontSize: 12, lineHeight: 1.9,
-  background: "#f8f9fa", border: "1px solid #e5e7eb", borderRadius: 10,
+  background: "#f7f9fa", border: "1px solid #e9f0f2", borderRadius: 10,
   padding: "14px 18px", marginBottom: 10, color: T.ink, whiteSpace: "pre-wrap",
 };
 
@@ -151,8 +151,8 @@ function SecBZ() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       {/* Simple analogy first */}
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In a crystal, atoms repeat in a pattern (unit cell). Electrons are waves, and their wave behaviors also repeat.
           The <strong>Brillouin Zone</strong> is the smallest box that captures all <em>unique</em> wave behaviors — anything outside is just a copy. Think of it as the <strong>unit cell for electron waves</strong>.
@@ -161,7 +161,7 @@ function SecBZ() {
 
       <Card title="Electron Waves Repeat in the BZ" color={T.main}>
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 6 }}>Watch: electron waves repeat every 2pi/a — the BZ captures one full period</div>
-        <svg viewBox="0 0 400 120" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e5e7eb" }}>
+        <svg viewBox="0 0 400 120" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e9f0f2" }}>
           {[0,1,2,3,4,5,6,7].map(i => (
             <circle key={i} cx={25 + i * 50} cy={60} r={8} fill={T.main + "30"} stroke={T.main} strokeWidth={1.5} />
           ))}
@@ -208,14 +208,14 @@ function SecBZ() {
             { label: "L", loc: "Center of hexagonal face (FCC)", simple: "Wave flips along body diagonal (111). In GaAs, L-valleys matter for high-field electron transport.", color: T.eqn },
           ].map(pt => (
             <div key={pt.label} style={{ background: pt.color + "08", border: `1.5px solid ${pt.color}20`, borderLeft: `4px solid ${pt.color}`, borderRadius: 8, padding: "8px 12px" }}>
-              <div style={{ fontSize: 12, fontWeight: 500, color: pt.color }}>{pt.label} <span style={{ fontWeight: 400, color: "#6b7280", fontSize: 11 }}>— {pt.loc}</span></div>
+              <div style={{ fontSize: 12, fontWeight: 500, color: pt.color }}>{pt.label} <span style={{ fontWeight: 400, color: "var(--muted)", fontSize: 11 }}>— {pt.loc}</span></div>
               <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink, marginTop: 2 }}>{pt.simple}</div>
             </div>
           ))}
         </div>
-        <div style={{ marginTop: 10, background: "#fef3c7", borderRadius: 8, padding: "10px 14px", border: "1px solid #f59e0b22" }}>
+        <div style={{ marginTop: 10, background: "#f0f4f5", borderRadius: 8, padding: "10px 14px", border: "1px solid #71adb922" }}>
           <div style={{ fontSize: 12, lineHeight: 1.7, color: T.ink }}>
-            <strong style={{ color: "#b45309" }}>Room analogy:</strong> The BZ is a room. <strong>{"\u0393"}</strong> = center of the room. <strong>X</strong> = middle of a wall. <strong>M</strong> = where two walls meet at the floor. <strong>K</strong> = corner where walls meet. Band structure = walking from {"\u0393"}{"\u2192"}X{"\u2192"}M{"\u2192"}{"\u0393"} and measuring electron energy at each step.
+            <strong style={{ color: "#2f6f7c" }}>Room analogy:</strong> The BZ is a room. <strong>{"\u0393"}</strong> = center of the room. <strong>X</strong> = middle of a wall. <strong>M</strong> = where two walls meet at the floor. <strong>K</strong> = corner where walls meet. Band structure = walking from {"\u0393"}{"\u2192"}X{"\u2192"}M{"\u2192"}{"\u0393"} and measuring electron energy at each step.
           </div>
         </div>
       </Card>
@@ -329,8 +329,8 @@ function SecKpoints() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Imagine you want to know the average temperature in a room. You could measure at just one spot (fast but inaccurate) or place thermometers on a grid across the room (slower but accurate). <strong>KPOINTS</strong> is that grid of measurement points inside the Brillouin Zone. More points = more accurate electron energies, but each point costs computation time. For metals (complex temperature landscape), you need a dense grid. For semiconductors (smooth landscape), a coarse grid works fine.
         </div>
@@ -338,7 +338,7 @@ function SecKpoints() {
 
       <Card title="Watch k-points Sample the BZ" color={T.eqn}>
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 6 }}>Points appear one by one, sampling electron energies across the zone</div>
-        <svg viewBox="0 0 300 200" style={{ width: "100%", maxWidth: 340, display: "block", margin: "0 auto", background: "#fafafa", borderRadius: 10, border: "1px solid #e5e7eb" }}>
+        <svg viewBox="0 0 300 200" style={{ width: "100%", maxWidth: 340, display: "block", margin: "0 auto", background: "#fafafa", borderRadius: 10, border: "1px solid #e9f0f2" }}>
           <rect x={30} y={20} width={240} height={160} fill={T.eqn + "05"} stroke={T.eqn + "30"} strokeWidth={1.5} rx={6} />
           <text x={150} y={14} textAnchor="middle" fontSize={10} fill={T.eqn} fontWeight="500">Brillouin Zone</text>
           {[40, 60, 80].map(r => (
@@ -522,8 +522,8 @@ function SecEncut() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Electron wavefunctions are built from plane waves (simple sine waves added together), like building any sound from musical notes. <strong>ENCUT</strong> sets the highest note you allow. Low ENCUT = only bass notes = blurry picture of the electron. High ENCUT = bass + treble = sharp, detailed picture. But more notes means more computation. You increase ENCUT until the total energy stops changing {"\u2014"} that means you have enough detail.
         </div>
@@ -531,7 +531,7 @@ function SecEncut() {
 
       <Card title="Building a Wavefunction from Plane Waves" color={T.basis}>
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 6 }}>More plane waves (higher ENCUT) = sharper, more accurate wavefunction</div>
-        <svg viewBox="0 0 400 140" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e5e7eb" }}>
+        <svg viewBox="0 0 400 140" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e9f0f2" }}>
           {(() => {
             const nHarmonics = Math.min(8, Math.floor(encFrame / 20) + 1);
             const pts = Array.from({length: 380}, (_, i) => {
@@ -795,8 +795,8 @@ function SecIsmear() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In a metal, some electron energy levels are right at the boundary between occupied and empty (the Fermi level). At exactly T = 0 K, the occupation jumps sharply from 1 to 0 {"\u2014"} like a light switch. This sharp jump makes the math unstable. <strong>Smearing</strong> turns the light switch into a dimmer {"\u2014"} a smooth transition. For insulators (big gap between occupied and empty), the switch is already far from the action, so a tiny smear (SIGMA = 0.05) works. For metals, you need more smoothing (SIGMA = 0.1{"\u2013"}0.2).
         </div>
@@ -804,7 +804,7 @@ function SecIsmear() {
 
       <Card title="Step Function vs Smooth Smearing" color={T.xc}>
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 6 }}>Watch the sharp step (T=0) smoothly transition to Gaussian smearing as SIGMA increases</div>
-        <svg viewBox="0 0 400 140" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e5e7eb" }}>
+        <svg viewBox="0 0 400 140" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e9f0f2" }}>
           {(() => {
             const animSigma = 0.01 + 0.3 * (0.5 + 0.5 * Math.sin(smFrame * 0.04));
             const pts = Array.from({length: 200}, (_, i) => {
@@ -971,8 +971,8 @@ function SecAlgo() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       {/* Simple analogy */}
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           DFT solves equations by guessing an answer, checking how wrong it is, and improving — over and over. <strong>ALGO</strong> controls <em>how</em> it improves each guess. Think of finding the lowest point in a valley while blindfolded:
         </div>
@@ -1006,7 +1006,7 @@ function SecAlgo() {
            algo === "VeryFast" ? "VeryFast: rockets toward minimum but may overshoot and oscillate" :
            "All-bands CG: zigzag path — alternating conjugate directions, many small steps"}
         </div>
-        <svg viewBox="0 0 400 180" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e5e7eb" }}>
+        <svg viewBox="0 0 400 180" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e9f0f2" }}>
           <path d="M0,30 Q100,40 150,80 Q200,130 250,140 Q300,130 350,80 Q400,40 400,30" fill={sel.color + "08"} stroke={sel.color + "30"} strokeWidth={1.5} />
           <circle cx={250} cy={140} r={4} fill={T.xc} />
           <text x={250} y={158} textAnchor="middle" fontSize={9} fill={T.xc} fontWeight="500">E_min</text>
@@ -1271,8 +1271,8 @@ function SecEdiff() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           DFT has two nested loops, like focusing a camera on a moving target. <strong>EDIFF</strong> (inner loop): how sharp the focus needs to be each time you take a photo {"\u2014"} 10{"\u207B\u2076"} eV means the energy must settle to within a millionth of an eV before you trust it. <strong>EDIFFG</strong> (outer loop): how still the target needs to be before you stop {"\u2014"} it controls when the atoms have relaxed enough. Tighter values = sharper results but more computation steps.
         </div>
@@ -1280,7 +1280,7 @@ function SecEdiff() {
 
       <Card title="Nested Convergence Loops" color={T.main}>
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 6 }}>Inner SCF loop converges electrons (fast), then outer ionic loop moves atoms (slow)</div>
-        <svg viewBox="0 0 400 150" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e5e7eb" }}>
+        <svg viewBox="0 0 400 150" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e9f0f2" }}>
           {(() => {
             const ionicStep = Math.floor(edFrame / 45);
             const scfPhase = (edFrame % 45) / 45;
@@ -1427,8 +1427,8 @@ function SecIbrion() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           After solving for electrons (SCF), you need to move the atoms to their lowest-energy positions. <strong>IBRION</strong> controls how atoms move. Think of placing a ball on a hilly surface: <strong>IBRION = 2</strong> (Conjugate Gradient) rolls the ball downhill step by step {"\u2014"} always works, standard choice. <strong>IBRION = 1</strong> (Quasi-Newton) remembers the shape of the hill from previous steps and takes smarter jumps {"\u2014"} faster near the bottom but can overshoot. <strong>IBRION = 5/6</strong> don{"'"}t relax at all {"\u2014"} they wiggle each atom slightly to measure the hill{"'"}s curvature (phonons, elastic constants). <strong>NSW</strong> = maximum number of steps allowed.
         </div>
@@ -1441,7 +1441,7 @@ function SecIbrion() {
            ibrion === -1 ? "No movement — atoms stay fixed (single-point calculation)" :
            "Finite differences: wiggle each atom to measure curvature (forces)"}
         </div>
-        <svg viewBox="0 0 400 170" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e5e7eb" }}>
+        <svg viewBox="0 0 400 170" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e9f0f2" }}>
           <path d="M10,20 Q80,30 140,60 Q200,110 260,130 Q310,120 350,90 Q380,60 400,20" fill={T.warm + "08"} stroke={T.warm + "30"} strokeWidth={1.5} />
           <circle cx={260} cy={130} r={4} fill={T.xc} />
           <text x={260} y={148} textAnchor="middle" fontSize={9} fill={T.xc} fontWeight="500">E_min</text>
@@ -1590,8 +1590,8 @@ function SecIbrion() {
 function SecPrec() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Think of PREC as choosing between a low-resolution and high-resolution camera. <strong>Normal</strong> is like a 720p camera — fine for viewing the big picture but blurs fine details. <strong>Accurate</strong> is 4K — every detail is sharp. The FFT grid is the pixel count: more grid points = more pixels = no aliasing artifacts. For forces and phonons, you need every pixel to be right.
         </div>
@@ -1652,8 +1652,8 @@ function SecPrec() {
 function SecLreal() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           PAW projections compute how much of each atomic orbital is "inside" each atom. <strong>LREAL = .FALSE.</strong> does this calculation exactly using all plane waves (reciprocal space). <strong>LREAL = Auto</strong> approximates the same thing by only looking within a sphere around each atom (real space) — much faster for big cells, but the sphere has a finite radius, so you miss contributions from the edges. For small cells, the sphere overlaps with its own periodic image, causing errors.
         </div>
@@ -1721,8 +1721,8 @@ function SecLreal() {
 function SecReciprocal() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Why Reciprocal Space?</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Why Reciprocal Space?</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In a periodic crystal, the electron density repeats every unit cell. Computing anything in real space means dealing with an infinite crystal. But in reciprocal space (Fourier space), periodicity becomes a discrete set of G-vectors — turning an infinite problem into a finite sum. This is why DFT codes like VASP work in reciprocal space: convolutions become multiplications, derivatives become multiplications by ik, and the Kohn-Sham equations become a matrix eigenvalue problem you can solve on a computer.
         </div>
@@ -1914,8 +1914,8 @@ function SecCdTeWalkthrough() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>What This Section Does</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>What This Section Does</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           We take <strong>one CdTe unit cell (2 atoms)</strong> and walk through the <em>entire</em> DFT calculation with real numbers at every step — from choosing which electrons to treat, to the final converged energy. Nothing is skipped.
         </div>
@@ -2111,7 +2111,7 @@ function SecCdTeWalkthrough() {
             H<sub><strong>GG</strong>′</sub>(<strong>k</strong>) = <sup>ℏ²</sup>&frasl;<sub>2m<sub>e</sub></sub> |<strong>k</strong>+<strong>G</strong>|² δ<sub><strong>GG</strong>′</sub> + Ṽ<sub>eff</sub>(<strong>G</strong>−<strong>G</strong>′)
           </div>
           <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>For each of 60 irreducible <strong>k</strong>-points, diagonalize the 1233×1233 matrix → lowest 16 eigenvalues:</div>
-          <div style={{ fontFamily: "'Courier New', monospace", fontSize: 11, background: "#f8f9fa", borderRadius: 8, padding: 12, lineHeight: 2.0, color: T.ink }}>
+          <div style={{ fontFamily: "'Courier New', monospace", fontSize: 11, background: "#f7f9fa", borderRadius: 8, padding: 12, lineHeight: 2.0, color: T.ink }}>
             <strong style={{ color: T.eqn }}>At <strong>k</strong> = Γ (0,0,0):</strong><br />
             Band 1: &nbsp; ε<sub>1</sub> = −9.83 eV &nbsp; (Te 5<em>s</em>, deep) &nbsp; ← 2e⁻<br />
             Band 2: &nbsp; ε<sub>2</sub> = −8.12 eV &nbsp; (Cd 4<em>d</em>) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ← 2e⁻<br />
@@ -2359,8 +2359,8 @@ function SecIncar() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fffbeb", border: "1.5px solid #f59e0b33", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#b45309", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The <strong>INCAR</strong> file is the instruction sheet you give VASP before it starts calculating. It{"'"}s like a recipe card: you tell it what ingredients to use (ENCUT, KPOINTS), how to cook (ALGO, IBRION), and when to stop (EDIFF, EDIFFG). Different dishes (relaxation, band structure, phonons) need different recipes. This builder picks the right recipe for your system.
         </div>
@@ -2420,7 +2420,7 @@ function SecIncar() {
       <Card title="Generated INCAR" color={T.eqn}>
         <pre style={{
           fontFamily: "'JetBrains Mono', 'Fira Code', monospace", fontSize: 12, lineHeight: 1.7,
-          background: "#f8f9fc", color: "#1a1e2e", borderRadius: 12,
+          background: "#f7f9fa", color: "var(--ink)", borderRadius: 12,
           padding: "18px 20px", margin: 0, overflowX: "auto",
           border: `2px solid ${T.eqn}40`, whiteSpace: "pre-wrap", wordBreak: "break-word",
         }}>

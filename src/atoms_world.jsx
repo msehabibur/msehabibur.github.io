@@ -133,7 +133,7 @@ function AtomicModelsSection() {
  const cx = 170, cy = 170;
  const t = frame * 0.05;
 
- const balmerColors = { 3: "#7c3aed", 4: "#7c3aed", 5: "#7c3aed", 6: "#7c3aed" };
+ const balmerColors = { 3: "#327785", 4: "#327785", 5: "#327785", 6: "#327785" };
 
  const renderSVG = () => {
  switch (model) {
@@ -242,7 +242,7 @@ function AtomicModelsSection() {
  const photonProgress = photonVis ? (transitionAnim - 0.3) / 0.7 : 0;
  const photonX = photonVis ? lerp(eX, 300, photonProgress) : 0;
  const photonY = photonVis ? lerp(eY, 30, photonProgress) : 0;
- const transColor = bohrTransition && bohrTransition.to === 2 ? (balmerColors[bohrTransition.from] || "#7c3aed") : "#7c3aed";
+ const transColor = bohrTransition && bohrTransition.to === 2 ? (balmerColors[bohrTransition.from] || "#327785") : "#327785";
 
  return (
  <svg viewBox="0 0 340 340" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 374 }}>
@@ -983,7 +983,7 @@ function AufbauPrincipleSection() {
  </div>
 
  {(Z === 29 || Z === 24) && (
- <div style={{ background: "#7c3aed08", border: `1px solid ${T.eo_hole}`, borderRadius: 6, padding: 10 }}>
+ <div style={{ background: "#32778508", border: `1px solid ${T.eo_hole}`, borderRadius: 6, padding: 10 }}>
  <div style={{ fontSize: 11, fontWeight: "500", color: T.eo_hole, marginBottom: 4 }}>Anomalous Configuration!</div>
  {Z === 29 && <div style={{ fontSize: 10, lineHeight: 1.5 }}>
  Cu is [Ar] 3d¹⁰ 4s¹ NOT [Ar] 3d⁹ 4s².<br />
@@ -1004,7 +1004,7 @@ function AufbauPrincipleSection() {
  </div>
  </div>
 
- <div style={{ background: "#7c3aed08", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 10 }}>
+ <div style={{ background: "#32778508", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 10 }}>
  <div style={{ fontSize: 11, fontWeight: "500", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
  <div style={{ fontSize: 10, lineHeight: 1.5 }}>
  Electron configuration determines chemical properties. Cu having 3d¹⁰4s¹ is why it's
@@ -1478,7 +1478,7 @@ function ElectronOriginsZnTeSection() {
  </div>
  </div>
 
- <div style={{ background: "#7c3aed08", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 10 }}>
+ <div style={{ background: "#32778508", border: `1px solid ${T.eo_e}`, borderRadius: 6, padding: 10 }}>
  <div style={{ fontSize: 10, fontWeight: "500", color: T.eo_e, marginBottom: 4 }}>Key Insight</div>
  <div style={{ fontSize: 9, lineHeight: 1.5 }}>
  Every electron in the band structure came from atoms. Zn donates 2 valence electrons,
@@ -1759,17 +1759,17 @@ function WaveDualitySection() {
 
  // Barrier walls
  els.push(
- <rect key="b1" x={barrX - 4} y={0} width={8} height={s1Y - 8} fill="#334155" />,
- <rect key="b2" x={barrX - 4} y={s1Y + 8} width={8} height={s2Y - s1Y - 16} fill="#334155" />,
- <rect key="b3" x={barrX - 4} y={s2Y + 8} width={8} height={H - s2Y - 8} fill="#334155" />,
- <text key="blbl" x={barrX} y={16} textAnchor="middle" fontSize={13} fill="#64748b">barrier</text>,
- <text key="s1l" x={barrX + 14} y={s1Y + 3} fontSize={12} fill="#94a3b8">slit 1</text>,
- <text key="s2l" x={barrX + 14} y={s2Y + 3} fontSize={12} fill="#94a3b8">slit 2</text>,
+ <rect key="b1" x={barrX - 4} y={0} width={8} height={s1Y - 8} fill="#1f4851" />,
+ <rect key="b2" x={barrX - 4} y={s1Y + 8} width={8} height={s2Y - s1Y - 16} fill="#1f4851" />,
+ <rect key="b3" x={barrX - 4} y={s2Y + 8} width={8} height={H - s2Y - 8} fill="#1f4851" />,
+ <text key="blbl" x={barrX} y={16} textAnchor="middle" fontSize={13} fill="#368190">barrier</text>,
+ <text key="s1l" x={barrX + 14} y={s1Y + 3} fontSize={12} fill="#77b1bc">slit 1</text>,
+ <text key="s2l" x={barrX + 14} y={s2Y + 3} fontSize={12} fill="#77b1bc">slit 2</text>,
  );
 
  // Screen + label
  els.push(
- <text key="scrlbl" x={scrX + 5} y={16} textAnchor="middle" fontSize={13} fill="#64748b">screen</text>,
+ <text key="scrlbl" x={scrX + 5} y={16} textAnchor="middle" fontSize={13} fill="#368190">screen</text>,
  );
 
  const interfProb = (y) => {
@@ -1782,14 +1782,14 @@ function WaveDualitySection() {
  // Continuous interference pattern on screen
  for (let y = 10; y < 190; y += 2) {
  const p = interfProb(y);
- els.push(<rect key={`si${y}`} x={scrX} y={y} width={10} height={2} fill="#7c3aed" opacity={p * 0.95} />);
+ els.push(<rect key={`si${y}`} x={scrX} y={y} width={10} height={2} fill="#327785" opacity={p * 0.95} />);
  }
  // Incoming circular wavefronts from source
  const t = frame * 0.07;
  for (let i = 0; i < 5; i++) {
  const r = ((t * 28 + i * 22) % 115);
  if (r > 3 && r < 112) {
- els.push(<circle key={`iw${i}`} cx={srcX} cy={srcY} r={r} fill="none" stroke="#7c3aed" strokeWidth={1.3} opacity={(1 - r / 112) * 0.7} clipPath="url(#wdLeft)" />);
+ els.push(<circle key={`iw${i}`} cx={srcX} cy={srcY} r={r} fill="none" stroke="#327785" strokeWidth={1.3} opacity={(1 - r / 112) * 0.7} clipPath="url(#wdLeft)" />);
  }
  }
  // Diffracted wavefronts from each slit
@@ -1798,17 +1798,17 @@ function WaveDualitySection() {
  const r = ((t * 28 + i * 18) % 250);
  if (r > 3 && r < 245) {
  els.push(<circle key={`dw${si}${i}`} cx={barrX} cy={sy} r={r} fill="none"
- stroke={si === 0 ? "#7c3aed" : "#7c3aed"} strokeWidth={1}
+ stroke={si === 0 ? "#327785" : "#327785"} strokeWidth={1}
  opacity={(1 - r / 245) * 0.4} clipPath="url(#wdRight)" />);
  }
  }
  });
  } else {
  // Screen background
- els.push(<rect key="scrbg" x={scrX} y={10} width={10} height={180} fill="#1e293b" stroke="#334155" strokeWidth={1} />);
+ els.push(<rect key="scrbg" x={scrX} y={10} width={10} height={180} fill="#142e33" stroke="#1f4851" strokeWidth={1} />);
  // Accumulated dots
  hits.forEach((h, i) => {
- els.push(<circle key={`h${i}`} cx={h.x} cy={h.y} r={1.5} fill="#7c3aed" opacity={0.75} />);
+ els.push(<circle key={`h${i}`} cx={h.x} cy={h.y} r={1.5} fill="#327785" opacity={0.75} />);
  });
 
  if (mode === "quantum") {
@@ -1817,16 +1817,16 @@ function WaveDualitySection() {
  const gx = srcX + (evPhase / 0.48) * (barrX - srcX - 14);
  const gy = srcY;
  els.push(
- <circle key="glow2" cx={gx} cy={gy} r={18} fill="#7c3aed" opacity={0.05} />,
- <circle key="glow1" cx={gx} cy={gy} r={10} fill="#7c3aed" opacity={0.12} />,
- <circle key="ghost" cx={gx} cy={gy} r={5} fill="#7c3aed" opacity={0.45} />,
- <text key="psi" x={gx} y={gy - 14} textAnchor="middle" fontSize={13} fill="#7c3aed" opacity={0.8}>ψ</text>,
+ <circle key="glow2" cx={gx} cy={gy} r={18} fill="#327785" opacity={0.05} />,
+ <circle key="glow1" cx={gx} cy={gy} r={10} fill="#327785" opacity={0.12} />,
+ <circle key="ghost" cx={gx} cy={gy} r={5} fill="#327785" opacity={0.45} />,
+ <text key="psi" x={gx} y={gy - 14} textAnchor="middle" fontSize={13} fill="#327785" opacity={0.8}>ψ</text>,
  );
  // Trail
  for (let k = 1; k <= 5; k++) {
  const tx = gx - k * 9;
  if (tx > srcX) {
- els.push(<circle key={`tr${k}`} cx={tx} cy={gy} r={4 - k * 0.6} fill="#7c3aed" opacity={0.12 - k * 0.02} />);
+ els.push(<circle key={`tr${k}`} cx={tx} cy={gy} r={4 - k * 0.6} fill="#327785" opacity={0.12 - k * 0.02} />);
  }
  }
  } else {
@@ -1838,7 +1838,7 @@ function WaveDualitySection() {
  const rk = Math.max(0, r - k * 16);
  if (rk > 0) {
  els.push(<circle key={`qw${si}k${k}`} cx={barrX} cy={sy} r={rk} fill="none"
- stroke="#7c3aed" strokeWidth={1.5 - k * 0.4}
+ stroke="#327785" strokeWidth={1.5 - k * 0.4}
  opacity={(1 - wp) * (0.6 - k * 0.18)} clipPath="url(#wdRight)" />);
  }
  }
@@ -1848,7 +1848,7 @@ function WaveDualitySection() {
  const flash = (wp - 0.82) / 0.18;
  for (let y = 10; y < 190; y += 4) {
  const p = interfProb(y);
- els.push(<rect key={`pf${y}`} x={scrX - 2} y={y} width={14} height={4} fill="#7c3aed" opacity={p * flash * 0.4} />);
+ els.push(<rect key={`pf${y}`} x={scrX - 2} y={y} width={14} height={4} fill="#327785" opacity={p * flash * 0.4} />);
  }
  }
  }
@@ -1858,8 +1858,8 @@ function WaveDualitySection() {
  const py = s1Y;
  if (px < scrX) {
  els.push(
- <circle key="ball" cx={px} cy={py} r={5} fill="#7c3aed" />,
- <circle key="ballg" cx={px} cy={py} r={9} fill="#7c3aed" opacity={0.2} />,
+ <circle key="ball" cx={px} cy={py} r={5} fill="#327785" />,
+ <circle key="ballg" cx={px} cy={py} r={9} fill="#327785" opacity={0.2} />,
  );
  }
  }
@@ -1867,17 +1867,17 @@ function WaveDualitySection() {
 
  // Source
  els.push(
- <circle key="src" cx={srcX} cy={srcY} r={9} fill="#7c3aed" opacity={0.85} />,
- <text key="srclbl" x={srcX} y={srcY + 20} textAnchor="middle" fontSize={13} fill="#64748b">gun</text>,
+ <circle key="src" cx={srcX} cy={srcY} r={9} fill="#327785" opacity={0.85} />,
+ <text key="srclbl" x={srcX} y={srcY + 20} textAnchor="middle" fontSize={13} fill="#368190">gun</text>,
  );
 
  return els;
  };
 
  const MODES = [
- { id: "classical", label: "1. Classical Bullet", color: "#7c3aed" },
- { id: "wave", label: "2. Continuous Wave", color: "#7c3aed" },
- { id: "quantum", label: "3. One Electron at a Time", color: "#7c3aed" },
+ { id: "classical", label: "1. Classical Bullet", color: "#327785" },
+ { id: "wave", label: "2. Continuous Wave", color: "#327785" },
+ { id: "quantum", label: "3. One Electron at a Time", color: "#327785" },
  ];
 
  const STEPS = {
@@ -1928,7 +1928,7 @@ function WaveDualitySection() {
  <div style={{ width: "100%" }}>
  {/* Animation */}
  <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 10, overflow: "hidden" }}>
- <svg viewBox={`0 0 ${W} ${H}`} style={{ display: "block", background: "#0f172a", width: "100%", maxWidth: W }}>
+ <svg viewBox={`0 0 ${W} ${H}`} style={{ display: "block", background: "#0f2428", width: "100%", maxWidth: W }}>
  <defs>
  <clipPath id="wdLeft"><rect x={0} y={0} width={barrX} height={H} /></clipPath>
  <clipPath id="wdRight"><rect x={barrX} y={0} width={W - barrX} height={H} /></clipPath>
@@ -1939,7 +1939,7 @@ function WaveDualitySection() {
  {mode !== "wave" && (
  <div style={{ padding: "8px 16px", borderTop: `1px solid ${T.border}`, fontSize: 11, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
  <span style={{ color: T.muted }}>Electrons on screen: <span style={{ color: col, fontWeight: 500 }}>{hits.length}</span></span>
- <span style={{ color: hits.length < 30 ? "#7c3aed" : hits.length < 100 ? "#7c3aed" : "#7c3aed", fontSize: 10 }}>
+ <span style={{ color: hits.length < 30 ? "#327785" : hits.length < 100 ? "#327785" : "#327785", fontSize: 10 }}>
  {hits.length < 30 ? "Firing… wait for pattern" : hits.length < 100 ? "Pattern forming…" : "Interference pattern visible!"}
  </span>
  </div>
@@ -2009,8 +2009,8 @@ function WaveDualitySection() {
 
  {/* Why this matters — full width, below de Broglie */}
  {mode === "quantum" && (
- <div style={{ background: "#7c3aed18", border: "1.5px solid #7c3aed33", borderLeft: "4px solid #7c3aed", borderRadius: 8, padding: 16 }}>
- <div style={{ fontSize: 12, fontWeight: 500, color: "#7c3aed", marginBottom: 8 }}>Why this matters for materials science</div>
+ <div style={{ background: "#32778518", border: "1.5px solid #32778533", borderLeft: "4px solid #327785", borderRadius: 8, padding: 16 }}>
+ <div style={{ fontSize: 12, fontWeight: 500, color: "#327785", marginBottom: 8 }}>Why this matters for materials science</div>
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.75 }}>
  Every electron in a CdTe crystal behaves this way. Its wavefunction ψ is not localised to one atom — it spreads
  over the entire crystal lattice. When Bloch solved the Schrödinger equation for periodic crystals, he found that
@@ -4123,7 +4123,7 @@ function ChemicalBondingSection() {
  </div>
  </div>
 
- <div style={{ background: "#7c3aed0a", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
+ <div style={{ background: "#3277850a", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
  <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
  <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
  ZnTe has Dc ~ 0.6 -- polar covalent. This partial ionicity affects defect formation energies
@@ -4524,7 +4524,7 @@ function HybridizationSection() {
  key={t}
  style={{
  borderBottom: `1px solid ${T.border}`,
- background: (t === "sp" && hybridType === "sp") || (t === "sp²" && hybridType === "sp2") || (t === "sp³" && hybridType === "sp3") ? "#7c3aed08" : "transparent",
+ background: (t === "sp" && hybridType === "sp") || (t === "sp²" && hybridType === "sp2") || (t === "sp³" && hybridType === "sp3") ? "#32778508" : "transparent",
  }}
  >
  <td style={{ padding: "4px 6px", fontWeight: 500 }}>{t}</td>
@@ -4558,7 +4558,7 @@ function HybridizationSection() {
  </div>
  </div>
 
- <div style={{ background: "#7c3aed0a", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
+ <div style={{ background: "#3277850a", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
  <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
  <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
  sp{"³"} hybridization is WHY zincblende semiconductors (ZnTe, CdTe, GaAs, CZTS) form
@@ -4986,7 +4986,7 @@ function MolecularOrbitalSection() {
  key={a}
  style={{
  borderBottom: `1px solid ${T.border}`,
- background: stage === i + 1 ? "#7c3aed08" : "transparent",
+ background: stage === i + 1 ? "#32778508" : "transparent",
  }}
  >
  <td style={{ padding: "4px 6px" }}>{a}</td>
@@ -5013,7 +5013,7 @@ function MolecularOrbitalSection() {
  </div>
  </div>
 
- <div style={{ background: "#7c3aed0a", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
+ <div style={{ background: "#3277850a", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
  <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
  <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
  This is the origin of bands. Bonding orbitals {"→"} valence band. Antibonding {"→"} conduction band.
@@ -5450,7 +5450,7 @@ function CrystalSymmetrySection() {
  (l === "BCC" && lattice === "BCC") ||
  (l === "FCC" && lattice === "FCC") ||
  (l === "ZB" && lattice === "Zincblende")
- ? "#7c3aed08"
+ ? "#32778508"
  : "transparent",
  }}
  >
@@ -5471,7 +5471,7 @@ function CrystalSymmetrySection() {
  </div>
  </div>
 
- <div style={{ background: "#7c3aed0a", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
+ <div style={{ background: "#3277850a", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
  <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
  <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
  Zincblende (F-43m) is THE structure for most important semiconductors: Si (diamond variant),
@@ -5963,7 +5963,7 @@ function ReciprocalSpaceSection() {
  </div>
  </div>
 
- <div style={{ background: "#7c3aed0a", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
+ <div style={{ background: "#3277850a", borderRadius: 6, padding: 10, border: `1px solid ${T.eo_photon}` }}>
  <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_photon, marginBottom: 3 }}>Key Insight</div>
  <div style={{ fontSize: 11, lineHeight: 1.5, color: T.ink }}>
  Direct vs indirect band gap is determined by whether VBM and CBM are at the same k-point.
@@ -6212,7 +6212,7 @@ function BandSection() {
  fill={T.bg} />
  <line x1={20} y1={(CBbot + VBtop) / 2} x2={280} y2={(CBbot + VBtop) / 2}
  stroke={T.border} strokeDasharray="4 4" />
- <text x={W / 2} y={(CBbot + VBtop) / 2 + 4} textAnchor="middle" fill={T.eo_gap} fontSize={13} fontWeight="500">GAP</text>
+ <text x={W / 2} y={(CBbot + VBtop) / 2 + 4} textAnchor="middle" fill={T.eo_gap} fontSize={13} fontWeight="500">Gap</text>
  <text x={W / 2} y={(CBbot + VBtop) / 2 + 18} textAnchor="middle" fill={T.muted} fontSize={12} fontWeight="500">E = {Egap} eV</text>
 
  {/* Gap label with arrow */}
@@ -6662,9 +6662,9 @@ function DensityOfStatesSection() {
  fill={T.eo_e} opacity={0.08} />
 
  {/* Orbital-resolved DOS curves */}
- <path d={sOrbPath} fill="none" stroke="#7c3aed" strokeWidth={1.3} opacity={0.85} />
- <path d={pOrbPath} fill="none" stroke="#7c3aed" strokeWidth={1.3} opacity={0.85} />
- <path d={dOrbPath} fill="none" stroke="#7c3aed" strokeWidth={1.3} opacity={0.85} />
+ <path d={sOrbPath} fill="none" stroke="#327785" strokeWidth={1.3} opacity={0.85} />
+ <path d={pOrbPath} fill="none" stroke="#327785" strokeWidth={1.3} opacity={0.85} />
+ <path d={dOrbPath} fill="none" stroke="#327785" strokeWidth={1.3} opacity={0.85} />
 
  {/* PDOS Legend */}
  <rect x={marginL + 4} y={marginT + 2} width={90} height={72} rx={3}
@@ -6673,14 +6673,14 @@ function DensityOfStatesSection() {
  stroke={T.eo_e} strokeWidth={2} />
  <text x={marginL + 25} y={marginT + 17} fontSize={13} fill={T.muted} fontFamily="monospace">Total</text>
  <line x1={marginL + 8} y1={marginT + 30} x2={marginL + 22} y2={marginT + 30}
- stroke="#7c3aed" strokeWidth={1.3} />
- <text x={marginL + 25} y={marginT + 33} fontSize={13} fill="#7c3aed" fontFamily="monospace">s-orb</text>
+ stroke="#327785" strokeWidth={1.3} />
+ <text x={marginL + 25} y={marginT + 33} fontSize={13} fill="#327785" fontFamily="monospace">s-orb</text>
  <line x1={marginL + 8} y1={marginT + 46} x2={marginL + 22} y2={marginT + 46}
- stroke="#7c3aed" strokeWidth={1.3} />
- <text x={marginL + 25} y={marginT + 49} fontSize={13} fill="#7c3aed" fontFamily="monospace">p-orb</text>
+ stroke="#327785" strokeWidth={1.3} />
+ <text x={marginL + 25} y={marginT + 49} fontSize={13} fill="#327785" fontFamily="monospace">p-orb</text>
  <line x1={marginL + 8} y1={marginT + 62} x2={marginL + 22} y2={marginT + 62}
- stroke="#7c3aed" strokeWidth={1.3} />
- <text x={marginL + 25} y={marginT + 65} fontSize={13} fill="#7c3aed" fontFamily="monospace">d-orb</text>
+ stroke="#327785" strokeWidth={1.3} />
+ <text x={marginL + 25} y={marginT + 65} fontSize={13} fill="#327785" fontFamily="monospace">d-orb</text>
 
  <path d={fermiPath} fill="none" stroke={T.eo_photon} strokeWidth={1.5}
  strokeDasharray="4,3" opacity={0.8} />
@@ -6740,7 +6740,7 @@ function DensityOfStatesSection() {
  <div style={{ fontSize: 10, color: T.muted, marginTop: 8, lineHeight: 1.6 }}>
  <span style={{ color: T.eo_photon }}>--- dashed</span>: Fermi-Dirac f(E)<br />
  <span style={{ color: T.eo_valence }}>shaded</span>: occupied g(E)·f(E)<br />
- <span style={{ color: "#7c3aed" }}>s</span> / <span style={{ color: "#7c3aed" }}>p</span> / <span style={{ color: "#7c3aed" }}>d</span>: orbital-projected DOS
+ <span style={{ color: "#327785" }}>s</span> / <span style={{ color: "#327785" }}>p</span> / <span style={{ color: "#327785" }}>d</span>: orbital-projected DOS
  </div>
  </div>
  </div>
@@ -6767,14 +6767,14 @@ function DensityOfStatesSection() {
  </div>
  </div>
  <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
- <div style={{ fontSize: 11, fontWeight: 500, marginBottom: 6, color: "#7c3aed" }}>Orbital-Projected DOS (PDOS)</div>
+ <div style={{ fontSize: 11, fontWeight: 500, marginBottom: 6, color: "#327785" }}>Orbital-Projected DOS (PDOS)</div>
  <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
  The total DOS can be decomposed into contributions from each atomic orbital type — this is the <b>Projected DOS (PDOS)</b>. It reveals <em>which orbitals</em> contribute states at each energy:
  </div>
  <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7, marginTop: 6 }}>
- <span style={{ color: "#7c3aed", fontWeight: 500 }}>s-orbital</span>: Spherically symmetric. In ZnTe, Zn 4s dominates the <b>conduction band minimum</b> (CBM). Deeper VB has Te 5s.<br />
- <span style={{ color: "#7c3aed", fontWeight: 500 }}>p-orbital</span>: Directional (px, py, pz). Te 5p states dominate the <b>valence band maximum</b> (VBM) — the topmost occupied states.<br />
- <span style={{ color: "#7c3aed", fontWeight: 500 }}>d-orbital</span>: Zn 3d states form a <b>narrow peak</b> deep in the VB (~1.5 eV below VBM). Their sharpness reflects localized, atom-like character.
+ <span style={{ color: "#327785", fontWeight: 500 }}>s-orbital</span>: Spherically symmetric. In ZnTe, Zn 4s dominates the <b>conduction band minimum</b> (CBM). Deeper VB has Te 5s.<br />
+ <span style={{ color: "#327785", fontWeight: 500 }}>p-orbital</span>: Directional (px, py, pz). Te 5p states dominate the <b>valence band maximum</b> (VBM) — the topmost occupied states.<br />
+ <span style={{ color: "#327785", fontWeight: 500 }}>d-orbital</span>: Zn 3d states form a <b>narrow peak</b> deep in the VB (~1.5 eV below VBM). Their sharpness reflects localized, atom-like character.
  </div>
  </div>
  <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
@@ -6962,12 +6962,12 @@ function DensityOfStatesSection() {
 
 function PolymerBuilder() {
  const monomers = [
- { id: "ethylene", label: "Ethylene (PE)", formula: "CH₂=CH₂", color: "#7c3aed", repeat: "–CH₂–CH₂–", bandGap: "8.8 eV", use: "Bags, bottles, pipes" },
- { id: "propylene", label: "Propylene (PP)", formula: "CH₂=CHCH₃", color: "#7c3aed", repeat: "–CH₂–CH(CH₃)–", bandGap: "8.0 eV", use: "Containers, fibers, car parts" },
- { id: "styrene", label: "Styrene (PS)", formula: "CH₂=CHC₆H₅", color: "#7c3aed", repeat: "–CH₂–CH(C₆H₅)–", bandGap: "4.5 eV", use: "Foam cups, insulation" },
- { id: "vinylchloride", label: "Vinyl Chloride (PVC)", formula: "CH₂=CHCl", color: "#7c3aed", repeat: "–CH₂–CHCl–", bandGap: "6.2 eV", use: "Pipes, flooring, cables" },
- { id: "tetrafluoroethylene", label: "Tetrafluoroethylene (PTFE)", formula: "CF₂=CF₂", color: "#7c3aed", repeat: "–CF₂–CF₂–", bandGap: "10.0 eV", use: "Non-stick (Teflon), seals" },
- { id: "acetylene", label: "Acetylene (PA)", formula: "CH≡CH", color: "#7c3aed", repeat: "–CH=CH–", bandGap: "1.5 eV", use: "Conducting polymer!" },
+ { id: "ethylene", label: "Ethylene (PE)", formula: "CH₂=CH₂", color: "#327785", repeat: "–CH₂–CH₂–", bandGap: "8.8 eV", use: "Bags, bottles, pipes" },
+ { id: "propylene", label: "Propylene (PP)", formula: "CH₂=CHCH₃", color: "#327785", repeat: "–CH₂–CH(CH₃)–", bandGap: "8.0 eV", use: "Containers, fibers, car parts" },
+ { id: "styrene", label: "Styrene (PS)", formula: "CH₂=CHC₆H₅", color: "#327785", repeat: "–CH₂–CH(C₆H₅)–", bandGap: "4.5 eV", use: "Foam cups, insulation" },
+ { id: "vinylchloride", label: "Vinyl Chloride (PVC)", formula: "CH₂=CHCl", color: "#327785", repeat: "–CH₂–CHCl–", bandGap: "6.2 eV", use: "Pipes, flooring, cables" },
+ { id: "tetrafluoroethylene", label: "Tetrafluoroethylene (PTFE)", formula: "CF₂=CF₂", color: "#327785", repeat: "–CF₂–CF₂–", bandGap: "10.0 eV", use: "Non-stick (Teflon), seals" },
+ { id: "acetylene", label: "Acetylene (PA)", formula: "CH≡CH", color: "#327785", repeat: "–CH=CH–", bandGap: "1.5 eV", use: "Conducting polymer!" },
  ];
 
  const [chain, setChain] = useState([]);
@@ -6985,7 +6985,7 @@ function PolymerBuilder() {
  const spacing = chain.length > 0 ? Math.min(40, (svgW - 40) / chain.length) : 40;
 
  return (
- <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: "1.5px solid #7c3aed33" }}>
+ <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: "1.5px solid #32778533" }}>
  <div style={{ fontSize: 13, fontWeight: 500, color: T.accent, marginBottom: 10, textAlign: "center" }}>Interactive Polymer Builder</div>
  <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, lineHeight: 1.6 }}>
  Click monomers below to build a polymer chain. Each monomer links end-to-end through addition polymerization. Watch how the chain grows and properties change!
@@ -7031,7 +7031,7 @@ function PolymerBuilder() {
  })}
  {chain.length > 0 && <>
  <text x={10} y={15} fill={T.muted} fontSize={12}>n = {chain.length} units</text>
- <text x={svgW - 10} y={15} textAnchor="end" fill="#7c3aed" fontSize={12} fontWeight="500">
+ <text x={svgW - 10} y={15} textAnchor="end" fill="#327785" fontSize={12} fontWeight="500">
  {chain.length >= 3 ? "Polymer!" : chain.length >= 2 ? "Oligomer" : "Monomer"}
  </text>
  </>}
@@ -7056,8 +7056,8 @@ function PolymerBuilder() {
  <div style={{ fontSize: 12, fontWeight: 500, color: T.ink }}>{last.use}</div>
  </div>
  {isConjugated && (
- <div style={{ width: "100%", background: "#7c3aed11", borderRadius: 8, padding: 10, border: "1px solid #7c3aed33" }}>
- <div style={{ fontSize: 11, fontWeight: 500, color: "#7c3aed", marginBottom: 4 }}>Conjugated Polymer Detected!</div>
+ <div style={{ width: "100%", background: "#32778511", borderRadius: 8, padding: 10, border: "1px solid #32778533" }}>
+ <div style={{ fontSize: 11, fontWeight: 500, color: "#327785", marginBottom: 4 }}>Conjugated Polymer Detected!</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
  Polyacetylene has alternating single and double bonds (conjugation). This creates delocalized electrons along the chain, dramatically reducing the band gap to ~1.5 eV. Shirakawa, MacDiarmid, and Heeger won the 2000 Nobel Prize for discovering that doping conjugated polymers makes them conductive like metals!
  </div>
@@ -7135,7 +7135,7 @@ function MetalAlloyExplorer() {
  }
 
  return (
- <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: "1.5px solid #7c3aed33" }}>
+ <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: "1.5px solid #32778533" }}>
  <div style={{ fontSize: 13, fontWeight: 500, color: T.accent, marginBottom: 10, textAlign: "center" }}>Interactive Metal Alloy Explorer</div>
  <div style={{ fontSize: 12, color: T.muted, marginBottom: 10, lineHeight: 1.6 }}>
  Pick a base metal and alloying element to see how alloys form. Adjust the percentage and watch the crystal lattice change!
@@ -7231,7 +7231,7 @@ function SemiconductorDopingTool() {
  const hosts = ["Si", "GaAs", "CdTe"];
  const dopant = dopantType === "n-type" ? "P" : "B";
  const carrierLabel = dopantType === "n-type" ? "Electron (e⁻)" : "Hole (h⁺)";
- const carrierColor = dopantType === "n-type" ? "#7c3aed" : "#7c3aed";
+ const carrierColor = dopantType === "n-type" ? "#327785" : "#327785";
  const fermiShift = dopantType === "n-type" ? "Shifts UP toward conduction band" : "Shifts DOWN toward valence band";
 
  const concDisplay = <span>10<sup>{concentration}</sup> cm<sup>-3</sup></span>;
@@ -7260,7 +7260,7 @@ function SemiconductorDopingTool() {
  }));
 
  return (
- <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: "1.5px solid #7c3aed33" }}>
+ <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: "1.5px solid #32778533" }}>
  <div style={{ fontSize: 13, fontWeight: 500, color: T.accent, marginBottom: 10, textAlign: "center" }}>Interactive Semiconductor Doping Simulator</div>
  <div style={{ fontSize: 12, color: T.muted, marginBottom: 10, lineHeight: 1.6, textAlign: "center" }}>
  Select a host semiconductor and dopant type to see how doping creates free carriers.
@@ -7274,9 +7274,9 @@ function SemiconductorDopingTool() {
  {hosts.map(h => (
  <button key={h} onClick={() => setHost(h)} style={{
  padding: "5px 10px", borderRadius: 6, fontSize: 12, fontWeight: 500,
- background: h === host ? "#7c3aed" + "22" : T.surface,
- border: `1.5px solid ${h === host ? "#7c3aed" : T.border}`,
- color: h === host ? "#7c3aed" : T.muted, cursor: "pointer",
+ background: h === host ? "#327785" + "22" : T.surface,
+ border: `1.5px solid ${h === host ? "#327785" : T.border}`,
+ color: h === host ? "#327785" : T.muted, cursor: "pointer",
  }}>{h}</button>
  ))}
  </div>
@@ -7300,7 +7300,7 @@ function SemiconductorDopingTool() {
  <div style={{ marginBottom: 12, maxWidth: 374, margin: "0 auto 12px auto" }}>
  <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 4 }}>Dopant Concentration: {concDisplay}</div>
  <input type="range" min={14} max={18} step={0.5} value={concentration} onChange={e => setConcentration(Number(e.target.value))}
- style={{ width: "100%", accentColor: "#7c3aed" }} />
+ style={{ width: "100%", accentColor: "#327785" }} />
  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: T.muted }}>
  <span>10<sup>14</sup></span><span>10<sup>18</sup></span>
  </div>
@@ -7314,7 +7314,7 @@ function SemiconductorDopingTool() {
  const x = offset + col * spacing;
  const y = offset + row * spacing;
  const isDopant = dopantPositions.some(d => d.row === row && d.col === col);
- const atomColor = isDopant ? carrierColor : "#6b7280";
+ const atomColor = isDopant ? carrierColor : "var(--muted)";
  const atomLabel = isDopant ? dopant : (host === "Si" ? "Si" : host === "GaAs" ? ((row + col) % 2 === 0 ? "Ga" : "As") : ((row + col) % 2 === 0 ? "Cd" : "Te"));
  return (
  <g key={`${row}-${col}`}>
@@ -7373,10 +7373,10 @@ function InsulatorExplorer() {
  }, []);
 
  const materials = {
- SiO2: { label: "SiO₂", breakdownV: 30, gap: 9.0, color: "#7c3aed", dielectric: 30 },
- Diamond: { label: "Diamond", breakdownV: 20, gap: 5.5, color: "#7c3aed", dielectric: 20 },
- Al2O3: { label: "Al₂O₃", breakdownV: 17, gap: 8.8, color: "#7c3aed", dielectric: 17 },
- Glass: { label: "Glass", breakdownV: 12, gap: 7.0, color: "#7c3aed", dielectric: 12 },
+ SiO2: { label: "SiO₂", breakdownV: 30, gap: 9.0, color: "#327785", dielectric: 30 },
+ Diamond: { label: "Diamond", breakdownV: 20, gap: 5.5, color: "#327785", dielectric: 20 },
+ Al2O3: { label: "Al₂O₃", breakdownV: 17, gap: 8.8, color: "#327785", dielectric: 17 },
+ Glass: { label: "Glass", breakdownV: 12, gap: 7.0, color: "#327785", dielectric: 12 },
  };
 
  const mat = materials[material];
@@ -7390,7 +7390,7 @@ function InsulatorExplorer() {
 
  return (
  <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: `1.5px solid ${mat.color}33` }}>
- <div style={{ fontSize: 13, fontWeight: 500, color: "#7c3aed", marginBottom: 10 }}>Interactive Insulator Breakdown Simulator</div>
+ <div style={{ fontSize: 13, fontWeight: 500, color: "#327785", marginBottom: 10 }}>Interactive Insulator Breakdown Simulator</div>
  <div style={{ fontSize: 12, color: T.muted, marginBottom: 10, lineHeight: 1.6 }}>
  Pick an insulator and increase the voltage. Watch what happens when the electric field exceeds the dielectric strength!
  </div>
@@ -7409,16 +7409,16 @@ function InsulatorExplorer() {
 
  {/* Voltage slider */}
  <div style={{ marginBottom: 12 }}>
- <div style={{ fontSize: 12, fontWeight: 500, color: isBreakdown ? "#7c3aed" : T.ink, marginBottom: 4 }}>
+ <div style={{ fontSize: 12, fontWeight: 500, color: isBreakdown ? "#327785" : T.ink, marginBottom: 4 }}>
  Applied Voltage: {voltage} MV/m {isBreakdown ? " — BREAKDOWN!" : ""}
  </div>
  <input type="range" min={0} max={Math.round(mat.breakdownV * 1.2)} value={voltage} onChange={e => setVoltage(Number(e.target.value))}
- style={{ width: "100%", accentColor: isBreakdown ? "#7c3aed" : mat.color }} />
+ style={{ width: "100%", accentColor: isBreakdown ? "#327785" : mat.color }} />
  </div>
 
  {/* Band diagram SVG */}
  <div style={{ display: "flex", justifyContent: "center" }}>
- <svg viewBox="0 0 340 340" style={{ width: "100%", maxWidth: 374, background: T.surface, borderRadius: 8, border: `1px solid ${isBreakdown ? "#7c3aed" : T.border}`, marginBottom: 12 }}>
+ <svg viewBox="0 0 340 340" style={{ width: "100%", maxWidth: 374, background: T.surface, borderRadius: 8, border: `1px solid ${isBreakdown ? "#327785" : T.border}`, marginBottom: 12 }}>
  {/* Conduction band */}
  <rect x={bandL} y={Ec_y - 10} width={bandR - bandL} height={20} fill={mat.color + "22"} stroke={mat.color} strokeWidth={1.5} rx={4} />
  <text x={bandL - 5} y={Ec_y + 5} textAnchor="end" fill={mat.color} fontSize={12} fontFamily="monospace">CB</text>
@@ -7441,8 +7441,8 @@ function InsulatorExplorer() {
  const arrowLen = Math.min(voltageRatio * (Ev_y - Ec_y - 30), Ev_y - Ec_y - 30);
  return (
  <g key={i} opacity={0.4 + voltageRatio * 0.6}>
- <line x1={ax} y1={Ev_y - 15} x2={ax} y2={Ev_y - 15 - arrowLen} stroke="#7c3aed" strokeWidth={2} />
- <polygon points={`${ax},${Ev_y - 15 - arrowLen - 5} ${ax - 4},${Ev_y - 15 - arrowLen + 3} ${ax + 4},${Ev_y - 15 - arrowLen + 3}`} fill="#7c3aed" />
+ <line x1={ax} y1={Ev_y - 15} x2={ax} y2={Ev_y - 15 - arrowLen} stroke="#327785" strokeWidth={2} />
+ <polygon points={`${ax},${Ev_y - 15 - arrowLen - 5} ${ax - 4},${Ev_y - 15 - arrowLen + 3} ${ax + 4},${Ev_y - 15 - arrowLen + 3}`} fill="#327785" />
  </g>
  );
  })}
@@ -7451,13 +7451,13 @@ function InsulatorExplorer() {
  {isBreakdown && Array.from({ length: 12 }, (_, i) => {
  const ex = bandL + 20 + (i * 23) % (bandR - bandL - 40);
  const ey = Ec_y + 10 + ((frame * 3 + i * 17) % (Ev_y - Ec_y - 20));
- return <circle key={i} cx={ex} cy={ey} r={4} fill="#7c3aed" opacity={0.6 + 0.4 * Math.sin(frame * 0.1 + i)}>
+ return <circle key={i} cx={ex} cy={ey} r={4} fill="#327785" opacity={0.6 + 0.4 * Math.sin(frame * 0.1 + i)}>
  <animate attributeName="r" values="3;6;3" dur="0.5s" repeatCount="indefinite" />
  </circle>;
  })}
 
  {isBreakdown && (
- <text x={170} y={gapMid} textAnchor="middle" fill="#7c3aed" fontSize={18} fontWeight="500" fontFamily="monospace">
+ <text x={170} y={gapMid} textAnchor="middle" fill="#327785" fontSize={18} fontWeight="500" fontFamily="monospace">
  BREAKDOWN!
  </text>
  )}
@@ -7504,7 +7504,7 @@ function CeramicExplorer() {
  };
 
  const cer = ceramics[selected];
- const mainColor = "#7c3aed";
+ const mainColor = "#327785";
 
  // Radar chart
  const stats = [
@@ -7608,11 +7608,11 @@ function MaterialClassesSection() {
  }, []);
 
  const matTypes = [
- { id: "metal", label: "Metal", color: "#7c3aed", bandGap: 0, example: "Cu, Al, Fe", conductivity: "10⁶ – 10⁸ S/m" },
- { id: "semiconductor", label: "Semiconductor", color: "#7c3aed", bandGap: 0.5, example: "Si, GaAs, CdTe", conductivity: "10⁻⁶ – 10⁴ S/m" },
- { id: "insulator", label: "Insulator", color: "#7c3aed", bandGap: 5.0, example: "SiO₂, Diamond, Al₂O₃", conductivity: "< 10⁻¹⁰ S/m" },
- { id: "polymer", label: "Polymer", color: "#7c3aed", bandGap: 3.5, example: "PE, PMMA, Kevlar", conductivity: "10⁻¹⁴ – 10⁻¹⁰ S/m" },
- { id: "ceramic", label: "Ceramic", color: "#7c3aed", bandGap: 4.0, example: "Al₂O₃, ZrO₂, SiC", conductivity: "10⁻¹² – 10² S/m" },
+ { id: "metal", label: "Metal", color: "#327785", bandGap: 0, example: "Cu, Al, Fe", conductivity: "10⁶ – 10⁸ S/m" },
+ { id: "semiconductor", label: "Semiconductor", color: "#327785", bandGap: 0.5, example: "Si, GaAs, CdTe", conductivity: "10⁻⁶ – 10⁴ S/m" },
+ { id: "insulator", label: "Insulator", color: "#327785", bandGap: 5.0, example: "SiO₂, Diamond, Al₂O₃", conductivity: "< 10⁻¹⁰ S/m" },
+ { id: "polymer", label: "Polymer", color: "#327785", bandGap: 3.5, example: "PE, PMMA, Kevlar", conductivity: "10⁻¹⁴ – 10⁻¹⁰ S/m" },
+ { id: "ceramic", label: "Ceramic", color: "#327785", bandGap: 4.0, example: "Al₂O₃, ZrO₂, SiC", conductivity: "10⁻¹² – 10² S/m" },
  ];
 
  const sel = matTypes.find(m => m.id === selected);
@@ -7863,8 +7863,8 @@ function MaterialClassesSection() {
  {/* ── DETAILS ── */}
  <div style={{ width: "100%", overflow: "hidden" }}>
  {/* Analogy for selected material */}
- <div style={{ background: "#7c3aed08", border: "1.5px solid #7c3aed33", borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
- <div style={{ fontSize: 12, fontWeight: 500, color: "#7c3aed", marginBottom: 4 }}>{sel.label} Analogy</div>
+ <div style={{ background: "#32778508", border: "1.5px solid #32778533", borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
+ <div style={{ fontSize: 12, fontWeight: 500, color: "#327785", marginBottom: 4 }}>{sel.label} Analogy</div>
  <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>{cur.analogy}</div>
  </div>
 
@@ -8122,11 +8122,11 @@ function MaterialClassesSection() {
 function Synthesis3DView({ selected, frame }) {
  const t = frame * 0.03;
  const cfg = {
- graphene: { color: "#6b7280", temp: "1050°C", sub: "Cu foil", desc: "CH₄ → C honeycomb on Cu" },
- MoS2: { color: "#7c3aed", temp: "700°C", sub: "SiO₂/Si", desc: "MoO₃ + S → MoS₂ triangles" },
- hBN: { color: "#7c3aed", temp: "1000°C", sub: "Cu/Ni foil", desc: "Borazine → hBN honeycomb" },
- WS2: { color: "#7c3aed", temp: "800°C", sub: "SiO₂/Si", desc: "WO₃ + S → WS₂ monolayer" },
- blackP: { color: "#7c3aed", temp: "200°C / 1 GPa", sub: "Anvil press", desc: "Red P → Black P layers" },
+ graphene: { color: "var(--muted)", temp: "1050°C", sub: "Cu foil", desc: "CH₄ → C honeycomb on Cu" },
+ MoS2: { color: "#327785", temp: "700°C", sub: "SiO₂/Si", desc: "MoO₃ + S → MoS₂ triangles" },
+ hBN: { color: "#327785", temp: "1000°C", sub: "Cu/Ni foil", desc: "Borazine → hBN honeycomb" },
+ WS2: { color: "#327785", temp: "800°C", sub: "SiO₂/Si", desc: "WO₃ + S → WS₂ monolayer" },
+ blackP: { color: "#327785", temp: "200°C / 1 GPa", sub: "Anvil press", desc: "Red P → Black P layers" },
  }[selected];
 
  const W = 240, H = 200;
@@ -8160,8 +8160,8 @@ function Synthesis3DView({ selected, frame }) {
 
  return (
  <div>
- <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", background: `linear-gradient(180deg, #0f1117 0%, #1a1d2e 100%)`, borderRadius: 8, display: "block", border: `1.5px solid ${cfg.color}33` }}>
- <text x={W / 2} y={14} textAnchor="middle" fontSize={9} fill="#7c3aed" fontWeight="500" fontFamily="monospace">{cfg.temp}</text>
+ <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", background: `linear-gradient(180deg, #0f2428 0%, #0f2428 100%)`, borderRadius: 8, display: "block", border: `1.5px solid ${cfg.color}33` }}>
+ <text x={W / 2} y={14} textAnchor="middle" fontSize={9} fill="#327785" fontWeight="500" fontFamily="monospace">{cfg.temp}</text>
 
  {/* Gas precursors */}
  {gas.map((g, i) => (
@@ -8172,8 +8172,8 @@ function Synthesis3DView({ selected, frame }) {
  ))}
 
  {/* Substrate base line */}
- <rect x={20} y={cy + 50} width={W - 40} height={18} rx={3} fill="#7c3aed11" stroke="#7c3aed33" strokeWidth={0.5} />
- <text x={W / 2} y={cy + 63} textAnchor="middle" fontSize={8} fill="#7c3aed" fontFamily="monospace">{cfg.sub}</text>
+ <rect x={20} y={cy + 50} width={W - 40} height={18} rx={3} fill="#32778511" stroke="#32778533" strokeWidth={0.5} />
+ <text x={W / 2} y={cy + 63} textAnchor="middle" fontSize={8} fill="#327785" fontFamily="monospace">{cfg.sub}</text>
 
  {/* Honeycomb lattice growing outward */}
  {hexAtoms.map((atom, i) => {
@@ -8199,7 +8199,7 @@ function Synthesis3DView({ selected, frame }) {
  <circle cx={cx} cy={cy} r={growRadius} fill="none" stroke={cfg.color} strokeWidth={0.8} opacity={0.2} strokeDasharray="3,3" />
 
  {/* Label */}
- <text x={W / 2} y={H - 6} textAnchor="middle" fontSize={8} fill="#9ca3b4" fontFamily="monospace">{cfg.desc}</text>
+ <text x={W / 2} y={H - 6} textAnchor="middle" fontSize={8} fill="#79b2bd" fontFamily="monospace">{cfg.desc}</text>
  </svg>
  </div>
  );
@@ -8219,8 +8219,8 @@ function TwoDMaterialsSection() {
  const materials2D = {
  graphene: {
  label: "Graphene", formula: "C", year: "2004 (isolated by Geim & Novoselov)",
- bandGap: 0, gapType: "Zero (semimetal)", color: "#6b7280",
- atomColors: { C: "#6b7280" },
+ bandGap: 0, gapType: "Zero (semimetal)", color: "var(--muted)",
+ atomColors: { C: "var(--muted)" },
  properties: ["Highest known electrical conductivity", "Strongest material ever measured (130 GPa)", "Extremely high thermal conductivity (~5000 W/mK)", "Optically transparent (97.7%)"],
  applications: "Flexible electronics, sensors, composites, batteries",
  synthesis: "Mechanical exfoliation, CVD on Cu foil, epitaxial growth on SiC",
@@ -8235,8 +8235,8 @@ function TwoDMaterialsSection() {
  },
  MoS2: {
  label: "MoS₂", formula: "MoS₂", year: "2011 (monolayer transistor demonstrated)",
- bandGap: 1.8, gapType: "Direct (monolayer)", color: "#7c3aed",
- atomColors: { Mo: "#7c3aed", S: "#7c3aed" },
+ bandGap: 1.8, gapType: "Direct (monolayer)", color: "#327785",
+ atomColors: { Mo: "#327785", S: "#327785" },
  properties: ["Direct band gap in monolayer (1.8 eV)", "Strong photoluminescence", "High on/off ratio in transistors", "Valley polarization for valleytronics"],
  applications: "Photodetectors, transistors, catalysis (HER), flexible optoelectronics",
  synthesis: "Mechanical exfoliation, CVD, liquid-phase exfoliation",
@@ -8251,8 +8251,8 @@ function TwoDMaterialsSection() {
  },
  hBN: {
  label: "hBN", formula: "BN", year: "2004 (2D form studied alongside graphene)",
- bandGap: 6.0, gapType: "Indirect", color: "#7c3aed",
- atomColors: { B: "#7c3aed", N: "#7c3aed" },
+ bandGap: 6.0, gapType: "Indirect", color: "#327785",
+ atomColors: { B: "#327785", N: "#327785" },
  properties: ["Ultrawide band gap insulator (6 eV)", "Atomically flat surface — ideal substrate", "Chemically inert and thermally stable", "Deep UV emitter"],
  applications: "Substrate/encapsulant for 2D devices, deep UV LEDs, tunneling barriers",
  synthesis: "CVD, mechanical exfoliation, high-pressure synthesis",
@@ -8267,8 +8267,8 @@ function TwoDMaterialsSection() {
  },
  WS2: {
  label: "WS₂", formula: "WS₂", year: "2012 (monolayer PL demonstrated)",
- bandGap: 2.1, gapType: "Direct (monolayer)", color: "#7c3aed",
- atomColors: { W: "#7c3aed", S: "#7c3aed" },
+ bandGap: 2.1, gapType: "Direct (monolayer)", color: "#327785",
+ atomColors: { W: "#327785", S: "#327785" },
  properties: ["Largest direct band gap among TMDs (2.1 eV)", "Strong spin-orbit coupling", "Excellent valley coherence", "High quantum yield PL"],
  applications: "LEDs, photodetectors, spintronic devices, sensors",
  synthesis: "CVD, mechanical exfoliation, MOCVD",
@@ -8283,8 +8283,8 @@ function TwoDMaterialsSection() {
  },
  blackP: {
  label: "Black Phosphorus", formula: "P", year: "2014 (FET demonstrated)",
- bandGap: 2.0, gapType: "Direct (tunable)", color: "#7c3aed",
- atomColors: { P: "#7c3aed" },
+ bandGap: 2.0, gapType: "Direct (tunable)", color: "#327785",
+ atomColors: { P: "#327785" },
  properties: ["Tunable band gap: 0.3 eV (bulk) to 2.0 eV (monolayer)", "High carrier mobility (~1000 cm²/Vs)", "Anisotropic electrical/optical properties", "Puckered structure gives unique mechanics"],
  applications: "IR photodetectors, flexible electronics, thermoelectrics",
  synthesis: "Mechanical exfoliation, CVD (challenging), liquid exfoliation",
@@ -8345,14 +8345,14 @@ function TwoDMaterialsSection() {
  atoms.push(
  <g key={`a-${i}`}>
  <circle cx={px} cy={py + 1} r={6} fill="#00000020" /> {/* shadow */}
- <circle cx={px} cy={py} r={6} fill="#9ca3af" stroke="#6b7280" strokeWidth={1} />
- <circle cx={px - 1.5} cy={py - 1.5} r={2} fill="#d1d5db" opacity={0.6} /> {/* highlight */}
+ <circle cx={px} cy={py} r={6} fill="var(--muted)" stroke="var(--muted)" strokeWidth={1} />
+ <circle cx={px - 1.5} cy={py - 1.5} r={2} fill="#d0dfe2" opacity={0.6} /> {/* highlight */}
  </g>
  );
  });
  } else if (selected === "MoS2" || selected === "WS2") {
- const mCol = selected === "MoS2" ? "#7c3aed" : "#7c3aed";
- const sCol = "#7c3aed";
+ const mCol = selected === "MoS2" ? "#327785" : "#327785";
+ const sCol = "#327785";
  const mLabel = selected === "MoS2" ? "Mo" : "W";
  // 3 layers: S top (z=12), Metal mid (z=0), S bottom (z=-12)
  [{ z: -12, col: sCol, label: "S", r: 5 }, { z: 0, col: mCol, label: mLabel, r: 6.5 }, { z: 12, col: sCol, label: "S", r: 5 }].forEach((layer, li) => {
@@ -8388,13 +8388,13 @@ function TwoDMaterialsSection() {
  if (Math.hypot(a.fx - b.fx, a.fy - b.fy) < hR * 1.9) {
  const p1 = iso3d(a.fx, a.fy, 0);
  const p2 = iso3d(b.fx, b.fy, 0);
- bonds.push(<line key={`b-${i}-${j}`} x1={p1.px} y1={p1.py} x2={p2.px} y2={p2.py} stroke="#7c3aed33" strokeWidth={1.5} />);
+ bonds.push(<line key={`b-${i}-${j}`} x1={p1.px} y1={p1.py} x2={p2.px} y2={p2.py} stroke="#32778533" strokeWidth={1.5} />);
  }
  });
  });
  positions.forEach((a, i) => {
  const isB = (a.q + a.r + 100) % 2 === 0;
- const col = isB ? "#7c3aed" : "#7c3aed";
+ const col = isB ? "#327785" : "#327785";
  const { px, py } = iso3d(a.fx, a.fy, 0);
  atoms.push(
  <g key={`a-${i}`}>
@@ -8422,7 +8422,7 @@ function TwoDMaterialsSection() {
  if (Math.hypot(a.fx - b.fx, a.fy - b.fy) < 22) {
  const p1 = iso3d(a.fx, a.fy, a.z);
  const p2 = iso3d(b.fx, b.fy, b.z);
- bonds.push(<line key={`b-${i}-${j}`} x1={p1.px} y1={p1.py} x2={p2.px} y2={p2.py} stroke="#7c3aed33" strokeWidth={1.5} />);
+ bonds.push(<line key={`b-${i}-${j}`} x1={p1.px} y1={p1.py} x2={p2.px} y2={p2.py} stroke="#32778533" strokeWidth={1.5} />);
  }
  });
  });
@@ -8431,7 +8431,7 @@ function TwoDMaterialsSection() {
  atoms.push(
  <g key={`a-${i}`}>
  <circle cx={px} cy={py + 1} r={6} fill="#00000018" />
- <circle cx={px} cy={py} r={6} fill="#7c3aedcc" stroke="#7c3aed" strokeWidth={0.8} />
+ <circle cx={px} cy={py} r={6} fill="#327785cc" stroke="#327785" strokeWidth={0.8} />
  <circle cx={px - 1.5} cy={py - 1.5} r={2} fill="#ffffff33" />
  </g>
  );
@@ -8571,7 +8571,7 @@ function TwoDMaterialsSection() {
  { prop: "Strength", vals: ["130 GPa", "23 GPa", "~30 GPa", "~22 GPa", "~18 GPa"] },
  { prop: "Key Use", vals: ["Electronics", "Transistors", "Substrate", "LEDs", "IR detectors"] },
  ].map((row, i) => {
- const colors = ["#6b7280", "#7c3aed", "#7c3aed", "#7c3aed", "#7c3aed"];
+ const colors = ["var(--muted)", "#327785", "#327785", "#327785", "#327785"];
  return (
  <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.surface : T.panel }}>
  <td style={{ padding: "5px 8px", fontWeight: 500, color: T.ink, fontSize: 12 }}>{row.prop}</td>
@@ -9723,8 +9723,8 @@ function KineticsSection() {
 
  {/* ── LE CHATELIER'S PRINCIPLE ── */}
  <div style={{ fontSize: 14, fontWeight: 500, color: T.eo_e, marginBottom: 8 }}>Le Chatelier{"'"}s Principle</div>
- <div style={{ background: "#7c3aed08", border: "1.5px solid #7c3aed33", borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
- <div style={{ fontSize: 12, fontWeight: 500, color: "#7c3aed", marginBottom: 4 }}>The Principle</div>
+ <div style={{ background: "#32778508", border: "1.5px solid #32778533", borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
+ <div style={{ fontSize: 12, fontWeight: 500, color: "#327785", marginBottom: 4 }}>The Principle</div>
  <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
  When a system at equilibrium is subjected to a change in concentration, temperature, or pressure,
  the system shifts to partially counteract the imposed change and establish a new equilibrium.
@@ -11333,7 +11333,7 @@ function DefectSection() {
  q: -1, label: "q = −1",
  nelect: "default + 1",
  filling: [2, 2, 2, 1],
- color: "#7c3aed",
+ color: "#327785",
  desc: "One extra electron. Three full, one half-filled dangling bond state.",
  te_dist: "2.78 Å (inward)",
  },
@@ -11389,7 +11389,7 @@ function DefectSection() {
  <text x={30} y={60} fill={T.eo_cond} fontSize={12} fontWeight="500">Conduction Band</text>
 
  {/* Gap label */}
- <text x={250} y={170} fill={T.eo_gap} fontSize={12} fontWeight="500">GAP</text>
+ <text x={250} y={170} fill={T.eo_gap} fontSize={12} fontWeight="500">Gap</text>
  <text x={250} y={184} fill={T.muted} fontSize={13}>2.26 eV</text>
 
  {/* Defect levels */}
@@ -11712,7 +11712,7 @@ function DefectThermodynamicsSection() {
  <div style={{ fontSize: 10, color: T.muted, marginTop: 4 }}>Drag the dot on the diagram to change Fermi level.</div>
  </div>
 
- <div style={{ background: "#7c3aed08", padding: 10, borderRadius: 6, border: "1px solid #7c3aed", fontSize: 11, lineHeight: 1.5 }}>
+ <div style={{ background: "#32778508", padding: 10, borderRadius: 6, border: "1px solid #327785", fontSize: 11, lineHeight: 1.5 }}>
  <strong>Key insight:</strong> Low formation energy → defect forms easily. Deep transition levels → defect traps carriers → bad for solar cells. Shallow levels → good dopant.
  </div>
  </div>
@@ -11915,7 +11915,7 @@ function PhononsSection() {
  </div>
  </div>
 
- <div style={{ background: "#7c3aed08", padding: 10, borderRadius: 6, border: "1px solid #7c3aed", fontSize: 11, lineHeight: 1.5 }}>
+ <div style={{ background: "#32778508", padding: 10, borderRadius: 6, border: "1px solid #327785", fontSize: 11, lineHeight: 1.5 }}>
  <strong>Key insight:</strong> Phonons determine thermal stability and thermal conductivity. Soft phonon modes can indicate structural instability.
  </div>
  </div>
@@ -11942,17 +11942,17 @@ function OpticalPropertiesSection() {
  const svgW = 340, svgH = 320;
 
  const eToColor = (e) => {
- if (e < 1.65) return "#7c3aed";
- if (e < 1.9) return "#7c3aed";
- if (e < 2.0) return "#7c3aed";
- if (e < 2.1) return "#7c3aed";
- if (e < 2.3) return "#7c3aed";
- if (e < 2.6) return "#7c3aed";
- if (e < 2.8) return "#7c3aed";
- if (e < 3.1) return "#7c3aed";
- return "#7c3aed";
+ if (e < 1.65) return "#327785";
+ if (e < 1.9) return "#327785";
+ if (e < 2.0) return "#327785";
+ if (e < 2.1) return "#327785";
+ if (e < 2.3) return "#327785";
+ if (e < 2.6) return "#327785";
+ if (e < 2.8) return "#327785";
+ if (e < 3.1) return "#327785";
+ return "#327785";
  };
- const photonColor = photonE < 1.65 ? "#7c3aed" : photonE > 3.1 ? "#7c3aed" : eToColor(photonE);
+ const photonColor = photonE < 1.65 ? "#327785" : photonE > 3.1 ? "#327785" : eToColor(photonE);
 
  const eToWavelength = (e) => Math.round(1240 / e);
 
@@ -12015,10 +12015,10 @@ function OpticalPropertiesSection() {
  Photon Absorption ({gapType} gap)
  </text>
 
- <rect x={bandLeft} y={25} width={bandRight - bandLeft} height={bandTop - 25} rx={4} fill="#7c3aed08" stroke={T.eo_cond} strokeWidth={1.5} />
+ <rect x={bandLeft} y={25} width={bandRight - bandLeft} height={bandTop - 25} rx={4} fill="#32778508" stroke={T.eo_cond} strokeWidth={1.5} />
  <text x={(bandLeft + bandRight) / 2} y={bandTop - 8} textAnchor="middle" fontSize={12} fill={T.eo_cond}>Conduction Band</text>
 
- <rect x={bandLeft} y={vbTop} width={bandRight - bandLeft} height={35} rx={4} fill="#7c3aed08" stroke={T.eo_valence} strokeWidth={1.5} />
+ <rect x={bandLeft} y={vbTop} width={bandRight - bandLeft} height={35} rx={4} fill="#32778508" stroke={T.eo_valence} strokeWidth={1.5} />
  <text x={(bandLeft + bandRight) / 2} y={vbTop + 22} textAnchor="middle" fontSize={12} fill={T.eo_valence}>Valence Band</text>
 
  <text x={(bandLeft + bandRight) / 2} y={(cbBottom + vbTop) / 2 + 4} textAnchor="middle" fontSize={12} fill={T.eo_gap}>
@@ -12111,7 +12111,7 @@ function OpticalPropertiesSection() {
  </div>
  </div>
 
- <div style={{ background: "#7c3aed08", padding: 10, borderRadius: 6, border: "1px solid #7c3aed", fontSize: 11, lineHeight: 1.5 }}>
+ <div style={{ background: "#32778508", padding: 10, borderRadius: 6, border: "1px solid #327785", fontSize: 11, lineHeight: 1.5 }}>
  <strong>Key insight:</strong> This is why some materials are better solar absorbers than others. CdTe (direct, 1.5eV) absorbs sunlight in 1μm. Si (indirect, 1.1eV) needs 100μm.
  </div>
  </div>
@@ -12214,7 +12214,7 @@ function DielectricResponseSection() {
  {charges.map((ch, i) => (
  <g key={i}>
  <circle cx={ch.x} cy={ch.y} r={ch.r}
- fill={ch.isPositive ? "#7c3aed12" : "#7c3aed0a"} stroke={ch.isPositive ? T.eo_e : T.eo_hole} strokeWidth={1.5} />
+ fill={ch.isPositive ? "#32778512" : "#3277850a"} stroke={ch.isPositive ? T.eo_e : T.eo_hole} strokeWidth={1.5} />
  <text x={ch.x} y={ch.y + 4} textAnchor="middle" fontSize={ch.isPositive ? 14 : 12} fontWeight="500"
  fill={ch.isPositive ? T.eo_e : T.eo_hole}>
  {ch.isPositive ? "+" : "−"}
@@ -12302,7 +12302,7 @@ function DielectricResponseSection() {
  </div>
  </div>
 
- <div style={{ background: "#7c3aed08", padding: 10, borderRadius: 6, border: "1px solid #7c3aed", fontSize: 11, lineHeight: 1.5 }}>
+ <div style={{ background: "#32778508", padding: 10, borderRadius: 6, border: "1px solid #327785", fontSize: 11, lineHeight: 1.5 }}>
  <strong>Key insight:</strong> ChalcoDB computes dielectric constants to predict defect tolerance. Materials with high ε tend to have better defect tolerance.
  </div>
  </div>
@@ -12352,12 +12352,12 @@ function RecombinationSection() {
  return (
  <g key={mech} opacity={isActive ? 1 : 0.35}>
  <rect x={panelX} y={py} width={panelW} height={panelH} rx={6}
- fill={isActive ? "#7c3aed06" : T.surface} stroke={isActive ? colors[mech] : T.border} strokeWidth={isActive ? 2 : 1} />
+ fill={isActive ? "#32778506" : T.surface} stroke={isActive ? colors[mech] : T.border} strokeWidth={isActive ? 2 : 1} />
 
- <rect x={panelX + 10} y={cbY} width={panelW - 80} height={8} rx={2} fill="#7c3aed12" stroke={T.eo_cond} strokeWidth={0.8} />
+ <rect x={panelX + 10} y={cbY} width={panelW - 80} height={8} rx={2} fill="#32778512" stroke={T.eo_cond} strokeWidth={0.8} />
  <text x={panelX + panelW - 65} y={cbY + 7} fontSize={13} fill={T.eo_cond}>CB</text>
 
- <rect x={panelX + 10} y={vbY - 4} width={panelW - 80} height={8} rx={2} fill="#7c3aed0a" stroke={T.eo_valence} strokeWidth={0.8} />
+ <rect x={panelX + 10} y={vbY - 4} width={panelW - 80} height={8} rx={2} fill="#3277850a" stroke={T.eo_valence} strokeWidth={0.8} />
  <text x={panelX + panelW - 65} y={vbY + 3} fontSize={13} fill={T.eo_valence}>VB</text>
 
  <text x={panelX + panelW - 60} y={midY + 4} fontSize={13} fontWeight="500" fill={colors[mech]}>
@@ -12484,7 +12484,7 @@ function RecombinationSection() {
  </div>
  </div>
 
- <div style={{ background: "#7c3aed08", padding: 10, borderRadius: 6, border: "1px solid #7c3aed", fontSize: 11, lineHeight: 1.5 }}>
+ <div style={{ background: "#32778508", padding: 10, borderRadius: 6, border: "1px solid #327785", fontSize: 11, lineHeight: 1.5 }}>
  <strong>Key insight:</strong> This is why defect tolerance matters! Materials where defects create only shallow levels avoid SRH recombination.
  </div>
  </div>
@@ -12569,8 +12569,8 @@ function AtomToDeviceSection() {
 
  const drawBands = (cx, cy, active) => (
  <g opacity={active ? 1 : 0.4}>
- <rect x={cx - 18} y={cy + 5} width={36} height={10} rx={2} fill="#7c3aed0a" stroke={T.eo_valence} strokeWidth={1} />
- <rect x={cx - 18} y={cy - 18} width={36} height={10} rx={2} fill="#7c3aed12" stroke={T.eo_cond} strokeWidth={1} />
+ <rect x={cx - 18} y={cy + 5} width={36} height={10} rx={2} fill="#3277850a" stroke={T.eo_valence} strokeWidth={1} />
+ <rect x={cx - 18} y={cy - 18} width={36} height={10} rx={2} fill="#32778512" stroke={T.eo_cond} strokeWidth={1} />
  <text x={cx} y={cy + 2} textAnchor="middle" fontSize={12} fill={T.eo_gap}>gap</text>
  </g>
  );
@@ -12596,8 +12596,8 @@ function AtomToDeviceSection() {
 
  const drawSolarCell = (cx, cy, active) => (
  <g opacity={active ? 1 : 0.4}>
- <rect x={cx - 18} y={cy - 16} width={18} height={32} rx={2} fill="#7c3aed12" stroke={T.eo_cond} strokeWidth={1} />
- <rect x={cx} y={cy - 16} width={18} height={32} rx={2} fill="#7c3aed0a" stroke={T.eo_hole} strokeWidth={1} />
+ <rect x={cx - 18} y={cy - 16} width={18} height={32} rx={2} fill="#32778512" stroke={T.eo_cond} strokeWidth={1} />
+ <rect x={cx} y={cy - 16} width={18} height={32} rx={2} fill="#3277850a" stroke={T.eo_hole} strokeWidth={1} />
  <text x={cx - 9} y={cy + 3} textAnchor="middle" fontSize={13} fontWeight="500" fill={T.eo_cond}>n</text>
  <text x={cx + 9} y={cy + 3} textAnchor="middle" fontSize={13} fontWeight="500" fill={T.eo_hole}>p</text>
  <path d={`M${cx - 28},${cy - 8} Q${cx - 24},${cy - 14} ${cx - 20},${cy - 8}`} fill="none" stroke={T.eo_photon} strokeWidth={1.5} />
@@ -12634,7 +12634,7 @@ function AtomToDeviceSection() {
 
  {stages.map((s, i) => (
  <g key={i}>
- <circle cx={s.x} cy={iconY} r={26} fill={i <= activeStage ? "#7c3aed08" : T.surface}
+ <circle cx={s.x} cy={iconY} r={26} fill={i <= activeStage ? "#32778508" : T.surface}
  stroke={i <= activeStage ? s.color : T.border} strokeWidth={i === activeStage ? 2.5 : 1} />
  {drawFns[i](s.x, iconY, i <= activeStage)}
  <text x={s.x} y={iconY + 38} textAnchor="middle" fontSize={13}
@@ -12700,7 +12700,7 @@ function AtomToDeviceSection() {
  </div>
  </div>
 
- <div style={{ background: "#7c3aed08", padding: 10, borderRadius: 6, border: "1px solid #7c3aed", fontSize: 11, lineHeight: 1.5 }}>
+ <div style={{ background: "#32778508", padding: 10, borderRadius: 6, border: "1px solid #327785", fontSize: 11, lineHeight: 1.5 }}>
  <strong>Key insight:</strong> Understanding this full chain is what enables rational materials design for solar energy.
  </div>
 
@@ -12734,7 +12734,7 @@ function FAQAccordion({ title, color, isOpen, onClick, children }) {
  }}>
  <span style={{ fontSize: 14, color: isOpen ? color : T.muted, fontWeight: 500, transition: "transform 0.2s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}></span>
  <span style={{ fontSize: 13, fontWeight: 500, color: isOpen ? color : T.ink, flex: 1 }}>{title}</span>
- {isOpen && <span style={{ fontSize: 10, color, fontWeight: 500, padding: "2px 8px", background: color + "15", borderRadius: 6 }}>OPEN</span>}
+ {isOpen && <span style={{ fontSize: 10, color, fontWeight: 500, padding: "2px 8px", background: color + "15", borderRadius: 6 }}>Open</span>}
  </button>
  {isOpen && (
  <div style={{ padding: "12px 16px", borderTop: `1px solid ${color}20`, background: T.surface, fontSize: 12, lineHeight: 1.7 }}>

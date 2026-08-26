@@ -5,25 +5,25 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 // ═══════════════════════════════════════════════════════════════════════════
 
 const P = {
-  bg:      "#0c0f1a",
-  panel:   "#141825",
-  surface: "#1a1f30",
-  border:  "#2a3050",
-  ink:     "#e8ecf4",
-  muted:   "#7b8499",
-  dim:     "#3a4060",
+  bg:      "#0f2428",
+  panel:   "#0f2428",
+  surface: "#0f2428",
+  border:  "#18393f",
+  ink:     "#f0f5f6",
+  muted:   "#3f94a5",
+  dim:     "#1f4a53",
 
-  solar:   "#f59e0b",
-  crystal: "#38bdf8",
-  defect:  "#ef4444",
-  electron:"#60a5fa",
-  hole:    "#f97316",
-  dft:     "#818cf8",
-  mlff:    "#34d399",
-  heat:    "#fbbf24",
-  photon:  "#fde047",
-  ok:      "#4ade80",
-  warn:    "#f87171",
+  solar:   "#71adb9",
+  crystal: "#91bfc9",
+  defect:  "#388392",
+  electron:"#78b1bd",
+  hole:    "#5299a7",
+  dft:     "#62a5b2",
+  mlff:    "#96c2cb",
+  heat:    "#93c1ca",
+  photon:  "#bfd3d7",
+  ok:      "#a5cbd2",
+  warn:    "#539aa8",
 };
 
 // ── Scenes ──
@@ -382,12 +382,12 @@ export default function DefectMovieModule() {
     case "compare": {
       const titleT = ease(clamp01(t * 3));
       const cells = [
-        { name: "Perovskite/Si tandem", eff: 33.9, color: "#eab308" },
-        { name: "Crystalline Si (single)", eff: 27.9, color: "#3b82f6" },
-        { name: "Perovskite", eff: 26.1, color: "#ef4444" },
-        { name: "CIGS", eff: 23.6, color: "#22c55e" },
-        { name: "CdTe", eff: 22.5, color: "#f97316" },
-        { name: "CZTSSe", eff: 13.0, color: "#991b1b" },
+        { name: "Perovskite/Si tandem", eff: 33.9, color: "#80b6c1" },
+        { name: "Crystalline Si (single)", eff: 27.9, color: "#5094a2" },
+        { name: "Perovskite", eff: 26.1, color: "#388392" },
+        { name: "CIGS", eff: 23.6, color: "#7eb5bf" },
+        { name: "CdTe", eff: 22.5, color: "#5299a7" },
+        { name: "CZTSSe", eff: 13.0, color: "#214e57" },
       ];
       const maxEff = 40;
       const barX = 170, barMaxW = 310, barH = 30, barGap = 12;
@@ -781,11 +781,11 @@ export default function DefectMovieModule() {
             const cx = 185, cw = 235, cy0 = 70;
             const layers = [
               { h: 14, fill: P.ink + "12",     stroke: P.ink + "30",     label: "Glass substrate",       role: "Mechanical support",       lc: P.muted },
-              { h: 12, fill: "#8b5cf6" + "12", stroke: "#8b5cf6" + "30", label: "ITO / FTO",              role: "Transparent conductor",    lc: "#8b5cf6" },
-              { h: 12, fill: "#06b6d4" + "12", stroke: "#06b6d4" + "30", label: "ZnO buffer",             role: "High-R shunt prevention",  lc: "#06b6d4" },
+              { h: 12, fill: "#3c8e9f" + "12", stroke: "#3c8e9f" + "30", label: "ITO / FTO",              role: "Transparent conductor",    lc: "#3c8e9f" },
+              { h: 12, fill: "#7fb5c0" + "12", stroke: "#7fb5c0" + "30", label: "ZnO buffer",             role: "High-R shunt prevention",  lc: "#7fb5c0" },
               { h: 16, fill: P.electron + "12", stroke: P.electron + "30", label: "n-CdS window",          role: "n-type junction partner",  lc: P.electron },
               { h: 65, fill: P.solar + "10",   stroke: P.solar + "30",   label: "p-CdTe absorber",       role: "Photon absorption (1.5 eV)", lc: P.solar },
-              { h: 14, fill: "#22c55e" + "10", stroke: "#22c55e" + "30", label: "ZnTe:Cu back buffer",   role: "Ohmic contact / barrier",  lc: "#22c55e" },
+              { h: 14, fill: "#7eb5bf" + "10", stroke: "#7eb5bf" + "30", label: "ZnTe:Cu back buffer",   role: "Ohmic contact / barrier",  lc: "#7eb5bf" },
               { h: 12, fill: P.dim + "25",     stroke: P.dim + "50",     label: "Cu / Mo back contact",  role: "Current collection",       lc: P.dim },
             ];
             let yy = cy0;

@@ -3,30 +3,30 @@ import ChapterShell from "./chapter_shell.jsx";
 
 /* ─── Theme ─── */
 const T = {
-  bg: "#f0f2f5", panel: "#ffffff", surface: "#f7f8fa", border: "#d4d8e0",
-  ink: "#1a1e2e", muted: "#6b7280", dim: "#c0c6d0", gold: "#b8860b",
-  eo_e: "#2563eb", eo_hole: "#ea580c", eo_photon: "#ca8a04",
-  eo_valence: "#059669", eo_core: "#7c3aed", eo_gap: "#dc2626", eo_cond: "#0284c7",
+  bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
+  ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)", gold: "#3c8e9f",
+  eo_e: "#347a89", eo_hole: "#398797", eo_photon: "#5095a3",
+  eo_valence: "#3c8e9f", eo_core: "#327785", eo_gap: "#30717f", eo_cond: "#3b8d9d",
 };
 
 /* ─── Characterization colors ─── */
 const C = {
-  struct: "#0e7490",
-  surface: "#7c3aed",
-  spec: "#059669",
-  micro: "#2563eb",
-  adv: "#dc2626",
-  accent: "#d97706",
+  struct: "#337886",
+  surface: "#327785",
+  spec: "#3c8e9f",
+  micro: "#347a89",
+  adv: "#30717f",
+  accent: "#3d90a1",
 };
 
 /* ─── Helper Components ─── */
 function Card({ title, color, formula, children }) {
   return (
-    <div style={{ background: T.panel, border: `1.5px solid ${(color || T.border)}44`, borderLeft: `4px solid ${color || "#2563eb"}`, borderRadius: 10, padding: "16px 18px" }}>
+    <div style={{ background: T.panel, border: `1.5px solid ${(color || T.border)}44`, borderLeft: `4px solid ${color || "#347a89"}`, borderRadius: 10, padding: "16px 18px" }}>
       {(title || formula) && (
         <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 10, flexWrap: "wrap" }}>
-          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#2563eb", textTransform: "none", fontWeight: 500 }}>{title}</div>}
-          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || "#2563eb") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#2563eb")}33` }}>{formula}</div>}
+          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#347a89", textTransform: "none", fontWeight: 500 }}>{title}</div>}
+          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || "#347a89") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#347a89")}33` }}>{formula}</div>}
         </div>
       )}
       {children}
@@ -97,7 +97,7 @@ function XRDSection() {
   const [xrdPreset, setXrdPreset] = useState("Si");
 
   const xrdMaterials = useMemo(() => ({
-    Si: { label: "Silicon", color: "#2563eb", peaks: [
+    Si: { label: "Silicon", color: "#347a89", peaks: [
       { twoTheta: 28.44, hkl: "(111)", intensity: 100, d: 3.135 },
       { twoTheta: 47.30, hkl: "(220)", intensity: 55, d: 1.920 },
       { twoTheta: 56.12, hkl: "(311)", intensity: 30, d: 1.637 },
@@ -105,14 +105,14 @@ function XRDSection() {
       { twoTheta: 76.38, hkl: "(331)", intensity: 11, d: 1.246 },
       { twoTheta: 88.03, hkl: "(422)", intensity: 12, d: 1.109 },
     ]},
-    Cu: { label: "Copper", color: "#d97706", peaks: [
+    Cu: { label: "Copper", color: "#3d90a1", peaks: [
       { twoTheta: 43.30, hkl: "(111)", intensity: 100, d: 2.088 },
       { twoTheta: 50.43, hkl: "(200)", intensity: 46, d: 1.808 },
       { twoTheta: 74.13, hkl: "(220)", intensity: 20, d: 1.278 },
       { twoTheta: 89.93, hkl: "(311)", intensity: 17, d: 1.090 },
       { twoTheta: 95.14, hkl: "(222)", intensity: 5, d: 1.044 },
     ]},
-    NaCl: { label: "NaCl", color: "#059669", peaks: [
+    NaCl: { label: "NaCl", color: "#3c8e9f", peaks: [
       { twoTheta: 27.37, hkl: "(111)", intensity: 13, d: 3.258 },
       { twoTheta: 31.70, hkl: "(200)", intensity: 100, d: 2.821 },
       { twoTheta: 45.45, hkl: "(220)", intensity: 55, d: 1.994 },
@@ -121,7 +121,7 @@ function XRDSection() {
       { twoTheta: 66.23, hkl: "(400)", intensity: 12, d: 1.410 },
       { twoTheta: 75.30, hkl: "(420)", intensity: 8, d: 1.261 },
     ]},
-    CdTe: { label: "CdTe", color: "#dc2626", peaks: [
+    CdTe: { label: "CdTe", color: "#30717f", peaks: [
       { twoTheta: 23.76, hkl: "(111)", intensity: 100, d: 3.742 },
       { twoTheta: 39.31, hkl: "(220)", intensity: 60, d: 2.290 },
       { twoTheta: 46.43, hkl: "(311)", intensity: 30, d: 1.954 },
@@ -678,7 +678,7 @@ function EBSDSection() {
   }, []);
 
   const grainColors = useMemo(() => {
-    const cols = ["#e74c3c", "#3498db", "#2ecc71", "#9b59b6", "#e67e22", "#1abc9c", "#f39c12", "#e91e63", "#00bcd4"];
+    const cols = ["#378291", "#5ba0ae", "#89bbc5", "#398796", "#5197a5", "#76b0bc", "#6eabb8", "#3d91a1", "#87b9c4"];
     return cols;
   }, []);
 
@@ -769,9 +769,9 @@ function EBSDSection() {
           {/* IPF triangle legend */}
           <g transform="translate(340, 180)">
             <polygon points="0,0 50,0 25,-43" fill="none" stroke={T.ink} strokeWidth={1} />
-            <circle cx={0} cy={0} r={3} fill="#e74c3c" />
-            <circle cx={50} cy={0} r={3} fill="#3498db" />
-            <circle cx={25} cy={-43} r={3} fill="#2ecc71" />
+            <circle cx={0} cy={0} r={3} fill="#378291" />
+            <circle cx={50} cy={0} r={3} fill="#5ba0ae" />
+            <circle cx={25} cy={-43} r={3} fill="#89bbc5" />
             <text x={-3} y={12} fontSize={7} fill={T.muted}>[001]</text>
             <text x={43} y={12} fontSize={7} fill={T.muted}>[101]</text>
             <text x={18} y={-47} fontSize={7} fill={T.muted}>[111]</text>
@@ -1142,7 +1142,7 @@ function TEMDiffractionSection() {
 
           {/* Diffraction pattern - right */}
           <g transform="translate(250, 130)">
-            <circle cx={0} cy={0} r={95} fill="#000011" stroke={T.border} strokeWidth={1} />
+            <circle cx={0} cy={0} r={95} fill="#0f2428" stroke={T.border} strokeWidth={1} />
             {/* Reciprocal lattice spots */}
             {[-3, -2, -1, 0, 1, 2, 3].map(h =>
               [-3, -2, -1, 0, 1, 2, 3].map(k => {
@@ -1486,21 +1486,21 @@ function XPSSection() {
   const [showChemShift, setShowChemShift] = useState(false);
 
   const xpsElements = useMemo(() => ({
-    C: { be: 284.6, label: "C 1s", color: "#1a1e2e", peaks: [{ be: 284.6, label: "C 1s" }] },
-    O: { be: 531.0, label: "O 1s", color: "#dc2626", peaks: [{ be: 531.0, label: "O 1s" }] },
-    Si: { be: 99.3, label: "Si 2p", color: "#2563eb", peaks: [{ be: 99.3, label: "Si 2p" }, { be: 103.3, label: "SiO₂" }] },
-    Cu: { be: 932.7, label: "Cu 2p₃/₂", color: "#d97706", peaks: [{ be: 932.7, label: "Cu 2p₃/₂" }, { be: 952.5, label: "Cu 2p₁/₂" }] },
-    Zn: { be: 1021.8, label: "Zn 2p₃/₂", color: "#6b7280", peaks: [{ be: 1021.8, label: "Zn 2p₃/₂" }, { be: 1044.9, label: "Zn 2p₁/₂" }] },
-    Cd: { be: 405.0, label: "Cd 3d₅/₂", color: "#7c3aed", peaks: [{ be: 405.0, label: "Cd 3d₅/₂" }, { be: 411.7, label: "Cd 3d₃/₂" }] },
-    Te: { be: 572.9, label: "Te 3d₅/₂", color: "#059669", peaks: [{ be: 572.9, label: "Te 3d₅/₂" }, { be: 583.3, label: "Te 3d₃/₂" }] },
-    S: { be: 162.0, label: "S 2p", color: "#ca8a04", peaks: [{ be: 162.0, label: "S 2p" }] },
+    C: { be: 284.6, label: "C 1s", color: "var(--ink)", peaks: [{ be: 284.6, label: "C 1s" }] },
+    O: { be: 531.0, label: "O 1s", color: "#30717f", peaks: [{ be: 531.0, label: "O 1s" }] },
+    Si: { be: 99.3, label: "Si 2p", color: "#347a89", peaks: [{ be: 99.3, label: "Si 2p" }, { be: 103.3, label: "SiO₂" }] },
+    Cu: { be: 932.7, label: "Cu 2p₃/₂", color: "#3d90a1", peaks: [{ be: 932.7, label: "Cu 2p₃/₂" }, { be: 952.5, label: "Cu 2p₁/₂" }] },
+    Zn: { be: 1021.8, label: "Zn 2p₃/₂", color: "var(--muted)", peaks: [{ be: 1021.8, label: "Zn 2p₃/₂" }, { be: 1044.9, label: "Zn 2p₁/₂" }] },
+    Cd: { be: 405.0, label: "Cd 3d₅/₂", color: "#327785", peaks: [{ be: 405.0, label: "Cd 3d₅/₂" }, { be: 411.7, label: "Cd 3d₃/₂" }] },
+    Te: { be: 572.9, label: "Te 3d₅/₂", color: "#3c8e9f", peaks: [{ be: 572.9, label: "Te 3d₅/₂" }, { be: 583.3, label: "Te 3d₃/₂" }] },
+    S: { be: 162.0, label: "S 2p", color: "#5095a3", peaks: [{ be: 162.0, label: "S 2p" }] },
   }), []);
 
   const chemShiftPeaks = useMemo(() => [
-    { be: 284.6, label: "C-C", color: "#1a1e2e", desc: "sp³ carbon" },
-    { be: 286.5, label: "C-O", color: "#2563eb", desc: "alcohol/ether" },
-    { be: 288.0, label: "C=O", color: "#d97706", desc: "carbonyl" },
-    { be: 289.5, label: "O-C=O", color: "#dc2626", desc: "carboxyl" },
+    { be: 284.6, label: "C-C", color: "var(--ink)", desc: "sp³ carbon" },
+    { be: 286.5, label: "C-O", color: "#347a89", desc: "alcohol/ether" },
+    { be: 288.0, label: "C=O", color: "#3d90a1", desc: "carbonyl" },
+    { be: 289.5, label: "O-C=O", color: "#30717f", desc: "carboxyl" },
   ], []);
 
   useEffect(() => {
@@ -3237,10 +3237,10 @@ function XANESSection() {
   const [showOxComparison, setShowOxComparison] = useState(false);
 
   const xanesEdges = useMemo(() => ({
-    Cu_K: { label: "Cu K-edge", energy: 8979, color: "#d97706", R: 2.55, N: 4 },
-    Fe_K: { label: "Fe K-edge", energy: 7112, color: "#dc2626", R: 2.48, N: 6 },
-    Ti_K: { label: "Ti K-edge", energy: 4966, color: "#2563eb", R: 1.96, N: 6 },
-    Zn_K: { label: "Zn K-edge", energy: 9659, color: "#6b7280", R: 2.35, N: 4 },
+    Cu_K: { label: "Cu K-edge", energy: 8979, color: "#3d90a1", R: 2.55, N: 4 },
+    Fe_K: { label: "Fe K-edge", energy: 7112, color: "#30717f", R: 2.48, N: 6 },
+    Ti_K: { label: "Ti K-edge", energy: 4966, color: "#347a89", R: 1.96, N: 6 },
+    Zn_K: { label: "Zn K-edge", energy: 9659, color: "var(--muted)", R: 2.35, N: 4 },
   }), []);
 
   useEffect(() => {
@@ -3467,7 +3467,7 @@ function XANESSection() {
               else if (rel < 5) mu = 0.7 + 0.15 * Math.sin(rel * 1.0);
               else mu = 0.75 + 0.08 * Math.sin(rel * 0.3) * Math.exp(-rel * 0.05);
               return `${x},${150 - mu * 110}`;
-            }).join(" ")} fill="none" stroke="#2563eb" strokeWidth={1.8} />
+            }).join(" ")} fill="none" stroke="#347a89" strokeWidth={1.8} />
             {/* Fe3+ spectrum (shifted ~3 eV higher) */}
             <polyline points={Array.from({ length: 150 }, (_, i) => {
               const e = 7100 + i * 0.5;
@@ -3480,12 +3480,12 @@ function XANESSection() {
               else if (rel < 5) mu = 0.85 + 0.2 * Math.sin(rel * 1.2);
               else mu = 0.85 + 0.08 * Math.sin(rel * 0.3) * Math.exp(-rel * 0.05);
               return `${x},${150 - mu * 110}`;
-            }).join(" ")} fill="none" stroke="#dc2626" strokeWidth={1.8} />
+            }).join(" ")} fill="none" stroke="#30717f" strokeWidth={1.8} />
             {/* Legend */}
-            <line x1={350} y1={40} x2={380} y2={40} stroke="#2563eb" strokeWidth={2} />
-            <text x={385} y={43} fontSize={8} fill="#2563eb">Fe²⁺ (7112 eV)</text>
-            <line x1={350} y1={55} x2={380} y2={55} stroke="#dc2626" strokeWidth={2} />
-            <text x={385} y={58} fontSize={8} fill="#dc2626">Fe³⁺ (7115 eV)</text>
+            <line x1={350} y1={40} x2={380} y2={40} stroke="#347a89" strokeWidth={2} />
+            <text x={385} y={43} fontSize={8} fill="#347a89">Fe²⁺ (7112 eV)</text>
+            <line x1={350} y1={55} x2={380} y2={55} stroke="#30717f" strokeWidth={2} />
+            <text x={385} y={58} fontSize={8} fill="#30717f">Fe³⁺ (7115 eV)</text>
             {/* Shift arrow */}
             <line x1={50 + (12 / 75) * 420} y1={130} x2={50 + (15 / 75) * 420} y2={130} stroke={C.accent} strokeWidth={2} markerEnd="url(#arrow)" />
             <text x={50 + (13.5 / 75) * 420} y={126} textAnchor="middle" fontSize={7} fill={C.accent}>~3 eV shift</text>
@@ -3754,14 +3754,14 @@ function RamanSection() {
   const [ramanPreset, setRamanPreset] = useState("Si");
 
   const ramanMaterials = useMemo(() => ({
-    Si: { label: "Silicon", color: "#2563eb", peaks: [{ shift: 520, label: "Si-Si", intensity: 100 }] },
-    Diamond: { label: "Diamond", color: "#6b7280", peaks: [{ shift: 1332, label: "sp³ C", intensity: 100 }] },
-    Graphene: { label: "Graphene", color: "#059669", peaks: [
+    Si: { label: "Silicon", color: "#347a89", peaks: [{ shift: 520, label: "Si-Si", intensity: 100 }] },
+    Diamond: { label: "Diamond", color: "var(--muted)", peaks: [{ shift: 1332, label: "sp³ C", intensity: 100 }] },
+    Graphene: { label: "Graphene", color: "#3c8e9f", peaks: [
       { shift: 1350, label: "D", intensity: 10 },
       { shift: 1580, label: "G", intensity: 70 },
       { shift: 2680, label: "2D", intensity: 100 },
     ]},
-    CdS: { label: "CdS", color: "#d97706", peaks: [
+    CdS: { label: "CdS", color: "#3d90a1", peaks: [
       { shift: 300, label: "1LO", intensity: 100 },
       { shift: 600, label: "2LO", intensity: 35 },
       { shift: 900, label: "3LO", intensity: 10 },
@@ -3824,7 +3824,7 @@ function RamanSection() {
             {/* Stokes */}
             <g transform="translate(75, 0)">
               <line x1={0} y1={200} x2={0} y2={60} stroke={C.accent} strokeWidth={1.5} />
-              <line x1={0} y1={60} x2={0} y2={175} stroke="#dc2626" strokeWidth={1.5} strokeDasharray="4,2" />
+              <line x1={0} y1={60} x2={0} y2={175} stroke="#30717f" strokeWidth={1.5} strokeDasharray="4,2" />
               <circle cx={0} cy={60 + Math.min(115, (animFrame % 40) * 3.5)} r={3} fill={C.accent} opacity={0.6} />
               <text x={0} y={215} textAnchor="middle" fontSize={7} fill={C.accent}>Stokes</text>
               <text x={0} y={225} textAnchor="middle" fontSize={6} fill={T.muted}>(-ΔE)</text>
@@ -3832,10 +3832,10 @@ function RamanSection() {
 
             {/* Anti-Stokes */}
             <g transform="translate(120, 0)">
-              <line x1={0} y1={175} x2={0} y2={60} stroke="#2563eb" strokeWidth={1.5} />
-              <line x1={0} y1={60} x2={0} y2={200} stroke="#059669" strokeWidth={1.5} strokeDasharray="4,2" />
-              <circle cx={0} cy={Math.max(60, 175 - (animFrame % 40) * 3.5)} r={3} fill="#2563eb" opacity={0.6} />
-              <text x={0} y={215} textAnchor="middle" fontSize={7} fill="#2563eb">Anti-Stokes</text>
+              <line x1={0} y1={175} x2={0} y2={60} stroke="#347a89" strokeWidth={1.5} />
+              <line x1={0} y1={60} x2={0} y2={200} stroke="#3c8e9f" strokeWidth={1.5} strokeDasharray="4,2" />
+              <circle cx={0} cy={Math.max(60, 175 - (animFrame % 40) * 3.5)} r={3} fill="#347a89" opacity={0.6} />
+              <text x={0} y={215} textAnchor="middle" fontSize={7} fill="#347a89">Anti-Stokes</text>
               <text x={0} y={225} textAnchor="middle" fontSize={6} fill={T.muted}>(+ΔE)</text>
             </g>
           </g>
@@ -3873,13 +3873,13 @@ function RamanSection() {
               return (
                 <g key={`as${i}`}>
                   <path d={`M${x - 3} 105 Q${x} ${105 - h} ${x + 3} 105`}
-                    fill={"#2563eb22"} stroke={"#2563eb"} strokeWidth={0.8} />
+                    fill={"#347a8922"} stroke={"#347a89"} strokeWidth={0.8} />
                 </g>
               );
             })}
 
             <text x={130} y={100} fontSize={6} fill={C.accent}>Stokes</text>
-            <text x={45} y={100} fontSize={6} fill={"#2563eb"}>Anti-Stokes</text>
+            <text x={45} y={100} fontSize={6} fill={"#347a89"}>Anti-Stokes</text>
           </g>
 
           {/* Molecule vibration */}
@@ -4951,10 +4951,10 @@ function UVVisSection() {
         </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
           {[
-            { id: "CdTe", label: "CdTe", eg: 1.5, direct: true, color: "#dc2626" },
-            { id: "Si", label: "Si", eg: 1.1, direct: false, color: "#2563eb" },
-            { id: "ZnO", label: "ZnO", eg: 3.3, direct: true, color: "#059669" },
-            { id: "TiO2", label: "TiO₂", eg: 3.2, direct: false, color: "#7c3aed" },
+            { id: "CdTe", label: "CdTe", eg: 1.5, direct: true, color: "#30717f" },
+            { id: "Si", label: "Si", eg: 1.1, direct: false, color: "#347a89" },
+            { id: "ZnO", label: "ZnO", eg: 3.3, direct: true, color: "#3c8e9f" },
+            { id: "TiO2", label: "TiO₂", eg: 3.2, direct: false, color: "#327785" },
           ].map(m => (
             <button key={m.id} onClick={() => { setUvPreset(m.id); setBg(m.eg); setIsDirect(m.direct); setTaucLineX(null); }} style={{
               padding: "5px 10px", borderRadius: 6, fontSize: 10, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
@@ -6197,10 +6197,10 @@ function AFMSection() {
                     fill={C.micro + "44"} stroke={C.micro} strokeWidth={1} />
 
                   {/* Laser beam */}
-                  <line x1={140} y1={20} x2={90} y2={55 + osc * 0.3} stroke="#dc2626" strokeWidth={1} />
-                  <line x1={90} y1={55 + osc * 0.3} x2={160} y2={55 + osc * 0.3 - 20} stroke="#dc2626" strokeWidth={1} strokeDasharray="3,3" />
-                  <circle cx={140} cy={20} r={5} fill="#dc262244" stroke="#dc2626" strokeWidth={0.8} />
-                  <text x={148} y={18} fontSize={7} fill="#dc2626">laser</text>
+                  <line x1={140} y1={20} x2={90} y2={55 + osc * 0.3} stroke="#30717f" strokeWidth={1} />
+                  <line x1={90} y1={55 + osc * 0.3} x2={160} y2={55 + osc * 0.3 - 20} stroke="#30717f" strokeWidth={1} strokeDasharray="3,3" />
+                  <circle cx={140} cy={20} r={5} fill="#30717e44" stroke="#30717f" strokeWidth={0.8} />
+                  <text x={148} y={18} fontSize={7} fill="#30717f">laser</text>
                   {/* Detector */}
                   <rect x={155} y={30 + osc * 0.3} width={15} height={15} fill={C.accent + "22"} stroke={C.accent} strokeWidth={0.8} />
                   <text x={162} y={55} fontSize={6} fill={C.accent}>PD</text>

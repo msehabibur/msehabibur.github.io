@@ -5,22 +5,22 @@ import { useState, useEffect, useRef, useCallback } from "react";
 // ═══════════════════════════════════════════════════════════════════════════
 
 const P = {
-  bg:      "#0c0f1a",
-  panel:   "#141825",
-  surface: "#1a1f30",
-  border:  "#2a3050",
-  ink:     "#e8ecf4",
-  muted:   "#7b8499",
-  dim:     "#3a4060",
-  rag:     "#38bdf8",
-  agent:   "#818cf8",
-  llm:     "#34d399",
-  data:    "#f59e0b",
-  vector:  "#f472b6",
-  ok:      "#4ade80",
-  warn:    "#f87171",
-  node:    "#2dd4bf",
-  chunk:   "#a78bfa",
+  bg:      "#0f2428",
+  panel:   "#0f2428",
+  surface: "#0f2428",
+  border:  "#18393f",
+  ink:     "#f0f5f6",
+  muted:   "#3f94a5",
+  dim:     "#1f4a53",
+  rag:     "#91bfc9",
+  agent:   "#62a5b2",
+  llm:     "#96c2cb",
+  data:    "#71adb9",
+  vector:  "#84b8c2",
+  ok:      "#a5cbd2",
+  warn:    "#539aa8",
+  node:    "#9bc5ce",
+  chunk:   "#77b1bc",
 };
 
 const SCENES = [
@@ -906,7 +906,7 @@ export default function LLMMovieModule() {
       const LH = 19;
       const lc = (ln) => {
         if (!ln || ln.trim()==="") return P.muted;
-        if (ln.trimStart().startsWith("#")) return "#5a6882";
+        if (ln.trimStart().startsWith("#")) return "#317482";
         if (ln.startsWith("from ")||ln.startsWith("import ")) return P.chunk;
         return P.ink;
       };

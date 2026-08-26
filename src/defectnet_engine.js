@@ -31,7 +31,7 @@ function matVec(W, x, bias) {
 export const STRUCTURES = [
   {
     id: "si", name: "Silicon (Diamond Cubic)", formula: "Si₆₄",
-    sg: "Fd-3m (#227)", a: 5.431, supercell: [2, 2, 2], color: "#38bdf8",
+    sg: "Fd-3m (#227)", a: 5.431, supercell: [2, 2, 2], color: "#91bfc9",
     charge: 0, theory: "PBE", refEnergy: -347.20,
     desc: "Prototypical semiconductor. Diamond structure with tetrahedral bonding. Si–Si bond = 2.352 Å.",
     basis: [
@@ -43,7 +43,7 @@ export const STRUCTURES = [
   },
   {
     id: "gaas", name: "GaAs (Zincblende)", formula: "Ga₃₂As₃₂",
-    sg: "F-43m (#216)", a: 5.653, supercell: [2, 2, 2], color: "#34d399",
+    sg: "F-43m (#216)", a: 5.653, supercell: [2, 2, 2], color: "#96c2cb",
     charge: 0, theory: "PBE", refEnergy: -289.60,
     desc: "III-V semiconductor. Zincblende = diamond but alternating Ga/As. Ga–As bond = 2.448 Å.",
     basis: [
@@ -55,7 +55,7 @@ export const STRUCTURES = [
   },
   {
     id: "mgo", name: "MgO (Rocksalt)", formula: "Mg₃₂O₃₂",
-    sg: "Fm-3m (#225)", a: 4.212, supercell: [2, 2, 2], color: "#fbbf24",
+    sg: "Fm-3m (#225)", a: 4.212, supercell: [2, 2, 2], color: "#93c1ca",
     charge: 0, theory: "HSE06", refEnergy: -571.70,
     desc: "Ionic insulator. Rocksalt structure (like NaCl). Mg–O bond = 2.106 Å, octahedral coordination.",
     basis: [
@@ -67,7 +67,7 @@ export const STRUCTURES = [
   },
   {
     id: "srtio3", name: "SrTiO₃ (Perovskite)", formula: "Sr₂₇Ti₂₇O₈₁",
-    sg: "Pm-3m (#221)", a: 3.905, supercell: [3, 3, 3], color: "#a78bfa",
+    sg: "Pm-3m (#221)", a: 3.905, supercell: [3, 3, 3], color: "#77b1bc",
     charge: 0, theory: "PBE", refEnergy: -1055.70,
     desc: "Perovskite oxide. TiO₆ octahedra corner-sharing. Ti–O = 1.953 Å, Sr 12-fold coordinated.",
     basis: [

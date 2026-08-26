@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
 const T = {
-  bg: "#f0f2f5", panel: "#ffffff", surface: "#f7f8fa", border: "#d4d8e0",
-  ink: "#1a1e2e", muted: "#6b7280", dim: "#c0c6d0",
-  df_primary: "#dc2626", df_vacancy: "#ef4444", df_interstitial: "#f97316",
-  df_schottky: "#7c3aed", df_frenkel: "#2563eb", df_disloc: "#0d9488", df_grain: "#ca8a04",
+  bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
+  ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)",
+  df_primary: "#30717f", df_vacancy: "#388392", df_interstitial: "#5299a7",
+  df_schottky: "#327785", df_frenkel: "#347a89", df_disloc: "#3c8f9f", df_grain: "#5095a3",
 };
 
 function Tag({ color, children }) {

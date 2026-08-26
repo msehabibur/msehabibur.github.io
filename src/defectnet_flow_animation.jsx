@@ -2,26 +2,26 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 // ─── THEME (light palette) ─────────────────────────────────────────
 const T = {
-  bg: "#f8f9fc",
+  bg: "#f7f9fa",
   card: "#ffffff",
-  border: "#d0d8e8",
-  accent: "#4a7fc1",
-  accentLight: "#e0ecfa",
-  highlight: "#f0a040",
-  highlightLight: "#fff4e0",
-  text: "#2c3e50",
-  textMid: "#5a6d80",
-  textLight: "#8899aa",
-  green: "#3dae73",
-  greenLight: "#e2f5eb",
-  purple: "#8b6fc0",
-  purpleLight: "#f0eaf8",
-  red: "#e06060",
-  redLight: "#fde8e8",
-  node: "#6ea8e0",
-  nodeLight: "#dbeaf8",
-  edge: "#b0c4de",
-  particle: "#f0a040",
+  border: "#d4e2e4",
+  accent: "#3b8c9c",
+  accentLight: "#eef4f5",
+  highlight: "#71adb9",
+  highlightLight: "#f2f6f6",
+  text: "#1d444c",
+  textMid: "#337886",
+  textLight: "#65a6b3",
+  green: "#62a4b2",
+  greenLight: "#f0f4f5",
+  purple: "#3d91a2",
+  purpleLight: "#f7fafa",
+  red: "#3a8999",
+  redLight: "#cedee1",
+  node: "#7ab2bd",
+  nodeLight: "#ebf1f3",
+  edge: "#accfd6",
+  particle: "#71adb9",
 };
 
 // ─── PIPELINE STAGES ───────────────────────────────────────────────
@@ -70,14 +70,14 @@ const STAGES = [
 
 // ─── CRYSTAL LATTICE DATA ──────────────────────────────────────────
 const LATTICE_ATOMS = [
-  { x: 40, y: 30, el: "Cd", color: "#6ea8e0" },
-  { x: 100, y: 30, el: "Te", color: "#e8a060" },
-  { x: 160, y: 30, el: "Cd", color: "#6ea8e0" },
-  { x: 70, y: 70, el: "Te", color: "#e8a060" },
-  { x: 130, y: 70, el: "Cd", color: "#6ea8e0" },
-  { x: 40, y: 110, el: "Cd", color: "#6ea8e0" },
-  { x: 100, y: 110, el: "V", color: "#cc4444" }, // vacancy
-  { x: 160, y: 110, el: "Te", color: "#e8a060" },
+  { x: 40, y: 30, el: "Cd", color: "#7ab2bd" },
+  { x: 100, y: 30, el: "Te", color: "#6facb8" },
+  { x: 160, y: 30, el: "Cd", color: "#7ab2bd" },
+  { x: 70, y: 70, el: "Te", color: "#6facb8" },
+  { x: 130, y: 70, el: "Cd", color: "#7ab2bd" },
+  { x: 40, y: 110, el: "Cd", color: "#7ab2bd" },
+  { x: 100, y: 110, el: "V", color: "#317481" }, // vacancy
+  { x: 160, y: 110, el: "Te", color: "#6facb8" },
 ];
 
 const LATTICE_BONDS = [
@@ -302,7 +302,7 @@ export default function DefectNetFlowAnimation() {
                 x={pos.x} y={pos.y}
                 width={stageW} height={stageH}
                 rx={10}
-                fill={isActive ? s.bgColor : "#fafbfd"}
+                fill={isActive ? s.bgColor : "#fafbfc"}
                 stroke={isActive ? s.color : T.border}
                 strokeWidth={isActive ? 2.5 : 1}
                 transform={`scale(${pulse})`}
@@ -659,19 +659,19 @@ export default function DefectNetFlowAnimation() {
                 title: "Energy E",
                 eq: "ε_i = MLP(h_i) → E = Σ_i ε_i",
                 desc: "Per-atom energies summed\nto total system energy",
-                x: 60, color: "#e06060",
+                x: 60, color: "#3a8999",
               },
               {
                 title: "Forces F",
                 eq: "F_i = −∂E / ∂r_i  (autograd)",
                 desc: "Analytical gradients via\nautomatic differentiation",
-                x: 350, color: "#d08040",
+                x: 350, color: "#3e93a4",
               },
               {
                 title: "Stress σ",
                 eq: "σ = (1/V) ∂E/∂ε |_{ε=0}",
                 desc: "Strain derivative for\nlattice optimization",
-                x: 640, color: "#c06080",
+                x: 640, color: "#5196a4",
               },
             ].map((out, i) => {
               const isHighlighted = Math.floor(t % 3) === i;

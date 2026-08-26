@@ -2,10 +2,10 @@ import { useState, useMemo } from "react";
 
 // ─── COLORS ────────────────────────────────────────────────────────────
 const C = {
-  bg: "#070b14", panel: "#0c1220", border: "#1a2744",
-  accent1: "#38bdf8", accent2: "#fbbf24", accent3: "#34d399",
-  accent4: "#f87171", accent5: "#a78bfa", accent6: "#fb923c",
-  text: "#e2e8f0", muted: "#64748b", dim: "#334155",
+  bg: "#0f2428", panel: "#0f2428", border: "#132d32",
+  accent1: "#91bfc9", accent2: "#93c1ca", accent3: "#96c2cb",
+  accent4: "#539aa8", accent5: "#77b1bc", accent6: "#6aa9b6",
+  text: "#eaf1f2", muted: "#368190", dim: "#1f4851",
 };
 
 // ─── MATH (every function used in the pipeline) ───────────────────────

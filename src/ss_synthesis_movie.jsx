@@ -7,23 +7,23 @@ import { useState, useEffect, useRef, useCallback } from "react";
 // ═══════════════════════════════════════════════════════════════════════════
 
 const P = {
-  bg:      "#0c0f1a",
-  panel:   "#141825",
-  surface: "#1a1f30",
-  border:  "#2a3050",
-  ink:     "#e8ecf4",
-  muted:   "#7b8499",
-  dim:     "#3a4060",
-  lit:     "#38bdf8",   // literature / pipeline
-  bert:    "#818cf8",   // MatBERT
-  gpt:     "#34d399",   // GPT-4o
-  data:    "#f59e0b",   // dataset
-  pure:    "#3b82f6",   // phase-pure
-  impure:  "#ef4444",   // phase-impure
-  ok:      "#4ade80",
-  warn:    "#f87171",
-  thermo:  "#a78bfa",   // thermodynamics
-  target:  "#2dd4bf",
+  bg:      "#0f2428",
+  panel:   "#0f2428",
+  surface: "#0f2428",
+  border:  "#18393f",
+  ink:     "#f0f5f6",
+  muted:   "#3f94a5",
+  dim:     "#1f4a53",
+  lit:     "#91bfc9",   // literature / pipeline
+  bert:    "#62a5b2",   // MatBERT
+  gpt:     "#96c2cb",   // GPT-4o
+  data:    "#71adb9",   // dataset
+  pure:    "#5094a2",   // phase-pure
+  impure:  "#388392",   // phase-impure
+  ok:      "#a5cbd2",
+  warn:    "#539aa8",
+  thermo:  "#77b1bc",   // thermodynamics
+  target:  "#9bc5ce",
 };
 
 const SCENES = [
