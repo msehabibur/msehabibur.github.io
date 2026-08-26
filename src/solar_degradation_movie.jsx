@@ -47,11 +47,11 @@ function SliderRow({ label, value, min, max, step, onChange, color, unit = "", f
   const fmt = format || (v => v.toFixed(step < 1 ? (step < 0.1 ? 2 : 1) : 0));
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-      <div style={{ fontSize: 11, color: T.ink, fontWeight: 600, minWidth: 110 }}>{label}</div>
+      <div style={{ fontSize: 11, color: T.ink, fontWeight: 500, minWidth: 110 }}>{label}</div>
       <input type="range" min={min} max={max} step={step} value={value}
         onChange={e => onChange(+e.target.value)}
         style={{ flex: 1, accentColor: color, height: 4 }} />
-      <div style={{ fontSize: 11, color, fontWeight: 700, minWidth: 55, textAlign: "right" }}>
+      <div style={{ fontSize: 11, color, fontWeight: 500, minWidth: 55, textAlign: "right" }}>
         {fmt(value)}{unit}
       </div>
     </div>
@@ -61,7 +61,7 @@ function SliderRow({ label, value, min, max, step, onChange, color, unit = "", f
 function EqnBlock({ equations, color }) {
   return (
     <div style={{ marginTop: 12, padding: "10px 14px", borderRadius: 8, background: (color || C.accent) + "08", border: `1px solid ${(color || C.accent)}22` }}>
-      <div style={{ fontSize: 10, fontWeight: 700, color: color || C.accent, marginBottom: 6, letterSpacing: 1 }}>KEY EQUATIONS</div>
+      <div style={{ fontSize: 10, fontWeight: 500, color: color || C.accent, marginBottom: 6, letterSpacing: 1 }}>KEY Equations</div>
       {equations.map((eq, i) => (
         <div key={i} style={{ fontSize: 11, fontFamily: "'IBM Plex Mono', monospace", color: T.ink, lineHeight: 1.8, paddingLeft: 8, borderLeft: `2px solid ${(color || C.accent)}44`, marginBottom: 4 }}>
           {eq}
@@ -121,7 +121,7 @@ function HealthyDeviceSection() {
             <g key={i} opacity={p.opacity}>
               <line x1={p.x} y1={0} x2={p.x} y2={p.y} stroke={C.cu} strokeWidth={2.5} strokeDasharray="6 4" />
               <circle cx={p.x} cy={p.y} r={4} fill={C.cu} />
-              <text x={p.x} y={p.y + 3} textAnchor="middle" fontSize={6} fill="#fff" fontWeight={700}>γ</text>
+              <text x={p.x} y={p.y + 3} textAnchor="middle" fontSize={6} fill="#fff" fontWeight={500}>γ</text>
             </g>
           ))}
 
@@ -129,21 +129,21 @@ function HealthyDeviceSection() {
           {layers.map((l, i) => (
             <g key={i}>
               <rect x={60} y={l.y} width={400} height={l.h} rx={4} fill={l.color} opacity={0.5} stroke={l.color} strokeWidth={1} />
-              <text x={468} y={l.y + l.h / 2 + 4} fontSize={9} fill={l.labelColor} fontWeight={600}>{l.label}</text>
+              <text x={468} y={l.y + l.h / 2 + 4} fontSize={9} fill={l.labelColor} fontWeight={500}>{l.label}</text>
             </g>
           ))}
 
           {/* Junction label */}
           <line x1={60} y1={102} x2={460} y2={102} stroke={C.degrad} strokeWidth={1.5} strokeDasharray="4 3" opacity={0.5} />
-          <text x={70} y={100} fontSize={8} fill={C.degrad} fontWeight={700}>p-n junction</text>
+          <text x={70} y={100} fontSize={8} fill={C.degrad} fontWeight={500}>p-n junction</text>
 
           {/* Electron-hole pairs */}
           {pairs.map((p, i) => p.vis > 0 && (
             <g key={i} opacity={p.vis}>
               <circle cx={p.cx} cy={p.ey} r={5} fill={C.electron} />
-              <text x={p.cx} y={p.ey + 3} textAnchor="middle" fontSize={6} fill="#fff" fontWeight={700}>e⁻</text>
+              <text x={p.cx} y={p.ey + 3} textAnchor="middle" fontSize={6} fill="#fff" fontWeight={500}>e⁻</text>
               <circle cx={p.cx} cy={p.hy} r={5} fill={C.hole} />
-              <text x={p.cx} y={p.hy + 3} textAnchor="middle" fontSize={6} fill="#fff" fontWeight={700}>h⁺</text>
+              <text x={p.cx} y={p.hy + 3} textAnchor="middle" fontSize={6} fill="#fff" fontWeight={500}>h⁺</text>
             </g>
           ))}
 
@@ -154,7 +154,7 @@ function HealthyDeviceSection() {
 
           {/* Band gap label */}
           <rect x={60} y={255} width={400} height={30} rx={6} fill={C.healthy + "15"} stroke={C.healthy} strokeWidth={1} />
-          <text x={260} y={274} textAnchor="middle" fontSize={10} fill={C.healthy} fontWeight={700}>
+          <text x={260} y={274} textAnchor="middle" fontSize={10} fill={C.healthy} fontWeight={500}>
             PCE ≈ 22% · Eg = 1.44 eV · α {">"} 10⁴ cm⁻¹ · Only ~3 µm needed
           </text>
         </svg>
@@ -214,17 +214,17 @@ function CuMigrationSection() {
 
           {/* CdTe absorber */}
           <rect x={50} y={60} width={420} height={130} rx={6} fill={C.cdte} opacity={0.3} stroke={C.cdte} strokeWidth={1} />
-          <text x={60} y={78} fontSize={10} fill="#5b21b6" fontWeight={700}>CdTe Absorber</text>
+          <text x={60} y={78} fontSize={10} fill="#5b21b6" fontWeight={500}>CdTe Absorber</text>
 
           {/* Back contact */}
           <rect x={50} y={200} width={420} height={40} rx={6} fill={C.contact} opacity={0.4} stroke={C.contact} strokeWidth={1} />
-          <text x={60} y={224} fontSize={10} fill="#374151" fontWeight={700}>Back Contact (Cu/Au)</text>
+          <text x={60} y={224} fontSize={10} fill="#374151" fontWeight={500}>Back Contact (Cu/Au)</text>
 
           {/* Cu atoms migrating */}
           {cuAtoms.map((a, i) => (
             <g key={i} opacity={a.opacity}>
               <circle cx={a.x} cy={a.y} r={7} fill={C.cu} stroke="#b45309" strokeWidth={1} />
-              <text x={a.x} y={a.y + 3.5} textAnchor="middle" fontSize={7} fill="#fff" fontWeight={800}>Cu</text>
+              <text x={a.x} y={a.y + 3.5} textAnchor="middle" fontSize={7} fill="#fff" fontWeight={500}>Cu</text>
             </g>
           ))}
 
@@ -235,18 +235,18 @@ function CuMigrationSection() {
               {[150, 260, 370].map(x => (
                 <line key={x} x1={x} y1={195} x2={x} y2={110} stroke={C.cu} strokeWidth={1.5} markerEnd="url(#arrowCu)" strokeDasharray="4 3" />
               ))}
-              <text x={260} y={160} textAnchor="middle" fontSize={9} fill={C.cu} fontWeight={600}>Cu⁺ drift under E-field</text>
+              <text x={260} y={160} textAnchor="middle" fontSize={9} fill={C.cu} fontWeight={500}>Cu⁺ drift under E-field</text>
             </g>
           )}
 
           {/* Metrics */}
           <rect x={50} y={255} width={200} height={30} rx={6} fill={C.cu + "15"} stroke={C.cu} strokeWidth={1} />
-          <text x={150} y={274} textAnchor="middle" fontSize={10} fill={C.cu} fontWeight={600}>
+          <text x={150} y={274} textAnchor="middle" fontSize={10} fill={C.cu} fontWeight={500}>
             D(Cu) = {D.toExponential(1)} cm²/s
           </text>
 
           <rect x={270} y={255} width={200} height={30} rx={6} fill={C.degrad + "15"} stroke={C.degrad} strokeWidth={1} />
-          <text x={370} y={274} textAnchor="middle" fontSize={10} fill={C.degrad} fontWeight={600}>
+          <text x={370} y={274} textAnchor="middle" fontSize={10} fill={C.degrad} fontWeight={500}>
             Voc loss ≈ {(vocLoss * 1000).toFixed(0)} mV
           </text>
         </svg>
@@ -254,12 +254,12 @@ function CuMigrationSection() {
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
         <Card style={{ padding: "10px 14px" }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: C.cu, marginBottom: 4 }}>Cu Diffusion Length</div>
-          <div style={{ fontSize: 18, fontWeight: 800, color: T.ink }}>{diffLength.toFixed(2)} µm</div>
+          <div style={{ fontSize: 10, fontWeight: 500, color: C.cu, marginBottom: 4 }}>Cu Diffusion Length</div>
+          <div style={{ fontSize: 18, fontWeight: 500, color: T.ink }}>{diffLength.toFixed(2)} µm</div>
           <div style={{ fontSize: 10, color: T.muted }}>{diffLength > 3 ? "Exceeds absorber thickness!" : "Within absorber"}</div>
         </Card>
         <Card style={{ padding: "10px 14px" }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: C.degrad, marginBottom: 4 }}>Degradation Mechanism</div>
+          <div style={{ fontSize: 10, fontWeight: 500, color: C.degrad, marginBottom: 4 }}>Degradation Mechanism</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
             Cu⁺ creates donor levels → compensates p-type doping → kills Voc
           </div>
@@ -312,7 +312,7 @@ function ThermalStressSection() {
           <rect width={W} height={H} fill={T.surface} rx={8} />
 
           {/* Temperature bar */}
-          <text x={20} y={30} fontSize={10} fill={T.ink} fontWeight={700}>Temperature Effects at {temp}°C</text>
+          <text x={20} y={30} fontSize={10} fill={T.ink} fontWeight={500}>Temperature Effects at {temp}°C</text>
 
           {/* CdS/CdTe interface mixing */}
           <rect x={20} y={50} width={200} height={50} rx={6} fill={C.cds} opacity={0.3} />
@@ -322,18 +322,18 @@ function ThermalStressSection() {
             const mixW = Math.min(100, interLength * 2);
             return <rect x={220 - mixW / 2} y={50} width={mixW} height={50} rx={4} fill="#f59e0b" opacity={0.3} />;
           })()}
-          <text x={220} y={70} textAnchor="middle" fontSize={9} fill={C.cu} fontWeight={600}>CdS₁₋ₓTeₓ mixing zone</text>
+          <text x={220} y={70} textAnchor="middle" fontSize={9} fill={C.cu} fontWeight={500}>CdS₁₋ₓTeₓ mixing zone</text>
           <text x={120} y={90} textAnchor="middle" fontSize={9} fill="#92400e">CdS</text>
           <text x={340} y={90} textAnchor="middle" fontSize={9} fill="#5b21b6">CdTe</text>
 
           {/* Stress bar */}
-          <text x={20} y={125} fontSize={9} fill={T.ink} fontWeight={600}>Thermal Stress</text>
+          <text x={20} y={125} fontSize={9} fill={T.ink} fontWeight={500}>Thermal Stress</text>
           <rect x={120} y={115} width={barMax} height={14} rx={4} fill={T.border} />
           <rect x={120} y={115} width={tempBarWidth} height={14} rx={4} fill={stress > 50 ? C.degrad : C.cu} />
           <text x={250} y={126} fontSize={9} fill={T.ink}>{stress.toFixed(1)} MPa</text>
 
           {/* GB diffusion */}
-          <text x={20} y={155} fontSize={9} fill={T.ink} fontWeight={600}>GB vs Bulk Diffusion</text>
+          <text x={20} y={155} fontSize={9} fill={T.ink} fontWeight={500}>GB vs Bulk Diffusion</text>
           <rect x={120} y={145} width={barMax} height={14} rx={4} fill={C.electron + "33"} />
           <rect x={120} y={145} width={Math.min(barMax, barMax * 0.01)} height={14} rx={4} fill={C.electron} />
           <text x={250} y={156} fontSize={9} fill={C.electron}>Bulk</text>
@@ -346,16 +346,16 @@ function ThermalStressSection() {
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
         <Card style={{ padding: "10px 12px" }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: C.cu, marginBottom: 3 }}>Intermixing</div>
-          <div style={{ fontSize: 16, fontWeight: 800, color: T.ink }}>{interLength.toFixed(1)} nm</div>
+          <div style={{ fontSize: 10, fontWeight: 500, color: C.cu, marginBottom: 3 }}>Intermixing</div>
+          <div style={{ fontSize: 16, fontWeight: 500, color: T.ink }}>{interLength.toFixed(1)} nm</div>
         </Card>
         <Card style={{ padding: "10px 12px" }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: C.degrad, marginBottom: 3 }}>Thermal Stress</div>
-          <div style={{ fontSize: 16, fontWeight: 800, color: T.ink }}>{stress.toFixed(0)} MPa</div>
+          <div style={{ fontSize: 10, fontWeight: 500, color: C.degrad, marginBottom: 3 }}>Thermal Stress</div>
+          <div style={{ fontSize: 16, fontWeight: 500, color: T.ink }}>{stress.toFixed(0)} MPa</div>
         </Card>
         <Card style={{ padding: "10px 12px" }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: C.accent, marginBottom: 3 }}>Rs Increase</div>
-          <div style={{ fontSize: 16, fontWeight: 800, color: T.ink }}>{(years * temp * 0.001).toFixed(1)} Ω·cm²</div>
+          <div style={{ fontSize: 10, fontWeight: 500, color: C.accent, marginBottom: 3 }}>Rs Increase</div>
+          <div style={{ fontSize: 16, fontWeight: 500, color: T.ink }}>{(years * temp * 0.001).toFixed(1)} Ω·cm²</div>
         </Card>
       </div>
 
@@ -401,9 +401,9 @@ function MoistureSection() {
 
           {/* Device cross-section */}
           <rect x={50} y={40} width={420} height={60} rx={4} fill={C.cdte} opacity={0.3} stroke={C.cdte} strokeWidth={1} />
-          <text x={260} y={65} textAnchor="middle" fontSize={10} fill="#5b21b6" fontWeight={600}>CdTe Absorber</text>
+          <text x={260} y={65} textAnchor="middle" fontSize={10} fill="#5b21b6" fontWeight={500}>CdTe Absorber</text>
           <rect x={50} y={104} width={420} height={30} rx={4} fill={C.contact} opacity={0.3} stroke={C.contact} strokeWidth={1} />
-          <text x={260} y={123} textAnchor="middle" fontSize={10} fill="#374151" fontWeight={600}>Back Contact</text>
+          <text x={260} y={123} textAnchor="middle" fontSize={10} fill="#374151" fontWeight={500}>Back Contact</text>
 
           {/* Water droplets falling */}
           {Array.from({ length: nDrops }, (_, i) => {
@@ -413,7 +413,7 @@ function MoistureSection() {
             return (
               <g key={i} opacity={phase < 160 ? 0.7 : 0.7 - (phase - 160) * 0.02}>
                 <ellipse cx={x} cy={Math.min(y, 230)} rx={4} ry={6} fill={C.moisture} opacity={0.6} />
-                <text x={x} y={Math.min(y, 230) + 3} textAnchor="middle" fontSize={5} fill="#fff" fontWeight={700}>H₂O</text>
+                <text x={x} y={Math.min(y, 230) + 3} textAnchor="middle" fontSize={5} fill="#fff" fontWeight={500}>H₂O</text>
               </g>
             );
           })}
@@ -430,24 +430,24 @@ function MoistureSection() {
               {[180, 340].map(x => (
                 <line key={x} x1={x} y1={40} x2={x + 10} y2={134} stroke={C.crack} strokeWidth={2} strokeDasharray="3 2" />
               ))}
-              <text x={260} y={85} textAnchor="middle" fontSize={8} fill={C.crack} fontWeight={600}>Shunt paths along GBs</text>
+              <text x={260} y={85} textAnchor="middle" fontSize={8} fill={C.crack} fontWeight={500}>Shunt paths along GBs</text>
             </g>
           )}
 
           {/* WVTR target */}
           <rect x={50} y={H - 35} width={420} height={24} rx={6} fill={humidity > 70 ? C.degrad + "15" : C.healthy + "15"} stroke={humidity > 70 ? C.degrad : C.healthy} strokeWidth={1} />
-          <text x={260} y={H - 18} textAnchor="middle" fontSize={9} fill={humidity > 70 ? C.degrad : C.healthy} fontWeight={600}>
+          <text x={260} y={H - 18} textAnchor="middle" fontSize={9} fill={humidity > 70 ? C.degrad : C.healthy} fontWeight={500}>
             WVTR target: {"<"} 10⁻⁴ g/m²/day for 25-year life | RH = {humidity}%
           </text>
         </svg>
       </Card>
 
       {/* Reaction cards */}
-      <div style={{ fontSize: 11, fontWeight: 700, color: T.ink, marginTop: 14, marginBottom: 8 }}>CHEMICAL REACTIONS</div>
+      <div style={{ fontSize: 11, fontWeight: 500, color: T.ink, marginTop: 14, marginBottom: 8 }}>Chemical reactions</div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
         {reactions.map((r, i) => (
           <Card key={i} style={{ padding: "10px 12px", borderLeft: `3px solid ${r.color}` }}>
-            <div style={{ fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", color: r.color, fontWeight: 700, marginBottom: 4 }}>
+            <div style={{ fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", color: r.color, fontWeight: 500, marginBottom: 4 }}>
               {r.reactants} → {r.products}
             </div>
             <div style={{ fontSize: 10, color: T.muted }}>{r.desc}</div>
@@ -521,14 +521,14 @@ function DefectEvolutionSection() {
             return (
               <g key={i}>
                 <line x1={toX(0)} y1={y0} x2={toX(Eg)} y2={y1} stroke={d.color} strokeWidth={2} opacity={0.7} />
-                <text x={toX(Eg) + 3} y={y1 + 3} fontSize={8} fill={d.color} fontWeight={700}>{d.label}</text>
+                <text x={toX(Eg) + 3} y={y1 + 3} fontSize={8} fill={d.color} fontWeight={500}>{d.label}</text>
               </g>
             );
           })}
 
           {/* Fermi level marker */}
           <line x1={toX(Ef)} y1={pad.t} x2={toX(Ef)} y2={H - pad.b} stroke={C.accent} strokeWidth={1.5} strokeDasharray="4 3" />
-          <text x={toX(Ef)} y={pad.t - 5} textAnchor="middle" fontSize={9} fill={C.accent} fontWeight={700}>EF = {Ef.toFixed(2)} eV</text>
+          <text x={toX(Ef)} y={pad.t - 5} textAnchor="middle" fontSize={9} fill={C.accent} fontWeight={500}>EF = {Ef.toFixed(2)} eV</text>
         </svg>
       </Card>
 
@@ -538,7 +538,7 @@ function DefectEvolutionSection() {
           <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 10px", borderRadius: 8, background: d.color + "0a", border: `1px solid ${d.color}22` }}>
             <div style={{ width: 8, height: 8, borderRadius: 4, background: d.color }} />
             <div>
-              <div style={{ fontSize: 10, fontWeight: 700, color: d.color }}>{d.label}</div>
+              <div style={{ fontSize: 10, fontWeight: 500, color: d.color }}>{d.label}</div>
               <div style={{ fontSize: 9, color: T.muted }}>{d.desc}</div>
             </div>
           </div>
@@ -638,8 +638,8 @@ function JVDegradationSection() {
           ))}
 
           {/* Axes labels */}
-          <text x={pad.l - 10} y={pad.t + ph / 2} textAnchor="middle" fontSize={9} fill={T.ink} fontWeight={600} transform={`rotate(-90, ${pad.l - 10}, ${pad.t + ph / 2})`}>J (mA/cm²)</text>
-          <text x={pad.l + pw / 2} y={H - 8} textAnchor="middle" fontSize={9} fill={T.ink} fontWeight={600}>Voltage (V)</text>
+          <text x={pad.l - 10} y={pad.t + ph / 2} textAnchor="middle" fontSize={9} fill={T.ink} fontWeight={500} transform={`rotate(-90, ${pad.l - 10}, ${pad.t + ph / 2})`}>J (mA/cm²)</text>
+          <text x={pad.l + pw / 2} y={H - 8} textAnchor="middle" fontSize={9} fill={T.ink} fontWeight={500}>Voltage (V)</text>
 
           {/* Ideal J-V (year 0) */}
           {showIdeal && idealPts.length > 1 && (
@@ -667,7 +667,7 @@ function JVDegradationSection() {
         <button onClick={() => setShowIdeal(!showIdeal)} style={{
           padding: "4px 12px", borderRadius: 6, fontSize: 10, cursor: "pointer",
           background: showIdeal ? C.healthy + "22" : T.bg, border: `1px solid ${showIdeal ? C.healthy : T.border}`,
-          color: showIdeal ? C.healthy : T.muted, fontWeight: 600, fontFamily: "inherit",
+          color: showIdeal ? C.healthy : T.muted, fontWeight: 500, fontFamily: "inherit",
         }}>Show Year 0 Reference</button>
       </div>
 
@@ -679,8 +679,8 @@ function JVDegradationSection() {
           { label: "PCE", val: `${pceNow}`, unit: "%", color: years > 10 ? C.degrad : C.healthy, init: pce0 },
         ].map((m, i) => (
           <Card key={i} style={{ padding: "8px 10px", textAlign: "center" }}>
-            <div style={{ fontSize: 10, fontWeight: 700, color: m.color }}>{m.label}</div>
-            <div style={{ fontSize: 16, fontWeight: 800, color: T.ink }}>{m.val}</div>
+            <div style={{ fontSize: 10, fontWeight: 500, color: m.color }}>{m.label}</div>
+            <div style={{ fontSize: 16, fontWeight: 500, color: T.ink }}>{m.val}</div>
             <div style={{ fontSize: 9, color: T.muted }}>{m.unit} (was {m.init})</div>
           </Card>
         ))}
@@ -721,7 +721,7 @@ function MechanicalSection() {
 
           {/* CdTe absorber */}
           <rect x={40} y={50} width={420} height={120} rx={6} fill={C.cdte} opacity={0.3} stroke={C.cdte} strokeWidth={1} />
-          <text x={50} y={68} fontSize={10} fill="#5b21b6" fontWeight={700}>CdTe Absorber</text>
+          <text x={50} y={68} fontSize={10} fill="#5b21b6" fontWeight={500}>CdTe Absorber</text>
 
           {/* Grain boundaries */}
           {[120, 200, 280, 360].map(x => (
@@ -743,7 +743,7 @@ function MechanicalSection() {
             <g>
               <circle cx={185 + crackLength * 2} cy={50 + crackLength * 8} r={10 + Math.sin(tick * 0.1) * 3}
                 fill={C.degrad} opacity={0.3} />
-              <text x={185 + crackLength * 2 + 15} y={50 + crackLength * 8 + 3} fontSize={8} fill={C.degrad} fontWeight={600}>Hot spot</text>
+              <text x={185 + crackLength * 2 + 15} y={50 + crackLength * 8 + 3} fontSize={8} fill={C.degrad} fontWeight={500}>Hot spot</text>
             </g>
           )}
 
@@ -751,7 +751,7 @@ function MechanicalSection() {
           {stress > 50 && (
             <g opacity={0.6}>
               <rect x={100} y={168} width={150} height={6} rx={3} fill={C.cu} opacity={0.5} />
-              <text x={175} y={190} textAnchor="middle" fontSize={8} fill={C.cu} fontWeight={600}>Delamination gap</text>
+              <text x={175} y={190} textAnchor="middle" fontSize={8} fill={C.cu} fontWeight={500}>Delamination gap</text>
             </g>
           )}
 
@@ -760,7 +760,7 @@ function MechanicalSection() {
             fill={stress > 30 ? C.degrad + "15" : C.healthy + "15"}
             stroke={stress > 30 ? C.degrad : C.healthy} strokeWidth={1} />
           <text x={250} y={H - 18} textAnchor="middle" fontSize={9}
-            fill={stress > 30 ? C.degrad : C.healthy} fontWeight={600}>
+            fill={stress > 30 ? C.degrad : C.healthy} fontWeight={500}>
             KI = σ√(πa) = {(stress * Math.sqrt(Math.PI * crackLength * 1e-6) * 1e3).toFixed(2)} MPa√m
             {stress > 30 ? " — approaching KIC = 0.5 MPa√m!" : " — below KIC"}
           </text>
@@ -774,8 +774,8 @@ function MechanicalSection() {
           { label: "Area Loss", val: `${Math.min(30, crackLength * 2).toFixed(0)}%`, desc: "Electrically dead zones", color: C.accent },
         ].map((m, i) => (
           <Card key={i} style={{ padding: "10px 12px" }}>
-            <div style={{ fontSize: 10, fontWeight: 700, color: m.color, marginBottom: 3 }}>{m.label}</div>
-            <div style={{ fontSize: 16, fontWeight: 800, color: T.ink }}>{m.val}</div>
+            <div style={{ fontSize: 10, fontWeight: 500, color: m.color, marginBottom: 3 }}>{m.label}</div>
+            <div style={{ fontSize: 16, fontWeight: 500, color: T.ink }}>{m.val}</div>
             <div style={{ fontSize: 9, color: T.muted }}>{m.desc}</div>
           </Card>
         ))}
@@ -806,11 +806,11 @@ function MitigationSection() {
       fontFamily: "inherit", transition: "all 0.15s",
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <div style={{ width: 20, height: 20, borderRadius: 6, background: value ? color : T.dim, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, color: "#fff", fontWeight: 800 }}>
+        <div style={{ width: 20, height: 20, borderRadius: 6, background: value ? color : T.dim, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, color: "#fff", fontWeight: 500 }}>
           {value ? "✓" : ""}
         </div>
         <div>
-          <div style={{ fontSize: 12, fontWeight: 700, color: value ? color : T.ink }}>{label}</div>
+          <div style={{ fontSize: 12, fontWeight: 500, color: value ? color : T.ink }}>{label}</div>
           <div style={{ fontSize: 10, color: T.muted }}>{desc}</div>
         </div>
       </div>
@@ -838,20 +838,20 @@ function MitigationSection() {
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
         <Card style={{ padding: "12px 14px", textAlign: "center", borderColor: score >= 3 ? C.mitigation : T.border }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: C.mitigation, marginBottom: 4 }}>Degradation Rate</div>
-          <div style={{ fontSize: 22, fontWeight: 800, color: degradRate < 0.3 ? C.mitigation : degradRate < 0.5 ? C.cu : C.degrad }}>
+          <div style={{ fontSize: 10, fontWeight: 500, color: C.mitigation, marginBottom: 4 }}>Degradation Rate</div>
+          <div style={{ fontSize: 22, fontWeight: 500, color: degradRate < 0.3 ? C.mitigation : degradRate < 0.5 ? C.cu : C.degrad }}>
             {degradRate.toFixed(2)}%/yr
           </div>
           <div style={{ fontSize: 9, color: T.muted }}>Industry target: {"<"}0.3%/yr</div>
         </Card>
         <Card style={{ padding: "12px 14px", textAlign: "center", borderColor: score >= 3 ? C.mitigation : T.border }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: C.accent, marginBottom: 4 }}>Expected Lifetime</div>
-          <div style={{ fontSize: 22, fontWeight: 800, color: T.ink }}>{lifetime} yr</div>
+          <div style={{ fontSize: 10, fontWeight: 500, color: C.accent, marginBottom: 4 }}>Expected Lifetime</div>
+          <div style={{ fontSize: 22, fontWeight: 500, color: T.ink }}>{lifetime} yr</div>
           <div style={{ fontSize: 9, color: T.muted }}>With {score}/5 strategies</div>
         </Card>
         <Card style={{ padding: "12px 14px", textAlign: "center", borderColor: score >= 3 ? C.mitigation : T.border }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: C.electron, marginBottom: 4 }}>Total Power Loss</div>
-          <div style={{ fontSize: 22, fontWeight: 800, color: T.ink }}>
+          <div style={{ fontSize: 10, fontWeight: 500, color: C.electron, marginBottom: 4 }}>Total Power Loss</div>
+          <div style={{ fontSize: 22, fontWeight: 500, color: T.ink }}>
             {(degradRate * lifetime).toFixed(0)}%
           </div>
           <div style={{ fontSize: 9, color: T.muted }}>Over {lifetime}-year life</div>
@@ -896,10 +896,10 @@ export default function SolarCellDegradationMovie() {
     }}>
       {/* Header */}
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 10, letterSpacing: 2, color: C.degrad, fontWeight: 700, textTransform: "uppercase" }}>
-          INTERACTIVE MODULE
+        <div style={{ fontSize: 10, letterSpacing: 2, color: C.degrad, fontWeight: 500, textTransform: "none" }}>
+          Interactive module
         </div>
-        <div style={{ fontSize: 16, fontWeight: 800, color: T.ink }}>
+        <div style={{ fontSize: 16, fontWeight: 500, color: T.ink }}>
           CdTe Solar Cell Degradation
         </div>
         <div style={{ fontSize: 11, color: T.muted, marginTop: 4 }}>
@@ -918,7 +918,7 @@ export default function SolarCellDegradationMovie() {
             border: `1px solid ${active === s.id ? s.color : T.border}`,
             background: active === s.id ? s.color + "18" : T.bg,
             color: active === s.id ? s.color : T.muted,
-            cursor: "pointer", fontFamily: "inherit", fontWeight: active === s.id ? 700 : 400,
+            cursor: "pointer", fontFamily: "inherit", fontWeight: active === s.id ? 500 : 400,
             display: "flex", alignItems: "center", gap: 5, whiteSpace: "nowrap",
             transition: "all 0.15s",
           }}>
@@ -932,7 +932,7 @@ export default function SolarCellDegradationMovie() {
       <div>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
           <div style={{ width: 4, height: 20, borderRadius: 2, background: sec.color }} />
-          <div style={{ fontSize: 14, fontWeight: 800, color: sec.color, letterSpacing: 0.5 }}>{sec.label}</div>
+          <div style={{ fontSize: 14, fontWeight: 500, color: sec.color, letterSpacing: 0.5 }}>{sec.label}</div>
         </div>
         <Component />
       </div>
@@ -948,7 +948,7 @@ export default function SolarCellDegradationMovie() {
           background: secIdx === 0 ? T.surface : sec.color + "18",
           border: `1px solid ${secIdx === 0 ? T.border : sec.color}`,
           color: secIdx === 0 ? T.muted : sec.color,
-          cursor: secIdx === 0 ? "default" : "pointer", fontFamily: "inherit", fontWeight: 600,
+          cursor: secIdx === 0 ? "default" : "pointer", fontFamily: "inherit", fontWeight: 500,
         }}>{"\u2190"} Previous</button>
 
         <div style={{ display: "flex", gap: 4 }}>
@@ -967,7 +967,7 @@ export default function SolarCellDegradationMovie() {
           background: secIdx === DEGRAD_SECTIONS.length - 1 ? T.surface : sec.color + "18",
           border: `1px solid ${secIdx === DEGRAD_SECTIONS.length - 1 ? T.border : sec.color}`,
           color: secIdx === DEGRAD_SECTIONS.length - 1 ? T.muted : sec.color,
-          cursor: secIdx === DEGRAD_SECTIONS.length - 1 ? "default" : "pointer", fontFamily: "inherit", fontWeight: 600,
+          cursor: secIdx === DEGRAD_SECTIONS.length - 1 ? "default" : "pointer", fontFamily: "inherit", fontWeight: 500,
         }}>Next {"\u2192"}</button>
       </div>
     </div>

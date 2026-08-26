@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import ChapterShell from "./chapter_shell.jsx";
 import DefectMovieModule from "./defect_movie.jsx";
 import SolarCellDegradationMovie from "./solar_degradation_movie.jsx";
 
@@ -103,7 +104,7 @@ function NextTopicCard({ sections, activeId }) {
       <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.8 }}>
         {current.nextReason}
         {next && (
-          <span> Up next: <span style={{ fontWeight: 700, color: next.color || col }}>{next.label}</span>.</span>
+          <span> Up next: <span style={{ fontWeight: 500, color: next.color || col }}>{next.label}</span>.</span>
         )}
       </div>
     </div>
@@ -122,7 +123,7 @@ function Tag({ color, children }) {
       padding: "1px 8px",
       borderRadius: 4,
       fontSize: 11,
-      fontWeight: 700,
+      fontWeight: 500,
       background: color + "22",
       border: `1px solid ${color}55`,
       color,
@@ -142,8 +143,8 @@ function SectionTitle({ color, icon, children }) {
         fontSize: 16,
       }}>{icon}</div>
       <div style={{
-        fontSize: 15, fontWeight: 800, color,
-        letterSpacing: 1, textTransform: "uppercase",
+        fontSize: 15, fontWeight: 500, color,
+        letterSpacing: 1, textTransform: "none",
       }}>{children}</div>
     </div>
   );
@@ -160,7 +161,7 @@ const sectionPanel = {
 };
 const labelUpper = {
   fontSize: 11, color: T.muted, marginBottom: 10,
-  letterSpacing: 2, textTransform: "uppercase",
+  letterSpacing: 2, textTransform: "none",
 };
 const monoStep = {
   fontFamily: "monospace", fontSize: 11, lineHeight: 2.0,
@@ -215,7 +216,7 @@ function AtomSection() {
             color: at.color,
             cursor: "pointer",
             fontSize: 16,
-            fontWeight: 800,
+            fontWeight: 500,
           }}>{at.sym}<br /><span style={{ fontSize: 10, color: T.muted }}>Z={at.Z}</span></button>
         ))}
       </div>
@@ -230,7 +231,7 @@ function AtomSection() {
             strokeDasharray={i === a.shells.length - 1 ? "4 3" : "2 4"} />
         ))}
         <circle cx={cx} cy={cy} r={18} fill={a.color + "33"} stroke={a.color} strokeWidth={2} />
-        <text x={cx} y={cy - 3} textAnchor="middle" fill={a.color} fontSize={12} fontWeight="bold">{a.sym}</text>
+        <text x={cx} y={cy - 3} textAnchor="middle" fill={a.color} fontSize={12} fontWeight="500">{a.sym}</text>
         <text x={cx} y={cy + 9} textAnchor="middle" fill={T.muted} fontSize={9}>Z={a.Z}</text>
         {a.shells.map((count, si) => {
           const r = radii[si];
@@ -254,7 +255,7 @@ function AtomSection() {
         {a.shells.map((_, i) => (
           <text key={i} x={cx + radii[i] + 4} y={cy - 4}
             fill={i === a.shells.length - 1 ? a.color : T.muted}
-            fontSize={8} fontWeight={i === a.shells.length - 1 ? 700 : 400}>
+            fontSize={8} fontWeight={i === a.shells.length - 1 ? 500 : 400}>
             {a.labels[i]}
           </text>
         ))}
@@ -262,7 +263,7 @@ function AtomSection() {
 
       {/* Info panel */}
       <div style={{ flex: "1 1 280px" }}>
-        <div style={{ fontSize: 20, fontWeight: 800, color: a.color, marginBottom: 4 }}>
+        <div style={{ fontSize: 20, fontWeight: 500, color: a.color, marginBottom: 4 }}>
           {a.sym} — {a.Z} electrons
         </div>
         <div style={{ fontSize: 12, color: T.muted, marginBottom: 10, fontFamily: "monospace" }}>{a.config}</div>
@@ -275,7 +276,7 @@ function AtomSection() {
 
         {/* Orbital note */}
         <div style={infoBox(a.color)}>
-          <div style={{ fontSize: 11, color: a.color, fontWeight: 700, marginBottom: 4 }}>Orbital character</div>
+          <div style={{ fontSize: 11, color: a.color, fontWeight: 500, marginBottom: 4 }}>Orbital character</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>{a.orbitalNote}</div>
         </div>
 
@@ -302,7 +303,7 @@ function AtomSection() {
                   ))}
                   {count > 10 && <span style={{ fontSize: 9, color: T.muted }}>+{count - 10}</span>}
                 </div>
-                <div style={{ fontSize: 10, color: isV ? a.color : T.muted, fontWeight: isV ? 700 : 400 }}>
+                <div style={{ fontSize: 10, color: isV ? a.color : T.muted, fontWeight: isV ? 500 : 400 }}>
                   {count}e {isV ? "VALENCE" : "core"}
                 </div>
               </div>
@@ -315,7 +316,7 @@ function AtomSection() {
           <div style={labelUpper}>Electronegativity (Pauling scale)</div>
           {atoms.map((at, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-              <span style={{ width: 24, fontSize: 11, color: at.color, fontWeight: 700 }}>{at.sym}</span>
+              <span style={{ width: 24, fontSize: 11, color: at.color, fontWeight: 500 }}>{at.sym}</span>
               <div style={{ flex: 1, height: 12, background: T.surface, borderRadius: 4, overflow: "hidden" }}>
                 <div style={{ width: `${at.eneg / 3 * 100}%`, height: "100%", background: at.color + "66", borderRadius: 4 }} />
               </div>
@@ -416,7 +417,7 @@ function CrystalSection() {
             return (
               <g key={i}>
                 <circle cx={ax} cy={ay} r={24} fill={color + "22"} stroke={color} strokeWidth={2} />
-                <text x={ax} y={ay - 2} textAnchor="middle" fill={color} fontSize={12} fontWeight="bold">
+                <text x={ax} y={ay - 2} textAnchor="middle" fill={color} fontSize={12} fontWeight="500">
                   {isCd ? "Cd" : "Te"}
                 </text>
                 <text x={ax} y={ay + 10} textAnchor="middle" fill={T.muted} fontSize={9}>
@@ -434,7 +435,7 @@ function CrystalSection() {
           <text x={160} y={18} textAnchor="middle" fill={T.muted} fontSize={11}>
             {stages[stage].label}
           </text>
-          {stage === 5 && <text x={160} y={310} textAnchor="middle" fill={T.eo_e} fontSize={10} fontWeight="bold">
+          {stage === 5 && <text x={160} y={310} textAnchor="middle" fill={T.eo_e} fontSize={10} fontWeight="500">
             2x2x2 supercell: 32 Cd + 32 Te = 64 atoms
           </text>}
         </svg>
@@ -453,7 +454,7 @@ function CrystalSection() {
 
       <div style={{ flex: "1 1 300px" }}>
         <div style={infoBox(T.eo_valence)}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_valence, marginBottom: 6 }}>
+          <div style={{ fontSize: 13, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>
             Stage {stage + 1}: {stages[stage].label}
           </div>
           <p style={{ fontSize: 12, color: T.ink, lineHeight: 1.8, margin: 0 }}>{stages[stage].desc}</p>
@@ -463,11 +464,11 @@ function CrystalSection() {
         <div style={sectionPanel}>
           <div style={labelUpper}>sp³ Hybridization in CdTe</div>
           <div style={monoStep}>
-            <div><span style={{ color: T.eo_valence, fontWeight: 700 }}>Cd:</span> 5s² → promote → 5s¹5p¹ → hybridize → 4 × sp³ (half-filled)</div>
-            <div><span style={{ color: T.eo_hole, fontWeight: 700 }}>Te:</span> 5s²5p⁴ → hybridize → 4 × sp³ (2 bonding + 2 lone pairs)</div>
+            <div><span style={{ color: T.eo_valence, fontWeight: 500 }}>Cd:</span> 5s² → promote → 5s¹5p¹ → hybridize → 4 × sp³ (half-filled)</div>
+            <div><span style={{ color: T.eo_hole, fontWeight: 500 }}>Te:</span> 5s²5p⁴ → hybridize → 4 × sp³ (2 bonding + 2 lone pairs)</div>
             <div style={{ color: T.muted }}>Each sp³ = 25% s-character + 75% p-character</div>
             <div style={{ color: T.muted }}>Tetrahedral geometry: 109.5° between bonds</div>
-            <div><span style={{ color: T.eo_e, fontWeight: 700 }}>Bond:</span> Cd(sp³) + Te(sp³) → σ bond, 2 electrons shared</div>
+            <div><span style={{ color: T.eo_e, fontWeight: 500 }}>Bond:</span> Cd(sp³) + Te(sp³) → σ bond, 2 electrons shared</div>
           </div>
         </div>
 
@@ -483,7 +484,7 @@ function CrystalSection() {
               32 Te × 6e = 192e
             </div>
             <span style={{ color: T.muted }}>=</span>
-            <div style={{ padding: "5px 10px", background: T.eo_e + "22", border: `1px solid ${T.eo_e}44`, borderRadius: 6, fontSize: 12, color: T.eo_e, fontFamily: "monospace", fontWeight: 700 }}>
+            <div style={{ padding: "5px 10px", background: T.eo_e + "22", border: `1px solid ${T.eo_e}44`, borderRadius: 6, fontSize: 12, color: T.eo_e, fontFamily: "monospace", fontWeight: 500 }}>
               NELECT = 256
             </div>
           </div>
@@ -497,13 +498,13 @@ function CrystalSection() {
         <div style={sectionPanel}>
           <div style={labelUpper}>Zincblende Structure</div>
           <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "3px 12px", fontSize: 11 }}>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Space group</span><span style={{ color: T.ink }}>F-43m (#216)</span>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Lattice const.</span><span style={{ color: T.ink }}>a = 6.48 Å</span>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Bond length</span><span style={{ color: T.ink }}>d(Cd-Te) = 2.81 Å = a√3/4</span>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Coordination</span><span style={{ color: T.ink }}>4 (tetrahedral for both Cd and Te)</span>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Conventional cell</span><span style={{ color: T.ink }}>8 atoms (4 Cd + 4 Te)</span>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>2×2×2 supercell</span><span style={{ color: T.ink }}>64 atoms (32 Cd + 32 Te)</span>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Structure</span><span style={{ color: T.ink }}>Two interpenetrating FCC sublattices</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Space group</span><span style={{ color: T.ink }}>F-43m (#216)</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Lattice const.</span><span style={{ color: T.ink }}>a = 6.48 Å</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Bond length</span><span style={{ color: T.ink }}>d(Cd-Te) = 2.81 Å = a√3/4</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Coordination</span><span style={{ color: T.ink }}>4 (tetrahedral for both Cd and Te)</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Conventional cell</span><span style={{ color: T.ink }}>8 atoms (4 Cd + 4 Te)</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>2×2×2 supercell</span><span style={{ color: T.ink }}>64 atoms (32 Cd + 32 Te)</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Structure</span><span style={{ color: T.ink }}>Two interpenetrating FCC sublattices</span>
           </div>
         </div>
       </div>
@@ -539,7 +540,7 @@ function SupercellSection() {
               </g>
             );
           })}
-          <text x={160} y={312} textAnchor="middle" fill={T.eo_e} fontSize={10} fontWeight="bold">
+          <text x={160} y={312} textAnchor="middle" fill={T.eo_e} fontSize={10} fontWeight="500">
             2×2×2 CdTe supercell — 64 atoms
           </text>
           {/* Legend */}
@@ -552,7 +553,7 @@ function SupercellSection() {
 
       <div style={{ flex: "1 1 300px" }}>
         <div style={infoBox(T.eo_e)}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_e, marginBottom: 6 }}>Why 64 atoms?</div>
+          <div style={{ fontSize: 13, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Why 64 atoms?</div>
           <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.8 }}>
             A single unit cell (8 atoms) is too small for defect calculations — the defect would interact with its own periodic images.
             A 2×2×2 supercell gives enough separation (~13 Å between defect images) while keeping the computation feasible.
@@ -562,9 +563,9 @@ function SupercellSection() {
         <div style={sectionPanel}>
           <div style={labelUpper}>Supercell construction</div>
           <div style={monoStep}>
-            <div><span style={{ color: T.eo_valence, fontWeight: 700 }}>Primitive cell:</span> 2 atoms (1 Cd + 1 Te), FCC Bravais</div>
-            <div><span style={{ color: T.eo_cond, fontWeight: 700 }}>Conventional cell:</span> 8 atoms (4 Cd + 4 Te), cubic a=6.48 Å</div>
-            <div><span style={{ color: T.eo_e, fontWeight: 700 }}>2×2×2 supercell:</span> 64 atoms (32 Cd + 32 Te)</div>
+            <div><span style={{ color: T.eo_valence, fontWeight: 500 }}>Primitive cell:</span> 2 atoms (1 Cd + 1 Te), FCC Bravais</div>
+            <div><span style={{ color: T.eo_cond, fontWeight: 500 }}>Conventional cell:</span> 8 atoms (4 Cd + 4 Te), cubic a=6.48 Å</div>
+            <div><span style={{ color: T.eo_e, fontWeight: 500 }}>2×2×2 supercell:</span> 64 atoms (32 Cd + 32 Te)</div>
             <div><span style={{ color: T.muted }}>Supercell vectors:</span> [12.96, 0, 0] [0, 12.96, 0] [0, 0, 12.96] Å</div>
           </div>
         </div>
@@ -576,17 +577,17 @@ function SupercellSection() {
             on the left edge as neighbors. This simulates an <b>infinite crystal</b> using a finite number of atoms.
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "3px 12px", fontSize: 11 }}>
-            <span style={{ color: T.eo_e, fontWeight: 700 }}>Total atoms</span><span>64 (32 Cd + 32 Te)</span>
-            <span style={{ color: T.eo_e, fontWeight: 700 }}>Valence e⁻</span><span>32×2 + 32×6 = 256 (NELECT)</span>
-            <span style={{ color: T.eo_e, fontWeight: 700 }}>Total e⁻ (all)</span><span>32×48 + 32×52 = 3200 (but PAW treats core implicitly)</span>
-            <span style={{ color: T.eo_e, fontWeight: 700 }}>k-points</span><span>2×2×2 Gamma-centered (sufficient for 64-atom cell)</span>
-            <span style={{ color: T.eo_e, fontWeight: 700 }}>ENCUT</span><span>~350 eV (plane-wave cutoff for CdTe)</span>
+            <span style={{ color: T.eo_e, fontWeight: 500 }}>Total atoms</span><span>64 (32 Cd + 32 Te)</span>
+            <span style={{ color: T.eo_e, fontWeight: 500 }}>Valence e⁻</span><span>32×2 + 32×6 = 256 (NELECT)</span>
+            <span style={{ color: T.eo_e, fontWeight: 500 }}>Total e⁻ (all)</span><span>32×48 + 32×52 = 3200 (but PAW treats core implicitly)</span>
+            <span style={{ color: T.eo_e, fontWeight: 500 }}>k-points</span><span>2×2×2 Gamma-centered (sufficient for 64-atom cell)</span>
+            <span style={{ color: T.eo_e, fontWeight: 500 }}>ENCUT</span><span>~350 eV (plane-wave cutoff for CdTe)</span>
           </div>
         </div>
 
 
         <div style={infoBox(T.eo_gap)}>
-          <div style={{ fontSize: 11, color: T.eo_gap, fontWeight: 700, marginBottom: 4 }}>Defect in supercell</div>
+          <div style={{ fontSize: 11, color: T.eo_gap, fontWeight: 500, marginBottom: 4 }}>Defect in supercell</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Remove 1 Cd → 63 atoms, 254 electrons. The missing atom creates a V_Cd vacancy.
             Defect concentration = 1/32 Cd sites = 3.125% in the cell. In real CdTe, typical
@@ -664,7 +665,7 @@ function BandSection() {
       const cdX = W * 0.28;
       els.push(
         <circle key="cd" cx={cdX} cy={H - 44} r={22} fill={T.eo_cond + "33"} stroke={T.eo_cond} strokeWidth={2} />,
-        <text key="cdl" x={cdX} y={H - 40} textAnchor="middle" fontSize={13} fontWeight="bold" fill={T.eo_cond}>Cd</text>,
+        <text key="cdl" x={cdX} y={H - 40} textAnchor="middle" fontSize={13} fontWeight="500" fill={T.eo_cond}>Cd</text>,
         <text key="cds" x={cdX} y={H - 28} textAnchor="middle" fontSize={8} fill={T.muted}>5s²</text>,
         // orbital glow
         ...Array.from({ length: 6 }, (_, i) => {
@@ -674,13 +675,13 @@ function BandSection() {
         // energy level line
         <line key="cdlvl" x1={cdX - 45} y1={yCB} x2={cdX + 45} y2={yCB}
           stroke={T.eo_cond} strokeWidth={2.5} />,
-        <text key="cdlvlt" x={cdX + 52} y={yCB + 4} fontSize={9} fill={T.eo_cond} fontWeight="bold">Cd 5s</text>,
+        <text key="cdlvlt" x={cdX + 52} y={yCB + 4} fontSize={9} fill={T.eo_cond} fontWeight="500">Cd 5s</text>,
       );
       // Te atom + 5p level
       const teX = W * 0.68;
       els.push(
         <circle key="te" cx={teX} cy={H - 44} r={24} fill={T.eo_valence + "33"} stroke={T.eo_valence} strokeWidth={2} />,
-        <text key="tel" x={teX} y={H - 40} textAnchor="middle" fontSize={13} fontWeight="bold" fill={T.eo_valence}>Te</text>,
+        <text key="tel" x={teX} y={H - 40} textAnchor="middle" fontSize={13} fontWeight="500" fill={T.eo_valence}>Te</text>,
         <text key="tes" x={teX} y={H - 28} textAnchor="middle" fontSize={8} fill={T.muted}>5p⁴</text>,
         ...Array.from({ length: 8 }, (_, i) => {
           const a = (i / 8) * Math.PI * 2 - frame * 0.03;
@@ -688,7 +689,7 @@ function BandSection() {
         }),
         <line key="telvl" x1={teX - 45} y1={yVB} x2={teX + 45} y2={yVB}
           stroke={T.eo_valence} strokeWidth={2.5} />,
-        <text key="telvlt" x={teX + 52} y={yVB + 4} fontSize={9} fill={T.eo_valence} fontWeight="bold">Te 5p</text>,
+        <text key="telvlt" x={teX + 52} y={yVB + 4} fontSize={9} fill={T.eo_valence} fontWeight="500">Te 5p</text>,
       );
       // label: no interaction
       els.push(
@@ -705,9 +706,9 @@ function BandSection() {
       // Atoms side by side
       els.push(
         <circle key="cd1" cx={W * 0.38} cy={H - 44} r={20} fill={T.eo_cond + "33"} stroke={T.eo_cond} strokeWidth={2} />,
-        <text key="cd1l" x={W * 0.38} y={H - 40} textAnchor="middle" fontSize={12} fontWeight="bold" fill={T.eo_cond}>Cd</text>,
+        <text key="cd1l" x={W * 0.38} y={H - 40} textAnchor="middle" fontSize={12} fontWeight="500" fill={T.eo_cond}>Cd</text>,
         <circle key="te1" cx={W * 0.58} cy={H - 44} r={22} fill={T.eo_valence + "33"} stroke={T.eo_valence} strokeWidth={2} />,
-        <text key="te1l" x={W * 0.58} y={H - 40} textAnchor="middle" fontSize={12} fontWeight="bold" fill={T.eo_valence}>Te</text>,
+        <text key="te1l" x={W * 0.58} y={H - 40} textAnchor="middle" fontSize={12} fontWeight="500" fill={T.eo_valence}>Te</text>,
         // bond
         <line key="bond" x1={W * 0.38 + 20} y1={H - 44} x2={W * 0.58 - 22} y2={H - 44}
           stroke={T.eo_e} strokeWidth={2.5} opacity={bondPulse} />,
@@ -757,7 +758,7 @@ function BandSection() {
           <circle key={`at${i}`} cx={ax} cy={H - 36} r={13}
             fill={(isCd ? T.eo_cond : T.eo_valence) + "33"}
             stroke={isCd ? T.eo_cond : T.eo_valence} strokeWidth={1.5} />,
-          <text key={`atl${i}`} x={ax} y={H - 32} textAnchor="middle" fontSize={9} fontWeight="bold"
+          <text key={`atl${i}`} x={ax} y={H - 32} textAnchor="middle" fontSize={9} fontWeight="500"
             fill={isCd ? T.eo_cond : T.eo_valence}>{isCd ? "Cd" : "Te"}</text>,
         );
         if (i < nAt - 1) {
@@ -784,7 +785,7 @@ function BandSection() {
         );
       }
       els.push(
-        <text key="cnt2" x={W / 2} y={(yCB + yVB) / 2} textAnchor="middle" fontSize={10} fill={T.eo_gap} fontWeight="bold">
+        <text key="cnt2" x={W / 2} y={(yCB + yVB) / 2} textAnchor="middle" fontSize={10} fill={T.eo_gap} fontWeight="500">
           Gap narrowing...
         </text>,
         <text key="lbl2" x={W / 2} y={H - 10} textAnchor="middle" fontSize={10} fill={T.muted}>
@@ -804,7 +805,7 @@ function BandSection() {
           stroke={T.eo_valence} strokeWidth={2.5} />,
         <line key="vbb" x1={xL} y1={yVB + bandH / 2} x2={xR} y2={yVB + bandH / 2}
           stroke={T.eo_valence} strokeWidth={2.5} />,
-        <text key="vblbl" x={xL + 6} y={yVB + 5} fontSize={11} fontWeight="bold" fill={T.eo_valence}>Valence Band</text>,
+        <text key="vblbl" x={xL + 6} y={yVB + 5} fontSize={11} fontWeight="500" fill={T.eo_valence}>Valence Band</text>,
         <text key="vbsub" x={xL + 6} y={yVB + 18} fontSize={8} fill={T.muted}>Te 5p — fully filled (256 e⁻)</text>,
       );
       // CB empty band
@@ -815,7 +816,7 @@ function BandSection() {
           stroke={T.eo_cond} strokeWidth={2.5} />,
         <line key="cbb" x1={xL} y1={yCB + bandH / 2} x2={xR} y2={yCB + bandH / 2}
           stroke={T.eo_cond} strokeWidth={2.5} />,
-        <text key="cblbl" x={xL + 6} y={yCB - 8} fontSize={11} fontWeight="bold" fill={T.eo_cond}>Conduction Band</text>,
+        <text key="cblbl" x={xL + 6} y={yCB - 8} fontSize={11} fontWeight="500" fill={T.eo_cond}>Conduction Band</text>,
         <text key="cbsub" x={xL + 6} y={yCB + 5} fontSize={8} fill={T.muted}>Cd 5s* — empty at 0 K</text>,
       );
       // Gap bracket + label
@@ -830,7 +831,7 @@ function BandSection() {
           stroke={T.eo_gap} strokeWidth={1.5} />,
         <line key="gapbt" x1={xR + 4} y1={gapBot} x2={xR + 12} y2={gapBot}
           stroke={T.eo_gap} strokeWidth={1.5} />,
-        <text key="gaplbl" x={xR + 22} y={(gapTop + gapBot) / 2 - 6} fontSize={11} fontWeight="bold" fill={T.eo_gap}>1.44 eV</text>,
+        <text key="gaplbl" x={xR + 22} y={(gapTop + gapBot) / 2 - 6} fontSize={11} fontWeight="500" fill={T.eo_gap}>1.44 eV</text>,
         <text key="gaplbl2" x={xR + 22} y={(gapTop + gapBot) / 2 + 8} fontSize={9} fill={T.eo_gap}>band gap</text>,
         <text key="gapdirect" x={xR + 22} y={(gapTop + gapBot) / 2 + 20} fontSize={8} fill={T.muted}>direct at Γ</text>,
       );
@@ -873,7 +874,7 @@ function BandSection() {
               borderBottom: act === i ? `2.5px solid ${T.eo_cond}` : "2.5px solid transparent",
               cursor: "pointer", fontFamily: "inherit",
             }}>
-              <div style={{ fontSize: 10, fontWeight: 700, color: act === i ? T.eo_cond : T.muted, marginBottom: 2 }}>
+              <div style={{ fontSize: 10, fontWeight: 500, color: act === i ? T.eo_cond : T.muted, marginBottom: 2 }}>
                 Act {i + 1}
               </div>
               <div style={{ fontSize: 10, color: act === i ? T.ink : T.muted, lineHeight: 1.3 }}>{a.label}</div>
@@ -892,7 +893,7 @@ function BandSection() {
 
         {/* Act description */}
         <div style={{ padding: "12px 18px", borderTop: `1px solid ${T.border}`, fontSize: 12, color: T.ink, lineHeight: 1.7, minHeight: 52 }}>
-          <span style={{ fontWeight: 700, color: T.eo_cond }}>Act {act + 1} — {ACTS[act].label}: </span>
+          <span style={{ fontWeight: 500, color: T.eo_cond }}>Act {act + 1} — {ACTS[act].label}: </span>
           {ACTS[act].desc}
         </div>
 
@@ -911,20 +912,20 @@ function BandSection() {
       {/* ── Interactive band diagram (existing) ──────────────────────── */}
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
         <div style={{ flex: "0 0 340px" }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: T.muted, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>Interactive Band Diagram</div>
+          <div style={{ fontSize: 11, fontWeight: 500, color: T.muted, letterSpacing: 2, textTransform: "none", marginBottom: 8 }}>Interactive Band Diagram</div>
           <svg viewBox={`0 0 ${BW} 320`} style={{ display: "block", width: "100%", maxWidth: BW }}>
             <rect width={BW} height={320} fill={T.bg} rx={10} />
             <rect x={20} y={VBtop} width={BW - 40} height={55} rx={4} fill={T.eo_valence + "22"} stroke={T.eo_valence} strokeWidth={1.5} />
-            <text x={30} y={VBtop + 18} fill={T.eo_valence} fontSize={11} fontWeight="bold">Valence Band</text>
+            <text x={30} y={VBtop + 18} fill={T.eo_valence} fontSize={11} fontWeight="500">Valence Band</text>
             <text x={30} y={VBtop + 32} fill={T.muted} fontSize={9}>Te 5p character (bonding)</text>
             <rect x={20} y={35} width={BW - 40} height={50} rx={4} fill={T.eo_cond + "11"} stroke={T.eo_cond} strokeWidth={1.5} />
-            <text x={30} y={55} fill={T.eo_cond} fontSize={11} fontWeight="bold">Conduction Band</text>
+            <text x={30} y={55} fill={T.eo_cond} fontSize={11} fontWeight="500">Conduction Band</text>
             <text x={30} y={69} fill={T.muted} fontSize={9}>Cd 5s* character (antibonding)</text>
             <rect x={20} y={CBbot} width={BW - 40} height={VBtop - CBbot} fill={T.bg} />
             <line x1={20} y1={(CBbot + VBtop) / 2} x2={280} y2={(CBbot + VBtop) / 2} stroke={T.border} strokeDasharray="4 4" />
-            <text x={290} y={(CBbot + VBtop) / 2 + 4} fill={T.eo_gap} fontSize={10} fontWeight="bold">GAP</text>
+            <text x={290} y={(CBbot + VBtop) / 2 + 4} fill={T.eo_gap} fontSize={10} fontWeight="500">GAP</text>
             <line x1={285} y1={CBbot + 2} x2={285} y2={VBtop - 2} stroke={T.eo_gap} strokeWidth={1} />
-            <text x={170} y={(CBbot + VBtop) / 2 - 5} textAnchor="middle" fill={T.eo_gap} fontSize={10} fontWeight="bold">1.44 eV (direct at Γ)</text>
+            <text x={170} y={(CBbot + VBtop) / 2 - 5} textAnchor="middle" fill={T.eo_gap} fontSize={10} fontWeight="500">1.44 eV (direct at Γ)</text>
             <path d={`M 100,${CBbot} Q 160,${CBbot - 25} 220,${CBbot}`} fill="none" stroke={T.eo_cond} strokeWidth={1.5} opacity={0.5} />
             <path d={`M 100,${VBtop} Q 160,${VBtop + 25} 220,${VBtop}`} fill="none" stroke={T.eo_valence} strokeWidth={1.5} opacity={0.5} />
             <text x={160} y={CBbot - 8} textAnchor="middle" fill={T.muted} fontSize={8}>Γ</text>
@@ -946,7 +947,7 @@ function BandSection() {
             ))}
           </svg>
           <div style={{ marginTop: 8, display: "flex", flexDirection: "column", gap: 6 }}>
-            <div style={{ fontSize: 10, color: T.muted, letterSpacing: 2, textTransform: "uppercase" }}>Temperature</div>
+            <div style={{ fontSize: 10, color: T.muted, letterSpacing: 2, textTransform: "none" }}>Temperature</div>
             <div style={{ display: "flex", gap: 5 }}>
               {["0 K", "300 K", "Hot"].map((t, i) => (
                 <button key={i} onClick={() => setTemp(i)} style={{
@@ -961,7 +962,7 @@ function BandSection() {
               padding: "7px 0", borderRadius: 6, fontSize: 11,
               background: light ? T.eo_photon + "22" : T.surface,
               border: `1px solid ${light ? T.eo_photon : T.border}`,
-              color: light ? T.eo_photon : T.muted, cursor: "pointer", fontWeight: light ? 700 : 400,
+              color: light ? T.eo_photon : T.muted, cursor: "pointer", fontWeight: light ? 500 : 400,
             }}>{light ? "Light ON (hν > 1.44 eV)" : "Light OFF"}</button>
           </div>
         </div>
@@ -969,7 +970,7 @@ function BandSection() {
         <div style={{ flex: "1 1 300px", display: "flex", flexDirection: "column", gap: 10 }}>
           <div style={sectionPanel}>
             <div style={labelUpper}>Current state</div>
-            <div style={{ fontSize: 20, fontWeight: 800, color: totalExcited > 0 ? T.eo_e : T.eo_valence, marginBottom: 4 }}>
+            <div style={{ fontSize: 20, fontWeight: 500, color: totalExcited > 0 ? T.eo_e : T.eo_valence, marginBottom: 4 }}>
               {totalExcited} free electron-hole pairs
             </div>
             <div style={{ fontSize: 11, color: T.muted }}>
@@ -995,7 +996,7 @@ function BandSection() {
                 ["CB character", "Cd 5s* (antibonding orbitals)"],
               ].map(([k, v]) => (
                 <>
-                  <span key={k} style={{ color: T.eo_cond, fontWeight: 700 }}>{k}</span>
+                  <span key={k} style={{ color: T.eo_cond, fontWeight: 500 }}>{k}</span>
                   <span key={v}>{v}</span>
                 </>
               ))}
@@ -1013,7 +1014,7 @@ function BandSection() {
               <div key={title} style={{ display: "flex", gap: 8, marginBottom: 6 }}>
                 <div style={{ width: 4, borderRadius: 2, background: color, flexShrink: 0 }} />
                 <div>
-                  <div style={{ fontSize: 11, fontWeight: 700, color, marginBottom: 2 }}>{title}</div>
+                  <div style={{ fontSize: 11, fontWeight: 500, color, marginBottom: 2 }}>{title}</div>
                   <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.6 }}>{desc}</div>
                 </div>
               </div>
@@ -1042,12 +1043,12 @@ function BondNatureSection() {
         <svg viewBox="0 0 320 280" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 320 }}>
           {/* Cd atom (left) */}
           <circle cx={100} cy={140} r={30} fill={T.eo_valence + "33"} stroke={T.eo_valence} strokeWidth={2} />
-          <text x={100} y={144} textAnchor="middle" fill={T.eo_valence} fontSize={14} fontWeight="bold">Cd</text>
+          <text x={100} y={144} textAnchor="middle" fill={T.eo_valence} fontSize={14} fontWeight="500">Cd</text>
           <text x={100} y={118} textAnchor="middle" fill={T.muted} fontSize={8}>+0.8e</text>
 
           {/* Te atom (right) — slightly larger due to gaining electrons */}
           <circle cx={220} cy={140} r={35} fill={T.eo_hole + "33"} stroke={T.eo_hole} strokeWidth={2} />
-          <text x={220} y={144} textAnchor="middle" fill={T.eo_hole} fontSize={14} fontWeight="bold">Te</text>
+          <text x={220} y={144} textAnchor="middle" fill={T.eo_hole} fontSize={14} fontWeight="500">Te</text>
           <text x={220} y={113} textAnchor="middle" fill={T.muted} fontSize={8}>-0.8e</text>
 
           {/* Bond line */}
@@ -1075,16 +1076,16 @@ function BondNatureSection() {
           })}
 
           {/* Dipole arrow */}
-          <text x={160} y={180} textAnchor="middle" fill={T.eo_gap} fontSize={10} fontWeight="bold">{"δ+ → δ-"}</text>
+          <text x={160} y={180} textAnchor="middle" fill={T.eo_gap} fontSize={10} fontWeight="500">{"δ+ → δ-"}</text>
 
           {/* Ionicity label */}
-          <text x={160} y={30} textAnchor="middle" fill={T.ink} fontSize={11} fontWeight="bold">Charge Transfer in CdTe Bond</text>
+          <text x={160} y={30} textAnchor="middle" fill={T.ink} fontSize={11} fontWeight="500">Charge Transfer in CdTe Bond</text>
           <text x={160} y={260} textAnchor="middle" fill={T.muted} fontSize={9}>Electrons pulled toward Te (higher electronegativity)</text>
         </svg>
       </div>
       <div style={{ flex: "1 1 300px" }}>
         <div style={infoBox(T.eo_valence)}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_valence, marginBottom: 6 }}>CdTe Bond: Partially Ionic, Partially Covalent</div>
+          <div style={{ fontSize: 13, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>CdTe Bond: Partially Ionic, Partially Covalent</div>
           <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.8 }}>
             CdTe bonds are <b>not purely covalent</b> (like Si-Si) nor <b>purely ionic</b> (like NaCl).
             Te is more electronegative (2.10) than Cd (1.69), so it pulls electron density toward itself.
@@ -1096,14 +1097,14 @@ function BondNatureSection() {
         <div style={sectionPanel}>
           <div style={labelUpper}>Phillips Ionicity Scale</div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-            <span style={{ fontSize: 10, color: T.eo_valence, fontWeight: 700 }}>Covalent</span>
+            <span style={{ fontSize: 10, color: T.eo_valence, fontWeight: 500 }}>Covalent</span>
             <div style={{ flex: 1, height: 20, background: T.bg, borderRadius: 4, overflow: "hidden", position: "relative", border: `1px solid ${T.border}` }}>
               <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: `${ionicity * 100}%`, background: `linear-gradient(90deg, ${T.eo_valence}44, ${T.eo_hole}66)`, borderRadius: 4 }} />
               <div style={{ position: "absolute", left: `${ionicity * 100}%`, top: -2, width: 3, height: 24, background: T.eo_gap, borderRadius: 2 }} />
             </div>
-            <span style={{ fontSize: 10, color: T.eo_hole, fontWeight: 700 }}>Ionic</span>
+            <span style={{ fontSize: 10, color: T.eo_hole, fontWeight: 500 }}>Ionic</span>
           </div>
-          <div style={{ textAlign: "center", fontSize: 13, fontWeight: 800, color: T.eo_e }}>
+          <div style={{ textAlign: "center", fontSize: 13, fontWeight: 500, color: T.eo_e }}>
             CdTe: f_i = {ionicity.toFixed(2)} ({(ionicity * 100).toFixed(0)}% ionic)
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 6, marginTop: 10 }}>
@@ -1113,7 +1114,7 @@ function BondNatureSection() {
               { name: "CdTe", fi: 0.72, color: T.eo_e },
             ].map(m => (
               <div key={m.name} style={{ textAlign: "center", padding: "6px 4px", borderRadius: 6, background: m.color + "11", border: `1px solid ${m.color}33` }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: m.color }}>{m.name}</div>
+                <div style={{ fontSize: 12, fontWeight: 500, color: m.color }}>{m.name}</div>
                 <div style={{ fontSize: 10, color: T.muted }}>f_i = {m.fi.toFixed(2)}</div>
               </div>
             ))}
@@ -1138,14 +1139,14 @@ function BondNatureSection() {
         <div style={sectionPanel}>
           <div style={labelUpper}>CdTe bond properties</div>
           <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "4px 12px", fontSize: 11 }}>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Bond length</span><span>2.81 Å</span>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Bond type</span><span>sp³ sigma (σ) bond</span>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Coordination</span><span>4-fold tetrahedral</span>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Bond angle</span><span>109.47° (tetrahedral)</span>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Bonds per atom</span><span>4 (each Cd bonded to 4 Te, vice versa)</span>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Bonds in 64-atom cell</span><span>128 bonds × 2e = 256 bonding electrons</span>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Bond energy</span><span>~1.0 eV per bond</span>
-            <span style={{ color: T.eo_valence, fontWeight: 700 }}>Dielectric constant</span><span>ε∞ = 7.1 (high-freq), ε₀ = 10.2 (static)</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Bond length</span><span>2.81 Å</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Bond type</span><span>sp³ sigma (σ) bond</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Coordination</span><span>4-fold tetrahedral</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Bond angle</span><span>109.47° (tetrahedral)</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Bonds per atom</span><span>4 (each Cd bonded to 4 Te, vice versa)</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Bonds in 64-atom cell</span><span>128 bonds × 2e = 256 bonding electrons</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Bond energy</span><span>~1.0 eV per bond</span>
+            <span style={{ color: T.eo_valence, fontWeight: 500 }}>Dielectric constant</span><span>ε∞ = 7.1 (high-freq), ε₀ = 10.2 (static)</span>
           </div>
         </div>
 
@@ -1160,12 +1161,12 @@ function BondNatureSection() {
         </div>
 
         <div style={infoBox(T.eo_photon)}>
-          <div style={{ fontSize: 11, color: T.eo_photon, fontWeight: 700, marginBottom: 4 }}>Comparison with other solar materials</div>
+          <div style={{ fontSize: 11, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Comparison with other solar materials</div>
           <div style={{ display: "grid", gridTemplateColumns: "auto auto auto auto", gap: "3px 10px", fontSize: 10, fontFamily: "monospace" }}>
-            <span style={{ fontWeight: 700, color: T.muted }}>Material</span><span style={{ fontWeight: 700, color: T.muted }}>Gap</span><span style={{ fontWeight: 700, color: T.muted }}>Type</span><span style={{ fontWeight: 700, color: T.muted }}>Ionicity</span>
+            <span style={{ fontWeight: 500, color: T.muted }}>Material</span><span style={{ fontWeight: 500, color: T.muted }}>Gap</span><span style={{ fontWeight: 500, color: T.muted }}>Type</span><span style={{ fontWeight: 500, color: T.muted }}>Ionicity</span>
             <span style={{ color: T.eo_valence }}>Si</span><span>1.12 eV</span><span>indirect</span><span>0.00</span>
             <span style={{ color: T.eo_cond }}>GaAs</span><span>1.42 eV</span><span>direct</span><span>0.31</span>
-            <span style={{ color: T.eo_e, fontWeight: 700 }}>CdTe</span><span style={{ fontWeight: 700 }}>1.44 eV</span><span style={{ fontWeight: 700 }}>direct</span><span style={{ fontWeight: 700 }}>0.72</span>
+            <span style={{ color: T.eo_e, fontWeight: 500 }}>CdTe</span><span style={{ fontWeight: 500 }}>1.44 eV</span><span style={{ fontWeight: 500 }}>direct</span><span style={{ fontWeight: 500 }}>0.72</span>
             <span style={{ color: T.eo_hole }}>CdS</span><span>2.42 eV</span><span>direct</span><span>0.69</span>
           </div>
         </div>
@@ -1201,11 +1202,11 @@ function DefectSection() {
         <svg viewBox="0 0 320 320" style={{ display: "block", width: "100%", maxWidth: 320 }}>
           <rect width={320} height={320} fill={T.bg} rx={10} />
           <rect x={20} y={40} width={220} height={35} rx={4} fill={T.eo_cond + "11"} stroke={T.eo_cond} strokeWidth={1.5} />
-          <text x={30} y={60} fill={T.eo_cond} fontSize={11} fontWeight="bold">Conduction Band</text>
+          <text x={30} y={60} fill={T.eo_cond} fontSize={11} fontWeight="500">Conduction Band</text>
           <rect x={20} y={VBtop} width={220} height={50} rx={4} fill={T.eo_valence + "22"} stroke={T.eo_valence} strokeWidth={1.5} />
-          <text x={30} y={VBtop + 20} fill={T.eo_valence} fontSize={11} fontWeight="bold">Valence Band</text>
+          <text x={30} y={VBtop + 20} fill={T.eo_valence} fontSize={11} fontWeight="500">Valence Band</text>
           <text x={30} y={VBtop + 36} fill={T.muted} fontSize={9}>Te 5p bonding states</text>
-          <text x={255} y={160} fill={T.eo_gap} fontSize={10} fontWeight="bold" textAnchor="middle">GAP</text>
+          <text x={255} y={160} fill={T.eo_gap} fontSize={10} fontWeight="500" textAnchor="middle">GAP</text>
           <text x={255} y={174} fill={T.muted} fontSize={9} textAnchor="middle">1.44 eV</text>
 
           {/* Defect levels D1-D4 */}
@@ -1249,7 +1250,7 @@ function DefectSection() {
           {/* Vacancy site label */}
           <rect x={50} y={298} width={180} height={18} rx={4}
             fill={T.eo_gap + "11"} stroke={T.eo_gap} strokeWidth={1} strokeDasharray="4 3" />
-          <text x={140} y={311} textAnchor="middle" fill={T.eo_gap} fontSize={9} fontWeight="bold">
+          <text x={140} y={311} textAnchor="middle" fill={T.eo_gap} fontSize={9} fontWeight="500">
             {chargeLabels[charge]}
           </text>
         </svg>
@@ -1268,7 +1269,7 @@ function DefectSection() {
 
       <div style={{ flex: "1 1 300px", display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={infoBox(T.eo_gap)}>
-          <div style={{ fontSize: 16, fontWeight: 800, color: T.eo_gap, marginBottom: 6 }}>
+          <div style={{ fontSize: 16, fontWeight: 500, color: T.eo_gap, marginBottom: 6 }}>
             V_Cd: Cadmium Vacancy in CdTe
           </div>
           <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.8 }}>
@@ -1313,7 +1314,7 @@ function DefectSection() {
         </div>
 
         <div style={infoBox(T.eo_photon)}>
-          <div style={{ fontSize: 11, color: T.eo_photon, fontWeight: 700, marginBottom: 4 }}>Why defect states kill solar cells</div>
+          <div style={{ fontSize: 11, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Why defect states kill solar cells</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Defect levels act as <b>stepping stones</b> — electrons recombine in 2 small jumps
             (CB→trap→VB) instead of 1 big jump across 1.44 eV. Energy goes to heat, not light.
@@ -1408,7 +1409,7 @@ function DefectConfigSection() {
                 <g key={i}>
                   <circle cx={a.x} cy={a.y} r={16} fill="none"
                     stroke={T.eo_gap} strokeWidth={2} strokeDasharray="4 3" opacity={0.7} />
-                  <text x={a.x} y={a.y + 4} textAnchor="middle" fill={T.eo_gap} fontSize={8} fontWeight="bold">V</text>
+                  <text x={a.x} y={a.y + 4} textAnchor="middle" fill={T.eo_gap} fontSize={8} fontWeight="500">V</text>
                 </g>
               );
             }
@@ -1425,7 +1426,7 @@ function DefectConfigSection() {
                     stroke={T.eo_photon} strokeWidth={2} strokeDasharray="3 2" opacity={0.8} />
                 )}
                 <circle cx={a.x} cy={a.y} r={14} fill={displayColor + "33"} stroke={displayColor} strokeWidth={1.5} />
-                <text x={a.x} y={a.y + 4} textAnchor="middle" fill={displayColor} fontSize={9} fontWeight="bold">
+                <text x={a.x} y={a.y + 4} textAnchor="middle" fill={displayColor} fontSize={9} fontWeight="500">
                   {displayType}
                 </text>
               </g>
@@ -1438,24 +1439,24 @@ function DefectConfigSection() {
               <circle cx={interX} cy={interY} r={18} fill={T.eo_cond + "22"} stroke={T.eo_cond}
                 strokeWidth={2} opacity={0.3 + 0.7 * pulse} />
               <circle cx={interX} cy={interY} r={14} fill={T.eo_cond + "44"} stroke={T.eo_cond} strokeWidth={2} />
-              <text x={interX} y={interY + 4} textAnchor="middle" fill={T.eo_cond} fontSize={9} fontWeight="bold">Cd_i</text>
+              <text x={interX} y={interY + 4} textAnchor="middle" fill={T.eo_cond} fontSize={9} fontWeight="500">Cd_i</text>
             </g>
           )}
 
           {/* Antisite label */}
           {(selDefect === 2 || selDefect === 3) && (
             <text x={gridAtoms[antiIdx].x} y={gridAtoms[antiIdx].y - 22} textAnchor="middle"
-              fill={selDefect === 2 ? T.eo_photon : T.eo_e} fontSize={8} fontWeight="bold">wrong site!</text>
+              fill={selDefect === 2 ? T.eo_photon : T.eo_e} fontSize={8} fontWeight="500">wrong site!</text>
           )}
 
           {/* Mini band diagram sidebar */}
           <rect x={235} y={30} width={70} height={280} rx={6} fill={T.panel} stroke={T.border} strokeWidth={1} />
           <rect x={242} y={40} width={56} height={22} rx={3}
             fill={T.eo_cond + "11"} stroke={T.eo_cond} strokeWidth={1} />
-          <text x={270} y={54} textAnchor="middle" fill={T.eo_cond} fontSize={8} fontWeight="bold">CB</text>
+          <text x={270} y={54} textAnchor="middle" fill={T.eo_cond} fontSize={8} fontWeight="500">CB</text>
           <rect x={242} y={255} width={56} height={22} rx={3}
             fill={T.eo_valence + "22"} stroke={T.eo_valence} strokeWidth={1} />
-          <text x={270} y={269} textAnchor="middle" fill={T.eo_valence} fontSize={8} fontWeight="bold">VB</text>
+          <text x={270} y={269} textAnchor="middle" fill={T.eo_valence} fontSize={8} fontWeight="500">VB</text>
 
           {/* Defect levels in mini diagram */}
           {selDefect === 0 && [140, 155, 170, 185].map((dy, i) => (
@@ -1497,7 +1498,7 @@ function DefectConfigSection() {
               background: selDefect === i ? d.color + "22" : T.surface,
               border: `1px solid ${selDefect === i ? d.color : T.border}`,
               color: selDefect === i ? d.color : T.muted,
-              cursor: "pointer", fontWeight: selDefect === i ? 700 : 400,
+              cursor: "pointer", fontWeight: selDefect === i ? 500 : 400,
               fontFamily: "inherit",
             }}>{d.label}</button>
           ))}
@@ -1511,7 +1512,7 @@ function DefectConfigSection() {
           border: `1px solid ${dt.color}44`,
           borderRadius: 10, padding: 14,
         }}>
-          <div style={{ fontSize: 18, fontWeight: 800, color: dt.color, marginBottom: 8 }}>
+          <div style={{ fontSize: 18, fontWeight: 500, color: dt.color, marginBottom: 8 }}>
             {dt.label}
           </div>
           <p style={{ fontSize: 13, color: T.ink, lineHeight: 1.8, margin: 0 }}>
@@ -1520,20 +1521,20 @@ function DefectConfigSection() {
         </div>
 
         <div style={{ background: T.surface, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, letterSpacing: 2, textTransform: "uppercase" }}>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, letterSpacing: 2, textTransform: "none" }}>
             Where do the electrons go?
           </div>
           <p style={{ fontSize: 12, color: T.ink, lineHeight: 1.8, margin: "0 0 10px" }}>
             {dt.electronEffect}
           </p>
           <div style={{ padding: "8px 10px", borderRadius: 8, background: dt.color + "11", border: `1px solid ${dt.color}33` }}>
-            <div style={{ fontSize: 11, color: dt.color, fontWeight: 700 }}>Band diagram:</div>
+            <div style={{ fontSize: 11, color: dt.color, fontWeight: 500 }}>Band diagram:</div>
             <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>{dt.bandNote}</div>
           </div>
         </div>
 
         <div style={{ background: T.bg, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, letterSpacing: 2, textTransform: "uppercase" }}>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, letterSpacing: 2, textTransform: "none" }}>
             Defect type comparison
           </div>
           <div style={{ overflowX: "auto" }}>
@@ -1551,7 +1552,7 @@ function DefectConfigSection() {
                 { type: "Te_Cd", extra: "0", missing: "0", effect: "Deep donor, compensating", color: T.eo_e },
               ].map(({ type, extra, missing, effect, color }) => (
                 <tr key={type}>
-                  <td style={{ padding: "5px 6px", color, fontWeight: 700, fontSize: 12 }}>{type}</td>
+                  <td style={{ padding: "5px 6px", color, fontWeight: 500, fontSize: 12 }}>{type}</td>
                   <td style={{ padding: "5px 6px", color: T.muted, fontSize: 11 }}>{extra}</td>
                   <td style={{ padding: "5px 6px", color: T.muted, fontSize: 11 }}>{missing}</td>
                   <td style={{ padding: "5px 6px", color: T.muted, fontSize: 11 }}>{effect}</td>
@@ -1689,7 +1690,7 @@ function DefectElectronsSection() {
               return (
                 <g key={i}>
                   <circle cx={a.x} cy={a.y} r={10} fill="none" stroke={T.eo_gap} strokeWidth={1.5} strokeDasharray="3 2" opacity={0.7 + 0.3 * pulse} />
-                  <text x={a.x} y={a.y + 3} textAnchor="middle" fill={T.eo_gap} fontSize={7} fontWeight="bold">V</text>
+                  <text x={a.x} y={a.y + 3} textAnchor="middle" fill={T.eo_gap} fontSize={7} fontWeight="500">V</text>
                 </g>
               );
             }
@@ -1706,7 +1707,7 @@ function DefectElectronsSection() {
                 <circle cx={a.x} cy={a.y} r={a.r >= 2 && a.r <= 4 && a.c >= 2 && a.c <= 5 ? 8 : 6}
                   fill={col + "33"} stroke={col} strokeWidth={1} />
                 {a.r >= 2 && a.r <= 4 && a.c >= 2 && a.c <= 5 && (
-                  <text x={a.x} y={a.y + 3} textAnchor="middle" fill={col} fontSize={6} fontWeight="bold">{sym}</text>
+                  <text x={a.x} y={a.y + 3} textAnchor="middle" fill={col} fontSize={6} fontWeight="500">{sym}</text>
                 )}
               </g>
             );
@@ -1717,13 +1718,13 @@ function DefectElectronsSection() {
             <g>
               <circle cx={interX} cy={interY} r={12} fill={T.eo_cond + "22"} stroke={T.eo_cond} strokeWidth={2} opacity={0.3 + 0.7 * pulse} />
               <circle cx={interX} cy={interY} r={9} fill={T.eo_cond + "44"} stroke={T.eo_cond} strokeWidth={1.5} />
-              <text x={interX} y={interY + 3} textAnchor="middle" fill={T.eo_cond} fontSize={7} fontWeight="bold">Cd_i</text>
+              <text x={interX} y={interY + 3} textAnchor="middle" fill={T.eo_cond} fontSize={7} fontWeight="500">Cd_i</text>
             </g>
           )}
 
           {/* Antisite label */}
           {defect === 3 && (
-            <text x={gridAtoms[antiIdx].x} y={gridAtoms[antiIdx].y - 14} textAnchor="middle" fill={T.eo_photon} fontSize={7} fontWeight="bold">Cd on Te!</text>
+            <text x={gridAtoms[antiIdx].x} y={gridAtoms[antiIdx].y - 14} textAnchor="middle" fill={T.eo_photon} fontSize={7} fontWeight="500">Cd on Te!</text>
           )}
 
           {/* Dangling bond arrows for vacancy */}
@@ -1738,8 +1739,8 @@ function DefectElectronsSection() {
           })}
 
           {/* Electron count overlay */}
-          <rect x={4} y={272} width={120} height={24} rx={5} fill={T.panel + "dd"} stroke={T.border} strokeWidth={1} />
-          <text x={10} y={288} fill={d.color} fontSize={10} fontWeight="700">
+          <rect x={4} y={272} width={120} height={24} rx={5} fill={"color-mix(in srgb, var(--panel) 87%, transparent)"} stroke={T.border} strokeWidth={1} />
+          <text x={10} y={288} fill={d.color} fontSize={10} fontWeight="500">
             {d.atoms} atoms | NELECT={nel}
           </text>
 
@@ -1772,7 +1773,7 @@ function DefectElectronsSection() {
               background: defect === i ? dd.color + "22" : T.surface,
               border: `1.5px solid ${defect === i ? dd.color : T.border}`,
               color: defect === i ? dd.color : T.muted,
-              cursor: "pointer", fontWeight: defect === i ? 700 : 400, fontFamily: "inherit",
+              cursor: "pointer", fontWeight: defect === i ? 500 : 400, fontFamily: "inherit",
             }}>{dd.short}</button>
           ))}
         </div>
@@ -1785,12 +1786,12 @@ function DefectElectronsSection() {
 
           {/* CB */}
           <rect x={20} y={cbY} width={bW - 40} height={cbH} rx={4} fill={T.eo_cond + "15"} stroke={T.eo_cond} strokeWidth={1.5} />
-          <text x={bW / 2} y={cbY + 18} textAnchor="middle" fill={T.eo_cond} fontSize={10} fontWeight="700">CB (empty)</text>
+          <text x={bW / 2} y={cbY + 18} textAnchor="middle" fill={T.eo_cond} fontSize={10} fontWeight="500">CB (empty)</text>
 
           {/* VB */}
           <rect x={20} y={vbY} width={bW - 40} height={vbH} rx={4}
             fill={totalFreeH > 0 ? T.eo_valence + "22" : T.eo_valence + "33"} stroke={T.eo_valence} strokeWidth={1.5} />
-          <text x={bW / 2} y={vbY + 18} textAnchor="middle" fill={T.eo_valence} fontSize={10} fontWeight="700">
+          <text x={bW / 2} y={vbY + 18} textAnchor="middle" fill={T.eo_valence} fontSize={10} fontWeight="500">
             VB ({Math.max(0, d.vbFill - extraH)}e⁻)
           </text>
 
@@ -1803,7 +1804,7 @@ function DefectElectronsSection() {
           {d.defectLevels.map((lv, i) => (
             <g key={i}>
               <line x1={35} y1={lv.y} x2={bW - 35} y2={lv.y} stroke={lv.color} strokeWidth={2} />
-              <text x={28} y={lv.y + 3} textAnchor="end" fill={lv.color} fontSize={7} fontWeight="600">{lv.label}</text>
+              <text x={28} y={lv.y + 3} textAnchor="end" fill={lv.color} fontSize={7} fontWeight="500">{lv.label}</text>
               {/* Electrons on level */}
               {Array.from({ length: lv.fill }, (_, j) => (
                 <circle key={j} cx={60 + j * 20} cy={lv.y} r={5} fill={T.eo_e} opacity={0.9}>
@@ -1825,7 +1826,7 @@ function DefectElectronsSection() {
             </circle>
           ))}
           {totalFreeE > 0 && (
-            <text x={bW / 2} y={cbY - 6} textAnchor="middle" fill={T.eo_e} fontSize={9} fontWeight="700">
+            <text x={bW / 2} y={cbY - 6} textAnchor="middle" fill={T.eo_e} fontSize={9} fontWeight="500">
               {totalFreeE} free e⁻ (n-type)
             </text>
           )}
@@ -1838,7 +1839,7 @@ function DefectElectronsSection() {
             </circle>
           ))}
           {totalFreeH > 0 && (
-            <text x={bW / 2} y={vbY + vbH + 14} textAnchor="middle" fill={T.eo_hole} fontSize={9} fontWeight="700">
+            <text x={bW / 2} y={vbY + vbH + 14} textAnchor="middle" fill={T.eo_hole} fontSize={9} fontWeight="500">
               {totalFreeH} holes (p-type)
             </text>
           )}
@@ -1873,14 +1874,14 @@ function DefectElectronsSection() {
         {/* NELECT slider */}
         <div style={{ marginTop: 8, padding: "8px 10px", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: bW }}>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, marginBottom: 4 }}>
-            <span style={{ color: T.muted, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase" }}>NELECT control</span>
-            <span style={{ color: d.color, fontWeight: 700, fontFamily: "monospace" }}>{nel}</span>
+            <span style={{ color: T.muted, fontWeight: 500, letterSpacing: 1.5, textTransform: "none" }}>NELECT control</span>
+            <span style={{ color: d.color, fontWeight: 500, fontFamily: "monospace" }}>{nel}</span>
           </div>
           <input type="range" min={-4} max={4} step={1} value={nelDelta} onChange={e => setNelDelta(+e.target.value)}
             style={{ width: "100%", accentColor: d.color }} />
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: T.muted }}>
             <span>−4 (remove e⁻)</span>
-            <span style={{ color: d.color, fontWeight: 700 }}>{nelDelta === 0 ? "neutral" : nelDelta > 0 ? `+${nelDelta} e⁻` : `${nelDelta} e⁻`}</span>
+            <span style={{ color: d.color, fontWeight: 500 }}>{nelDelta === 0 ? "neutral" : nelDelta > 0 ? `+${nelDelta} e⁻` : `${nelDelta} e⁻`}</span>
             <span>+4 (add e⁻)</span>
           </div>
           {nelDelta !== 0 && (
@@ -1898,59 +1899,59 @@ function DefectElectronsSection() {
       <div style={{ flex: "1 1 280px", display: "flex", flexDirection: "column", gap: 10 }}>
         {/* Description */}
         <div style={{ background: d.color + "11", border: `1px solid ${d.color}44`, borderRadius: 10, padding: 14 }}>
-          <div style={{ fontSize: 16, fontWeight: 800, color: d.color, marginBottom: 6 }}>{d.label}</div>
+          <div style={{ fontSize: 16, fontWeight: 500, color: d.color, marginBottom: 6 }}>{d.label}</div>
           <p style={{ fontSize: 12, color: T.ink, lineHeight: 1.9, margin: 0 }}>{d.desc}</p>
         </div>
 
         {/* Electron accounting */}
         <div style={{ background: T.surface, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 10, color: T.muted, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 8 }}>
+          <div style={{ fontSize: 10, color: T.muted, fontWeight: 500, letterSpacing: 1.5, textTransform: "none", marginBottom: 8 }}>
             Electron accounting
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "4px 12px", fontFamily: "monospace", fontSize: 12 }}>
             <span style={{ color: T.muted }}>Atoms in cell</span>
-            <span style={{ color: T.ink, fontWeight: 700 }}>{d.atoms}</span>
+            <span style={{ color: T.ink, fontWeight: 500 }}>{d.atoms}</span>
             <span style={{ color: T.muted }}>NELECT (neutral)</span>
-            <span style={{ color: d.color, fontWeight: 700 }}>{d.nelBase}</span>
+            <span style={{ color: d.color, fontWeight: 500 }}>{d.nelBase}</span>
             {d.change !== 0 && <>
               <span style={{ color: T.muted }}>vs. perfect (256)</span>
-              <span style={{ color: d.change > 0 ? T.eo_cond : T.eo_gap, fontWeight: 700 }}>{d.change > 0 ? "+" : ""}{d.change} e⁻</span>
+              <span style={{ color: d.change > 0 ? T.eo_cond : T.eo_gap, fontWeight: 500 }}>{d.change > 0 ? "+" : ""}{d.change} e⁻</span>
             </>}
             <span style={{ color: T.muted }}>NELECT (current)</span>
-            <span style={{ color: d.color, fontWeight: 800, fontSize: 14 }}>{nel}</span>
+            <span style={{ color: d.color, fontWeight: 500, fontSize: 14 }}>{nel}</span>
             {nelDelta !== 0 && <>
               <span style={{ color: T.muted }}>Slider offset</span>
-              <span style={{ color: nelDelta > 0 ? T.eo_e : T.eo_hole, fontWeight: 700 }}>{nelDelta > 0 ? "+" : ""}{nelDelta} e⁻</span>
+              <span style={{ color: nelDelta > 0 ? T.eo_e : T.eo_hole, fontWeight: 500 }}>{nelDelta > 0 ? "+" : ""}{nelDelta} e⁻</span>
             </>}
             <span style={{ color: T.muted }}>Charge state (q)</span>
-            <span style={{ color: T.ink, fontWeight: 700 }}>{nelDelta === 0 ? "neutral" : (nelDelta > 0 ? `q = ${-nelDelta}` : `q = +${-nelDelta}`)}</span>
+            <span style={{ color: T.ink, fontWeight: 500 }}>{nelDelta === 0 ? "neutral" : (nelDelta > 0 ? `q = ${-nelDelta}` : `q = +${-nelDelta}`)}</span>
           </div>
         </div>
 
         {/* Carrier summary */}
         <div style={{ display: "flex", gap: 8 }}>
           <div style={{ flex: 1, padding: "10px 12px", borderRadius: 8, background: `${T.eo_e}08`, border: `1.5px solid ${T.eo_e}33`, textAlign: "center" }}>
-            <div style={{ fontSize: 22, fontWeight: 800, color: T.eo_e, fontFamily: "monospace" }}>{totalFreeE}</div>
-            <div style={{ fontSize: 10, color: T.eo_e, fontWeight: 600 }}>free electrons</div>
+            <div style={{ fontSize: 22, fontWeight: 500, color: T.eo_e, fontFamily: "monospace" }}>{totalFreeE}</div>
+            <div style={{ fontSize: 10, color: T.eo_e, fontWeight: 500 }}>free electrons</div>
             <div style={{ fontSize: 9, color: T.muted }}>(in CB)</div>
           </div>
           <div style={{ flex: 1, padding: "10px 12px", borderRadius: 8, background: `${T.eo_hole}08`, border: `1.5px solid ${T.eo_hole}33`, textAlign: "center" }}>
-            <div style={{ fontSize: 22, fontWeight: 800, color: T.eo_hole, fontFamily: "monospace" }}>{totalFreeH}</div>
-            <div style={{ fontSize: 10, color: T.eo_hole, fontWeight: 600 }}>holes</div>
+            <div style={{ fontSize: 22, fontWeight: 500, color: T.eo_hole, fontFamily: "monospace" }}>{totalFreeH}</div>
+            <div style={{ fontSize: 10, color: T.eo_hole, fontWeight: 500 }}>holes</div>
             <div style={{ fontSize: 9, color: T.muted }}>(in VB)</div>
           </div>
           <div style={{ flex: 1, padding: "10px 12px", borderRadius: 8, background: `${d.color}08`, border: `1.5px solid ${d.color}33`, textAlign: "center" }}>
-            <div style={{ fontSize: 14, fontWeight: 800, color: d.color, fontFamily: "monospace" }}>
+            <div style={{ fontSize: 14, fontWeight: 500, color: d.color, fontFamily: "monospace" }}>
               {totalFreeE > totalFreeH ? "n-type" : totalFreeH > totalFreeE ? "p-type" : "intrinsic"}
             </div>
-            <div style={{ fontSize: 10, color: d.color, fontWeight: 600 }}>conductivity</div>
+            <div style={{ fontSize: 10, color: d.color, fontWeight: 500 }}>conductivity</div>
             <div style={{ fontSize: 9, color: T.muted }}>e⁻ − h = {totalFreeE - totalFreeH}</div>
           </div>
         </div>
 
         {/* What happens physically */}
         <div style={{ background: T.bg, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 10, color: T.muted, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 6 }}>
+          <div style={{ fontSize: 10, color: T.muted, fontWeight: 500, letterSpacing: 1.5, textTransform: "none", marginBottom: 6 }}>
             What happens physically
           </div>
           {defect === 0 && (
@@ -1977,7 +1978,7 @@ function DefectElectronsSection() {
 
         {/* Comparison table */}
         <div style={{ background: T.surface, borderRadius: 10, padding: 12, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 10, color: T.muted, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 6 }}>
+          <div style={{ fontSize: 10, color: T.muted, fontWeight: 500, letterSpacing: 1.5, textTransform: "none", marginBottom: 6 }}>
             Defect comparison in 64-atom cell
           </div>
           <div style={{ overflowX: "auto" }}>
@@ -1997,9 +1998,9 @@ function DefectElectronsSection() {
                 { label: "Type", vals: ["intrinsic", "p-type", "n-type", "deep trap"] },
               ].map(({ label, vals }) => (
                 <tr key={label}>
-                  <td style={{ padding: "3px 6px", color: T.muted, fontWeight: 600 }}>{label}</td>
+                  <td style={{ padding: "3px 6px", color: T.muted, fontWeight: 500 }}>{label}</td>
                   {vals.map((v, j) => (
-                    <td key={j} style={{ padding: "3px 6px", textAlign: "center", color: j === 0 ? T.ink : defs[j].color, fontWeight: v.includes("type") || v.includes("trap") ? 700 : 400 }}>{v}</td>
+                    <td key={j} style={{ padding: "3px 6px", textAlign: "center", color: j === 0 ? T.ink : defs[j].color, fontWeight: v.includes("type") || v.includes("trap") ? 500 : 400 }}>{v}</td>
                   ))}
                 </tr>
               ))}
@@ -2073,12 +2074,12 @@ function RecombinationSection() {
           {/* Conduction band */}
           <rect x={20} y={30} width={230} height={40} rx={4}
             fill={T.eo_cond + "11"} stroke={T.eo_cond} strokeWidth={1.5} />
-          <text x={30} y={53} fill={T.eo_cond} fontSize={11} fontWeight="bold">Conduction Band</text>
+          <text x={30} y={53} fill={T.eo_cond} fontSize={11} fontWeight="500">Conduction Band</text>
 
           {/* Valence band */}
           <rect x={20} y={240} width={230} height={40} rx={4}
             fill={T.eo_valence + "22"} stroke={T.eo_valence} strokeWidth={1.5} />
-          <text x={30} y={263} fill={T.eo_valence} fontSize={11} fontWeight="bold">Valence Band</text>
+          <text x={30} y={263} fill={T.eo_valence} fontSize={11} fontWeight="500">Valence Band</text>
 
           {/* Gap label */}
           <text x={265} y={155} fill={T.muted} fontSize={9} textAnchor="middle">Eg</text>
@@ -2104,10 +2105,10 @@ function RecombinationSection() {
                 {/* Photon emission */}
                 <g opacity={photonOp}>
                   <path d="M 155,248 Q 170,238 185,248 Q 200,258 215,248" stroke={T.eo_photon} strokeWidth={2.5} fill="none" />
-                  <text x={225} y={248} fill={T.eo_photon} fontSize={11} fontWeight="bold">hν</text>
+                  <text x={225} y={248} fill={T.eo_photon} fontSize={11} fontWeight="500">hν</text>
                   <circle cx={190} cy={245} r={15} fill={T.eo_photon + "18"} />
                 </g>
-                <text x={140} y={155} textAnchor="middle" fill={T.eo_photon} fontSize={10} fontWeight="bold">
+                <text x={140} y={155} textAnchor="middle" fill={T.eo_photon} fontSize={10} fontWeight="500">
                   E = hν = Eg
                 </text>
               </g>
@@ -2131,7 +2132,7 @@ function RecombinationSection() {
                 {/* Defect trap level */}
                 <line x1={60} y1={trapY} x2={200} y2={trapY}
                   stroke={T.eo_gap} strokeWidth={2.5} />
-                <text x={210} y={trapY + 4} fill={T.eo_gap} fontSize={9} fontWeight="bold">trap</text>
+                <text x={210} y={trapY + 4} fill={T.eo_gap} fontSize={9} fontWeight="500">trap</text>
 
                 {/* Step arrows */}
                 <line x1={120} y1={70} x2={120} y2={trapY} stroke={T.eo_gap} strokeWidth={1}
@@ -2181,13 +2182,13 @@ function RecombinationSection() {
                 {/* Defect trap */}
                 <line x1={40} y1={trapY} x2={220} y2={trapY}
                   stroke={T.eo_hole} strokeWidth={2.5} />
-                <text x={130} y={trapY - 8} textAnchor="middle" fill={T.eo_hole} fontSize={9} fontWeight="bold">
+                <text x={130} y={trapY - 8} textAnchor="middle" fill={T.eo_hole} fontSize={9} fontWeight="500">
                   Defect Trap (E_t)
                 </text>
 
                 {/* Left side: electron capture */}
                 <g>
-                  <text x={80} y={88} textAnchor="middle" fill={T.eo_e} fontSize={9} fontWeight="bold">
+                  <text x={80} y={88} textAnchor="middle" fill={T.eo_e} fontSize={9} fontWeight="500">
                     Step 1: e⁻ capture
                   </text>
                   <circle cx={80} cy={eCapY} r={5} fill={T.eo_e} />
@@ -2197,7 +2198,7 @@ function RecombinationSection() {
 
                 {/* Right side: hole capture (electron drops to VB) */}
                 <g>
-                  <text x={180} y={188} textAnchor="middle" fill={T.eo_hole} fontSize={9} fontWeight="bold">
+                  <text x={180} y={188} textAnchor="middle" fill={T.eo_hole} fontSize={9} fontWeight="500">
                     Step 2: h⁺ capture
                   </text>
                   {p1 > 0.5 && (
@@ -2228,7 +2229,7 @@ function RecombinationSection() {
               background: mode === i ? md.color + "22" : T.surface,
               border: `1px solid ${mode === i ? md.color : T.border}`,
               color: mode === i ? md.color : T.muted,
-              cursor: "pointer", fontWeight: mode === i ? 700 : 400,
+              cursor: "pointer", fontWeight: mode === i ? 500 : 400,
               fontFamily: "inherit",
             }}>{md.label}</button>
           ))}
@@ -2242,7 +2243,7 @@ function RecombinationSection() {
           border: `1px solid ${m.color}44`,
           borderRadius: 10, padding: 14,
         }}>
-          <div style={{ fontSize: 18, fontWeight: 800, color: m.color, marginBottom: 8 }}>
+          <div style={{ fontSize: 18, fontWeight: 500, color: m.color, marginBottom: 8 }}>
             {m.title}
           </div>
           <p style={{ fontSize: 13, color: T.ink, lineHeight: 1.8, margin: 0 }}>
@@ -2251,17 +2252,17 @@ function RecombinationSection() {
         </div>
 
         <div style={{ background: T.surface, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, letterSpacing: 2, textTransform: "uppercase" }}>Key points</div>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, letterSpacing: 2, textTransform: "none" }}>Key points</div>
           {m.details.map((d, i) => (
             <div key={i} style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-              <div style={{ color: m.color, fontSize: 12, flex: "0 0 16px", fontWeight: 700 }}>{i + 1}.</div>
+              <div style={{ color: m.color, fontSize: 12, flex: "0 0 16px", fontWeight: 500 }}>{i + 1}.</div>
               <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.6 }}>{d}</div>
             </div>
           ))}
         </div>
 
         <div style={{ background: T.bg, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-          <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, letterSpacing: 2, textTransform: "uppercase" }}>
+          <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, letterSpacing: 2, textTransform: "none" }}>
             Radiative vs Non-radiative
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 8 }}>
@@ -2273,7 +2274,7 @@ function RecombinationSection() {
                 padding: "8px 10px", borderRadius: 8,
                 background: color + "11", border: `1px solid ${color}33`,
               }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color, marginBottom: 4 }}>{label}</div>
+                <div style={{ fontSize: 11, fontWeight: 500, color, marginBottom: 4 }}>{label}</div>
                 <div style={{ fontSize: 11, color: T.muted }}>Output: {output}</div>
                 <div style={{ fontSize: 10, color: T.muted, marginTop: 2 }}>{note}</div>
               </div>
@@ -2311,7 +2312,7 @@ function DefectThermoSection() {
     <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <div style={{ flex: "0 0 320px" }}>
         <svg viewBox="0 0 320 280" style={{ background: T.bg, borderRadius: 8, width: "100%", maxWidth: 320 }}>
-          <text x={160} y={20} textAnchor="middle" fill={T.ink} fontSize={11} fontWeight="bold">Defect Formation — Thermal Activation</text>
+          <text x={160} y={20} textAnchor="middle" fill={T.ink} fontSize={11} fontWeight="500">Defect Formation — Thermal Activation</text>
 
           {/* Energy landscape curve */}
           <path d={`M 20,200 ${Array.from({length: 7}, (_, i) => {
@@ -2332,7 +2333,7 @@ function DefectThermoSection() {
                 <circle cx={x + vibration} cy={195 + escapeY} r={8}
                   fill={isEscaping ? T.eo_gap + "aa" : T.eo_valence + "aa"}
                   stroke={isEscaping ? T.eo_gap : T.eo_valence} strokeWidth={1} />
-                <text x={x + vibration} y={198 + escapeY} textAnchor="middle" fill="#fff" fontSize={7} fontWeight="bold">
+                <text x={x + vibration} y={198 + escapeY} textAnchor="middle" fill="#fff" fontSize={7} fontWeight="500">
                   {i === 3 ? (isEscaping ? "V" : "Cd") : (i % 2 === 0 ? "Cd" : "Te")}
                 </text>
               </g>
@@ -2350,7 +2351,7 @@ function DefectThermoSection() {
       </div>
       <div style={{ flex: "1 1 300px" }}>
         <div style={infoBox(T.eo_core)}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_core, marginBottom: 6 }}>Defect Formation Energy</div>
+          <div style={{ fontSize: 13, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Defect Formation Energy</div>
           <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.8 }}>
             Whether a defect forms depends on its <b>formation energy</b> E_f. Lower E_f → more defects at thermal equilibrium.
             E_f depends on <b>chemical potentials</b> (growth conditions) and the <b>Fermi level</b> (for charged defects).
@@ -2360,11 +2361,11 @@ function DefectThermoSection() {
         <div style={sectionPanel}>
           <div style={labelUpper}>Chemical potential slider</div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-            <span style={{ fontSize: 10, color: T.eo_gap, fontWeight: 700 }}>Cd-poor</span>
+            <span style={{ fontSize: 10, color: T.eo_gap, fontWeight: 500 }}>Cd-poor</span>
             <input type="range" min={-1.0} max={0} step={0.05} value={muCd}
               onChange={e => setMuCd(+e.target.value)}
               style={{ flex: 1, accentColor: T.eo_core }} />
-            <span style={{ fontSize: 10, color: T.eo_valence, fontWeight: 700 }}>Cd-rich</span>
+            <span style={{ fontSize: 10, color: T.eo_valence, fontWeight: 500 }}>Cd-rich</span>
           </div>
           <div style={{ textAlign: "center", fontFamily: "monospace", fontSize: 12, color: T.eo_core }}>
             Δμ_Cd = {muCd.toFixed(2)} eV (from CdTe stability range)
@@ -2380,7 +2381,7 @@ function DefectThermoSection() {
           ].map(d => (
             <div key={d.name} style={{ marginBottom: 8 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
-                <span style={{ width: 40, fontSize: 11, color: d.color, fontWeight: 700 }}>{d.name}</span>
+                <span style={{ width: 40, fontSize: 11, color: d.color, fontWeight: 500 }}>{d.name}</span>
                 <div style={{ flex: 1, height: 14, background: T.bg, borderRadius: 4, overflow: "hidden" }}>
                   <div style={{ width: `${Math.max(0, Math.min(100, d.ef / 4 * 100))}%`, height: "100%", background: d.color + "66", borderRadius: 4, transition: "width 0.3s" }} />
                 </div>
@@ -2416,7 +2417,7 @@ function DefectThermoSection() {
         </div>
 
         <div style={infoBox(T.eo_photon)}>
-          <div style={{ fontSize: 11, color: T.eo_photon, fontWeight: 700, marginBottom: 4 }}>CdCl₂ activation treatment</div>
+          <div style={{ fontSize: 11, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>CdCl₂ activation treatment</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Real CdTe solar cells undergo CdCl₂ treatment at ~400°C. Cl substitutes on Te sites (Cl_Te),
             acting as a shallow donor. This modifies the Fermi level, which changes charged defect formation
@@ -2501,7 +2502,7 @@ function IVCurveSection() {
           <line x1={xV(Vmpp)} y1={yJ(Jmpp)} x2={xV(Vmpp)} y2={H - mB} stroke={T.eo_photon} strokeWidth={1} strokeDasharray="3,3" opacity={0.6} />
           <line x1={mL}       y1={yJ(Jmpp)} x2={xV(Vmpp)} y2={yJ(Jmpp)} stroke={T.eo_photon} strokeWidth={1} strokeDasharray="3,3" opacity={0.6} />
           <circle cx={xV(Vmpp)} cy={yJ(Jmpp)} r={5} fill={T.eo_photon} />
-          <text x={xV(Vmpp) + 8} y={yJ(Jmpp) - 4} fontSize={8} fill={T.eo_photon} fontWeight="bold">MPP</text>
+          <text x={xV(Vmpp) + 8} y={yJ(Jmpp) - 4} fontSize={8} fill={T.eo_photon} fontWeight="500">MPP</text>
 
           {/* Tick labels */}
           {[0.2, 0.4, 0.6, 0.8, 1.0].map(v => (
@@ -2550,8 +2551,8 @@ function IVCurveSection() {
           ].map(m => (
             <div key={m.label} style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 12, borderLeft: `3px solid ${m.color}` }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 3 }}>
-                <span style={{ fontSize: 12, fontWeight: 700, color: m.color }}>{m.label}</span>
-                <span style={{ fontSize: 14, fontWeight: 800, color: m.color, fontFamily: "monospace" }}>{m.value}</span>
+                <span style={{ fontSize: 12, fontWeight: 500, color: m.color }}>{m.label}</span>
+                <span style={{ fontSize: 14, fontWeight: 500, color: m.color, fontFamily: "monospace" }}>{m.value}</span>
               </div>
               <div style={{ fontSize: 10, color: T.muted, marginBottom: 4 }}>{m.desc}</div>
               <div style={{ fontSize: 10, color: T.dim, lineHeight: 1.5 }}>{m.tip}</div>
@@ -2560,7 +2561,7 @@ function IVCurveSection() {
         </div>
 
         <div style={{ background: T.panel, border: `1px solid ${T.border}`, borderRadius: 8, padding: 14 }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_e, marginBottom: 10 }}>How to Read a J-V Curve</div>
+          <div style={{ fontSize: 13, fontWeight: 500, color: T.eo_e, marginBottom: 10 }}>How to Read a J-V Curve</div>
           {[
             { label: "Left edge → Jsc",  color: T.eo_cond,   text: "The current at V = 0. Every absorbed photon contributes. CdTe's direct 1.44 eV gap means 99% of above-gap photons are absorbed in ~2 µm — giving a high Jsc from a very thin film." },
             { label: "Right edge → Voc", color: T.eo_hole,   text: "The voltage at J = 0. Governed by the diode equation: Voc = nkT/q · ln(Jsc/J₀ + 1). Defects increase J₀ exponentially (SRH), collapsing Voc." },
@@ -2571,7 +2572,7 @@ function IVCurveSection() {
             <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 8 }}>
               <div style={{ width: 3, borderRadius: 2, background: item.color, flexShrink: 0, alignSelf: "stretch" }} />
               <div style={{ fontSize: 11, lineHeight: 1.6 }}>
-                <span style={{ fontWeight: 700, color: item.color }}>{item.label}: </span>
+                <span style={{ fontWeight: 500, color: item.color }}>{item.label}: </span>
                 <span style={{ color: T.muted }}>{item.text}</span>
               </div>
             </div>
@@ -2579,7 +2580,7 @@ function IVCurveSection() {
         </div>
 
         <div style={{ background: T.eo_photon + "0a", border: `1px solid ${T.eo_photon}33`, borderLeft: `3px solid ${T.eo_photon}`, borderRadius: 8, padding: 12 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: T.eo_photon, marginBottom: 4 }}>CdTe Record vs. Shockley–Queisser Limit</div>
+          <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_photon, marginBottom: 4 }}>CdTe Record vs. Shockley–Queisser Limit</div>
           <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
             SQ limit (1.44 eV): η ≈ 32%, Voc ≈ 1.17 V — if every recombination event radiated a photon back out.<br />
             First Solar record (2016): η = 22.1%, Voc = 0.887 V, Jsc = 30.25 mA/cm², FF = 79.4%<br />
@@ -2613,7 +2614,7 @@ function MacroSection() {
       <div style={{ flex: "0 0 300px" }}>
         <div style={sectionPanel}>
           <div style={labelUpper}>V_Cd defects in 64-atom CdTe cell</div>
-          <div style={{ fontSize: 36, fontWeight: 800, color: T.eo_gap, textAlign: "center", marginBottom: 8 }}>
+          <div style={{ fontSize: 36, fontWeight: 500, color: T.eo_gap, textAlign: "center", marginBottom: 8 }}>
             {defects}
           </div>
           <input type="range" min={0} max={10} step={1} value={defects}
@@ -2740,8 +2741,8 @@ function MacroSection() {
             <div style={{ fontSize: 18, flex: "0 0 24px", marginTop: 2 }}>{icon}</div>
             <div style={{ flex: 1 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 3 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: change !== "none" ? color : T.ink }}>{title}</div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: change !== "none" ? color : T.muted, fontFamily: "monospace" }}>
+                <div style={{ fontSize: 13, fontWeight: 500, color: change !== "none" ? color : T.ink }}>{title}</div>
+                <div style={{ fontSize: 14, fontWeight: 500, color: change !== "none" ? color : T.muted, fontFamily: "monospace" }}>
                   {value}
                 </div>
               </div>
@@ -2754,7 +2755,7 @@ function MacroSection() {
           padding: "10px 14px", borderRadius: 8,
           background: T.eo_gap + "11", border: `1px solid ${T.eo_gap}44`,
         }}>
-          <div style={{ fontSize: 11, color: T.eo_gap, fontWeight: 700, marginBottom: 4 }}>CdTe solar cell: The defect balancing act</div>
+          <div style={{ fontSize: 11, color: T.eo_gap, fontWeight: 500, marginBottom: 4 }}>CdTe solar cell: The defect balancing act</div>
           <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
             V_Cd is both helpful (p-type doping) and harmful (SRH recombination center).<br />
             Too few V_Cd → not enough carriers → low current.<br />
@@ -2770,7 +2771,7 @@ function MacroSection() {
           background: `${T.eo_hole}11`, border: `1px solid ${T.eo_hole}44`,
           borderRadius: 8, padding: 14, fontSize: 12, lineHeight: 1.6, marginTop: 10,
         }}>
-          <div style={{ fontWeight: "bold", color: T.eo_hole, marginBottom: 4 }}>Full Picture {"\u2192"}</div>
+          <div style={{ fontWeight: "500", color: T.eo_hole, marginBottom: 4 }}>Full Picture {"\u2192"}</div>
           <div style={{ color: T.ink }}>From individual Cd and Te atoms, through crystal bonding, band structure, and defect physics, to a working solar cell — every property traces back to the quantum mechanics of electrons. The challenge of CdTe photovoltaics is managing defects: enough V_Cd for p-type doping, but not so many that recombination kills the device.</div>
         </div>
     </div>
@@ -2919,7 +2920,7 @@ function SolarCellDeviceSection() {
 
             {/* Sun glow at top */}
             <rect x={stackX} y={0} width={stackW} height={28} fill="url(#sunGlow)" rx={4} />
-            <text x={stackX + stackW / 2} y={16} textAnchor="middle" fontSize={11} fill="#b8860b" fontWeight={700}>
+            <text x={stackX + stackW / 2} y={16} textAnchor="middle" fontSize={11} fill="#b8860b" fontWeight={500}>
               {"\u2600\uFE0F"} Sunlight (AM1.5)
             </text>
 
@@ -2955,7 +2956,7 @@ function SolarCellDeviceSection() {
                   />
                   {/* Layer label inside */}
                   <text x={stackX + stackW / 2} y={l.yMid + (l.h > 30 ? -6 : 4)} textAnchor="middle"
-                    fontSize={l.h > 30 ? 12 : 9} fontWeight={700} fill="#fff"
+                    fontSize={l.h > 30 ? 12 : 9} fontWeight={500} fill="#fff"
                     style={{ textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}>
                     {l.name}
                   </text>
@@ -2993,13 +2994,13 @@ function SolarCellDeviceSection() {
                   <circle cx={c.baseX - 6} cy={eY} r={3.5}
                     fill={T.eo_e} opacity={eOpacity * sunIntensity} />
                   {t < 0.15 && (
-                    <text x={c.baseX - 6} y={eY + 1.5} textAnchor="middle" fontSize={5} fill="#fff" fontWeight={700}>e</text>
+                    <text x={c.baseX - 6} y={eY + 1.5} textAnchor="middle" fontSize={5} fill="#fff" fontWeight={500}>e</text>
                   )}
                   {/* Hole (orange, moves down) */}
                   <circle cx={c.baseX + 6} cy={hY} r={3.5}
                     fill={T.eo_hole} opacity={eOpacity * sunIntensity} />
                   {t < 0.15 && (
-                    <text x={c.baseX + 6} y={hY + 1.5} textAnchor="middle" fontSize={5} fill="#fff" fontWeight={700}>h</text>
+                    <text x={c.baseX + 6} y={hY + 1.5} textAnchor="middle" fontSize={5} fill="#fff" fontWeight={500}>h</text>
                   )}
                 </g>
               );
@@ -3037,7 +3038,7 @@ function SolarCellDeviceSection() {
               let bxOff = 0;
               return (
                 <g>
-                  <text x={bx + bw / 2} y={by - 8} textAnchor="middle" fontSize={10} fontWeight={700} fill={T.ink}>
+                  <text x={bx + bw / 2} y={by - 8} textAnchor="middle" fontSize={10} fontWeight={500} fill={T.ink}>
                     Band Diagram
                   </text>
                   <rect x={bx} y={by} width={bw} height={bh} fill={T.surface} stroke={T.border} strokeWidth={1} rx={4} />
@@ -3071,7 +3072,7 @@ function SolarCellDeviceSection() {
                         )}
                         {/* Label */}
                         <text x={x0 + bl.w / 2} y={by + bh + 14} textAnchor="middle"
-                          fontSize={7} fill={T.muted} fontWeight={600}>{bl.name}</text>
+                          fontSize={7} fill={T.muted} fontWeight={500}>{bl.name}</text>
                       </g>
                     );
                   })}
@@ -3103,7 +3104,7 @@ function SolarCellDeviceSection() {
                 fill="none" stroke={T.muted} strokeWidth={1.5} strokeDasharray="4,3" />
               <rect x={stackX + stackW / 2 - 24} y={totalH + 16} width={48} height={18} rx={4}
                 fill={T.surface} stroke={T.muted} strokeWidth={1} />
-              <text x={stackX + stackW / 2} y={totalH + 28} textAnchor="middle" fontSize={8} fill={T.muted} fontWeight={600}>
+              <text x={stackX + stackW / 2} y={totalH + 28} textAnchor="middle" fontSize={8} fill={T.muted} fontWeight={500}>
                 Load
               </text>
             </g>
@@ -3127,7 +3128,7 @@ function SolarCellDeviceSection() {
         {/* Right panel: layer details */}
         <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
           <div style={infoBox(T.eo_photon)}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: T.eo_photon, marginBottom: 4 }}>CdTe Thin-Film Solar Cell</div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: T.eo_photon, marginBottom: 4 }}>CdTe Thin-Film Solar Cell</div>
             <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.6 }}>
               Click any layer in the device stack to see its function. Photons enter from the top (glass side),
               get absorbed in CdTe, and generate electron-hole pairs separated by the built-in p-n junction field.
@@ -3156,12 +3157,12 @@ function SolarCellDeviceSection() {
                   border: `2px solid ${sel.iconColor}`,
                 }} />
                 <div>
-                  <div style={{ fontSize: 14, fontWeight: 800, color: sel.iconColor }}>{sel.name}</div>
+                  <div style={{ fontSize: 14, fontWeight: 500, color: sel.iconColor }}>{sel.name}</div>
                   <div style={{ fontSize: 11, color: T.muted }}>{sel.formula} | {sel.thickness}</div>
                 </div>
               </div>
               <div style={{
-                fontSize: 12, fontWeight: 700, color: sel.iconColor,
+                fontSize: 12, fontWeight: 500, color: sel.iconColor,
                 marginBottom: 6, padding: "4px 10px", borderRadius: 6,
                 background: sel.iconColor + "11", border: `1px solid ${sel.iconColor}22`,
                 display: "inline-block",
@@ -3194,10 +3195,10 @@ function SolarCellDeviceSection() {
                     background: l.color, opacity: 0.85, flexShrink: 0,
                   }} />
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 12, fontWeight: 600, color: T.ink }}>{l.name}</div>
+                    <div style={{ fontSize: 12, fontWeight: 500, color: T.ink }}>{l.name}</div>
                     <div style={{ fontSize: 10, color: T.muted }}>{l.formula} | {l.thickness}</div>
                   </div>
-                  <div style={{ fontSize: 9, color: l.iconColor, fontWeight: 600, maxWidth: 120, textAlign: "right" }}>
+                  <div style={{ fontSize: 9, color: l.iconColor, fontWeight: 500, maxWidth: 120, textAlign: "right" }}>
                     {l.role.split("\u2014")[0]}
                   </div>
                 </div>
@@ -3222,7 +3223,7 @@ function SolarCellDeviceSection() {
                     width: 18, height: 18, borderRadius: "50%", flexShrink: 0,
                     background: s.color + "22", border: `1px solid ${s.color}44`,
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 9, fontWeight: 800, color: s.color,
+                    fontSize: 9, fontWeight: 500, color: s.color,
                   }}>{s.step}</div>
                   <div style={{ fontSize: 11, color: T.ink }}>{s.text}</div>
                 </div>
@@ -3235,7 +3236,7 @@ function SolarCellDeviceSection() {
             padding: "10px 14px", borderRadius: 8,
             background: T.eo_photon + "11", border: `1px solid ${T.eo_photon}44`,
           }}>
-            <div style={{ fontSize: 11, color: T.eo_photon, fontWeight: 700, marginBottom: 4 }}>Record Efficiency</div>
+            <div style={{ fontSize: 11, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Record Efficiency</div>
             <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
               <b style={{ color: T.eo_photon }}>22.1%</b> (First Solar, NREL certified) vs. Shockley-Queisser limit of 32.1% for 1.44 eV.<br />
               <b>Key loss:</b> V_Cd recombination + CdS parasitic absorption + back-contact barrier.<br />
@@ -3282,7 +3283,7 @@ function CdTeExampleModule() {
             border: `1px solid ${active === s.id ? s.color : T.border}`,
             background: active === s.id ? s.color + "22" : T.bg,
             color: active === s.id ? s.color : T.muted,
-            cursor: "pointer", fontFamily: "inherit", fontWeight: active === s.id ? 700 : 400,
+            cursor: "pointer", fontFamily: "inherit", fontWeight: active === s.id ? 500 : 400,
             display: "flex", alignItems: "center", gap: 4, whiteSpace: "nowrap",
           }}>
             <span style={{ fontSize: 12 }}>{s.icon}</span>
@@ -3304,9 +3305,9 @@ function FAQAccordion({ title, color, isOpen, onClick, children }) {
   return (
     <div style={{ borderRadius: 12, border: `1.5px solid ${isOpen ? color : T.border}`, overflow: "hidden", transition: "all 0.2s" }}>
       <button onClick={onClick} style={{ width: "100%", padding: "12px 16px", background: isOpen ? color + "12" : T.surface, border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 10, fontFamily: "inherit", textAlign: "left" }}>
-        <span style={{ fontSize: 16, color: isOpen ? color : T.muted, fontWeight: 700, transition: "transform 0.2s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}>▶</span>
-        <span style={{ fontSize: 13, fontWeight: 700, color: isOpen ? color : T.ink, flex: 1 }}>{title}</span>
-        {isOpen && <span style={{ fontSize: 10, color, fontWeight: 600, padding: "2px 8px", background: color + "15", borderRadius: 6 }}>OPEN</span>}
+        <span style={{ fontSize: 16, color: isOpen ? color : T.muted, fontWeight: 500, transition: "transform 0.2s", transform: isOpen ? "rotate(90deg)" : "rotate(0deg)" }}>▶</span>
+        <span style={{ fontSize: 13, fontWeight: 500, color: isOpen ? color : T.ink, flex: 1 }}>{title}</span>
+        {isOpen && <span style={{ fontSize: 10, color, fontWeight: 500, padding: "2px 8px", background: color + "15", borderRadius: 6 }}>OPEN</span>}
       </button>
       {isOpen && <div style={{ padding: "14px 18px", borderTop: `1px solid ${color}20`, background: T.surface }}>{children}</div>}
     </div>
@@ -3395,7 +3396,7 @@ function CdTeManufacturingSection() {
             { label: "Module life", value: "25+ yrs", color: "#22c55e" },
           ].map(item => (
             <div key={item.label} style={{ background: item.color + "10", border: `1px solid ${item.color}30`, borderRadius: 8, padding: "8px", textAlign: "center" }}>
-              <div style={{ fontSize: 16, fontWeight: 800, color: item.color }}>{item.value}</div>
+              <div style={{ fontSize: 16, fontWeight: 500, color: item.color }}>{item.value}</div>
               <div style={{ fontSize: 9, color: T.muted }}>{item.label}</div>
             </div>
           ))}
@@ -3409,7 +3410,7 @@ function CdTeManufacturingSection() {
             <button key={i} onClick={() => setMfgStep(i)} style={{
               padding: "5px 10px", borderRadius: 8, border: `2px solid ${mfgStep === i ? s.color : T.border}`,
               background: mfgStep === i ? s.color + "18" : T.bg, color: mfgStep === i ? s.color : T.muted,
-              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: mfgStep === i ? 800 : 400, transition: "all 0.2s",
+              cursor: "pointer", fontSize: 10, fontFamily: "inherit", fontWeight: mfgStep === i ? 500 : 400, transition: "all 0.2s",
             }}>{s.icon} {i + 1}</button>
           ))}
         </div>
@@ -3418,7 +3419,7 @@ function CdTeManufacturingSection() {
         <div style={{ display: "flex", gap: 10, background: step.color + "08", borderRadius: 10, padding: "10px 14px", border: `1.5px solid ${step.color}20`, marginBottom: 12 }}>
           <span style={{ fontSize: 20, flexShrink: 0 }}>{step.icon}</span>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 800, color: step.color, marginBottom: 4 }}>{step.title}</div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: step.color, marginBottom: 4 }}>{step.title}</div>
             <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{step.analogy}</div>
           </div>
         </div>
@@ -3427,27 +3428,27 @@ function CdTeManufacturingSection() {
           {/* Animated layer stack */}
           <div style={{ flex: "0 0 280px" }}>
             <svg width={280} height={270} style={{ background: T.bg, borderRadius: 10, border: `1px solid ${T.border}`, display: "block" }}>
-              <text x={140} y={18} textAnchor="middle" fill={T.ink} fontSize={10} fontWeight={700}>CdTe Cell Cross-Section</text>
+              <text x={140} y={18} textAnchor="middle" fill={T.ink} fontSize={10} fontWeight={500}>CdTe Cell Cross-Section</text>
 
               {/* Sunlight arrows */}
               {mfgStep >= 3 && [50, 100, 150, 200, 230].map((x, i) => (
                 <line key={i} x1={x} y1={25} x2={x} y2={120 + (tick * 2 + i * 10) % 15} stroke={T.eo_photon} strokeWidth={1.5} opacity={0.4 + 0.3 * Math.sin(tick * 0.1 + i)} strokeDasharray="4 3" />
               ))}
-              {mfgStep >= 3 && <text x={240} y={40} fill={T.eo_photon} fontSize={9} fontWeight={700}>☀️ light</text>}
+              {mfgStep >= 3 && <text x={240} y={40} fill={T.eo_photon} fontSize={9} fontWeight={500}>☀️ light</text>}
 
               {/* Layer stack */}
               {layerStack.map((layer, i) => layer.active && (
                 <g key={i}>
-                  <rect x={30} y={layer.y} width={200} height={layer.h} rx={3} fill={layer.color} stroke={T.ink + "30"} strokeWidth={0.5}>
+                  <rect x={30} y={layer.y} width={200} height={layer.h} rx={3} fill={layer.color} stroke={"color-mix(in srgb, var(--ink) 19%, transparent)"} strokeWidth={0.5}>
                     {i === mfgStep && <animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite" />}
                   </rect>
-                  <text x={240} y={layer.y + layer.h / 2 + 4} fill={T.ink} fontSize={8} fontWeight={i === mfgStep ? 700 : 400}>{layer.label}</text>
+                  <text x={240} y={layer.y + layer.h / 2 + 4} fill={T.ink} fontSize={8} fontWeight={i === mfgStep ? 500 : 400}>{layer.label}</text>
                 </g>
               ))}
 
               {/* CdCl2 treatment visualization */}
               {mfgStep === 4 && <>
-                <text x={140} y={125} textAnchor="middle" fill={T.eo_hole} fontSize={9} fontWeight={700}>CdCl₂ + 400°C</text>
+                <text x={140} y={125} textAnchor="middle" fill={T.eo_hole} fontSize={9} fontWeight={500}>CdCl₂ + 400°C</text>
                 {[60, 100, 140, 180].map((x, i) => (
                   <circle key={i} cx={x} cy={135 + 5 * Math.sin(tick * 0.15 + i)} r={2} fill={T.eo_hole}>
                     <animate attributeName="cy" values={`${135};${170};${135}`} dur="2s" repeatCount="indefinite" begin={`${i * 0.3}s`} />
@@ -3463,19 +3464,19 @@ function CdTeManufacturingSection() {
                     <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite" begin={`${i * 0.2}s`} />
                   </circle>
                 ))}
-                <text x={140} y={118} textAnchor="middle" fill={T.eo_core} fontSize={9} fontWeight={700}>Cu diffusing into CdTe</text>
+                <text x={140} y={118} textAnchor="middle" fill={T.eo_core} fontSize={9} fontWeight={500}>Cu diffusing into CdTe</text>
               </>}
 
               {/* Characterization */}
               {mfgStep === 6 && <>
-                <text x={140} y={115} textAnchor="middle" fill={T.eo_cond} fontSize={10} fontWeight={700}>TESTING</text>
+                <text x={140} y={115} textAnchor="middle" fill={T.eo_cond} fontSize={10} fontWeight={500}>Testing</text>
                 <text x={140} y={255} textAnchor="middle" fill={T.muted} fontSize={8}>J-V, EQE, DLTS, PL, C-V</text>
               </>}
 
               {/* Encapsulation */}
               {mfgStep === 7 && <>
                 <rect x={20} y={100} width={220} height={140} rx={6} fill="none" stroke="#16a34a" strokeWidth={3} strokeDasharray="6 3" />
-                <text x={140} y={255} textAnchor="middle" fill="#16a34a" fontSize={9} fontWeight={700}>Encapsulated — 25+ year lifetime</text>
+                <text x={140} y={255} textAnchor="middle" fill="#16a34a" fontSize={9} fontWeight={500}>Encapsulated — 25+ year lifetime</text>
               </>}
 
               {/* e-h pair generation animation */}
@@ -3494,11 +3495,11 @@ function CdTeManufacturingSection() {
           {/* Details panel */}
           <div style={{ flex: 1, minWidth: 240 }}>
             <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: step.color, marginBottom: 6 }}>Process Details</div>
+              <div style={{ fontSize: 12, fontWeight: 500, color: step.color, marginBottom: 6 }}>Process Details</div>
               <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{step.details}</div>
             </div>
             <div style={{ background: step.color + "08", borderRadius: 8, padding: "8px 12px", border: `1px solid ${step.color}15` }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: step.color, marginBottom: 4 }}>Key Parameters</div>
+              <div style={{ fontSize: 11, fontWeight: 500, color: step.color, marginBottom: 4 }}>Key Parameters</div>
               <div style={{ fontSize: 11, color: T.ink, fontFamily: "monospace", lineHeight: 1.8 }}>{step.params}</div>
             </div>
           </div>
@@ -3511,7 +3512,7 @@ function CdTeManufacturingSection() {
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Without CdCl₂ treatment, CdTe solar cells are only ~5% efficient. WITH it, they reach 22%+. This single step is responsible for a 4× improvement. It{"'"}s the "secret sauce" of CdTe technology — and it took decades to fully understand why it works.</span>
         </div>
         <div style={mb}>
-          <span style={{ color: T.eo_hole, fontWeight: 700 }}>What CdCl₂ treatment does — 5 simultaneous effects:</span><br /><br />
+          <span style={{ color: T.eo_hole, fontWeight: 500 }}>What CdCl₂ treatment does — 5 simultaneous effects:</span><br /><br />
           {"  1. GRAIN GROWTH: 1-2 μm → 5-10 μm (fewer grain boundaries)"}<br />
           {"     Mechanism: Cl lowers grain boundary energy → grains coalesce"}<br />
           {"     Analogy: like soap reducing surface tension → small bubbles merge"}<br /><br />
@@ -3533,8 +3534,8 @@ function CdTeManufacturingSection() {
             { label: "With CdCl₂", value: "~20%+", sub: "Large grains, passivated GBs, activated", color: "#22c55e" },
           ].map(item => (
             <div key={item.label} style={{ background: item.color + "10", border: `1.5px solid ${item.color}30`, borderRadius: 10, padding: "12px", textAlign: "center" }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: item.color }}>{item.label}</div>
-              <div style={{ fontSize: 22, fontWeight: 800, color: item.color, margin: "4px 0" }}>{item.value}</div>
+              <div style={{ fontSize: 11, fontWeight: 500, color: item.color }}>{item.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 500, color: item.color, margin: "4px 0" }}>{item.value}</div>
               <div style={{ fontSize: 10, color: T.muted }}>{item.sub}</div>
             </div>
           ))}
@@ -3543,33 +3544,33 @@ function CdTeManufacturingSection() {
 
       <FAQAccordion title="Numerical Example: Full Cell Fabrication Parameters" color={T.eo_cond} isOpen={openItem === "mfg_numerical"} onClick={() => toggle("mfg_numerical")}>
         <div style={mb}>
-          <span style={{ color: T.eo_cond, fontWeight: 800, fontSize: 14 }}>Complete recipe for a 20%+ CdTe cell:</span><br /><br />
+          <span style={{ color: T.eo_cond, fontWeight: 500, fontSize: 14 }}>Complete recipe for a 20%+ CdTe cell:</span><br /><br />
 
-          <span style={{ color: T.eo_cond, fontWeight: 700 }}>Layer 1: FTO/glass</span><br />
+          <span style={{ color: T.eo_cond, fontWeight: 500 }}>Layer 1: FTO/glass</span><br />
           {"  SnO₂:F by APCVD at 500°C | 400 nm | R_sh = 8 Ω/□ | T = 82%"}<br /><br />
 
-          <span style={{ color: T.eo_photon, fontWeight: 700 }}>Layer 2: CdS buffer</span><br />
+          <span style={{ color: T.eo_photon, fontWeight: 500 }}>Layer 2: CdS buffer</span><br />
           {"  CBD: 0.015M CdSO₄ + 0.15M thiourea + 1.5M NH₄OH"}<br />
           {"  T = 65°C, t = 12 min → 70 nm film"}<br />
           {"  Post-anneal: 400°C, 10 min, air (densifies film)"}<br /><br />
 
-          <span style={{ color: T.eo_gap, fontWeight: 700 }}>Layer 3: CdTe absorber</span><br />
+          <span style={{ color: T.eo_gap, fontWeight: 500 }}>Layer 3: CdTe absorber</span><br />
           {"  CSS: source 625°C, substrate 565°C, gap 2 mm"}<br />
           {"  Ambient: 2 Torr N₂ + 0.1 Torr O₂"}<br />
           {"  Rate: 3 μm/min → 4 μm in 80 s"}<br /><br />
 
-          <span style={{ color: T.eo_hole, fontWeight: 700 }}>Step 4: CdCl₂ activation</span><br />
+          <span style={{ color: T.eo_hole, fontWeight: 500 }}>Step 4: CdCl₂ activation</span><br />
           {"  Saturated CdCl₂ in methanol, spin-coat or dip"}<br />
           {"  Anneal: 400°C, 25 min, dry air (20% O₂, 80% N₂)"}<br />
           {"  Grain growth: 1.5 μm → 8 μm average"}<br />
           {"  Rinse: DI water × 3, N₂ dry"}<br /><br />
 
-          <span style={{ color: T.eo_core, fontWeight: 700 }}>Step 5: Back contact</span><br />
+          <span style={{ color: T.eo_core, fontWeight: 500 }}>Step 5: Back contact</span><br />
           {"  Etch: NP etch (HNO₃:H₃PO₄:H₂O = 1:88:40) for 30s → Te-rich surface"}<br />
           {"  Evaporate: 3 nm Cu / 40 nm Au at 10⁻⁶ Torr"}<br />
           {"  Anneal: 200°C, 30 min, N₂ → Cu diffuses ~200 nm into CdTe"}<br /><br />
 
-          <span style={{ color: "#22c55e", fontWeight: 700 }}>Result:</span><br />
+          <span style={{ color: "#22c55e", fontWeight: 500 }}>Result:</span><br />
           {"  Voc = 0.86 V | Jsc = 29.5 mA/cm² | FF = 78% | η = 19.8%"}<br />
           {"  Diode: n = 1.6, J₀ = 2×10⁻¹⁰ A/cm²"}<br />
           {"  Doping: N_A ≈ 2×10¹⁴ cm⁻³ (from C-V)"}<br />
@@ -3590,7 +3591,7 @@ function CdTeManufacturingSection() {
             <div key={item.problem} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15`, borderLeft: `4px solid ${item.color}` }}>
               <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
                 <span style={{ fontSize: 14 }}>{item.icon}</span>
-                <span style={{ fontSize: 12, fontWeight: 700, color: item.color }}>{item.problem}</span>
+                <span style={{ fontSize: 12, fontWeight: 500, color: item.color }}>{item.problem}</span>
               </div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.5, marginBottom: 4 }}><strong>Cause:</strong> {item.cause}</div>
               <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}><strong>Fix:</strong> {item.fix}</div>
@@ -3624,75 +3625,22 @@ const CDTE_SOLAR_SECTIONS = [
   { id: "manufacturing", label: "Manufacturing", icon: "🏭", color: "#16a34a", Component: CdTeManufacturingSection },
 ];
 
-function CdTeSolarCellModule() {
+function CdTeSolarCellModule({ references = [] }) {
   const [active, setActive] = useState("atom");
   const sec = CDTE_SOLAR_SECTIONS.find(s => s.id === active);
   const { Component } = sec;
   const secIdx = CDTE_SOLAR_SECTIONS.findIndex(s => s.id === active);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-      {/* Sub-navigation tabs */}
-      <div style={{
-        display: "flex", gap: 4, flexWrap: "wrap",
-        padding: "8px 12px", background: T.panel,
-        borderBottom: `1px solid ${T.border}`,
-      }}>
-        {CDTE_SOLAR_SECTIONS.map((s, i) => (
-          <button key={s.id} onClick={() => setActive(s.id)} style={{
-            padding: "5px 10px", borderRadius: 6, fontSize: 11,
-            border: `1px solid ${active === s.id ? s.color : T.border}`,
-            background: active === s.id ? s.color + "22" : T.bg,
-            color: active === s.id ? s.color : T.muted,
-            cursor: "pointer", fontFamily: "inherit", fontWeight: active === s.id ? 700 : 400,
-            display: "flex", alignItems: "center", gap: 4, whiteSpace: "nowrap",
-          }}>
-            <span style={{ fontSize: 10, color: active === s.id ? s.color : T.dim, marginRight: 1 }}>{i + 1}.</span>
-            <span style={{ fontSize: 12 }}>{s.icon}</span>
-            {s.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Active sub-section */}
-      <div style={{ padding: "20px 24px" }}>
-        <Component />
-        <NextTopicCard sections={CDTE_SOLAR_SECTIONS} activeId={active} />
-      </div>
-
-      {/* Bottom nav */}
-      <div style={{
-        borderTop: `1px solid ${T.border}`, padding: "10px 24px",
-        display: "flex", justifyContent: "space-between", alignItems: "center",
-        background: T.panel,
-      }}>
-        <button onClick={() => { if (secIdx > 0) setActive(CDTE_SOLAR_SECTIONS[secIdx - 1].id); }}
-          disabled={secIdx === 0} style={{
-            padding: "8px 20px", borderRadius: 8, fontSize: 13, fontFamily: "inherit", fontWeight: 700,
-            background: secIdx === 0 ? T.surface : sec.color + "22",
-            border: `1.5px solid ${secIdx === 0 ? T.border : sec.color}`,
-            color: secIdx === 0 ? T.muted : sec.color,
-            cursor: secIdx === 0 ? "default" : "pointer",
-          }}>← Previous</button>
-        <div style={{ display: "flex", gap: 6 }}>
-          {CDTE_SOLAR_SECTIONS.map(s => (
-            <div key={s.id} onClick={() => setActive(s.id)} style={{
-              width: 8, height: 8, borderRadius: 4,
-              background: active === s.id ? s.color : T.dim,
-              cursor: "pointer", transition: "all 0.2s",
-            }} />
-          ))}
-        </div>
-        <button onClick={() => { if (secIdx < CDTE_SOLAR_SECTIONS.length - 1) setActive(CDTE_SOLAR_SECTIONS[secIdx + 1].id); }}
-          disabled={secIdx === CDTE_SOLAR_SECTIONS.length - 1} style={{
-            padding: "8px 20px", borderRadius: 8, fontSize: 13, fontFamily: "inherit", fontWeight: 700,
-            background: secIdx === CDTE_SOLAR_SECTIONS.length - 1 ? T.surface : sec.color + "22",
-            border: `1.5px solid ${secIdx === CDTE_SOLAR_SECTIONS.length - 1 ? T.border : sec.color}`,
-            color: secIdx === CDTE_SOLAR_SECTIONS.length - 1 ? T.muted : sec.color,
-            cursor: secIdx === CDTE_SOLAR_SECTIONS.length - 1 ? "default" : "pointer",
-          }}>Next →</button>
-      </div>
-    </div>
+    <ChapterShell
+      blocks={[]}
+      sections={CDTE_SOLAR_SECTIONS}
+      active={active}
+      onSelect={setActive}
+      references={references}
+    >
+      <Component />
+    </ChapterShell>
   );
 }
 
@@ -3750,13 +3698,13 @@ function DopingModule({ initialTab }) {
     els.push(
       <rect key="cbr" x={bX} y={Ec} width={bW2} height={Eg * 0.12} fill={CN.e + "22"} />,
       <line key="cbl" x1={bX} y1={Ec} x2={bX + bW2} y2={Ec} stroke={CN.e} strokeWidth={2.5} />,
-      <text key="cbt" x={bX + bW2 + 5} y={Ec + 5} fontSize={9} fill={CN.e} fontWeight="bold">E_c</text>,
+      <text key="cbt" x={bX + bW2 + 5} y={Ec + 5} fontSize={9} fill={CN.e} fontWeight="500">E_c</text>,
     );
     // VB
     els.push(
       <rect key="vbr" x={bX} y={Ev - Eg * 0.12} width={bW2} height={Eg * 0.12} fill={CN.band + "22"} />,
       <line key="vbl" x1={bX} y1={Ev} x2={bX + bW2} y2={Ev} stroke={CN.band} strokeWidth={2.5} />,
-      <text key="vbt" x={bX + bW2 + 5} y={Ev + 4} fontSize={9} fill={CN.band} fontWeight="bold">E_v</text>,
+      <text key="vbt" x={bX + bW2 + 5} y={Ev + 4} fontSize={9} fill={CN.band} fontWeight="500">E_v</text>,
     );
     // Gap
     els.push(
@@ -3766,13 +3714,13 @@ function DopingModule({ initialTab }) {
     els.push(
       <line key="ed" x1={bX + 30} y1={EdY} x2={bX + bW2 - 30} y2={EdY}
         stroke={dop.color} strokeWidth={1.5} strokeDasharray="6,4" />,
-      <text key="edt" x={bX + bW2 + 5} y={EdY + 4} fontSize={8} fill={dop.color} fontWeight="bold">E_d</text>,
+      <text key="edt" x={bX + bW2 + 5} y={EdY + 4} fontSize={8} fill={dop.color} fontWeight="500">E_d</text>,
     );
     // Fermi level
     els.push(
       <line key="ef" x1={bX} y1={EfY} x2={bX + bW2} y2={EfY}
         stroke={CN.fermi} strokeWidth={1.5} strokeDasharray="3,3" />,
-      <text key="eft" x={bX + bW2 + 5} y={EfY + 4} fontSize={8} fill={CN.fermi} fontWeight="bold">E_F</text>,
+      <text key="eft" x={bX + bW2 + 5} y={EfY + 4} fontSize={8} fill={CN.fermi} fontWeight="500">E_F</text>,
     );
     // Animated electrons in CB
     for (let i = 0; i < Math.min(6, 2 + dopingLevel); i++) {
@@ -3781,7 +3729,7 @@ function DopingModule({ initialTab }) {
       const cy = Ec + Eg * 0.06 + Math.sin(frame * 0.08 + i * 1.2) * 3;
       els.push(
         <circle key={`e${i}`} cx={cx} cy={cy} r={5} fill={CN.e} opacity={0.9} />,
-        <text key={`et${i}`} x={cx} y={cy + 3.5} textAnchor="middle" fontSize={6} fill="#fff" fontWeight="bold">e⁻</text>,
+        <text key={`et${i}`} x={cx} y={cy + 3.5} textAnchor="middle" fontSize={6} fill="#fff" fontWeight="500">e⁻</text>,
         <line key={`etail${i}`} x1={cx - 7} y1={cy} x2={cx - 2} y2={cy} stroke={CN.e} strokeWidth={1.5} opacity={0.3} />,
       );
     }
@@ -3790,7 +3738,7 @@ function DopingModule({ initialTab }) {
       const x = bX + 25 + i * (bW2 - 50) / 5;
       els.push(
         <circle key={`d${i}`} cx={x} cy={EdY} r={6} fill={dop.color + "22"} stroke={dop.color} strokeWidth={1.5} />,
-        <text key={`dt${i}`} x={x} y={EdY + 3.5} textAnchor="middle" fontSize={9} fill={dop.color} fontWeight="bold">+</text>,
+        <text key={`dt${i}`} x={x} y={EdY + 3.5} textAnchor="middle" fontSize={9} fill={dop.color} fontWeight="500">+</text>,
       );
     }
     els.push(
@@ -3809,17 +3757,17 @@ function DopingModule({ initialTab }) {
     els.push(
       <rect key="cbr" x={bX} y={Ec} width={bW2} height={Eg * 0.12} fill={CP.e + "22"} />,
       <line key="cbl" x1={bX} y1={Ec} x2={bX + bW2} y2={Ec} stroke={CP.e} strokeWidth={2.5} />,
-      <text key="cbt" x={bX + bW2 + 5} y={Ec + 5} fontSize={9} fill={CP.e} fontWeight="bold">E_c</text>,
+      <text key="cbt" x={bX + bW2 + 5} y={Ec + 5} fontSize={9} fill={CP.e} fontWeight="500">E_c</text>,
       <rect key="vbr" x={bX} y={Ev - Eg * 0.12} width={bW2} height={Eg * 0.12} fill={CP.band + "22"} />,
       <line key="vbl" x1={bX} y1={Ev} x2={bX + bW2} y2={Ev} stroke={CP.band} strokeWidth={2.5} />,
-      <text key="vbt" x={bX + bW2 + 5} y={Ev + 4} fontSize={9} fill={CP.band} fontWeight="bold">E_v</text>,
+      <text key="vbt" x={bX + bW2 + 5} y={Ev + 4} fontSize={9} fill={CP.band} fontWeight="500">E_v</text>,
       <text key="gap" x={bX + bW2 / 2} y={(Ec + Ev) / 2} textAnchor="middle" fontSize={9} fill={T.muted}>1.44 eV gap</text>,
       <line key="ea" x1={bX + 30} y1={EaY} x2={bX + bW2 - 30} y2={EaY}
         stroke={dop.color} strokeWidth={1.5} strokeDasharray="6,4" />,
-      <text key="eat" x={bX + bW2 + 5} y={EaY + 4} fontSize={8} fill={dop.color} fontWeight="bold">E_a</text>,
+      <text key="eat" x={bX + bW2 + 5} y={EaY + 4} fontSize={8} fill={dop.color} fontWeight="500">E_a</text>,
       <line key="ef" x1={bX} y1={EfY} x2={bX + bW2} y2={EfY}
         stroke={CP.fermi} strokeWidth={1.5} strokeDasharray="3,3" />,
-      <text key="eft" x={bX + bW2 + 5} y={EfY + 4} fontSize={8} fill={CP.fermi} fontWeight="bold">E_F</text>,
+      <text key="eft" x={bX + bW2 + 5} y={EfY + 4} fontSize={8} fill={CP.fermi} fontWeight="500">E_F</text>,
     );
     // Animated holes in VB
     for (let i = 0; i < Math.min(6, 2 + dopingLevel); i++) {
@@ -3829,7 +3777,7 @@ function DopingModule({ initialTab }) {
       els.push(
         <circle key={`h${i}`} cx={cx} cy={cy} r={5} fill="none" stroke={CP.hole} strokeWidth={2.5} />,
         <circle key={`hf${i}`} cx={cx} cy={cy} r={5} fill={CP.hole + "20"} />,
-        <text key={`ht${i}`} x={cx} y={cy + 3.5} textAnchor="middle" fontSize={9} fill={CP.hole} fontWeight="bold">+</text>,
+        <text key={`ht${i}`} x={cx} y={cy + 3.5} textAnchor="middle" fontSize={9} fill={CP.hole} fontWeight="500">+</text>,
         <line key={`htail${i}`} x1={cx + 2} y1={cy} x2={cx + 8} y2={cy} stroke={CP.hole} strokeWidth={1.5} opacity={0.3} />,
       );
     }
@@ -3838,7 +3786,7 @@ function DopingModule({ initialTab }) {
       const x = bX + 25 + i * (bW2 - 50) / 5;
       els.push(
         <circle key={`a${i}`} cx={x} cy={EaY} r={6} fill={dop.color + "22"} stroke={dop.color} strokeWidth={1.5} />,
-        <text key={`at${i}`} x={x} y={EaY + 3.5} textAnchor="middle" fontSize={9} fill={dop.color} fontWeight="bold">−</text>,
+        <text key={`at${i}`} x={x} y={EaY + 3.5} textAnchor="middle" fontSize={9} fill={dop.color} fontWeight="500">−</text>,
       );
     }
     els.push(
@@ -3863,11 +3811,11 @@ function DopingModule({ initialTab }) {
 
     // Region labels
     els.push(
-      <text key="plbl" x={(pLeft + pRight) / 2} y={20} textAnchor="middle" fontSize={12} fontWeight="bold" fill={CP.main}>p-type CdTe</text>,
+      <text key="plbl" x={(pLeft + pRight) / 2} y={20} textAnchor="middle" fontSize={12} fontWeight="500" fill={CP.main}>p-type CdTe</text>,
       <text key="psub" x={(pLeft + pRight) / 2} y={34} textAnchor="middle" fontSize={9} fill={T.muted}>Cu_Cd or N_Te doped</text>,
-      <text key="nlbl" x={(nLeft + nRight) / 2} y={20} textAnchor="middle" fontSize={12} fontWeight="bold" fill={CN.main}>n-type CdTe (or CdS)</text>,
+      <text key="nlbl" x={(nLeft + nRight) / 2} y={20} textAnchor="middle" fontSize={12} fontWeight="500" fill={CN.main}>n-type CdTe (or CdS)</text>,
       <text key="nsub" x={(nLeft + nRight) / 2} y={34} textAnchor="middle" fontSize={9} fill={T.muted}>In_Cd or Cl_Te doped</text>,
-      <text key="dlbl" x={jMid} y={20} textAnchor="middle" fontSize={10} fontWeight="bold" fill={T.eo_gap}>Depletion</text>,
+      <text key="dlbl" x={jMid} y={20} textAnchor="middle" fontSize={10} fontWeight="500" fill={T.eo_gap}>Depletion</text>,
       <text key="dsub" x={jMid} y={32} textAnchor="middle" fontSize={8} fill={T.eo_gap}>region</text>,
     );
 
@@ -3884,8 +3832,8 @@ function DopingModule({ initialTab }) {
     els.push(
       <path key="ec" d={ecPath} fill="none" stroke={CN.e} strokeWidth={2.5} />,
       <path key="ev" d={evPath} fill="none" stroke={CP.band} strokeWidth={2.5} />,
-      <text key="eclbl" x={pLeft + 14} y={bandYtop - 6} fontSize={9} fill={CN.e} fontWeight="bold">E_c</text>,
-      <text key="evlbl" x={pLeft + 14} y={bandYbot + 12} fontSize={9} fill={CP.band} fontWeight="bold">E_v</text>,
+      <text key="eclbl" x={pLeft + 14} y={bandYtop - 6} fontSize={9} fill={CN.e} fontWeight="500">E_c</text>,
+      <text key="evlbl" x={pLeft + 14} y={bandYbot + 12} fontSize={9} fill={CP.band} fontWeight="500">E_v</text>,
     );
 
     // Fermi level (flat at equilibrium)
@@ -3893,13 +3841,13 @@ function DopingModule({ initialTab }) {
     els.push(
       <line key="ef" x1={pLeft + 10} y1={efY} x2={nRight - 10} y2={efY}
         stroke={CP.fermi} strokeWidth={1.5} strokeDasharray="4,3" />,
-      <text key="eflbl" x={nRight - 8} y={efY + 4} fontSize={9} fill={CP.fermi} fontWeight="bold">E_F</text>,
+      <text key="eflbl" x={nRight - 8} y={efY + 4} fontSize={9} fill={CP.fermi} fontWeight="500">E_F</text>,
     );
 
     // Built-in field arrow
     els.push(
       <text key="fieldt" x={jMid} y={(bandYtop + bandYbot) / 2 + bending / 2} textAnchor="middle"
-        fontSize={10} fontWeight="bold" fill={T.eo_gap}>← E_built-in</text>,
+        fontSize={10} fontWeight="500" fill={T.eo_gap}>← E_built-in</text>,
     );
 
     // Animated holes in p-region
@@ -3909,7 +3857,7 @@ function DopingModule({ initialTab }) {
       els.push(
         <circle key={`ph${i}`} cx={hx} cy={hy} r={5} fill="none" stroke={CP.hole} strokeWidth={2} />,
         <circle key={`phf${i}`} cx={hx} cy={hy} r={5} fill={CP.hole + "20"} />,
-        <text key={`pht${i}`} x={hx} y={hy + 3.5} textAnchor="middle" fontSize={8} fill={CP.hole} fontWeight="bold">+</text>,
+        <text key={`pht${i}`} x={hx} y={hy + 3.5} textAnchor="middle" fontSize={8} fill={CP.hole} fontWeight="500">+</text>,
       );
     }
 
@@ -3919,7 +3867,7 @@ function DopingModule({ initialTab }) {
       const ey = bandYtop + bending + 14 + Math.sin(frame * 0.06 + i * 1.1) * 10;
       els.push(
         <circle key={`ne${i}`} cx={ex} cy={ey} r={5} fill={CN.e} opacity={0.85} />,
-        <text key={`net${i}`} x={ex} y={ey + 3.5} textAnchor="middle" fontSize={6} fill="#fff" fontWeight="bold">e⁻</text>,
+        <text key={`net${i}`} x={ex} y={ey + 3.5} textAnchor="middle" fontSize={6} fill="#fff" fontWeight="500">e⁻</text>,
       );
     }
 
@@ -3958,7 +3906,7 @@ function DopingModule({ initialTab }) {
             flex: 1, padding: "11px 8px", border: "none",
             borderBottom: tab === t.id ? `3px solid ${t.color}` : "3px solid transparent",
             background: tab === t.id ? t.color + "12" : T.surface,
-            cursor: "pointer", fontFamily: "inherit", fontWeight: tab === t.id ? 700 : 500,
+            cursor: "pointer", fontFamily: "inherit", fontWeight: tab === t.id ? 500 : 500,
             fontSize: 12, color: tab === t.id ? t.color : T.muted,
             transition: "all 0.15s",
           }}>{t.label}</button>
@@ -3979,14 +3927,14 @@ function DopingModule({ initialTab }) {
             </div>
             <div style={{ flex: 1, minWidth: 220, display: "flex", flexDirection: "column", gap: 10 }}>
               <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-                <div style={{ fontSize: 11, fontWeight: 600, color: T.muted, marginBottom: 8 }}>Select dopant in CdTe</div>
+                <div style={{ fontSize: 11, fontWeight: 500, color: T.muted, marginBottom: 8 }}>Select dopant in CdTe</div>
                 {nDopants.map((d, i) => (
                   <button key={i} onClick={() => setSelN(i)} style={{
                     display: "block", width: "100%", textAlign: "left", padding: "7px 10px", borderRadius: 8,
                     marginBottom: 5, cursor: "pointer", background: selN === i ? d.color + "15" : T.bg,
                     border: `1.5px solid ${selN === i ? d.color : T.border}`, fontFamily: "inherit", color: T.ink,
                   }}>
-                    <span style={{ fontWeight: 700, color: d.color, marginRight: 8, fontFamily: "monospace" }}>{d.symbol}</span>
+                    <span style={{ fontWeight: 500, color: d.color, marginRight: 8, fontFamily: "monospace" }}>{d.symbol}</span>
                     <span style={{ fontSize: 12 }}>{d.name}</span>
                     <span style={{ fontSize: 10, color: T.muted, marginLeft: 6 }}>({d.site})</span>
                   </button>
@@ -4007,7 +3955,7 @@ function DopingModule({ initialTab }) {
           </div>
           <div style={{ marginTop: 16, display: "flex", gap: 14, flexWrap: "wrap" }}>
             <div style={{ flex: "1 1 280px", background: T.panel, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-              <div style={{ fontSize: 11, fontWeight: 600, color: T.muted, marginBottom: 8 }}>Doping concentration N_D</div>
+              <div style={{ fontSize: 11, fontWeight: 500, color: T.muted, marginBottom: 8 }}>Doping concentration N_D</div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                 <input type="range" min={0} max={4} step={1} value={dopingLevel}
                   onChange={e => setDopingLevel(+e.target.value)} style={{ flex: 1, accentColor: CN.main }} />
@@ -4017,14 +3965,14 @@ function DopingModule({ initialTab }) {
                 {[["Electrons n", ndLabel + " cm⁻³", CN.e, "majority"], ["Holes p", (n_h_n).toExponential(1) + " cm⁻³", "#ea580c", "minority"], ["n/nᵢ", "×" + nd.toExponential(0) , CN.fermi, "enhancement"]].map(([l, v, c, s]) => (
                   <div key={l} style={{ flex: "1 1 110px", background: c + "0d", borderRadius: 8, padding: "8px 10px", border: `1px solid ${c}33` }}>
                     <div style={{ fontSize: 10, color: T.muted }}>{l}</div>
-                    <div style={{ fontSize: 12, fontWeight: 800, color: c, fontFamily: "monospace" }}>{v}</div>
+                    <div style={{ fontSize: 12, fontWeight: 500, color: c, fontFamily: "monospace" }}>{v}</div>
                     <div style={{ fontSize: 9, color: T.muted }}>{s}</div>
                   </div>
                 ))}
               </div>
             </div>
             <div style={{ flex: "1 1 280px", background: T.panel, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-              <div style={{ fontSize: 11, fontWeight: 600, color: T.muted, marginBottom: 8 }}>Key physics</div>
+              <div style={{ fontSize: 11, fontWeight: 500, color: T.muted, marginBottom: 8 }}>Key physics</div>
               {[
                 { eq: "N_D ≈ n  (complete ionization at RT)", color: CN.e },
                 { eq: "np = nᵢ²  (mass action law)", color: "#ea580c" },
@@ -4033,7 +3981,7 @@ function DopingModule({ initialTab }) {
               ].map((item, i) => (
                 <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginBottom: 6 }}>
                   <div style={{ width: 3, borderRadius: 2, background: item.color, alignSelf: "stretch", flexShrink: 0 }} />
-                  <div style={{ fontSize: 11, fontFamily: "monospace", color: item.color, fontWeight: 600 }}>{item.eq}</div>
+                  <div style={{ fontSize: 11, fontFamily: "monospace", color: item.color, fontWeight: 500 }}>{item.eq}</div>
                 </div>
               ))}
             </div>
@@ -4055,14 +4003,14 @@ function DopingModule({ initialTab }) {
             </div>
             <div style={{ flex: 1, minWidth: 220, display: "flex", flexDirection: "column", gap: 10 }}>
               <div style={{ background: T.panel, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-                <div style={{ fontSize: 11, fontWeight: 600, color: T.muted, marginBottom: 8 }}>Select dopant in CdTe</div>
+                <div style={{ fontSize: 11, fontWeight: 500, color: T.muted, marginBottom: 8 }}>Select dopant in CdTe</div>
                 {pDopants.map((d, i) => (
                   <button key={i} onClick={() => setSelP(i)} style={{
                     display: "block", width: "100%", textAlign: "left", padding: "7px 10px", borderRadius: 8,
                     marginBottom: 5, cursor: "pointer", background: selP === i ? d.color + "15" : T.bg,
                     border: `1.5px solid ${selP === i ? d.color : T.border}`, fontFamily: "inherit", color: T.ink,
                   }}>
-                    <span style={{ fontWeight: 700, color: d.color, marginRight: 8, fontFamily: "monospace" }}>{d.symbol}</span>
+                    <span style={{ fontWeight: 500, color: d.color, marginRight: 8, fontFamily: "monospace" }}>{d.symbol}</span>
                     <span style={{ fontSize: 12 }}>{d.name}</span>
                     <span style={{ fontSize: 10, color: T.muted, marginLeft: 6 }}>({d.site})</span>
                   </button>
@@ -4083,7 +4031,7 @@ function DopingModule({ initialTab }) {
           </div>
           <div style={{ marginTop: 16, display: "flex", gap: 14, flexWrap: "wrap" }}>
             <div style={{ flex: "1 1 280px", background: T.panel, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-              <div style={{ fontSize: 11, fontWeight: 600, color: T.muted, marginBottom: 8 }}>Doping concentration N_A</div>
+              <div style={{ fontSize: 11, fontWeight: 500, color: T.muted, marginBottom: 8 }}>Doping concentration N_A</div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                 <input type="range" min={0} max={4} step={1} value={dopingLevel}
                   onChange={e => setDopingLevel(+e.target.value)} style={{ flex: 1, accentColor: CP.main }} />
@@ -4093,14 +4041,14 @@ function DopingModule({ initialTab }) {
                 {[["Holes p", ndLabel + " cm⁻³", CP.hole, "majority"], ["Electrons n", (n_e_p).toExponential(1) + " cm⁻³", CP.e, "minority"], ["p/nᵢ", "×" + nd.toExponential(0), CP.fermi, "enhancement"]].map(([l, v, c, s]) => (
                   <div key={l} style={{ flex: "1 1 110px", background: c + "0d", borderRadius: 8, padding: "8px 10px", border: `1px solid ${c}33` }}>
                     <div style={{ fontSize: 10, color: T.muted }}>{l}</div>
-                    <div style={{ fontSize: 12, fontWeight: 800, color: c, fontFamily: "monospace" }}>{v}</div>
+                    <div style={{ fontSize: 12, fontWeight: 500, color: c, fontFamily: "monospace" }}>{v}</div>
                     <div style={{ fontSize: 9, color: T.muted }}>{s}</div>
                   </div>
                 ))}
               </div>
             </div>
             <div style={{ flex: "1 1 280px", background: T.panel, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
-              <div style={{ fontSize: 11, fontWeight: 600, color: T.muted, marginBottom: 8 }}>Key physics</div>
+              <div style={{ fontSize: 11, fontWeight: 500, color: T.muted, marginBottom: 8 }}>Key physics</div>
               {[
                 { eq: "N_A ≈ p  (complete ionization at RT)", color: CP.hole },
                 { eq: "np = nᵢ²  (mass action law)", color: CP.e },
@@ -4109,7 +4057,7 @@ function DopingModule({ initialTab }) {
               ].map((item, i) => (
                 <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginBottom: 6 }}>
                   <div style={{ width: 3, borderRadius: 2, background: item.color, alignSelf: "stretch", flexShrink: 0 }} />
-                  <div style={{ fontSize: 11, fontFamily: "monospace", color: item.color, fontWeight: 600 }}>{item.eq}</div>
+                  <div style={{ fontSize: 11, fontFamily: "monospace", color: item.color, fontWeight: 500 }}>{item.eq}</div>
                 </div>
               ))}
             </div>
@@ -4134,7 +4082,7 @@ function DopingModule({ initialTab }) {
               { title: "In CdTe solar cells", desc: "The p-n junction is formed between p-type CdTe (Cu/V_Cd doped) and n-type CdS window layer. The built-in voltage Vbi ≈ 0.9–1.1 V drives carrier separation under illumination.", color: T.eo_hole },
             ].map(item => (
               <div key={item.title} style={{ flex: "1 1 200px", background: T.panel, borderRadius: 8, padding: "10px 12px", border: `1px solid ${item.color}22` }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: item.color, marginBottom: 4 }}>{item.title}</div>
+                <div style={{ fontSize: 11, fontWeight: 500, color: item.color, marginBottom: 4 }}>{item.title}</div>
                 <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.6 }}>{item.desc}</div>
               </div>
             ))}
@@ -4143,7 +4091,7 @@ function DopingModule({ initialTab }) {
       )}
       {/* References */}
       <div style={{ marginTop: 32, padding: "18px 20px", borderRadius: 12, background: T.panel, border: `1px solid ${T.border}` }}>
-        <div style={{ fontSize: 12, fontWeight: 800, color: T.ink, marginBottom: 12, letterSpacing: 0.5 }}>REFERENCES</div>
+        <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 12, letterSpacing: 0.5 }}>References</div>
         {[
           "Metzger, W.K. et al. Exceeding 20% Efficiency with In Situ Group V Doping in Polycrystalline CdTe Solar Cells. Nat. Energy 4, 837 (2019)",
           "Green, M.A. et al. Solar Cell Efficiency Tables (Version 64). Prog. Photovolt. Res. Appl. 32, 425 (2024)",

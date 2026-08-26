@@ -198,7 +198,7 @@ const SECTIONS = [
 function Card({ title, color, children }) {
   return (
     <div style={{ background: C.panel, border: `1px solid ${color || C.border}44`, borderLeft: `3px solid ${color || C.accent1}`, borderRadius: 10, padding: "14px 16px" }}>
-      {title && <div style={{ fontSize: 11, letterSpacing: 3, color: color || C.accent1, textTransform: "uppercase", marginBottom: 10, fontWeight: 700 }}>{title}</div>}
+      {title && <div style={{ fontSize: 11, letterSpacing: 3, color: color || C.accent1, textTransform: "none", marginBottom: 10, fontWeight: 500 }}>{title}</div>}
       {children}
     </div>
   );
@@ -209,7 +209,7 @@ function MR({ label, eq, result, color }) {
     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, fontSize: 13 }}>
       {label && <span style={{ color: C.muted, minWidth: 80 }}>{label}</span>}
       <span style={{ color: C.text, fontFamily: "monospace" }}>{eq}</span>
-      {result !== undefined && <><span style={{ color: C.muted }}>=</span><span style={{ color: color || C.accent3, fontWeight: 700, fontFamily: "monospace" }}>{result}</span></>}
+      {result !== undefined && <><span style={{ color: C.muted }}>=</span><span style={{ color: color || C.accent3, fontWeight: 500, fontFamily: "monospace" }}>{result}</span></>}
     </div>
   );
 }
@@ -246,7 +246,7 @@ function MolSVG({ mol, edges, hlEdge = -1 }) {
           <g key={i} opacity={hl ? 1 : 0.2}>
             <defs><marker id={`ar${i}`} markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto"><path d={`M0,0 L0,6 L6,3z`} fill={hl ? C.accent2 : C.dim} /></marker></defs>
             <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={hl ? C.accent2 : C.dim} strokeWidth={hl ? 2.5 : 1} markerEnd={`url(#ar${i})`} />
-            {hl && <text x={(x1 + x2) / 2 - uy * 14} y={(y1 + y2) / 2 + ux * 14} fill={C.accent2} fontSize={10} textAnchor="middle" fontWeight="bold">{e.dist.toFixed(3)}Å</text>}
+            {hl && <text x={(x1 + x2) / 2 - uy * 14} y={(y1 + y2) / 2 + ux * 14} fill={C.accent2} fontSize={10} textAnchor="middle" fontWeight="500">{e.dist.toFixed(3)}Å</text>}
           </g>
         );
       })}
@@ -256,7 +256,7 @@ function MolSVG({ mol, edges, hlEdge = -1 }) {
         return (
           <g key={i}>
             <circle cx={cx} cy={cy} r={22} fill={`${col}22`} stroke={col} strokeWidth={2} />
-            <text x={cx} y={cy - 2} textAnchor="middle" fill={col} fontSize={15} fontWeight="bold">{a.sym}</text>
+            <text x={cx} y={cy - 2} textAnchor="middle" fill={col} fontSize={15} fontWeight="500">{a.sym}</text>
             <text x={cx} y={cy + 12} textAnchor="middle" fill={C.muted} fontSize={9}>id={a.id}</text>
           </g>
         );
@@ -282,7 +282,7 @@ function SecStruct({ mol, atoms, edges, triplets }) {
         <Card title="Atom positions (Å)" color={C.accent1}>
           {atoms.map(a => (
             <div key={a.id} style={{ display: "flex", gap: 8, marginBottom: 4, fontFamily: "monospace", fontSize: 12 }}>
-              <span style={{ color: ELEM_COLOR[a.Z], fontWeight: 700, width: 60 }}>{a.sym} (id={a.id})</span>
+              <span style={{ color: ELEM_COLOR[a.Z], fontWeight: 500, width: 60 }}>{a.sym} (id={a.id})</span>
               <span style={{ color: C.text }}>[{a.pos.map(v => v.toFixed(3)).join(", ")}]</span>
             </div>
           ))}
@@ -351,7 +351,7 @@ function SecEmbed({ atoms }) {
         <Card title="Embeddings for each atom in our molecule" color={C.accent3}>
           {atoms.map(a => (
             <div key={a.id} style={{ marginBottom: 10 }}>
-              <div style={{ fontSize: 12, color: ELEM_COLOR[a.Z], fontWeight: 700, marginBottom: 2 }}>
+              <div style={{ fontSize: 12, color: ELEM_COLOR[a.Z], fontWeight: 500, marginBottom: 2 }}>
                 h⁰[{a.id}] = table[Z={a.Z}] → {a.sym}
               </div>
               <Vec v={EMBED[a.Z]} color={ELEM_COLOR[a.Z]} />
@@ -423,7 +423,7 @@ function SecGauss({ edges, atoms }) {
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>{sq.toFixed(4)}</td>
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>{div.toFixed(4)}</td>
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>exp(−{div.toFixed(3)})</td>
-                    <td style={{ padding: "4px 6px", textAlign: "right", color: hl ? C.accent2 : C.dim, fontWeight: hl ? 700 : 400 }}>{gv[k].toFixed(4)}</td>
+                    <td style={{ padding: "4px 6px", textAlign: "right", color: hl ? C.accent2 : C.dim, fontWeight: hl ? 500 : 400 }}>{gv[k].toFixed(4)}</td>
                   </tr>
                 );
               })}
@@ -505,7 +505,7 @@ function SecCutoff({ edges, atoms }) {
                     <td style={{ padding: "4px 6px", textAlign: "right", color: C.accent3 }}>{e.dist.toFixed(4)}</td>
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>{arg.toFixed(4)}</td>
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>{cosV.toFixed(4)}</td>
-                    <td style={{ padding: "4px 6px", textAlign: "right", color: C.accent6, fontWeight: 700 }}>{w.toFixed(4)}</td>
+                    <td style={{ padding: "4px 6px", textAlign: "right", color: C.accent6, fontWeight: 500 }}>{w.toFixed(4)}</td>
                   </tr>
                 );
               })}
@@ -541,7 +541,7 @@ function SecAngular({ edges, triplets, atoms }) {
           {triplets.map((tr, i) => (
             <div key={i} onClick={() => setSel(i)} style={{ display: "flex", gap: 6, padding: "4px 6px", cursor: "pointer", borderRadius: 4, background: sel === i ? `${C.accent5}22` : "transparent", fontFamily: "monospace", fontSize: 12 }}>
               <span style={{ color: C.dim }}>t{i}</span>
-              <span style={{ color: ELEM_COLOR[atoms[tr.center].Z], fontWeight: 700 }}>center={atoms[tr.center].sym}({tr.center})</span>
+              <span style={{ color: ELEM_COLOR[atoms[tr.center].Z], fontWeight: 500 }}>center={atoms[tr.center].sym}({tr.center})</span>
               <span style={{ color: C.accent5 }}>cos θ = {tr.cosT.toFixed(4)}</span>
               <span style={{ color: C.accent2 }}>{tr.angle.toFixed(1)}°</span>
             </div>
@@ -586,7 +586,7 @@ function SecAngular({ edges, triplets, atoms }) {
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>{c.toFixed(2)}</td>
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>{diff.toFixed(4)}</td>
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>{exp.toFixed(4)}</td>
-                    <td style={{ padding: "4px 6px", textAlign: "right", color: hl ? C.accent5 : C.dim, fontWeight: hl ? 700 : 400 }}>{av[k].toFixed(4)}</td>
+                    <td style={{ padding: "4px 6px", textAlign: "right", color: hl ? C.accent5 : C.dim, fontWeight: hl ? 500 : 400 }}>{av[k].toFixed(4)}</td>
                   </tr>
                 );
               })}
@@ -644,7 +644,7 @@ function SecConv({ atoms, edges, triplets, gnn }) {
                 <Vec v={gnn.h0[e.dst]} color={C.accent1} label={`h_i = embed[${atoms[e.dst].sym}] (center atom ${e.dst})`} />
                 <Vec v={gnn.h0[e.src]} color={C.accent3} label={`h_j = embed[${atoms[e.src].sym}] (neighbor atom ${e.src})`} />
                 <Vec v={gnn.eFeat[m2.ei]} color={C.accent2} label={`e_ij = gaussSmear(${e.dist.toFixed(4)})`} />
-                <div style={{ fontSize: 11, color: C.muted, marginTop: 4 }}>Concatenated: dim = 3 + 3 + 4 = <span style={{ color: C.accent3, fontWeight: 700 }}>10</span></div>
+                <div style={{ fontSize: 11, color: C.muted, marginTop: 4 }}>Concatenated: dim = 3 + 3 + 4 = <span style={{ color: C.accent3, fontWeight: 500 }}>10</span></div>
                 <Vec v={m2.input} color={C.text} label="Full input vector:" />
               </Card>
 
@@ -792,13 +792,13 @@ function SecPredict({ atoms, gnn, mol }) {
                 const h = gnn.h2[i];
                 return (
                   <div key={i} style={{ marginBottom: 8, padding: "6px 8px", background: `${C.panel}`, border: `1px solid ${C.border}`, borderRadius: 6 }}>
-                    <div style={{ fontSize: 11, color: ELEM_COLOR[a.Z], fontWeight: 700, marginBottom: 4 }}>Atom {i} ({a.sym})</div>
+                    <div style={{ fontSize: 11, color: ELEM_COLOR[a.Z], fontWeight: 500, marginBottom: 4 }}>Atom {i} ({a.sym})</div>
                     <Vec v={h} color={C.accent2} label="h''_i:" />
                     <div style={{ fontSize: 10, fontFamily: "monospace" }}>
                       <span style={{ color: C.muted }}>e_i = </span>
                       {We[0].map((w, j) => <span key={j} style={{ color: C.text }}>{j > 0 ? " + " : ""}{w.toFixed(2)}×{h[j].toFixed(4)}</span>)}
                       <span style={{ color: C.muted }}> + ({be[0]}) = </span>
-                      <span style={{ color: C.accent3, fontWeight: 700 }}>{gnn.rawE[i].toFixed(4)}</span>
+                      <span style={{ color: C.accent3, fontWeight: 500 }}>{gnn.rawE[i].toFixed(4)}</span>
                     </div>
                   </div>
                 );
@@ -821,7 +821,7 @@ function SecPredict({ atoms, gnn, mol }) {
               ))}
               <div style={{ marginTop: 12, padding: "10px 12px", background: `${C.accent3}11`, borderRadius: 6, textAlign: "center" }}>
                 <div style={{ fontSize: 11, color: C.muted }}>Total predicted energy</div>
-                <div style={{ fontSize: 22, fontWeight: 800, color: C.accent3, fontFamily: "monospace" }}>
+                <div style={{ fontSize: 22, fontWeight: 500, color: C.accent3, fontFamily: "monospace" }}>
                   {gnn.totalE.toFixed(4)} eV
                 </div>
                 <div style={{ fontSize: 11, color: C.muted }}>= {(gnn.totalE / N).toFixed(4)} eV/atom</div>
@@ -844,7 +844,7 @@ function SecPredict({ atoms, gnn, mol }) {
                 const mag = Math.sqrt(f[0] ** 2 + f[1] ** 2 + f[2] ** 2);
                 return (
                   <div key={i} style={{ marginBottom: 10, padding: "6px 8px", background: `${C.panel}`, border: `1px solid ${C.border}`, borderRadius: 6 }}>
-                    <div style={{ fontSize: 11, color: ELEM_COLOR[a.Z], fontWeight: 700, marginBottom: 4 }}>
+                    <div style={{ fontSize: 11, color: ELEM_COLOR[a.Z], fontWeight: 500, marginBottom: 4 }}>
                       Atom {i} ({a.sym}) at [{a.pos.map(v => v.toFixed(3)).join(", ")}]
                     </div>
                     <Vec v={f} color={C.accent4} label="F_i (eV/Å):" />
@@ -903,7 +903,7 @@ function SecPredict({ atoms, gnn, mol }) {
                 return (
                   <>
                     <MR label="P = −tr(σ)/3:" eq={`−(${gnn.stressGPa[0][0].toFixed(4)} + ${gnn.stressGPa[1][1].toFixed(4)} + ${gnn.stressGPa[2][2].toFixed(4)})/3`} />
-                    <div style={{ fontSize: 22, fontWeight: 800, color: C.accent3, textAlign: "center", margin: "10px 0", fontFamily: "monospace" }}>
+                    <div style={{ fontSize: 22, fontWeight: 500, color: C.accent3, textAlign: "center", margin: "10px 0", fontFamily: "monospace" }}>
                       P = {P.toFixed(4)} GPa
                     </div>
                   </>
@@ -952,8 +952,8 @@ export default function DefectNetPipeline() {
       {/* Header */}
       <div style={{ borderBottom: `1px solid ${C.border}`, padding: "14px 28px", display: "flex", alignItems: "center", justifyContent: "space-between", background: `${C.panel}cc`, position: "sticky", top: 0, zIndex: 10 }}>
         <div>
-          <div style={{ fontSize: 10, letterSpacing: 4, color: C.accent1, textTransform: "uppercase" }}>DefectNet</div>
-          <div style={{ fontSize: 18, fontWeight: 800, background: `linear-gradient(90deg,${C.accent1},${C.accent5})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+          <div style={{ fontSize: 10, letterSpacing: 4, color: C.accent1, textTransform: "none" }}>DefectNet</div>
+          <div style={{ fontSize: 18, fontWeight: 500, background: `linear-gradient(90deg,${C.accent1},${C.accent5})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
             Full Pipeline — Every Number Shown
           </div>
         </div>
@@ -963,7 +963,7 @@ export default function DefectNetPipeline() {
               padding: "8px 14px", borderRadius: 8, fontSize: 12, cursor: "pointer",
               background: molIdx === i ? `${m.color}22` : C.panel,
               border: `2px solid ${molIdx === i ? m.color : C.border}`,
-              color: molIdx === i ? m.color : C.muted, fontFamily: "inherit", fontWeight: 700,
+              color: molIdx === i ? m.color : C.muted, fontFamily: "inherit", fontWeight: 500,
             }}>{m.name}</button>
           ))}
         </div>
@@ -976,7 +976,7 @@ export default function DefectNetPipeline() {
             padding: "7px 14px", borderRadius: 8, fontSize: 11, cursor: "pointer", whiteSpace: "nowrap",
             border: `1px solid ${active === sec.id ? sec.color : C.border}`,
             background: active === sec.id ? `${sec.color}22` : C.bg,
-            color: active === sec.id ? sec.color : C.muted, fontFamily: "inherit", fontWeight: active === sec.id ? 700 : 400,
+            color: active === sec.id ? sec.color : C.muted, fontFamily: "inherit", fontWeight: active === sec.id ? 500 : 400,
           }}>{sec.label}</button>
         ))}
       </div>
@@ -1001,7 +1001,7 @@ export default function DefectNetPipeline() {
       <div style={{ borderTop: `1px solid ${C.border}`, padding: "10px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", background: C.panel }}>
         <button onClick={() => { const i = SECTIONS.findIndex(s => s.id === active); if (i > 0) setActive(SECTIONS[i - 1].id); }}
           disabled={active === SECTIONS[0].id}
-          style={{ padding: "7px 18px", borderRadius: 8, fontSize: 12, background: active === SECTIONS[0].id ? C.panel : `${section.color}22`, border: `1px solid ${active === SECTIONS[0].id ? C.border : section.color}`, color: active === SECTIONS[0].id ? C.muted : section.color, cursor: active === SECTIONS[0].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 600 }}>
+          style={{ padding: "7px 18px", borderRadius: 8, fontSize: 12, background: active === SECTIONS[0].id ? C.panel : `${section.color}22`, border: `1px solid ${active === SECTIONS[0].id ? C.border : section.color}`, color: active === SECTIONS[0].id ? C.muted : section.color, cursor: active === SECTIONS[0].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 500 }}>
           ← Previous
         </button>
         <div style={{ display: "flex", gap: 6 }}>
@@ -1011,7 +1011,7 @@ export default function DefectNetPipeline() {
         </div>
         <button onClick={() => { const i = SECTIONS.findIndex(s => s.id === active); if (i < SECTIONS.length - 1) setActive(SECTIONS[i + 1].id); }}
           disabled={active === SECTIONS[SECTIONS.length - 1].id}
-          style={{ padding: "7px 18px", borderRadius: 8, fontSize: 12, background: active === SECTIONS[SECTIONS.length - 1].id ? C.panel : `${section.color}22`, border: `1px solid ${active === SECTIONS[SECTIONS.length - 1].id ? C.border : section.color}`, color: active === SECTIONS[SECTIONS.length - 1].id ? C.muted : section.color, cursor: active === SECTIONS[SECTIONS.length - 1].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 600 }}>
+          style={{ padding: "7px 18px", borderRadius: 8, fontSize: 12, background: active === SECTIONS[SECTIONS.length - 1].id ? C.panel : `${section.color}22`, border: `1px solid ${active === SECTIONS[SECTIONS.length - 1].id ? C.border : section.color}`, color: active === SECTIONS[SECTIONS.length - 1].id ? C.muted : section.color, cursor: active === SECTIONS[SECTIONS.length - 1].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 500 }}>
           Next →
         </button>
       </div>

@@ -47,95 +47,42 @@ export default function ScientificBlog() {
   }
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: T.bg,
-      fontFamily: "'Inter', -apple-system, sans-serif",
-      color: T.ink,
-    }}>
-      {/* Header */}
-      <div style={{
-        background: T.panel,
-        borderBottom: `2px solid ${T.border}`,
-        padding: "20px 28px",
-        display: "flex",
-        alignItems: "center",
-        gap: 16,
-        position: "sticky",
-        top: 0,
-        zIndex: 20,
-      }}>
-        <Link to="/" style={{
-          padding: "6px 14px", borderRadius: 8, fontSize: 12, cursor: "pointer",
-          background: T.surface, border: `1.5px solid ${T.border}`,
-          color: T.ink, fontWeight: 700, fontFamily: "inherit",
-          textDecoration: "none", display: "flex", alignItems: "center", gap: 6,
-        }}>
-          {"\u2190"} Home
-        </Link>
-
-        <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 10, letterSpacing: 3, color: T.accent, fontWeight: 700 }}>
-            MicroLab
-          </div>
-          <div style={{ fontSize: 18, fontWeight: 800, color: T.ink }}>
-            Interactive Materials Science
-          </div>
-        </div>
+    <div className="cs-page">
+      <div className="cs-top">
+        <Link className="cs-home" to="/"><span>←</span><span className="cs-homelabel">Home</span></Link>
+        <span className="cs-chapnum">MicroLab</span>
+        <span className="cs-chaptitle">Interactive materials science</span>
+        <span className="cs-spacer" />
       </div>
 
-      {/* Author bar */}
-      <div style={{
-        padding: "8px 28px",
-        background: T.panel,
-        borderBottom: `1px solid ${T.border}`,
-        fontSize: 12,
-        color: T.muted,
-      }}>
-        By <span style={{ fontWeight: 700, color: T.ink }}>Md Habibur Rahman</span> {"\u00B7"} School of Materials Engineering, Purdue University {"\u00B7"} <a href="mailto:rahma103@purdue.edu" style={{ color: T.accent, textDecoration: "none" }}>rahma103@purdue.edu</a>
-      </div>
+      <div className="bl-wrap">
+        <p className="bl-intro">
+          An interactive learning platform covering the full stack of computational
+          materials science — from quantum mechanics and density functional theory to
+          machine learning force fields and data mining. Each chapter is a self-contained,
+          animated module with equations, visualisations and worked examples.
+        </p>
 
-      {/* Intro */}
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 28px 0" }}>
-        <div style={{
-          background: T.panel, borderRadius: 12, border: `1px solid ${T.border}`,
-          padding: "18px 22px", marginBottom: 24,
-        }}>
-          <div style={{ fontSize: 14, lineHeight: 1.7, color: T.ink }}>
-            An interactive learning platform covering the full stack of computational materials science — from
-            quantum mechanics and density functional theory to machine learning force fields and data mining.
-            Each chapter is a self-contained, animated module with equations, visualizations, and hands-on examples.
-          </div>
-        </div>
-
-        {/* Chapter grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 12, paddingBottom: 48 }}>
+        <ol className="bl-list">
           {BLOG_CHAPTERS.map(ch => (
-            <div
-              key={ch.id}
-              onClick={() => navigate(`/blog/${ch.id}`)}
-              style={{
-                background: T.panel, borderRadius: 12, border: `1px solid ${T.border}`,
-                padding: "18px 18px 14px", cursor: "pointer", transition: "all 0.2s",
-                position: "relative", overflow: "hidden",
-              }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = T.accent; e.currentTarget.style.boxShadow = `0 4px 16px ${T.accent}15`; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.boxShadow = "none"; }}
-            >
-              <div style={{ marginBottom: 8 }}>
-                <div style={{ fontSize: 10, color: T.accent, fontWeight: 700, letterSpacing: 1 }}>
-                  CHAPTER {ch.chapter}
-                </div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: T.ink }}>{ch.label}</div>
-              </div>
-              <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.5 }}>{ch.desc}</div>
-              <div style={{ marginTop: 10, fontSize: 11, color: T.accent, fontWeight: 600 }}>
-                Read chapter {"\u2192"}
-              </div>
-            </div>
+            <li key={ch.id}>
+              <button onClick={() => navigate(`/blog/${ch.id}`)}>
+                <span className="bl-n">{ch.chapter}</span>
+                <span className="bl-body">
+                  <span className="bl-title">{ch.label}</span>
+                  <span className="bl-desc">{ch.desc}</span>
+                </span>
+                <span className="bl-go">→</span>
+              </button>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
+
+      <footer className="cs-credit">
+        Md Habibur Rahman · School of Materials Engineering, Purdue University ·{" "}
+        <a href="mailto:rahma103@purdue.edu">rahma103@purdue.edu</a>
+      </footer>
     </div>
   );
 }

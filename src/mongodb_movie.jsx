@@ -123,12 +123,12 @@ export default function MongoDBMovieModule() {
               fill={P.mongo+"18"} stroke={P.mongo} strokeWidth="2"/>
             <ellipse cx={0} cy={-30} rx={40} ry={10} fill={P.mongo+"30"} stroke={P.mongo} strokeWidth="1.5"/>
             <ellipse cx={0} cy={20} rx={40} ry={10} fill={P.mongo+"18"} stroke={P.mongo+"60"} strokeWidth="1"/>
-            <text x={0} y={2} textAnchor="middle" fill={P.mongo} fontSize="14" fontWeight="800"
+            <text x={0} y={2} textAnchor="middle" fill={P.mongo} fontSize="14" fontWeight="500"
               fontFamily="'Inter',sans-serif">DB</text>
           </g>
-          <text x={W/2} y={230} textAnchor="middle" fill={P.mongo} fontSize="24" fontWeight="900"
+          <text x={W/2} y={230} textAnchor="middle" fill={P.mongo} fontSize="24" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={titleOp}>MongoDB</text>
-          <text x={W/2} y={256} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="700"
+          <text x={W/2} y={256} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={titleOp}>for Materials Science</text>
           <text x={W/2} y={286} textAnchor="middle" fill={P.muted} fontSize="10"
             fontFamily="'Inter',sans-serif" opacity={subOp}>
@@ -159,20 +159,20 @@ export default function MongoDBMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{width:"100%"}}>
           <rect width={W} height={H} fill={P.bg}/>
-          <text x={W/2} y={28} textAnchor="middle" fill={P.mongo} fontSize="13" fontWeight="800"
+          <text x={W/2} y={28} textAnchor="middle" fill={P.mongo} fontSize="13" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={op}>What is MongoDB?</text>
 
           {/* SQL table */}
           <g opacity={ease(clamp01((t-0.05)*5))}>
             <rect x={20} y={46} width={170} height={80} rx="8" fill={P.surface} stroke={P.dim+"60"} strokeWidth="1.5"/>
-            <text x={105} y={62} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="700"
+            <text x={105} y={62} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Relational (SQL)</text>
             {sqlCols.map((c, ci) => (
               <g key={ci}>
                 <rect x={tX+ci*colW} y={tY} width={colW} height={18} fill={P.dim+"20"}
                   stroke={P.dim+"50"} strokeWidth="0.8"/>
                 <text x={tX+ci*colW+colW/2} y={tY+13} textAnchor="middle" fill={P.muted}
-                  fontSize="7.5" fontWeight="700" fontFamily="monospace">{c}</text>
+                  fontSize="7.5" fontWeight="500" fontFamily="monospace">{c}</text>
               </g>
             ))}
             {sqlRow.map((v, ci) => (
@@ -194,12 +194,12 @@ export default function MongoDBMovieModule() {
           {/* NoSQL document */}
           <g opacity={ease(clamp01((t-0.15)*5))}>
             <rect x={240} y={46} width={298} height={80} rx="8" fill={P.surface} stroke={P.mongo+"60"} strokeWidth="1.5"/>
-            <text x={389} y={62} textAnchor="middle" fill={P.mongo} fontSize="9" fontWeight="700"
+            <text x={389} y={62} textAnchor="middle" fill={P.mongo} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">MongoDB (NoSQL)</text>
-            <text x={254} y={78} fill={P.mongo} fontSize="8" fontFamily="monospace" fontWeight="700">{"{"}</text>
+            <text x={254} y={78} fill={P.mongo} fontSize="8" fontFamily="monospace" fontWeight="500">{"{"}</text>
             <text x={264} y={90} fill={P.muted} fontSize="7.5" fontFamily="monospace">"material": "ZnTe",  "Eg_eV": 2.30,</text>
             <text x={264} y={102} fill={P.muted} fontSize="7.5" fontFamily="monospace">"T_synth": {"{"}mean: 500, range: [490,510]{"}"}</text>
-            <text x={254} y={114} fill={P.mongo} fontSize="8" fontFamily="monospace" fontWeight="700">{"}"}</text>
+            <text x={254} y={114} fill={P.mongo} fontSize="8" fontFamily="monospace" fontWeight="500">{"}"}</text>
           </g>
 
           {/* feature list */}
@@ -210,7 +210,7 @@ export default function MongoDBMovieModule() {
                 <rect x={20} y={140+i*52} width={W-40} height={44} rx="7"
                   fill={P.surface} stroke={item.color+"45"} strokeWidth="1.2"/>
                 <circle cx={38} cy={160+i*52} r={4} fill={item.color}/>
-                <text x={52} y={163+i*52} fill={item.color} fontSize="10" fontWeight="700"
+                <text x={52} y={163+i*52} fill={item.color} fontSize="10" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{item.label}</text>
                 <text x={52} y={178+i*52} fill={P.muted} fontSize="8"
                   fontFamily="'Inter',sans-serif">{item.desc}</text>
@@ -256,7 +256,7 @@ export default function MongoDBMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{width:"100%"}}>
           <rect width={W} height={H} fill={P.bg}/>
-          <text x={W/2} y={28} textAnchor="middle" fill={P.mongo} fontSize="13" fontWeight="800"
+          <text x={W/2} y={28} textAnchor="middle" fill={P.mongo} fontSize="13" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={op}>MongoDB vs Excel</text>
           <text x={W/2} y={42} textAnchor="middle" fill={P.muted} fontSize="8"
             fontFamily="'Inter',sans-serif" opacity={op}>When to use which for materials data</text>
@@ -268,7 +268,7 @@ export default function MongoDBMovieModule() {
             <rect x={lx} y={topY} width={colW2} height={20} rx="8" fill={P.mongo+"22"}/>
             <rect x={lx} y={topY+12} width={colW2} height={8} fill={P.mongo+"22"}/>
             <circle cx={lx+12} cy={topY+10} r={3.5} fill={P.mongo}/>
-            <text x={lx+22} y={topY+14} fill={P.mongo} fontSize="9" fontWeight="800"
+            <text x={lx+22} y={topY+14} fill={P.mongo} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">MongoDB Advantages</text>
             {mongoAdv.map((item, i) => {
               const iop = ease(clamp01((t - 0.1 - i*0.06)*5));
@@ -276,7 +276,7 @@ export default function MongoDBMovieModule() {
               return (
                 <g key={i} opacity={iop}>
                   <circle cx={lx+12} cy={iy+8} r={2.5} fill={P.ok}/>
-                  <text x={lx+22} y={iy+8} fill={P.ink} fontSize="7.5" fontWeight="700"
+                  <text x={lx+22} y={iy+8} fill={P.ink} fontSize="7.5" fontWeight="500"
                     fontFamily="'Inter',sans-serif" dominantBaseline="middle">{item.label}</text>
                   <text x={lx+22} y={iy+19} fill={P.muted} fontSize="6.5"
                     fontFamily="'Inter',sans-serif">{item.desc}</text>
@@ -292,7 +292,7 @@ export default function MongoDBMovieModule() {
             <rect x={rx2} y={topY} width={colW2} height={20} rx="8" fill={P.rag+"22"}/>
             <rect x={rx2} y={topY+12} width={colW2} height={8} fill={P.rag+"22"}/>
             <circle cx={rx2+12} cy={topY+10} r={3.5} fill={P.rag}/>
-            <text x={rx2+22} y={topY+14} fill={P.rag} fontSize="9" fontWeight="800"
+            <text x={rx2+22} y={topY+14} fill={P.rag} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Excel Advantages</text>
             {excelAdv.map((item, i) => {
               const iop = ease(clamp01((t - 0.2 - i*0.06)*5));
@@ -300,7 +300,7 @@ export default function MongoDBMovieModule() {
               return (
                 <g key={i} opacity={iop}>
                   <circle cx={rx2+12} cy={iy+8} r={2.5} fill={P.rag}/>
-                  <text x={rx2+22} y={iy+8} fill={P.ink} fontSize="7.5" fontWeight="700"
+                  <text x={rx2+22} y={iy+8} fill={P.ink} fontSize="7.5" fontWeight="500"
                     fontFamily="'Inter',sans-serif" dominantBaseline="middle">{item.label}</text>
                   <text x={rx2+22} y={iy+19} fill={P.muted} fontSize="6.5"
                     fontFamily="'Inter',sans-serif">{item.desc}</text>
@@ -316,7 +316,7 @@ export default function MongoDBMovieModule() {
             <rect x={rx2} y={topY + rh*4 + 42} width={colW2} height={20} rx="8" fill={P.warn+"22"}/>
             <rect x={rx2} y={topY + rh*4 + 54} width={colW2} height={8} fill={P.warn+"22"}/>
             <circle cx={rx2+12} cy={topY + rh*4 + 52} r={3.5} fill={P.warn}/>
-            <text x={rx2+22} y={topY + rh*4 + 56} fill={P.warn} fontSize="9" fontWeight="800"
+            <text x={rx2+22} y={topY + rh*4 + 56} fill={P.warn} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Excel Limitations</text>
             {excelLim.map((item, i) => {
               const iop = ease(clamp01((t - 0.4 - i*0.06)*5));
@@ -324,7 +324,7 @@ export default function MongoDBMovieModule() {
               return (
                 <g key={i} opacity={iop}>
                   <circle cx={rx2+12} cy={iy+8} r={2.5} fill={P.warn}/>
-                  <text x={rx2+22} y={iy+8} fill={P.ink} fontSize="7.5" fontWeight="700"
+                  <text x={rx2+22} y={iy+8} fill={P.ink} fontSize="7.5" fontWeight="500"
                     fontFamily="'Inter',sans-serif" dominantBaseline="middle">{item.label}</text>
                   <text x={rx2+22} y={iy+19} fill={P.muted} fontSize="6.5"
                     fontFamily="'Inter',sans-serif">{item.desc}</text>
@@ -337,7 +337,7 @@ export default function MongoDBMovieModule() {
           <g opacity={ease(clamp01((t-0.6)*4))}>
             <rect x={24} y={H-34} width={W-48} height={26} rx="6"
               fill={P.mongo+"15"} stroke={P.mongo+"50"} strokeWidth="1"/>
-            <text x={W/2} y={H-17} textAnchor="middle" fill={P.mongo} fontSize="8.5" fontWeight="700"
+            <text x={W/2} y={H-17} textAnchor="middle" fill={P.mongo} fontSize="8.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">
               Use MongoDB when data is complex, large, or shared — Excel for quick one-off exploration
             </text>
@@ -368,7 +368,7 @@ export default function MongoDBMovieModule() {
             fill={col+"18"} stroke={col+"70"} strokeWidth="1.5"/>
           <ellipse cx={cx} cy={cy-ry2+8} rx={rx2} ry={8} fill={col+"30"} stroke={col} strokeWidth="1.2"/>
           <ellipse cx={cx} cy={cy+ry2} rx={rx2} ry={8} fill={col+"18"} stroke={col+"60"} strokeWidth="1"/>
-          <text x={cx} y={cy+5} textAnchor="middle" fill={col} fontSize="8.5" fontWeight="700"
+          <text x={cx} y={cy+5} textAnchor="middle" fill={col} fontSize="8.5" fontWeight="500"
             fontFamily="'Inter',sans-serif">{label}</text>
           {sub && <text x={cx} y={cy+18} textAnchor="middle" fill={P.muted} fontSize="7"
             fontFamily="'Inter',sans-serif">{sub}</text>}
@@ -400,7 +400,7 @@ export default function MongoDBMovieModule() {
               <rect x={DX+8} y={PY2+30} width={64} height={40} rx="6"
                 fill={P.chunk+"18"} stroke={P.chunk} strokeWidth="1.5"/>
               <text x={DX+40} y={PY2+47} textAnchor="middle" fill={P.chunk}
-                fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">Python</text>
+                fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">Python</text>
               <text x={DX+40} y={PY2+62} textAnchor="middle" fill={P.muted}
                 fontSize="7" fontFamily="'Inter',sans-serif">app</text>
               {arrR(DX+72, PY2+50, DX+108, P.ok)}
@@ -448,7 +448,7 @@ export default function MongoDBMovieModule() {
             ];
             return (
               <g opacity={op2}>
-                <text x={DX+8} y={PY2+22} fill={P.muted} fontSize="8" fontWeight="700"
+                <text x={DX+8} y={PY2+22} fill={P.muted} fontSize="8" fontWeight="500"
                   fontFamily="'Inter',sans-serif">Recipe document structure</text>
                 <rect x={DX+8} y={PY2+28} width={DW-18} height={fields.length*24+8} rx="7"
                   fill={P.surface} stroke={P.data+"60"} strokeWidth="1.5"/>
@@ -457,7 +457,7 @@ export default function MongoDBMovieModule() {
                     <text x={DX+16} y={PY2+47+i*24} fill={P.muted} fontSize="7.5"
                       fontFamily="monospace">{f.k}:</text>
                     <text x={DX+100} y={PY2+47+i*24} fill={f.c} fontSize="7.5"
-                      fontFamily="monospace" fontWeight="700">{f.v}</text>
+                      fontFamily="monospace" fontWeight="500">{f.v}</text>
                   </g>
                 ))}
               </g>
@@ -489,7 +489,7 @@ export default function MongoDBMovieModule() {
               <rect x={DX+8} y={PY2+22} width={84} height={80} rx="6"
                 fill={P.chunk+"15"} stroke={P.chunk+"70"} strokeWidth="1.2"/>
               <text x={DX+50} y={PY2+36} textAnchor="middle" fill={P.chunk}
-                fontSize="7.5" fontWeight="700" fontFamily="'Inter',sans-serif">Python dict</text>
+                fontSize="7.5" fontWeight="500" fontFamily="'Inter',sans-serif">Python dict</text>
               {["material","Eg_eV","sigma","conf","route"].map((f,i)=>(
                 <text key={i} x={DX+16} y={PY2+50+i*12} fill={P.muted} fontSize="7"
                   fontFamily="monospace">{f}: \u2026</text>
@@ -500,7 +500,7 @@ export default function MongoDBMovieModule() {
               <g opacity={ease(clamp01((lt-0.35)*4))}>
                 <rect x={DX+130} y={PY2+22} width={DW-142} height={80} rx="6"
                   fill={P.surface} stroke={P.rag+"80"} strokeWidth="1.5"/>
-                <text x={DX+138} y={PY2+35} fill={P.rag} fontSize="7.5" fontWeight="700"
+                <text x={DX+138} y={PY2+35} fill={P.rag} fontSize="7.5" fontWeight="500"
                   fontFamily="'Inter',sans-serif">recipes</text>
                 {[0,1,2].map(i=>(
                   <rect key={i} x={DX+138} y={PY2+42+i*16} width={DW-158} height={12} rx="2"
@@ -539,11 +539,11 @@ export default function MongoDBMovieModule() {
             ];
             return (
               <g opacity={op2}>
-                <text x={DX+8} y={PY2+22} fill={P.muted} fontSize="8" fontWeight="700"
+                <text x={DX+8} y={PY2+22} fill={P.muted} fontSize="8" fontWeight="500"
                   fontFamily="'Inter',sans-serif">Query filter → matching docs</text>
                 <rect x={DX+8} y={PY2+30} width={DW-18} height={36} rx="5"
                   fill={P.surface} stroke={P.llm+"60"} strokeWidth="1.2"/>
-                <text x={DX+16} y={PY2+45} fill={P.llm} fontSize="7.5" fontWeight="700"
+                <text x={DX+16} y={PY2+45} fill={P.llm} fontSize="7.5" fontWeight="500"
                   fontFamily="monospace">material="ZnTe" AND conf{"\u2265"}0.85</text>
                 {docs.map((d, i) => {
                   const dop = ease(clamp01((lt-0.3-i*0.1)*5));
@@ -556,7 +556,7 @@ export default function MongoDBMovieModule() {
                         fontFamily="monospace">{d.mat}  conf={d.conf}  {d.route}</text>
                       <text x={DX+DW-20} y={PY2+91+i*28} textAnchor="end"
                         fill={d.match?P.llm:P.warn} fontSize="7.5" fontFamily="monospace"
-                        fontWeight="700">{d.match?"\u2713":"\u2717"}</text>
+                        fontWeight="500">{d.match?"\u2713":"\u2717"}</text>
                     </g>
                   );
                 })}
@@ -590,7 +590,7 @@ export default function MongoDBMovieModule() {
             ];
             return (
               <g opacity={op2}>
-                <text x={DX+8} y={PY2+22} fill={P.muted} fontSize="8" fontWeight="700"
+                <text x={DX+8} y={PY2+22} fill={P.muted} fontSize="8" fontWeight="500"
                   fontFamily="'Inter',sans-serif">Aggregation pipeline</text>
                 {stages.map((s, i) => (
                   <g key={i} opacity={ease(clamp01((lt-0.1-i*0.2)*5))}>
@@ -598,7 +598,7 @@ export default function MongoDBMovieModule() {
                       stroke={s.color} strokeWidth="1.5"/>}
                     <rect x={DX+20} y={PY2+36+i*52} width={DW-40} height={38} rx="6"
                       fill={P.surface} stroke={s.color+"60"} strokeWidth="1.5"/>
-                    <text x={DX+30} y={PY2+54+i*52} fill={s.color} fontSize="9" fontWeight="800"
+                    <text x={DX+30} y={PY2+54+i*52} fill={s.color} fontSize="9" fontWeight="500"
                       fontFamily="monospace">{s.name}</text>
                     <text x={DX+100} y={PY2+54+i*52} fill={P.muted} fontSize="8"
                       fontFamily="'Inter',sans-serif">{s.desc}</text>
@@ -609,7 +609,7 @@ export default function MongoDBMovieModule() {
                   <polygon points={`${DX+DW/2-4},${PY2+138} ${DX+DW/2+4},${PY2+138} ${DX+DW/2},${PY2+146}`} fill={P.ok}/>
                   <rect x={DX+20} y={PY2+148} width={DW-40} height={52} rx="6"
                     fill={P.surface} stroke={P.ok+"60"} strokeWidth="1.5"/>
-                  <text x={DX+30} y={PY2+164} fill={P.ok} fontSize="8" fontWeight="700"
+                  <text x={DX+30} y={PY2+164} fill={P.ok} fontSize="8" fontWeight="500"
                     fontFamily="'Inter',sans-serif">Result</text>
                   {[["meanEg","2.28 eV"],["stdEg","0.017 eV"],["count","3"]].map(([k,v],i) => (
                     <text key={k} x={DX+30} y={PY2+178+i*12} fill={P.muted} fontSize="7"
@@ -665,7 +665,7 @@ export default function MongoDBMovieModule() {
                       <rect x={DX+60} y={fy+2} width={DW-120} height={24} rx="5"
                         fill={P.surface} stroke={f.color+"60"} strokeWidth="1.2"/>
                       <text x={DX+DW/2} y={fy+18} textAnchor="middle" fill={f.color}
-                        fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">{f.label}</text>
+                        fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">{f.label}</text>
                     </g>
                   );
                 })}
@@ -684,19 +684,19 @@ export default function MongoDBMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={20} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="700"
+          <text x={W/2} y={20} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="500"
             fontFamily="'Inter',sans-serif">Python + pymongo — Materials Database</text>
           {pySteps.map((st, di) => (
             <circle key={di} cx={W/2-(N-1)*16+di*32} cy={33} r={di===activeIdx?5.5:3.5}
               fill={di<=activeIdx?st.color:P.dim} opacity={di===activeIdx?1:0.45}/>
           ))}
-          <text x={W/2} y={50} textAnchor="middle" fill={s.color} fontSize="10.5" fontWeight="800"
+          <text x={W/2} y={50} textAnchor="middle" fill={s.color} fontSize="10.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={cardOp}>{s.label}</text>
 
           <rect x={CX} y={PY2} width={CW} height={PH2} rx="7"
             fill={P.surface} stroke={s.color+"50"} strokeWidth="1.3" opacity={cardOp}/>
           <rect x={CX} y={PY2} width={CW} height={18} rx="6" fill={s.color+"22"} opacity={cardOp}/>
-          <text x={CX+8} y={PY2+13} fill={s.color} fontSize="7.5" fontWeight="700"
+          <text x={CX+8} y={PY2+13} fill={s.color} fontSize="7.5" fontWeight="500"
             fontFamily="monospace" opacity={cardOp}>python</text>
           {s.lines.map((ln, li) => {
             const lineOp = ease(clamp01((localT - li*0.055)*7));
@@ -718,7 +718,7 @@ export default function MongoDBMovieModule() {
 
           <rect x={CX} y={PY2+PH2+4} width={W-CX*2} height={22} rx="5"
             fill={s.color+"18"} stroke={s.color+"45"} strokeWidth="1" opacity={cardOp}/>
-          <text x={W/2} y={PY2+PH2+19} textAnchor="middle" fill={s.color} fontSize="8.5" fontWeight="600"
+          <text x={W/2} y={PY2+PH2+19} textAnchor="middle" fill={s.color} fontSize="8.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={cardOp}>{"\u25B6"}  {s.note}</text>
         </svg>
       );
@@ -761,7 +761,7 @@ export default function MongoDBMovieModule() {
               <rect x={DX+20} y={PY2+30} width={80} height={60} rx="6"
                 fill={P.surface} stroke={P.chunk+"70"} strokeWidth="1.2"/>
               <text x={DX+60} y={PY2+55} textAnchor="middle" fill={P.chunk}
-                fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">PDF</text>
+                fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">PDF</text>
               <text x={DX+60} y={PY2+70} textAnchor="middle" fill={P.muted}
                 fontSize="7" fontFamily="'Inter',sans-serif">28 pages</text>
               <line x1={DX+100} y1={PY2+60} x2={DX+130} y2={PY2+60} stroke={P.chunk} strokeWidth="1.5"/>
@@ -801,20 +801,20 @@ export default function MongoDBMovieModule() {
               <rect x={DX+20} y={PY2+20} width={80} height={40} rx="6"
                 fill={P.surface} stroke={P.chunk+"60"} strokeWidth="1"/>
               <text x={DX+60} y={PY2+44} textAnchor="middle" fill={P.chunk}
-                fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">Chunks</text>
+                fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">Chunks</text>
               <line x1={DX+100} y1={PY2+40} x2={DX+130} y2={PY2+40} stroke={P.rag} strokeWidth="1.5"/>
               <polygon points={`${DX+128},${PY2+36} ${DX+128},${PY2+44} ${DX+136},${PY2+40}`} fill={P.rag}/>
               <rect x={DX+140} y={PY2+20} width={100} height={50} rx="8"
                 fill={P.surface} stroke={P.rag} strokeWidth="1.5"/>
               <text x={DX+190} y={PY2+42} textAnchor="middle" fill={P.rag}
-                fontSize="9" fontWeight="800" fontFamily="'Inter',sans-serif">GPT-4o</text>
+                fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">GPT-4o</text>
               <text x={DX+190} y={PY2+56} textAnchor="middle" fill={P.muted}
                 fontSize="7" fontFamily="'Inter',sans-serif">extract</text>
               <line x1={DX+190} y1={PY2+70} x2={DX+190} y2={PY2+90} stroke={P.ok} strokeWidth="1.5"/>
               <polygon points={`${DX+186},${PY2+88} ${DX+194},${PY2+88} ${DX+190},${PY2+96}`} fill={P.ok}/>
               <rect x={DX+130} y={PY2+96} width={120} height={80} rx="6"
                 fill={P.surface} stroke={P.ok+"60"} strokeWidth="1.2"/>
-              <text x={DX+140} y={PY2+112} fill={P.ok} fontSize="8" fontWeight="700"
+              <text x={DX+140} y={PY2+112} fill={P.ok} fontSize="8" fontWeight="500"
                 fontFamily="monospace">JSON recipe</text>
               {["material: ZnTe","Eg_eV: 2.30","confidence: 0.888","route: HIGH"].map((f,i) => (
                 <text key={i} x={DX+140} y={PY2+126+i*13} fill={P.muted} fontSize="7"
@@ -849,11 +849,11 @@ export default function MongoDBMovieModule() {
               <rect x={DX+20} y={PY2+20} width={80} height={35} rx="6"
                 fill={P.surface} stroke={P.ok+"60"} strokeWidth="1"/>
               <text x={DX+60} y={PY2+42} textAnchor="middle" fill={P.ok}
-                fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">recipe</text>
+                fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">recipe</text>
               <rect x={DX+20} y={PY2+65} width={80} height={35} rx="6"
                 fill={P.surface} stroke={P.chunk+"60"} strokeWidth="1"/>
               <text x={DX+60} y={PY2+87} textAnchor="middle" fill={P.chunk}
-                fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">papers (3)</text>
+                fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">papers (3)</text>
               <line x1={DX+100} y1={PY2+37} x2={DX+150} y2={PY2+70} stroke={P.mongo} strokeWidth="1.5"/>
               <line x1={DX+100} y1={PY2+82} x2={DX+150} y2={PY2+82} stroke={P.mongo} strokeWidth="1.5"/>
               <g opacity={ease(clamp01((lt-0.3)*5))}>
@@ -861,14 +861,14 @@ export default function MongoDBMovieModule() {
                   fill={P.surface} stroke={P.mongo+"70"} strokeWidth="1.5"/>
                 <ellipse cx={DX+200} cy={PY2+50} rx={50} ry={8} fill={P.mongo+"25"} stroke={P.mongo} strokeWidth="1.2"/>
                 <text x={DX+200} y={PY2+82} textAnchor="middle" fill={P.mongo}
-                  fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">MongoDB</text>
+                  fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">MongoDB</text>
                 <text x={DX+200} y={PY2+96} textAnchor="middle" fill={P.muted}
                   fontSize="7" fontFamily="'Inter',sans-serif">materials_db</text>
               </g>
               <g opacity={ease(clamp01((lt-0.6)*4))}>
                 <rect x={DX+20} y={PY2+130} width={DW-40} height={40} rx="6"
                   fill={P.surface} stroke={P.mongo+"40"} strokeWidth="1"/>
-                <text x={DX+30} y={PY2+148} fill={P.mongo} fontSize="8" fontWeight="700"
+                <text x={DX+30} y={PY2+148} fill={P.mongo} fontSize="8" fontWeight="500"
                   fontFamily="'Inter',sans-serif">Compound Index</text>
                 <text x={DX+30} y={PY2+162} fill={P.muted} fontSize="7"
                   fontFamily="monospace">{"{"}material: 1, confidence: -1{"}"}</text>
@@ -897,11 +897,11 @@ export default function MongoDBMovieModule() {
           note: "Indexed query \u2192 sub-millisecond \u00B7 sorted by confidence",
           diagram: (op2, lt) => (
             <g opacity={op2}>
-              <text x={DX+8} y={PY2+22} fill={P.muted} fontSize="8" fontWeight="700"
+              <text x={DX+8} y={PY2+22} fill={P.muted} fontSize="8" fontWeight="500"
                 fontFamily="'Inter',sans-serif">Query → Filter → Sort → Return</text>
               <rect x={DX+8} y={PY2+30} width={DW-18} height={36} rx="5"
                 fill={P.surface} stroke={P.llm+"60"} strokeWidth="1.2"/>
-              <text x={DX+16} y={PY2+45} fill={P.llm} fontSize="7.5" fontWeight="700"
+              <text x={DX+16} y={PY2+45} fill={P.llm} fontSize="7.5" fontWeight="500"
                 fontFamily="monospace">Filter: material="ZnTe" AND conf{"\u2265"}0.85</text>
               <text x={DX+16} y={PY2+58} fill={P.muted} fontSize="7"
                 fontFamily="monospace">Sort: confidence DESC</text>
@@ -920,7 +920,7 @@ export default function MongoDBMovieModule() {
                       fontFamily="monospace">{d.mat}  conf={d.conf}  {d.route}</text>
                     <text x={DX+DW-20} y={PY2+91+i*28} textAnchor="end"
                       fill={d.match?P.llm:P.warn} fontSize="7.5" fontFamily="monospace"
-                      fontWeight="700">{d.match?"\u2713":"\u2717"}</text>
+                      fontWeight="500">{d.match?"\u2713":"\u2717"}</text>
                   </g>
                 );
               })}
@@ -948,7 +948,7 @@ export default function MongoDBMovieModule() {
           note: "All computation on server \u2014 only result sent to Python",
           diagram: (op2, lt) => (
             <g opacity={op2}>
-              <text x={DX+8} y={PY2+22} fill={P.muted} fontSize="8" fontWeight="700"
+              <text x={DX+8} y={PY2+22} fill={P.muted} fontSize="8" fontWeight="500"
                 fontFamily="'Inter',sans-serif">Server-side aggregation</text>
               {[
                 { stage:"$match", desc:"ZnTe only", color:P.vector },
@@ -959,7 +959,7 @@ export default function MongoDBMovieModule() {
                     stroke={s.color} strokeWidth="1.5"/>}
                   <rect x={DX+20} y={PY2+36+i*52} width={DW-40} height={38} rx="6"
                     fill={P.surface} stroke={s.color+"60"} strokeWidth="1.5"/>
-                  <text x={DX+30} y={PY2+54+i*52} fill={s.color} fontSize="9" fontWeight="800"
+                  <text x={DX+30} y={PY2+54+i*52} fill={s.color} fontSize="9" fontWeight="500"
                     fontFamily="monospace">{s.stage}</text>
                   <text x={DX+100} y={PY2+54+i*52} fill={P.muted} fontSize="8"
                     fontFamily="'Inter',sans-serif">{s.desc}</text>
@@ -970,7 +970,7 @@ export default function MongoDBMovieModule() {
                 <polygon points={`${DX+DW/2-4},${PY2+138} ${DX+DW/2+4},${PY2+138} ${DX+DW/2},${PY2+146}`} fill={P.ok}/>
                 <rect x={DX+20} y={PY2+148} width={DW-40} height={52} rx="6"
                   fill={P.surface} stroke={P.ok+"60"} strokeWidth="1.5"/>
-                <text x={DX+30} y={PY2+164} fill={P.ok} fontSize="8" fontWeight="700"
+                <text x={DX+30} y={PY2+164} fill={P.ok} fontSize="8" fontWeight="500"
                   fontFamily="'Inter',sans-serif">Result</text>
                 {[["meanEg","2.28 eV"],["stdEg","0.017 eV"],["count","3"]].map(([k,v],i) => (
                   <text key={k} x={DX+30} y={PY2+178+i*12} fill={P.muted} fontSize="7"
@@ -1025,7 +1025,7 @@ export default function MongoDBMovieModule() {
                       <rect x={DX+60} y={fy+2} width={DW-120} height={24} rx="5"
                         fill={P.surface} stroke={f.color+"60"} strokeWidth="1.2"/>
                       <text x={DX+DW/2} y={fy+18} textAnchor="middle" fill={f.color}
-                        fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">{f.label}</text>
+                        fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">{f.label}</text>
                     </g>
                   );
                 })}
@@ -1044,19 +1044,19 @@ export default function MongoDBMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={20} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="700"
+          <text x={W/2} y={20} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="500"
             fontFamily="'Inter',sans-serif">Materials DB Workflow — End-to-End</text>
           {wfSteps.map((st, di) => (
             <circle key={di} cx={W/2-(N-1)*16+di*32} cy={33} r={di===activeIdx?5.5:3.5}
               fill={di<=activeIdx?st.color:P.dim} opacity={di===activeIdx?1:0.45}/>
           ))}
-          <text x={W/2} y={50} textAnchor="middle" fill={s.color} fontSize="10.5" fontWeight="800"
+          <text x={W/2} y={50} textAnchor="middle" fill={s.color} fontSize="10.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={cardOp}>{s.label}</text>
 
           <rect x={CX} y={PY2} width={CW} height={PH2} rx="7"
             fill={P.surface} stroke={s.color+"50"} strokeWidth="1.3" opacity={cardOp}/>
           <rect x={CX} y={PY2} width={CW} height={18} rx="6" fill={s.color+"22"} opacity={cardOp}/>
-          <text x={CX+8} y={PY2+13} fill={s.color} fontSize="7.5" fontWeight="700"
+          <text x={CX+8} y={PY2+13} fill={s.color} fontSize="7.5" fontWeight="500"
             fontFamily="monospace" opacity={cardOp}>python</text>
           {s.lines.map((ln, li) => {
             const lineOp = ease(clamp01((localT - li*0.055)*7));
@@ -1078,7 +1078,7 @@ export default function MongoDBMovieModule() {
 
           <rect x={CX} y={PY2+PH2+4} width={W-CX*2} height={22} rx="5"
             fill={s.color+"18"} stroke={s.color+"45"} strokeWidth="1" opacity={cardOp}/>
-          <text x={W/2} y={PY2+PH2+19} textAnchor="middle" fill={s.color} fontSize="8.5" fontWeight="600"
+          <text x={W/2} y={PY2+PH2+19} textAnchor="middle" fill={s.color} fontSize="8.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={cardOp}>{"\u25B6"}  {s.note}</text>
         </svg>
       );
@@ -1098,10 +1098,10 @@ export default function MongoDBMovieModule() {
   return (
     <div style={{ maxWidth: 1100, margin: "0 auto", padding: "24px 20px", fontFamily: "'Inter', -apple-system, sans-serif" }}>
       <div style={{ marginBottom: 20 }}>
-        <div style={{ fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "uppercase", marginBottom: 4 }}>
+        <div style={{ fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "none", marginBottom: 4 }}>
           Animated Module
         </div>
-        <div style={{ fontSize: 22, fontWeight: 800, color: P.mongo, marginBottom: 4 }}>
+        <div style={{ fontSize: 22, fontWeight: 500, color: P.mongo, marginBottom: 4 }}>
           MongoDB — Document Database for Materials Science
         </div>
         <div style={{ fontSize: 13, color: P.muted, lineHeight: 1.5 }}>
@@ -1115,12 +1115,12 @@ export default function MongoDBMovieModule() {
       }}>
         <div style={{ position: "absolute", top: 10, left: 14, zIndex: 2, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ background: P.mongo+"25", border: `1px solid ${P.mongo}50`, padding: "3px 10px",
-            borderRadius: 6, fontSize: 10, fontWeight: 700, color: P.mongo, letterSpacing: 1 }}>
+            borderRadius: 6, fontSize: 10, fontWeight: 500, color: P.mongo, letterSpacing: 1 }}>
             Scene {sceneIdx + 1}/{SCENES.length}
           </span>
-          <span style={{ fontSize: 12, fontWeight: 700, color: P.ink }}>{scene.label}</span>
+          <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
-        <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 600, opacity: 0.7 }}>
+        <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 500, opacity: 0.7 }}>
           Habibur Rahman · rahma103@purdue.edu
         </div>
         <div style={{ opacity: fadeClass, transition: "opacity 0.25s ease-in-out", willChange: "opacity" }}>
@@ -1136,12 +1136,12 @@ export default function MongoDBMovieModule() {
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.mongo}`,
           background: P.mongo+"15", cursor: "pointer", display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: 18, color: P.mongo, fontWeight: 900, fontFamily: "inherit",
+          justifyContent: "center", fontSize: 18, color: P.mongo, fontWeight: 500, fontFamily: "inherit",
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
-        <button onClick={prevScene} disabled={sceneIdx === 0} style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`, background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default", color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 700, fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4 }}>{"\u2190"}</button>
-        <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`, background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default", color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 700, fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4 }}>{"\u2192"}</button>
+        <button onClick={prevScene} disabled={sceneIdx === 0} style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`, background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default", color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 500, fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4 }}>{"\u2190"}</button>
+        <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`, background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default", color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 500, fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4 }}>{"\u2192"}</button>
         <div style={{ flex: 1, marginLeft: 8 }}>
           <div style={{ height: 6, background: P.dim+"30", borderRadius: 3, position: "relative", cursor: "pointer" }}
             onClick={(e) => {
@@ -1169,14 +1169,14 @@ export default function MongoDBMovieModule() {
       {/* pymongo step buttons */}
       {scene.id === "pymongo" && (
         <div style={{ display: "flex", gap: 6, marginTop: 10, alignItems: "center", background: P.panel, padding: "8px 12px", borderRadius: 10, border: `1px solid ${P.border}` }}>
-          <span style={{ fontSize: 10, color: P.muted, fontWeight: 700, marginRight: 4, letterSpacing: 1, textTransform: "uppercase" }}>Step</span>
+          <span style={{ fontSize: 10, color: P.muted, fontWeight: 500, marginRight: 4, letterSpacing: 1, textTransform: "none" }}>Step</span>
           {["\u2460 Connect","\u2461 Schema","\u2462 Insert","\u2463 Query","\u2464 Aggregate","\u2465 Pipeline"].map((label, i) => (
             <button key={i} onClick={() => goPyStep(i)} style={{
               padding: "5px 11px", borderRadius: 7, fontSize: 10, cursor: "pointer",
               background: i === pyStep ? P.mongo+"25" : "transparent",
               border: `1px solid ${i === pyStep ? P.mongo : P.border}`,
               color: i === pyStep ? P.mongo : i < pyStep ? P.rag : P.muted,
-              fontWeight: i === pyStep ? 700 : 500, fontFamily: "inherit", transition: "all 0.15s",
+              fontWeight: i === pyStep ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
             }}>
               {label}
             </button>
@@ -1192,14 +1192,14 @@ export default function MongoDBMovieModule() {
       {/* workflow step buttons */}
       {scene.id === "workflow" && (
         <div style={{ display: "flex", gap: 6, marginTop: 10, alignItems: "center", background: P.panel, padding: "8px 12px", borderRadius: 10, border: `1px solid ${P.border}` }}>
-          <span style={{ fontSize: 10, color: P.muted, fontWeight: 700, marginRight: 4, letterSpacing: 1, textTransform: "uppercase" }}>Step</span>
+          <span style={{ fontSize: 10, color: P.muted, fontWeight: 500, marginRight: 4, letterSpacing: 1, textTransform: "none" }}>Step</span>
           {["\u2460 Load PDF","\u2461 LLM Extract","\u2462 Store DB","\u2463 Query","\u2464 Aggregate","\u2465 Pipeline"].map((label, i) => (
             <button key={i} onClick={() => goWfStep(i)} style={{
               padding: "5px 11px", borderRadius: 7, fontSize: 10, cursor: "pointer",
               background: i === wfStep ? P.mongo+"25" : "transparent",
               border: `1px solid ${i === wfStep ? P.mongo : P.border}`,
               color: i === wfStep ? P.mongo : i < wfStep ? P.rag : P.muted,
-              fontWeight: i === wfStep ? 700 : 500, fontFamily: "inherit", transition: "all 0.15s",
+              fontWeight: i === wfStep ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
             }}>
               {label}
             </button>
@@ -1220,7 +1220,7 @@ export default function MongoDBMovieModule() {
             background: i === sceneIdx ? P.mongo+"20" : "transparent",
             border: `1px solid ${i === sceneIdx ? P.mongo : P.border}`,
             color: i === sceneIdx ? P.mongo : i < sceneIdx ? P.rag : P.muted,
-            fontWeight: i === sceneIdx ? 700 : 500, fontFamily: "inherit", transition: "all 0.15s",
+            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
           }}>
             {i + 1}. {s.label}
           </button>

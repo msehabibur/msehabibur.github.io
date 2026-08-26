@@ -1698,7 +1698,7 @@ function AnalogyBox({ children }) {
 }
 
 function SectionTitle({ children }) {
-  return <div style={{ fontSize: FONT.xl, fontWeight: 800, color: T.accent, marginBottom: 12 }}>{children}</div>;
+  return <div style={{ fontSize: FONT.xl, fontWeight: 500, color: T.accent, marginBottom: 12 }}>{children}</div>;
 }
 
 const inputStyle = {
@@ -1735,7 +1735,7 @@ function GuidedLesson({ section }) {
   return (
     <div style={{ ...LAYOUT.section, marginBottom: 18 }}>
       <div style={{ ...PANEL.base, borderLeft: `4px solid ${T.accent}`, lineHeight: 1.8, fontSize: FONT.base }}>
-        <div style={{ fontSize: FONT.lg, fontWeight: 800, color: T.accent, marginBottom: 6 }}>Core lesson</div>
+        <div style={{ fontSize: FONT.lg, fontWeight: 500, color: T.accent, marginBottom: 6 }}>Core lesson</div>
         {guide.lead}
       </div>
 
@@ -1746,7 +1746,7 @@ function GuidedLesson({ section }) {
           const lab = unit.lab || rigor.lab;
           return (
             <article key={unit.title} style={{ ...PANEL.base, display: "flex", flexDirection: "column", gap: 8 }}>
-              <div style={{ fontSize: FONT.lg, fontWeight: 800, color: T.ink }}>{unit.title}</div>
+              <div style={{ fontSize: FONT.lg, fontWeight: 500, color: T.ink }}>{unit.title}</div>
               {unit.analogy && (
                 <div style={{ fontSize: FONT.sm, color: T.muted, lineHeight: 1.65 }}><strong style={{ color: T.accent }}>Simple analogy.</strong> {unit.analogy}</div>
               )}
@@ -1771,7 +1771,7 @@ function GuidedLesson({ section }) {
 
       {guide.workedExample && (
         <div style={{ ...PANEL.base, borderLeft: `4px solid ${T.accent}` }}>
-          <div style={{ fontSize: FONT.lg, fontWeight: 800, color: T.accent, marginBottom: 6 }}>{guide.workedExample.title}</div>
+          <div style={{ fontSize: FONT.lg, fontWeight: 500, color: T.accent, marginBottom: 6 }}>{guide.workedExample.title}</div>
           <div style={{ fontSize: FONT.base, color: T.ink, lineHeight: 1.75, marginBottom: 10 }}>{guide.workedExample.scenario}</div>
           <ol style={{ margin: "0 0 10px", paddingLeft: 22, display: "flex", flexDirection: "column", gap: 6, color: T.ink, fontSize: FONT.base, lineHeight: 1.75 }}>
             {guide.workedExample.steps.map((step) => <li key={step}>{step}</li>)}
@@ -1782,7 +1782,7 @@ function GuidedLesson({ section }) {
       )}
 
       <div style={{ ...PANEL.base, background: T.accent + "08" }}>
-        <div style={{ fontSize: FONT.lg, fontWeight: 800, color: T.accent, marginBottom: 7 }}>Practice before moving on</div>
+        <div style={{ fontSize: FONT.lg, fontWeight: 500, color: T.accent, marginBottom: 7 }}>Practice before moving on</div>
         <ol style={{ margin: 0, paddingLeft: 22, display: "flex", flexDirection: "column", gap: 5, color: T.ink, fontSize: FONT.base, lineHeight: 1.7 }}>
           {guide.practice.map((task) => <li key={task}>{task}</li>)}
         </ol>
@@ -1807,17 +1807,17 @@ function TopicLesson({ topic, section, index }) {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 8 }}>
         {panels.map(([label, body]) => (
           <div key={label} style={{ ...PANEL.base, background: label === "Common mistake" ? T.surface : T.panel }}>
-            <div style={{ fontSize: FONT.sm, fontWeight: 800, color: T.accent, marginBottom: 5 }}>{label}</div>
+            <div style={{ fontSize: FONT.sm, fontWeight: 500, color: T.accent, marginBottom: 5 }}>{label}</div>
             <div style={{ fontSize: FONT.base, color: T.ink, lineHeight: 1.75 }}>{body}</div>
           </div>
         ))}
       </div>
       <div style={{ ...PANEL.base, borderLeft: `4px solid ${T.accent}`, background: T.accent + "08" }}>
-        <div style={{ fontSize: FONT.sm, fontWeight: 800, color: T.accent, marginBottom: 5 }}>Practice task</div>
+        <div style={{ fontSize: FONT.sm, fontWeight: 500, color: T.accent, marginBottom: 5 }}>Practice task</div>
         <div style={{ fontSize: FONT.base, color: T.ink, lineHeight: 1.75 }}>{lesson.practice}</div>
       </div>
       <div style={{ ...PANEL.base, background: T.surface }}>
-        <div style={{ fontSize: FONT.sm, fontWeight: 800, color: T.accent, marginBottom: 5 }}>Check yourself</div>
+        <div style={{ fontSize: FONT.sm, fontWeight: 500, color: T.accent, marginBottom: 5 }}>Check yourself</div>
         <div style={{ fontSize: FONT.base, color: T.ink, lineHeight: 1.75 }}>{lesson.check}</div>
       </div>
     </div>
@@ -1872,7 +1872,7 @@ function TopicExplorer({ section, completed, openTopics, onToggleOpen, onToggleC
           return (
             <div key={topic.id} style={{ background: T.panel, border: `1px solid ${isDone ? T.accent + "66" : T.border}`, borderLeft: `4px solid ${isDone ? T.accent : T.border}`, borderRadius: LAYOUT.radiusLg, overflow: "hidden" }}>
               <div style={{ display: "flex", alignItems: "stretch" }}>
-                <button type="button" aria-expanded={isOpen} aria-controls={detailId} onClick={() => onToggleOpen([topic.id])} style={{ flex: 1, border: 0, background: "transparent", color: T.ink, textAlign: "left", padding: "10px 12px", cursor: "pointer", fontFamily: "inherit", fontSize: FONT.base, fontWeight: 700, lineHeight: 1.5 }}>
+                <button type="button" aria-expanded={isOpen} aria-controls={detailId} onClick={() => onToggleOpen([topic.id])} style={{ flex: 1, border: 0, background: "transparent", color: T.ink, textAlign: "left", padding: "10px 12px", cursor: "pointer", fontFamily: "inherit", fontSize: FONT.base, fontWeight: 500, lineHeight: 1.5 }}>
                   <span style={{ color: T.muted, marginRight: 8 }}>{index + 1}.</span>{topic.title}
                 </button>
                 <button type="button" aria-pressed={isDone} onClick={() => onToggleComplete(topic.id)} style={{ ...BUTTON.toggle(isDone), margin: 7, minWidth: 76 }}>
@@ -1904,7 +1904,7 @@ function ResultTile({ label, value, note }) {
   return (
     <div style={{ ...PANEL.base, textAlign: "center" }}>
       <div style={{ fontSize: FONT.sm, color: T.muted, marginBottom: 3 }}>{label}</div>
-      <div style={{ fontSize: FONT.xl, color: T.accent, fontWeight: 800 }}>{value}</div>
+      <div style={{ fontSize: FONT.xl, color: T.accent, fontWeight: 500 }}>{value}</div>
       {note && <div style={{ fontSize: FONT.xs, color: T.muted, marginTop: 3 }}>{note}</div>}
     </div>
   );
@@ -1943,21 +1943,21 @@ function MetricLab() {
         <table aria-label="Confusion matrix" style={{ width: "100%", borderCollapse: "collapse", minWidth: 420, fontSize: FONT.base }}>
           <thead>
             <tr>
-              <th style={{ padding: 7, color: T.muted, fontWeight: 600 }} />
-              <th scope="col" style={{ padding: 7, color: T.muted, fontWeight: 600 }}>Predicted positive</th>
-              <th scope="col" style={{ padding: 7, color: T.muted, fontWeight: 600 }}>Predicted negative</th>
+              <th style={{ padding: 7, color: T.muted, fontWeight: 500 }} />
+              <th scope="col" style={{ padding: 7, color: T.muted, fontWeight: 500 }}>Predicted positive</th>
+              <th scope="col" style={{ padding: 7, color: T.muted, fontWeight: 500 }}>Predicted negative</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row" style={{ padding: 7, color: T.muted, fontWeight: 600 }}>Actual positive</th>
-              <td style={{ ...PANEL.base, textAlign: "center", color: T.accent, fontWeight: 800 }}>TP {tp}</td>
-              <td style={{ ...PANEL.base, textAlign: "center", fontWeight: 700 }}>FN {fn}</td>
+              <th scope="row" style={{ padding: 7, color: T.muted, fontWeight: 500 }}>Actual positive</th>
+              <td style={{ ...PANEL.base, textAlign: "center", color: T.accent, fontWeight: 500 }}>TP {tp}</td>
+              <td style={{ ...PANEL.base, textAlign: "center", fontWeight: 500 }}>FN {fn}</td>
             </tr>
             <tr>
-              <th scope="row" style={{ padding: 7, color: T.muted, fontWeight: 600 }}>Actual negative</th>
-              <td style={{ ...PANEL.base, textAlign: "center", fontWeight: 700 }}>FP {fp}</td>
-              <td style={{ ...PANEL.base, textAlign: "center", color: T.accent, fontWeight: 800 }}>TN {tn}</td>
+              <th scope="row" style={{ padding: 7, color: T.muted, fontWeight: 500 }}>Actual negative</th>
+              <td style={{ ...PANEL.base, textAlign: "center", fontWeight: 500 }}>FP {fp}</td>
+              <td style={{ ...PANEL.base, textAlign: "center", color: T.accent, fontWeight: 500 }}>TN {tn}</td>
             </tr>
           </tbody>
         </table>
@@ -2228,7 +2228,7 @@ export default function AIMLRoadmap() {
               <div style={{ display: "flex", flexDirection: "column", gap: 4, maxHeight: 260, overflowY: "auto" }}>
                 {results.slice(0, 60).map((item) => (
                   <button key={item.id} type="button" onClick={() => visitTopic(item)} style={{ border: `1px solid ${T.border}`, background: T.surface, borderRadius: LAYOUT.radiusMd, padding: "7px 9px", textAlign: "left", color: T.ink, cursor: "pointer", fontFamily: "inherit", fontSize: FONT.sm, lineHeight: 1.5 }}>
-                    <span style={{ color: T.accent, fontWeight: 700 }}>{item.sectionLabel}:</span> {item.title}
+                    <span style={{ color: T.accent, fontWeight: 500 }}>{item.sectionLabel}:</span> {item.title}
                   </button>
                 ))}
                 {results.length > 60 && <div style={{ fontSize: FONT.sm, color: T.muted }}>Refine the search to view the remaining {results.length - 60} results.</div>}

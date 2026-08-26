@@ -136,7 +136,7 @@ export default function PyrochloreScatter() {
     }}>
       {/* Title */}
       <div style={{ textAlign: "center", marginBottom: 10 }}>
-        <h2 style={{ color: "#1a1e2e", fontSize: 18, fontWeight: 800, margin: 0 }}>
+        <h2 style={{ color: "#1a1e2e", fontSize: 18, fontWeight: 500, margin: 0 }}>
           LLM-Predicted Properties of A₂B₂O₇ Pyrochlore Compositions
         </h2>
         <p style={{ color: "#6b7280", fontSize: 12, margin: "3px 0 0" }}>
@@ -149,13 +149,13 @@ export default function PyrochloreScatter() {
         display: "flex", alignItems: "center", justifyContent: "center",
         gap: 12, marginBottom: 10, flexWrap: "wrap",
       }}>
-        <span style={{ fontSize: 12, color: "#6b7280", fontWeight: 600 }}>Filter Synthesis Prob:</span>
+        <span style={{ fontSize: 12, color: "#6b7280", fontWeight: 500 }}>Filter Synthesis Prob:</span>
         {[[0, 1, "All"], [0.8, 1, "≥ 0.8 (Stable)"], [0.5, 0.8, "0.5–0.8"], [0, 0.5, "< 0.5 (Novel)"]].map(([lo, hi, label]) => {
           const isActive = filterRange[0] === lo && filterRange[1] === hi;
           return (
             <button key={label} onClick={() => { setFilterRange([lo, hi]); setSelected(null); }}
               style={{
-                padding: "4px 14px", borderRadius: 6, fontSize: 12, fontWeight: isActive ? 700 : 500,
+                padding: "4px 14px", borderRadius: 6, fontSize: 12, fontWeight: isActive ? 500 : 500,
                 background: isActive ? "#1a1e2e" : "#fff",
                 color: isActive ? "#fff" : "#6b7280",
                 border: `1.5px solid ${isActive ? "#1a1e2e" : "#d4d8e0"}`,
@@ -202,7 +202,7 @@ export default function PyrochloreScatter() {
             </g>
           ))}
           <text x={pad.left + plotW / 2} y={H - 8} textAnchor="middle"
-            fill="#1a1e2e" fontSize={13} fontWeight={700}>
+            fill="#1a1e2e" fontSize={13} fontWeight={500}>
             Coefficient of Thermal Expansion (×10⁻⁶ K⁻¹)
           </text>
 
@@ -216,7 +216,7 @@ export default function PyrochloreScatter() {
             </g>
           ))}
           <text x={16} y={pad.top + plotH / 2} textAnchor="middle"
-            fill="#1a1e2e" fontSize={13} fontWeight={700}
+            fill="#1a1e2e" fontSize={13} fontWeight={500}
             transform={`rotate(-90, 16, ${pad.top + plotH / 2})`}>
             Thermal Conductivity (W/m·K)
           </text>
@@ -226,7 +226,7 @@ export default function PyrochloreScatter() {
             width={toX(12.5) - toX(9.0)} height={toY(1.2) - toY(2.0)}
             rx={6} fill="#7c3aed08" stroke="#7c3aed" strokeWidth={1.2} strokeDasharray="5,3" opacity={0.6} />
           <text x={(toX(9.0) + toX(12.5)) / 2} y={toY(2.0) - 5} textAnchor="middle"
-            fill="#7c3aed" fontSize={9} fontWeight={600} opacity={0.7}>
+            fill="#7c3aed" fontSize={9} fontWeight={500} opacity={0.7}>
             TBC design space (low κ, high CTE)
           </text>
 
@@ -263,7 +263,7 @@ export default function PyrochloreScatter() {
                 {/* Show label on selected */}
                 {isSel && inFilter && (
                   <text x={cx} y={cy - 14} textAnchor="middle"
-                    fill="#1a1e2e" fontSize={10} fontWeight={700}
+                    fill="#1a1e2e" fontSize={10} fontWeight={500}
                     style={{ pointerEvents: "none" }}>
                     {d.label}
                   </text>
@@ -287,13 +287,13 @@ export default function PyrochloreScatter() {
               <g style={{ pointerEvents: "none" }}>
                 <rect x={rx} y={ry} width={tipW} height={tipH} rx={8}
                   fill="#1a1e2e" opacity={0.93} />
-                <text x={rx + 10} y={ry + 18} fill="#fff" fontSize={13} fontWeight={700}>
+                <text x={rx + 10} y={ry + 18} fill="#fff" fontSize={13} fontWeight={500}>
                   {d.label}
                 </text>
                 <text x={rx + 10} y={ry + 35} fill="#c0c6d0" fontSize={10.5}>
                   CTE: {d.cte.toFixed(1)} ×10⁻⁶ K⁻¹   κ: {d.tc.toFixed(2)} W/m·K
                 </text>
-                <text x={rx + 10} y={ry + 52} fill={spColor(d.sp)} fontSize={11} fontWeight={700}>
+                <text x={rx + 10} y={ry + 52} fill={spColor(d.sp)} fontSize={11} fontWeight={500}>
                   Synth. Prob: {d.sp.toFixed(2)}
                 </text>
               </g>
@@ -322,9 +322,9 @@ export default function PyrochloreScatter() {
             );
           })}
           <text x={barX + barW / 2} y={barY - 18} textAnchor="middle"
-            fill="#1a1e2e" fontSize={9.5} fontWeight={700}>Synthesis</text>
+            fill="#1a1e2e" fontSize={9.5} fontWeight={500}>Synthesis</text>
           <text x={barX + barW / 2} y={barY - 7} textAnchor="middle"
-            fill="#1a1e2e" fontSize={9.5} fontWeight={700}>Prob.</text>
+            fill="#1a1e2e" fontSize={9.5} fontWeight={500}>Prob.</text>
         </svg>
 
         {/* Side detail panel */}
@@ -340,10 +340,10 @@ export default function PyrochloreScatter() {
           }}>
             {active ? (
               <>
-                <div style={{ fontSize: 18, fontWeight: 800, color: "#1a1e2e" }}>{active.label}</div>
+                <div style={{ fontSize: 18, fontWeight: 500, color: "#1a1e2e" }}>{active.label}</div>
                 <div style={{
                   display: "inline-block", marginTop: 4,
-                  padding: "2px 10px", borderRadius: 4, fontSize: 11, fontWeight: 700,
+                  padding: "2px 10px", borderRadius: 4, fontSize: 11, fontWeight: 500,
                   background: spBadge(active.sp).bg, color: spBadge(active.sp).color,
                 }}>
                   {spBadge(active.sp).text} Synthesis Prob.
@@ -370,10 +370,10 @@ export default function PyrochloreScatter() {
                   background: "#f8f9fc", borderRadius: 8,
                   borderLeft: `3px solid ${p.color}`,
                 }}>
-                  <div style={{ fontSize: 11, color: "#6b7280", fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.5 }}>
+                  <div style={{ fontSize: 11, color: "#6b7280", fontWeight: 500, textTransform: "none", letterSpacing: 0.5 }}>
                     {p.label}
                   </div>
-                  <div style={{ fontSize: 20, fontWeight: 800, color: "#1a1e2e", fontFamily: "'Fira Code', monospace", margin: "2px 0" }}>
+                  <div style={{ fontSize: 20, fontWeight: 500, color: "#1a1e2e", fontFamily: "'Fira Code', monospace", margin: "2px 0" }}>
                     {p.val}
                   </div>
                   <div style={{ fontSize: 10, color: "#9ca3af" }}>{p.sub}</div>
@@ -385,7 +385,7 @@ export default function PyrochloreScatter() {
                 <div style={{
                   padding: "8px 12px", borderRadius: 8,
                   background: "#f3e8ff", border: "1px solid #c084fc",
-                  fontSize: 11, color: "#6b21a8", fontWeight: 600,
+                  fontSize: 11, color: "#6b21a8", fontWeight: 500,
                 }}>
                   ✓ In TBC design space (low κ + high CTE)
                 </div>
@@ -396,7 +396,7 @@ export default function PyrochloreScatter() {
                   marginTop: 10, width: "100%", padding: "6px 0",
                   background: "#f0f2f5", border: "1.5px solid #d4d8e0",
                   borderRadius: 6, fontSize: 12, color: "#6b7280",
-                  cursor: "pointer", fontWeight: 600,
+                  cursor: "pointer", fontWeight: 500,
                 }}>
                   × Deselect
                 </button>
@@ -422,10 +422,10 @@ export default function PyrochloreScatter() {
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10 }}>
               <thead>
                 <tr style={{ background: "#f8f9fc", position: "sticky", top: 0 }}>
-                  <th style={{ padding: "5px 8px", textAlign: "left", color: "#6b7280", fontWeight: 700 }}>Comp.</th>
-                  <th style={{ padding: "5px 6px", textAlign: "right", color: "#6b7280", fontWeight: 700 }}>CTE</th>
-                  <th style={{ padding: "5px 6px", textAlign: "right", color: "#6b7280", fontWeight: 700 }}>κ</th>
-                  <th style={{ padding: "5px 6px", textAlign: "right", color: "#6b7280", fontWeight: 700 }}>SP</th>
+                  <th style={{ padding: "5px 8px", textAlign: "left", color: "#6b7280", fontWeight: 500 }}>Comp.</th>
+                  <th style={{ padding: "5px 6px", textAlign: "right", color: "#6b7280", fontWeight: 500 }}>CTE</th>
+                  <th style={{ padding: "5px 6px", textAlign: "right", color: "#6b7280", fontWeight: 500 }}>κ</th>
+                  <th style={{ padding: "5px 6px", textAlign: "right", color: "#6b7280", fontWeight: 500 }}>SP</th>
                 </tr>
               </thead>
               <tbody>
@@ -443,14 +443,14 @@ export default function PyrochloreScatter() {
                         style={{
                           background: isAct ? spColor(d.sp) + "18" : (i % 2 === 0 ? "#fff" : "#fafbfd"),
                           cursor: "pointer",
-                          fontWeight: isAct ? 700 : 400,
+                          fontWeight: isAct ? 500 : 400,
                           transition: "background 0.1s",
                         }}
                       >
                         <td style={{ padding: "4px 8px", color: "#1a1e2e" }}>{d.label}</td>
                         <td style={{ padding: "4px 6px", textAlign: "right", fontFamily: "monospace" }}>{d.cte.toFixed(1)}</td>
                         <td style={{ padding: "4px 6px", textAlign: "right", fontFamily: "monospace" }}>{d.tc.toFixed(2)}</td>
-                        <td style={{ padding: "4px 6px", textAlign: "right", fontFamily: "monospace", color: spColor(d.sp), fontWeight: 700 }}>{d.sp.toFixed(2)}</td>
+                        <td style={{ padding: "4px 6px", textAlign: "right", fontFamily: "monospace", color: spColor(d.sp), fontWeight: 500 }}>{d.sp.toFixed(2)}</td>
                       </tr>
                     );
                   })}

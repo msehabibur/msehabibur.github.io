@@ -131,7 +131,7 @@ export default function LLMMovieModule() {
           {Array.from({ length: 14 }).map((_, i) => (
             <line key={i} x1={0} y1={i * 30} x2={W} y2={i * 30} stroke={P.dim} strokeWidth="0.3" opacity={0.2} />
           ))}
-          <text x={W/2} y={130} textAnchor="middle" fill={P.ink} fontSize="28" fontWeight="900"
+          <text x={W/2} y={130} textAnchor="middle" fill={P.ink} fontSize="28" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>LLM Literature Mining</text>
           <rect x={(W-lW)/2} y={146} width={lW} height={3} rx="1.5" fill={P.rag} opacity={tOp * 0.8} />
           <text x={W/2} y={182} textAnchor="middle" fill={P.muted} fontSize="13"
@@ -189,7 +189,7 @@ export default function LLMMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={titleOp}>LangGraph Architecture — 10-Node Pipeline</text>
 
           {/* Custom edges */}
@@ -250,7 +250,7 @@ export default function LLMMovieModule() {
                 <rect x={n.x} y={n.y} width={NW} height={NH} rx="7"
                   fill={n.color + "18"} stroke={n.color + "90"} strokeWidth="1.8" />
                 <text x={n.x + NW/2} y={n.y + 14} textAnchor="middle" fill={n.color}
-                  fontSize="9.5" fontWeight="700" fontFamily="'Inter',sans-serif">{n.label}</text>
+                  fontSize="9.5" fontWeight="500" fontFamily="'Inter',sans-serif">{n.label}</text>
                 <text x={n.x + NW/2} y={n.y + 26} textAnchor="middle" fill={P.muted}
                   fontSize="7.5" fontFamily="'Inter',sans-serif">{n.sub}</text>
               </g>
@@ -264,7 +264,7 @@ export default function LLMMovieModule() {
             { x: 430, y: 300, label: "pass ✓", color: P.ok,   op: ease(clamp01((t-0.52)*5)) },
             { x: 368, y: 200, label: "fail ✗",  color: P.warn, op: ease(clamp01((t-0.46)*5)) },
           ].map((lb, i) => (
-            <text key={i} x={lb.x} y={lb.y} fill={lb.color} fontSize="8" fontWeight="700"
+            <text key={i} x={lb.x} y={lb.y} fill={lb.color} fontSize="8" fontWeight="500"
               fontFamily="'Inter',sans-serif" opacity={lb.op}>{lb.label}</text>
           ))}
 
@@ -272,7 +272,7 @@ export default function LLMMovieModule() {
           {ease(clamp01((t-0.8)*4)) > 0 && (
             <g opacity={ease(clamp01((t-0.8)*4))}>
               <rect x={170} y={286} width={200} height={110} rx="6" fill={P.surface} stroke={P.border} strokeWidth="1"/>
-              <text x={180} y={304} fill={P.muted} fontSize="8.5" fontWeight="700" fontFamily="'Inter',sans-serif">Legend</text>
+              <text x={180} y={304} fill={P.muted} fontSize="8.5" fontWeight="500" fontFamily="'Inter',sans-serif">Legend</text>
               {[
                 { color: P.ok,   dash: "",    label: "pass (quality met)" },
                 { color: P.warn, dash: "5,3", label: "fail → retry loop"  },
@@ -309,17 +309,17 @@ export default function LLMMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Nodes 1–3: Ingest → Chunk → Embed</text>
           {/* Divider */}
           <line x1={275} y1={35} x2={275} y2={415} stroke={P.border} strokeWidth="1" opacity={divOp} />
           {/* LEFT — chunking */}
-          <text x={144} y={46} textAnchor="middle" fill={P.chunk} fontSize="10" fontWeight="700"
+          <text x={144} y={46} textAnchor="middle" fill={P.chunk} fontSize="10" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={chunkOp}>Text Splitting</text>
           {/* Source doc */}
           <rect x={24} y={56} width={230} height={60} rx="6" fill={P.data + "12"}
             stroke={P.data + "50"} strokeWidth="1.5" opacity={chunkOp} />
-          <text x={139} y={74} textAnchor="middle" fill={P.data} fontSize="9" fontWeight="700"
+          <text x={139} y={74} textAnchor="middle" fill={P.data} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={chunkOp}>Source Paper (PDF / HTML)</text>
           {[84,94,104].map((ly,i) => (
             <rect key={i} x={36} y={ly} width={lerp(130,190,(i%2))} height={4} rx="2"
@@ -333,7 +333,7 @@ export default function LLMMovieModule() {
                 <rect x={24} y={130 + i*52} width={230} height={42} rx="6"
                   fill={c.color + "14"} stroke={c.color + "60"} strokeWidth="1.5" />
                 <text x={139} y={147 + i*52} textAnchor="middle" fill={c.color}
-                  fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">{c.label}</text>
+                  fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">{c.label}</text>
                 <text x={139} y={161 + i*52} textAnchor="middle" fill={P.muted}
                   fontSize="8" fontFamily="'Inter',sans-serif">{c.sub}</text>
               </g>
@@ -346,7 +346,7 @@ export default function LLMMovieModule() {
             fontFamily="monospace" opacity={chunkOp}>chunk_size=1000  overlap=200  separator="\n\n"</text>
 
           {/* RIGHT — embedding */}
-          <text x={408} y={46} textAnchor="middle" fill={P.vector} fontSize="10" fontWeight="700"
+          <text x={408} y={46} textAnchor="middle" fill={P.vector} fontSize="10" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={embedOp}>Vector Embedding</text>
           {/* Chunk → vector */}
           {[0,1,2].map(i => {
@@ -357,7 +357,7 @@ export default function LLMMovieModule() {
                 <rect x={284} y={cy} width={70} height={36} rx="5"
                   fill={chunks[i].color+"14"} stroke={chunks[i].color+"60"} strokeWidth="1.2"/>
                 <text x={319} y={cy+14} textAnchor="middle" fill={chunks[i].color}
-                  fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">Chunk {i+1}</text>
+                  fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">Chunk {i+1}</text>
                 <text x={319} y={cy+26} textAnchor="middle" fill={P.dim}
                   fontSize="7" fontFamily="'Inter',sans-serif">text</text>
                 <line x1={354} y1={cy+18} x2={368} y2={cy+18} stroke={P.muted} strokeWidth="1.5"/>
@@ -365,7 +365,7 @@ export default function LLMMovieModule() {
                 <rect x={378} y={cy} width={152} height={36} rx="5"
                   fill={P.vector+"12"} stroke={P.vector+"50"} strokeWidth="1.2"/>
                 <text x={454} y={cy+14} textAnchor="middle" fill={P.vector}
-                  fontSize="7.5" fontWeight="700" fontFamily="'Inter',sans-serif">[0.82, -0.31, 0.54…]</text>
+                  fontSize="7.5" fontWeight="500" fontFamily="'Inter',sans-serif">[0.82, -0.31, 0.54…]</text>
                 <text x={454} y={cy+26} textAnchor="middle" fill={P.dim}
                   fontSize="7" fontFamily="'Inter',sans-serif">1536-dim float32</text>
               </g>
@@ -377,7 +377,7 @@ export default function LLMMovieModule() {
           {/* FAISS note */}
           <rect x={284} y={378} width={246} height={36} rx="6"
             fill={P.rag+"14"} stroke={P.rag+"50"} strokeWidth="1.5" opacity={embedOp}/>
-          <text x={407} y={393} textAnchor="middle" fill={P.rag} fontSize="9" fontWeight="700"
+          <text x={407} y={393} textAnchor="middle" fill={P.rag} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={embedOp}>Indexed in FAISS</text>
           <text x={407} y={407} textAnchor="middle" fill={P.muted} fontSize="8"
             fontFamily="'Inter',sans-serif" opacity={embedOp}>O(log n) cosine similarity search</text>
@@ -401,19 +401,19 @@ export default function LLMMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Nodes 4–5: Retrieve → Grade (Quality Score #1)</text>
 
           {/* Query box */}
           <rect x={18} y={36} width={524} height={36} rx="6"
             fill={P.data+"14"} stroke={P.data+"60"} strokeWidth="1.5" opacity={searchOp}/>
-          <text x={280} y={51} textAnchor="middle" fill={P.data} fontSize="9" fontWeight="700"
+          <text x={280} y={51} textAnchor="middle" fill={P.data} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={searchOp}>Query: "What is the bandgap and synthesis method for ZnTe?"</text>
           <text x={280} y={65} textAnchor="middle" fill={P.muted} fontSize="8"
             fontFamily="'Inter',sans-serif" opacity={searchOp}>→ embedded to 1536-d vector → FAISS search → top-5 chunks ranked by cosine similarity</text>
 
           {/* Retrieved chunks with scores */}
-          <text x={18} y={96} fill={P.rag} fontSize="9" fontWeight="700"
+          <text x={18} y={96} fill={P.rag} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={gradeOp}>Retrieved chunks → Grade relevance (threshold = 0.70)</text>
           {chunks.map((c, i) => {
             const op = ease(clamp01((gradeOp - i*0.12)*5));
@@ -425,7 +425,7 @@ export default function LLMMovieModule() {
                   stroke={c.pass ? P.ok+"40" : P.warn+"35"} strokeWidth="1.5"/>
                 {/* Label */}
                 <text x={30} y={127+i*56} fill={c.pass ? P.ok : P.warn}
-                  fontSize="8.5" fontWeight="700" fontFamily="'Inter',sans-serif">{c.label}</text>
+                  fontSize="8.5" fontWeight="500" fontFamily="'Inter',sans-serif">{c.label}</text>
                 {/* Snippet */}
                 <text x={30} y={143+i*56} fill={P.muted}
                   fontSize="8" fontFamily="'Inter',sans-serif">"{c.snippet}"</text>
@@ -434,10 +434,10 @@ export default function LLMMovieModule() {
                 <rect x={340} y={117+i*56} width={barW} height={8} rx="4"
                   fill={c.pass ? P.ok : P.warn} opacity={0.8}/>
                 <text x={508} y={126+i*56} fill={c.pass ? P.ok : P.warn}
-                  fontSize="9" fontWeight="700" fontFamily="monospace">sim={c.sim.toFixed(2)}</text>
+                  fontSize="9" fontWeight="500" fontFamily="monospace">sim={c.sim.toFixed(2)}</text>
                 {/* Pass/Fail badge */}
                 <text x={542} y={143+i*56} textAnchor="end" fill={c.pass ? P.ok : P.warn}
-                  fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">
+                  fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">
                   {c.pass ? "✓ PASS → context" : "✗ FAIL → discard"}
                 </text>
               </g>
@@ -471,13 +471,13 @@ export default function LLMMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Node 6: Generate · Node 7: Quality (Score #2)</text>
 
           {/* LLM input */}
           <rect x={18} y={36} width={524} height={46} rx="6"
             fill={P.agent+"10"} stroke={P.agent+"50"} strokeWidth="1.5" opacity={genOp}/>
-          <text x={280} y={53} textAnchor="middle" fill={P.agent} fontSize="9" fontWeight="700"
+          <text x={280} y={53} textAnchor="middle" fill={P.agent} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={genOp}>Prompt → LLM (GPT-4 / Llama)</text>
           <text x={280} y={67} textAnchor="middle" fill={P.muted} fontSize="8"
             fontFamily="'Inter',sans-serif" opacity={genOp}>
@@ -485,7 +485,7 @@ export default function LLMMovieModule() {
           </text>
 
           {/* Groundedness check header */}
-          <text x={18} y={102} fill={P.warn} fontSize="9" fontWeight="700"
+          <text x={18} y={102} fill={P.warn} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={checkOp}>
             Quality Check: Sentence-level Groundedness (threshold = 0.75)
           </text>
@@ -510,11 +510,11 @@ export default function LLMMovieModule() {
                 <rect x={30} y={155+i*60} width={barW} height={8} rx="4"
                   fill={s.grounded ? P.ok : P.warn} opacity={0.75}/>
                 <text x={240} y={163+i*60} fill={s.grounded ? P.ok : P.warn}
-                  fontSize="8.5" fontWeight="700" fontFamily="monospace">
+                  fontSize="8.5" fontWeight="500" fontFamily="monospace">
                   ground={s.score.toFixed(2)}
                 </text>
                 <text x={400} y={163+i*60} fill={s.grounded ? P.ok : P.warn}
-                  fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">
+                  fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">
                   {s.grounded ? "✓ cited in context" : "✗ hallucination → retry generate"}
                 </text>
               </g>
@@ -528,7 +528,7 @@ export default function LLMMovieModule() {
             fontFamily="'Inter',sans-serif" opacity={routeOp}>
             Overall groundedness = avg(sentence scores) = 0.71 · Threshold 0.75 NOT met → retry generation
           </text>
-          <text x={280} y={406} textAnchor="middle" fill={P.warn} fontSize="8.5" fontWeight="700"
+          <text x={280} y={406} textAnchor="middle" fill={P.warn} fontSize="8.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={routeOp}>
             Route: Quality FAIL → regenerate with stricter prompt ("cite specific chunk IDs only")
           </text>
@@ -546,27 +546,27 @@ export default function LLMMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>
             Single-Paper Uncertainty: Eg = 2.30 eV from 1 Source
           </text>
 
           {/* ① Single paper found */}
-          <text x={18} y={46} fill={P.chunk} fontSize="9" fontWeight="700"
+          <text x={18} y={46} fill={P.chunk} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={srcOp}>① Only 1 paper found for query "ZnTe bandgap"</text>
           <rect x={18} y={52} width={524} height={40} rx="6"
             fill={P.ok+"0c"} stroke={P.ok+"50"} strokeWidth="1.5" opacity={srcOp}/>
-          <text x={28} y={69} fill={P.ok} fontSize="9" fontWeight="700"
+          <text x={28} y={69} fill={P.ok} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={srcOp}>Paper A</text>
-          <text x={90} y={69} fill={P.ink} fontSize="9.5" fontWeight="800"
+          <text x={90} y={69} fill={P.ink} fontSize="9.5" fontWeight="500"
             fontFamily="monospace" opacity={srcOp}>Eg = 2.30 eV</text>
           <text x={220} y={69} fill={P.muted} fontSize="8"
             fontFamily="'Inter',sans-serif" opacity={srcOp}>sim = 0.91 · groundedness = 0.87</text>
-          <text x={28} y={84} fill={P.warn} fontSize="8" fontWeight="700"
+          <text x={28} y={84} fill={P.warn} fontSize="8" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={srcOp}>σ = UNKNOWN — cannot compute std dev from n=1 paper</text>
 
           {/* ② Confidence breakdown */}
-          <text x={18} y={110} fill={P.chunk} fontSize="9" fontWeight="700"
+          <text x={18} y={110} fill={P.chunk} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={calcOp}>② Confidence score — source-count penalty hurts single paper</text>
 
           {/* Left: component breakdown */}
@@ -580,17 +580,17 @@ export default function LLMMovieModule() {
             <g key={i} opacity={calcOp}>
               <text x={28}  y={133+i*26} fill={P.muted} fontSize="7.5" fontFamily="'Inter',sans-serif">{row.term}</text>
               <text x={155} y={133+i*26} fill={row.c}   fontSize="8"   fontFamily="monospace">{row.val}</text>
-              <text x={215} y={133+i*26} fill={row.c}   fontSize="8"   fontFamily="monospace" fontWeight="700">{row.result}</text>
+              <text x={215} y={133+i*26} fill={row.c}   fontSize="8"   fontFamily="monospace" fontWeight="500">{row.result}</text>
             </g>
           ))}
           <line x1={28} y1={207} x2={258} y2={207} stroke={P.border} strokeWidth="1" opacity={calcOp}/>
           <text x={28}  y={220} fill={P.muted} fontSize="8" fontFamily="'Inter',sans-serif" opacity={calcOp}>Total conf</text>
-          <text x={105} y={220} fill={P.data}  fontSize="9.5" fontWeight="900" fontFamily="monospace" opacity={calcOp}>= 0.808 → MEDIUM</text>
+          <text x={105} y={220} fill={P.data}  fontSize="9.5" fontWeight="500" fontFamily="monospace" opacity={calcOp}>= 0.808 → MEDIUM</text>
 
           {/* Right: f(n) explanation */}
           <rect x={282} y={116} width={260} height={110} rx="7"
             fill={P.warn+"0e"} stroke={P.warn+"40"} strokeWidth="1.2" opacity={calcOp}/>
-          <text x={412} y={132} textAnchor="middle" fill={P.warn} fontSize="8.5" fontWeight="700"
+          <text x={412} y={132} textAnchor="middle" fill={P.warn} fontSize="8.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={calcOp}>Source-count penalty f(n)</text>
           {[
             { n: "n = 1", fn: "0.50", note: "← single paper (you are here)" },
@@ -599,7 +599,7 @@ export default function LLMMovieModule() {
           ].map((row, i) => (
             <g key={i} opacity={calcOp}>
               <text x={292} y={148+i*22} fill={i===0 ? P.warn : P.muted} fontSize="8"
-                fontFamily="monospace" fontWeight={i===0 ? "700" : "400"}>{row.n}  f={row.fn}  {row.note}</text>
+                fontFamily="monospace" fontWeight={i===0 ? "500" : "400"}>{row.n}  f={row.fn}  {row.note}</text>
             </g>
           ))}
           <text x={412} y={215} textAnchor="middle" fill={P.muted} fontSize="7.5"
@@ -608,7 +608,7 @@ export default function LLMMovieModule() {
           </text>
 
           {/* ③ Route */}
-          <text x={18} y={242} fill={P.chunk} fontSize="9" fontWeight="700"
+          <text x={18} y={242} fill={P.chunk} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={routeOp}>③ Route by confidence</text>
           {[
             { label: "LOW",    range: "< 0.60",    color: P.warn, x: 18,  w: 158, active: false },
@@ -622,12 +622,12 @@ export default function LLMMovieModule() {
                   fill={lane.active ? lane.color+"28" : lane.color+"0c"}
                   stroke={lane.color+(lane.active ? "99" : "35")} strokeWidth={lane.active ? 2 : 1.2}/>
                 <text x={lane.x+lane.w/2} y={266} textAnchor="middle" fill={lane.color}
-                  fontSize="9" fontWeight="800" fontFamily="'Inter',sans-serif">{lane.label}</text>
+                  fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">{lane.label}</text>
                 <text x={lane.x+lane.w/2} y={279} textAnchor="middle" fill={P.muted}
                   fontSize="7.5" fontFamily="'Inter',sans-serif">{lane.range}</text>
                 {lane.active && (
                   <text x={lane.x+lane.w/2} y={291} textAnchor="middle" fill={lane.color}
-                    fontSize="7.5" fontWeight="700" fontFamily="'Inter',sans-serif">◀ conf=0.808</text>
+                    fontSize="7.5" fontWeight="500" fontFamily="'Inter',sans-serif">◀ conf=0.808</text>
                 )}
               </g>
             );
@@ -636,7 +636,7 @@ export default function LLMMovieModule() {
           {/* Output */}
           <rect x={18} y={308} width={524} height={98} rx="7"
             fill={P.data+"10"} stroke={P.data+"50"} strokeWidth="1.5" opacity={outOp}/>
-          <text x={280} y={326} textAnchor="middle" fill={P.data} fontSize="10" fontWeight="800"
+          <text x={280} y={326} textAnchor="middle" fill={P.data} fontSize="10" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={outOp}>Output (MEDIUM — single source)</text>
           {[
             { label: "Value",      val: "Eg = 2.30 eV  [Paper A, Chunk 7]",              c: P.ink  },
@@ -668,13 +668,13 @@ export default function LLMMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Node 8: Synthesize — Recipe Extraction & Aggregation</text>
 
           {/* Step labels */}
-          <text x={18}  y={44} fill={P.chunk} fontSize="9" fontWeight="700"
+          <text x={18}  y={44} fill={P.chunk} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={extractOp}>① Extract from each paper</text>
-          <text x={300} y={44} fill={P.llm}   fontSize="9" fontWeight="700"
+          <text x={300} y={44} fill={P.llm}   fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={recipeOp}>② Aggregate → Synthesis Recipe</text>
           <line x1={280} y1={35} x2={280} y2={300} stroke={P.border} strokeWidth="1" opacity={tOp}/>
 
@@ -685,7 +685,7 @@ export default function LLMMovieModule() {
               <g key={i} opacity={op}>
                 <rect x={18} y={54+i*80} width={246} height={70} rx="6"
                   fill={P.chunk+"10"} stroke={P.chunk+"50"} strokeWidth="1.5"/>
-                <text x={30} y={69+i*80} fill={P.chunk} fontSize="8.5" fontWeight="700"
+                <text x={30} y={69+i*80} fill={P.chunk} fontSize="8.5" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{p.id}</text>
                 {p.fields.map((f, fi) => (
                   <text key={fi} x={30} y={82+i*80+fi*12} fill={P.muted}
@@ -704,7 +704,7 @@ export default function LLMMovieModule() {
           </g>
           <rect x={18} y={330} width={246} height={80} rx="6"
             fill={P.llm+"10"} stroke={P.llm+"50"} strokeWidth="1.5" opacity={aggOp}/>
-          <text x={139} y={346} textAnchor="middle" fill={P.llm} fontSize="9" fontWeight="700"
+          <text x={139} y={346} textAnchor="middle" fill={P.llm} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={aggOp}>Aggregated Parameters</text>
           {[
             "Tsynth: 500 ± 8°C  (n=3)",
@@ -720,7 +720,7 @@ export default function LLMMovieModule() {
             fill={P.surface} stroke={P.llm+"60"} strokeWidth="1.5" opacity={recipeOp}/>
           <rect x={288} y={54} width={254} height={26} rx="7"
             fill={P.llm+"25"} stroke="none" opacity={recipeOp}/>
-          <text x={415} y={71} textAnchor="middle" fill={P.llm} fontSize="9.5" fontWeight="800"
+          <text x={415} y={71} textAnchor="middle" fill={P.llm} fontSize="9.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={recipeOp}>Generated Synthesis Recipe</text>
           {[
             { label: "Material",   val: "ZnTe (II-VI semiconductor)"    },
@@ -733,7 +733,7 @@ export default function LLMMovieModule() {
             { label: "Confidence", val: "HIGH (0.89) · 3 sources"       },
           ].map((f, i) => (
             <g key={i} opacity={recipeOp}>
-              <text x={298} y={94+i*25} fill={P.rag} fontSize="8" fontWeight="700"
+              <text x={298} y={94+i*25} fill={P.rag} fontSize="8" fontWeight="500"
                 fontFamily="monospace">{f.label}:</text>
               <text x={370} y={94+i*25} fill={P.muted} fontSize="8"
                 fontFamily="monospace">{f.val}</text>
@@ -743,7 +743,7 @@ export default function LLMMovieModule() {
           {/* Uncertainty note */}
           <rect x={288} y={316} width={254} height={44} rx="6"
             fill={P.data+"10"} stroke={P.data+"40"} strokeWidth="1.2" opacity={recipeOp}/>
-          <text x={415} y={332} textAnchor="middle" fill={P.data} fontSize="8.5" fontWeight="700"
+          <text x={415} y={332} textAnchor="middle" fill={P.data} fontSize="8.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={recipeOp}>Uncertainty Ranges</text>
           <text x={415} y={348} textAnchor="middle" fill={P.muted} fontSize="7.5"
             fontFamily="'Inter',sans-serif" opacity={recipeOp}>
@@ -764,7 +764,7 @@ export default function LLMMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Batch Mode: 500 Papers Through the Full Pipeline</text>
 
           {/* Document grid: 5 cols × 4 rows */}
@@ -805,7 +805,7 @@ export default function LLMMovieModule() {
           ].map((s, i) => (
             <g key={i} opacity={statOp}>
               <text x={s.x} y={392} textAnchor="middle" fill={s.color}
-                fontSize="13" fontWeight="900" fontFamily="'Inter',sans-serif">{s.val}</text>
+                fontSize="13" fontWeight="500" fontFamily="'Inter',sans-serif">{s.val}</text>
               <text x={s.x} y={406} textAnchor="middle" fill={P.muted}
                 fontSize="7.5" fontFamily="'Inter',sans-serif">{s.label}</text>
             </g>
@@ -844,7 +844,7 @@ export default function LLMMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="17" fontWeight="900"
+          <text x={W/2} y={26} textAnchor="middle" fill={P.ink} fontSize="17" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Complete LangGraph Pipeline</text>
           <rect x={(W - ease(clamp01(t*3))*260)/2} y={34} width={ease(clamp01(t*3))*260} height={3}
             rx="1.5" fill={P.rag} opacity={tOp*0.8}/>
@@ -856,7 +856,7 @@ export default function LLMMovieModule() {
               <rect x={col.x} y={48} width={162} height={26} rx="7"
                 fill={col.color + "28"} stroke="none"/>
               <text x={col.x+81} y={64} textAnchor="middle" fill={col.color}
-                fontSize="10" fontWeight="800" fontFamily="'Inter',sans-serif">{col.title}</text>
+                fontSize="10" fontWeight="500" fontFamily="'Inter',sans-serif">{col.title}</text>
               {col.items.map((item, i) => (
                 <g key={i}>
                   <circle cx={col.x+14} cy={88+i*38} r={3} fill={col.color} opacity={0.7}/>
@@ -880,7 +880,7 @@ export default function LLMMovieModule() {
             ].map((s) => (
               <g key={s.x}>
                 <text x={s.x} y={318} textAnchor="middle" fill={s.color}
-                  fontSize="17" fontWeight="900" fontFamily="'Inter',sans-serif">{s.val}</text>
+                  fontSize="17" fontWeight="500" fontFamily="'Inter',sans-serif">{s.val}</text>
                 <text x={s.x} y={334} textAnchor="middle" fill={P.muted}
                   fontSize="7.5" fontFamily="'Inter',sans-serif">{s.label}</text>
               </g>
@@ -948,7 +948,7 @@ export default function LLMMovieModule() {
                 <rect x={DX+10} y={PY+20} width={56} height={72} rx="5"
                   fill={P.chunk+"18"} stroke={P.chunk} strokeWidth="1.5"/>
                 <text x={DX+38} y={PY+52} textAnchor="middle" fill={P.chunk}
-                  fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">PDF</text>
+                  fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">PDF</text>
                 <text x={DX+38} y={PY+66} textAnchor="middle" fill={P.muted}
                   fontSize="7" fontFamily="'Inter',sans-serif">28 pages</text>
                 <text x={DX+38} y={PY+84} textAnchor="middle" fill={P.muted}
@@ -959,7 +959,7 @@ export default function LLMMovieModule() {
                 <rect x={DX+110} y={PY+38} width={62} height={36} rx="5"
                   fill={P.surface} stroke={P.chunk+"80"} strokeWidth="1.2"/>
                 <text x={DX+141} y={PY+54} textAnchor="middle" fill={P.chunk}
-                  fontSize="7.5" fontWeight="700" fontFamily="'Inter',sans-serif">Splitter</text>
+                  fontSize="7.5" fontWeight="500" fontFamily="'Inter',sans-serif">Splitter</text>
                 <text x={DX+141} y={PY+66} textAnchor="middle" fill={P.muted}
                   fontSize="6.5" fontFamily="'Inter',sans-serif">size=1000</text>
                 {/* arrow to chunks */}
@@ -984,7 +984,7 @@ export default function LLMMovieModule() {
                 {/* example chunk detail — pushed below chunk stack */}
                 <rect x={DX+10} y={PY+175} width={DW-20} height={60} rx="5"
                   fill={P.surface} stroke={P.border} strokeWidth="1"/>
-                <text x={DX+18} y={PY+189} fill={P.chunk} fontSize="7.5" fontWeight="700"
+                <text x={DX+18} y={PY+189} fill={P.chunk} fontSize="7.5" fontWeight="500"
                   fontFamily="'Inter',sans-serif">Chunk 7 (example):</text>
                 <text x={DX+18} y={PY+203} fill={P.muted} fontSize="7"
                   fontFamily="'Inter',sans-serif">"The bandgap of ZnTe was measured at</text>
@@ -1020,14 +1020,14 @@ export default function LLMMovieModule() {
               <rect x={DX+8} y={PY+28} width={60} height={30} rx="5"
                 fill={P.chunk+"20"} stroke={P.chunk} strokeWidth="1.2"/>
               <text x={DX+38} y={PY+47} textAnchor="middle" fill={P.chunk}
-                fontSize="8" fontWeight="700" fontFamily="monospace">chunk</text>
+                fontSize="8" fontWeight="500" fontFamily="monospace">chunk</text>
               {/* arrow to model */}
               {arrR(DX+68, PY+43, DX+100, P.rag)}
               {/* embedding model */}
               <ellipse cx={DX+132} cy={PY+43} rx={30} ry={22}
                 fill={P.rag+"18"} stroke={P.rag} strokeWidth="1.5"/>
               <text x={DX+132} y={PY+40} textAnchor="middle" fill={P.rag}
-                fontSize="7.5" fontWeight="700" fontFamily="'Inter',sans-serif">OpenAI</text>
+                fontSize="7.5" fontWeight="500" fontFamily="'Inter',sans-serif">OpenAI</text>
               <text x={DX+132} y={PY+52} textAnchor="middle" fill={P.rag}
                 fontSize="6.5" fontFamily="'Inter',sans-serif">embed</text>
               {/* arrow to vector */}
@@ -1047,7 +1047,7 @@ export default function LLMMovieModule() {
               <ellipse cx={DX+140} cy={PY+138} rx={40} ry={8}
                 fill={P.rag+"20"} stroke={P.rag+"60"} strokeWidth="1"/>
               <text x={DX+140} y={PY+116} textAnchor="middle" fill={P.rag}
-                fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">FAISS</text>
+                fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">FAISS</text>
               <text x={DX+140} y={PY+130} textAnchor="middle" fill={P.muted}
                 fontSize="7" fontFamily="'Inter',sans-serif">42 vectors</text>
               {/* arrow down to FAISS */}
@@ -1056,7 +1056,7 @@ export default function LLMMovieModule() {
               {/* cosine search label */}
               <rect x={DX+8} y={PY+155} width={DW-18} height={38} rx="5"
                 fill={P.surface} stroke={P.border} strokeWidth="1"/>
-              <text x={DX+16} y={PY+169} fill={P.rag} fontSize="7.5" fontWeight="700"
+              <text x={DX+16} y={PY+169} fill={P.rag} fontSize="7.5" fontWeight="500"
                 fontFamily="'Inter',sans-serif">Cosine similarity search:</text>
               <text x={DX+16} y={PY+181} fill={P.muted} fontSize="7"
                 fontFamily="monospace">sim(q, c) = (q · c) / (|q| · |c|)</text>
@@ -1094,7 +1094,7 @@ export default function LLMMovieModule() {
             const bw = 160;
             return (
               <g opacity={op}>
-                <text x={DX+8} y={PY+24} fill={P.muted} fontSize="8" fontWeight="700"
+                <text x={DX+8} y={PY+24} fill={P.muted} fontSize="8" fontWeight="500"
                   fontFamily="'Inter',sans-serif">FAISS top-5 results — grade filter</text>
                 {/* threshold line — between pass/fail rows */}
                 <line x1={DX+8} y1={PY+105} x2={DX+DW-10} y2={PY+105}
@@ -1115,7 +1115,7 @@ export default function LLMMovieModule() {
                       <text x={DX+74+barW} y={ry+12} fill={col} fontSize="7.5"
                         fontFamily="monospace">{r.sim.toFixed(2)}</text>
                       <text x={DX+DW-12} y={ry+12} textAnchor="end" fill={col}
-                        fontSize="7" fontWeight="700" fontFamily="'Inter',sans-serif">
+                        fontSize="7" fontWeight="500" fontFamily="'Inter',sans-serif">
                         {r.pass ? "✓ PASS" : "✗ FAIL"}
                       </text>
                     </g>
@@ -1124,7 +1124,7 @@ export default function LLMMovieModule() {
                 {/* context box */}
                 <rect x={DX+8} y={PY+160} width={DW-18} height={38} rx="5"
                   fill={P.ok+"10"} stroke={P.ok+"50"} strokeWidth="1" opacity={ease(clamp01((lt-0.6)*4))}/>
-                <text x={DX+16} y={PY+174} fill={P.ok} fontSize="7.5" fontWeight="700"
+                <text x={DX+16} y={PY+174} fill={P.ok} fontSize="7.5" fontWeight="500"
                   fontFamily="'Inter',sans-serif" opacity={ease(clamp01((lt-0.6)*4))}>3 chunks → LLM context window</text>
                 <text x={DX+16} y={PY+187} fill={P.muted} fontSize="7"
                   fontFamily="'Inter',sans-serif" opacity={ease(clamp01((lt-0.65)*4))}>Chunk 7 (0.91) · Chunk 12 (0.83) · Chunk 3 (0.74)</text>
@@ -1159,21 +1159,21 @@ export default function LLMMovieModule() {
               <rect x={DX+8} y={PY+22} width={60} height={28} rx="5"
                 fill={P.ok+"18"} stroke={P.ok+"80"} strokeWidth="1.2"/>
               <text x={DX+38} y={PY+34} textAnchor="middle" fill={P.ok}
-                fontSize="7.5" fontWeight="700" fontFamily="'Inter',sans-serif">3 chunks</text>
+                fontSize="7.5" fontWeight="500" fontFamily="'Inter',sans-serif">3 chunks</text>
               <text x={DX+38} y={PY+44} textAnchor="middle" fill={P.muted}
                 fontSize="6.5" fontFamily="'Inter',sans-serif">context</text>
               {arrR(DX+68, PY+36, DX+98, P.data)}
               <rect x={DX+98} y={PY+18} width={60} height={36} rx="5"
                 fill={P.data+"18"} stroke={P.data} strokeWidth="1.5"/>
               <text x={DX+128} y={PY+34} textAnchor="middle" fill={P.data}
-                fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">GPT</text>
+                fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">GPT</text>
               <text x={DX+128} y={PY+46} textAnchor="middle" fill={P.muted}
                 fontSize="6.5" fontFamily="'Inter',sans-serif">4o-mini</text>
               {arrR(DX+158, PY+36, DX+190, P.data)}
               <rect x={DX+190} y={PY+22} width={76} height={28} rx="5"
                 fill={P.rag+"18"} stroke={P.rag+"80"} strokeWidth="1.2"/>
               <text x={DX+228} y={PY+34} textAnchor="middle" fill={P.rag}
-                fontSize="7" fontWeight="700" fontFamily="'Inter',sans-serif">"2.30 eV"</text>
+                fontSize="7" fontWeight="500" fontFamily="'Inter',sans-serif">"2.30 eV"</text>
               <text x={DX+228} y={PY+44} textAnchor="middle" fill={P.muted}
                 fontSize="6.5" fontFamily="'Inter',sans-serif">response</text>
               {/* groundedness check */}
@@ -1182,18 +1182,18 @@ export default function LLMMovieModule() {
                 <polygon points={`${DX+223},${PY+78} ${DX+233},${PY+78} ${DX+228},${PY+86}`} fill={P.data}/>
                 <rect x={DX+8} y={PY+86} width={DW-18} height={50} rx="6"
                   fill={P.surface} stroke={P.data+"60"} strokeWidth="1.2"/>
-                <text x={DX+16} y={PY+102} fill={P.data} fontSize="7.5" fontWeight="700"
+                <text x={DX+16} y={PY+102} fill={P.data} fontSize="7.5" fontWeight="500"
                   fontFamily="'Inter',sans-serif">Groundedness check</text>
                 <text x={DX+16} y={PY+116} fill={P.muted} fontSize="7"
                   fontFamily="monospace">cosine(embed(resp), embed(chunk[0]))</text>
-                <text x={DX+16} y={PY+130} fill={P.ok} fontSize="8" fontWeight="700"
+                <text x={DX+16} y={PY+130} fill={P.ok} fontSize="8" fontWeight="500"
                   fontFamily="monospace">= 0.87  ≥  0.75  →  ✓ PASS</text>
               </g>
               {/* retry path */}
               <g opacity={ease(clamp01((lt-0.6)*4))}>
                 <rect x={DX+8} y={PY+148} width={DW-18} height={42} rx="5"
                   fill={P.warn+"0e"} stroke={P.warn+"40"} strokeWidth="1"/>
-                <text x={DX+16} y={PY+162} fill={P.warn} fontSize="7.5" fontWeight="700"
+                <text x={DX+16} y={PY+162} fill={P.warn} fontSize="7.5" fontWeight="500"
                   fontFamily="'Inter',sans-serif">If ground {"<"} 0.75 → retry</text>
                 <text x={DX+16} y={PY+175} fill={P.muted} fontSize="7"
                   fontFamily="'Inter',sans-serif">Stricter prompt: "only cite provided text"</text>
@@ -1230,7 +1230,7 @@ export default function LLMMovieModule() {
             ];
             return (
               <g opacity={op}>
-                <text x={DX+8} y={PY+22} fill={P.muted} fontSize="8" fontWeight="700"
+                <text x={DX+8} y={PY+22} fill={P.muted} fontSize="8" fontWeight="500"
                   fontFamily="'Inter',sans-serif">Confidence formula breakdown</text>
                 {bars.map((b, i) => {
                   const bop = ease(clamp01((lt - i*0.15)*5));
@@ -1242,7 +1242,7 @@ export default function LLMMovieModule() {
                       <rect x={DX+8} y={PY+46+i*34} width={bw} height={14} rx="3"
                         fill={b.color+"35"} stroke={b.color+"80"} strokeWidth="1"/>
                       <text x={DX+14+bw} y={PY+57+i*34} fill={b.color} fontSize="8"
-                        fontFamily="monospace" fontWeight="700">{b.val.toFixed(3)}</text>
+                        fontFamily="monospace" fontWeight="500">{b.val.toFixed(3)}</text>
                       <text x={DX+DW-12} y={PY+57+i*34} textAnchor="end" fill={P.muted}
                         fontSize="7" fontFamily="monospace">{b.desc}</text>
                     </g>
@@ -1253,7 +1253,7 @@ export default function LLMMovieModule() {
                   <line x1={DX+8} y1={PY+150} x2={DX+DW-12} y2={PY+150} stroke={P.border} strokeWidth="1"/>
                   <text x={DX+8} y={PY+164} fill={P.muted} fontSize="8"
                     fontFamily="'Inter',sans-serif">Total conf</text>
-                  <text x={DX+70} y={PY+164} fill={P.ok} fontSize="11" fontWeight="900"
+                  <text x={DX+70} y={PY+164} fill={P.ok} fontSize="11" fontWeight="500"
                     fontFamily="monospace">= 0.888</text>
                 </g>
                 {/* route boxes */}
@@ -1267,7 +1267,7 @@ export default function LLMMovieModule() {
                       fill={lane.color+(lane.active?"28":"0c")}
                       stroke={lane.color+(lane.active?"99":"35")} strokeWidth={lane.active?2:1}/>
                     <text x={lane.x+40} y={PY+191} textAnchor="middle" fill={lane.color}
-                      fontSize="8.5" fontWeight="800" fontFamily="'Inter',sans-serif">{lane.label}</text>
+                      fontSize="8.5" fontWeight="500" fontFamily="'Inter',sans-serif">{lane.label}</text>
                     <text x={lane.x+40} y={PY+203} textAnchor="middle" fill={P.muted}
                       fontSize="6.5" fontFamily="'Inter',sans-serif">{lane.range}</text>
                     {lane.active && <text x={lane.x+40} y={PY+224} textAnchor="middle" fill={lane.color}
@@ -1313,14 +1313,14 @@ export default function LLMMovieModule() {
                   fill={P.surface} stroke={P.vector+"60"} strokeWidth="1.5"/>
                 <rect x={DX+8} y={PY+16} width={DW-18} height={18} rx="6"
                   fill={P.vector+"25"}/>
-                <text x={DX+16} y={PY+28} fill={P.vector} fontSize="8" fontWeight="700"
+                <text x={DX+16} y={PY+28} fill={P.vector} fontSize="8" fontWeight="500"
                   fontFamily="monospace">recipe document</text>
                 {fields.map((f, i) => (
                   <g key={i} opacity={ease(clamp01((lt - i*0.09)*6))}>
                     <text x={DX+16} y={PY+46+i*20} fill={P.muted} fontSize="7.5"
                       fontFamily="monospace">{f.k}:</text>
                     <text x={DX+100} y={PY+46+i*20} fill={f.c} fontSize="7.5"
-                      fontFamily="monospace" fontWeight="700">{f.v}</text>
+                      fontFamily="monospace" fontWeight="500">{f.v}</text>
                   </g>
                 ))}
                 {/* arrow to output */}
@@ -1331,7 +1331,7 @@ export default function LLMMovieModule() {
                   <rect x={DX+40} y={PY+190} width={DW-90} height={42} rx="6"
                     fill={P.ok+"15"} stroke={P.ok+"80"} strokeWidth="1.5"/>
                   <text x={DX+DW/2} y={PY+208} textAnchor="middle" fill={P.ok}
-                    fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">JSON Recipe Output</text>
+                    fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">JSON Recipe Output</text>
                   <text x={DX+DW/2} y={PY+222} textAnchor="middle" fill={P.muted}
                     fontSize="7" fontFamily="'Inter',sans-serif">synthesis-ready · structured data</text>
                 </g>
@@ -1350,20 +1350,20 @@ export default function LLMMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={20} textAnchor="middle" fill={P.ink} fontSize="12" fontWeight="800"
+          <text x={W/2} y={20} textAnchor="middle" fill={P.ink} fontSize="12" fontWeight="500"
             fontFamily="'Inter',sans-serif">Python Walkthrough — ZnTe Bandgap Example</text>
           {steps.map((st, di) => (
             <circle key={di} cx={W/2-(N-1)*16+di*32} cy={33} r={di===activeIdx?5.5:3.5}
               fill={di<=activeIdx?st.color:P.dim} opacity={di===activeIdx?1:0.45}/>
           ))}
-          <text x={W/2} y={50} textAnchor="middle" fill={s.color} fontSize="10.5" fontWeight="800"
+          <text x={W/2} y={50} textAnchor="middle" fill={s.color} fontSize="10.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={cardOp}>{s.label}</text>
 
           {/* LEFT: code panel */}
           <rect x={CX} y={PY} width={CW} height={PH} rx="7"
             fill={P.surface} stroke={s.color+"50"} strokeWidth="1.3" opacity={cardOp}/>
           <rect x={CX} y={PY} width={CW} height={18} rx="6" fill={s.color+"22"} opacity={cardOp}/>
-          <text x={CX+8} y={PY+13} fill={s.color} fontSize="7.5" fontWeight="700"
+          <text x={CX+8} y={PY+13} fill={s.color} fontSize="7.5" fontWeight="500"
             fontFamily="monospace" opacity={cardOp}>python</text>
           {s.lines.map((ln, li) => {
             const lineOp = ease(clamp01((localT - li*0.055)*7));
@@ -1388,7 +1388,7 @@ export default function LLMMovieModule() {
           {/* note bar */}
           <rect x={CX} y={PY+PH+4} width={W-CX*2} height={22} rx="5"
             fill={s.color+"18"} stroke={s.color+"45"} strokeWidth="1" opacity={cardOp}/>
-          <text x={W/2} y={PY+PH+19} textAnchor="middle" fill={s.color} fontSize="8.5" fontWeight="600"
+          <text x={W/2} y={PY+PH+19} textAnchor="middle" fill={s.color} fontSize="8.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={cardOp}>▶  {s.note}</text>
         </svg>
       );
@@ -1409,10 +1409,10 @@ export default function LLMMovieModule() {
     <div style={{ maxWidth: 1100, margin: "0 auto", padding: "24px 20px", fontFamily: "'Inter', -apple-system, sans-serif" }}>
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
-        <div style={{ fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "uppercase", marginBottom: 4 }}>
+        <div style={{ fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "none", marginBottom: 4 }}>
           Animated Module
         </div>
-        <div style={{ fontSize: 22, fontWeight: 800, color: P.rag, marginBottom: 4 }}>
+        <div style={{ fontSize: 22, fontWeight: 500, color: P.rag, marginBottom: 4 }}>
           LLM Pipeline — LangGraph Architecture for Literature Mining
         </div>
         <div style={{ fontSize: 13, color: P.muted, lineHeight: 1.5 }}>
@@ -1427,12 +1427,12 @@ export default function LLMMovieModule() {
       }}>
         <div style={{ position: "absolute", top: 10, left: 14, zIndex: 2, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ background: P.rag+"25", border: `1px solid ${P.rag}50`, padding: "3px 10px",
-            borderRadius: 6, fontSize: 10, fontWeight: 700, color: P.rag, letterSpacing: 1 }}>
+            borderRadius: 6, fontSize: 10, fontWeight: 500, color: P.rag, letterSpacing: 1 }}>
             Scene {sceneIdx + 1}/{SCENES.length}
           </span>
-          <span style={{ fontSize: 12, fontWeight: 700, color: P.ink }}>{scene.label}</span>
+          <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
-        <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 600, opacity: 0.7 }}>
+        <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 500, opacity: 0.7 }}>
           Habibur Rahman · rahma103@purdue.edu
         </div>
         <div style={{ opacity: fadeClass, transition: "opacity 0.25s ease-in-out", willChange: "opacity" }}>
@@ -1448,12 +1448,12 @@ export default function LLMMovieModule() {
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.rag}`,
           background: P.rag+"15", cursor: "pointer", display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: 18, color: P.rag, fontWeight: 900, fontFamily: "inherit",
+          justifyContent: "center", fontSize: 18, color: P.rag, fontWeight: 500, fontFamily: "inherit",
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
-        <button onClick={prevScene} disabled={sceneIdx === 0} style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`, background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default", color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 700, fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4 }}>{"\u2190"}</button>
-        <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`, background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default", color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 700, fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4 }}>{"\u2192"}</button>
+        <button onClick={prevScene} disabled={sceneIdx === 0} style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`, background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default", color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 500, fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4 }}>{"\u2190"}</button>
+        <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`, background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default", color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 500, fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4 }}>{"\u2192"}</button>
         <div style={{ flex: 1, marginLeft: 8 }}>
           <div style={{ height: 6, background: P.dim+"30", borderRadius: 3, position: "relative", cursor: "pointer" }}
             onClick={(e) => {
@@ -1481,7 +1481,7 @@ export default function LLMMovieModule() {
       {/* Code step buttons — only shown in code_walk scene */}
       {scene.id === "code_walk" && (
         <div style={{ display: "flex", gap: 6, marginTop: 10, alignItems: "center", background: P.panel, padding: "8px 12px", borderRadius: 10, border: `1px solid ${P.border}` }}>
-          <span style={{ fontSize: 10, color: P.muted, fontWeight: 700, marginRight: 4, letterSpacing: 1, textTransform: "uppercase" }}>Step</span>
+          <span style={{ fontSize: 10, color: P.muted, fontWeight: 500, marginRight: 4, letterSpacing: 1, textTransform: "none" }}>Step</span>
           {[
             "① Load & Chunk",
             "② Embed & FAISS",
@@ -1495,7 +1495,7 @@ export default function LLMMovieModule() {
               background: i === codeStep ? P.chunk+"25" : "transparent",
               border: `1px solid ${i === codeStep ? P.chunk : P.border}`,
               color: i === codeStep ? P.chunk : i < codeStep ? P.llm : P.muted,
-              fontWeight: i === codeStep ? 700 : 500, fontFamily: "inherit", transition: "all 0.15s",
+              fontWeight: i === codeStep ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
             }}>
               {label}
             </button>
@@ -1516,7 +1516,7 @@ export default function LLMMovieModule() {
             background: i === sceneIdx ? P.rag+"20" : "transparent",
             border: `1px solid ${i === sceneIdx ? P.rag : P.border}`,
             color: i === sceneIdx ? P.rag : i < sceneIdx ? P.llm : P.muted,
-            fontWeight: i === sceneIdx ? 700 : 500, fontFamily: "inherit", transition: "all 0.15s",
+            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
           }}>
             {i + 1}. {s.label}
           </button>

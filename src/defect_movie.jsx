@@ -189,7 +189,7 @@ export default function DefectMovieModule() {
             <line key={`g${i}`} x1={0} y1={i * 28} x2={W} y2={i * 28}
               stroke={P.dim} strokeWidth="0.3" opacity={0.3} />
           ))}
-          <text x={W / 2} y={130} textAnchor="middle" fill={P.ink} fontSize="28" fontWeight="900"
+          <text x={W / 2} y={130} textAnchor="middle" fill={P.ink} fontSize="28" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={titleOp}>
             Defects in Solar Cells
           </text>
@@ -247,14 +247,14 @@ export default function DefectMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={25} textAnchor="middle" fill={P.ink} fontSize="14" fontWeight="900" opacity={sunT}>
+          <text x={W / 2} y={25} textAnchor="middle" fill={P.ink} fontSize="14" fontWeight="500" opacity={sunT}>
             How a solar cell works
           </text>
 
           {/* Sun */}
           <g opacity={sunT}>
             <circle cx={100} cy={70} r={28} fill={P.photon + "30"} stroke={P.photon} strokeWidth="2" />
-            <text x={100} y={74} textAnchor="middle" fill={P.photon} fontSize="10" fontWeight="800">Sun</text>
+            <text x={100} y={74} textAnchor="middle" fill={P.photon} fontSize="10" fontWeight="500">Sun</text>
             {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => {
               const rad = deg * Math.PI / 180;
               return (
@@ -269,7 +269,7 @@ export default function DefectMovieModule() {
           <g opacity={sunT}>
             <line x1={130} y1={85} x2={200} y2={130} stroke={P.photon} strokeWidth="1.5" strokeDasharray="5,3" />
             <polygon points="198,126 205,133 195,133" fill={P.photon} />
-            <text x={175} y={100} fill={P.photon} fontSize="8" fontWeight="600"
+            <text x={175} y={100} fill={P.photon} fontSize="8" fontWeight="500"
               transform="rotate(20,175,100)">h{"\u03BD"} (photon)</text>
           </g>
 
@@ -279,22 +279,22 @@ export default function DefectMovieModule() {
             <rect x={190} y={50} width={200} height={220} rx="8" fill="none" stroke={P.border} strokeWidth="1.5" />
             {/* n-type top */}
             <rect x={194} y={54} width={192} height={40} rx="4" fill={P.electron + "10"} stroke={P.electron + "25"} strokeWidth="0.8" />
-            <text x={290} y={70} textAnchor="middle" fill={P.electron} fontSize="8" fontWeight="700">n-type (CdS)</text>
+            <text x={290} y={70} textAnchor="middle" fill={P.electron} fontSize="8" fontWeight="500">n-type (CdS)</text>
             <text x={290} y={82} textAnchor="middle" fill={P.muted} fontSize="6">Electron-rich side</text>
             {/* Junction line */}
             <line x1={194} y1={96} x2={386} y2={96} stroke={P.ink} strokeWidth="1.5" strokeDasharray="4,3" />
-            <text x={395} y={100} fill={P.ink} fontSize="7" fontWeight="600">p-n junction</text>
+            <text x={395} y={100} fill={P.ink} fontSize="7" fontWeight="500">p-n junction</text>
             {/* p-type absorber */}
             <rect x={194} y={98} width={192} height={110} rx="4" fill={P.solar + "08"} stroke={P.solar + "20"} strokeWidth="0.8" />
-            <text x={290} y={148} textAnchor="middle" fill={P.solar} fontSize="9" fontWeight="700">p-type (CdTe absorber)</text>
+            <text x={290} y={148} textAnchor="middle" fill={P.solar} fontSize="9" fontWeight="500">p-type (CdTe absorber)</text>
             <text x={290} y={162} textAnchor="middle" fill={P.muted} fontSize="6">Photon absorbed here {"\u2192"} e{"\u207B"}/h{"\u207A"} pair created</text>
             {/* Back contact */}
             <rect x={194} y={210} width={192} height={30} rx="4" fill={P.dim + "15"} stroke={P.dim + "30"} strokeWidth="0.8" />
-            <text x={290} y={229} textAnchor="middle" fill={P.dim} fontSize="7" fontWeight="600">Back contact (Cu/Mo)</text>
+            <text x={290} y={229} textAnchor="middle" fill={P.dim} fontSize="7" fontWeight="500">Back contact (Cu/Mo)</text>
             {/* Built-in electric field arrow */}
             <line x1={175} y1={210} x2={175} y2={55} stroke={P.ok} strokeWidth="1.5" />
             <polygon points="171,58 179,58 175,48" fill={P.ok} />
-            <text x={168} y={135} fill={P.ok} fontSize="7" fontWeight="700"
+            <text x={168} y={135} fill={P.ok} fontSize="7" fontWeight="500"
               transform="rotate(-90,168,135)">Built-in E-field</text>
           </g>
 
@@ -302,7 +302,7 @@ export default function DefectMovieModule() {
           {photonT > 0 && photonT < 1 && (
             <g>
               <circle cx={290} cy={photonY} r={6} fill={P.photon} opacity={0.8} />
-              <text x={290} y={photonY + 3} textAnchor="middle" fill="#000" fontSize="6" fontWeight="800">h{"\u03BD"}</text>
+              <text x={290} y={photonY + 3} textAnchor="middle" fill="#000" fontSize="6" fontWeight="500">h{"\u03BD"}</text>
             </g>
           )}
 
@@ -316,14 +316,14 @@ export default function DefectMovieModule() {
               )}
               {/* Electron moving up */}
               <circle cx={270} cy={eY} r={7} fill={P.electron} />
-              <text x={270} y={eY + 3} textAnchor="middle" fill="#fff" fontSize="6" fontWeight="800">e{"\u207B"}</text>
+              <text x={270} y={eY + 3} textAnchor="middle" fill="#fff" fontSize="6" fontWeight="500">e{"\u207B"}</text>
               {driftT > 0 && driftT < 1 && (
                 <line x1={270} y1={eY + 8} x2={270} y2={eY + 25}
                   stroke={P.electron} strokeWidth="1" strokeDasharray="2,3" opacity="0.4" />
               )}
               {/* Hole moving down */}
               <circle cx={310} cy={hY} r={7} fill={P.hole} />
-              <text x={310} y={hY + 3} textAnchor="middle" fill="#fff" fontSize="6" fontWeight="800">h{"\u207A"}</text>
+              <text x={310} y={hY + 3} textAnchor="middle" fill="#fff" fontSize="6" fontWeight="500">h{"\u207A"}</text>
               {driftT > 0 && driftT < 1 && (
                 <line x1={310} y1={hY - 8} x2={310} y2={hY - 25}
                   stroke={P.hole} strokeWidth="1" strokeDasharray="2,3" opacity="0.4" />
@@ -342,9 +342,9 @@ export default function DefectMovieModule() {
               <line x1={440} y1={225} x2={440} y2={190} stroke={P.electron + "60"} strokeWidth="1.5" />
               {/* Load / bulb */}
               <rect x={435} y={170} width={40} height={25} rx="6" fill={P.photon + "15"} stroke={P.photon + "50"} strokeWidth="1.5" />
-              <text x={455} y={186} textAnchor="middle" fill={P.photon} fontSize="8" fontWeight="700">Load</text>
+              <text x={455} y={186} textAnchor="middle" fill={P.photon} fontSize="8" fontWeight="500">Load</text>
               {/* Current direction */}
-              <text x={480} y={135} fill={P.electron} fontSize="8" fontWeight="700"
+              <text x={480} y={135} fill={P.electron} fontSize="8" fontWeight="500"
                 transform="rotate(90,480,135)">Current {"\u2192"}</text>
               {/* Flowing electrons */}
               {[0, 0.33, 0.66].map((off, i) => {
@@ -365,8 +365,8 @@ export default function DefectMovieModule() {
             ].map((s, i) => (
               <g key={i}>
                 <circle cx={s.x} cy={s.y} r={8} fill={s.color + "20"} stroke={s.color} strokeWidth="1" />
-                <text x={s.x} y={s.y + 3.5} textAnchor="middle" fill={s.color} fontSize="7" fontWeight="800">{s.n}</text>
-                <text x={s.x} y={s.y + 20} textAnchor="middle" fill={P.muted} fontSize="7" fontWeight="600">{s.text}</text>
+                <text x={s.x} y={s.y + 3.5} textAnchor="middle" fill={s.color} fontSize="7" fontWeight="500">{s.n}</text>
+                <text x={s.x} y={s.y + 20} textAnchor="middle" fill={P.muted} fontSize="7" fontWeight="500">{s.text}</text>
               </g>
             ))}
           </g>
@@ -396,7 +396,7 @@ export default function DefectMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={32} textAnchor="middle" fill={P.ink} fontSize="14" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={32} textAnchor="middle" fill={P.ink} fontSize="14" fontWeight="500" opacity={titleT}>
             Best research-cell efficiencies (2024)
           </text>
 
@@ -410,7 +410,7 @@ export default function DefectMovieModule() {
               <g key={i}>
                 {/* Label */}
                 <text x={barX - 8} y={by + barH / 2 + 4} textAnchor="end"
-                  fill={isCdTe ? c.color : P.ink} fontSize={isCdTe ? "10" : "9"} fontWeight={isCdTe ? "800" : "600"}>
+                  fill={isCdTe ? c.color : P.ink} fontSize={isCdTe ? "10" : "9"} fontWeight={isCdTe ? "500" : "500"}>
                   {c.name}
                 </text>
                 {/* Bar */}
@@ -420,7 +420,7 @@ export default function DefectMovieModule() {
                 {/* Efficiency value */}
                 {barT > 0.5 && (
                   <text x={barX + bw + 8} y={by + barH / 2 + 4}
-                    fill={c.color} fontSize="11" fontWeight="800" opacity={ease(clamp01((barT - 0.5) * 4))}>
+                    fill={c.color} fontSize="11" fontWeight="500" opacity={ease(clamp01((barT - 0.5) * 4))}>
                     {c.eff}%
                   </text>
                 )}
@@ -450,7 +450,7 @@ export default function DefectMovieModule() {
                     </g>
                   );
                 })}
-                <text x={barX + barMaxW / 2} y={axY + 28} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="600">
+                <text x={barX + barMaxW / 2} y={axY + 28} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="500">
                   Cell efficiency (%)
                 </text>
               </g>
@@ -463,7 +463,7 @@ export default function DefectMovieModule() {
             return callT > 0 ? (
               <g opacity={callT}>
                 <rect x={160} y={362} width={300} height={36} rx="6" fill={P.solar + "10"} stroke={P.solar + "40"} strokeWidth="1.5" />
-                <text x={310} y={377} textAnchor="middle" fill={P.solar} fontSize="9" fontWeight="800">
+                <text x={310} y={377} textAnchor="middle" fill={P.solar} fontSize="9" fontWeight="500">
                   CdTe: dominant thin-film PV {"\u2014"} defects limit efficiency
                 </text>
                 <text x={310} y={390} textAnchor="middle" fill={P.muted} fontSize="7">
@@ -506,12 +506,12 @@ export default function DefectMovieModule() {
             return (
               <g key={i} opacity={op}>
                 <circle cx={a.x} cy={a.y} r={9 * pulse} fill={a.color + "25"} stroke={a.color} strokeWidth="1.5" />
-                <text x={a.x} y={a.y + 3.5} textAnchor="middle" fill={a.color} fontSize="7" fontWeight="700">{a.elem}</text>
+                <text x={a.x} y={a.y + 3.5} textAnchor="middle" fill={a.color} fontSize="7" fontWeight="500">{a.elem}</text>
               </g>
             );
           })}
           {/* Label */}
-          <text x={W / 2} y={H - 12} textAnchor="middle" fill={P.muted} fontSize="12" fontWeight="600">
+          <text x={W / 2} y={H - 12} textAnchor="middle" fill={P.muted} fontSize="12" fontWeight="500">
             Perfect CdTe crystal lattice {"\u2014"} every atom in its place
           </text>
         </svg>
@@ -569,7 +569,7 @@ export default function DefectMovieModule() {
                 <g key={i} opacity={1 - removeT}>
                   <circle cx={a.x} cy={a.y} r={9 + removeT * 6} fill={P.defect + "30"}
                     stroke={P.defect} strokeWidth="2" strokeDasharray="3,2" />
-                  <text x={a.x} y={a.y + 3.5} textAnchor="middle" fill={P.defect} fontSize="7" fontWeight="700">{a.elem}</text>
+                  <text x={a.x} y={a.y + 3.5} textAnchor="middle" fill={P.defect} fontSize="7" fontWeight="500">{a.elem}</text>
                 </g>
               );
             }
@@ -579,7 +579,7 @@ export default function DefectMovieModule() {
                   fill={(isNeighbor ? a.color + "35" : a.color + "25")}
                   stroke={isNeighbor ? P.defect + "80" : a.color} strokeWidth="1.5" />
                 <text x={a.x + dx} y={a.y + dy + 3.5} textAnchor="middle"
-                  fill={isNeighbor ? P.defect : a.color} fontSize="7" fontWeight="700">{a.elem}</text>
+                  fill={isNeighbor ? P.defect : a.color} fontSize="7" fontWeight="500">{a.elem}</text>
               </g>
             );
           })}
@@ -588,11 +588,11 @@ export default function DefectMovieModule() {
             <g opacity={labelOp}>
               <circle cx={da.x} cy={da.y} r={12} fill="none" stroke={P.defect}
                 strokeWidth="2" strokeDasharray="4,3" />
-              <text x={da.x} y={da.y + 4} textAnchor="middle" fill={P.defect} fontSize="10" fontWeight="800">V</text>
+              <text x={da.x} y={da.y + 4} textAnchor="middle" fill={P.defect} fontSize="10" fontWeight="500">V</text>
             </g>
           )}
           {/* Label */}
-          <text x={W / 2} y={H - 12} textAnchor="middle" fill={P.defect} fontSize="12" fontWeight="700" opacity={labelOp}>
+          <text x={W / 2} y={H - 12} textAnchor="middle" fill={P.defect} fontSize="12" fontWeight="500" opacity={labelOp}>
             V_Cd vacancy created {"\u2014"} neighbors relax outward
           </text>
         </svg>
@@ -613,10 +613,10 @@ export default function DefectMovieModule() {
           <rect width={W} height={H} fill={P.bg} />
           {/* VB */}
           <rect x={70} y={vbTop} width={420} height={50} fill={P.hole + "10"} stroke={P.hole + "50"} strokeWidth="1.5" rx="4" />
-          <text x={280} y={vbTop + 30} textAnchor="middle" fill={P.hole} fontSize="12" fontWeight="700">Valence Band</text>
+          <text x={280} y={vbTop + 30} textAnchor="middle" fill={P.hole} fontSize="12" fontWeight="500">Valence Band</text>
           {/* CB */}
           <rect x={70} y={cbBot - 40} width={420} height={40} fill={P.electron + "10"} stroke={P.electron + "50"} strokeWidth="1.5" rx="4" />
-          <text x={280} y={cbBot - 16} textAnchor="middle" fill={P.electron} fontSize="12" fontWeight="700">Conduction Band</text>
+          <text x={280} y={cbBot - 16} textAnchor="middle" fill={P.electron} fontSize="12" fontWeight="500">Conduction Band</text>
           {/* Band gap */}
           <text x={50} y={mid + 4} textAnchor="middle" fill={P.dim} fontSize="9"
             transform={`rotate(-90,50,${mid})`}>E_g = 1.5 eV</text>
@@ -626,12 +626,12 @@ export default function DefectMovieModule() {
           <circle cx={280} cy={mid} r={18 * trapGlow * trapAppear} fill={P.defect + "15"}
             stroke="none" />
           <text x={280} y={mid - 24} textAnchor="middle" fill={P.defect} fontSize="11"
-            fontWeight="800" opacity={trapAppear}>Deep Trap (V_Cd)</text>
+            fontWeight="500" opacity={trapAppear}>Deep Trap (V_Cd)</text>
           {/* Electron falling */}
           {eOp > 0 && (
             <g opacity={eOp}>
               <circle cx={280} cy={eY} r={7} fill={P.electron} />
-              <text x={280} y={eY + 3} textAnchor="middle" fill="#fff" fontSize="7" fontWeight="800">e{"\u207B"}</text>
+              <text x={280} y={eY + 3} textAnchor="middle" fill="#fff" fontSize="7" fontWeight="500">e{"\u207B"}</text>
               {/* Trail */}
               {ePos > 0.1 && ePos < 1 && (
                 <line x1={280} y1={cbBot} x2={280} y2={eY - 8}
@@ -646,7 +646,7 @@ export default function DefectMovieModule() {
               opacity={0.7 * (1 - captureFlash)} />
           )}
           {/* Label */}
-          <text x={W / 2} y={H - 12} textAnchor="middle" fill={P.muted} fontSize="12" fontWeight="600">
+          <text x={W / 2} y={H - 12} textAnchor="middle" fill={P.muted} fontSize="12" fontWeight="500">
             {ePos < 0.8 ? "Electron drifting toward deep-level trap..." : "Electron captured by the defect!"}
           </text>
         </svg>
@@ -672,23 +672,23 @@ export default function DefectMovieModule() {
           <rect width={W} height={H} fill={P.bg} />
           {/* VB */}
           <rect x={70} y={vbTop} width={420} height={50} fill={P.hole + "10"} stroke={P.hole + "50"} strokeWidth="1.5" rx="4" />
-          <text x={150} y={vbTop + 30} textAnchor="middle" fill={P.hole} fontSize="11" fontWeight="700">Valence Band</text>
+          <text x={150} y={vbTop + 30} textAnchor="middle" fill={P.hole} fontSize="11" fontWeight="500">Valence Band</text>
           {/* CB */}
           <rect x={70} y={cbBot - 40} width={420} height={40} fill={P.electron + "10"} stroke={P.electron + "50"} strokeWidth="1.5" rx="4" />
-          <text x={150} y={cbBot - 16} textAnchor="middle" fill={P.electron} fontSize="11" fontWeight="700">Conduction Band</text>
+          <text x={150} y={cbBot - 16} textAnchor="middle" fill={P.electron} fontSize="11" fontWeight="500">Conduction Band</text>
           {/* Trap */}
           <line x1={220} y1={mid} x2={340} y2={mid} stroke={P.defect} strokeWidth="3" />
-          <text x={280} y={mid - 22} textAnchor="middle" fill={P.defect} fontSize="10" fontWeight="800">Deep Trap</text>
+          <text x={280} y={mid - 22} textAnchor="middle" fill={P.defect} fontSize="10" fontWeight="500">Deep Trap</text>
 
           {/* Step labels */}
           <g>
-            <text x={415} y={140} textAnchor="start" fill={t < 0.35 ? P.electron : P.dim} fontSize="10" fontWeight="700">
+            <text x={415} y={140} textAnchor="start" fill={t < 0.35 ? P.electron : P.dim} fontSize="10" fontWeight="500">
               1. e{"\u207B"} capture {t >= 0.35 ? "\u2713" : ""}
             </text>
-            <text x={415} y={160} textAnchor="start" fill={t >= 0.35 && t < 0.7 ? P.hole : P.dim} fontSize="10" fontWeight="700">
+            <text x={415} y={160} textAnchor="start" fill={t >= 0.35 && t < 0.7 ? P.hole : P.dim} fontSize="10" fontWeight="500">
               2. h{"\u207A"} capture {t >= 0.7 ? "\u2713" : ""}
             </text>
-            <text x={415} y={180} textAnchor="start" fill={t >= 0.7 ? P.heat : P.dim} fontSize="10" fontWeight="700">
+            <text x={415} y={180} textAnchor="start" fill={t >= 0.7 ? P.heat : P.dim} fontSize="10" fontWeight="500">
               3. Heat released {heatT > 0.5 ? "\u2713" : ""}
             </text>
           </g>
@@ -697,7 +697,7 @@ export default function DefectMovieModule() {
           {eCapture < 1 && (
             <g>
               <circle cx={260} cy={eY} r={7} fill={P.electron} />
-              <text x={260} y={eY + 3} textAnchor="middle" fill="#fff" fontSize="7" fontWeight="800">e{"\u207B"}</text>
+              <text x={260} y={eY + 3} textAnchor="middle" fill="#fff" fontSize="7" fontWeight="500">e{"\u207B"}</text>
               <line x1={260} y1={cbBot} x2={260} y2={eY - 8}
                 stroke={P.electron} strokeWidth="1" strokeDasharray="3,4" opacity="0.3" />
             </g>
@@ -707,7 +707,7 @@ export default function DefectMovieModule() {
           {t >= 0.35 && hCapture < 1 && (
             <g>
               <circle cx={300} cy={hY} r={7} fill={P.hole} />
-              <text x={300} y={hY + 3} textAnchor="middle" fill="#fff" fontSize="7" fontWeight="800">h{"\u207A"}</text>
+              <text x={300} y={hY + 3} textAnchor="middle" fill="#fff" fontSize="7" fontWeight="500">h{"\u207A"}</text>
               <line x1={300} y1={vbTop} x2={300} y2={hY + 8}
                 stroke={P.hole} strokeWidth="1" strokeDasharray="3,4" opacity="0.3" />
             </g>
@@ -724,14 +724,14 @@ export default function DefectMovieModule() {
                 return (
                   <text key={i} x={280 + Math.cos(rad) * dist} y={mid + Math.sin(rad) * dist}
                     textAnchor="middle" fill={P.heat} fontSize={10 + (1 - heatT) * 4}
-                    opacity={0.8 * (1 - heatT * 0.7)} fontWeight="700">
+                    opacity={0.8 * (1 - heatT * 0.7)} fontWeight="500">
                     {"\u223C"}
                   </text>
                 );
               })}
               {heatT > 0.3 && (
                 <text x={280} y={mid + 50 + heatT * 20} textAnchor="middle"
-                  fill={P.heat} fontSize="12" fontWeight="800" opacity={ease(clamp01((heatT - 0.3) * 3))}>
+                  fill={P.heat} fontSize="12" fontWeight="500" opacity={ease(clamp01((heatT - 0.3) * 3))}>
                   Energy lost as heat
                 </text>
               )}
@@ -739,7 +739,7 @@ export default function DefectMovieModule() {
           )}
 
           {/* Label */}
-          <text x={W / 2} y={H - 12} textAnchor="middle" fill={P.defect} fontSize="12" fontWeight="700">
+          <text x={W / 2} y={H - 12} textAnchor="middle" fill={P.defect} fontSize="12" fontWeight="500">
             Shockley-Read-Hall Recombination {"\u2014"} photocurrent destroyed
           </text>
         </svg>
@@ -774,7 +774,7 @@ export default function DefectMovieModule() {
             );
           })}
           {/* Sun label */}
-          <text x={303} y={37} textAnchor="middle" fill={P.photon} fontSize="8" fontWeight="600" opacity="0.7">Sunlight (photons)</text>
+          <text x={303} y={37} textAnchor="middle" fill={P.photon} fontSize="8" fontWeight="500" opacity="0.7">Sunlight (photons)</text>
 
           {/* ── Full CdTe solar cell architecture ── */}
           {(() => {
@@ -800,7 +800,7 @@ export default function DefectMovieModule() {
                     <g key={`ly${i}`}>
                       <rect x={cx} y={ly} width={cw} height={l.h} rx="3"
                         fill={l.fill} stroke={l.stroke} strokeWidth="0.8" />
-                      <text x={cx + 6} y={l.h > 40 ? ly + l.h - 8 : ly + l.h / 2 + 3} fill={l.lc} fontSize="6.5" fontWeight="700">{l.label}</text>
+                      <text x={cx + 6} y={l.h > 40 ? ly + l.h - 8 : ly + l.h / 2 + 3} fill={l.lc} fontSize="6.5" fontWeight="500">{l.label}</text>
                       <text x={cx + cw - 6} y={l.h > 40 ? ly + l.h - 8 : ly + l.h / 2 + 3} textAnchor="end" fill={P.muted} fontSize="5.5">{l.role}</text>
                     </g>
                   );
@@ -817,7 +817,7 @@ export default function DefectMovieModule() {
             return (
               <g key={i} opacity={pop}>
                 <circle cx={dx} cy={dy} r={9} fill={P.defect + "25"} stroke={P.defect} strokeWidth="1.5" />
-                <text x={dx} y={dy + 3.5} textAnchor="middle" fill={P.defect} fontSize="7" fontWeight="800">V</text>
+                <text x={dx} y={dy + 3.5} textAnchor="middle" fill={P.defect} fontSize="7" fontWeight="500">V</text>
                 <text x={dx + 11} y={dy - 4} fill={P.heat} fontSize="8" opacity={0.5 + Math.sin(t * 10 + i) * 0.3}>{"\u223C"}</text>
               </g>
             );
@@ -830,7 +830,7 @@ export default function DefectMovieModule() {
             return (
               <g key={`eh${i}`} opacity={op * 0.7}>
                 <circle cx={ex} cy={ey} r={3.5} fill={P.electron} />
-                <text x={ex} y={ey + 2} textAnchor="middle" fill="#fff" fontSize="3.5" fontWeight="800">e{"\u207B"}</text>
+                <text x={ex} y={ey + 2} textAnchor="middle" fill="#fff" fontSize="3.5" fontWeight="500">e{"\u207B"}</text>
               </g>
             );
           })}
@@ -900,7 +900,7 @@ export default function DefectMovieModule() {
           <rect x={55} y={77} width={70} height={barH} fill={P.surface} stroke={P.border} strokeWidth="1.5" rx="6" />
           <rect x={57} y={77 + (barH - fillH)} width={66} height={fillH - 2} rx="4"
             fill={lossColor + "40"} stroke={lossColor} strokeWidth="1.5" />
-          <text x={90} y={77 + (barH - fillH) - 8} textAnchor="middle" fill={lossColor} fontSize="18" fontWeight="900">
+          <text x={90} y={77 + (barH - fillH) - 8} textAnchor="middle" fill={lossColor} fontSize="18" fontWeight="500">
             {eff.toFixed(1)}%
           </text>
           <text x={90} y={barH + 97} textAnchor="middle" fill={P.muted} fontSize="9">Efficiency</text>
@@ -921,7 +921,7 @@ export default function DefectMovieModule() {
 
           {/* Energy lost as heat label */}
           {nDefects > 2 && (
-            <text x={303} y={268} textAnchor="middle" fill={P.heat} fontSize="8" fontWeight="700"
+            <text x={303} y={268} textAnchor="middle" fill={P.heat} fontSize="8" fontWeight="500"
               opacity={ease(clamp01((t - 0.4) * 3))}>
               Energy lost as heat {"\u2014"} {(32.1 - eff).toFixed(1)}% wasted
             </text>
@@ -929,28 +929,28 @@ export default function DefectMovieModule() {
 
           {/* Layer description below cell */}
           <g opacity={circuitT}>
-            <text x={205} y={295} fill={P.muted} fontSize="6.5" fontWeight="600">
+            <text x={205} y={295} fill={P.muted} fontSize="6.5" fontWeight="500">
               Glass {"\u2014"} superstrate, structural support and optical transparency
             </text>
-            <text x={205} y={307} fill={P.muted} fontSize="6.5" fontWeight="600">
+            <text x={205} y={307} fill={P.muted} fontSize="6.5" fontWeight="500">
               ITO/FTO {"\u2014"} transparent conducting oxide, front electrode
             </text>
-            <text x={205} y={319} fill={P.muted} fontSize="6.5" fontWeight="600">
+            <text x={205} y={319} fill={P.muted} fontSize="6.5" fontWeight="500">
               p-CdTe {"\u2014"} main absorber (E_g {"\u2248"} 1.5 eV), visible/near-IR
             </text>
-            <text x={205} y={331} fill={P.muted} fontSize="6.5" fontWeight="600">
+            <text x={205} y={331} fill={P.muted} fontSize="6.5" fontWeight="500">
               CdSeTe {"\u2014"} graded bandgap, improves V_oc and collection
             </text>
-            <text x={205} y={343} fill={P.muted} fontSize="6.5" fontWeight="600">
+            <text x={205} y={343} fill={P.muted} fontSize="6.5" fontWeight="500">
               ZnTe:Cu {"\u2014"} back buffer, reduces Schottky barrier for holes
             </text>
-            <text x={205} y={355} fill={P.muted} fontSize="6.5" fontWeight="600">
+            <text x={205} y={355} fill={P.muted} fontSize="6.5" fontWeight="500">
               CdS/CdTe {"\u2014"} p-n junction, built-in field separates carriers
             </text>
           </g>
 
           {/* Bottom text */}
-          <text x={W / 2} y={H - 30} textAnchor="middle" fill={P.defect} fontSize="13" fontWeight="700">
+          <text x={W / 2} y={H - 30} textAnchor="middle" fill={P.defect} fontSize="13" fontWeight="500">
             More defects {"\u2192"} more recombination {"\u2192"} lower efficiency
           </text>
           <text x={W / 2} y={H - 12} textAnchor="middle" fill={P.muted} fontSize="11">
@@ -1001,7 +1001,7 @@ export default function DefectMovieModule() {
           <rect x={cellOx} y={cellOy} width={SC * sp + 14} height={SC * sp + 14}
             fill={P.dft + "08"} stroke={P.dft} strokeWidth="1.5" rx="6"
             strokeDasharray={buildT < 1 ? "6,4" : "none"} opacity={buildT} />
-          <text x={cellOx + (SC * sp + 14) / 2} y={cellOy - 6} textAnchor="middle" fill={P.dft} fontSize="9" fontWeight="700" opacity={buildT}>
+          <text x={cellOx + (SC * sp + 14) / 2} y={cellOy - 6} textAnchor="middle" fill={P.dft} fontSize="9" fontWeight="500" opacity={buildT}>
             DFT supercell
           </text>
           {/* Atoms with relaxation */}
@@ -1012,7 +1012,7 @@ export default function DefectMovieModule() {
                 <g key={i} opacity={op}>
                   <circle cx={a.bx} cy={a.by} r={7} fill="none" stroke={P.defect}
                     strokeWidth="1.5" strokeDasharray="3,2" />
-                  <text x={a.bx} y={a.by + 3} textAnchor="middle" fill={P.defect} fontSize="6" fontWeight="700">V</text>
+                  <text x={a.bx} y={a.by + 3} textAnchor="middle" fill={P.defect} fontSize="6" fontWeight="500">V</text>
                 </g>
               );
             }
@@ -1074,16 +1074,16 @@ export default function DefectMovieModule() {
                 <rect x={box1x} y={compY} width={miniW} height={miniH}
                   fill={P.surface} stroke={P.border} strokeWidth="1" rx="4" />
                 <text x={box1x + miniW / 2} y={compY - 5} textAnchor="middle"
-                  fill={P.muted} fontSize="7" fontWeight="600">Initial (unrelaxed)</text>
+                  fill={P.muted} fontSize="7" fontWeight="500">Initial (unrelaxed)</text>
                 {renderMiniCell(box1x, compY, false, 0)}
                 {/* Arrow */}
                 <text x={box1x + miniW + 12} y={compY + miniH / 2 + 4}
-                  textAnchor="middle" fill={P.dft} fontSize="14" fontWeight="700">{"\u2192"}</text>
+                  textAnchor="middle" fill={P.dft} fontSize="14" fontWeight="500">{"\u2192"}</text>
                 {/* Final q = -2 */}
                 <rect x={box2x} y={compY} width={miniW} height={miniH}
                   fill={P.dft + "08"} stroke={P.dft} strokeWidth="1" rx="4" />
                 <text x={box2x + miniW / 2} y={compY - 5} textAnchor="middle"
-                  fill={P.dft} fontSize="7" fontWeight="700">Final (q = -2)</text>
+                  fill={P.dft} fontSize="7" fontWeight="500">Final (q = -2)</text>
                 {renderMiniCell(box2x, compY, true, 4.5)}
                 {/* Label */}
                 <text x={(box1x + box2x + miniW) / 2} y={compY + miniH + 14} textAnchor="middle"
@@ -1094,7 +1094,7 @@ export default function DefectMovieModule() {
 
           {/* Energy convergence panel */}
           <rect x={250} y={22} width={240} height={155} rx="8" fill={P.surface} stroke={P.border} strokeWidth="1" />
-          <text x={370} y={38} textAnchor="middle" fill={P.dft} fontSize="9" fontWeight="700">SCF energy convergence</text>
+          <text x={370} y={38} textAnchor="middle" fill={P.dft} fontSize="9" fontWeight="500">SCF energy convergence</text>
           {/* Plot */}
           {nSteps > 0 && (() => {
             const px = 268, py = 46, pw2 = 200, ph2 = 95;
@@ -1114,7 +1114,7 @@ export default function DefectMovieModule() {
                 ))}
                 {nSteps > 0 && (
                   <text x={pts[pts.length - 1].x + 5} y={pts[pts.length - 1].y - 5}
-                    fill={P.dft} fontSize="8" fontWeight="700">
+                    fill={P.dft} fontSize="8" fontWeight="500">
                     {energies[nSteps - 1].toFixed(2)} eV
                   </text>
                 )}
@@ -1127,7 +1127,7 @@ export default function DefectMovieModule() {
           {resultT > 0 && (
             <g opacity={resultT}>
               <rect x={250} y={190} width={240} height={45} rx="8" fill={P.dft + "15"} stroke={P.dft} strokeWidth="1.5" />
-              <text x={370} y={208} textAnchor="middle" fill={P.dft} fontSize="10" fontWeight="700">
+              <text x={370} y={208} textAnchor="middle" fill={P.dft} fontSize="10" fontWeight="500">
                 E_tot[V_Cd{"\u00B2\u207B"}] = -548.05 eV
               </text>
               <text x={370} y={224} textAnchor="middle" fill={P.muted} fontSize="9">
@@ -1140,16 +1140,16 @@ export default function DefectMovieModule() {
           {resultT > 0 && (
             <g opacity={resultT}>
               <rect x={250} y={270} width={250} height={65} rx="8" fill={P.surface} stroke={P.border} strokeWidth="1" />
-              <text x={282} y={289} fill={P.muted} fontSize="8" fontWeight="600">Forces converged:</text>
-              <text x={430} y={289} textAnchor="end" fill={P.ok} fontSize="8" fontWeight="700">{"< 0.01 eV/\u00C5"}</text>
-              <text x={282} y={307} fill={P.muted} fontSize="8" fontWeight="600">Neighbor displacement:</text>
-              <text x={430} y={307} textAnchor="end" fill={P.dft} fontSize="8" fontWeight="700">0.12 {"\u00C5"} outward</text>
-              <text x={282} y={325} fill={P.muted} fontSize="8" fontWeight="600">Charge state:</text>
-              <text x={430} y={325} textAnchor="end" fill={P.defect} fontSize="8" fontWeight="700">q = -2</text>
+              <text x={282} y={289} fill={P.muted} fontSize="8" fontWeight="500">Forces converged:</text>
+              <text x={430} y={289} textAnchor="end" fill={P.ok} fontSize="8" fontWeight="500">{"< 0.01 eV/\u00C5"}</text>
+              <text x={282} y={307} fill={P.muted} fontSize="8" fontWeight="500">Neighbor displacement:</text>
+              <text x={430} y={307} textAnchor="end" fill={P.dft} fontSize="8" fontWeight="500">0.12 {"\u00C5"} outward</text>
+              <text x={282} y={325} fill={P.muted} fontSize="8" fontWeight="500">Charge state:</text>
+              <text x={430} y={325} textAnchor="end" fill={P.defect} fontSize="8" fontWeight="500">q = -2</text>
             </g>
           )}
 
-          <text x={W / 2} y={H - 8} textAnchor="middle" fill={P.dft} fontSize="11" fontWeight="600">
+          <text x={W / 2} y={H - 8} textAnchor="middle" fill={P.dft} fontSize="11" fontWeight="500">
             DFT relaxes atoms around the vacancy until forces converge
           </text>
         </svg>
@@ -1186,7 +1186,7 @@ export default function DefectMovieModule() {
           <circle cx={120} cy={140} r={3} fill={P.ink} />
 
           {/* Cost counter */}
-          <text x={120} y={230} textAnchor="middle" fill={panicT > 0 ? P.defect : P.muted} fontSize="11" fontWeight="700">
+          <text x={120} y={230} textAnchor="middle" fill={panicT > 0 ? P.defect : P.muted} fontSize="11" fontWeight="500">
             Time elapsed
           </text>
 
@@ -1195,7 +1195,7 @@ export default function DefectMovieModule() {
           <rect x={252} y={62} width={216 * barFill} height={26} rx="4"
             fill={barFill > 0.7 ? P.defect + "60" : P.dft + "40"}
             stroke={barFill > 0.7 ? P.defect : P.dft} strokeWidth="1" />
-          <text x={360} y={80} textAnchor="middle" fill={P.ink} fontSize="11" fontWeight="700">
+          <text x={360} y={80} textAnchor="middle" fill={P.ink} fontSize="11" fontWeight="500">
             {costVal.toLocaleString()} core-hours
           </text>
           <text x={360} y={50} textAnchor="middle" fill={P.muted} fontSize="10">
@@ -1218,7 +1218,7 @@ export default function DefectMovieModule() {
                 <rect x={250} y={d.y} width={220} height={22} rx="4"
                   fill={i < 6 ? P.dft + "10" : P.defect + "10"}
                   stroke={i < 6 ? P.dft + "30" : P.defect + "30"} strokeWidth="1" />
-                <text x={260} y={d.y + 15} fill={i < 6 ? P.dft : P.defect} fontSize="10" fontWeight="600">{d.name}</text>
+                <text x={260} y={d.y + 15} fill={i < 6 ? P.dft : P.defect} fontSize="10" fontWeight="500">{d.name}</text>
               </g>
             );
           })}
@@ -1226,7 +1226,7 @@ export default function DefectMovieModule() {
           {/* Panic text */}
           {panicT > 0 && (
             <g opacity={panicT}>
-              <text x={W / 2} y={H - 30} textAnchor="middle" fill={P.defect} fontSize="15" fontWeight="900">
+              <text x={W / 2} y={H - 30} textAnchor="middle" fill={P.defect} fontSize="15" fontWeight="500">
                 409,600 core-hours for one composition!
               </text>
               <text x={W / 2} y={H - 10} textAnchor="middle" fill={P.muted} fontSize="11">
@@ -1280,7 +1280,7 @@ export default function DefectMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={30} textAnchor="middle" fill={P.mlff} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={30} textAnchor="middle" fill={P.mlff} fontSize="15" fontWeight="500" opacity={titleT}>
             How MLFF learns from DFT
           </text>
           <text x={W / 2} y={48} textAnchor="middle" fill={P.muted} fontSize="10" opacity={titleT}>
@@ -1290,12 +1290,12 @@ export default function DefectMovieModule() {
           {/* LEFT: DFT training data */}
           <g opacity={dftDataT}>
             <rect x={dftX} y={65} width={dftW} height={195} rx="8" fill={P.dft + "08"} stroke={P.dft + "40"} strokeWidth="1" />
-            <text x={dftX + dftW / 2} y={82} textAnchor="middle" fill={P.dft} fontSize="9" fontWeight="700">DFT training data</text>
+            <text x={dftX + dftW / 2} y={82} textAnchor="middle" fill={P.dft} fontSize="9" fontWeight="500">DFT training data</text>
             <text x={dftX + dftW / 2} y={95} textAnchor="middle" fill={P.muted} fontSize="7">HSE06 supercells</text>
             {/* Header row */}
-            <text x={dftX + 12} y={115} fill={P.muted} fontSize="6" fontWeight="600">Config</text>
-            <text x={dftX + 62} y={115} fill={P.muted} fontSize="6" fontWeight="600">E (eV)</text>
-            <text x={dftX + 105} y={115} fill={P.muted} fontSize="6" fontWeight="600">|F| (eV/{"\u00C5"})</text>
+            <text x={dftX + 12} y={115} fill={P.muted} fontSize="6" fontWeight="500">Config</text>
+            <text x={dftX + 62} y={115} fill={P.muted} fontSize="6" fontWeight="500">E (eV)</text>
+            <text x={dftX + 105} y={115} fill={P.muted} fontSize="6" fontWeight="500">|F| (eV/{"\u00C5"})</text>
             <line x1={dftX + 8} y1={118} x2={dftX + dftW - 8} y2={118} stroke={P.border} strokeWidth="0.5" />
             {configs.slice(0, nConfigs).map((c, i) => {
               const cy = 130 + i * 20;
@@ -1304,7 +1304,7 @@ export default function DefectMovieModule() {
                 <g key={i}>
                   <rect x={dftX + 4} y={cy - 8} width={dftW - 8} height={16} rx="3"
                     fill={flash ? P.dft + "15" : "transparent"} />
-                  <text x={dftX + 12} y={cy + 2} fill={P.dft} fontSize="7" fontWeight="600">{c.label}</text>
+                  <text x={dftX + 12} y={cy + 2} fill={P.dft} fontSize="7" fontWeight="500">{c.label}</text>
                   <text x={dftX + 62} y={cy + 2} fill={P.ink} fontSize="7">{c.e}</text>
                   <text x={dftX + 105} y={cy + 2} fill={P.ink} fontSize="7">{c.f}</text>
                 </g>
@@ -1317,14 +1317,14 @@ export default function DefectMovieModule() {
             <line x1={dftX + dftW + 5} y1={midY} x2={nnX - 10} y2={midY}
               stroke={P.mlff} strokeWidth="1.5" strokeDasharray="4,3" />
             <polygon points={`${nnX - 12},${midY - 4} ${nnX - 4},${midY} ${nnX - 12},${midY + 4}`} fill={P.mlff} />
-            <text x={(dftX + dftW + nnX) / 2} y={midY - 8} textAnchor="middle" fill={P.mlff} fontSize="7" fontWeight="600">Train</text>
+            <text x={(dftX + dftW + nnX) / 2} y={midY - 8} textAnchor="middle" fill={P.mlff} fontSize="7" fontWeight="500">Train</text>
           </g>
 
           {/* CENTER: Neural Network */}
           <g opacity={nnT}>
             <rect x={nnX - 5} y={nnY - 5} width={nnW + 10} height={nnH + 10} rx="10"
               fill={P.mlff + "06"} stroke={P.mlff + "30"} strokeWidth="1" />
-            <text x={nnX + nnW / 2} y={nnY + 8} textAnchor="middle" fill={P.mlff} fontSize="9" fontWeight="700">
+            <text x={nnX + nnW / 2} y={nnY + 8} textAnchor="middle" fill={P.mlff} fontSize="9" fontWeight="500">
               Neural network potential
             </text>
             <text x={nnX + nnW / 2} y={nnY + 20} textAnchor="middle" fill={P.muted} fontSize="7">
@@ -1370,23 +1370,23 @@ export default function DefectMovieModule() {
             <line x1={nnX + nnW + 8} y1={midY} x2={outX - 8} y2={midY}
               stroke={P.ok} strokeWidth="1.5" strokeDasharray="4,3" />
             <polygon points={`${outX - 10},${midY - 4} ${outX - 2},${midY} ${outX - 10},${midY + 4}`} fill={P.ok} />
-            <text x={(nnX + nnW + outX) / 2} y={midY - 8} textAnchor="middle" fill={P.ok} fontSize="7" fontWeight="600">Predict</text>
+            <text x={(nnX + nnW + outX) / 2} y={midY - 8} textAnchor="middle" fill={P.ok} fontSize="7" fontWeight="500">Predict</text>
           </g>
 
           {/* RIGHT: MLFF output */}
           <g opacity={predictT}>
             <rect x={outX} y={85} width={outW} height={145} rx="8"
               fill={P.ok + "08"} stroke={P.ok + "40"} strokeWidth="1" />
-            <text x={outX + outW / 2} y={103} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="700">MLFF output</text>
+            <text x={outX + outW / 2} y={103} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="500">MLFF output</text>
             <text x={outX + outW / 2} y={116} textAnchor="middle" fill={P.muted} fontSize="7">DFT accuracy</text>
 
-            <text x={outX + 12} y={137} fill={P.ink} fontSize="8" fontWeight="600">Energy</text>
+            <text x={outX + 12} y={137} fill={P.ink} fontSize="8" fontWeight="500">Energy</text>
             <text x={outX + 12} y={151} fill={P.mlff} fontSize="9">{"\u2248"} -548.04 eV</text>
 
-            <text x={outX + 12} y={171} fill={P.ink} fontSize="8" fontWeight="600">Forces</text>
+            <text x={outX + 12} y={171} fill={P.ink} fontSize="8" fontWeight="500">Forces</text>
             <text x={outX + 12} y={185} fill={P.mlff} fontSize="9">{"\u2248"} 0.11 eV/{"\u00C5"}</text>
 
-            <text x={outX + 12} y={205} fill={P.ink} fontSize="8" fontWeight="600">Stress tensor</text>
+            <text x={outX + 12} y={205} fill={P.ink} fontSize="8" fontWeight="500">Stress tensor</text>
             <text x={outX + 12} y={219} fill={P.mlff} fontSize="9">{"\u2248"} 0.02 GPa</text>
           </g>
 
@@ -1397,7 +1397,7 @@ export default function DefectMovieModule() {
               <g>
                 <rect x={px - 5} y={py - 15} width={pw + 20} height={ph + 28} rx="6"
                   fill={P.surface} stroke={P.border} strokeWidth="1" />
-                <text x={px + pw / 2} y={py - 2} textAnchor="middle" fill={P.mlff} fontSize="8" fontWeight="700">
+                <text x={px + pw / 2} y={py - 2} textAnchor="middle" fill={P.mlff} fontSize="8" fontWeight="500">
                   Training loss
                 </text>
                 {/* Axes */}
@@ -1425,7 +1425,7 @@ export default function DefectMovieModule() {
           {compareT > 0 && (
             <g opacity={compareT}>
               <rect x={260} y={290} width={270} height={62} rx="8" fill={P.mlff + "10"} stroke={P.mlff + "50"} strokeWidth="1.5" />
-              <text x={395} y={308} textAnchor="middle" fill={P.mlff} fontSize="10" fontWeight="800">
+              <text x={395} y={308} textAnchor="middle" fill={P.mlff} fontSize="10" fontWeight="500">
                 Train once {"\u2192"} predict thousands
               </text>
               <text x={395} y={324} textAnchor="middle" fill={P.muted} fontSize="8">
@@ -1491,7 +1491,7 @@ export default function DefectMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={28} textAnchor="middle" fill={P.ink} fontSize="14" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={28} textAnchor="middle" fill={P.ink} fontSize="14" fontWeight="500" opacity={titleT}>
             Defect formation energy vs Fermi level
           </text>
           <text x={W / 2} y={46} textAnchor="middle" fill={P.muted} fontSize="10" opacity={titleT}>
@@ -1505,12 +1505,12 @@ export default function DefectMovieModule() {
             {/* X axis */}
             <line x1={px} y1={py + ph} x2={px + pw} y2={py + ph} stroke={P.dim} strokeWidth="1.5" />
             {/* Y label */}
-            <text x={30} y={py + ph / 2} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="600"
+            <text x={30} y={py + ph / 2} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="500"
               transform={`rotate(-90,30,${py + ph / 2})`}>
               Formation energy (eV)
             </text>
             {/* X label */}
-            <text x={px + pw / 2} y={py + ph + 35} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="600">
+            <text x={px + pw / 2} y={py + ph + 35} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="500">
               Fermi level (eV)
             </text>
             {/* Y ticks */}
@@ -1535,8 +1535,8 @@ export default function DefectMovieModule() {
               );
             })}
             {/* VBM and CBM labels */}
-            <text x={px} y={py + ph + 25} textAnchor="middle" fill={P.hole} fontSize="7" fontWeight="700">VBM</text>
-            <text x={px + pw} y={py + ph + 25} textAnchor="middle" fill={P.electron} fontSize="7" fontWeight="700">CBM</text>
+            <text x={px} y={py + ph + 25} textAnchor="middle" fill={P.hole} fontSize="7" fontWeight="500">VBM</text>
+            <text x={px + pw} y={py + ph + 25} textAnchor="middle" fill={P.electron} fontSize="7" fontWeight="500">CBM</text>
             {/* Band gap shading */}
             <rect x={px} y={py} width={pw} height={ph} fill={P.ink + "02"} />
           </g>
@@ -1560,9 +1560,9 @@ export default function DefectMovieModule() {
             {/* Charge state labels for DFT */}
             {dftT > 0.8 && (
               <g opacity={ease(clamp01((dftT - 0.8) * 5))}>
-                <text x={toX(0.15)} y={toY(2.8) - 8} fill={P.dft} fontSize="8" fontWeight="700">q = 0</text>
-                <text x={toX(0.9)} y={toY(2.2 - 0.9) - 8} fill={P.dft} fontSize="8" fontWeight="700">q = -1</text>
-                <text x={toX(1.2)} y={toY(1.4 - 2.4) + 15} fill={P.dft} fontSize="8" fontWeight="700">q = -2</text>
+                <text x={toX(0.15)} y={toY(2.8) - 8} fill={P.dft} fontSize="8" fontWeight="500">q = 0</text>
+                <text x={toX(0.9)} y={toY(2.2 - 0.9) - 8} fill={P.dft} fontSize="8" fontWeight="500">q = -1</text>
+                <text x={toX(1.2)} y={toY(1.4 - 2.4) + 15} fill={P.dft} fontSize="8" fontWeight="500">q = -2</text>
               </g>
             )}
           </g>
@@ -1589,13 +1589,13 @@ export default function DefectMovieModule() {
             {/* 0/-1 transition */}
             <line x1={toX(trans01)} y1={py + 5} x2={toX(trans01)} y2={py + ph - 5}
               stroke={P.defect} strokeWidth="1" strokeDasharray="3,4" opacity="0.5" />
-            <text x={toX(trans01)} y={py + 15} textAnchor="middle" fill={P.defect} fontSize="7" fontWeight="700">
+            <text x={toX(trans01)} y={py + 15} textAnchor="middle" fill={P.defect} fontSize="7" fontWeight="500">
               {"\u03B5"}(0/-1)
             </text>
             {/* -1/-2 transition */}
             <line x1={toX(trans12)} y1={py + 5} x2={toX(trans12)} y2={py + ph - 5}
               stroke={P.defect} strokeWidth="1" strokeDasharray="3,4" opacity="0.5" />
-            <text x={toX(trans12)} y={py + 28} textAnchor="middle" fill={P.defect} fontSize="7" fontWeight="700">
+            <text x={toX(trans12)} y={py + 28} textAnchor="middle" fill={P.defect} fontSize="7" fontWeight="500">
               {"\u03B5"}(-1/-2)
             </text>
           </g>
@@ -1604,10 +1604,10 @@ export default function DefectMovieModule() {
           <g opacity={labelT}>
             <line x1={px + pw - 140} y1={py + 12} x2={px + pw - 115} y2={py + 12}
               stroke={P.dft} strokeWidth="2.5" />
-            <text x={px + pw - 110} y={py + 15} fill={P.dft} fontSize="8" fontWeight="700">DFT (HSE06)</text>
+            <text x={px + pw - 110} y={py + 15} fill={P.dft} fontSize="8" fontWeight="500">DFT (HSE06)</text>
             <line x1={px + pw - 140} y1={py + 27} x2={px + pw - 115} y2={py + 27}
               stroke={P.mlff} strokeWidth="2" strokeDasharray="6,3" />
-            <text x={px + pw - 110} y={py + 30} fill={P.mlff} fontSize="8" fontWeight="700">MLFF (M3GNet)</text>
+            <text x={px + pw - 110} y={py + 30} fill={P.mlff} fontSize="8" fontWeight="500">MLFF (M3GNet)</text>
           </g>
 
           {/* Comparison callout */}
@@ -1615,7 +1615,7 @@ export default function DefectMovieModule() {
             <g opacity={compareT}>
               <rect x={px + 30} y={py + ph - 165} width={pw - 60} height={55} rx="8"
                 fill={P.mlff + "10"} stroke={P.mlff + "40"} strokeWidth="1.5" />
-              <text x={px + pw / 2} y={py + ph - 142} textAnchor="middle" fill={P.mlff} fontSize="10" fontWeight="800">
+              <text x={px + pw / 2} y={py + ph - 142} textAnchor="middle" fill={P.mlff} fontSize="10" fontWeight="500">
                 MLFF reproduces DFT transition levels within ~0.05 eV
               </text>
               <text x={px + pw / 2} y={py + ph - 126} textAnchor="middle" fill={P.muted} fontSize="8">
@@ -1644,7 +1644,7 @@ export default function DefectMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={40} textAnchor="middle" fill={P.mlff} fontSize="16" fontWeight="900" opacity={introT}>
+          <text x={W / 2} y={40} textAnchor="middle" fill={P.mlff} fontSize="16" fontWeight="500" opacity={introT}>
             MLFF vs DFT: the race
           </text>
           <text x={W / 2} y={60} textAnchor="middle" fill={P.muted} fontSize="11" opacity={introT}>
@@ -1656,15 +1656,15 @@ export default function DefectMovieModule() {
           <rect x={trackLeft} y={trackY2 - 12} width={trackW} height={28} rx="6" fill={P.surface} stroke={P.border} strokeWidth="1" />
 
           {/* Labels */}
-          <text x={trackLeft - 5} y={trackY1 + 5} textAnchor="end" fill={P.dft} fontSize="11" fontWeight="700">DFT</text>
-          <text x={trackLeft - 5} y={trackY2 + 5} textAnchor="end" fill={P.mlff} fontSize="11" fontWeight="700">MLFF</text>
+          <text x={trackLeft - 5} y={trackY1 + 5} textAnchor="end" fill={P.dft} fontSize="11" fontWeight="500">DFT</text>
+          <text x={trackLeft - 5} y={trackY2 + 5} textAnchor="end" fill={P.mlff} fontSize="11" fontWeight="500">MLFF</text>
 
           {/* DFT progress bar */}
           <rect x={trackLeft + 2} y={trackY1 - 10} width={Math.max(4, (trackW - 4) * dftProgress)} height={24} rx="4"
             fill={P.dft + "30"} stroke={P.dft} strokeWidth="1" />
           <circle cx={trackLeft + 2 + (trackW - 4) * dftProgress} cy={trackY1} r={8} fill={P.dft} />
           <text x={trackLeft + (trackW - 4) * dftProgress + 20} y={trackY1 + 4}
-            fill={P.dft} fontSize="9" fontWeight="700">
+            fill={P.dft} fontSize="9" fontWeight="500">
             {(dftProgress * 100).toFixed(0)}%
           </text>
 
@@ -1679,7 +1679,7 @@ export default function DefectMovieModule() {
               y2={trackY2} stroke={P.mlff} strokeWidth="3" opacity="0.3" strokeLinecap="round" />
           )}
           <text x={trackLeft + (trackW - 4) * mlffProgress + 20} y={trackY2 + 4}
-            fill={P.mlff} fontSize="9" fontWeight="700">
+            fill={P.mlff} fontSize="9" fontWeight="500">
             {(mlffProgress * 100).toFixed(0)}%
           </text>
 
@@ -1690,10 +1690,10 @@ export default function DefectMovieModule() {
 
           {/* Time comparison */}
           <g opacity={introT}>
-            <text x={160} y={trackY1 + 40} fill={P.dft} fontSize="10" fontWeight="600">
+            <text x={160} y={trackY1 + 40} fill={P.dft} fontSize="10" fontWeight="500">
               4,096 core-hours
             </text>
-            <text x={160} y={trackY2 + 40} fill={P.mlff} fontSize="10" fontWeight="600">
+            <text x={160} y={trackY2 + 40} fill={P.mlff} fontSize="10" fontWeight="500">
               0.53 core-hours
             </text>
           </g>
@@ -1702,7 +1702,7 @@ export default function DefectMovieModule() {
           {resultT > 0 && (
             <g opacity={resultT}>
               <rect x={120} y={280} width={320} height={65} rx="10" fill={P.mlff + "15"} stroke={P.mlff} strokeWidth="2" />
-              <text x={280} y={305} textAnchor="middle" fill={P.mlff} fontSize="20" fontWeight="900">
+              <text x={280} y={305} textAnchor="middle" fill={P.mlff} fontSize="20" fontWeight="500">
                 ~8,000{"\u00D7"} faster
               </text>
               <text x={280} y={326} textAnchor="middle" fill={P.muted} fontSize="11">
@@ -1710,7 +1710,7 @@ export default function DefectMovieModule() {
               </text>
             </g>
           )}
-          <text x={W / 2} y={H - 8} textAnchor="middle" fill={P.mlff} fontSize="11" fontWeight="600">
+          <text x={W / 2} y={H - 8} textAnchor="middle" fill={P.mlff} fontSize="11" fontWeight="500">
             Machine Learning Force Field: DFT accuracy at classical speed
           </text>
         </svg>
@@ -1727,7 +1727,7 @@ export default function DefectMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={30} textAnchor="middle" fill={P.mlff} fontSize="14" fontWeight="800">
+          <text x={W / 2} y={30} textAnchor="middle" fill={P.mlff} fontSize="14" fontWeight="500">
             High-throughput defect screening with MLFF
           </text>
           {/* Grid of defect calculations */}
@@ -1752,12 +1752,12 @@ export default function DefectMovieModule() {
                     strokeWidth={justFilled ? 2 : 1} />
                   <text x={x + cellW / 2} y={y + cellH / 2 + 3} textAnchor="middle"
                     fill={filled ? (isDeep ? P.defect : P.mlff) : P.dim}
-                    fontSize="7" fontWeight={filled ? "700" : "500"}>
+                    fontSize="7" fontWeight={filled ? "500" : "500"}>
                     {defNames[idx] || `D${idx}`}
                   </text>
                   {filled && (
                     <text x={x + cellW - 4} y={y + 10} textAnchor="end"
-                      fill={isDeep ? P.defect : P.ok} fontSize="7" fontWeight="800">
+                      fill={isDeep ? P.defect : P.ok} fontSize="7" fontWeight="500">
                       {isDeep ? "\u2717" : "\u2713"}
                     </text>
                   )}
@@ -1768,12 +1768,12 @@ export default function DefectMovieModule() {
           {/* Legend */}
           <g>
             <circle cx={W / 2 - 95} cy={oy + rows * (cellH + 6) + 20} r={5} fill={P.mlff + "40"} stroke={P.mlff} strokeWidth="1" />
-            <text x={W / 2 - 83} y={oy + rows * (cellH + 6) + 24} fill={P.mlff} fontSize="9" fontWeight="600">Shallow / benign</text>
+            <text x={W / 2 - 83} y={oy + rows * (cellH + 6) + 24} fill={P.mlff} fontSize="9" fontWeight="500">Shallow / benign</text>
             <circle cx={W / 2 + 45} cy={oy + rows * (cellH + 6) + 20} r={5} fill={P.defect + "40"} stroke={P.defect} strokeWidth="1" />
-            <text x={W / 2 + 57} y={oy + rows * (cellH + 6) + 24} fill={P.defect} fontSize="9" fontWeight="600">Deep / harmful</text>
+            <text x={W / 2 + 57} y={oy + rows * (cellH + 6) + 24} fill={P.defect} fontSize="9" fontWeight="500">Deep / harmful</text>
           </g>
           {/* Stats */}
-          <text x={W / 2} y={H - 30} textAnchor="middle" fill={P.ink} fontSize="12" fontWeight="700">
+          <text x={W / 2} y={H - 30} textAnchor="middle" fill={P.ink} fontSize="12" fontWeight="500">
             {fillCount}/{cols * rows} defects screened {"\u2014"} total cost: ~50 core-hours
           </text>
           <text x={W / 2} y={H - 12} textAnchor="middle" fill={P.muted} fontSize="10">
@@ -1802,7 +1802,7 @@ export default function DefectMovieModule() {
           </defs>
           <circle cx={W / 2} cy={H / 2 - 20} r={200 * glow} fill="url(#finGlow)" />
 
-          <text x={W / 2} y={35} textAnchor="middle" fill={P.ink} fontSize="11" fontWeight="600" opacity={line1}>
+          <text x={W / 2} y={35} textAnchor="middle" fill={P.ink} fontSize="11" fontWeight="500" opacity={line1}>
             Computational + experimental workflow
           </text>
 
@@ -1817,10 +1817,10 @@ export default function DefectMovieModule() {
               <g key={i} opacity={op}>
                 <rect x={box.x} y={50} width={140} height={55} rx="8"
                   fill={box.color + "12"} stroke={box.color} strokeWidth="1.5" />
-                <text x={box.x + 70} y={72} textAnchor="middle" fill={box.color} fontSize="13" fontWeight="800">{box.label}</text>
+                <text x={box.x + 70} y={72} textAnchor="middle" fill={box.color} fontSize="13" fontWeight="500">{box.label}</text>
                 <text x={box.x + 70} y={90} textAnchor="middle" fill={P.muted} fontSize="9">{box.sub}</text>
                 {i < 2 && (
-                  <text x={box.x + 150} y={80} fill={P.ink} fontSize="16" fontWeight="700" opacity={op * 0.6}>{"\u2192"}</text>
+                  <text x={box.x + 150} y={80} fill={P.ink} fontSize="16" fontWeight="500" opacity={op * 0.6}>{"\u2192"}</text>
                 )}
               </g>
             );
@@ -1833,7 +1833,7 @@ export default function DefectMovieModule() {
               <line x1={W / 2} y1={108} x2={W / 2} y2={125} stroke={P.solar} strokeWidth="1.5" strokeDasharray="3,2" />
               <polygon points={`${W / 2 - 4},125 ${W / 2 + 4},125 ${W / 2},132`} fill={P.solar} />
 
-              <text x={W / 2} y={148} textAnchor="middle" fill={P.solar} fontSize="10" fontWeight="700">
+              <text x={W / 2} y={148} textAnchor="middle" fill={P.solar} fontSize="10" fontWeight="500">
                 Experimental validation
               </text>
 
@@ -1848,10 +1848,10 @@ export default function DefectMovieModule() {
                   <g key={`e${i}`} opacity={eop}>
                     <rect x={box.x} y={158} width={150} height={48} rx="7"
                       fill={box.color + "0a"} stroke={box.color + "50"} strokeWidth="1" strokeDasharray="4,3" />
-                    <text x={box.x + 75} y={176} textAnchor="middle" fill={box.color} fontSize="10" fontWeight="700">{box.label}</text>
+                    <text x={box.x + 75} y={176} textAnchor="middle" fill={box.color} fontSize="10" fontWeight="500">{box.label}</text>
                     <text x={box.x + 75} y={192} textAnchor="middle" fill={P.muted} fontSize="8">{box.sub}</text>
                     {i < 2 && (
-                      <text x={box.x + 160} y={184} fill={P.ink} fontSize="14" fontWeight="700" opacity={eop * 0.5}>{"\u2192"}</text>
+                      <text x={box.x + 160} y={184} fill={P.ink} fontSize="14" fontWeight="500" opacity={eop * 0.5}>{"\u2192"}</text>
                     )}
                   </g>
                 );
@@ -1868,14 +1868,14 @@ export default function DefectMovieModule() {
                 { x: 440, val: ">30%", label: "efficiency target", color: P.ok },
               ].map((s, i) => (
                 <g key={i}>
-                  <text x={s.x} y={260} textAnchor="middle" fill={s.color} fontSize="20" fontWeight="900">{s.val}</text>
+                  <text x={s.x} y={260} textAnchor="middle" fill={s.color} fontSize="20" fontWeight="500">{s.val}</text>
                   <text x={s.x} y={278} textAnchor="middle" fill={P.muted} fontSize="9">{s.label}</text>
                 </g>
               ))}
             </g>
           )}
 
-          <text x={W / 2} y={H - 40} textAnchor="middle" fill={P.ink} fontSize="12" fontWeight="700" opacity={glow}>
+          <text x={W / 2} y={H - 40} textAnchor="middle" fill={P.ink} fontSize="12" fontWeight="500" opacity={glow}>
             Data-driven defect engineering validated by experiment
           </text>
           <text x={W / 2} y={H - 22} textAnchor="middle" fill={P.muted} fontSize="9" opacity={glow}>
@@ -1907,10 +1907,10 @@ export default function DefectMovieModule() {
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
         <div style={{
-          fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "uppercase", marginBottom: 4,
+          fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "none", marginBottom: 4,
         }}>Animated Module</div>
         <div style={{
-          fontSize: 22, fontWeight: 800, color: P.defect, marginBottom: 4,
+          fontSize: 22, fontWeight: 500, color: P.defect, marginBottom: 4,
         }}>DefectDB {"\u2014"} Solar Cells Under the Microscope</div>
         <div style={{ fontSize: 13, color: P.muted, lineHeight: 1.5 }}>
           Watch how defects destroy solar cell efficiency, and how DFT + machine learning fight back.
@@ -1930,15 +1930,15 @@ export default function DefectMovieModule() {
           <span style={{
             background: P.defect + "25", border: `1px solid ${P.defect}50`,
             padding: "3px 10px", borderRadius: 6,
-            fontSize: 10, fontWeight: 700, color: P.defect, letterSpacing: 1,
+            fontSize: 10, fontWeight: 500, color: P.defect, letterSpacing: 1,
           }}>Scene {sceneIdx + 1}/{SCENES.length}</span>
-          <span style={{ fontSize: 12, fontWeight: 700, color: P.ink }}>{scene.label}</span>
+          <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
 
         {/* Author watermark */}
         <div style={{
           position: "absolute", top: 10, right: 14, zIndex: 2,
-          fontSize: 11, color: "#ffffff", fontWeight: 600, opacity: 0.85,
+          fontSize: 11, color: "#ffffff", fontWeight: 500, opacity: 0.85,
         }}>
           Developed by Habibur Rahman {"\u00B7"} rahma103@purdue.edu
         </div>
@@ -1971,7 +1971,7 @@ export default function DefectMovieModule() {
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.solar}`,
           background: P.solar + "15", cursor: "pointer", display: "flex",
           alignItems: "center", justifyContent: "center", fontSize: 18,
-          color: P.solar, fontWeight: 900, fontFamily: "inherit",
+          color: P.solar, fontWeight: 500, fontFamily: "inherit",
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
@@ -1980,13 +1980,13 @@ export default function DefectMovieModule() {
         <button onClick={prevScene} disabled={sceneIdx === 0} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default",
-          color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 700,
+          color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
           fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4,
         }}>{"\u2190"}</button>
         <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default",
-          color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 700,
+          color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
           fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4,
         }}>{"\u2192"}</button>
 
@@ -2040,7 +2040,7 @@ export default function DefectMovieModule() {
             background: i === sceneIdx ? P.solar + "20" : "transparent",
             border: `1px solid ${i === sceneIdx ? P.solar : P.border}`,
             color: i === sceneIdx ? P.solar : i < sceneIdx ? P.mlff : P.muted,
-            fontWeight: i === sceneIdx ? 700 : 500, fontFamily: "inherit",
+            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit",
             transition: "all 0.15s",
           }}>
             {i + 1}. {s.label}

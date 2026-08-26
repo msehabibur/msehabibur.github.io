@@ -2,32 +2,32 @@ import { useState } from "react";
 
 // Theme — light & dark variants
 const LIGHT = {
-  bg:      "#f0f2f5",
+  bg:      "#f4f6f6",
   panel:   "#ffffff",
-  surface: "#f7f8fa",
-  border:  "#d4d8e0",
-  ink:     "#1a1e2e",
-  muted:   "#6b7280",
-  dim:     "#c0c6d0",
-  accent:  "#7c3aed",
-  blue:    "#2563eb",
-  green:   "#059669",
-  amber:   "#d97706",
-  red:     "#dc2626",
-  teal:    "#0891b2",
-  pink:    "#ec4899",
+  surface: "#e9efef",
+  border:  "#d8e1e1",
+  ink:     "#0f1618",
+  muted:   "#6c7b7e",
+  dim:     "#b7c4c5",
+  accent:  "#0d6b76",
+  blue:    "#1f6f8b",
+  green:   "#2e6b48",
+  amber:   "#a4531d",
+  red:     "#a33b3b",
+  teal:    "#0d6b76",
+  pink:    "#7d4f66",
 };
 const DARK = {
-  bg:      "#0f1117",
-  panel:   "#1a1d2e",
-  surface: "#22263a",
-  border:  "#2e3348",
+  bg:      "#0a0f11",
+  panel:   "#121a1c",
+  surface: "#162023",
+  border:  "#253134",
   ink:     "#e4e6ef",
   muted:   "#9ca3b4",
   dim:     "#3e4460",
-  accent:  "#a78bfa",
-  blue:    "#60a5fa",
-  green:   "#34d399",
+  accent:  "#4bbfcb",
+  blue:    "#6fb6cc",
+  green:   "#68bd8f",
   amber:   "#fbbf24",
   red:     "#f87171",
   teal:    "#22d3ee",
@@ -39,7 +39,7 @@ let T = LIGHT;
 
 const SectionTitle = ({ children, color }) => (
   <div style={{
-    fontSize: 20, fontWeight: 800, color: color || T.accent, marginBottom: 16,
+    fontSize: 20, fontWeight: 500, color: color || T.accent, marginBottom: 16,
     borderBottom: `3px solid ${color || T.accent}`, paddingBottom: 8,
     fontFamily: "'Inter', sans-serif",
   }}>{children}</div>
@@ -55,7 +55,7 @@ const Card = ({ children, style }) => (
 const Tag = ({ children, color }) => (
   <span style={{
     display: "inline-block", padding: "4px 10px", borderRadius: 6,
-    fontSize: 11, fontWeight: 600, background: (color || T.accent) + "15",
+    fontSize: 11, fontWeight: 500, background: (color || T.accent) + "15",
     color: color || T.accent, border: `1px solid ${(color || T.accent)}30`,
     marginRight: 6, marginBottom: 4,
   }}>{children}</span>
@@ -63,7 +63,7 @@ const Tag = ({ children, color }) => (
 
 const LinkBtn = ({ href, children }) => (
   <a href={href} target="_blank" rel="noopener noreferrer" style={{
-    color: T.accent, fontSize: 12, fontWeight: 600, textDecoration: "none",
+    color: T.accent, fontSize: 12, fontWeight: 500, textDecoration: "none",
     borderBottom: `1px dashed ${T.accent}50`,
   }}>{children}</a>
 );
@@ -86,10 +86,10 @@ function PubCard({ pub, index }) {
             border: `2px solid ${pub.me ? T.accent : T.border}`,
             color: pub.me ? T.accent : T.muted,
             display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 12, fontWeight: 800, flexShrink: 0,
+            fontSize: 12, fontWeight: 500, flexShrink: 0,
           }}>{index + 1}</div>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.4, marginBottom: 6, color: T.ink }}>
+            <div style={{ fontSize: 14, fontWeight: 500, lineHeight: 1.4, marginBottom: 6, color: T.ink }}>
               {pub.title}
             </div>
             <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.4, marginBottom: 6 }}>
@@ -101,7 +101,7 @@ function PubCard({ pub, index }) {
               {pub.citations > 0 && (
                 <span style={{
                   display: "inline-flex", alignItems: "center", gap: 3,
-                  padding: "2px 8px", borderRadius: 10, fontSize: 10, fontWeight: 700,
+                  padding: "2px 8px", borderRadius: 10, fontSize: 10, fontWeight: 500,
                   background: T.amber + "15", color: T.amber, border: `1px solid ${T.amber}30`,
                 }}>
                   {pub.citations} citations
@@ -132,8 +132,8 @@ function PubCard({ pub, index }) {
           {pub.abstract && (
             <div style={{ marginTop: 14 }}>
               <div style={{
-                fontSize: 11, fontWeight: 700, color: T.accent, letterSpacing: 1,
-                textTransform: "uppercase", marginBottom: 6,
+                fontSize: 11, fontWeight: 500, color: T.accent, letterSpacing: 1,
+                textTransform: "none", marginBottom: 6,
               }}>Abstract</div>
               <div style={{
                 fontSize: 13, lineHeight: 1.7, color: T.ink,
@@ -147,8 +147,8 @@ function PubCard({ pub, index }) {
           {pub.highlights && (
             <div style={{ marginTop: 14 }}>
               <div style={{
-                fontSize: 11, fontWeight: 700, color: T.green, letterSpacing: 1,
-                textTransform: "uppercase", marginBottom: 8,
+                fontSize: 11, fontWeight: 500, color: T.green, letterSpacing: 1,
+                textTransform: "none", marginBottom: 8,
               }}>Key Contributions</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
                 {pub.highlights.map((h, i) => (
@@ -179,7 +179,7 @@ function PubCard({ pub, index }) {
             {pub.link && (
               <a href={pub.link} target="_blank" rel="noopener noreferrer" style={{
                 display: "inline-flex", alignItems: "center", gap: 4,
-                padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 600,
+                padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 500,
                 background: T.accent + "10", color: T.accent, textDecoration: "none",
                 border: `1px solid ${T.accent}30`,
               }}>View Paper {"\u2192"}</a>
@@ -518,7 +518,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               background: tab === t.id ? T.accent + "15" : T.surface,
               border: `1px solid ${tab === t.id ? T.accent : T.border}`,
               color: tab === t.id ? T.accent : T.muted,
-              fontWeight: tab === t.id ? 700 : 500, fontFamily: "inherit",
+              fontWeight: tab === t.id ? 500 : 500, fontFamily: "inherit",
               transition: "all 0.15s",
             }}>{t.label}</button>
           )
@@ -534,7 +534,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
           title={dark ? "Switch to light mode" : "Switch to dark mode"}
           >
             {dark ? "\u2600\uFE0F" : "\u{1F319}"}
-            <span style={{ fontSize: 11, fontWeight: 600 }}>{dark ? "Light" : "Dark"}</span>
+            <span style={{ fontSize: 11, fontWeight: 500 }}>{dark ? "Light" : "Dark"}</span>
           </button>
         )}
       </div>
@@ -549,7 +549,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               border: `3px solid ${T.accent}`,
               boxShadow: `0 4px 20px ${T.accent}25`,
             }} />
-            <div style={{ fontSize: 28, fontWeight: 900, marginBottom: 4 }}>Md Habibur Rahman</div>
+            <div style={{ fontSize: 28, fontWeight: 500, marginBottom: 4 }}>Md Habibur Rahman</div>
             <div style={{ fontSize: 14, color: T.muted, marginBottom: 12 }}>
               PhD Candidate, School of Materials Engineering, Purdue University
             </div>
@@ -619,15 +619,15 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
                   <div>
-                    <div style={{ fontSize: 10, color: T.accent, fontWeight: 700, letterSpacing: 1 }}>
+                    <div style={{ fontSize: 10, color: T.accent, fontWeight: 500, letterSpacing: 1 }}>
                       CHAPTER {ch.chapter}
                     </div>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: T.ink }}>{ch.label}</div>
+                    <div style={{ fontSize: 14, fontWeight: 500, color: T.ink }}>{ch.label}</div>
                   </div>
                 </div>
                 <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.5 }}>{ch.desc}</div>
                 <div style={{
-                  marginTop: 10, fontSize: 11, color: T.accent, fontWeight: 600,
+                  marginTop: 10, fontSize: 11, color: T.accent, fontWeight: 500,
                 }}>Read chapter {"\u2192"}</div>
               </div>
             ))}
@@ -652,7 +652,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               <Tag color={T.green}>CGPA: 3.91 / 4.00</Tag>
               <div style={{ marginTop: 6 }}>
                 <a href="https://engineering.purdue.edu/MSE/people/ptGradStudent?id=277454" target="_blank" rel="noopener noreferrer" style={{
-                  fontSize: 11, color: T.accent, textDecoration: "none", fontWeight: 600,
+                  fontSize: 11, color: T.accent, textDecoration: "none", fontWeight: 500,
                 }}>View Purdue Profile {"\u2192"}</a>
               </div>
             </div>
@@ -685,7 +685,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
                   flex: "1 1 260px", maxWidth: 340, background: block.color + "08",
                   border: `2px solid ${block.color}30`, borderRadius: 12, padding: "16px 18px",
                 }}>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: block.color, marginBottom: 10, textAlign: "center" }}>{block.title}</div>
+                  <div style={{ fontSize: 13, fontWeight: 500, color: block.color, marginBottom: 10, textAlign: "center" }}>{block.title}</div>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, fontSize: 12, lineHeight: 1.8, color: T.ink }}>
                     {block.items.map((item, j) => <div key={j}>{item}</div>)}
                   </div>
@@ -701,7 +701,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               maxWidth: 500, margin: "0 auto", background: T.amber + "08",
               border: `2px solid ${T.amber}30`, borderRadius: 12, padding: "16px 18px", marginBottom: 0,
             }}>
-              <div style={{ fontSize: 13, fontWeight: 800, color: T.amber, marginBottom: 10, textAlign: "center" }}>Data-Driven Modeling & AI</div>
+              <div style={{ fontSize: 13, fontWeight: 500, color: T.amber, marginBottom: 10, textAlign: "center" }}>Data-Driven Modeling & AI</div>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, fontSize: 12, lineHeight: 1.8, color: T.ink }}>
                 <div>High-Throughput DFT Databases</div>
                 <div>Graph Neural Networks (GNN)</div>
@@ -719,7 +719,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               maxWidth: 500, margin: "0 auto", background: T.teal + "08",
               border: `2px solid ${T.teal}30`, borderRadius: 12, padding: "16px 18px",
             }}>
-              <div style={{ fontSize: 13, fontWeight: 800, color: T.teal, marginBottom: 0, textAlign: "center" }}>Data-Driven Materials Design</div>
+              <div style={{ fontSize: 13, fontWeight: 500, color: T.teal, marginBottom: 0, textAlign: "center" }}>Data-Driven Materials Design</div>
             </div>
           </Card>
 
@@ -771,8 +771,8 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
                 justifyContent: "center", fontSize: 22, flexShrink: 0,
               }}>G</div>
               <div>
-                <div style={{ fontSize: 11, color: T.muted, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase" }}>Google Scholar</div>
-                <div style={{ fontSize: 20, fontWeight: 900, color: T.ink }}>760+ Citations</div>
+                <div style={{ fontSize: 11, color: T.muted, fontWeight: 500, letterSpacing: 1, textTransform: "none" }}>Google Scholar</div>
+                <div style={{ fontSize: 20, fontWeight: 500, color: T.ink }}>760+ Citations</div>
                 <div style={{ fontSize: 12, color: T.muted }}>h-index: 18 · i10-index: 18</div>
               </div>
             </a>
@@ -816,17 +816,17 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
                   fontSize: 16,
                 }}>{"\u2605"}</div>
                 <div>
-                  <div style={{ fontSize: 14, fontWeight: 700 }}>{award.title}</div>
+                  <div style={{ fontSize: 14, fontWeight: 500 }}>{award.title}</div>
                   <div style={{ fontSize: 12, color: T.muted }}>{award.org}</div>
                   <div style={{ display: "flex", gap: 10 }}>
                     {award.link && (
                       <a href={award.link} target="_blank" rel="noopener noreferrer" style={{
-                        fontSize: 11, color: award.color, textDecoration: "none", fontWeight: 600,
+                        fontSize: 11, color: award.color, textDecoration: "none", fontWeight: 500,
                       }}>View details {"\u2192"}</a>
                     )}
                     {award.github && (
                       <a href={award.github} target="_blank" rel="noopener noreferrer" style={{
-                        fontSize: 11, color: T.muted, textDecoration: "none", fontWeight: 600,
+                        fontSize: 11, color: T.muted, textDecoration: "none", fontWeight: 500,
                       }}>GitHub {"\u2192"}</a>
                     )}
                   </div>
@@ -842,7 +842,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
         <div>
           <SectionTitle color={T.teal}>Conference Presentations</SectionTitle>
           <Card style={{ marginBottom: 12, padding: "10px 14px", background: T.teal + "08", border: `1px solid ${T.teal}30` }}>
-            <div style={{ fontSize: 13, fontWeight: 600, color: T.teal }}>10+ Conference and Seminar Presentations</div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: T.teal }}>10+ Conference and Seminar Presentations</div>
           </Card>
           {[
             { title: "Data-Driven Discovery of Ternary and Quaternary Chalcogenide Semiconductors for Photovoltaics", venue: "2025 MRS Fall Meeting & Exhibit, Boston, MA", date: "Dec 2025", link: "https://www.mrs.org/meetings-events/annual-meetings/archive/meeting/presentations/view/2025-mrs-fall-meeting/2025-mrs-fall-meeting-4377025" },
@@ -858,11 +858,11 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
                 <Tag color={T.teal}>{conf.date}</Tag>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 600, lineHeight: 1.4, marginBottom: 3 }}>{conf.title}</div>
+                  <div style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.4, marginBottom: 3 }}>{conf.title}</div>
                   <div style={{ fontSize: 12, color: T.muted }}>{conf.venue}</div>
                   {conf.link && (
                     <a href={conf.link} target="_blank" rel="noopener noreferrer" style={{
-                      fontSize: 11, color: T.teal, textDecoration: "none", fontWeight: 600,
+                      fontSize: 11, color: T.teal, textDecoration: "none", fontWeight: 500,
                     }}>View abstract {"\u2192"}</a>
                   )}
                 </div>
@@ -879,7 +879,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
 
           {/* DefectDB */}
           <Card style={{ marginBottom: 14 }}>
-            <div style={{ fontSize: 16, fontWeight: 800, marginBottom: 4, color: T.accent }}>DefectDB</div>
+            <div style={{ fontSize: 16, fontWeight: 500, marginBottom: 4, color: T.accent }}>DefectDB</div>
             <div style={{ fontSize: 13, color: T.muted, lineHeight: 1.5, marginBottom: 4 }}>
               An Open-Source Infrastructure for Defect Thermodynamics in II–VI Semiconductors
             </div>
@@ -904,7 +904,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             </div>
             <a href="https://nanohub.org/tools/defectdatabase" target="_blank" rel="noopener noreferrer" style={{
               display: "inline-flex", alignItems: "center", gap: 4,
-              padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 600,
+              padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 500,
               background: T.accent + "10", color: T.accent, textDecoration: "none",
               border: `1px solid ${T.accent}30`,
             }}>Visit on nanoHUB {"\u2192"}</a>
@@ -912,7 +912,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
 
           {/* ChalcoDB */}
           <Card style={{ marginBottom: 14 }}>
-            <div style={{ fontSize: 16, fontWeight: 800, marginBottom: 4, color: T.green }}>ChalcoDB</div>
+            <div style={{ fontSize: 16, fontWeight: 500, marginBottom: 4, color: T.green }}>ChalcoDB</div>
             <div style={{ fontSize: 13, color: T.muted, lineHeight: 1.5, marginBottom: 4 }}>
               An Open-Source Informatics Platform for Data-Driven Design of I–II–IV–VI and I–III–VI Semiconductors
             </div>
@@ -937,7 +937,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             </div>
             <a href="https://nanohub.org/resources/chalcodb" target="_blank" rel="noopener noreferrer" style={{
               display: "inline-flex", alignItems: "center", gap: 4,
-              padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 600,
+              padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 500,
               background: T.green + "10", color: T.green, textDecoration: "none",
               border: `1px solid ${T.green}30`,
             }}>Visit on nanoHUB {"\u2192"}</a>
@@ -945,7 +945,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
 
           {/* MATAIStudio */}
           <Card style={{ marginBottom: 14 }}>
-            <div style={{ fontSize: 16, fontWeight: 800, marginBottom: 4, color: T.blue }}>Materials Informatics Studio</div>
+            <div style={{ fontSize: 16, fontWeight: 500, marginBottom: 4, color: T.blue }}>Materials Informatics Studio</div>
             <div style={{ fontSize: 13, color: T.muted, lineHeight: 1.5, marginBottom: 4 }}>
               An Integrated nanoHUB Platform for Computational Material Design
             </div>
@@ -970,7 +970,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             </div>
             <a href="https://nanohub.org/tools/mataistudio" target="_blank" rel="noopener noreferrer" style={{
               display: "inline-flex", alignItems: "center", gap: 4,
-              padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 600,
+              padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 500,
               background: T.blue + "10", color: T.blue, textDecoration: "none",
               border: `1px solid ${T.blue}30`,
             }}>Visit on nanoHUB {"\u2192"}</a>

@@ -246,7 +246,7 @@ export default function DefectNetFlowAnimation() {
     }}>
       {/* Title */}
       <div style={{ textAlign: "center", marginBottom: 12 }}>
-        <h2 style={{ color: T.text, fontSize: 22, fontWeight: 700, margin: 0 }}>
+        <h2 style={{ color: T.text, fontSize: 22, fontWeight: 500, margin: 0 }}>
           DefectNet: Information Flow
         </h2>
         <p style={{ color: T.textMid, fontSize: 13, margin: "4px 0 0" }}>
@@ -263,7 +263,7 @@ export default function DefectNetFlowAnimation() {
             color: playing ? T.red : T.green,
             border: `1px solid ${playing ? T.red : T.green}`,
             borderRadius: 6, padding: "4px 14px", cursor: "pointer",
-            fontSize: 13, fontWeight: 600,
+            fontSize: 13, fontWeight: 500,
           }}
         >
           {playing ? "⏸ Pause" : "▶ Play"}
@@ -277,7 +277,7 @@ export default function DefectNetFlowAnimation() {
               color: activeStage === i ? s.color : T.textMid,
               border: `1px solid ${activeStage === i ? s.color : T.border}`,
               borderRadius: 6, padding: "4px 10px", cursor: "pointer",
-              fontSize: 12, fontWeight: activeStage === i ? 700 : 400,
+              fontSize: 12, fontWeight: activeStage === i ? 500 : 400,
             }}
           >
             {s.label.split(" ")[0]}
@@ -312,7 +312,7 @@ export default function DefectNetFlowAnimation() {
                 x={pos.cx} y={pos.y + 30}
                 textAnchor="middle"
                 fill={isActive ? s.color : T.text}
-                fontSize={13} fontWeight={700}
+                fontSize={13} fontWeight={500}
               >
                 {s.label}
               </text>
@@ -328,7 +328,7 @@ export default function DefectNetFlowAnimation() {
               <circle cx={pos.x + 14} cy={pos.y + 14} r={10}
                 fill={isActive ? s.color : T.border} />
               <text x={pos.x + 14} y={pos.y + 18}
-                textAnchor="middle" fill="#fff" fontSize={11} fontWeight={700}>
+                textAnchor="middle" fill="#fff" fontSize={11} fontWeight={500}>
                 {i + 1}
               </text>
             </g>
@@ -388,7 +388,7 @@ export default function DefectNetFlowAnimation() {
         {activeStage === 0 && (
           <g>
             <text x={W / 2} y={detailY + 25} textAnchor="middle"
-              fill={T.accent} fontSize={15} fontWeight={700}>
+              fill={T.accent} fontSize={15} fontWeight={500}>
               Crystal Structure Input
             </text>
             {/* Lattice */}
@@ -407,7 +407,7 @@ export default function DefectNetFlowAnimation() {
                       fill={a.color} opacity={a.el === "V" ? 0.5 + 0.3 * Math.sin(t * 3) : 0.85}
                       stroke={a.el === "V" ? T.red : "#fff"} strokeWidth={a.el === "V" ? 2 : 1} />
                     <text x={a.x} y={a.y + 4} textAnchor="middle"
-                      fill="#fff" fontSize={a.el === "V" ? 10 : 9} fontWeight={700}>
+                      fill="#fff" fontSize={a.el === "V" ? 10 : 9} fontWeight={500}>
                       {a.el === "V" ? "V_Cd" : a.el}
                     </text>
                   </g>
@@ -436,7 +436,7 @@ export default function DefectNetFlowAnimation() {
         {activeStage === 1 && (
           <g>
             <text x={W / 2} y={detailY + 25} textAnchor="middle"
-              fill={T.purple} fontSize={15} fontWeight={700}>
+              fill={T.purple} fontSize={15} fontWeight={500}>
               Graph Construction: Atoms → Nodes, Bonds → Directed Edges
             </text>
             <g transform={`translate(${W / 2 - 100}, ${detailY + 35})`}>
@@ -465,7 +465,7 @@ export default function DefectNetFlowAnimation() {
                   <circle cx={n.x} cy={n.y} r={16}
                     fill={T.purpleLight} stroke={T.purple} strokeWidth={1.5} />
                   <text x={n.x} y={n.y + 4} textAnchor="middle"
-                    fill={T.purple} fontSize={9} fontWeight={600}>
+                    fill={T.purple} fontSize={9} fontWeight={500}>
                     {n.label}
                   </text>
                 </g>
@@ -492,12 +492,12 @@ export default function DefectNetFlowAnimation() {
         {activeStage === 2 && (
           <g>
             <text x={W / 2} y={detailY + 25} textAnchor="middle"
-              fill={T.green} fontSize={15} fontWeight={700}>
+              fill={T.green} fontSize={15} fontWeight={500}>
               Feature Encoding
             </text>
             {/* Gaussian smearing visualization */}
             <g transform={`translate(${60}, ${detailY + 45})`}>
-              <text x={110} y={0} textAnchor="middle" fill={T.green} fontSize={12} fontWeight={600}>
+              <text x={110} y={0} textAnchor="middle" fill={T.green} fontSize={12} fontWeight={500}>
                 Gaussian Smearing (80 centers)
               </text>
               {/* Draw Gaussian curves */}
@@ -526,7 +526,7 @@ export default function DefectNetFlowAnimation() {
 
             {/* Angular basis */}
             <g transform={`translate(${320}, ${detailY + 45})`}>
-              <text x={100} y={0} textAnchor="middle" fill={T.green} fontSize={12} fontWeight={600}>
+              <text x={100} y={0} textAnchor="middle" fill={T.green} fontSize={12} fontWeight={500}>
                 Angular Basis (16 centers)
               </text>
               {[...Array(4)].map((_, i) => {
@@ -563,7 +563,7 @@ export default function DefectNetFlowAnimation() {
                   <g key={i}>
                     <rect x={-5} y={i * 28 - 4} width={350} height={24} rx={4}
                       fill={isHighlighted ? T.greenLight : "transparent"} />
-                    <text x={0} y={i * 28 + 12} fill={T.green} fontSize={12} fontWeight={700}>
+                    <text x={0} y={i * 28 + 12} fill={T.green} fontSize={12} fontWeight={500}>
                       {label}
                     </text>
                     <text x={95} y={i * 28 + 12} fill={T.text} fontSize={11.5}>
@@ -580,7 +580,7 @@ export default function DefectNetFlowAnimation() {
         {activeStage === 3 && (
           <g>
             <text x={W / 2} y={detailY + 25} textAnchor="middle"
-              fill={T.highlight} fontSize={15} fontWeight={700}>
+              fill={T.highlight} fontSize={15} fontWeight={500}>
               Message Passing: 4 Interaction Blocks
             </text>
 
@@ -592,14 +592,14 @@ export default function DefectNetFlowAnimation() {
 
             {/* Block labels */}
             <g transform={`translate(${380}, ${detailY + 50})`}>
-              <text x={0} y={0} fill={T.highlight} fontSize={13} fontWeight={700}>
+              <text x={0} y={0} fill={T.highlight} fontSize={13} fontWeight={500}>
                 2-body convolution (CGCNN-style):
               </text>
               <text x={0} y={22} fill={T.text} fontSize={12}>
                 h'_i = sp( h_i + BN( Σ_j σ(W[h_i, h_j, e_ij]) ⊙ sp(·) ) )
               </text>
 
-              <text x={0} y={55} fill={T.highlight} fontSize={13} fontWeight={700}>
+              <text x={0} y={55} fill={T.highlight} fontSize={13} fontWeight={500}>
                 3-body convolution (angular):
               </text>
               <text x={0} y={77} fill={T.text} fontSize={12}>
@@ -632,7 +632,7 @@ export default function DefectNetFlowAnimation() {
                       strokeWidth={isActive ? 2 : 1} />
                     <text x={i * 70 + 27.5} y={18} textAnchor="middle"
                       fill={isActive ? T.highlight : T.textMid}
-                      fontSize={12} fontWeight={isActive ? 700 : 400}>
+                      fontSize={12} fontWeight={isActive ? 500 : 400}>
                       Block {block}
                     </text>
                     {i < 3 && (
@@ -649,7 +649,7 @@ export default function DefectNetFlowAnimation() {
         {activeStage === 4 && (
           <g>
             <text x={W / 2} y={detailY + 25} textAnchor="middle"
-              fill={T.red} fontSize={15} fontWeight={700}>
+              fill={T.red} fontSize={15} fontWeight={500}>
               Output: Energy, Forces, Stress
             </text>
 
@@ -684,13 +684,13 @@ export default function DefectNetFlowAnimation() {
                     fill={isHighlighted ? T.redLight : "#fff"}
                     stroke={out.color} strokeWidth={isHighlighted ? 2.5 : 1.5} />
                   <text x={out.x + cardW / 2} y={cy + 28} textAnchor="middle"
-                    fill={out.color} fontSize={16} fontWeight={700}>
+                    fill={out.color} fontSize={16} fontWeight={500}>
                     {out.title}
                   </text>
                   <rect x={out.x + 15} y={cy + 40} width={cardW - 30} height={30} rx={5}
                     fill={T.bg} />
                   <text x={out.x + cardW / 2} y={cy + 60} textAnchor="middle"
-                    fill={T.text} fontSize={12} fontWeight={600}>
+                    fill={T.text} fontSize={12} fontWeight={500}>
                     {out.eq}
                   </text>
                   {out.desc.split("\n").map((line, j) => (

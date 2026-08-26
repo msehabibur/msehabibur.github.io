@@ -125,12 +125,12 @@ export default function SSSynthesisMovieModule() {
           {Array.from({ length: 14 }).map((_, i) => (
             <line key={i} x1={0} y1={i * 30} x2={W} y2={i * 30} stroke={P.dim} strokeWidth="0.3" opacity={0.2} />
           ))}
-          <text x={W/2} y={130} textAnchor="middle" fill={P.ink} fontSize="16" fontWeight="900"
+          <text x={W/2} y={130} textAnchor="middle" fill={P.ink} fontSize="16" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Text-Mined Solid-State Synthesis</text>
-          <text x={W/2} y={155} textAnchor="middle" fill={P.data} fontSize="14" fontWeight="800"
+          <text x={W/2} y={155} textAnchor="middle" fill={P.data} fontSize="14" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Dataset with Impurity Phases</text>
           <rect x={(W-lW)/2} y={166} width={lW} height={3} rx="1.5" fill={P.lit} opacity={tOp * 0.8} />
-          <text x={W/2} y={195} textAnchor="middle" fill={P.gpt} fontSize="11" fontWeight="700"
+          <text x={W/2} y={195} textAnchor="middle" fill={P.gpt} fontSize="11" fontWeight="500"
             fontFamily="'Fira Code',monospace" opacity={sOp}>80,806 reactions extracted via LLM</text>
           <text x={W/2} y={215} textAnchor="middle" fill={P.muted} fontSize="10"
             fontFamily="'Inter',sans-serif" opacity={sOp}>MatBERT classification + GPT-4o extraction</text>
@@ -151,7 +151,7 @@ export default function SSSynthesisMovieModule() {
             return (
               <g key={i} opacity={op}>
                 <rect x={s.x-48} y={290} width={96} height={52} rx="8" fill={s.color+"15"} stroke={s.color+"50"} strokeWidth="1.5"/>
-                <text x={s.x} y={314} textAnchor="middle" fill={s.color} fontSize="16" fontWeight="900"
+                <text x={s.x} y={314} textAnchor="middle" fill={s.color} fontSize="16" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{s.label}</text>
                 <text x={s.x} y={330} textAnchor="middle" fill={P.muted} fontSize="8"
                   fontFamily="'Inter',sans-serif">{s.sub}</text>
@@ -186,7 +186,7 @@ export default function SSSynthesisMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="14" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="14" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>The Problem: Missing Impurity Data</text>
           <line x1={262} y1={32} x2={262} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -197,7 +197,7 @@ export default function SSSynthesisMovieModule() {
             return (
               <g key={i} opacity={op}>
                 <rect x={LX+4} y={y} width={LW-8} height={bH} rx="6" fill={b.color+"10"} stroke={b.color+"30"} strokeWidth="1"/>
-                <text x={LX+14} y={y+16} fill={b.color} fontSize="9" fontWeight="700"
+                <text x={LX+14} y={y+16} fill={b.color} fontSize="9" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{b.title}</text>
                 {b.lines.map((ln, li) => (
                   <text key={li} x={LX+14} y={y+30+li*14} fill={P.muted} fontSize="8"
@@ -211,45 +211,45 @@ export default function SSSynthesisMovieModule() {
           {/* Reaction equation */}
           <g opacity={ease(clamp01((t-0.08)*4))}>
             <rect x={RX+8} y={38} width={RW-16} height={50} rx="6" fill={P.lit+"12"} stroke={P.lit+"30"} strokeWidth="1"/>
-            <text x={RX+RW/2} y={54} textAnchor="middle" fill={P.data} fontSize="9" fontWeight="700"
+            <text x={RX+RW/2} y={54} textAnchor="middle" fill={P.data} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Example: BiFeO₃ Synthesis</text>
-            <text x={RX+RW/2} y={76} textAnchor="middle" fill={P.lit} fontSize="9" fontWeight="700"
+            <text x={RX+RW/2} y={76} textAnchor="middle" fill={P.lit} fontSize="9" fontWeight="500"
               fontFamily="'Fira Code',monospace">0.5 Bi₂O₃ + 0.5 Fe₂O₃ → BiFeO₃</text>
           </g>
 
           {/* Target */}
           <g opacity={ease(clamp01((t-0.2)*4))}>
             <rect x={RX+8} y={96} width={RW-16} height={50} rx="6" fill={P.ok+"12"} stroke={P.ok+"30"} strokeWidth="1"/>
-            <text x={RX+18} y={112} fill={P.ok} fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">Target (desired)</text>
-            <text x={RX+RW/2} y={134} textAnchor="middle" fill={P.ink} fontSize="12" fontWeight="800"
+            <text x={RX+18} y={112} fill={P.ok} fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">Target (desired)</text>
+            <text x={RX+RW/2} y={134} textAnchor="middle" fill={P.ink} fontSize="12" fontWeight="500"
               fontFamily="'Fira Code',monospace">BiFeO₃</text>
           </g>
 
           {/* Impurity phases */}
           <g opacity={ease(clamp01((t-0.32)*4))}>
             <rect x={RX+8} y={154} width={RW-16} height={62} rx="6" fill={P.impure+"12"} stroke={P.impure+"30"} strokeWidth="1"/>
-            <text x={RX+18} y={170} fill={P.impure} fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">Impurity phases (unwanted)</text>
-            <text x={RX+RW/2} y={190} textAnchor="middle" fill={P.warn} fontSize="10" fontWeight="700"
+            <text x={RX+18} y={170} fill={P.impure} fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">Impurity phases (unwanted)</text>
+            <text x={RX+RW/2} y={190} textAnchor="middle" fill={P.warn} fontSize="10" fontWeight="500"
               fontFamily="'Fira Code',monospace">Bi₂Fe₄O₉</text>
-            <text x={RX+RW/2} y={206} textAnchor="middle" fill={P.warn} fontSize="10" fontWeight="700"
+            <text x={RX+RW/2} y={206} textAnchor="middle" fill={P.warn} fontSize="10" fontWeight="500"
               fontFamily="'Fira Code',monospace">Bi₂₅FeO₄₀</text>
           </g>
 
           {/* Why it matters */}
           <g opacity={ease(clamp01((t-0.44)*4))}>
             <rect x={RX+8} y={224} width={RW-16} height={80} rx="6" fill={P.thermo+"10"} stroke={P.thermo+"30"} strokeWidth="1"/>
-            <text x={RX+RW/2} y={240} textAnchor="middle" fill={P.thermo} fontSize="9" fontWeight="700"
+            <text x={RX+RW/2} y={240} textAnchor="middle" fill={P.thermo} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Why BiFeO₃ is challenging</text>
             <text x={RX+18} y={256} fill={P.muted} fontSize="8" fontFamily="'Inter',sans-serif">• Narrow thermodynamic stability</text>
             <text x={RX+18} y={270} fill={P.muted} fontSize="8" fontFamily="'Inter',sans-serif">• Bi volatility at high temperature</text>
             <text x={RX+18} y={284} fill={P.muted} fontSize="8" fontFamily="'Inter',sans-serif">• 107/221 reactions report impurities</text>
-            <text x={RX+18} y={298} fill={P.data} fontSize="8" fontWeight="600" fontFamily="'Inter',sans-serif">• Most studied impure reaction</text>
+            <text x={RX+18} y={298} fill={P.data} fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">• Most studied impure reaction</text>
           </g>
 
           {/* Data stat */}
           <g opacity={ease(clamp01((t-0.56)*4))}>
             <rect x={RX+8} y={312} width={RW-16} height={62} rx="6" fill={P.data+"12"} stroke={P.data+"30"} strokeWidth="1.5"/>
-            <text x={RX+RW/2} y={334} textAnchor="middle" fill={P.data} fontSize="9" fontWeight="700"
+            <text x={RX+RW/2} y={334} textAnchor="middle" fill={P.data} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Dataset captures both outcomes:</text>
             <text x={RX+RW/2} y={356} textAnchor="middle" fill={P.ink} fontSize="9"
               fontFamily="'Fira Code',monospace">phase-pure ✓  &amp;  phase-impure ✗</text>
@@ -284,7 +284,7 @@ export default function SSSynthesisMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Extraction Pipeline Overview</text>
 
           {/* Pipeline steps — consistent blocks */}
@@ -294,7 +294,7 @@ export default function SSSynthesisMovieModule() {
             return (
               <g key={i} opacity={op}>
                 <rect x={cx - bW/2} y={y} width={bW} height={bH} rx="7" fill={s.color+"18"} stroke={s.color+"50"} strokeWidth="1.5"/>
-                <text x={cx} y={y+18} textAnchor="middle" fill={s.color} fontSize="10" fontWeight="700"
+                <text x={cx} y={y+18} textAnchor="middle" fill={s.color} fontSize="10" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{s.label}</text>
                 <text x={cx} y={y+33} textAnchor="middle" fill={P.muted} fontSize="8"
                   fontFamily="'Inter',sans-serif">{s.sub}</text>
@@ -329,7 +329,7 @@ export default function SSSynthesisMovieModule() {
             return (
               <g key={i} opacity={op}>
                 <rect x={o.x} y={outY} width={outW} height={outH} rx="7" fill={o.color+"18"} stroke={o.color+"60"} strokeWidth="1.5"/>
-                <text x={o.x+outW/2} y={outY+18} textAnchor="middle" fill={o.color} fontSize="12" fontWeight="900"
+                <text x={o.x+outW/2} y={outY+18} textAnchor="middle" fill={o.color} fontSize="12" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{o.count}</text>
                 <text x={o.x+outW/2} y={outY+34} textAnchor="middle" fill={P.muted} fontSize="8"
                   fontFamily="'Inter',sans-serif">{o.label}</text>
@@ -354,7 +354,7 @@ export default function SSSynthesisMovieModule() {
 
           {/* Publishers on far right */}
           <g opacity={ease(clamp01((t-0.12)*4))}>
-            <text x={470} y={50} fill={P.muted} fontSize="7.5" fontWeight="600" fontFamily="'Inter',sans-serif">Publishers (2000–2024)</text>
+            <text x={470} y={50} fill={P.muted} fontSize="7.5" fontWeight="500" fontFamily="'Inter',sans-serif">Publishers (2000–2024)</text>
             {["ACS", "AIP", "APS", "Elsevier", "IoP", "Springer Nature", "RSC", "Wiley"].map((pub, i) => (
               <text key={i} x={470} y={65+i*13} fill={P.dim} fontSize="7" fontFamily="'Inter',sans-serif">• {pub}</text>
             ))}
@@ -370,7 +370,7 @@ export default function SSSynthesisMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Step 1: Recipe Paragraph Classification</text>
           <line x1={262} y1={32} x2={262} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -392,7 +392,7 @@ export default function SSSynthesisMovieModule() {
               <g key={i} opacity={op}>
                 <rect x={cx - s.w/2} y={y} width={s.w} height={38} rx="6"
                   fill={s.color+"18"} stroke={s.color+"50"} strokeWidth="1.5"/>
-                <text x={cx} y={y+16} textAnchor="middle" fill={s.color} fontSize="10" fontWeight="700"
+                <text x={cx} y={y+16} textAnchor="middle" fill={s.color} fontSize="10" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{s.label}</text>
                 <text x={cx} y={y+30} textAnchor="middle" fill={P.muted} fontSize="7.5"
                   fontFamily="'Inter',sans-serif">{s.sub}</text>
@@ -405,12 +405,12 @@ export default function SSSynthesisMovieModule() {
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
 
-          <text x={RX+RW/2} y={52} textAnchor="middle" fill={P.bert} fontSize="10" fontWeight="700"
+          <text x={RX+RW/2} y={52} textAnchor="middle" fill={P.bert} fontSize="10" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.1)*4))}>MatBERT Classifier</text>
 
           {/* Classification categories */}
           <g opacity={ease(clamp01((t-0.3)*4))}>
-            <text x={RX+15} y={75} fill={P.muted} fontSize="8" fontWeight="600" fontFamily="'Inter',sans-serif">Classifies into 5 categories:</text>
+            <text x={RX+15} y={75} fill={P.muted} fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">Classifies into 5 categories:</text>
             {[
               { label: "Solid-state", color: P.ok, w: 110 },
               { label: "Sol-gel", color: P.data, w: 65 },
@@ -423,7 +423,7 @@ export default function SSSynthesisMovieModule() {
                 <g key={i} opacity={op2}>
                   <rect x={RX+15} y={85+i*26} width={c.w} height={20} rx="4"
                     fill={c.color+"18"} stroke={c.color+"50"} strokeWidth="1"/>
-                  <text x={RX+20} y={85+i*26+14} fill={c.color} fontSize="8.5" fontWeight="600"
+                  <text x={RX+20} y={85+i*26+14} fill={c.color} fontSize="8.5" fontWeight="500"
                     fontFamily="'Inter',sans-serif">{c.label}</text>
                 </g>
               );
@@ -433,7 +433,7 @@ export default function SSSynthesisMovieModule() {
           {/* Keyword filter */}
           <g opacity={ease(clamp01((t-0.5)*4))}>
             <rect x={RX+15} y={225} width={RW-30} height={55} rx="5" fill={P.target+"10"} stroke={P.target+"30"} strokeWidth="1"/>
-            <text x={RX+RW/2} y={242} textAnchor="middle" fill={P.target} fontSize="8.5" fontWeight="700"
+            <text x={RX+RW/2} y={242} textAnchor="middle" fill={P.target} fontSize="8.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">Keyword Pre-Filter</text>
             <text x={RX+25} y={258} fill={P.muted} fontSize="7" fontFamily="'Fira Code',monospace">
               "preparation", "method", "material"</text>
@@ -444,11 +444,11 @@ export default function SSSynthesisMovieModule() {
           {/* Performance */}
           <g opacity={ease(clamp01((t-0.65)*4))}>
             <rect x={RX+15} y={295} width={RW-30} height={70} rx="5" fill={P.ok+"10"} stroke={P.ok+"30"} strokeWidth="1"/>
-            <text x={RX+RW/2} y={312} textAnchor="middle" fill={P.ok} fontSize="8.5" fontWeight="700"
+            <text x={RX+RW/2} y={312} textAnchor="middle" fill={P.ok} fontSize="8.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">MatBERT Performance</text>
             <text x={RX+30} y={330} fill={P.muted} fontSize="8" fontFamily="'Inter',sans-serif">Precision: 0.84</text>
             <text x={RX+140} y={330} fill={P.muted} fontSize="8" fontFamily="'Inter',sans-serif">Recall: 0.97</text>
-            <text x={RX+30} y={348} fill={P.ok} fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">F1 Score: 0.90</text>
+            <text x={RX+30} y={348} fill={P.ok} fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">F1 Score: 0.90</text>
           </g>
         </svg>
       );
@@ -461,7 +461,7 @@ export default function SSSynthesisMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Step 2: GPT-4o Reaction Extraction</text>
           <line x1={280} y1={32} x2={280} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -469,7 +469,7 @@ export default function SSSynthesisMovieModule() {
           <rect x={10} y={36} width={260} height={375} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
 
-          <text x={140} y={55} textAnchor="middle" fill={P.lit} fontSize="9.5" fontWeight="700"
+          <text x={140} y={55} textAnchor="middle" fill={P.lit} fontSize="9.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.05)*4))}>Paper Input (Relevant Portions)</text>
 
           {/* Simulated paper text */}
@@ -485,22 +485,22 @@ export default function SSSynthesisMovieModule() {
               conventional solid state reaction</text>
             <text x={30} y={136} fill={P.muted} fontSize="7" fontFamily="'Fira Code',monospace">
               process using high purity </text>
-            <text x={205} y={136} fill={P.gpt} fontSize="7" fontWeight="700" fontFamily="'Fira Code',monospace">La₂O₃</text>
+            <text x={205} y={136} fill={P.gpt} fontSize="7" fontWeight="500" fontFamily="'Fira Code',monospace">La₂O₃</text>
             <text x={30} y={148} fill={P.muted} fontSize="7" fontFamily="'Fira Code',monospace">
               , </text>
-            <text x={40} y={148} fill={P.gpt} fontSize="7" fontWeight="700" fontFamily="'Fira Code',monospace">SiO₂</text>
+            <text x={40} y={148} fill={P.gpt} fontSize="7" fontWeight="500" fontFamily="'Fira Code',monospace">SiO₂</text>
             <text x={65} y={148} fill={P.muted} fontSize="7" fontFamily="'Fira Code',monospace">
               , BaCO₃, SrCO₃, CaCO₃...</text>
             <text x={30} y={166} fill={P.muted} fontSize="6.5" fontFamily="'Fira Code',monospace">
               ...</text>
             <text x={30} y={178} fill={P.muted} fontSize="7" fontFamily="'Fira Code',monospace">
               a secondary phase, </text>
-            <text x={155} y={178} fill={P.impure} fontSize="7" fontWeight="700" fontFamily="'Fira Code',monospace">La₂Si₂O₅</text>
+            <text x={155} y={178} fill={P.impure} fontSize="7" fontWeight="500" fontFamily="'Fira Code',monospace">La₂Si₂O₅</text>
           </g>
 
           {/* Sections used */}
           <g opacity={ease(clamp01((t-0.25)*4))}>
-            <text x={30} y={210} fill={P.muted} fontSize="7.5" fontWeight="600" fontFamily="'Inter',sans-serif">Sections used:</text>
+            <text x={30} y={210} fill={P.muted} fontSize="7.5" fontWeight="500" fontFamily="'Inter',sans-serif">Sections used:</text>
             {["Abstract", "Synthesis paragraph(s)", "Results", "Discussion"].map((s, i) => (
               <g key={i}>
                 <rect x={20+i*60} y={215} width={55} height={18} rx="3" fill={P.lit+"15"} stroke={P.lit+"30"} strokeWidth="0.8"/>
@@ -516,7 +516,7 @@ export default function SSSynthesisMovieModule() {
           <rect x={290} y={36} width={260} height={375} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
 
-          <text x={420} y={55} textAnchor="middle" fill={P.gpt} fontSize="9.5" fontWeight="700"
+          <text x={420} y={55} textAnchor="middle" fill={P.gpt} fontSize="9.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.35)*4))}>GPT-4o Output (JSON)</text>
 
           {/* JSON output */}
@@ -534,14 +534,14 @@ export default function SSSynthesisMovieModule() {
               { t: '  ]', c: P.muted },
               { t: '}', c: P.dim },
             ].map((ln, i) => (
-              <text key={i} x={310} y={82+i*13} fill={ln.c} fontSize="7.5" fontWeight={ln.c === P.gpt || ln.c === P.data || ln.c === P.impure ? "700" : "400"}
+              <text key={i} x={310} y={82+i*13} fill={ln.c} fontSize="7.5" fontWeight={ln.c === P.gpt || ln.c === P.data || ln.c === P.impure ? "500" : "400"}
                 fontFamily="'Fira Code',monospace" opacity={ease(clamp01((t-0.42-i*0.02)*5))}>{ln.t}</text>
             ))}
           </g>
 
           {/* Post-processing */}
           <g opacity={ease(clamp01((t-0.6)*4))}>
-            <text x={420} y={225} textAnchor="middle" fill={P.target} fontSize="9" fontWeight="700"
+            <text x={420} y={225} textAnchor="middle" fill={P.target} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Post-Processing</text>
             {[
               { label: "MaterialParser", desc: "detect formulas", color: P.target },
@@ -553,7 +553,7 @@ export default function SSSynthesisMovieModule() {
               return (
                 <g key={i} opacity={op2}>
                   <rect x={300} y={235+i*32} width={110} height={26} rx="4" fill={s.color+"15"} stroke={s.color+"40"} strokeWidth="1"/>
-                  <text x={310} y={252+i*32} fill={s.color} fontSize="8" fontWeight="600" fontFamily="'Inter',sans-serif">{s.label}</text>
+                  <text x={310} y={252+i*32} fill={s.color} fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">{s.label}</text>
                   <text x={420} y={252+i*32} fill={P.muted} fontSize="7" fontFamily="'Inter',sans-serif">{s.desc}</text>
                 </g>
               );
@@ -563,7 +563,7 @@ export default function SSSynthesisMovieModule() {
           {/* Config */}
           <g opacity={ease(clamp01((t-0.82)*4))}>
             <rect x={300} y={370} width={240} height={30} rx="5" fill={P.gpt+"10"} stroke={P.gpt+"30"} strokeWidth="1"/>
-            <text x={420} y={389} textAnchor="middle" fill={P.gpt} fontSize="7.5" fontWeight="600"
+            <text x={420} y={389} textAnchor="middle" fill={P.gpt} fontSize="7.5" fontWeight="500"
               fontFamily="'Fira Code',monospace">gpt-4o-2024-05-13 · temp=0 · few-shot</text>
           </g>
         </svg>
@@ -592,7 +592,7 @@ export default function SSSynthesisMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Dataset Overview: 80,806 Reactions</text>
 
           {/* Stats grid */}
@@ -605,7 +605,7 @@ export default function SSSynthesisMovieModule() {
             return (
               <g key={i} opacity={op}>
                 <rect x={x} y={y} width={160} height={52} rx="7" fill={s.color+"12"} stroke={s.color+"40"} strokeWidth="1.5"/>
-                <text x={x+80} y={y+22} textAnchor="middle" fill={s.color} fontSize="16" fontWeight="900"
+                <text x={x+80} y={y+22} textAnchor="middle" fill={s.color} fontSize="16" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{s.value}</text>
                 <text x={x+80} y={y+40} textAnchor="middle" fill={P.muted} fontSize="8"
                   fontFamily="'Inter',sans-serif">{s.label}</text>
@@ -615,15 +615,15 @@ export default function SSSynthesisMovieModule() {
 
           {/* Bar chart */}
           <g opacity={ease(clamp01((t-0.4)*4))}>
-            <text x={W/2} y={190} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="600"
+            <text x={W/2} y={190} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Distribution</text>
             {barData.map((b, i) => {
               const bw = ease(clamp01((t - 0.45 - i*0.08) * 3)) * (b.val / b.max) * 400;
               return (
                 <g key={i}>
-                  <text x={30} y={215+i*35} fill={b.color} fontSize="8.5" fontWeight="600" fontFamily="'Inter',sans-serif">{b.label}</text>
+                  <text x={30} y={215+i*35} fill={b.color} fontSize="8.5" fontWeight="500" fontFamily="'Inter',sans-serif">{b.label}</text>
                   <rect x={130} y={203+i*35} width={bw} height={18} rx="3" fill={b.color+"40"} stroke={b.color} strokeWidth="1"/>
-                  <text x={135+bw} y={216+i*35} fill={b.color} fontSize="9" fontWeight="700"
+                  <text x={135+bw} y={216+i*35} fill={b.color} fontSize="9" fontWeight="500"
                     fontFamily="'Inter',sans-serif">{b.val.toLocaleString()}</text>
                 </g>
               );
@@ -633,7 +633,7 @@ export default function SSSynthesisMovieModule() {
           {/* Data record format */}
           <g opacity={ease(clamp01((t-0.6)*4))}>
             <rect x={20} y={270} width={W-40} height={135} rx="7" fill={P.surface} stroke={P.border} strokeWidth="1"/>
-            <text x={W/2} y={290} textAnchor="middle" fill={P.data} fontSize="9.5" fontWeight="700"
+            <text x={W/2} y={290} textAnchor="middle" fill={P.data} fontSize="9.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">Data Record Format</text>
             {[
               { field: "DOI", type: "string", color: P.lit },
@@ -647,7 +647,7 @@ export default function SSSynthesisMovieModule() {
               const op2 = ease(clamp01((t - 0.63 - i*0.03) * 5));
               return (
                 <g key={i} opacity={op2}>
-                  <text x={35} y={308+i*13} fill={f.color} fontSize="7.5" fontWeight="600"
+                  <text x={35} y={308+i*13} fill={f.color} fontSize="7.5" fontWeight="500"
                     fontFamily="'Fira Code',monospace">{f.field}</text>
                   <text x={200} y={308+i*13} fill={P.muted} fontSize="7"
                     fontFamily="'Inter',sans-serif">{f.type}</text>
@@ -675,15 +675,15 @@ export default function SSSynthesisMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Top Reactions with Impurity Phases</text>
 
           {/* Table header */}
           <g opacity={ease(clamp01((t-0.05)*4))}>
             <rect x={15} y={35} width={W-30} height={22} rx="4" fill={P.data+"15"}/>
-            <text x={30} y={50} fill={P.data} fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">Reaction</text>
-            <text x={305} y={50} fill={P.impure} fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">Impurity Phases</text>
-            <text x={470} y={50} fill={P.muted} fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">Impure/Total</text>
+            <text x={30} y={50} fill={P.data} fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">Reaction</text>
+            <text x={305} y={50} fill={P.impure} fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">Impurity Phases</text>
+            <text x={470} y={50} fill={P.muted} fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">Impure/Total</text>
           </g>
 
           {/* Reaction rows */}
@@ -693,11 +693,11 @@ export default function SSSynthesisMovieModule() {
             return (
               <g key={i} opacity={op}>
                 <rect x={15} y={y} width={W-30} height={44} rx="5" fill={P.surface} stroke={P.border} strokeWidth="0.8"/>
-                <text x={30} y={y+18} fill={r.color} fontSize="8.5" fontWeight="700"
+                <text x={30} y={y+18} fill={r.color} fontSize="8.5" fontWeight="500"
                   fontFamily="'Fira Code',monospace">{r.rxn}</text>
                 <text x={305} y={y+18} fill={P.warn} fontSize="8" fontFamily="'Fira Code',monospace">{r.imp}</text>
                 <rect x={470} y={y+6} width={65} height={18} rx="3" fill={P.impure+"15"} stroke={P.impure+"30"} strokeWidth="0.8"/>
-                <text x={502} y={y+19} textAnchor="middle" fill={P.impure} fontSize="8.5" fontWeight="700"
+                <text x={502} y={y+19} textAnchor="middle" fill={P.impure} fontSize="8.5" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{r.count}</text>
                 <text x={30} y={y+35} fill={P.dim} fontSize="7" fontFamily="'Inter',sans-serif">
                   {i===0 ? "Multiferroic — narrow stability, Bi volatility" :
@@ -737,7 +737,7 @@ export default function SSSynthesisMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Thermodynamic Validation: E_hull Analysis</text>
 
           {/* Chart background */}
@@ -771,22 +771,22 @@ export default function SSSynthesisMovieModule() {
               fontFamily="'Inter',sans-serif">−0.6</text>
             <text x={chartX + chartW + 5} y={chartY + chartH + 5} fill={P.muted} fontSize="7"
               fontFamily="'Inter',sans-serif">0.4</text>
-            <text x={chartX + chartW * 0.545} y={chartY + chartH + 5} textAnchor="middle" fill={P.ink} fontSize="7" fontWeight="700"
+            <text x={chartX + chartW * 0.545} y={chartY + chartH + 5} textAnchor="middle" fill={P.ink} fontSize="7" fontWeight="500"
               fontFamily="'Inter',sans-serif">0.0</text>
           </g>
 
           {/* Annotations */}
           <g opacity={ease(clamp01((t-0.4)*4))}>
-            <text x={chartX + chartW * 0.25} y={chartY - 8} textAnchor="middle" fill={P.impure} fontSize="8" fontWeight="700"
+            <text x={chartX + chartW * 0.25} y={chartY - 8} textAnchor="middle" fill={P.impure} fontSize="8" fontWeight="500"
               fontFamily="'Inter',sans-serif">← Impurity more stable</text>
-            <text x={chartX + chartW * 0.8} y={chartY - 8} textAnchor="middle" fill={P.pure} fontSize="8" fontWeight="700"
+            <text x={chartX + chartW * 0.8} y={chartY - 8} textAnchor="middle" fill={P.pure} fontSize="8" fontWeight="500"
               fontFamily="'Inter',sans-serif">Target more stable →</text>
           </g>
 
           {/* Key findings */}
           <g opacity={ease(clamp01((t-0.5)*4))}>
             <rect x={30} y={300} width={500} height={105} rx="7" fill={P.surface} stroke={P.border} strokeWidth="1"/>
-            <text x={W/2} y={320} textAnchor="middle" fill={P.thermo} fontSize="10" fontWeight="700"
+            <text x={W/2} y={320} textAnchor="middle" fill={P.thermo} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Key Findings (3,267 reactions analyzed)</text>
             {[
               { text: "31% — impurity has lower E_hull (thermodynamically expected)", color: P.impure, icon: "●" },
@@ -796,7 +796,7 @@ export default function SSSynthesisMovieModule() {
               const op2 = ease(clamp01((t - 0.55 - i*0.06) * 4));
               return (
                 <g key={i} opacity={op2}>
-                  <text x={50} y={340+i*20} fill={f.color} fontSize="9" fontWeight="700"
+                  <text x={50} y={340+i*20} fill={f.color} fontSize="9" fontWeight="500"
                     fontFamily="'Inter',sans-serif">{f.icon}</text>
                   <text x={65} y={340+i*20} fill={P.ink} fontSize="8.5"
                     fontFamily="'Inter',sans-serif">{f.text}</text>
@@ -826,17 +826,17 @@ export default function SSSynthesisMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Technical Validation</text>
 
           {/* Table header */}
           <g opacity={ease(clamp01((t-0.05)*4))}>
             <rect x={20} y={40} width={W-40} height={24} rx="4" fill={P.data+"15"}/>
-            <text x={40} y={56} fill={P.data} fontSize="8.5" fontWeight="700" fontFamily="'Inter',sans-serif">Entity</text>
-            <text x={190} y={56} fill={P.muted} fontSize="8.5" fontWeight="700" fontFamily="'Inter',sans-serif">Method</text>
-            <text x={320} y={56} fill={P.ok} fontSize="8.5" fontWeight="700" fontFamily="'Inter',sans-serif">Precision</text>
-            <text x={385} y={56} fill={P.ok} fontSize="8.5" fontWeight="700" fontFamily="'Inter',sans-serif">Recall</text>
-            <text x={450} y={56} fill={P.ok} fontSize="8.5" fontWeight="700" fontFamily="'Inter',sans-serif">F1</text>
+            <text x={40} y={56} fill={P.data} fontSize="8.5" fontWeight="500" fontFamily="'Inter',sans-serif">Entity</text>
+            <text x={190} y={56} fill={P.muted} fontSize="8.5" fontWeight="500" fontFamily="'Inter',sans-serif">Method</text>
+            <text x={320} y={56} fill={P.ok} fontSize="8.5" fontWeight="500" fontFamily="'Inter',sans-serif">Precision</text>
+            <text x={385} y={56} fill={P.ok} fontSize="8.5" fontWeight="500" fontFamily="'Inter',sans-serif">Recall</text>
+            <text x={450} y={56} fill={P.ok} fontSize="8.5" fontWeight="500" fontFamily="'Inter',sans-serif">F1</text>
           </g>
 
           {/* Rows */}
@@ -846,13 +846,13 @@ export default function SSSynthesisMovieModule() {
             return (
               <g key={i} opacity={op}>
                 <rect x={20} y={y} width={W-40} height={32} rx="4" fill={P.surface} stroke={P.border} strokeWidth="0.8"/>
-                <text x={40} y={y+20} fill={m.color} fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">{m.entity}</text>
+                <text x={40} y={y+20} fill={m.color} fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">{m.entity}</text>
                 <text x={190} y={y+20} fill={P.muted} fontSize="8" fontFamily="'Fira Code',monospace">{m.method}</text>
-                <text x={330} y={y+20} fill={P.ink} fontSize="10" fontWeight="700" fontFamily="'Inter',sans-serif">{m.prec}</text>
-                <text x={395} y={y+20} fill={P.ink} fontSize="10" fontWeight="700" fontFamily="'Inter',sans-serif">{m.rec}</text>
+                <text x={330} y={y+20} fill={P.ink} fontSize="10" fontWeight="500" fontFamily="'Inter',sans-serif">{m.prec}</text>
+                <text x={395} y={y+20} fill={P.ink} fontSize="10" fontWeight="500" fontFamily="'Inter',sans-serif">{m.rec}</text>
                 {/* F1 bar */}
                 <rect x={440} y={y+8} width={parseFloat(m.f1)*70} height={14} rx="3" fill={m.color+"30"} stroke={m.color+"60"} strokeWidth="1"/>
-                <text x={445+parseFloat(m.f1)*70} y={y+19} fill={m.color} fontSize="9" fontWeight="800" fontFamily="'Inter',sans-serif">{m.f1}</text>
+                <text x={445+parseFloat(m.f1)*70} y={y+19} fill={m.color} fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">{m.f1}</text>
               </g>
             );
           })}
@@ -860,7 +860,7 @@ export default function SSSynthesisMovieModule() {
           {/* Validation details */}
           <g opacity={ease(clamp01((t-0.5)*4))}>
             <rect x={20} y={230} width={W-40} height={170} rx="7" fill={P.surface} stroke={P.border} strokeWidth="1"/>
-            <text x={W/2} y={252} textAnchor="middle" fill={P.lit} fontSize="10" fontWeight="700"
+            <text x={W/2} y={252} textAnchor="middle" fill={P.lit} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Validation Methodology</text>
 
             {[
@@ -876,7 +876,7 @@ export default function SSSynthesisMovieModule() {
 
             <g opacity={ease(clamp01((t-0.8)*4))}>
               <rect x={40} y={365} width={W-80} height={24} rx="5" fill={P.ok+"12"} stroke={P.ok+"30"} strokeWidth="1"/>
-              <text x={W/2} y={381} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="700"
+              <text x={W/2} y={381} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="500"
                 fontFamily="'Inter',sans-serif">GPT-4o captures long-range context: impurity info often in Discussion, not Recipe</text>
             </g>
           </g>
@@ -899,13 +899,13 @@ export default function SSSynthesisMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Impact &amp; Applications</text>
 
           {/* Dataset summary */}
           <g opacity={ease(clamp01((t-0.05)*4))}>
             <rect x={30} y={35} width={W-60} height={55} rx="8" fill={P.data+"12"} stroke={P.data+"40"} strokeWidth="1.5"/>
-            <text x={W/2} y={55} textAnchor="middle" fill={P.data} fontSize="11" fontWeight="800"
+            <text x={W/2} y={55} textAnchor="middle" fill={P.data} fontSize="11" fontWeight="500"
               fontFamily="'Inter',sans-serif">80,806 solid-state synthesis reactions</text>
             <text x={W/2} y={75} textAnchor="middle" fill={P.muted} fontSize="9"
               fontFamily="'Inter',sans-serif">Including 18,869 with reported impurity phases — first dataset of its kind</text>
@@ -919,7 +919,7 @@ export default function SSSynthesisMovieModule() {
               <g key={i} opacity={op}>
                 <rect x={30} y={y} width={W-60} height={46} rx="7" fill={a.color+"10"} stroke={a.color+"35"} strokeWidth="1.5"/>
                 <text x={55} y={y+20} fill={a.color} fontSize="13" fontFamily="'Inter',sans-serif">{a.icon}</text>
-                <text x={75} y={y+18} fill={a.color} fontSize="10" fontWeight="700" fontFamily="'Inter',sans-serif">{a.title}</text>
+                <text x={75} y={y+18} fill={a.color} fontSize="10" fontWeight="500" fontFamily="'Inter',sans-serif">{a.title}</text>
                 <text x={75} y={y+35} fill={P.muted} fontSize="8.5" fontFamily="'Inter',sans-serif">{a.desc}</text>
               </g>
             );
@@ -962,10 +962,10 @@ export default function SSSynthesisMovieModule() {
     <div style={{ maxWidth: 1100, margin: "0 auto", padding: "24px 20px", fontFamily: "'Inter', -apple-system, sans-serif" }}>
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
-        <div style={{ fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "uppercase", marginBottom: 4 }}>
+        <div style={{ fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "none", marginBottom: 4 }}>
           Animated Module
         </div>
-        <div style={{ fontSize: 22, fontWeight: 800, color: P.data, marginBottom: 4 }}>
+        <div style={{ fontSize: 22, fontWeight: 500, color: P.data, marginBottom: 4 }}>
           Text-Mined Solid-State Synthesis Dataset
         </div>
         <div style={{ fontSize: 13, color: P.muted, lineHeight: 1.5 }}>
@@ -980,12 +980,12 @@ export default function SSSynthesisMovieModule() {
       }}>
         <div style={{ position: "absolute", top: 10, left: 14, zIndex: 2, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ background: P.data+"25", border: `1px solid ${P.data}50`, padding: "3px 10px",
-            borderRadius: 6, fontSize: 10, fontWeight: 700, color: P.data, letterSpacing: 1 }}>
+            borderRadius: 6, fontSize: 10, fontWeight: 500, color: P.data, letterSpacing: 1 }}>
             Scene {sceneIdx + 1}/{SCENES.length}
           </span>
-          <span style={{ fontSize: 12, fontWeight: 700, color: P.ink }}>{scene.label}</span>
+          <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
-        <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 600, opacity: 0.7 }}>
+        <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 500, opacity: 0.7 }}>
           Habibur Rahman · rahma103@purdue.edu
         </div>
         <div style={{ opacity: fadeClass, transition: "opacity 0.25s ease-in-out" }}>
@@ -1001,12 +1001,12 @@ export default function SSSynthesisMovieModule() {
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.data}`,
           background: P.data+"15", cursor: "pointer", display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: 18, color: P.data, fontWeight: 900, fontFamily: "inherit",
+          justifyContent: "center", fontSize: 18, color: P.data, fontWeight: 500, fontFamily: "inherit",
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
-        <button onClick={prevScene} disabled={sceneIdx === 0} style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`, background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default", color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 700, fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4 }}>{"\u2190"}</button>
-        <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`, background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default", color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 700, fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4 }}>{"\u2192"}</button>
+        <button onClick={prevScene} disabled={sceneIdx === 0} style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`, background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default", color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 500, fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4 }}>{"\u2190"}</button>
+        <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`, background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default", color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 500, fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4 }}>{"\u2192"}</button>
         <div style={{ flex: 1, marginLeft: 8 }}>
           <div style={{ height: 6, background: P.dim+"30", borderRadius: 3, position: "relative", cursor: "pointer" }}
             onClick={(e) => {
@@ -1032,7 +1032,7 @@ export default function SSSynthesisMovieModule() {
                 background: i === sceneIdx ? P.data+"25" : "transparent",
                 border: `1px solid ${i === sceneIdx ? P.data : P.dim}`,
                 color: i === sceneIdx ? P.data : P.muted,
-                cursor: "pointer", fontFamily: "inherit", fontWeight: i === sceneIdx ? 700 : 400,
+                cursor: "pointer", fontFamily: "inherit", fontWeight: i === sceneIdx ? 500 : 400,
                 whiteSpace: "nowrap",
               }}>{sc.label}</button>
             ))}

@@ -10,21 +10,21 @@ const T = {
 
 function Tag({ color, children }) {
   return (
-    <span style={{ display: "inline-block", padding: "1px 8px", borderRadius: 4, fontSize: 11, fontWeight: 700, background: color + "22", border: `1px solid ${color}55`, color, letterSpacing: 1 }}>{children}</span>
+    <span style={{ display: "inline-block", padding: "1px 8px", borderRadius: 4, fontSize: 11, fontWeight: 500, background: color + "22", border: `1px solid ${color}55`, color, letterSpacing: 1 }}>{children}</span>
   );
 }
 function SectionTitle({ color, icon, children }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
       <div style={{ width: 32, height: 32, borderRadius: 8, background: color + "22", border: `1px solid ${color}55`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>{icon}</div>
-      <div style={{ fontSize: 15, fontWeight: 800, color, letterSpacing: 1, textTransform: "uppercase" }}>{children}</div>
+      <div style={{ fontSize: 15, fontWeight: 500, color, letterSpacing: 1, textTransform: "none" }}>{children}</div>
     </div>
   );
 }
 function Card({ title, color, children }) {
   return (
     <div style={{ background: color + "08", border: `1px solid ${color}33`, borderRadius: 10, padding: 16, marginBottom: 14 }}>
-      {title && <div style={{ fontSize: 12, fontWeight: 700, color, marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>{title}</div>}
+      {title && <div style={{ fontSize: 12, fontWeight: 500, color, marginBottom: 8, textTransform: "none", letterSpacing: 1 }}>{title}</div>}
       {children}
     </div>
   );
@@ -42,11 +42,11 @@ function BasicsSection() {
     <div>
       <SectionTitle color={T.cs_primary} icon="🔷">Crystal Basics</SectionTitle>
       <p style={{ color: T.muted, fontSize: 13, lineHeight: 1.7, marginBottom: 16 }}>
-        A <Tag color={T.cs_primary}>CRYSTAL</Tag> is a solid with atoms arranged in a periodically repeating pattern extending in all three dimensions. In contrast, an <Tag color={T.cs_accent}>AMORPHOUS</Tag> solid has no long-range order.
+        A <Tag color={T.cs_primary}>Crystal</Tag> is a solid with atoms arranged in a periodically repeating pattern extending in all three dimensions. In contrast, an <Tag color={T.cs_accent}>Amorphous</Tag> solid has no long-range order.
       </p>
       <div style={{ display: "flex", gap: 10, marginBottom: 14 }}>
-        <button onClick={() => setShowOrdered(true)} style={{ padding: "6px 16px", borderRadius: 6, border: `1px solid ${showOrdered ? T.cs_primary : T.border}`, background: showOrdered ? T.cs_primary + "22" : "transparent", color: showOrdered ? T.cs_primary : T.muted, cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "inherit" }}>Crystalline</button>
-        <button onClick={() => setShowOrdered(false)} style={{ padding: "6px 16px", borderRadius: 6, border: `1px solid ${!showOrdered ? T.cs_accent : T.border}`, background: !showOrdered ? T.cs_accent + "22" : "transparent", color: !showOrdered ? T.cs_accent : T.muted, cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "inherit" }}>Amorphous</button>
+        <button onClick={() => setShowOrdered(true)} style={{ padding: "6px 16px", borderRadius: 6, border: `1px solid ${showOrdered ? T.cs_primary : T.border}`, background: showOrdered ? T.cs_primary + "22" : "transparent", color: showOrdered ? T.cs_primary : T.muted, cursor: "pointer", fontSize: 12, fontWeight: 500, fontFamily: "inherit" }}>Crystalline</button>
+        <button onClick={() => setShowOrdered(false)} style={{ padding: "6px 16px", borderRadius: 6, border: `1px solid ${!showOrdered ? T.cs_accent : T.border}`, background: !showOrdered ? T.cs_accent + "22" : "transparent", color: !showOrdered ? T.cs_accent : T.muted, cursor: "pointer", fontSize: 12, fontWeight: 500, fontFamily: "inherit" }}>Amorphous</button>
       </div>
       <svg viewBox="0 0 400 200" style={{ width: "100%", maxWidth: 400, background: T.surface, borderRadius: 10, border: `1px solid ${T.border}` }}>
         {showOrdered ? (
@@ -98,7 +98,7 @@ function BravaisSection() {
       </p>
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 14 }}>
         {systems.map((sys, i) => (
-          <button key={sys.name} onClick={() => setSel(i)} style={{ padding: "5px 12px", borderRadius: 6, border: `1px solid ${sel === i ? sys.color : T.border}`, background: sel === i ? sys.color + "22" : "transparent", color: sel === i ? sys.color : T.muted, cursor: "pointer", fontSize: 11, fontWeight: 600, fontFamily: "inherit" }}>{sys.name}</button>
+          <button key={sys.name} onClick={() => setSel(i)} style={{ padding: "5px 12px", borderRadius: 6, border: `1px solid ${sel === i ? sys.color : T.border}`, background: sel === i ? sys.color + "22" : "transparent", color: sel === i ? sys.color : T.muted, cursor: "pointer", fontSize: 11, fontWeight: 500, fontFamily: "inherit" }}>{sys.name}</button>
         ))}
       </div>
       <Card title={s.name + " System"} color={s.color}>
@@ -112,11 +112,11 @@ function BravaisSection() {
       <div style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
           <thead>
-            <tr style={{ background: T.cs_primary + "15" }}>{["System", "Lengths", "Angles", "Types", "#"].map(h => <th key={h} style={{ padding: "8px 10px", textAlign: "left", borderBottom: `2px solid ${T.cs_primary}44`, color: T.cs_primary, fontWeight: 700 }}>{h}</th>)}</tr>
+            <tr style={{ background: T.cs_primary + "15" }}>{["System", "Lengths", "Angles", "Types", "#"].map(h => <th key={h} style={{ padding: "8px 10px", textAlign: "left", borderBottom: `2px solid ${T.cs_primary}44`, color: T.cs_primary, fontWeight: 500 }}>{h}</th>)}</tr>
           </thead>
           <tbody>
             {systems.map((sys, i) => (
-              <tr key={sys.name} onClick={() => setSel(i)} style={{ background: i % 2 ? T.surface : T.panel, cursor: "pointer", fontWeight: sel === i ? 700 : 400 }}>
+              <tr key={sys.name} onClick={() => setSel(i)} style={{ background: i % 2 ? T.surface : T.panel, cursor: "pointer", fontWeight: sel === i ? 500 : 400 }}>
                 <td style={{ padding: "6px 10px", color: sys.color }}>{sys.name}</td>
                 <td style={{ padding: "6px 10px" }}>{sys.a}</td>
                 <td style={{ padding: "6px 10px" }}>{sys.ang}</td>
@@ -139,11 +139,11 @@ function UnitCellSection() {
     <div>
       <SectionTitle color={T.cs_lattice} icon="📦">Unit Cell</SectionTitle>
       <p style={{ color: T.muted, fontSize: 13, lineHeight: 1.7, marginBottom: 14 }}>
-        The <Tag color={T.cs_lattice}>UNIT CELL</Tag> is the smallest repeating unit that, when translated, fills all space. A <Tag color={T.cs_primary}>PRIMITIVE</Tag> cell contains exactly one lattice point; a <Tag color={T.cs_accent}>CONVENTIONAL</Tag> cell may contain more for convenience.
+        The <Tag color={T.cs_lattice}>Unit cell</Tag> is the smallest repeating unit that, when translated, fills all space. A <Tag color={T.cs_primary}>Primitive</Tag> cell contains exactly one lattice point; a <Tag color={T.cs_accent}>Conventional</Tag> cell may contain more for convenience.
       </p>
       <div style={{ display: "flex", gap: 10, marginBottom: 14 }}>
-        <button onClick={() => setShowWS(false)} style={{ padding: "6px 14px", borderRadius: 6, border: `1px solid ${!showWS ? T.cs_lattice : T.border}`, background: !showWS ? T.cs_lattice + "22" : "transparent", color: !showWS ? T.cs_lattice : T.muted, cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "inherit" }}>Conventional Cell</button>
-        <button onClick={() => setShowWS(true)} style={{ padding: "6px 14px", borderRadius: 6, border: `1px solid ${showWS ? T.cs_cell : T.border}`, background: showWS ? T.cs_cell + "22" : "transparent", color: showWS ? T.cs_cell : T.muted, cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "inherit" }}>Wigner-Seitz Cell</button>
+        <button onClick={() => setShowWS(false)} style={{ padding: "6px 14px", borderRadius: 6, border: `1px solid ${!showWS ? T.cs_lattice : T.border}`, background: !showWS ? T.cs_lattice + "22" : "transparent", color: !showWS ? T.cs_lattice : T.muted, cursor: "pointer", fontSize: 12, fontWeight: 500, fontFamily: "inherit" }}>Conventional Cell</button>
+        <button onClick={() => setShowWS(true)} style={{ padding: "6px 14px", borderRadius: 6, border: `1px solid ${showWS ? T.cs_cell : T.border}`, background: showWS ? T.cs_cell + "22" : "transparent", color: showWS ? T.cs_cell : T.muted, cursor: "pointer", fontSize: 12, fontWeight: 500, fontFamily: "inherit" }}>Wigner-Seitz Cell</button>
       </div>
       <svg viewBox="0 0 400 250" style={{ width: "100%", maxWidth: 400, background: T.surface, borderRadius: 10, border: `1px solid ${T.border}` }}>
         {!showWS ? (<>
@@ -153,9 +153,9 @@ function UnitCellSection() {
           )))}
           <rect x={110} y={80} width={120} height={100} fill={T.cs_primary + "15"} stroke={T.cs_primary} strokeWidth={2} strokeDasharray="6,3" />
           <line x1={110} y1={180} x2={230} y2={180} stroke={T.cs_accent} strokeWidth={2} markerEnd="url(#arr)" />
-          <text x={170} y={198} textAnchor="middle" fill={T.cs_accent} fontSize={12} fontWeight={700}>a</text>
+          <text x={170} y={198} textAnchor="middle" fill={T.cs_accent} fontSize={12} fontWeight={500}>a</text>
           <line x1={230} y1={80} x2={230} y2={180} stroke={T.cs_cell} strokeWidth={2} />
-          <text x={242} y={135} fill={T.cs_cell} fontSize={12} fontWeight={700}>b</text>
+          <text x={242} y={135} fill={T.cs_cell} fontSize={12} fontWeight={500}>b</text>
           <text x={200} y={245} textAnchor="middle" fill={T.muted} fontSize={11}>Conventional unit cell with lattice parameters a, b</text>
         </>) : (<>
           {/* Wigner-Seitz cell */}
@@ -191,11 +191,11 @@ function SymmetrySection() {
     <div>
       <SectionTitle color={T.cs_symmetry} icon="🔄">Symmetry Operations</SectionTitle>
       <p style={{ color: T.muted, fontSize: 13, lineHeight: 1.7, marginBottom: 14 }}>
-        Symmetry operations transform a crystal into an indistinguishable configuration. The set of all symmetry operations forms a <Tag color={T.cs_symmetry}>GROUP</Tag>.
+        Symmetry operations transform a crystal into an indistinguishable configuration. The set of all symmetry operations forms a <Tag color={T.cs_symmetry}>Group</Tag>.
       </p>
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 14 }}>
         {ops.map((op, i) => (
-          <button key={op.name} onClick={() => setSel(i)} style={{ padding: "5px 12px", borderRadius: 6, border: `1px solid ${sel === i ? T.cs_symmetry : T.border}`, background: sel === i ? T.cs_symmetry + "22" : "transparent", color: sel === i ? T.cs_symmetry : T.muted, cursor: "pointer", fontSize: 11, fontWeight: 600, fontFamily: "inherit" }}>{op.icon} {op.name}</button>
+          <button key={op.name} onClick={() => setSel(i)} style={{ padding: "5px 12px", borderRadius: 6, border: `1px solid ${sel === i ? T.cs_symmetry : T.border}`, background: sel === i ? T.cs_symmetry + "22" : "transparent", color: sel === i ? T.cs_symmetry : T.muted, cursor: "pointer", fontSize: 11, fontWeight: 500, fontFamily: "inherit" }}>{op.icon} {op.name}</button>
         ))}
       </div>
       <svg viewBox="0 0 400 200" style={{ width: "100%", maxWidth: 400, background: T.surface, borderRadius: 10, border: `1px solid ${T.border}` }}>
@@ -263,12 +263,12 @@ function GroupsSection() {
       <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11, marginTop: 10 }}>
         <thead>
-          <tr style={{ background: T.cs_miller + "15" }}>{["System", "Point Groups", "#", "Example"].map(h => <th key={h} style={{ padding: "8px 10px", textAlign: "left", borderBottom: `2px solid ${T.cs_miller}44`, color: T.cs_miller, fontWeight: 700 }}>{h}</th>)}</tr>
+          <tr style={{ background: T.cs_miller + "15" }}>{["System", "Point Groups", "#", "Example"].map(h => <th key={h} style={{ padding: "8px 10px", textAlign: "left", borderBottom: `2px solid ${T.cs_miller}44`, color: T.cs_miller, fontWeight: 500 }}>{h}</th>)}</tr>
         </thead>
         <tbody>
           {groups.map((g, i) => (
             <tr key={g.system} style={{ background: i % 2 ? T.surface : T.panel }}>
-              <td style={{ padding: "6px 10px", fontWeight: 600 }}>{g.system}</td>
+              <td style={{ padding: "6px 10px", fontWeight: 500 }}>{g.system}</td>
               <td style={{ padding: "6px 10px" }}>{g.point}</td>
               <td style={{ padding: "6px 10px" }}>{g.count}</td>
               <td style={{ padding: "6px 10px", color: T.cs_miller }}>{g.example}</td>
@@ -294,11 +294,11 @@ function MillerSection() {
     <div>
       <SectionTitle color={T.cs_cell} icon="✂️">Miller Indices</SectionTitle>
       <p style={{ color: T.muted, fontSize: 13, lineHeight: 1.7, marginBottom: 10 }}>
-        <Tag color={T.cs_cell}>MILLER INDICES</Tag> (hkl) describe crystal plane orientations. Steps: find axis intercepts → take reciprocals → reduce to smallest integers.
+        <Tag color={T.cs_cell}>Miller indices</Tag> (hkl) describe crystal plane orientations. Steps: find axis intercepts → take reciprocals → reduce to smallest integers.
       </p>
       <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
         {planes.map((p, i) => (
-          <button key={p.name} onClick={() => setSel(i)} style={{ padding: "6px 16px", borderRadius: 6, border: `1px solid ${sel === i ? T.cs_cell : T.border}`, background: sel === i ? T.cs_cell + "22" : "transparent", color: sel === i ? T.cs_cell : T.muted, cursor: "pointer", fontSize: 13, fontWeight: 700, fontFamily: "inherit" }}>{p.name}</button>
+          <button key={p.name} onClick={() => setSel(i)} style={{ padding: "6px 16px", borderRadius: 6, border: `1px solid ${sel === i ? T.cs_cell : T.border}`, background: sel === i ? T.cs_cell + "22" : "transparent", color: sel === i ? T.cs_cell : T.muted, cursor: "pointer", fontSize: 13, fontWeight: 500, fontFamily: "inherit" }}>{p.name}</button>
         ))}
       </div>
       <svg viewBox="0 0 300 250" style={{ width: "100%", maxWidth: 300, background: T.surface, borderRadius: 10, border: `1px solid ${T.border}` }}>
@@ -320,9 +320,9 @@ function MillerSection() {
         {sel === 1 && <polygon points="80,40 250,40 200,80 30,80" fill={T.cs_cell + "33"} stroke={T.cs_cell} strokeWidth={2} />}
         {sel === 2 && <polygon points="80,180 250,40 200,80" fill={T.cs_cell + "33"} stroke={T.cs_cell} strokeWidth={2} />}
         {/* Axis labels */}
-        <text x={265} y={185} fill={T.cs_primary} fontSize={12} fontWeight={700}>a</text>
-        <text x={75} y={30} fill={T.cs_accent} fontSize={12} fontWeight={700}>c</text>
-        <text x={18} y={230} fill={T.cs_cell} fontSize={12} fontWeight={700}>b</text>
+        <text x={265} y={185} fill={T.cs_primary} fontSize={12} fontWeight={500}>a</text>
+        <text x={75} y={30} fill={T.cs_accent} fontSize={12} fontWeight={500}>c</text>
+        <text x={18} y={230} fill={T.cs_cell} fontSize={12} fontWeight={500}>b</text>
       </svg>
       <Card title={`Plane ${planes[sel].name}`} color={T.cs_cell}>
         <div style={{ fontSize: 12, color: T.ink }}>
@@ -360,7 +360,7 @@ function StructuresSection() {
       <SectionTitle color={T.cs_struct} icon="💎">Common Structures</SectionTitle>
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 14 }}>
         {structures.map((s, i) => (
-          <button key={s.name} onClick={() => setSel(i)} style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${sel === i ? T.cs_struct : T.border}`, background: sel === i ? T.cs_struct + "22" : "transparent", color: sel === i ? T.cs_struct : T.muted, cursor: "pointer", fontSize: 11, fontWeight: 600, fontFamily: "inherit" }}>{s.name}</button>
+          <button key={s.name} onClick={() => setSel(i)} style={{ padding: "4px 10px", borderRadius: 6, border: `1px solid ${sel === i ? T.cs_struct : T.border}`, background: sel === i ? T.cs_struct + "22" : "transparent", color: sel === i ? T.cs_struct : T.muted, cursor: "pointer", fontSize: 11, fontWeight: 500, fontFamily: "inherit" }}>{s.name}</button>
         ))}
       </div>
       <svg viewBox="0 0 300 200" style={{ width: "100%", maxWidth: 300, background: T.surface, borderRadius: 10, border: `1px solid ${T.border}`, marginBottom: 10 }}>
@@ -369,18 +369,18 @@ function StructuresSection() {
           {[[60,60],[180,60],[60,160],[180,160]].map(([x,y],i) => <circle key={i} cx={x} cy={y} r={14} fill={T.cs_primary+"44"} stroke={T.cs_primary} strokeWidth={2}/>)}
           {[[120,60],[60,110],[180,110],[120,160]].map(([x,y],i) => <circle key={`f${i}`} cx={x} cy={y} r={12} fill={T.cs_accent+"55"} stroke={T.cs_accent} strokeWidth={2}/>)}
           <circle cx={120} cy={110} r={10} fill={T.cs_cell+"55"} stroke={T.cs_cell} strokeWidth={2}/>
-          <text x={240} y={110} fill={T.ink} fontSize={11} fontWeight={700}>FCC</text>
+          <text x={240} y={110} fill={T.ink} fontSize={11} fontWeight={500}>FCC</text>
           <text x={240} y={126} fill={T.muted} fontSize={10}>4 atoms/cell</text>
         </>)}
         {sel === 1 && (<>
           {/* BCC */}
           {[[60,50],[180,50],[60,170],[180,170]].map(([x,y],i) => <circle key={i} cx={x} cy={y} r={14} fill={T.cs_primary+"44"} stroke={T.cs_primary} strokeWidth={2}/>)}
           <circle cx={120} cy={110} r={14} fill={T.cs_accent+"55"} stroke={T.cs_accent} strokeWidth={2}/>
-          <text x={220} y={110} fill={T.ink} fontSize={11} fontWeight={700}>BCC</text>
+          <text x={220} y={110} fill={T.ink} fontSize={11} fontWeight={500}>BCC</text>
           <text x={220} y={126} fill={T.muted} fontSize={10}>2 atoms/cell</text>
         </>)}
         {sel >= 2 && (<>
-          <text x={150} y={90} textAnchor="middle" fill={T.cs_struct} fontSize={16} fontWeight={800}>{structures[sel].name}</text>
+          <text x={150} y={90} textAnchor="middle" fill={T.cs_struct} fontSize={16} fontWeight={500}>{structures[sel].name}</text>
           <text x={150} y={115} textAnchor="middle" fill={T.muted} fontSize={12}>Coordination: {structures[sel].coord}</text>
           <text x={150} y={135} textAnchor="middle" fill={T.muted} fontSize={12}>Packing: {structures[sel].packing}</text>
           <text x={150} y={155} textAnchor="middle" fill={T.cs_struct} fontSize={11}>{structures[sel].examples}</text>
@@ -389,11 +389,11 @@ function StructuresSection() {
       <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
         <thead>
-          <tr style={{ background: T.cs_struct + "15" }}>{["Structure", "Coord #", "Packing", "Atoms/cell", "Examples"].map(h => <th key={h} style={{ padding: "7px 8px", textAlign: "left", borderBottom: `2px solid ${T.cs_struct}44`, color: T.cs_struct, fontWeight: 700 }}>{h}</th>)}</tr>
+          <tr style={{ background: T.cs_struct + "15" }}>{["Structure", "Coord #", "Packing", "Atoms/cell", "Examples"].map(h => <th key={h} style={{ padding: "7px 8px", textAlign: "left", borderBottom: `2px solid ${T.cs_struct}44`, color: T.cs_struct, fontWeight: 500 }}>{h}</th>)}</tr>
         </thead>
         <tbody>
           {structures.map((s, i) => (
-            <tr key={s.name} onClick={() => setSel(i)} style={{ background: i % 2 ? T.surface : T.panel, cursor: "pointer", fontWeight: sel === i ? 700 : 400 }}>
+            <tr key={s.name} onClick={() => setSel(i)} style={{ background: i % 2 ? T.surface : T.panel, cursor: "pointer", fontWeight: sel === i ? 500 : 400 }}>
               <td style={{ padding: "5px 8px", color: T.cs_struct }}>{s.name}</td>
               <td style={{ padding: "5px 8px" }}>{s.coord}</td>
               <td style={{ padding: "5px 8px" }}>{s.packing}</td>
@@ -418,30 +418,30 @@ function PackingSection() {
         Close-packed structures achieve the maximum packing efficiency of <Tag color={T.cs_pack}>74%</Tag>. The two arrangements differ only in their stacking sequence of hexagonal layers.
       </p>
       <div style={{ display: "flex", gap: 10, marginBottom: 14 }}>
-        <button onClick={() => setStacking("fcc")} style={{ padding: "6px 16px", borderRadius: 6, border: `1px solid ${stacking === "fcc" ? T.cs_primary : T.border}`, background: stacking === "fcc" ? T.cs_primary + "22" : "transparent", color: stacking === "fcc" ? T.cs_primary : T.muted, cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "inherit" }}>FCC (ABCABC)</button>
-        <button onClick={() => setStacking("hcp")} style={{ padding: "6px 16px", borderRadius: 6, border: `1px solid ${stacking === "hcp" ? T.cs_pack : T.border}`, background: stacking === "hcp" ? T.cs_pack + "22" : "transparent", color: stacking === "hcp" ? T.cs_pack : T.muted, cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "inherit" }}>HCP (ABAB)</button>
+        <button onClick={() => setStacking("fcc")} style={{ padding: "6px 16px", borderRadius: 6, border: `1px solid ${stacking === "fcc" ? T.cs_primary : T.border}`, background: stacking === "fcc" ? T.cs_primary + "22" : "transparent", color: stacking === "fcc" ? T.cs_primary : T.muted, cursor: "pointer", fontSize: 12, fontWeight: 500, fontFamily: "inherit" }}>FCC (ABCABC)</button>
+        <button onClick={() => setStacking("hcp")} style={{ padding: "6px 16px", borderRadius: 6, border: `1px solid ${stacking === "hcp" ? T.cs_pack : T.border}`, background: stacking === "hcp" ? T.cs_pack + "22" : "transparent", color: stacking === "hcp" ? T.cs_pack : T.muted, cursor: "pointer", fontSize: 12, fontWeight: 500, fontFamily: "inherit" }}>HCP (ABAB)</button>
       </div>
       <svg viewBox="0 0 400 220" style={{ width: "100%", maxWidth: 400, background: T.surface, borderRadius: 10, border: `1px solid ${T.border}` }}>
         {/* Layer A */}
         {[50,100,150,200,250,300,350].map((x, i) => <circle key={`a${i}`} cx={x} cy={40} r={18} fill={T.cs_primary + "44"} stroke={T.cs_primary} strokeWidth={1.5} />)}
-        <text x={380} y={44} fill={T.cs_primary} fontSize={13} fontWeight={800}>A</text>
+        <text x={380} y={44} fill={T.cs_primary} fontSize={13} fontWeight={500}>A</text>
         {/* Layer B */}
         {[75,125,175,225,275,325].map((x, i) => <circle key={`b${i}`} cx={x} cy={80} r={18} fill={T.cs_accent + "44"} stroke={T.cs_accent} strokeWidth={1.5} />)}
-        <text x={380} y={84} fill={T.cs_accent} fontSize={13} fontWeight={800}>B</text>
+        <text x={380} y={84} fill={T.cs_accent} fontSize={13} fontWeight={500}>B</text>
         {/* Layer C or A */}
         {stacking === "fcc" ? (
           <>
             {[100,150,200,250,300].map((x, i) => <circle key={`c${i}`} cx={x} cy={120} r={18} fill={T.cs_cell + "44"} stroke={T.cs_cell} strokeWidth={1.5} />)}
-            <text x={380} y={124} fill={T.cs_cell} fontSize={13} fontWeight={800}>C</text>
+            <text x={380} y={124} fill={T.cs_cell} fontSize={13} fontWeight={500}>C</text>
             {[50,100,150,200,250,300,350].map((x, i) => <circle key={`a2${i}`} cx={x} cy={160} r={18} fill={T.cs_primary + "44"} stroke={T.cs_primary} strokeWidth={1.5} />)}
-            <text x={380} y={164} fill={T.cs_primary} fontSize={13} fontWeight={800}>A</text>
+            <text x={380} y={164} fill={T.cs_primary} fontSize={13} fontWeight={500}>A</text>
           </>
         ) : (
           <>
             {[50,100,150,200,250,300,350].map((x, i) => <circle key={`a2${i}`} cx={x} cy={120} r={18} fill={T.cs_primary + "44"} stroke={T.cs_primary} strokeWidth={1.5} />)}
-            <text x={380} y={124} fill={T.cs_primary} fontSize={13} fontWeight={800}>A</text>
+            <text x={380} y={124} fill={T.cs_primary} fontSize={13} fontWeight={500}>A</text>
             {[75,125,175,225,275,325].map((x, i) => <circle key={`b2${i}`} cx={x} cy={160} r={18} fill={T.cs_accent + "44"} stroke={T.cs_accent} strokeWidth={1.5} />)}
-            <text x={380} y={164} fill={T.cs_accent} fontSize={13} fontWeight={800}>B</text>
+            <text x={380} y={164} fill={T.cs_accent} fontSize={13} fontWeight={500}>B</text>
           </>
         )}
         <text x={200} y={210} textAnchor="middle" fill={T.muted} fontSize={11}>{stacking === "fcc" ? "FCC: ...ABCABCABC... (Cu, Al, Au)" : "HCP: ...ABABAB... (Mg, Ti, Zn)"}</text>
@@ -455,7 +455,7 @@ function PackingSection() {
             ["Diamond", "34.01%"],
           ].map(([name, eff]) => (
             <div key={name} style={{ padding: "6px 10px", background: T.surface, borderRadius: 6 }}>
-              <div style={{ fontWeight: 700, color: T.cs_pack }}>{name}</div>
+              <div style={{ fontWeight: 500, color: T.cs_pack }}>{name}</div>
               <div style={{ color: T.ink }}>{eff}</div>
             </div>
           ))}
@@ -491,10 +491,10 @@ export default function CrystalStructuresModule() {
   return (
     <div style={{ minHeight: "100vh", background: T.bg, fontFamily: "'IBM Plex Mono', 'JetBrains Mono', 'Fira Code', monospace", color: T.ink, display: "flex", flexDirection: "column" }}>
       {/* Header */}
-      <div style={{ borderBottom: `1px solid ${T.border}`, padding: "12px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", background: T.panel + "ee", backdropFilter: "blur(12px)", position: "sticky", top: 0, zIndex: 10 }}>
+      <div style={{ borderBottom: `1px solid ${T.border}`, padding: "12px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "color-mix(in srgb, var(--panel) 93%, transparent)", backdropFilter: "blur(12px)", position: "sticky", top: 0, zIndex: 10 }}>
         <div>
-          <div style={{ fontSize: 10, letterSpacing: 4, color: T.cs_primary, textTransform: "uppercase" }}>Solid-State Physics</div>
-          <div style={{ fontSize: 18, fontWeight: 800, background: `linear-gradient(90deg, ${T.cs_primary}, ${T.cs_accent})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Crystal Structures</div>
+          <div style={{ fontSize: 10, letterSpacing: 4, color: T.cs_primary, textTransform: "none" }}>Solid-State Physics</div>
+          <div style={{ fontSize: 18, fontWeight: 500, background: `linear-gradient(90deg, ${T.cs_primary}, ${T.cs_accent})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Crystal Structures</div>
         </div>
         <div style={{ fontSize: 11, color: T.muted }}>Bravais lattices, symmetry & Miller indices</div>
       </div>
@@ -502,7 +502,7 @@ export default function CrystalStructuresModule() {
       {/* Nav tabs */}
       <div style={{ display: "flex", padding: "10px 24px", gap: 6, borderBottom: `1px solid ${T.border}`, background: T.panel, overflowX: "auto", flexWrap: "wrap" }}>
         {CRYSTAL_SECTIONS.map((s, i) => (
-          <button key={s.id} onClick={() => setActive(s.id)} style={{ padding: "7px 14px", borderRadius: 8, border: `1px solid ${active === s.id ? s.color : T.border}`, background: active === s.id ? s.color + "22" : T.bg, color: active === s.id ? s.color : T.muted, cursor: "pointer", fontSize: 12, fontFamily: "inherit", fontWeight: active === s.id ? 700 : 400, display: "flex", alignItems: "center", gap: 6, whiteSpace: "nowrap" }}>
+          <button key={s.id} onClick={() => setActive(s.id)} style={{ padding: "7px 14px", borderRadius: 8, border: `1px solid ${active === s.id ? s.color : T.border}`, background: active === s.id ? s.color + "22" : T.bg, color: active === s.id ? s.color : T.muted, cursor: "pointer", fontSize: 12, fontFamily: "inherit", fontWeight: active === s.id ? 500 : 400, display: "flex", alignItems: "center", gap: 6, whiteSpace: "nowrap" }}>
             <span>{s.icon}</span>
             <span style={{ fontSize: 10, color: active === s.id ? s.color : T.dim, marginRight: 2 }}>{i + 1}.</span>
             {s.label}
@@ -527,13 +527,13 @@ export default function CrystalStructuresModule() {
 
       {/* Bottom nav */}
       <div style={{ borderTop: `1px solid ${T.border}`, padding: "10px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", background: T.panel }}>
-        <button onClick={() => { const i = CRYSTAL_SECTIONS.findIndex(s => s.id === active); if (i > 0) setActive(CRYSTAL_SECTIONS[i - 1].id); }} disabled={active === CRYSTAL_SECTIONS[0].id} style={{ padding: "8px 20px", borderRadius: 8, fontSize: 13, background: active === CRYSTAL_SECTIONS[0].id ? T.surface : sec.color + "22", border: `1px solid ${active === CRYSTAL_SECTIONS[0].id ? T.border : sec.color}`, color: active === CRYSTAL_SECTIONS[0].id ? T.muted : sec.color, cursor: active === CRYSTAL_SECTIONS[0].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 600 }}>← Previous</button>
+        <button onClick={() => { const i = CRYSTAL_SECTIONS.findIndex(s => s.id === active); if (i > 0) setActive(CRYSTAL_SECTIONS[i - 1].id); }} disabled={active === CRYSTAL_SECTIONS[0].id} style={{ padding: "8px 20px", borderRadius: 8, fontSize: 13, background: active === CRYSTAL_SECTIONS[0].id ? T.surface : sec.color + "22", border: `1px solid ${active === CRYSTAL_SECTIONS[0].id ? T.border : sec.color}`, color: active === CRYSTAL_SECTIONS[0].id ? T.muted : sec.color, cursor: active === CRYSTAL_SECTIONS[0].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 500 }}>← Previous</button>
         <div style={{ display: "flex", gap: 6 }}>
           {CRYSTAL_SECTIONS.map(s => (
             <div key={s.id} onClick={() => setActive(s.id)} style={{ width: 8, height: 8, borderRadius: 4, background: active === s.id ? s.color : T.dim, cursor: "pointer", transition: "all 0.2s" }} />
           ))}
         </div>
-        <button onClick={() => { const i = CRYSTAL_SECTIONS.findIndex(s => s.id === active); if (i < CRYSTAL_SECTIONS.length - 1) setActive(CRYSTAL_SECTIONS[i + 1].id); }} disabled={active === CRYSTAL_SECTIONS[CRYSTAL_SECTIONS.length - 1].id} style={{ padding: "8px 20px", borderRadius: 8, fontSize: 13, background: active === CRYSTAL_SECTIONS[CRYSTAL_SECTIONS.length - 1].id ? T.surface : sec.color + "22", border: `1px solid ${active === CRYSTAL_SECTIONS[CRYSTAL_SECTIONS.length - 1].id ? T.border : sec.color}`, color: active === CRYSTAL_SECTIONS[CRYSTAL_SECTIONS.length - 1].id ? T.muted : sec.color, cursor: active === CRYSTAL_SECTIONS[CRYSTAL_SECTIONS.length - 1].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 600 }}>Next →</button>
+        <button onClick={() => { const i = CRYSTAL_SECTIONS.findIndex(s => s.id === active); if (i < CRYSTAL_SECTIONS.length - 1) setActive(CRYSTAL_SECTIONS[i + 1].id); }} disabled={active === CRYSTAL_SECTIONS[CRYSTAL_SECTIONS.length - 1].id} style={{ padding: "8px 20px", borderRadius: 8, fontSize: 13, background: active === CRYSTAL_SECTIONS[CRYSTAL_SECTIONS.length - 1].id ? T.surface : sec.color + "22", border: `1px solid ${active === CRYSTAL_SECTIONS[CRYSTAL_SECTIONS.length - 1].id ? T.border : sec.color}`, color: active === CRYSTAL_SECTIONS[CRYSTAL_SECTIONS.length - 1].id ? T.muted : sec.color, cursor: active === CRYSTAL_SECTIONS[CRYSTAL_SECTIONS.length - 1].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 500 }}>Next →</button>
       </div>
     </div>
   );

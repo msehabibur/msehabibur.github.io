@@ -147,12 +147,12 @@ export default function DFTParamsMovieModule() {
                 <rect x={tp.x - 24} y={tp.y - 8} width={48} height={16} rx="4"
                   fill={tp.col + "18"} stroke={tp.col + "40"} strokeWidth="1" />
                 <text x={tp.x} y={tp.y + 4} textAnchor="middle" fill={tp.col} fontSize="7"
-                  fontWeight="700" fontFamily="'Fira Code','Consolas',monospace">{tp.tag}</text>
+                  fontWeight="500" fontFamily="'Fira Code','Consolas',monospace">{tp.tag}</text>
               </g>
             );
           })}
 
-          <text x={W / 2} y={80} textAnchor="middle" fill={P.ink} fontSize="30" fontWeight="900"
+          <text x={W / 2} y={80} textAnchor="middle" fill={P.ink} fontSize="30" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>DFT Parameters &amp; Settings</text>
           <rect x={W / 2 - ease(clamp01((t - 0.1) * 3)) * 180} y={90}
             width={ease(clamp01((t - 0.1) * 3)) * 360} height={3} rx="1.5" fill={P.blue} opacity={tOp * 0.85} />
@@ -169,9 +169,9 @@ export default function DFTParamsMovieModule() {
           <rect x={W / 2 - 200} y={280} width={400} height={62} rx="10"
             fill={P.surface} stroke={P.border} strokeWidth="1.5" opacity={eqOp} />
           <rect x={W / 2 - 200} y={280} width={400} height={3} rx="1.5" fill={P.green} opacity={eqOp} />
-          <text x={W / 2} y={300} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="600"
+          <text x={W / 2} y={300} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={eqOp}>Key convergence parameters control accuracy vs cost</text>
-          <text x={W / 2} y={320} textAnchor="middle" fill={P.green} fontSize="14" fontWeight="700"
+          <text x={W / 2} y={320} textAnchor="middle" fill={P.green} fontSize="14" fontWeight="500"
             fontFamily="'Fira Code','Consolas',monospace" opacity={eqOp}>ENCUT + KPOINTS → converge first!</text>
           <text x={W / 2} y={336} textAnchor="middle" fill={P.muted} fontSize="9"
             fontFamily="'Inter',sans-serif" opacity={eqOp * 0.8}>then ISMEAR, ALGO, EDIFF, IBRION...</text>
@@ -234,7 +234,7 @@ export default function DFTParamsMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Brillouin Zone &amp; Reciprocal Space</text>
           <line x1={LW + 20} y1={32} x2={LW + 20} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp * 0.6} />
 
@@ -253,7 +253,7 @@ export default function DFTParamsMovieModule() {
           {/* RIGHT */}
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
-          <text x={bzCx} y={52} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="700"
+          <text x={bzCx} y={52} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t - 0.05) * 5))}>
             Hexagonal Brillouin Zone
           </text>
@@ -262,7 +262,7 @@ export default function DFTParamsMovieModule() {
           <g opacity={ease(clamp01((t - 0.12) * 5))}>
             <rect x={RX + 20} y={62} width={80} height={30} rx="5"
               fill={P.amber + "18"} stroke={P.amber + "50"} strokeWidth="1" />
-            <text x={RX + 60} y={81} textAnchor="middle" fill={P.amber} fontSize="9" fontWeight="700"
+            <text x={RX + 60} y={81} textAnchor="middle" fill={P.amber} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Real: a₁,a₂,a₃</text>
             <line x1={RX + 105} y1={77} x2={RX + 155} y2={77} stroke={P.green} strokeWidth="2" />
             <polygon points={`${RX + 155},${73} ${RX + 155},${81} ${RX + 163},${77}`} fill={P.green} />
@@ -270,7 +270,7 @@ export default function DFTParamsMovieModule() {
               fontFamily="'Inter',sans-serif">FT</text>
             <rect x={RX + 168} y={62} width={100} height={30} rx="5"
               fill={P.blue + "18"} stroke={P.blue + "50"} strokeWidth="1" />
-            <text x={RX + 218} y={81} textAnchor="middle" fill={P.blue} fontSize="9" fontWeight="700"
+            <text x={RX + 218} y={81} textAnchor="middle" fill={P.blue} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Recip: b₁,b₂,b₃</text>
           </g>
 
@@ -288,12 +288,12 @@ export default function DFTParamsMovieModule() {
           <g opacity={ease(clamp01((t - 0.25) * 5))}>
             <line x1={bzCx} y1={bzCy} x2={bzCx + 70} y2={bzCy - 40} stroke={P.green} strokeWidth="2" />
             <polygon points={`${bzCx + 67},${bzCy - 44} ${bzCx + 73},${bzCy - 36} ${bzCx + 76},${bzCy - 46}`} fill={P.green} />
-            <text x={bzCx + 80} y={bzCy - 42} fill={P.green} fontSize="10" fontWeight="700"
+            <text x={bzCx + 80} y={bzCy - 42} fill={P.green} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">b₁</text>
 
             <line x1={bzCx} y1={bzCy} x2={bzCx - 70} y2={bzCy - 40} stroke={P.teal} strokeWidth="2" />
             <polygon points={`${bzCx - 67},${bzCy - 44} ${bzCx - 73},${bzCy - 36} ${bzCx - 76},${bzCy - 46}`} fill={P.teal} />
-            <text x={bzCx - 88} y={bzCy - 42} fill={P.teal} fontSize="10" fontWeight="700"
+            <text x={bzCx - 88} y={bzCy - 42} fill={P.teal} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">b₂</text>
           </g>
 
@@ -303,9 +303,9 @@ export default function DFTParamsMovieModule() {
             return (
               <g key={i} opacity={op}>
                 <circle cx={pt.x} cy={pt.y} r={8} fill={pt.col + "30"} stroke={pt.col} strokeWidth="2" />
-                <text x={pt.x} y={pt.y + 4} textAnchor="middle" fill={pt.col} fontSize="10" fontWeight="800"
+                <text x={pt.x} y={pt.y + 4} textAnchor="middle" fill={pt.col} fontSize="10" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{pt.label}</text>
-                <text x={pt.x + 12} y={pt.y - 8} fill={pt.col} fontSize="7" fontWeight="600"
+                <text x={pt.x + 12} y={pt.y - 8} fill={pt.col} fontSize="7" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{pt.label}</text>
               </g>
             );
@@ -341,7 +341,7 @@ export default function DFTParamsMovieModule() {
           <g opacity={ease(clamp01((t - 0.75) * 4))}>
             <rect x={RX + 30} y={300} width={RW - 60} height={50} rx="6"
               fill={P.panel} stroke={P.border} strokeWidth="1" />
-            <text x={bzCx} y={318} textAnchor="middle" fill={P.pink} fontSize="11" fontWeight="700"
+            <text x={bzCx} y={318} textAnchor="middle" fill={P.pink} fontSize="11" fontWeight="500"
               fontFamily="'Fira Code','Consolas',monospace">a_i · b_j = 2πδ_ij</text>
             <text x={bzCx} y={338} textAnchor="middle" fill={P.muted} fontSize="9"
               fontFamily="'Inter',sans-serif">Real &amp; reciprocal lattices are dual</text>
@@ -351,7 +351,7 @@ export default function DFTParamsMovieModule() {
           <g opacity={ease(clamp01((t - 0.82) * 4))}>
             <rect x={RX + 30} y={360} width={RW - 60} height={42} rx="6"
               fill={P.blue + "10"} stroke={P.blue + "40"} strokeWidth="1" />
-            <text x={bzCx} y={378} textAnchor="middle" fill={P.blue} fontSize="10" fontWeight="700"
+            <text x={bzCx} y={378} textAnchor="middle" fill={P.blue} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">1st BZ = Wigner-Seitz cell in k-space</text>
             <text x={bzCx} y={394} textAnchor="middle" fill={P.muted} fontSize="8.5"
               fontFamily="'Inter',sans-serif">Contains all unique k-points for Bloch states</text>
@@ -407,7 +407,7 @@ export default function DFTParamsMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>KPOINTS — Brillouin Zone Sampling</text>
           <line x1={LW + 20} y1={32} x2={LW + 20} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp * 0.6} />
 
@@ -426,7 +426,7 @@ export default function DFTParamsMovieModule() {
           {/* RIGHT */}
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
-          <text x={bzCx} y={52} textAnchor="middle" fill={P.green} fontSize="11" fontWeight="700"
+          <text x={bzCx} y={52} textAnchor="middle" fill={P.green} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t - 0.05) * 5))}>
             {gridN}x{gridN}x{gridN} Monkhorst-Pack Grid
           </text>
@@ -456,7 +456,7 @@ export default function DFTParamsMovieModule() {
 
           {/* Gamma label */}
           <g opacity={ease(clamp01((t - 0.30) * 5))}>
-            <text x={bzCx + 10} y={bzCy - 8} fill={P.amber} fontSize="11" fontWeight="800"
+            <text x={bzCx + 10} y={bzCy - 8} fill={P.amber} fontSize="11" fontWeight="500"
               fontFamily="'Inter',sans-serif">{"\u0393"}</text>
           </g>
 
@@ -468,7 +468,7 @@ export default function DFTParamsMovieModule() {
 
           {/* Convergence curve */}
           <g opacity={ease(clamp01((t - 0.55) * 4))}>
-            <text x={bzCx} y={gYt - 8} textAnchor="middle" fill={P.teal} fontSize="10" fontWeight="700"
+            <text x={bzCx} y={gYt - 8} textAnchor="middle" fill={P.teal} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Energy vs k-mesh Density</text>
             <line x1={gX} y1={gYt} x2={gX} y2={gYt + gH} stroke={P.muted} strokeWidth="1" />
             <line x1={gX} y1={gYt + gH} x2={gX + gW} y2={gYt + gH} stroke={P.muted} strokeWidth="1" />
@@ -554,7 +554,7 @@ export default function DFTParamsMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>ENCUT — Plane Wave Energy Cutoff</text>
           <line x1={LW + 20} y1={32} x2={LW + 20} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp * 0.6} />
 
@@ -573,7 +573,7 @@ export default function DFTParamsMovieModule() {
           {/* RIGHT */}
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
-          <text x={circCx} y={52} textAnchor="middle" fill={P.amber} fontSize="11" fontWeight="700"
+          <text x={circCx} y={52} textAnchor="middle" fill={P.amber} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t - 0.05) * 5))}>
             G-vector Sphere — ENCUT = {currentENCUT} eV
           </text>
@@ -603,7 +603,7 @@ export default function DFTParamsMovieModule() {
 
           {/* Center point */}
           <circle cx={circCx} cy={circCy} r={4} fill={P.amber} opacity={tOp} />
-          <text x={circCx + 8} y={circCy + 4} fill={P.amber} fontSize="8" fontWeight="700"
+          <text x={circCx + 8} y={circCy + 4} fill={P.amber} fontSize="8" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>k</text>
 
           {/* Cutoff radius label */}
@@ -611,12 +611,12 @@ export default function DFTParamsMovieModule() {
             <line x1={circCx} y1={circCy} x2={circCx + cutR} y2={circCy}
               stroke={P.green} strokeWidth="1.5" strokeDasharray="3,2" />
             <text x={circCx + cutR / 2} y={circCy - 6} textAnchor="middle" fill={P.green}
-              fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">|k+G|_max</text>
+              fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">|k+G|_max</text>
           </g>
 
           {/* Convergence curve */}
           <g opacity={ease(clamp01((t - 0.55) * 4))}>
-            <text x={circCx} y={gYt - 8} textAnchor="middle" fill={P.teal} fontSize="10" fontWeight="700"
+            <text x={circCx} y={gYt - 8} textAnchor="middle" fill={P.teal} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Total Energy vs ENCUT</text>
             <line x1={gX} y1={gYt} x2={gX} y2={gYt + gH} stroke={P.muted} strokeWidth="1" />
             <line x1={gX} y1={gYt + gH} x2={gX + gW} y2={gYt + gH} stroke={P.muted} strokeWidth="1" />
@@ -649,7 +649,7 @@ export default function DFTParamsMovieModule() {
           <g opacity={ease(clamp01((t - 0.85) * 4))}>
             <rect x={RX + 30} y={388} width={RW - 60} height={20} rx="4"
               fill={P.warn + "15"} stroke={P.warn + "40"} strokeWidth="1" />
-            <text x={circCx} y={402} textAnchor="middle" fill={P.warn} fontSize="8.5" fontWeight="700"
+            <text x={circCx} y={402} textAnchor="middle" fill={P.warn} fontSize="8.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">Tip: ENCUT = 1.3 x ENMAX from POTCAR</text>
           </g>
         </svg>
@@ -706,7 +706,7 @@ export default function DFTParamsMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>ISMEAR &amp; SIGMA — Electronic Smearing</text>
           <line x1={LW + 20} y1={32} x2={LW + 20} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp * 0.6} />
 
@@ -725,7 +725,7 @@ export default function DFTParamsMovieModule() {
           {/* RIGHT */}
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
-          <text x={plotCx} y={52} textAnchor="middle" fill={P.pink} fontSize="11" fontWeight="700"
+          <text x={plotCx} y={52} textAnchor="middle" fill={P.pink} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t - 0.05) * 5))}>
             Occupation Function f(ε) — σ={sigma.toFixed(3)} eV
           </text>
@@ -804,7 +804,7 @@ export default function DFTParamsMovieModule() {
           <g opacity={ease(clamp01((t - 0.55) * 4))}>
             <rect x={RX + 20} y={200} width={RW - 40} height={120} rx="6"
               fill={P.panel} stroke={P.border} strokeWidth="1" />
-            <text x={plotCx} y={218} textAnchor="middle" fill={P.purple} fontSize="10" fontWeight="700"
+            <text x={plotCx} y={218} textAnchor="middle" fill={P.purple} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">ISMEAR Method Guide</text>
             {[
               { tag: "ISMEAR=-5", desc: "Tetrahedron — DOS, accurate", use: "insulators", col: P.teal },
@@ -813,7 +813,7 @@ export default function DFTParamsMovieModule() {
               { tag: "ISMEAR=1",  desc: "Methfessel-Paxton — forces", use: "metals (relax)", col: P.purple },
             ].map((row, i) => (
               <g key={i}>
-                <text x={RX + 30} y={237 + i * 20} fill={row.col} fontSize="9" fontWeight="700"
+                <text x={RX + 30} y={237 + i * 20} fill={row.col} fontSize="9" fontWeight="500"
                   fontFamily="'Fira Code','Consolas',monospace">{row.tag}</text>
                 <text x={RX + 130} y={237 + i * 20} fill={P.ink} fontSize="8.5"
                   fontFamily="'Inter',sans-serif">{row.desc}</text>
@@ -825,13 +825,13 @@ export default function DFTParamsMovieModule() {
           <g opacity={ease(clamp01((t - 0.75) * 4))}>
             <rect x={RX + 20} y={332} width={RW - 40} height={72} rx="6"
               fill={P.warn + "0a"} stroke={P.warn + "40"} strokeWidth="1.5" />
-            <text x={plotCx} y={350} textAnchor="middle" fill={P.warn} fontSize="10" fontWeight="700"
+            <text x={plotCx} y={350} textAnchor="middle" fill={P.warn} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">SIGMA Tradeoff</text>
             <text x={RX + 35} y={370} fill={P.muted} fontSize="9"
               fontFamily="'Inter',sans-serif">σ too large → artificial entropy, wrong E</text>
             <text x={RX + 35} y={388} fill={P.muted} fontSize="9"
               fontFamily="'Inter',sans-serif">σ too small → noisy forces, SCF convergence issues</text>
-            <text x={plotCx} y={400} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="700"
+            <text x={plotCx} y={400} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Check: entropy T*S &lt; 1 meV/atom</text>
           </g>
         </svg>
@@ -887,7 +887,7 @@ export default function DFTParamsMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>ALGO — SCF Algorithm Selection</text>
           <line x1={LW + 20} y1={32} x2={LW + 20} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp * 0.6} />
 
@@ -906,7 +906,7 @@ export default function DFTParamsMovieModule() {
           {/* RIGHT */}
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
-          <text x={RX + RW / 2} y={55} textAnchor="middle" fill={P.purple} fontSize="11" fontWeight="700"
+          <text x={RX + RW / 2} y={55} textAnchor="middle" fill={P.purple} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t - 0.05) * 5))}>
             SCF Convergence by Algorithm
           </text>
@@ -955,7 +955,7 @@ export default function DFTParamsMovieModule() {
               <g key={i}>
                 <line x1={gX + gW - 100} y1={gYt + 20 + i * 15} x2={gX + gW - 80} y2={gYt + 20 + i * 15}
                   stroke={algo.col} strokeWidth="2" />
-                <text x={gX + gW - 75} y={gYt + 24 + i * 15} fill={algo.col} fontSize="8" fontWeight="600"
+                <text x={gX + gW - 75} y={gYt + 24 + i * 15} fill={algo.col} fontSize="8" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{algo.name}</text>
               </g>
             ))}
@@ -963,7 +963,7 @@ export default function DFTParamsMovieModule() {
 
           {/* SCF loop mini diagram */}
           <g opacity={ease(clamp01((t - 0.62) * 4))}>
-            <text x={loopCx} y={loopCy - loopR - 12} textAnchor="middle" fill={P.blue} fontSize="9" fontWeight="700"
+            <text x={loopCx} y={loopCy - loopR - 12} textAnchor="middle" fill={P.blue} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">SCF Loop</text>
             <circle cx={loopCx} cy={loopCy} r={loopR} fill="none" stroke={P.dim}
               strokeWidth="1" strokeDasharray="4,3" opacity={0.5} />
@@ -987,7 +987,7 @@ export default function DFTParamsMovieModule() {
               return (
                 <g key={i}>
                   <circle cx={nx} cy={ny} r={18} fill={node.col + "18"} stroke={node.col + "70"} strokeWidth="1.5" />
-                  <text x={nx} y={ny + 4} textAnchor="middle" fill={node.col} fontSize="7.5" fontWeight="700"
+                  <text x={nx} y={ny + 4} textAnchor="middle" fill={node.col} fontSize="7.5" fontWeight="500"
                     fontFamily="'Inter',sans-serif">{node.label}</text>
                 </g>
               );
@@ -1048,7 +1048,7 @@ export default function DFTParamsMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>EDIFF &amp; EDIFFG — Convergence Criteria</text>
           <line x1={LW + 20} y1={32} x2={LW + 20} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp * 0.6} />
 
@@ -1065,7 +1065,7 @@ export default function DFTParamsMovieModule() {
 
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
-          <text x={RX + RW / 2} y={52} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="700"
+          <text x={RX + RW / 2} y={52} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t - 0.05) * 5))}>
             SCF Energy Convergence
           </text>
@@ -1109,7 +1109,7 @@ export default function DFTParamsMovieModule() {
 
           {/* Ionic relaxation — EDIFFG */}
           <g opacity={ease(clamp01((t - 0.50) * 4))}>
-            <text x={RX + RW / 2} y={200} textAnchor="middle" fill={P.green} fontSize="10" fontWeight="700"
+            <text x={RX + RW / 2} y={200} textAnchor="middle" fill={P.green} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Ionic Relaxation — Forces Shrinking</text>
             <rect x={RX + 20} y={210} width={RW - 40} height={30} rx="5"
               fill={P.panel} stroke={P.border} strokeWidth="1" />
@@ -1140,7 +1140,7 @@ export default function DFTParamsMovieModule() {
               );
             })}
             <text x={RX + RW / 2} y={280} textAnchor="middle" fill={forceScale < 0.1 ? P.ok : P.amber}
-              fontSize="10" fontWeight="700" fontFamily="'Inter',sans-serif">
+              fontSize="10" fontWeight="500" fontFamily="'Inter',sans-serif">
               |F_max| = {(forceScale * 0.5).toFixed(3)} eV/Å {forceScale < 0.1 ? "— CONVERGED!" : ""}
             </text>
           </g>
@@ -1186,7 +1186,7 @@ export default function DFTParamsMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>PREC &amp; NGF — FFT Grid Precision</text>
           <line x1={LW + 20} y1={32} x2={LW + 20} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp * 0.6} />
 
@@ -1203,7 +1203,7 @@ export default function DFTParamsMovieModule() {
 
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
-          <text x={gridCx} y={52} textAnchor="middle" fill={P.teal} fontSize="11" fontWeight="700"
+          <text x={gridCx} y={52} textAnchor="middle" fill={P.teal} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t - 0.05) * 5))}>
             FFT Grid: {currentN}x{currentN} ({precProgress < 0.3 ? "Coarse" : precProgress < 0.7 ? "Normal" : "Fine"})
           </text>
@@ -1242,7 +1242,7 @@ export default function DFTParamsMovieModule() {
 
           {/* Egg-box effect */}
           <g opacity={ease(clamp01((t - 0.60) * 4))}>
-            <text x={gridCx} y={gridCy + gridSize / 2 + 25} textAnchor="middle" fill={P.pink} fontSize="10" fontWeight="700"
+            <text x={gridCx} y={gridCy + gridSize / 2 + 25} textAnchor="middle" fill={P.pink} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Egg-box Effect</text>
             {/* Wavy energy line */}
             <g>
@@ -1281,7 +1281,7 @@ export default function DFTParamsMovieModule() {
               <g key={i}>
                 <rect x={RX + 30 + i * 125} y={388} width={115} height={20} rx="4"
                   fill={p.col + "15"} stroke={p.col + "50"} strokeWidth="1" />
-                <text x={RX + 87 + i * 125} y={402} textAnchor="middle" fill={p.col} fontSize="8" fontWeight="700"
+                <text x={RX + 87 + i * 125} y={402} textAnchor="middle" fill={p.col} fontSize="8" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{p.label}: {p.desc}</text>
               </g>
             ))}
@@ -1353,7 +1353,7 @@ export default function DFTParamsMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>IBRION &amp; NSW — Ionic Relaxation</text>
           <line x1={LW + 20} y1={32} x2={LW + 20} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp * 0.6} />
 
@@ -1370,7 +1370,7 @@ export default function DFTParamsMovieModule() {
 
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
-          <text x={pesCx} y={52} textAnchor="middle" fill={P.amber} fontSize="11" fontWeight="700"
+          <text x={pesCx} y={52} textAnchor="middle" fill={P.amber} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t - 0.05) * 5))}>
             Potential Energy Surface Optimization
           </text>
@@ -1409,13 +1409,13 @@ export default function DFTParamsMovieModule() {
                 </g>
               );
             })}
-            <text x={pesX0 + 0.5 * pesW + 15} y={pesFunc(pesX0 + 0.5 * pesW) - 8} fill={P.ok} fontSize="8" fontWeight="700"
+            <text x={pesX0 + 0.5 * pesW + 15} y={pesFunc(pesX0 + 0.5 * pesW) - 8} fill={P.ok} fontSize="8" fontWeight="500"
               fontFamily="'Inter',sans-serif" opacity={optProgress > 0.9 ? 1 : 0}>minimum</text>
           </g>
 
           {/* Method comparison */}
           <g opacity={ease(clamp01((t - 0.45) * 4))}>
-            <text x={pesCx} y={215} textAnchor="middle" fill={P.purple} fontSize="10" fontWeight="700"
+            <text x={pesCx} y={215} textAnchor="middle" fill={P.purple} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Method Comparison</text>
             {[
               { name: "CG (IBRION=2)", desc: "safe, robust, zigzag path", col: P.blue },
@@ -1424,7 +1424,7 @@ export default function DFTParamsMovieModule() {
             ].map((m, i) => (
               <g key={i}>
                 <circle cx={RX + 45} cy={235 + i * 22} r={4} fill={m.col} />
-                <text x={RX + 55} y={239 + i * 22} fill={m.col} fontSize="9" fontWeight="700"
+                <text x={RX + 55} y={239 + i * 22} fill={m.col} fontSize="9" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{m.name}</text>
                 <text x={RX + 200} y={239 + i * 22} fill={P.muted} fontSize="8.5"
                   fontFamily="'Inter',sans-serif">{m.desc}</text>
@@ -1434,7 +1434,7 @@ export default function DFTParamsMovieModule() {
 
           {/* Atoms moving toward equilibrium */}
           <g opacity={ease(clamp01((t - 0.55) * 4))}>
-            <text x={pesCx} y={305} textAnchor="middle" fill={P.teal} fontSize="10" fontWeight="700"
+            <text x={pesCx} y={305} textAnchor="middle" fill={P.teal} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Atoms Relaxing (forces → 0)</text>
             {baseAtoms.map((atom, i) => {
               const cx = lerp(atom.x0, atom.x1, atomProgress);
@@ -1451,7 +1451,7 @@ export default function DFTParamsMovieModule() {
               );
             })}
             <text x={pesCx} y={395} textAnchor="middle"
-              fill={atomProgress > 0.9 ? P.ok : P.muted} fontSize="9" fontWeight="700"
+              fill={atomProgress > 0.9 ? P.ok : P.muted} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">
               NSW step {Math.floor(atomProgress * 20) + 1}/20 {atomProgress > 0.9 ? "— CONVERGED" : ""}
             </text>
@@ -1494,7 +1494,7 @@ export default function DFTParamsMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>LREAL — Real vs Reciprocal Projectors</text>
           <line x1={LW + 20} y1={32} x2={LW + 20} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp * 0.6} />
 
@@ -1511,14 +1511,14 @@ export default function DFTParamsMovieModule() {
 
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
-          <text x={plotCx} y={52} textAnchor="middle" fill={P.purple} fontSize="11" fontWeight="700"
+          <text x={plotCx} y={52} textAnchor="middle" fill={P.purple} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t - 0.05) * 5))}>
             Projector Functions
           </text>
 
           {/* Real space projector */}
           <g opacity={ease(clamp01((t - 0.15) * 5))}>
-            <text x={RX + RW / 4} y={72} textAnchor="middle" fill={P.green} fontSize="9.5" fontWeight="700"
+            <text x={RX + RW / 4} y={72} textAnchor="middle" fill={P.green} fontSize="9.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">Real Space</text>
             <rect x={RX + 30} y={78} width={RW / 2 - 40} height={100} rx="5"
               fill={P.panel} stroke={P.green + "40"} strokeWidth="1" />
@@ -1543,7 +1543,7 @@ export default function DFTParamsMovieModule() {
 
           {/* Reciprocal space projector */}
           <g opacity={ease(clamp01((t - 0.30) * 5))}>
-            <text x={RX + 3 * RW / 4} y={72} textAnchor="middle" fill={P.blue} fontSize="9.5" fontWeight="700"
+            <text x={RX + 3 * RW / 4} y={72} textAnchor="middle" fill={P.blue} fontSize="9.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">Reciprocal Space</text>
             <rect x={RX + RW / 2 + 10} y={78} width={RW / 2 - 40} height={100} rx="5"
               fill={P.panel} stroke={P.blue + "40"} strokeWidth="1" />
@@ -1568,7 +1568,7 @@ export default function DFTParamsMovieModule() {
 
           {/* Cost scaling comparison */}
           <g opacity={ease(clamp01((t - 0.50) * 4))}>
-            <text x={plotCx} y={220} textAnchor="middle" fill={P.pink} fontSize="10" fontWeight="700"
+            <text x={plotCx} y={220} textAnchor="middle" fill={P.pink} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Cost vs System Size</text>
             {/* Cost curves */}
             <line x1={RX + 50} y1={235} x2={RX + 50} y2={340} stroke={P.muted} strokeWidth="1" />
@@ -1609,7 +1609,7 @@ export default function DFTParamsMovieModule() {
             <line x1={RX + 50 + 0.35 * (RW - 80)} y1={235}
               x2={RX + 50 + 0.35 * (RW - 80)} y2={340}
               stroke={P.pink} strokeWidth="1" strokeDasharray="4,3" />
-            <text x={RX + 50 + 0.35 * (RW - 80)} y={232} textAnchor="middle" fill={P.pink} fontSize="8" fontWeight="700"
+            <text x={RX + 50 + 0.35 * (RW - 80)} y={232} textAnchor="middle" fill={P.pink} fontSize="8" fontWeight="500"
               fontFamily="'Inter',sans-serif">~20 atoms</text>
             {/* Legend */}
             <line x1={RX + RW - 140} y1={248} x2={RX + RW - 120} y2={248} stroke={P.blue} strokeWidth="2" />
@@ -1622,7 +1622,7 @@ export default function DFTParamsMovieModule() {
           <g opacity={ease(clamp01((t - 0.80) * 4))}>
             <rect x={RX + 30} y={365} width={RW - 60} height={40} rx="6"
               fill={P.ok + "10"} stroke={P.ok + "40"} strokeWidth="1.5" />
-            <text x={plotCx} y={382} textAnchor="middle" fill={P.ok} fontSize="9.5" fontWeight="700"
+            <text x={plotCx} y={382} textAnchor="middle" fill={P.ok} fontSize="9.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">&lt;20 atoms: LREAL=.FALSE. | &gt;20 atoms: LREAL=Auto</text>
             <text x={plotCx} y={398} textAnchor="middle" fill={P.muted} fontSize="8"
               fontFamily="'Inter',sans-serif">LREAL=Auto is safe for relaxation, less so for phonons</text>
@@ -1664,7 +1664,7 @@ export default function DFTParamsMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Output Flags — LORBIT, LWAVE, LCHARG</text>
           <line x1={LW + 20} y1={32} x2={LW + 20} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp * 0.6} />
 
@@ -1681,7 +1681,7 @@ export default function DFTParamsMovieModule() {
 
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
-          <text x={plotCx} y={52} textAnchor="middle" fill={P.teal} fontSize="11" fontWeight="700"
+          <text x={plotCx} y={52} textAnchor="middle" fill={P.teal} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t - 0.05) * 5))}>
             DFT Output Files
           </text>
@@ -1690,7 +1690,7 @@ export default function DFTParamsMovieModule() {
           <g opacity={ease(clamp01((t - 0.15) * 5))}>
             <rect x={RX + 20} y={60} width={RW / 2 - 25} height={120} rx="6"
               fill={P.panel} stroke={P.blue + "40"} strokeWidth="1" />
-            <text x={RX + 20 + (RW / 2 - 25) / 2} y={78} textAnchor="middle" fill={P.blue} fontSize="9" fontWeight="700"
+            <text x={RX + 20 + (RW / 2 - 25) / 2} y={78} textAnchor="middle" fill={P.blue} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Projected DOS (LORBIT=11)</text>
             {/* DOS curve */}
             <line x1={RX + 30} y1={90} x2={RX + 30} y2={168} stroke={P.muted} strokeWidth="0.8" />
@@ -1729,7 +1729,7 @@ export default function DFTParamsMovieModule() {
           <g opacity={ease(clamp01((t - 0.40) * 4))}>
             <rect x={RX + RW / 2 + 5} y={60} width={RW / 2 - 25} height={120} rx="6"
               fill={P.panel} stroke={P.purple + "40"} strokeWidth="1" />
-            <text x={RX + 3 * RW / 4 - 5} y={78} textAnchor="middle" fill={P.purple} fontSize="9" fontWeight="700"
+            <text x={RX + 3 * RW / 4 - 5} y={78} textAnchor="middle" fill={P.purple} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Charge Density (CHGCAR)</text>
             {/* Isosurface representation */}
             {[0.9, 0.7, 0.5, 0.3].map((op, i) => {
@@ -1753,7 +1753,7 @@ export default function DFTParamsMovieModule() {
           <g opacity={ease(clamp01((t - 0.55) * 4))}>
             <rect x={RX + 20} y={195} width={RW - 40} height={95} rx="6"
               fill={P.panel} stroke={P.green + "40"} strokeWidth="1" />
-            <text x={plotCx} y={213} textAnchor="middle" fill={P.green} fontSize="9" fontWeight="700"
+            <text x={plotCx} y={213} textAnchor="middle" fill={P.green} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Band Structure from WAVECAR (LWAVE=.TRUE.)</text>
             {/* Mini band structure */}
             <line x1={RX + 40} y1={225} x2={RX + 40} y2={280} stroke={P.muted} strokeWidth="0.8" />
@@ -1772,7 +1772,7 @@ export default function DFTParamsMovieModule() {
             ))}
             {["\u0393", "X", "M", "\u0393"].map((lbl, i) => (
               <text key={i} x={RX + 40 + i * ((RW - 80) / 3)} y={290} textAnchor="middle" fill={P.muted}
-                fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">{lbl}</text>
+                fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">{lbl}</text>
             ))}
           </g>
 
@@ -1780,7 +1780,7 @@ export default function DFTParamsMovieModule() {
           <g opacity={ease(clamp01((t - 0.75) * 4))}>
             <rect x={RX + 20} y={300} width={RW - 40} height={105} rx="6"
               fill={P.surface} stroke={P.border} strokeWidth="1" />
-            <text x={plotCx} y={318} textAnchor="middle" fill={P.amber} fontSize="10" fontWeight="700"
+            <text x={plotCx} y={318} textAnchor="middle" fill={P.amber} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Key Output Files</text>
             {[
               { file: "DOSCAR", flag: "LORBIT=11", size: "~1 MB", col: P.blue },
@@ -1789,7 +1789,7 @@ export default function DFTParamsMovieModule() {
               { file: "vasprun.xml", flag: "always", size: "~10 MB", col: P.teal },
             ].map((f, i) => (
               <g key={i}>
-                <text x={RX + 35} y={338 + i * 16} fill={f.col} fontSize="9" fontWeight="700"
+                <text x={RX + 35} y={338 + i * 16} fill={f.col} fontSize="9" fontWeight="500"
                   fontFamily="'Fira Code','Consolas',monospace">{f.file}</text>
                 <text x={RX + 160} y={338 + i * 16} fill={P.muted} fontSize="8.5"
                   fontFamily="'Inter',sans-serif">{f.flag}</text>
@@ -1853,14 +1853,14 @@ export default function DFTParamsMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W / 2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>INCAR Recipe — Complete Parameter Set</text>
           <line x1={LW + 20} y1={32} x2={LW + 20} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp * 0.6} />
 
           {/* LEFT: INCAR file */}
           <rect x={LX} y={32} width={LW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
-          <text x={LX + LW / 2} y={48} textAnchor="middle" fill={P.ok} fontSize="10" fontWeight="700"
+          <text x={LX + LW / 2} y={48} textAnchor="middle" fill={P.ok} fontSize="10" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>INCAR</text>
           {incarLines.map((ln, i) => {
             const op = ease(clamp01((t - ln.delay) * 5));
@@ -1869,7 +1869,7 @@ export default function DFTParamsMovieModule() {
             const isComment = ln.text.startsWith("#");
             return (
               <text key={i} x={LX + 12} y={62 + i * 13} fill={isComment ? P.muted : col} fontSize="9.5"
-                fontWeight={isComment ? 400 : 600}
+                fontWeight={isComment ? 400 : 500}
                 fontFamily="'Fira Code','Consolas',monospace" opacity={op}>{ln.text}</text>
             );
           })}
@@ -1877,7 +1877,7 @@ export default function DFTParamsMovieModule() {
           {/* RIGHT */}
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
-          <text x={plotCx} y={52} textAnchor="middle" fill={P.ok} fontSize="11" fontWeight="700"
+          <text x={plotCx} y={52} textAnchor="middle" fill={P.ok} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t - 0.05) * 5))}>
             Convergence Testing Workflow
           </text>
@@ -1899,7 +1899,7 @@ export default function DFTParamsMovieModule() {
                 <g key={i} opacity={op}>
                   <rect x={RX + 30} y={step.y} width={bw} height={38} rx="6"
                     fill={step.col + "15"} stroke={step.col + "50"} strokeWidth="1.5" />
-                  <text x={RX + 42} y={step.y + 16} fill={step.col} fontSize="10" fontWeight="700"
+                  <text x={RX + 42} y={step.y + 16} fill={step.col} fontSize="10" fontWeight="500"
                     fontFamily="'Inter',sans-serif">{step.label}</text>
                   <text x={RX + 42} y={step.y + 30} fill={P.muted} fontSize="8"
                     fontFamily="'Inter',sans-serif">{step.sub}</text>
@@ -1920,7 +1920,7 @@ export default function DFTParamsMovieModule() {
           <g opacity={ease(clamp01((t - 0.80) * 4))}>
             <rect x={RX + 20} y={370} width={RW - 40} height={38} rx="6"
               fill={P.ok + "12"} stroke={P.ok + "50"} strokeWidth="1.5" />
-            <text x={plotCx} y={388} textAnchor="middle" fill={P.ok} fontSize="11" fontWeight="800"
+            <text x={plotCx} y={388} textAnchor="middle" fill={P.ok} fontSize="11" fontWeight="500"
               fontFamily="'Inter',sans-serif">Always converge ENCUT &amp; KPOINTS first!</text>
             <text x={plotCx} y={402} textAnchor="middle" fill={P.muted} fontSize="8.5"
               fontFamily="'Inter',sans-serif">Then tune smearing, algorithm, and output flags</text>
@@ -1952,12 +1952,12 @@ export default function DFTParamsMovieModule() {
       }}>
         <div style={{ position: "absolute", top: 10, left: 14, zIndex: 2, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ background: P.blue + "25", border: `1px solid ${P.blue}50`, padding: "3px 10px",
-            borderRadius: 6, fontSize: 10, fontWeight: 700, color: P.blue, letterSpacing: 1 }}>
+            borderRadius: 6, fontSize: 10, fontWeight: 500, color: P.blue, letterSpacing: 1 }}>
             Scene {sceneIdx + 1}/{SCENES.length}
           </span>
-          <span style={{ fontSize: 12, fontWeight: 700, color: P.ink }}>{scene.label}</span>
+          <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
-        <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 600, opacity: 0.65 }}>
+        <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 500, opacity: 0.65 }}>
           Habibur Rahman · rahma103@purdue.edu
         </div>
         <div style={{ opacity: fadeOpacity, transition: "opacity 0.25s ease-in-out", willChange: "opacity" }}>
@@ -1973,20 +1973,20 @@ export default function DFTParamsMovieModule() {
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.blue}`,
           background: P.blue + "15", cursor: "pointer", display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: 18, color: P.blue, fontWeight: 900, fontFamily: "inherit",
+          justifyContent: "center", fontSize: 18, color: P.blue, fontWeight: 500, fontFamily: "inherit",
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
         <button onClick={prevScene} disabled={sceneIdx === 0} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default",
-          color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 700,
+          color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
           fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4,
         }}>{"\u2190"}</button>
         <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default",
-          color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 700,
+          color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
           fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4,
         }}>{"\u2192"}</button>
 
@@ -2024,7 +2024,7 @@ export default function DFTParamsMovieModule() {
             background: i === sceneIdx ? P.blue + "20" : "transparent",
             border: `1px solid ${i === sceneIdx ? P.blue : P.border}`,
             color: i === sceneIdx ? P.blue : i < sceneIdx ? P.green : P.muted,
-            fontWeight: i === sceneIdx ? 700 : 500, fontFamily: "inherit", transition: "all 0.15s",
+            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
           }}>
             {i + 1}. {s.label}
           </button>

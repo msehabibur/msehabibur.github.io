@@ -114,7 +114,7 @@ function Card({ color, title, formula, children }) {
       marginBottom: 0,
     }}>
       <div style={{ display:"flex", alignItems:"baseline", gap:12, marginBottom:10 }}>
-        <div style={{ fontSize:13, fontWeight:800, color, letterSpacing:0.5 }}>{title}</div>
+        <div style={{ fontSize:13, fontWeight:500, color, letterSpacing:0.5 }}>{title}</div>
         <div style={{ fontFamily:"'Georgia',serif", fontSize:14, color:C.ink, background:color+"11",
           padding:"2px 10px", borderRadius:4, border:`1px solid ${color}33` }}>{formula}</div>
       </div>
@@ -129,7 +129,7 @@ function SliderRow({ label, value, min, max, step, onChange, color, unit, format
     <div style={{ marginBottom:10 }}>
       <div style={{ display:"flex", justifyContent:"space-between", marginBottom:3 }}>
         <span style={{ fontSize:12, color:C.muted }}>{label}</span>
-        <span style={{ fontSize:13, fontWeight:700, color, fontFamily:"monospace" }}>
+        <span style={{ fontSize:13, fontWeight:500, color, fontFamily:"monospace" }}>
           {fmt(value)}{unit||""}
         </span>
       </div>
@@ -147,7 +147,7 @@ function ResultBox({ label, value, color, sub }) {
       borderRadius:8, padding:"8px 12px", textAlign:"center",
     }}>
       <div style={{ fontSize:10, color:C.muted, marginBottom:2 }}>{label}</div>
-      <div style={{ fontSize:18, fontWeight:800, color, fontFamily:"monospace" }}>{value}</div>
+      <div style={{ fontSize:18, fontWeight:500, color, fontFamily:"monospace" }}>{value}</div>
       {sub && <div style={{ fontSize:10, color:C.muted, marginTop:2 }}>{sub}</div>}
     </div>
   );
@@ -158,7 +158,7 @@ function CalcRow({ eq, result, color }) {
     <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:4, fontSize:12 }}>
       <span style={{ color:C.muted, fontFamily:"monospace", flex:1 }}>{eq}</span>
       <span style={{ color:C.dim }}>=</span>
-      <span style={{ color:color||C.ink, fontWeight:700, fontFamily:"monospace", minWidth:70, textAlign:"right" }}>{result}</span>
+      <span style={{ color:color||C.ink, fontWeight:500, fontFamily:"monospace", minWidth:70, textAlign:"right" }}>{result}</span>
     </div>
   );
 }
@@ -202,7 +202,7 @@ function BondSection() {
           <SliderRow label="kᵦ — stiffness" value={kb} min={1} max={40} step={0.5} onChange={setKb} color={C.bond} unit=" eV/Å²"/>
 
           <div style={{ marginTop:12, background:C.light, borderRadius:8, padding:12, border:`1px solid ${C.border}` }}>
-            <div style={{ fontSize:10, color:C.muted, marginBottom:8, letterSpacing:2 }}>CALCULATION</div>
+            <div style={{ fontSize:10, color:C.muted, marginBottom:8, letterSpacing:2 }}>Calculation</div>
             <CalcRow eq={`r − r₀ = ${r.toFixed(2)} − ${r0.toFixed(2)}`} result={`${dr.toFixed(3)} Å`} color={C.bond}/>
             <CalcRow eq={`(r−r₀)² = ${dr.toFixed(3)}²`} result={`${sq(dr).toFixed(4)} Å²`} color={C.bond}/>
             <CalcRow eq={`½ × ${kb} × ${sq(dr).toFixed(4)}`} result={`${U.toFixed(4)} eV`} color={C.bond}/>
@@ -269,12 +269,12 @@ function AngleSection() {
               fill="none" stroke={C.gold} strokeWidth={2}/>
             {/* Atoms */}
             <circle cx={cx} cy={cy} r={16} fill={C.angle+"33"} stroke={C.angle} strokeWidth={2}/>
-            <text x={cx} y={cy+4} textAnchor="middle" fill={C.angle} fontSize={11} fontWeight="bold">Zn</text>
+            <text x={cx} y={cy+4} textAnchor="middle" fill={C.angle} fontSize={11} fontWeight="500">Zn</text>
             <circle cx={ax1} cy={ay1} r={13} fill={C.vdw+"33"} stroke={C.vdw} strokeWidth={2}/>
-            <text x={ax1} y={ay1+4} textAnchor="middle" fill={C.vdw} fontSize={11} fontWeight="bold">Te</text>
+            <text x={ax1} y={ay1+4} textAnchor="middle" fill={C.vdw} fontSize={11} fontWeight="500">Te</text>
             <circle cx={ax2} cy={ay2} r={13} fill={C.vdw+"33"} stroke={C.vdw} strokeWidth={2}/>
-            <text x={ax2} y={ay2+4} textAnchor="middle" fill={C.vdw} fontSize={11} fontWeight="bold">Te</text>
-            <text x={cx+40} y={cy-12} fill={C.gold} fontSize={13} fontWeight="bold">θ={theta.toFixed(1)}°</text>
+            <text x={ax2} y={ay2+4} textAnchor="middle" fill={C.vdw} fontSize={11} fontWeight="500">Te</text>
+            <text x={cx+40} y={cy-12} fill={C.gold} fontSize={13} fontWeight="500">θ={theta.toFixed(1)}°</text>
             {/* Equilibrium dashed */}
             <line x1={cx} y1={cy} x2={cx+r1*Math.cos(ang1+toRad(theta0))} y2={cy+r1*Math.sin(ang1+toRad(theta0))}
               stroke={C.dim} strokeWidth={1.5} strokeDasharray="5 3"/>
@@ -287,7 +287,7 @@ function AngleSection() {
           <SliderRow label="kθ — angular stiffness" value={kth} min={0.1} max={10} step={0.1} onChange={setKth} color={C.angle} unit=" eV/rad²"/>
 
           <div style={{ marginTop:12, background:C.light, borderRadius:8, padding:12, border:`1px solid ${C.border}` }}>
-            <div style={{ fontSize:10, color:C.muted, marginBottom:8, letterSpacing:2 }}>CALCULATION</div>
+            <div style={{ fontSize:10, color:C.muted, marginBottom:8, letterSpacing:2 }}>Calculation</div>
             <CalcRow eq={`θ = ${theta.toFixed(1)}° = ${toRad(theta).toFixed(4)} rad`} result="" color={C.angle}/>
             <CalcRow eq={`θ₀ = ${theta0.toFixed(1)}° = ${toRad(theta0).toFixed(4)} rad`} result="" color={C.angle}/>
             <CalcRow eq={`θ − θ₀ = ${dth.toFixed(4)} rad`} result={`${(dth*180/Math.PI).toFixed(2)}°`} color={C.angle}/>
@@ -385,7 +385,7 @@ function VdwSection() {
             onChange={setSig} color={C.vdw} unit=" Å"/>
 
           <div style={{ marginTop:12, background:C.light, borderRadius:8, padding:12, border:`1px solid ${C.border}` }}>
-            <div style={{ fontSize:10, color:C.muted, marginBottom:8, letterSpacing:2 }}>CALCULATION</div>
+            <div style={{ fontSize:10, color:C.muted, marginBottom:8, letterSpacing:2 }}>Calculation</div>
             <CalcRow eq={`σ/r = ${sig.toFixed(2)}/${r.toFixed(2)}`} result={`${(sig/r).toFixed(4)}`} color={C.vdw}/>
             <CalcRow eq={`(σ/r)⁶`} result={`${Math.pow(sig/r,6).toFixed(4)}`} color={C.coul}/>
             <CalcRow eq={`(σ/r)¹²`} result={`${Math.pow(sig/r,12).toFixed(4)}`} color={C.bond}/>
@@ -449,7 +449,7 @@ function CoulombSection() {
             <div style={{ display:"flex", gap:6 }}>
               {[-2,-1,0,+1,+2].map(v=>(
                 <button key={v} onClick={()=>setQi(v)} style={{
-                  flex:1, padding:"6px 0", borderRadius:6, fontSize:12, fontWeight:700,
+                  flex:1, padding:"6px 0", borderRadius:6, fontSize:12, fontWeight:500,
                   background: qi===v ? C.coul+"33" : C.light,
                   border:`1.5px solid ${qi===v ? C.coul : C.border}`,
                   color: qi===v ? C.coul : C.muted, cursor:"pointer",
@@ -462,7 +462,7 @@ function CoulombSection() {
             <div style={{ display:"flex", gap:6 }}>
               {[-2,-1,0,+1,+2].map(v=>(
                 <button key={v} onClick={()=>setQj(v)} style={{
-                  flex:1, padding:"6px 0", borderRadius:6, fontSize:12, fontWeight:700,
+                  flex:1, padding:"6px 0", borderRadius:6, fontSize:12, fontWeight:500,
                   background: qj===v ? C.dih+"33" : C.light,
                   border:`1.5px solid ${qj===v ? C.dih : C.border}`,
                   color: qj===v ? C.dih : C.muted, cursor:"pointer",
@@ -473,7 +473,7 @@ function CoulombSection() {
           <SliderRow label="r — distance" value={r} min={0.5} max={10} step={0.05} onChange={setR} color={C.coul} unit=" Å"/>
 
           <div style={{ marginTop:12, background:C.light, borderRadius:8, padding:12, border:`1px solid ${C.border}` }}>
-            <div style={{ fontSize:10, color:C.muted, marginBottom:8, letterSpacing:2 }}>CALCULATION</div>
+            <div style={{ fontSize:10, color:C.muted, marginBottom:8, letterSpacing:2 }}>Calculation</div>
             <CalcRow eq={`qᵢ × qⱼ = ${qi} × ${qj}`} result={`${qi*qj} e²`}
               color={qi*qj<0?C.vdw:qi*qj>0?C.bond:C.muted}/>
             <CalcRow eq={`k_e = 1/(4πε₀) = 14.4 eV·Å/e²`} result="constant"/>
@@ -553,7 +553,7 @@ function DihedralSection() {
                 <circle cx={ax} cy={ay} r={13} fill={[C.vdw,C.dih,C.dih,C.vdw][i]+"33"}
                   stroke={[C.vdw,C.dih,C.dih,C.vdw][i]} strokeWidth={1.5}/>
                 <text x={ax} y={ay+4} textAnchor="middle"
-                  fill={[C.vdw,C.dih,C.dih,C.vdw][i]} fontSize={9} fontWeight="bold">
+                  fill={[C.vdw,C.dih,C.dih,C.vdw][i]} fontSize={9} fontWeight="500">
                   {["C","C","C","C"][i]}{i+1}
                 </text>
               </g>
@@ -577,7 +577,7 @@ function DihedralSection() {
             <circle cx={265} cy={70+35} r={10} fill={C.vdw+"44"} stroke={C.vdw} strokeWidth={1.5}/>
             <text x={265} y={70+35+4} textAnchor="middle" fill={C.vdw} fontSize={9}>C4</text>
             {/* angle arc */}
-            <text x={265+18} y={70-8} fill={C.gold} fontSize={10} fontWeight="bold">ϕ={phi.toFixed(0)}°</text>
+            <text x={265+18} y={70-8} fill={C.gold} fontSize={10} fontWeight="500">ϕ={phi.toFixed(0)}°</text>
           </svg>
         </div>
         <div style={{ flex:1, minWidth:200 }}>
@@ -591,7 +591,7 @@ function DihedralSection() {
             onChange={setDelta} color={C.dih} unit="°" format={v=>v.toFixed(0)}/>
 
           <div style={{ marginTop:12, background:C.light, borderRadius:8, padding:12, border:`1px solid ${C.border}` }}>
-            <div style={{ fontSize:10, color:C.muted, marginBottom:8, letterSpacing:2 }}>CALCULATION</div>
+            <div style={{ fontSize:10, color:C.muted, marginBottom:8, letterSpacing:2 }}>Calculation</div>
             <CalcRow eq={`nϕ − δ = ${n}×${phi}° − ${delta}°`} result={`${(n*phi-delta).toFixed(0)}°`} color={C.dih}/>
             <CalcRow eq={`cos(${(n*phi-delta).toFixed(0)}°)`} result={`${Math.cos(toRad(n*phi-delta)).toFixed(4)}`} color={C.dih}/>
             <CalcRow eq={`1 + ${Math.cos(toRad(n*phi-delta)).toFixed(4)}`} result={`${(1+Math.cos(toRad(n*phi-delta))).toFixed(4)}`} color={C.dih}/>
@@ -676,17 +676,17 @@ function MorseSection() {
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(280px, 1fr))", gap:6 }}>
               <div style={{ textAlign:"center", padding:8, background:C.bond+"11", borderRadius:6, border:`1px solid ${C.bond}33` }}>
                 <div style={{ fontSize:10, color:C.muted }}>Compress 0.5Å</div>
-                <div style={{ fontSize:14, fontWeight:800, color:C.bond, fontFamily:"monospace" }}>{morse(r0-0.5).toFixed(2)} eV</div>
+                <div style={{ fontSize:14, fontWeight:500, color:C.bond, fontFamily:"monospace" }}>{morse(r0-0.5).toFixed(2)} eV</div>
                 <div style={{ fontSize:10, color:C.muted }}>Morse</div>
               </div>
               <div style={{ textAlign:"center", padding:8, background:C.morse+"11", borderRadius:6, border:`1px solid ${C.morse}33` }}>
                 <div style={{ fontSize:10, color:C.muted }}>Stretch 0.5Å</div>
-                <div style={{ fontSize:14, fontWeight:800, color:C.morse, fontFamily:"monospace" }}>{morse(r0+0.5).toFixed(2)} eV</div>
+                <div style={{ fontSize:14, fontWeight:500, color:C.morse, fontFamily:"monospace" }}>{morse(r0+0.5).toFixed(2)} eV</div>
                 <div style={{ fontSize:10, color:C.muted }}>Morse</div>
               </div>
             </div>
             <div style={{ textAlign:"center", marginTop:6, fontSize:11, color:C.muted }}>
-              Harmonic says both = <span style={{color:C.bond, fontWeight:700}}>{harmonic(r0+0.5).toFixed(2)} eV</span> (wrong — symmetric)
+              Harmonic says both = <span style={{color:C.bond, fontWeight:500}}>{harmonic(r0+0.5).toFixed(2)} eV</span> (wrong — symmetric)
             </div>
           </div>
         </div>
@@ -701,7 +701,7 @@ function MorseSection() {
             onChange={setR0} color={C.morse} unit=" Å"/>
 
           <div style={{ marginTop:12, background:C.light, borderRadius:8, padding:12, border:`1px solid ${C.border}` }}>
-            <div style={{ fontSize:10, color:C.muted, marginBottom:8, letterSpacing:2 }}>STEP BY STEP</div>
+            <div style={{ fontSize:10, color:C.muted, marginBottom:8, letterSpacing:2 }}>Step BY step</div>
             <CalcRow eq={`r − r₀ = ${r.toFixed(2)} − ${r0.toFixed(2)}`} result={`${(r-r0).toFixed(3)} Å`} color={C.morse}/>
             <CalcRow eq={`a(r−r₀) = ${a}×${(r-r0).toFixed(3)}`} result={`${(a*(r-r0)).toFixed(4)}`} color={C.morse}/>
             <CalcRow eq={`e^{−${(a*(r-r0)).toFixed(3)}}`} result={`${Math.exp(-a*(r-r0)).toFixed(5)}`} color={C.morse}/>
@@ -746,7 +746,7 @@ function CompareSection() {
 
   return (
     <div style={{ background:C.panel, border:`1.5px solid ${C.border}`, borderRadius:10, padding:18 }}>
-      <div style={{ fontSize:14, fontWeight:800, color:C.ink, marginBottom:14, letterSpacing:0.5 }}>
+      <div style={{ fontSize:14, fontWeight:500, color:C.ink, marginBottom:14, letterSpacing:0.5 }}>
         All 6 terms — side by side
       </div>
       <div style={{ overflowX:"auto" }}>
@@ -754,14 +754,14 @@ function CompareSection() {
           <thead>
             <tr style={{ borderBottom:`2px solid ${C.border}` }}>
               {["Term","Formula","Atoms needed","What it captures","Where it fails"].map(h=>(
-                <th key={h} style={{ padding:"6px 10px", textAlign:"left", color:C.muted, fontWeight:700, fontSize:11, letterSpacing:0.5 }}>{h}</th>
+                <th key={h} style={{ padding:"6px 10px", textAlign:"left", color:C.muted, fontWeight:500, fontSize:11, letterSpacing:0.5 }}>{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {rows.map((row,i)=>(
               <tr key={i} style={{ borderBottom:`1px solid ${C.border}`, background: i%2===0?C.light:C.panel }}>
-                <td style={{ padding:"8px 10px", color:row.color, fontWeight:700 }}>{row.name}</td>
+                <td style={{ padding:"8px 10px", color:row.color, fontWeight:500 }}>{row.name}</td>
                 <td style={{ padding:"8px 10px", fontFamily:"'Georgia',serif", color:C.ink, fontSize:11 }}>{row.formula}</td>
                 <td style={{ padding:"8px 10px", color:C.muted }}>{row.atoms}</td>
                 <td style={{ padding:"8px 10px", color:C.ink }}>{row.captures}</td>
@@ -773,7 +773,7 @@ function CompareSection() {
       </div>
 
       <div style={{ marginTop:16, background:C.light, borderRadius:8, padding:14, border:`1px solid ${C.border}` }}>
-        <div style={{ fontSize:12, fontWeight:700, color:C.ink, marginBottom:8 }}>
+        <div style={{ fontSize:12, fontWeight:500, color:C.ink, marginBottom:8 }}>
           Total energy of a molecule = sum of ALL applicable terms:
         </div>
         <div style={{ fontFamily:"'Georgia',serif", fontSize:14, color:C.ink, lineHeight:2 }}>
@@ -840,10 +840,10 @@ export default function ForceFieldTerms() {
         position:"sticky", top:0, zIndex:10,
       }}>
         <div>
-          <div style={{ fontSize:10, letterSpacing:4, color:C.muted, textTransform:"uppercase", fontFamily:"sans-serif" }}>
+          <div style={{ fontSize:10, letterSpacing:4, color:C.muted, textTransform: "none", fontFamily:"sans-serif" }}>
             Classical Force Field
           </div>
-          <div style={{ fontSize:22, fontWeight:800, color:C.ink, fontFamily:"sans-serif" }}>
+          <div style={{ fontSize:22, fontWeight:500, color:C.ink, fontFamily:"sans-serif" }}>
             The 6 Potential Energy Terms
           </div>
         </div>
@@ -871,7 +871,7 @@ export default function ForceFieldTerms() {
             cursor:"pointer",
             fontSize:12,
             fontFamily:"sans-serif",
-            fontWeight: active===t.id ? 800 : 400,
+            fontWeight: active===t.id ? 500 : 400,
             display:"flex",
             alignItems:"center",
             gap:6,
@@ -907,7 +907,7 @@ export default function ForceFieldTerms() {
           border:`1.5px solid ${active===TABS[0].id ? C.border : tab.color}`,
           color: active===TABS[0].id ? C.muted : tab.color,
           cursor: active===TABS[0].id ? "default":"pointer",
-          fontFamily:"sans-serif", fontWeight:700,
+          fontFamily:"sans-serif", fontWeight:500,
         }}>← Previous</button>
 
         <div style={{ display:"flex", gap:8 }}>
@@ -929,7 +929,7 @@ export default function ForceFieldTerms() {
           border:`1.5px solid ${active===TABS[TABS.length-1].id ? C.border : tab.color}`,
           color: active===TABS[TABS.length-1].id ? C.muted : tab.color,
           cursor: active===TABS[TABS.length-1].id ? "default":"pointer",
-          fontFamily:"sans-serif", fontWeight:700,
+          fontFamily:"sans-serif", fontWeight:500,
         }}>Next →</button>
       </div>
     </div>
@@ -1027,8 +1027,8 @@ export default function ForceFieldTerms() {
             <div style={{ fontSize: 18, flex: "0 0 24px", marginTop: 2 }}>{icon}</div>
             <div style={{ flex: 1 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 3 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: change !== "none" ? color : P.text }}>{title}</div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: change !== "none" ? color : P.muted, fontFamily: "monospace" }}>
+                <div style={{ fontSize: 13, fontWeight: 500, color: change !== "none" ? color : P.text }}>{title}</div>
+                <div style={{ fontSize: 14, fontWeight: 500, color: change !== "none" ? color : P.muted, fontFamily: "monospace" }}>
                   {value}
                 </div>
               </div>
@@ -1041,7 +1041,7 @@ export default function ForceFieldTerms() {
           padding: "10px 14px", borderRadius: 8,
           background: P.gap + "11", border: `1px solid ${P.gap}44`,
         }}>
-          <div style={{ fontSize: 11, color: P.gap, fontWeight: 700, marginBottom: 4 }}>Why electrical/optical but not mechanical?</div>
+          <div style={{ fontSize: 11, color: P.gap, fontWeight: 500, marginBottom: 4 }}>Why electrical/optical but not mechanical?</div>
           <div style={{ fontSize: 11, color: P.muted, lineHeight: 1.7 }}>
             Mechanical: average over ALL 10¹¹ atoms → {defects} defects = nothing<br />
             Electrical: each trap independently kills one carrier → {defects} traps = {defects}× more recombination<br />
@@ -1091,11 +1091,11 @@ export default function ElectronOrigins() {
         zIndex: 10,
       }}>
         <div>
-          <div style={{ fontSize: 10, letterSpacing: 4, color: P.e, textTransform: "uppercase" }}>
+          <div style={{ fontSize: 10, letterSpacing: 4, color: P.e, textTransform: "none" }}>
             Semiconductor Physics
           </div>
           <div style={{
-            fontSize: 18, fontWeight: 800,
+            fontSize: 18, fontWeight: 500,
             background: `linear-gradient(90deg, ${P.e}, ${P.valence})`,
             WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
           }}>
@@ -1127,7 +1127,7 @@ export default function ElectronOrigins() {
             cursor: "pointer",
             fontSize: 12,
             fontFamily: "inherit",
-            fontWeight: active === s.id ? 700 : 400,
+            fontWeight: active === s.id ? 500 : 400,
             display: "flex",
             alignItems: "center",
             gap: 6,
@@ -1180,7 +1180,7 @@ export default function ElectronOrigins() {
           border: `1px solid ${active === SECTIONS[0].id ? P.border : sec.color}`,
           color: active === SECTIONS[0].id ? P.muted : sec.color,
           cursor: active === SECTIONS[0].id ? "default" : "pointer",
-          fontFamily: "inherit", fontWeight: 600,
+          fontFamily: "inherit", fontWeight: 500,
         }}>← Previous</button>
 
         <div style={{ display: "flex", gap: 6 }}>
@@ -1202,7 +1202,7 @@ export default function ElectronOrigins() {
           border: `1px solid ${active === SECTIONS[SECTIONS.length - 1].id ? P.border : sec.color}`,
           color: active === SECTIONS[SECTIONS.length - 1].id ? P.muted : sec.color,
           cursor: active === SECTIONS[SECTIONS.length - 1].id ? "default" : "pointer",
-          fontFamily: "inherit", fontWeight: 600,
+          fontFamily: "inherit", fontWeight: 500,
         }}>Next →</button>
       </div>
     </div>
@@ -1210,7 +1210,7 @@ export default function ElectronOrigins() {
 }
 
                   <div key={i} style={{ marginBottom: 10, padding: "6px 8px", background: `${C.panel}`, border: `1px solid ${C.border}`, borderRadius: 6 }}>
-                    <div style={{ fontSize: 11, color: ELEM_COLOR[a.Z], fontWeight: 700, marginBottom: 4 }}>
+                    <div style={{ fontSize: 11, color: ELEM_COLOR[a.Z], fontWeight: 500, marginBottom: 4 }}>
                       Atom {i} ({a.sym}) at [{a.pos.map(v => v.toFixed(3)).join(", ")}]
                     </div>
                     <Vec v={f} color={C.accent4} label="F_i (eV/Å):" />
@@ -1269,7 +1269,7 @@ export default function ElectronOrigins() {
                 return (
                   <>
                     <MR label="P = −tr(σ)/3:" eq={`−(${gnn.stressGPa[0][0].toFixed(4)} + ${gnn.stressGPa[1][1].toFixed(4)} + ${gnn.stressGPa[2][2].toFixed(4)})/3`} />
-                    <div style={{ fontSize: 22, fontWeight: 800, color: C.accent3, textAlign: "center", margin: "10px 0", fontFamily: "monospace" }}>
+                    <div style={{ fontSize: 22, fontWeight: 500, color: C.accent3, textAlign: "center", margin: "10px 0", fontFamily: "monospace" }}>
                       P = {P.toFixed(4)} GPa
                     </div>
                   </>
@@ -1318,8 +1318,8 @@ export default function DefectNetPipeline() {
       {/* Header */}
       <div style={{ borderBottom: `1px solid ${C.border}`, padding: "14px 28px", display: "flex", alignItems: "center", justifyContent: "space-between", background: `${C.panel}cc`, position: "sticky", top: 0, zIndex: 10 }}>
         <div>
-          <div style={{ fontSize: 10, letterSpacing: 4, color: C.accent1, textTransform: "uppercase" }}>DefectNet</div>
-          <div style={{ fontSize: 18, fontWeight: 800, background: `linear-gradient(90deg,${C.accent1},${C.accent5})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+          <div style={{ fontSize: 10, letterSpacing: 4, color: C.accent1, textTransform: "none" }}>DefectNet</div>
+          <div style={{ fontSize: 18, fontWeight: 500, background: `linear-gradient(90deg,${C.accent1},${C.accent5})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
             Full Pipeline — Every Number Shown
           </div>
         </div>
@@ -1329,7 +1329,7 @@ export default function DefectNetPipeline() {
               padding: "8px 14px", borderRadius: 8, fontSize: 12, cursor: "pointer",
               background: molIdx === i ? `${m.color}22` : C.panel,
               border: `2px solid ${molIdx === i ? m.color : C.border}`,
-              color: molIdx === i ? m.color : C.muted, fontFamily: "inherit", fontWeight: 700,
+              color: molIdx === i ? m.color : C.muted, fontFamily: "inherit", fontWeight: 500,
             }}>{m.name}</button>
           ))}
         </div>
@@ -1342,7 +1342,7 @@ export default function DefectNetPipeline() {
             padding: "7px 14px", borderRadius: 8, fontSize: 11, cursor: "pointer", whiteSpace: "nowrap",
             border: `1px solid ${active === sec.id ? sec.color : C.border}`,
             background: active === sec.id ? `${sec.color}22` : C.bg,
-            color: active === sec.id ? sec.color : C.muted, fontFamily: "inherit", fontWeight: active === sec.id ? 700 : 400,
+            color: active === sec.id ? sec.color : C.muted, fontFamily: "inherit", fontWeight: active === sec.id ? 500 : 400,
           }}>{sec.label}</button>
         ))}
       </div>
@@ -1367,7 +1367,7 @@ export default function DefectNetPipeline() {
       <div style={{ borderTop: `1px solid ${C.border}`, padding: "10px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", background: C.panel }}>
         <button onClick={() => { const i = SECTIONS.findIndex(s => s.id === active); if (i > 0) setActive(SECTIONS[i - 1].id); }}
           disabled={active === SECTIONS[0].id}
-          style={{ padding: "7px 18px", borderRadius: 8, fontSize: 12, background: active === SECTIONS[0].id ? C.panel : `${section.color}22`, border: `1px solid ${active === SECTIONS[0].id ? C.border : section.color}`, color: active === SECTIONS[0].id ? C.muted : section.color, cursor: active === SECTIONS[0].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 600 }}>
+          style={{ padding: "7px 18px", borderRadius: 8, fontSize: 12, background: active === SECTIONS[0].id ? C.panel : `${section.color}22`, border: `1px solid ${active === SECTIONS[0].id ? C.border : section.color}`, color: active === SECTIONS[0].id ? C.muted : section.color, cursor: active === SECTIONS[0].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 500 }}>
           ← Previous
         </button>
         <div style={{ display: "flex", gap: 6 }}>
@@ -1377,7 +1377,7 @@ export default function DefectNetPipeline() {
         </div>
         <button onClick={() => { const i = SECTIONS.findIndex(s => s.id === active); if (i < SECTIONS.length - 1) setActive(SECTIONS[i + 1].id); }}
           disabled={active === SECTIONS[SECTIONS.length - 1].id}
-          style={{ padding: "7px 18px", borderRadius: 8, fontSize: 12, background: active === SECTIONS[SECTIONS.length - 1].id ? C.panel : `${section.color}22`, border: `1px solid ${active === SECTIONS[SECTIONS.length - 1].id ? C.border : section.color}`, color: active === SECTIONS[SECTIONS.length - 1].id ? C.muted : section.color, cursor: active === SECTIONS[SECTIONS.length - 1].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 600 }}>
+          style={{ padding: "7px 18px", borderRadius: 8, fontSize: 12, background: active === SECTIONS[SECTIONS.length - 1].id ? C.panel : `${section.color}22`, border: `1px solid ${active === SECTIONS[SECTIONS.length - 1].id ? C.border : section.color}`, color: active === SECTIONS[SECTIONS.length - 1].id ? C.muted : section.color, cursor: active === SECTIONS[SECTIONS.length - 1].id ? "default" : "pointer", fontFamily: "inherit", fontWeight: 500 }}>
           Next →
         </button>
       </div>

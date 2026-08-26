@@ -11,7 +11,7 @@ function Tag({ color, children }) {
   return (
     <span style={{
       display: "inline-block", padding: "1px 8px", borderRadius: 4,
-      fontSize: 11, fontWeight: 700, background: color + "22",
+      fontSize: 11, fontWeight: 500, background: color + "22",
       border: `1px solid ${color}55`, color, letterSpacing: 1,
     }}>{children}</span>
   );
@@ -26,8 +26,8 @@ function SectionTitle({ color, icon, children }) {
         display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16,
       }}>{icon}</div>
       <div style={{
-        fontSize: 15, fontWeight: 800, color,
-        letterSpacing: 1, textTransform: "uppercase",
+        fontSize: 15, fontWeight: 500, color,
+        letterSpacing: 1, textTransform: "none",
       }}>{children}</div>
     </div>
   );
@@ -92,7 +92,7 @@ function IntroSection() {
           <button onClick={() => setShowDefect(!showDefect)} style={{
             marginTop: 8, padding: "6px 16px", borderRadius: 6,
             border: `1px solid ${T.df_primary}`, background: T.df_primary + "11",
-            color: T.df_primary, cursor: "pointer", fontSize: 12, fontWeight: 600,
+            color: T.df_primary, cursor: "pointer", fontSize: 12, fontWeight: 500,
           }}>{showDefect ? "Show perfect" : "Introduce defect"}</button>
         </div>
       </div>
@@ -131,13 +131,13 @@ function PointDefectsSection() {
                 background: activeDefects[d.type] ? d.color + "15" : T.surface,
                 cursor: "pointer",
               }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: d.color }}>{d.label}</div>
+                <div style={{ fontSize: 13, fontWeight: 500, color: d.color }}>{d.label}</div>
                 <div style={{ fontSize: 11, color: T.muted }}>{d.desc}</div>
               </button>
             ))}
           </div>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Equilibrium Concentration</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 4 }}>Equilibrium Concentration</div>
             <div style={{ fontFamily: "monospace", fontSize: 13, color: T.df_primary }}>
               n/N = exp(-E_f / k_B T)
             </div>
@@ -185,7 +185,7 @@ function PointDefectsSection() {
             ["NaCl", "Schottky pair", "2.18"], ["AgBr", "Frenkel pair", "1.16"],
           ].map(([mat, def, ef], i) => (
             <tr key={i} style={{ borderBottom: `1px solid ${T.border}` }}>
-              <td style={{ padding: 8, color: T.ink, fontWeight: 600 }}>{mat}</td>
+              <td style={{ padding: 8, color: T.ink, fontWeight: 500 }}>{mat}</td>
               <td style={{ padding: 8, color: T.muted }}>{def}</td>
               <td style={{ padding: 8, color: T.df_primary, textAlign: "right", fontFamily: "monospace" }}>{ef}</td>
             </tr>
@@ -207,7 +207,7 @@ function SchottkyFrenkelSection() {
       <div style={{ display: "flex", gap: 12, marginBottom: 16 }}>
         {["schottky", "frenkel"].map(t => (
           <button key={t} onClick={() => setDefectType(t)} style={{
-            padding: "8px 20px", borderRadius: 8, fontWeight: 700, fontSize: 13,
+            padding: "8px 20px", borderRadius: 8, fontWeight: 500, fontSize: 13,
             border: `2px solid ${defectType === t ? (t === "schottky" ? T.df_schottky : T.df_frenkel) : T.border}`,
             background: defectType === t ? (t === "schottky" ? T.df_schottky : T.df_frenkel) + "15" : T.surface,
             color: defectType === t ? (t === "schottky" ? T.df_schottky : T.df_frenkel) : T.muted,
@@ -322,7 +322,7 @@ function SchottkyFrenkelSection() {
             ["CaF\u2082", "Anion Frenkel", "2.70"],
           ].map(([mat, type, e], i) => (
             <tr key={i} style={{ borderBottom: `1px solid ${T.border}` }}>
-              <td style={{ padding: 8, color: T.ink, fontWeight: 600 }}>{mat}</td>
+              <td style={{ padding: 8, color: T.ink, fontWeight: 500 }}>{mat}</td>
               <td style={{ padding: 8, color: T.muted }}>{type}</td>
               <td style={{ padding: 8, color: T.df_primary, textAlign: "right", fontFamily: "monospace" }}>{e}</td>
             </tr>
@@ -352,8 +352,8 @@ function KrogerVinkSection() {
           <div key={i} style={{
             padding: 12, borderRadius: 8, background: T.surface, border: `1px solid ${T.border}`, flex: 1, minWidth: 120,
           }}>
-            <div style={{ fontSize: 24, textAlign: "center", color: T.df_primary, fontWeight: 700 }}>{ch.sym}</div>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, textAlign: "center" }}>{ch.name}</div>
+            <div style={{ fontSize: 24, textAlign: "center", color: T.df_primary, fontWeight: 500 }}>{ch.sym}</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, textAlign: "center" }}>{ch.name}</div>
             <div style={{ fontSize: 11, color: T.muted, textAlign: "center" }}>{ch.desc}</div>
           </div>
         ))}
@@ -377,7 +377,7 @@ function KrogerVinkSection() {
             ["h\u2022", "Electron hole", "Valence band hole"],
           ].map(([not_, mean, ex], i) => (
             <tr key={i} style={{ borderBottom: `1px solid ${T.border}` }}>
-              <td style={{ padding: 8, fontFamily: "monospace", color: T.df_primary, fontWeight: 600 }}>{not_}</td>
+              <td style={{ padding: 8, fontFamily: "monospace", color: T.df_primary, fontWeight: 500 }}>{not_}</td>
               <td style={{ padding: 8, color: T.ink }}>{mean}</td>
               <td style={{ padding: 8, color: T.muted, fontSize: 11 }}>{ex}</td>
             </tr>
@@ -386,7 +386,7 @@ function KrogerVinkSection() {
       </table>
       </div>
       <div style={{ background: T.surface, borderRadius: 8, padding: 14, marginTop: 16, border: `1px solid ${T.border}` }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 8 }}>Balance Rules</div>
+        <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 8 }}>Balance Rules</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           {[
             ["Mass balance", "Atoms are conserved on both sides"],
@@ -448,7 +448,7 @@ function DefectChemistrySection() {
         </svg>
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 6 }}>Mass Action Law</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 6 }}>Mass Action Law</div>
             <div style={{ fontFamily: "monospace", fontSize: 13, color: T.df_schottky }}>
               K = [V_O••][e′]² / pO₂^(-1/2)
             </div>
@@ -458,7 +458,7 @@ function DefectChemistrySection() {
             </div>
           </div>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Electroneutrality</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 4 }}>Electroneutrality</div>
             <div style={{ fontFamily: "monospace", fontSize: 12, color: T.df_primary }}>
               2[V_O••] + [h•] = [e′] + 2[V_M′′]
             </div>
@@ -479,7 +479,7 @@ function DislocationsSection() {
       <div style={{ display: "flex", gap: 12, marginBottom: 16 }}>
         {["edge", "screw"].map(t => (
           <button key={t} onClick={() => setDislType(t)} style={{
-            padding: "8px 20px", borderRadius: 8, fontWeight: 700, fontSize: 13,
+            padding: "8px 20px", borderRadius: 8, fontWeight: 500, fontSize: 13,
             border: `2px solid ${dislType === t ? T.df_disloc : T.border}`,
             background: dislType === t ? T.df_disloc + "15" : T.surface,
             color: dislType === t ? T.df_disloc : T.muted,
@@ -510,7 +510,7 @@ function DislocationsSection() {
               })}
               {/* Burgers vector */}
               <line x1={200} y1={200} x2={240} y2={200} stroke={T.df_primary} strokeWidth={2} markerEnd="url(#arrowD)" />
-              <text x={220} y={220} textAnchor="middle" fontSize={11} fill={T.df_primary} fontWeight={700}>b</text>
+              <text x={220} y={220} textAnchor="middle" fontSize={11} fill={T.df_primary} fontWeight={500}>b</text>
               <text x={150} y={250} textAnchor="middle" fontSize={11} fill={T.muted}>Edge dislocation (⊥)</text>
               <defs>
                 <marker id="arrowD" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
@@ -532,7 +532,7 @@ function DislocationsSection() {
                 })
               )}
               <line x1={150} y1={200} x2={150} y2={240} stroke={T.df_primary} strokeWidth={2} markerEnd="url(#arrowD)" />
-              <text x={165} y={225} fontSize={11} fill={T.df_primary} fontWeight={700}>b</text>
+              <text x={165} y={225} fontSize={11} fill={T.df_primary} fontWeight={500}>b</text>
               <text x={150} y={255} textAnchor="middle" fontSize={11} fill={T.muted}>Screw dislocation</text>
             </>
           )}
@@ -544,7 +544,7 @@ function DislocationsSection() {
               : "A screw dislocation creates a helical ramp around the dislocation line. The Burgers vector b is parallel to the dislocation line."}
           </p>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 6 }}>Peach-Koehler Force</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 6 }}>Peach-Koehler Force</div>
             <div style={{ fontFamily: "monospace", fontSize: 13, color: T.df_disloc }}>
               F = (σ · b) × ξ
             </div>
@@ -553,7 +553,7 @@ function DislocationsSection() {
             </div>
           </div>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 8, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Strain Energy</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 4 }}>Strain Energy</div>
             <div style={{ fontFamily: "monospace", fontSize: 13, color: T.df_disloc }}>
               E ≈ Gb²/2 (per unit length)
             </div>
@@ -598,7 +598,7 @@ function PlanarDefectsSection() {
           )}
           <text x={70} y={235} textAnchor="middle" fontSize={10} fill={T.muted}>Grain 1</text>
           <text x={230} y={235} textAnchor="middle" fontSize={10} fill={T.muted}>Grain 2</text>
-          <text x={140} y={235} textAnchor="middle" fontSize={10} fill={T.df_grain} fontWeight={700}>GB</text>
+          <text x={140} y={235} textAnchor="middle" fontSize={10} fill={T.df_grain} fontWeight={500}>GB</text>
         </svg>
         <div style={{ flex: 1, minWidth: 240 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -609,13 +609,13 @@ function PlanarDefectsSection() {
               { name: "Antiphase Boundaries", desc: "In ordered alloys, region where sublattice assignment is reversed.", color: T.df_schottky },
             ].map((d, i) => (
               <div key={i} style={{ padding: 10, borderRadius: 8, background: T.surface, border: `1px solid ${T.border}` }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: d.color }}>{d.name}</div>
+                <div style={{ fontSize: 12, fontWeight: 500, color: d.color }}>{d.name}</div>
                 <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{d.desc}</div>
               </div>
             ))}
           </div>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 4 }}>Hall-Petch Relationship</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 4 }}>Hall-Petch Relationship</div>
             <div style={{ fontFamily: "monospace", fontSize: 13, color: T.df_grain }}>
               σ_y = σ_0 + k / √d
             </div>
@@ -655,7 +655,7 @@ function DiffusionSection() {
               { law: "Arrhenius", eq: "D = D\u2080 exp(-E_A / k_BT)", desc: "Diffusivity exponentially depends on temperature" },
             ].map((f, i) => (
               <div key={i} style={{ padding: 10, borderRadius: 8, background: T.surface, border: `1px solid ${T.border}` }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: T.df_frenkel }}>{f.law}</div>
+                <div style={{ fontSize: 12, fontWeight: 500, color: T.df_frenkel }}>{f.law}</div>
                 <div style={{ fontFamily: "monospace", fontSize: 13, color: T.df_primary, margin: "4px 0" }}>{f.eq}</div>
                 <div style={{ fontSize: 11, color: T.muted }}>{f.desc}</div>
               </div>
@@ -666,7 +666,7 @@ function DiffusionSection() {
           <svg viewBox="0 0 280 220" style={{ width: "100%", maxWidth: 280 }}>
             <rect width={280} height={220} fill={T.bg} rx={12} />
             {/* Concentration profile */}
-            <text x={140} y={18} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight={600}>Concentration Profile</text>
+            <text x={140} y={18} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight={500}>Concentration Profile</text>
             <line x1={30} y1={190} x2={260} y2={190} stroke={T.ink} strokeWidth={1} />
             <line x1={30} y1={30} x2={30} y2={190} stroke={T.ink} strokeWidth={1} />
             <text x={145} y={207} textAnchor="middle" fontSize={10} fill={T.muted}>Position x</text>
@@ -713,7 +713,7 @@ function DiffusionSection() {
             ["Na in NaCl", "Schottky", "1.86", "1.5"],
           ].map(([sys, mech, ea, d0], i) => (
             <tr key={i} style={{ borderBottom: `1px solid ${T.border}` }}>
-              <td style={{ padding: 8, color: T.ink, fontWeight: 600 }}>{sys}</td>
+              <td style={{ padding: 8, color: T.ink, fontWeight: 500 }}>{sys}</td>
               <td style={{ padding: 8, color: T.muted }}>{mech}</td>
               <td style={{ padding: 8, color: T.df_primary, textAlign: "right", fontFamily: "monospace" }}>{ea}</td>
               <td style={{ padding: 8, color: T.df_frenkel, textAlign: "right", fontFamily: "monospace" }}>{d0}</td>
@@ -762,7 +762,7 @@ function ExperimentalLabSection() {
             <b>Contacts:</b> Evaporate Au Schottky contact (front) and Al ohmic contact (back) to form a diode.
           </p>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 6 }}>What we record</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 6 }}>What we record</div>
             <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.7 }}>
               • Doping concentration N_D from C-V measurement at 1 MHz<br/>
               • Diode ideality factor n ≈ 1.02 (confirms good junction quality)<br/>
@@ -782,7 +782,7 @@ function ExperimentalLabSection() {
             carriers afterward — the emission rate e_n depends exponentially on temperature.
           </p>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 10, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 6 }}>Measurement Parameters</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 6 }}>Measurement Parameters</div>
             <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.7 }}>
               • Reverse bias: V_R = −2 V<br/>
               • Fill pulse: V_P = 0 V, duration t_P = 1 ms<br/>
@@ -792,7 +792,7 @@ function ExperimentalLabSection() {
             </div>
           </div>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 10, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.df_primary, marginBottom: 4 }}>Capacitance Transient</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: T.df_primary, marginBottom: 4 }}>Capacitance Transient</div>
             <div style={{ fontFamily: "monospace", fontSize: 12, color: T.df_primary }}>
               ΔC(t) = C₀ · (N_T / 2N_D) · exp(−e_n · t)
             </div>
@@ -813,7 +813,7 @@ function ExperimentalLabSection() {
           {/* DLTS spectrum plot */}
           <svg viewBox="0 0 420 230" style={{ width: "100%", maxWidth: 420, display: "block", margin: "8px auto" }}>
             <rect width={420} height={230} fill={T.bg} rx={12} />
-            <text x={210} y={18} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight={600}>DLTS Spectrum: n-Si after 1 MeV e⁻ irradiation</text>
+            <text x={210} y={18} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight={500}>DLTS Spectrum: n-Si after 1 MeV e⁻ irradiation</text>
             <line x1={50} y1={195} x2={400} y2={195} stroke={T.ink} strokeWidth={1} />
             <line x1={50} y1={30} x2={50} y2={195} stroke={T.ink} strokeWidth={1} />
             <text x={225} y={220} textAnchor="middle" fontSize={10} fill={T.ink}>Temperature (K)</text>
@@ -839,14 +839,14 @@ function ExperimentalLabSection() {
               <circle key={i} cx={50 + (t - 80) * (350 / 220)} cy={195 - dltsSignal[i] * 38} r={3} fill={T.df_primary} />
             ))}
             {/* Peak labels */}
-            <text x={50 + (140 - 80) * (350 / 220)} y={195 - 3.2 * 38 - 10} textAnchor="middle" fontSize={10} fill={T.df_vacancy} fontWeight={700}>Peak A</text>
+            <text x={50 + (140 - 80) * (350 / 220)} y={195 - 3.2 * 38 - 10} textAnchor="middle" fontSize={10} fill={T.df_vacancy} fontWeight={500}>Peak A</text>
             <text x={50 + (140 - 80) * (350 / 220)} y={195 - 3.2 * 38 - 0} textAnchor="middle" fontSize={9} fill={T.df_vacancy}>~140 K</text>
-            <text x={50 + (260 - 80) * (350 / 220)} y={195 - 4.2 * 38 - 10} textAnchor="middle" fontSize={10} fill={T.df_frenkel} fontWeight={700}>Peak B</text>
+            <text x={50 + (260 - 80) * (350 / 220)} y={195 - 4.2 * 38 - 10} textAnchor="middle" fontSize={10} fill={T.df_frenkel} fontWeight={500}>Peak B</text>
             <text x={50 + (260 - 80) * (350 / 220)} y={195 - 4.2 * 38 - 0} textAnchor="middle" fontSize={9} fill={T.df_frenkel}>~260 K</text>
           </svg>
           <div style={{ display: "flex", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 160, padding: 10, borderRadius: 8, background: T.df_vacancy + "11", border: `1px solid ${T.df_vacancy}44` }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: T.df_vacancy }}>Peak A (~140 K)</div>
+              <div style={{ fontSize: 12, fontWeight: 500, color: T.df_vacancy }}>Peak A (~140 K)</div>
               <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
                 Divacancy V₂ (−/0)<br/>
                 ΔC/C peak = 3.2 × 10⁻³<br/>
@@ -854,7 +854,7 @@ function ExperimentalLabSection() {
               </div>
             </div>
             <div style={{ flex: 1, minWidth: 160, padding: 10, borderRadius: 8, background: T.df_frenkel + "11", border: `1px solid ${T.df_frenkel}44` }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: T.df_frenkel }}>Peak B (~260 K)</div>
+              <div style={{ fontSize: 12, fontWeight: 500, color: T.df_frenkel }}>Peak B (~260 K)</div>
               <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.6 }}>
                 E-center V-P (−/0)<br/>
                 ΔC/C peak = 4.2 × 10⁻³<br/>
@@ -887,7 +887,7 @@ function ExperimentalLabSection() {
           {/* Arrhenius plot */}
           <svg viewBox="0 0 420 230" style={{ width: "100%", maxWidth: 420, display: "block", margin: "12px auto" }}>
             <rect width={420} height={230} fill={T.bg} rx={12} />
-            <text x={210} y={18} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight={600}>Arrhenius Plot for Peak B (E-center)</text>
+            <text x={210} y={18} textAnchor="middle" fontSize={11} fill={T.ink} fontWeight={500}>Arrhenius Plot for Peak B (E-center)</text>
             <line x1={60} y1={195} x2={390} y2={195} stroke={T.ink} strokeWidth={1} />
             <line x1={60} y1={25} x2={60} y2={195} stroke={T.ink} strokeWidth={1} />
             <text x={225} y={220} textAnchor="middle" fontSize={10} fill={T.ink}>1000/T (K⁻¹)</text>
@@ -912,12 +912,12 @@ function ExperimentalLabSection() {
                 r={4} fill={T.df_frenkel} stroke="#fff" strokeWidth={1} />
             ))}
             {/* Slope annotation */}
-            <text x={280} y={70} fontSize={10} fill={T.df_primary} fontWeight={700}>slope = −E_a / k_B</text>
+            <text x={280} y={70} fontSize={10} fill={T.df_primary} fontWeight={500}>slope = −E_a / k_B</text>
             <text x={280} y={84} fontSize={10} fill={T.df_primary}>= −5100 K</text>
-            <text x={280} y={100} fontSize={10} fill={T.df_frenkel} fontWeight={700}>E_a = 0.44 eV</text>
+            <text x={280} y={100} fontSize={10} fill={T.df_frenkel} fontWeight={500}>E_a = 0.44 eV</text>
           </svg>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 8, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 6 }}>Extracted Parameters (Peak B: E-center)</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 6 }}>Extracted Parameters (Peak B: E-center)</div>
             <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.7 }}>
               • Slope = −5100 K → <span style={{ fontFamily: "monospace", color: T.df_primary }}>E_a = slope × k_B = 5100 × 8.617×10⁻⁵ = 0.44 eV</span><br/>
               • Intercept → <span style={{ fontFamily: "monospace", color: T.df_primary }}>σ_n = 2 × 10⁻¹⁵ cm²</span><br/>
@@ -939,11 +939,11 @@ function ExperimentalLabSection() {
             <rect width={420} height={200} fill={T.bg} rx={12} />
             {/* Conduction band */}
             <rect x={40} y={25} width={340} height={16} fill={T.df_frenkel + "33"} stroke={T.df_frenkel} strokeWidth={1.5} rx={3} />
-            <text x={30} y={37} textAnchor="end" fontSize={10} fill={T.ink} fontWeight={700}>E_C</text>
+            <text x={30} y={37} textAnchor="end" fontSize={10} fill={T.ink} fontWeight={500}>E_C</text>
             <text x={210} y={37} textAnchor="middle" fontSize={9} fill={T.df_frenkel}>Conduction Band</text>
             {/* Valence band */}
             <rect x={40} y={165} width={340} height={16} fill={T.df_interstitial + "33"} stroke={T.df_interstitial} strokeWidth={1.5} rx={3} />
-            <text x={30} y={177} textAnchor="end" fontSize={10} fill={T.ink} fontWeight={700}>E_V</text>
+            <text x={30} y={177} textAnchor="end" fontSize={10} fill={T.ink} fontWeight={500}>E_V</text>
             <text x={210} y={177} textAnchor="middle" fontSize={9} fill={T.df_interstitial}>Valence Band</text>
             {/* Bandgap = 1.12 eV, so scale: 140px height = 1.12 eV */}
             {/* Defect levels */}
@@ -957,12 +957,12 @@ function ExperimentalLabSection() {
               return (
                 <g key={i}>
                   <line x1={d.x - 25} y1={yPos} x2={d.x + 25} y2={yPos} stroke={d.color} strokeWidth={2.5} />
-                  <text x={d.x} y={yPos - 6} textAnchor="middle" fontSize={9} fill={d.color} fontWeight={700}>{d.name}</text>
+                  <text x={d.x} y={yPos - 6} textAnchor="middle" fontSize={9} fill={d.color} fontWeight={500}>{d.name}</text>
                   <text x={d.x} y={yPos + 12} textAnchor="middle" fontSize={8} fill={T.muted}>E_C − {d.eV} eV</text>
                 </g>
               );
             })}
-            <text x={210} y={195} textAnchor="middle" fontSize={10} fill={T.ink} fontWeight={600}>Si Bandgap = 1.12 eV</text>
+            <text x={210} y={195} textAnchor="middle" fontSize={10} fill={T.ink} fontWeight={500}>Si Bandgap = 1.12 eV</text>
           </svg>
           {/* Summary table */}
           <div style={{ overflowX: "auto" }}>
@@ -982,7 +982,7 @@ function ExperimentalLabSection() {
                 ["Peak B", "E-center V-P (−/0)", "0.44", "2×10⁻¹⁵", "8.4×10¹²"],
               ].map(([peak, id, ea, sig, nt], i) => (
                 <tr key={i} style={{ borderBottom: `1px solid ${T.border}` }}>
-                  <td style={{ padding: 8, color: T.ink, fontWeight: 600 }}>{peak}</td>
+                  <td style={{ padding: 8, color: T.ink, fontWeight: 500 }}>{peak}</td>
                   <td style={{ padding: 8, color: T.muted }}>{id}</td>
                   <td style={{ padding: 8, color: T.df_primary, textAlign: "right", fontFamily: "monospace" }}>{ea}</td>
                   <td style={{ padding: 8, color: T.df_frenkel, textAlign: "right", fontFamily: "monospace" }}>{sig}</td>
@@ -993,7 +993,7 @@ function ExperimentalLabSection() {
           </table>
           </div>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, marginTop: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: T.ink, marginBottom: 6 }}>Key Takeaways</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: T.ink, marginBottom: 6 }}>Key Takeaways</div>
             <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.7 }}>
               • E-center (V-P) is the <b>dominant trap</b> — phosphorus atoms trap nearby vacancies<br/>
               • Both defects act as <b>electron traps</b> in the upper half of the bandgap<br/>
@@ -1018,7 +1018,7 @@ function ExperimentalLabSection() {
       <div style={{ display: "flex", gap: 4, flexWrap: "wrap", marginBottom: 16 }}>
         {steps.map((s, i) => (
           <button key={i} onClick={() => setStep(i)} style={{
-            padding: "6px 12px", borderRadius: 6, fontSize: 11, fontWeight: step === i ? 700 : 500,
+            padding: "6px 12px", borderRadius: 6, fontSize: 11, fontWeight: step === i ? 500 : 500,
             border: `1.5px solid ${step === i ? T.df_disloc : T.border}`,
             background: step === i ? T.df_disloc + "15" : T.surface,
             color: step === i ? T.df_disloc : T.muted,
@@ -1030,13 +1030,13 @@ function ExperimentalLabSection() {
       </div>
       {/* Step content */}
       <div style={{ background: T.surface, borderRadius: 12, padding: 16, border: `1px solid ${T.border}` }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: T.df_disloc, marginBottom: 10 }}>{steps[step].title}</div>
+        <div style={{ fontSize: 14, fontWeight: 500, color: T.df_disloc, marginBottom: 10 }}>{steps[step].title}</div>
         {steps[step].content}
       </div>
       {/* Step navigation arrows */}
       <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
         <button onClick={() => setStep(Math.max(0, step - 1))} disabled={step === 0} style={{
-          padding: "6px 16px", borderRadius: 6, fontSize: 12, fontWeight: 600,
+          padding: "6px 16px", borderRadius: 6, fontSize: 12, fontWeight: 500,
           border: `1px solid ${step === 0 ? T.dim : T.df_disloc}`,
           background: step === 0 ? T.surface : T.df_disloc + "11",
           color: step === 0 ? T.dim : T.df_disloc,
@@ -1044,7 +1044,7 @@ function ExperimentalLabSection() {
         }}>← Prev step</button>
         <span style={{ fontSize: 11, color: T.muted, alignSelf: "center" }}>Step {step + 1} of {steps.length}</span>
         <button onClick={() => setStep(Math.min(steps.length - 1, step + 1))} disabled={step === steps.length - 1} style={{
-          padding: "6px 16px", borderRadius: 6, fontSize: 12, fontWeight: 600,
+          padding: "6px 16px", borderRadius: 6, fontSize: 12, fontWeight: 500,
           border: `1px solid ${step === steps.length - 1 ? T.dim : T.df_disloc}`,
           background: step === steps.length - 1 ? T.surface : T.df_disloc + "11",
           color: step === steps.length - 1 ? T.dim : T.df_disloc,
@@ -1080,7 +1080,7 @@ export default function DefectsSolidsModule() {
     }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: 24 }}>
-        <div style={{ fontSize: 22, fontWeight: 800, color: T.ink, letterSpacing: 1 }}>
+        <div style={{ fontSize: 22, fontWeight: 500, color: T.ink, letterSpacing: 1 }}>
           Defects in Solids
         </div>
         <div style={{ fontSize: 13, color: T.muted, marginTop: 4 }}>
@@ -1100,7 +1100,7 @@ export default function DefectsSolidsModule() {
             borderBottom: i === sec ? `3px solid ${s.color}` : "3px solid transparent",
             background: i === sec ? s.color + "11" : "transparent",
             color: i === sec ? s.color : T.muted,
-            cursor: "pointer", fontSize: 12, fontWeight: i === sec ? 700 : 500,
+            cursor: "pointer", fontSize: 12, fontWeight: i === sec ? 500 : 500,
             whiteSpace: "nowrap", transition: "all 0.2s",
           }}>
             <span style={{ marginRight: 4 }}>{s.icon}</span>{s.label}
@@ -1121,7 +1121,7 @@ export default function DefectsSolidsModule() {
               border: `2px solid ${i <= sec ? s.color : T.border}`,
               display: "flex", alignItems: "center", justifyContent: "center",
               cursor: "pointer", fontSize: 12, color: i <= sec ? "#fff" : T.muted,
-              fontWeight: 700, transition: "all 0.3s",
+              fontWeight: 500, transition: "all 0.3s",
             }}>{i + 1}</div>
             {i < SECTIONS.length - 1 && (
               <div style={{
@@ -1151,7 +1151,7 @@ export default function DefectsSolidsModule() {
           border: `1px solid ${sec === 0 ? T.dim : current.color}`,
           background: sec === 0 ? T.surface : current.color + "11",
           color: sec === 0 ? T.dim : current.color,
-          cursor: sec === 0 ? "default" : "pointer", fontWeight: 600, fontSize: 13,
+          cursor: sec === 0 ? "default" : "pointer", fontWeight: 500, fontSize: 13,
         }}>← Previous</button>
 
         {/* Dot indicators */}
@@ -1170,7 +1170,7 @@ export default function DefectsSolidsModule() {
           border: `1px solid ${sec === SECTIONS.length - 1 ? T.dim : current.color}`,
           background: sec === SECTIONS.length - 1 ? T.surface : current.color + "11",
           color: sec === SECTIONS.length - 1 ? T.dim : current.color,
-          cursor: sec === SECTIONS.length - 1 ? "default" : "pointer", fontWeight: 600, fontSize: 13,
+          cursor: sec === SECTIONS.length - 1 ? "default" : "pointer", fontWeight: 500, fontSize: 13,
         }}>Next →</button>
       </div>
     </div>

@@ -157,7 +157,7 @@ export default function MDMovieModule() {
           })}
 
           {/* Title */}
-          <text x={W/2} y={72} textAnchor="middle" fill={P.ink} fontSize="30" fontWeight="900"
+          <text x={W/2} y={72} textAnchor="middle" fill={P.ink} fontSize="30" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Molecular Dynamics Simulation</text>
 
           {/* Animated underline */}
@@ -177,9 +177,9 @@ export default function MDMovieModule() {
           <rect x={W/2-180} y={310} width={360} height={62} rx="10"
             fill={P.surface} stroke={P.border} strokeWidth="1.5" opacity={eqOp} />
           <rect x={W/2-180} y={310} width={360} height={3} rx="1.5" fill={P.green} opacity={eqOp} />
-          <text x={W/2} y={330} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="600"
+          <text x={W/2} y={330} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={eqOp}>Newton's equation of motion — the heart of MD</text>
-          <text x={W/2} y={350} textAnchor="middle" fill={P.green} fontSize="16" fontWeight="700"
+          <text x={W/2} y={350} textAnchor="middle" fill={P.green} fontSize="16" fontWeight="500"
             fontFamily="'Fira Code','Consolas',monospace" opacity={eqOp}>F = m·a = m·d²r/dt²</text>
           <text x={W/2} y={365} textAnchor="middle" fill={P.muted} fontSize="9"
             fontFamily="'Inter',sans-serif" opacity={eqOp * 0.8}>solve numerically for every atom at each timestep</text>
@@ -238,7 +238,7 @@ export default function MDMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Newton's Laws of Motion</text>
           <line x1={390} y1={32} x2={390} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -257,7 +257,7 @@ export default function MDMovieModule() {
           {/* RIGHT panel — atoms with force vectors */}
           <rect x={400} y={32} width={350} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
-          <text x={575} y={52} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="700"
+          <text x={575} y={52} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.05)*5))}>
             Forces and Accelerations
           </text>
@@ -279,7 +279,7 @@ export default function MDMovieModule() {
                     <line x1={mx} y1={my} x2={mx + atom.fx * 1.2} y2={my + atom.fy * 1.2}
                       stroke={P.warn} strokeWidth="2" markerEnd="url(#arrowRed)" />
                     <text x={mx + atom.fx * 1.4} y={my + atom.fy * 1.4} fill={P.warn}
-                      fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif"
+                      fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif"
                       textAnchor="middle">F</text>
                   </g>
                 )}
@@ -295,7 +295,7 @@ export default function MDMovieModule() {
                 {/* Atom circle */}
                 <circle cx={mx} cy={my} r={atom.r} fill={atom.color+"28"} stroke={atom.color} strokeWidth="2" />
                 <text x={mx} y={my + 4} textAnchor="middle" fill={atom.color}
-                  fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">{atom.label}</text>
+                  fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">{atom.label}</text>
               </g>
             );
           })}
@@ -359,7 +359,7 @@ export default function MDMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Verlet Integration</text>
           <line x1={390} y1={32} x2={390} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -378,7 +378,7 @@ export default function MDMovieModule() {
           {/* RIGHT panel — trajectory animation */}
           <rect x={400} y={32} width={350} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
-          <text x={575} y={52} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="700"
+          <text x={575} y={52} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.05)*5))}>
             Position Update with Trail
           </text>
@@ -420,7 +420,7 @@ export default function MDMovieModule() {
                 <circle cx={cx} cy={cy} r={14} fill={P.blue+"30"} stroke={P.blue} strokeWidth="2.5" />
                 <circle cx={cx} cy={cy} r={20} fill="none" stroke={P.blue} strokeWidth="1" opacity={0.3} />
                 <text x={cx} y={cy + 4} textAnchor="middle" fill={P.blue}
-                  fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">r(t)</text>
+                  fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">r(t)</text>
                 {/* Velocity arrow */}
                 {ease(clamp01((t - 0.2) * 4)) > 0 && (() => {
                   const vAngle = curAngle + Math.PI / 2;
@@ -431,7 +431,7 @@ export default function MDMovieModule() {
                     <g opacity={ease(clamp01((t - 0.2) * 4))}>
                       <line x1={cx} y1={cy} x2={vx} y2={vy}
                         stroke={P.green} strokeWidth="2" markerEnd="url(#arrowGreen)" />
-                      <text x={vx + 5} y={vy} fill={P.green} fontSize="8" fontWeight="700"
+                      <text x={vx + 5} y={vy} fill={P.green} fontSize="8" fontWeight="500"
                         fontFamily="'Inter',sans-serif">v</text>
                     </g>
                   );
@@ -450,7 +450,7 @@ export default function MDMovieModule() {
           <g opacity={ease(clamp01((t-0.30)*4))}>
             <rect x={420} y={310} width={310} height={95} rx="6"
               fill={P.panel} stroke={P.border} strokeWidth="1" />
-            <text x={575} y={330} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="700"
+            <text x={575} y={330} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Verlet Properties</text>
             {[
               { label: "Time-reversible", icon: "\u2713", color: P.ok, y: 348 },
@@ -459,7 +459,7 @@ export default function MDMovieModule() {
               { label: "Excellent long-term energy conservation", icon: "\u2713", color: P.ok, y: 396 },
             ].map((prop, i) => (
               <g key={i} opacity={ease(clamp01((t - 0.40 - i * 0.06) * 5))}>
-                <text x={435} y={prop.y} fill={prop.color} fontSize="9" fontWeight="700"
+                <text x={435} y={prop.y} fill={prop.color} fontSize="9" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{prop.icon}</text>
                 <text x={448} y={prop.y} fill={P.muted} fontSize="9"
                   fontFamily="'Inter',sans-serif">{prop.label}</text>
@@ -535,7 +535,7 @@ export default function MDMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Lennard-Jones Potential</text>
           <line x1={400} y1={32} x2={400} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -557,38 +557,38 @@ export default function MDMovieModule() {
 
           {/* Two atoms approaching */}
           <g opacity={ease(clamp01((t-0.08)*5))}>
-            <text x={575} y={52} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="700"
+            <text x={575} y={52} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="500"
               fontFamily="'Inter',sans-serif">Two Atoms Interacting</text>
 
             {/* Atom 1 */}
             <circle cx={atom1X} cy={atomY} r={18} fill={P.blue+"28"} stroke={P.blue} strokeWidth="2" />
             <text x={atom1X} y={atomY+4} textAnchor="middle" fill={P.blue}
-              fontSize="10" fontWeight="700" fontFamily="'Inter',sans-serif">A</text>
+              fontSize="10" fontWeight="500" fontFamily="'Inter',sans-serif">A</text>
 
             {/* Atom 2 */}
             <circle cx={atom2X} cy={atomY} r={18} fill={P.red+"28"} stroke={P.red} strokeWidth="2" />
             <text x={atom2X} y={atomY+4} textAnchor="middle" fill={P.red}
-              fontSize="10" fontWeight="700" fontFamily="'Inter',sans-serif">B</text>
+              fontSize="10" fontWeight="500" fontFamily="'Inter',sans-serif">B</text>
 
             {/* Distance label */}
             <line x1={atom1X+20} y1={atomY+28} x2={atom2X-20} y2={atomY+28}
               stroke={P.muted} strokeWidth="1" />
             <text x={(atom1X+atom2X)/2} y={atomY+42} textAnchor="middle" fill={P.amber}
-              fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">
+              fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">
               r = {(2.5 - 1.5 * ease(atomApproachT)).toFixed(1)}σ
             </text>
 
             {/* Repulsion/attraction indication */}
             {atomApproachT > 0.7 && (
               <text x={(atom1X+atom2X)/2} y={atomY-20} textAnchor="middle" fill={P.red}
-                fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif"
+                fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif"
                 opacity={ease(clamp01((atomApproachT-0.7)*5))}>
                 ← Repulsion →
               </text>
             )}
             {atomApproachT > 0.2 && atomApproachT <= 0.7 && (
               <text x={(atom1X+atom2X)/2} y={atomY-20} textAnchor="middle" fill={P.green}
-                fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif"
+                fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif"
                 opacity={0.8}>
                 → Attraction ←
               </text>
@@ -623,7 +623,7 @@ export default function MDMovieModule() {
                 x2={curveX0+90} y2={curveY0 + curveH*0.8*0.2}
                 stroke={P.green} strokeWidth="1" strokeDasharray="3,2" />
               <text x={curveX0+95} y={curveY0 + curveH*0.8*0.2+4} fill={P.green} fontSize="9"
-                fontWeight="700" fontFamily="'Inter',sans-serif">-ε</text>
+                fontWeight="500" fontFamily="'Inter',sans-serif">-ε</text>
             </g>
 
             {/* Sigma marker */}
@@ -631,7 +631,7 @@ export default function MDMovieModule() {
               <line x1={curveX0+68} y1={curveY0} x2={curveX0+68} y2={curveY0+25}
                 stroke={P.amber} strokeWidth="1" strokeDasharray="3,2" />
               <text x={curveX0+68} y={curveY0+35} textAnchor="middle" fill={P.amber} fontSize="9"
-                fontWeight="700" fontFamily="'Inter',sans-serif">σ</text>
+                fontWeight="500" fontFamily="'Inter',sans-serif">σ</text>
             </g>
 
             {/* Labels */}
@@ -694,7 +694,7 @@ export default function MDMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Thermostats & Ensembles</text>
           <line x1={400} y1={32} x2={400} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -713,7 +713,7 @@ export default function MDMovieModule() {
           {/* RIGHT panel */}
           <rect x={410} y={32} width={340} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
-          <text x={580} y={52} textAnchor="middle" fill={P.amber} fontSize="11" fontWeight="700"
+          <text x={580} y={52} textAnchor="middle" fill={P.amber} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.05)*5))}>
             Temperature Control (NVT)
           </text>
@@ -740,7 +740,7 @@ export default function MDMovieModule() {
               height={260 - lerp(255, 135, clamp01((currentT - 100) / 500))} rx="7"
               fill={currentT > targetT + 20 ? P.red : currentT < targetT - 20 ? P.blue : P.amber} opacity={0.8} />
             <circle cx={719} cy={270} r={12} fill={currentT > targetT + 20 ? P.red : P.amber} opacity={0.8} />
-            <text x={719} y={274} textAnchor="middle" fill="#fff" fontSize="7" fontWeight="700"
+            <text x={719} y={274} textAnchor="middle" fill="#fff" fontSize="7" fontWeight="500"
               fontFamily="'Inter',sans-serif">T</text>
 
             {/* Target line */}
@@ -756,10 +756,10 @@ export default function MDMovieModule() {
             <rect x={430} y={65} width={160} height={46} rx="6"
               fill={P.panel} stroke={P.border} strokeWidth="1" />
             <text x={440} y={82} fill={P.muted} fontSize="9" fontFamily="'Inter',sans-serif">Current T:</text>
-            <text x={525} y={82} fill={currentT > targetT + 20 ? P.red : P.amber} fontSize="11" fontWeight="700"
+            <text x={525} y={82} fill={currentT > targetT + 20 ? P.red : P.amber} fontSize="11" fontWeight="500"
               fontFamily="'Fira Code','Consolas',monospace">{Math.round(currentT)} K</text>
             <text x={440} y={102} fill={P.muted} fontSize="9" fontFamily="'Inter',sans-serif">Target T₀:</text>
-            <text x={525} y={102} fill={P.ok} fontSize="11" fontWeight="700"
+            <text x={525} y={102} fill={P.ok} fontSize="11" fontWeight="500"
               fontFamily="'Fira Code','Consolas',monospace">{targetT} K</text>
           </g>
 
@@ -767,7 +767,7 @@ export default function MDMovieModule() {
           <g opacity={ease(clamp01((t-0.55)*4))}>
             <rect x={430} y={290} width={300} height={105} rx="6"
               fill={P.panel} stroke={P.border} strokeWidth="1" />
-            <text x={580} y={310} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="700"
+            <text x={580} y={310} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Ensemble Comparison</text>
             {[
               { name: "NVE", fixed: "N, V, E", varies: "T, P", color: P.green },
@@ -778,7 +778,7 @@ export default function MDMovieModule() {
                 <rect x={440} y={318 + i * 24} width={45} height={18} rx="4"
                   fill={ens.color+"20"} stroke={ens.color+"60"} strokeWidth="1" />
                 <text x={462} y={331 + i * 24} textAnchor="middle" fill={ens.color}
-                  fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">{ens.name}</text>
+                  fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">{ens.name}</text>
                 <text x={498} y={331 + i * 24} fill={P.muted} fontSize="8.5"
                   fontFamily="'Inter',sans-serif">Fixed: {ens.fixed}</text>
                 <text x={620} y={331 + i * 24} fill={P.dim} fontSize="8.5"
@@ -869,7 +869,7 @@ export default function MDMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Statistical Ensembles</text>
 
           {/* Clickable phase pills */}
@@ -882,7 +882,7 @@ export default function MDMovieModule() {
                   fill={active ? e.color + "30" : P.surface}
                   stroke={active ? e.color : P.border} strokeWidth={active ? 2 : 1} />
                 <text x={px + 42} y={49} textAnchor="middle"
-                  fill={active ? e.color : P.muted} fontSize="10" fontWeight="700"
+                  fill={active ? e.color : P.muted} fontSize="10" fontWeight="500"
                   fontFamily="'Inter',sans-serif" style={{ pointerEvents: "none" }}>{e.name}</text>
               </g>
             );
@@ -896,7 +896,7 @@ export default function MDMovieModule() {
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp * 0.4} />
 
           {/* Ensemble name + subtitle */}
-          <text x={LX + 14} y={84} fill={ens.color} fontSize="15" fontWeight="800"
+          <text x={LX + 14} y={84} fill={ens.color} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={eOp}>{ens.name}</text>
           <text x={LX + 14 + ens.name.length * 10} y={84} fill={P.muted} fontSize="10"
             fontFamily="'Inter',sans-serif" opacity={eOp}> — {ens.subtitle}</text>
@@ -905,11 +905,11 @@ export default function MDMovieModule() {
           <g opacity={ease(clamp01((phaseT - 0.05) * 4))}>
             <rect x={LX + 14} y={94} width={155} height={22} rx={5}
               fill={ens.color + "15"} stroke={ens.color + "40"} strokeWidth="1" />
-            <text x={LX + 22} y={109} fill={ens.color} fontSize="9.5" fontWeight="700"
+            <text x={LX + 22} y={109} fill={ens.color} fontSize="9.5" fontWeight="500"
               fontFamily="'Fira Code','Consolas',monospace">Fixed: {ens.fixed}</text>
             <rect x={LX + 178} y={94} width={155} height={22} rx={5}
               fill={P.panel} stroke={P.border} strokeWidth="1" />
-            <text x={LX + 186} y={109} fill={P.muted} fontSize="9.5" fontWeight="600"
+            <text x={LX + 186} y={109} fill={P.muted} fontSize="9.5" fontWeight="500"
               fontFamily="'Fira Code','Consolas',monospace">Varies: {ens.varies}</text>
           </g>
 
@@ -926,7 +926,7 @@ export default function MDMovieModule() {
           <g opacity={ease(clamp01((phaseT - 0.20) * 4))}>
             <rect x={LX + 8} y={224} width={344} height={68} rx="8"
               fill={ens.color + "08"} stroke={ens.color + "35"} strokeWidth="1.5" />
-            <text x={LX + 20} y={243} fill={ens.color} fontSize="9.5" fontWeight="700"
+            <text x={LX + 20} y={243} fill={ens.color} fontSize="9.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">Real-world analogy:</text>
             <text x={LX + 20} y={261} fill={P.ink} fontSize="9"
               fontFamily="'Inter',sans-serif" opacity={0.85}>{ens.analogy.substring(0, 52)}</text>
@@ -945,7 +945,7 @@ export default function MDMovieModule() {
                 <rect x={LX + 286} y={301} width={28} height={8} rx="3"
                   fill={P.green} opacity={0.6} />
                 <text x={LX + 300} y={336} textAnchor="middle" fill={P.green}
-                  fontSize="10" fontWeight="700">E</text>
+                  fontSize="10" fontWeight="500">E</text>
                 <line x1={LX + 274} y1={318} x2={LX + 274} y2={348}
                   stroke={P.red + "50"} strokeWidth="2" strokeDasharray="3,3" />
                 <text x={LX + 268} y={335} textAnchor="end" fill={P.red}
@@ -959,13 +959,13 @@ export default function MDMovieModule() {
                 <rect x={LX + 270} y={313} width={22} height={30} rx="4"
                   fill={P.panel} stroke={P.amber + "60"} strokeWidth="1" />
                 <text x={LX + 281} y={332} textAnchor="middle" fill={P.amber}
-                  fontSize="7" fontWeight="700">sys</text>
+                  fontSize="7" fontWeight="500">sys</text>
                 {[0, 1, 2].map(j => (
                   <path key={j} d={`M${LX + 298} ${316 + j * 10} q5 ${3 * Math.sin(phaseT * 10 + j)} 10 0 q5 ${-3 * Math.sin(phaseT * 10 + j)} 10 0`}
                     fill="none" stroke={P.amber} strokeWidth="1" opacity={0.5} />
                 ))}
                 <text x={LX + 318} y={332} fill={P.amber}
-                  fontSize="7" fontWeight="600">bath</text>
+                  fontSize="7" fontWeight="500">bath</text>
               </g>
             )}
             {phase === 2 && (
@@ -977,7 +977,7 @@ export default function MDMovieModule() {
                   x2={LX + 300} y2={365}
                   stroke={P.purple} strokeWidth="1.5" />
                 <text x={LX + 300} y={333} textAnchor="middle" fill={P.purple}
-                  fontSize="9" fontWeight="700">V</text>
+                  fontSize="9" fontWeight="500">V</text>
               </g>
             )}
           </g>
@@ -988,7 +988,7 @@ export default function MDMovieModule() {
 
           {/* Box label */}
           <text x={boxX + boxBaseW / 2 + 10} y={boxY - 6} textAnchor="middle"
-            fill={ens.color} fontSize="9.5" fontWeight="700" fontFamily="'Inter',sans-serif"
+            fill={ens.color} fontSize="9.5" fontWeight="500" fontFamily="'Inter',sans-serif"
             opacity={eOp}>
             {phase === 0 ? "Isolated Box (no heat exchange)" : phase === 1 ? "Box + Thermostat (T control)" : "Flexible Box (V adjusts for P)"}
           </text>
@@ -1032,11 +1032,11 @@ export default function MDMovieModule() {
                 width={10} height={170 * (0.5 - 0.15 * Math.sin(phaseT * 12))} rx="5"
                 fill={P.blue} opacity={0.7} />
               <text x={boxX + boxBaseW + 24} y={boxY + 195} textAnchor="middle"
-                fill={P.green} fontSize="7" fontWeight="700">E=const</text>
+                fill={P.green} fontSize="7" fontWeight="500">E=const</text>
               <text x={boxX + boxBaseW + 38} y={boxY + 60} fill={P.blue}
-                fontSize="6" fontWeight="600">PE</text>
+                fontSize="6" fontWeight="500">PE</text>
               <text x={boxX + boxBaseW + 38} y={boxY + 150} fill={P.red}
-                fontSize="6" fontWeight="600">KE</text>
+                fontSize="6" fontWeight="500">KE</text>
             </g>
           )}
 
@@ -1053,14 +1053,14 @@ export default function MDMovieModule() {
               <circle cx={boxX + boxBaseW + 24} cy={boxY + 170} r={9}
                 fill={P.amber} opacity={0.8} />
               <text x={boxX + boxBaseW + 24} y={boxY + 174} textAnchor="middle"
-                fill="#fff" fontSize="6" fontWeight="700">T</text>
+                fill="#fff" fontSize="6" fontWeight="500">T</text>
               <line x1={boxX + boxBaseW + 12} y1={boxY + 10 + 150 * (1 - clamp01((300 - 100) / 500))}
                 x2={boxX + boxBaseW + 36} y2={boxY + 10 + 150 * (1 - clamp01((300 - 100) / 500))}
                 stroke={P.ok} strokeWidth="1.5" strokeDasharray="3,2" />
               <text x={boxX + boxBaseW + 40} y={boxY + 10 + 150 * (1 - clamp01((300 - 100) / 500)) + 3}
                 fill={P.ok} fontSize="6">T₀</text>
               <text x={boxX + boxBaseW + 24} y={boxY + 195} textAnchor="middle"
-                fill={P.amber} fontSize="7" fontWeight="700">{Math.round(nvtTemp)}K</text>
+                fill={P.amber} fontSize="7" fontWeight="500">{Math.round(nvtTemp)}K</text>
             </g>
           )}
 
@@ -1079,7 +1079,7 @@ export default function MDMovieModule() {
                   stroke={P.purple} strokeWidth="2" opacity={0.6} />
               ))}
               <text x={boxX + boxBaseW / 2} y={boxY + boxBaseH + 25} textAnchor="middle"
-                fill={P.purple} fontSize="8" fontWeight="700">
+                fill={P.purple} fontSize="8" fontWeight="500">
                 V = {(boxScale * 100).toFixed(0)}% | P = const
               </text>
             </g>
@@ -1122,7 +1122,7 @@ export default function MDMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>The MD Time Integration Loop</text>
           <line x1={400} y1={32} x2={400} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -1163,7 +1163,7 @@ export default function MDMovieModule() {
           {/* RIGHT panel — circular loop diagram */}
           <rect x={410} y={32} width={340} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
-          <text x={cx} y={52} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="700"
+          <text x={cx} y={52} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.05)*5))}>
             Integration Cycle
           </text>
@@ -1188,7 +1188,7 @@ export default function MDMovieModule() {
                   fill={isHighlighted ? step.color+"40" : step.color+"18"}
                   stroke={step.color} strokeWidth={isHighlighted ? 2.5 : 1.5} />
                 <text x={sx} y={sy - 3} textAnchor="middle" fill={step.color}
-                  fontSize={isHighlighted ? "12" : "10"} fontWeight="800"
+                  fontSize={isHighlighted ? "12" : "10"} fontWeight="500"
                   fontFamily="'Inter',sans-serif">{step.icon}</text>
                 <text x={sx} y={sy + 9} textAnchor="middle" fill={step.color}
                   fontSize="5.5" fontFamily="'Inter',sans-serif" opacity={0.8}>
@@ -1203,7 +1203,7 @@ export default function MDMovieModule() {
                   const arrowY = cy + (loopR + 5) * Math.sin(midAngle);
                   return (
                     <text x={arrowX} y={arrowY} textAnchor="middle" fill={P.muted}
-                      fontSize="10" fontWeight="700" opacity={0.5}
+                      fontSize="10" fontWeight="500" opacity={0.5}
                       transform={`rotate(${(midAngle * 180 / Math.PI) + 90} ${arrowX} ${arrowY})`}>▼</text>
                   );
                 })()}
@@ -1213,7 +1213,7 @@ export default function MDMovieModule() {
 
           {/* Center label */}
           <g opacity={ease(clamp01((t-0.20)*4))}>
-            <text x={cx} y={cy - 5} textAnchor="middle" fill={P.ink} fontSize="11" fontWeight="700"
+            <text x={cx} y={cy - 5} textAnchor="middle" fill={P.ink} fontSize="11" fontWeight="500"
               fontFamily="'Inter',sans-serif">MD Loop</text>
             <text x={cx} y={cy + 10} textAnchor="middle" fill={P.muted} fontSize="8"
               fontFamily="'Inter',sans-serif">repeat each Δt</text>
@@ -1223,7 +1223,7 @@ export default function MDMovieModule() {
           <g opacity={ease(clamp01((t-0.35)*4))}>
             <rect x={425} y={340} width={310} height={65} rx="6"
               fill={P.panel} stroke={steps[highlightIdx].color+"60"} strokeWidth="1.5" />
-            <text x={435} y={358} fill={steps[highlightIdx].color} fontSize="11" fontWeight="700"
+            <text x={435} y={358} fill={steps[highlightIdx].color} fontSize="11" fontWeight="500"
               fontFamily="'Inter',sans-serif">{steps[highlightIdx].label}</text>
             <text x={435} y={376} fill={P.muted} fontSize="10"
               fontFamily="'Fira Code','Consolas',monospace">{steps[highlightIdx].desc}</text>
@@ -1318,7 +1318,7 @@ export default function MDMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Measurable Properties</text>
           <line x1={400} y1={32} x2={400} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -1340,7 +1340,7 @@ export default function MDMovieModule() {
 
           {/* g(r) graph */}
           <g opacity={ease(clamp01((t-0.30)*4))}>
-            <text x={490} y={48} textAnchor="middle" fill={P.purple} fontSize="10" fontWeight="700"
+            <text x={490} y={48} textAnchor="middle" fill={P.purple} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">g(r)</text>
             <rect x={420} y={45} width={graphW+10} height={graphH+10} rx="4"
               fill={P.panel} stroke={P.border} strokeWidth="0.8" />
@@ -1355,7 +1355,7 @@ export default function MDMovieModule() {
 
           {/* MSD graph */}
           <g opacity={ease(clamp01((t-0.43)*4))}>
-            <text x={655} y={48} textAnchor="middle" fill={P.teal} fontSize="10" fontWeight="700"
+            <text x={655} y={48} textAnchor="middle" fill={P.teal} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">MSD(t)</text>
             <rect x={585} y={45} width={graphW+10} height={graphH+10} rx="4"
               fill={P.panel} stroke={P.border} strokeWidth="0.8" />
@@ -1375,7 +1375,7 @@ export default function MDMovieModule() {
 
           {/* Temperature graph */}
           <g opacity={ease(clamp01((t-0.08)*4))}>
-            <text x={490} y={152} textAnchor="middle" fill={P.amber} fontSize="10" fontWeight="700"
+            <text x={490} y={152} textAnchor="middle" fill={P.amber} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">T(t)</text>
             <rect x={420} y={148} width={graphW+10} height={graphH+10} rx="4"
               fill={P.panel} stroke={P.border} strokeWidth="0.8" />
@@ -1392,7 +1392,7 @@ export default function MDMovieModule() {
 
           {/* Pressure graph */}
           <g opacity={ease(clamp01((t-0.20)*4))}>
-            <text x={655} y={152} textAnchor="middle" fill={P.green} fontSize="10" fontWeight="700"
+            <text x={655} y={152} textAnchor="middle" fill={P.green} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">P(t)</text>
             <rect x={585} y={148} width={graphW+10} height={graphH+10} rx="4"
               fill={P.panel} stroke={P.border} strokeWidth="0.8" />
@@ -1409,7 +1409,7 @@ export default function MDMovieModule() {
           <g opacity={ease(clamp01((t-0.60)*4))}>
             <rect x={420} y={235} width={320} height={170} rx="6"
               fill={P.panel} stroke={P.border} strokeWidth="1" />
-            <text x={580} y={255} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="700"
+            <text x={580} y={255} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Property Summary</text>
             {[
               { prop: "Temperature", eq: "T = 2E_kin/(3Nk_B)", color: P.amber },
@@ -1421,7 +1421,7 @@ export default function MDMovieModule() {
             ].map((row, i) => (
               <g key={i} opacity={ease(clamp01((t - 0.63 - i * 0.04) * 5))}>
                 <circle cx={435} cy={272 + i * 21} r={4} fill={row.color} opacity={0.7} />
-                <text x={445} y={276 + i * 21} fill={row.color} fontSize="9" fontWeight="700"
+                <text x={445} y={276 + i * 21} fill={row.color} fontSize="9" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{row.prop}</text>
                 <text x={540} y={276 + i * 21} fill={P.muted} fontSize="8.5"
                   fontFamily="'Fira Code','Consolas',monospace">{row.eq}</text>
@@ -1484,7 +1484,7 @@ export default function MDMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={24} textAnchor="middle" fill={P.ink} fontSize="16" fontWeight="900"
+          <text x={W/2} y={24} textAnchor="middle" fill={P.ink} fontSize="16" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>MD Simulation — Summary</text>
           <rect x={W/2 - ease(clamp01((t-0.02)*3))*160} y={30}
             width={ease(clamp01((t-0.02)*3))*320} height={3} rx="1.5" fill={P.blue} opacity={tOp * 0.85} />
@@ -1498,7 +1498,7 @@ export default function MDMovieModule() {
               <g key={bi} opacity={blockOp}>
                 <rect x={block.x} y={block.y} width={block.w} height={block.h} rx="7"
                   fill={P.surface} stroke={P.border} strokeWidth="1" />
-                <text x={block.x + 12} y={block.y + 20} fill={P.ink} fontSize="11" fontWeight="700"
+                <text x={block.x + 12} y={block.y + 20} fill={P.ink} fontSize="11" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{block.title}</text>
                 {block.items.map((item, i) => (
                   <text key={i} x={block.x + 16} y={block.y + 40 + i * 18} fill={item.color}
@@ -1517,7 +1517,7 @@ export default function MDMovieModule() {
 
           {/* Mini simulation box */}
           <g opacity={ease(clamp01((t-0.15)*4))}>
-            <text x={572} y={60} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="700"
+            <text x={572} y={60} textAnchor="middle" fill={P.blue} fontSize="11" fontWeight="500"
               fontFamily="'Inter',sans-serif">Simulation at a Glance</text>
             <rect x={420} y={70} width={305} height={160} rx="6"
               fill="none" stroke={P.dim} strokeWidth="1" />
@@ -1569,7 +1569,7 @@ export default function MDMovieModule() {
           <g opacity={ease(clamp01((t-0.50)*4))}>
             <rect x={420} y={245} width={305} height={68} rx="6"
               fill={P.panel} stroke={P.border} strokeWidth="1" />
-            <text x={572} y={264} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="700"
+            <text x={572} y={264} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Applications</text>
             <text x={572} y={280} textAnchor="middle" fill={P.muted} fontSize="8.5"
               fontFamily="'Inter',sans-serif">
@@ -1589,7 +1589,7 @@ export default function MDMovieModule() {
           <g opacity={ease(clamp01((t-0.70)*4))}>
             <rect x={395} y={335} width={355} height={72} rx="8"
               fill={P.ok+"10"} stroke={P.ok+"50"} strokeWidth="1.5" />
-            <text x={572} y={356} textAnchor="middle" fill={P.ok} fontSize="12" fontWeight="800"
+            <text x={572} y={356} textAnchor="middle" fill={P.ok} fontSize="12" fontWeight="500"
               fontFamily="'Inter',sans-serif">Molecular Dynamics: the computational microscope</text>
             <text x={572} y={374} textAnchor="middle" fill={P.muted} fontSize="9"
               fontFamily="'Inter',sans-serif">
@@ -1628,12 +1628,12 @@ export default function MDMovieModule() {
       }}>
         <div style={{ position: "absolute", top: 10, left: 14, zIndex: 2, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ background: P.blue+"25", border: `1px solid ${P.blue}50`, padding: "3px 10px",
-            borderRadius: 6, fontSize: 10, fontWeight: 700, color: P.blue, letterSpacing: 1 }}>
+            borderRadius: 6, fontSize: 10, fontWeight: 500, color: P.blue, letterSpacing: 1 }}>
             Scene {sceneIdx + 1}/{SCENES.length}
           </span>
-          <span style={{ fontSize: 12, fontWeight: 700, color: P.ink }}>{scene.label}</span>
+          <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
-        <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 600, opacity: 0.65 }}>
+        <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 500, opacity: 0.65 }}>
           Habibur Rahman · rahma103@purdue.edu
         </div>
         <div style={{ opacity: fadeOpacity, transition: "opacity 0.25s ease-in-out", willChange: "opacity" }}>
@@ -1650,20 +1650,20 @@ export default function MDMovieModule() {
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.blue}`,
           background: P.blue+"15", cursor: "pointer", display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: 18, color: P.blue, fontWeight: 900, fontFamily: "inherit",
+          justifyContent: "center", fontSize: 18, color: P.blue, fontWeight: 500, fontFamily: "inherit",
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
         <button onClick={prevScene} disabled={sceneIdx === 0} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default",
-          color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 700,
+          color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
           fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4,
         }}>{"\u2190"}</button>
         <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default",
-          color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 700,
+          color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
           fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4,
         }}>{"\u2192"}</button>
 
@@ -1702,7 +1702,7 @@ export default function MDMovieModule() {
             background: i === sceneIdx ? P.blue+"20" : "transparent",
             border: `1px solid ${i === sceneIdx ? P.blue : P.border}`,
             color: i === sceneIdx ? P.blue : i < sceneIdx ? P.green : P.muted,
-            fontWeight: i === sceneIdx ? 700 : 500, fontFamily: "inherit", transition: "all 0.15s",
+            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
           }}>
             {i + 1}. {s.label}
           </button>

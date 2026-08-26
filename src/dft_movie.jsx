@@ -154,7 +154,7 @@ export default function DFTMovieModule() {
 
           {/* Nucleus */}
           <circle cx={W/2} cy={atomCy} r={8} fill={P.red} opacity={tOp * 0.9} />
-          <text x={W/2} y={atomCy+4} textAnchor="middle" fill="#fff" fontSize="7" fontWeight="800"
+          <text x={W/2} y={atomCy+4} textAnchor="middle" fill="#fff" fontSize="7" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>+</text>
 
           {/* Orbiting electron */}
@@ -162,7 +162,7 @@ export default function DFTMovieModule() {
           <circle cx={ex} cy={ey} r={7} fill="none" stroke={P.blue} strokeWidth="1" opacity={tOp * 0.35} />
 
           {/* Title */}
-          <text x={W/2} y={52} textAnchor="middle" fill={P.ink} fontSize="28" fontWeight="900"
+          <text x={W/2} y={52} textAnchor="middle" fill={P.ink} fontSize="28" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Density Functional Theory</text>
 
           {/* Animated underline */}
@@ -178,16 +178,16 @@ export default function DFTMovieModule() {
           <rect x={W/2-260} y={235} width={520} height={130} rx="14"
             fill={P.surface} stroke={P.border} strokeWidth="1.5" opacity={eqOp} />
           <rect x={W/2-260} y={235} width={520} height={4} rx="2" fill={P.purple} opacity={eqOp} />
-          <text x={W/2} y={260} textAnchor="middle" fill={P.purple} fontSize="12" fontWeight="700"
+          <text x={W/2} y={260} textAnchor="middle" fill={P.purple} fontSize="12" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={eqOp}>Kohn-Sham Equation — The Heart of DFT</text>
-          <text x={W/2} y={292} textAnchor="middle" fill={P.green} fontSize="16" fontWeight="700"
+          <text x={W/2} y={292} textAnchor="middle" fill={P.green} fontSize="16" fontWeight="500"
             fontFamily="'Fira Code','Consolas',monospace" opacity={eqOp}>{"[-½∇² + v_ext(r) + v_H(r) + v_xc(r)] φᵢ(r) = εᵢ φᵢ(r)"}</text>
           <line x1={W/2-220} y1={308} x2={W/2+220} y2={308} stroke={P.border} strokeWidth="0.8" opacity={eqOp * 0.5} />
-          <text x={W/2-150} y={326} fill={P.amber} fontSize="9.5" fontWeight="600"
+          <text x={W/2-150} y={326} fill={P.amber} fontSize="9.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={eqOp * 0.9}>v_ext = nuclear pull</text>
-          <text x={W/2-10} y={326} fill={P.blue} fontSize="9.5" fontWeight="600"
+          <text x={W/2-10} y={326} fill={P.blue} fontSize="9.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={eqOp * 0.9}>v_H = e⁻ repulsion</text>
-          <text x={W/2+135} y={326} fill={P.pink} fontSize="9.5" fontWeight="600"
+          <text x={W/2+135} y={326} fill={P.pink} fontSize="9.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={eqOp * 0.9}>v_xc = quantum fix</text>
           <text x={W/2} y={352} textAnchor="middle" fill={P.muted} fontSize="9.5"
             fontFamily="'Inter',sans-serif" opacity={eqOp * 0.7}>Solve for each orbital φᵢ → get density → repeat until self-consistent</text>
@@ -237,7 +237,7 @@ export default function DFTMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>The Many-Body Problem</text>
           <line x1={262} y1={32} x2={262} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -256,7 +256,7 @@ export default function DFTMovieModule() {
           {/* RIGHT panel */}
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
-          <text x={RX+RW/2} y={50} textAnchor="middle" fill={P.blue} fontSize="10" fontWeight="700"
+          <text x={RX+RW/2} y={50} textAnchor="middle" fill={P.blue} fontSize="10" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.05)*5))}>
             N electrons + M nuclei
           </text>
@@ -293,7 +293,7 @@ export default function DFTMovieModule() {
               <g key={i} opacity={op}>
                 <circle cx={RX+e.x} cy={e.y+58} r={9} fill={P.blue+"28"} stroke={P.blue} strokeWidth="1.5" />
                 <text x={RX+e.x} y={e.y+62} textAnchor="middle" fill={P.blue}
-                  fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">e⁻</text>
+                  fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">e⁻</text>
               </g>
             );
           })}
@@ -307,7 +307,7 @@ export default function DFTMovieModule() {
                 <text x={RX+n.x} y={n.y+53} textAnchor="middle" fill={P.red}
                   fontSize="7" fontFamily="'Inter',sans-serif">Z={n.Z}</text>
                 <text x={RX+n.x} y={n.y+65} textAnchor="middle" fill={P.red}
-                  fontSize="10" fontWeight="800" fontFamily="'Inter',sans-serif">+</text>
+                  fontSize="10" fontWeight="500" fontFamily="'Inter',sans-serif">+</text>
               </g>
             );
           })}
@@ -330,11 +330,11 @@ export default function DFTMovieModule() {
           <g opacity={ease(clamp01((t-0.72)*4))}>
             <rect x={RX+15} y={342} width={RW-30} height={62} rx="6"
               fill={P.red+"12"} stroke={P.red+"55"} strokeWidth="1.5" />
-            <text x={RX+RW/2} y={360} textAnchor="middle" fill={P.red} fontSize="11" fontWeight="800"
+            <text x={RX+RW/2} y={360} textAnchor="middle" fill={P.red} fontSize="11" fontWeight="500"
               fontFamily="'Inter',sans-serif">Exponential Wall!</text>
             <text x={RX+RW/2} y={376} textAnchor="middle" fill={P.muted} fontSize="8.5"
               fontFamily="'Inter',sans-serif">Ψ lives in 3N-dimensional space</text>
-            <text x={RX+RW/2} y={392} textAnchor="middle" fill={P.warn} fontSize="8.5" fontWeight="700"
+            <text x={RX+RW/2} y={392} textAnchor="middle" fill={P.warn} fontSize="8.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">N=10 → need ~10³⁰ numbers → intractable</text>
           </g>
         </svg>
@@ -386,7 +386,7 @@ export default function DFTMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="14" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="14" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Born-Oppenheimer Approximation</text>
           <line x1={262} y1={32} x2={262} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -408,7 +408,7 @@ export default function DFTMovieModule() {
 
           {/* Timescale labels */}
           <g opacity={ease(clamp01((t-0.10)*5))}>
-            <text x={RX+RW/2} y={50} textAnchor="middle" fill={P.blue} fontSize="10" fontWeight="700"
+            <text x={RX+RW/2} y={50} textAnchor="middle" fill={P.blue} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Two Timescales</text>
           </g>
 
@@ -451,15 +451,15 @@ export default function DFTMovieModule() {
 
           {/* Speed labels */}
           <g opacity={ease(clamp01((t-0.40)*5))}>
-            <text x={RX+RW/2} y={205} textAnchor="middle" fill={P.blue} fontSize="8.5" fontWeight="700"
+            <text x={RX+RW/2} y={205} textAnchor="middle" fill={P.blue} fontSize="8.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">electrons: fast (fs timescale)</text>
-            <text x={RX+RW/2} y={220} textAnchor="middle" fill={P.red} fontSize="8.5" fontWeight="700"
+            <text x={RX+RW/2} y={220} textAnchor="middle" fill={P.red} fontSize="8.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">nuclei: slow (ps timescale)</text>
           </g>
 
           {/* PES diagram */}
           <g opacity={ease(clamp01((t-0.55)*4))}>
-            <text x={RX+RW/2} y={245} textAnchor="middle" fill={P.amber} fontSize="9" fontWeight="700"
+            <text x={RX+RW/2} y={245} textAnchor="middle" fill={P.amber} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Potential Energy Surface E(R)</text>
             {/* Axes */}
             <line x1={RX+20} y1={370} x2={RX+RW-15} y2={370} stroke={P.muted} strokeWidth="1"/>
@@ -527,7 +527,7 @@ export default function DFTMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="14" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="14" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Hohenberg-Kohn Theorems</text>
           <line x1={262} y1={32} x2={262} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -547,7 +547,7 @@ export default function DFTMovieModule() {
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
 
-          <text x={RX+RW/2} y={50} textAnchor="middle" fill={P.amber} fontSize="10" fontWeight="700"
+          <text x={RX+RW/2} y={50} textAnchor="middle" fill={P.amber} fontSize="10" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.05)*5))}>
             The HK Triangle
           </text>
@@ -567,7 +567,7 @@ export default function DFTMovieModule() {
                 <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={e.col} strokeWidth="1.5" strokeDasharray="5,3"/>
                 <polygon points={`${x2-uy*4},${y2+ux*4} ${x2+uy*4},${y2-ux*4} ${x2+ux*7},${y2+uy*7}`} fill={e.col}/>
                 <rect x={mx-28} y={my-9} width={56} height={14} rx="4" fill={P.bg+"cc"}/>
-                <text x={mx} y={my+4} textAnchor="middle" fill={e.col} fontSize="8" fontWeight="700"
+                <text x={mx} y={my+4} textAnchor="middle" fill={e.col} fontSize="8" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{e.label}</text>
               </g>
             );
@@ -579,7 +579,7 @@ export default function DFTMovieModule() {
             return (
               <g key={i} opacity={op}>
                 <circle cx={n.x} cy={n.y} r={28} fill={n.col+"20"} stroke={n.col+"90"} strokeWidth="2"/>
-                <text x={n.x} y={n.y-2} textAnchor="middle" fill={n.col} fontSize="10" fontWeight="800"
+                <text x={n.x} y={n.y-2} textAnchor="middle" fill={n.col} fontSize="10" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{n.label}</text>
                 <text x={n.x} y={n.y+13} textAnchor="middle" fill={P.muted} fontSize="7"
                   fontFamily="'Inter',sans-serif">{n.sub}</text>
@@ -591,11 +591,11 @@ export default function DFTMovieModule() {
           <g opacity={ease(clamp01((t-0.62)*4))}>
             <rect x={RX+15} y={275} width={RW-30} height={86} rx="6"
               fill={P.panel} stroke={P.border} strokeWidth="1"/>
-            <text x={RX+RW/2} y={292} textAnchor="middle" fill={P.pink} fontSize="9.5" fontWeight="700"
+            <text x={RX+RW/2} y={292} textAnchor="middle" fill={P.pink} fontSize="9.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">Dimensionality Reduction</text>
             {/* 3N box */}
             <rect x={triCx-75} y={301} width={50} height={28} rx="4" fill={P.warn+"20"} stroke={P.warn} strokeWidth="1.5"/>
-            <text x={triCx-50} y={317} textAnchor="middle" fill={P.warn} fontSize="9" fontWeight="700"
+            <text x={triCx-50} y={317} textAnchor="middle" fill={P.warn} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">3N=300</text>
             {/* Arrow */}
             <line x1={triCx-23} y1={315} x2={triCx+5} y2={315} stroke={P.green} strokeWidth="2"/>
@@ -604,7 +604,7 @@ export default function DFTMovieModule() {
               fontFamily="'Inter',sans-serif">HK</text>
             {/* 3D box */}
             <rect x={triCx+15} y={301} width={40} height={28} rx="4" fill={P.green+"20"} stroke={P.green} strokeWidth="1.5"/>
-            <text x={triCx+35} y={317} textAnchor="middle" fill={P.green} fontSize="10" fontWeight="800"
+            <text x={triCx+35} y={317} textAnchor="middle" fill={P.green} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">3D</text>
             <text x={RX+RW/2} y={353} textAnchor="middle" fill={P.muted} fontSize="8"
               fontFamily="'Inter',sans-serif">n(r) encodes everything about ground state</text>
@@ -660,7 +660,7 @@ export default function DFTMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Kohn-Sham Equations</text>
           <line x1={262} y1={32} x2={262} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -679,7 +679,7 @@ export default function DFTMovieModule() {
           {/* RIGHT */}
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
-          <text x={fcCx} y={50} textAnchor="middle" fill={P.purple} fontSize="10" fontWeight="700"
+          <text x={fcCx} y={50} textAnchor="middle" fill={P.purple} fontSize="10" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.05)*5))}>
             SCF Flowchart
           </text>
@@ -720,7 +720,7 @@ export default function DFTMovieModule() {
               <g key={i} opacity={op}>
                 <circle cx={nx} cy={ny} r={26} fill={node.col+"18"} stroke={node.col+"80"} strokeWidth="1.8"/>
                 <text x={nx} y={ny-4} textAnchor="middle" fill={node.col}
-                  fontSize="8" fontWeight="700" fontFamily="'Inter',sans-serif">{node.label}</text>
+                  fontSize="8" fontWeight="500" fontFamily="'Inter',sans-serif">{node.label}</text>
                 <text x={nx} y={ny+9} textAnchor="middle" fill={P.muted}
                   fontSize="6.5" fontFamily="'Inter',sans-serif">{node.sub}</text>
               </g>
@@ -739,17 +739,17 @@ export default function DFTMovieModule() {
                   x2={fcCx - fcR*Math.cos(18*Math.PI/180) - 20}
                   y2={fcCy - fcR - 5}
                   stroke={P.warn} strokeWidth="1.5"/>
-            <text x={fcCx-90} y={fcCy-10} fill={P.warn} fontSize="7.5" fontWeight="700"
+            <text x={fcCx-90} y={fcCy-10} fill={P.warn} fontSize="7.5" fontWeight="500"
               fontFamily="'Inter',sans-serif" transform={`rotate(-90 ${fcCx-90} ${fcCy-10})`}>No</text>
             <text x={fcCx+40} y={fcCy+fcR*Math.sin(198*Math.PI/180)+4}
-              fill={P.ok} fontSize="8.5" fontWeight="700" fontFamily="'Inter',sans-serif">Yes</text>
+              fill={P.ok} fontSize="8.5" fontWeight="500" fontFamily="'Inter',sans-serif">Yes</text>
           </g>
 
           {/* Output box */}
           <g opacity={ease(clamp01((t-0.83)*4))}>
             <rect x={RX+15} y={328} width={RW-30} height={76} rx="6"
               fill={P.ok+"12"} stroke={P.ok+"50"} strokeWidth="1.5"/>
-            <text x={fcCx} y={346} textAnchor="middle" fill={P.ok} fontSize="10" fontWeight="800"
+            <text x={fcCx} y={346} textAnchor="middle" fill={P.ok} fontSize="10" fontWeight="500"
               fontFamily="'Inter',sans-serif">Converged!</text>
             <text x={fcCx} y={362} textAnchor="middle" fill={P.muted} fontSize="8"
               fontFamily="'Inter',sans-serif">Output: E_tot, n(r), {"{φᵢ}"}, {"{εᵢ}"}</text>
@@ -804,7 +804,7 @@ export default function DFTMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Exchange-Correlation Functionals</text>
           <line x1={262} y1={32} x2={262} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -824,7 +824,7 @@ export default function DFTMovieModule() {
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
 
-          <text x={RX+RW/2} y={50} textAnchor="middle" fill={P.amber} fontSize="10" fontWeight="700"
+          <text x={RX+RW/2} y={50} textAnchor="middle" fill={P.amber} fontSize="10" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.04)*5))}>
             Jacob's Ladder of DFT
           </text>
@@ -842,7 +842,7 @@ export default function DFTMovieModule() {
 
           {/* Heaven label */}
           <g opacity={ease(clamp01((t-0.16)*5))}>
-            <text x={RX+RW/2} y={75} textAnchor="middle" fill={P.amber} fontSize="9.5" fontWeight="700"
+            <text x={RX+RW/2} y={75} textAnchor="middle" fill={P.amber} fontSize="9.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">Chemical Accuracy Heaven</text>
             <line x1={RX+RW/2-60} y1={80} x2={RX+RW/2+60} y2={80} stroke={P.amber} strokeWidth="1" opacity={0.4} strokeDasharray="4,3"/>
           </g>
@@ -862,7 +862,7 @@ export default function DFTMovieModule() {
               <g key={i} opacity={op}>
                 <rect x={ladderX} y={rung.y} width={rung.w} height={32} rx="6"
                   fill={rung.col+"1a"} stroke={rung.col+"80"} strokeWidth="2"/>
-                <text x={ladderX+8} y={rung.y+13} fill={rung.col} fontSize="10" fontWeight="800"
+                <text x={ladderX+8} y={rung.y+13} fill={rung.col} fontSize="10" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{rung.label}</text>
                 <text x={ladderX+8} y={rung.y+26} fill={P.muted} fontSize="7.5"
                   fontFamily="'Inter',sans-serif">{rung.sub}</text>
@@ -939,7 +939,7 @@ export default function DFTMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>SCF Cycle — Na Atom Example</text>
           <line x1={262} y1={32} x2={262} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -958,7 +958,7 @@ export default function DFTMovieModule() {
           {/* RIGHT */}
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
-          <text x={cx} y={50} textAnchor="middle" fill={P.green} fontSize="10" fontWeight="700"
+          <text x={cx} y={50} textAnchor="middle" fill={P.green} fontSize="10" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.05)*5))}>
             SCF Loop
           </text>
@@ -975,18 +975,18 @@ export default function DFTMovieModule() {
               <g key={i} opacity={op}>
                 <circle cx={nx} cy={ny} r={19} fill={node.col+"18"} stroke={node.col+"80"} strokeWidth="1.5"/>
                 <text x={nx} y={ny+4} textAnchor="middle" fill={node.col}
-                  fontSize="7.5" fontWeight="700" fontFamily="'Inter',sans-serif">{node.label}</text>
+                  fontSize="7.5" fontWeight="500" fontFamily="'Inter',sans-serif">{node.label}</text>
               </g>
             );
           })}
-          <text x={cx} y={cycleY+4} textAnchor="middle" fill={P.amber} fontSize="9" fontWeight="700"
+          <text x={cx} y={cycleY+4} textAnchor="middle" fill={P.amber} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.40)*4))}>
             iter {iterCount}
           </text>
 
           {/* Convergence graph */}
           <g opacity={ease(clamp01((t-0.55)*4))}>
-            <text x={cx} y={188} textAnchor="middle" fill={P.teal} fontSize="9" fontWeight="700"
+            <text x={cx} y={188} textAnchor="middle" fill={P.teal} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Convergence — Na Total Energy</text>
             <line x1={gX} y1={gYtop} x2={gX} y2={gYtop+gH} stroke={P.muted} strokeWidth="1"/>
             <line x1={gX} y1={gYtop+gH} x2={gX+gW} y2={gYtop+gH} stroke={P.muted} strokeWidth="1"/>
@@ -1019,7 +1019,7 @@ export default function DFTMovieModule() {
 
           {/* Density profile for Na */}
           <g opacity={ease(clamp01((t-0.75)*4))}>
-            <text x={cx} y={312} textAnchor="middle" fill={P.purple} fontSize="9" fontWeight="700"
+            <text x={cx} y={312} textAnchor="middle" fill={P.purple} fontSize="9" fontWeight="500"
               fontFamily="'Inter',sans-serif">Na Radial Density n(r)</text>
             <line x1={gX} y1={330} x2={gX} y2={395} stroke={P.muted} strokeWidth="1"/>
             <line x1={gX} y1={395} x2={gX+gW} y2={395} stroke={P.muted} strokeWidth="1"/>
@@ -1080,7 +1080,7 @@ export default function DFTMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>Basis Sets & Pseudopotentials</text>
           <line x1={262} y1={32} x2={262} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -1102,7 +1102,7 @@ export default function DFTMovieModule() {
 
           {/* Pseudo vs AE wavefunction diagram */}
           <g opacity={ease(clamp01((t-0.12)*5))}>
-            <text x={RX+RW/2} y={50} textAnchor="middle" fill={P.purple} fontSize="9.5" fontWeight="700"
+            <text x={RX+RW/2} y={50} textAnchor="middle" fill={P.purple} fontSize="9.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">Pseudopotential Concept</text>
             <line x1={RX+15} y1={120} x2={RX+15} y2={55} stroke={P.muted} strokeWidth="1"/>
             <line x1={RX+15} y1={120} x2={RX+RW-15} y2={120} stroke={P.muted} strokeWidth="1"/>
@@ -1151,7 +1151,7 @@ export default function DFTMovieModule() {
 
           {/* Brillouin Zone */}
           <g opacity={ease(clamp01((t-0.45)*5))}>
-            <text x={RX+RW/2} y={178} textAnchor="middle" fill={P.blue} fontSize="9.5" fontWeight="700"
+            <text x={RX+RW/2} y={178} textAnchor="middle" fill={P.blue} fontSize="9.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">Brillouin Zone & k-points</text>
 
             {/* Hexagonal BZ */}
@@ -1181,7 +1181,7 @@ export default function DFTMovieModule() {
             ].map((p, i) => (
               <g key={i}>
                 <circle cx={p.x} cy={p.y} r={5} fill={P.amber} opacity={0.9}/>
-                <text x={p.x+8} y={p.y+4} fill={P.amber} fontSize="8.5" fontWeight="700"
+                <text x={p.x+8} y={p.y+4} fill={P.amber} fontSize="8.5" fontWeight="500"
                   fontFamily="'Inter',sans-serif">{p.label}</text>
               </g>
             ))}
@@ -1193,7 +1193,7 @@ export default function DFTMovieModule() {
           <g opacity={ease(clamp01((t-0.72)*4))}>
             <rect x={RX+15} y={345} width={RW-30} height={52} rx="6"
               fill={P.panel} stroke={P.border} strokeWidth="1"/>
-            <text x={RX+RW/2} y={363} textAnchor="middle" fill={P.green} fontSize="9.5" fontWeight="700"
+            <text x={RX+RW/2} y={363} textAnchor="middle" fill={P.green} fontSize="9.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">Convergence Parameters</text>
             <text x={RX+RW/2} y={380} textAnchor="middle" fill={P.muted} fontSize="8.5"
               fontFamily="'Inter',sans-serif">E_cut: 300-600 eV typical (plane waves)</text>
@@ -1255,7 +1255,7 @@ export default function DFTMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="800"
+          <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={tOp}>DFT Outputs</text>
           <line x1={262} y1={32} x2={262} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
@@ -1274,7 +1274,7 @@ export default function DFTMovieModule() {
           {/* RIGHT */}
           <rect x={RX} y={32} width={RW} height={380} rx="7"
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
-          <text x={RX+RW/2} y={50} textAnchor="middle" fill={P.purple} fontSize="9.5" fontWeight="700"
+          <text x={RX+RW/2} y={50} textAnchor="middle" fill={P.purple} fontSize="9.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.05)*5))}>
             Band Structure + DOS — ZnTe
           </text>
@@ -1290,7 +1290,7 @@ export default function DFTMovieModule() {
                 <line x1={bsX+kPts[i]} y1={bsYt} x2={bsX+kPts[i]} y2={bsYt+bsH}
                   stroke={P.dim} strokeWidth="0.6" opacity={0.6}/>
                 <text x={bsX+kPts[i]} y={bsYt+bsH+13} textAnchor="middle"
-                  fill={P.muted} fontSize="9" fontWeight="700" fontFamily="'Inter',sans-serif">{lb}</text>
+                  fill={P.muted} fontSize="9" fontWeight="500" fontFamily="'Inter',sans-serif">{lb}</text>
               </g>
             ))}
           </g>
@@ -1311,7 +1311,7 @@ export default function DFTMovieModule() {
                 <polygon points={vbFill.map(([kx,ky])=>`${bsX+kx},${bsYt+ky}`).join(' ')}
                   fill={P.purple+"22"}/>
                 <polyline points={toBS(vb)} fill="none" stroke={P.purple} strokeWidth="2.2"/>
-                <text x={bsX+85} y={bsYt+162} textAnchor="middle" fill={P.purple} fontSize="8" fontWeight="700"
+                <text x={bsX+85} y={bsYt+162} textAnchor="middle" fill={P.purple} fontSize="8" fontWeight="500"
                   fontFamily="'Inter',sans-serif">Valence Band</text>
               </g>
             );
@@ -1323,7 +1323,7 @@ export default function DFTMovieModule() {
             return (
               <g opacity={op}>
                 <polyline points={toBS(cb)} fill="none" stroke={P.blue} strokeWidth="2.2"/>
-                <text x={bsX+85} y={bsYt+72} textAnchor="middle" fill={P.blue} fontSize="8" fontWeight="700"
+                <text x={bsX+85} y={bsYt+72} textAnchor="middle" fill={P.blue} fontSize="8" fontWeight="500"
                   fontFamily="'Inter',sans-serif">Conduction Band</text>
               </g>
             );
@@ -1341,7 +1341,7 @@ export default function DFTMovieModule() {
                 <polygon points={`${gapX-4},${botY} ${gapX+4},${botY} ${gapX},${botY+8}`} fill={P.ok}/>
                 <rect x={gapX+6} y={(topY+botY)/2-14} width={56} height={28} rx="4"
                   fill={P.ok+"1a"} stroke={P.ok+"60"} strokeWidth="1"/>
-                <text x={gapX+34} y={(topY+botY)/2-2} textAnchor="middle" fill={P.ok} fontSize="8.5" fontWeight="700"
+                <text x={gapX+34} y={(topY+botY)/2-2} textAnchor="middle" fill={P.ok} fontSize="8.5" fontWeight="500"
                   fontFamily="'Inter',sans-serif">Eg</text>
                 <text x={gapX+34} y={(topY+botY)/2+10} textAnchor="middle" fill={P.muted} fontSize="7"
                   fontFamily="'Inter',sans-serif">2.26 eV</text>
@@ -1373,7 +1373,7 @@ export default function DFTMovieModule() {
           <g opacity={ease(clamp01((t-0.65)*4))}>
             <rect x={RX+15} y={252} width={RW-30} height={92} rx="6"
               fill={P.panel} stroke={P.border} strokeWidth="1"/>
-            <text x={RX+RW/2} y={270} textAnchor="middle" fill={P.teal} fontSize="9.5" fontWeight="700"
+            <text x={RX+RW/2} y={270} textAnchor="middle" fill={P.teal} fontSize="9.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">ZnTe Bandgap Comparison</text>
             {[
               { label: "GGA-PBE",   val: "2.26 eV", err: "-0.04 eV", col: P.green  },
@@ -1383,7 +1383,7 @@ export default function DFTMovieModule() {
               const ry = 284 + i*20;
               return (
                 <g key={i}>
-                  <text x={RX+24} y={ry} fill={row.col} fontSize="9" fontWeight="700"
+                  <text x={RX+24} y={ry} fill={row.col} fontSize="9" fontWeight="500"
                     fontFamily="'Inter',sans-serif">{row.label}</text>
                   <text x={RX+105} y={ry} fill={P.ink} fontSize="9"
                     fontFamily="'Inter',sans-serif">{row.val}</text>
@@ -1400,9 +1400,9 @@ export default function DFTMovieModule() {
           <g opacity={ease(clamp01((t-0.80)*4))}>
             <rect x={RX+15} y={352} width={RW-30} height={56} rx="6"
               fill={P.surface} stroke={P.ok+"50"} strokeWidth="1.5"/>
-            <text x={RX+RW/2} y={370} textAnchor="middle" fill={P.ok} fontSize="9.5" fontWeight="700"
+            <text x={RX+RW/2} y={370} textAnchor="middle" fill={P.ok} fontSize="9.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">DFT: workhorse of computational</text>
-            <text x={RX+RW/2} y={386} textAnchor="middle" fill={P.ok} fontSize="9.5" fontWeight="700"
+            <text x={RX+RW/2} y={386} textAnchor="middle" fill={P.ok} fontSize="9.5" fontWeight="500"
               fontFamily="'Inter',sans-serif">materials science</text>
             <text x={RX+RW/2} y={401} textAnchor="middle" fill={P.muted} fontSize="8"
               fontFamily="'Inter',sans-serif">10,000+ publications per year use DFT</text>
@@ -1435,12 +1435,12 @@ export default function DFTMovieModule() {
       }}>
         <div style={{ position: "absolute", top: 10, left: 14, zIndex: 2, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ background: P.blue+"25", border: `1px solid ${P.blue}50`, padding: "3px 10px",
-            borderRadius: 6, fontSize: 10, fontWeight: 700, color: P.blue, letterSpacing: 1 }}>
+            borderRadius: 6, fontSize: 10, fontWeight: 500, color: P.blue, letterSpacing: 1 }}>
             Scene {sceneIdx + 1}/{SCENES.length}
           </span>
-          <span style={{ fontSize: 12, fontWeight: 700, color: P.ink }}>{scene.label}</span>
+          <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
-        <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 600, opacity: 0.65 }}>
+        <div style={{ position: "absolute", top: 10, right: 14, zIndex: 2, fontSize: 11, color: "#fff", fontWeight: 500, opacity: 0.65 }}>
           DFT Basics
         </div>
         <div style={{ opacity: fadeOpacity, transition: "opacity 0.25s ease-in-out", willChange: "opacity" }}>
@@ -1457,20 +1457,20 @@ export default function DFTMovieModule() {
         <button onClick={sceneIdx === SCENES.length - 1 && !playing ? playAll : togglePause} style={{
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.blue}`,
           background: P.blue+"15", cursor: "pointer", display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: 18, color: P.blue, fontWeight: 900, fontFamily: "inherit",
+          justifyContent: "center", fontSize: 18, color: P.blue, fontWeight: 500, fontFamily: "inherit",
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
         <button onClick={prevScene} disabled={sceneIdx === 0} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default",
-          color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 700,
+          color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
           fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4,
         }}>{"\u2190"}</button>
         <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default",
-          color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 700,
+          color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
           fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4,
         }}>{"\u2192"}</button>
 
@@ -1552,7 +1552,7 @@ export default function DFTMovieModule() {
         if (!items) return null;
         return (
           <div style={{ marginTop: 12, background: P.panel, borderRadius: 12, border: `1px solid ${P.border}`, padding: "12px 16px" }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: P.blue, marginBottom: 8, letterSpacing: 0.5, textTransform: "uppercase" }}>Analogies</div>
+            <div style={{ fontSize: 11, fontWeight: 500, color: P.blue, marginBottom: 8, letterSpacing: 0.5, textTransform: "none" }}>Analogies</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {items.map((a, i) => (
                 <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
@@ -1564,12 +1564,12 @@ export default function DFTMovieModule() {
             {/* Summary table for output scene */}
             {scene.id === "output" && (
               <div style={{ marginTop: 12, borderTop: `1px solid ${P.border}`, paddingTop: 10 }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: P.purple, marginBottom: 8, letterSpacing: 0.5, textTransform: "uppercase" }}>DFT Methods at a Glance</div>
+                <div style={{ fontSize: 11, fontWeight: 500, color: P.purple, marginBottom: 8, letterSpacing: 0.5, textTransform: "none" }}>DFT Methods at a Glance</div>
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11 }}>
                   <thead>
                     <tr style={{ borderBottom: `2px solid ${P.border}` }}>
                       {["Method", "Accuracy", "Cost", "Best for"].map(h => (
-                        <th key={h} style={{ padding: "5px 6px", textAlign: "left", color: P.blue, fontWeight: 700, fontSize: 10 }}>{h}</th>
+                        <th key={h} style={{ padding: "5px 6px", textAlign: "left", color: P.blue, fontWeight: 500, fontSize: 10 }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
@@ -1583,7 +1583,7 @@ export default function DFTMovieModule() {
                       { m: "GW",       acc: "Very high", cost: "1000x",  use: "Quasiparticle spectra",          col: P.pink   },
                     ].map((r, i) => (
                       <tr key={i} style={{ borderBottom: `1px solid ${P.dim}30` }}>
-                        <td style={{ padding: "4px 6px", fontWeight: 700, color: r.col }}>{r.m}</td>
+                        <td style={{ padding: "4px 6px", fontWeight: 500, color: r.col }}>{r.m}</td>
                         <td style={{ padding: "4px 6px", color: P.ink }}>{r.acc}</td>
                         <td style={{ padding: "4px 6px", color: P.muted, fontFamily: "monospace" }}>{r.cost}</td>
                         <td style={{ padding: "4px 6px", color: P.muted }}>{r.use}</td>
@@ -1605,7 +1605,7 @@ export default function DFTMovieModule() {
             background: i === sceneIdx ? P.blue+"20" : "transparent",
             border: `1px solid ${i === sceneIdx ? P.blue : P.border}`,
             color: i === sceneIdx ? P.blue : P.muted,
-            fontWeight: i === sceneIdx ? 700 : 500, fontFamily: "inherit", transition: "all 0.15s",
+            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit", transition: "all 0.15s",
           }}>
             {i + 1}. {s.label}
           </button>

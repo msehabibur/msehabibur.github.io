@@ -162,7 +162,7 @@ export default function ChalcoMovieModule() {
             <line key={`g${i}`} x1={0} y1={i * 28} x2={W} y2={i * 28}
               stroke={P.dim} strokeWidth="0.3" opacity={0.3} />
           ))}
-          <text x={W / 2} y={120} textAnchor="middle" fill={P.ink} fontSize="28" fontWeight="900"
+          <text x={W / 2} y={120} textAnchor="middle" fill={P.ink} fontSize="28" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={titleOp}>
             ChalcoDB
           </text>
@@ -220,30 +220,30 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={32} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={32} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             The Chalcogenide Challenge
           </text>
           {/* Vast compositional space */}
           <g opacity={box1T} transform={`translate(${40 + (1 - box1T) * 20}, 55)`}>
             <rect width={145} height={80} rx="8" fill={P.chalco + "20"} stroke={P.chalco} strokeWidth="1.5" />
-            <text x={72} y={25} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="700">Vast Chemical</text>
-            <text x={72} y={40} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="700">Space</text>
+            <text x={72} y={25} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="500">Vast Chemical</text>
+            <text x={72} y={40} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="500">Space</text>
             <text x={72} y={58} textAnchor="middle" fill={P.muted} fontSize="8">500,000+ possible</text>
             <text x={72} y={70} textAnchor="middle" fill={P.muted} fontSize="8">compositions</text>
           </g>
           {/* Good optoelectronic properties */}
           <g opacity={box2T} transform={`translate(${207 + (1 - box2T) * 20}, 55)`}>
             <rect width={145} height={80} rx="8" fill={P.ok + "20"} stroke={P.ok} strokeWidth="1.5" />
-            <text x={72} y={25} textAnchor="middle" fill={P.ok} fontSize="10" fontWeight="700">Excellent</text>
-            <text x={72} y={40} textAnchor="middle" fill={P.ok} fontSize="10" fontWeight="700">Optoelectronics</text>
+            <text x={72} y={25} textAnchor="middle" fill={P.ok} fontSize="10" fontWeight="500">Excellent</text>
+            <text x={72} y={40} textAnchor="middle" fill={P.ok} fontSize="10" fontWeight="500">Optoelectronics</text>
             <text x={72} y={58} textAnchor="middle" fill={P.muted} fontSize="8">Tunable band gaps</text>
             <text x={72} y={70} textAnchor="middle" fill={P.muted} fontSize="8">Earth-abundant</text>
           </g>
           {/* But defects limit */}
           <g opacity={box3T} transform={`translate(${375 + (1 - box3T) * 20}, 55)`}>
             <rect width={145} height={80} rx="8" fill={P.warn + "20"} stroke={P.warn} strokeWidth="1.5" />
-            <text x={72} y={25} textAnchor="middle" fill={P.warn} fontSize="10" fontWeight="700">Poor Defect</text>
-            <text x={72} y={40} textAnchor="middle" fill={P.warn} fontSize="10" fontWeight="700">Tolerance</text>
+            <text x={72} y={25} textAnchor="middle" fill={P.warn} fontSize="10" fontWeight="500">Poor Defect</text>
+            <text x={72} y={40} textAnchor="middle" fill={P.warn} fontSize="10" fontWeight="500">Tolerance</text>
             <text x={72} y={58} textAnchor="middle" fill={P.muted} fontSize="8">Unfavorable doping</text>
             <text x={72} y={70} textAnchor="middle" fill={P.muted} fontSize="8">Limits performance</text>
           </g>
@@ -256,7 +256,7 @@ export default function ChalcoMovieModule() {
           <g opacity={questionT}>
             <line x1={W / 2} y1={150} x2={W / 2} y2={175} stroke={P.chalco} strokeWidth="2" markerEnd="url(#arrowP)" />
             <rect x={100} y={180} width={360} height={95} rx="10" fill={P.surface} stroke={P.chalco} strokeWidth="1.5" />
-            <text x={W / 2} y={205} textAnchor="middle" fill={P.chalco} fontSize="12" fontWeight="800">
+            <text x={W / 2} y={205} textAnchor="middle" fill={P.chalco} fontSize="12" fontWeight="500">
               Composition Engineering + Data-Driven Design
             </text>
             <text x={W / 2} y={225} textAnchor="middle" fill={P.muted} fontSize="9">
@@ -265,7 +265,7 @@ export default function ChalcoMovieModule() {
             <text x={W / 2} y={240} textAnchor="middle" fill={P.muted} fontSize="9">
               and defect physics using high-throughput DFT + ML
             </text>
-            <text x={W / 2} y={260} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="700">
+            <text x={W / 2} y={260} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="500">
               DFT (HSE06+SOC) + Random Forest + Crystal Graph MLFF
             </text>
           </g>
@@ -275,14 +275,14 @@ export default function ChalcoMovieModule() {
             const mats = ["CdTe", "CuInS\u2082", "Cu\u2082ZnSnS\u2084", "CZTSSe", "CuGaSe\u2082"];
             return (
               <g opacity={matT}>
-                <text x={W / 2} y={310} textAnchor="middle" fill={P.dim} fontSize="8" fontWeight="600">
-                  TARGET MATERIALS SPACE
+                <text x={W / 2} y={310} textAnchor="middle" fill={P.dim} fontSize="8" fontWeight="500">
+                  Target materials space
                 </text>
                 {mats.map((m, i) => (
                   <g key={i}>
                     <rect x={35 + i * 100} y={320} width={90} height={24} rx="5"
                       fill={P.chalco + "15"} stroke={P.chalco + "40"} strokeWidth="1" />
-                    <text x={80 + i * 100} y={336} textAnchor="middle" fill={P.crystal} fontSize="9" fontWeight="600">
+                    <text x={80 + i * 100} y={336} textAnchor="middle" fill={P.crystal} fontSize="9" fontWeight="500">
                       {m}
                     </text>
                   </g>
@@ -328,7 +328,7 @@ export default function ChalcoMovieModule() {
               ) : null;
             }))}
             <text x={ox + cellW / 2} y={oy + cellH + 18} textAnchor="middle"
-              fill={P.ink} fontSize="11" fontWeight="700">{label}</text>
+              fill={P.ink} fontSize="11" fontWeight="500">{label}</text>
             <text x={ox + cellW / 2} y={oy + cellH + 32} textAnchor="middle"
               fill={P.muted} fontSize="8">{sublabel}</text>
           </g>
@@ -358,7 +358,7 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={32} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={32} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             Zincblende-Derived Crystal Structures
           </text>
 
@@ -383,7 +383,7 @@ export default function ChalcoMovieModule() {
             return (
               <g opacity={descT}>
                 <rect x={70} y={280} width={420} height={100} rx="8" fill={P.surface} stroke={P.border} strokeWidth="1" />
-                <text x={W / 2} y={302} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="700">
+                <text x={W / 2} y={302} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="500">
                   Pre-Defined Chemical Space
                 </text>
                 <text x={W / 2} y={320} textAnchor="middle" fill={P.muted} fontSize="9">
@@ -392,7 +392,7 @@ export default function ChalcoMovieModule() {
                 <text x={W / 2} y={335} textAnchor="middle" fill={P.muted} fontSize="9">
                   B-site: Sn, Ge, Si, Pb, Ti, Zr, Hf {"\u00B7"} Anion: S, Se, Te
                 </text>
-                <text x={W / 2} y={355} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="600">
+                <text x={W / 2} y={355} textAnchor="middle" fill={P.ink} fontSize="10" fontWeight="500">
                   {"\u2192"} ~500,000 candidate compositions
                 </text>
               </g>
@@ -415,7 +415,7 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={32} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={32} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             Target Properties
           </text>
           <text x={W / 2} y={50} textAnchor="middle" fill={P.muted} fontSize="9" opacity={titleT}>
@@ -429,7 +429,7 @@ export default function ChalcoMovieModule() {
                 <rect x={80} y={by} width={400} height={48} rx="8"
                   fill={p.color + "12"} stroke={p.color + "40"} strokeWidth="1" />
                 <text x={105} y={by + 28} textAnchor="middle" fill={p.color} fontSize="18">{p.icon}</text>
-                <text x={130} y={by + 20} fill={P.ink} fontSize="11" fontWeight="700">{p.name}</text>
+                <text x={130} y={by + 20} fill={P.ink} fontSize="11" fontWeight="500">{p.name}</text>
                 <text x={130} y={by + 36} fill={P.muted} fontSize="9">{p.desc}</text>
               </g>
             );
@@ -437,7 +437,7 @@ export default function ChalcoMovieModule() {
           {(() => {
             const noteT = ease(clamp01((t - 0.8) * 4));
             return (
-              <text x={W / 2} y={370} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="600" opacity={noteT}>
+              <text x={W / 2} y={370} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="500" opacity={noteT}>
                 All computed with hybrid HSE06 + spin-orbit coupling
               </text>
             );
@@ -459,14 +459,14 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             High-Throughput HSE06 + SOC
           </text>
 
           {/* Unit cell */}
           <g opacity={cellT}>
             <rect x={30} y={55} width={130} height={130} rx="8" fill={P.surface} stroke={P.dft + "60"} strokeWidth="1.5" />
-            <text x={95} y={75} textAnchor="middle" fill={P.dft} fontSize="9" fontWeight="700">Unit Cell</text>
+            <text x={95} y={75} textAnchor="middle" fill={P.dft} fontSize="9" fontWeight="500">Unit Cell</text>
             {/* Simple atom arrangement */}
             {[
               { x: 55, y: 95, r: 7, c: P.crystal },
@@ -490,7 +490,7 @@ export default function ChalcoMovieModule() {
           {/* SCF convergence */}
           <g opacity={scfT}>
             <rect x={200} y={55} width={160} height={130} rx="8" fill={P.surface} stroke={P.dft + "40"} strokeWidth="1" />
-            <text x={280} y={75} textAnchor="middle" fill={P.dft} fontSize="9" fontWeight="700">SCF Convergence</text>
+            <text x={280} y={75} textAnchor="middle" fill={P.dft} fontSize="9" fontWeight="500">SCF Convergence</text>
             {/* Energy convergence plot */}
             {Array.from({ length: scfSteps }).map((_, i) => {
               const frac = i / (scfSteps - 1);
@@ -521,18 +521,18 @@ export default function ChalcoMovieModule() {
           {/* Result */}
           <g opacity={resultT}>
             <rect x={400} y={55} width={135} height={130} rx="8" fill={P.dft + "15"} stroke={P.dft} strokeWidth="1.5" />
-            <text x={467} y={80} textAnchor="middle" fill={P.dft} fontSize="9" fontWeight="700">Output</text>
+            <text x={467} y={80} textAnchor="middle" fill={P.dft} fontSize="9" fontWeight="500">Output</text>
             <text x={467} y={100} textAnchor="middle" fill={P.ink} fontSize="8">E_total</text>
             <text x={467} y={115} textAnchor="middle" fill={P.ink} fontSize="8">Band gap</text>
             <text x={467} y={130} textAnchor="middle" fill={P.ink} fontSize="8">Forces</text>
             <text x={467} y={145} textAnchor="middle" fill={P.ink} fontSize="8">Stress tensor</text>
-            <text x={467} y={160} textAnchor="middle" fill={P.ok} fontSize="8" fontWeight="600">SLME</text>
+            <text x={467} y={160} textAnchor="middle" fill={P.ok} fontSize="8" fontWeight="500">SLME</text>
           </g>
 
           {/* Details box */}
           <g opacity={detailT}>
             <rect x={60} y={210} width={440} height={85} rx="8" fill={P.surface} stroke={P.border} strokeWidth="1" />
-            <text x={W / 2} y={232} textAnchor="middle" fill={P.dft} fontSize="10" fontWeight="700">
+            <text x={W / 2} y={232} textAnchor="middle" fill={P.dft} fontSize="10" fontWeight="500">
               Why HSE06 + SOC?
             </text>
             <text x={W / 2} y={250} textAnchor="middle" fill={P.muted} fontSize="9">
@@ -541,7 +541,7 @@ export default function ChalcoMovieModule() {
             <text x={W / 2} y={265} textAnchor="middle" fill={P.muted} fontSize="9">
               includes exact exchange for accurate gaps. SOC critical for heavy elements (Te, Se, Cd)
             </text>
-            <text x={W / 2} y={282} textAnchor="middle" fill={P.ink} fontSize="9" fontWeight="600">
+            <text x={W / 2} y={282} textAnchor="middle" fill={P.ink} fontSize="9" fontWeight="500">
               Cost: ~100{"\u00D7"} more expensive than GGA {"\u2192"} need ML acceleration
             </text>
           </g>
@@ -551,7 +551,7 @@ export default function ChalcoMovieModule() {
             const statT = ease(clamp01((t - 0.85) * 4));
             return (
               <g opacity={statT}>
-                <text x={W / 2} y={330} textAnchor="middle" fill={P.chalco} fontSize="11" fontWeight="700">
+                <text x={W / 2} y={330} textAnchor="middle" fill={P.chalco} fontSize="11" fontWeight="500">
                   Thousands of HSE06+SOC calculations performed
                 </text>
                 <text x={W / 2} y={348} textAnchor="middle" fill={P.muted} fontSize="9">
@@ -585,7 +585,7 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             The DFT Dataset
           </text>
           <text x={W / 2} y={48} textAnchor="middle" fill={P.muted} fontSize="9" opacity={titleT}>
@@ -599,7 +599,7 @@ export default function ChalcoMovieModule() {
             return (
               <g key={i} opacity={colT}>
                 <rect x={cx - 36} y={60} width={76} height={22} rx="4" fill={P.dft + "20"} />
-                <text x={cx} y={75} textAnchor="middle" fill={P.dft} fontSize="8" fontWeight="700">{c}</text>
+                <text x={cx} y={75} textAnchor="middle" fill={P.dft} fontSize="8" fontWeight="500">{c}</text>
               </g>
             );
           })}
@@ -615,7 +615,7 @@ export default function ChalcoMovieModule() {
                 {row.map((val, ci) => (
                   <text key={ci} x={55 + ci * 82} y={ry + 16} textAnchor="middle"
                     fill={ci === 0 ? P.crystal : P.ink} fontSize="8.5"
-                    fontWeight={ci === 0 ? "600" : "400"}>
+                    fontWeight={ci === 0 ? "500" : "400"}>
                     {val}
                   </text>
                 ))}
@@ -638,9 +638,9 @@ export default function ChalcoMovieModule() {
                     <rect x={85 + i * 150} y={290} width={120} height={55} rx="8"
                       fill={s.color + "12"} stroke={s.color + "30"} strokeWidth="1" />
                     <text x={145 + i * 150} y={312} textAnchor="middle"
-                      fill={s.color} fontSize="16" fontWeight="900">{s.value}</text>
+                      fill={s.color} fontSize="16" fontWeight="500">{s.value}</text>
                     <text x={145 + i * 150} y={330} textAnchor="middle"
-                      fill={P.muted} fontSize="8" fontWeight="600">{s.label}</text>
+                      fill={P.muted} fontSize="8" fontWeight="500">{s.label}</text>
                   </g>
                 ))}
               </g>
@@ -676,14 +676,14 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             Composition-Weighted Elemental Features
           </text>
 
           {/* Formula example */}
           <g opacity={formulaT}>
             <rect x={140} y={50} width={280} height={40} rx="8" fill={P.surface} stroke={P.chalco + "50"} strokeWidth="1.5" />
-            <text x={W / 2} y={75} textAnchor="middle" fill={P.crystal} fontSize="13" fontWeight="700">
+            <text x={W / 2} y={75} textAnchor="middle" fill={P.crystal} fontSize="13" fontWeight="500">
               Cu{"\u2082"}ZnSnS{"\u2084"} {"\u2192"} feature vector
             </text>
           </g>
@@ -699,7 +699,7 @@ export default function ChalcoMovieModule() {
                 <g key={i}>
                   <rect x={fx} y={fy} width={140} height={38} rx="6"
                     fill={P.dft + "12"} stroke={P.dft + "30"} strokeWidth="1" />
-                  <text x={fx + 70} y={fy + 23} textAnchor="middle" fill={P.ink} fontSize="9" fontWeight="600">
+                  <text x={fx + 70} y={fy + 23} textAnchor="middle" fill={P.ink} fontSize="9" fontWeight="500">
                     {f}
                   </text>
                 </g>
@@ -715,7 +715,7 @@ export default function ChalcoMovieModule() {
           {/* Feature vector visualization */}
           <g opacity={vecT}>
             <rect x={100} y={248} width={360} height={45} rx="8" fill={P.surface} stroke={P.chalco + "40"} strokeWidth="1" />
-            <text x={115} y={270} fill={P.chalco} fontSize="9" fontWeight="700">x =</text>
+            <text x={115} y={270} fill={P.chalco} fontSize="9" fontWeight="500">x =</text>
             {Array.from({ length: 12 }).map((_, i) => {
               const bx = 140 + i * 26;
               const bh = 10 + Math.random() * 20;
@@ -730,7 +730,7 @@ export default function ChalcoMovieModule() {
           {/* Description */}
           <g opacity={descT}>
             <rect x={70} y={310} width={420} height={70} rx="8" fill={P.surface} stroke={P.border} strokeWidth="1" />
-            <text x={W / 2} y={332} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="700">
+            <text x={W / 2} y={332} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="500">
               Composition-Weighted Averaging
             </text>
             <text x={W / 2} y={350} textAnchor="middle" fill={P.muted} fontSize="9">
@@ -780,14 +780,14 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             Random Forest Regression
           </text>
 
           {/* Input */}
           <g opacity={inputT}>
             <rect x={20} y={60} width={100} height={70} rx="8" fill={P.surface} stroke={P.chalco + "50"} strokeWidth="1.5" />
-            <text x={70} y={82} textAnchor="middle" fill={P.chalco} fontSize="9" fontWeight="700">Features</text>
+            <text x={70} y={82} textAnchor="middle" fill={P.chalco} fontSize="9" fontWeight="500">Features</text>
             <text x={70} y={98} textAnchor="middle" fill={P.muted} fontSize="8">145-dim vector</text>
             <text x={70} y={112} textAnchor="middle" fill={P.muted} fontSize="8">per composition</text>
           </g>
@@ -800,7 +800,7 @@ export default function ChalcoMovieModule() {
           {/* Trees */}
           <g opacity={treeT}>
             <rect x={155} y={50} width={240} height={100} rx="8" fill={P.surface} stroke={P.ok + "40"} strokeWidth="1" />
-            <text x={275} y={70} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="700">Ensemble of 500 Trees</text>
+            <text x={275} y={70} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="500">Ensemble of 500 Trees</text>
             {drawTree(170, 78, 0.9, treeT)}
             {drawTree(230, 78, 0.9, treeT)}
             {drawTree(290, 78, 0.9, treeT)}
@@ -815,7 +815,7 @@ export default function ChalcoMovieModule() {
           {/* Output */}
           <g opacity={outputT}>
             <rect x={430} y={55} width={110} height={85} rx="8" fill={P.chalco + "15"} stroke={P.chalco} strokeWidth="1.5" />
-            <text x={485} y={78} textAnchor="middle" fill={P.chalco} fontSize="9" fontWeight="700">Predictions</text>
+            <text x={485} y={78} textAnchor="middle" fill={P.chalco} fontSize="9" fontWeight="500">Predictions</text>
             <text x={485} y={95} textAnchor="middle" fill={P.ink} fontSize="8">Band gap</text>
             <text x={485} y={108} textAnchor="middle" fill={P.ink} fontSize="8">{"\u0394"}H decomp</text>
             <text x={485} y={121} textAnchor="middle" fill={P.ink} fontSize="8">SLME</text>
@@ -825,7 +825,7 @@ export default function ChalcoMovieModule() {
           {/* Metrics */}
           <g opacity={metricsT}>
             <rect x={50} y={175} width={460} height={100} rx="10" fill={P.surface} stroke={P.border} strokeWidth="1" />
-            <text x={W / 2} y={198} textAnchor="middle" fill={P.ok} fontSize="11" fontWeight="700">
+            <text x={W / 2} y={198} textAnchor="middle" fill={P.ok} fontSize="11" fontWeight="500">
               Model Performance
             </text>
             {[
@@ -834,7 +834,7 @@ export default function ChalcoMovieModule() {
               { prop: "SLME", r2: "0.90", mae: "2.1%" },
             ].map((m, i) => (
               <g key={i}>
-                <text x={100} y={220 + i * 17} fill={P.ink} fontSize="9" fontWeight="600">{m.prop}</text>
+                <text x={100} y={220 + i * 17} fill={P.ink} fontSize="9" fontWeight="500">{m.prop}</text>
                 <text x={270} y={220 + i * 17} fill={P.ok} fontSize="9">R{"\u00B2"} = {m.r2}</text>
                 <text x={370} y={220 + i * 17} fill={P.muted} fontSize="9">MAE = {m.mae}</text>
               </g>
@@ -846,7 +846,7 @@ export default function ChalcoMovieModule() {
             const noteT = ease(clamp01((t - 0.85) * 4));
             return (
               <g opacity={noteT}>
-                <text x={W / 2} y={310} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="700">
+                <text x={W / 2} y={310} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="500">
                   Deploy to predict ~500,000 compositions in seconds
                 </text>
                 <text x={W / 2} y={328} textAnchor="middle" fill={P.muted} fontSize="9">
@@ -879,7 +879,7 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             Screening at Scale
           </text>
 
@@ -893,9 +893,9 @@ export default function ChalcoMovieModule() {
                 <rect x={sx} y={sy} width={s.w * sT} height={42} rx="6"
                   fill={s.color + "20"} stroke={s.color} strokeWidth="1.5" />
                 <text x={W / 2} y={sy + 18} textAnchor="middle"
-                  fill={P.ink} fontSize="9" fontWeight="600">{s.label}</text>
+                  fill={P.ink} fontSize="9" fontWeight="500">{s.label}</text>
                 <text x={W / 2} y={sy + 34} textAnchor="middle"
-                  fill={s.color} fontSize="12" fontWeight="800">{s.count}</text>
+                  fill={s.color} fontSize="12" fontWeight="500">{s.count}</text>
                 {i < stages.length - 1 && (
                   <line x1={W / 2} y1={sy + 44} x2={W / 2} y2={sy + 57}
                     stroke={P.dim} strokeWidth="1" strokeDasharray="3,2" opacity={0.5} />
@@ -911,7 +911,7 @@ export default function ChalcoMovieModule() {
               <g opacity={resT}>
                 <rect x={130} y={365} width={300} height={35} rx="8"
                   fill={P.ok + "15"} stroke={P.ok} strokeWidth="1.5" />
-                <text x={W / 2} y={387} textAnchor="middle" fill={P.ok} fontSize="11" fontWeight="700">
+                <text x={W / 2} y={387} textAnchor="middle" fill={P.ok} fontSize="11" fontWeight="500">
                   ~1,200 stable compounds with ideal PV properties
                 </text>
               </g>
@@ -932,14 +932,14 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             Crystal Graph Neural Network MLFF
           </text>
 
           {/* Crystal graph */}
           <g opacity={graphT}>
             <rect x={25} y={55} width={145} height={130} rx="8" fill={P.surface} stroke={P.crystal + "50"} strokeWidth="1.5" />
-            <text x={97} y={75} textAnchor="middle" fill={P.crystal} fontSize="9" fontWeight="700">Crystal Graph</text>
+            <text x={97} y={75} textAnchor="middle" fill={P.crystal} fontSize="9" fontWeight="500">Crystal Graph</text>
             {/* Nodes and edges */}
             {[
               { x: 55, y: 95, c: P.crystal },
@@ -969,7 +969,7 @@ export default function ChalcoMovieModule() {
           {/* Neural network */}
           <g opacity={nnT}>
             <rect x={205} y={55} width={150} height={130} rx="8" fill={P.surface} stroke={P.mlff + "50"} strokeWidth="1.5" />
-            <text x={280} y={75} textAnchor="middle" fill={P.mlff} fontSize="9" fontWeight="700">GNN Layers</text>
+            <text x={280} y={75} textAnchor="middle" fill={P.mlff} fontSize="9" fontWeight="500">GNN Layers</text>
             {/* Message passing visualization */}
             {[0, 1, 2].map(layer => {
               const lx = 225 + layer * 40;
@@ -996,18 +996,18 @@ export default function ChalcoMovieModule() {
           {/* Output */}
           <g opacity={resultT}>
             <rect x={390} y={55} width={140} height={130} rx="8" fill={P.mlff + "15"} stroke={P.mlff} strokeWidth="1.5" />
-            <text x={460} y={78} textAnchor="middle" fill={P.mlff} fontSize="9" fontWeight="700">Predictions</text>
+            <text x={460} y={78} textAnchor="middle" fill={P.mlff} fontSize="9" fontWeight="500">Predictions</text>
             <text x={460} y={98} textAnchor="middle" fill={P.ink} fontSize="8">E (energy)</text>
             <text x={460} y={113} textAnchor="middle" fill={P.ink} fontSize="8">F (forces)</text>
             <text x={460} y={128} textAnchor="middle" fill={P.ink} fontSize="8">{"\u03C3"} (stress)</text>
-            <text x={460} y={148} textAnchor="middle" fill={P.ok} fontSize="8" fontWeight="600">~1000{"\u00D7"} faster</text>
-            <text x={460} y={162} textAnchor="middle" fill={P.ok} fontSize="8" fontWeight="600">than DFT</text>
+            <text x={460} y={148} textAnchor="middle" fill={P.ok} fontSize="8" fontWeight="500">~1000{"\u00D7"} faster</text>
+            <text x={460} y={162} textAnchor="middle" fill={P.ok} fontSize="8" fontWeight="500">than DFT</text>
           </g>
 
           {/* Training details */}
           <g opacity={trainT}>
             <rect x={50} y={210} width={460} height={85} rx="10" fill={P.surface} stroke={P.border} strokeWidth="1" />
-            <text x={W / 2} y={232} textAnchor="middle" fill={P.mlff} fontSize="10" fontWeight="700">
+            <text x={W / 2} y={232} textAnchor="middle" fill={P.mlff} fontSize="10" fontWeight="500">
               Training: DFT Data {"\u2192"} Neural Network Potential
             </text>
             <text x={W / 2} y={252} textAnchor="middle" fill={P.muted} fontSize="9">
@@ -1016,7 +1016,7 @@ export default function ChalcoMovieModule() {
             <text x={W / 2} y={268} textAnchor="middle" fill={P.muted} fontSize="9">
               Message passing between neighboring atoms learns local chemical environments
             </text>
-            <text x={W / 2} y={284} textAnchor="middle" fill={P.ink} fontSize="9" fontWeight="600">
+            <text x={W / 2} y={284} textAnchor="middle" fill={P.ink} fontSize="9" fontWeight="500">
               Models: M3GNet / MACE / CHGNet architectures
             </text>
           </g>
@@ -1025,7 +1025,7 @@ export default function ChalcoMovieModule() {
           {(() => {
             const noteT = ease(clamp01((t - 0.85) * 4));
             return (
-              <text x={W / 2} y={325} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="700" opacity={noteT}>
+              <text x={W / 2} y={325} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="500" opacity={noteT}>
                 Enables rapid geometry optimization for new configurations
               </text>
             );
@@ -1065,14 +1065,14 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             Rapid Geometry Optimization
           </text>
 
           {/* Initial structure */}
           <g opacity={initialT}>
             <rect x={30} y={60} width={160} height={150} rx="8" fill={P.surface} stroke={P.warn + "50"} strokeWidth="1.5" />
-            <text x={110} y={80} textAnchor="middle" fill={P.warn} fontSize="9" fontWeight="700">Unrelaxed</text>
+            <text x={110} y={80} textAnchor="middle" fill={P.warn} fontSize="9" fontWeight="500">Unrelaxed</text>
             {initialAtoms.map((a, i) => (
               <circle key={i} cx={30 + a.x} cy={55 + a.y} r={a.r} fill={colors[i]} opacity={0.8} />
             ))}
@@ -1081,7 +1081,7 @@ export default function ChalcoMovieModule() {
           {/* MLFF arrow */}
           <g opacity={arrowT}>
             <rect x={210} y={110} width={90} height={35} rx="6" fill={P.mlff + "20"} stroke={P.mlff} strokeWidth="1" />
-            <text x={255} y={132} textAnchor="middle" fill={P.mlff} fontSize="9" fontWeight="700">MLFF</text>
+            <text x={255} y={132} textAnchor="middle" fill={P.mlff} fontSize="9" fontWeight="500">MLFF</text>
             <line x1={195} y1={128} x2={208} y2={128} stroke={P.mlff} strokeWidth="1.5" markerEnd="url(#arwGeo)" />
             <line x1={302} y1={128} x2={325} y2={128} stroke={P.mlff} strokeWidth="1.5" markerEnd="url(#arwGeo)" />
           </g>
@@ -1089,7 +1089,7 @@ export default function ChalcoMovieModule() {
           {/* Relaxed structure */}
           <g opacity={relaxT}>
             <rect x={330} y={60} width={160} height={150} rx="8" fill={P.surface} stroke={P.ok + "50"} strokeWidth="1.5" />
-            <text x={410} y={80} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="700">Relaxed</text>
+            <text x={410} y={80} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="500">Relaxed</text>
             {finalAtoms.map((a, i) => {
               const cx = lerp(initialAtoms[i].x, a.x, relaxProgress);
               const cy = lerp(initialAtoms[i].y, a.y, relaxProgress);
@@ -1102,15 +1102,15 @@ export default function ChalcoMovieModule() {
           {/* Comparison */}
           <g opacity={compareT}>
             <rect x={60} y={240} width={440} height={90} rx="10" fill={P.surface} stroke={P.border} strokeWidth="1" />
-            <text x={W / 2} y={262} textAnchor="middle" fill={P.mlff} fontSize="10" fontWeight="700">
+            <text x={W / 2} y={262} textAnchor="middle" fill={P.mlff} fontSize="10" fontWeight="500">
               MLFF vs DFT Geometry Optimization
             </text>
-            <text x={150} y={282} textAnchor="middle" fill={P.warn} fontSize="9" fontWeight="600">DFT (HSE06)</text>
+            <text x={150} y={282} textAnchor="middle" fill={P.warn} fontSize="9" fontWeight="500">DFT (HSE06)</text>
             <text x={150} y={298} textAnchor="middle" fill={P.muted} fontSize="9">~48 hours / compound</text>
             <text x={W / 2} y={290} textAnchor="middle" fill={P.dim} fontSize="14">vs</text>
-            <text x={400} y={282} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="600">MLFF</text>
+            <text x={400} y={282} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="500">MLFF</text>
             <text x={400} y={298} textAnchor="middle" fill={P.muted} fontSize="9">~3 minutes / compound</text>
-            <text x={W / 2} y={320} textAnchor="middle" fill={P.ok} fontSize="10" fontWeight="700">
+            <text x={W / 2} y={320} textAnchor="middle" fill={P.ok} fontSize="10" fontWeight="500">
               ~1000{"\u00D7"} speedup with DFT-level accuracy
             </text>
           </g>
@@ -1148,14 +1148,14 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             Defect Tolerance Screening
           </text>
 
           {/* Formation energy plot - Good */}
           <g opacity={goodT}>
             <rect x={px - 10} y={py - 10} width={pw + 20} height={ph + 40} rx="6" fill={P.surface} stroke={P.ok + "40"} strokeWidth="1" />
-            <text x={px + pw / 2} y={py + 5} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="700">
+            <text x={px + pw / 2} y={py + 5} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="500">
               Defect Tolerant
             </text>
             {/* Axes */}
@@ -1171,7 +1171,7 @@ export default function ChalcoMovieModule() {
               stroke={P.ok} strokeWidth="2" />
             <line x1={px + 20} y1={py + 55} x2={px + pw - 20} y2={py + 45}
               stroke={P.crystal} strokeWidth="1.5" strokeDasharray="4,2" />
-            <text x={px + pw / 2} y={py + ph + 28} textAnchor="middle" fill={P.ok} fontSize="8" fontWeight="600">
+            <text x={px + pw / 2} y={py + ph + 28} textAnchor="middle" fill={P.ok} fontSize="8" fontWeight="500">
               High E_f {"\u2192"} few defects
             </text>
           </g>
@@ -1179,7 +1179,7 @@ export default function ChalcoMovieModule() {
           {/* Formation energy plot - Bad */}
           <g opacity={badT}>
             <rect x={px + pw + 50} y={py - 10} width={pw + 20} height={ph + 40} rx="6" fill={P.surface} stroke={P.warn + "40"} strokeWidth="1" />
-            <text x={px + pw + 50 + (pw + 20) / 2} y={py + 5} textAnchor="middle" fill={P.warn} fontSize="9" fontWeight="700">
+            <text x={px + pw + 50 + (pw + 20) / 2} y={py + 5} textAnchor="middle" fill={P.warn} fontSize="9" fontWeight="500">
               Not Tolerant
             </text>
             <line x1={px + pw + 60} y1={py + ph} x2={px + 2 * pw + 60} y2={py + ph} stroke={P.dim} strokeWidth="1" />
@@ -1192,7 +1192,7 @@ export default function ChalcoMovieModule() {
               stroke={P.warn} strokeWidth="2" />
             <line x1={px + pw + 80} y1={py + ph - 10} x2={px + 2 * pw + 40} y2={py + ph - 30}
               stroke={P.defect} strokeWidth="1.5" strokeDasharray="4,2" />
-            <text x={px + pw + 60 + pw / 2} y={py + ph + 28} textAnchor="middle" fill={P.warn} fontSize="8" fontWeight="600">
+            <text x={px + pw + 60 + pw / 2} y={py + ph + 28} textAnchor="middle" fill={P.warn} fontSize="8" fontWeight="500">
               Low E_f {"\u2192"} many defects
             </text>
           </g>
@@ -1200,7 +1200,7 @@ export default function ChalcoMovieModule() {
           {/* Criteria box */}
           <g opacity={criteriaT}>
             <rect x={70} y={290} width={420} height={90} rx="10" fill={P.surface} stroke={P.chalco + "40"} strokeWidth="1" />
-            <text x={W / 2} y={312} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="700">
+            <text x={W / 2} y={312} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="500">
               Defect Tolerance Criteria
             </text>
             <text x={W / 2} y={332} textAnchor="middle" fill={P.muted} fontSize="9">
@@ -1235,7 +1235,7 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             Champion Compound
           </text>
 
@@ -1243,7 +1243,7 @@ export default function ChalcoMovieModule() {
           <g opacity={formulaT}>
             <rect x={100} y={48} width={360} height={50} rx="10"
               fill={P.chalco + "15"} stroke={P.chalco} strokeWidth="2" />
-            <text x={W / 2} y={80} textAnchor="middle" fill={P.ink} fontSize="20" fontWeight="900"
+            <text x={W / 2} y={80} textAnchor="middle" fill={P.ink} fontSize="20" fontWeight="500"
               fontFamily="'Inter',sans-serif">
               <tspan>Cu</tspan><tspan dy="5" fontSize="13">2</tspan>
               <tspan dy="-5">Ca</tspan><tspan dy="5" fontSize="13">0.5</tspan>
@@ -1260,9 +1260,9 @@ export default function ChalcoMovieModule() {
                 <g key={i}>
                   <rect x={95} y={py} width={370} height={28} rx="6"
                     fill={p.color + "10"} stroke={p.color + "30"} strokeWidth="1" />
-                  <text x={120} y={py + 19} fill={p.color} fontSize="13" fontWeight="800">{p.status}</text>
-                  <text x={145} y={py + 18} fill={P.ink} fontSize="10" fontWeight="600">{p.label}</text>
-                  <text x={430} y={py + 18} textAnchor="end" fill={p.color} fontSize="10" fontWeight="700">{p.value}</text>
+                  <text x={120} y={py + 19} fill={p.color} fontSize="13" fontWeight="500">{p.status}</text>
+                  <text x={145} y={py + 18} fill={P.ink} fontSize="10" fontWeight="500">{p.label}</text>
+                  <text x={430} y={py + 18} textAnchor="end" fill={p.color} fontSize="10" fontWeight="500">{p.value}</text>
                 </g>
               );
             })}
@@ -1271,7 +1271,7 @@ export default function ChalcoMovieModule() {
           {/* Structure description */}
           <g opacity={structT}>
             <rect x={70} y={268} width={420} height={55} rx="8" fill={P.surface} stroke={P.border} strokeWidth="1" />
-            <text x={W / 2} y={290} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="700">
+            <text x={W / 2} y={290} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="500">
               Zincblende-derived kesterite structure
             </text>
             <text x={W / 2} y={308} textAnchor="middle" fill={P.muted} fontSize="9">
@@ -1282,7 +1282,7 @@ export default function ChalcoMovieModule() {
           {/* Why it matters */}
           <g opacity={whyT}>
             <rect x={70} y={338} width={420} height={55} rx="8" fill={P.ok + "10"} stroke={P.ok + "40"} strokeWidth="1" />
-            <text x={W / 2} y={358} textAnchor="middle" fill={P.ok} fontSize="10" fontWeight="700">
+            <text x={W / 2} y={358} textAnchor="middle" fill={P.ok} fontSize="10" fontWeight="500">
               Why this matters
             </text>
             <text x={W / 2} y={376} textAnchor="middle" fill={P.muted} fontSize="9">
@@ -1310,7 +1310,7 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={30} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             ChalcoDB on nanoHUB
           </text>
 
@@ -1318,7 +1318,7 @@ export default function ChalcoMovieModule() {
           <g opacity={logoT}>
             <rect x={130} y={48} width={300} height={50} rx="10"
               fill={P.chalco + "15"} stroke={P.chalco} strokeWidth="2" />
-            <text x={W / 2} y={70} textAnchor="middle" fill={P.chalco} fontSize="18" fontWeight="900">
+            <text x={W / 2} y={70} textAnchor="middle" fill={P.chalco} fontSize="18" fontWeight="500">
               ChalcoDB
             </text>
             <text x={W / 2} y={88} textAnchor="middle" fill={P.muted} fontSize="9">
@@ -1338,7 +1338,7 @@ export default function ChalcoMovieModule() {
                 <rect x={fx} y={fy} width={220} height={55} rx="8"
                   fill={P.surface} stroke={P.chalco + "30"} strokeWidth="1" />
                 <text x={fx + 15} y={fy + 22} fill={P.chalco} fontSize="12">{f.icon}</text>
-                <text x={fx + 35} y={fy + 22} fill={P.ink} fontSize="10" fontWeight="700">{f.label}</text>
+                <text x={fx + 35} y={fy + 22} fill={P.ink} fontSize="10" fontWeight="500">{f.label}</text>
                 <text x={fx + 35} y={fy + 40} fill={P.muted} fontSize="8">{f.desc}</text>
               </g>
             );
@@ -1347,7 +1347,7 @@ export default function ChalcoMovieModule() {
           {/* Workflow */}
           <g opacity={workflowT}>
             <rect x={50} y={275} width={460} height={95} rx="10" fill={P.surface} stroke={P.border} strokeWidth="1" />
-            <text x={W / 2} y={298} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="700">
+            <text x={W / 2} y={298} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="500">
               Complete Computational Workflow
             </text>
             {[
@@ -1362,7 +1362,7 @@ export default function ChalcoMovieModule() {
                   fill={s.color + "15"} stroke={s.color + "40"} strokeWidth="1" />
                 {s.label.split("\n").map((line, li) => (
                   <text key={li} x={s.x} y={330 + li * 12} textAnchor="middle"
-                    fill={s.color} fontSize="8" fontWeight="600">{line}</text>
+                    fill={s.color} fontSize="8" fontWeight="500">{line}</text>
                 ))}
                 {i < arr.length - 1 && (
                   <line x1={s.x + 38} y1={334} x2={arr[i + 1].x - 38} y2={334}
@@ -1392,14 +1392,14 @@ export default function ChalcoMovieModule() {
       return (
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
-          <text x={W / 2} y={32} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="900" opacity={titleT}>
+          <text x={W / 2} y={32} textAnchor="middle" fill={P.ink} fontSize="15" fontWeight="500" opacity={titleT}>
             The Future of Chalcogenide Design
           </text>
 
           {/* Key achievements */}
           <g opacity={box1T}>
             <rect x={30} y={55} width={240} height={105} rx="8" fill={P.surface} stroke={P.chalco + "40"} strokeWidth="1" />
-            <text x={150} y={78} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="700">What We Achieved</text>
+            <text x={150} y={78} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="500">What We Achieved</text>
             <text x={150} y={98} textAnchor="middle" fill={P.ink} fontSize="9">{"\u2022"} 500K compositions screened</text>
             <text x={150} y={114} textAnchor="middle" fill={P.ink} fontSize="9">{"\u2022"} ~1,200 stable candidates found</text>
             <text x={150} y={130} textAnchor="middle" fill={P.ink} fontSize="9">{"\u2022"} Champion: Cu{"\u2082"}Ca{"\u2080"}{"\u2085"}Cd{"\u2080"}{"\u2085"}SnS{"\u2084"}</text>
@@ -1409,7 +1409,7 @@ export default function ChalcoMovieModule() {
           {/* Methods */}
           <g opacity={box2T}>
             <rect x={290} y={55} width={240} height={105} rx="8" fill={P.surface} stroke={P.mlff + "40"} strokeWidth="1" />
-            <text x={410} y={78} textAnchor="middle" fill={P.mlff} fontSize="10" fontWeight="700">Methods Developed</text>
+            <text x={410} y={78} textAnchor="middle" fill={P.mlff} fontSize="10" fontWeight="500">Methods Developed</text>
             <text x={410} y={98} textAnchor="middle" fill={P.ink} fontSize="9">{"\u2022"} HSE06+SOC high-throughput DFT</text>
             <text x={410} y={114} textAnchor="middle" fill={P.ink} fontSize="9">{"\u2022"} RF regression (composition features)</text>
             <text x={410} y={130} textAnchor="middle" fill={P.ink} fontSize="9">{"\u2022"} Crystal graph MLFF models</text>
@@ -1424,8 +1424,8 @@ export default function ChalcoMovieModule() {
               { label: "Community", value: "Open", sub: "nanoHUB access", color: P.chalco, x: 450 },
             ].map((s, i) => (
               <g key={i}>
-                <text x={s.x} y={200} textAnchor="middle" fill={s.color} fontSize="22" fontWeight="900">{s.value}</text>
-                <text x={s.x} y={216} textAnchor="middle" fill={P.ink} fontSize="9" fontWeight="600">{s.label}</text>
+                <text x={s.x} y={200} textAnchor="middle" fill={s.color} fontSize="22" fontWeight="500">{s.value}</text>
+                <text x={s.x} y={216} textAnchor="middle" fill={P.ink} fontSize="9" fontWeight="500">{s.label}</text>
                 <text x={s.x} y={230} textAnchor="middle" fill={P.muted} fontSize="8">{s.sub}</text>
               </g>
             ))}
@@ -1434,7 +1434,7 @@ export default function ChalcoMovieModule() {
           {/* Future directions */}
           <g opacity={futureT}>
             <rect x={50} y={250} width={460} height={100} rx="10" fill={P.surface} stroke={P.border} strokeWidth="1" />
-            <text x={W / 2} y={275} textAnchor="middle" fill={P.chalco} fontSize="11" fontWeight="700">
+            <text x={W / 2} y={275} textAnchor="middle" fill={P.chalco} fontSize="11" fontWeight="500">
               Next Steps
             </text>
             {[
@@ -1452,7 +1452,7 @@ export default function ChalcoMovieModule() {
           {(() => {
             const signT = ease(clamp01((t - 0.9) * 5));
             return (
-              <text x={W / 2} y={380} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="600" opacity={signT}>
+              <text x={W / 2} y={380} textAnchor="middle" fill={P.chalco} fontSize="10" fontWeight="500" opacity={signT}>
                 ChalcoDB {"\u2014"} Accelerating chalcogenide discovery with data-driven design
               </text>
             );
@@ -1480,10 +1480,10 @@ export default function ChalcoMovieModule() {
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
         <div style={{
-          fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "uppercase", marginBottom: 4,
+          fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "none", marginBottom: 4,
         }}>Animated Module</div>
         <div style={{
-          fontSize: 22, fontWeight: 800, color: P.chalco, marginBottom: 4,
+          fontSize: 22, fontWeight: 500, color: P.chalco, marginBottom: 4,
         }}>ChalcoDB {"\u2014"} Data-Driven Chalcogenide Design</div>
         <div style={{ fontSize: 13, color: P.muted, lineHeight: 1.5 }}>
           From high-throughput DFT to machine learning: designing multinary chalcogenide solar absorbers.
@@ -1503,15 +1503,15 @@ export default function ChalcoMovieModule() {
           <span style={{
             background: P.chalco + "25", border: `1px solid ${P.chalco}50`,
             padding: "3px 10px", borderRadius: 6,
-            fontSize: 10, fontWeight: 700, color: P.chalco, letterSpacing: 1,
+            fontSize: 10, fontWeight: 500, color: P.chalco, letterSpacing: 1,
           }}>Scene {sceneIdx + 1}/{SCENES.length}</span>
-          <span style={{ fontSize: 12, fontWeight: 700, color: P.ink }}>{scene.label}</span>
+          <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
 
         {/* Author watermark */}
         <div style={{
           position: "absolute", top: 10, right: 14, zIndex: 2,
-          fontSize: 11, color: "#ffffff", fontWeight: 600, opacity: 0.85,
+          fontSize: 11, color: "#ffffff", fontWeight: 500, opacity: 0.85,
         }}>
           Developed by Habibur Rahman {"\u00B7"} rahma103@purdue.edu
         </div>
@@ -1541,7 +1541,7 @@ export default function ChalcoMovieModule() {
           width: 40, height: 40, borderRadius: 10, border: `2px solid ${P.chalco}`,
           background: P.chalco + "15", cursor: "pointer", display: "flex",
           alignItems: "center", justifyContent: "center", fontSize: 18,
-          color: P.chalco, fontWeight: 900, fontFamily: "inherit",
+          color: P.chalco, fontWeight: 500, fontFamily: "inherit",
         }}>
           {playing ? "\u23F8" : (sceneIdx === SCENES.length - 1 && progress >= 1) ? "\u21BB" : "\u25B6"}
         </button>
@@ -1549,13 +1549,13 @@ export default function ChalcoMovieModule() {
         <button onClick={prevScene} disabled={sceneIdx === 0} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx > 0 ? "pointer" : "default",
-          color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 700,
+          color: sceneIdx > 0 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
           fontFamily: "inherit", opacity: sceneIdx > 0 ? 1 : 0.4,
         }}>{"\u2190"}</button>
         <button onClick={nextScene} disabled={sceneIdx === SCENES.length - 1} style={{
           padding: "6px 14px", borderRadius: 8, border: `1px solid ${P.border}`,
           background: "transparent", cursor: sceneIdx < SCENES.length - 1 ? "pointer" : "default",
-          color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 700,
+          color: sceneIdx < SCENES.length - 1 ? P.ink : P.dim, fontSize: 13, fontWeight: 500,
           fontFamily: "inherit", opacity: sceneIdx < SCENES.length - 1 ? 1 : 0.4,
         }}>{"\u2192"}</button>
 
@@ -1606,7 +1606,7 @@ export default function ChalcoMovieModule() {
             background: i === sceneIdx ? P.chalco + "20" : "transparent",
             border: `1px solid ${i === sceneIdx ? P.chalco : P.border}`,
             color: i === sceneIdx ? P.chalco : i < sceneIdx ? P.mlff : P.muted,
-            fontWeight: i === sceneIdx ? 700 : 500, fontFamily: "inherit",
+            fontWeight: i === sceneIdx ? 500 : 500, fontFamily: "inherit",
             transition: "all 0.15s",
           }}>
             {i + 1}. {s.label}
@@ -1616,7 +1616,7 @@ export default function ChalcoMovieModule() {
 
       {/* References */}
       <div style={{ marginTop: 32, padding: "18px 20px", borderRadius: 12, background: P.panel, border: `1px solid ${P.border}` }}>
-        <div style={{ fontSize: 12, fontWeight: 800, color: P.ink, marginBottom: 12, letterSpacing: 0.5 }}>REFERENCES</div>
+        <div style={{ fontSize: 12, fontWeight: 500, color: P.ink, marginBottom: 12, letterSpacing: 0.5 }}>References</div>
         {[
           "Zakutayev, A. et al. Defect Tolerant Semiconductors for Solar Energy Conversion. J. Phys. Chem. Lett. 5, 1117 (2014)",
           "Wuttig, M. & Yamada, N. Phase-Change Materials for Rewriteable Data Storage. Nat. Mater. 6, 824 (2007)",

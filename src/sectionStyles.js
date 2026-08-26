@@ -99,7 +99,7 @@
 //   - All text: monospace font family
 //   - Font sizes: xs(9), sm(11), base(12), md(13), lg(14), xl(15)
 //   - No raw font size numbers — always use FONT.xx
-//   - No textTransform: "uppercase" anywhere
+//   - No textTransform: "none" anywhere
 //   - No ALL CAPS in titles or headings — use normal case
 //
 // LAYOUT:
@@ -197,8 +197,8 @@ const ACCENT = "#7c3aed"; // purple
 // 1. THEME COLORS
 // ══════════════════════════════════════════════════════════════════════════════
 export const T = {
-  bg: "#f0f2f5", panel: "#ffffff", surface: "#f7f8fa", border: "#d4d8e0",
-  ink: "#1a1e2e", muted: "#6b7280", dim: "#c0c6d0",
+  bg: "var(--paper)", panel: "var(--panel)", surface: "var(--sunk)", border: "var(--line)",
+  ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)",
   accent: ACCENT,
   // Legacy aliases — all resolve to ACCENT (purple)
   eo_e: ACCENT, eo_hole: ACCENT, eo_photon: ACCENT,
@@ -225,7 +225,7 @@ export const LAYOUT = {
     display: "flex",
     flexDirection: "column",
     gap: 14,
-    fontFamily: "monospace",
+    fontFamily: '"IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif',
     color: T.ink,
   },
   svgWrapper: {
@@ -263,7 +263,7 @@ export const ANALOGY = {
   },
   title: {
     fontSize: FONT.base,
-    fontWeight: 700,
+    fontWeight: 500,
     color: ACCENT,
     marginBottom: 4,
   },
@@ -279,7 +279,7 @@ export const ANALOGY = {
 // ══════════════════════════════════════════════════════════════════════════════
 export const BUTTON = {
   base: {
-    fontFamily: "monospace",
+    fontFamily: '"IBM Plex Sans", -apple-system, sans-serif',
     fontSize: FONT.sm,
     cursor: "pointer",
     borderRadius: LAYOUT.radiusSm,
@@ -290,7 +290,7 @@ export const BUTTON = {
     border: `1px solid ${isActive ? ACCENT : T.border}`,
     background: isActive ? ACCENT : T.panel,
     color: isActive ? "#fff" : T.ink,
-    fontFamily: "monospace",
+    fontFamily: '"IBM Plex Sans", -apple-system, sans-serif',
     fontSize: FONT.sm,
     cursor: "pointer",
     lineHeight: 1.2,
@@ -309,7 +309,7 @@ export const PANEL = {
   },
   title: {
     fontSize: FONT.lg,
-    fontWeight: "bold",
+    fontWeight: "500",
     marginBottom: 6,
   },
   label: {
@@ -319,7 +319,7 @@ export const PANEL = {
   },
   value: {
     fontSize: FONT.base,
-    fontWeight: 600,
+    fontWeight: 500,
     color: T.ink,
   },
   smallText: {
@@ -344,7 +344,7 @@ export const NCARD = {
     fontSize: FONT.base,
     letterSpacing: 2,
     color: ACCENT,
-    fontWeight: 700,
+    fontWeight: 500,
   }),
   formula: () => ({
     fontFamily: "'Georgia',serif",
@@ -380,7 +380,7 @@ export const SVG = {
 //  [ ] Delete any local const T = { ... } or color definitions
 //  [ ] Replace all hardcoded hex accent colors with T.accent
 //  [ ] Replace all raw font sizes with FONT.xx constants
-//  [ ] Remove all textTransform: "uppercase"
+//  [ ] Remove all textTransform: "none"
 //  [ ] Remove all emojis and icon characters
 //  [ ] Convert all title/heading text to normal case (not ALL CAPS)
 //  [ ] Convert all X_Y equations to X<sub>Y</sub> or Xᵧ unicode
