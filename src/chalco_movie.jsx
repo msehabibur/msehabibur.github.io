@@ -9,8 +9,8 @@ const P = {
   panel:   "#0f2428",
   surface: "#0f2428",
   border:  "#18393f",
-  ink:     "#2a8697",
-  muted:   "#2a8697",
+  ink:     "#f0f5f6",
+  muted:   "#60a9b8",
   dim:     "#1f4a53",
 
   solar:   "#2a8697",

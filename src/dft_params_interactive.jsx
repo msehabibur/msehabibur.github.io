@@ -22,14 +22,14 @@ class ParamErrorBoundary extends React.Component {
 
 const T = {
   bg: "var(--paper)", surface: "#ffffff", ink: "var(--ink)", muted: "var(--muted)",
-  border: "#2a8697", dim: "var(--muted)",
+  border: "#e0e0e0", dim: "var(--muted)",
   main: "#398a9a", eqn: "#378695", xc: "#50a1b1", basis: "#63aab9",
   warn: "#347d8b", accent: "#56a3b3", warm: "#317583"
 };
 
 const mathBlock = {
   fontFamily: "'Courier New', monospace", fontSize: 12, lineHeight: 1.9,
-  background: "#2a8697", border: "1px solid #e9f0f2", borderRadius: 10,
+  background: "#f7f9fa", border: "1px solid #e9f0f2", borderRadius: 10,
   padding: "14px 18px", marginBottom: 10, color: T.ink, whiteSpace: "pre-wrap"
 };
 
@@ -2420,7 +2420,7 @@ function SecIncar() {
       <Card title="Generated INCAR" color={T.eqn}>
         <pre style={{
           fontFamily: "'JetBrains Mono', 'Fira Code', monospace", fontSize: 12, lineHeight: 1.7,
-          background: "#2a8697", color: "var(--ink)", borderRadius: 12,
+          background: "#f7f9fa", color: "var(--ink)", borderRadius: 12,
           padding: "18px 20px", margin: 0, overflowX: "auto",
           border: `2px solid ${T.eqn}40`, whiteSpace: "pre-wrap", wordBreak: "break-word"
         }}>

@@ -3,8 +3,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 // ─── THEME (light palette) ─────────────────────────────────────────
 const T = {
   bg: "#f7f9fa",
-  card: "#2a8697",
-  border: "#2a8697",
+  card: "#ffffff",
+  border: "#d4e2e4",
   accent: "#22707e",
   accentLight: "#eef4f5",
   highlight: "#2a8697",

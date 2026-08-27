@@ -1764,8 +1764,8 @@ function WaveDualitySection() {
  <rect key="b2" x={barrX - 4} y={s1Y + 8} width={8} height={s2Y - s1Y - 16} fill="#1f4851" />,
  <rect key="b3" x={barrX - 4} y={s2Y + 8} width={8} height={H - s2Y - 8} fill="#1f4851" />,
  <text key="blbl" x={barrX} y={16} textAnchor="middle" fontSize={13} fill="#468d9b">barrier</text>,
- <text key="s1l" x={barrX + 14} y={s1Y + 3} fontSize={12} fill="#2a8697">slit 1</text>,
- <text key="s2l" x={barrX + 14} y={s2Y + 3} fontSize={12} fill="#2a8697">slit 2</text>,
+ <text key="s1l" x={barrX + 14} y={s1Y + 3} fontSize={12} fill="#9cc0c7">slit 1</text>,
+ <text key="s2l" x={barrX + 14} y={s2Y + 3} fontSize={12} fill="#9cc0c7">slit 2</text>,
  );
 
  // Screen + label
@@ -8191,7 +8191,7 @@ function Synthesis3DView({ selected, frame }) {
  <circle cx={cx} cy={cy} r={growRadius} fill="none" stroke={cfg.color} strokeWidth={0.8} opacity={0.2} strokeDasharray="3,3" />
 
  {/* Label */}
- <text x={W / 2} y={H - 6} textAnchor="middle" fontSize={8} fill="#2a8697" fontFamily="monospace">{cfg.desc}</text>
+ <text x={W / 2} y={H - 6} textAnchor="middle" fontSize={8} fill="#9fc2c9" fontFamily="monospace">{cfg.desc}</text>
  </svg>
  </div>
  );
@@ -8338,7 +8338,7 @@ function TwoDMaterialsSection() {
  <g key={`a-${i}`}>
  <circle cx={px} cy={py + 1} r={6} fill="#00000020" /> {/* shadow */}
  <circle cx={px} cy={py} r={6} fill="var(--muted)" stroke="var(--muted)" strokeWidth={1} />
- <circle cx={px - 1.5} cy={py - 1.5} r={2} fill="#2a8697" opacity={0.6} /> {/* highlight */}
+ <circle cx={px - 1.5} cy={py - 1.5} r={2} fill="#d0dfe2" opacity={0.6} /> {/* highlight */}
  </g>
  );
  });

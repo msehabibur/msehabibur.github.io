@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 
 const T = {
   bg:      "var(--paper)",
-  panel:   "#2a8697",
+  panel:   "#ffffff",
   surface: "var(--sunk)",
   border:  "var(--line)",
   ink:     "var(--ink)",
@@ -320,7 +320,7 @@ function ThermalStressSection() {
           {/* Mixing zone */}
           {(() => {
             const mixW = Math.min(100, interLength * 2);
-            return <rect x={220 - mixW / 2} y={50} width={mixW} height={50} rx={4} fill="#2a8697" opacity={0.3} />;
+            return <rect x={220 - mixW / 2} y={50} width={mixW} height={50} rx={4} fill="#98bec5" opacity={0.3} />;
           })()}
           <text x={220} y={70} textAnchor="middle" fontSize={9} fill={C.cu} fontWeight={500}>CdS₁₋ₓTeₓ mixing zone</text>
           <text x={120} y={90} textAnchor="middle" fontSize={9} fill="#23545e">CdS</text>

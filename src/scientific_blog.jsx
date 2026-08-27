@@ -7,7 +7,7 @@ import MicroLab from "./micro_lab.jsx";
 // Theme
 const LIGHT = {
   bg:      "var(--paper)",
-  panel:   "#2a8697",
+  panel:   "#ffffff",
   surface: "var(--sunk)",
   border:  "var(--line)",
   ink:     "var(--ink)",
