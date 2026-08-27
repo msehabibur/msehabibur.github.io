@@ -28,7 +28,7 @@ const M = {
   found: "#388898",
   algo: "#378695",
   nn: "#347d8b",
-  mat: "#50a1b1",
+  mat: "#2a8697",
   prac: "#398a9a",
   accent: "#56a3b3"
 };
@@ -817,7 +817,7 @@ function DecisionTreeSection() {
             {/* Split line */}
             <line x1={sx(splitThreshold)} y1={18} x2={sx(splitThreshold)} y2={svgH - 30} stroke={C} strokeWidth={2} strokeDasharray="5,3" />
             {/* Shaded regions */}
-            <rect x={40} y={18} width={Math.max(0, sx(splitThreshold) - 40)} height={svgH - 48} fill="#50a1b1" opacity={0.05} />
+            <rect x={40} y={18} width={Math.max(0, sx(splitThreshold) - 40)} height={svgH - 48} fill="#2a8697" opacity={0.05} />
             <rect x={sx(splitThreshold)} y={18} width={Math.max(0, svgW - 10 - sx(splitThreshold))} height={svgH - 48} fill="#347d8b" opacity={0.05} />
             {/* Prediction lines (mean of each side) */}
             {leftPts.length > 0 && (
@@ -1693,7 +1693,7 @@ function BackpropSection() {
             })()}
             {/* Target line */}
             <line x1={40} y1={svgH - 32} x2={svgW - 10} y2={svgH - 32} stroke="#50a1b1" strokeWidth={1} strokeDasharray="4,3" />
-            <text x={svgW - 12} y={svgH - 35} textAnchor="end" fontSize={11} fill="#50a1b1">Target: Loss → 0</text>
+            <text x={svgW - 12} y={svgH - 35} textAnchor="end" fontSize={11} fill="#2a8697">Target: Loss → 0</text>
           </svg>
         </div>
 

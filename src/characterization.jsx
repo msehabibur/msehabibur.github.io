@@ -14,7 +14,7 @@ const T = {
 const C = {
   struct: "#388898",
   surface: "#378695",
-  spec: "#50a1b1",
+  spec: "#2a8697",
   micro: "#398a9a",
   adv: "#347d8b",
   accent: "#56a3b3"
@@ -771,8 +771,8 @@ function EBSDSection() {
           <g transform="translate(340, 180)">
             <polygon points="0,0 50,0 25,-43" fill="none" stroke={T.ink} strokeWidth={1} />
             <circle cx={0} cy={0} r={3} fill="#478f9d" />
-            <circle cx={50} cy={0} r={3} fill="#78b6c2" />
-            <circle cx={25} cy={-43} r={3} fill="#b0cdd3" />
+            <circle cx={50} cy={0} r={3} fill="#2a8697" />
+            <circle cx={25} cy={-43} r={3} fill="#2a8697" />
             <text x={-3} y={12} fontSize={7} fill={T.muted}>[001]</text>
             <text x={43} y={12} fontSize={7} fill={T.muted}>[101]</text>
             <text x={18} y={-47} fontSize={7} fill={T.muted}>[111]</text>

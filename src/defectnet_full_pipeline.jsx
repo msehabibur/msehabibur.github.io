@@ -4,9 +4,9 @@ import fx from "./fx.jsx";
 // ─── COLORS ────────────────────────────────────────────────────────────
 const C = {
   bg: "#0f2428", panel: "#0f2428", border: "#132d32",
-  accent1: "#b4cfd5", accent2: "#b5d0d5", accent3: "#b8d2d7",
-  accent4: "#73b3c0", accent5: "#9cc0c7", accent6: "#93bac2",
-  text: "#eaf1f2", muted: "#468d9b", dim: "#1f4851"
+  accent1: "#2a8697", accent2: "#b5d0d5", accent3: "#b8d2d7",
+  accent4: "#2a8697", accent5: "#9cc0c7", accent6: "#93bac2",
+  text: "#2a8697", muted: "#468d9b", dim: "#1f4851"
 };
 
 // ─── MATH (every function used in the pipeline) ───────────────────────

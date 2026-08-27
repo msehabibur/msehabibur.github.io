@@ -3,24 +3,24 @@ import { useState, useEffect, useRef, useCallback } from "react";
 // ─── THEME (light palette) ─────────────────────────────────────────
 const T = {
   bg: "#f7f9fa",
-  card: "#ffffff",
-  border: "#d4e2e4",
-  accent: "#4e9dad",
+  card: "#2a8697",
+  border: "#2a8697",
+  accent: "#22707e",
   accentLight: "#eef4f5",
-  highlight: "#98bec5",
+  highlight: "#2a8697",
   highlightLight: "#f2f6f6",
   text: "#1d444c",
   textMid: "#388898",
   textLight: "#82bcc7",
-  green: "#7cb8c4",
+  green: "#2a8697",
   greenLight: "#f0f4f5",
-  purple: "#5ba6b5",
+  purple: "#2a8697",
   purpleLight: "#f7fafa",
-  red: "#4c9aa9",
+  red: "#22707e",
   redLight: "#cedee1",
-  node: "#a1c3ca",
+  node: "#2a8697",
   nodeLight: "#ebf1f3",
-  edge: "#c3d9de",
+  edge: "#2a8697",
   particle: "#98bec5"
 };
 

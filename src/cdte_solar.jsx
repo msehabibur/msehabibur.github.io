@@ -9,13 +9,13 @@ import fx from "./fx.jsx";
 // ═══════════════════════════════════════════════════════════════════════════
 const T = {
   bg:      "var(--paper)",
-  panel:   "#ffffff",
+  panel:   "#2a8697",
   surface: "var(--sunk)",
   border:  "var(--line)",
   ink:     "var(--ink)",
   muted:   "var(--muted)",
   dim:     "var(--line)",
-  gold:    "#50a1b1",
+  gold:    "#2a8697",
 
   // DefectNet accents (darkened for light bg)
   dn1: "#0d3339",
@@ -23,7 +23,7 @@ const T = {
   dn3: "#1a5a66",
   dn4: "#22707e",
   dn5: "#2a8697",
-  dn6: "#329cb0",
+  dn6: "#22707e",
 
   // Electron Origins accents
   eo_e:       "#1a5a66",
@@ -2916,7 +2916,7 @@ function SolarCellDeviceSection() {
 
             {/* Sun glow at top */}
             <rect x={stackX} y={0} width={stackW} height={28} fill="url(#sunGlow)" rx={4} />
-            <text x={stackX + stackW / 2} y={16} textAnchor="middle" fontSize={11} fill="#50a1b1" fontWeight={500}>
+            <text x={stackX + stackW / 2} y={16} textAnchor="middle" fontSize={11} fill="#2a8697" fontWeight={500}>
               {"\u2600\uFE0F"} Sunlight (AM1.5)
             </text>
 
@@ -3471,7 +3471,7 @@ function CdTeManufacturingSection() {
               {/* Encapsulation */}
               {mfgStep === 7 && <>
                 <rect x={20} y={100} width={220} height={140} rx={6} fill="none" stroke="#6fb1be" strokeWidth={3} strokeDasharray="6 3" />
-                <text x={140} y={255} textAnchor="middle" fill="#6fb1be" fontSize={9} fontWeight={500}>Encapsulated — 25+ year lifetime</text>
+                <text x={140} y={255} textAnchor="middle" fill="#2a8697" fontSize={9} fontWeight={500}>Encapsulated — 25+ year lifetime</text>
               </>}
 
               {/* e-h pair generation animation */}

@@ -127,7 +127,7 @@ export default function PyrochloreScatter() {
 
   return (
     <div style={{
-      background: "#f7f9fa",
+      background: "#2a8697",
       borderRadius: 14,
       padding: "16px 20px",
       maxWidth: 1100,
@@ -367,7 +367,7 @@ export default function PyrochloreScatter() {
               ].map((p, i) => (
                 <div key={i} style={{
                   padding: "10px 12px", marginBottom: 8,
-                  background: "#f7f9fa", borderRadius: 8 
+                  background: "#2a8697", borderRadius: 8 
                 }}>
                   <div style={{ fontSize: 11, color: "var(--muted)", fontWeight: 500, textTransform: "none", letterSpacing: 0.5 }}>
                     {p.label}
@@ -383,7 +383,7 @@ export default function PyrochloreScatter() {
               {active.tc <= 2.0 && active.cte >= 9.0 && (
                 <div style={{
                   padding: "8px 12px", borderRadius: 8,
-                  background: "#f7fafa", border: "1px solid #a2c4cb",
+                  background: "#2a8697", border: "1px solid #a2c4cb",
                   fontSize: 11, color: "#23545e", fontWeight: 500
                 }}>
                   ✓ In TBC design space (low κ + high CTE)

@@ -11,18 +11,18 @@ const P = {
   panel:   "#0f2428",
   surface: "#0f2428",
   border:  "#18393f",
-  ink:     "#f0f5f6",
-  muted:   "#60a9b8",
+  ink:     "#2a8697",
+  muted:   "#2a8697",
   dim:     "#1f4a53",
-  lit:     "#b4cfd5",   // literature / pipeline
-  bert:    "#7eb9c5",   // MatBERT
-  gpt:     "#b8d2d7",   // GPT-4o
-  data:    "#98bec5",   // dataset
-  pure:    "#65acba",   // phase-pure
-  impure:  "#4993a1",   // phase-impure
+  lit:     "#2a8697",   // literature / pipeline
+  bert:    "#2a8697",   // MatBERT
+  gpt:     "#2a8697",   // GPT-4o
+  data:    "#2a8697",   // dataset
+  pure:    "#2a8697",   // phase-pure
+  impure:  "#22707e",   // phase-impure
   ok:      "#bcd5da",
-  warn:    "#73b3c0",
-  thermo:  "#9cc0c7",   // thermodynamics
+  warn:    "#2a8697",
+  thermo:  "#2a8697",   // thermodynamics
   target:  "#b9d3d8"
 };
 

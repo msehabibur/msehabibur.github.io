@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 
 const T = {
   bg:      "var(--paper)",
-  panel:   "#ffffff",
+  panel:   "#2a8697",
   surface: "var(--sunk)",
   border:  "var(--line)",
   ink:     "var(--ink)",
@@ -16,20 +16,20 @@ const T = {
 };
 
 const C = {
-  glass:   "#bfd6db",
-  tco:     "#d2e0e3",
-  cds:     "#bfd3d7",
-  cdte:    "#9cc0c7",
-  buffer:  "#56a3b3",
+  glass:   "#2a8697",
+  tco:     "#2a8697",
+  cds:     "#2a8697",
+  cdte:    "#2a8697",
+  buffer:  "#2a8697",
   contact: "var(--muted)",
   cu:      "#98bec5",
-  defect:  "#4993a1",
-  electron:"#65acba",
-  hole:    "#71b2bf",
-  moisture:"#a5c6cd",
+  defect:  "#22707e",
+  electron:"#2a8697",
+  hole:    "#2a8697",
+  moisture:"#2a8697",
   crack:   "#347d8b",
-  healthy: "#a4c5cc",
-  degrad:  "#4993a1",
+  healthy: "#2a8697",
+  degrad:  "#22707e",
   accent:  "#378695",
   mitigation: "#50a1b1"
 };
@@ -320,7 +320,7 @@ function ThermalStressSection() {
           {/* Mixing zone */}
           {(() => {
             const mixW = Math.min(100, interLength * 2);
-            return <rect x={220 - mixW / 2} y={50} width={mixW} height={50} rx={4} fill="#98bec5" opacity={0.3} />;
+            return <rect x={220 - mixW / 2} y={50} width={mixW} height={50} rx={4} fill="#2a8697" opacity={0.3} />;
           })()}
           <text x={220} y={70} textAnchor="middle" fontSize={9} fill={C.cu} fontWeight={500}>CdS₁₋ₓTeₓ mixing zone</text>
           <text x={120} y={90} textAnchor="middle" fontSize={9} fill="#23545e">CdS</text>

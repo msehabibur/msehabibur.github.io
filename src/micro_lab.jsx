@@ -243,7 +243,7 @@ const T = {
   ink:     "var(--ink)",
   muted:   "var(--muted)",
   dim:     "var(--line)",
-  gold:    "#50a1b1",
+  gold:    "#2a8697",
 
   // DefectNet accents (darkened for light bg)
   dn1: "#0d3339",
@@ -251,7 +251,7 @@ const T = {
   dn3: "#1a5a66",
   dn4: "#22707e",
   dn5: "#2a8697",
-  dn6: "#329cb0",
+  dn6: "#22707e",
 
   // Electron Origins accents
   eo_e:       "#1a5a66",
@@ -5163,7 +5163,7 @@ function ReaxFFTrainingSection() {
 
           {/* ── TOOLS ── */}
           <div style={{ marginTop:10, fontSize:10, color:T.muted, lineHeight:1.8,
-            background:"#f0f4f5", padding:10, borderRadius:8, border:`1px solid ${T.eo_cond}` }}>
+            background:"#2a8697", padding:10, borderRadius:8, border:`1px solid ${T.eo_cond}` }}>
             <strong style={{color:T.eo_cond}}>Available Training Tools:</strong>
             <br/><span style={{color:T.ink}}>PARATEC/trainReaxFF:</span> Original van Duin single-parameter parabolic search (Fortran). The oldest and most widely used.
             <br/><span style={{color:T.ink}}>GARFfield:</span> Genetic algorithm-based fitting by Mueller et al. Good for large parameter spaces. Parallelizable.
@@ -7752,7 +7752,7 @@ function DFTManyBodySection() {
 
         {/* Labeled Schrodinger Equation */}
         <div style={{
-          background: "#f8fafa", border: `2px solid ${D.eqn}30`,
+          background: "#2a8697", border: `2px solid ${D.eqn}30`,
           borderRadius: 12, padding: "24px 20px", position: "relative"
         }}>
           <div style={{ textAlign: "center", fontSize: 11, fontWeight: 500, color: D.main, marginBottom: 18, letterSpacing: 2, textTransform: "none" }}>
@@ -10370,8 +10370,8 @@ function BrillouinZoneAnalogy() {
               </g>
             ))}
             <text x={52 + 2 * 75} y={105} textAnchor="middle" fontSize={11} fontWeight="500" fill="#398a9a" fontFamily="monospace">Unit Cell</text>
-            <text x={52 + 0 * 75} y={105} textAnchor="middle" fontSize={9} fill="#9cc0c7">repeat</text>
-            <text x={52 + 4 * 75} y={105} textAnchor="middle" fontSize={9} fill="#9cc0c7">repeat</text>
+            <text x={52 + 0 * 75} y={105} textAnchor="middle" fontSize={9} fill="#2a8697">repeat</text>
+            <text x={52 + 4 * 75} y={105} textAnchor="middle" fontSize={9} fill="#2a8697">repeat</text>
           </svg>
           <div style={{ marginTop: 10, background: "#f2f6f7", borderRadius: 8, padding: "10px 14px", border: "1px solid #398a9a22" }}>
             <div style={{ fontSize: 12, lineHeight: 1.7, color: T.ink }}>
@@ -10475,7 +10475,7 @@ function BrillouinZoneAnalogy() {
 
             {/* Bandgap arrow */}
             <line x1={130} y1={90} x2={130} y2={45} stroke="#50a1b1" strokeWidth={1.5} strokeDasharray="4,3" />
-            <text x={145} y={70} fontSize={9} fill="#50a1b1" fontWeight="500">Bandgap</text>
+            <text x={145} y={70} fontSize={9} fill="#2a8697" fontWeight="500">Bandgap</text>
 
             {/* Walking person emoji at current step */}
             <text x={210} y={155} textAnchor="middle" fontSize={14}></text>
@@ -15147,10 +15147,10 @@ function CZTSSynthesisAnimation() {
             ))}
             {/* CZTS stability polygon */}
             <polygon points={polyStr} fill="#6fb1be18" stroke="#6fb1be" strokeWidth={1.5} />
-            <text x={toX(-0.35)} y={toY(-0.65)} textAnchor="middle" fill="#6fb1be" fontSize={8} fontWeight={500}>CZTS</text>
+            <text x={toX(-0.35)} y={toY(-0.65)} textAnchor="middle" fill="#2a8697" fontSize={8} fontWeight={500}>CZTS</text>
             {/* Competing phase labels */}
             <text x={toX(-0.05)} y={toY(-1.35)} fill="#347d8b" fontSize={7} opacity={0.7}>Cu₂S</text>
-            <text x={toX(-0.65)} y={toY(-0.05)} fill="#56a3b3" fontSize={7} opacity={0.7}>ZnS</text>
+            <text x={toX(-0.65)} y={toY(-0.05)} fill="#2a8697" fontSize={7} opacity={0.7}>ZnS</text>
             {/* Current operating point - pulsing */}
             <circle cx={toX(cond.muCu)} cy={toY(cond.muZn)} r={6 + Math.sin(animFrame * 0.06) * 2}
               fill={cond.color} opacity={0.7} />
@@ -15220,7 +15220,7 @@ function CZTSSynthesisAnimation() {
                 {[{ x: 130, y: 70 }, { x: 220, y: 100 }].map((p, i) => (
                   <g key={i}>
                     <rect x={p.x - 10} y={p.y - 7} width={20} height={14} rx={3} fill="#56a3b344" stroke="#56a3b3" strokeWidth={1} />
-                    <text x={p.x} y={p.y + 3} textAnchor="middle" fill="#56a3b3" fontSize={6} fontWeight={500}>ZnS</text>
+                    <text x={p.x} y={p.y + 3} textAnchor="middle" fill="#2a8697" fontSize={6} fontWeight={500}>ZnS</text>
                   </g>
                 ))}
               </g>
@@ -15229,8 +15229,8 @@ function CZTSSynthesisAnimation() {
             {condition === "optimal" && animFrame > 200 && (
               <g>
                 <rect x={115} y={55} width={70} height={50} rx={6} fill="#6fb1be22" stroke="#6fb1be" strokeWidth={2} />
-                <text x={150} y={75} textAnchor="middle" fill="#6fb1be" fontSize={10} fontWeight={500}>CZTS</text>
-                <text x={150} y={90} textAnchor="middle" fill="#6fb1be" fontSize={7}>kesterite</text>
+                <text x={150} y={75} textAnchor="middle" fill="#2a8697" fontSize={10} fontWeight={500}>CZTS</text>
+                <text x={150} y={90} textAnchor="middle" fill="#2a8697" fontSize={7}>kesterite</text>
               </g>
             )}
           </svg>
@@ -15740,8 +15740,8 @@ function CHChemConstructSection() {
                 <>
                   <line x1={toX(cusB.cu)} y1={toY(cusB.s)} x2={toX(cus2B.cu)} y2={toY(cus2B.s)}
                     stroke="#6fb1be" strokeWidth={5} opacity={0.9} />
-                  <text x={toX(-0.25)} y={toY(-0.35)} fontSize={11} fill="#6fb1be" fontWeight={500}>Cu₂S STABLE</text>
-                  <text x={toX(-0.25)} y={toY(-0.35) + 14} fontSize={9} fill="#6fb1be">μ_Cu ∈ [-0.37, -0.14]</text>
+                  <text x={toX(-0.25)} y={toY(-0.35)} fontSize={11} fill="#2a8697" fontWeight={500}>Cu₂S STABLE</text>
+                  <text x={toX(-0.25)} y={toY(-0.35) + 14} fontSize={9} fill="#2a8697">μ_Cu ∈ [-0.37, -0.14]</text>
                   {/* Phase labels in forbidden regions */}
                   <text x={toX(-0.42)} y={toY(-0.04)} fontSize={10} fill="#347d8b" opacity={0.6}>CuS region</text>
                   <text x={toX(0)} y={toY(-0.80) - 4} fontSize={10} fill="#3a8c9c" opacity={0.6}>CuS₂ region</text>
@@ -21550,7 +21550,7 @@ const T_DARK = {
   panel:   "#0f2428",
   surface: "#132c32",
   border:  "#193b41",
-  ink:     "#e8f0f1",
+  ink:     "#2a8697",
   muted:   "#9fc2c9"
 };
 
