@@ -339,6 +339,5 @@ body{background:var(--paper); color:var(--ink)}
    keep the recessed tone, since they are chrome rather than content */
 .cs-stage { --sunk: var(--panel); }
 .cs-stage svg { max-width: 100%; height: auto; }
-.cs-stage svg text { paint-order: stroke fill; stroke: var(--panel); stroke-width: 3px; stroke-linejoin: round; }
 /* table headers default to bold in every browser */
 .cs-page th, .cs-page b, .cs-page strong { font-weight: 500; }
