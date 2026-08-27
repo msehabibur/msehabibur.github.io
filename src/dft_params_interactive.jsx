@@ -1397,7 +1397,7 @@ function SecIbrion() {
   const [ibrion, setIbrion] = useState(2);
 
   const methods = [
-    { val: -1, label: "IBRION = -1: No Update", desc: "Ions are NOT moved. Use for single-point energy calculations (SCF only).",
+    { val: -1, label: "IBRION = -1: No Update", desc: "Ions are not moved. Use for single-point energy calculations (SCF only).",
       steps: ["Fixed ion positions", "Run SCF → get E, forces", "Done — no relaxation"],
       useCase: "Single-point energy, DOS, band structure", color: T.muted },
     { val: 1, label: "IBRION = 1: RMM-DIIS (Quasi-Newton)", desc: "Uses ionic history to build an approximate Hessian. Fast convergence near minimum. Can fail far from minimum.",

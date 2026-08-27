@@ -118,12 +118,12 @@ function AtomicModelsSection() {
  }, [bohrTransition]);
 
  const models = [
- { name: "Dalton", year: 1803, discoverer: "John Dalton", experiment: "Chemical combination ratios", equation: "None (conceptual)", right: "Atoms are fundamental units of elements", wrong: "Atoms are NOT indivisible" },
- { name: "Thomson", year: 1897, discoverer: "J.J. Thomson", experiment: "Cathode ray tube", equation: "e/m = 1.76×10¹¹ C/kg", right: "Discovered electrons, atoms have internal structure", wrong: "No nucleus; positive charge is NOT spread uniformly" },
+ { name: "Dalton", year: 1803, discoverer: "John Dalton", experiment: "Chemical combination ratios", equation: "None (conceptual)", right: "Atoms are fundamental units of elements", wrong: "Atoms are not indivisible" },
+ { name: "Thomson", year: 1897, discoverer: "J.J. Thomson", experiment: "Cathode ray tube", equation: "e/m = 1.76×10¹¹ C/kg", right: "Discovered electrons, atoms have internal structure", wrong: "No nucleus; positive charge is not spread uniformly" },
  { name: "Rutherford", year: 1911, discoverer: "Ernest Rutherford", experiment: "Gold foil / alpha scattering", equation: "N(θ) ∝ 1/sin⁴(θ/2)", right: "Tiny dense positive nucleus; atom is mostly empty space", wrong: "Cannot explain atomic stability or spectral lines" },
  { name: "Bohr", year: 1913, discoverer: "Niels Bohr", experiment: "Hydrogen emission spectrum", equation: "Eₙ = -13.6/n² eV", right: "Correct energy levels for hydrogen; explains spectral lines", wrong: "Fails for multi-electron atoms; orbits are not real paths" },
  { name: "Sommerfeld", year: 1916, discoverer: "Arnold Sommerfeld", experiment: "Fine structure of spectral lines", equation: "Eₙₗ includes α² corrections", right: "Explains fine structure; introduces angular momentum quantum number", wrong: "Still semi-classical; no spin, no probability interpretation" },
- { name: "Quantum", year: "1926+", discoverer: "Schrödinger, Heisenberg, Born", experiment: "Davisson-Germer electron diffraction", equation: "Ĥψ = Eψ", right: "Complete and correct. Probability clouds, all quantum numbers", wrong: "Nothing fundamentally wrong — this IS the accepted model" },
+ { name: "Quantum", year: "1926+", discoverer: "Schrödinger, Heisenberg, Born", experiment: "Davisson-Germer electron diffraction", equation: "Ĥψ = Eψ", right: "Complete and correct. Probability clouds, all quantum numbers", wrong: "Nothing fundamentally wrong — this is the accepted model" },
  ];
 
  const cx = 170, cy = 170;
@@ -918,7 +918,7 @@ function AufbauPrincipleSection() {
  {
  title: "Hund's Rule",
  text: "In degenerate orbitals (same energy), maximize unpaired spins first. Electrons spread out before pairing up.",
- example: "N (Z=7) 2p³: ↑ ↑ ↑ (correct) NOT ↑↓ ↑ _ (wrong — costs energy to pair)."
+ example: "N (Z=7) 2p³: ↑ ↑ ↑ (correct) not ↑↓ ↑ _ (wrong — costs energy to pair)."
  },
  ];
 
@@ -1765,7 +1765,7 @@ function WaveDualitySection() {
 
  // Screen + label
  els.push(
- <text key="scrlbl" x={scrX + 5} y={16} textAnchor="middle" fontSize={13} fill="#468d9b">screen</text>,
+ <text key="scrlbl" x={scrX - 8} y={16} textAnchor="end" fontSize={13} fill="#468d9b">screen</text>,
  );
 
  const interfProb = (y) => {
@@ -1889,10 +1889,10 @@ function WaveDualitySection() {
  { head: "Screen shows bands", body: "The pattern of bright and dark stripes is the interference pattern. Completely expected for waves." },
  ],
  quantum: [
- { head: "Fire ONE electron", body: "We send electrons one at a time, with a long gap between each. No two electrons are in the apparatus at the same time." },
- { head: "Each lands as ONE dot", body: "Every electron hits the screen at a single point — exactly like a bullet. It never smears out visibly." },
+ { head: "Fire one electron", body: "We send electrons one at a time, with a long gap between each. No two electrons are in the apparatus at the same time." },
+ { head: "Each lands as one dot", body: "Every electron hits the screen at a single point — exactly like a bullet. It never smears out visibly." },
  { head: "But thousands of dots…", body: "After many electrons, the dots build the same interference pattern as the wave experiment. Each electron \"knew\" about both slits." },
- { head: "The electron went through BOTH slits", body: "Before measurement, the electron exists as a wavefunction ψ spread through space. ψ split at the barrier, went through both slits, and interfered with itself on the far side." },
+ { head: "The electron went through both slits", body: "Before measurement, the electron exists as a wavefunction ψ spread through space. ψ split at the barrier, went through both slits, and interfered with itself on the far side." },
  { head: "|ψ|² = probability", body: "The wave amplitude squared gives the probability of landing at each point. High |ψ|² → bright band. Zero |ψ|² → dark band. The electron is forced to land where its own wave says is likely." },
  { head: "Measurement collapses ψ", body: "The instant the electron hits the screen, the wavefunction collapses to one point. This is not ignorance — quantum mechanics says the position genuinely did not exist until then." },
  ]
@@ -4021,7 +4021,7 @@ function ChemicalBondingSection() {
  onChange={(e) => setDChi(parseFloat(e.target.value))}
  style={{ width: "100%" }}
  />
- <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: T.dim }}>
+ <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: T.muted }}>
  <span>0 (Covalent)</span>
  <span>1 (Polar)</span>
  <span>2+ (Ionic)</span>
@@ -5628,7 +5628,7 @@ function CrystalSymmetrySection() {
  <CalcRow eq="Rule of mutual exclusion (Oh): IR-active ≠ Raman-active" result="" color={T.eo_cond} />
  <CalcRow eq="NaCl TO phonon: IR-active, Raman-inactive" result="" color={T.eo_cond} />
  <CalcRow eq="No mutual exclusion (Td): modes can be both" result="" color={T.eo_cond} />
- <CalcRow eq="ZnTe TO phonon: both IR-active AND Raman-active" result="" color={T.eo_cond} />
+ <CalcRow eq="ZnTe TO phonon: both IR-active and Raman-active" result="" color={T.eo_cond} />
  </div>
  <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
@@ -6291,7 +6291,7 @@ function BandSection() {
  <div style={{ background: T.surface, borderRadius: 10, padding: 14, border: `1px solid ${T.border}` }}>
  <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, letterSpacing: 0.5 }}>Where do free electrons come from?</div>
  {[
- { title: "Always: from atom valence electrons", desc: "ALL electrons in the crystal originally came from Zn and Te atoms. Valence band = reservoir of these electrons.", color: T.eo_valence },
+ { title: "Always: from atom valence electrons", desc: "All electrons in the crystal originally came from Zn and Te atoms. Valence band = reservoir of these electrons.", color: T.eo_valence },
  { title: "Thermal: kT energy kicks them up", desc: `At 300K, kT=0.026eV. Gap=2.26eV. Chance = e^(-87) ≈ 10⁻³⁸. Almost zero for ZnTe.`, color: T.eo_hole },
  { title: "Light: photon energy > band gap", desc: "Photon of 2.5eV hits a valence electron and kicks it to conduction band. This is photovoltaics!", color: T.eo_photon },
  { title: "Defect: missing atom creates gap states", desc: "V_Zn vacancy creates states inside gap. Electrons from Te dangling bonds sit there. Much easier to excite.", color: T.eo_gap },
@@ -6720,7 +6720,7 @@ function DensityOfStatesSection() {
  <div style={{ fontSize: 11, marginTop: 8, marginBottom: 5 }}>
  <b>Temperature:</b>{" "}
  <span style={{ color: T.eo_photon }}>{temperature} K</span>
- <span style={{ fontSize: 10, color: T.dim }}> (kT = {kT.toFixed(4)} eV)</span>
+ <span style={{ fontSize: 10, color: T.muted }}> (kT = {kT.toFixed(4)} eV)</span>
  </div>
  <input type="range" min={1} max={2000} step={1} value={temperature}
  onChange={e => setTemperature(+e.target.value)} style={{ width: "100%" }} />
@@ -7603,7 +7603,7 @@ function MaterialClassesSection() {
  metal: {
  analogy: "A metal is like a “mosh pit” at a concert. The fans (electrons) are not attached to any single person (atom) — they flow freely through the whole crowd. Push from one side (apply voltage) and the entire sea of fans surges in that direction. That is why metals conduct electricity so well: their outermost electrons are delocalized, shared by every atom in the crystal, forming an “electron sea.”",
  bonding: "Metallic bonding — positive ion cores sit in a sea of delocalized electrons. No directional preference.",
- bandDesc: "Conduction band and valence band OVERLAP — there is no gap. Electrons can move freely with any tiny push of energy.",
+ bandDesc: "Conduction band and valence band overlap — there is no gap. Electrons can move freely with any tiny push of energy.",
  properties: ["Excellent electrical & thermal conductor", "Ductile & malleable (electron sea allows planes to slide)", "Shiny / reflective (free electrons absorb & re-emit photons)", "High melting point (strong metallic bond in transition metals)"],
  weakness: "Corrodes in oxidizing environments. Heavy. Cannot be transparent.",
  animation: "freeElectrons"
@@ -8915,7 +8915,7 @@ function SemiconductorDopingSection() {
  n_e = N_c exp(-(E_c - E_F)/kT)<br />
  <b>n<sub>e</sub></b> = <span style={{ color: T.eo_e }}>{ncVal.toExponential(1)} cm⁻³</span><br />
  <b>p<sub>h</sub></b> = <span style={{ color: T.eo_hole }}>{pvVal.toExponential(1)} cm⁻³</span><br />
- <span style={{ fontSize: 10, color: T.dim }}>n * p = n<sub>i</sub>² (mass-action law)</span>
+ <span style={{ fontSize: 10, color: T.muted }}>n * p = n<sub>i</sub>² (mass-action law)</span>
  </div>
  </div>
 
@@ -11047,7 +11047,7 @@ function ChemicalPotentialSection() {
  <div style={{ fontSize: 11, marginBottom: 6 }}>
  <b>mu<sub>A</sub> (Cu):</b>{" "}
  <span style={{ color: T.eo_cond }}>{muA.toFixed(2)} eV</span>
- <span style={{ fontSize: 10, color: T.dim }}>{muA > -0.5 ? " (Cu-rich)" : muA < -2 ? " (Cu-poor)" : ""}</span>
+ <span style={{ fontSize: 10, color: T.muted }}>{muA > -0.5 ? " (Cu-rich)" : muA < -2 ? " (Cu-poor)" : ""}</span>
  </div>
  <input type="range" min={muMin} max={muMax} step={0.02} value={muA}
  onChange={e => setMuA(+e.target.value)}
@@ -11056,7 +11056,7 @@ function ChemicalPotentialSection() {
  <div style={{ fontSize: 11, marginTop: 10, marginBottom: 6 }}>
  <b>mu<sub>B</sub> (Zn):</b>{" "}
  <span style={{ color: T.eo_gap }}>{muB.toFixed(2)} eV</span>
- <span style={{ fontSize: 10, color: T.dim }}>{muB > -0.5 ? " (Zn-rich)" : muB < -2 ? " (Zn-poor)" : ""}</span>
+ <span style={{ fontSize: 10, color: T.muted }}>{muB > -0.5 ? " (Zn-rich)" : muB < -2 ? " (Zn-poor)" : ""}</span>
  </div>
  <input type="range" min={muMin} max={muMax} step={0.02} value={muB}
  onChange={e => setMuB(+e.target.value)}
@@ -12665,11 +12665,11 @@ function AtomToDeviceSection() {
  <div style={{ fontWeight: "500", fontSize: 13, marginBottom: 6 }}>Everything Connects</div>
  <div style={{ fontSize: 10, lineHeight: 1.7, color: T.muted }}>
  <div>Atomic properties</div>
- <div style={{ color: T.dim }}>{' └→'} bond type</div>
- <div style={{ color: T.dim }}>{' └→'} crystal structure</div>
- <div style={{ color: T.dim }}>{' └→'} electronic bands</div>
- <div style={{ color: T.dim }}>{' └→'} defect behavior</div>
- <div style={{ color: T.dim }}>{' └→'} device performance</div>
+ <div style={{ color: T.muted }}>{' └→'} bond type</div>
+ <div style={{ color: T.muted }}>{' └→'} crystal structure</div>
+ <div style={{ color: T.muted }}>{' └→'} electronic bands</div>
+ <div style={{ color: T.muted }}>{' └→'} defect behavior</div>
+ <div style={{ color: T.muted }}>{' └→'} device performance</div>
  </div>
  </div>
 
@@ -12865,7 +12865,7 @@ function AtomsBigQuestionsSection() {
  </div>
  </FAQAccordion>
 
- <FAQAccordion title="AQ10: What IS electron spin? Does the electron actually spin?" color={T.eo_e} isOpen={openQ === "AQ10"} onClick={() => toggle("AQ10")}>
+ <FAQAccordion title="AQ10: What is electron spin? Does the electron actually spin?" color={T.eo_e} isOpen={openQ === "AQ10"} onClick={() => toggle("AQ10")}>
  <div style={{ background: T.eo_e + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
  <b> Analogy:</b> Spin is like a property of a playing card being face-up or face-down. It is not that the card is literally spinning — it is just an intrinsic two-state property. Similarly, electron spin is not physical rotation. It is an intrinsic quantum property that gives the electron a magnetic moment, as if it were a tiny bar magnet that can only point up or down.
  </div>
@@ -12954,7 +12954,7 @@ function AtomsBigQuestionsSection() {
  </div>
  </FAQAccordion>
 
- <FAQAccordion title="AQ16: What IS a chemical bond in quantum mechanical terms?" color={T.eo_valence} isOpen={openQ === "AQ16"} onClick={() => toggle("AQ16")}>
+ <FAQAccordion title="AQ16: What is a chemical bond in quantum mechanical terms?" color={T.eo_valence} isOpen={openQ === "AQ16"} onClick={() => toggle("AQ16")}>
  <div style={{ background: T.eo_valence + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
  <b> Analogy:</b> Imagine two tuning forks near each other. Separately, each vibrates at its own frequency. Together, they couple and create two new frequencies — one lower (bonding) and one higher (antibonding). A chemical bond is when electrons occupy the lower-frequency (lower-energy) coupled state, making the system more stable than two separate atoms.
  </div>
@@ -13185,7 +13185,7 @@ function AtomsBigQuestionsSection() {
 
  {/* ── AQ31-AQ33: Reciprocal Space ── */}
 
- <FAQAccordion title="AQ31: What IS reciprocal space? Why can't we just use real space?" color={T.eo_gap} isOpen={openQ === "AQ31"} onClick={() => toggle("AQ31")}>
+ <FAQAccordion title="AQ31: What is reciprocal space? Why can't we just use real space?" color={T.eo_gap} isOpen={openQ === "AQ31"} onClick={() => toggle("AQ31")}>
  <div style={{ background: T.eo_gap + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
  <b> Analogy:</b> Think of a musical chord. In "time space," you see a complicated oscillating wave. In "frequency space" (Fourier transform), you see three clean dots — one for each note. Reciprocal space is the frequency-domain version of a crystal. The messy repeating pattern in real space becomes elegant dots in reciprocal space, revealing the underlying periodicity.
  </div>

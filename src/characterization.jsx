@@ -592,7 +592,7 @@ function XRDSection() {
           <InfoRow label="Plot" value="B·cosθ (y-axis) vs 4sinθ (x-axis) for multiple peaks" />
           <InfoRow label="y-intercept" value="Kλ/D → gives crystallite size D" />
           <InfoRow label="Slope" value="ε (microstrain)" />
-          <InfoRow label="Why better than Scherrer?" value="Scherrer assumes ALL broadening is from size; W-H separates size from strain" />
+          <InfoRow label="Why better than Scherrer?" value="Scherrer assumes all broadening is from size; W-H separates size from strain" />
           <InfoRow label="Your W-H result" value="D = 18.1 nm, ε = 0.0012 (0.12% strain)" />
         </div>
 
@@ -4060,7 +4060,7 @@ function RamanSection() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
           <CalcRow eq="Anatase reference peaks" result="144, 399, 513, 639 cm⁻¹" color={C.spec} />
-          <CalcRow eq="Your peaks" result="144, 399, 513, 639 cm⁻¹ → ALL match anatase" color={C.spec} />
+          <CalcRow eq="Your peaks" result="144, 399, 513, 639 cm⁻¹ → all match anatase" color={C.spec} />
           <CalcRow eq="Rutile signature peaks" result="447 cm⁻¹ (Eg), 612 cm⁻¹ (A1g)" color={C.spec} />
           <CalcRow eq="Any peaks at 447 or 612 cm⁻¹?" result="None detected" color={C.spec} />
           <CalcRow eq="Phase conclusion" result="Pure anatase TiO₂" color={C.spec} />

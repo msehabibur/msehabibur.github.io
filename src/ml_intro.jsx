@@ -75,7 +75,7 @@ function CalcRow({ eq, result, color }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, fontSize: 13 }}>
       <span style={{ color: T.muted, fontFamily: "monospace", flex: 1 }}>{eq}</span>
-      <span style={{ color: T.dim }}>=</span>
+      <span style={{ color: T.muted }}>=</span>
       <span style={{ color: color || T.ink, fontWeight: 500, fontFamily: "monospace", minWidth: 70, textAlign: "right" }}>{result}</span>
     </div>
   );
@@ -885,7 +885,7 @@ function DecisionTreeSection() {
 
           <CommonMistakes mistakes={[
             "Growing the tree too deep — a fully grown tree memorizes training data (overfitting). Use max_depth or min_samples_leaf to limit growth.",
-            "Assuming trees handle feature scaling — actually trees do NOT need scaled features, unlike Support Vector Machines or neural networks. This is an advantage.",
+            "Assuming trees handle feature scaling — actually trees do not need scaled features, unlike Support Vector Machines or neural networks. This is an advantage.",
             "Forgetting that single trees are unstable — small changes in data can produce very different trees. Random forests fix this.",
             "Confusing classification trees (Gini) with regression trees (MSE) — for predicting continuous values like bandgap, always use MSE-based splits."
           ]} />
@@ -1320,7 +1320,7 @@ function PCASection() {
           <CommonMistakes mistakes={[
             "Applying PCA without standardizing first — if one feature is in GPa and another in eV, the GPa feature will dominate simply due to scale.",
             "Keeping too few components — if you retain only 60% of variance, you may lose critical information that hurts downstream models.",
-            "Interpreting PCs as individual features — PC1 is a linear combination of ALL original features; it does not correspond to any single physical property.",
+            "Interpreting PCs as individual features — PC1 is a linear combination of all original features; it does not correspond to any single physical property.",
             "Using PCA on categorical data — PCA is designed for continuous numerical features. For categorical data, use techniques like MCA (Multiple Correspondence Analysis)."
           ]} />
 
@@ -3094,9 +3094,9 @@ function HyperparamSection() {
       <HowItWorks color={C} steps={[
         "Define the hyperparameter search space: which hyperparameters to tune and what values to try for each (e.g., learning_rate = [0.001, 0.01, 0.1, 1.0]).",
         "Grid search: create every possible combination of hyperparameter values. Here, 4 learning rates x 4 hidden sizes = 16 combinations.",
-        "For each combination, train the model from scratch and evaluate on a validation set (NOT the test set). Record the validation error.",
+        "For each combination, train the model from scratch and evaluate on a validation set (not the test set). Record the validation error.",
         "Select the combination with the lowest validation error. This is your best hyperparameter setting.",
-        "Finally, train a model with the best hyperparameters on ALL training data and evaluate once on the held-out test set. This is your final reported performance."
+        "Finally, train a model with the best hyperparameters on all training data and evaluate once on the held-out test set. This is your final reported performance."
       ]} />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>

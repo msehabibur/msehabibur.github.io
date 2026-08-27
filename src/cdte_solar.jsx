@@ -2538,7 +2538,7 @@ function IVCurveSection() {
                 <span style={{ fontSize: 14, fontWeight: 500, color: m.color, fontFamily: "monospace" }}>{m.value}</span>
               </div>
               <div style={{ fontSize: 10, color: T.muted, marginBottom: 4 }}>{m.desc}</div>
-              <div style={{ fontSize: 10, color: T.dim, lineHeight: 1.5 }}>{m.tip}</div>
+              <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.5 }}>{m.tip}</div>
             </div>
           ))}
         </div>
@@ -3309,7 +3309,7 @@ function CdTeManufacturingSection() {
       details: "Soda-lime glass is cheap but Na diffusion can dope CdTe. Aluminosilicate (more expensive) avoids this. Substrate size: 60×120 cm² for production, 2.5×2.5 cm² for lab. Cleaning: ultrasonic in acetone → IPA → DI water → UV-ozone 15 min.",
       params: "Glass thickness: 2-3 mm | Transmittance: >90% at 400-850 nm | Roughness: <1 nm RMS" },
     { title: "Step 2: TCO Deposition (Front Contact)", color: "#1a5a66",
-      analogy: "Like laying down a transparent electrical highway. The TCO (typically FTO or ITO) must be both electrically conductive AND optically transparent — a rare combination. Light passes through, but electrons have a clear road to the external circuit.",
+      analogy: "Like laying down a transparent electrical highway. The TCO (typically FTO or ITO) must be both electrically conductive and optically transparent — a rare combination. Light passes through, but electrons have a clear road to the external circuit.",
       details: "FTO (SnO₂:F) deposited by APCVD at 500°C from SnCl₄ + HF precursors. Sheet resistance ~8 Ω/□, transparency >80%. ITO (In₂O₃:Sn) is better optically but more expensive. The TCO surface roughness scatters light (light trapping).",
       params: "R_sheet: 8-15 Ω/□ | Thickness: 300-500 nm | Carrier density: ~10²⁰ cm⁻³" },
     { title: "Step 3: CdS Buffer Layer", color: T.eo_photon,

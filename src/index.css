@@ -74,7 +74,7 @@
   --ui-font: "Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif;
   --paper:#f4f6f6; --panel:#ffffff; --panel-2:#eef2f2; --sunk:#e9efef;
   --line:#d8e1e1; --line-soft:#e6ecec;
-  --ink:#0f1618; --ink-2:#3c494c; --muted:#6c7b7e;
+  --ink:#0f1618; --ink-2:#3c494c; --muted:#647275;
   --accent:#0d6b76; --accent-ink:#0d6b76; --accent-soft:#dbecee; --accent-line:#a9cfd3;
   --good:#2e6d79;
   --shadow:0 1px 2px rgba(15,22,24,.05), 0 8px 24px -12px rgba(15,22,24,.18);
@@ -341,3 +341,18 @@ body{background:var(--paper); color:var(--ink)}
 .cs-stage svg { max-width: 100%; height: auto; }
 /* table headers default to bold in every browser */
 .cs-page th, .cs-page b, .cs-page strong { font-weight: 500; }
+
+/* every slider inherits the one accent, so the browser stops inventing a
+   black track for the lighter ones (chrome picks the unfilled tone itself,
+   and it only looks right when the accent is the same everywhere) */
+input[type="range"], input[type="checkbox"], progress { accent-color: var(--accent) !important; }
+
+/* a figure that paints its own backdrop should span the card it sits in —
+   otherwise the scene stops halfway and the rest of the card stays blank.
+   fixed-width ones simply centre instead of hugging the left edge */
+.cs-stage svg[style*="background"] {
+  max-width: 100% !important;
+  max-height: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}

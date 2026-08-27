@@ -516,7 +516,7 @@ export default function CrystalStructuresModule() {
         {CRYSTAL_SECTIONS.map((s, i) => (
           <div key={s.id} style={{ display: "flex", alignItems: "center", gap: 4 }}>
             <div onClick={() => setActive(s.id)} style={{ padding: "2px 10px", borderRadius: 20, fontSize: 10, cursor: "pointer", background: active === s.id ? s.color + "33" : "transparent", color: active === s.id ? s.color : T.dim, border: `1px solid ${active === s.id ? s.color + "66" : "transparent"}`, whiteSpace: "nowrap" }}>{s.label}</div>
-            {i < CRYSTAL_SECTIONS.length - 1 && <span style={{ color: T.dim, fontSize: 10 }}>→</span>}
+            {i < CRYSTAL_SECTIONS.length - 1 && <span style={{ color: T.muted, fontSize: 10 }}>→</span>}
           </div>
         ))}
       </div>

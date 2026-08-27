@@ -215,7 +215,7 @@ export default function DFTMovieModule() {
         { text: "4. Nuclei move (very slowly)",    color: P.purple, delay: 0.44 },
         { text: "",                                color: P.muted,  delay: 0.48 },
         { text: "To solve exactly, you need the",  color: P.ink,    delay: 0.52 },
-        { text: "position of EVERY electron at",   color: P.ink,    delay: 0.56 },
+        { text: "position of every electron at",   color: P.ink,    delay: 0.56 },
         { text: "once: 3 coords × N electrons",    color: P.ink,    delay: 0.60 },
         { text: "",                                color: P.muted,  delay: 0.64 },
         { text: "N=10 → need ~10³⁰ numbers!",     color: P.red,    delay: 0.67 },
@@ -1520,7 +1520,7 @@ export default function DFTMovieModule() {
           ],
           hohenberg_kohn: [
             { icon: "\uD83D\uDDFA\uFE0F", text: "HK1 is like saying: if you know the terrain map (density) of a landscape, you can uniquely reconstruct the gravitational field (external potential) that shaped it. No two different gravitational fields produce the same terrain." },
-            { icon: "\uD83D\uDD0D", text: "Like a fingerprint: just as every person has a unique fingerprint, every external potential produces a unique ground-state density. The density IS the fingerprint of the system." },
+            { icon: "\uD83D\uDD0D", text: "Like a fingerprint: just as every person has a unique fingerprint, every external potential produces a unique ground-state density. The density is the fingerprint of the system." },
             { icon: "\uD83D\uDCE6", text: "Instead of shipping a 3N-dimensional package (the full wavefunction), HK says: just ship a 3D package (the density) \u2014 it contains all the same information. Massive compression!" },
           ],
           kohn_sham: [

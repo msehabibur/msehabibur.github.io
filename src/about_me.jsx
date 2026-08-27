@@ -7,7 +7,7 @@ const LIGHT = {
   surface: "#f0f4f5",
   border:  "#dee9eb",
   ink:     "#0f2428",
-  muted:   "#6c7b7e",
+  muted:   "#647275",
   dim:     "#c1d7dc",
   accent:  "#2f7380",
   blue:    "#358190",

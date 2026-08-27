@@ -1683,7 +1683,7 @@ function SpinCoatingSection() {
               <InfoRow label="Water on bare ITO" value="Wets — OK for PEDOT:PSS" />
               <InfoRow label="Toluene on baked PEDOT:PSS" value="No dissolution — safe ✓" />
               <InfoRow label="Ethanol on MEH-PPV" value="No dissolution — safe ✓" />
-              <InfoRow label="Critical failure mode" value="Chloroform would dissolve BOTH layers below!" />
+              <InfoRow label="Critical failure mode" value="Chloroform would dissolve both layers below!" />
             </div>
             <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_spin, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>

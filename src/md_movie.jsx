@@ -669,7 +669,7 @@ export default function MDMovieModule() {
         { text: "Berendsen (simple):",              color: P.teal,   delay: 0.58 },
         { text: "  λ = [1 + Δt/τ(T₀/T-1)]^½",     color: P.teal,   delay: 0.62 },
         { text: "  v_new = λ · v_old",              color: P.teal,   delay: 0.65 },
-        { text: "  (does NOT give canonical!)",     color: P.red,    delay: 0.69 },
+        { text: "  (does not give canonical!)",     color: P.red,    delay: 0.69 },
       ];
 
       // Temperature visualization

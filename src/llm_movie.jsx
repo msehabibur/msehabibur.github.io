@@ -481,7 +481,7 @@ export default function LLMMovieModule() {
             fontFamily="'Inter',sans-serif" opacity={genOp}>Prompt → LLM (gpt-4 / Llama)</text>
           <text x={280} y={67} textAnchor="middle" fill={P.muted} fontSize="8"
             fontFamily="'Inter',sans-serif" opacity={genOp}>
-            System: "Answer using ONLY the provided context. Cite chunk IDs."  |  Context: 3 graded chunks
+            System: "Answer using only the provided context. Cite chunk IDs."  |  Context: 3 graded chunks
           </text>
 
           {/* Groundedness check header */}

@@ -593,7 +593,7 @@ function Vec({ v, color, label }) {
           <span key={i} style={{ background: `${color}22`, border: `1px solid ${color}55`, borderRadius: 4, padding: "2px 7px", fontSize: 12, fontFamily: "monospace", color }}>{typeof x === "number" ? x.toFixed(4) : x}</span>
         ))}
         <span style={{ color: T.muted }}>]</span>
-        <span style={{ color: T.dim, fontSize: 10 }}>dim={v.length}</span>
+        <span style={{ color: T.muted, fontSize: 10 }}>dim={v.length}</span>
       </div>
     </div>
   );
@@ -668,7 +668,7 @@ function SecStruct({ mol, atoms, edges, triplets }) {
           <div style={{ fontSize: 11, fontFamily: "monospace" }}>
             {edges.map((e, i) => (
               <div key={i} onClick={() => setHlE(i)} style={{ display: "flex", gap: 6, padding: "3px 4px", cursor: "pointer", borderRadius: 4, background: hlE === i ? `${T.dn2}22` : "transparent" }}>
-                <span style={{ color: T.dim, width: 20 }}>e{i}</span>
+                <span style={{ color: T.muted, width: 20 }}>e{i}</span>
                 <span style={{ width: 80 }}>
                   <span style={{ color: ELEM_COLOR[atoms[e.src].Z] }}>{atoms[e.src].sym}({e.src})</span>
                   <span style={{ color: T.muted }}>→</span>
@@ -724,7 +724,7 @@ function SecEmbed({ atoms }) {
                 h⁰[{a.id}] = table[Z={a.Z}] → {a.sym}
               </div>
               <Vec v={EMBED[a.Z]} color={ELEM_COLOR[a.Z]} />
-              <div style={{ fontSize: 10, color: T.dim }}>Position: [{a.pos.map(v => v.toFixed(3)).join(", ")}]</div>
+              <div style={{ fontSize: 10, color: T.muted }}>Position: [{a.pos.map(v => v.toFixed(3)).join(", ")}]</div>
             </div>
           ))}
           <div style={{ fontSize: 12, color: T.muted, marginTop: 8, lineHeight: 1.7 }}>
@@ -751,7 +751,7 @@ function SecGauss({ edges, atoms }) {
         <Card title="Select an edge" color={T.dn2}>
           {edges.map((ed, i) => (
             <div key={i} onClick={() => setSel(i)} style={{ display: "flex", gap: 8, padding: "4px 6px", cursor: "pointer", borderRadius: 4, background: sel === i ? `${T.dn2}22` : "transparent", fontFamily: "monospace", fontSize: 12 }}>
-              <span style={{ color: T.dim }}>e{i}</span>
+              <span style={{ color: T.muted }}>e{i}</span>
               <span style={{ color: ELEM_COLOR[atoms[ed.src].Z] }}>{atoms[ed.src].sym}</span>
               <span style={{ color: T.muted }}>→</span>
               <span style={{ color: ELEM_COLOR[atoms[ed.dst].Z] }}>{atoms[ed.dst].sym}</span>
@@ -785,7 +785,7 @@ function SecGauss({ edges, atoms }) {
                 const hl = gv[k] > 0.15;
                 return (
                   <tr key={k} style={{ background: hl ? `${T.dn2}11` : "transparent" }}>
-                    <td style={{ padding: "4px 6px", textAlign: "right", color: T.dim }}>{k}</td>
+                    <td style={{ padding: "4px 6px", textAlign: "right", color: T.muted }}>{k}</td>
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>{mu.toFixed(1)}</td>
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>{diff.toFixed(4)}</td>
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>{sq.toFixed(4)}</td>
@@ -905,7 +905,7 @@ function SecAngular({ edges, triplets, atoms }) {
         <Card title="Select a triplet" color={T.dn5}>
           {triplets.map((tr, i) => (
             <div key={i} onClick={() => setSel(i)} style={{ display: "flex", gap: 6, padding: "4px 6px", cursor: "pointer", borderRadius: 4, background: sel === i ? `${T.dn5}22` : "transparent", fontFamily: "monospace", fontSize: 12 }}>
-              <span style={{ color: T.dim }}>t{i}</span>
+              <span style={{ color: T.muted }}>t{i}</span>
               <span style={{ color: ELEM_COLOR[atoms[tr.center].Z], fontWeight: 500 }}>center={atoms[tr.center].sym}({tr.center})</span>
               <span style={{ color: T.dn5 }}>cos θ = {tr.cosT.toFixed(4)}</span>
               <span style={{ color: T.dn2 }}>{tr.angle.toFixed(1)}°</span>
@@ -946,7 +946,7 @@ function SecAngular({ edges, triplets, atoms }) {
                 const hl = av[k] > 0.15;
                 return (
                   <tr key={k} style={{ background: hl ? `${T.dn5}11` : "transparent" }}>
-                    <td style={{ padding: "4px 6px", textAlign: "right", color: T.dim }}>{k}</td>
+                    <td style={{ padding: "4px 6px", textAlign: "right", color: T.muted }}>{k}</td>
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>{c.toFixed(2)}</td>
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>{diff.toFixed(4)}</td>
                     <td style={{ padding: "4px 6px", textAlign: "right" }}>{exp.toFixed(4)}</td>
@@ -1569,7 +1569,7 @@ function SecPredict({ atoms, gnn, mol }) {
         <>
           {/* ═══ PART 1: What IS a gradient? ═══ */}
           <div style={{ flex: "1 1 100%", display: "flex", flexDirection: "column", gap: 12 }}>
-            <Card title="What IS a gradient? — The key idea" color={T.dn4}>
+            <Card title="What is a gradient? — The key idea" color={T.dn4}>
               <div style={{ fontSize: 13, color: T.dn4, fontWeight: 500, marginBottom: 8 }}>
                 F = −∂E/∂r means: "Force = negative rate of energy change when you nudge the atom"
               </div>
@@ -1606,7 +1606,7 @@ function SecPredict({ atoms, gnn, mol }) {
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 8 }}>
                 {[
                   { scenario: "Gradient positive (+)", meaning: "Energy increases when atom moves right", force: "Force pushes LEFT (−)", color: T.dn4 },
-                  { scenario: "Gradient negative (−)", meaning: "Energy decreases when atom moves right", force: "Force pushes RIGHT (+)", color: T.dn3 },
+                  { scenario: "Gradient negative (−)", meaning: "Energy decreases when atom moves right", force: "Force pushes right (+)", color: T.dn3 },
                   { scenario: "Gradient ≈ 0", meaning: "Energy doesn't change (at minimum)", force: "No force — equilibrium!", color: T.dn2 },
                 ].map((item, i) => (
                   <div key={i} style={{ padding: "8px 10px", background: `${item.color}08`, border: `1px solid ${item.color}22`, borderRadius: 8, fontSize: 11, lineHeight: 1.7 }}>
@@ -1742,7 +1742,7 @@ function SecPredict({ atoms, gnn, mol }) {
         <>
           {/* ═══ PART 1: What IS stress and strain? ═══ */}
           <div style={{ flex: "1 1 100%", display: "flex", flexDirection: "column", gap: 12 }}>
-            <Card title="What IS stress? — Force vs Stress" color={T.dn5}>
+            <Card title="What is stress? — Force vs Stress" color={T.dn5}>
               <div style={{ fontSize: 13, color: T.dn5, fontWeight: 500, marginBottom: 8 }}>
                 σ = (1/V) × ∂E/∂ε — "How does energy change when you deform the cell?"
               </div>
@@ -1847,13 +1847,13 @@ function SecPredict({ atoms, gnn, mol }) {
               <div style={{ fontFamily: "monospace", fontSize: 13, textAlign: "center" }}>
                 {gnn.stressGPa.map((row, r) => (
                   <div key={r} style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 4 }}>
-                    <span style={{ color: T.dim }}>{r === 0 ? "⌈" : r === 2 ? "⌊" : "│"}</span>
+                    <span style={{ color: T.muted }}>{r === 0 ? "⌈" : r === 2 ? "⌊" : "│"}</span>
                     {row.map((v, c) => (
                       <span key={c} style={{ width: 90, textAlign: "right", color: v >= 0 ? T.dn3 : T.dn4 }}>
                         {v.toFixed(4)}
                       </span>
                     ))}
-                    <span style={{ color: T.dim }}>{r === 0 ? "⌉" : r === 2 ? "⌋" : "│"}</span>
+                    <span style={{ color: T.muted }}>{r === 0 ? "⌉" : r === 2 ? "⌋" : "│"}</span>
                   </div>
                 ))}
               </div>
@@ -3571,7 +3571,7 @@ function CalcRow({ eq, result, color }) {
   return (
     <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:4, fontSize:12 }}>
       <span style={{ color:T.muted, fontFamily:"monospace", flex:1 }}>{eq}</span>
-      <span style={{ color:T.dim }}>=</span>
+      <span style={{ color: T.muted }}>=</span>
       <span style={{ color:color||T.ink, fontWeight:500, fontFamily:"monospace", minWidth:70, textAlign:"right" }}>{result}</span>
     </div>
   );
@@ -4584,9 +4584,9 @@ function EAMSection() {
         </div>
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
           {[
-            { term:"F(ρ̄ᵢ)", color:T.eo_core, what:"Embedding Function", desc:"The energy to embed atom i into the electron gas created by all its neighbors. F is a function of the total electron density ρ̄ at the site of atom i. This is the many-body term — it depends on ALL neighbors simultaneously, not just pairs. For Finnis-Sinclair: F(ρ̄) = −A√ρ̄. The negative square root means: more neighbors = lower (more stable) energy, but with diminishing returns." },
+            { term:"F(ρ̄ᵢ)", color:T.eo_core, what:"Embedding Function", desc:"The energy to embed atom i into the electron gas created by all its neighbors. F is a function of the total electron density ρ̄ at the site of atom i. This is the many-body term — it depends on all neighbors simultaneously, not just pairs. For Finnis-Sinclair: F(ρ̄) = −A√ρ̄. The negative square root means: more neighbors = lower (more stable) energy, but with diminishing returns." },
             { term:"φ(rᵢⱼ)", color:T.eo_e, what:"Pair Potential", desc:"A short-range repulsive-attractive interaction between atoms i and j separated by distance rᵢⱼ. Similar to Lennard-Jones but typically uses exponential forms. At short range: strong repulsion (Pauli exclusion). At equilibrium: slight attraction. At long range: decays to zero. The ½ factor avoids double-counting (i-j and j-i)." },
-            { term:"ρ̄ᵢ", color:T.eo_valence, what:"Host Electron Density", desc:"The total electron density at the site of atom i, contributed by ALL neighboring atoms j. Calculated as: ρ̄ᵢ = Σⱼ f(rᵢⱼ), where f(r) is the electron density contribution from one neighbor at distance r. Typically: f(r) = f₀ × exp(−β(r − r₀)). More neighbors or closer neighbors = higher ρ̄." },
+            { term:"ρ̄ᵢ", color:T.eo_valence, what:"Host Electron Density", desc:"The total electron density at the site of atom i, contributed by all neighboring atoms j. Calculated as: ρ̄ᵢ = Σⱼ f(rᵢⱼ), where f(r) is the electron density contribution from one neighbor at distance r. Typically: f(r) = f₀ × exp(−β(r − r₀)). More neighbors or closer neighbors = higher ρ̄." },
             { term:"f(rᵢⱼ)", color:"#317583", what:"Atomic Density Function", desc:"The electron density contribution from a single neighbor atom j at distance rᵢⱼ. Decays exponentially with distance — nearby atoms contribute much more density than distant ones. This function is element-specific: Cu and Al have different f(r). Beyond the cutoff distance (typically 5-6 Å), f(r) = 0." },
           ].map((item, i) => (
             <div key={i} style={{ background:T.panel, border:`1px solid ${item.color}33`,  borderRadius:6, padding:"8px 10px" }}>
@@ -4692,14 +4692,14 @@ function EAMSection() {
 
           <div style={{ marginTop:12, background:T.surface, borderRadius:8, padding:12, border:`1px solid ${T.border}` }}>
             <div style={{ fontSize:10, color:T.muted, marginBottom:8, letterSpacing:2 }}>Step-BY-step CALCULATION (Cu, FCC)</div>
-            <CalcRow eq="Step 1: Density from ONE neighbor at distance r" result="" color={T.eo_valence}/>
+            <CalcRow eq="Step 1: Density from one neighbor at distance r" result="" color={T.eo_valence}/>
             <CalcRow eq={`  f(${r.toFixed(2)}) = f₀ × exp(−β × (r − r₀))`} result="" color={T.eo_valence}/>
             <CalcRow eq={`  = 1.0 × exp(−1.5 × (${r.toFixed(2)} − 2.55))`} result={`${fDens(r).toFixed(4)}`} color={T.eo_valence}/>
             <CalcRow eq="Step 2: Total electron density at atom site" result="" color={T.eo_core}/>
             <CalcRow eq={`  ρ̄ = N × f(r) × scale = ${nNeighbors} × ${fDens(r).toFixed(4)} × ${rhoScale.toFixed(2)}`} result={`${rhoAtom.toFixed(3)}`} color={T.eo_core}/>
             <CalcRow eq="Step 3: Embedding energy (many-body term)" result="" color={T.eo_core}/>
             <CalcRow eq={`  F(ρ̄) = −√ρ̄ = −√${rhoAtom.toFixed(3)}`} result={`${embedE.toFixed(4)} eV`} color={T.eo_core}/>
-            <CalcRow eq="Step 4: Pair potential from ONE neighbor" result="" color={T.eo_e}/>
+            <CalcRow eq="Step 4: Pair potential from one neighbor" result="" color={T.eo_e}/>
             <CalcRow eq={`  φ(${r.toFixed(2)}) = A·e^(−α·Δr) − B·e^(−β₂·Δr)`} result={`${phi(r).toFixed(4)} eV`} color={T.eo_e}/>
             <CalcRow eq="Step 5: Total pair energy (all neighbors)" result="" color={T.eo_e}/>
             <CalcRow eq={`  ½ × ${nNeighbors} × ${phi(r).toFixed(4)}`} result={`${pairE.toFixed(4)} eV`} color={T.eo_e}/>
@@ -4789,13 +4789,13 @@ function ReaxFFSection() {
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8, marginTop:10 }}>
           {[
             { term:"E_bond", color:T.eo_core, what:"Bond Energy", desc:"Energy from chemical bonds. Depends on bond order (BO). Stronger bond = more negative energy. When BO = 0, E_bond = 0 (no bond)." },
-            { term:"E_over", color:T.eo_gap, what:"Overcoordination Penalty", desc:"Penalty when an atom has MORE bonds than its valence allows. Example: carbon forming 5 bonds. Forces atoms to respect their maximum valence." },
+            { term:"E_over", color:T.eo_gap, what:"Overcoordination Penalty", desc:"Penalty when an atom has more bonds than its valence allows. Example: carbon forming 5 bonds. Forces atoms to respect their maximum valence." },
             { term:"E_under", color:"#317583", what:"Undercoordination Stabilization", desc:"Stabilization when an atom has FEWER bonds than expected. Captures the energy gain from pi-bonding in unsaturated molecules (double/triple bonds)." },
             { term:"E_lp", color:T.eo_valence, what:"Lone Pair Energy", desc:"Energy from non-bonding electron pairs. Oxygen has 2 lone pairs, nitrogen has 1. Lone pairs affect geometry (bent H2O vs linear CO2) and reactivity." },
             { term:"E_val", color:T.eo_cond, what:"Valence Angle Energy", desc:"Energy cost of bending bond angles. Like classical angle term BUT depends on BO. When a bond breaks (BO = 0), the angle term smoothly vanishes." },
             { term:"E_tor", color:"#3a8c9c", what:"Torsion Angle Energy", desc:"Energy barrier to rotation around a bond. Also depends on BO. Captures the difference between eclipsed and staggered conformations in organic molecules." },
-            { term:"E_vdW", color:T.eo_e, what:"van der Waals Energy", desc:"Non-bonded attraction/repulsion between ALL atom pairs. Uses a Morse-like potential. Critically: calculated for EVERY pair, even bonded ones (BO-independent)." },
-            { term:"E_Coul", color: "#1a5a66", what:"Coulomb Energy", desc:"Electrostatic interaction between charged atoms. Charges are NOT fixed — ReaxFF uses the EEM (Electronegativity Equalization Method) to dynamically compute charges at each step." },
+            { term:"E_vdW", color:T.eo_e, what:"van der Waals Energy", desc:"Non-bonded attraction/repulsion between all atom pairs. Uses a Morse-like potential. Critically: calculated for every pair, even bonded ones (BO-independent)." },
+            { term:"E_Coul", color: "#1a5a66", what:"Coulomb Energy", desc:"Electrostatic interaction between charged atoms. Charges are not fixed — ReaxFF uses the EEM (Electronegativity Equalization Method) to dynamically compute charges at each step." },
           ].map((item, i) => (
             <div key={i} style={{ background:T.panel, border:`1px solid ${item.color}33`,  borderRadius:6, padding:"8px 10px" }}>
               <div style={{ fontSize:11, fontWeight:500, color:item.color, marginBottom:2 }}>{item.what} ({item.term})</div>
@@ -5042,7 +5042,7 @@ function ReaxFFTrainingSection() {
         </div>
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8 }}>
           {[
-            { cat:"General Parameters (39)", color:T.eo_core, params:"Overcoordination penalties, valence angle conjugation weights, torsion conjugation, hydrogen bond strength, and global cutoffs. These affect ALL atom types." },
+            { cat:"General Parameters (39)", color:T.eo_core, params:"Overcoordination penalties, valence angle conjugation weights, torsion conjugation, hydrogen bond strength, and global cutoffs. These affect all atom types." },
             { cat:"Atom Parameters (32 per element)", color:T.eo_e, params:"r_σ, r_π, r_ππ (bond radii), electronegativity χ, hardness η (for EEM charges), valence, mass, lone pair energy, and over/undercoordination parameters. Example: C has Val=4, r_σ=1.54 Å." },
             { cat:"Bond Parameters (16 per pair)", color:T.eo_valence, params:"D_e (dissociation energy), p_be1, p_be2 (bond energy exponents), p_bo1-p_bo6 (bond order parameters for σ, π, ππ), p_over (overcoordination), and 1/3-body conjugation." },
             { cat:"Off-diagonal (6 per pair)", color:"#3a8c9c", params:"D_ij, r_vdW, α_ij, r_σ, r_π, r_ππ for heterogeneous pairs (C-O, C-N). Override combination rules when element-specific interactions are needed." },
@@ -5523,7 +5523,7 @@ function SNAPMTPACESection() {
                 {["Run MD", "Detect\nextrapolation", "Run DFT", "Retrain\nMTP"].map((step, i) => (
                   <div key={i} style={{ background: "#37869511", border: "1px solid #37869533", borderRadius: 6, padding: "6px 4px", textAlign: "center" }}>
                     <div style={{ fontSize: 9, fontWeight: 500, color: "#378695", whiteSpace: "pre-line" }}>{step}</div>
-                    {i < 3 && <div style={{ fontSize: 14, color: T.dim, marginTop: 2 }}>→</div>}
+                    {i < 3 && <div style={{ fontSize: 14, color: T.muted, marginTop: 2 }}>→</div>}
                   </div>
                 ))}
               </div>
@@ -6045,7 +6045,7 @@ function DFTFAQSection() {
       </FAQAccordion>
 
       {/* 2. What is an orbital */}
-      <FAQAccordion title={"Q2. What actually IS an electron orbital?"} color={D.eqn} isOpen={openQ === "Q2"} onClick={() => toggle("Q2")}>
+      <FAQAccordion title={"Q2. What actually is an electron orbital?"} color={D.eqn} isOpen={openQ === "Q2"} onClick={() => toggle("Q2")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
           <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
             <div style={{ fontSize: 11, fontWeight: 500, color: "#1a5a66", marginBottom: 4 }}>Simple English</div>
@@ -7398,7 +7398,7 @@ function DFTFAQSection() {
             { label: "Hartree potential (electron-electron)", detail: "Solved via Poisson's equation: ∇²v_H(r) = −4πn(r). In plane-wave codes, this becomes multiplication in reciprocal space: v_H(G) = 4πn(G)/|G|². The G=0 component is handled by a uniform background charge. This is exact and costs O(N log N) via FFT.", color: D.main },
             { label: "Ion-ion (Madelung) energy", detail: "The electrostatic energy of point charges on a lattice. Computed via Ewald summation: split 1/r into a short-range erfc(αr)/r (real-space sum, converges fast) and a long-range erf(αr)/r (reciprocal-space sum, also converges fast). The parameter α controls the split.", color: D.eqn },
             { label: "Electron-ion interaction", detail: "Also long-range (−Z/|r−R_I|). Handled by pseudopotentials: the local part is smooth and treated in reciprocal space, the non-local part is short-range by construction (confined within the PAW sphere).", color: D.basis },
-            { label: "Van der Waals (dispersion)", detail: "NOT captured by standard DFT — the XC functional is local/semi-local. Requires explicit corrections: DFT-D3/D4 adds empirical −C₆/R⁶ terms. vdW-DF adds a non-local correlation kernel. MBD (many-body dispersion) captures collective screening effects.", color: D.accent },
+            { label: "Van der Waals (dispersion)", detail: "Not captured by standard DFT — the XC functional is local/semi-local. Requires explicit corrections: DFT-D3/D4 adds empirical −C₆/R⁶ terms. vdW-DF adds a non-local correlation kernel. MBD (many-body dispersion) captures collective screening effects.", color: D.accent },
             { label: "Dipole corrections (slabs/molecules)", detail: "Periodic boundary conditions create artificial electric fields across slab models. Dipole corrections add a compensating field in the vacuum region to remove this artifact. Essential for polar surfaces and asymmetric slabs.", color: D.warm },
           ].map(item => (
             <div key={item.label} style={{ background: item.color + "06", borderRadius: 10, padding: "12px 14px", border: `1px solid ${item.color}15` }}>
@@ -7499,8 +7499,8 @@ function DFTFAQSection() {
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {[
               { term: "v_ext(r) — nuclear attraction", what: "The pull of nuclei on electrons. Purely classical, exact, same in every DFT method.", changes: "NO — identical in PBE, HSE06, HF, everything", color: D.basis },
-              { term: "v_H(r) — Hartree (classical repulsion)", what: "The classical Coulomb repulsion of the total electron density n(r) with itself. Computed as v_H(r) = ∫ n(r')/|r−r'| dr'. This is NOT exchange. It treats electrons as a smooth charge cloud.", changes: "NO — identical in PBE, HSE06, HF. Always present, always the same.", color: D.main },
-              { term: "v_xc(r) — exchange-correlation", what: "The QUANTUM correction. Exchange (Pauli avoidance of same-spin electrons) + correlation (dynamic avoidance of all electrons). This is what differs between methods.", changes: "YES — THIS is what HSE06 modifies!", color: D.xc },
+              { term: "v_H(r) — Hartree (classical repulsion)", what: "The classical Coulomb repulsion of the total electron density n(r) with itself. Computed as v_H(r) = ∫ n(r')/|r−r'| dr'. This is not exchange. It treats electrons as a smooth charge cloud.", changes: "NO — identical in PBE, HSE06, HF. Always present, always the same.", color: D.main },
+              { term: "v_xc(r) — exchange-correlation", what: "The QUANTUM correction. Exchange (Pauli avoidance of same-spin electrons) + correlation (dynamic avoidance of all electrons). This is what differs between methods.", changes: "Yes — this is what HSE06 modifies!", color: D.xc },
             ].map(item => (
               <div key={item.term} style={{ background: item.color + "06", borderRadius: 10, padding: "12px 14px", border: `1px solid ${item.color}15` }}>
                 <div style={{ fontSize: 13, fontWeight: 500, color: item.color }}>{item.term}</div>
@@ -7595,13 +7595,13 @@ function DFTFAQSection() {
       </FAQAccordion>
 
       {/* Q38. Classical vs quantum avoidance */}
-      <FAQAccordion title={"Q38. Electrons already avoid each other classically (Coulomb). So why do we need exchange AND correlation on top?"} color={D.warm} isOpen={openQ === "Q38"} onClick={() => toggle("Q38")}>
+      <FAQAccordion title={"Q38. Electrons already avoid each other classically (Coulomb). So why do we need exchange and correlation on top?"} color={D.warm} isOpen={openQ === "Q38"} onClick={() => toggle("Q38")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
             <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine a stadium with assigned seats. Classical avoidance = 'don't sit on someone's lap' (charge repulsion, handled by v<sub>H</sub>). Exchange = 'identical twins refuse to sit next to each other' (Pauli, quantum). Correlation = 'even non-twins shift apart slightly because they don't like being close' (dynamic quantum dodging). Three separate effects!</span></div>
           </div>
           <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
             <div style={{ fontSize: 11, fontWeight: 500, color: "#1a5a66", marginBottom: 4 }}>Simple English</div>
-            <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Yes, electrons DO repel each other classically via Coulomb's law, and the Hartree term v_H captures this. But v_H treats electrons as a smooth, average charge cloud — it doesn't know that electrons are discrete particles that actively dodge each other in real time. Exchange and correlation capture the EXTRA avoidance that the classical average misses. v_H says "the average traffic density here is 50 cars/km, so expect some resistance." Exchange and correlation say "but actually, there's a specific car right in front of you that you need to dodge RIGHT NOW."</div>
+            <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Yes, electrons DO repel each other classically via Coulomb's law, and the Hartree term v_H captures this. But v_H treats electrons as a smooth, average charge cloud — it doesn't know that electrons are discrete particles that actively dodge each other in real time. Exchange and correlation capture the EXTRA avoidance that the classical average misses. v_H says "the average traffic density here is 50 cars/km, so expect some resistance." Exchange and correlation say "but actually, there's a specific car right in front of you that you need to dodge right now."</div>
           </div>
 
         <Card title="The four layers of electron-electron interaction" color={D.eqn}>
@@ -8301,7 +8301,7 @@ function DFTLDASection() {
             { label: "Quick screening", desc: "Fast estimates of trends across many structures before using a more expensive functional", color: D.basis },
             { label: "Metals", desc: "Metallic systems where the electron density is relatively uniform — LDA's sweet spot", color: D.warm },
             { label: "Lattice dynamics", desc: "Phonon calculations where relative energy differences matter more than absolute values", color: D.accent },
-            { label: "NOT for band gaps", desc: "LDA severely underestimates band gaps (Si: 0.52 vs 1.17 eV expt). Use HSE06 or GW instead.", color: D.warn },
+            { label: "Not for band gaps", desc: "LDA severely underestimates band gaps (Si: 0.52 vs 1.17 eV expt). Use HSE06 or GW instead.", color: D.warn },
           ].map(item => (
             <div key={item.label} style={{
               background: item.color + "06", borderRadius: 10, padding: "10px 14px",
@@ -8739,7 +8739,7 @@ function DFTDFTUSection() {
         <div style={mathBlock}>
           <span style={{ color: D.warm, fontWeight: 500 }}>Scan U from 0 to 7 eV for FeO rock-salt structure</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Calculate band gap for each U:<br />
-          {"  U = 0 eV:  gap = 0.0 eV  (metal — WRONG)"}<br />
+          {"  U = 0 eV:  gap = 0.0 eV  (metal — wrong)"}<br />
           {"  U = 2 eV:  gap = 0.8 eV  (small gap opens)"}<br />
           {"  U = 3 eV:  gap = 1.5 eV"}<br />
           {"  U = 4 eV:  gap = "}<span style={{ color: D.basis, fontWeight: 500 }}>{"2.1 eV"}</span><br />
@@ -8868,7 +8868,7 @@ function DFTSelfInteractionSection() {
           {"  E(exact) = −0.603 Ha,  E(PBE) = −0.596 Ha"}<br />
           {"  Error: 0.007 Ha = 0.19 eV (small, acceptable)"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> At large separation (R = 10 Å):<br />
-          {"  Exact: H₂⁺ → H + H⁺ (electron localizes on ONE proton)"}<br />
+          {"  Exact: H₂⁺ → H + H⁺ (electron localizes on one proton)"}<br />
           {"  E(exact) = −0.500 Ha"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> PBE at R = 10 Å:<br />
           {fx("  PBE: H₂⁺ → H^(0.5) + H^(0.5) (electron splits equally!)")}<br />
@@ -10131,7 +10131,7 @@ function DFTNaExampleSection() {
               {" = "}<span style={{ fontWeight: 500, color: step.conv ? "#50a1b1" : T.ink }}>{step.E.toFixed(3)} eV</span><br />
               ΔE = {step.dE} eV<br /><br />
               {"Convergence: "}<span style={{ color: step.conv ? "#50a1b1" : D.warn, fontWeight: 500 }}>
-                {step.conv ? "YES ✔ (ΔE < 10⁻⁶ eV)" : `NO (need ΔE < 10⁻⁶ eV)`}
+                {step.conv ? "Yes ✔ (ΔE < 10⁻⁶ eV)" : `NO (need ΔE < 10⁻⁶ eV)`}
               </span>
             </div>
 
@@ -10211,7 +10211,7 @@ function DFTNaExampleSection() {
               { orb: "2p", occ: 6, energy: "-30.7", color: D.basis },
               { orb: "3s", occ: 1, energy: "-5.14", color: D.xc },
               { orb: "3p", occ: 0, energy: "-1.06", color: T.muted },
-              { orb: "3d", occ: 0, energy: "-0.05", color: T.dim },
+              { orb: "3d", occ: 0, energy: "-0.05", color: T.muted },
             ].map(o => (
               <div key={o.orb} style={{ padding: "8px 10px", textAlign: "center",
                 opacity: o.occ > 0 ? 1 : 0.5 }}>
@@ -10347,7 +10347,7 @@ function BrillouinZoneAnalogy() {
             {[
               { label: "Γ (Gamma)", where: "Dead center of the BZ", meaning: "Longest possible wavelength. All unit cells in the crystal do the same thing simultaneously. Like all atoms breathing in and out together.", color: "#398a9a", icon: "●" },
               { label: "X", where: "Center of a face (square face edge)", meaning: "Wavelength = 2a (twice the lattice spacing). The wave flips sign between neighboring cells in one direction. In Si, the conduction band minimum is near X — determines if bandgap is indirect.", color: "#1a5a66", icon: "■" },
-              { label: "M", where: "Center of an edge", meaning: "Wave flips in TWO directions. Neighboring cells along both x and y have opposite signs. Short wavelength, high energy region. Important in 2D materials like graphene.", color: "#317583", icon: "◆" },
+              { label: "M", where: "Center of an edge", meaning: "Wave flips in two directions. Neighboring cells along both x and y have opposite signs. Short wavelength, high energy region. Important in 2D materials like graphene.", color: "#317583", icon: "◆" },
               { label: "K", where: "Corner of hexagonal face", meaning: "Highest symmetry corner point. In graphene, the famous Dirac cones (zero bandgap) occur exactly at K. This is where graphene gets its special electronic properties.", color: "#378695", icon: "▲" },
               { label: "L", where: "Center of hexagonal face (FCC)", meaning: "Wave flips along the body diagonal (111 direction). In GaAs and many III-V semiconductors, L-point valleys affect high-field transport.", color: "#347d8b", icon: "●" },
             ].map(pt => (
@@ -10451,7 +10451,7 @@ function DFTSCFWalkthroughSection() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 10 }}>
           {[
-            { guess: "Superposition of atomic densities", desc: "Sum up free-atom densities. Most codes use this. For He, it IS the atom, so we use a hydrogen-like guess instead.", color: D.eqn },
+            { guess: "Superposition of atomic densities", desc: "Sum up free-atom densities. Most codes use this. For He, it is the atom, so we use a hydrogen-like guess instead.", color: D.eqn },
             { guess: "Hydrogen-like with Z_eff", desc: "n⁰(r) = (2/π) Z³ exp(−2Zr) with Z=2 (bare nuclear charge). This ignores electron-electron screening — the density is too compact.", color: D.basis },
             { guess: "Random density", desc: "Terrible idea but technically works. SCF will converge but may need 100+ iterations.", color: D.warn },
           ].map(item => (
@@ -11551,7 +11551,7 @@ function MDEnsemblesSection() {
       color: MD.newton },
     { id: "NVT", name: "NVT (Canonical)", analogy: "A beaker in a water bath. The water bath holds the temperature constant. If the beaker gets too hot, heat flows out to the bath. Too cold? Heat flows in. The Nosé-Hoover thermostat is the 'water bath' — it adds a friction term ξ that speeds up or slows down atoms to maintain the target temperature.",
       fixed: "N, V, T", varies: "E, P",
-      mechanism: "Nosé-Hoover thermostat adds a friction variable ξ to the equations of motion. When T > T_target, ξ > 0 (friction slows atoms). When T < T_target, ξ < 0 (anti-friction speeds them up). Energy is NOT conserved — the thermostat exchanges energy with the system.",
+      mechanism: "Nosé-Hoover thermostat adds a friction variable ξ to the equations of motion. When T > T_target, ξ > 0 (friction slows atoms). When T < T_target, ξ < 0 (anti-friction speeds them up). Energy is not conserved — the thermostat exchanges energy with the system.",
       equation: "mᵢ aᵢ = Fᵢ − ξ mᵢ vᵢ\ndξ/dt = (1/Q)[Σ mᵢvᵢ² − 3NkᵦT_target]",
       use: "Most common ensemble. Fixed-T property calculations, defect studies, equilibrium sampling.",
       vasp: "IBRION=0, SMASS=0 (Nosé-Hoover), ISIF=2, TEBEG=T, TEEND=T",
@@ -11681,7 +11681,7 @@ function MDEnsemblesSection() {
             <tbody>
               {[
                 ["Nosé-Hoover", "Extended Lagrangian with fictitious mass Q. Adds friction ξ that self-adjusts.", "Correct NVT ensemble. Standard choice. Q controls coupling — too small = oscillations, too large = slow equilibration."],
-                ["Berendsen", "Rescale velocities: v_new = v × √(1 + Δt/τ × (T_target/T − 1))", "Fast equilibration but WRONG ensemble (no fluctuations). Only for equilibration, never production."],
+                ["Berendsen", "Rescale velocities: v_new = v × √(1 + Δt/τ × (T_target/T − 1))", "Fast equilibration but wrong ensemble (no fluctuations). Only for equilibration, never production."],
                 ["Langevin", "Add random force + friction: F_total = F − γmv + R(t)", "Correct ensemble. Good for rare events. But contaminates dynamics — can't compute diffusion directly."],
                 ["Velocity rescaling", "v_new = v × √(T_target/T_inst) every step", "Simplest but most unphysical. Only for initial equilibration."],
               ].map(([name, method, pros], i) => (
@@ -12935,7 +12935,7 @@ function MDFAQSection() {
         <div style={mdMathBlock}>
           <span style={{ color: MD.main, fontWeight: 500 }}>Dimensionality example — 64-atom Cu cell:</span><br />
           {"  PES has 3 × 64 = 192 dimensions"}<br />
-          {"  Each MD step samples ONE point on this 192D surface"}<br />
+          {"  Each MD step samples one point on this 192D surface"}<br />
           {"  A 10 ps trajectory (5000 steps) traces a path through 192D space"}<br />
           {"  Minima = equilibrium structures, saddle points = transition states"}
         </div>
@@ -13067,7 +13067,7 @@ function MDFAQSection() {
           <span style={{ color: MD.warn, fontWeight: 500 }}>The cutoff constraint:</span><br />
           {fx("  r_cut < L/2  (must not interact with own periodic image)")}<br />
           {fx("  For 64-atom Cu cell: L = 7.23 Å → r_cut < 3.6 Å")}<br />
-          {"  This is WHY you need large supercells for long-range potentials!"}
+          {"  This is why you need large supercells for long-range potentials!"}
         </div>
       </FAQAccordion>
 
@@ -13131,7 +13131,7 @@ function MDFAQSection() {
           <span style={{ color: MD.main, fontWeight: 500 }}>g(r) = (V/N²) × ⟨Σᵢ Σⱼ≠ᵢ δ(r − rᵢⱼ)⟩ / (4πr²dr)</span><br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>What g(r) tells you:</span><br />
           {"  g(r) = 0:  no atoms at this distance (inside atomic core)"}<br />
-          {"  g(r) > 1:  MORE atoms than random (preferred distance)"}<br />
+          {"  g(r) > 1:  More atoms than random (preferred distance)"}<br />
           {"  g(r) = 1:  random/uniform distribution (far from center)"}<br />
           {"  g(r) < 1:  FEWER atoms than random (depleted zone)"}<br /><br />
           <span style={{ color: MD.newton, fontWeight: 500 }}>FCC Cu peaks:</span><br />
@@ -13157,9 +13157,9 @@ function MDFAQSection() {
           {"  2. Use multiple time origins for better statistics"}<br />
           {"  3. Fit the LINEAR region only (skip initial ballistic regime)"}<br />
           {"  4. Ballistic regime: MSD ∝ t² (first ~0.5 ps) — DON’T fit this"}<br />
-          {"  5. Diffusive regime: MSD ∝ t (after ~1-5 ps) — fit THIS"}<br /><br />
+          {"  5. Diffusive regime: MSD ∝ t (after ~1-5 ps) — fit this"}<br /><br />
           <span style={{ color: MD.warn, fontWeight: 500 }}>Common mistake:</span><br />
-          {"  If MSD is NOT linear → system not diffusing (too cold, too short)"}<br />
+          {"  If MSD is not linear → system not diffusing (too cold, too short)"}<br />
           {"  Need MSD > 1 Å² for reliable D (atom moved ~1 bond length)"}
         </div>
       </FAQAccordion>
@@ -13288,7 +13288,7 @@ function MDFAQSection() {
 
       {/* MQ22 */}
       <FAQAccordion title={"MQ22. What is the Green-Kubo relation and how does it connect to transport properties?"} color={MD.prop} isOpen={openQ === "MQ22"} onClick={() => toggle("MQ22")}>
-        <div style={{ display: "flex", gap: 10, padding: "2px 0", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The Green-Kubo relations are a deep result of statistical mechanics: ANY transport coefficient (diffusion, viscosity, thermal conductivity) can be written as the time integral of an autocorrelation function. It{"’"}s a bridge from microscopic fluctuations to macroscopic transport.</span></div>
+        <div style={{ display: "flex", gap: 10, padding: "2px 0", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The Green-Kubo relations are a deep result of statistical mechanics: Any transport coefficient (diffusion, viscosity, thermal conductivity) can be written as the time integral of an autocorrelation function. It{"’"}s a bridge from microscopic fluctuations to macroscopic transport.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.prop, fontWeight: 500 }}>General form:</span><br />
           {"  L = (1/kBT) ∫₀^∞ ⟨J(0)·J(t)⟩ dt"}<br /><br />
@@ -13315,7 +13315,7 @@ function MDFAQSection() {
           <span style={{ color: MD.thermo, fontWeight: 500 }}>Cu example (Debye T = 343 K):</span><br />
           {"  At 300 K: Cv(exp) = 24.4 J/(mol·K) < 3R = 24.9 (close to classical)"}<br />
           {"  At 50 K:  Cv(exp) = 6.5 J/(mol·K) << 3R (quantum effects huge)"}<br />
-          {"  Classical MD would give 24.9 at BOTH temperatures — wrong at 50 K!"}
+          {"  Classical MD would give 24.9 at both temperatures — wrong at 50 K!"}
         </div>
       </FAQAccordion>
 
@@ -13326,7 +13326,7 @@ function MDFAQSection() {
           <span style={{ color: MD.thermo, fontWeight: 500 }}>Parrinello-Rahman: cell matrix h becomes a dynamic variable</span><br />
           {fx("  W × d²h/dt² = V × (P_int − P_ext)  + thermostat coupling")}<br />
           {"  W = fictitious cell mass (controls coupling speed)"}<br /><br />
-          {"  Cell can change volume AND shape (all 6 strain components)"}<br />
+          {"  Cell can change volume and shape (all 6 strain components)"}<br />
           {"  Correct NPT ensemble (proper fluctuations)"}<br /><br />
           <span style={{ color: MD.warn, fontWeight: 500 }}>Berendsen barostat (for equilibration only):</span><br />
           {fx("  Scale cell by factor μ = [1 − (βΔt/τ_P)(P_target − P)]^(1/3)")}<br />
@@ -13416,7 +13416,7 @@ function MDFAQSection() {
         <div style={mdMathBlock}>
           <span style={{ color: MD.thermo, fontWeight: 500 }}>The problem:</span><br />
           {"  Coulomb: V = qᵢqⱼ/r  decays as 1/r"}<br />
-          {"  In 3D periodic system: sum over ALL images → conditionally convergent"}<br />
+          {"  In 3D periodic system: sum over all images → conditionally convergent"}<br />
           {fx("  Truncation at r_cut introduces ~10% error for ionic systems")}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>Ewald splits 1/r:</span><br />
           {"  1/r = erfc(αr)/r + erf(αr)/r"}<br />
@@ -13455,7 +13455,7 @@ function MDFAQSection() {
           {fx("  Barrier E_a = 1 eV at T = 300 K")}<br />
           {fx("  Rate = ν₀ × exp(−E_a/kBT) = 10¹³ × exp(−38.7) = 10¹³ × 10⁻¹⁷")}<br />
           {"       = 10⁻⁴ /s → one event every 10,000 seconds"}<br />
-          {"  MD can simulate ~10⁻⁹ s → will NEVER see this event"}<br /><br />
+          {"  MD can simulate ~10⁻⁹ s → will never see this event"}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>Enhanced sampling methods:</span><br />
           {"  Metadynamics: add bias potential that fills visited minima → system escapes"}<br />
           {"  Umbrella sampling: constrain system along reaction coordinate, compute free energy"}<br />
@@ -13505,7 +13505,7 @@ function MDFAQSection() {
 
       {/* MQ34 */}
       <FAQAccordion title={"MQ34. What is the correlation time and why does it affect statistical error?"} color={MD.prop} isOpen={openQ === "MQ34"} onClick={() => toggle("MQ34")}>
-        <div style={{ display: "flex", gap: 10, padding: "2px 0", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>⏰</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Consecutive MD frames are NOT independent samples — atom 1{"’"}s position at t=100 fs is nearly the same as at t=101 fs. The correlation time τ_c tells you how long you must wait between INDEPENDENT samples. Your effective sample size is N_eff = t_total / τ_c, not t_total / Δt.</span></div>
+        <div style={{ display: "flex", gap: 10, padding: "2px 0", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>⏰</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Consecutive MD frames are not independent samples — atom 1{"’"}s position at t=100 fs is nearly the same as at t=101 fs. The correlation time τ_c tells you how long you must wait between INDEPENDENT samples. Your effective sample size is N_eff = t_total / τ_c, not t_total / Δt.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.prop, fontWeight: 500 }}>Autocorrelation function of observable A:</span><br />
           {fx("  C_A(t) = ⟨δA(0)·δA(t)⟩ / ⟨δA²⟩")}<br />
@@ -13599,7 +13599,7 @@ function MDFAQSection() {
           <span style={{ color: MD.thermo, fontWeight: 500 }}>The entropy problem:</span><br />
           {"  G = H − TS = E + PV − TS"}<br />
           {"  MD directly gives: ⟨E⟩, ⟨P⟩, ⟨V⟩"}<br />
-          {"  MD does NOT directly give: S (entropy)"}<br /><br />
+          {"  MD does not directly give: S (entropy)"}<br /><br />
           {"  S = kB ln(Ω) where Ω = number of accessible microstates"}<br />
           {"  You can’t count Ω by sampling — it’s a VOLUME, not an average"}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>Free energy methods:</span><br />
@@ -13644,9 +13644,9 @@ function MDFAQSection() {
           {"  if Δx > L/2: Δx -= L"}<br />
           {"  if Δx < -L/2: Δx += L"}<br /><br />
           <span style={{ color: MD.warn, fontWeight: 500 }}>{fx("Artifact when r_cut > L/2:")}</span><br />
-          {"  Atom i interacts with atom j AND its image j’"}<br />
+          {"  Atom i interacts with atom j and its image j’"}<br />
           {"  Forces are double-counted → energy is wrong"}<br />
-          {"  For long-range potentials (Coulomb): ALWAYS use Ewald, never truncate"}<br /><br />
+          {"  For long-range potentials (Coulomb): Always use Ewald, never truncate"}<br /><br />
           <span style={{ color: T.muted }}>{fx("Safe check: in your MD output, verify r_cut < L_min/2 where L_min is the")}</span><br />
           <span style={{ color: T.muted }}>shortest box dimension.</span>
         </div>
@@ -14541,7 +14541,7 @@ function CHThermoSection() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
             {[
               { title: "High-T Polymorphs", desc: "Rutile vs anatase TiO₂ — anatase is metastable at 0 K but common at low-T synthesis.", color: CH.unstab },
-              { title: "Entropy-Stabilized Phases", desc: "High-entropy oxides (5+ cations) are stable ONLY because of configurational entropy.", color: CH.warm },
+              { title: "Entropy-Stabilized Phases", desc: "High-entropy oxides (5+ cations) are stable only because of configurational entropy.", color: CH.warm },
               { title: "Order-Disorder Transitions", desc: "Cu₃Au is ordered at 0 K, disordered above ~390°C. Hull changes with temperature.", color: CH.accent },
             ].map(s => (
               <div key={s.title} style={{ padding: "14px 16px" }}>
@@ -16261,7 +16261,7 @@ function CHBigQuestionsSection() {
       </div>
 
       {/* ═══ PQ1–PQ5: Phase Diagrams ═══ */}
-      <FAQAccordion title={"PQ1. What exactly IS a phase?"} color={T.ch_main} isOpen={openQ === "PQ1"} onClick={() => toggle("PQ1")}>
+      <FAQAccordion title={"PQ1. What exactly is a phase?"} color={T.ch_main} isOpen={openQ === "PQ1"} onClick={() => toggle("PQ1")}>
         <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_main }}> <b>Analogy:</b> Think of ice, liquid water, and steam — same H₂O molecules, but completely different arrangements. Each arrangement is a distinct phase.</span>
         </div>
@@ -16514,7 +16514,7 @@ function CHBigQuestionsSection() {
           <span style={{ fontSize: 12, color: T.ch_unstab }}> <b>Analogy:</b> A ball balanced on a hilltop has positive potential energy vs. the valley, but it stays put unless something pushes it. Some "unstable" compounds persist for millennia because they can't find a path downhill.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-          ΔH_f {">"} 0 means the compound is energetically unfavorable vs. pure elements at 0K. But it does NOT mean the compound cannot exist! Entropy can stabilize it at high T (ΔG = ΔH − TΔS {"<"} 0), or kinetic barriers can trap it as a metastable phase.
+          ΔH_f {">"} 0 means the compound is energetically unfavorable vs. pure elements at 0K. But it does not mean the compound cannot exist! Entropy can stabilize it at high T (ΔG = ΔH − TΔS {"<"} 0), or kinetic barriers can trap it as a metastable phase.
         </div>
         <div style={mb}>
           <span style={{ color: T.ch_unstab, fontWeight: 500 }}>ΔH_f {">"} 0 but compound still exists? Three scenarios:</span><br /><br />
@@ -16528,7 +16528,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       {/* ═══ PQ16–PQ20: Convex Hull ═══ */}
-      <FAQAccordion title={"PQ16. What IS a convex hull, geometrically?"} color={T.ch_hull} isOpen={openQ === "PQ16"} onClick={() => toggle("PQ16")}>
+      <FAQAccordion title={"PQ16. What is a convex hull, geometrically?"} color={T.ch_hull} isOpen={openQ === "PQ16"} onClick={() => toggle("PQ16")}>
         <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_hull }}> <b>Analogy:</b> Imagine scattering pins on a board and stretching a rubber band around the outermost ones. The rubber band forms the "convex hull." In thermodynamics, we want the lower hull — the floor, not the ceiling.</span>
         </div>
@@ -17015,7 +17015,7 @@ const CH_SECTIONS = [
   { id: "overview", block: "overview", label: "What is a Computational Phase Diagram?", color: T.ch_main, Component: CHOverviewSection, nextReason: "The big picture is clear — computational phase diagrams map stability from DFT. Before we build one, we need to understand the thermodynamic framework: what determines whether a compound is stable or not." },
 
   // Block 2: Thermodynamics (new — before convex hull)
-  { id: "thermo", block: "thermo", label: "Gibbs Free Energy & Stability", color: T.ch_accent, Component: CHThermoSection, nextReason: "Free energy sets the rules of stability. Now we need a specific tool to compare ALL possible phases at once — the convex hull plots formation energy vs. composition and identifies which phases are thermodynamically stable." },
+  { id: "thermo", block: "thermo", label: "Gibbs Free Energy & Stability", color: T.ch_accent, Component: CHThermoSection, nextReason: "Free energy sets the rules of stability. Now we need a specific tool to compare all possible phases at once — the convex hull plots formation energy vs. composition and identifies which phases are thermodynamically stable." },
   { id: "thermo_form", block: "thermo", label: "Formation Energy", color: T.ch_hull, Component: CHFormSection, nextReason: "Formation energies measure stability relative to pure elements. With these energies in hand, the convex hull construction visually identifies which compounds are stable and which will decompose." },
 
   // Block 3: Convex Hull Analysis
@@ -17030,7 +17030,7 @@ const CH_SECTIONS = [
   { id: "chempot", block: "chempot", label: "Chemical Potential Basics", color: T.ch_warm, Component: CHChemPotSection, nextReason: "Binary chemical potentials mastered. Now we see what a chemical potential diagram looks like — a 2D map showing which phase is stable under which conditions." },
   { id: "chemdiagram", block: "chempot", label: "What is a Chem. Pot. Diagram?", color: T.ch_warm, Component: CHChemDiagramSection, nextReason: "The concept is clear. The CZTS example shows the full complexity of a quaternary system with many competing phases." },
   { id: "czts", block: "chempot", label: "CZTS Example (Cu₂ZnSnS₄)", color: T.ch_accent, Component: CHCZTSSection, nextReason: "CZTS competing phases identified. Now build the chemical potential diagram step by step — from DFT energies to inequality constraints to the final stability polygon." },
-  { id: "chemconstruct", block: "chempot", label: "Build the Diagram", color: T.ch_hull, Component: CHChemConstructSection, nextReason: "Thermodynamics says WHAT is stable. But will it actually form? Kinetics determines HOW FAST — nucleation barriers, diffusion rates, and metastable phases that persist because atoms cannot rearrange fast enough." },
+  { id: "chemconstruct", block: "chempot", label: "Build the Diagram", color: T.ch_hull, Component: CHChemConstructSection, nextReason: "Thermodynamics says what is stable. But will it actually form? Kinetics determines how fast — nucleation barriers, diffusion rates, and metastable phases that persist because atoms cannot rearrange fast enough." },
   { id: "kinetics", block: "chempot", label: "Kinetics & Metastability", color: T.ch_warm, Component: CHKineticsSection, nextReason: "Thermodynamics and kinetics are clear. But how do the abstract chemical potentials Δμ connect to real lab knobs — temperature, pressure, gas flow? The next section bridges computation to experiment." },
   { id: "chempot_expt", block: "chempot", label: "μ to Experiment (T, P)", color: T.ch_main, Component: CHChemPotExptSection, nextReason: "Chemical potentials are now connected to real experimental conditions. Chapter 5 (Defects in Semiconductors) applies this framework to charged defects — where formation energy becomes Fermi-level dependent." },
 
@@ -17136,7 +17136,7 @@ function CHTempHullSection() {
             { step: "1. Standard DFT relaxation", detail: "Relax all candidate structures at T = 0 K. Get E_DFT for each. Build the 0 K hull.", color: CH.hull },
             { step: "2. Phonon calculations", detail: "For each phase: build supercell (2×2×2 minimum), displace atoms (0.01 Å), compute forces, build force constant matrix, diagonalise to get phonon frequencies ωᵢ(q) on a q-mesh.", color: CH.accent },
             { step: "3. Check stability", detail: "If any phonon frequency is imaginary (ω² < 0), the phase is dynamically unstable — it will distort. Remove it from the hull or find the true ground state.", color: CH.unstab },
-            { step: "4. Compute F_vib(T)", detail: "From phonon DOS: F_vib(T) = E_ZPE + k_BT ∫ ln(1 − exp(−ℏω/k_BT)) g(ω) dω. Do this for every phase AND the elemental references.", color: CH.main },
+            { step: "4. Compute F_vib(T)", detail: "From phonon DOS: F_vib(T) = E_ZPE + k_BT ∫ ln(1 − exp(−ℏω/k_BT)) g(ω) dω. Do this for every phase and the elemental references.", color: CH.main },
             { step: "5. Rebuild hull at T", detail: "Replace E_DFT with G(T) = E_DFT + F_vib(T) for each phase. Recompute formation energies. Reconstruct the convex hull. Compare with 0 K hull.", color: CH.stable },
             { step: "6. Scan temperatures", detail: "Repeat steps 4-5 for T = 0, 300, 600, 900, 1200 K. Plot how E_above_hull changes with T for each phase. Identify temperature where metastable phases hit the hull.", color: CH.warm },
           ].map(item => (
@@ -17363,7 +17363,7 @@ function CHChemPotExptSection() {
           {"Sn effusion cell: ~1100°C"}<br /><br />
           <span style={{ color: CH.warm }}>{" These are approximate — real MBE geometry, sticking coefficients,"}</span><br />
           <span style={{ color: CH.warm }}>{"and re-evaporation from the substrate will shift optimal conditions."}</span><br />
-          <span style={{ color: CH.stable }}>{"But the DFT chemical potential diagram tells you WHERE in parameter"}</span><br />
+          <span style={{ color: CH.stable }}>{"But the DFT chemical potential diagram tells you where in parameter"}</span><br />
           <span style={{ color: CH.stable }}>{"space to look — narrowing a 4D search to a small region."}
           </span>
         </div>
@@ -18343,7 +18343,7 @@ function FNVCorrectionModule() {
                   background: step.color + "06", borderRadius: 6, padding: "6px 12px",
                   border: `1px solid ${step.color}12`
                 }}>{step.text}</div>
-                {i < 9 && <div style={{ position: "absolute", left: 82, marginTop: 26, color: T.dim, fontSize: 10 }}></div>}
+                {i < 9 && <div style={{ position: "absolute", left: 82, marginTop: 26, color: T.muted, fontSize: 10 }}></div>}
               </div>
             ))}
           </div>
@@ -20980,7 +20980,7 @@ function PLSection() {
     { title: "Step 3: Band-to-Band Recombination", color: T.fnv_elec,
       analogy: "Like jumping directly from the top floor to the ground. The electron falls straight from CB to VB, emitting a photon with energy hν = E_g. This is the strongest peak in the PL spectrum." },
     { title: "Step 4: Defect-Mediated Recombination", color: T.fnv_warm,
-      analogy: "Like taking the stairs instead of jumping. The electron first drops to a defect level (landing), then to VB. The emitted photon has LESS energy: hν = E_g − E_t. This peak fingerprints the defect!" },
+      analogy: "Like taking the stairs instead of jumping. The electron first drops to a defect level (landing), then to VB. The emitted photon has less energy: hν = E_g − E_t. This peak fingerprints the defect!" },
   ];
 
   return (
