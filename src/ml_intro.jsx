@@ -20,8 +20,8 @@ function labelShift(pts) {
 const T = {
   bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
   ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)", gold: "#50a1b1",
-  eo_e: "#123c44", eo_hole: "#4b98a7", eo_photon: "#68adbb",
-  eo_valence: "#1d5b67", eo_core: "#378695", eo_gap: "#347d8b", eo_cond: "#4f9faf"
+  eo_e: "#0d3339", eo_hole: "#4b98a7", eo_photon: "#68adbb",
+  eo_valence: "#134650", eo_core: "#378695", eo_gap: "#347d8b", eo_cond: "#4f9faf"
 };
 
 const M = {
@@ -84,7 +84,7 @@ function CalcRow({ eq, result, color }) {
 function HowItWorks({ steps, color }) {
   return (
     <div style={{ background: "#f8fafa", border: "1.5px solid #50a1b133", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-      <div style={{ fontSize: 12, fontWeight: 500, color: "#50a1b1", marginBottom: 6 }}>How It Works — Step by Step</div>
+      <div style={{ fontSize: 12, fontWeight: 500, color: "#1a5a66", marginBottom: 6 }}>How It Works — Step by Step</div>
       <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink }}>
         {steps.map((step, i) => (
           <div key={i} style={{ marginBottom: 2 }}><strong style={{ color: color || "#50a1b1" }}>{i + 1}.</strong> {step}</div>
@@ -146,9 +146,9 @@ function WhatIsMLSection() {
     { name: "Si",   en: 1.90, radius: 1.17, label: "Semiconductor", color: "#398a9a" },
     { name: "Ge",   en: 2.01, radius: 1.22, label: "Semiconductor", color: "#398a9a" },
     { name: "GaAs", en: 2.18, radius: 1.26, label: "Semiconductor", color: "#398a9a" },
-    { name: "Fe",   en: 1.83, radius: 1.24, label: "Metal", color: "#4b98a7" },
-    { name: "Cu",   en: 1.90, radius: 1.28, label: "Metal", color: "#4b98a7" },
-    { name: "Al",   en: 1.61, radius: 1.43, label: "Metal", color: "#4b98a7" },
+    { name: "Fe",   en: 1.83, radius: 1.24, label: "Metal", color: "#1a5a66" },
+    { name: "Cu",   en: 1.90, radius: 1.28, label: "Metal", color: "#1a5a66" },
+    { name: "Al",   en: 1.61, radius: 1.43, label: "Metal", color: "#1a5a66" },
   ];
 
   const types = [
@@ -1974,7 +1974,7 @@ function TransformerSection() {
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>Step 1: Q, K, V matrices</div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-              {[{ label: "Q (Query)", mat: Q, color: "#347d8b" }, { label: "K (Key)", mat: K, color: "#398a9a" }, { label: "V (Value)", mat: V, color: "#50a1b1" }].map(({ label, mat, color }) => (
+              {[{ label: "Q (Query)", mat: Q, color: "#347d8b" }, { label: "K (Key)", mat: K, color: "#398a9a" }, { label: "V (Value)", mat: V, color: "#1a5a66" }].map(({ label, mat, color }) => (
                 <div key={label} style={{ textAlign: "center" }}>
                   <div style={{ fontSize: 9, fontWeight: 500, color, marginBottom: 4 }}>{label}</div>
                   <div style={{ fontFamily: "monospace", fontSize: 11, lineHeight: 1.8 }}>

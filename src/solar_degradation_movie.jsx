@@ -476,11 +476,11 @@ function DefectEvolutionSection() {
 
   const defects = [
     { label: "VCd²⁻", E0: 2.1, q: -2, color: "#378695", type: "acceptor", desc: "Dominant p-type dopant" },
-    { label: "VCd⁻", E0: 1.8, q: -1, color: "#50a1b1", type: "acceptor", desc: "Shallow acceptor" },
+    { label: "VCd⁻", E0: 1.8, q: -1, color: "#1a5a66", type: "acceptor", desc: "Shallow acceptor" },
     { label: "TeCd²⁺", E0: 1.4, q: 2, color: "#347d8b", type: "deep", desc: "Deep trap at Ev+0.6 eV" },
     { label: "Cui⁺", E0: 0.8, q: 1, color: C.cu, type: "donor", desc: "Fast-diffusing donor (harmful)" },
-    { label: "CuCd⁰", E0: 1.0, q: 0, color: "#50a1b1", type: "shallow", desc: "Shallow acceptor (beneficial)" },
-    { label: "ClTe⁺", E0: 1.5, q: 1, color: "#4f9faf", type: "donor", desc: "Shallow donor from CdCl₂ treatment" },
+    { label: "CuCd⁰", E0: 1.0, q: 0, color: "#1a5a66", type: "shallow", desc: "Shallow acceptor (beneficial)" },
+    { label: "ClTe⁺", E0: 1.5, q: 1, color: "#1a5a66", type: "donor", desc: "Shallow donor from CdCl₂ treatment" },
   ];
 
   const toX = ef => pad.l + (ef / Eg) * pw;

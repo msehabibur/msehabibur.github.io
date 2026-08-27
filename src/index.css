@@ -71,6 +71,7 @@
    Reading shell — tokens, contents rail, reading column, references
    ══════════════════════════════════════════════════════════════════════ */
 :root{
+  --ui-font: "Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif;
   --paper:#f4f6f6; --panel:#ffffff; --panel-2:#eef2f2; --sunk:#e9efef;
   --line:#d8e1e1; --line-soft:#e6ecec;
   --ink:#0f1618; --ink-2:#3c494c; --muted:#6c7b7e;
@@ -94,7 +95,7 @@ body{background:var(--paper); color:var(--ink)}
 /* frame */
 .cs{
   --rail:208px; --aside:264px;
-  font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  font-family:"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif;
   color:var(--ink); background:var(--paper);
   container-type:inline-size; position:relative;
 }
@@ -155,7 +156,7 @@ body{background:var(--paper); color:var(--ink)}
 .cs-col{max-width:62ch; margin:0 auto; padding:0 22px}
 .cs-kicker{font-size:11px; letter-spacing:.1em; color:var(--muted); font-weight:500}
 .cs-read h1{
-  font-family:"Newsreader",Georgia,serif; font-weight:400; font-size:31px; line-height:1.12;
+  font-family:"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif; font-weight:400; font-size:31px; line-height:1.12;
   letter-spacing:-.015em; margin:3px 0 0; color:var(--ink); text-wrap:balance;
 }
 .cs-meta{
@@ -166,7 +167,7 @@ body{background:var(--paper); color:var(--ink)}
 .cs-next{
   margin:20px 22px 0; padding:12px 16px; background:var(--panel-2);
   border:1px solid var(--line); border-radius:8px;
-  font-family:"Newsreader",Georgia,serif; font-size:16px; line-height:1.55; color:var(--ink);
+  font-family:"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif; font-size:16px; line-height:1.55; color:var(--ink);
   text-align:justify; hyphens:auto;
 }
 .cs-pager{display:flex; align-items:center; gap:12px; margin:20px auto 0; max-width:62ch; padding:0 22px}
@@ -217,7 +218,7 @@ body{background:var(--paper); color:var(--ink)}
 .cs-page{
   min-height:100vh; display:flex; flex-direction:column;
   background:var(--paper); color:var(--ink);
-  font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  font-family:"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif;
 }
 .cs-top{
   height:46px; display:flex; align-items:center; gap:10px; padding:0 14px;
@@ -285,7 +286,7 @@ body{background:var(--paper); color:var(--ink)}
 /* ── chapter index (/blog) ── */
 .bl-wrap{max-width:820px; margin:0 auto; padding:26px 20px 34px; width:100%}
 .bl-intro{
-  font-family:"Newsreader",Georgia,serif; font-size:17px; line-height:1.6; color:var(--ink-2);
+  font-family:"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif; font-size:17px; line-height:1.6; color:var(--ink-2);
   margin:0 0 22px; text-align:justify; hyphens:auto;
 }
 .bl-list{list-style:none; margin:0; padding:0; border-top:1px solid var(--line)}
@@ -301,7 +302,7 @@ body{background:var(--paper); color:var(--ink)}
   width:20px; flex:none; text-align:right; font-variant-numeric:tabular-nums;
 }
 .bl-body{display:flex; flex-direction:column; gap:3px; min-width:0; flex:1}
-.bl-title{font-family:"Newsreader",Georgia,serif; font-size:19px; line-height:1.2; color:var(--ink)}
+.bl-title{font-family:"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif; font-size:19px; line-height:1.2; color:var(--ink)}
 .bl-desc{font-size:12.5px; line-height:1.5; color:var(--muted)}
 .bl-go{color:var(--muted); flex:none; font-size:13px}
 .bl-list button:hover .bl-go{color:var(--accent-ink)}

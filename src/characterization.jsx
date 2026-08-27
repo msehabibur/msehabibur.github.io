@@ -6,8 +6,8 @@ import fx from "./fx.jsx";
 const T = {
   bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
   ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)", gold: "#50a1b1",
-  eo_e: "#123c44", eo_hole: "#4b98a7", eo_photon: "#68adbb",
-  eo_valence: "#1d5b67", eo_core: "#378695", eo_gap: "#347d8b", eo_cond: "#4f9faf"
+  eo_e: "#0d3339", eo_hole: "#4b98a7", eo_photon: "#68adbb",
+  eo_valence: "#134650", eo_core: "#378695", eo_gap: "#347d8b", eo_cond: "#4f9faf"
 };
 
 /* ─── Characterization colors ─── */
@@ -106,14 +106,14 @@ function XRDSection() {
       { twoTheta: 76.38, hkl: "(331)", intensity: 11, d: 1.246 },
       { twoTheta: 88.03, hkl: "(422)", intensity: 12, d: 1.109 },
     ]},
-    Cu: { label: "Copper", color: "#56a3b3", peaks: [
+    Cu: { label: "Copper", color: "#1a5a66", peaks: [
       { twoTheta: 43.30, hkl: "(111)", intensity: 100, d: 2.088 },
       { twoTheta: 50.43, hkl: "(200)", intensity: 46, d: 1.808 },
       { twoTheta: 74.13, hkl: "(220)", intensity: 20, d: 1.278 },
       { twoTheta: 89.93, hkl: "(311)", intensity: 17, d: 1.090 },
       { twoTheta: 95.14, hkl: "(222)", intensity: 5, d: 1.044 },
     ]},
-    NaCl: { label: "NaCl", color: "#50a1b1", peaks: [
+    NaCl: { label: "NaCl", color: "#1a5a66", peaks: [
       { twoTheta: 27.37, hkl: "(111)", intensity: 13, d: 3.258 },
       { twoTheta: 31.70, hkl: "(200)", intensity: 100, d: 2.821 },
       { twoTheta: 45.45, hkl: "(220)", intensity: 55, d: 1.994 },
@@ -1490,17 +1490,17 @@ function XPSSection() {
     C: { be: 284.6, label: "C 1s", color: "var(--ink)", peaks: [{ be: 284.6, label: "C 1s" }] },
     O: { be: 531.0, label: "O 1s", color: "#347d8b", peaks: [{ be: 531.0, label: "O 1s" }] },
     Si: { be: 99.3, label: "Si 2p", color: "#398a9a", peaks: [{ be: 99.3, label: "Si 2p" }, { be: 103.3, label: "SiO₂" }] },
-    Cu: { be: 932.7, label: "Cu 2p₃/₂", color: "#56a3b3", peaks: [{ be: 932.7, label: "Cu 2p₃/₂" }, { be: 952.5, label: "Cu 2p₁/₂" }] },
+    Cu: { be: 932.7, label: "Cu 2p₃/₂", color: "#1a5a66", peaks: [{ be: 932.7, label: "Cu 2p₃/₂" }, { be: 952.5, label: "Cu 2p₁/₂" }] },
     Zn: { be: 1021.8, label: "Zn 2p₃/₂", color: "var(--muted)", peaks: [{ be: 1021.8, label: "Zn 2p₃/₂" }, { be: 1044.9, label: "Zn 2p₁/₂" }] },
     Cd: { be: 405.0, label: "Cd 3d₅/₂", color: "#378695", peaks: [{ be: 405.0, label: "Cd 3d₅/₂" }, { be: 411.7, label: "Cd 3d₃/₂" }] },
-    Te: { be: 572.9, label: "Te 3d₅/₂", color: "#50a1b1", peaks: [{ be: 572.9, label: "Te 3d₅/₂" }, { be: 583.3, label: "Te 3d₃/₂" }] },
-    S: { be: 162.0, label: "S 2p", color: "#68adbb", peaks: [{ be: 162.0, label: "S 2p" }] }
+    Te: { be: 572.9, label: "Te 3d₅/₂", color: "#1a5a66", peaks: [{ be: 572.9, label: "Te 3d₅/₂" }, { be: 583.3, label: "Te 3d₃/₂" }] },
+    S: { be: 162.0, label: "S 2p", color: "#1a5a66", peaks: [{ be: 162.0, label: "S 2p" }] }
   }), []);
 
   const chemShiftPeaks = useMemo(() => [
     { be: 284.6, label: "C-C", color: "var(--ink)", desc: "sp³ carbon" },
     { be: 286.5, label: "C-O", color: "#398a9a", desc: "alcohol/ether" },
-    { be: 288.0, label: "C=O", color: "#56a3b3", desc: "carbonyl" },
+    { be: 288.0, label: "C=O", color: "#1a5a66", desc: "carbonyl" },
     { be: 289.5, label: "O-C=O", color: "#347d8b", desc: "carboxyl" },
   ], []);
 
@@ -3238,7 +3238,7 @@ function XANESSection() {
   const [showOxComparison, setShowOxComparison] = useState(false);
 
   const xanesEdges = useMemo(() => ({
-    Cu_K: { label: "Cu K-edge", energy: 8979, color: "#56a3b3", R: 2.55, N: 4 },
+    Cu_K: { label: "Cu K-edge", energy: 8979, color: "#1a5a66", R: 2.55, N: 4 },
     Fe_K: { label: "Fe K-edge", energy: 7112, color: "#347d8b", R: 2.48, N: 6 },
     Ti_K: { label: "Ti K-edge", energy: 4966, color: "#398a9a", R: 1.96, N: 6 },
     Zn_K: { label: "Zn K-edge", energy: 9659, color: "var(--muted)", R: 2.35, N: 4 }
@@ -3757,12 +3757,12 @@ function RamanSection() {
   const ramanMaterials = useMemo(() => ({
     Si: { label: "Silicon", color: "#398a9a", peaks: [{ shift: 520, label: "Si-Si", intensity: 100 }] },
     Diamond: { label: "Diamond", color: "var(--muted)", peaks: [{ shift: 1332, label: "sp³ C", intensity: 100 }] },
-    Graphene: { label: "Graphene", color: "#50a1b1", peaks: [
+    Graphene: { label: "Graphene", color: "#1a5a66", peaks: [
       { shift: 1350, label: "D", intensity: 10 },
       { shift: 1580, label: "G", intensity: 70 },
       { shift: 2680, label: "2D", intensity: 100 },
     ]},
-    CdS: { label: "CdS", color: "#56a3b3", peaks: [
+    CdS: { label: "CdS", color: "#1a5a66", peaks: [
       { shift: 300, label: "1LO", intensity: 100 },
       { shift: 600, label: "2LO", intensity: 35 },
       { shift: 900, label: "3LO", intensity: 10 },
@@ -4954,7 +4954,7 @@ function UVVisSection() {
           {[
             { id: "CdTe", label: "CdTe", eg: 1.5, direct: true, color: "#347d8b" },
             { id: "Si", label: "Si", eg: 1.1, direct: false, color: "#398a9a" },
-            { id: "ZnO", label: "ZnO", eg: 3.3, direct: true, color: "#50a1b1" },
+            { id: "ZnO", label: "ZnO", eg: 3.3, direct: true, color: "#1a5a66" },
             { id: "TiO2", label: "TiO₂", eg: 3.2, direct: false, color: "#378695" },
           ].map(m => (
             <button key={m.id} onClick={() => { setUvPreset(m.id); setBg(m.eg); setIsDirect(m.direct); setTaucLineX(null); }} style={{

@@ -225,7 +225,7 @@ export const LAYOUT = {
     display: "flex",
     flexDirection: "column",
     gap: 14,
-    fontFamily: '"IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif',
+    fontFamily: '"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif',
     color: T.ink,
   },
   svgWrapper: {
@@ -268,7 +268,7 @@ export const ANALOGY = {
     marginBottom: 4,
   },
   body: {
-    fontFamily: '"IBM Plex Sans", -apple-system, sans-serif',
+    fontFamily: '"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif',
     fontSize: FONT.md,
     lineHeight: 1.7,
     color: T.ink,
@@ -280,7 +280,7 @@ export const ANALOGY = {
 // ══════════════════════════════════════════════════════════════════════════════
 export const BUTTON = {
   base: {
-    fontFamily: '"IBM Plex Sans", -apple-system, sans-serif',
+    fontFamily: '"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif',
     fontSize: FONT.sm,
     cursor: "pointer",
     borderRadius: LAYOUT.radiusSm,
@@ -291,7 +291,7 @@ export const BUTTON = {
     border: `1px solid ${isActive ? ACCENT : T.border}`,
     background: isActive ? ACCENT : T.panel,
     color: isActive ? "#fff" : T.ink,
-    fontFamily: '"IBM Plex Sans", -apple-system, sans-serif',
+    fontFamily: '"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif',
     fontSize: FONT.sm,
     cursor: "pointer",
     lineHeight: 1.2,

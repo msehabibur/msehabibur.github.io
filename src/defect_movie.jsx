@@ -382,11 +382,11 @@ export default function DefectMovieModule() {
     case "compare": {
       const titleT = ease(clamp01(t * 3));
       const cells = [
-        { name: "Perovskite/Si tandem", eff: 33.9, color: "#a7c7ce" },
-        { name: "Crystalline Si (single)", eff: 27.9, color: "#65acba" },
-        { name: "Perovskite", eff: 26.1, color: "#4993a1" },
-        { name: "CIGS", eff: 23.6, color: "#a4c5cc" },
-        { name: "CdTe", eff: 22.5, color: "#71b2bf" },
+        { name: "Perovskite/Si tandem", eff: 33.9, color: "#1a5a66" },
+        { name: "Crystalline Si (single)", eff: 27.9, color: "#1a5a66" },
+        { name: "Perovskite", eff: 26.1, color: "#1a5a66" },
+        { name: "CIGS", eff: 23.6, color: "#1a5a66" },
+        { name: "CdTe", eff: 22.5, color: "#1a5a66" },
         { name: "CZTSSe", eff: 13.0, color: "#214e57" },
       ];
       const maxEff = 40;
@@ -1902,7 +1902,7 @@ export default function DefectMovieModule() {
   return (
     <div style={{
       maxWidth: 1100, margin: "0 auto", padding: "24px 20px",
-      fontFamily: "'Inter', -apple-system, sans-serif"
+      fontFamily: '"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif'
     }}>
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
@@ -1938,7 +1938,7 @@ export default function DefectMovieModule() {
         {/* Author watermark */}
         <div style={{
           position: "absolute", top: 10, right: 14, zIndex: 2,
-          fontSize: 11, color: "#ffffff", fontWeight: 500, opacity: 0.85
+          fontSize: 11, color: "#1a5a66", fontWeight: 500, opacity: 0.85
         }}>
           Developed by Habibur Rahman {"\u00B7"} mhrahman@lbl.gov
         </div>

@@ -1475,7 +1475,7 @@ export default function ChalcoMovieModule() {
   return (
     <div style={{
       maxWidth: 1100, margin: "0 auto", padding: "24px 20px",
-      fontFamily: "'Inter', -apple-system, sans-serif"
+      fontFamily: '"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif'
     }}>
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
@@ -1511,7 +1511,7 @@ export default function ChalcoMovieModule() {
         {/* Author watermark */}
         <div style={{
           position: "absolute", top: 10, right: 14, zIndex: 2,
-          fontSize: 11, color: "#ffffff", fontWeight: 500, opacity: 0.85
+          fontSize: 11, color: "#1a5a66", fontWeight: 500, opacity: 0.85
         }}>
           Developed by Habibur Rahman {"\u00B7"} mhrahman@lbl.gov
         </div>

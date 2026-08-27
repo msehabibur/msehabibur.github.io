@@ -18,74 +18,74 @@ const T = {
   gold:    "#50a1b1",
 
   // DefectNet accents (darkened for light bg)
-  dn1: "#123c44",
-  dn2: "#1d5b67",
-  dn3: "#2b7c8b",
-  dn4: "#4e9dab",
-  dn5: "#7cbcc7",
-  dn6: "#a9d3db",
+  dn1: "#0d3339",
+  dn2: "#134650",
+  dn3: "#1a5a66",
+  dn4: "#22707e",
+  dn5: "#2a8697",
+  dn6: "#329cb0",
 
   // Electron Origins accents
-  eo_e:       "#2b7c8b",
-  eo_hole:    "#4e9dab",
-  eo_photon:  "#7cbcc7",
-  eo_valence: "#a9d3db",
-  eo_core:    "#1d5b67",
-  eo_gap:     "#2b7c8b",
-  eo_cond:    "#123c44",
+  eo_e:       "#1a5a66",
+  eo_hole:    "#22707e",
+  eo_photon:  "#2a8697",
+  eo_valence: "#329cb0",
+  eo_core:    "#134650",
+  eo_gap:     "#1a5a66",
+  eo_cond:    "#0d3339",
 
   // Convex Hull accents
-  ch_main:   "#2b7c8b",
-  ch_stable: "#4e9dab",
-  ch_unstab: "#7cbcc7",
-  ch_hull:   "#1d5b67",
-  ch_accent: "#123c44",
-  ch_warm:   "#a9d3db",
+  ch_main:   "#1a5a66",
+  ch_stable: "#22707e",
+  ch_unstab: "#2a8697",
+  ch_hull:   "#134650",
+  ch_accent: "#0d3339",
+  ch_warm:   "#329cb0",
 
   // FNV Correction accents
-  fnv_main:   "#4e9dab",
-  fnv_elec:   "#2b7c8b",
-  fnv_align:  "#1d5b67",
-  fnv_warn:   "#a9d3db",
-  fnv_accent: "#123c44",
-  fnv_warm:   "#7cbcc7",
+  fnv_main:   "#22707e",
+  fnv_elec:   "#1a5a66",
+  fnv_align:  "#134650",
+  fnv_warn:   "#329cb0",
+  fnv_accent: "#0d3339",
+  fnv_warm:   "#2a8697",
 
   // Force Field accents
-  ff_bond:  "#1d5b67",
-  ff_angle: "#123c44",
-  ff_vdw:   "#a9d3db",
-  ff_coul:  "#1d5b67",
-  ff_dih:   "#2b7c8b",
-  ff_morse: "#7cbcc7",
-  ff_fit:   "#4e9dab",
-  ff_mlff:  "#7cbcc7",
+  ff_bond:  "#134650",
+  ff_angle: "#0d3339",
+  ff_vdw:   "#329cb0",
+  ff_coul:  "#134650",
+  ff_dih:   "#1a5a66",
+  ff_morse: "#2a8697",
+  ff_fit:   "#22707e",
+  ff_mlff:  "#2a8697",
 
   // DFT Basics accents
-  dft_main:   "#2b7c8b",
-  dft_eqn:    "#2b7c8b",
-  dft_xc:     "#a9d3db",
-  dft_basis:  "#1d5b67",
-  dft_warn:   "#7cbcc7",
-  dft_accent: "#123c44",
-  dft_warm:   "#4e9dab",
+  dft_main:   "#1a5a66",
+  dft_eqn:    "#1a5a66",
+  dft_xc:     "#329cb0",
+  dft_basis:  "#134650",
+  dft_warn:   "#2a8697",
+  dft_accent: "#0d3339",
+  dft_warm:   "#22707e",
 
   // Molecular Dynamics accents
-  md_main:    "#2b7c8b",
-  md_newton:  "#2b7c8b",
-  md_thermo:  "#7cbcc7",
-  md_aimd:    "#123c44",
-  md_class:   "#1d5b67",
-  md_prop:    "#4e9dab",
-  md_warn:    "#a9d3db",
+  md_main:    "#1a5a66",
+  md_newton:  "#1a5a66",
+  md_thermo:  "#2a8697",
+  md_aimd:    "#0d3339",
+  md_class:   "#134650",
+  md_prop:    "#22707e",
+  md_warn:    "#329cb0",
 
   // Monte Carlo accents
-  mc_main:    "#4e9dab",
-  mc_metro:   "#7cbcc7",
-  mc_moves:   "#a9d3db",
-  mc_ising:   "#2b7c8b",
-  mc_ce:      "#1d5b67",
-  mc_kmc:     "#2b7c8b",
-  mc_accent:  "#123c44",
+  mc_main:    "#22707e",
+  mc_metro:   "#2a8697",
+  mc_moves:   "#329cb0",
+  mc_ising:   "#1a5a66",
+  mc_ce:      "#134650",
+  mc_kmc:     "#1a5a66",
+  mc_accent:  "#0d3339",
   mc_warn:    "#4b98a7"
 };
 
@@ -2793,7 +2793,7 @@ function SolarCellDeviceSection() {
       name: "Glass Substrate",
       formula: "SiO\u2082 (soda-lime glass)",
       thickness: "~3 mm",
-      color: "#c9dbde",
+      color: "#1a5a66",
       h: 30,
       role: "Structural support and environmental protection",
       detail: "Transparent soda-lime glass lets sunlight through while protecting the cell from moisture, oxygen, and mechanical damage. Must have low iron content to maximize transmission in the solar spectrum.",
@@ -2805,7 +2805,7 @@ function SolarCellDeviceSection() {
       name: "TCO (Front Contact)",
       formula: "SnO\u2082:F (FTO) or ITO",
       thickness: "~200-500 nm",
-      color: "#bed6da",
+      color: "#1a5a66",
       h: 22,
       role: "Transparent conducting oxide \u2014 lets light in, collects electrons",
       detail: "Fluorine-doped tin oxide (FTO) or indium tin oxide (ITO). Must be simultaneously transparent (Eg > 3.5 eV) and conductive (\u03C1 ~ 10\u207B\u2074 \u03A9\u00B7cm). Acts as the n-side contact, collecting photogenerated electrons from the CdS window layer.",
@@ -2817,7 +2817,7 @@ function SolarCellDeviceSection() {
       name: "CdS Window Layer",
       formula: "CdS (n-type)",
       thickness: "~50-80 nm",
-      color: "#c2d8dd",
+      color: "#1a5a66",
       h: 18,
       role: "n-type partner for the p-n junction \u2014 forms the heterojunction with CdTe",
       detail: "Cadmium sulfide is an n-type semiconductor (Eg = 2.4 eV). It forms the p-n heterojunction with CdTe. Must be thin enough to minimize parasitic absorption (photons absorbed here are lost). Deposited by chemical bath deposition (CBD). The CdS/CdTe interface is where the built-in electric field is strongest.",
@@ -2841,7 +2841,7 @@ function SolarCellDeviceSection() {
       name: "ZnTe Back Buffer",
       formula: "ZnTe:Cu (p\u207A-type)",
       thickness: "~50-100 nm",
-      color: "#53a2b2",
+      color: "#1a5a66",
       h: 20,
       role: "Reduces back-contact barrier \u2014 prevents voltage loss at the rear",
       detail: "ZnTe (Eg = 2.26 eV) doped with Cu creates a p\u207A layer that reduces the Schottky barrier between CdTe and the metal back contact. Without it, a blocking contact forms that opposes current flow (rollover in J-V curves). The Cu diffuses slightly into CdTe, creating beneficial Cu_Cd shallow acceptors near the back surface. Too much Cu causes deep traps \u2014 careful control is essential.",
@@ -2853,7 +2853,7 @@ function SolarCellDeviceSection() {
       name: "Metal Back Contact",
       formula: "Mo, Ni, or Au",
       thickness: "~100-500 nm",
-      color: "#8c8c8c",
+      color: "#1a5a66",
       h: 24,
       role: "Collects holes and provides rear electrical contact",
       detail: "A metal film (typically Mo, Ni, or Au) sputtered onto the ZnTe layer. Collects holes from the CdTe absorber. Must form an ohmic (non-blocking) contact with low resistance. Molybdenum is common in production cells due to its work function match and stability. The entire device is typically deposited in superstrate configuration: light enters through the glass.",
@@ -3025,11 +3025,11 @@ function SolarCellDeviceSection() {
             {(() => {
               const bx = 310, bw = 190, bh = 200, by = 40;
               const bandLayers = [
-                { name: "TCO", w: 25, ecTop: 0.15, evBot: 0.85, color: "#bed6da" },
-                { name: "CdS", w: 30, ecTop: 0.22, evBot: 0.70, color: "#c2d8dd" },
+                { name: "TCO", w: 25, ecTop: 0.15, evBot: 0.85, color: "#1a5a66" },
+                { name: "CdS", w: 30, ecTop: 0.22, evBot: 0.70, color: "#1a5a66" },
                 { name: "CdTe", w: 90, ecTop: 0.35, evBot: 0.55, color: "#2b6874" },
-                { name: "ZnTe", w: 25, ecTop: 0.25, evBot: 0.68, color: "#53a2b2" },
-                { name: "Metal", w: 20, ecTop: 0.45, evBot: 0.45, color: "#8c8c8c" },
+                { name: "ZnTe", w: 25, ecTop: 0.25, evBot: 0.68, color: "#1a5a66" },
+                { name: "Metal", w: 20, ecTop: 0.45, evBot: 0.45, color: "#1a5a66" },
               ];
               let bxOff = 0;
               return (
@@ -3207,7 +3207,7 @@ function SolarCellDeviceSection() {
             <div style={labelUpper}>How it works</div>
             <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
               {[
-                { step: "1", text: "Sunlight passes through glass and TCO into the cell", color: "#50a1b1" },
+                { step: "1", text: "Sunlight passes through glass and TCO into the cell", color: "#1a5a66" },
                 { step: "2", text: "CdS window: thin n-type layer forms the p-n junction with CdTe", color: T.eo_photon },
                 { step: "3", text: "CdTe absorber: photons create electron-hole pairs (E_photon > 1.44 eV)", color: T.eo_valence },
                 { step: "4", text: "Built-in field separates carriers: e\u207B \u2192 CdS/TCO, h\u207A \u2192 ZnTe/metal", color: T.eo_e },
@@ -3331,7 +3331,7 @@ function CdTeManufacturingSection() {
       analogy: "Like cleaning a window before painting — any dust particle on the glass creates a pinhole in the solar cell. Substrates are cleaned with detergent, DI water, and UV-ozone to remove organics. The glass must be optically transparent (soda-lime or aluminosilicate, 2-3 mm thick).",
       details: "Soda-lime glass is cheap but Na diffusion can dope CdTe. Aluminosilicate (more expensive) avoids this. Substrate size: 60×120 cm² for production, 2.5×2.5 cm² for lab. Cleaning: ultrasonic in acetone → IPA → DI water → UV-ozone 15 min.",
       params: "Glass thickness: 2-3 mm | Transmittance: >90% at 400-850 nm | Roughness: <1 nm RMS" },
-    { title: "Step 2: TCO Deposition (Front Contact)", color: "#a4c5cc",
+    { title: "Step 2: TCO Deposition (Front Contact)", color: "#1a5a66",
       analogy: "Like laying down a transparent electrical highway. The TCO (typically FTO or ITO) must be both electrically conductive AND optically transparent — a rare combination. Light passes through, but electrons have a clear road to the external circuit.",
       details: "FTO (SnO₂:F) deposited by APCVD at 500°C from SnCl₄ + HF precursors. Sheet resistance ~8 Ω/□, transparency >80%. ITO (In₂O₃:Sn) is better optically but more expensive. The TCO surface roughness scatters light (light trapping).",
       params: "R_sheet: 8-15 Ω/□ | Thickness: 300-500 nm | Carrier density: ~10²⁰ cm⁻³" },
@@ -3355,7 +3355,7 @@ function CdTeManufacturingSection() {
       analogy: "Like a doctor's checkup — measure everything to see if the patient (solar cell) is healthy. J-V curves measure efficiency, EQE shows which wavelengths are collected, DLTS finds deep traps, PL identifies defect levels, and C-V profiling maps the doping profile.",
       details: "J-V under AM1.5G (100 mW/cm²): gives Voc, Jsc, FF, η. EQE(λ): photon-to-electron conversion vs wavelength. Dark J-V: reveals diode ideality factor n and recombination mechanism. DLTS: trap depth and density. PL at 10K: defect identification. C-V: doping profile N_A(x).",
       params: "Best lab cell: Voc=0.887 V, Jsc=31.7 mA/cm², FF=79.4%, η=22.1% (First Solar, 2016)" },
-    { title: "Step 8: Module Assembly & Encapsulation", color: "#6fb1be",
+    { title: "Step 8: Module Assembly & Encapsulation", color: "#1a5a66",
       analogy: "Like framing a painting and sealing it behind glass. Individual cells are scribed into series-connected strings (P1-P2-P3 laser scribing), then encapsulated between glass sheets with EVA lamination. The module must survive 25+ years of sun, rain, hail, and temperature cycling.",
       details: "Monolithic integration: P1 scribe (laser, through TCO), P2 scribe (mechanical, through CdTe), P3 scribe (laser, through back contact). This creates series-connected cells without wires. Encapsulation: front glass / EVA / cell / EVA / back glass. Lamination at 150°C, 15 min. Edge seal prevents moisture ingress.",
       params: "Module efficiency: 18-19% | Size: 60×120 cm² | Lifetime: 25+ years | Degradation: <0.5%/year" },
@@ -3365,7 +3365,7 @@ function CdTeManufacturingSection() {
 
   // Layer stack animation positions
   const layerStack = [
-    { label: "Glass", y: 200, h: 30, color: "#9cc0c7", active: mfgStep >= 0 },
+    { label: "Glass", y: 200, h: 30, color: "#1a5a66", active: mfgStep >= 0 },
     { label: "TCO (FTO)", y: 185, h: 15, color: "#a4c5cc80", active: mfgStep >= 1 },
     { label: "CdS (n)", y: 177, h: 8, color: T.eo_photon + "90", active: mfgStep >= 2 },
     { label: "CdTe (p)", y: 132, h: 45, color: T.eo_gap + "80", active: mfgStep >= 3 },
@@ -3375,7 +3375,7 @@ function CdTeManufacturingSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="Overview: How a CdTe Solar Cell is Made" color={T.eo_hole} isOpen={openItem === "mfg_overview"} onClick={() => toggle("mfg_overview")}>
-        <div style={{ display: "flex", gap: 10, background: T.eo_hole + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.eo_hole + "12", marginBottom: 12 }}>
+        <div style={{ display: "flex", gap: 10, padding: "2px 0", marginBottom: 12 }}>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
             Building a CdTe solar cell is like making a layered cake — each layer has a specific purpose, and the order matters. Glass (foundation) → TCO (transparent conductor) → CdS (n-type partner) → CdTe (light absorber) → CdCl₂ treatment (the secret sauce) → Cu doping + back contact → testing → encapsulation. Every step involves precise control of temperature, time, and chemistry.
           </span>
@@ -3388,7 +3388,7 @@ function CdTeManufacturingSection() {
             { label: "Record η", value: "22.1%", color: T.eo_gap },
             { label: "Band gap", value: "1.44 eV", color: T.eo_cond },
             { label: "Absorber", value: "3-5 μm", color: T.eo_core },
-            { label: "Module life", value: "25+ yrs", color: "#a4c5cc" },
+            { label: "Module life", value: "25+ yrs", color: "#1a5a66" },
           ].map(item => (
             <div key={item.label} style={{ background: item.color + "10", border: `1px solid ${item.color}30`, borderRadius: 8, padding: "8px", textAlign: "center" }}>
               <div style={{ fontSize: 16, fontWeight: 500, color: item.color }}>{item.value}</div>
@@ -3502,7 +3502,7 @@ function CdTeManufacturingSection() {
       </FAQAccordion>
 
       <FAQAccordion title="The CdCl₂ Treatment — Why It's the Most Important Step" color={T.eo_hole} isOpen={openItem === "mfg_cdcl2"} onClick={() => toggle("mfg_cdcl2")}>
-        <div style={{ display: "flex", gap: 10, background: T.eo_hole + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.eo_hole + "12", marginBottom: 12 }}>
+        <div style={{ display: "flex", gap: 10, padding: "2px 0", marginBottom: 12 }}>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Without CdCl₂ treatment, CdTe solar cells are only ~5% efficient. WITH it, they reach 22%+. This single step is responsible for a 4× improvement. It{"'"}s the "secret sauce" of CdTe technology — and it took decades to fully understand why it works.</span>
         </div>
         <div style={mb}>
@@ -3525,7 +3525,7 @@ function CdTeManufacturingSection() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
           {[
             { label: "Without CdCl₂", value: "~5%", sub: "Small grains, many GBs, unpassivated", color: T.eo_gap },
-            { label: "With CdCl₂", value: "~20%+", sub: "Large grains, passivated GBs, activated", color: "#a4c5cc" },
+            { label: "With CdCl₂", value: "~20%+", sub: "Large grains, passivated GBs, activated", color: "#1a5a66" },
           ].map(item => (
             <div key={item.label} style={{ background: item.color + "10", border: `1.5px solid ${item.color}30`, borderRadius: 10, padding: "12px", textAlign: "center" }}>
               <div style={{ fontSize: 11, fontWeight: 500, color: item.color }}>{item.label}</div>
@@ -3564,7 +3564,7 @@ function CdTeManufacturingSection() {
           {"  Evaporate: 3 nm Cu / 40 nm Au at 10⁻⁶ Torr"}<br />
           {"  Anneal: 200°C, 30 min, N₂ → Cu diffuses ~200 nm into CdTe"}<br /><br />
 
-          <span style={{ color: "#a4c5cc", fontWeight: 500 }}>Result:</span><br />
+          <span style={{ color: "#1a5a66", fontWeight: 500 }}>Result:</span><br />
           {"  Voc = 0.86 V | Jsc = 29.5 mA/cm² | FF = 78% | η = 19.8%"}<br />
           {"  Diode: n = 1.6, J₀ = 2×10⁻¹⁰ A/cm²"}<br />
           {fx("  Doping: N_A ≈ 2×10¹⁴ cm⁻³ (from C-V)")}<br />
@@ -3580,7 +3580,7 @@ function CdTeManufacturingSection() {
             { problem: "Low FF (< 70%)", cause: "High series resistance (bad back contact) or shunting (pinholes in CdS).", fix: "NP etch before back contact. Ensure CdS fully covers TCO. Check for scribing damage.", color: T.eo_cond },
             { problem: "Shunting (J_dark too high)", cause: "Pinholes in CdS expose TCO to CdTe → direct metal-semiconductor contact.", fix: "Increase CdS thickness to 80+ nm. Or add high-resistivity buffer (MgZnO, ZnSnO).", color: T.eo_hole },
             { problem: "Degradation over time", cause: "Cu migration from back contact through CdTe → creates deep donor Cu_i near junction.", fix: "Use diffusion barrier (ZnTe) between Cu and CdTe. Limit Cu to 1-2 nm. Proper encapsulation.", icon: "⏰", color: T.eo_core },
-            { problem: "Roll-over in J-V curve", cause: "Back contact barrier (Schottky barrier at CdTe/metal interface).", fix: "Te-rich surface etch + Cu/Au contact. Or use ZnTe:Cu intermediate layer.", color: "#a4c5cc" },
+            { problem: "Roll-over in J-V curve", cause: "Back contact barrier (Schottky barrier at CdTe/metal interface).", fix: "Te-rich surface etch + Cu/Au contact. Or use ZnTe:Cu intermediate layer.", color: "#1a5a66" },
           ].map(item => (
             <div key={item.problem} style={{ background: item.color + "06", borderRadius: 10, padding: "10px 14px", border: `1px solid ${item.color}15` }}>
               <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
@@ -3605,18 +3605,18 @@ const CDTE_SOLAR_SECTIONS = [
   { id: "crystal", label: "Crystal & sp³",        color: T.eo_valence, Component: CrystalSection,           nextReason: "The sp³ tetrahedral arrangement is established. Now we ask: what holds these atoms in place? Understanding the mixed ionic-covalent bond character of CdTe explains its bandgap magnitude, mechanical stability, and why defects form as they do." },
   { id: "bonds",   label: "Bond Nature",          color: T.eo_valence, Component: BondNatureSection,        nextReason: "Atomic bonds, viewed quantum mechanically across the periodic crystal, smear into continuous energy bands via Bloch's theorem. The bonding orbitals form the valence band; antibonding orbitals form the conduction band — giving CdTe its 1.44 eV direct gap." },
   { id: "bands",   label: "Energy Bands",         color: T.eo_cond,    Component: BandSection,              nextReason: "Pure CdTe has a 1.44 eV gap but no free carriers. Controlled conductivity requires doping. The next section covers both n-type and p-type doping in CdTe — showing which dopants are used, how they shift the Fermi level, and how they set up the p-n junction." },
-  { id: "doping",  label: "Doping (N & P type)",  color: "#4f9faf",    Component: DopingModule, nextReason: "N-type and p-type semiconductors in isolation are just conductors. Bringing them together forms the p-n junction — the fundamental device that separates photogenerated electron-hole pairs and drives current through the external circuit." },
+  { id: "doping",  label: "Doping (N & P type)",  color: "#1a5a66",    Component: DopingModule, nextReason: "N-type and p-type semiconductors in isolation are just conductors. Bringing them together forms the p-n junction — the fundamental device that separates photogenerated electron-hole pairs and drives current through the external circuit." },
   { id: "config",  label: "Defect Types",         color: T.eo_e,       Component: DefectConfigSection,      nextReason: "Different defect structures create different energy levels inside the bandgap. We now map exactly where these levels sit and whether each defect acts as a donor, acceptor, or amphoteric center — the first step to understanding their electronic impact." },
   { id: "defect",  label: "Defect States",        color: T.eo_gap,     Component: DefectSection,            nextReason: "Defect levels are positioned energetically. The critical next question: how are these levels populated? Fermi-level-dependent charge states and thermal ionization determine whether each defect is neutral, positively, or negatively charged at device operating conditions." },
   { id: "defect_e",label: "Defect Electrons",     color: T.eo_cond,    Component: DefectElectronsSection,   nextReason: "Charged mid-gap defect levels act as Shockley-Read-Hall recombination traps — the primary efficiency killer in CdTe. Carriers generated by light fall into these traps and recombine before reaching the junction, directly reducing Voc and fill factor." },
   { id: "recomb",  label: "Recombination",        color: T.eo_photon,  Component: RecombinationSection,     nextReason: "To engineer lower recombination we must control defect concentrations. Defect thermodynamics — formation energy as a function of chemical potential and Fermi level — tells us which growth conditions suppress harmful traps and which inadvertently create them." },
   { id: "thermo",  label: "Defect Thermo",        color: T.eo_core,    Component: DefectThermoSection,      nextReason: "With complete atomic-scale defect physics in hand, we zoom out to the full device. How do all these microscopic effects — doping, trapping, recombination — translate into macroscopic solar cell metrics: Voc, Jsc, fill factor, and efficiency?" },
   { id: "macro",   label: "CdTe Solar Cell",      color: T.eo_hole,    Component: MacroSection,             nextReason: "With defect physics established, we can now plot the full J-V curve — showing exactly how Voc, Jsc, fill factor, and efficiency emerge from the atomic-scale physics we've been building up." },
-  { id: "ivcurve", label: "J-V Curve & Efficiency", color: "#a4c5cc",    Component: IVCurveSection,           nextReason: "The J-V curve summarises all device physics in one plot. The Device Animation shows all of these microscopic processes — photon absorption, carrier generation, drift, and collection — happening simultaneously in real time." },
+  { id: "ivcurve", label: "J-V Curve & Efficiency", color: "#1a5a66",    Component: IVCurveSection,           nextReason: "The J-V curve summarises all device physics in one plot. The Device Animation shows all of these microscopic processes — photon absorption, carrier generation, drift, and collection — happening simultaneously in real time." },
   { id: "device",  label: "Device Animation",     color: T.eo_photon,  Component: SolarCellDeviceSection,   nextReason: "The device is running. Now watch the full animated story — from atomistic simulations through defect physics to DFT and MLFF acceleration — in the DefectDB movie." },
-  { id: "defectmovie", label: "Movie",  color: "#98bec5",    Component: DefectMovieModule,        nextReason: "The DefectDB movie covers the computational side. Now see how all these defect physics play out in real-world device aging — the Degradation Movie shows CdTe solar cells aging under light, heat, moisture, and mechanical stress." },
-  { id: "degradation", label: "Degradation Movie", color: "#4993a1", Component: SolarCellDegradationMovie, nextReason: "Degradation physics covered. Now see the full manufacturing process — from glass substrate to finished solar cell module — with step-by-step animated fabrication, CdCl₂ activation, Cu doping, and characterization." },
-  { id: "manufacturing", label: "Manufacturing", color: "#6fb1be", Component: CdTeManufacturingSection },
+  { id: "defectmovie", label: "Movie",  color: "#1a5a66",    Component: DefectMovieModule,        nextReason: "The DefectDB movie covers the computational side. Now see how all these defect physics play out in real-world device aging — the Degradation Movie shows CdTe solar cells aging under light, heat, moisture, and mechanical stress." },
+  { id: "degradation", label: "Degradation Movie", color: "#1a5a66", Component: SolarCellDegradationMovie, nextReason: "Degradation physics covered. Now see the full manufacturing process — from glass substrate to finished solar cell module — with step-by-step animated fabrication, CdCl₂ activation, Cu doping, and characterization." },
+  { id: "manufacturing", label: "Manufacturing", color: "#1a5a66", Component: CdTeManufacturingSection },
 ];
 
 function CdTeSolarCellModule({ references = [] }) {
@@ -3658,7 +3658,7 @@ function DopingModule({ initialTab }) {
 
   const nDopants = [
     { name: "Indium (In)", symbol: "In", valence: 3, site: "Cd site", Ea: "14 meV", detail: "In substituting on a Cd site (In_Cd) donates one extra electron to the CdTe conduction band. It is the most commonly studied n-type dopant in CdTe, with a very shallow ionization energy (~14 meV), making it fully ionized at room temperature. Used in research-grade n-type CdTe layers.", color: CN.donor },
-    { name: "Arsenic (As)", symbol: "As", site: "Te site", valence: 5, Ea: "~50 meV", detail: "As on a Te site (As_Te) has 5 valence electrons vs Te's 6 — initially acts as an acceptor. However, As can be activated as a donor through complex defect chemistry or compensation. As is being actively studied as an n-type dopant in CdTe by First Solar for next-generation cells.", color: "#63aab9" },
+    { name: "Arsenic (As)", symbol: "As", site: "Te site", valence: 5, Ea: "~50 meV", detail: "As on a Te site (As_Te) has 5 valence electrons vs Te's 6 — initially acts as an acceptor. However, As can be activated as a donor through complex defect chemistry or compensation. As is being actively studied as an n-type dopant in CdTe by First Solar for next-generation cells.", color: "#1a5a66" },
     { name: "Chlorine (Cl)", symbol: "Cl", site: "Te site", valence: 7, Ea: "~12 meV", detail: "Cl on a Te site (Cl_Te) is a shallow donor with very low ionization energy (~12 meV). CdCl₂ treatment — the key activation step in CdTe processing — introduces Cl_Te donors and passivates grain boundaries simultaneously. Cl is the dominant unintentional n-type dopant from the CdCl₂ anneal.", color: "#347f8e" },
     { name: "Bismuth (Bi)", symbol: "Bi", site: "Te site", valence: 5, Ea: "~70 meV", detail: "Bi on a Te site (Bi_Te) acts as a donor, contributing extra electrons to the conduction band. Bi has a larger ionic radius than Te, introducing local lattice strain. Research has shown Bi doping can push Fermi level toward the CB, enabling CdTe to become n-type — relevant for all-CdTe p-n homojunction designs.", color: "#378695" },
   ];
@@ -3969,7 +3969,7 @@ function DopingModule({ initialTab }) {
               <div style={{ fontSize: 11, fontWeight: 500, color: T.muted, marginBottom: 8 }}>Key physics</div>
               {[
                 { eq: "N_D ≈ n  (complete ionization at RT)", color: CN.e },
-                { eq: "np = nᵢ²  (mass action law)", color: "#4b98a7" },
+                { eq: "np = nᵢ²  (mass action law)", color: "#1a5a66" },
                 { eq: "E_F shifts toward E_c", color: CN.fermi },
                 { eq: "σ = nqμₑ,  μₑ ≈ 1050 cm²/V·s in CdTe", color: CN.band },
               ].map((item, i) => (

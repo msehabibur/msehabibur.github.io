@@ -361,8 +361,8 @@ export default function PyrochloreScatter() {
             <div style={{ padding: "12px 16px", flex: 1 }}>
               {/* Property cards */}
               {[
-                { label: "Thermal Conductivity", val: `${active.tc.toFixed(2)} W/m·K`, sub: "κ (LLM-predicted)", color: "#4f9faf" },
-                { label: "Coeff. Thermal Expansion", val: `${active.cte.toFixed(1)} ×10⁻⁶ K⁻¹`, sub: "CTE (LLM-predicted)", color: "#56a3b3" },
+                { label: "Thermal Conductivity", val: `${active.tc.toFixed(2)} W/m·K`, sub: "κ (LLM-predicted)", color: "#1a5a66" },
+                { label: "Coeff. Thermal Expansion", val: `${active.cte.toFixed(1)} ×10⁻⁶ K⁻¹`, sub: "CTE (LLM-predicted)", color: "#1a5a66" },
                 { label: "Synthesis Probability", val: active.sp.toFixed(2), sub: active.sp >= 0.85 ? "Literature-confirmed stable" : active.sp >= 0.5 ? "Partially explored" : "Novel / hypothetical", color: spColor(active.sp) },
               ].map((p, i) => (
                 <div key={i} style={{

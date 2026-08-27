@@ -70,14 +70,14 @@ const STAGES = [
 
 // ─── CRYSTAL LATTICE DATA ──────────────────────────────────────────
 const LATTICE_ATOMS = [
-  { x: 40, y: 30, el: "Cd", color: "#a1c3ca" },
-  { x: 100, y: 30, el: "Te", color: "#96bdc4" },
-  { x: 160, y: 30, el: "Cd", color: "#a1c3ca" },
-  { x: 70, y: 70, el: "Te", color: "#96bdc4" },
-  { x: 130, y: 70, el: "Cd", color: "#a1c3ca" },
-  { x: 40, y: 110, el: "Cd", color: "#a1c3ca" },
+  { x: 40, y: 30, el: "Cd", color: "#1a5a66" },
+  { x: 100, y: 30, el: "Te", color: "#1a5a66" },
+  { x: 160, y: 30, el: "Cd", color: "#1a5a66" },
+  { x: 70, y: 70, el: "Te", color: "#1a5a66" },
+  { x: 130, y: 70, el: "Cd", color: "#1a5a66" },
+  { x: 40, y: 110, el: "Cd", color: "#1a5a66" },
   { x: 100, y: 110, el: "V", color: "#358190" }, // vacancy
-  { x: 160, y: 110, el: "Te", color: "#96bdc4" },
+  { x: 160, y: 110, el: "Te", color: "#1a5a66" },
 ];
 
 const LATTICE_BONDS = [
@@ -659,19 +659,19 @@ export default function DefectNetFlowAnimation() {
                 title: "Energy E",
                 eq: "ε_i = MLP(h_i) → E = Σ_i ε_i",
                 desc: "Per-atom energies summed\nto total system energy",
-                x: 60, color: "#4c9aa9"
+                x: 60, color: "#1a5a66"
               },
               {
                 title: "Forces F",
                 eq: "F_i = −∂E / ∂r_i  (autograd)",
                 desc: "Analytical gradients via\nautomatic differentiation",
-                x: 350, color: "#5ea8b7"
+                x: 350, color: "#1a5a66"
               },
               {
                 title: "Stress σ",
                 eq: "σ = (1/V) ∂E/∂ε |_{ε=0}",
                 desc: "Strain derivative for\nlattice optimization",
-                x: 640, color: "#6aaebc"
+                x: 640, color: "#1a5a66"
               },
             ].map((out, i) => {
               const isHighlighted = Math.floor(t % 3) === i;

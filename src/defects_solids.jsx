@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 const T = {
   bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
   ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)",
-  df_primary: "#123c44", df_vacancy: "#4993a1", df_interstitial: "#71b2bf",
-  df_schottky: "#1d5b67", df_frenkel: "#398a9a", df_disloc: "#53a2b2", df_grain: "#68adbb"
+  df_primary: "#0d3339", df_vacancy: "#4993a1", df_interstitial: "#71b2bf",
+  df_schottky: "#134650", df_frenkel: "#398a9a", df_disloc: "#53a2b2", df_grain: "#68adbb"
 };
 
 function Tag({ color, children }) {
@@ -1076,7 +1076,7 @@ export default function DefectsSolidsModule() {
   return (
     <div style={{
       background: T.bg, minHeight: "100vh", padding: 32,
-      fontFamily: "'Inter', -apple-system, sans-serif"
+      fontFamily: '"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif'
     }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: 24 }}>

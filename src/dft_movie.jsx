@@ -1424,7 +1424,7 @@ export default function DFTMovieModule() {
   const globalProgress = elapsed / totalDuration;
 
   return (
-    <div style={{ width: "100%", padding: "4px 0", fontFamily: "'Inter', -apple-system, sans-serif" }}>
+    <div style={{ width: "100%", padding: "4px 0", fontFamily: '"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif' }}>
       {/* Cinema screen — GPU layer to stop shaking */}
       <div style={{
         background: P.bg, borderRadius: 16, overflow: "hidden",

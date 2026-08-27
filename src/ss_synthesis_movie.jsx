@@ -959,7 +959,7 @@ export default function SSSynthesisMovieModule() {
   const globalProgress = elapsed / totalDuration;
 
   return (
-    <div style={{ maxWidth: 1100, margin: "0 auto", padding: "24px 20px", fontFamily: "'Inter', -apple-system, sans-serif" }}>
+    <div style={{ maxWidth: 1100, margin: "0 auto", padding: "24px 20px", fontFamily: '"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif' }}>
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
         <div style={{ fontSize: 10, letterSpacing: 4, color: P.muted, textTransform: "none", marginBottom: 4 }}>

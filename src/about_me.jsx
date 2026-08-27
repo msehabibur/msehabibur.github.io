@@ -582,7 +582,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
   return (
     <div style={{
       width: 960, maxWidth: "100%", margin: "0 auto", padding: "24px 20px",
-      fontFamily: "'Inter', -apple-system, sans-serif", color: T.ink,
+      fontFamily: '"Arial Narrow", "Archivo Narrow", "Roboto Condensed", Arial, sans-serif', color: T.ink,
       boxSizing: "border-box"
     }}>
       {/* Tab nav + dark/light toggle */}
