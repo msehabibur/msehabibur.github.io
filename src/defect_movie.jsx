@@ -1927,11 +1927,8 @@ export default function DefectMovieModule() {
           position: "absolute", top: 10, left: 14, zIndex: 2,
           display: "flex", alignItems: "center", gap: 8
         }}>
-          <span style={{
-            background: P.defect + "25", border: `1px solid ${P.defect}50`,
-            padding: "3px 10px", borderRadius: 6,
-            fontSize: 10, fontWeight: 500, color: P.defect, letterSpacing: 1
-          }}>Scene {sceneIdx + 1}/{SCENES.length}</span>
+          <span style={{ padding: "3px 10px",
+            fontSize: 10, fontWeight: 500, color: P.defect, letterSpacing: 1 }}>Scene {sceneIdx + 1}/{SCENES.length}</span>
           <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>
         </div>
 

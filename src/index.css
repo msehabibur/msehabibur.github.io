@@ -307,15 +307,14 @@ body{background:var(--paper); color:var(--ink)}
 .bl-go{color:var(--muted); flex:none; font-size:13px}
 .bl-list button:hover .bl-go{color:var(--accent-ink)}
 
-/* ── figures and their explanations stack ──────────────────────────────
-   The reading stage is under 950px. Split into columns it left a short
-   chart on one side and a long stack of text on the other, so one side ran
-   empty. One column, not two or three narrow ones. */
-.cs-stage div[style*="grid-template-columns: 1fr 1fr"] {
+/* ── a wide figure column and its explanation stack ────────────────────
+   A chart on one side and a long column of text on the other left one side
+   empty, so a two-column row stacks. Three-column rows are the small stat
+   tiles and chip rows — those keep their columns, and so does any column
+   narrower than 280px. */
+.cs-stage div[style*="grid-template-columns: 1fr 1fr"]:not([style*="1fr 1fr 1fr"]) {
   grid-template-columns: minmax(0, 1fr) !important;
 }
-.cs-stage div[style*="flex: 0 0 200px"],
-.cs-stage div[style*="flex: 0 0 210px"],
 .cs-stage div[style*="flex: 0 0 280px"],
 .cs-stage div[style*="flex: 0 0 300px"],
 .cs-stage div[style*="flex: 0 0 320px"],
@@ -324,9 +323,6 @@ body{background:var(--paper); color:var(--ink)}
 .cs-stage div[style*="flex: 0 0 370px"],
 .cs-stage div[style*="flex: 0 0 380px"],
 .cs-stage div[style*="flex: 0 0 510px"],
-.cs-stage div[style*="flex: 1 1 260px"],
-.cs-stage div[style*="flex: 1 1 280px"],
-.cs-stage div[style*="flex: 1 1 300px"],
 .cs-stage div[style*="flex: 1 1 340px"],
 .cs-stage div[style*="flex: 1 1 380px"],
 .cs-stage div[style*="flex: 1 1 400px"],
@@ -343,7 +339,6 @@ body{background:var(--paper); color:var(--ink)}
    keep the recessed tone, since they are chrome rather than content */
 .cs-stage { --sunk: var(--panel); }
 .cs-stage svg { max-width: 100%; height: auto; }
-/* a quiet halo keeps any label that still grazes another one legible */
 .cs-stage svg text { paint-order: stroke fill; stroke: var(--panel); stroke-width: 3px; stroke-linejoin: round; }
 /* table headers default to bold in every browser */
 .cs-page th, .cs-page b, .cs-page strong { font-weight: 500; }

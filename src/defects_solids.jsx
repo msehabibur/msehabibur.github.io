@@ -9,22 +9,16 @@ const T = {
 
 function Tag({ color, children }) {
   return (
-    <span style={{
-      display: "inline-block", padding: "1px 8px", borderRadius: 4,
-      fontSize: 11, fontWeight: 500, background: color + "22",
-      border: `1px solid ${color}55`, color, letterSpacing: 1
-    }}>{children}</span>
+    <span style={{ display: "inline-block", padding: "1px 8px",
+      fontSize: 11, fontWeight: 500, color, letterSpacing: 1 }}>{children}</span>
   );
 }
 
 function SectionTitle({ color, icon, children }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-      <div style={{
-        width: 32, height: 32, borderRadius: 8,
-        background: color + "22", border: `1px solid ${color}55`,
-        display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16
-      }}>{icon}</div>
+      <div style={{ width: 32, height: 32,
+        display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>{icon}</div>
       <div style={{
         fontSize: 15, fontWeight: 500, color,
         letterSpacing: 1, textTransform: "none"

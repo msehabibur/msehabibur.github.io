@@ -142,10 +142,7 @@ function SliderRow({ label, value, min, max, step, onChange, color, unit, format
 
 function ResultBox({ label, value, color, sub }) {
   return (
-    <div style={{
-      background: color+"11", border:`1px solid ${color}33`,
-      borderRadius:8, padding:"8px 12px", textAlign:"center"
-    }}>
+    <div style={{ padding:"8px 12px", textAlign:"center" }}>
       <div style={{ fontSize:10, color:C.muted, marginBottom:2 }}>{label}</div>
       <div style={{ fontSize:18, fontWeight:500, color, fontFamily:"monospace" }}>{value}</div>
       {sub && <div style={{ fontSize:10, color:C.muted, marginTop:2 }}>{sub}</div>}

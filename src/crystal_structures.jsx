@@ -11,20 +11,20 @@ const T = {
 
 function Tag({ color, children }) {
   return (
-    <span style={{ display: "inline-block", padding: "1px 8px", borderRadius: 4, fontSize: 11, fontWeight: 500, background: color + "22", border: `1px solid ${color}55`, color, letterSpacing: 1 }}>{children}</span>
+    <span style={{ display: "inline-block", padding: "1px 8px", fontSize: 11, fontWeight: 500, color, letterSpacing: 1 }}>{children}</span>
   );
 }
 function SectionTitle({ color, icon, children }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-      <div style={{ width: 32, height: 32, borderRadius: 8, background: color + "22", border: `1px solid ${color}55`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>{icon}</div>
+      <div style={{ width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>{icon}</div>
       <div style={{ fontSize: 15, fontWeight: 500, color, letterSpacing: 1, textTransform: "none" }}>{children}</div>
     </div>
   );
 }
 function Card({ title, color, children }) {
   return (
-    <div style={{ background: color + "08", border: `1px solid ${color}33`, borderRadius: 10, padding: 16, marginBottom: 14 }}>
+    <div style={{ padding: 16, marginBottom: 14 }}>
       {title && <div style={{ fontSize: 12, fontWeight: 500, color, marginBottom: 8, textTransform: "none", letterSpacing: 1 }}>{fx(title)}</div>}
       {children}
     </div>
@@ -32,7 +32,7 @@ function Card({ title, color, children }) {
 }
 function Formula({ children, color }) {
   return (
-    <div style={{ background: color + "11", border: `1px solid ${color}33`, borderRadius: 8, padding: "10px 16px", fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, color: T.ink, marginBottom: 10, textAlign: "center" }}>{children}</div>
+    <div style={{ padding: "10px 16px", fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, color: T.ink, marginBottom: 10, textAlign: "center" }}>{children}</div>
   );
 }
 

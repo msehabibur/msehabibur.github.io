@@ -2565,12 +2565,12 @@ function SecParams() {
           A parameter is just <b style={{ color: T.ink }}>one number</b> that the model learns during training.
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, margin: "10px 0" }}>
-          <div style={{ background: T.dn4 + "11", border: `1px solid ${T.dn4}33`, borderRadius: 8, padding: "8px 12px" }}>
+          <div style={{ padding: "2px 0" }}>
             <div style={{ fontSize: 10, color: T.dn4, fontWeight: 500, marginBottom: 4 }}>Before training</div>
             <div style={{ fontFamily: "monospace", fontSize: 13, color: T.dn4 }}>parameter = 0.472</div>
             <div style={{ fontSize: 10, color: T.muted }}>(random)</div>
           </div>
-          <div style={{ background: T.dn3 + "11", border: `1px solid ${T.dn3}33`, borderRadius: 8, padding: "8px 12px" }}>
+          <div style={{ padding: "2px 0" }}>
             <div style={{ fontSize: 10, color: T.dn3, fontWeight: 500, marginBottom: 4 }}>After training</div>
             <div style={{ fontFamily: "monospace", fontSize: 13, color: T.dn3 }}>parameter = 1.831</div>
             <div style={{ fontSize: 10, color: T.muted }}>(learned from DFT data)</div>
@@ -2733,7 +2733,7 @@ function SecParams() {
         </table>
 
         {/* Linear layer rule */}
-        <div style={{ background: T.dn2 + "11", border: `1px solid ${T.dn2}33`, borderRadius: 8, padding: 12, marginBottom: 14 }}>
+        <div style={{ padding: 12, marginBottom: 14 }}>
           <div style={{ fontSize: 11, color: T.dn2, fontWeight: 500, marginBottom: 6 }}>Why exactly those numbers?</div>
           <div style={dimText}>
             Every linear layer follows one simple rule:
@@ -2882,11 +2882,8 @@ function SecEquivariance() {
               { prop: "Force on Ti", before: "F = (0.12, -0.08, 0.0) eV/Å", after: "F = (0.08, 0.12, 0.0) eV/Å", type: "Equivariant", color: T.dn3 },
               { prop: "Stress σ_xx", before: "σ_xx = 2.1 kBar", after: "σ_yy = 2.1 kBar", type: "Equivariant", color: T.dn4 },
             ].map(row => (
-              <div key={row.prop} style={{
-                marginBottom: 6, padding: "6px 10px", borderRadius: 6,
-                background: row.color + "08", border: `1px solid ${row.color}18`,
-                fontFamily: "monospace", fontSize: 10
-              }}>
+              <div key={row.prop} style={{ marginBottom: 6, padding: "6px 10px",
+                fontFamily: "monospace", fontSize: 10 }}>
                 <div style={{ fontWeight: 500, color: row.color }}>{row.prop} ({row.type})</div>
                 <div>Before: {row.before}</div>
                 <div>After:  {row.after}</div>
@@ -3100,11 +3097,8 @@ function SecLongRange() {
               { feature: "6 message passing layers", detail: "Information propagates 6 × 7 Å = 42 Å effective range through multi-hop passing" },
               { feature: "Training on charged defects", detail: "Model learns charge-dependent energy corrections from DFT data directly" },
             ].map(f => (
-              <div key={f.feature} style={{
-                marginBottom: 6, padding: "6px 10px", borderRadius: 6,
-                background: T.dn2 + "08", border: `1px solid ${T.dn2}18`,
-                fontSize: 10
-              }}>
+              <div key={f.feature} style={{ marginBottom: 6, padding: "6px 10px",
+                fontSize: 10 }}>
                 <strong style={{ color: T.dn2 }}>{f.feature}</strong>
                 <div style={{ color: T.muted }}>{f.detail}</div>
               </div>
@@ -3565,10 +3559,7 @@ function SliderRow({ label, value, min, max, step, onChange, color, unit, format
 
 function ResultBox({ label, value, color, sub }) {
   return (
-    <div style={{
-      background: color+"11", border:`1px solid ${color}33`,
-      borderRadius:8, padding:"8px 12px", textAlign:"center"
-    }}>
+    <div style={{ padding:"8px 12px", textAlign:"center" }}>
       <div style={{ fontSize:10, color:T.muted, marginBottom:2 }}>{label}</div>
       <div style={{ fontSize:18, fontWeight:500, color, fontFamily:"monospace" }}>{value}</div>
       {sub && <div style={{ fontSize:10, color:T.muted, marginTop:2 }}>{sub}</div>}
@@ -7508,7 +7499,7 @@ function DFTFAQSection() {
               </div>
             ))}
           </div>
-          <div style={{ background: D.warm + "08", borderRadius: 10, padding: "12px 14px", border: `1.5px solid ${D.warm}20`, marginTop: 12 }}>
+          <div style={{ padding: "12px 14px", marginTop: 12 }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: D.warm, marginBottom: 4 }}>3D NaCl (real crystal)</div>
             <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
               In 3D, the Madelung constant for NaCl is M = 1.7476. The electrostatic energy per ion pair is:<br />
@@ -7736,11 +7727,8 @@ function DFTManyBodySection() {
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           Consider just 3 electrons around a lithium atom. Electron 1 repels electron 2, which shifts electron 2's position, which changes how electron 3 is repelled, which loops back to electron 1. Even with just 3 electrons you need a wavefunction Ψ(r₁, r₂, r₃) in 9 dimensions. A 64-atom crystal has ~1,920 electrons — that's 5,760 dimensions. The exact solution is mathematically impossible beyond a handful of electrons.
         </div>
-        <div style={{
-          background: D.main + "0a", border: `1.5px solid ${D.main}30`,
-          borderRadius: 10, padding: "14px 18px", marginBottom: 14,
-          fontSize: 14, fontWeight: 500, color: D.main, textAlign: "center", lineHeight: 1.6
-        }}>
+        <div style={{ padding: "14px 18px", marginBottom: 14,
+          fontSize: 14, fontWeight: 500, color: D.main, textAlign: "center", lineHeight: 1.6 }}>
           How do you solve quantum mechanics for 10²³ interacting electrons?
           You don{"'"}t. You use DFT instead.
         </div>
@@ -7786,10 +7774,7 @@ function DFTManyBodySection() {
               { label: "Ψ", text: "3N-dim wavefunction", color: "#378695", icon: "" },
               { label: "E", text: "Total energy", color: "#317583", icon: "eigenvalue" },
             ].map(item => (
-              <div key={item.label} style={{
-                background: item.color + "0c", border: `1px solid ${item.color}25`,
-                borderRadius: 8, padding: "5px 12px", textAlign: "center"
-              }}>
+              <div key={item.label} style={{ padding: "5px 12px", textAlign: "center" }}>
                 <div style={{ fontSize: 13, fontWeight: 500, color: item.color, fontFamily: "serif" }}>{item.label}</div>
                 <div style={{ fontSize: 9, color: item.color, fontWeight: 500 }}>{item.text}</div>
               </div>
@@ -7797,10 +7782,7 @@ function DFTManyBodySection() {
           </div>
         </div>
 
-        <div style={{
-          marginTop: 14, background: D.warn + "08", border: `1.5px solid ${D.warn}20`,
-          borderRadius: 10, padding: "12px 16px", fontSize: 12, lineHeight: 1.7, color: T.ink
-        }}>
+        <div style={{ marginTop: 14, padding: "4px 0", fontSize: 12, lineHeight: 1.7, color: T.ink }}>
           <strong style={{ color: D.warn }}>Why this is impossible:</strong> The electron-electron term
           {" "}<Frac n="1" d={<>|r<Sub>i</Sub> − r<Sub>j</Sub>|</>} color="#347d8b" size={13} /> couples
           ALL electrons together. You cannot separate Ψ into individual electron functions.
@@ -8017,10 +7999,7 @@ function DFTHohenbergKohnSection() {
             ))}
           </div>
         </div>
-        <div style={{
-          background: D.xc + "0c", border: `1.5px solid ${D.xc}30`,
-          borderRadius: 10, padding: "12px 16px", fontSize: 12, color: D.xc, fontWeight: 500, lineHeight: 1.6
-        }}>
+        <div style={{ padding: "4px 0", fontSize: 12, color: D.xc, fontWeight: 500, lineHeight: 1.6 }}>
           E<Sub>xc</Sub> is where ALL the difficulty lives. Every DFT functional (LDA, PBE, HSE, etc.)
           is a different approximation for this one term.
         </div>
@@ -8141,12 +8120,9 @@ function DFTKohnShamSection() {
             { step: "6", text: <span>Converged? |E<sub>new</sub> − E<sub>old</sub>| {"<"} EDIFF? If not, go to step 2</span>, color: D.warn },
           ].map(item => (
             <div key={item.step} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{
-                minWidth: 26, height: 26, borderRadius: "50%",
-                background: item.color + "15", border: `1.5px solid ${item.color}40`,
+              <div style={{ minWidth: 26, height: 26, borderRadius: "50%",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 11, fontWeight: 500, color: item.color
-              }}>{item.step}</div>
+                fontSize: 11, fontWeight: 500, color: item.color }}>{item.step}</div>
               <div style={{
                 flex: 1, fontSize: 12, color: T.ink, fontFamily: "monospace",
                 background: item.color + "06", borderRadius: 6, padding: "6px 12px",
@@ -8339,10 +8315,7 @@ function DFTLDASection() {
             { prop: "Band gaps", accuracy: "40-60% too small", verdict: "Poor", color: D.warn },
             { prop: "Lattice constants", accuracy: "Underestimated", verdict: "Too compact", color: D.accent },
           ].map(item => (
-            <div key={item.prop} style={{
-              background: item.color + "08", border: `1px solid ${item.color}20`,
-              borderRadius: 10, padding: "10px 14px"
-            }}>
+            <div key={item.prop} style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: item.color }}>{item.prop}</div>
               <div style={{ fontSize: 11, color: T.muted }}>{item.accuracy}</div>
               <div style={{ fontSize: 11, fontWeight: 500, color: item.color }}>{item.verdict}</div>
@@ -8499,10 +8472,7 @@ function DFTGGASection() {
             { prop: "Reaction barriers", accuracy: "Underestimated", verdict: "Poor", color: D.warn },
             { prop: "van der Waals", accuracy: "Missing entirely", verdict: "Fails", color: D.warn },
           ].map(item => (
-            <div key={item.prop} style={{
-              background: item.color + "08", border: `1px solid ${item.color}20`,
-              borderRadius: 10, padding: "10px 14px"
-            }}>
+            <div key={item.prop} style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: item.color }}>{item.prop}</div>
               <div style={{ fontSize: 11, color: T.muted }}>{item.accuracy}</div>
               <div style={{ fontSize: 11, fontWeight: 500, color: item.color }}>{item.verdict}</div>
@@ -8619,10 +8589,7 @@ function DFTHSESection() {
             { func: "HSE06", cost: "10-100x", time: "~200 hrs", atoms: "10-100", color: D.xc },
             { func: "GW", cost: "1000x", time: "~2000 hrs", atoms: "2-20", color: D.warn },
           ].map(item => (
-            <div key={item.func} style={{
-              background: item.color + "08", border: `1px solid ${item.color}20`,
-              borderRadius: 10, padding: "12px 14px", textAlign: "center"
-            }}>
+            <div key={item.func} style={{ padding: "12px 14px", textAlign: "center" }}>
               <div style={{ fontSize: 14, fontWeight: 500, color: item.color, marginBottom: 4 }}>{item.func}</div>
               <div style={{ fontSize: 11, color: T.muted }}>{item.cost} cost</div>
               <div style={{ fontSize: 11, color: T.muted }}>{item.time} (64 atoms)</div>
@@ -9134,7 +9101,7 @@ function DFTGaussianSection() {
             { code: "NWChem", strength: "Open-source. Good for large molecules and parallel computing.", color: D.xc },
             { code: "Psi4", strength: "Open-source, Python-driven. Great for education and method development.", color: D.eqn },
           ].map(item => (
-            <div key={item.code} style={{ background: item.color + "08", border: `1px solid ${item.color}20`, borderRadius: 10, padding: "10px 14px" }}>
+            <div key={item.code} style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 13, fontWeight: 500, color: item.color, marginBottom: 3 }}>{item.code}</div>
               <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.strength}</div>
             </div>
@@ -9394,10 +9361,7 @@ function DFTPlaneWavesSection() {
             { label: "Pseudopotential", desc: "Replace core with smooth effective potential. ~300-500 eV cutoff. Standard approach.", color: D.basis },
             { label: "PAW (widely used)", desc: "Retains all-electron information in augmentation region via a linear transformation. Best of both worlds.", color: D.accent },
           ].map(item => (
-            <div key={item.label} style={{
-              background: item.color + "08", border: `1px solid ${item.color}20`,
-              borderRadius: 10, padding: "10px 14px"
-            }}>
+            <div key={item.label} style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: item.color, marginBottom: 3 }}>{item.label}</div>
               <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.desc}</div>
             </div>
@@ -9497,13 +9461,13 @@ function DFTPracticeSection() {
 
       <Card title="Strengths vs Limitations" color={D.warn}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-          <div style={{ background: D.basis + "08", border: `1px solid ${D.basis}20`, borderRadius: 10, padding: "12px 14px" }}>
+          <div style={{ padding: "12px 14px" }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: D.basis, marginBottom: 8 }}>Strengths</div>
             {["No empirical parameters (first-principles)", "Systematic improvability (better XC = better results)", "Predicts structures, energies, phonons, defects", "Scales to ~1000 atoms with PBE", "Huge community, validated codes (VASP, QE, GPAW)"].map(s => (
               <div key={s} style={{ fontSize: 11, color: T.ink, lineHeight: 1.6, paddingLeft: 10,  marginBottom: 4 }}>{s}</div>
             ))}
           </div>
-          <div style={{ background: D.warn + "08", border: `1px solid ${D.warn}20`, borderRadius: 10, padding: "12px 14px" }}>
+          <div style={{ padding: "12px 14px" }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: D.warn, marginBottom: 8 }}>Limitations</div>
             {["Band gaps underestimated (PBE)", "van der Waals missing in standard DFT", "Strongly correlated systems need +U or hybrid", "O(N³) scaling limits system size", "Excited states need TDDFT or GW", "Temperature = 0 K (no thermal effects)"].map(s => (
               <div key={s} style={{ fontSize: 11, color: T.ink, lineHeight: 1.6, paddingLeft: 10,  marginBottom: 4 }}>{s}</div>
@@ -9862,10 +9826,7 @@ function DFTHHeExampleSection() {
           </div>
         </div>
 
-        <div style={{
-          marginTop: 14, background: D.main + "0a", border: `1.5px solid ${D.main}25`,
-          borderRadius: 10, padding: "12px 16px"
-        }}>
+        <div style={{ marginTop: 14, padding: "4px 0" }}>
           <div style={{ fontSize: 12, fontWeight: 500, color: D.main, marginBottom: 6 }}>Key lessons from H and He:</div>
           <div style={{ fontSize: 11, lineHeight: 1.8, color: T.ink }}>
             <strong>1.</strong> H proves DFT is exact in principle — the theory is correct.<br />
@@ -9922,11 +9883,8 @@ function DFTNaExampleSection() {
       {/* Na Atom Overview */}
       <Card collapsible defaultOpen title={"Sodium Atom — DFT Step by Step"} color={D.main}>
         <DFT_ANALOGY_BOX text={fx("Sodium (Na, 11 electrons): Start with a guess density from superposed atomic orbitals. Iteration 1 builds V_eff, solves 11 KS equations, gets new orbitals 1s² 2s² 2p⁶ 3s¹. The new density differs from the guess, so mix old and new (Pulay mixing) and repeat. By iteration 5-8, the energy changes by less than 10⁻⁶ eV between steps — self-consistency is reached. The final 3s eigenvalue (-5.14 eV with PBE) closely matches Na's ionization energy (5.14 eV experimental).")} />
-        <div style={{
-          background: D.main + "0a", border: `1.5px solid ${D.main}30`,
-          borderRadius: 10, padding: "14px 18px", marginBottom: 14,
-          fontSize: 14, fontWeight: 500, color: D.main, textAlign: "center", lineHeight: 1.6
-        }}>
+        <div style={{ padding: "14px 18px", marginBottom: 14,
+          fontSize: 14, fontWeight: 500, color: D.main, textAlign: "center", lineHeight: 1.6 }}>
           Watch DFT solve a real atom: Na (Z = 11, 11 electrons).<br />
           From electron cloud to self-consistent ground state.
         </div>
@@ -10259,12 +10217,9 @@ function DFTNaExampleSection() {
             { step: "6", text: "Check: |E_new − E_old| < EDIFF?", desc: "If yes → done! If no → go to step 2", color: D.warn },
           ].map(item => (
             <div key={item.step} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{
-                minWidth: 28, height: 28, borderRadius: "50%",
-                background: item.color + "15", border: `1.5px solid ${item.color}40`,
+              <div style={{ minWidth: 28, height: 28, borderRadius: "50%",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 12, fontWeight: 500, color: item.color
-              }}>{item.step}</div>
+                fontSize: 12, fontWeight: 500, color: item.color }}>{item.step}</div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 12, fontFamily: "monospace", color: T.ink, background: item.color + "06", borderRadius: 6, padding: "6px 12px", border: `1px solid ${item.color}12` }}>{item.text}</div>
                 <div style={{ fontSize: 10, color: T.muted, marginTop: 2, marginLeft: 12 }}>{item.desc}</div>
@@ -10287,11 +10242,8 @@ function DFTNaExampleSection() {
               { orb: "3p", occ: 0, energy: "-1.06", color: T.muted },
               { orb: "3d", occ: 0, energy: "-0.05", color: T.dim },
             ].map(o => (
-              <div key={o.orb} style={{
-                background: o.color + "08", borderRadius: 8, padding: "8px 10px",
-                border: `1px solid ${o.color}20`, textAlign: "center",
-                opacity: o.occ > 0 ? 1 : 0.5
-              }}>
+              <div key={o.orb} style={{ padding: "8px 10px", textAlign: "center",
+                opacity: o.occ > 0 ? 1 : 0.5 }}>
                 <div style={{ fontFamily: "monospace", fontSize: 14, fontWeight: 500, color: o.color }}>{o.orb}</div>
                 <div style={{ fontSize: 10, color: T.muted }}>{o.occ > 0 ? `${o.occ}e⁻ occupied` : "empty"}</div>
                 <div style={{ fontSize: 11, fontWeight: 500, color: o.color }}>{o.energy} eV</div>
@@ -10428,7 +10380,7 @@ function BrillouinZoneAnalogy() {
               { label: "K", where: "Corner of hexagonal face", meaning: "Highest symmetry corner point. In graphene, the famous Dirac cones (zero bandgap) occur exactly at K. This is where graphene gets its special electronic properties.", color: "#378695", icon: "▲" },
               { label: "L", where: "Center of hexagonal face (FCC)", meaning: "Wave flips along the body diagonal (111 direction). In GaAs and many III-V semiconductors, L-point valleys affect high-field transport.", color: "#347d8b", icon: "●" },
             ].map(pt => (
-              <div key={pt.label} style={{ background: pt.color + "08", border: `1.5px solid ${pt.color}20`,  borderRadius: 10, padding: "10px 14px" }}>
+              <div key={pt.label} style={{ padding: "3px 0" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
                   <span style={{ fontSize: 16, color: pt.color }}>{pt.icon}</span>
                   <span style={{ fontSize: 13, fontWeight: 500, color: pt.color }}>{pt.label}</span>
@@ -11205,7 +11157,7 @@ function MDIntroSection() {
               { label: "Static DFT", items: ["T = 0 K only", "Equilibrium geometry", "No dynamics", "One structure"], color: MD.newton },
               { label: "Molecular Dynamics", items: ["Finite temperature", "Time evolution", "Diffusion, vibrations", "Ensemble of structures"], color: MD.main },
             ].map(col => (
-              <div key={col.label} style={{ background: col.color + "08", border: `1px solid ${col.color}20`, borderRadius: 10, padding: "12px 14px" }}>
+              <div key={col.label} style={{ padding: "12px 14px" }}>
                 <div style={{ fontSize: 13, fontWeight: 500, color: col.color, marginBottom: 8 }}>{col.label}</div>
                 {col.items.map(item => (
                   <div key={item} style={{ fontSize: 11, color: T.ink, lineHeight: 1.6, paddingLeft: 10,  marginBottom: 4 }}>{item}</div>
@@ -11225,10 +11177,7 @@ function MDIntroSection() {
               { prop: "Defect migration", desc: "Vacancy hopping, interstitial diffusion", color: MD.newton },
               { prop: "Surface reactions", desc: "Adsorption, catalysis, growth", color: MD.prop },
             ].map(item => (
-              <div key={item.prop} style={{
-                background: item.color + "08", border: `1px solid ${item.color}20`,
-                borderRadius: 10, padding: "10px 12px", textAlign: "center"
-              }}>
+              <div key={item.prop} style={{ padding: "3px 0", textAlign: "center" }}>
                 <div style={{ fontSize: 12, fontWeight: 500, color: item.color, marginBottom: 3 }}>{item.prop}</div>
                 <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.4 }}>{item.desc}</div>
               </div>
@@ -11444,12 +11393,9 @@ function MDVerletSection() {
               { step: "4", text: "v(t+Δt) = v(t) + ½ [a(t) + a(t+Δt)] Δt", desc: "Update velocities", color: MD.thermo },
             ].map(item => (
               <div key={item.step} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div style={{
-                  minWidth: 26, height: 26, borderRadius: "50%",
-                  background: item.color + "15", border: `1.5px solid ${item.color}40`,
+                <div style={{ minWidth: 26, height: 26, borderRadius: "50%",
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 11, fontWeight: 500, color: item.color
-                }}>{item.step}</div>
+                  fontSize: 11, fontWeight: 500, color: item.color }}>{item.step}</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 12, fontFamily: "monospace", color: T.ink, background: item.color + "06", borderRadius: 6, padding: "6px 12px", border: `1px solid ${item.color}12` }}>{item.text}</div>
                   <div style={{ fontSize: 10, color: T.muted, marginTop: 2, marginLeft: 12 }}>{item.desc}</div>
@@ -11589,10 +11535,7 @@ function MDVerletSection() {
             {"  v"}<sub>3</sub>{"(1fs) = "}<span style={{ color: MD.prop, fontWeight: 500 }}>{"~0.000 Å/ps"}</span>{" (barely starting to move)"}<br />
             {"  v"}<sub>4</sub>{"(1fs) = 0"}<br /><br />
 
-            <div style={{
-              background: MD.aimd + "10", border: `1.5px solid ${MD.aimd}30`,
-              borderRadius: 8, padding: "10px 14px", marginTop: 6
-            }}>
+            <div style={{ padding: "3px 0", marginTop: 6 }}>
               <span style={{ color: MD.aimd, fontWeight: 500, fontSize: 13 }}>Key Observation — Elastic Wave Propagation</span><br />
               <span style={{ fontSize: 12, color: T.ink, lineHeight: 1.7 }}>
                 The initial displacement of atom 1 creates a force on atom 2 immediately.<br />
@@ -11715,7 +11658,7 @@ function MDEnsemblesSection() {
               </svg>
             </div>
             <div style={{ flex: 1, minWidth: 240 }}>
-              <div style={{ background: ens.color + "08", borderRadius: 10, padding: "12px 14px", border: `1px solid ${ens.color}15`, marginBottom: 10 }}>
+              <div style={{ padding: "12px 14px", marginBottom: 10 }}>
                 <div style={{ fontSize: 12, fontWeight: 500, color: ens.color, marginBottom: 6 }}>{ens.icon} Analogy</div>
                 <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{ens.analogy}</div>
               </div>
@@ -11908,10 +11851,7 @@ function MDAimdSection() {
               { method: "MLFF-MD", atoms: "1,000-10,000", time: "1-10 ns", cost: "100 CPU-hrs", color: MD.main },
               { method: "Classical MD", atoms: "10⁶+", time: "1-100 ns", cost: "10 CPU-hrs", color: MD.cls },
             ].map(item => (
-              <div key={item.method} style={{
-                background: item.color + "08", border: `1px solid ${item.color}20`,
-                borderRadius: 10, padding: "12px 14px", textAlign: "center"
-              }}>
+              <div key={item.method} style={{ padding: "12px 14px", textAlign: "center" }}>
                 <div style={{ fontSize: 13, fontWeight: 500, color: item.color, marginBottom: 6 }}>{item.method}</div>
                 <div style={{ fontSize: 11, color: T.muted }}>Max atoms: {item.atoms}</div>
                 <div style={{ fontSize: 11, color: T.muted }}>Timescale: {item.time}</div>
@@ -12118,10 +12058,7 @@ function MDClassicalSection() {
               { name: "GROMACS", desc: "Biomolecular MD, extremely fast for proteins/lipids", color: MD.prop },
               { name: "ASE", desc: "Python interface to any calculator, great for prototyping", color: MD.thermo },
             ].map(item => (
-              <div key={item.name} style={{
-                background: item.color + "08", border: `1px solid ${item.color}20`,
-                borderRadius: 10, padding: "10px 14px", textAlign: "center"
-              }}>
+              <div key={item.name} style={{ padding: "3px 0", textAlign: "center" }}>
                 <div style={{ fontSize: 13, fontWeight: 500, color: item.color, marginBottom: 4 }}>{item.name}</div>
                 <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.4 }}>{item.desc}</div>
               </div>
@@ -12307,12 +12244,9 @@ function MDPracticeSection() {
               { text: "Convergence check: is MSD linear? Is g(r) stable?", color: MD.warn },
             ].map((step, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div style={{
-                  minWidth: 26, height: 26, borderRadius: "50%",
-                  background: step.color + "15", border: `1.5px solid ${step.color}40`,
+                <div style={{ minWidth: 26, height: 26, borderRadius: "50%",
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 11, fontWeight: 500, color: step.color
-                }}>{i + 1}</div>
+                  fontSize: 11, fontWeight: 500, color: step.color }}>{i + 1}</div>
                 <div style={{
                   flex: 1, fontSize: 12, color: T.ink, fontFamily: "monospace",
                   background: step.color + "06", borderRadius: 6, padding: "6px 12px",
@@ -12457,11 +12391,8 @@ function MDExample16Section() {
 
         {/* SYSTEM SETUP */}
         <Card title={"16-Atom Copper FCC System — Complete MD Walkthrough"} color={MD.main}>
-          <div style={{
-            background: MD.main + "0a", border: `1.5px solid ${MD.main}30`,
-            borderRadius: 10, padding: "14px 18px", marginBottom: 14,
-            fontSize: 14, fontWeight: 500, color: MD.main, textAlign: "center", lineHeight: 1.6
-          }}>
+          <div style={{ padding: "14px 18px", marginBottom: 14,
+            fontSize: 14, fontWeight: 500, color: MD.main, textAlign: "center", lineHeight: 1.6 }}>
             A 2×2×1 FCC copper supercell (16 atoms). We will compute forces,
             run Velocity Verlet, and demonstrate NVE, NVT, and NPT ensembles step by step.
           </div>
@@ -12908,10 +12839,7 @@ function MDExample16Section() {
               { prop: "MSD at 1 ps", eq: "MSD = ⟨|r(t)−r(0)|²⟩", result: "0.12 Å²", color: MD.prop },
               { prop: "Thermal expansion", eq: "α_L = Δa / (aΔT)", result: "16.5×10⁻⁶ K⁻¹", color: MD.cls },
             ].map(item => (
-              <div key={item.prop} style={{
-                background: item.color + "08", border: `1px solid ${item.color}20`,
-                borderRadius: 10, padding: "10px 14px"
-              }}>
+              <div key={item.prop} style={{ padding: "3px 0" }}>
                 <div style={{ fontSize: 12, fontWeight: 500, color: item.color, marginBottom: 4 }}>{item.prop}</div>
                 <div style={{ fontSize: 10, fontFamily: "monospace", color: T.muted, marginBottom: 4 }}>{item.eq}</div>
                 <div style={{ fontSize: 13, fontWeight: 500, color: T.ink }}>{item.result}</div>
@@ -13912,11 +13840,8 @@ const chHighlightNum = (val, color) => (
   <span style={{ fontWeight: 500, color: color || CH.main, fontFamily: "monospace" }}>{val}</span>
 );
 const chBadge = (text, color) => (
-  <span style={{
-    display: "inline-block", padding: "2px 10px", borderRadius: 6,
-    background: color + "15", border: `1px solid ${color}35`,
-    color, fontSize: 11, fontWeight: 500, letterSpacing: 0.5
-  }}>{text}</span>
+  <span style={{ display: "inline-block", padding: "2px 10px",
+    color, fontSize: 11, fontWeight: 500, letterSpacing: 0.5 }}>{text}</span>
 );
 
 const CHHullPlot = ({ showAbove = false, highlightPoint = null }) => {
@@ -14056,11 +13981,8 @@ function CHOverviewSection() {
             It answers the fundamental question: <em>If I mix elements A, B, C… in different ratios
             under different conditions, which compounds will actually form?</em>
           </p>
-          <div style={{
-            background: CH.main + "0a", border: `1.5px solid ${CH.main}30`,
-            borderRadius: 10, padding: "14px 18px", margin: "0 0 14px",
-            fontSize: 14, fontWeight: 500, color: CH.main, textAlign: "center"
-          }}>
+          <div style={{ padding: "14px 18px", margin: "0 0 14px",
+            fontSize: 14, fontWeight: 500, color: CH.main, textAlign: "center" }}>
             DFT Energies → Formation Energies → Convex Hull → Chemical Potential Diagram → Synthesis Recipe
           </div>
         </div>
@@ -14168,11 +14090,8 @@ function CHIntroSection() {
               lowest-energy boundary connecting all thermodynamically stable phases in a chemical system.
               It answers a fundamental question:
             </p>
-            <div style={{
-              background: CH.main + "0a", border: `1.5px solid ${CH.main}30`,
-              borderRadius: 10, padding: "14px 18px", margin: "0 0 14px",
-              fontSize: 15, fontWeight: 500, color: CH.main, textAlign: "center"
-            }}>
+            <div style={{ padding: "14px 18px", margin: "0 0 14px",
+              fontSize: 15, fontWeight: 500, color: CH.main, textAlign: "center" }}>
               {'"Given elements A and B, which compounds AₓB₁₋ₓ are thermodynamically stable at T = 0 K?"'}
             </div>
             <p style={{ margin: "0 0 10px" }}>
@@ -14190,16 +14109,10 @@ function CHIntroSection() {
               { step: "2", title: "Formation Energies", desc: "Subtract reference energies of pure elements. Normalize per atom." },
               { step: "3", title: "Build Convex Hull", desc: "Connect lowest-energy points. Distance above = thermodynamic instability." },
             ].map(s => (
-              <div key={s.step} style={{
-                background: CH.accent + "08", border: `1px solid ${CH.accent}20`,
-                borderRadius: 10, padding: "14px 16px", textAlign: "center"
-              }}>
-                <div style={{
-                  width: 32, height: 32, borderRadius: "50%", margin: "0 auto 8px",
-                  background: CH.accent + "18", border: `1.5px solid ${CH.accent}40`,
+              <div key={s.step} style={{ padding: "14px 16px", textAlign: "center" }}>
+                <div style={{ width: 32, height: 32, borderRadius: "50%", margin: "0 auto 8px",
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 15, fontWeight: 500, color: CH.accent
-                }}>{s.step}</div>
+                  fontSize: 15, fontWeight: 500, color: CH.accent }}>{s.step}</div>
                 <div style={{ fontSize: 13, fontWeight: 500, color: CH.accent, marginBottom: 4 }}>{s.title}</div>
                 <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.5 }}>{s.desc}</div>
               </div>
@@ -14261,10 +14174,7 @@ function CHSetupSection() {
         </Card>
 
         <Card collapsible title="What we need to do" color={CH.warm}>
-          <div style={{
-            background: CH.warm + "0a", border: `1px solid ${CH.warm}22`,
-            borderRadius: 10, padding: "14px 18px", fontSize: 13, lineHeight: 1.8
-          }}>
+          <div style={{ padding: "14px 18px", fontSize: 13, lineHeight: 1.8 }}>
             <strong style={{ color: CH.warm }}>Problem:</strong> Raw DFT energies can{"'"}t be compared directly —
             different compounds have different numbers of atoms.<br />
             <strong style={{ color: CH.warm }}>Solution:</strong> Convert to <em>formation energy per atom</em> relative
@@ -14308,10 +14218,7 @@ function CHFormSection() {
             {"           = "}<span style={{ color: CH.stable, fontWeight: 500 }}>-1.99 eV</span>{"  ← whole formula unit"}<br /><br />
             {"Per atom = -1.99 / 3 = "}<span style={{ color: CH.stable, fontWeight: 500, fontSize: 14 }}>-0.6633 eV/atom</span>
           </div>
-          <div style={{
-            background: CH.stable + "0c", border: `1px solid ${CH.stable}25`,
-            borderRadius: 8, padding: "10px 14px", fontSize: 12, color: CH.stable, fontWeight: 500
-          }}>
+          <div style={{ padding: "3px 0", fontSize: 12, color: CH.stable, fontWeight: 500 }}>
             Negative → energy is released when forming Cu₂S → it wants to form naturally
           </div>
         </Card>
@@ -14327,10 +14234,7 @@ function CHFormSection() {
             {"        = "}<span style={{ color: CH.warm, fontWeight: 500 }}>-0.05 eV</span><br /><br />
             {"Per atom = -0.05 / 2 = "}<span style={{ color: CH.warm, fontWeight: 500, fontSize: 14 }}>-0.025 eV/atom</span>
           </div>
-          <div style={{
-            background: CH.warm + "0c", border: `1px solid ${CH.warm}25`,
-            borderRadius: 8, padding: "10px 14px", fontSize: 12, color: CH.warm, fontWeight: 500
-          }}>
+          <div style={{ padding: "3px 0", fontSize: 12, color: CH.warm, fontWeight: 500 }}>
             Very small negative — barely stable. Weakly wants to form.
           </div>
         </Card>
@@ -14400,10 +14304,7 @@ function CHHullSection() {
             straight lines. Any compound above these lines is thermodynamically unstable.
           </div>
           <CHHullPlot showAbove={false} />
-          <div style={{
-            background: CH.hull + "0a", border: `1px solid ${CH.hull}22`,
-            borderRadius: 10, padding: "14px 18px", marginTop: 14, fontSize: 13, lineHeight: 1.8
-          }}>
+          <div style={{ padding: "14px 18px", marginTop: 14, fontSize: 13, lineHeight: 1.8 }}>
             <strong style={{ color: CH.hull }}>Hull connects:</strong> Cu → Cu₂S → S<br />
             Cu₂S at {chHighlightNum("-0.663 eV/atom", CH.stable)} is so far below CuS and CuS₂ that the
             hull skips directly from Cu₂S to S.
@@ -14412,10 +14313,7 @@ function CHHullSection() {
 
         <Card collapsible title="Hull Line Equations" color={CH.accent}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-            <div style={{
-              background: CH.accent + "08", border: `1px solid ${CH.accent}20`,
-              borderRadius: 10, padding: "14px 16px"
-            }}>
+            <div style={{ padding: "14px 16px" }}>
               <div style={{ fontSize: 11, color: CH.accent, fontWeight: 500, letterSpacing: 1, marginBottom: 8, textTransform: "none" }}>
                 Segment 1: Cu → Cu₂S
               </div>
@@ -14426,10 +14324,7 @@ function CHHullSection() {
                 E_hull(x) = -2.009 × x
               </div>
             </div>
-            <div style={{
-              background: CH.hull + "08", border: `1px solid ${CH.hull}20`,
-              borderRadius: 10, padding: "14px 16px"
-            }}>
+            <div style={{ padding: "14px 16px" }}>
               <div style={{ fontSize: 11, color: CH.hull, fontWeight: 500, letterSpacing: 1, marginBottom: 8, textTransform: "none" }}>
                 Segment 2: Cu₂S → S
               </div>
@@ -14483,10 +14378,7 @@ function CHAboveSection() {
             {"             = -0.025 − (-0.495)"}<br />
             {"             = "}<span style={{ color: CH.unstab, fontWeight: 500, fontSize: 15 }}>+0.470 eV/atom</span>
           </div>
-          <div style={{
-            background: CH.unstab + "0c", border: `1px solid ${CH.unstab}25`,
-            borderRadius: 8, padding: "12px 16px", fontSize: 12, color: CH.unstab, fontWeight: 500, lineHeight: 1.6
-          }}>
+          <div style={{ padding: "4px 0", fontSize: 12, color: CH.unstab, fontWeight: 500, lineHeight: 1.6 }}>
             CuS is 470 meV/atom above the hull — thermodynamically unstable.
             It will decompose into Cu₂S + S.
           </div>
@@ -14504,10 +14396,7 @@ function CHAboveSection() {
             {fx("E_above_hull = -0.017 − (-0.326)")}<br />
             {"             = "}<span style={{ color: CH.unstab, fontWeight: 500, fontSize: 15 }}>+0.309 eV/atom</span>
           </div>
-          <div style={{
-            background: CH.unstab + "0c", border: `1px solid ${CH.unstab}25`,
-            borderRadius: 8, padding: "12px 16px", fontSize: 12, color: CH.unstab, fontWeight: 500
-          }}>
+          <div style={{ padding: "4px 0", fontSize: 12, color: CH.unstab, fontWeight: 500 }}>
             CuS₂ is 309 meV/atom above the hull — also unstable.
           </div>
         </Card>
@@ -14581,10 +14470,7 @@ function CHResultsSection() {
 
         <Card collapsible title="Physical Interpretation" color={CH.stable}>
           <div style={{ fontSize: 13, lineHeight: 1.9, color: T.ink }}>
-            <div style={{
-              background: CH.stable + "0a", border: `1px solid ${CH.stable}22`,
-              borderRadius: 10, padding: "14px 18px", marginBottom: 14
-            }}>
+            <div style={{ padding: "14px 18px", marginBottom: 14 }}>
               <strong style={{ color: CH.stable }}>Cu₂S is the only stable intermediate</strong> in the Cu-S system. If you
               tried to synthesize CuS, thermodynamics predicts it will spontaneously decompose:
               <div style={{
@@ -14595,18 +14481,12 @@ function CHResultsSection() {
                 2 CuS {"  →  "}Cu₂S + S {"  "}<span style={{ color: CH.stable }}>(releases energy)</span>
               </div>
             </div>
-            <div style={{
-              background: CH.warm + "0a", border: `1px solid ${CH.warm}22`,
-              borderRadius: 10, padding: "14px 18px", marginBottom: 14
-            }}>
+            <div style={{ padding: "14px 18px", marginBottom: 14 }}>
               <strong style={{ color: CH.warm }}>Stability threshold:</strong> Anything above ~100 meV/atom is
               generally considered unlikely to be synthesizable under equilibrium conditions.
               CuS at 470 meV/atom is far above this threshold.
             </div>
-            <div style={{
-              background: CH.accent + "0a", border: `1px solid ${CH.accent}22`,
-              borderRadius: 10, padding: "14px 18px"
-            }}>
+            <div style={{ padding: "14px 18px" }}>
               <strong style={{ color: CH.accent }}>But kinetics matters!</strong> CuS <em>can</em> exist as a metastable
               phase if synthesized at low temperature quickly (e.g., sol-gel at 200°C). The gap between
               what the convex hull predicts and what experimentalists actually report is exactly the
@@ -14634,11 +14514,8 @@ function CHThermoSection() {
               The convex hull is a <strong style={{ color: CH.accent }}>thermodynamic construction</strong> — it identifies
               phases that minimize the Gibbs free energy at T = 0 K and P = 0.
             </p>
-            <div style={{
-              background: CH.accent + "0a", border: `1.5px solid ${CH.accent}30`,
-              borderRadius: 10, padding: "14px 18px", margin: "0 0 14px",
-              fontSize: 15, fontWeight: 500, color: CH.accent, textAlign: "center"
-            }}>
+            <div style={{ padding: "14px 18px", margin: "0 0 14px",
+              fontSize: 15, fontWeight: 500, color: CH.accent, textAlign: "center" }}>
               G = H − TS → at T = 0 K, G = H ≈ E_DFT
             </div>
             <p style={{ margin: 0 }}>
@@ -14696,10 +14573,7 @@ function CHThermoSection() {
               { title: "Entropy-Stabilized Phases", desc: "High-entropy oxides (5+ cations) are stable ONLY because of configurational entropy.", color: CH.warm },
               { title: "Order-Disorder Transitions", desc: "Cu₃Au is ordered at 0 K, disordered above ~390°C. Hull changes with temperature.", color: CH.accent },
             ].map(s => (
-              <div key={s.title} style={{
-                background: s.color + "08", border: `1px solid ${s.color}20`,
-                borderRadius: 10, padding: "14px 16px"
-              }}>
+              <div key={s.title} style={{ padding: "14px 16px" }}>
                 <div style={{ fontSize: 13, fontWeight: 500, color: s.color, marginBottom: 4 }}>{s.title}</div>
                 <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.5 }}>{s.desc}</div>
               </div>
@@ -14708,10 +14582,7 @@ function CHThermoSection() {
         </Card>
 
         <Card collapsible title="Practical Rule of Thumb" color={CH.stable}>
-          <div style={{
-            background: CH.stable + "0a", border: `1px solid ${CH.stable}22`,
-            borderRadius: 10, padding: "14px 18px", fontSize: 13, lineHeight: 1.8
-          }}>
+          <div style={{ padding: "14px 18px", fontSize: 13, lineHeight: 1.8 }}>
             <strong style={{ color: CH.stable }}>E_above_hull {"<"} 25 meV/atom:</strong> Could be stabilized by entropy at moderate T. Check phonons.<br/>
             <strong style={{ color: CH.warm }}>25–100 meV/atom:</strong> Possibly metastable. Needs kinetic trapping (rapid quench, thin film deposition).<br/>
             <strong style={{ color: CH.unstab }}>{">"} 100 meV/atom:</strong> Very unlikely to exist under equilibrium conditions at any temperature.
@@ -14783,11 +14654,8 @@ function CHChemPotSection() {
               or removing one atom of species <em>i</em> from the system. It connects the convex hull to
               real experimental conditions.
             </p>
-            <div style={{
-              background: CH.warm + "0a", border: `1.5px solid ${CH.warm}30`,
-              borderRadius: 10, padding: "14px 18px", margin: "0 0 14px",
-              fontSize: 15, fontWeight: 500, color: CH.warm, textAlign: "center"
-            }}>
+            <div style={{ padding: "14px 18px", margin: "0 0 14px",
+              fontSize: 15, fontWeight: 500, color: CH.warm, textAlign: "center" }}>
               ΔG_f = E_DFT − Σ n_i × μ_i
             </div>
             <p style={{ margin: 0 }}>
@@ -14874,10 +14742,7 @@ function CHChemPotSection() {
         </Card>
 
         <Card collapsible title="Connecting Hull to Experiment" color={CH.stable}>
-          <div style={{
-            background: CH.stable + "0a", border: `1px solid ${CH.stable}22`,
-            borderRadius: 10, padding: "14px 18px", fontSize: 13, lineHeight: 1.8
-          }}>
+          <div style={{ padding: "14px 18px", fontSize: 13, lineHeight: 1.8 }}>
             <strong style={{ color: CH.stable }}>The convex hull defines allowed μ ranges.</strong> Each stable phase on the hull
             creates a region in chemical potential space. Moving between regions (by changing partial pressures,
             temperature, or precursor ratios) drives phase transitions. This is how materials scientists
@@ -14955,11 +14820,8 @@ function CHChemDiagramSection() {
             chemical potentials of each element. It answers: <em>under what growth conditions
             does my target phase form without decomposing?</em>
           </p>
-          <div style={{
-            background: CH.warm + "0a", border: `1.5px solid ${CH.warm}30`,
-            borderRadius: 10, padding: "14px 18px", margin: "0 0 14px",
-            fontSize: 15, fontWeight: 500, color: CH.warm, textAlign: "center"
-          }}>
+          <div style={{ padding: "14px 18px", margin: "0 0 14px",
+            fontSize: 15, fontWeight: 500, color: CH.warm, textAlign: "center" }}>
             ΔG_f(phase) = E_DFT(phase) − Σ n_i × μ_i ≤ 0 for stability
           </div>
           <p style={{ margin: 0 }}>
@@ -14995,10 +14857,7 @@ function CHChemDiagramSection() {
           <Card collapsible title="Binary System: Cu-S" color={CH.hull}>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
               <p style={{ margin: "0 0 8px" }}>In a binary A-B system, the diagram is <strong>1D</strong>:</p>
-              <div style={{
-                background: CH.hull + "0a", border: `1px solid ${CH.hull}22`,
-                borderRadius: 8, padding: "10px 14px", fontFamily: "monospace", fontSize: 11
-              }}>
+              <div style={{ padding: "3px 0", fontFamily: "monospace", fontSize: 11 }}>
                 μ_Cu + μ_S = ΔH_f(Cu₂S)<br/>
                 μ_Cu ranges: [ΔH_f/2, 0]<br/>
                 μ_S = ΔH_f − 2μ_Cu
@@ -15011,10 +14870,7 @@ function CHChemDiagramSection() {
           <Card collapsible title="Ternary System: Cu-Zn-S" color={CH.accent}>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
               <p style={{ margin: "0 0 8px" }}>In a ternary A-B-C system, the diagram is <strong>2D</strong>:</p>
-              <div style={{
-                background: CH.accent + "0a", border: `1px solid ${CH.accent}22`,
-                borderRadius: 8, padding: "10px 14px", fontFamily: "monospace", fontSize: 11
-              }}>
+              <div style={{ padding: "3px 0", fontFamily: "monospace", fontSize: 11 }}>
                 Plot μ_Cu vs μ_Zn<br/>
                 μ_S = ΔH_f − n_Cuμ_Cu − n_Znμ_Zn<br/>
                 Each phase → polygon region
@@ -15026,10 +14882,7 @@ function CHChemDiagramSection() {
       </div>
 
       <Card collapsible title="Why Chemical Potential Diagrams Matter" color={CH.stable}>
-        <div style={{
-          background: CH.stable + "0a", border: `1px solid ${CH.stable}22`,
-          borderRadius: 10, padding: "14px 18px", fontSize: 13, lineHeight: 1.8
-        }}>
+        <div style={{ padding: "14px 18px", fontSize: 13, lineHeight: 1.8 }}>
           <strong style={{ color: CH.stable }}>They bridge theory and experiment.</strong> The convex hull tells you
           <em> what</em> is stable. The chemical potential diagram tells you <em>how</em> to make it.
           For multi-component compounds like Cu₂ZnSnS₄ (CZTS), the stability window can be
@@ -15418,11 +15271,8 @@ function CHCZTSSection() {
             4th is fixed by the formation energy constraint). We plot 2D slices of μ_Cu vs μ_Zn
             at fixed μ_Sn.
           </p>
-          <div style={{
-            background: CH.hull + "0a", border: `1px solid ${CH.hull}22`,
-            borderRadius: 10, padding: "14px 18px", margin: "0 0 14px",
-            fontFamily: "monospace", fontSize: 12
-          }}>
+          <div style={{ padding: "14px 18px", margin: "0 0 14px",
+            fontFamily: "monospace", fontSize: 12 }}>
             2μ_Cu + μ_Zn + μ_Sn + 4μ_S = ΔH_f(CZTS) = -3.47 eV<br/><br/>
             <strong>Elemental bounds:</strong><br/>
             μ_Cu ≤ 0 (no metallic Cu)<br/>
@@ -15453,10 +15303,7 @@ function CHCZTSSection() {
             }}>{reg.label}</button>
           ))}
         </div>
-        <div style={{
-          background: r.color + "08", border: `1.5px solid ${r.color}22`,
-          borderRadius: 10, padding: "14px 18px"
-        }}>
+        <div style={{ padding: "14px 18px" }}>
           <div style={{ fontSize: 16, fontWeight: 500, color: r.color, marginBottom: 6 }}>{r.label}</div>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink }}>{r.desc}</div>
           {selectedRegion === "czts" && (
@@ -15539,10 +15386,7 @@ function CHCZTSSection() {
               </tbody>
             </table>
           </div>
-          <div style={{
-            background: CH.stable + "0a", border: `1px solid ${CH.stable}22`,
-            borderRadius: 10, padding: "14px 18px", marginTop: 14, fontSize: 13, lineHeight: 1.8
-          }}>
+          <div style={{ padding: "14px 18px", marginTop: 14, fontSize: 13, lineHeight: 1.8 }}>
             <strong style={{ color: CH.stable }}>Key insight:</strong> The CZTS stability window spans only
             ~0.5 eV in μ_Cu and ~1.1 eV in μ_Zn. Compare this to binary Cu₂S which has
             a window of ~1.5 eV — CZTS is <strong>3× harder</strong> to synthesize in the right
@@ -15890,10 +15734,7 @@ function CHChemConstructSection() {
               </tbody>
             </table>
           </div>
-          <div style={{
-            background: CH.stable + "0a", border: `1.5px solid ${CH.stable}22`,
-            borderRadius: 10, padding: "14px 18px", marginTop: 12
-          }}>
+          <div style={{ padding: "14px 18px", marginTop: 12 }}>
             <strong style={{ color: CH.stable }}>Result:</strong> From 5 DFT numbers, we built the complete stability diagram.
             Cu₂S is stable in a 0.23 eV window. CuS and CuS₂ each steal part of the line. This is the <strong>exact same method</strong> used for CZTS — just with more dimensions and more competing phases.
           </div>
@@ -15908,11 +15749,8 @@ function CHChemConstructSection() {
             { system: "Quaternary (A-B-C-D)", dim: "3D → 2D slices", vars: "3 free μ’s", example: "Cu-Zn-Sn-S: fix μ_Sn, plot μ_Cu vs. μ_Zn", color: CH.warm },
             { system: "Quinary (A-B-C-D-E)", dim: "4D → 2D slices", vars: "4 free μ’s", example: "High-entropy alloys: multiple 2D projections needed", color: CH.accent },
           ].map(({ system, dim, vars, example, color }) => (
-            <div key={system} style={{
-              marginBottom: 8, padding: "10px 14px", borderRadius: 8,
-              background: color + "08", border: `1px solid ${color}18`,
-              display: "flex", gap: 14
-            }}>
+            <div key={system} style={{ marginBottom: 8, padding: "3px 0",
+              display: "flex", gap: 14 }}>
               <div style={{ flex: "0 0 130px" }}>
                 <div style={{ fontWeight: 500, color }}>{system}</div>
                 <div style={{ fontSize: 11, color: T.muted }}>{dim}</div>
@@ -16330,7 +16168,7 @@ function CHKineticsSection() {
             { title: "CZTS Disorder", example: "Cu-Zn disorder in kesterite CZTS has a barrier of only ~0.2 eV. Even at 200°C, Cu/Zn swap freely → always disordered. This limits V_oc in solar cells.", color: "#1a5a66", icon: "□" },
             { title: "Quenching Strategy", example: "Anneal at 550°C long enough for CZTS to form, then QUENCH rapidly to freeze the structure before Cu₂S can nucleate during cooldown. Cooling rate matters!", color: "#1a5a66", icon: "▲" },
           ].map(item => (
-            <div key={item.title} style={{ background: item.color + "08", border: `1px solid ${item.color}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div key={item.title} style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 11, fontWeight: 500, color: item.color, marginBottom: 4 }}>{item.icon} {item.title}</div>
               <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.7 }}>{item.example}</div>
             </div>
@@ -16453,7 +16291,7 @@ function CHBigQuestionsSection() {
 
       {/* ═══ PQ1–PQ5: Phase Diagrams ═══ */}
       <FAQAccordion title={"PQ1. What exactly IS a phase?"} color={T.ch_main} isOpen={openQ === "PQ1"} onClick={() => toggle("PQ1")}>
-        <div style={{ background: T.ch_main + "10", border: `1px solid ${T.ch_main}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_main }}> <b>Analogy:</b> Think of ice, liquid water, and steam — same H₂O molecules, but completely different arrangements. Each arrangement is a distinct phase.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16469,7 +16307,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ2. What does 'equilibrium' mean on a phase diagram?"} color={T.ch_main} isOpen={openQ === "PQ2"} onClick={() => toggle("PQ2")}>
-        <div style={{ background: T.ch_main + "10", border: `1px solid ${T.ch_main}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_main }}> <b>Analogy:</b> A ball rolling to the bottom of a valley. At equilibrium, the system has found its lowest-energy state and has no driving force to change.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16484,7 +16322,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ3. What is the Gibbs phase rule and why does it matter?"} color={T.ch_hull} isOpen={openQ === "PQ3"} onClick={() => toggle("PQ3")}>
-        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_hull }}> <b>Analogy:</b> Imagine knobs on a control panel. The phase rule tells you how many knobs you can turn independently without changing which phases are present.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16504,7 +16342,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ4. What are 'degrees of freedom' physically?"} color={T.ch_hull} isOpen={openQ === "PQ4"} onClick={() => toggle("PQ4")}>
-        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_hull }}> <b>Analogy:</b> A drone flying in 3D space has 3 degrees of freedom (x, y, z). Pin it to a wire and it has 1. Each constraint removes a freedom.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16522,7 +16360,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ5. What is the lever rule and how do I use it?"} color={T.ch_accent} isOpen={openQ === "PQ5"} onClick={() => toggle("PQ5")}>
-        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_accent }}> <b>Analogy:</b> A seesaw — the heavier child sits closer to the pivot. Similarly, the phase closer in composition to the overall alloy is present in greater proportion.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16542,7 +16380,7 @@ function CHBigQuestionsSection() {
 
       {/* ═══ PQ6–PQ10: Thermodynamics ═══ */}
       <FAQAccordion title={"PQ6. What is Gibbs free energy and why does it determine stability?"} color={T.ch_accent} isOpen={openQ === "PQ6"} onClick={() => toggle("PQ6")}>
-        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_accent }}> <b>Analogy:</b> A ball on a hilly landscape. G is the height. The ball always rolls downhill to the lowest G. Stable phases sit in the deepest valleys.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16559,7 +16397,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ7. What's the difference between enthalpy and entropy?"} color={T.ch_warm} isOpen={openQ === "PQ7"} onClick={() => toggle("PQ7")}>
-        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_warm }}> <b>Analogy:</b> Enthalpy H is like money in the bank (energy stored in bonds). Entropy S is like freedom to spend it (how many microstates). Nature wants low H and high S.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16578,7 +16416,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ8. Why does ΔG < 0 mean a reaction is spontaneous?"} color={T.ch_stable} isOpen={openQ === "PQ8"} onClick={() => toggle("PQ8")}>
-        <div style={{ background: T.ch_stable + "10", border: `1px solid ${T.ch_stable}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_stable }}> <b>Analogy:</b> A skier going downhill. ΔG {"<"} 0 means you're going downhill in the energy landscape — the reaction happens naturally without external energy input.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16596,7 +16434,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ9. What is chemical potential μ?"} color={T.ch_warm} isOpen={openQ === "PQ9"} onClick={() => toggle("PQ9")}>
-        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_warm }}> <b>Analogy:</b> Water pressure in connected tanks. Water flows from high pressure to low until pressures equalize. Chemical potential is the "pressure" driving atoms from one phase to another.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16614,7 +16452,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ10. What is thermodynamic activity?"} color={T.ch_accent} isOpen={openQ === "PQ10"} onClick={() => toggle("PQ10")}>
-        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_accent }}> <b>Analogy:</b> In a crowded room, a person's "effective presence" depends on how active they are, not just how many people are there. Activity = effective concentration.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16633,7 +16471,7 @@ function CHBigQuestionsSection() {
 
       {/* ═══ PQ11–PQ15: Formation Energy ═══ */}
       <FAQAccordion title={"PQ11. What is formation energy?"} color={T.ch_hull} isOpen={openQ === "PQ11"} onClick={() => toggle("PQ11")}>
-        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_hull }}> <b>Analogy:</b> Building a house. Formation energy is the energy difference between the finished house and the raw materials (bricks, wood, nails). Negative = exothermic = house is more stable than a pile of materials.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16651,7 +16489,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ12. Why measure formation energy relative to pure elements?"} color={T.ch_hull} isOpen={openQ === "PQ12"} onClick={() => toggle("PQ12")}>
-        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_hull }}> <b>Analogy:</b> Measuring height above sea level. Sea level is arbitrary but universal. Similarly, pure elements are the universal "zero" for formation energy — everyone agrees on the reference.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16667,7 +16505,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ13. How does DFT actually compute formation energy?"} color={T.ch_main} isOpen={openQ === "PQ13"} onClick={() => toggle("PQ13")}>
-        <div style={{ background: T.ch_main + "10", border: `1px solid ${T.ch_main}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_main }}> <b>Analogy:</b> A supercomputer playing the world's most detailed game of Minecraft — placing every atom, computing every electron interaction, then finding the total energy of the arrangement.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16684,7 +16522,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ14. What are reference states and how do I choose them?"} color={T.ch_stable} isOpen={openQ === "PQ14"} onClick={() => toggle("PQ14")}>
-        <div style={{ background: T.ch_stable + "10", border: `1px solid ${T.ch_stable}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_stable }}> <b>Analogy:</b> Like choosing "ground floor" in a building — the reference defines zero, and everything else is measured relative to it. Pick the wrong ground floor, and all heights are wrong.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16701,7 +16539,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={fx("PQ15. What if ΔH_f > 0? Is the compound always unstable?")} color={T.ch_unstab} isOpen={openQ === "PQ15"} onClick={() => toggle("PQ15")}>
-        <div style={{ background: T.ch_unstab + "10", border: `1px solid ${T.ch_unstab}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_unstab }}> <b>Analogy:</b> A ball balanced on a hilltop has positive potential energy vs. the valley, but it stays put unless something pushes it. Some "unstable" compounds persist for millennia because they can't find a path downhill.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16720,7 +16558,7 @@ function CHBigQuestionsSection() {
 
       {/* ═══ PQ16–PQ20: Convex Hull ═══ */}
       <FAQAccordion title={"PQ16. What IS a convex hull, geometrically?"} color={T.ch_hull} isOpen={openQ === "PQ16"} onClick={() => toggle("PQ16")}>
-        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_hull }}> <b>Analogy:</b> Imagine scattering pins on a board and stretching a rubber band around the outermost ones. The rubber band forms the "convex hull." In thermodynamics, we want the LOWER hull — the floor, not the ceiling.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16738,7 +16576,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ17. Why does 'lower energy = more stable'?"} color={T.ch_stable} isOpen={openQ === "PQ17"} onClick={() => toggle("PQ17")}>
-        <div style={{ background: T.ch_stable + "10", border: `1px solid ${T.ch_stable}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_stable }}> <b>Analogy:</b> Water flows downhill to the lowest point. Atoms rearrange to reach the lowest-energy configuration. Being lower on the hull = more strongly bonded = harder to decompose.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16755,7 +16593,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={fx("PQ18. What does 'energy above hull' (E_hull) mean?")} color={T.ch_unstab} isOpen={openQ === "PQ18"} onClick={() => toggle("PQ18")}>
-        <div style={{ background: T.ch_unstab + "10", border: `1px solid ${T.ch_unstab}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_unstab }}> <b>Analogy:</b> E_hull is like altitude above the valley floor. Zero = on the ground (stable). 10 meV = standing on a curb (barely metastable). 200 meV = on the roof (very unstable, will decompose quickly).</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16773,7 +16611,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ19. What are tie lines and what do they mean?"} color={T.ch_hull} isOpen={openQ === "PQ19"} onClick={() => toggle("PQ19")}>
-        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_hull }}> <b>Analogy:</b> Tie lines are like bridge cables connecting stable islands. If your composition falls between two islands, you'll be a mixture of both — connected by the tie line.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16791,7 +16629,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ20. How do I find decomposition products?"} color={T.ch_unstab} isOpen={openQ === "PQ20"} onClick={() => toggle("PQ20")}>
-        <div style={{ background: T.ch_unstab + "10", border: `1px solid ${T.ch_unstab}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_unstab }}> <b>Analogy:</b> A Jenga tower collapsing into specific blocks. Decomposition products are the stable phases that an unstable compound falls apart into — determined by which hull phases bracket its composition.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16811,7 +16649,7 @@ function CHBigQuestionsSection() {
 
       {/* ═══ PQ21–PQ25: Building the Hull ═══ */}
       <FAQAccordion title={"PQ21. What DFT calculations are needed to build a hull?"} color={T.ch_main} isOpen={openQ === "PQ21"} onClick={() => toggle("PQ21")}>
-        <div style={{ background: T.ch_main + "10", border: `1px solid ${T.ch_main}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_main }}> <b>Analogy:</b> Making a recipe book — you need to cook every possible dish (structure) and taste-test (compute energy) each one. Miss a recipe, and you might miss the winning dish.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16831,7 +16669,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ22. How many structures should I try?"} color={T.ch_main} isOpen={openQ === "PQ22"} onClick={() => toggle("PQ22")}>
-        <div style={{ background: T.ch_main + "10", border: `1px solid ${T.ch_main}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_main }}> <b>Analogy:</b> Lottery tickets — the more you buy (structures you try), the more likely you find the winner (ground state). But diminishing returns apply after you've covered the common structure types.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16850,7 +16688,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ23. What is polymorphism and how does it affect the hull?"} color={T.ch_accent} isOpen={openQ === "PQ23"} onClick={() => toggle("PQ23")}>
-        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_accent }}> <b>Analogy:</b> Same recipe, different plating. Carbon can be diamond or graphite — same atoms, wildly different structures. Only the lowest-energy polymorph sits on the hull.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16867,7 +16705,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ24. How do magnetic states affect the hull?"} color={T.ch_warm} isOpen={openQ === "PQ24"} onClick={() => toggle("PQ24")}>
-        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_warm }}> <b>Analogy:</b> A choir singing in unison (ferromagnetic) vs. alternating voices (antiferromagnetic) vs. everyone singing randomly (paramagnetic). Each arrangement has different energy, and picking the wrong one wrecks your hull.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16886,7 +16724,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ25. How do I know my DFT calculation has converged?"} color={T.ch_stable} isOpen={openQ === "PQ25"} onClick={() => toggle("PQ25")}>
-        <div style={{ background: T.ch_stable + "10", border: `1px solid ${T.ch_stable}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_stable }}> <b>Analogy:</b> Zooming in on a photograph. At some point, more pixels don't change the image. Convergence means adding more computational detail doesn't change the energy.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16906,7 +16744,7 @@ function CHBigQuestionsSection() {
 
       {/* ═══ PQ26–PQ30: Temperature Effects ═══ */}
       <FAQAccordion title={"PQ26. Why isn't the 0K hull enough?"} color={T.ch_accent} isOpen={openQ === "PQ26"} onClick={() => toggle("PQ26")}>
-        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_accent }}> <b>Analogy:</b> A 0K hull is like a weather forecast made only from January data. It misses summer entirely. Real synthesis happens at 300–1500K, where entropy reshuffles stability.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16924,7 +16762,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ27. What is vibrational entropy and how big is it?"} color={T.ch_warm} isOpen={openQ === "PQ27"} onClick={() => toggle("PQ27")}>
-        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_warm }}> <b>Analogy:</b> Atoms in a crystal are like balls connected by springs, constantly vibrating. More vibrations at higher temperature = more entropy. Loosely-bonded phases have higher vibrational entropy.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16941,7 +16779,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ28. What is configurational entropy?"} color={T.ch_accent} isOpen={openQ === "PQ28"} onClick={() => toggle("PQ28")}>
-        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_accent }}> <b>Analogy:</b> Arranging red and blue balls in a grid. There's only one way to have all red on the left, but millions of ways to mix them randomly. More mixing arrangements = more configurational entropy.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16960,7 +16798,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ29. How does melting appear on a phase diagram?"} color={T.ch_warm} isOpen={openQ === "PQ29"} onClick={() => toggle("PQ29")}>
-        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_warm }}>→ <b>Analogy:</b> Ice melting — at T_m, the liquid's higher entropy overwhelms the solid's lower enthalpy. On a phase diagram, the solidus and liquidus lines define the melting range.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16978,7 +16816,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ30. How do phase transitions change with temperature?"} color={T.ch_accent} isOpen={openQ === "PQ30"} onClick={() => toggle("PQ30")}>
-        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_accent }}> <b>Analogy:</b> Changing seasons. At 0K (deep winter), only the hardiest phases survive. As T increases (spring→summer), new phases emerge while others disappear. The hull literally reshapes with temperature.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -16996,7 +16834,7 @@ function CHBigQuestionsSection() {
 
       {/* ═══ PQ31–PQ35: Chemical Potentials ═══ */}
       <FAQAccordion title={"PQ31. What do Δμ values mean physically?"} color={T.ch_warm} isOpen={openQ === "PQ31"} onClick={() => toggle("PQ31")}>
-        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_warm }}> <b>Analogy:</b> Δμ is like "how far from pure." Δμ_Cu = 0 means Cu is at its pure metal chemical potential (Cu-rich). Δμ_Cu = −2 eV means Cu is very depleted — you're in S-rich conditions.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -17014,7 +16852,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ32. What do 'Cu-rich' and 'S-rich' conditions mean?"} color={T.ch_main} isOpen={openQ === "PQ32"} onClick={() => toggle("PQ32")}>
-        <div style={{ background: T.ch_main + "10", border: `1px solid ${T.ch_main}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_main }}> <b>Analogy:</b> Like a marketplace — "Cu-rich" means copper is cheap and abundant. "S-rich" means sulfur is cheap. You can't have both maximally cheap (that would decompose the compound).</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -17033,7 +16871,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ33. How does μ connect to real experiments?"} color={T.ch_hull} isOpen={openQ === "PQ33"} onClick={() => toggle("PQ33")}>
-        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_hull }}> <b>Analogy:</b> The chemical potential diagram is a map, and experimental knobs (temperature, gas pressure, precursor ratios) are GPS coordinates. The map tells you which phase you'll make at each setting.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -17052,7 +16890,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ34. How do temperature and pressure affect chemical potential?"} color={T.ch_accent} isOpen={openQ === "PQ34"} onClick={() => toggle("PQ34")}>
-        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_accent }}> <b>Analogy:</b> Temperature and pressure are volume knobs on a stereo. Turning up T makes chemical potential drop (more entropy). Turning up P makes gas-phase μ rise (more molecules crammed in).</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -17071,7 +16909,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ35. How is gas-phase chemical potential handled?"} color={T.ch_warm} isOpen={openQ === "PQ35"} onClick={() => toggle("PQ35")}>
-        <div style={{ background: T.ch_warm + "10", border: `1px solid ${T.ch_warm}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_warm }}> <b>Analogy:</b> Gas-phase μ is like the "exchange rate" between elements in the gas and solid. High gas pressure = elements flooding in from the gas. The partial pressure acts as the supply dial.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -17091,7 +16929,7 @@ function CHBigQuestionsSection() {
 
       {/* ═══ PQ36–PQ40: Applications ═══ */}
       <FAQAccordion title={"PQ36. Can I predict whether a new material can be synthesized?"} color={T.ch_stable} isOpen={openQ === "PQ36"} onClick={() => toggle("PQ36")}>
-        <div style={{ background: T.ch_stable + "10", border: `1px solid ${T.ch_stable}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_stable }}> <b>Analogy:</b> The hull is a stability filter. Phases on the hull are "thermodynamically approved." But passing the filter doesn't guarantee synthesis — you also need the right recipe (kinetics) and kitchen equipment (synthesis conditions).</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -17109,7 +16947,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ37. What is metastability and why do metastable phases exist?"} color={T.ch_unstab} isOpen={openQ === "PQ37"} onClick={() => toggle("PQ37")}>
-        <div style={{ background: T.ch_unstab + "10", border: `1px solid ${T.ch_unstab}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_unstab }}>⏳ <b>Analogy:</b> A ball in a local valley (not the deepest one) on a hilly landscape. It's stable against small pushes but would roll to a deeper valley if given enough energy. Diamond is the most famous metastable material — it's "stuck" in a local minimum for billions of years.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -17129,7 +16967,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ38. How do competing phases affect my target material?"} color={T.ch_hull} isOpen={openQ === "PQ38"} onClick={() => toggle("PQ38")}>
-        <div style={{ background: T.ch_hull + "10", border: `1px solid ${T.ch_hull}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_hull }}> <b>Analogy:</b> Baking a cake in a kitchen with other chefs making different dishes. If their dishes use the same ingredients and are easier to make, they'll steal your ingredients. Competing phases are those rival dishes.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -17148,7 +16986,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ39. How do ternary and quaternary hulls work?"} color={T.ch_accent} isOpen={openQ === "PQ39"} onClick={() => toggle("PQ39")}>
-        <div style={{ background: T.ch_accent + "10", border: `1px solid ${T.ch_accent}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_accent }}> <b>Analogy:</b> Binary hull = 2D plot (line). Ternary hull = 3D surface (triangle base + energy up). Quaternary = 4D (tetrahedron base) — can't visualize directly, but math works the same way.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -17168,7 +17006,7 @@ function CHBigQuestionsSection() {
       </FAQAccordion>
 
       <FAQAccordion title={"PQ40. What are the main accuracy limitations of DFT for phase diagrams?"} color={T.ch_unstab} isOpen={openQ === "PQ40"} onClick={() => toggle("PQ40")}>
-        <div style={{ background: T.ch_unstab + "10", border: `1px solid ${T.ch_unstab}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
+        <div style={{ padding: "2px 0", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_unstab }}> <b>Analogy:</b> DFT is like a very good but imperfect measuring tape. It measures all lengths with the same systematic error. For comparing SIMILAR phases, errors cancel. For comparing DIFFERENT types (metal vs gas), errors accumulate.</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -17365,7 +17203,7 @@ function CHTempHullSection() {
             { tool: "pymatgen", use: "Phase diagram construction, formation energies, temperature-dependent hull via grand potential. Python library.", color: CH.main },
             { tool: "Materials Project API", use: "Pre-computed phonon data and temperature-dependent stability for thousands of materials.", color: CH.stable },
           ].map(item => (
-            <div key={item.tool} style={{ background: item.color + "08", border: `1px solid ${item.color}20`, borderRadius: 10, padding: "10px 14px" }}>
+            <div key={item.tool} style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 13, fontWeight: 500, color: item.color, marginBottom: 3 }}>{item.tool}</div>
               <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.use}</div>
             </div>
@@ -17619,11 +17457,8 @@ function FNVCorrectionModule() {
   };
   const hl = (val, color) => <span style={{ fontWeight: 500, color: color || F.main, fontFamily: "monospace" }}>{val}</span>;
   const badge = (text, color) => (
-    <span style={{
-      display: "inline-block", padding: "2px 10px", borderRadius: 6,
-      background: color + "15", border: `1px solid ${color}35`,
-      color, fontSize: 11, fontWeight: 500, letterSpacing: 0.5
-    }}>{text}</span>
+    <span style={{ display: "inline-block", padding: "2px 10px",
+      color, fontSize: 11, fontWeight: 500, letterSpacing: 0.5 }}>{text}</span>
   );
 
   // ── Potential alignment SVG plot ──
@@ -17754,16 +17589,10 @@ function FNVCorrectionModule() {
 
         <Card title="Two Serious Problems" color={F.main}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-            <div style={{
-              background: F.warn + "08", border: `1px solid ${F.warn}22`,
-              borderRadius: 10, padding: "14px 16px"
-            }}>
-              <div style={{
-                width: 28, height: 28, borderRadius: "50%", marginBottom: 8,
-                background: F.warn + "18", border: `1.5px solid ${F.warn}40`,
+            <div style={{ padding: "14px 16px" }}>
+              <div style={{ width: 28, height: 28, borderRadius: "50%", marginBottom: 8,
                 display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 14, fontWeight: 500, color: F.warn
-              }}>1</div>
+                fontSize: 14, fontWeight: 500, color: F.warn }}>1</div>
               <div style={{ fontSize: 13, fontWeight: 500, color: F.warn, marginBottom: 6 }}>
                 Image Charge Interaction
               </div>
@@ -17773,16 +17602,10 @@ function FNVCorrectionModule() {
                 This artificially shifts your energy.
               </div>
             </div>
-            <div style={{
-              background: F.elec + "08", border: `1px solid ${F.elec}22`,
-              borderRadius: 10, padding: "14px 16px"
-            }}>
-              <div style={{
-                width: 28, height: 28, borderRadius: "50%", marginBottom: 8,
-                background: F.elec + "18", border: `1.5px solid ${F.elec}40`,
+            <div style={{ padding: "14px 16px" }}>
+              <div style={{ width: 28, height: 28, borderRadius: "50%", marginBottom: 8,
                 display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 14, fontWeight: 500, color: F.elec
-              }}>2</div>
+                fontSize: 14, fontWeight: 500, color: F.elec }}>2</div>
               <div style={{ fontSize: 13, fontWeight: 500, color: F.elec, marginBottom: 6 }}>
                 Jellium Background Charge
               </div>
@@ -17793,11 +17616,8 @@ function FNVCorrectionModule() {
               </div>
             </div>
           </div>
-          <div style={{
-            background: F.accent + "0a", border: `1px solid ${F.accent}22`,
-            borderRadius: 10, padding: "12px 16px", marginTop: 14, fontSize: 12,
-            color: F.accent, fontWeight: 500, textAlign: "center", lineHeight: 1.6
-          }}>
+          <div style={{ padding: "4px 0", marginTop: 14, fontSize: 12,
+            color: F.accent, fontWeight: 500, textAlign: "center", lineHeight: 1.6 }}>
             Both errors shrink with larger supercells — but infinite supercells are too expensive.
             You need a correction.
           </div>
@@ -17816,11 +17636,8 @@ function FNVCorrectionModule() {
         </Card>
 
         <Card title="The Core Idea" color={F.accent}>
-          <div style={{
-            background: F.accent + "0a", border: `1.5px solid ${F.accent}30`,
-            borderRadius: 10, padding: "14px 18px", marginBottom: 14,
-            fontSize: 14, fontWeight: 500, color: F.accent, textAlign: "center", lineHeight: 1.6
-          }}>
+          <div style={{ padding: "14px 18px", marginBottom: 14,
+            fontSize: 14, fontWeight: 500, color: F.accent, textAlign: "center", lineHeight: 1.6 }}>
             “The error in your DFT total energy comes entirely from long-range electrostatics.
             We can calculate exactly what that error is, and subtract it out.”
           </div>
@@ -17846,10 +17663,7 @@ function FNVCorrectionModule() {
               { label: "E_periodic", desc: "Energy of periodically repeated defect charge (what DFT computes)", color: F.warn },
               { label: "q × ΔV", desc: "Potential alignment correcting the jellium background shift", color: F.align },
             ].map(item => (
-              <div key={item.label} style={{
-                background: item.color + "08", border: `1px solid ${item.color}20`,
-                borderRadius: 10, padding: "12px 14px", textAlign: "center"
-              }}>
+              <div key={item.label} style={{ padding: "12px 14px", textAlign: "center" }}>
                 <div style={{ fontFamily: "monospace", fontSize: 13, fontWeight: 500, color: item.color, marginBottom: 6 }}>
                   {item.label}
                 </div>
@@ -17990,10 +17804,7 @@ function FNVCorrectionModule() {
             ρ_model(r) = q × (1/σ√2π)³ × exp(−r²/2σ²)<br /><br />
             <span style={{ color: T.muted }}>q = defect charge, σ = Gaussian width (typically 1{"–2"} Å)</span>
           </div>
-          <div style={{
-            background: F.accent + "0a", border: `1px solid ${F.accent}22`,
-            borderRadius: 10, padding: "12px 16px", fontSize: 12, lineHeight: 1.6, marginBottom: 14
-          }}>
+          <div style={{ padding: "4px 0", fontSize: 12, lineHeight: 1.6, marginBottom: 14 }}>
             <strong style={{ color: F.accent }}>Why Gaussian?</strong> Because the electrostatic potential of a
             Gaussian charge can be calculated <em>analytically</em> — both for an isolated charge and
             for a periodic array. This is the mathematical trick that makes FNV work.
@@ -18130,10 +17941,7 @@ function FNVCorrectionModule() {
               </svg>
             );
           })()}
-          <div style={{
-            background: F.warn + "0a", border: `1px solid ${F.warn}22`,
-            borderRadius: 8, padding: "10px 14px", marginTop: 12, fontSize: 12, lineHeight: 1.6
-          }}>
+          <div style={{ padding: "3px 0", marginTop: 12, fontSize: 12, lineHeight: 1.6 }}>
             <strong style={{ color: F.warn }}>The difference between the orange and blue curves is the error.</strong>{" "}
             FNV calculates E_periodic (orange) and E_iso (blue) analytically, then subtracts to remove
             the spurious image interactions.
@@ -18165,10 +17973,7 @@ function FNVCorrectionModule() {
               { r: "1.0 Å", rho: "−0.0384", pct: "60.7%", color: F.elec },
               { r: "1.5 Å", rho: "−0.0206", pct: "32.5%", color: F.accent },
             ].map(pt => (
-              <div key={pt.r} style={{
-                background: pt.color + "08", border: `1px solid ${pt.color}20`,
-                borderRadius: 10, padding: "12px 14px", textAlign: "center"
-              }}>
+              <div key={pt.r} style={{ padding: "12px 14px", textAlign: "center" }}>
                 <div style={{ fontSize: 11, color: T.muted, marginBottom: 4 }}>r = {pt.r}</div>
                 <div style={{ fontFamily: "monospace", fontSize: 14, fontWeight: 500, color: pt.color }}>{pt.rho}</div>
                 <div style={{ fontSize: 10, color: T.muted }}>e/Å³ ({pt.pct} of peak)</div>
@@ -18267,12 +18072,9 @@ function FNVCorrectionModule() {
                 background: item.color + "06", borderRadius: 10, padding: "10px 14px",
                 border: `1px solid ${item.color}15`
               }}>
-                <span style={{
-                  minWidth: 26, height: 26, borderRadius: "50%",
-                  background: item.color + "18", border: `1.5px solid ${item.color}40`,
+                <span style={{ minWidth: 26, height: 26, borderRadius: "50%",
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 12, fontWeight: 500, color: item.color, flexShrink: 0
-                }}>{item.step}</span>
+                  fontSize: 12, fontWeight: 500, color: item.color, flexShrink: 0 }}>{item.step}</span>
                 <div>
                   <div style={{ fontSize: 12, fontWeight: 500, color: item.color, marginBottom: 3 }}>{item.title}</div>
                   <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.desc}</div>
@@ -18325,10 +18127,7 @@ function FNVCorrectionModule() {
               ))}
             </tbody>
           </table>
-          <div style={{
-            background: F.main + "0a", border: `1px solid ${F.main}22`,
-            borderRadius: 8, padding: "10px 14px", marginTop: 12, fontSize: 12, lineHeight: 1.6
-          }}>
+          <div style={{ padding: "3px 0", marginTop: 12, fontSize: 12, lineHeight: 1.6 }}>
             <strong style={{ color: F.main }}>The dielectric constant is critical</strong> — it screens the
             electrostatic interaction. For CuInSe₂, {"ε ≈"} 13.6 (high dielectric → strong
             screening → smaller correction needed).
@@ -18351,10 +18150,7 @@ function FNVCorrectionModule() {
             <span style={{ color: F.elec }}>{"           + real space (short range)"}</span><br />
             <span style={{ color: T.muted }}>{"           − self-interaction term"}</span>
           </div>
-          <div style={{
-            background: F.warn + "0a", border: `1px solid ${F.warn}22`,
-            borderRadius: 8, padding: "10px 14px", fontSize: 12, color: T.ink, lineHeight: 1.6
-          }}>
+          <div style={{ padding: "3px 0", fontSize: 12, color: T.ink, lineHeight: 1.6 }}>
             This is the energy that DFT is <em>accidentally</em> computing — including all those
             spurious image interactions. ε (dielectric constant) appears in the denominator.
           </div>
@@ -18377,19 +18173,13 @@ function FNVCorrectionModule() {
             <span style={{ color: T.muted }}>This removes the artificial image charge interaction from your DFT energy.</span>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-            <div style={{
-              background: F.warn + "08", border: `1px solid ${F.warn}22`,
-              borderRadius: 10, padding: "12px 14px", textAlign: "center"
-            }}>
+            <div style={{ padding: "12px 14px", textAlign: "center" }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: F.warn, marginBottom: 4 }}>Small supercell</div>
               <div style={{ fontSize: 11, color: T.muted }}>
                 E_periodic ≫ E_iso → large correction needed
               </div>
             </div>
-            <div style={{
-              background: F.align + "08", border: `1px solid ${F.align}22`,
-              borderRadius: 10, padding: "12px 14px", textAlign: "center"
-            }}>
+            <div style={{ padding: "12px 14px", textAlign: "center" }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: F.align, marginBottom: 4 }}>Huge supercell</div>
               <div style={{ fontSize: 11, color: T.muted }}>
                 E_periodic ≈ E_iso → small correction (images far away)
@@ -18406,10 +18196,7 @@ function FNVCorrectionModule() {
             whole supercell by some unknown amount. This means your defect formation energy has an
             extra error of: {hl("Error = q × (shift)", F.warn)}
           </div>
-          <div style={{
-            background: F.align + "0a", border: `1.5px solid ${F.align}30`,
-            borderRadius: 10, padding: "14px 18px", marginBottom: 14, lineHeight: 1.8
-          }}>
+          <div style={{ padding: "14px 18px", marginBottom: 14, lineHeight: 1.8 }}>
             <strong style={{ color: F.align }}>How FNV finds the shift:</strong><br />
             <span style={{ fontSize: 13, color: T.ink }}>
               Compare two potentials: {hl("V_DFT(r)", F.elec)} from your calculation and{" "}
@@ -18426,11 +18213,8 @@ function FNVCorrectionModule() {
             Read off the flat plateau far from the defect:
           </div>
           <AlignmentPlot />
-          <div style={{
-            background: F.warn + "0a", border: `1px solid ${F.warn}22`,
-            borderRadius: 10, padding: "12px 16px", marginTop: 14, fontSize: 12,
-            color: F.warn, fontWeight: 500, lineHeight: 1.6
-          }}>
+          <div style={{ padding: "4px 0", marginTop: 14, fontSize: 12,
+            color: F.warn, fontWeight: 500, lineHeight: 1.6 }}>
             The plateau must be genuinely flat — if it{"'"}s not, your supercell is too small
             and images are still interacting. This is a key convergence check.
           </div>
@@ -18450,12 +18234,9 @@ function FNVCorrectionModule() {
                 background: F.accent + "06", borderRadius: 8, padding: "8px 12px",
                 border: `1px solid ${F.accent}15`
               }}>
-                <span style={{
-                  minWidth: 22, height: 22, borderRadius: "50%",
-                  background: F.accent + "18", border: `1px solid ${F.accent}40`,
+                <span style={{ minWidth: 22, height: 22, borderRadius: "50%",
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 11, fontWeight: 500, color: F.accent
-                }}>{i + 1}</span>
+                  fontSize: 11, fontWeight: 500, color: F.accent }}>{i + 1}</span>
                 <span style={{ fontSize: 12, color: T.ink, lineHeight: 1.5 }}>{step}</span>
               </div>
             ))}
@@ -18515,10 +18296,7 @@ function FNVCorrectionModule() {
             {"  ΔV(8.1)   = 0.12 - 0.00 = "}<span style={{ color: F.align, fontWeight: 500 }}>+0.12 eV</span>
           </div>
 
-          <div style={{
-            background: F.align + "0c", border: `1.5px solid ${F.align}30`,
-            borderRadius: 10, padding: "14px 18px", marginTop: 12
-          }}>
+          <div style={{ padding: "14px 18px", marginTop: 12 }}>
             <div style={{ fontSize: 13, fontWeight: 500, color: F.align, marginBottom: 6 }}>
               Plateau is flat at +0.12 eV
             </div>
@@ -18565,10 +18343,7 @@ function FNVCorrectionModule() {
             <span style={{ color: T.muted }}>Corrected energy:</span><br />
             {fx("  E_corrected = -450.23 + (-0.69) = ")}<span style={{ color: F.main, fontWeight: 500 }}>-450.92 eV</span>
           </div>
-          <div style={{
-            background: F.warn + "0c", border: `1px solid ${F.warn}25`,
-            borderRadius: 8, padding: "12px 16px", fontSize: 12, color: F.warn, fontWeight: 500, lineHeight: 1.6
-          }}>
+          <div style={{ padding: "4px 0", fontSize: 12, color: F.warn, fontWeight: 500, lineHeight: 1.6 }}>
             The uncorrected formation energy would be wrong by ~0.69 eV — that{"'"}s enormous
             for a defect calculation where you care about differences of 0.1–0.2 eV!
           </div>
@@ -18589,12 +18364,9 @@ function FNVCorrectionModule() {
               { text: "Add to formation energy formula", color: F.main },
             ].map((step, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div style={{
-                  minWidth: 26, height: 26, borderRadius: "50%",
-                  background: step.color + "15", border: `1.5px solid ${step.color}40`,
+                <div style={{ minWidth: 26, height: 26, borderRadius: "50%",
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 11, fontWeight: 500, color: step.color
-                }}>{i + 1}</div>
+                  fontSize: 11, fontWeight: 500, color: step.color }}>{i + 1}</div>
                 <div style={{
                   flex: 1, fontSize: 12, color: T.ink, fontFamily: "monospace",
                   background: step.color + "06", borderRadius: 6, padding: "6px 12px",
@@ -18616,17 +18388,11 @@ function FNVCorrectionModule() {
               { title: "Check σ convergence", desc: "Vary Gaussian width σ from 0.5 to 2.0 Å. The final corrected formation energy should not change much.", color: F.warm },
               { title: "Use anisotropic dielectric tensor", desc: "Use the full 3×3 tensor from your DFPT calculation, not a single scalar. CuInSe₂ has slightly anisotropic dielectric response.", color: F.accent },
             ].map((check, i) => (
-              <div key={i} style={{
-                background: check.color + "08", border: `1px solid ${check.color}20`,
-                borderRadius: 10, padding: "12px 16px",
-                display: "flex", gap: 12, alignItems: "flex-start"
-              }}>
-                <div style={{
-                  minWidth: 26, height: 26, borderRadius: "50%",
-                  background: check.color + "18", border: `1.5px solid ${check.color}40`,
+              <div key={i} style={{ padding: "4px 0",
+                display: "flex", gap: 12, alignItems: "flex-start" }}>
+                <div style={{ minWidth: 26, height: 26, borderRadius: "50%",
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 12, fontWeight: 500, color: check.color
-                }}>{i + 1}</div>
+                  fontSize: 12, fontWeight: 500, color: check.color }}>{i + 1}</div>
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 500, color: check.color, marginBottom: 4 }}>{check.title}</div>
                   <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.6 }}>{check.desc}</div>
@@ -18669,10 +18435,7 @@ print(f"  q * dV:   {result.alignment_correction:.4f} eV")`}</pre>
         </Card>
 
         <Card title="Why This Matters for DefectDB" color={F.align}>
-          <div style={{
-            background: F.align + "0a", border: `1px solid ${F.align}22`,
-            borderRadius: 10, padding: "14px 18px", fontSize: 13, lineHeight: 1.9, color: T.ink
-          }}>
+          <div style={{ padding: "14px 18px", fontSize: 13, lineHeight: 1.9, color: T.ink }}>
             Every defect formation energy entry needs to have been FNV corrected (or use
             Kumagai-Oba for anisotropic systems). When an LLM pipeline extracts defect formation
             energies from papers, one key metadata field is <strong style={{ color: F.align }}>which
@@ -20848,7 +20611,7 @@ function DLTSSection() {
           {fx("  E_t = trap depth below CB (eV) — the quantity we want!")}<br />
           {fx("  k_BT = thermal energy (25.8 meV at 300 K)")}
         </div>
-        <div style={{ background: T.fnv_elec + "08", borderRadius: 10, padding: "10px 14px", border: `1px solid ${T.fnv_elec}18`, marginTop: 12 }}>
+        <div style={{ padding: "3px 0", marginTop: 12 }}>
           <div style={{ fontSize: 13, fontWeight: 500, color: T.fnv_elec, marginBottom: 6 }}>What is a Rate Window?</div>
           <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
             A <b>rate window</b> is a pair of sampling times (t₁, t₂) used to measure the capacitance transient after the fill pulse. Instead of recording the full transient curve, the DLTS instrument samples the capacitance at just two times — t₁ and t₂ — and outputs the difference <b>ΔC = C(t₁) − C(t₂)</b>.
@@ -21015,7 +20778,7 @@ function DLTSSection() {
 
       <FAQAccordion title="Experimental Example: DLTS on Electron-Irradiated CdTe Solar Cell" color={T.fnv_elec} isOpen={openItem === "dlts_example"} onClick={() => toggle("dlts_example")}>
         {/* ── Part A: The Experiment ── */}
-        <div style={{ background: T.fnv_elec + "08", borderRadius: 10, padding: "12px 14px", border: `1px solid ${T.fnv_elec}18`, marginBottom: 14 }}>
+        <div style={{ padding: "12px 14px", marginBottom: 14 }}>
           <div style={{ fontSize: 13, fontWeight: 500, color: T.fnv_elec, marginBottom: 6 }}>A. The Experiment</div>
           <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
             <b>Sample:</b> CdTe/CdS solar cell grown by close-space sublimation (CSS), CdCl₂-treated at 400 °C for 20 min. Au/Cu back contact evaporated. Front contact: ITO/CdS.<br/>
@@ -21030,7 +20793,7 @@ function DLTSSection() {
         </div>
 
         {/* ── Part B: Raw DLTS Spectrum (what you actually record) ── */}
-        <div style={{ background: T.fnv_warm + "08", borderRadius: 10, padding: "12px 14px", border: `1px solid ${T.fnv_warm}18`, marginBottom: 14 }}>
+        <div style={{ padding: "12px 14px", marginBottom: 14 }}>
           <div style={{ fontSize: 13, fontWeight: 500, color: T.fnv_warm, marginBottom: 6 }}>B. Raw DLTS Spectrum — What the Instrument Records</div>
           <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, lineHeight: 1.6 }}>
             The lock-in output shows ΔC vs T. Each peak = one defect level. Peak height ∝ trap concentration. Peak position shifts with rate window — this shift gives the Arrhenius data.
@@ -21069,7 +20832,7 @@ function DLTSSection() {
         </div>
 
         {/* ── Part C: How you extract the trap depth ── */}
-        <div style={{ background: T.fnv_accent + "08", borderRadius: 10, padding: "12px 14px", border: `1px solid ${T.fnv_accent}18`, marginBottom: 14 }}>
+        <div style={{ padding: "12px 14px", marginBottom: 14 }}>
           <div style={{ fontSize: 13, fontWeight: 500, color: T.fnv_accent, marginBottom: 6 }}>C. Extracting E<sub>t</sub>: Arrhenius Analysis of Peak E2</div>
           <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, lineHeight: 1.6 }}>
             Run DLTS at 4 different rate windows. Each gives a different peak temperature for E2. From each (T_peak, rate window) pair, compute the emission rate eₙ at peak: eₙ = ln(t₂/t₁)/(t₂ − t₁).
@@ -21150,7 +20913,7 @@ function DLTSSection() {
         </div>
 
         {/* ── Part D: Compute trap concentration ── */}
-        <div style={{ background: T.fnv_main + "08", borderRadius: 10, padding: "12px 14px", border: `1px solid ${T.fnv_main}18`, marginBottom: 14 }}>
+        <div style={{ padding: "12px 14px", marginBottom: 14 }}>
           <div style={{ fontSize: 13, fontWeight: 500, color: T.fnv_main, marginBottom: 6 }}>D. Trap Concentration from Peak Height</div>
           <div style={mdMathBlock}>
             <span style={{ color: T.fnv_main, fontWeight: 500, fontSize: 13 }}>From the DLTS peak amplitude:</span><br/><br/>

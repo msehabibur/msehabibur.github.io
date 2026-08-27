@@ -1114,8 +1114,7 @@ export default function MongoDBMovieModule() {
         border: `2px solid ${P.border}`, position: "relative"
       }}>
         <div style={{ position: "absolute", top: 10, left: 14, zIndex: 2, display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ background: P.mongo+"25", border: `1px solid ${P.mongo}50`, padding: "3px 10px",
-            borderRadius: 6, fontSize: 10, fontWeight: 500, color: P.mongo, letterSpacing: 1 }}>
+          <span style={{ padding: "3px 10px", fontSize: 10, fontWeight: 500, color: P.mongo, letterSpacing: 1 }}>
             Scene {sceneIdx + 1}/{SCENES.length}
           </span>
           <span style={{ fontSize: 12, fontWeight: 500, color: P.ink }}>{scene.label}</span>

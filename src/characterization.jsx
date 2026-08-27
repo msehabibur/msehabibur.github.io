@@ -69,7 +69,7 @@ function CalcRow({ eq, result, color }) {
 
 function AnalogyBox({ text }) {
   return (
-    <div style={{ background: C.accent + "08", border: `1px solid ${C.accent}22`,  borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+    <div style={{ padding: "3px 0", marginBottom: 14 }}>
       <div style={{ fontSize: 9, letterSpacing: 2, color: C.accent, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Simple Analogy</div>
       <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.6, fontStyle: "italic" }}>{text}</div>
     </div>
@@ -367,7 +367,7 @@ function XRDSection() {
         <div style={{ marginTop: 8, fontSize: 10, color: T.muted }}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))", gap: 4 }}>
             {xrdMaterials[xrdPreset].peaks.map((pk, i) => (
-              <div key={i} style={{ background: xrdMaterials[xrdPreset].color + "08", border: `1px solid ${xrdMaterials[xrdPreset].color}22`, borderRadius: 6, padding: "4px 6px", textAlign: "center" }}>
+              <div key={i} style={{ padding: "4px 6px", textAlign: "center" }}>
                 <div style={{ fontWeight: 500, color: xrdMaterials[xrdPreset].color }}>{pk.hkl}</div>
                 <div>2θ = {pk.twoTheta.toFixed(1)}°</div>
                 <div>d = {pk.d.toFixed(3)} Å</div>
@@ -376,7 +376,7 @@ function XRDSection() {
           </div>
         </div>
 
-        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+        <div style={{ padding: "3px 0", marginTop: 10 }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Key Insight</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
             Each crystal structure produces a unique set of peak positions and intensities -- like a fingerprint. The peak positions come from Bragg's law (plane spacings), while intensities depend on what atoms sit on those planes and where. This is why XRD is the gold standard for phase identification.
@@ -389,7 +389,7 @@ function XRDSection() {
           <strong>The Experiment:</strong> A colleague hands you a jar of fine white powder and says, "We think this is high-purity silicon for our semiconductor project, but we need to confirm -- and check for any crystalline impurities." You take the powder to the XRD lab. You pack it into an aluminum sample holder, pressing with a glass slide to get a flat, uniform surface (important: random grain orientations give reliable peak intensities). You mount it in the Bruker D8 diffractometer and set up a θ-2θ scan.
         </div>
 
-        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine shining a flashlight through a chain-link fence at a specific angle. At most angles, the light just passes through or gets absorbed. But at one special angle, the light bounces perfectly off each row of wires and adds up into a bright reflection. XRD does the same thing with X-rays and planes of atoms -- only at specific angles (where Bragg's law is satisfied) do you get a bright "peak."
@@ -468,7 +468,7 @@ function XRDSection() {
           <InfoRow label="Impurity phases" value="None detected to XRD sensitivity (~1-2 wt%)" />
         </div>
 
-        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The powder is confirmed as phase-pure crystalline silicon with lattice parameter a = 5.431 Å, matching the reference value exactly. No extra peaks means no crystalline impurity phases (like SiO₂ or SiC) above the ~1-2 wt% detection limit. The sharp peaks (FWHM = 0.12°) indicate large, well-crystallized grains -- this is not nanocrystalline or amorphous material.
@@ -484,7 +484,7 @@ function XRDSection() {
           <strong>The Experiment:</strong> You deposited a CdTe thin film for a solar cell by close-space sublimation. After CdCl₂ treatment at 400°C (a standard activation step), you need to verify the film is still zinc-blende CdTe and check for secondary phases -- CdO, TeO₂, or residual CdCl₂ could degrade device performance. You take the film to the diffractometer.
         </div>
 
-        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             A normal θ-2θ scan on a thin film would mostly see the substrate underneath (like trying to read a bumper sticker through a car windshield). Grazing incidence fixes this: by sending X-rays at a very shallow angle (ω = 1°), you force the beam to travel a long path through the thin film, maximizing signal from the film while minimizing substrate contribution.
@@ -533,7 +533,7 @@ function XRDSection() {
           <CalcRow eq="TC(220) = 0.5, TC(311) = 0.3 (suppressed)" result="" color={C.struct} />
         </div>
 
-        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The film is confirmed as zinc-blende CdTe with strong (111) preferred orientation (TC = 2.4). This is actually desirable -- (111)-textured CdTe films tend to give better solar cell efficiency. The small CdO peak at 30.08° indicates slight surface oxidation occurred during the CdCl₂ treatment in air. This oxide layer may need removal by etching before depositing the back contact. Importantly, no CdCl₂ residue peaks appear, meaning the post-treatment rinse was effective.
@@ -546,7 +546,7 @@ function XRDSection() {
           <strong>The Experiment:</strong> You synthesized ZnO nanoparticles by sol-gel (zinc acetate in ethanol, hydrolyzed with NaOH, calcined at 400°C). You need to know the crystallite size without doing TEM. XRD peak broadening gives you this information -- smaller crystallites mean broader peaks.
         </div>
 
-        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine a choir of 1000 singers singing the same note -- you hear a sharp, pure tone. Now imagine only 10 singers -- the note sounds the same pitch but is "fuzzy" because the fewer voices do not reinforce as precisely. In XRD, fewer atomic planes (smaller crystal) means fewer constructive interference events, and the peak broadens. The Scherrer equation converts that broadening into a crystallite size.
@@ -596,7 +596,7 @@ function XRDSection() {
           <InfoRow label="Your W-H result" value="D = 18.1 nm, ε = 0.0012 (0.12% strain)" />
         </div>
 
-        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The ZnO crystallite size is ~17-18 nm. The Scherrer value (17.4 nm) and Williamson-Hall value (18.1 nm) are close, confirming that microstrain is small (only 0.12%). Important caveat: the Scherrer equation gives the coherent domain size -- if your nanoparticles are polycrystalline aggregates, TEM would show larger particles containing multiple crystallite domains. Also, Scherrer only works well for sizes below ~100 nm; above that, the broadening becomes too small to measure reliably.
@@ -609,7 +609,7 @@ function XRDSection() {
           <strong>The Experiment:</strong> A cement clinker contains multiple crystalline phases -- you need to quantify the weight fractions of C₃S (alite), C₂S (belite), C₃A (tricalcium aluminate), and C₄AF (brownmillerite). Simple peak-matching is not enough because the peaks heavily overlap. Rietveld whole-pattern fitting is the standard approach.
         </div>
 
-        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine you recorded a song with four instruments playing simultaneously. You cannot simply isolate one instrument by ear. But if you have sheet music for each instrument, you can simulate the combined sound and adjust the volume of each instrument until the simulated mix matches the recording. Rietveld does this with XRD patterns: it simulates the full pattern from known crystal structures and adjusts the "volume" (weight fraction) of each phase until the calculated pattern matches the measured one.
@@ -657,7 +657,7 @@ function XRDSection() {
           <InfoRow label="Sum" value="100.0 wt% (normalized)" />
         </div>
 
-        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             C₃S content of 62.3% is within specification for Type I Portland cement (typically 50-70%). C₃A at 8.1% is important: if this cement needs to be sulfate-resistant (Type V), the spec requires C₃A below 5%, so this clinker would not qualify. The Rwp of 5.2% and χ² of 1.87 indicate a reliable fit. One critical limitation: Rietveld cannot detect amorphous content (like slag or fly ash) without adding an internal standard (e.g., 10 wt% corundum). The results assume the sample is 100% crystalline.
@@ -807,7 +807,7 @@ function EBSDSection() {
           You polish the sample down to 0.05 µm colloidal silica, mount it in the SEM at 70° tilt, and start the EBSD scan.
         </div>
 
-        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine each grain is a book lying on a table. Two books lying almost flat but tilted slightly differently (say 5° apart) -- that is a low-angle boundary. Two books where one is flat and one is standing up (45° apart) -- that is a high-angle boundary. EBSD reads the exact "tilt" of every book across the entire table.
@@ -881,7 +881,7 @@ function EBSDSection() {
           <InfoRow label="Dominant texture" value="Weak {100} cube texture from recrystallization" />
         </div>
 
-        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The specific boundary between Grain A and B has only 5° misorientation -- a low-angle grain boundary (LAGB). This means the two grains are almost the same crystal, separated by an array of dislocations that rearranged during the 800°C anneal (a process called recovery). LAGBs are desirable: they resist crack initiation and corrosion better than random high-angle boundaries.
@@ -900,7 +900,7 @@ function EBSDSection() {
           <strong>The Experiment:</strong> A cold-rolled aluminum sheet (70% thickness reduction) was annealed at 300°C for 1 hour. You need to determine what fraction of the microstructure has recrystallized. EBSD can distinguish recrystallized grains (strain-free, sharp patterns) from deformed regions (high dislocation density, blurry patterns).
         </div>
 
-        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine a bookshelf after an earthquake. Some shelves are untouched (books perfectly aligned) while others are a mess (books tilted at random angles). After you start tidying up, some shelves are fully reorganized while others are still chaotic. EBSD sees this: recrystallized grains are the tidy shelves (uniform orientation within each grain) and deformed regions are the messy ones (orientation varies point to point within the grain).
@@ -947,7 +947,7 @@ function EBSDSection() {
           <InfoRow label="Average recrystallized grain size" value="22 µm" />
         </div>
 
-        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             At 300°C for 1 hour, recrystallization is 58% complete -- this is a partially recrystallized state. The cube texture developing in recrystallized grains is classic for FCC metals and originates from cube-oriented nuclei that grow preferentially. The deformed regions still retain the copper rolling texture. To achieve full recrystallization, either increase the time to ~3 hours at the same temperature or raise the temperature to 350°C. This matters for formability: fully recrystallized sheets with cube texture have better deep-drawing properties.
@@ -960,7 +960,7 @@ function EBSDSection() {
           <strong>The Experiment:</strong> You are performing grain boundary engineering on copper for microelectronic interconnects. The goal is to maximize Σ3 twin boundaries because they resist electromigration (atom transport under current), which is the main failure mode for Cu wiring. You thermomechanically processed the sample (cold roll 5%, anneal 400°C, repeat 3 cycles) and need to quantify the twin content.
         </div>
 
-        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Think of a brick wall. Most joints between bricks are random and weak. But imagine some special joints where every third brick on one side perfectly matches bricks on the other side -- those are Σ3 boundaries. They are so well-ordered that atoms cannot easily slide or migrate along them. Grain boundary engineering is like rebuilding a wall to maximize these special joints.
@@ -1009,7 +1009,7 @@ function EBSDSection() {
           <CalcRow eq="Random polycrystal Σ3 fraction (for comparison)" result="~5% (baseline)" color={C.struct} />
         </div>
 
-        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The Σ3 fraction of 40% is excellent -- roughly 8× higher than an unprocessed random polycrystal (~5%). The three cycles of cold rolling and annealing successfully introduced a dense network of annealing twins. The 73% twin-related domain fraction means most grains are interconnected through Σ3 boundaries, forming a "twin-related domain" network. Electromigration voids nucleate at random HAGBs but cannot propagate across Σ3 boundaries, so this network acts as a barrier to void coalescence. This sample meets reliability targets for advanced Cu interconnects.
@@ -1022,7 +1022,7 @@ function EBSDSection() {
           <strong>The Experiment:</strong> A dual-phase (DP) steel was intercritically annealed at 780°C (in the α+γ two-phase region) and water-quenched to transform austenite to martensite. You need to map the spatial distribution of ferrite and martensite and measure the martensite volume fraction. The challenge: both ferrite and martensite are BCC (martensite is BCT but so close to BCC that EBSD cannot distinguish them by crystal structure alone).
         </div>
 
-        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine taking a class photo. Students who sit still produce sharp images, while students who fidget produce blurry ones. In EBSD, ferrite grains (low dislocation density) give crisp, sharp Kikuchi patterns, while martensite (extremely high dislocation density from the shear transformation) gives blurry, poor-quality patterns. You cannot tell the "subject" apart by face (both are BCC), but you can tell them apart by image quality.
@@ -1070,7 +1070,7 @@ function EBSDSection() {
           <InfoRow label="Retained austenite" value="Thin films between martensite laths" />
         </div>
 
-        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The 25.6% martensite fraction matches the DP780 grade target (20-30% martensite for ~780 MPa tensile strength). Martensite islands at grain boundaries is the desired morphology -- they act as hard reinforcing particles in the soft ferrite matrix, giving good strength-ductility balance. The 2.1% retained austenite is a bonus: it can transform to martensite during deformation (TRIP effect), improving uniform elongation and formability. If the martensite fraction were too high (say 40%), you could lower the intercritical annealing temperature to reduce the austenite fraction before quenching.
@@ -1203,7 +1203,7 @@ function TEMDiffractionSection() {
           <strong>The Experiment:</strong> You are investigating the crystal structure of an iron thin foil that was electropolished from a bulk sample of what should be pure α-iron (BCC). You prepared the foil by jet electropolishing in a perchloric acid/ethanol solution until you got a small hole with electron-transparent edges. You insert the 3 mm disc into the TEM specimen holder, load it into a 200 kV JEOL TEM, and switch to diffraction mode.
         </div>
 
-        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine throwing a handful of pebbles at a picket fence. Most pebbles miss, but at certain angles they ricochet off the regularly spaced slats in a predictable pattern. In SAED, electrons are the pebbles and atomic planes are the slats. If you have a single crystal, you get an orderly pattern of bright dots (one for each set of planes). If you have many tiny crystals at random orientations, those dots smear into concentric rings.
@@ -1272,7 +1272,7 @@ function TEMDiffractionSection() {
           <InfoRow label="Reference a for α-Fe" value="2.866 Å (within 0.1% error)" />
         </div>
 
-        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The ring pattern confirms this is polycrystalline (many small grains) rather than a single crystal (which would give discrete spots). The ring radii follow the √2, √3 ratio sequence, which is the fingerprint of a BCC structure. All three measured d-spacings match α-iron (BCC, a = 2.866 Å) to within measurement error.
@@ -1291,7 +1291,7 @@ function TEMDiffractionSection() {
           <strong>The Experiment:</strong> You have a TEM foil of aluminum alloy 2024 (Al-Cu) and need to orient it to a known zone axis for high-resolution imaging of precipitates. You tilt the specimen until you see a symmetric spot pattern (indicating you are looking down a zone axis) and now need to index it.
         </div>
 
-        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine looking straight down at a neatly tiled floor. Depending on which direction you look from -- directly overhead vs at an angle -- the tile pattern looks different. Each viewing direction gives a unique arrangement of tiles. Similarly, each zone axis of a crystal gives a unique arrangement of diffraction spots. The spacings and angles between spots are the "fingerprint" of that zone axis.
@@ -1337,7 +1337,7 @@ function TEMDiffractionSection() {
           <CalcRow eq="Check angle: angle between (200) and (111) at [011]" result="54.74° ✓ (matches measured 54.7°)" color={C.struct} />
         </div>
 
-        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The [011] zone axis of FCC Al is confirmed by matching both the d-spacings and the interspot angle. The rectangular pattern with 54.7° diagonals is the characteristic fingerprint of this orientation. Now that you know exactly which direction you are looking, you can interpret any extra spots: if you see faint streaks along the [100] direction, those are from θ' (Al₂Cu) precipitates lying on {'{'}100{'}'} habit planes -- a key strengthening phase in 2024 alloy.
@@ -1350,7 +1350,7 @@ function TEMDiffractionSection() {
           <strong>The Experiment:</strong> A Ni-base superalloy contains γ' precipitates (Ni₃Al, L1₂ ordered structure) in a γ matrix (FCC disordered). Both have the same FCC lattice, but γ' has Ni and Al atoms on specific sites. You need SAED to prove the precipitates are ordered -- this is critical because ordering is what makes γ' so strong at high temperature.
         </div>
 
-        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine a checkerboard. If all squares are the same color (disordered), you only see the big grid pattern. But if black and white squares alternate in an orderly pattern (ordered), you see an additional, finer pattern superimposed on the grid. In SAED, the "big grid" spots come from the average FCC lattice (fundamental reflections), while the extra "superlattice" spots appear only when atoms are ordered on specific sites.
@@ -1398,7 +1398,7 @@ function TEMDiffractionSection() {
           <InfoRow label="If fully disordered" value="Superlattice spots vanish completely" />
         </div>
 
-        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The half-integer superlattice reflections at (100), (110), etc., unambiguously confirm L1₂ ordering of the γ' precipitates. Sharp superlattice spots mean the precipitates are well-ordered with a high degree of long-range order and are coherent with the γ matrix (no misfit or interface distortion). If the superlattice spots were streaked, it would indicate anti-phase boundaries (APBs) within the γ' particles -- which are actually common and affect mechanical behavior. The ordering is what gives γ' its anomalous yield strength increase with temperature, making these superalloys viable for turbine service at 800-1000°C.
@@ -1411,7 +1411,7 @@ function TEMDiffractionSection() {
           <strong>The Experiment:</strong> You deposited a thin film of TiO₂ by reactive sputtering for a photocatalysis application. The key question: is the film crystalline (active for photocatalysis) or amorphous (inactive)? And if crystalline, is it anatase (good) or rutile (less active)? SAED from a large area will tell you immediately.
         </div>
 
-        <div style={{ background: C.struct + "06", border: `1px solid ${C.struct}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.struct, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine shining a laser pointer at a disco ball (many tiny mirrors at random angles). Each mirror reflects the laser in a different direction, but all at the same distance from center -- so you see a ring of bright dots on the wall. If the mirrors are really tiny and numerous, the individual dots merge into a continuous ring. This is exactly what happens in SAED of nanocrystalline material: each tiny crystal contributes spots, and the random orientations smear them into rings.
@@ -1462,7 +1462,7 @@ function TEMDiffractionSection() {
           <InfoRow label="If pattern were diffuse halos only" value="Film would be amorphous (no long-range order)" />
         </div>
 
-        <div style={{ background: C.struct + "08", border: `1px solid ${C.struct}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.struct, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The continuous ring pattern confirms the film is nanocrystalline (not amorphous, not single-crystal). All four measured rings match anatase TiO₂ with no rutile detected -- this is the preferred phase for photocatalysis because anatase has a wider bandgap (3.2 eV) and longer electron-hole recombination lifetime than rutile. The broad rings indicate grain sizes of 5-8 nm, which provides high surface area for catalytic reactions. If the pattern had shown only diffuse halos with no distinct rings, the film would be amorphous and you would need to anneal it (typically 300-500°C) to crystallize it into anatase. If you annealed too aggressively (above 600°C), the rings would sharpen but you would also see rutile rings appearing.
@@ -1796,7 +1796,7 @@ function XPSSection() {
           </div>
         )}
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+        <div style={{ padding: "3px 0", marginTop: 10 }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Did You Know?</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
             XPS can distinguish between the same element in different chemical environments. For example, carbon bonded to oxygen (C-O at 286.5 eV) has a higher binding energy than carbon bonded to carbon (C-C at 284.6 eV) because oxygen's electronegativity pulls electron density away from the carbon atom, making its core electrons harder to eject.
@@ -1809,7 +1809,7 @@ function XPSSection() {
           <strong>The Experiment:</strong> Your CdTe thin-film solar cell has been sitting in a drawer for two weeks and the efficiency dropped from 14.2% to 12.8%. You suspect the CdTe surface oxidized during storage, which would create a resistive barrier at the back contact. You load the sample into the XPS ultra-high vacuum (UHV) chamber through the loadlock, pump down, and wait for the pressure to reach &lt; 5 × 10⁻⁹ torr before transferring to the analysis chamber.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine throwing tennis balls (X-ray photons) at a wall of differently-weighted bricks. Each brick type needs a specific amount of energy to knock it loose. By measuring how fast the knocked-out bricks fly, you figure out how tightly each one was held -- and that tells you exactly what material the wall is made of and whether it has rusted (oxidized).
@@ -1883,7 +1883,7 @@ function XPSSection() {
           <InfoRow label="Cd:Te (excluding C, O)" value="1.40 : 1 (Cd-enriched)" />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The critical finding: no TeO₂ peak at 576.4 eV. The surface has NOT oxidized despite two weeks in air. The efficiency drop must be caused by something else (perhaps back contact degradation or moisture ingress at edges).
@@ -1902,7 +1902,7 @@ function XPSSection() {
           <strong>The Experiment:</strong> You deposited TiO₂ on Ti metal by reactive sputtering and need to verify the oxide formed completely and measure its thickness. You load the sample into the XPS chamber and plan angle-resolved measurements at 0° (normal) and 60° takeoff to exploit the surface sensitivity enhancement at grazing angles.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine looking at a layer of ice on a lake. Looking straight down, you see through the ice to the water below. But look at a steep angle and the ice appears thicker -- you see mostly ice, not water. Angle-resolved XPS works the same way: tilting the sample makes the surface oxide dominate the signal and suppresses the metal underneath.
@@ -1942,7 +1942,7 @@ function XPSSection() {
           <CalcRow eq="d = 2.8 nm × cos(0°) × ln(1 + 3.2)" result="≈ 4.2 nm" color={C.surface} />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Ti is fully oxidized to Ti⁴⁺ (TiO₂) at the surface. The metallic Ti⁰ underneath is visible at normal emission but suppressed at grazing angle -- confirming a layered structure, not a mixed phase. The oxide is ~4.2 nm thick. Critically, no Ti³⁺ or Ti²⁺ sub-oxide peaks were detected, meaning the oxide is stoichiometric TiO₂ with no oxygen-deficient transition layer.
@@ -1955,7 +1955,7 @@ function XPSSection() {
           <strong>The Experiment:</strong> Your sample shows unexpected carbon in the survey scan. Before dismissing it as routine adventitious contamination, you run a high-resolution C 1s scan to determine what kind of carbon species are present -- the chemical shifts will tell you exactly which functional groups are on the surface.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Carbon is like a chameleon -- the same element looks different depending on its chemical neighbors. A carbon bonded to oxygen is slightly easier to ionize (higher binding energy) than a carbon bonded to hydrogen. XPS can distinguish C-C from C-O from C=O from O-C=O, each shifted by a precise amount. It is chemical forensics at the atomic level.
@@ -1992,7 +1992,7 @@ function XPSSection() {
           <CalcRow eq="289.0 eV → O-C=O (shift = +4.2 eV)" result="8% of area" color={C.surface} />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             This is adventitious carbon contamination with organic functional groups. The dominant C-C/C-H at 284.8 eV is typical of hydrocarbon contamination from air exposure. The C-O and O-C=O components suggest carboxylic acid contamination -- likely from fingerprints during sample handling. A 5-minute Ar⁺ sputter at 500 eV removed it completely, confirming it was surface contamination only and not a bulk carbon phase. Lesson: always wear gloves when handling XPS samples.
@@ -2005,7 +2005,7 @@ function XPSSection() {
           <strong>The Experiment:</strong> A copper catalyst was used for CO₂ electrochemical reduction. After the reaction, you need to determine whether the Cu stayed metallic (Cu⁰) or oxidized to Cu⁺ (Cu₂O) or Cu²⁺ (CuO). This matters because only metallic Cu is active for the desired product selectivity.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Copper is the trickiest element in XPS because Cu⁰ and Cu⁺ have nearly the same binding energy -- like two suspects with the same height. You need a second measurement (the Auger parameter) to distinguish them, like checking their weight too. The combination of XPS binding energy plus Auger kinetic energy creates a unique fingerprint for each oxidation state.
@@ -2041,7 +2041,7 @@ function XPSSection() {
           <CalcRow eq="Reference: CuO (Cu²⁺) α'" result="1851.5 eV (but HAS satellites)" color={C.surface} />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The modified Auger parameter α' = 1851.2 eV combined with the absence of shake-up satellites unambiguously identifies metallic Cu⁰. The catalyst remained reduced during CO₂ reduction -- good news for maintaining selectivity. If you had seen intense satellites at 940-945 eV, it would be Cu²⁺ (CuO). If α' were 1849.2 eV with no satellites, it would be Cu⁺ (Cu₂O). The Auger parameter resolves the Cu⁰/Cu⁺ ambiguity that binding energy alone cannot.
@@ -2232,7 +2232,7 @@ function AESSection() {
           <strong>The Experiment:</strong> A stainless steel pipe in a chemical plant failed catastrophically along grain boundaries after 15 years of service at 500°C. The failure investigation team sends you a piece of the pipe. You need to determine WHY the grain boundaries failed -- the prime suspect is sulfur segregation, which is known to embrittle steel grain boundaries. You notch the sample and fracture it inside the UHV AES chamber to expose fresh grain boundary surfaces that have never seen air.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine a crime scene investigator dusting a doorknob for fingerprints. AES does something similar -- it scans a freshly broken surface with an electron beam and "dusts" for chemical fingerprints. But instead of ink powder, it detects Auger electrons that carry the unique energy signature of each element. The key advantage: you can point the beam at a specific spot (like a grain boundary facet) with ~10 nm precision.
@@ -2294,7 +2294,7 @@ function AESSection() {
           <InfoRow label="Cr at grain boundary" value="15.2 at% (slightly depleted from bulk 18 at%)" />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The smoking gun: 3.7 at% sulfur at the grain boundary is ~370 times the bulk level. This is classic temper embrittlement. During 15 years at 500°C, sulfur atoms diffused from the grain interiors and segregated to the grain boundaries, weakening the atomic bonds across the boundary. This explains the intergranular fracture mode.
@@ -2313,7 +2313,7 @@ function AESSection() {
           <strong>The Experiment:</strong> A Cr/Cu/Si multilayer stack for a microelectronic interconnect needs verification. The Cr barrier layer should be ~12 nm and the Cu conductor ~24 nm. You load the sample and set up AES depth profiling with Ar⁺ ion sputtering to peel the stack layer by layer while monitoring element signals.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine peeling a three-layer cake with a tiny sandblaster while tasting each layer as you go. AES depth profiling does exactly this: the Ar⁺ ion beam sputters away material atom by atom, and the Auger electron detector "tastes" the composition at each depth. You build a layer-by-layer composition map of the entire stack.
@@ -2350,7 +2350,7 @@ function AESSection() {
           <CalcRow eq="Note: sputter yields differ per material" result="correction factors applied" color={C.surface} />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Cr barrier ~12 nm and Cu conductor ~24 nm match the deposition targets within 10%. The interfaces are ~6 nm wide -- some intermixing or sputter-induced roughening is present. The oxygen signal at interfaces indicates brief air exposure between depositions, suggesting the wafer was transferred through ambient between deposition chambers. Recommend improving the vacuum transfer to eliminate interfacial oxidation.
@@ -2363,7 +2363,7 @@ function AESSection() {
           <strong>The Experiment:</strong> You need to measure the native oxide thickness on freshly polished aluminum. This matters because the oxide thickness controls adhesion of subsequent coatings and corrosion resistance. You use gentle AES depth profiling with low-energy sputtering to minimize artifacts.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Aluminum in air instantly grows a thin protective skin of oxide -- like a scab that protects a wound. This oxide is self-limiting at a few nanometers. AES can measure exactly how thick this invisible armor is by gently sanding through it with ions and watching when the oxygen signal vanishes. Bonus: the Auger peak shape itself changes between oxide and metal.
@@ -2398,7 +2398,7 @@ function AESSection() {
           <CalcRow eq="Al LVV peak shape change: oxide → metal" result="56 eV → 68 eV (+12 eV shift)" color={C.surface} />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Native oxide ~4 nm, consistent with the 2-4 nm self-limiting Al₂O₃ expected on polished aluminum. The sharp O/Al transition indicates a well-defined oxide/metal interface (not graded composition). This passivation layer protects the aluminum from further corrosion. The Al LVV peak shape change (56 → 68 eV) is a chemical state indicator unique to AES -- it provides oxidation state information even without XPS.
@@ -2411,7 +2411,7 @@ function AESSection() {
           <strong>The Experiment:</strong> A silicon wafer must have less than 0.1 monolayer of carbon before epitaxial growth can begin. Any more carbon will cause crystal defects in the epi layer. You use AES point analysis (no sputtering -- surface only) to check if the wafer meets the cleanliness specification.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Think of a surgeon checking a scalpel for contamination before an operation. Even a microscopic amount of grease could cause infection. Similarly, even a fraction of a monolayer of carbon on a silicon wafer will ruin the crystal growth. AES is the quality-control inspector that can detect contamination at the sub-monolayer level.
@@ -2449,7 +2449,7 @@ function AESSection() {
           <CalcRow eq="Coverage = 6.9 / 50" result="0.14 monolayers" color={C.surface} />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Carbon at 0.14 monolayers exceeds the 0.1 ML specification -- the wafer fails the cleanliness check. Recommend UV-ozone cleaning for 10 minutes followed by an HF dip to remove any re-grown oxide, then re-measure. The oxygen at 0.8 units is negligible (the native oxide was already removed by a previous HF dip). After cleaning, aim for a C peak-to-peak height below 1.5 units to meet the spec.
@@ -2585,7 +2585,7 @@ function SIMSSection() {
           <strong>The Experiment:</strong> A semiconductor fab just implanted boron into silicon wafers at 10 keV with a target dose of 1 × 10¹⁵ atoms/cm². Before they build transistors on these wafers, they need to verify that the boron went to the correct depth and the dose is right. You load one of the test wafers into the SIMS instrument (a CAMECA IMS-7f) and set up an O₂⁺ primary beam -- oxygen primary ions are chosen because they enhance the ionization probability of electropositive elements like boron, giving much better sensitivity.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine a sandblaster slowly eroding a painted wall layer by layer, and a camera catching each chip of paint as it flies off to identify the color. SIMS works the same way: primary ions sandblast the sample surface atom by atom, and a mass spectrometer catches and identifies each sputtered ion. By tracking how the composition changes as you dig deeper, you build a depth profile.
@@ -2646,7 +2646,7 @@ function SIMSSection() {
           <InfoRow label="SRIM prediction for 10 keV B in Si" value="Rp = 7.8 nm, ΔRp = 4.2 nm" />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The boron implant profile matches the specification: peak depth ~8 nm agrees with SRIM simulation for 10 keV, and the integrated dose of 1.05 × 10¹⁵ is within 5% of the target 1 × 10¹⁵ atoms/cm². The implanter is performing correctly.
@@ -2665,7 +2665,7 @@ function SIMSSection() {
           <strong>The Experiment:</strong> The semiconductor fab implanted arsenic at 50 keV with a target dose of 5 × 10¹⁵ ions/cm² to form the source/drain junctions of NMOS transistors. Before proceeding to annealing, you need to verify the implant profile matches the process specification. You load the test wafer into the SIMS and select a Cs⁺ primary beam -- cesium enhances the yield of electronegative secondary ions like As⁻.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             If boron SIMS was like catching paint chips from a sandblasted wall, arsenic SIMS is like searching for rare gold flecks in the same wall. You switch from an oxygen sandblaster (O₂⁺) to a cesium one (Cs⁺) because cesium makes electronegative elements like arsenic fly off as negative ions, boosting detection by orders of magnitude.
@@ -2703,7 +2703,7 @@ function SIMSSection() {
           <CalcRow eq="Target dose" result="5.0 × 10¹⁵ cm⁻² (4% deviation)" color={C.surface} />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Dose within 4% of target -- the implanter is calibrated correctly. Peak at 60 nm matches the SRIM prediction of 57 nm. The trailing edge steepness (1 decade per 12 nm) indicates minimal channeling, which is good for forming a well-defined shallow junction. This profile will produce the correct transistor characteristics after activation annealing.
@@ -2716,7 +2716,7 @@ function SIMSSection() {
           <strong>The Experiment:</strong> An MBE-grown laser structure consists of alternating AlGaAs barrier and GaAs quantum well layers. Before fabricating laser devices, you need to verify that the aluminum composition and layer thicknesses match the design. SIMS depth profiling can resolve the individual layers with nanometer precision.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine reading a barcode by slowly scraping across it with a razor blade and analyzing each stripe. The AlGaAs/GaAs superlattice is like a nanoscale barcode -- alternating stripes of different composition. SIMS reads this barcode by sputtering through it and watching the Al signal go up and down with each layer.
@@ -2754,7 +2754,7 @@ function SIMSSection() {
           <CalcRow eq="Barrier composition" result="Al₀.₃Ga₀.₇As" color={C.surface} />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Layer thicknesses match the MBE growth targets (10 nm barrier, 6 nm well) within 5%. The Al composition x = 0.30 is correct for the designed Al₀.₃Ga₀.₇As barriers. Interface sharpness looks excellent (~1 nm transition width), indicating minimal interdiffusion during growth. All five periods are uniform, confirming stable MBE shutter timing. The structure is ready for device fabrication.
@@ -2767,7 +2767,7 @@ function SIMSSection() {
           <strong>The Experiment:</strong> A high-strength steel bolt in a bridge failed unexpectedly by hydrogen embrittlement. You need to detect and map the hydrogen distribution near the fracture surface to confirm the failure mechanism. SIMS is one of the very few analytical techniques that can detect hydrogen with depth resolution -- most other methods cannot see H at all.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Hydrogen is the invisible saboteur of metals -- individual atoms sneak into the steel, gather at grain boundaries like termites weakening a wooden beam, and cause sudden catastrophic fracture without warning. Most analytical techniques are blind to hydrogen because it is so light. SIMS can catch this invisible culprit because it physically sputters atoms off the surface and weighs them one by one.
@@ -2805,7 +2805,7 @@ function SIMSSection() {
           <CalcRow eq="Critical threshold for this steel grade" result="~0.5 wppm" color={C.surface} />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Hydrogen is 4.25× enriched at grain boundaries compared to bulk -- the classic signature of hydrogen embrittlement. The total content of 1.2 wppm exceeds the critical threshold of ~0.5 wppm for this high-strength steel grade. The source is likely cathodic hydrogen charging from corrosion in the service environment. Recommendations: bake the remaining bolts at 200°C for 24 hours to desorb trapped hydrogen, apply a protective coating to prevent further hydrogen ingress, or switch to a more hydrogen-resistant steel grade with lower strength and higher fracture toughness.
@@ -2991,7 +2991,7 @@ function EDSSection() {
           <strong>The Experiment:</strong> Your company received a shipment of stainless steel plate labeled "304 grade" for a food processing application. Before accepting the material, you need to verify the composition meets the AISI 304 specification (17-20 wt% Cr, 8-11 wt% Ni). You cut a small coupon, polish it to 1 µm diamond finish, and load it into the SEM. The SDD (silicon drift detector) EDS system is already cooled and ready.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             When you hit a piano key, you get a note at a specific frequency. Each element is like a different piano -- when the electron beam "plays" it, the element sings its own characteristic X-ray frequency. Iron sings at 6.40 keV, chromium at 5.41 keV, nickel at 7.47 keV. The EDS detector listens to all these notes simultaneously and tells you how much of each element is present.
@@ -3057,7 +3057,7 @@ function EDSSection() {
           <InfoRow label="Note" value="C not detected by EDS (too light, Z=6)" />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The composition (Fe-17.5Cr-8.2Ni-0.5Si) falls within the AISI 304 specification on all measurable elements. The shipment is genuine 304 stainless steel. The Si at 0.5 wt% is from deoxidation during steelmaking and is normal.
@@ -3076,7 +3076,7 @@ function EDSSection() {
           <strong>The Experiment:</strong> A geology student found an unknown mineral grain in a rock thin section while studying a potential gabbro sample. Optical microscopy alone cannot confirm the mineral identity. You place the thin section in the SEM, navigate to the unknown grain, and collect an EDS spectrum to determine its elemental composition and match it to a known mineral formula.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Identifying minerals under a microscope is like identifying a car by its color and shape -- you can make a guess, but you might be wrong. EDS is like reading the VIN number: it tells you the exact chemical composition, which uniquely identifies the mineral. A geologist can go from "I think it is a feldspar" to "it is anorthite, CaAl₂Si₂O₈" in 60 seconds.
@@ -3115,7 +3115,7 @@ function EDSSection() {
           <CalcRow eq="Cation ratio (normalized to 8 oxygens)" result="Ca₁Al₂Si₂O₈" color={C.surface} />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The composition Ca₁Al₂Si₂O₈ matches anorthite -- the calcium-rich end member of the plagioclase feldspar series. The complete absence of sodium rules out albite (NaAlSi₃O₈) or intermediate compositions. This is consistent with the host rock being a gabbro (mafic intrusive), where calcic plagioclase is expected. EDS identified the mineral faster and more definitively than optical methods alone.
@@ -3128,7 +3128,7 @@ function EDSSection() {
           <strong>The Experiment:</strong> A dissimilar metal weld joining stainless steel to carbon steel failed in service. You need to map the element distribution across the weld zone to find where the composition drops below critical levels. You mount and polish the weld cross-section, then run an EDS elemental map spanning the entire fusion zone.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             An EDS elemental map is like a heat map of a city showing population density -- except instead of people, each pixel shows how much of a particular element is present. You can literally see the chromium fade from high (stainless side) to near-zero (carbon steel side) and spot exactly where the corrosion-resistant zone ends. It turns invisible chemistry into a color picture.
@@ -3166,7 +3166,7 @@ function EDSSection() {
           <CalcRow eq="Unmixed zone width" result="~50 µm" color={C.surface} />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The weld metal at 12% Cr is diluted from both base metals but still above the 10.5% minimum for corrosion resistance. However, the 50 µm unmixed zone at the carbon steel fusion line has only 8% Cr -- below the passivation threshold. This narrow zone is the likely failure initiation site where preferential corrosion began. Recommend post-weld heat treatment to promote diffusion, or apply a nickel butter layer before welding to prevent this composition dip.
@@ -3179,7 +3179,7 @@ function EDSSection() {
           <strong>The Experiment:</strong> A chip fab is experiencing sudden yield loss. Inspection found particles on wafers after a specific process step. You grab a wafer, load it in the SEM, locate three representative particles, and hit each one with an EDS spot analysis to identify the contamination source. Knowing the composition tells you which piece of equipment is shedding material.
         </div>
 
-        <div style={{ background: C.surface + "06", border: `1px solid ${C.surface}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.surface, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Particle contamination analysis is forensic science for semiconductors. Each particle is a clue -- its composition points to the guilty piece of equipment. A stainless steel particle means something metal is rubbing. A glass particle means a quartz tube cracked. A CaF₂ particle means the etch chamber has a problem. EDS is the detective that reads each clue in seconds.
@@ -3213,7 +3213,7 @@ function EDSSection() {
           <CalcRow eq="Particle 3: Ca 51%, F 49%" result="CaF₂ (calcium fluoride)" color={C.surface} />
         </div>
 
-        <div style={{ background: C.surface + "08", border: `1px solid ${C.surface}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.surface, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Three distinct contamination sources identified. (1) Stainless steel particles (Fe-18Cr-10Ni = 304 SS) from equipment abrasion -- check robot arms and chamber walls for wear marks. (2) SiO₂ from a broken quartz furnace tube or CMP slurry residue. (3) CaF₂ from the etch chamber (CaF₂ viewport window degradation or residual fluorine reacting with calcium). The stainless steel particles are most harmful to device yield. Immediate action: inspect the wafer transfer robot end-effector for scratches and replace worn components.
@@ -3493,7 +3493,7 @@ function XANESSection() {
           </svg>
         )}
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+        <div style={{ padding: "3px 0", marginTop: 10 }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Did You Know?</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
             The XANES edge shifts ~1-3 eV per oxidation state change. Fe²⁺ absorbs at ~7112 eV while Fe³⁺ absorbs at ~7115 eV. This makes XANES one of the most reliable ways to determine oxidation state in complex materials, even in amorphous or nanocrystalline samples where XRD fails.
@@ -3506,7 +3506,7 @@ function XANESSection() {
           <strong>The Experiment:</strong> An archaeologist brings you a rust-colored powder scraped from an ancient Roman nail found in a waterlogged site. They need to know the exact iron oxide phase -- is it hematite (α-Fe₂O₃), magnetite (Fe₃O₄), or goethite (α-FeOOH)? This matters because the oxide phase tells them about the burial environment (oxidizing vs reducing). You take the sample to a synchrotron beamline for Fe K-edge XANES, which can precisely determine the iron oxidation state and coordination geometry.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Think of tuning a radio dial past a station. Below the station frequency, you hear nothing. Right at the frequency, you hear a loud burst. Past it, the signal wobbles. In XANES, you tune X-ray energy past an element's absorption edge. The exact energy where absorption jumps tells you the oxidation state (like which station you are on), and the shape of the "wobbles" tells you the local atomic arrangement.
@@ -3580,7 +3580,7 @@ function XANESSection() {
           <InfoRow label="Phase identification" value="α-Fe₂O₃ (hematite)" />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Scientist</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The powder is hematite (α-Fe₂O₃): pure Fe³⁺ in octahedral coordination. For the archaeologist, this means the burial environment was oxidizing (access to air or oxygenated water). If the nail had been in a reducing environment (deep waterlogged anaerobic sediment), you would expect magnetite (Fe₃O₄) with its mixed Fe²⁺/Fe³⁺ edge at 7122 eV.
@@ -3596,7 +3596,7 @@ function XANESSection() {
           <strong>The Experiment:</strong> A Li-ion battery cathode is losing capacity after extended cycling. You suspect Mn is reducing from Mn⁴⁺ to Mn³⁺ during charge-discharge, causing Jahn-Teller distortion of the MnO₆ octahedra and structural degradation. You measure Mn K-edge XANES on the cathode material before and after 500 cycles to quantify the Mn valence change.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine a stack of identical boxes (Mn⁴⁺ octahedra) forming a stable wall. If some boxes start swelling unevenly on one axis (Jahn-Teller distortion from Mn³⁺), the wall buckles and cracks. XANES measures how many boxes have swollen by tracking the Mn oxidation state -- more Mn³⁺ means more distorted boxes and more structural damage.
@@ -3634,7 +3634,7 @@ function XANESSection() {
           <CalcRow eq="Mn³⁺ fraction increase" result="5% → 28% (5.6× increase)" color={C.spec} />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             28% of Mn reduced to Mn³⁺ after 500 cycles. Mn³⁺ is Jahn-Teller active (the d⁴ high-spin configuration distorts the octahedral site), causing structural degradation and capacity loss. This explains the observed 15% capacity fade. Solution: dope with Al or Mg to suppress Mn³⁺ formation and stabilize the spinel framework.
@@ -3647,7 +3647,7 @@ function XANESSection() {
           <strong>The Experiment:</strong> A methanol synthesis catalyst (Cu/ZnO/Al₂O₃) must have Cu reduced to metallic Cu⁰ after activation in H₂. You need to confirm the reduction is complete and check whether Cu re-oxidizes during 100 hours on stream.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Think of a rusty iron nail being cleaned with sandpaper (reduction). You want to confirm all the rust is gone (fully metallic) and that it does not rust again while in use. XANES checks if the Cu atoms are still "clean" (metallic Cu⁰) or if some have "rusted back" (oxidized to Cu⁺ or Cu²⁺) during catalytic operation.
@@ -3685,7 +3685,7 @@ function XANESSection() {
           <CalcRow eq="Particle size from N ≈ 8.2" result="~3 nm" color={C.spec} />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Cu nanoparticles (~3 nm) remain fully metallic after 100 hr reaction -- excellent stability. The reduced coordination number (8.2 vs 12 for bulk) confirms the nanoparticle size. No Cu₂O or CuO detected. The ZnO support is stabilizing Cu particles against sintering and oxidation, which is critical for maintaining catalytic activity over the catalyst lifetime.
@@ -3698,7 +3698,7 @@ function XANESSection() {
           <strong>The Experiment:</strong> You deposited a 5 nm TiO₂ thin film and need to distinguish anatase from rutile. At this thickness, XRD gives no usable signal. Ti L₂,₃-edge XANES is far more sensitive for thin films because the crystal field splitting fingerprint directly probes the TiO₆ octahedral distortion.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Think of two different-shaped drums. Both are drums (TiO₂), but they produce slightly different sounds (peak splittings) when struck. Anatase has a more symmetric "drum" (less octahedral distortion) producing a smaller pitch split, while rutile has a more distorted "drum" producing a larger split. XANES listens to these subtle differences in the crystal field.
@@ -3735,7 +3735,7 @@ function XANESSection() {
           <CalcRow eq="Phase identification" result="Anatase TiO₂" color={C.spec} />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Crystal field splitting fingerprint confirms anatase phase even in a 5 nm thin film -- too thin for reliable XRD. The t₂g/eg splitting directly probes the TiO₆ octahedral coordination and distortion. Rutile would show larger eg splitting (1.2 eV) because its octahedra share edges and are more distorted, whereas anatase octahedra share corners with less distortion (0.8 eV splitting).
@@ -3990,7 +3990,7 @@ function RamanSection() {
         {/* Peak info boxes */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))", gap: 4, marginTop: 8 }}>
           {ramanMaterials[ramanPreset].peaks.map((pk, i) => (
-            <div key={i} style={{ background: ramanMaterials[ramanPreset].color + "08", border: `1px solid ${ramanMaterials[ramanPreset].color}22`, borderRadius: 6, padding: "6px 8px", textAlign: "center" }}>
+            <div key={i} style={{ padding: "6px 8px", textAlign: "center" }}>
               <div style={{ fontWeight: 500, color: ramanMaterials[ramanPreset].color, fontSize: 11 }}>{pk.label}</div>
               <div style={{ fontSize: 10, color: T.ink }}>{pk.shift} cm⁻¹</div>
               <div style={{ fontSize: 9, color: T.muted }}>I = {pk.intensity}%</div>
@@ -3998,7 +3998,7 @@ function RamanSection() {
           ))}
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+        <div style={{ padding: "3px 0", marginTop: 10 }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Key Insight</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
             {ramanPreset === "Si" && "The 520 cm⁻¹ peak of silicon is the most commonly used calibration standard in Raman spectroscopy. Stress in thin films shifts this peak: compressive stress shifts it up, tensile stress shifts it down."}
@@ -4014,7 +4014,7 @@ function RamanSection() {
           <strong>The Experiment:</strong> You deposited a TiO₂ thin film by sol-gel on a glass substrate and annealed it at 450°C for 2 hours. The film is intended for photocatalytic water purification, which requires the anatase phase (not rutile -- anatase has better photocatalytic activity). Before testing the photocatalysis, you need to confirm the film crystallized into anatase. You place the sample under the confocal Raman microscope, focus the 532 nm laser through the 50× objective, and acquire a spectrum.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine bouncing a ball off a trampoline. Most of the time the ball bounces back with the same energy (Rayleigh scattering). But occasionally the trampoline is vibrating, and the ball picks up or loses a tiny bit of energy from the vibration. By measuring how much energy the ball gained or lost, you can figure out how fast the trampoline was vibrating. Raman does this with photons and molecular vibrations -- each crystal phase has its own vibration frequencies.
@@ -4087,7 +4087,7 @@ function RamanSection() {
           <InfoRow label="144 cm⁻¹ peak shift" value="None (no residual stress detected)" />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The 450°C anneal successfully crystallized the sol-gel film into pure anatase -- exactly the phase needed for photocatalysis. No rutile peaks means the annealing temperature was well below the anatase-to-rutile transition (typically 600-700°C). The ~15 nm grain size from FWHM analysis is reasonable for a sol-gel film annealed at 450°C.
@@ -4103,7 +4103,7 @@ function RamanSection() {
           <strong>The Experiment:</strong> You exfoliated graphite hoping to get single-layer graphene on a SiO₂/Si substrate. Raman spectroscopy is the definitive tool for counting graphene layers -- the 2D peak shape and intensity ratio are unambiguous fingerprints of layer number.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine plucking a single guitar string versus two strings together. A single string gives one clean note (single Lorentzian 2D peak), while two strings produce a more complex chord (multiple overlapping Lorentzians). Raman "listens" to the graphene layers the same way -- monolayer gives one pure tone, bilayer gives a richer but broader chord.
@@ -4141,7 +4141,7 @@ function RamanSection() {
           <CalcRow eq="D peak present?" result="No → no defects, edges, or vacancies" color={C.spec} />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Confirmed single-layer graphene. The absent D peak means no edges, vacancies, or disorder in the probed area. The 2D peak shape is the most reliable indicator: single Lorentzian = monolayer, whereas bilayer shows a broader, asymmetric peak requiring 4 Lorentzian components. This flake is suitable for device fabrication.
@@ -4154,7 +4154,7 @@ function RamanSection() {
           <strong>The Experiment:</strong> A strained-Si MOSFET channel should be under tensile stress to boost electron mobility. SiGe source/drain stressors are designed to induce this strain. Raman micro-spectroscopy can measure the stress non-destructively with ~1 µm spatial resolution.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Think of tuning a guitar string. Tightening the string (tension) raises the pitch. Loosening it (compression) lowers the pitch. In the same way, tensile stress in silicon shifts its Raman "note" (520.7 cm⁻¹) to a lower frequency, and compressive stress shifts it higher. By measuring the shift, you measure the stress.
@@ -4187,7 +4187,7 @@ function RamanSection() {
           <CalcRow eq="Biaxial correction: σ = Δω / (-4.0 cm⁻¹/GPa)" result="-1.8 / -4.0 = +0.45 GPa biaxial" color={C.spec} />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The Si channel is under 0.78 GPa uniaxial tensile stress (or ~0.45 GPa biaxial), confirming the SiGe source/drain stressors are working as designed. This level of strain should increase electron mobility by ~30%. If the peak had shifted up (to higher cm⁻¹), it would indicate compressive stress -- wrong direction for NMOS (but correct for PMOS hole mobility enhancement).
@@ -4200,7 +4200,7 @@ function RamanSection() {
           <strong>The Experiment:</strong> A failure analysis lab receives unknown plastic debris from a medical device failure. The material must be identified to determine if it matches the specified biocompatible polymer. Raman spectroscopy can identify polymers in seconds by matching their vibrational fingerprint to a spectral database.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Like identifying a person by their voice -- every polymer has a unique set of vibrational "tones" that make up its Raman fingerprint. You record the unknown material's voice and compare it to a database of known polymer voices. A match score above 0.95 is a positive ID.
@@ -4239,7 +4239,7 @@ function RamanSection() {
           <CalcRow eq="Peak at 1640 cm⁻¹ (C=C)?" result="Absent → not rubber" color={C.spec} />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Material is polystyrene (PS). PS is NOT approved for this implantable medical device application -- the specification calls for PEEK or UHMWPE. This material mismatch explains the device failure, as PS has poor fatigue resistance and is not biocompatible for long-term implantation. Escalate to the quality assurance team immediately.
@@ -4544,7 +4544,7 @@ function PLSection() {
           </g>
         </svg>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+        <div style={{ padding: "3px 0", marginTop: 10 }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Key Insight</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
             Low-temperature PL (4-10 K) is a powerful diagnostic: sharp peaks reveal bound excitons, donor-acceptor pairs, and specific defect identities. At room temperature, thermal broadening washes out these details. The defect peak often dominates at low T because non-radiative pathways are frozen out.
@@ -4557,7 +4557,7 @@ function PLSection() {
           <strong>The Experiment:</strong> A GaAs wafer supplier claims their new wafer has "ultra-high purity" suitable for high-electron-mobility transistor (HEMT) fabrication. Low-temperature PL is the gold standard for evaluating semiconductor crystal quality -- defects and impurities that are invisible to XRD or even TEM show up as telltale emission peaks. You mount the wafer on the cold finger of a closed-cycle helium cryostat, cool to 10 K, and focus a 532 nm laser on the surface.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine throwing a ball high into the air (excitation) and listening to the sound it makes when it lands (emission). A perfectly smooth floor makes one clean "thud" at a single pitch. But if there are holes or bumps (defects), the ball makes additional sounds at different pitches. Low-temperature PL works the same way: a perfect crystal emits one sharp peak at the bandgap energy, but defects create additional peaks at lower energies.
@@ -4619,7 +4619,7 @@ function PLSection() {
           <InfoRow label="Overall quality grade" value="Excellent -- suitable for HEMT" />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The dominant free exciton peak with FWHM of only 3.2 meV is the hallmark of a high-quality GaAs crystal. In poor material, the FX peak would be broad (&gt; 10 meV) or absent entirely, replaced by defect-related bands. The weak DAP peak tells you there are some residual Si and C impurities, but the high FX/DAP intensity ratio (&gt; 10) means these are at very low concentrations.
@@ -4638,7 +4638,7 @@ function PLSection() {
           <strong>The Experiment:</strong> Two CdTe solar cells from the same batch -- one achieves 15% efficiency, the other only 11%. PL mapping can reveal why one underperforms by visualizing defect distributions across the cell area with micrometer resolution.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine two glow-in-the-dark posters. One glows uniformly bright -- a healthy cell. The other has dark patches (defects eating the glow) and glows a slightly different color in places (wrong energy emission). PL mapping creates a glow-map of the solar cell, showing exactly where the defects are hiding and stealing energy.
@@ -4676,7 +4676,7 @@ function PLSection() {
           <CalcRow eq="Bad cell η = I_BE/(I_BE + I_defect)" result="0.35 (65% lost to defects)" color={C.spec} />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The underperforming cell has extensive cadmium vacancy defects (0.26 eV level) acting as non-radiative and sub-gap recombination centers. The PL map shows these defects concentrate at grain boundaries -- consistent with Cd out-diffusion during CdCl₂ treatment. Fix: anneal in Cd-rich atmosphere to fill vacancies, or optimize CdCl₂ treatment temperature to reduce Cd loss.
@@ -4689,7 +4689,7 @@ function PLSection() {
           <strong>The Experiment:</strong> A GaN LED wafer arrives from a new supplier. Before committing to fabrication, you assess material quality using low-temperature PL at 10 K, which resolves excitonic features and defect bands that room-temperature PL blurs together.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Think of listening to an orchestra in a quiet concert hall vs a noisy street. At low temperature (quiet hall), you hear every instrument clearly -- the sharp violin (free exciton), the faint oboe (donor-bound exciton), and any off-key notes (defects). At room temperature (noisy street), everything blurs into a single hum and you miss the details.
@@ -4727,7 +4727,7 @@ function PLSection() {
           <CalcRow eq="D⁰X FWHM" result="2.1 meV → dislocation density < 10⁸ cm⁻²" color={C.spec} />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Excellent material quality. The sharp D⁰X peak (FWHM = 2.1 meV) indicates low dislocation density (below 10⁸ cm⁻²). Yellow band is minimal (YB/NBE = 0.02 -- good wafers have less than 0.05). The dominant near-band-edge emission means radiative recombination will be efficient for LED operation. Approved for fabrication.
@@ -4740,7 +4740,7 @@ function PLSection() {
           <strong>The Experiment:</strong> You synthesized CdSe quantum dots and need to measure their size. The PL peak position directly gives you the size through quantum confinement -- smaller dots have larger bandgaps and emit at shorter wavelengths. This is much faster than TEM for routine quality control.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Think of organ pipes -- shorter pipes produce higher-pitched sounds, longer pipes produce lower-pitched sounds. Quantum dots work the same way: smaller dots confine electrons into a tighter space, raising the energy (blueshift), while larger dots let electrons spread out, lowering the energy (redshift). The color of the glow tells you the size.
@@ -4775,7 +4775,7 @@ function PLSection() {
           <CalcRow eq="FWHM 28 nm → size distribution σ" result="~5% (narrow)" color={C.spec} />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             CdSe quantum dots are ~2.9 nm diameter with narrow size distribution (5%). The green emission at 545 nm is useful for display applications. If you wanted red emission (620 nm), you would grow them larger (~4.5 nm). The narrow FWHM confirms excellent synthesis size control -- PL is much faster than TEM for routine QD size checking and can measure thousands of dots simultaneously (TEM measures them one at a time).
@@ -5044,7 +5044,7 @@ function UVVisSection() {
             { label: "ZnO", eg: "3.3 eV", lam: "376 nm", type: "Direct" },
             { label: "TiO₂", eg: "3.2 eV", lam: "388 nm", type: "Indirect" },
           ].map((m, i) => (
-            <div key={i} style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 6, padding: "6px 8px", textAlign: "center" }}>
+            <div key={i} style={{ padding: "6px 8px", textAlign: "center" }}>
               <div style={{ fontWeight: 500, color: C.spec, fontSize: 11 }}>{m.label}</div>
               <div style={{ fontSize: 10, color: T.ink }}>{m.eg}</div>
               <div style={{ fontSize: 9, color: T.muted }}>{m.lam} | {m.type}</div>
@@ -5052,7 +5052,7 @@ function UVVisSection() {
           ))}
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+        <div style={{ padding: "3px 0", marginTop: 10 }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Key Insight</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
             The Tauc plot method is the standard way to extract semiconductor bandgaps from UV-Vis data. The key is choosing the right exponent: n=2 for direct bandgap materials (like CdTe, GaAs, ZnO) and n=1/2 for indirect bandgap materials (like Si, TiO2). The bandgap is where the linear portion extrapolates to zero on the x-axis.
@@ -5065,7 +5065,7 @@ function UVVisSection() {
           <strong>The Experiment:</strong> You synthesized ZnO nanoparticles by a sol-gel method and need to confirm they have the right bandgap for UV-blocking sunscreen applications. If the particles are small enough (below ~5 nm), quantum confinement will blue-shift the bandgap above the bulk value of 3.37 eV. You disperse a small amount of your white nanoparticle powder in ethanol by ultrasonication, transfer the colloidal suspension to a quartz cuvette (glass absorbs UV!), and load it into the UV-Vis spectrophotometer.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Think of a window with a colored tint. White light goes in, and some colors come out dimmer (absorbed) while others pass through freely (transmitted). UV-Vis shines every color of light (from UV through visible) through your sample one wavelength at a time, measuring how much is absorbed at each color. ZnO strongly absorbs UV but lets visible light through -- that is why it makes a good invisible sunscreen.
@@ -5127,7 +5127,7 @@ function UVVisSection() {
           <InfoRow label="Scattering baseline" value="Slight rise at short wavelengths (Rayleigh scattering)" />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The bandgap of 3.37 eV matches bulk ZnO exactly, meaning your nanoparticles are large enough (probably &gt; 20 nm based on the Bohr exciton radius of ZnO being ~2.3 nm) that quantum confinement does not kick in. The sharp absorption edge at 368 nm with full transparency above 400 nm is ideal for UV-blocking applications.
@@ -5143,7 +5143,7 @@ function UVVisSection() {
           <strong>The Experiment:</strong> You synthesized CdSe quantum dots and need to determine both size and concentration from a single UV-Vis measurement. The first excitonic absorption peak position gives the diameter, and the absorbance at that peak gives the molar concentration via the size-dependent extinction coefficient.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine a jar of colored marbles in water. The color tells you the marble size (blue = small, red = large, due to quantum confinement). The darkness of the color tells you how many marbles are in the jar (Beer-Lambert law). UV-Vis reads both the color (size) and darkness (concentration) in one shot.
@@ -5178,7 +5178,7 @@ function UVVisSection() {
           <CalcRow eq="Concentration c = A/(ε×l) = 0.85/(82300×1)" result="1.03×10⁻⁵ M = 10.3 µM" color={C.spec} />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             QDs are 2.7 nm diameter at 10.3 µM concentration. The sharp first excitonic peak indicates narrow size distribution -- if the peak were broad or absent, the synthesis produced polydisperse QDs. UV-Vis gives both size and concentration in one measurement, whereas TEM only gives size and requires hours of sample preparation and imaging.
@@ -5191,7 +5191,7 @@ function UVVisSection() {
           <strong>The Experiment:</strong> You spin-coated a methylammonium lead iodide (MAPbI₃) perovskite film for a solar cell. You need to measure the bandgap and check for PbI₂ impurity phase, which shows up as a characteristic absorption shoulder. A simple transmission measurement through the film on glass gives you both.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Think of a cliff edge. Below the cliff (above the bandgap energy), light is completely absorbed -- like water crashing into rocks. Above the cliff (below the bandgap), light passes through freely. The exact height of the cliff is the bandgap. Any ledges or bumps on the cliff face (shoulders in the spectrum) reveal impurity phases mixed into the film.
@@ -5229,7 +5229,7 @@ function UVVisSection() {
           <CalcRow eq="PbI₂ fraction from shoulder intensity" result="~5%" color={C.spec} />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Bandgap 1.57 eV is ideal for single-junction solar cells and excellent for perovskite/Si tandems. The small PbI₂ shoulder (~5%) suggests slight excess PbI₂ -- actually beneficial as a passivation layer at grain boundaries (improves open-circuit voltage). If the bandgap were above 1.65 eV, it would indicate degradation to wider-gap decomposition products (PbI₂ or MAI loss).
@@ -5242,7 +5242,7 @@ function UVVisSection() {
           <strong>The Experiment:</strong> You synthesized colloidal gold nanoparticles by the Turkevich citrate reduction method. The localized surface plasmon resonance (LSPR) peak position, width, and intensity tell you the particle size, shape, dispersity, and concentration -- all from a single UV-Vis scan.
         </div>
 
-        <div style={{ background: C.spec + "06", border: `1px solid ${C.spec}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.spec, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine a crowd of tiny bells. Each bell rings at a frequency that depends on its size -- small bells ring high (short wavelength), large bells ring low (long wavelength). If all the bells are the same size, you hear one clear note (sharp LSPR peak). If they clump together, the note changes and gets muddy (red-shifted, broadened peak). The color of the gold colloid is literally the "sound" of the plasmon bells.
@@ -5280,7 +5280,7 @@ function UVVisSection() {
           <CalcRow eq="c = A/ε = 1.2 / 3.6×10⁸" result="3.3×10⁻⁹ M = 3.3 nM" color={C.spec} />
         </div>
 
-        <div style={{ background: C.spec + "08", border: `1px solid ${C.spec}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.spec, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             15 nm gold nanospheres, monodisperse, at 3.3 nM concentration. The ruby-red color confirms well-dispersed individual spheres. If the solution turned purple or blue, it would indicate aggregation (plasmon coupling red-shifts the peak above 600 nm and broadens it dramatically). The sharp LSPR peak makes these ideal for biosensing applications, where molecular binding to the gold surface shifts the peak position by a few nanometers -- detectable with a standard UV-Vis instrument.
@@ -5514,7 +5514,7 @@ function SEMSection() {
                 : "Energy: >50 eV to beam energy | Depth: ~100 nm-1 μm | Contrast: atomic number (Z) | Best for: phase identification, compositional mapping"}
             </div>
           </div>
-          <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+          <div style={{ padding: "3px 0" }}>
             <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Key Insight</div>
             <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.6 }}>
               Lower voltage (1-5 kV) improves surface sensitivity and reduces charging on insulators, but decreases BSE signal. Higher voltage (15-30 kV) gives better BSE contrast and EDS signal but worse surface detail.
@@ -5528,7 +5528,7 @@ function SEMSection() {
           <strong>The Experiment:</strong> You fabricated a CdTe thin-film solar cell and just completed the CdCl₂ treatment (a critical annealing step that grows the grains and improves efficiency). You need to measure the grain size after treatment -- larger grains mean fewer grain boundaries and better device performance. You cleave the glass substrate to expose a fresh cross-section, sputter-coat it with ~5 nm of gold to prevent charging, and load it into the FE-SEM.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine photographing a loaf of sliced bread from the side -- you can see each slice (grain), measure how thick they are, and check if any have holes. SEM cross-section imaging does exactly this: you cleave through the solar cell stack and photograph it edge-on, revealing every layer and every grain within each layer.
@@ -5590,7 +5590,7 @@ function SEMSection() {
           <InfoRow label="Voids" value="~3 per 10 µm of boundary (small, < 200 nm)" />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The CdCl₂ treatment worked well: average grain size 2.3 µm is above the 1 µm threshold needed for good solar cell performance. Grains span roughly half the film thickness, indicating a columnar structure where most grain boundaries extend from top to bottom -- this is actually desirable because it means photogenerated carriers only need to travel laterally ~1 µm to reach a grain boundary (which can assist collection).
@@ -5609,7 +5609,7 @@ function SEMSection() {
           <strong>The Experiment:</strong> A steel bridge component fractured during a cold winter night. You need to determine whether the failure was brittle cleavage or ductile dimple rupture by examining the fracture surface in the SEM. You cut a section from the fracture face, clean it ultrasonically, and load it into the chamber.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine snapping a chocolate bar in the cold -- it breaks cleanly along flat planes (brittle cleavage). Now try pulling warm taffy apart -- it stretches and tears into dimpled, rough surfaces (ductile rupture). The SEM lets you zoom in and see which "breaking style" the steel chose.
@@ -5647,7 +5647,7 @@ function SEMSection() {
           <CalcRow eq="Intergranular fraction (near surface only)" result="15% of total fracture area" color={C.micro} />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Classic transgranular cleavage fracture -- brittle failure. The 52 µm facet size matches the prior austenite grain size from metallography. This is a cold-weather brittle fracture (below the ductile-to-brittle transition temperature, DBTT). The 15% intergranular fraction near the surface suggests hydrogen or temper embrittlement at the crack initiation site. Recommendation: Charpy impact testing to determine DBTT, and switch to a tougher steel grade for cold-climate service.
@@ -5660,7 +5660,7 @@ function SEMSection() {
           <strong>The Experiment:</strong> You synthesized TiO₂ nanoparticles by hydrothermal method for photocatalysis. You need to measure the particle size distribution by SEM to verify they are in the target 20-30 nm range.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine pouring a bag of marbles on a table and measuring each one with calipers. SEM does the same thing but for particles a million times smaller -- you photograph them at extreme magnification and measure each one digitally in ImageJ.
@@ -5701,7 +5701,7 @@ function SEMSection() {
           <CalcRow eq="= 6 / (4230 × 26.1×10⁻⁹)" result="54.3 m²/g" color={C.micro} />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Median size 26 nm with CV of 29% is acceptable for photocatalysis applications. The log-normal distribution is expected for nucleation-growth synthesis. PDI &lt; 0.1 is considered monodisperse -- these particles qualify. The few large particles (&gt;40 nm) are likely aggregates; sonication before drop-casting would reduce this artifact. Compare to DLS measurement, which gives hydrodynamic diameter (usually 10-20% larger due to the hydration shell around each particle in solution).
@@ -5714,7 +5714,7 @@ function SEMSection() {
           <strong>The Experiment:</strong> A CIGS (CuInGaSe₂) solar cell cross-section needs compositional mapping. The Ga/(Ga+In) grading profile controls the bandgap gradient, which directly affects device efficiency. You prepared the cross-section by FIB and will map elemental distributions by EDS.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine slicing through a layered cake and painting each ingredient a different color -- you would see where the chocolate, vanilla, and strawberry layers begin and end. EDS mapping does this with elements: each element gets a false color, revealing the compositional architecture of the solar cell.
@@ -5754,7 +5754,7 @@ function SEMSection() {
           <CalcRow eq="Eg at front (GGI = 0.38)" result="≈ 1.30 eV" color={C.micro} />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The double-graded Ga profile creates a bandgap gradient: Eg ≈ 1.22 eV at the minimum (midpoint) grading to ~1.35 eV at the back and ~1.30 eV at the front. The back grading creates an electric field that pushes photo-generated electrons toward the junction (good for Jsc). The front grading widens the bandgap at the junction (good for Voc). Cu/(In+Ga) = 0.88 confirms Cu-poor growth, which avoids the harmful Cu₂Se secondary phase that would shunt the device.
@@ -5913,7 +5913,7 @@ function TEMImagingSection() {
           <strong>The Experiment:</strong> You need to verify at the atomic level that individual grains in your CdTe solar cell absorber are single-crystalline with the correct zinc-blende structure. You prepared a cross-section TEM sample using FIB (focused ion beam): a Ga⁺ beam cut a thin lamella from the CdTe layer, thinned it to ~60 nm, and welded it to a copper half-grid. You load it in the 200 kV TEM and tilt the grain to a zone axis where you see crisp lattice fringes.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine looking at a chain-link fence from far away -- you just see a blur. But if you walk closer and look through at exactly the right angle, the rows of links line up and you see a clear repeating pattern. HR-TEM is like getting your eye so close to the crystal that you can see the individual rows of atoms as bright and dark fringes. The spacing and angles of these fringes tell you exactly what crystal structure you have.
@@ -5976,7 +5976,7 @@ function TEMImagingSection() {
           <InfoRow label="FIB damage layer" value="~2 nm amorphous on surface (can be removed by low-kV cleaning)" />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The grain is confirmed as single-crystalline CdTe in the zinc-blende structure. Both d-spacings and the inter-planar angle match the reference values perfectly, and the absence of stacking faults or dislocations in this region indicates high crystallographic quality within the grain. The sharp grain boundary (no amorphous interlayer) is good for carrier transport -- an amorphous layer would create a recombination barrier.
@@ -5992,7 +5992,7 @@ function TEMImagingSection() {
           <strong>The Experiment:</strong> An aluminum alloy was cold-worked to increase its strength. You need to measure the dislocation density by TEM and correlate it with the observed hardness increase.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine looking at a forest from above and counting the total length of fallen logs per acre -- that tells you how "cluttered" the forest floor is. Dislocation density is the total length of dislocation lines per unit volume of crystal. More dislocations = harder metal, because they tangle up and block each other from moving.
@@ -6032,7 +6032,7 @@ function TEMImagingSection() {
           <CalcRow eq="= 0.3 × 3.06 × 26 GPa × 0.286 nm × √(4.8×10¹³)" result="≈ 50 MPa" color={C.micro} />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Dislocation density ~5×10¹³ m⁻² is typical for moderately cold-worked aluminum. The Taylor model predicts a 50 MPa hardness increase, in good agreement with the measured 55 MPa. For reference: well-annealed Al has ρ ~ 10¹⁰ m⁻², while heavily deformed Al reaches ~10¹⁵ m⁻². Further g·b invisibility analysis (imaging with different g vectors) would identify the Burgers vector of each dislocation family.
@@ -6045,7 +6045,7 @@ function TEMImagingSection() {
           <strong>The Experiment:</strong> You synthesized Fe₃O₄@SiO₂ core-shell nanoparticles for magnetically targeted drug delivery. You need to verify the core-shell structure by TEM and measure the silica shell thickness.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine a chocolate-covered cherry: the dark cherry (iron oxide core) is wrapped in a lighter chocolate shell (silica). In TEM, the dense iron oxide core absorbs more electrons and appears dark, while the lighter silica shell appears as a grey halo around it. You can measure both layers directly.
@@ -6083,7 +6083,7 @@ function TEMImagingSection() {
           <CalcRow eq="HR-TEM core lattice fringes" result="d = 2.53 Å → Fe₃O₄(311) ✓" color={C.micro} />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Core-shell structure confirmed with a 6.2 nm uniform SiO₂ shell on 12.3 nm Fe₃O₄ cores. The shell is thick enough for drug conjugation (need &gt;3 nm for stable silane chemistry). The 3:1 mass ratio of silica to iron oxide means the particles are mostly shell by mass. HR-TEM lattice fringes at d = 2.53 Å confirm the magnetite phase. The 8% of particles with incomplete shells may need optimized TEOS hydrolysis conditions to achieve full coverage.
@@ -6096,7 +6096,7 @@ function TEMImagingSection() {
           <strong>The Experiment:</strong> You need to measure the stacking fault energy (SFE) of a Cu-10wt%Zn alloy by TEM. SFE controls whether the alloy deforms by dislocation slip or by twinning -- critical for predicting its mechanical behavior.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             A full dislocation in FCC metals splits into two "half-dislocations" (Shockley partials) with a ribbon of stacking fault between them. The lower the stacking fault energy, the wider the ribbon -- like two magnets on a table that repel each other more when the friction is low. Measuring the ribbon width gives the SFE directly.
@@ -6134,7 +6134,7 @@ function TEMImagingSection() {
           <CalcRow eq="γ = 1.589×10⁻⁹ / 1.117×10⁻⁷" result="0.0142 J/m² = 14.2 mJ/m²" color={C.micro} />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             SFE = 14 mJ/m² is low compared to pure Cu (~45 mJ/m²) -- Zn alloying significantly reduced it. At SFE &lt; 20 mJ/m², the alloy deforms by twinning rather than pure dislocation slip (the TWIP effect). This explains why Cu-Zn brass has excellent work hardening: deformation twins act as barriers to dislocation motion, continuously increasing the flow stress. Higher Zn content would lower SFE further, promoting even more twinning.
@@ -6418,7 +6418,7 @@ function AFMSection() {
           </svg>
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+        <div style={{ padding: "3px 0", marginTop: 10 }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Did You Know?</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
             Tapping mode AFM was a game-changer for biology -- it allows imaging of soft, delicate samples like DNA, proteins, and living cells without dragging and damaging them. The cantilever "taps" the surface briefly at each pixel, reducing lateral forces by orders of magnitude compared to contact mode.
@@ -6431,7 +6431,7 @@ function AFMSection() {
           <strong>The Experiment:</strong> Before growing an epitaxial GaAs layer on a silicon wafer, you must verify the wafer surface is ultra-smooth. Even a single scratch or particle can nucleate defects that propagate through the entire epitaxial film. The incoming wafer specification requires RMS roughness Rq &lt; 0.5 nm. You place the wafer on the AFM stage, engage a tapping-mode cantilever, and scan a 5 × 5 µm area.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine running your fingertip across a table to check if it is smooth. Your finger cannot feel bumps smaller than ~1 mm. Now imagine a finger so tiny it can feel bumps as small as the width of a single atom (~0.1 nm). That is what the AFM tip does -- it traces the surface with sub-angstrom vertical sensitivity, building a topographic map of every tiny bump and valley.
@@ -6495,7 +6495,7 @@ function AFMSection() {
           <InfoRow label="Qualification" value="PASS -- suitable for epitaxial growth" />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Rq = 0.18 nm is exceptional -- this is less than the diameter of a single silicon atom (0.22 nm). The visible atomic steps confirm the CMP (chemical mechanical polishing) achieved an epi-ready surface. The wafer passes the &lt; 0.5 nm specification with large margin and is approved for epitaxial growth.
@@ -6511,7 +6511,7 @@ function AFMSection() {
           <strong>The Experiment:</strong> You deposited a 200 nm gold film by sputtering for use as an electrode. You need to characterize the grain structure and surface morphology to ensure it is smooth enough for your application.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine looking at the surface of an orange peel under a magnifying glass -- you see rounded bumps (the peel cells) with valleys between them. A sputtered gold film looks similar at the nanoscale: each grain grows upward like a tiny hillock, and the grain boundaries are the valleys between them.
@@ -6550,7 +6550,7 @@ function AFMSection() {
           <CalcRow eq="Thornton zone model: T/Tm ≈ 300/1337 = 0.22" result="Zone T (columnar grains)" color={C.micro} />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Gold film has columnar grains ~45 nm wide -- typical for sputtered Au at room temperature. Rq = 2.8 nm is smooth enough for most electrode applications but too rough for ultra-flat SERS substrates (which need Rq &lt; 0.5 nm; achieving that would require template stripping). The grain boundary valleys are real topographic features, not tip artifacts, as confirmed by the consistent phase image.
@@ -6563,7 +6563,7 @@ function AFMSection() {
           <strong>The Experiment:</strong> You need to measure the elastic modulus of a hydrogel scaffold for tissue engineering. AFM nanoindentation can probe local mechanics on soft materials that are too compliant for traditional hardness testing.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine poking a piece of Jell-O with your finger and measuring how much force it takes to push in a certain distance. A soft gel gives way easily (low modulus), while a firm gel resists (high modulus). The AFM does the same thing with a tiny glass bead glued to the cantilever, at forces a billion times smaller than your finger.
@@ -6601,7 +6601,7 @@ function AFMSection() {
           <CalcRow eq="Coefficient of variation = 2.1/12.4" result="17% → homogeneous crosslinking" color={C.micro} />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Young's modulus 9.3 kPa falls in the range of soft tissue (~1-100 kPa). This matches brain tissue stiffness (~1-10 kPa), making it appropriate for neural tissue engineering scaffolds. If the modulus were &gt;50 kPa, stem cells would differentiate toward bone or cartilage lineage instead of neural. The 17% coefficient of variation confirms the gel crosslinking is homogeneous across the scanned area.
@@ -6614,7 +6614,7 @@ function AFMSection() {
           <strong>The Experiment:</strong> You need to verify that circular plasmid DNA (pUC19, 2686 base pairs) was successfully linearized by restriction enzyme digestion. AFM on mica can directly image individual DNA molecules.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine scattering spaghetti noodles on a perfectly flat table. Some are straight (linearized DNA) and some are still in loops (uncut circular plasmid). The AFM tip traces over each noodle, measuring its shape and length. You can count how many were cut and how many remain intact.
@@ -6653,7 +6653,7 @@ function AFMSection() {
           <CalcRow eq="Width deconvolution: w = W_meas - 2√(2R×h)" result="10 - 2√(2×2×0.6) = 6.9 nm" color={C.micro} />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Linearization efficiency of 81% is reasonable for a single restriction enzyme digestion. The measured contour length (879 nm) confirms pUC19 identity (expected 913 nm). The 8 uncut circles could be supercoiled plasmid resistant to the enzyme -- nicked relaxed circles are cut more easily. For 100% linearization: increase enzyme concentration or incubation time. The tip convolution broadens the apparent DNA width, but the deconvolution formula gives a corrected width closer to reality.
@@ -6925,7 +6925,7 @@ function STMSection() {
           </div>
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+        <div style={{ padding: "3px 0", marginTop: 10 }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Did You Know?</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
             The STM was invented in 1981 by Gerd Binnig and Heinrich Rohrer at IBM Zurich, earning them the 1986 Nobel Prize. It was the first instrument to directly image individual atoms on a surface. A typical STM scan takes minutes to hours -- each pixel requires precise positioning of the tip to sub-angstrom accuracy.
@@ -6938,7 +6938,7 @@ function STMSection() {
           <strong>The Experiment:</strong> You are studying clean silicon surfaces for semiconductor processing research. You prepare a Si(111) sample by flash-annealing it to 1200°C in ultra-high vacuum (UHV) by passing a direct current through the wafer piece. The flash removes the native oxide and, upon cooling, the surface atoms rearrange into the famous 7×7 reconstruction. You approach a tungsten STM tip (electrochemically etched to atomic sharpness) and begin scanning.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine holding a metal needle so close to a surface that electrons can magically "jump" across the gap without touching -- that is quantum tunneling. The current depends exponentially on the gap distance: move 1 Å closer and the current increases ~10×. By scanning this needle and keeping the current constant (the needle rises over bumps and dips over valleys), you trace out the position of individual atoms.
@@ -7010,7 +7010,7 @@ function STMSection() {
           <InfoRow label="Step height" value="0.314 nm (one Si(111) bilayer)" />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Scientist</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The 7×7 reconstruction is the most complex and well-known surface reconstruction in materials science. Your image perfectly matches the DAS (dimer-adatom-stacking fault) model proposed by Takayanagi in 1985: 12 adatoms, corner holes, and the faulted/unfaulted half asymmetry are all present. The very low defect density (less than 1 missing adatom per 50 unit cells) confirms an excellent preparation.
@@ -7029,7 +7029,7 @@ function STMSection() {
           <strong>The Experiment:</strong> You evaporated gold on mica and annealed at 400°C to get atomically flat Au(111) terraces. You image with STM to verify the surface quality and observe the famous herringbone reconstruction.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine a crowd of people standing in a room that is slightly too small -- they have to squeeze together, and some rows end up offset from their neighbors, creating a zigzag pattern of compression lines across the crowd. On Au(111), the surface atoms compress themselves to lower their energy, creating pairs of bright ridges in a herringbone (zigzag) pattern visible in STM.
@@ -7070,7 +7070,7 @@ function STMSection() {
           <CalcRow eq="Creates alternating FCC and HCP stacking regions" result="Separated by soliton walls" color={C.micro} />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The 22×√3 herringbone reconstruction is confirmed -- this is the hallmark of a clean, well-annealed Au(111) surface. The 80 nm terrace width indicates excellent flatness. This surface is ready for molecular deposition experiments: the "elbow" sites where the herringbone ridges make their 120° turns are preferential nucleation sites for adsorbed molecules, making them ideal for studying single-molecule behavior.
@@ -7083,7 +7083,7 @@ function STMSection() {
           <strong>The Experiment:</strong> You deposited pentacene molecules on Cu(111) at low coverage and cooled to 5 K to freeze molecular diffusion. The goal is to image individual molecules with sub-molecular resolution.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Pentacene is a long, flat molecule made of 5 fused benzene rings -- like 5 hexagonal tiles laid end to end. At low temperature the molecules sit still on the surface, and the STM tip can trace over each ring individually. You are literally seeing the shape of a single molecule's electron cloud.
@@ -7122,7 +7122,7 @@ function STMSection() {
           <CalcRow eq="5-lobe structure matches HOMO orbital density" result="✓ (DFT calculation at -1.5 V)" color={C.micro} />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Isolated pentacene molecules are resolved with sub-molecular resolution at 5 K. The 5-lobe pattern directly images the HOMO (highest occupied molecular orbital) -- this is real-space orbital imaging, something no other technique can achieve. The molecules are physisorbed (not chemisorbed), as the molecular geometry is unperturbed from the gas phase. This demonstrates STM's unique ability to visualize the electronic orbitals of individual molecules.
@@ -7135,7 +7135,7 @@ function STMSection() {
           <strong>The Experiment:</strong> You need to measure the electronic bandgap of a single MoS₂ monolayer on a graphite substrate by scanning tunneling spectroscopy (STS). STS measures the local density of states with ~1 nm spatial resolution -- far beyond what optical methods can achieve.
         </div>
 
-        <div style={{ background: C.micro + "06", border: `1px solid ${C.micro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.micro, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine slowly turning a voltage dial while measuring how much current flows through a nanoscale wire. At certain voltages, electrons find available energy levels to tunnel into (or out of), and the current jumps. The gap where no current flows -- no matter the voltage -- corresponds to the bandgap. STS does this one atom at a time.
@@ -7172,7 +7172,7 @@ function STMSection() {
           <CalcRow eq="Compare: Si exciton binding energy" result="~15 meV (20× smaller!)" color={C.micro} />
         </div>
 
-        <div style={{ background: C.micro + "08", border: `1px solid ${C.micro}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.micro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             STS directly measures the quasiparticle bandgap (2.2 eV), which is larger than the optical bandgap (1.88 eV) by the exciton binding energy (0.32 eV). This enormous 320 meV exciton binding energy is characteristic of monolayer TMDs and arises from reduced dielectric screening in 2D. It means excitons in MoS₂ are stable even at room temperature -- critically important for optoelectronic applications. The ~1 nm spatial resolution of STS also enables mapping bandgap variations near defects or edges, something no optical technique can do.
@@ -7321,7 +7321,7 @@ function SynchrotronSection() {
           <strong>The Experiment:</strong> You synthesized silica (SiO₂) nanoparticles by the Stöber process and need an accurate size measurement. DLS (dynamic light scattering) in your home lab gave ~35 nm, but DLS measures the hydrodynamic diameter including the solvation shell. You want the true particle diameter, so you bring your colloidal suspension to a synchrotron SAXS beamline where the intense, collimated X-ray beam gives highly precise scattering data.
         </div>
 
-        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine shining a flashlight through fog. The tiny water droplets scatter the light, and by measuring how the brightness varies with angle, you can figure out the droplet size. Larger droplets scatter light into narrower angles, smaller droplets scatter more broadly. SAXS does the same thing with X-rays and nanoparticles -- the scattering pattern at small angles encodes the particle size and shape.
@@ -7391,7 +7391,7 @@ function SynchrotronSection() {
           <InfoRow label="Particle shape" value="Spherical (isotropic 2D pattern)" />
         </div>
 
-        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Scientist</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The SAXS-derived diameter of 33.6 nm agrees well with the DLS value of 35 nm -- the 1.4 nm difference is the solvation shell that DLS sees but SAXS does not. The clean linear Guinier region and visible form factor fringes at higher q confirm the particles are monodisperse spheres, exactly what the Stöber process should produce.
@@ -7407,7 +7407,7 @@ function SynchrotronSection() {
           <strong>The Experiment:</strong> A neuroscience lab suspects abnormal copper accumulation in brain tissue from a Wilson's disease mouse model. Synchrotron X-ray fluorescence (µ-XRF) can map trace metals at micron resolution -- no other technique can simultaneously image multiple elements at ppm sensitivity in intact tissue sections.
         </div>
 
-        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine pointing a UV flashlight at a mineral collection in the dark -- each mineral glows a different color based on its composition. Synchrotron µ-XRF does the same thing: the intense X-ray beam excites each element to emit its own characteristic fluorescence, and by scanning pixel by pixel, you paint a map of every element in the tissue.
@@ -7448,7 +7448,7 @@ function SynchrotronSection() {
           <CalcRow eq="Normal brain Cu/Zn ratio" result="0.2–0.5" color={C.adv} />
         </div>
 
-        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Massive Cu accumulation (350 ppm vs normal ~5 ppm) in a localized region confirms Wilson's disease pathology. The Cu hotspot co-localizes with cell death markers identified by histology. Normal Zn distribution in the hippocampus rules out general metal dyshomeostasis -- this is Cu-specific toxicity. Synchrotron µ-XRF is the only technique that can map multiple trace elements simultaneously at ppm sensitivity with µm resolution in intact tissue.
@@ -7461,7 +7461,7 @@ function SynchrotronSection() {
           <strong>The Experiment:</strong> Study the pressure-induced phase transition of FeO from rock-salt (B1) to NiAs-type (B8) structure -- relevant to Earth's lower mantle mineralogy. Only synchrotron XRD can penetrate the diamond anvil cell (DAC) with enough flux and collimation to get useful diffraction from a ~50 µm sample.
         </div>
 
-        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine squeezing a sample between the tips of two diamonds while shining an incredibly bright, pencil-thin X-ray beam through the gap. At pressures exceeding those at the bottom of the ocean by a million times, atoms rearrange into entirely new crystal structures. The synchrotron beam is the only flashlight bright and narrow enough to see through the diamond windows and read the crystal's new atomic arrangement.
@@ -7502,7 +7502,7 @@ function SynchrotronSection() {
           <CalcRow eq="New phase indexed: B8 (NiAs-type)" result="a = 2.95 Å, c = 5.62 Å" color={C.adv} />
         </div>
 
-        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             FeO undergoes a rock-salt → NiAs structural transition at ~70 GPa, consistent with lower mantle conditions (~80–135 GPa). The 12.9% volume reduction at 20 GPa and bulk modulus K₀ = 152 GPa constrain mineralogical models of the core-mantle boundary. This data is only obtainable with synchrotron radiation -- the combination of high energy (to penetrate diamonds), tight collimation (to fit through the ~50 µm gasket hole), and extreme brightness (to diffract from a tiny sample volume) is impossible with any lab source.
@@ -7515,7 +7515,7 @@ function SynchrotronSection() {
           <strong>The Experiment:</strong> Measure the spin and orbital magnetic moments of Fe in a thin-film Fe/Pt multilayer for spintronics. X-ray Magnetic Circular Dichroism (XMCD) separates spin and orbital contributions to the magnetic moment -- something impossible with SQUID magnetometry, which only measures total moment.
         </div>
 
-        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Circularly polarized X-rays carry angular momentum, like a spinning frisbee. When these spinning photons are absorbed by a magnetic atom, the absorption depends on whether the photon spin is parallel or antiparallel to the atom's magnetic moment. The difference between left and right circular polarization absorption -- the dichroism -- directly reveals both the spin and orbital parts of the atom's magnetism separately, something no other technique can do.
@@ -7554,7 +7554,7 @@ function SynchrotronSection() {
           <CalcRow eq="m_spin = −(6p−4q)·n_h / r = (12.6−3.4)×3.4 / 12.5" result="2.50 µB" color={C.adv} />
         </div>
 
-        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Fe spin moment = 2.50 µB (close to bulk Fe 2.22 µB -- slightly enhanced at the interface). Orbital moment = 0.45 µB (bulk Fe = 0.09 µB -- a 5× enhancement!). The large orbital moment enhancement at the Fe/Pt interface is caused by spin-orbit coupling from the heavy Pt atoms, which breaks orbital quenching. This enhanced orbital moment directly correlates with perpendicular magnetic anisotropy needed for spintronic memory devices (STT-MRAM). XMCD with sum rules is the only technique that separates spin and orbital contributions element-specifically.
@@ -7695,7 +7695,7 @@ function InSituTEMSection() {
           <strong>The Experiment:</strong> You are studying copper oxidation kinetics at the nanoscale because your company makes copper nanoparticle inks for printed electronics. The inks degrade when Cu nanoparticles oxidize, so you need to understand the kinetics to design better passivation strategies. You drop-cast Cu nanoparticles onto a MEMS-based heating TEM chip, load it in an environmental TEM (ETEM), introduce 1 mbar of O₂, and ramp to 300°C while recording video at 5 frames per second.
         </div>
 
-        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Most TEM imaging is like taking a photograph of a finished painting. In-situ TEM is like filming the artist while they paint -- you watch the process happen in real time. Here you are filming copper particles as they grow an oxide shell, frame by frame, at atomic resolution.
@@ -7769,7 +7769,7 @@ function InSituTEMSection() {
           <InfoRow label="Core-shell interface" value="Coherent (no void formation observed)" />
         </div>
 
-        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The parabolic kinetics (x² ∝ t, constant k) prove the growth is diffusion-limited -- Cu⁺ ions must diffuse through the growing oxide shell to reach the gas interface, and this gets slower as the shell thickens. This is good news for the ink application: the oxide is self-limiting and will not consume the entire particle at 300°C.
@@ -7788,7 +7788,7 @@ function InSituTEMSection() {
           <strong>The Experiment:</strong> A Pt/Al₂O₃ catalyst for automotive exhaust treatment loses activity over time. You load the catalyst powder onto a MEMS heating chip and watch Pt nanoparticles sinter (grow larger) during heating to understand whether degradation proceeds by Ostwald ripening or particle migration and coalescence.
         </div>
 
-        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine watching raindrops on a car windshield. Small drops stay put and slowly evaporate (Ostwald ripening -- small particles shrink, large ones grow). But sometimes drops slide across the glass and merge into bigger drops (migration and coalescence). Both mechanisms make fewer, bigger drops. In-situ TEM lets you watch which mechanism dominates for catalyst nanoparticles -- and that determines the engineering fix.
@@ -7828,7 +7828,7 @@ function InSituTEMSection() {
           <CalcRow eq="Video evidence: particles physically move and merge" result="✓ PMC confirmed" color={C.adv} />
         </div>
 
-        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Sintering proceeds primarily by particle migration and coalescence (PMC), not Ostwald ripening -- the particles physically slide across the support and merge. This means the engineering solution is to anchor particles more firmly (stronger metal-support interaction) rather than just lowering the operating temperature. Recommendation: switch to CeO₂ support (stronger Pt-CeO₂ anchoring due to metal-oxide bonding) or encapsulate Pt in a porous oxide shell. Only in-situ TEM can directly distinguish these two mechanisms by watching individual particles in real time.
@@ -7841,7 +7841,7 @@ function InSituTEMSection() {
           <strong>The Experiment:</strong> Silicon is a promising Li-ion battery anode material (10× the capacity of graphite), but it swells ~300% during lithiation, causing fracture and capacity fade. You mount a single Si nanowire on a specialized electrochemistry TEM holder and watch it lithiate in real time to understand why nano-Si survives but micron-Si fractures.
         </div>
 
-        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine inflating a balloon very slowly. A thin balloon expands uniformly without popping. But a thick-walled balloon develops uneven stress and eventually bursts. Similarly, thin Si nanowires can accommodate lithium insertion by expanding plastically, while thick Si particles crack from the internal stress. In-situ TEM lets you watch this inflation in real time at atomic resolution.
@@ -7883,7 +7883,7 @@ function InSituTEMSection() {
           <CalcRow eq="Theoretical for full lithiation to Li₁₅Si₄" result="280% -- consistent!" color={C.adv} />
         </div>
 
-        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The 80 nm Si nanowire survives 280% volume expansion without fracture because its diameter is below the critical size for crack nucleation (~150 nm for crystalline Si). The amorphous Li₁₅Si₄ product flows plastically to accommodate strain. Larger wires (&gt;300 nm) crack at the reaction front due to tensile hoop stress exceeding the fracture strength. This directly explains why nano-Si anodes work but micron-Si anodes fail catastrophically, and provides the design rule: keep Si features below 150 nm for crack-free cycling.
@@ -7896,7 +7896,7 @@ function InSituTEMSection() {
           <strong>The Experiment:</strong> Watch the most important phase transformation in metallurgy in real time: austenite (FCC) decomposing into ferrite (BCC) + pearlite during cooling. A thin foil of 0.4 wt% C steel is heated to 900°C (fully austenitic) and slowly cooled while recording diffraction patterns and images.
         </div>
 
-        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine watching ice crystals form on a windowpane in time-lapse -- small nuclei appear, then grow and branch until the entire pane is covered. The austenite-to-ferrite transformation is similar: ferrite nuclei appear at grain boundaries and grow into the austenite, and then pearlite (alternating layers of ferrite and cementite) fills in the remaining space, like a striped wallpaper. In-situ TEM lets you watch this happen at the nanoscale.
@@ -7938,7 +7938,7 @@ function InSituTEMSection() {
           <CalcRow eq="Measured spacing (continuous cooling)" result="180 nm (coarser than minimum)" color={C.adv} />
         </div>
 
-        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Directly observed the textbook austenite decomposition sequence: ferrite nucleates at grain boundaries with 55°C undercooling, grows into austenite at 0.8 µm/min, then the remaining carbon-enriched austenite transforms to pearlite at 680°C. The 180 nm pearlite spacing predicts a hardness of ~280 HV (finer spacing = harder steel). This is the only way to watch this transformation in real time at the nanoscale -- it validates over a century of indirect observations from dilatometry and quench-and-look experiments.
@@ -8254,7 +8254,7 @@ function APTSection() {
           <ResultBox label="C at slice" value={`${aptSlicePos > 45 && aptSlicePos < 55 ? (8 * Math.exp(-0.05 * (aptSlicePos - 50) * (aptSlicePos - 50)) + 1).toFixed(1) : "1.0"} at%`} color={C.accent} sub="segregation" />
         </div>
 
-        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px", marginTop: 10 }}>
+        <div style={{ padding: "3px 0", marginTop: 10 }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Key Insight</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
             APT is the only technique that provides true 3D atomic-scale chemical information. It can detect individual atoms with near-equal sensitivity for all elements (unlike EDS or EELS). The Cu precipitate shown here is typical in reactor pressure vessel steels -- these nm-scale precipitates cause embrittlement, and APT is the only way to directly observe them.
@@ -8267,7 +8267,7 @@ function APTSection() {
           <strong>The Experiment:</strong> A nuclear reactor pressure vessel (RPV) steel is showing an increased ductile-to-brittle transition temperature (ΔDBTT = +40°C) after 20 years of neutron irradiation. The leading theory: nanoscale Cu-rich precipitates form under irradiation and block dislocation motion. But these precipitates are only 2-5 nm in diameter -- invisible to SEM, TEM, and even STEM-EDS. Atom probe tomography is the only technique that can detect and chemically analyze individual precipitates this small. You FIB-prepare a needle-shaped specimen from the irradiated surveillance capsule material.
         </div>
 
-        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine peeling an apple atom by atom. Each atom that comes off is identified (apple? peel? seed?) and its 3D position is recorded. After removing millions of atoms, you reassemble them on a computer and have a 3D atomic map of the entire apple. APT does this with a metal needle: an enormous electric field rips atoms off one at a time, a detector identifies each one, and software reconstructs a 3D atom-by-atom map of the material.
@@ -8341,7 +8341,7 @@ function APTSection() {
           <InfoRow label="Precipitate-free zone width" value="~8 nm around grain boundaries" />
         </div>
 
-        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation -- What This Tells the Engineer</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             These 3.2 nm Cu-rich precipitates are the smoking gun for the +40°C DBTT shift. At a number density of 5 × 10²³ m⁻³, they create a dense forest of obstacles to dislocation motion. Using the Russell-Brown hardening model, this precipitate population would contribute ~100 MPa of hardening -- consistent with the measured increase in yield strength.
@@ -8360,7 +8360,7 @@ function APTSection() {
           <strong>The Experiment:</strong> A low-alloy steel (Fe-0.5Mn-0.03P) is susceptible to temper embrittlement after heat treatment at 500°C. The suspected cause is phosphorus segregation to prior austenite grain boundaries, but the segregation layer is only a few atomic layers thick -- invisible to any technique except atom probe tomography.
         </div>
 
-        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine a brick wall where someone replaced the mortar between two bricks with a thin layer of chalk. The wall looks fine from the outside, but that one weak layer makes it easy to snap in half. Phosphorus segregation at grain boundaries is like that chalk layer -- just a few atoms thick, but enough to make the steel brittle. APT is the only microscope that can see and measure this invisible poison layer.
@@ -8400,7 +8400,7 @@ function APTSection() {
           <CalcRow eq="Measured vs predicted" result="15.1 vs 14 -- excellent match!" color={C.adv} />
         </div>
 
-        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Phosphorus is massively enriched at the grain boundary (425× above matrix level) -- this is the direct cause of temper embrittlement. The 2.1 nm segregation width means P occupies only ~5 atomic layers at the boundary, yet this is enough to reduce the grain boundary cohesive energy and cause intergranular fracture. The McLean equilibrium model prediction (14 atoms/nm²) matches the measurement (15.1 atoms/nm²), confirming equilibrium segregation at 500°C. Mn co-segregation further weakens the boundary. Fix: reduce P to &lt;0.005 wt% in steelmaking, or add Mo (which competes with P for GB sites and repels it from boundaries).
@@ -8413,7 +8413,7 @@ function APTSection() {
           <strong>The Experiment:</strong> An MBE-grown InGaAs quantum well laser has lower-than-expected photoluminescence intensity. The interfaces may not be atomically sharp. APT can reveal interface composition and sharpness at the atomic level -- something no other technique can do with simultaneous 3D, sub-nm, all-element sensitivity.
         </div>
 
-        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Imagine stacking red and blue Lego layers to make a perfect sandwich. If a few red bricks accidentally end up in the blue layer near the interface, the boundary is not sharp -- it is graded. For a quantum well laser, interface sharpness at the atomic level determines how tightly electrons are confined and how brightly the device shines. APT reads out every atom's identity and position to check if the "Lego stacking" was perfect.
@@ -8451,7 +8451,7 @@ function APTSection() {
           <CalcRow eq="First 2.5 nm of InP is really In(Ga)P" result="graded, not abrupt!" color={C.adv} />
         </div>
 
-        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             The 2.5 nm Ga tail into the InP layer is a growth artifact -- Ga atoms carry over from the InGaAs layer during the group-III source switch in MBE. This creates a graded interface instead of the intended abrupt junction, reducing quantum confinement and explaining the weak photoluminescence. Fix: insert a 5-second growth interrupt at each interface to allow Ga desorption before starting InP growth. APT is the only technique with simultaneous 3D, sub-nm, all-element capability to detect this subtle but device-killing interface imperfection.
@@ -8464,7 +8464,7 @@ function APTSection() {
           <strong>The Experiment:</strong> A Ni-base superalloy (similar to Inconel 718) was oxidized at 800°C for 100 hours in air. Understanding the oxide scale structure and internal oxidation is critical for predicting component lifetime in jet engines and gas turbines. APT provides atom-by-atom chemistry through each layer of the complex oxide scale.
         </div>
 
-        <div style={{ background: C.adv + "06", border: `1px solid ${C.adv}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+        <div style={{ padding: "3px 0", marginBottom: 14 }}>
           <div style={{ fontSize: 10, fontWeight: 500, color: C.adv, marginBottom: 6 }}>Think of it this way:</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             When you leave a cast-iron pan in water, it rusts -- a thick, porous, non-protective layer. But a stainless steel pan forms a thin, invisible, self-healing Cr₂O₃ film that protects the metal underneath. Superalloys do even better: they form a dual-layer defense with Cr₂O₃ on the outside and Al₂O₃ fingers extending inward. APT reads the exact composition of each nano-layer to determine whether this defense is holding.
@@ -8505,7 +8505,7 @@ function APTSection() {
           <CalcRow eq="Safety margin: 11.3 − 10.5" result="0.8 at% (can still self-heal)" color={C.adv} />
         </div>
 
-        <div style={{ background: C.adv + "08", border: `1px solid ${C.adv}22`, borderRadius: 8, padding: "10px 12px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 9, letterSpacing: 2, color: C.adv, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             Classic dual-scale oxidation: a protective Cr₂O₃ external scale (180 nm, thin due to parabolic growth kinetics) plus internal Al₂O₃ precipitates extending 350 nm below the surface. The Cr depletion zone reaching 11.3 at% is still above the critical 10.5 at% threshold needed to maintain the protective Cr₂O₃ scale -- the alloy can still self-heal if the scale is damaged. However, the internal Al₂O₃ finger-like precipitates could act as crack initiation sites under thermal cycling (jet engine startup/shutdown). APT reveals the exact composition at each interface with sub-nm resolution -- information impossible to obtain from SEM/EDS alone at this scale.

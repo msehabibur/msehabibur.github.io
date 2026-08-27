@@ -84,10 +84,7 @@ function SliderRow({ label, value, min, max, step, onChange, color, unit, desc }
 
 function InfoBox({ color, children, icon }) {
   return (
-    <div style={{
-      background: color + "08", border: `1.5px solid ${color}20`,  borderRadius: 10,
-      padding: "10px 14px", fontSize: 12, lineHeight: 1.7, color: T.ink
-    }}>
+    <div style={{ padding: "3px 0", fontSize: 12, lineHeight: 1.7, color: T.ink }}>
       {icon && <span style={{ marginRight: 6 }}>{icon}</span>}
       {children}
     </div>
@@ -207,7 +204,7 @@ function SecBZ() {
             { label: "M", loc: "Midpoint of an edge", simple: "Wave flips in two directions at once. Important in 2D materials and surface states.", color: T.warn },
             { label: "L", loc: "Center of hexagonal face (FCC)", simple: "Wave flips along body diagonal (111). In GaAs, L-valleys matter for high-field electron transport.", color: T.eqn },
           ].map(pt => (
-            <div key={pt.label} style={{ background: pt.color + "08", border: `1.5px solid ${pt.color}20`,  borderRadius: 8, padding: "8px 12px" }}>
+            <div key={pt.label} style={{ padding: "2px 0" }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: pt.color }}>{pt.label} <span style={{ fontWeight: 400, color: "var(--muted)", fontSize: 11 }}>— {pt.loc}</span></div>
               <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink, marginTop: 2 }}>{pt.simple}</div>
             </div>
@@ -479,10 +476,7 @@ function SecKpoints() {
             { label: "Molecules (Γ only)", val: "1×1×1", desc: "Large cell = small BZ = single k-point", color: T.accent },
             { label: "Slab / 2D", val: "N×N×1", desc: "No periodicity in vacuum direction", color: T.eqn },
           ].map(item => (
-            <div key={item.label} style={{
-              background: item.color + "08", border: `1px solid ${item.color}20`,
-              borderRadius: 10, padding: "10px 14px"
-            }}>
+            <div key={item.label} style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: item.color }}>{item.label}</div>
               <div style={{ fontSize: 13, fontWeight: 500, color: T.ink, margin: "3px 0" }}>{item.val}</div>
               <div style={{ fontSize: 11, color: T.muted }}>{item.desc}</div>
@@ -920,10 +914,7 @@ function SecIsmear() {
             { sys: "DOS calculation", rec: "ISMEAR = -5", why: "Tetrahedron method gives exact DOS", color: T.eqn },
             { sys: "Molecular / Γ-only", rec: "ISMEAR = 0, SIGMA = 0.01", why: "Discrete levels, minimal smearing", color: T.accent },
           ].map(item => (
-            <div key={item.sys} style={{
-              background: item.color + "08", border: `1px solid ${item.color}20`,
-              borderRadius: 10, padding: "10px 14px"
-            }}>
+            <div key={item.sys} style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: item.color }}>{item.sys}</div>
               <div style={{ fontSize: 12, fontWeight: 500, fontFamily: "monospace", color: T.ink, margin: "4px 0" }}>{item.rec}</div>
               <div style={{ fontSize: 11, color: T.muted }}>{item.why}</div>
@@ -983,7 +974,7 @@ function SecAlgo() {
             { algo: "VeryFast", analogy: "Just slide downhill immediately — no careful feeling first. Fastest if you are already near the bottom. Falls off a cliff if you start far away.", color: T.accent },
             { algo: "All", analogy: "Walk slowly and steadily along the steepest slope. Uses the least memory (one direction at a time). Very safe but takes many small steps.", color: T.eqn },
           ].map(a => (
-            <div key={a.algo} style={{ background: a.color + "08", border: `1.5px solid ${a.color}20`, borderRadius: 8, padding: "8px 12px" }}>
+            <div key={a.algo} style={{ padding: "2px 0" }}>
               <div style={{ fontSize: 12, fontWeight: 500, color: a.color, marginBottom: 2 }}>{a.algo}</div>
               <div style={{ fontSize: 11, lineHeight: 1.6, color: T.ink }}>{a.analogy}</div>
             </div>
@@ -1607,7 +1598,7 @@ function SecPrec() {
             { prec: "Accurate", grid: "2.5 × G_max (25% more points)", desc: "Eliminates wrap-around (aliasing) errors. Forces are correct to ~0.1 meV/Å. Stress tensor is reliable.", when: "Production relaxations, phonons, elastic constants, formation energies, anything published.", color: T.warn },
             { prec: "High", grid: "3 × G_max (50% more points)", desc: "Overkill for most purposes. Only needed for very hard pseudopotentials or debugging.", when: "Almost never. Only if Accurate still shows grid artifacts.", color: T.accent },
           ].map(item => (
-            <div key={item.prec} style={{ background: item.color + "08", border: `1px solid ${item.color}22`, borderRadius: 10, padding: "10px 14px" }}>
+            <div key={item.prec} style={{ padding: "3px 0" }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
                 <div style={{ fontSize: 13, fontWeight: 500, color: item.color, fontFamily: "monospace" }}>PREC = {item.prec}</div>
                 <div style={{ fontSize: 11, color: item.color }}>{item.grid}</div>
@@ -1669,7 +1660,7 @@ function SecLreal() {
             { val: "Auto", desc: "Compute projections in real space within a cutoff sphere around each atom. The radius is set automatically. Scales as N_atoms × N_grid_in_sphere. Much faster for large cells.", when: "> 50 atoms. MD runs, large supercell relaxations, defect calculations.", color: T.accent },
             { val: ".TRUE.", desc: "Same as Auto but with a user-defined (or default) cutoff. Rarely used — Auto picks good cutoffs automatically.", when: "Almost never. Use Auto instead.", color: T.muted },
           ].map(item => (
-            <div key={item.val} style={{ background: item.color + "08", border: `1px solid ${item.color}22`, borderRadius: 10, padding: "10px 14px" }}>
+            <div key={item.val} style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 13, fontWeight: 500, color: item.color, fontFamily: "monospace", marginBottom: 4 }}>LREAL = {item.val}</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>{item.desc}</div>
               <div style={{ fontSize: 11, color: T.muted, marginTop: 4, fontStyle: "italic" }}>When: {item.when}</div>
@@ -1739,7 +1730,7 @@ function SecReciprocal() {
           f̃(G) = (1/Ω) ∫<sub>cell</sub> f(r) e<sup>−iG·r</sup> dr
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
-          <div style={{ background: T.main + "08", border: `1px solid ${T.main}22`, borderRadius: 10, padding: "10px 14px" }}>
+          <div style={{ padding: "3px 0" }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: T.main, marginBottom: 4 }}>Real Space</div>
             <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
               • Functions defined on a 3D grid of points<br />
@@ -1749,7 +1740,7 @@ function SecReciprocal() {
               • Good for: local operations (V_xc, forces)
             </div>
           </div>
-          <div style={{ background: T.basis + "08", border: `1px solid ${T.basis}22`, borderRadius: 10, padding: "10px 14px" }}>
+          <div style={{ padding: "3px 0" }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: T.basis, marginBottom: 4 }}>Reciprocal Space</div>
             <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
               • Functions stored as Fourier coefficients f̃(G)<br />
@@ -1760,7 +1751,7 @@ function SecReciprocal() {
             </div>
           </div>
         </div>
-        <div style={{ background: T.accent + "08", border: `1px solid ${T.accent}22`, borderRadius: 8, padding: "10px 14px" }}>
+        <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 11, fontWeight: 500, color: T.accent, marginBottom: 4 }}>The Key Insight</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             VASP switches between real and reciprocal space using the <strong>Fast Fourier Transform (FFT)</strong> — O(N log N) cost. It computes V_xc in real space (local), V_Hartree in reciprocal space (convolution → multiplication), and kinetic energy in reciprocal space (diagonal). This dual approach is the engine of every plane-wave DFT code.
@@ -1889,7 +1880,7 @@ function SecReciprocal() {
             </div>
           ))}
         </div>
-        <div style={{ background: T.main + "08", border: `1px solid ${T.main}22`, borderRadius: 8, padding: "10px 14px", marginTop: 10 }}>
+        <div style={{ padding: "3px 0", marginTop: 10 }}>
           <div style={{ fontSize: 11, fontWeight: 500, color: T.main, marginBottom: 4 }}>Cost Summary for Si (2 atoms, ENCUT=400, 8×8×8 k-mesh)</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
             • FFT: 4 transforms/SCF step × 2,700 PW × O(N log N) ≈ <strong>44,000 operations</strong><br />
@@ -1955,7 +1946,7 @@ function SecCdTeWalkthrough() {
           PAW pseudopotentials freeze deep core electrons and only solve for valence electrons. This is why DFT is fast — we skip most electrons.
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
-          <div style={{ background: T.xc + "08", border: `1px solid ${T.xc}22`, borderRadius: 10, padding: "12px 14px" }}>
+          <div style={{ padding: "12px 14px" }}>
             <div style={{ fontSize: 13, fontWeight: 500, color: T.xc, marginBottom: 6 }}>Cadmium (Z = 48)</div>
             <div style={{ fontSize: 11, lineHeight: 2.0, color: T.ink }}>
               <span style={eq}>Full: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰ 5s²</span><br /><br />
@@ -1966,7 +1957,7 @@ function SecCdTeWalkthrough() {
               <span style={eq}>4d¹⁰ 5s²</span> = <span style={{ color: T.xc, fontWeight: 500, fontSize: 13 }}>12 valence e⁻</span>
             </div>
           </div>
-          <div style={{ background: T.eqn + "08", border: `1px solid ${T.eqn}22`, borderRadius: 10, padding: "12px 14px" }}>
+          <div style={{ padding: "12px 14px" }}>
             <div style={{ fontSize: 13, fontWeight: 500, color: T.eqn, marginBottom: 6 }}>Tellurium (Z = 52)</div>
             <div style={{ fontSize: 11, lineHeight: 2.0, color: T.ink }}>
               <span style={eq}>Full: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰ 5s² 5p⁴</span><br /><br />
@@ -1978,7 +1969,7 @@ function SecCdTeWalkthrough() {
             </div>
           </div>
         </div>
-        <div style={{ background: T.basis + "08", border: `1px solid ${T.basis}22`, borderRadius: 10, padding: "12px 14px" }}>
+        <div style={{ padding: "12px 14px" }}>
           <div style={{ fontSize: 12, fontWeight: 500, color: T.basis, marginBottom: 8 }}>Summary</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
             <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
@@ -2089,7 +2080,7 @@ function SecCdTeWalkthrough() {
           This is where the real computation happens. Every step is shown.
         </div>
 
-        <div style={{ background: T.accent + "06", border: `1px solid ${T.accent}18`, borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
+        <div style={{ padding: "4px 0", marginBottom: 12 }}>
           <div style={{ fontSize: 12, fontWeight: 500, color: T.accent, marginBottom: 8 }}>5a. Build the effective potential from n⁰(<strong>r</strong>)</div>
           <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.2 }}>
             V<sub>eff</sub>(<strong>r</strong>) = V<sub>ext</sub>(<strong>r</strong>) + V<sub>H</sub>(<strong>r</strong>) + V<sub>xc</sub>(<strong>r</strong>)
@@ -2105,7 +2096,7 @@ function SecCdTeWalkthrough() {
           </div>
         </div>
 
-        <div style={{ background: T.eqn + "06", border: `1px solid ${T.eqn}18`, borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
+        <div style={{ padding: "4px 0", marginBottom: 12 }}>
           <div style={{ fontSize: 12, fontWeight: 500, color: T.eqn, marginBottom: 8 }}>5b. Solve Kohn–Sham equations (Davidson algorithm)</div>
           <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 13, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.0 }}>
             H<sub><strong>GG</strong>′</sub>(<strong>k</strong>) = <sup>ℏ²</sup>&frasl;<sub>2m<sub>e</sub></sub> |<strong>k</strong>+<strong>G</strong>|² δ<sub><strong>GG</strong>′</sub> + Ṽ<sub>eff</sub>(<strong>G</strong>−<strong>G</strong>′)
@@ -2128,7 +2119,7 @@ function SecCdTeWalkthrough() {
           <div style={{ fontSize: 11, color: T.muted, marginTop: 8 }}>Bands 1–9 occupied → 9 × 2 = 18 electrons ✓ &nbsp; Repeat for all 60 <strong>k</strong>-points.</div>
         </div>
 
-        <div style={{ background: T.main + "06", border: `1px solid ${T.main}18`, borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
+        <div style={{ padding: "4px 0", marginBottom: 12 }}>
           <div style={{ fontSize: 12, fontWeight: 500, color: T.main, marginBottom: 8 }}>5c. Compute new electron density</div>
           <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.0 }}>
             n<sup>(1)</sup>(<strong>r</strong>) = <sup>2</sup>&frasl;<sub>N<sub>k</sub></sub> Σ<sub><strong>k</strong></sub> Σ<sub>n=1</sub><sup>9</sup> |ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>)|²
@@ -2143,7 +2134,7 @@ function SecCdTeWalkthrough() {
           </div>
         </div>
 
-        <div style={{ background: T.xc + "06", border: `1px solid ${T.xc}18`, borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ padding: "4px 0" }}>
           <div style={{ fontSize: 12, fontWeight: 500, color: T.xc, marginBottom: 8 }}>5d. Total energy (iteration 1)</div>
           <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.0 }}>
             E<sub>total</sub> = E<sub>kin</sub> + E<sub>ext</sub> + E<sub>H</sub> + E<sub>xc</sub> + E<sub>ion-ion</sub>
@@ -2226,7 +2217,7 @@ function SecCdTeWalkthrough() {
       {/* ── STEP 7: WHAT WE GET ── */}
       <Card title="Step 7 — Converged Results" color={T.basis}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
-          <div style={{ background: T.basis + "08", border: `1px solid ${T.basis}22`, borderRadius: 10, padding: "12px 14px" }}>
+          <div style={{ padding: "12px 14px" }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: T.basis, marginBottom: 6 }}>Energies</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 2, fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 12 }}>
               {[
@@ -2244,7 +2235,7 @@ function SecCdTeWalkthrough() {
               ))}
             </div>
           </div>
-          <div style={{ background: T.eqn + "08", border: `1px solid ${T.eqn}22`, borderRadius: 10, padding: "12px 14px" }}>
+          <div style={{ padding: "12px 14px" }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: T.eqn, marginBottom: 6 }}>Band Structure at Γ</div>
             <div style={{ fontFamily: "'Courier New', monospace", fontSize: 11, lineHeight: 1.8 }}>
               Band 1 (Te 5<em>s</em>): &nbsp; −9.61 eV<br />
@@ -2257,7 +2248,7 @@ function SecCdTeWalkthrough() {
             </div>
           </div>
         </div>
-        <div style={{ background: T.main + "08", border: `1px solid ${T.main}22`, borderRadius: 10, padding: "12px 14px" }}>
+        <div style={{ padding: "12px 14px" }}>
           <div style={{ fontSize: 12, fontWeight: 500, color: T.main, marginBottom: 6 }}>Formation Energy</div>
           <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 13, lineHeight: 2.2, color: T.ink }}>
             ΔH<sub>f</sub>(CdTe) = E(CdTe) − E(Cd<sub>bulk</sub>) − E(Te<sub>bulk</sub>)<br />

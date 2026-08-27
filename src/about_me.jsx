@@ -927,12 +927,9 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
           ].map((award, i) => (
             <Card key={i} style={{ padding: "14px 16px", marginBottom: 10 }}>
               <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-                <div style={{
-                  minWidth: 36, height: 36, borderRadius: 10,
-                  background: award.color + "15", border: `1.5px solid ${award.color}40`,
+                <div style={{ minWidth: 36, height: 36,
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 16
-                }}>{"\u2605"}</div>
+                  fontSize: 16 }}>{"\u2605"}</div>
                 <div>
                   <div style={{ fontSize: 14, fontWeight: 500 }}>{award.title}</div>
                   <div style={{ fontSize: 12, color: T.muted }}>{award.org}</div>

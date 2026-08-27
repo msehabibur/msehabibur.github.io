@@ -37,7 +37,7 @@ function SliderRow({ label, value, min, max, step, onChange, color, unit, format
 
 function ResultBox({ label, value, color, sub }) {
   return (
-    <div style={{ background: color + "11", border: `1px solid ${color}33`, borderRadius: 8, padding: "8px 12px", textAlign: "center" }}>
+    <div style={{ padding: "2px 0", textAlign: "center" }}>
       <div style={{ fontSize: 10, color: T.muted, marginBottom: 2 }}>{label}</div>
       <div style={{ fontSize: 16, fontWeight: 500, color, fontFamily: "monospace" }}>{value}</div>
       {sub && <div style={{ fontSize: 10, color: T.muted, marginTop: 2 }}>{sub}</div>}
@@ -89,7 +89,7 @@ function SolarCellCard({ mat, eg, method, recipe, eff, color, steps }) {
   useEffect(() => { if (!expanded) return; const id = setInterval(() => setTick(t => t + 1), 80); return () => clearInterval(id); }, [expanded]);
 
   return (
-    <div style={{ background: color + "06", border: `1px solid ${color}18`, borderRadius: 8, padding: "8px 10px", cursor: "pointer" }} onClick={() => setExpanded(!expanded)}>
+    <div style={{ padding: "8px 10px", cursor: "pointer" }} onClick={() => setExpanded(!expanded)}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div style={{ fontSize: 12, fontWeight: 500, color }}>{mat}</div>
         <span style={{ fontSize: 9, color: expanded ? color : T.muted, fontWeight: 500 }}>{expanded ? "▼ CLOSE" : "▶ ANIMATE"}</span>
@@ -173,7 +173,7 @@ function CVDSection() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6 }}>
           {cvdVariants.map(v => (
-            <div key={v.name} style={{ background: v.color + "08", border: `1px solid ${v.color}20`, borderRadius: 8, padding: "8px", fontSize: 10 }}>
+            <div key={v.name} style={{ padding: "8px", fontSize: 10 }}>
               <div style={{ fontWeight: 500, color: v.color, fontSize: 12, marginBottom: 4 }}>{v.name}</div>
               <div style={{ color: T.muted }}>{v.pressure}</div>
               <div style={{ color: T.muted }}>{v.temp}</div>
@@ -193,7 +193,7 @@ function CVDSection() {
             }}>{s.icon} {i + 1}</button>
           ))}
         </div>
-        <div style={{ display: "flex", gap: 10, background: step.color + "08", borderRadius: 10, padding: "10px 14px", border: `1.5px solid ${step.color}20`, marginBottom: 12 }}>
+        <div style={{ display: "flex", gap: 10, padding: "3px 0", marginBottom: 12 }}>
           <span style={{ fontSize: 20, flexShrink: 0 }}>{step.icon}</span>
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: step.color, marginBottom: 4 }}>{step.title}</div>
@@ -289,7 +289,7 @@ function CVDSection() {
             <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
               <strong>The Experiment:</strong> You need to deposit 300 nm of polycrystalline silicon (poly-Si) by LPCVD using silane (SiH₄) decomposition. Your advisor says "run the furnace at 625°C." You need to calculate the deposition rate, total deposition time, and verify the regime is surface-reaction limited.
             </div>
-            <div style={{ background: T.syn_cvd + "06", border: `1px solid ${T.syn_cvd}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+            <div style={{ padding: "3px 0", marginBottom: 14 }}>
               <div style={{ fontSize: 10, fontWeight: 500, color: T.syn_cvd, marginBottom: 6 }}>Think of it this way:</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>CVD growth rate follows the Arrhenius equation — just like baking a cake, higher temperature speeds up the reaction exponentially. But there are two regimes: at low temperature, the surface reaction is slow (reaction-limited, good uniformity); at high temperature, gas transport can't keep up (mass-transport-limited, poor uniformity).</div>
             </div>
@@ -322,7 +322,7 @@ function CVDSection() {
               <InfoRow label="Uniformity expected" value="< 2% thickness variation across wafer" />
               <InfoRow label="Why this matters" value="Uniform poly-Si gate electrodes across 150mm wafer" />
             </div>
-            <div style={{ background: T.syn_cvd + "08", border: `1px solid ${T.syn_cvd}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_cvd, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At 625°C, poly-Si grows at ~43 nm/min in LPCVD. The 300 nm film needs ~7-8 minutes. Because we are in the surface-reaction-limited regime (below 700°C), film thickness will be uniform across the wafer. If we raised temperature to 800°C, the rate would jump to ~500 nm/min but uniformity would degrade — gas can't reach the wafer center fast enough.</div>
             </div>
@@ -357,7 +357,7 @@ function CVDSection() {
               <InfoRow label="Weighted average (AM1.5)" value="~8% average across 400-1100 nm" />
               <InfoRow label="Current gain" value="Jsc increases from ~33 to ~39 mA/cm²" />
             </div>
-            <div style={{ background: T.syn_pvd + "08", border: `1px solid ${T.syn_pvd}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_pvd, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A 73 nm SiNₓ coating deposited in just 5 minutes by PECVD cuts reflection from 35% to under 3% at the target wavelength. This is why every commercial silicon solar cell has a blue-purple appearance — that's the SiNₓ anti-reflection coating! The PECVD process also passivates surface dangling bonds with hydrogen, reducing recombination.</div>
             </div>
@@ -389,7 +389,7 @@ function CVDSection() {
             <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
               <CalcRow eq="t = 3 μm / 0.50 μm/hr" result="6.0 hours" color={T.syn_main} />
             </div>
-            <div style={{ background: T.syn_main + "08", border: `1px solid ${T.syn_main}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_main, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>In MOCVD at 650°C, the growth rate is controlled by the Group III precursor flow (TMGa). At 10 μmol/min, GaAs grows at ~0.5 μm/hr. A 3 μm solar cell absorber takes ~6 hours — this is why MOCVD GaAs cells are expensive. Doubling the TMGa flow doubles the rate, but V/III ratio drops and crystal quality suffers.</div>
             </div>
@@ -426,7 +426,7 @@ function CVDSection() {
               <InfoRow label="APCVD step coverage" value="~30% (poor, many collisions in trench)" />
               <InfoRow label="LPCVD step coverage" value=">95% (excellent, molecules reach bottom)" />
             </div>
-            <div style={{ background: T.syn_sol + "08", border: `1px solid ${T.syn_sol}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_sol, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At atmospheric pressure, gas molecules collide every 0.19 μm — they can't reach the bottom of a 1 μm trench, so the film is thicker at the top (poor step coverage). At 0.5 Torr, the mean free path is 290 μm — molecules fly straight into trenches without collisions, coating all surfaces uniformly. This is exactly why LPCVD is used for conformal SiO₂ and Si₃N₄ in CMOS fabrication.</div>
             </div>
@@ -474,7 +474,7 @@ function PVDSection() {
             { name: "Sputtering", desc: "Ar⁺ ions knock atoms off target. Better uniformity than evaporation.", use: "Metals, oxides, nitrides, alloys", color: T.syn_cvd },
             { name: "Pulsed Laser (PLD)", desc: "Laser ablates target. Preserves stoichiometry of complex materials.", use: "Complex oxides (YBCO, BaTiO₃), multicomponent films", color: T.syn_ald },
           ].map(v => (
-            <div key={v.name} style={{ background: v.color + "08", border: `1px solid ${v.color}20`, borderRadius: 8, padding: "10px", fontSize: 10 }}>
+            <div key={v.name} style={{ padding: "10px", fontSize: 10 }}>
               <div style={{ fontWeight: 500, color: v.color, fontSize: 11, marginBottom: 4 }}>{v.name}</div>
               <div style={{ color: T.ink, lineHeight: 1.5, marginBottom: 4 }}>{v.desc}</div>
               <div style={{ color: T.muted, fontStyle: "italic" }}>{v.use}</div>
@@ -493,7 +493,7 @@ function PVDSection() {
             }}>{s.icon} {i + 1}</button>
           ))}
         </div>
-        <div style={{ display: "flex", gap: 10, background: step.color + "08", borderRadius: 10, padding: "10px 14px", border: `1.5px solid ${step.color}20`, marginBottom: 12 }}>
+        <div style={{ display: "flex", gap: 10, padding: "3px 0", marginBottom: 12 }}>
           <span style={{ fontSize: 20, flexShrink: 0 }}>{step.icon}</span>
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: step.color, marginBottom: 4 }}>{step.title}</div>
@@ -556,7 +556,7 @@ function PVDSection() {
             <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
               <strong>The Experiment:</strong> You need to deposit a 200 nm Cu seed layer by DC magnetron sputtering for interconnect metallization. The sputter system runs at 300 W DC power on a 3-inch Cu target. You need to calculate the sputter yield, deposition rate, and time.
             </div>
-            <div style={{ background: T.syn_pvd + "06", border: `1px solid ${T.syn_pvd}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+            <div style={{ padding: "3px 0", marginBottom: 14 }}>
               <div style={{ fontSize: 10, fontWeight: 500, color: T.syn_pvd, marginBottom: 6 }}>Think of it this way:</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Sputtering is atomic-scale billiards. Ar⁺ ions accelerated by 300-600 V slam into the Cu target. Each Ar⁺ ion knocks out ~2 Cu atoms (the sputter yield). These Cu atoms fly across the vacuum and land on your substrate.</div>
             </div>
@@ -586,7 +586,7 @@ function PVDSection() {
             <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
               <CalcRow eq="t = 200 nm / 130 nm/min" result="~1.5 min (90 seconds)" color={T.syn_pvd} />
             </div>
-            <div style={{ background: T.syn_pvd + "08", border: `1px solid ${T.syn_pvd}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_pvd, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At 300 W DC, Cu sputters at ~130 nm/min — a 200 nm seed layer is done in 90 seconds. This is fast! However, the step coverage is only ~30% on vertical sidewalls (line-of-sight deposition). For high-aspect-ratio vias, you'd need ionized PVD (iPVD) to improve directionality.</div>
             </div>
@@ -625,7 +625,7 @@ function PVDSection() {
               <InfoRow label="Thickness at edge (10 cm)" value="100 × cos⁴(θ) ≈ 89.0 nm" />
               <InfoRow label="Uniformity" value="~11% variation (needs planetary rotation!)" />
             </div>
-            <div style={{ background: T.syn_sol + "08", border: `1px solid ${T.syn_sol}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_sol, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Au evaporates fast (~240 nm/min at 1400°C), so 100 nm contacts take only ~25 seconds. But the cos⁴(θ) distribution causes 11% thickness variation across the wafer. In production, substrates rotate on a planetary fixture to even out the deposition — achieving {"<"}2% uniformity.</div>
             </div>
@@ -654,7 +654,7 @@ function PVDSection() {
               <InfoRow label="ITO resistivity at 20 mTorr" value="~8 × 10⁻⁴ Ω·cm (4× worse)" />
               <InfoRow label="But transmittance at 20 mTorr" value="Higher (less absorption, more porous)" />
             </div>
-            <div style={{ background: T.syn_cvd + "08", border: `1px solid ${T.syn_cvd}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_cvd, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At 2 mTorr, sputtered atoms arrive with high kinetic energy (few collisions), making a dense, conductive ITO film. At 20 mTorr, atoms thermalize before reaching the substrate — the film is porous and 4× more resistive. For solar cells, the optimal is ~5 mTorr: good conductivity AND high transparency. This pressure-property tradeoff is the #1 optimization knob in sputter deposition.</div>
             </div>
@@ -719,7 +719,7 @@ function SolGelSection() {
             }}>{s.icon} {i + 1}</button>
           ))}
         </div>
-        <div style={{ display: "flex", gap: 10, background: step.color + "08", borderRadius: 10, padding: "10px 14px", border: `1.5px solid ${step.color}20`, marginBottom: 12 }}>
+        <div style={{ display: "flex", gap: 10, padding: "3px 0", marginBottom: 12 }}>
           <span style={{ fontSize: 20, flexShrink: 0 }}>{step.icon}</span>
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: step.color, marginBottom: 4 }}>{step.title}</div>
@@ -794,7 +794,7 @@ function SolGelSection() {
             <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
               <strong>The Experiment:</strong> You are preparing a SiO₂ sol-gel solution using TEOS (tetraethyl orthosilicate). Your recipe calls for a water:TEOS molar ratio (r) of 4:1 with HCl catalyst. You need to calculate the volumes to mix for 50 mL of sol.
             </div>
-            <div style={{ background: T.syn_sol + "06", border: `1px solid ${T.syn_sol}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+            <div style={{ padding: "3px 0", marginBottom: 14 }}>
               <div style={{ fontSize: 10, fontWeight: 500, color: T.syn_sol, marginBottom: 6 }}>Think of it this way:</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Making sol-gel is like following a baking recipe — the ratio of ingredients determines whether you get a delicate soufflé (thin film) or a brick (monolith). The water:TEOS ratio r controls the gel structure: r=2 gives linear chains (good for fibers), r=4 gives branched networks (good for films), r{">>"}4 gives dense particles.</div>
             </div>
@@ -825,7 +825,7 @@ function SolGelSection() {
               <InfoRow label="Total" value="50.00 mL" />
               <InfoRow label="Gel time at pH 2" value="~48 hours (acid-catalyzed, slow)" />
             </div>
-            <div style={{ background: T.syn_sol + "08", border: `1px solid ${T.syn_sol}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_sol, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>With r=4, every TEOS molecule has exactly enough water to fully hydrolyze (replace all 4 ethoxy groups with -OH). Acid catalysis (pH 2) promotes linear chain growth — ideal for spin-coating smooth films. If you used base catalysis (pH 10), you'd get spherical colloidal particles instead (Stöber process for SiO₂ nanoparticles).</div>
             </div>
@@ -857,7 +857,7 @@ function SolGelSection() {
               <CalcRow eq="t_dry ≈ t_wet × (oxide wt fraction) × (ρ_sol/ρ_oxide)" result="" color={T.syn_sol} />
               <CalcRow eq="t_dry ≈ 8.6 μm × 0.03 × (0.9/3.9)" result="~60 nm" color={T.syn_sol} />
             </div>
-            <div style={{ background: T.syn_sol + "08", border: `1px solid ${T.syn_sol}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_sol, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The wet film is 8.6 μm thick, but after drying and calcination, only ~60 nm of dense TiO₂ remains — a 99.3% volume reduction! This is typical for sol-gel: most of the coating is solvent. To get a 200 nm coating, you need 3-4 dip cycles. Faster withdrawal (4 mm/s) would give ~110 nm per coat.</div>
             </div>
@@ -892,7 +892,7 @@ function SolGelSection() {
               <InfoRow label="Result" value="200 nm polycrystalline ZnO, wurtzite phase" />
               <InfoRow label="Resistivity" value="~10⁻² Ω·cm (Al-doped: ~10⁻³)" />
             </div>
-            <div style={{ background: T.syn_sol + "08", border: `1px solid ${T.syn_sol}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_sol, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A 0.31 M zinc acetate solution gives ~40 nm ZnO per spin coat. Five coats with intermediate bakes build up a 200 nm window layer. Sol-gel ZnO costs ~$0.50/wafer vs ~$50/wafer for sputtered ZnO — 100× cheaper! The trade-off: sol-gel ZnO has higher resistivity and more grain boundaries, but it's perfectly adequate for research-scale solar cells.</div>
             </div>
@@ -956,7 +956,7 @@ function ALDSection() {
             }}>{s.icon}</button>
           ))}
         </div>
-        <div style={{ display: "flex", gap: 10, background: step.color + "08", borderRadius: 10, padding: "10px 14px", border: `1.5px solid ${step.color}20`, marginBottom: 12 }}>
+        <div style={{ display: "flex", gap: 10, padding: "3px 0", marginBottom: 12 }}>
           <span style={{ fontSize: 20, flexShrink: 0 }}>{step.icon}</span>
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: step.color, marginBottom: 4 }}>{step.title}</div>
@@ -1045,7 +1045,7 @@ function ALDSection() {
             <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
               <strong>The Experiment:</strong> You need to deposit exactly 15 nm of Al₂O₃ by ALD using TMA/H₂O at 200°C for passivating a silicon solar cell (Al₂O₃ rear passivation). Calculate the number of ALD cycles required and the total process time.
             </div>
-            <div style={{ background: T.syn_ald + "06", border: `1px solid ${T.syn_ald}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+            <div style={{ padding: "3px 0", marginBottom: 14 }}>
               <div style={{ fontSize: 10, fontWeight: 500, color: T.syn_ald, marginBottom: 6 }}>Think of it this way:</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>ALD is like painting a wall one coat at a time, where each coat is exactly one atom thick. You can't apply half a coat or two coats at once — each cycle adds precisely one layer. So the thickness is simply: (atoms per coat) × (number of coats).</div>
             </div>
@@ -1080,7 +1080,7 @@ function ALDSection() {
               <InfoRow label="Conformality on textured Si" value="> 99% (even in pyramid valleys)" />
               <InfoRow label="Dit (interface defect density)" value="~10¹¹ cm⁻² eV⁻¹ (excellent passivation)" />
             </div>
-            <div style={{ background: T.syn_ald + "08", border: `1px solid ${T.syn_ald}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_ald, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>136 ALD cycles in ~19 minutes deposits exactly 15 nm of Al₂O₃ with sub-angstrom precision. This Al₂O₃ layer provides field-effect passivation (fixed negative charges repel electrons from the rear surface) and chemical passivation (saturates Si dangling bonds). It boosted PERC solar cell efficiency from ~20% to ~24% — the single most impactful ALD application in photovoltaics.</div>
             </div>
@@ -1111,7 +1111,7 @@ function ALDSection() {
               <InfoRow label="At 350°C" value="TMA cracks → parasitic CVD. 36% less per cycle." />
               <InfoRow label="Practical rule" value="Always run in ALD window for reliable thickness" />
             </div>
-            <div style={{ background: T.syn_ald + "08", border: `1px solid ${T.syn_ald}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_ald, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The ALD window for TMA/H₂O is 175-300°C. Within this range, GPC is constant at 1.1 Å because reactions are truly self-limiting. Outside the window, the process breaks down: condensation at low T, decomposition at high T. Every ALD process has its own window — HfO₂ (HfCl₄/H₂O) is 200-350°C, TiO₂ (TDMAT/H₂O) is 100-250°C. Always verify your process is in the window!</div>
             </div>
@@ -1148,7 +1148,7 @@ function ALDSection() {
               <InfoRow label="Application" value="DRAM capacitor dielectric (50:1+ trenches)" />
               <InfoRow label="Why not CVD?" value="CVD pinches off the top before filling bottom" />
             </div>
-            <div style={{ background: T.syn_ald + "08", border: `1px solid ${T.syn_ald}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_ald, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>ALD achieves 97.5% step coverage in a 50:1 trench — nearly perfect. This is impossible with PVD (line-of-sight) or even CVD (preferential top deposition). Every modern DRAM chip uses ALD to coat capacitor trenches with HfO₂/ZrO₂ dielectrics. Without ALD conformality, we couldn't build memory chips beyond ~20 nm node.</div>
             </div>
@@ -1184,7 +1184,7 @@ function ALDSection() {
               <InfoRow label="Reduction factor" value="~10,000× less leakage!" />
               <InfoRow label="Power savings" value="Critical for mobile processors" />
             </div>
-            <div style={{ background: T.syn_ald + "08", border: `1px solid ${T.syn_ald}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_ald, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A 5.8 nm HfO₂ film (64 ALD cycles) gives the same capacitance as 0.9 nm SiO₂ but is physically 6.4× thicker — thick enough to block quantum tunneling. This reduced gate leakage by 10,000×, enabling modern low-power processors. Only ALD could deposit this film with the required thickness control (±0.1 nm) and conformality over billions of transistors per chip.</div>
             </div>
@@ -1278,7 +1278,7 @@ function MBESection() {
             <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
               <strong>The Experiment:</strong> You are growing GaAs by MBE. The Ga effusion cell is at 950°C. Calculate the Ga beam flux at the substrate (30 cm away) and the resulting growth rate assuming As overpressure (Ga-limited regime).
             </div>
-            <div style={{ background: T.syn_mbe + "06", border: `1px solid ${T.syn_mbe}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+            <div style={{ padding: "3px 0", marginBottom: 14 }}>
               <div style={{ fontSize: 10, fontWeight: 500, color: T.syn_mbe, marginBottom: 6 }}>Think of it this way:</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>An effusion cell is like a tiny furnace with a small opening. Atoms escape through the opening one by one, forming a molecular "beam." The flux depends exponentially on temperature (vapor pressure) and falls off as 1/r² with distance — like light from a flashlight.</div>
             </div>
@@ -1305,7 +1305,7 @@ function MBESection() {
               <CalcRow eq="1 monolayer GaAs(100) = 2.83 Å" result="" color={T.syn_mbe} />
               <CalcRow eq="Growth rate = 1.0 × 2.83 Å/s" result="2.83 Å/s ≈ 1.0 μm/hr" color={T.syn_mbe} />
             </div>
-            <div style={{ background: T.syn_mbe + "08", border: `1px solid ${T.syn_mbe}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_mbe, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At a Ga cell temperature of 950°C, GaAs grows at ~1 ML/s (1.0 μm/hr). This is 10-100× slower than CVD — but the crystalline perfection is unmatched. In MBE, you control the flux by adjusting cell temperature: +20°C roughly doubles the rate (exponential dependence on T). The As cell is kept in overpressure (BEP ratio As/Ga ~15-20) so growth is entirely controlled by the Ga flux.</div>
             </div>
@@ -1342,7 +1342,7 @@ function MBESection() {
               <InfoRow label="Close Ga shutter" value="Film = 35 × 2.83 Å = 9.9 nm" />
               <InfoRow label="Precision" value="±1 monolayer = ±0.3 nm" />
             </div>
-            <div style={{ background: T.syn_mbe + "08", border: `1px solid ${T.syn_mbe}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_mbe, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>RHEED oscillations give you real-time, monolayer-precise growth rate measurement — like having a speedometer while driving. Each oscillation = one complete monolayer. By counting oscillations, you can grow quantum wells to ±1 monolayer precision. This is how researchers grow GaAs/AlGaAs quantum well structures for high-efficiency multi-junction solar cells and laser diodes.</div>
             </div>
@@ -1380,7 +1380,7 @@ function MBESection() {
               <CalcRow eq="= 1.424 + 0.047 + 0.007" result="1.478 eV" color={T.syn_mbe} />
               <CalcRow eq="λ = 1240 / E(eV) = 1240 / 1.478" result="839 nm (near-IR)" color={T.syn_mbe} />
             </div>
-            <div style={{ background: T.syn_mbe + "08", border: `1px solid ${T.syn_mbe}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_mbe, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The 8 nm GaAs quantum well emits at 839 nm — blue-shifted from bulk GaAs (870 nm) due to quantum confinement. By changing the well width, you tune the emission: 5 nm well → 810 nm, 15 nm well → 860 nm. This is the foundation of III-V quantum well lasers and multi-junction solar cells, where MBE's monolayer precision directly controls the bandgap engineering.</div>
             </div>
@@ -1450,7 +1450,7 @@ function SpinCoatingSection() {
             }}>{s.icon} {i + 1}</button>
           ))}
         </div>
-        <div style={{ display: "flex", gap: 10, background: scStep_.color + "08", borderRadius: 10, padding: "10px 14px", border: `1.5px solid ${scStep_.color}20`, marginBottom: 12 }}>
+        <div style={{ display: "flex", gap: 10, padding: "3px 0", marginBottom: 12 }}>
           <span style={{ fontSize: 20, flexShrink: 0 }}>{scStep_.icon}</span>
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: scStep_.color, marginBottom: 4 }}>{scStep_.title}</div>
@@ -1584,7 +1584,7 @@ function SpinCoatingSection() {
             <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
               <strong>The Experiment:</strong> You are optimizing MAPbI₃ perovskite spin coating for a solar cell. Your solution is 1.2 M PbI₂ + MAI in DMF:DMSO (4:1). You need 500 nm thickness for optimal absorption. Find the right spin speed.
             </div>
-            <div style={{ background: T.syn_spin + "06", border: `1px solid ${T.syn_spin}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+            <div style={{ padding: "3px 0", marginBottom: 14 }}>
               <div style={{ fontSize: 10, fontWeight: 500, color: T.syn_spin, marginBottom: 6 }}>Think of it this way:</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Spin coating is like spreading pizza dough by spinning it — faster spin means thinner crust. The relationship is roughly t ∝ 1/√ω. So to halve the thickness, you need to spin 4× faster (not 2×). This square-root dependence is key to understanding the process.</div>
             </div>
@@ -1614,7 +1614,7 @@ function SpinCoatingSection() {
               <InfoRow label="Absorption at 500 nm thickness" value="Absorbs >95% of light above Eg" />
               <InfoRow label="Optimized spin recipe" value="1000 RPM (10s) → 4000 RPM (30s)" />
             </div>
-            <div style={{ background: T.syn_spin + "08", border: `1px solid ${T.syn_spin}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_spin, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At 4000 RPM, the perovskite film is 510 nm — optimal for absorption without excess recombination in thick films. The t ∝ 1/√ω calibration curve is a powerful tool: once you measure 2-3 points, you can predict the thickness at any spin speed. In practice, the anti-solvent timing (15 s for chlorobenzene) is equally critical for grain size and uniformity.</div>
             </div>
@@ -1653,7 +1653,7 @@ function SpinCoatingSection() {
               <InfoRow label="Our ratio" value="14:1 → excellent lift-off expected" />
               <InfoRow label="Undercut (image reversal)" value="~0.3 μm with AZ5214E in IR mode" />
             </div>
-            <div style={{ background: T.syn_spin + "08", border: `1px solid ${T.syn_spin}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_spin, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At 4000 RPM, AZ5214E gives 1.4 μm — 14× thicker than the 100 nm Au to be deposited, ensuring clean lift-off. The edge bead (3.5 μm at wafer edges) can cause focus problems during exposure, so you lose 2-3 mm of usable area per edge. In production, edge bead removal (EBR) nozzles spray solvent on the wafer edge during spinning to eliminate this.</div>
             </div>
@@ -1685,7 +1685,7 @@ function SpinCoatingSection() {
               <InfoRow label="Ethanol on MEH-PPV" value="No dissolution — safe ✓" />
               <InfoRow label="Critical failure mode" value="Chloroform would dissolve BOTH layers below!" />
             </div>
-            <div style={{ background: T.syn_spin + "08", border: `1px solid ${T.syn_spin}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_spin, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Multi-layer spin coating requires orthogonal solvents: each new layer's solvent must not dissolve the layer below. Water → toluene → ethanol is a classic orthogonal sequence. The key trick: thermally crosslinking PEDOT:PSS at 140°C makes it insoluble in everything. This orthogonal solvent strategy is how all solution-processed OLEDs and organic solar cells are built.</div>
             </div>
@@ -1753,7 +1753,7 @@ function HydrothermalSection() {
             }}>{s.icon} {i + 1}</button>
           ))}
         </div>
-        <div style={{ display: "flex", gap: 10, background: htStep_.color + "08", borderRadius: 10, padding: "10px 14px", border: `1.5px solid ${htStep_.color}20`, marginBottom: 12 }}>
+        <div style={{ display: "flex", gap: 10, padding: "3px 0", marginBottom: 12 }}>
           <span style={{ fontSize: 20, flexShrink: 0 }}>{htStep_.icon}</span>
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: htStep_.color, marginBottom: 4 }}>{htStep_.title}</div>
@@ -1909,7 +1909,7 @@ function HydrothermalSection() {
             <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
               <strong>The Experiment:</strong> You are growing ZnO nanowire arrays on FTO glass for a perovskite solar cell electron transport layer. The growth solution is 25 mM Zn(NO₃)₂ + 25 mM hexamethylenetetramine (HMTA) at 90°C. You measure nanowire length at different growth times.
             </div>
-            <div style={{ background: T.syn_hydro + "06", border: `1px solid ${T.syn_hydro}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+            <div style={{ padding: "3px 0", marginBottom: 14 }}>
               <div style={{ fontSize: 10, fontWeight: 500, color: T.syn_hydro, marginBottom: 6 }}>Think of it this way:</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Hydrothermal nanowire growth is like growing a garden — fast at first when nutrients are plentiful, then slowing as the solution is depleted. The length follows a saturating exponential: rapid initial growth, then plateau when precursors run out.</div>
             </div>
@@ -1938,7 +1938,7 @@ function HydrothermalSection() {
               <InfoRow label="Growth rate (initial)" value="~0.4 μm/hr (at t=0)" />
               <InfoRow label="Growth rate (at 4 hr)" value="~0.15 μm/hr (slowing)" />
             </div>
-            <div style={{ background: T.syn_hydro + "08", border: `1px solid ${T.syn_hydro}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_hydro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>ZnO nanowire growth follows first-order kinetics with τ = 4.2 hours. For a 1 μm nanowire array (optimal for perovskite ETL), you need 3.5 hours at 90°C. Going beyond 8 hours gives diminishing returns. To grow longer wires, refresh the growth solution or increase concentration — but longer wires have more recombination, so 1 μm is the sweet spot for solar cells.</div>
             </div>
@@ -1971,7 +1971,7 @@ function HydrothermalSection() {
               <InfoRow label="At 250°C (caution!)" value="~40 atm — exceeds rated pressure!" />
               <InfoRow label="At 300°C" value="~86 atm — DANGEROUS, needs special vessel" />
             </div>
-            <div style={{ background: T.syn_hydro + "08", border: `1px solid ${T.syn_hydro}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_hydro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At 200°C, the autoclave reaches ~16 atm — well within the safety limit of a standard Teflon-lined vessel. But at 250°C it's already near the limit, and at 300°C it's 86 atm — you'd need a Hastelloy high-pressure reactor. This is why most hydrothermal recipes stay below 200°C. The elevated pressure keeps water liquid above its normal boiling point, dramatically increasing solubility of metal oxides.</div>
             </div>
@@ -2007,7 +2007,7 @@ function HydrothermalSection() {
               <InfoRow label="Surface area (BET)" value="~80 m²/g" />
               <InfoRow label="Pore size in film" value="~20-30 nm (good for perovskite infiltration)" />
             </div>
-            <div style={{ background: T.syn_hydro + "08", border: `1px solid ${T.syn_hydro}22`, borderRadius: 8, padding: "10px 12px" }}>
+            <div style={{ padding: "3px 0" }}>
               <div style={{ fontSize: 9, letterSpacing: 2, color: T.syn_hydro, fontWeight: 500, marginBottom: 4, textTransform: "none" }}>Interpretation</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Particle size is controlled by temperature and time. At 200°C for 12 hours, you get ~22 nm anatase TiO₂ — ideal for mesoporous perovskite solar cells. The activation energy (~34 kJ/mol) shows the growth is kinetically controlled. Longer times (24h) cause Ostwald ripening — small particles dissolve and redeposit on larger ones. This is the same TiO₂ paste used in the world-record 25%+ perovskite solar cells.</div>
             </div>

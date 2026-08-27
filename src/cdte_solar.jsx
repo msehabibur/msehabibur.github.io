@@ -118,30 +118,21 @@ const lerp = (a, b, t) => a + (b - a) * t;
 
 function Tag({ color, children }) {
   return (
-    <span style={{
-      display: "inline-block",
+    <span style={{ display: "inline-block",
       padding: "1px 8px",
-      borderRadius: 4,
       fontSize: 11,
       fontWeight: 500,
-      background: color + "22",
-      border: `1px solid ${color}55`,
       color,
-      letterSpacing: 1
-    }}>{children}</span>
+      letterSpacing: 1 }}>{children}</span>
   );
 }
 
 function SectionTitle({ color, icon, children }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-      <div style={{
-        width: 32, height: 32, borderRadius: 8,
-        background: color + "22",
-        border: `1px solid ${color}55`,
+      <div style={{ width: 32, height: 32,
         display: "flex", alignItems: "center", justifyContent: "center",
-        fontSize: 16
-      }}>{icon}</div>
+        fontSize: 16 }}>{icon}</div>
       <div style={{
         fontSize: 15, fontWeight: 500, color,
         letterSpacing: 1, textTransform: "none"
@@ -476,15 +467,15 @@ function CrystalSection() {
         <div style={sectionPanel}>
           <div style={labelUpper}>CdTe 64-atom supercell electrons</div>
           <div style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 8, flexWrap: "wrap" }}>
-            <div style={{ padding: "5px 10px", background: T.eo_valence + "22", border: `1px solid ${T.eo_valence}44`, borderRadius: 6, fontSize: 12, color: T.eo_valence, fontFamily: "monospace" }}>
+            <div style={{ padding: "5px 10px", fontSize: 12, color: T.eo_valence, fontFamily: "monospace" }}>
               32 Cd × 2e = 64e
             </div>
             <span style={{ color: T.muted }}>+</span>
-            <div style={{ padding: "5px 10px", background: T.eo_hole + "22", border: `1px solid ${T.eo_hole}44`, borderRadius: 6, fontSize: 12, color: T.eo_hole, fontFamily: "monospace" }}>
+            <div style={{ padding: "5px 10px", fontSize: 12, color: T.eo_hole, fontFamily: "monospace" }}>
               32 Te × 6e = 192e
             </div>
             <span style={{ color: T.muted }}>=</span>
-            <div style={{ padding: "5px 10px", background: T.eo_e + "22", border: `1px solid ${T.eo_e}44`, borderRadius: 6, fontSize: 12, color: T.eo_e, fontFamily: "monospace", fontWeight: 500 }}>
+            <div style={{ padding: "5px 10px", fontSize: 12, color: T.eo_e, fontFamily: "monospace", fontWeight: 500 }}>
               NELECT = 256
             </div>
           </div>
@@ -1507,11 +1498,7 @@ function DefectConfigSection() {
 
       {/* Right panel */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
-        <div style={{
-          background: dt.color + "11",
-          border: `1px solid ${dt.color}44`,
-          borderRadius: 10, padding: 14
-        }}>
+        <div style={{ padding: 14 }}>
           <div style={{ fontSize: 18, fontWeight: 500, color: dt.color, marginBottom: 8 }}>
             {dt.label}
           </div>
@@ -1898,7 +1885,7 @@ function DefectElectronsSection() {
       {/* ═══ Right: Info panel ═══ */}
       <div style={{ flex: "1 1 280px", display: "flex", flexDirection: "column", gap: 10 }}>
         {/* Description */}
-        <div style={{ background: d.color + "11", border: `1px solid ${d.color}44`, borderRadius: 10, padding: 14 }}>
+        <div style={{ padding: 14 }}>
           <div style={{ fontSize: 16, fontWeight: 500, color: d.color, marginBottom: 6 }}>{d.label}</div>
           <p style={{ fontSize: 12, color: T.ink, lineHeight: 1.9, margin: 0 }}>{d.desc}</p>
         </div>
@@ -2238,11 +2225,7 @@ function RecombinationSection() {
 
       {/* Right panel */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
-        <div style={{
-          background: m.color + "11",
-          border: `1px solid ${m.color}44`,
-          borderRadius: 10, padding: 14
-        }}>
+        <div style={{ padding: 14 }}>
           <div style={{ fontSize: 18, fontWeight: 500, color: m.color, marginBottom: 8 }}>
             {m.title}
           </div>
@@ -2579,7 +2562,7 @@ function IVCurveSection() {
           ))}
         </div>
 
-        <div style={{ background: T.eo_photon + "0a", border: `1px solid ${T.eo_photon}33`,  borderRadius: 8, padding: 12 }}>
+        <div style={{ padding: 12 }}>
           <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_photon, marginBottom: 4 }}>CdTe Record vs. Shockley–Queisser Limit</div>
           <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
             SQ limit (1.44 eV): η ≈ 32%, Voc ≈ 1.17 V — if every recombination event radiated a photon back out.<br />
@@ -3157,12 +3140,9 @@ function SolarCellDeviceSection() {
                   <div style={{ fontSize: 11, color: T.muted }}>{sel.formula} | {sel.thickness}</div>
                 </div>
               </div>
-              <div style={{
-                fontSize: 12, fontWeight: 500, color: sel.iconColor,
-                marginBottom: 6, padding: "4px 10px", borderRadius: 6,
-                background: sel.iconColor + "11", border: `1px solid ${sel.iconColor}22`,
-                display: "inline-block"
-              }}>
+              <div style={{ fontSize: 12, fontWeight: 500, color: sel.iconColor,
+                marginBottom: 6, padding: "4px 10px",
+                display: "inline-block" }}>
                 {sel.role}
               </div>
               <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.8, marginTop: 8 }}>
@@ -3215,12 +3195,9 @@ function SolarCellDeviceSection() {
                 { step: "6", text: "External circuit: electrons flow through load, recombine with holes", color: T.muted },
               ].map(s => (
                 <div key={s.step} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginBottom: 4 }}>
-                  <div style={{
-                    width: 18, height: 18, borderRadius: "50%", flexShrink: 0,
-                    background: s.color + "22", border: `1px solid ${s.color}44`,
+                  <div style={{ width: 18, height: 18, borderRadius: "50%", flexShrink: 0,
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 9, fontWeight: 500, color: s.color
-                  }}>{s.step}</div>
+                    fontSize: 9, fontWeight: 500, color: s.color }}>{s.step}</div>
                   <div style={{ fontSize: 11, color: T.ink }}>{s.text}</div>
                 </div>
               ))}
@@ -3390,7 +3367,7 @@ function CdTeManufacturingSection() {
             { label: "Absorber", value: "3-5 μm", color: T.eo_core },
             { label: "Module life", value: "25+ yrs", color: "#1a5a66" },
           ].map(item => (
-            <div key={item.label} style={{ background: item.color + "10", border: `1px solid ${item.color}30`, borderRadius: 8, padding: "8px", textAlign: "center" }}>
+            <div key={item.label} style={{ padding: "8px", textAlign: "center" }}>
               <div style={{ fontSize: 16, fontWeight: 500, color: item.color }}>{item.value}</div>
               <div style={{ fontSize: 9, color: T.muted }}>{item.label}</div>
             </div>
@@ -3411,7 +3388,7 @@ function CdTeManufacturingSection() {
         </div>
 
         {/* Analogy box */}
-        <div style={{ display: "flex", gap: 10, background: step.color + "08", borderRadius: 10, padding: "10px 14px", border: `1.5px solid ${step.color}20`, marginBottom: 12 }}>
+        <div style={{ display: "flex", gap: 10, padding: "3px 0", marginBottom: 12 }}>
           <span style={{ fontSize: 20, flexShrink: 0 }}>{step.icon}</span>
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: step.color, marginBottom: 4 }}>{step.title}</div>
@@ -3527,7 +3504,7 @@ function CdTeManufacturingSection() {
             { label: "Without CdCl₂", value: "~5%", sub: "Small grains, many GBs, unpassivated", color: T.eo_gap },
             { label: "With CdCl₂", value: "~20%+", sub: "Large grains, passivated GBs, activated", color: "#1a5a66" },
           ].map(item => (
-            <div key={item.label} style={{ background: item.color + "10", border: `1.5px solid ${item.color}30`, borderRadius: 10, padding: "12px", textAlign: "center" }}>
+            <div key={item.label} style={{ padding: "12px", textAlign: "center" }}>
               <div style={{ fontSize: 11, fontWeight: 500, color: item.color }}>{item.label}</div>
               <div style={{ fontSize: 22, fontWeight: 500, color: item.color, margin: "4px 0" }}>{item.value}</div>
               <div style={{ fontSize: 10, color: T.muted }}>{item.sub}</div>
@@ -3934,7 +3911,7 @@ function DopingModule({ initialTab }) {
                   </button>
                 ))}
               </div>
-              <div style={{ background: nDopants[selN].color + "0d", borderRadius: 10, padding: 12, border: `1.5px solid ${nDopants[selN].color}33`, fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+              <div style={{ padding: 12, fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
                 <b style={{ color: nDopants[selN].color }}>{nDopants[selN].name} ({nDopants[selN].site})</b><br />
                 {nDopants[selN].detail}
                 <div style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap" }}>
@@ -4010,7 +3987,7 @@ function DopingModule({ initialTab }) {
                   </button>
                 ))}
               </div>
-              <div style={{ background: pDopants[selP].color + "0d", borderRadius: 10, padding: 12, border: `1.5px solid ${pDopants[selP].color}33`, fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
+              <div style={{ padding: 12, fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
                 <b style={{ color: pDopants[selP].color }}>{pDopants[selP].name} ({pDopants[selP].site})</b><br />
                 {pDopants[selP].detail}
                 <div style={{ marginTop: 6, display: "flex", gap: 6, flexWrap: "wrap" }}>

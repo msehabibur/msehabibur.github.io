@@ -8,17 +8,12 @@ const lerp = (a, b, t) => a + (b - a) * t;
 
 function Tag({ color, children }) {
  return (
- <span style={{
- display: "inline-block",
+ <span style={{ display: "inline-block",
  padding: "1px 8px",
- borderRadius: 4,
  fontSize: 11,
  fontWeight: 500,
- background: color + "22",
- border: `1px solid ${color}55`,
  color,
- letterSpacing: 1
- }}>{children}</span>
+ letterSpacing: 1 }}>{children}</span>
  );
 }
 
@@ -552,7 +547,7 @@ function AtomicModelsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> When hydrogen gas is excited in a discharge tube, it emits visible light at only a few specific wavelengths — the Balmer series. Bohr's model predicts these exactly. Let's calculate the wavelength of the red Balmer-alpha line (n = 3 → n = 2).
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine an elevator that can only stop at certain floors. When it drops from floor 3 to floor 2, it releases a fixed amount of energy — that energy becomes a photon of a very specific color. No intermediate colors are possible, just as no intermediate floors exist.</div>
  </div>
@@ -571,7 +566,7 @@ function AtomicModelsSection() {
  <CalcRow eq="hc = 1240 eV·nm" result="" color={T.eo_core} />
  <CalcRow eq="λ = 1240 / 1.889" result="656.4 nm" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The predicted 656.4 nm matches the experimentally observed red Balmer-alpha line at 656.3 nm almost perfectly. This was the first time a simple formula explained atomic spectra — the triumph that launched quantum physics. The Balmer series also includes n=4→2 (486.1 nm, blue-green) and n=5→2 (434.0 nm, violet).</div>
  </div>
@@ -581,7 +576,7 @@ function AtomicModelsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Bohr's model also predicts orbital radii and speeds. As n increases, orbits get much larger but electrons slow down. For heavy atoms, inner electrons move so fast that relativistic effects become significant — this is exactly why Sommerfeld's correction was needed.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Think of a ball on a string swinging in circles. A longer string (higher n) means a bigger orbit and a slower speed. But in atoms with many protons, the "pull" is much stronger, so the inner electrons whip around at incredible speeds — sometimes a significant fraction of the speed of light.</div>
  </div>
@@ -602,7 +597,7 @@ function AtomicModelsSection() {
  <CalcRow eq="v₁ = Z × 2.19×10⁶ / n (for Z = 79, n = 1)" result="" color={T.eo_core} />
  <CalcRow eq="v₁ = 79 × 2.19×10⁶ = 1.73 × 10⁸ m/s" result="58% of c" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Gold's 1s electron moves at 58% the speed of light! At this speed, its relativistic mass increases by ~22%, which contracts the orbital radius. This relativistic contraction of inner s-orbitals is why gold appears yellow (not silver) and why mercury is a liquid at room temperature. Sommerfeld's relativistic correction was essential for understanding heavy-element chemistry relevant to materials like CdTe and PbS quantum dots.</div>
  </div>
@@ -612,7 +607,7 @@ function AtomicModelsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> When hydrogen gas in a discharge tube is excited, it emits specific wavelengths of ultraviolet light. The Lyman series corresponds to electron transitions that end at n=1 (the ground state). Predicting these wavelengths was one of the earliest triumphs of atomic spectroscopy.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine a staircase where each step has a specific height. When you drop a ball from step 2, 3, or 4 down to step 1, it releases a precise amount of energy each time. The Rydberg formula is the "ruler" that tells you exactly how tall each drop is.</div>
  </div>
@@ -630,7 +625,7 @@ function AtomicModelsSection() {
  <CalcRow eq="Lyman-β: 1/λ = R∞(1/1² − 1/3²) = R∞ × 8/9" result="" color={T.eo_core} />
  <CalcRow eq="λ_β = 1 / (1.097×10⁷ × 0.889)" result="102.5 nm (UV)" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Both Lyman lines fall deep in the ultraviolet (below 200 nm), invisible to the eye. Lyman-α at 121.6 nm is the strongest UV emission line in the universe — it's used to detect distant galaxies. For materials science, these UV photons have enough energy (~10.2 eV for Lyman-α) to break chemical bonds, which is why hydrogen plasma can etch and clean semiconductor surfaces during fabrication.</div>
  </div>
@@ -640,7 +635,7 @@ function AtomicModelsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> J.J. Thomson (1897) fired cathode rays through crossed electric and magnetic fields. By balancing the forces to get zero deflection, then using the magnetic field alone to bend the beam in a circle, he measured the charge-to-mass ratio of the electron — proving it was a universal subatomic particle.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine rolling a ball through a corridor with a crosswind (electric field) and a magnet pulling sideways (magnetic field). By adjusting until the ball goes straight, you learn its speed. Then remove the wind and watch the magnet curve it — the tighter the curve, the lighter the ball.</div>
  </div>
@@ -657,7 +652,7 @@ function AtomicModelsSection() {
  <CalcRow eq="Circular motion: evB = mv²/r → e/m = v/(Br)" result="" color={T.eo_core} />
  <CalcRow eq="e/m = 1.876×10⁷ / (5.33×10⁻⁴ × 0.20)" result="1.76 × 10¹¹ C/kg" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Thomson's value of 1.76 × 10¹¹ C/kg was ~1800× larger than the e/m for hydrogen ions, proving the electron is far lighter than any atom. This was the first measurement of a subatomic particle's property. The same crossed-field geometry is still used in mass spectrometers (SIMS) that analyze the composition of semiconductor wafers.</div>
  </div>
@@ -667,7 +662,7 @@ function AtomicModelsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Rutherford fired 7.7 MeV alpha particles at a thin gold foil. Most passed through, but a few bounced back — proving the atom has a tiny, dense, positively charged nucleus. The distance of closest approach tells us the upper bound on nuclear size.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine rolling a bowling ball toward an invisible but powerful spring. The ball slows, stops, then bounces back. The closer the ball gets before stopping, the stronger (more charged) the spring must be. That stopping distance tells you where the "wall" is.</div>
  </div>
@@ -686,7 +681,7 @@ function AtomicModelsSection() {
  <CalcRow eq="d = (8.99×10⁹)(79)(2)(1.602×10⁻¹⁹)² / (1.233×10⁻¹²)" result="" color={T.eo_core} />
  <CalcRow eq="d = 3.646×10⁻²⁶ / 1.233×10⁻¹²" result="2.96 × 10⁻¹⁴ m" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The closest approach distance ~30 fm is about 10,000× smaller than the atom itself (~1 Å = 10⁻¹⁰ m). This proved the nucleus occupies only ~10⁻¹² of the atom's volume — the rest is "empty" space filled by electron wavefunctions. The gold nucleus (radius ~7 fm) fits well within this upper bound. Rutherford backscattering spectroscopy (RBS) still uses this same physics to measure thin film composition and thickness in semiconductor processing.</div>
  </div>
@@ -696,7 +691,7 @@ function AtomicModelsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Henry Moseley (1913) measured characteristic K-alpha X-ray frequencies from many elements and discovered that √f varies linearly with Z, not atomic weight. This proved atomic number (not mass) is the fundamental ordering principle of elements — and allowed him to predict missing elements.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine each element as a bell with a slightly different pitch. Moseley showed that the pitch increases in a perfectly regular pattern with the number of protons — not the weight of the bell. One "note" was missing from the scale, which led to the discovery of a new element (hafnium).</div>
  </div>
@@ -714,7 +709,7 @@ function AtomicModelsSection() {
  <CalcRow eq="f = (1.392×10⁹)² " result="1.937 × 10¹⁸ Hz" color={T.eo_core} />
  <CalcRow eq="λ = c/f = 3×10⁸ / 1.937×10¹⁸" result="0.155 nm (X-ray)" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The predicted Cu K-alpha wavelength of 0.155 nm matches the experimental value of 0.1542 nm within 0.5%. Cu K-alpha radiation is the most widely used X-ray source in X-ray diffraction (XRD), the workhorse technique for crystal structure analysis in materials science. Every time you run an XRD scan on a ZnTe thin film, you're using exactly the X-rays Moseley's law predicts.</div>
  </div>
@@ -1018,7 +1013,7 @@ function AufbauPrincipleSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Silicon is the backbone of the semiconductor industry. To understand why it forms four covalent bonds and acts as a Group IV semiconductor, we must build up its electron configuration using the Aufbau principle.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine filling seats in a theater from front to back. The first row (1s) has 2 seats, the second row (2s) has 2, the third row (2p) has 6, and so on. Each electron takes the lowest available seat. By the time all 14 electrons of Si are seated, the last 4 sit in the third "balcony" — these are the valence electrons that determine all of Si's chemistry.</div>
  </div>
@@ -1040,7 +1035,7 @@ function AufbauPrincipleSection() {
  <CalcRow eq="Core: [Ne] = 1s² 2s² 2p⁶ (10 e⁻)" result="" color={T.eo_core} />
  <CalcRow eq="Valence: 3s² 3p²" result="4 valence e⁻" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Silicon's 4 valence electrons (3s² 3p²) undergo sp³ hybridization, forming 4 equivalent tetrahedral bonds. This is why Si crystallizes in the diamond cubic structure with a bandgap of 1.12 eV — ideal for solar cells. Each Si atom shares one electron with each of 4 neighbors, creating the covalent backbone of every silicon wafer in the world.</div>
  </div>
@@ -1050,7 +1045,7 @@ function AufbauPrincipleSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> The Aufbau principle predicts Cu (Z=29) should be [Ar]3d⁹4s². But experimentally, it's [Ar]3d¹⁰4s¹. Why? Fully filled subshells have extra exchange energy stabilization. This matters for CZTS solar cells where Cu provides 1 valence electron.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine 10 parking spots in a row. Having all 10 filled (3d¹⁰) is more "stable" than having 9 filled and one empty, because symmetry lowers the total energy. Nature prefers the completed arrangement enough to "steal" one electron from the 4s orbital.</div>
  </div>
@@ -1070,7 +1065,7 @@ function AufbauPrincipleSection() {
  <CalcRow eq="Cost: promote 4s → 3d" result="~1.5 eV" color={T.eo_core} />
  <CalcRow eq="Net: exchange gain > promotion cost" result="d¹⁰s¹ wins" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Copper's actual configuration [Ar]3d¹⁰4s¹ means it's monovalent (Cu⁺ easily loses one 4s electron). This is critical for kesterite Cu₂ZnSnS₄ (CZTS) solar cells, where Cu must contribute exactly 1 electron per atom. Similarly, Cr is [Ar]3d⁵4s¹ (half-filled d) instead of [Ar]3d⁴4s² — another anomaly explained by exchange energy.</div>
  </div>
@@ -1080,7 +1075,7 @@ function AufbauPrincipleSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Helium has the highest first ionization energy of any element at 24.6 eV, and its second ionization energy is a staggering 54.4 eV. Understanding why requires calculating the effective nuclear charge seen by each electron, accounting for electron-electron shielding in the 1s² configuration.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine two kids sharing a trampoline (the 1s orbital) near a strong magnet (Z=2 nucleus). Each kid partially blocks the magnet's pull from the other. Remove one kid (IE₁ = 24.6 eV) and the remaining kid feels the full unshielded pull — removing them costs far more (IE₂ = 54.4 eV).</div>
  </div>
@@ -1097,7 +1092,7 @@ function AufbauPrincipleSection() {
  <CalcRow eq="IE₁ = 13.6 × 2.89" result="≈ 39.3 eV (crude); expt = 24.6 eV" color={T.eo_core} />
  <CalcRow eq="IE₂ = 13.6 × (2.00)² / 1² (exact, hydrogen-like)" result="54.4 eV" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The crude Slater estimate overestimates IE₁ because it ignores electron correlation, but IE₂ = 54.4 eV is exact (He⁺ is hydrogen-like with Z=2). The enormous jump from IE₁ to IE₂ (×2.2) shows how losing one shielding electron dramatically increases the nuclear pull on the survivor. This same principle explains why noble gases are chemically inert — their filled shells have very high ionization energies, making them useless as dopants but excellent as sputtering gases in thin-film deposition.</div>
  </div>
@@ -1107,7 +1102,7 @@ function AufbauPrincipleSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Chromium's electron configuration is [Ar]3d⁵4s¹ instead of the expected [Ar]3d⁴4s². This anomaly arises because a half-filled d-shell maximizes exchange energy — the quantum mechanical stabilization from having parallel spins. Cr is the key alloying element in stainless steel (≥10.5%), where its electronic structure determines corrosion resistance.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine 5 rooms (d orbitals) and 5 guests (electrons). Each guest pair that sits in separate rooms with matching orientation (parallel spin) earns a "harmony bonus." Having 5 guests in 5 rooms (all parallel) gives maximum bonus — far more than cramming 2 into one room.</div>
  </div>
@@ -1125,7 +1120,7 @@ function AufbauPrincipleSection() {
  <CalcRow eq="Extra stabilization ≈ 4 × J ≈ 2−4 eV" result="≫ promotion cost" color={T.eo_core} />
  <CalcRow eq="Promotion cost 4s → 3d" result="~1.5 eV" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The 4 extra exchange pairs provide 2–4 eV of stabilization, easily exceeding the ~1.5 eV cost of promoting one 4s electron to 3d. This is why half-filled and fully-filled d-shells are especially stable. In stainless steel, Cr's 3d⁵4s¹ configuration makes it highly reactive with oxygen, forming a thin Cr₂O₃ passivation layer that protects the underlying iron from corrosion.</div>
  </div>
@@ -1135,7 +1130,7 @@ function AufbauPrincipleSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Hafnium (Z=72) and zirconium (Z=40) have nearly identical atomic radii (159 pm vs 160 pm) despite being separated by 32 elements. This is because the 14 lanthanide elements between them have poorly shielding 4f electrons, causing a gradual contraction that "erases" the expected size increase.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine adding layers of gauze (4f electrons) between you and a lightbulb (nucleus). The gauze is so thin and diffuse that each layer barely blocks any light. After 14 layers, you still feel almost the full brightness — meaning outer electrons feel nearly the full nuclear pull and stay close in.</div>
  </div>
@@ -1153,7 +1148,7 @@ function AufbauPrincipleSection() {
  <CalcRow eq="Total ΔZ_eff across 14 4f electrons = 14 × 0.15" result="+2.1" color={T.eo_core} />
  <CalcRow eq="Hf (Z=72) vs Zr (Z=40): radius" result="159 pm ≈ 160 pm" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The +2.1 increase in Z<sub>eff</sub> compresses the 5d/6s orbitals enough that Hf ends up the same size as Zr directly above it. This has enormous practical consequences: Hf and Zr are chemically so similar that they always occur together in minerals and are extremely difficult to separate. In semiconductor technology, HfO₂ is used as a high-k gate dielectric precisely because its large Z gives it a high dielectric constant (κ ≈ 25) compared to ZrO₂ (κ ≈ 22).</div>
  </div>
@@ -1163,7 +1158,7 @@ function AufbauPrincipleSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> III-V semiconductors like GaAs, InP, and TlBr are built from Group III elements bonded to Group V or VII elements. The electron configurations of Ga, In, and Tl reveal why each contributes exactly 3 valence electrons — and why heavier elements in the group show the "inert pair effect."
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Each Group III atom brings exactly 3 gifts (valence electrons) to the bonding party. But for the heaviest member (Tl), the two innermost gifts (6s²) are wrapped so tightly by relativistic effects that they're hard to give away — this is the "inert pair effect."</div>
  </div>
@@ -1180,7 +1175,7 @@ function AufbauPrincipleSection() {
  <CalcRow eq="TlBr: Tl⁺ (loses only 6p¹) + Br⁻" result="ionic (inert pair)" color={T.eo_core} />
  <CalcRow eq="Band gaps: GaAs=1.42, InP=1.35, TlBr=2.68 eV" result="tunable!" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>All three elements have 3 valence electrons (ns²np¹), making them ideal partners for Group V atoms to form tetrahedral semiconductors with 8 electrons per bond pair. GaAs powers high-speed electronics and laser diodes; InP is the substrate for fiber-optic lasers at 1.55 μm. Thallium compounds behave differently because the relativistically stabilized 6s² pair resists bonding, making Tl prefer the +1 oxidation state — a direct consequence of the Aufbau principle meeting relativity.</div>
  </div>
@@ -1492,7 +1487,7 @@ function ElectronOriginsZnTeSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Zinc telluride forms when Zn and Te atoms combine. Each Zn ([Ar]3d¹⁰4s²) contributes 2 valence electrons; each Te ([Kr]4d¹⁰5s²5p⁴) contributes 6. Together, 8 valence electrons fill 4 sp³-hybridized bonding orbitals — creating the tetrahedral zinc blende crystal.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine Zn brings 2 chairs to a dinner party and Te brings 6. Together they have exactly 8 — enough to fill 4 two-seat tables (bonding orbitals). No seats are left empty at the bonding tables, and the antibonding tables upstairs stay completely vacant.</div>
  </div>
@@ -1510,7 +1505,7 @@ function ElectronOriginsZnTeSection() {
  <CalcRow eq="Per bond: 119 / 96.485" result="≈ 1.23 eV/bond" color={T.eo_valence} />
  <CalcRow eq="4 bonds per unit → 4 × 1.23" result="≈ 4.93 eV total" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>All 8 valence electrons are consumed forming 4 tetrahedral bonds. The bonding orbitals (filled) become the valence band; the antibonding orbitals (empty) become the conduction band. The energy gap between them is the 2.26 eV band gap of ZnTe.</div>
  </div>
@@ -1520,7 +1515,7 @@ function ElectronOriginsZnTeSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Can we predict ZnTe{"'"}s crystal structure from atomic data alone? Using tabulated covalent radii we estimate the bond length, then calculate the cubic lattice constant and compare to the experimental value.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>In the zinc blende structure, each atom sits at a corner of a tetrahedron. The bond runs along the body diagonal of a small cube. Geometry says the diagonal of that cube relates to the edge by √3 — so if you know the bond length, you can calculate the full lattice constant.</div>
  </div>
@@ -1538,7 +1533,7 @@ function ElectronOriginsZnTeSection() {
  <CalcRow eq="a (experimental)" result="6.10 Å" color={T.eo_valence} />
  <CalcRow eq="Error = (6.10 − 5.96)/6.10 × 100" result="≈ 2.3%" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Our prediction undershoots by ~2.3%. The discrepancy comes from the partial ionic character of the Zn–Te bond (Δχ ≈ 0.6). Ionic contributions slightly expand the lattice because the Coulomb attraction between Zn²⁺ and Te²⁻ ions operates at a larger equilibrium distance than pure covalent overlap.</div>
  </div>
@@ -1548,7 +1543,7 @@ function ElectronOriginsZnTeSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> There is an empirical correlation between electronegativity difference and band gap in II-VI semiconductors. We use it to predict Eg for ZnTe, ZnSe, and CdTe and compare with experimental values.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The bigger the electronegativity mismatch between atoms, the wider the energy gap between bonding and antibonding states — like a tug-of-war where a larger strength difference creates a bigger gap between winning and losing positions.</div>
  </div>
@@ -1567,7 +1562,7 @@ function ElectronOriginsZnTeSection() {
  <CalcRow eq="CdTe: Eg ≈ 1.35 × (0.41)² = 1.35 × 0.168" result="≈ 0.23 eV" color={T.eo_valence} />
  <CalcRow eq="CdTe experimental Eg" result="= 1.49 eV" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The simple Δχ² formula captures the correct trend (ZnSe {">"} ZnTe {">"} CdTe) but underestimates magnitudes because the band gap also depends on atomic size, spin-orbit coupling, and covalent contributions. The ionic part (Δχ) is only one ingredient — the full band gap requires solving the crystal Hamiltonian. Still, the trend is a useful screening tool for new materials.</div>
  </div>
@@ -1577,7 +1572,7 @@ function ElectronOriginsZnTeSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> ZnTe is mostly covalent but has ~5% ionic character. We model it with fractional charges ±0.05e and calculate the Madelung energy, comparing with a fully covalent model (zero Madelung energy).
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Even though ZnTe is mostly covalent, the tiny charge imbalance (5% of a full electron) creates a small but real electrostatic attraction across the crystal. It is like a barely magnetized material — weak individually, but summed over billions of atoms it matters.</div>
  </div>
@@ -1594,7 +1589,7 @@ function ElectronOriginsZnTeSection() {
  <CalcRow eq="= −1.6381 × 8.988×10⁹ × 6.42×10⁻⁴¹ / 2.64×10⁻¹⁰" result="" color={T.eo_valence} />
  <CalcRow eq="E_Mad per ion pair" result="≈ −3.58 × 10⁻²¹ J ≈ −0.022 eV" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The Madelung energy with 5% ionic character is only ~0.022 eV per pair — tiny compared to NaCl{"'"}s ~8 eV. This confirms ZnTe is overwhelmingly covalent. The small ionic contribution does matter for piezoelectric properties and phonon splitting between LO and TO modes (the LO-TO splitting in ZnTe is ~21 cm⁻¹, directly proportional to the effective charge).</div>
  </div>
@@ -1604,7 +1599,7 @@ function ElectronOriginsZnTeSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In the zinc blende structure, each atom forms 4 tetrahedral bonds. We estimate the cohesive energy per formula unit from the average Zn–Te bond energy and compare with the experimental sublimation enthalpy.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Breaking a crystal apart is like disassembling a structure held together by springs. Count the springs attached to each node (4 per atom), but each spring is shared between two nodes. The total energy is the number of unique springs times the spring strength.</div>
  </div>
@@ -1622,7 +1617,7 @@ function ElectronOriginsZnTeSection() {
  <CalcRow eq="Experimental sublimation enthalpy" result="≈ 460 kJ/mol" color={T.eo_valence} />
  <CalcRow eq="Agreement" result="~3% overestimate" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The simple bond-counting model gives ~475 kJ/mol, within 3% of experiment. The small overestimate arises because we used isolated bond energies — in a crystal, bonds are slightly weakened by many-body effects. The cohesive energy sets the melting point (~1295°C for ZnTe) and mechanical stability.</div>
  </div>
@@ -1632,7 +1627,7 @@ function ElectronOriginsZnTeSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> The elastic constant C₁₁ measures how stiff a crystal is along a cube axis. We relate it to the bond force constant (second derivative of the bond energy) and estimate Young{"'"}s modulus for ZnTe.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Each bond acts like a tiny spring. C₁₁ tells you how hard it is to compress the crystal along one direction — it depends on how stiff those springs are and how they are oriented relative to the compression axis.</div>
  </div>
@@ -1650,7 +1645,7 @@ function ElectronOriginsZnTeSection() {
  <CalcRow eq="E = 30.6 × 152.7 / 112.0" result="≈ 41.7 GPa" color={T.eo_valence} />
  <CalcRow eq="Bond force constant k ≈ C₁₁ × a" result="≈ 71.3 × 6.10×10⁻¹⁰ = 43.5 N/m" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>ZnTe{"'"}s Young{"'"}s modulus (~42 GPa) is much lower than Si{"'"}s (~130 GPa) because Zn–Te bonds are longer and weaker than Si–Si bonds. The Zener anisotropy ratio A = 2C₄₄/(C₁₁−C₁₂) = 2(31.2)/30.6 = 2.04, indicating significant elastic anisotropy — the crystal is twice as stiff in some directions as others.</div>
  </div>
@@ -2026,7 +2021,7 @@ function WaveDualitySection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> A transmission electron microscope (TEM) accelerates electrons through 200 kV. At this energy, the electron wavelength becomes tiny enough to resolve individual atoms in a crystal lattice. Let's calculate the wavelength with and without relativistic correction.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine throwing pebbles at a fence. Large, slow pebbles (visible light, λ ≈ 500 nm) can't "see" the gaps between fence posts 2 Å apart. But if you shrink the pebbles to the size of atoms (electron wavelength ≈ 0.025 Å), they easily pass through and diffract — revealing the atomic arrangement.</div>
  </div>
@@ -2048,7 +2043,7 @@ function WaveDualitySection() {
  <CalcRow eq="λ_rel = λ_NR / √(1 + eV/2m₀c²)" result="" color={T.eo_core} />
  <CalcRow eq="λ_rel = 2.74 pm / √(1.196) = 2.74 / 1.094" result="2.51 pm = 0.0251 Å" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At 200 kV, the electron wavelength (0.025 Å) is about 100× smaller than interatomic spacings (~2.5 Å in CdTe). This is why TEMs can image individual atomic columns in thin-film solar cells. The relativistic correction reduces the wavelength by ~8% at 200 kV — important for accurate crystallographic measurements. This is de Broglie's hypothesis made practical: electrons are waves, and we exploit their tiny wavelengths every day in materials characterization.</div>
  </div>
@@ -2058,7 +2053,7 @@ function WaveDualitySection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In 1927, Davisson and Germer accelerated electrons to 54 eV and fired them at a nickel crystal. They observed a strong diffraction peak at 50° — proving electrons are waves. Let's verify this matches de Broglie's prediction.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>When ocean waves hit a breakwater with regularly spaced gaps, they create a pattern of constructive and destructive interference on the other side. The nickel crystal's regularly spaced atoms (d = 2.15 Å) act as the "breakwater" for electron waves. If electrons weren't waves, there would be no diffraction peak at any angle.</div>
  </div>
@@ -2078,7 +2073,7 @@ function WaveDualitySection() {
  <CalcRow eq="sin θ = nλ / d = 1.67 / 2.15" result="0.777" color={T.eo_core} />
  <CalcRow eq="θ = arcsin(0.777)" result="50.9°" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Our calculated 50.9° matches the experimentally observed peak at 50° almost exactly! This was the smoking gun that proved de Broglie right: electrons have wavelengths. This same principle underlies electron diffraction techniques (RHEED, LEED, TEM diffraction) used daily to characterize thin-film solar cell materials like CdTe and CIGS.</div>
  </div>
@@ -2088,7 +2083,7 @@ function WaveDualitySection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> If we know an electron is somewhere inside an atom (Δx ≈ 1 Å = 10⁻¹⁰ m), Heisenberg's uncertainty principle sets a minimum momentum — and therefore a minimum kinetic energy. This explains why electrons in atoms can never be "at rest" and gives us a quick estimate of atomic energy scales.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine a hyperactive cat in a small room. The smaller the room (tighter confinement), the faster the cat bounces around. You can't pin down both its position and speed simultaneously. An electron in an atom-sized "room" must be moving with at least a few eV of kinetic energy.</div>
  </div>
@@ -2106,7 +2101,7 @@ function WaveDualitySection() {
  <CalcRow eq="= 2.79×10⁻⁴⁹ / 1.822×10⁻³⁰" result="" color={T.eo_core} />
  <CalcRow eq="= 1.53×10⁻¹⁹ J ÷ 1.602×10⁻¹⁹" result="≈ 0.95 eV" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Even with the most generous inequality (ℏ/2), confining an electron to atomic dimensions guarantees at least ~1 eV of kinetic energy. A more careful estimate using Δp ≈ ℏ/Δx gives ~3.8 eV, on the order of the hydrogen ground state (13.6 eV). This "zero-point motion" is why atoms don't collapse, why quantum dots have size-dependent band gaps, and why smaller nanocrystals glow bluer — tighter confinement means higher minimum energy.</div>
  </div>
@@ -2116,7 +2111,7 @@ function WaveDualitySection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Arthur Compton (1923) scattered X-rays off electrons and found the scattered photon had a longer wavelength than the incident one. The wavelength shift depended only on the scattering angle — not the material. This proved photons carry momentum like particles, clinching wave-particle duality for light.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine a cue ball (photon) hitting a stationary billiard ball (electron). After the collision, the cue ball moves slower (longer wavelength = less energy) and the billiard ball recoils. The angle determines how much energy transfers — a head-on hit transfers the most.</div>
  </div>
@@ -2134,7 +2129,7 @@ function WaveDualitySection() {
  <CalcRow eq="Δλ = λ_C(1 − cos 90°) = 2.426×10⁻¹² × (1 − 0)" result="" color={T.eo_core} />
  <CalcRow eq="Δλ" result="0.00243 nm" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The Compton wavelength shift of 0.00243 nm (2.43 pm) is tiny but measurable with X-rays. At θ=180° (backscatter), the shift doubles to 0.00486 nm. This effect is negligible for visible light but dominant for gamma rays. In materials characterization, Compton scattering is the basis of electron density mapping and is the main source of background noise in energy-dispersive X-ray spectroscopy (EDS) used for compositional analysis of thin films.</div>
  </div>
@@ -2144,7 +2139,7 @@ function WaveDualitySection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> At thermal equilibrium, particles have an average kinetic energy of (3/2)k_BT. The thermal de Broglie wavelength tells us when quantum effects become important: if λ_th approaches the inter-particle spacing, quantum statistics (Fermi-Dirac or Bose-Einstein) must be used instead of classical Boltzmann statistics.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Each particle is a "fuzzy blob" whose size is its thermal wavelength. If the blobs don't overlap (classical gas), you can treat them as billiard balls. But when temperature drops or mass decreases enough that blobs overlap, quantum weirdness takes over.</div>
  </div>
@@ -2163,7 +2158,7 @@ function WaveDualitySection() {
  <CalcRow eq="Neutron: λ_th = h / √(2π × 1.675×10⁻²⁷ × k_BT)" result="" color={T.eo_core} />
  <CalcRow eq="= 6.626×10⁻³⁴ / 2.088×10⁻²³" result="λ_n = 0.0317 nm" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Electrons at 300 K have λ_th ≈ 1.36 nm — comparable to atomic spacings in crystals! This is why electrons in metals must be treated quantum mechanically (Fermi-Dirac statistics). Neutrons at 300 K have λ_th ≈ 0.032 nm — close to interatomic spacings too, which is why "thermal neutrons" are perfect probes for crystal structure determination via neutron diffraction, especially for locating light atoms like hydrogen in materials.</div>
  </div>
@@ -2173,7 +2168,7 @@ function WaveDualitySection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Jönsson (1961) performed the double-slit experiment with electrons, directly showing interference fringes. For 50 keV electrons passing through slits separated by 100 nm with a screen 1 m away, we can calculate the fringe spacing — the ultimate proof of electron wave behavior.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine tossing pebbles through two narrow gaps in a wall into a pool. If pebbles were waves, you'd see alternating bands of big and small ripples on the far shore. That's exactly what happens with electrons — they arrive in bands, even when sent one at a time.</div>
  </div>
@@ -2191,7 +2186,7 @@ function WaveDualitySection() {
  <CalcRow eq="= (5.48×10⁻¹² × 1.0) / 10⁻⁷" result="" color={T.eo_core} />
  <CalcRow eq="Δy" result="54.8 μm (0.055 mm)" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The fringe spacing of ~55 μm is tiny but measurable with an electron microscope detector. This experiment is the most direct demonstration of quantum mechanics: each electron goes through both slits simultaneously as a wave, yet arrives at the screen as a single particle. The pattern builds up statistically, one electron at a time. This wave-particle duality is the foundation of electron optics in TEM, SEM, and electron-beam lithography used in semiconductor fabrication.</div>
  </div>
@@ -2422,7 +2417,7 @@ function SchrodingerSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> A CdSe quantum dot is essentially a "particle in a box" — electrons are confined to a nanoscale region. Using the 1D particle-in-a-box model with L = 5 nm, we can estimate the confinement energy and predict why smaller dots glow bluer (quantum confinement blueshift).
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine a guitar string. A shorter string vibrates at higher frequency (higher pitch). Similarly, an electron confined to a smaller box has a higher energy ground state. This is why 2 nm CdSe dots glow blue while 6 nm dots glow red — the "note" changes with size.</div>
  </div>
@@ -2445,7 +2440,7 @@ function SchrodingerSection() {
  <CalcRow eq="E₂ = 4 × E₁" result="0.463 eV" color={T.eo_core} />
  <CalcRow eq="E₃ = 9 × E₁" result="1.043 eV" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The confinement energy of 0.116 eV adds to CdSe's bulk bandgap of 1.74 eV, shifting the effective gap to ~1.86 eV for a 5 nm dot. For a 2 nm dot, confinement energy would be ~0.73 eV (scales as 1/L²), pushing the gap to ~2.47 eV (blue light). This is why quantum dot displays can produce any color simply by changing dot size — a direct, practical consequence of the Schr{"ö"}dinger equation.</div>
  </div>
@@ -2455,7 +2450,7 @@ function SchrodingerSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> The Schr{"ö"}dinger equation for the hydrogen atom can be solved exactly. Let's verify the ground state energy using fundamental constants and find the most probable radius for the 1s orbital.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The Schr{"ö"}dinger equation balances two competing effects: kinetic energy wants to spread the electron out (lowering momentum uncertainty), while the Coulomb attraction pulls it toward the nucleus. The ground state is nature's compromise — the Bohr radius a₀ is exactly where these two tendencies balance.</div>
  </div>
@@ -2478,7 +2473,7 @@ function SchrodingerSection() {
  <CalcRow eq="a₀ = ε₀h² / (πm_e e²)" result="" color={T.eo_core} />
  <CalcRow eq="= 5.292 × 10⁻¹¹ m" result="0.529 Å" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The ground state energy of −13.6 eV matches the ionization energy of hydrogen exactly. The Bohr radius a₀ = 0.529 Å is where the radial probability density 4πr²|ψ₁ₛ|² is maximum — the most likely place to find the 1s electron. Note that the wavefunction ψ₁ₛ = (1/√π)(1/a₀)<sup>3/2</sup> × e<sup>−r/a₀</sup> has no angular dependence — it's a perfect sphere, unlike Bohr's circular orbit.</div>
  </div>
@@ -2488,7 +2483,7 @@ function SchrodingerSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In classical physics, a ball can't pass through a wall if it lacks the energy to go over. But quantum mechanically, an electron can "tunnel" through a potential barrier — its wavefunction decays exponentially inside the barrier but doesn't reach zero. This is the basis of scanning tunneling microscopy (STM) and flash memory.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine rolling a ball toward a hill that's taller than the ball's energy allows it to climb. Classically, it bounces back every time. But if the hill is thin enough, quantum mechanics says there's a chance the ball "ghosts" through to the other side. The thinner and lower the hill, the better the odds.</div>
  </div>
@@ -2508,7 +2503,7 @@ function SchrodingerSection() {
  <CalcRow eq="2κL = 2 × 5.123×10⁹ × 5×10⁻¹⁰ = 5.123" result="" color={T.eo_core} />
  <CalcRow eq="T = exp(−5.123)" result="≈ 0.006 (0.6%)" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>About 0.6% of electrons tunnel through this 0.5 nm barrier — classically impossible but quantum mechanically routine. If the barrier were 1 nm, T drops to ~0.003%; at 0.1 nm, it rises to ~36%. This exponential sensitivity to distance is exploited in STM, where a tip-sample gap change of just 0.1 nm changes the tunnel current by an order of magnitude, giving atomic-resolution images of surfaces.</div>
  </div>
@@ -2518,7 +2513,7 @@ function SchrodingerSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> A GaAs quantum wire confines electrons to a 10 nm region in one dimension. The effective mass of electrons in GaAs is only 0.067m_e due to the crystal potential. When an electron absorbs a photon and jumps from n=1 to n=2, the photon wavelength reveals the confinement energy.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine a guitar string of fixed length. Its lowest note (n=1) has one half-wavelength fitting in the length. The next note (n=2) has two half-wavelengths and four times the energy. A quantum wire is an "electron guitar string" — shorter wires play higher notes (emit bluer light).</div>
  </div>
@@ -2536,7 +2531,7 @@ function SchrodingerSection() {
  <CalcRow eq="ΔE = E₂ − E₁ = 3 × E₁" result="0.270 eV" color={T.eo_core} />
  <CalcRow eq="λ = hc / ΔE = 1240 eV·nm / 0.270 eV" result="4593 nm (mid-IR)" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The 1→2 transition emits mid-infrared light at 4.6 μm. The light effective mass of GaAs (0.067m_e) amplifies confinement effects by ~15× compared to free electrons. This is exactly the physics behind quantum cascade lasers (QCLs), which use engineered quantum wells to produce tunable mid-IR and terahertz radiation for gas sensing, medical imaging, and defense applications.</div>
  </div>
@@ -2546,7 +2541,7 @@ function SchrodingerSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Diamond has the highest optical phonon frequency of any material because of its light carbon atoms and extremely stiff sp³ bonds. The quantum harmonic oscillator model gives the discrete energy levels of these vibrations, including the zero-point energy that persists even at absolute zero.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine two carbon atoms connected by the stiffest spring in nature. Even at absolute zero, they can never stop vibrating — that's the zero-point energy, a purely quantum effect. Each additional quantum of vibration (phonon) adds exactly one energy step ℏω.</div>
  </div>
@@ -2563,7 +2558,7 @@ function SchrodingerSection() {
  <CalcRow eq="E₀ = ½ℏω (zero-point energy, n=0)" result="0.082 eV" color={T.eo_core} />
  <CalcRow eq="E₁ = (3/2)ℏω (first excited state, n=1)" result="0.247 eV" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Diamond's phonon energy of 0.165 eV (1332 cm⁻¹) is the highest of any crystal, which is why diamond has extraordinary thermal conductivity (2200 W/m·K) — its stiff bonds transmit vibrations efficiently. The zero-point energy of 0.082 eV means the atoms never stop vibrating even at 0 K. At room temperature, k_BT = 0.026 eV {"<"} ℏω, so most phonon modes are frozen out, explaining diamond's low specific heat at moderate temperatures — a direct prediction of quantum mechanics that classical physics gets wrong.</div>
  </div>
@@ -2573,7 +2568,7 @@ function SchrodingerSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> The 2p→1s transition in hydrogen produces the Lyman-alpha line at 121.6 nm — the most important spectral line in astrophysics. The Schrödinger equation predicts not only the energy but also the transition rate via the Einstein A coefficient, which depends on the overlap integral between the 2p and 1s wavefunctions.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine an electron on the second floor of a building jumping down to the first floor. It must release the exact energy difference as a photon. How fast it jumps depends on how well the two "rooms" (orbitals) connect — the 2p and 1s have good overlap because Δl = 1 (an allowed transition).</div>
  </div>
@@ -2591,7 +2586,7 @@ function SchrodingerSection() {
  <CalcRow eq="Einstein A coefficient (2p→1s)" result="6.27 × 10⁸ s⁻¹" color={T.eo_core} />
  <CalcRow eq="Lifetime τ = 1/A" result="1.60 ns" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The 2p state lives for only 1.6 nanoseconds before emitting a 121.6 nm UV photon — this is fast because 2p→1s is a dipole-allowed transition (Δl = 1). The 2s→1s transition is forbidden (Δl = 0) and takes ~0.14 seconds via two-photon emission — 10⁸ times slower! This selection rule comes directly from the angular parts of the Schrödinger wavefunctions and determines which spectral lines are bright vs. absent, critical for understanding emission spectra of semiconductor materials.</div>
  </div>
@@ -2987,7 +2982,7 @@ function QuantumNumbersSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> For the n = 3 shell, let's enumerate every valid combination of quantum numbers (n, l, m_l, m_s) and verify the formula gives 2n² = 2(9) = 18 states. This counting is essential for understanding shell capacities in electron configurations.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Think of a hotel where floor 3 has apartments of different sizes: one studio (l=0, s-orbital), three 1-bedrooms (l=1, p-orbitals), and five 2-bedrooms (l=2, d-orbitals). Each apartment holds exactly 2 guests (spin up/down). Total capacity = 2×(1+3+5) = 18 guests.</div>
  </div>
@@ -3007,7 +3002,7 @@ function QuantumNumbersSection() {
  <CalcRow eq="Total states = 9 × 2 (each orbital holds ms = ±½)" result="18 states" color={T.eo_core} />
  <CalcRow eq="Formula check: 2n² = 2(3²)" result="18 " color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The n=3 shell holds exactly 18 electrons (matching Period 4's 18-element span if 3d were filled in order). The general pattern 2n² explains shell capacities: n=1 holds 2, n=2 holds 8, n=3 holds 18, n=4 holds 32. The Pauli exclusion principle guarantees no two electrons share the same four quantum numbers — this is why matter has volume and doesn't collapse.</div>
  </div>
@@ -3017,7 +3012,7 @@ function QuantumNumbersSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In 1922, Stern and Gerlach sent silver atoms through an inhomogeneous magnetic field. Classically, the beam should spread continuously. Instead, it split into exactly 2 discrete spots — direct evidence for spin quantization. Let's predict this from quantum numbers.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine tossing a coin through a sorting machine. A "classical" coin could land at any angle, producing a smeared-out pattern. But a quantum coin can only land heads or tails — nothing in between. The Stern-Gerlach experiment shows that electron spin is exactly like this: only "up" or "down," never sideways.</div>
  </div>
@@ -3038,7 +3033,7 @@ function QuantumNumbersSection() {
  <CalcRow eq="Spots = 2J + 1 = 2(½) + 1" result="2 spots " color={T.eo_core} />
  <CalcRow eq="Hypothetical p-electron (l=1): mₗ = −1, 0, +1" result="3 spots" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The 2-spot splitting confirmed that electrons have an intrinsic angular momentum (spin) with only two allowed orientations. Stern and Gerlach originally thought they were testing orbital angular momentum — they accidentally discovered spin! If they had used boron (2p¹ electron, l=1), they would have seen 2 spots from J=½ (due to spin-orbit coupling), not 3. The ms = ±½ quantum number was the missing piece needed to explain the periodic table.</div>
  </div>
@@ -3048,7 +3043,7 @@ function QuantumNumbersSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Sodium's famous yellow "D-line" is actually a doublet: two closely spaced lines at 589.0 nm and 589.6 nm. This splitting occurs because the 3p electron's orbital angular momentum (l=1) couples with its spin (s=½), creating two total angular momentum states j=3/2 and j=1/2 with slightly different energies.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine a figure skater (electron) spinning (spin angular momentum) while orbiting the rink (orbital angular momentum). When the two rotations align (j=3/2), the total is larger; when opposed (j=1/2), it's smaller. Each configuration has a slightly different energy, splitting one spectral line into two.</div>
  </div>
@@ -3067,7 +3062,7 @@ function QuantumNumbersSection() {
  <CalcRow eq="≈ 1.49×10⁻⁶ eV (order of magnitude)" result="" color={T.eo_core} />
  <CalcRow eq="Experimental Na D-line splitting" result="2.13 × 10⁻³ eV (0.6 nm)" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The hydrogen-like estimate gives the right order of magnitude but underestimates the splitting because sodium's 3p electron experiences a much larger effective nuclear charge than hydrogen's. The actual splitting (2.1 meV, 0.6 nm) makes sodium vapor lamps produce that characteristic warm yellow glow. Spin-orbit coupling scales as Z⁴, so for heavy atoms like Pb or Bi in thermoelectric materials, the splitting reaches hundreds of meV and profoundly affects band structure.</div>
  </div>
@@ -3077,7 +3072,7 @@ function QuantumNumbersSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Not all quantum transitions are equally likely. Electric dipole selection rules dictate that the orbital quantum number must change by exactly 1 (Δl = ±1) and the magnetic quantum number by 0 or ±1. This explains why some spectral lines are bright (allowed) and others are absent (forbidden).
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine an elevator that only goes up or down one floor at a time for the "l" number. It can't skip floors (Δl ≠ ±2) and it can't stay on the same floor (Δl ≠ 0). This rule comes from the photon carrying exactly 1 unit of angular momentum.</div>
  </div>
@@ -3096,7 +3091,7 @@ function QuantumNumbersSection() {
  <CalcRow eq="3d → 3s: Δl=−2" result=" Forbidden" color={T.eo_core} />
  <CalcRow eq="3d → 2p: Total allowed (with m_l constraint)" result="9 transitions" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Of all possible downward transitions from 3d, only 3d → 2p is allowed by the Δl = ±1 rule. The 3d → 2s and 3d → 3s transitions are forbidden because Δl = 2 and the photon cannot carry 2 units of angular momentum. In materials science, these rules determine which optical transitions are "bright" (allowed) vs "dark" (forbidden), which is critical for understanding photoluminescence in quantum dots and LED efficiency in semiconductor devices.</div>
  </div>
@@ -3106,7 +3101,7 @@ function QuantumNumbersSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> When an atom is placed in an external magnetic field B, each energy level with orbital quantum number l splits into (2l+1) sublevels corresponding to different m_l values. The Zeeman effect was one of the first confirmations that m_l is a real, measurable quantum number.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine a compass needle (electron's orbital magnetic moment) in a magnetic field. It can point with the field, against it, or at specific angles in between. Each orientation has a different energy, splitting one spectral line into a fan of closely spaced lines.</div>
  </div>
@@ -3124,7 +3119,7 @@ function QuantumNumbersSection() {
  <CalcRow eq="Compare: ΔE / k_BT = 5.79×10⁻⁵ / 0.0259" result="0.0022" color={T.eo_core} />
  <CalcRow eq="ΔE ≪ k_BT at 300 K" result="Splitting unresolved thermally" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At B = 1 T, the Zeeman splitting (58 μeV) is ~450× smaller than thermal energy at room temperature. This means magnetic effects on orbital energies are negligible for most material properties at room temperature. However, at cryogenic temperatures (below ~1 K, where k_BT ≈ 86 μeV), Zeeman splitting becomes resolvable. In MRI machines (1.5–3 T), the nuclear Zeeman effect on proton spins is what produces medical images. In semiconductor spintronics, engineering the Zeeman splitting of carriers is key to spin-based quantum computing.</div>
  </div>
@@ -3134,7 +3129,7 @@ function QuantumNumbersSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Iron (Z=26) is ferromagnetic — the most important magnetic material in technology. Its magnetism arises from 4 unpaired 3d electrons. By carefully enumerating all quantum numbers for the 3d⁶ configuration, we can predict exactly how many electrons are unpaired and therefore how strong the magnetism is.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine 5 parking spots (d orbitals) and 6 cars (electrons). Hund's rule says: fill each spot with one car first (all facing the same way), then start doubling up. With 6 cars in 5 spots, you get 4 single-occupied spots (4 unpaired electrons) and 1 double-occupied spot.</div>
  </div>
@@ -3152,7 +3147,7 @@ function QuantumNumbersSection() {
  <CalcRow eq="μ = √(4 × 6) μ_B = √24 μ_B" result="4.90 μ_B" color={T.eo_core} />
  <CalcRow eq="Experimental moment of Fe²⁺" result="~5.4 μ_B (includes orbital)" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Iron's 4 unpaired 3d electrons give it a large magnetic moment of ~4.9 μ_B per atom. When these moments align cooperatively (ferromagnetism below the Curie temperature of 770°C), iron becomes the strongest common magnet. The predicted spin-only moment (4.9 μ_B) is close to the experimental value (~5.4 μ_B), with the small difference due to orbital angular momentum contribution. This same counting exercise predicts that Mn (3d⁵) has 5 unpaired electrons, Co (3d⁷) has 3, and Ni (3d⁸) has 2 — exactly matching their measured magnetic moments.</div>
  </div>
@@ -3444,7 +3439,7 @@ function PeriodicTrendsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> ZnTe is a II-VI semiconductor used in solar cell back contacts. Is it ionic or covalent? We can predict its bond character from electronegativity differences using the Pauling scale, and compare with a clearly ionic compound (NaCl).
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine a tug-of-war between two atoms pulling on shared electrons. If both pull equally (Δχ ≈ 0), the bond is pure covalent. If one side is much stronger (Δχ {">"} 1.7), the electron is essentially kidnapped — that's ionic bonding. ZnTe is somewhere in between — mostly covalent but with a slight electron shift toward Te.</div>
  </div>
@@ -3465,7 +3460,7 @@ function PeriodicTrendsSection() {
  <CalcRow eq="ZnTe: (1 − e^(−0.45²/4)) × 100 = (1 − e^(−0.0506)) × 100" result="≈ 5%" color={T.eo_core} />
  <CalcRow eq="NaCl: (1 − e^(−2.23²/4)) × 100 = (1 − e^(−1.243)) × 100" result="≈ 71%" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>ZnTe is ~95% covalent (only ~5% ionic character), which is why it crystallizes in the zinc blende structure with sp³ tetrahedral bonding — just like Si and GaAs. NaCl, with 71% ionic character, forms the rock salt structure instead. This covalent nature gives ZnTe its semiconductor properties: a direct bandgap of 2.26 eV, useful as a back contact layer in CdTe solar cells.</div>
  </div>
@@ -3475,7 +3470,7 @@ function PeriodicTrendsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Ionization energy generally increases across a period because nuclear charge increases while shielding doesn't fully compensate. Let's calculate the effective nuclear charge Z<sub>eff</sub> using Slater's rules for Na through Ar and explain the anomalies at Al and S.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine trying to pull a child away from a crowd around a candy jar (the nucleus). Each person in the crowd (inner electrons) partially blocks the child's view of the candy. Slater's rules quantify how much each "blocker" reduces the effective attraction. More blockers (shielding) = easier to pull the child away (lower IE).</div>
  </div>
@@ -3502,7 +3497,7 @@ function PeriodicTrendsSection() {
  <CalcRow eq="Cl (Z=17): Z_eff = 17 − 10.90 = 6.10" result="IE = 12.97 eV" color={T.eo_core} />
  <CalcRow eq="Ar (Z=18): Z_eff = 18 − 11.25 = 6.75" result="IE = 15.76 eV" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Two anomalies break the upward trend: (1) Al (5.99 eV) is lower than Mg (7.65 eV) because Al's outermost electron is in a higher-energy 3p orbital, easier to remove than Mg's 3s. (2) S (10.36 eV) is lower than P (10.49 eV) because S's 3p⁴ forces electron pairing, and the pair repulsion makes one electron easier to remove than from P's half-filled 3p³. These anomalies directly affect doping behavior in semiconductors.</div>
  </div>
@@ -3512,7 +3507,7 @@ function PeriodicTrendsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Electron affinity (EA) measures the energy released when a neutral atom gains one electron. Naively, smaller atoms should have higher EA because the added electron is closer to the nucleus. But fluorine (3.40 eV) has a lower EA than chlorine (3.61 eV) — a famous anomaly explained by electron-electron repulsion in the compact 2p shell.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine two apartment rooms — one tiny (F's 2p) and one medium (Cl's 3p). Both have 5 tenants and want to add a 6th. The tiny room is so cramped that the new tenant feels strong repulsion from the others, even though the landlord (nucleus) is strong. The medium room accommodates the 6th tenant more comfortably.</div>
  </div>
@@ -3531,7 +3526,7 @@ function PeriodicTrendsSection() {
  <CalcRow eq="Cl: Repulsion weaker (larger 3p shell)" result="" color={T.eo_core} />
  <CalcRow eq="Cl: Net EA = attraction − repulsion" result="3.61 eV > F!" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Chlorine has the highest electron affinity of all elements (3.61 eV) because it strikes the optimal balance between nuclear attraction and electron repulsion. This is why Cl is a better oxidizing agent in solution than F (despite F having higher electronegativity). For materials science, high EA elements like Cl and Br are used as etchants in semiconductor processing — they eagerly grab electrons from surface atoms, breaking bonds and volatilizing the products.</div>
  </div>
@@ -3541,7 +3536,7 @@ function PeriodicTrendsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Silicon, germanium, and tin (gray, α-Sn) all adopt the diamond cubic structure. The lattice constant a can be predicted from covalent radii because nearest neighbors touch along the body diagonal. This simple geometric relationship connects atomic-scale radii (a periodic trend) to measurable crystal parameters.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>In the diamond cubic structure, atoms form a tetrahedral network. The bond length d equals twice the covalent radius. Four bond lengths fit along the cube's body diagonal (length a√3), giving us d = a√3/4, or a = 4d/√3 = 8r/√3.</div>
  </div>
@@ -3558,7 +3553,7 @@ function PeriodicTrendsSection() {
  <CalcRow eq="α-Sn: a = 8 × 140 / √3 = 1120 / 1.732" result="647 pm (expt: 649 pm)" color={T.eo_core} />
  <CalcRow eq="Agreement within" result="< 1% for all three!" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The predicted lattice constants agree with experiment to within 1% — remarkable for such a simple model. The trend Si {"<"} Ge {"<"} Sn follows the increase in atomic radius down Group IVA. This matters enormously for heteroepitaxy: growing Ge on Si creates 4.2% lattice mismatch strain, which can be exploited to engineer band gaps in SiGe alloys for high-speed transistors, or accommodated with graded buffer layers in multijunction solar cells.</div>
  </div>
@@ -3568,7 +3563,7 @@ function PeriodicTrendsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Atomic polarizability — how easily the electron cloud deforms in an electric field — increases with atomic size (a periodic trend). Through the Clausius-Mossotti relation, this microscopic property determines the macroscopic dielectric constant, which controls capacitance, optical refraction, and insulation in electronic devices.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine each atom as a water balloon. A small, tightly filled balloon (small atom) is hard to deform. A large, loosely filled balloon (large atom) squishes easily in an electric field. Pack many squishy balloons together and the whole material becomes highly polarizable — a high dielectric constant.</div>
  </div>
@@ -3586,7 +3581,7 @@ function PeriodicTrendsSection() {
  <CalcRow eq="(ε−1)/(ε+2) = 0.897 → ε − 1 = 0.897ε + 1.794" result="" color={T.eo_core} />
  <CalcRow eq="0.103ε = 2.794 → ε" result="≈ 11.7 (expt: 11.68)" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The Clausius-Mossotti relation predicts Si's dielectric constant of 11.7 almost exactly from just atomic polarizability and density. Going down Group IVA: C (diamond, ε=5.7), Si (ε=11.7), Ge (ε=16.2) — the dielectric constant increases with atomic radius because larger atoms are more polarizable. This trend directly affects semiconductor device design: higher ε means more capacitance per area, which is why Ge-based devices can achieve higher gate capacitance than Si at the same thickness.</div>
  </div>
@@ -3596,7 +3591,7 @@ function PeriodicTrendsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> X-ray photoelectron spectroscopy (XPS) measures the binding energy of core electrons. The 1s binding energy increases dramatically with atomic number because the 1s electron sees almost the full nuclear charge. Using Slater's rules for the 1s shell, we can predict these core-level energies for C, Si, and Ge.
  </div>
- <div style={{ background: T.eo_core + "06", border: `1px solid ${T.eo_core}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A 1s electron sits right next to the nucleus, like a front-row seat at a concert. No matter how many people (electrons) fill the seats behind it, it hears the full sound (nuclear charge) with only minor interference from the one other person sharing its row (the other 1s electron).</div>
  </div>
@@ -3614,7 +3609,7 @@ function PeriodicTrendsSection() {
  <CalcRow eq="Si: BE = 13.6 × 13.70² = 2553 eV" result="(XPS: 1839 eV)" color={T.eo_core} />
  <CalcRow eq="Ge: BE = 13.6 × 31.70² = 13,666 eV" result="(XPS: 11,103 eV)" color={T.eo_core} />
  </div>
- <div style={{ background: T.eo_core + "08", border: `1px solid ${T.eo_core}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The simple Z<sub>eff</sub> model correctly predicts that 1s binding energies scale roughly as Z² and captures the right order of magnitude. The systematic overestimate occurs because our formula ignores electron-electron correlation and relativistic effects (important for Ge). XPS exploits these element-specific binding energies for chemical identification: each element has unique core-level "fingerprints." In thin-film analysis, XPS can determine not just which elements are present but their oxidation states, since chemical bonding shifts core levels by 1–5 eV.</div>
  </div>
@@ -4127,7 +4122,7 @@ function ChemicalBondingSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> The Born-Landé equation predicts the total electrostatic energy holding an ionic crystal together. For NaCl, we use the known Madelung constant, interionic distance, and Born exponent to calculate the lattice energy and compare with experiment.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Picture a city grid where every other building is positively or negatively charged. The Madelung constant captures the net attraction from all those neighbors — some attract, some repel, but the sum converges to a positive number (M = 1.748 for NaCl), meaning attraction wins. The Born repulsion term (1 − 1/n) is a small correction for electron cloud overlap at short range.</div>
  </div>
@@ -4148,7 +4143,7 @@ function ChemicalBondingSection() {
  <CalcRow eq="U = −864 × 0.875" result="≈ −756 kJ/mol" color={T.eo_valence} />
  <CalcRow eq="Experimental value" result="−786 kJ/mol" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Our calculated −756 kJ/mol is within 4% of the experimental −786 kJ/mol. The remaining error comes from van der Waals attractions and zero-point energy that the simple Born-Landé model neglects. The large magnitude (~8 eV per ion pair) explains why ionic crystals have high melting points and are mechanically hard.</div>
  </div>
@@ -4158,7 +4153,7 @@ function ChemicalBondingSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> How do we quantify whether a bond is more ionic or covalent? The Pauling electronegativity difference Δχ determines the percent ionic character and the bond dipole moment. We compare two important semiconductors: ZnTe and GaAs.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Electronegativity is like a tug-of-war score. When two atoms pull on shared electrons, the one with higher χ wins more electron density. The bigger the mismatch, the more the bond looks like an ionic bond rather than a fair 50-50 sharing.</div>
  </div>
@@ -4179,7 +4174,7 @@ function ChemicalBondingSection() {
  <CalcRow eq="GaAs: 100 × (1 − e^(−0.37²/4)) = 100 × (1 − e^(−0.0342))" result="" color={T.eo_valence} />
  <CalcRow eq="GaAs % ionic" result="≈ 3.4%" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>ZnTe (Δχ = 0.45, ~5% ionic) is slightly more polar than GaAs (Δχ = 0.37, ~3.4% ionic). Both are predominantly covalent, but ZnTe{"'"}s extra polarity affects its defect chemistry: native point defects like V_Zn (zinc vacancies) carry effective charges that are influenced by this ionic component. This is why II-VI compounds generally have more complex defect landscapes than III-V semiconductors.</div>
  </div>
@@ -4189,7 +4184,7 @@ function ChemicalBondingSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Before tackling an entire crystal, let us calculate the electrostatic energy of a single Na⁺Cl⁻ ion pair separated by their equilibrium distance. This gives the fundamental building block of ionic bonding energy.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Two opposite charges attract like magnets snapping together. The closer they get, the stronger the pull. The Coulomb energy tells us how much energy was released when the pair came together from infinity — like measuring how hard the magnets slammed.</div>
  </div>
@@ -4206,7 +4201,7 @@ function ChemicalBondingSection() {
  <CalcRow eq="E = −(8.988×10⁹)(2.566×10⁻³⁸) / (2.81×10⁻¹⁰)" result="" color={T.eo_valence} />
  <CalcRow eq="E = −8.20 × 10⁻¹⁹ J" result="= −5.12 eV" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A single Na⁺Cl⁻ pair releases 5.12 eV of electrostatic energy. The NaCl crystal lattice energy is 7.86 eV per pair — much larger because the Madelung sum includes all neighbors. The single-pair result captures about 65% of the total, showing that nearest-neighbor attraction dominates but long-range interactions contribute significantly.</div>
  </div>
@@ -4216,7 +4211,7 @@ function ChemicalBondingSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> The Born-Haber cycle breaks MgO formation into measurable steps: sublimation, ionization, dissociation, electron affinity, and lattice energy. By summing all steps we verify ΔH_f = −602 kJ/mol.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Building MgO from elements is like assembling furniture. You cannot measure the total effort in one step, but you can break it into pieces: unwrap parts (sublimation), reshape them (ionization), cut raw material (dissociation), snap pieces together (electron affinity), and assemble the structure (lattice energy). The total effort is the sum of all steps.</div>
  </div>
@@ -4234,7 +4229,7 @@ function ChemicalBondingSection() {
  <CalcRow eq="ΔH_f = 3189 − 3791" result="" color={T.eo_valence} />
  <CalcRow eq="ΔH_f" result="= −602 kJ/mol " color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The cycle closes perfectly at −602 kJ/mol, matching experiment. The enormous lattice energy (−3791 kJ/mol) dwarfs NaCl{"'"}s −786 kJ/mol because Mg²⁺ and O²⁻ carry double charges and sit closer together (2.11 vs 2.81 Å). This is why MgO melts at 2852°C, one of the highest melting points of any oxide.</div>
  </div>
@@ -4244,7 +4239,7 @@ function ChemicalBondingSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In the free-electron model, conduction electrons fill states up to the Fermi energy. The average kinetic energy per electron is (3/5)E_F. We estimate the cohesive energy of copper and compare with the experimental value.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Metallic bonding is like a communal pool — each copper atom donates one electron to a shared sea. The electrons zoom around with kinetic energy up to E<sub>F</sub>. The average energy of this electron gas gives a rough estimate of how tightly the metal is held together.</div>
  </div>
@@ -4260,7 +4255,7 @@ function ChemicalBondingSection() {
  <CalcRow eq="Experimental cohesive energy of Cu" result="= 3.49 eV/atom" color={T.eo_valence} />
  <CalcRow eq="Overestimate: 4.22 / 3.49" result="≈ 1.21 (21% high)" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The free-electron estimate overshoots by ~21% because it ignores electron-ion attraction and correlation. Still, it captures the right order of magnitude and explains why metals with higher E<sub>F</sub> (like tungsten, 9.2 eV) tend to have higher melting points. The non-directional electron sea also explains metallic ductility — planes slide without breaking directional bonds.</div>
  </div>
@@ -4270,7 +4265,7 @@ function ChemicalBondingSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Hydrogen bonds hold water molecules together in ice. Each molecule forms ~4 H-bonds. We estimate the energy to break all H-bonds in one mole of ice and compare with the experimental enthalpy of fusion ΔH_fus = 6.01 kJ/mol.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Ice is like a Lego structure where each brick connects to 4 neighbors with weak clips (H-bonds). Melting does not break all the clips — it only breaks enough to let bricks move around. That is why the heat of fusion is much less than the total H-bond energy.</div>
  </div>
@@ -4286,7 +4281,7 @@ function ChemicalBondingSection() {
  <CalcRow eq="Fraction of H-bonds broken: 6.01 / 48.2" result="≈ 12.5%" color={T.eo_valence} />
  <CalcRow eq="H-bonds remaining in liquid water" result="≈ 87.5%" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Melting ice only breaks ~12.5% of hydrogen bonds. Liquid water retains most of its H-bond network — it is a highly structured liquid. This explains water{"'"}s anomalously high heat capacity and boiling point. For comparison, covalent bonds (~3-4 eV) are 12-16x stronger than H-bonds, which is why covalent solids like diamond melt at much higher temperatures.</div>
  </div>
@@ -4562,7 +4557,7 @@ function HybridizationSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In sp³ hybridization, one s and three p orbitals mix to form four equivalent hybrid orbitals pointing toward the corners of a tetrahedron. We calculate the exact bond angle, then use lattice constants to find bond lengths in diamond and silicon.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine inflating four identical balloons tied at a central knot. They naturally push apart to maximize space, settling at exactly 109.47° apart — the tetrahedral angle. This is why diamond and silicon both form the same geometry despite being very different materials.</div>
  </div>
@@ -4581,7 +4576,7 @@ function HybridizationSection() {
  <CalcRow eq="d_Si–Si = 5.431 × 1.732 / 4" result="= 2.352 Å" color={T.eo_valence} />
  <CalcRow eq="Ratio: d_Si / d_C = 2.352 / 1.545" result="= 1.52" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Both diamond and silicon have perfect tetrahedral sp³ bonding at 109.47°, but Si bonds are 52% longer. Longer bonds mean weaker overlap, which is why silicon{"'"}s band gap (1.12 eV) is much smaller than diamond{"'"}s (5.47 eV). The geometry is identical; the physics changes because of atomic size.</div>
  </div>
@@ -4591,7 +4586,7 @@ function HybridizationSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In graphene, each carbon uses sp² hybridization to form three in-plane σ bonds at 120°, leaving one unhybridized p_z orbital perpendicular to the plane. We calculate the lattice constant from the C–C bond length and explain how the leftover p_z orbital creates the π band.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Think of graphene as a honeycomb tile floor. Each tile vertex connects to exactly three neighbors at 120°. The sp² bonds are the strong grout holding tiles together. But each carbon also has an electron sticking straight up (the p<sub>z</sub> orbital) — these overlap sideways across the entire sheet, creating a highway for electron flow. That is why graphene is such an extraordinary conductor.</div>
  </div>
@@ -4608,7 +4603,7 @@ function HybridizationSection() {
  <CalcRow eq="Nearest-neighbor distance" result="= 1.42 Å (= d_CC)" color={T.eo_valence} />
  <CalcRow eq="Next-nearest neighbor = a" result="= 2.46 Å" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The 1.42 Å C–C bond in graphene is shorter than diamond{"'"}s 1.54 Å because sp² bonds (33% s-character) overlap more strongly than sp³ (25% s-character). The unhybridized p_z orbitals overlap laterally across the entire sheet, forming a delocalized π band. At the K point of the Brillouin zone, these π and π* bands touch in a single point — making graphene a zero-gap semiconductor with linear (Dirac) dispersion.</div>
  </div>
@@ -4618,7 +4613,7 @@ function HybridizationSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Sulfur hexafluoride uses sp³d² hybridization to form 6 equivalent bonds pointing to the vertices of an octahedron. We verify the geometry and calculate the S–F bond length.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine you are holding 6 balloons tied at one point. They naturally push apart to form an octahedron — three pairs at 90° to each other. That is exactly what 6 equivalent hybrid orbitals do around sulfur.</div>
  </div>
@@ -4638,7 +4633,7 @@ function HybridizationSection() {
  <CalcRow eq="Sum of covalent radii: r_S + r_F = 1.02 + 0.64" result="= 1.66 Å" color={T.eo_valence} />
  <CalcRow eq="Actual bond length shorter due to ionic character" result="= 1.56 Å" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The S–F bonds are 6% shorter than the sum of covalent radii because of partial ionic character (F is highly electronegative). The perfect octahedral symmetry (O<sub>h</sub> point group) makes SF₆ remarkably stable and chemically inert — it is used as an insulating gas in high-voltage equipment. Expanded octets like this are impossible for period-2 elements (no d orbitals available).</div>
  </div>
@@ -4648,7 +4643,7 @@ function HybridizationSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> GaAs uses sp³ hybridization like diamond, but with two different atoms. We calculate the bond length from covalent radii, predict the lattice constant, and compare with the experimental value a = 5.653 Å.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>GaAs is like diamond but with alternating colored marbles — Ga and As take turns at each tetrahedral site. Both atoms use sp³ hybrids, but since Ga and As have different sizes and electronegativities, the electron sharing is not perfectly equal.</div>
  </div>
@@ -4666,7 +4661,7 @@ function HybridizationSection() {
  <CalcRow eq="Experimental a" result="= 5.653 Å" color={T.eo_valence} />
  <CalcRow eq="Error" result="= 0.09% " color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The prediction is excellent (0.09% error) because GaAs is predominantly covalent (Δχ = 0.37, only ~3.4% ionic). The sp³ tetrahedral geometry is nearly perfect. GaAs{"'"}s direct band gap of 1.42 eV makes it ideal for LEDs and solar cells — a direct consequence of the orbital symmetry at the Γ point in its zinc blende structure.</div>
  </div>
@@ -4676,7 +4671,7 @@ function HybridizationSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> NH₃ and H₂O both use sp³ hybridization, but their bond angles differ from the ideal 109.5° because lone pairs occupy more angular space than bonding pairs. We quantify the deviation.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine 4 balloons tied together — they form a perfect tetrahedron. Now replace one balloon with a fatter one (a lone pair). The fat balloon pushes the others closer together, reducing the angle. Replace two balloons with fat ones, and the squeezing is even more pronounced.</div>
  </div>
@@ -4692,7 +4687,7 @@ function HybridizationSection() {
  <CalcRow eq="H₂O deviation = 109.5° − 104.5°" result="= −5.0° for 2 lone pairs" color={T.eo_valence} />
  <CalcRow eq="Per-lone-pair compression in H₂O" result="= −2.5° each" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Each lone pair compresses bond angles by about 2.2–2.5°. This matters in semiconductors: when dopant atoms substitute into a lattice, their different number of valence electrons creates lone-pair-like states that distort local geometry. Understanding these distortions is key to predicting defect energy levels.</div>
  </div>
@@ -4702,7 +4697,7 @@ function HybridizationSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Carbon promotes an electron from 2s to 2p (costing energy) to form four sp³ bonds instead of two. We check whether the energy investment pays off by comparing promotion cost to bond energy gained.
  </div>
- <div style={{ background: T.eo_valence + "06", border: `1px solid ${T.eo_valence}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Promotion is like paying tuition — it costs energy upfront, but the extra bonds you can form (like a better salary) more than make up for it. Carbon{"'"}s tuition pays off handsomely; it gains 2 extra bonds worth ~4.3 eV each.</div>
  </div>
@@ -4719,7 +4714,7 @@ function HybridizationSection() {
  <CalcRow eq="Energy gained = 2 × 4.3 eV" result="= 8.6 eV" color={T.eo_valence} />
  <CalcRow eq="Net gain = 8.6 − 4.18" result="= +4.42 eV " color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_valence, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Carbon gains a net 4.42 eV by promoting and forming 4 bonds instead of 2. This is why carbon always hybridizes in solids. For beryllium (2s²), promotion to 2s¹2p¹ costs 2.73 eV but Be–H bonds are only ~2.3 eV, so the gain from a 2nd bond barely exceeds the cost — Be prefers sp hybridization with just 2 bonds in a linear geometry (as in BeH₂).</div>
  </div>
@@ -5017,7 +5012,7 @@ function MolecularOrbitalSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Oxygen has 8 electrons per atom, so O₂ has 16 total. By filling the molecular orbital diagram in energy order, we calculate the bond order and predict O₂{"'"}s magnetic behavior — a triumph of MO theory over Lewis structures.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Each bonding MO is like a brick strengthening a wall; each antibonding MO removes a brick. Bond order counts the net bricks. For O₂, we end up with a net of 2 — a double bond. But the surprise is that the last two antibonding electrons go into separate orbitals with parallel spins (Hund{"'"}s rule), making O₂ paramagnetic.</div>
  </div>
@@ -5038,7 +5033,7 @@ function MolecularOrbitalSection() {
  <CalcRow eq="Bond order = (10 − 6) / 2" result="= 2 (double bond)" color={T.eo_cond} />
  <CalcRow eq="Unpaired electrons in π*" result="= 2 → paramagnetic" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>MO theory correctly predicts O₂ is paramagnetic (attracted to magnets), which Lewis dot structures cannot explain. The two unpaired electrons in the degenerate π* orbitals give O₂ a magnetic moment of ~2.8 Bohr magnetons. This same MO counting approach scales to solids: in a crystal with N atoms, the N bonding MOs fill to become the valence band.</div>
  </div>
@@ -5048,7 +5043,7 @@ function MolecularOrbitalSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> β-carotene has 11 conjugated double bonds, creating a long π system. Using the particle-in-a-box model, we estimate the HOMO→LUMO transition energy and predict the absorption wavelength — explaining why carrots are orange.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The conjugated π electrons are like a ball rolling in a trough. The longer the trough (more double bonds), the lower the energy needed to jump to the next level. With 11 double bonds, the box is long enough that the HOMO→LUMO gap falls right in the blue-violet range — the molecule absorbs blue light and we see the complementary color: orange.</div>
  </div>
@@ -5070,7 +5065,7 @@ function MolecularOrbitalSection() {
  <CalcRow eq="ΔE = 4.61 × 10⁻¹⁹ J" result="≈ 2.88 eV" color={T.eo_cond} />
  <CalcRow eq="λ = hc/ΔE = 1240 eV·nm / 2.88 eV" result="≈ 431 nm (violet-blue)" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>β-carotene absorbs at ~450 nm (experimental), and our simple box model gives ~431 nm — remarkably close. The molecule absorbs blue-violet light, so we see the transmitted/reflected orange. This same HOMO-LUMO concept maps directly to band gaps in semiconductors: the valence band is the collection of all filled HOMOs, and the conduction band is the collection of all empty LUMOs.</div>
  </div>
@@ -5080,7 +5075,7 @@ function MolecularOrbitalSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> We fill the MO diagram for N₂ (14 electrons) and calculate the bond order. The result explains why N₂ has one of the strongest bonds in nature (945 kJ/mol) and is remarkably unreactive.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>N₂ is like a triple-locked door — you need to break three bonds (one σ + two π) to get through. That is why nitrogen gas is so inert that it takes extreme conditions (lightning, or the Haber process at 450°C and 200 atm) to crack it open.</div>
  </div>
@@ -5101,7 +5096,7 @@ function MolecularOrbitalSection() {
  <CalcRow eq="N≡N bond energy" result="= 945 kJ/mol" color={T.eo_cond} />
  <CalcRow eq="Compare O=O (BO=2)" result="= 498 kJ/mol" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>N₂{"'"}s bond order of 3 gives it nearly twice the bond energy of O₂ (bond order 2). All bonding MOs are full and all antibonding MOs in the valence shell are empty — there are no unpaired electrons, so N₂ is diamagnetic. This electronic perfection is why 78% of our atmosphere is unreactive N₂.</div>
  </div>
@@ -5111,7 +5106,7 @@ function MolecularOrbitalSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> F₂ has 18 electrons and a bond order of 1, yet its bond energy (155 kJ/mol) is surprisingly weaker than Cl₂ (242 kJ/mol). We use the MO diagram to understand why.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Fluorine atoms are tiny and packed with lone pairs. When two F atoms come close, their lone pairs bump into each other like two people in a narrow hallway — the repulsion weakens the bond despite the single-bond order.</div>
  </div>
@@ -5130,7 +5125,7 @@ function MolecularOrbitalSection() {
  <CalcRow eq="Cl–Cl bond energy" result="= 242 kJ/mol" color={T.eo_cond} />
  <CalcRow eq="Ratio: Cl₂/F₂" result="= 1.56×" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Despite the same bond order, F₂ is 36% weaker than Cl₂. The culprit is lone-pair repulsion: fluorine{"'"}s tiny atomic radius (0.64 Å) forces 3 lone pairs on each atom into close proximity. In Cl₂, the larger radius (0.99 Å) reduces this repulsion. This lone-pair effect is important in solid-state chemistry — it explains why fluorides often have different crystal structures than other halides.</div>
  </div>
@@ -5140,7 +5135,7 @@ function MolecularOrbitalSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> CO has 14 electrons, identical to N₂. We fill the MO diagram and predict the bond order. The surprise: CO{"'"}s dipole moment points from O to C (C⁻O⁺), opposite to what electronegativity alone predicts.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>You might expect the more electronegative O to hog all the electrons (making C⁺O⁻). But the lone pair on carbon in the σ HOMO sticks out far from the molecule, creating a large opposing dipole that actually wins. It is like a tug-of-war where the losing side has a longer lever arm.</div>
  </div>
@@ -5158,7 +5153,7 @@ function MolecularOrbitalSection() {
  <CalcRow eq="Net dipole moment" result="= 0.112 D (toward C!)" color={T.eo_cond} />
  <CalcRow eq="Polarity assignment" result="C⁻O⁺" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>CO{"'"}s reversed dipole (0.112 D, C⁻O⁺) shows that MO theory captures subtleties that simple electronegativity arguments miss. The carbon lone pair in the HOMO is why CO is such a powerful ligand — it donates this lone pair to metals, forming strong metal-carbonyl bonds. This same concept (HOMO donation) governs how adsorbates bind to semiconductor surfaces.</div>
  </div>
@@ -5168,7 +5163,7 @@ function MolecularOrbitalSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> We show how molecular orbitals of 2, 4, 8, and N hydrogen atoms progressively merge into a continuous energy band. The tight-binding model predicts a bandwidth W = 4t, where t is the hopping integral.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Start with 2 tuning forks coupled by a spring — you get 2 frequencies. Add more forks and you get more frequencies. With N = 10²³ forks, the individual frequencies blur into a continuous band. The bandwidth depends on how strongly the forks are coupled (the hopping integral t).</div>
  </div>
@@ -5187,7 +5182,7 @@ function MolecularOrbitalSection() {
  <CalcRow eq="Band maximum: E_max = ε₀ + 2t" result="" color={T.eo_cond} />
  <CalcRow eq="Bandwidth W = E_max − E_min = 4t" result="= 4 × 3 = 12 eV" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>As N grows, discrete MO levels merge into a continuous band of width 4t. For a half-filled band (1 electron per atom), the chain is metallic. This is exactly how atomic s-orbitals form the valence band in real solids. The bandwidth determines the effective mass: wider bands mean lighter electrons and higher mobility — directly connecting MO theory to semiconductor transport.</div>
  </div>
@@ -5475,7 +5470,7 @@ function CrystalSymmetrySection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> X-ray diffraction reveals crystal planes through sharp peaks at specific angles. We index the three strongest peaks of silicon and calculate their d-spacings from the known lattice constant.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Miller indices are like an address system for crystal planes. The (111) plane slices equally through all three axes; the (220) plane cuts twice along x and y but is parallel to z. The d-spacing is the distance between adjacent parallel planes — tighter-packed planes have larger d-spacings and diffract at smaller angles.</div>
  </div>
@@ -5495,7 +5490,7 @@ function CrystalSymmetrySection() {
  <CalcRow eq="Bragg angle for (111) with Cu Kα (λ=1.5406Å):" result="" color={T.eo_cond} />
  <CalcRow eq="2θ = 2 × sin⁻¹(1.5406 / (2×3.136))" result="= 28.44°" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The (111) planes have the largest d-spacing (3.136 Å) and appear first in the XRD pattern at the lowest angle. Note that (100) and (200) reflections are absent in diamond cubic due to the two-atom basis — the structure factor causes destructive interference. This systematic absence is a fingerprint of the diamond crystal structure.</div>
  </div>
@@ -5505,7 +5500,7 @@ function CrystalSymmetrySection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> ZnTe crystallizes in the zinc blende structure (space group F̄3m, #216). We work out the atom positions, count the coordination, and calculate the nearest-neighbor distance from the lattice constant.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Zinc blende is two interlocking FCC lattices, offset by one quarter of the body diagonal. Imagine two identical jungle gyms, one shifted so its corners sit inside the other{"'"}s cubes. Zn atoms form one gym, Te atoms form the other. Each atom touches exactly 4 atoms of the opposite type.</div>
  </div>
@@ -5524,7 +5519,7 @@ function CrystalSymmetrySection() {
  <CalcRow eq="Coordination number" result="= 4 (tetrahedral)" color={T.eo_cond} />
  <CalcRow eq="Packing fraction (zinc blende)" result="≈ 34%" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The 2.64 Å nearest-neighbor distance and coordination number of 4 confirm tetrahedral sp³ bonding. The low packing fraction (34% vs 74% for close-packed metals) reflects the directional covalent bonds — atoms sacrifice packing efficiency to maintain the optimal sp³ geometry. The F̄3m space group lacks inversion symmetry, which is why ZnTe is piezoelectric and has different properties along [111] vs [̒1̒1̒].</div>
  </div>
@@ -5534,7 +5529,7 @@ function CrystalSymmetrySection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Different crystal structures pack atoms with different efficiency. We calculate the packing fraction for FCC (74%), BCC (68%), and diamond (34%) from pure geometry.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine packing oranges in a box. FCC is like the optimal stacking at a grocery store (74% full). BCC leaves a bit more space (68%). Diamond cubic is like an airy framework — only 34% full — because directional bonds force atoms into specific positions rather than close-packed arrangements.</div>
  </div>
@@ -5551,7 +5546,7 @@ function CrystalSymmetrySection() {
  <CalcRow eq="BCC: PF = 2×(4π/3)r³ / (4r/√3)³ = π√3/8" result="= 68.02%" color={T.eo_cond} />
  <CalcRow eq="Diamond: PF = 8×(4π/3)r³ / (8r/√3)³ = π√3/16" result="= 34.01%" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Diamond{"'"}s packing fraction is exactly half of FCC{"'"}s because it uses only half the tetrahedral sites. This open structure is the price of directional sp³ bonding — atoms must maintain 109.5° angles rather than pack as tightly as possible. The empty space in diamond/zinc blende structures creates channels that allow interstitial impurities to diffuse, which is critical for semiconductor doping.</div>
  </div>
@@ -5561,7 +5556,7 @@ function CrystalSymmetrySection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In FCC, certain X-ray reflections are systematically absent. We calculate the structure factor to show that only reflections with all-odd or all-even Miller indices appear.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine 4 speakers at FCC positions playing the same note. For some directions, two speakers are exactly half a wavelength out of phase with the other two — they cancel out perfectly. Only when all 4 speakers are in phase (unmixed indices) do you hear the full sound.</div>
  </div>
@@ -5580,7 +5575,7 @@ function CrystalSymmetrySection() {
  <CalcRow eq="(200): F = f[1 + e^(2πi) + e^(2πi) + e^(0)] = f[1+1+1+1]" result="= 4f " color={T.eo_cond} />
  <CalcRow eq="(110): F = f[1 + e^(2πi) + e^(iπ) + e^(iπ)] = f[1+1−1−1]" result="= 0 " color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The selection rule is clear: F = 4f when h,k,l are all odd or all even (unmixed), and F = 0 for mixed indices. This is why the Si(100) reflection is forbidden while Si(111) is strong. In the diamond structure, an additional selection rule from the 2-atom basis further eliminates some unmixed reflections (like 200), making the diffraction pattern a unique fingerprint of the crystal structure.</div>
  </div>
@@ -5590,7 +5585,7 @@ function CrystalSymmetrySection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> GaAs has the zinc blende structure with a = 5.653 Å and 4 formula units per cell. We calculate the theoretical density and compare with the measured value of 5.317 g/cm³.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Density is just mass divided by volume. We know exactly how many atoms fit in one unit cell (4 Ga + 4 As) and the cell{"'"}s exact dimensions. It is like calculating the weight of a perfectly organized warehouse when you know the weight of each item and the warehouse dimensions.</div>
  </div>
@@ -5608,7 +5603,7 @@ function CrystalSymmetrySection() {
  <CalcRow eq="ρ = 578.56 / 108.84" result="= 5.316 g/cm³" color={T.eo_cond} />
  <CalcRow eq="Experimental density" result="= 5.317 g/cm³ " color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The calculated density matches experiment to 4 significant figures — a testament to the precision of X-ray crystallography. This calculation works in reverse too: measuring density and lattice constant reveals how many atoms are in the unit cell, which is how the zinc blende structure was originally confirmed.</div>
  </div>
@@ -5618,7 +5613,7 @@ function CrystalSymmetrySection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> ZnTe (zinc blende) belongs to point group Td while NaCl (rock salt) belongs to Oh. The key difference is inversion symmetry. We count symmetry operations and explain the consequences for Raman and IR spectroscopy.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Inversion symmetry means that for every atom at position (x,y,z) there is an identical atom at (−x,−y,−z). NaCl has this because Na and Cl form separate FCC lattices related by inversion. ZnTe does not — Zn and Te are different atoms, so swapping positions changes the crystal.</div>
  </div>
@@ -5635,7 +5630,7 @@ function CrystalSymmetrySection() {
  <CalcRow eq="No mutual exclusion (Td): modes can be both" result="" color={T.eo_cond} />
  <CalcRow eq="ZnTe TO phonon: both IR-active AND Raman-active" result="" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The absence of inversion symmetry in Td (zinc blende) has profound consequences: it allows piezoelectricity (stress generates voltage), second-harmonic generation (frequency doubling of light), and Raman activity of polar phonons. These properties are forbidden in Oh (rock salt) structures. This is why ZnTe is used as a THz emitter — its lack of inversion symmetry enables optical rectification.</div>
  </div>
@@ -5968,7 +5963,7 @@ function ReciprocalSpaceSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Silicon{"'"}s FCC real-space lattice has a BCC reciprocal lattice. We compute the reciprocal lattice vectors, verify the FCC → BCC duality, and calculate the volume of the first Brillouin zone.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Reciprocal space is like a frequency domain for crystals. Just as a short pulse in time has a broad frequency spectrum, a compact real-space unit cell produces a spread-out reciprocal lattice. FCC (tightly packed) transforms to BCC (less dense) in reciprocal space, and vice versa.</div>
  </div>
@@ -5988,7 +5983,7 @@ function ReciprocalSpaceSection() {
  <CalcRow eq="These form a BCC lattice (FCC ↔ BCC duality)" result="" color={T.eo_cond} />
  <CalcRow eq="BZ volume = (2π)³ / V_real = 2 × (2π/a)³" result="= 3.11 Å⁻³" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The reciprocal lattice vectors point along (±1,±1,±1) directions — the body diagonals of a cube — confirming BCC symmetry. The first Brillouin zone is a truncated octahedron with high-symmetry points Γ (center), X (face center), L (body corner), and K (edge midpoint). Band structure calculations along Γ→X→L→Γ paths reveal the full electronic structure.</div>
  </div>
@@ -5998,7 +5993,7 @@ function ReciprocalSpaceSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Bragg{"'"}s law and the Laue condition are two ways of saying the same thing. We show their equivalence using Cu Kα radiation on silicon, and connect diffraction peaks to reciprocal lattice vectors via the Ewald sphere.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The Ewald sphere is a clever geometric construction. Draw a sphere in reciprocal space with radius k = 2π/λ centered on the crystal. Wherever the sphere intersects a reciprocal lattice point, a diffraction peak appears. Bragg{"'"}s law just describes when these intersections occur.</div>
  </div>
@@ -6017,7 +6012,7 @@ function ReciprocalSpaceSection() {
  <CalcRow eq="Scattering: Δk = 2k sinθ = 2×4.078×0.2457" result="= 2.004 Å⁻¹" color={T.eo_cond} />
  <CalcRow eq="Δk = |G(111)| ?" result=" 2.003 ≈ 2.004" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The momentum transfer Δk exactly equals the reciprocal lattice vector G(111), confirming that Bragg{"'"}s law is just the real-space statement of the Laue condition Δk = G. Every XRD peak maps to a reciprocal lattice point. At Brillouin zone boundaries, electron waves satisfy this same condition — they undergo Bragg reflection inside the crystal, which is exactly what opens up band gaps.</div>
  </div>
@@ -6027,7 +6022,7 @@ function ReciprocalSpaceSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> The first Brillouin zone contains exactly as many k-states as there are unit cells in the crystal. We calculate the BZ volume for silicon and the density of allowed k-points.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Real space and reciprocal space are inversely related — a large crystal has a tiny spacing between allowed k-points, like how a long guitar string has closely spaced harmonics. The BZ is the fundamental "container" holding all unique k-states.</div>
  </div>
@@ -6045,7 +6040,7 @@ function ReciprocalSpaceSection() {
  <CalcRow eq="N = V_crystal / V_cell = 10⁻⁶ / 1.602×10⁻²⁸" result="= 6.24 × 10²¹" color={T.eo_cond} />
  <CalcRow eq="With spin: 2N states per band" result="= 1.25 × 10²²" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A 1 cm³ silicon crystal has ~6.2 × 10²¹ allowed k-points in each band. With 2 spin states per k-point, each band holds ~1.25 × 10²² electrons. Since silicon has 4 valence electrons per atom and 5 × 10²² atoms per cm³, it needs ~5 filled bands — exactly matching the 4 valence bands in the silicon band structure.</div>
  </div>
@@ -6055,7 +6050,7 @@ function ReciprocalSpaceSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In the free-electron model, E(k) is a simple parabola. When folded into the first Brillouin zone (reduced zone scheme), it creates multiple bands. We calculate the bandwidth of the first band.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine a long staircase (the extended zone parabola) that you fold like an accordion at each zone boundary. The folded segments become different bands. The first fold — from k = −π/a to +π/a — creates the first band.</div>
  </div>
@@ -6072,7 +6067,7 @@ function ReciprocalSpaceSection() {
  <CalcRow eq="E(π/a) = 0.476 × 1.097" result="= 0.522 eV" color={T.eo_cond} />
  <CalcRow eq="First band width W₁ = E(π/a) − E(0)" result="= 0.522 eV" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The free-electron first band spans ~0.52 eV for a = 3 Å. In a real crystal, the periodic potential opens gaps at the zone boundary — the free-electron bands split apart. The size of the gap depends on the Fourier component of the crystal potential. Weak potentials (nearly free electrons) give small gaps; strong potentials (tight binding) give large gaps. Silicon{"'"}s 1.12 eV gap arises from the intermediate-strength potential of its sp³ bonds.</div>
  </div>
@@ -6082,7 +6077,7 @@ function ReciprocalSpaceSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> The Debye model replaces the real Brillouin zone with a sphere of the same volume. We calculate the Debye wavevector k_D and Debye temperature Θ_D for copper.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The real BZ has a complicated shape (truncated octahedron for FCC). Debye{"'"}s trick: replace it with a sphere of equal volume. The sphere{"'"}s radius k_D sets the highest phonon frequency, and Θ_D = ℏω_D/k_B tells us the temperature scale where quantum effects in lattice vibrations kick in.</div>
  </div>
@@ -6100,7 +6095,7 @@ function ReciprocalSpaceSection() {
  <CalcRow eq="Θ_D = ℏω_D/k_B = (1.055×10⁻³⁴ × 6.11×10¹³) / 1.381×10⁻²³" result="≈ 467 K" color={T.eo_cond} />
  <CalcRow eq="Experimental Θ_D for Cu" result="= 343 K" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Our estimate (467 K) overshoots the experimental 343 K by ~36% because the Debye model uses a single average sound speed and assumes linear dispersion up to k_D, while real phonon dispersion curves flatten near the zone boundary. Below Θ_D, the heat capacity follows the T³ law; above it, C_V approaches the classical 3Nk_B (Dulong-Petit). At room temperature (300 K {"<"} 343 K), copper{"'"}s phonons are not yet fully classical.</div>
  </div>
@@ -6110,7 +6105,7 @@ function ReciprocalSpaceSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Angle-Resolved Photoemission Spectroscopy (ARPES) directly maps E(k) by measuring the kinetic energy and emission angle of photoelectrons. We use He I radiation (21.2 eV) on a copper surface to extract a data point on the band structure.
  </div>
- <div style={{ background: T.eo_cond + "06", border: `1px solid ${T.eo_cond}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>ARPES is like shining light on a pinball machine and catching the balls that fly out. The speed of each ball tells you its energy inside the machine, and the angle tells you which direction it was moving. Together, you reconstruct the full energy-momentum map of the electrons.</div>
  </div>
@@ -6129,7 +6124,7 @@ function ReciprocalSpaceSection() {
  <CalcRow eq="k∥ = √(2 × 9.109×10⁻³¹ × 16.1 × 1.602×10⁻¹⁹) / (1.055×10⁻³⁴) × 0.5" result="" color={T.eo_cond} />
  <CalcRow eq="k∥ = 2.056 × 10⁹ × 0.5" result="= 1.03 Å⁻¹" color={T.eo_cond} />
  </div>
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>We found one point on Cu{"'"}s band structure: an electron state at 0.45 eV below the Fermi level with parallel momentum 1.03 Å⁻¹. By sweeping the angle from −90° to +90°, ARPES traces out the full E(k) dispersion. This is how the Cu(111) Shockley surface state — a nearly free 2D electron gas with effective mass m* ≈ 0.42m_e — was directly observed, confirming band theory predictions.</div>
  </div>
@@ -6319,7 +6314,7 @@ function BandSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Near the conduction band minimum of GaAs, the energy dispersion is approximately parabolic: E = ℏ²k²/(2m*). GaAs has an effective electron mass m*_e = 0.067m_e -- much lighter than a free electron. Calculate the thermal velocity at 300K and compare with a free electron.
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Effective mass is the "apparent weight" an electron feels inside a crystal. The periodic potential of the lattice acts like a moving walkway at an airport -- an electron on the walkway (in a crystal) accelerates differently than one standing on solid ground (in vacuum). In GaAs, electrons ride a very fast walkway, making them behave as if they weigh only 6.7% of their true mass.</div>
  </div>
@@ -6338,7 +6333,7 @@ function BandSection() {
  <CalcRow eq="v_th(free) = √(3k_BT/m_e) = √(1.243×10⁻²⁰/9.109×10⁻³¹)" result="v_th(free) = 1.17 × 10⁵ m/s" color={T.eo_photon} />
  <CalcRow eq="Ratio: v_th(GaAs) / v_th(free) = 1/√0.067" result="= 3.86× faster" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Electrons in GaAs move nearly 4x faster than free electrons at the same temperature because their effective mass is only 6.7% of the free electron mass. This light effective mass translates to high mobility (μ = eτ/m*), which is why GaAs is preferred over silicon for high-speed electronics and microwave transistors. The lighter the effective mass, the steeper the band curvature near the band edge.</div>
  </div>
@@ -6348,7 +6343,7 @@ function BandSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> GaAs has a direct band gap of 1.42 eV, while silicon has an indirect gap of 1.12 eV. Calculate the absorption edge wavelength for each, and explain why GaAs dominates in LEDs and lasers while Si dominates in solar cells and logic.
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>In a direct gap material, the conduction band minimum and valence band maximum line up at the same momentum (same k-point). An electron can absorb or emit a photon straight up/down -- like jumping between two floors in an elevator. In an indirect gap material, the electron must also change momentum -- like needing to walk across the building while changing floors. This requires a phonon to help, making the process 100-1000x less efficient.</div>
  </div>
@@ -6365,7 +6360,7 @@ function BandSection() {
  <CalcRow eq="GaAs absorption coefficient at Eg:" result="α ≈ 10⁴ cm⁻¹" color={T.eo_photon} />
  <CalcRow eq="Si absorption coefficient at Eg:" result="α ≈ 1 cm⁻¹ (10,000× weaker)" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>GaAs absorbs light 10,000x more strongly at its band edge because direct transitions are allowed without phonon assistance. This means a 1 μm GaAs layer absorbs as much light as a 1 cm Si wafer. GaAs is therefore ideal for LEDs (efficient photon emission), laser diodes, and thin-film solar cells. Silicon requires thicker wafers (200-300 μm) but is far cheaper to produce, which is why it dominates the solar and electronics markets.</div>
  </div>
@@ -6375,7 +6370,7 @@ function BandSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Germanium has E_g = 0.66 eV, N_c = 1.04 × 10¹⁹ cm⁻³, and N_v = 6.0 × 10¹⁸ cm⁻³ at 300 K. Calculate n_i at 300 K and 400 K. How does the narrower gap compared to Si (1.12 eV) affect the carrier count?
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The band gap is the height of a fence electrons must jump. Germanium's fence is only 0.66 eV -- about 60% the height of silicon's 1.12 eV fence. At room temperature, exponentially more electrons clear this shorter barrier. A modest 100 K temperature increase dramatically boosts the jump rate because the exponential tail of thermal energy extends further over the barrier.</div>
  </div>
@@ -6395,7 +6390,7 @@ function BandSection() {
  <CalcRow eq="At 400 K: Eg/(2kT) = 0.66/(2×0.03446) = 9.58" result="" color={T.eo_photon} />
  <CalcRow eq="nᵢ(400 K) = 7.90×10¹⁸ × exp(−9.58)" result="n_i = 5.54 × 10¹⁴ cm⁻³" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Germanium's n_i at 300 K is about 2.3 × 10¹³ cm⁻³ -- roughly 1000× higher than silicon's ~1.5 × 10¹⁰ cm⁻³. Heating to 400 K increases n_i by 24×. This high intrinsic carrier count is why Ge transistors failed in early computing: at modest temperatures, thermal carriers overwhelmed the doping, making devices unreliable. Silicon's wider gap gives 1000× fewer intrinsic carriers and much better thermal stability.</div>
  </div>
@@ -6405,7 +6400,7 @@ function BandSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In the Kronig-Penney model, a 1D periodic potential with rectangular barriers of height V₀ = 5 eV and width b = 0.5 A, period a = 3 A, creates band gaps at k = nπ/a. Estimate the first band gap using the nearly-free-electron approximation.
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine rolling a ball along a wavy road. On a flat road (free electron), the ball speeds up smoothly. But the periodic bumps (crystal potential) reflect some of the ball's energy at specific wavelengths, creating "forbidden speeds" -- energy gaps. The stronger the bumps, the wider the forbidden range. The first Fourier component of the bumps sets the first gap.</div>
  </div>
@@ -6422,7 +6417,7 @@ function BandSection() {
  <CalcRow eq="= (10/π) × sin(0.5236) = 3.183 × 0.500" result="V₁ = 1.59 eV" color={T.eo_photon} />
  <CalcRow eq="First band gap Egap ≈ 2|V₁|" result="E_gap ≈ 3.18 eV" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The Kronig-Penney model predicts a 3.18 eV gap at the first Brillouin zone boundary -- comparable to the gap of wide-gap semiconductors like GaN (3.4 eV). The gap scales linearly with the potential strength V₀ and depends on the barrier width fraction b/a. This model elegantly shows how periodicity alone creates forbidden energy regions, bridging the free-electron picture and real band structures.</div>
  </div>
@@ -6432,7 +6427,7 @@ function BandSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> A GaAs/AlAs superlattice has period d = 10 nm. An electric field E = 5 × 10⁶ V/m is applied along the growth direction. Calculate the Bloch oscillation period and frequency. Can these oscillations produce THz radiation?
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>In a crystal, an electron accelerated by a constant electric field doesn't speed up forever. When it reaches the Brillouin zone edge, it Bragg-reflects back to the opposite edge -- oscillating back and forth like a ball bouncing between two walls. In a superlattice with a large period d, these "Bloch oscillations" occur at accessible frequencies in the terahertz range.</div>
  </div>
@@ -6449,7 +6444,7 @@ function BandSection() {
  <CalcRow eq="= 6.626×10⁻³⁴ / (8.01×10⁻²¹)" result="T_B = 8.27 × 10⁻¹⁴ s = 82.7 fs" color={T.eo_photon} />
  <CalcRow eq="f_B = 1/T_B" result="f_B = 12.1 THz" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The Bloch oscillation frequency of 12.1 THz falls squarely in the "THz gap" -- the frequency range between microwave electronics and infrared optics. This makes superlattices potential THz emitters for imaging, spectroscopy, and security screening. In bulk crystals, scattering destroys Bloch oscillations (τ ~ 100 fs is too short), but superlattices with larger d bring T<sub>B</sub> into an observable range.</div>
  </div>
@@ -6459,7 +6454,7 @@ function BandSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> A thin GaAs film is grown epitaxially on Si (lattice mismatch ε = -4.1%). The hydrostatic deformation potentials are a_c = -7.17 eV (conduction band) and a_v = -1.16 eV (valence band). Calculate the band gap shift under biaxial compression.
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Squeezing a crystal is like pressing the keys of a piano closer together -- it changes the pitch (energy levels). The deformation potential tells you how much each band edge shifts per unit strain. Compressive strain pushes bands apart (widens the gap), while tensile strain pulls them closer (narrows the gap).</div>
  </div>
@@ -6476,7 +6471,7 @@ function BandSection() {
  <CalcRow eq="ΔE_VB = a_v × ε_hydro = (−1.16)(−0.0448)" result="= +0.052 eV (VB shifts up)" color={T.eo_photon} />
  <CalcRow eq="ΔEg = ΔE_CB − ΔE_VB = 0.321 − 0.052" result="ΔE_g = +0.269 eV" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Biaxial compression widens the GaAs gap from 1.42 eV to about 1.69 eV -- a 19% increase. This strain engineering is used in strained-Si transistors (Intel's 90 nm node onward) to boost mobility and in III-V quantum wells to tune laser wavelengths. The large 4.1% mismatch with Si makes thick coherent GaAs-on-Si films impossible; beyond a critical thickness, misfit dislocations relieve the strain.</div>
  </div>
@@ -6780,7 +6775,7 @@ function DensityOfStatesSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Copper has one free electron per atom, giving n = 8.49 × 10²⁸ m⁻³. Calculate the Fermi energy and Fermi temperature. Why are room-temperature electrons in copper considered "cold"?
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The Fermi energy is the highest occupied energy level at absolute zero -- like the water line in a filled pool. In copper, this "water line" sits at 7 eV, which corresponds to a temperature of 81,600K. Room temperature (300K) is only 0.4% of this, so thermal energy barely ripples the surface. Only electrons within kT of the Fermi surface can participate in conduction.</div>
  </div>
@@ -6799,7 +6794,7 @@ function DensityOfStatesSection() {
  <CalcRow eq="E_F = 6.12×10⁻⁶⁸/(1.822×10⁻³⁰) × 1.85×10²⁰" result="E_F = 1.13 × 10⁻¹⁸ J = 7.04 eV" color={T.eo_photon} />
  <CalcRow eq="T_F = E_F/k_B = 1.13×10⁻¹⁸ / 1.381×10⁻²³" result="T_F = 81,600 K" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The Fermi energy of 7.04 eV corresponds to T_F = 81,600K -- far above the melting point of copper (1358K). At room temperature, T/T_F = 300/81,600 = 0.004, meaning only ~0.4% of electrons near the Fermi surface are thermally excited. This explains why metals have small electronic heat capacities (C_e ~ γT) and why the Drude model needed quantum corrections -- most electrons are "frozen" deep below E_F.</div>
  </div>
@@ -6809,7 +6804,7 @@ function DensityOfStatesSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Intrinsic (undoped) silicon at room temperature. The effective density of states is N_c = 2.8 × 10¹⁹ cm⁻³ in the conduction band and N_v = 1.04 × 10¹⁹ cm⁻³ in the valence band. With E_g = 1.12 eV, how many free carriers exist?
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>N<sub>c</sub> and N<sub>v</sub> are like the number of seats in the conduction and valence band "auditoriums." The exponential factor exp(-E<sub>g</sub>/2kT) is the fraction of electrons with enough thermal energy to jump across the gap. Even with billions of available seats, the exponential suppression is so severe that only 1 in 10¹³ atoms donates a free carrier at room temperature.</div>
  </div>
@@ -6827,7 +6822,7 @@ function DensityOfStatesSection() {
  <CalcRow eq="exp(-21.66) = 3.89 × 10⁻¹⁰" result="" color={T.eo_photon} />
  <CalcRow eq="nᵢ = 1.71×10¹⁹ × 3.89×10⁻¹⁰" result="n_i ≈ 6.7 × 10⁹ cm⁻³" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Only about 1.5 × 10¹⁰ cm⁻³ free carriers exist in pure Si at 300K (the standard value; our simplified calculation gives 6.7 × 10⁹, close to the accepted value when using more precise parameters). Compare this with 5 × 10²² atoms/cm³ -- only 1 in every 3 trillion atoms contributes a free carrier! This is why intrinsic Si is a poor conductor and why doping (adding 10¹⁵-10¹⁸ impurity atoms/cm³) is essential to make useful devices.</div>
  </div>
@@ -6837,7 +6832,7 @@ function DensityOfStatesSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> At low temperatures, the electronic heat capacity of copper is measured as C_e = γT with γ = 0.695 mJ/(mol·K²). Verify this using the free-electron model with E_F = 7.04 eV. Why is electronic heat capacity so small compared to lattice heat capacity at room temperature?
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine a swimming pool (the Fermi sea). Only the surface ripples when wind blows (thermal energy). Electrons deep below the surface cannot absorb kT of energy because all nearby states are already occupied (Pauli exclusion). Only the fraction ~kT/E<sub>F</sub> of electrons near the surface participate in heat capacity. At 300 K, that is only 0.4% of all electrons.</div>
  </div>
@@ -6855,7 +6850,7 @@ function DensityOfStatesSection() {
  <CalcRow eq="= 4.935 × 1.018×10⁻⁴" result="γ = 5.02 × 10⁻⁴ J/(mol·K²) = 0.502 mJ/(mol·K²)" color={T.eo_photon} />
  <CalcRow eq="Experimental: γ = 0.695 mJ/(mol·K²)" result="Ratio = 0.695/0.502 = 1.38" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The free-electron model gives γ = 0.50 mJ/(mol·K²), while experiment measures 0.695 -- about 38% higher. The difference comes from electron-phonon interactions that enhance the effective mass (m* ≈ 1.38 m_e). At 300 K, C_e = 0.695 × 300 = 0.21 J/(mol·K), compared with the lattice contribution of 3R = 24.9 J/(mol·K). Electronic heat capacity is only ~0.8% of the total -- vindicating Sommerfeld's quantum theory over the classical Drude model which predicted 50%.</div>
  </div>
@@ -6865,7 +6860,7 @@ function DensityOfStatesSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Silicon is doped with N_D = 10¹⁶ cm⁻³ phosphorus atoms (n-type). Given n_i = 1.5 × 10¹⁰ cm⁻³ at 300 K, how far does the Fermi level shift from its intrinsic (mid-gap) position toward the conduction band?
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The Fermi level is the "water table" of electrons. In pure silicon, the water table sits at mid-gap. Adding phosphorus donors is like drilling artesian wells -- each P atom releases a free electron, raising the water table toward the conduction band. The more donors, the higher E<sub>F</sub> rises, until at very heavy doping the material becomes "degenerate" (metallic).</div>
  </div>
@@ -6883,7 +6878,7 @@ function DensityOfStatesSection() {
  <CalcRow eq="= 0.02585 × ln(6.67 × 10⁵) = 0.02585 × 13.41" result="E_F − E_i = 0.347 eV" color={T.eo_photon} />
  <CalcRow eq="E_F position: E_c − E_F = Eg/2 − 0.347 = 0.56 − 0.347" result="= 0.213 eV below E_c" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Doping with 10¹⁶ P/cm³ shifts E<sub>F</sub> by 0.347 eV above mid-gap, placing it 0.213 eV below E<sub>c</sub>. This is well within the non-degenerate regime. The hole concentration drops to p = n<sub>i</sub>²/n = 2.25 × 10⁴ cm⁻³ -- a factor of 10¹² below the electron concentration. This asymmetry is what creates rectifying p-n junctions and makes transistors possible.</div>
  </div>
@@ -6893,7 +6888,7 @@ function DensityOfStatesSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> A (10,0) semiconducting carbon nanotube has its first van Hove singularity at E₁ = 0.45 eV above the charge neutrality point. Calculate the 1D DOS at E = 0.50 eV using effective mass m* = 0.06 m_e. What is the physical meaning of the divergence at E₁?
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>In 1D, the density of states diverges (blows up) at the bottom of each subband -- like cars piling up at a toll booth entrance. At the subband edge, the band is flat (dE/dk = 0), so many k-states map to the same energy. This creates sharp spikes in the DOS that produce dramatic optical absorption peaks, making nanotubes identifiable by color.</div>
  </div>
@@ -6911,7 +6906,7 @@ function DensityOfStatesSection() {
  <CalcRow eq="= (9.83 × 10³⁶)^(1/2) = 3.135 × 10¹⁸ m⁻¹J⁻¹/²" result="" color={T.eo_photon} />
  <CalcRow eq="g₁D = (1/π) × 3.135×10¹⁸ / √(8.01×10⁻²¹)" result="g₁D = 1.12 × 10²⁸ m⁻¹J⁻¹" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Just 0.05 eV above the subband edge, the 1D DOS is already enormous due to the 1/√(E−E₁) singularity. At E = E₁ exactly, the DOS diverges to infinity (in theory; broadening rounds it in practice). These van Hove singularities create sharp absorption/emission peaks that depend on tube diameter, explaining why sorted nanotubes of specific chiralities display distinct colors and narrow-linewidth fluorescence.</div>
  </div>
@@ -6921,7 +6916,7 @@ function DensityOfStatesSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> A GaAs quantum well (m* = 0.067 m_e) of width L = 5 nm confines electrons to 2D. Calculate the constant DOS per subband and the energy of the first two subbands. How does 2D DOS differ from 3D?
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>In 3D, the DOS rises smoothly like a hill (∝ √E). In 2D, it looks like a staircase -- each step appears when a new quantum-well subband "turns on." Within each step, the DOS is perfectly flat because 2D motion has equal state density at every energy. This staircase shape gives quantum well lasers their superior threshold and gain properties compared to bulk lasers.</div>
  </div>
@@ -6938,7 +6933,7 @@ function DensityOfStatesSection() {
  <CalcRow eq="E₁ = ℏ²π²/(2m*L²) = (1.055×10⁻³⁴)²π²/(2×6.10×10⁻³²×(5×10⁻⁹)²)" result="E₁ = 0.036 eV" color={T.eo_photon} />
  <CalcRow eq="E₂ = 4 × E₁" result="E₂ = 0.144 eV" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Each 2D subband contributes a constant DOS of 2.79 × 10¹⁷ m⁻²eV⁻¹. The first subband starts at E₁ = 36 meV and the second at E₂ = 144 meV above the well bottom. The step-like DOS means that electrons accumulate at specific energies rather than spreading out, producing sharp optical transitions. This is why quantum well LEDs and lasers are more efficient and have narrower emission linewidths than bulk devices.</div>
  </div>
@@ -6986,17 +6981,11 @@ function PolymerBuilder() {
  {/* Monomer buttons */}
  <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12, justifyContent: "center" }}>
  {monomers.map(m => (
- <button key={m.id} onClick={() => addMonomer(m)} style={{
- padding: "6px 10px", borderRadius: 6, fontSize: 11, fontWeight: 500,
- background: m.color + "15", border: `1.5px solid ${m.color}44`,
- color: m.color, cursor: "pointer"
- }}>+ {m.label}</button>
+ <button key={m.id} onClick={() => addMonomer(m)} style={{ padding: "6px 10px", fontSize: 11, fontWeight: 500,
+ color: m.color, cursor: "pointer" }}>+ {m.label}</button>
  ))}
- <button onClick={clearChain} style={{
- padding: "6px 10px", borderRadius: 6, fontSize: 11, fontWeight: 500,
- background: T.eo_gap + "15", border: `1.5px solid ${T.eo_gap}44`,
- color: T.eo_gap, cursor: "pointer"
- }}>Clear</button>
+ <button onClick={clearChain} style={{ padding: "6px 10px", fontSize: 11, fontWeight: 500,
+ color: T.eo_gap, cursor: "pointer" }}>Clear</button>
  </div>
 
  {/* Chain visualization */}
@@ -7861,7 +7850,7 @@ function MaterialClassesSection() {
  </div>
 
  {/* Bonding */}
- <div style={{ background: sel.color + "08", border: `1.5px solid ${sel.color}33`, borderRadius: 8, padding: "10px 14px", marginBottom: 10 }}>
+ <div style={{ padding: "3px 0", marginBottom: 10 }}>
  <div style={{ fontSize: 11, fontWeight: 500, color: sel.color, marginBottom: 4 }}>Bonding Type</div>
  <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{cur.bonding}</div>
  </div>
@@ -7893,7 +7882,7 @@ function MaterialClassesSection() {
  </div>
 
  {/* Limitation */}
- <div style={{ background: T.eo_gap + "08", border: `1px solid ${T.eo_gap}33`, borderRadius: 8, padding: "10px 14px", marginBottom: 10 }}>
+ <div style={{ padding: "3px 0", marginBottom: 10 }}>
  <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_gap, marginBottom: 4 }}>Limitation</div>
  <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{cur.weakness}</div>
  </div>
@@ -7947,7 +7936,7 @@ function MaterialClassesSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Compare the resistivities of copper (metal, ρ = 1.7×10⁻⁸ Ωm), silicon (semiconductor, ρ = 2.3×10³ Ωm), and SiO₂ (insulator, ρ = 10¹⁶ Ωm). Calculate conductivity for each and the current through a 1 cm cube with 1V applied.
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine a water pipe. A metal is a fire hose -- wide open, water gushes through. A semiconductor is a garden hose with a partially closed valve. An insulator is a sealed pipe -- virtually nothing gets through. The 24-order-of-magnitude range in resistivity is the largest span of any physical property in nature.</div>
  </div>
@@ -7965,7 +7954,7 @@ function MaterialClassesSection() {
  <CalcRow eq="SiO₂: σ = 1/(10¹⁶) = 10⁻¹⁶ S/m" result="I = 10⁻⁴/(10¹⁶×0.01) = 10⁻¹⁸ A" color={T.eo_photon} />
  <CalcRow eq="Span: σ_Cu / σ_SiO₂ = 5.9×10⁷ / 10⁻¹⁶" result="≈ 10²⁴ (24 orders of magnitude!)" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Copper pushes 588 amperes through a 1 cm cube -- enough to melt the wire instantly. Intrinsic silicon conducts only microamps. SiO₂ conducts less than one electron per second (10⁻¹⁸ A is about 6 electrons/second). This 24-order span arises directly from band structure: Cu has no gap (free electrons everywhere), Si has a small gap (few thermal carriers), and SiO₂ has a huge 9 eV gap (essentially zero carriers).</div>
  </div>
@@ -7975,7 +7964,7 @@ function MaterialClassesSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Heat copper (metal) and silicon (semiconductor) from 300K to 400K. Copper has α = 0.00393/K. Silicon has E_g = 1.12 eV. How does each material{"'"}s conductivity change? Why do they respond in opposite ways?
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>In a metal, electrons are already free -- heating shakes the lattice more, creating more obstacles (phonons) for electrons to crash into. It is like adding speed bumps to a highway. In a semiconductor, heating promotes more electrons across the band gap -- like opening more lanes on a toll road. More carriers overwhelm the increased scattering, so conductivity rises.</div>
  </div>
@@ -7992,7 +7981,7 @@ function MaterialClassesSection() {
  <CalcRow eq="Si at 400K: σ ∝ exp(-1.12/(2×0.03446))" result="∝ exp(-16.25)" color={T.eo_photon} />
  <CalcRow eq="Si ratio: σ(400K)/σ(300K) = exp(-16.25+21.66)" result="= exp(5.41) ≈ 224×" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Heating from 300K to 400K reduces copper conductivity by 28% (more phonon scattering), while silicon conductivity increases 224-fold (exponentially more carriers). These opposite trends are the defining signatures of metals vs semiconductors. This is why metals are used where stable conductivity matters (wires), while semiconductors are used where temperature sensitivity is exploited (thermistors, sensors).</div>
  </div>
@@ -8002,7 +7991,7 @@ function MaterialClassesSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Copper has electrical conductivity σ = 5.96 × 10⁷ S/m at 300 K. Using the Wiedemann-Franz law with the Lorenz number L = 2.44 × 10⁻⁸ WΩ/K², predict the electronic thermal conductivity. Compare with the measured total κ = 401 W/(m·K).
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Free electrons carry both charge and heat. Good electrical conductors are also good thermal conductors because the same electrons transport both. The Wiedemann-Franz law says the ratio κ/(σT) is a universal constant (the Lorenz number) -- determined only by fundamental constants. It is like saying that a highway good for cars (charge) is equally good for trucks (heat).</div>
  </div>
@@ -8019,7 +8008,7 @@ function MaterialClassesSection() {
  <CalcRow eq="= 2.44×10⁻⁸ × 1.788×10¹⁰" result="κ_e = 436 W/(m·K)" color={T.eo_photon} />
  <CalcRow eq="Ratio: κ_e/κ_measured = 436/401" result="= 1.09 (9% overestimate)" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The Wiedemann-Franz prediction of 436 W/(m·K) is within 9% of the measured 401 W/(m·K), confirming that electrons dominate heat transport in copper. The small overestimate occurs because inelastic electron-phonon scattering slightly reduces the Lorenz number below the Sommerfeld value at intermediate temperatures. This law explains why metals feel cold to touch -- they conduct heat away from your skin efficiently.</div>
  </div>
@@ -8029,7 +8018,7 @@ function MaterialClassesSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Copper has resistivity ρ = 1.68 × 10⁻⁸ Ωm and free electron density n = 8.49 × 10²⁸ m⁻³. Calculate the Drude relaxation time τ, the mean free path, and the drift velocity under a field of 1 V/m.
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Electrons in a metal move at enormous thermal speeds (~10⁶ m/s) but scatter frequently off phonons and defects. The relaxation time τ is the average time between collisions -- like the time a pinball travels between bumpers. The drift velocity (net motion under a field) is tiny compared to thermal speed, like a gentle breeze superimposed on the random molecular chaos in a room.</div>
  </div>
@@ -8048,7 +8037,7 @@ function MaterialClassesSection() {
  <CalcRow eq="Mean free path: λ = v_F × τ = 1.57×10⁶ × 2.49×10⁻¹⁴" result="λ = 39.1 nm" color={T.eo_photon} />
  <CalcRow eq="Drift velocity: v_d = eEτ/m = 1.602×10⁻¹⁹ × 1 × 2.49×10⁻¹⁴ / 9.109×10⁻³¹" result="v_d = 4.38 × 10⁻³ m/s" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Electrons scatter every 25 femtoseconds, traveling ~39 nm between collisions -- about 100 atomic spacings. The drift velocity of 4.4 mm/s under 1 V/m is a million times slower than the thermal velocity. Current flows not because electrons race through the wire, but because a tiny bias is superimposed on their chaotic thermal motion. At the nanoscale (devices smaller than λ), transport becomes ballistic.</div>
  </div>
@@ -8058,7 +8047,7 @@ function MaterialClassesSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> A PZT (lead zirconate titanate, PbZr₀.₅₂Ti₀.₄₈O₃) piezoelectric disc has g₃₃ = 25 × 10⁻³ Vm/N, thickness t = 1 mm. A mechanical stress of σ = 10 MPa is applied. Calculate the open-circuit voltage generated.
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Piezoelectricity means "pressure electricity." In PZT, the crystal structure lacks a center of symmetry, so squeezing it shifts positive and negative ion sublattices in opposite directions, creating a voltage. It is like squeezing a lemon -- the harder you press, the more juice (voltage) comes out. PZT is the champion piezoelectric because its ions are especially easy to displace.</div>
  </div>
@@ -8073,7 +8062,7 @@ function MaterialClassesSection() {
  <CalcRow eq="V = g₃₃ × σ × t = 25×10⁻³ × 10⁷ × 10⁻³" result="" color={T.eo_photon} />
  <CalcRow eq="= 25 × 10" result="V = 250 V" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A modest 10 MPa stress on a 1 mm PZT disc generates 250 V -- enough to create a spark. This is exactly how lighters and gas igniters work: a spring-loaded hammer strikes a PZT crystal, generating kilovolts. PZT is also used in ultrasonic transducers (medical imaging), fuel injectors (diesel engines), and energy harvesters (harvesting vibrations from footsteps or machinery).</div>
  </div>
@@ -8083,7 +8072,7 @@ function MaterialClassesSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Poly(3-hexylthiophene) (P3HT) is a conjugated polymer used in organic solar cells. Its optical band gap is E_g = 1.9 eV. Calculate the absorption edge wavelength and explain why P3HT appears reddish-purple.
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Conjugated polymers have alternating single and double bonds along the backbone, creating delocalized electrons that behave like electrons in a 1D quantum box. The "box" length is the conjugation length -- typically 5-20 repeat units. Longer conjugation lowers the gap. P3HT's 1.9 eV gap absorbs blue and green light, transmitting red -- giving it a characteristic wine-purple color in thin films.</div>
  </div>
@@ -8099,7 +8088,7 @@ function MaterialClassesSection() {
  <CalcRow eq="Absorption peak: typically ~520 nm (green)" result="Absorbs violet, blue, green" color={T.eo_photon} />
  <CalcRow eq="Transmitted/reflected light:" result="Red → appears reddish-purple" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>P3HT absorbs photons with λ less than 653 nm, covering most of the visible spectrum. However, its 1.9 eV gap misses the infrared portion of sunlight (which carries ~50% of solar energy). This is why P3HT:PCBM organic solar cells reach only ~5% efficiency, compared to ~25% for silicon. Newer low-bandgap polymers like PTB7 (E_g ≈ 1.6 eV) capture more of the solar spectrum, pushing organic PV efficiencies above 18%.</div>
  </div>
@@ -8582,7 +8571,7 @@ function TwoDMaterialsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Graphene has an extraordinary electron mobility of μ = 200,000 cm²/Vs at a carrier density n = 10¹² cm⁻². Calculate the sheet conductivity, drift velocity at E = 1 V/cm, and mean free path. Compare with silicon (μ = 1,400 cm²/Vs).
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Mobility is like the top speed of a car on a highway. In silicon, electrons are like cars in city traffic -- constantly scattering off impurities and lattice vibrations. In graphene, the honeycomb lattice is so perfect that electrons are like race cars on an empty autobahn -- they travel micrometers before scattering, roughly 1000x farther than in silicon.</div>
  </div>
@@ -8599,7 +8588,7 @@ function TwoDMaterialsSection() {
  <CalcRow eq="Mean free path: l ≈ μ(2m*kT)^½/e ≈ μ × v_F × m*/e" result="≈ 1 μm (at 300K)" color={T.eo_photon} />
  <CalcRow eq="Si comparison: l_Si ≈ (1400/200000) × 1 μm" result="≈ 7 nm (143× shorter)" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Graphene electrons travel roughly 1 micrometer between scattering events -- 100-1000x farther than in conventional semiconductors. This ultra-long mean free path enables ballistic transport in devices shorter than 1 μm. The mobility is 143x higher than silicon, making graphene ideal for high-frequency transistors and ultra-sensitive sensors.</div>
  </div>
@@ -8609,7 +8598,7 @@ function TwoDMaterialsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Bulk MoS₂ has an indirect band gap of 1.29 eV, showing negligible photoluminescence. When exfoliated to a single monolayer, the gap becomes direct at 1.89 eV with strong PL. Calculate the emission wavelength and explain the quantum confinement effect.
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>In bulk MoS₂, the indirect gap means electrons must change momentum to emit a photon -- like needing to turn a corner before exiting a building. In a monolayer, the band structure reorganizes so the gap becomes direct -- electrons can emit photons straight out, like walking through an open door. The gap also widens because confining electrons to a thin sheet raises their energy (quantum confinement).</div>
  </div>
@@ -8625,7 +8614,7 @@ function TwoDMaterialsSection() {
  <CalcRow eq="λ_bulk = hc/Eg = 1240/1.29" result="= 961 nm (infrared, not visible)" color={T.eo_photon} />
  <CalcRow eq="λ_mono = hc/Eg = 1240/1.89" result="= 656 nm (red light!)" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Monolayer MoS₂ emits red light at 656 nm -- visible to the naked eye. The indirect-to-direct transition is key: bulk MoS₂ barely luminesces because photon emission requires a phonon to conserve momentum. In the monolayer, the direct gap allows radiative recombination with near-unity quantum yield. This makes monolayer TMDs ideal for atomically thin LEDs, photodetectors, and valleytronic devices.</div>
  </div>
@@ -8635,7 +8624,7 @@ function TwoDMaterialsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Graphene has a linear (Dirac cone) dispersion near the K-point with Fermi velocity v_F = 1.0 × 10⁶ m/s. Calculate the energy of an electron at k = 0.1 A⁻¹ from the K-point, and compare with the parabolic dispersion of a free electron at the same k.
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>In most materials, electron energy grows as k² (parabolic, like a ball rolling in a bowl). In graphene, energy grows linearly with k (like a cone -- the "Dirac cone"). This means graphene electrons behave like massless relativistic particles (photons!), moving at a constant "speed of light" v_F = c/300. The linear dispersion gives graphene its extraordinary properties: zero band gap, ultra-high mobility, and Klein tunneling.</div>
  </div>
@@ -8653,7 +8642,7 @@ function TwoDMaterialsSection() {
  <CalcRow eq="= 1.113×10⁻⁶⁸ × 10¹⁸ / 1.822×10⁻³⁰" result="E_free = 0.0611 eV" color={T.eo_photon} />
  <CalcRow eq="Ratio: Egraphene/E_free = 0.658/0.0611" result="= 10.8× higher" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At k = 0.1 A⁻¹, a graphene electron has 0.66 eV of energy -- nearly 11× more than a free electron. The linear dispersion means graphene electrons move at v<sub>F</sub> regardless of energy (like photons), while free electrons slow down at low energy. This ultra-fast response makes graphene ideal for photodetectors with bandwidth exceeding 500 GHz and for saturable absorbers in ultrafast lasers.</div>
  </div>
@@ -8663,7 +8652,7 @@ function TwoDMaterialsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Hexagonal boron nitride (hBN) has a band gap of 6.0 eV. A graphene/hBN/graphene tunnel junction uses 3 layers of hBN (total thickness d = 1.0 nm). With the barrier height ΔE = 1.5 eV (Fermi level to hBN conduction band) and m* = 0.5 m_e, calculate the tunneling transmission coefficient.
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>hBN is the "duct tape" of 2D materials -- an atomically flat insulator perfect for tunneling barriers. Electrons cannot classically cross the wide 6 eV gap, but quantum mechanically they tunnel through. Each hBN layer (~0.33 nm) exponentially attenuates the wave function. Three layers give measurable tunnel current; ten layers block it almost completely.</div>
  </div>
@@ -8681,7 +8670,7 @@ function TwoDMaterialsSection() {
  <CalcRow eq="2κd = 2 × 4.43×10⁹ × 10⁻⁹ = 8.86" result="" color={T.eo_photon} />
  <CalcRow eq="T = exp(−8.86)" result="T = 1.43 × 10⁻⁴" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>About 1 in 7,000 electrons tunnels through 3-layer hBN -- enough for measurable nanoampere currents in devices. Adding one more layer (d = 1.33 nm) drops T to ~2×10⁻⁵, and six layers (2 nm) gives T ~ 10⁻⁸. This exponential sensitivity makes hBN ideal as a tunnel barrier in magnetic tunnel junctions, single-electron transistors, and as a gate dielectric in 2D transistors with atomically sharp interfaces.</div>
  </div>
@@ -8691,7 +8680,7 @@ function TwoDMaterialsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> When two graphene layers are stacked with a twist angle θ = 1.1° (the "magic angle"), the Dirac cones hybridize to form ultra-flat bands. Calculate the moire superlattice period, the number of atoms per moire unit cell, and the bandwidth of the flat bands.
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Twisting two graphene sheets creates a moire pattern -- like overlapping two window screens at a slight angle. At the magic angle, the interlayer coupling exactly flattens the bands, making electron kinetic energy nearly zero. When kinetic energy vanishes, interactions dominate, and exotic states emerge: superconductivity at 1.7 K and correlated insulators -- all in a two-atom-thick material.</div>
  </div>
@@ -8709,7 +8698,7 @@ function TwoDMaterialsSection() {
  <CalcRow eq="Atoms per moire cell ≈ 2 × (L/a)² × 4/√3" result="≈ 2 × (52.0)² × 2.31 ≈ 12,500 atoms" color={T.eo_photon} />
  <CalcRow eq="Flat band width W ≈ ℏv_F(2π/L) − 2w" result="W ≈ 10 meV (measured)" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The 12.8 nm moire superlattice contains ~12,500 atoms per unit cell -- enormous by crystallography standards. The flat band width of ~10 meV is 100× narrower than normal graphene bandwidth, meaning electrons are nearly localized. This transforms graphene from a semimetal into a strongly correlated system. Discovered by Pablo Jarillo-Herrero at MIT in 2018, magic-angle twistronics opened an entirely new field of designer quantum materials.</div>
  </div>
@@ -8719,7 +8708,7 @@ function TwoDMaterialsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In monolayer MoS₂, the optical gap (absorption onset) is at 1.89 eV, but the electronic (quasiparticle) gap is 2.5 eV. The difference is the exciton binding energy. Compare this with the 2D hydrogen model using reduced mass m_r = 0.25 m_e and in-plane dielectric constant ε_eff ≈ 4.5.
  </div>
- <div style={{ background: T.eo_photon + "06", border: `1px solid ${T.eo_photon}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>An exciton is an electron-hole pair bound by Coulomb attraction -- the solid-state analog of a hydrogen atom. In bulk semiconductors, screening reduces binding to ~10 meV (easily broken by room-temperature kT = 26 meV). In a monolayer, reduced screening and 2D confinement enhance binding to ~500 meV -- 20× room temperature. This means excitons in MoS₂ survive and dominate optical properties even at 300 K.</div>
  </div>
@@ -8739,7 +8728,7 @@ function TwoDMaterialsSection() {
  <CalcRow eq="E_b(2D) = 4 × 0.168" result="= 0.67 eV (model)" color={T.eo_photon} />
  <CalcRow eq="Experiment: E_b = 0.61 eV" result="Agreement within ~10%" color={T.eo_photon} />
  </div>
- <div style={{ background: T.eo_photon + "08", border: `1px solid ${T.eo_photon}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The 2D hydrogen model predicts E_b = 0.67 eV, close to the measured 0.61 eV. This 600 meV binding energy is 23× larger than kT at 300 K, meaning excitons dominate the optical response at room temperature. Bulk MoS₂ has E_b ≈ 50 meV. The 12× enhancement in the monolayer comes from both reduced dimensionality (4× factor in 2D hydrogen) and weakened dielectric screening (no surrounding bulk material). These robust excitons make TMD monolayers ideal for excitonic devices, light-emitting diodes, and valley-polarized optoelectronics.</div>
  </div>
@@ -9363,7 +9352,7 @@ function ThermodynamicsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> ZnTe is a II-VI semiconductor used in solar cell back contacts. Its formation reaction is Zn(s) + Te(s) → ZnTe(s). With ΔH_f = -119 kJ/mol and ΔS ≈ -45 J/(mol·K), at what temperature does the reaction become thermodynamically unfavorable?
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Gibbs free energy is a tug-of-war between enthalpy (the energy released by forming bonds) and entropy (disorder). At low T, the enthalpy term wins -- bond formation is favorable. But the -TΔS term grows with temperature. Since forming an ordered compound decreases entropy (ΔS is negative), -TΔS becomes positive and large, eventually overwhelming the favorable ΔH.</div>
  </div>
@@ -9378,7 +9367,7 @@ function ThermodynamicsSection() {
  <CalcRow eq="At 1000K: ΔG = -119 - 1000(-0.045) = -119 + 45" result="= -74 kJ/mol (still favorable)" color={T.eo_e} />
  <CalcRow eq="ΔG = 0 when T = ΔH/ΔS = 119/0.045" result="T* = 2644 K" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>ZnTe formation is strongly favorable at room temperature (ΔG = -105.5 kJ/mol) and remains so even at 1000K. The crossover temperature of 2644K is above the melting point of ZnTe (1295°C = 1568K), so in practice ZnTe is always thermodynamically stable as a solid compound. This is why ZnTe can be grown over a wide temperature range.</div>
  </div>
@@ -9388,7 +9377,7 @@ function ThermodynamicsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Brass is a Cu-Zn alloy. For 1 mol of Cu₀.₇Zn₀.₃ (x_Zn = 0.3), calculate the entropy of mixing and the resulting Gibbs free energy of mixing at 800K. Why do alloys form spontaneously?
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Mixing is like shuffling a deck of cards. A perfectly sorted deck (pure Cu on one side, pure Zn on the other) is highly ordered. Shuffling increases entropy because there are astronomically more ways to arrange a mixed deck. Nature prefers the mixed state because it has higher entropy -- and at finite temperature, the -TΔS term lowers the free energy.</div>
  </div>
@@ -9406,7 +9395,7 @@ function ThermodynamicsSection() {
  <CalcRow eq="= -8.314 × (-0.611)" result="ΔS_mix = 5.08 J/(mol·K)" color={T.eo_e} />
  <CalcRow eq="ΔG_mix = -TΔS_mix = -800 × 5.08" result="= -4065 J/mol = -4.07 kJ/mol" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The entropy of mixing is always positive (5.08 J/(mol·K)) -- mixing always increases disorder. At 800K, this gives ΔG<sub>mix</sub> = -4.07 kJ/mol, meaning mixing is spontaneous. The maximum entropy of mixing occurs at x = 0.5 (equal amounts), where ΔS<sub>mix</sub> = R ln(2) = 5.76 J/(mol·K). This is why ideal solid solutions are thermodynamically stable -- entropy always favors mixing.</div>
  </div>
@@ -9416,7 +9405,7 @@ function ThermodynamicsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> CdTe sublimes with ΔH_sub = 200 kJ/mol. Its vapor pressure is P₁ = 1.0 Pa at T₁ = 900 K. Calculate the vapor pressure at T₂ = 1000 K during close-space sublimation (CSS) growth.
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Vapor pressure is like the "eagerness" of atoms to escape a solid surface. At low temperature, atoms are tightly bound and few escape. As temperature rises, the exponential Boltzmann tail extends further, and vapor pressure rises steeply. The Clausius-Clapeyron equation captures this: each 100 K increase can multiply the vapor pressure by 10× or more, depending on the enthalpy of sublimation.</div>
  </div>
@@ -9435,7 +9424,7 @@ function ThermodynamicsSection() {
  <CalcRow eq="= −24059 × (−1.111 × 10⁻⁴)" result="ln(P₂/P₁) = 2.673" color={T.eo_e} />
  <CalcRow eq="P₂ = P₁ × exp(2.673) = 1.0 × 14.49" result="P₂ = 14.5 Pa" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A 100 K increase from 900 K to 1000 K raises CdTe vapor pressure by 14.5×. This steep dependence is why CSS source temperature must be controlled to ±1°C during solar cell deposition -- a 10 K drift changes the growth rate by ~30%. In CdTe photovoltaics (First Solar panels), the source is held at ~600°C and the substrate at ~500°C, creating a ~10 Pa pressure difference that drives vapor transport across a 2 mm gap.</div>
  </div>
@@ -9445,7 +9434,7 @@ function ThermodynamicsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> At 1000 K, ΔG°_f(Al₂O₃) = -1480 kJ/mol and ΔG°_f(TiO₂) = -760 kJ/mol. Can aluminum reduce titanium dioxide? Calculate ΔG for the reaction 4Al + 3TiO₂ → 2Al₂O₃ + 3Ti.
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The Ellingham diagram is a "league table" of oxide stabilities. Metals lower on the diagram (more negative ΔG<sub>f</sub>) have a stronger grip on oxygen and can steal it from metals higher up. Aluminum sits very low (ΔG<sub>f</sub>(Al₂O₃) is very negative), so it can reduce most metal oxides. This is the basis of the thermite reaction used to weld railroad tracks.</div>
  </div>
@@ -9461,7 +9450,7 @@ function ThermodynamicsSection() {
  <CalcRow eq="= 2(−1480) + 3(0) − [4(0) + 3(−760)]" result="" color={T.eo_e} />
  <CalcRow eq="= −2960 + 2280" result="ΔG°_rxn = −680 kJ/mol" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>ΔG = −680 kJ/mol -- strongly negative, so yes, aluminum can reduce TiO₂. This is the aluminothermic (thermite) reaction, which reaches temperatures exceeding 2500°C. In materials science, Ellingham analysis tells us which crucible materials are safe for melting metals (Al₂O₃ crucibles must not contact molten Ti!), and which gettering metals can remove oxygen from vacuum systems.</div>
  </div>
@@ -9471,7 +9460,7 @@ function ThermodynamicsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> A DFT calculation (GGA-PBE functional) gives total energies: E(CdTe, zincblende) = -5.841 eV/atom, E(Cd, hcp) = -0.906 eV/atom, E(Te, trigonal) = -3.142 eV/atom. Calculate the formation enthalpy per formula unit and compare with experiment (-1.01 eV).
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>DFT is like a computational "balance sheet" for atoms. You calculate the total energy of the compound and subtract the energies of the pure elements. If the compound has lower energy, it is thermodynamically stable (ΔH<sub>f</sub> is negative). The more negative, the more stable. This is the first-principles analog of the Born-Haber cycle, but without any experimental input.</div>
  </div>
@@ -9490,7 +9479,7 @@ function ThermodynamicsSection() {
  <CalcRow eq="" result="ΔH_f = −0.89 eV/f.u. (DFT-GGA)" color={T.eo_e} />
  <CalcRow eq="Error vs experiment: |−0.89 − (−1.01)|/1.01 × 100" result="= 12% underestimate" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>DFT-GGA gives ΔH_f = −0.89 eV, about 12% less negative than the experimental −1.01 eV. GGA systematically underbinds (underestimates bond strength) because it approximates exchange-correlation. More advanced methods (HSE06 hybrid functional) typically give −0.95 to −1.05 eV, closer to experiment. Despite the ~10% error, DFT correctly predicts CdTe stability and is used to screen thousands of candidate solar absorbers in the Materials Project database.</div>
  </div>
@@ -9500,7 +9489,7 @@ function ThermodynamicsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In CdTe at growth temperature T = 600°C = 873 K, Cd vacancies have formation energy E_f = 1.5 eV (under Te-rich conditions). Calculate the equilibrium vacancy concentration and the configurational entropy contribution to free energy.
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Creating a vacancy costs energy (E<sub>f</sub>), but it also creates disorder (entropy). Nature balances these: at T = 0, entropy does not matter and no vacancies form. At finite T, the TS<sub>config</sub> term rewards disorder, and a nonzero vacancy concentration minimizes ΔG = nE<sub>f</sub> − TS<sub>config</sub>. The result is always some vacancies at equilibrium -- you cannot make a perfect crystal at finite temperature.</div>
  </div>
@@ -9519,7 +9508,7 @@ function ThermodynamicsSection() {
  <CalcRow eq="S_config per vacancy = k_B ln(N/n) ≈ k_B × 19.95" result="= 1.73 meV/K per vacancy" color={T.eo_e} />
  <CalcRow eq="TS_config = 873 × 1.73 meV/K" result="= 1.51 eV/vacancy" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At 600°C, CdTe contains ~3 × 10¹³ Cd vacancies/cm³ -- enough to make it p-type with hole concentration on the order of 10¹³ cm⁻³. The entropy contribution (TS = 1.51 eV) nearly cancels the formation energy (1.5 eV), showing that at growth temperature the free energy cost of a vacancy is nearly zero. Rapid quenching freezes in this high-temperature concentration. Slow cooling allows vacancies to anneal out, reducing p-type doping. This is why CdTe solar cell annealing protocols are so critical.</div>
  </div>
@@ -9649,7 +9638,7 @@ function KineticsSection() {
 
  {/* Live results */}
  <div style={{ width: "100%" }}>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}33`, borderRadius: 8, padding: 14, marginBottom: 10 }}>
+ <div style={{ padding: 14, marginBottom: 10 }}>
  <div style={{ fontSize: 15, fontWeight: 500, color: T.eo_e, marginBottom: 6, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>
  k = A · exp(−Eₐ / k<sub>B</sub>T)
  </div>
@@ -9728,7 +9717,7 @@ function KineticsSection() {
  { title: "Pressure", color: T.eo_cond, text: "Increasing P favors the denser (smaller volume) phase. Graphite → diamond requires ~5 GPa because diamond is 50% denser. In sputtering, Ar pressure controls whether films grow dense (low P, high energy) or columnar (high P, thermalized atoms)." },
  { title: "Concentration", color: T.eo_valence, text: "Adding more reactant shifts equilibrium toward products. In semiconductor growth, increasing Te overpressure during ZnTe MBE suppresses Te vacancies (V_Te) because the system shifts to consume excess Te. This is why II-VI growth uses VI/II ratio > 1." },
  ].map((item, i) => (
- <div key={i} style={{ flex: 1, minWidth: 200, background: item.color + "08", border: `1px solid ${item.color}33`, borderRadius: 8, padding: 12 }}>
+ <div key={i} style={{ flex: 1, minWidth: 200, padding: 12 }}>
  <div style={{ fontSize: 11, fontWeight: 500, color: item.color, marginBottom: 4 }}>{item.icon} {item.title}</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>{item.text}</div>
  </div>
@@ -9784,7 +9773,7 @@ function KineticsSection() {
  <div style={{ fontSize: 14, fontWeight: 500, color: T.eo_e, marginBottom: 8, marginTop: 8 }}>How Accurately Can DFT Model Kinetics?</div>
 
  <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 12 }}>
- <div style={{ flex: 1, minWidth: 260, background: T.eo_valence + "08", border: `1px solid ${T.eo_valence}33`, borderRadius: 8, padding: 12 }}>
+ <div style={{ flex: 1, minWidth: 260, padding: 12 }}>
  <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}> What DFT Does Well</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
  • <strong>Migration barriers via NEB</strong> — Nudged Elastic Band method maps minimum-energy paths between states, typically accurate to 0.1–0.3 eV<br />
@@ -9794,7 +9783,7 @@ function KineticsSection() {
  • <strong>Defect migration</strong> — Vacancy/interstitial hops in Si, metals, and oxides are well-described
  </div>
  </div>
- <div style={{ flex: 1, minWidth: 260, background: T.eo_gap + "08", border: `1px solid ${T.eo_gap}33`, borderRadius: 8, padding: 12 }}>
+ <div style={{ flex: 1, minWidth: 260, padding: 12 }}>
  <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_gap, marginBottom: 6 }}> Where DFT Struggles</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
  • <strong>Pre-exponential factor</strong> — Requires phonon calculations (expensive) + harmonic approximation breaks down at high T<br />
@@ -9850,7 +9839,7 @@ function KineticsSection() {
  </div>
 
  {/* Machine-learned force fields bridge */}
- <div style={{ background: T.eo_cond + "08", border: `1px solid ${T.eo_cond}33`, borderRadius: 8, padding: 12, marginBottom: 14 }}>
+ <div style={{ padding: 12, marginBottom: 14 }}>
  <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_cond, marginBottom: 4 }}>Bridging the Gap: ML Force Fields</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
  Universal machine-learned force fields (M3GNet, CHGNet, MACE-MP) trained on millions of DFT calculations can
@@ -9865,7 +9854,7 @@ function KineticsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> You are modeling dopant activation in a silicon wafer. Dopants move via a vacancy mechanism — they swap positions with neighboring vacancies. The vacancy migration barrier is Eₐ = 0.43 eV (experiment) or 0.45 eV (DFT-PBE), with D₀ = 0.015 cm²/s. Calculate the diffusion coefficient at room temperature (300 K) and at processing temperature (1000°C = 1273 K).
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine a crowded parking lot where cars can only move when there{"'"}s an empty space next to them. At low temperature (slow day), empty spaces are rare and cars barely move. At high temperature (busy day), spaces open up constantly and cars shuffle rapidly. The activation energy is the effort needed for a car to squeeze into the empty spot.</div>
  </div>
@@ -9903,7 +9892,7 @@ function KineticsSection() {
  <CalcRow eq="D_DFT(1273 K) = 0.015 × exp(−0.45/0.1097)" result="2.44 × 10⁻⁴ cm²/s" color={T.eo_hole} />
  <CalcRow eq="Error factor at 1273 K: 2.96/2.44" result="~1.2× (much smaller!)" color={T.eo_valence} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
  Vacancy diffusion is essentially frozen at room temperature (D ~ 10⁻¹⁰ cm²/s) but rapid at 1000°C (D ~ 10⁻⁴ cm²/s) — a 300,000× increase. This is why dopant activation requires annealing at high temperatures. DFT{"'"}s 0.02 eV overestimate of the barrier causes a 2.3× error at 300 K but only 1.2× at 1273 K — high-T predictions are much more forgiving because the exponential sensitivity decreases as kBT grows.
@@ -9915,7 +9904,7 @@ function KineticsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> You cold-rolled a copper sheet to 50% reduction, introducing a high dislocation density (~10¹⁵ m⁻²). You anneal at 250°C and monitor the fraction recrystallized over time using hardness measurements. The Avrami parameters are n = 2.5 and k = 1.2 × 10⁻⁴ s⁻ⁿ. Calculate the recrystallized fraction at 60, 120, 300, and 600 seconds, and find the half-recrystallization time t₅₀.
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Imagine popcorn kernels in a microwave. At first, nothing happens (nucleation lag). Then a few pop, then many pop rapidly (growth phase), then the rate slows as few un-popped kernels remain. The S-shaped curve of popping fraction vs time is exactly the Avrami equation. The exponent n tells you whether kernels pop independently (like 3D nucleation) or in chains (like 1D growth).</div>
  </div>
@@ -9943,7 +9932,7 @@ function KineticsSection() {
  <ResultBox label="f at 60 s" value="96.5%" color={T.eo_e} sub="nearly complete" />
  <ResultBox label="t₅₀" value="38.1 s" color={T.eo_e} sub="half-recrystallized" />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
  Recrystallization at 250°C is remarkably fast — 50% complete in just 38 seconds and essentially done by 60 seconds. The sigmoidal shape is characteristic: slow nucleation → rapid growth → saturation. The Avrami exponent n = 2.5 suggests a combination of continuous nucleation with two-dimensional growth of new grains consuming the deformed matrix. At lower temperatures, k decreases exponentially (it follows Arrhenius!), making the same transformation take hours or days. This is why annealing temperature must be carefully controlled in metallurgical processing.
@@ -9955,7 +9944,7 @@ function KineticsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> During CdTe vapor deposition, the surface energy is γ = 0.5 J/m², the molar volume V_m = 3.24 × 10⁻⁵ m³/mol, and the supersaturation ratio is S = P/P_eq = 5 at T = 873 K. Calculate the critical nucleus radius and the number of atoms in the critical nucleus.
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A nucleus must reach a critical size before it can grow spontaneously. Too small, and the surface energy penalty (proportional to r²) outweighs the volume free energy gain (proportional to r³). It is like inflating a balloon -- you must blow hard to get past the initial resistance (surface tension dominates), but once the balloon is big enough, it inflates easily (volume wins).</div>
  </div>
@@ -9973,7 +9962,7 @@ function KineticsSection() {
  <CalcRow eq="n* = (4/3)π(r*)³/Ω = (4/3)π(2.77×10⁻⁹)³ / 5.38×10⁻²⁹" result="" color={T.eo_e} />
  <CalcRow eq="= 8.89×10⁻²⁶ / 5.38×10⁻²⁹" result="n* ≈ 1650 atoms" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The critical nucleus is ~2.8 nm and contains ~1650 atoms. Clusters smaller than this dissolve back; larger ones grow irreversibly. Higher supersaturation (S) shrinks r*, promoting more nuclei (fine-grained film). Lower S gives fewer, larger nuclei (columnar growth). CdTe solar cells need large grains to minimize recombination at grain boundaries, so moderate supersaturation is preferred during CSS deposition.</div>
  </div>
@@ -9983,7 +9972,7 @@ function KineticsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Dry oxidation of Si at 1000°C follows Deal-Grove kinetics with A = 0.165 μm, B = 0.0117 μm²/hr, and τ = 0.37 hr (for an initial oxide). Calculate the oxide thickness after 1 hour of oxidation. Is growth linear-limited or parabolic-limited?
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Silicon oxidation is like painting a wall -- the first coat goes on fast (limited by surface reaction rate, linear regime). But each new coat means oxygen must diffuse through all previous coats to reach fresh silicon (parabolic regime, x² ∝ t). Thin oxides grow linearly; thick oxides grow as √t. The Deal-Grove model captures both regimes in one equation.</div>
  </div>
@@ -10002,7 +9991,7 @@ function KineticsSection() {
  <CalcRow eq="= [−0.165 + √0.09136] / 2 = [−0.165 + 0.3023] / 2" result="x = 0.0686 μm = 68.6 nm" color={T.eo_e} />
  <CalcRow eq="Check: x/A = 0.0686/0.165 = 0.42 (comparable to 1)" result="→ transitional regime" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>After 1 hour of dry oxidation at 1000°C, the SiO₂ thickness is 68.6 nm. Since x/A ≈ 0.42 (between 0 and 1), growth is in the transition between linear and parabolic regimes. For thinner oxides (gate dielectrics, ~2 nm), growth is purely linear. For thick field oxides (~500 nm), it is purely parabolic (x ∝ √t). The Deal-Grove model has guided CMOS fabrication since 1965 and remains the textbook standard for thermal oxidation.</div>
  </div>
@@ -10012,7 +10001,7 @@ function KineticsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> CdTe thin films deposited by CSS have initial grain size d₀ = 0.5 μm. After CdCl₂ treatment at 400°C for 20 minutes, grains grow to d = 2.0 μm. Calculate the rate constant k and predict the grain size after 60 minutes.
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Grain growth is like soap bubbles merging -- large bubbles consume small ones because the curved boundary has higher energy. The driving force is proportional to 1/d (smaller grains → more curvature → faster shrinkage). This gives parabolic kinetics: d² ∝ t. CdCl₂ treatment accelerates this by forming a liquid flux at grain boundaries, dramatically increasing boundary mobility.</div>
  </div>
@@ -10030,7 +10019,7 @@ function KineticsSection() {
  <CalcRow eq="At t = 60 min = 3600 s: d² = d₀² + kt = 0.25 + 3.125×10⁻³ × 3600" result="" color={T.eo_e} />
  <CalcRow eq="d² = 0.25 + 11.25 = 11.50 μm²" result="d = 3.39 μm" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>After CdCl₂ treatment, grains grow from 0.5 μm to 2.0 μm in 20 minutes and would reach 3.4 μm in 60 minutes (parabolic: doubling grain size requires 4× more time). Larger grains mean fewer grain boundaries and less recombination, directly improving solar cell voltage. However, excessively long treatments (more than 30 min) cause CdCl₂ to penetrate the entire film and degrade the back contact. Optimal CdTe solar cells target grain sizes of 2-5 μm.</div>
  </div>
@@ -10040,7 +10029,7 @@ function KineticsSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In CdTe solar cells, the electron (minority carrier) mobility is μ_e = 320 cm²/(V·s) and the recombination lifetime is τ = 2 ns. Calculate the diffusion coefficient, diffusion length, and whether a 5 μm CdTe absorber is thick enough.
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A photogenerated minority carrier (electron in p-type CdTe) random-walks through the crystal until it either reaches the junction (collected -- current!) or recombines (lost -- heat). The diffusion length L is the average distance it travels before recombining. For a solar cell to work well, L must exceed the absorber thickness -- otherwise carriers generated deep in the film are lost.</div>
  </div>
@@ -10058,7 +10047,7 @@ function KineticsSection() {
  <CalcRow eq="= √(1.654 × 10⁻⁸) cm" result="L = 1.29 × 10⁻⁴ cm = 1.29 μm" color={T.eo_e} />
  <CalcRow eq="Ratio: L/thickness = 1.29/5" result="= 0.26 (L < thickness!)" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>With L = 1.3 μm and a 5 μm absorber, only carriers generated within ~1.3 μm of the junction are collected. Photons absorbed deeper than L are wasted. This is why CdTe solar cells use a short-circuit collection mechanism aided by the built-in electric field (drift collection). Improving τ from 2 ns to 20 ns (via Cu doping and CdCl₂ treatment) extends L to 4.1 μm, dramatically boosting efficiency from ~15% to ~22%. Lifetime engineering is the key bottleneck in CdTe PV.</div>
  </div>
@@ -10380,7 +10369,7 @@ function PhaseDiagramSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> A Cu-Ni alloy with overall composition C₀ = 40 wt% Ni is held at 1300°C, where it sits in the two-phase (liquid + solid) region. The liquidus intersects at C_L = 50 wt% Ni and the solidus at C_S = 35 wt% Ni. What fraction is liquid and what fraction is solid?
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The lever rule works like a seesaw. The overall composition is the fulcrum. The liquid and solid compositions are at opposite ends. The fraction of each phase is proportional to the distance from the fulcrum to the OTHER end -- just like balancing a seesaw where a heavier kid sits closer to the pivot.</div>
  </div>
@@ -10397,7 +10386,7 @@ function PhaseDiagramSection() {
  <CalcRow eq="f_L = 5 / 15" result="= 0.333 (33.3% liquid)" color={T.eo_e} />
  <CalcRow eq="f_S = 1 - f_L = 1 - 0.333" result="= 0.667 (66.7% solid)" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At 1300°C, the alloy is 1/3 liquid (enriched in Ni at 50%) and 2/3 solid (depleted in Ni at 35%). As cooling continues, the liquidus and solidus compositions shift, and the solid fraction increases. This is the basis of solidification in all alloys -- the solid that forms first has a different composition than the liquid.</div>
  </div>
@@ -10407,7 +10396,7 @@ function PhaseDiagramSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> A Pb-Sn solder with 50 wt% Sn is cooled from 250°C. The eutectic point is at 183°C and 61.9 wt% Sn. The maximum solubility of Sn in Pb (α phase) is 19.2 wt% at the eutectic temperature. What phases are present at 200°C and at 150°C?
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Eutectic solidification is like a traffic split. Above 183°C, you have liquid + some solid (α). At exactly 183°C, the remaining liquid simultaneously crystallizes into a fine lamellar mixture of α + β -- this is the eutectic reaction. The eutectic composition (61.9% Sn) melts at the lowest temperature of any Pb-Sn mixture.</div>
  </div>
@@ -10425,7 +10414,7 @@ function PhaseDiagramSection() {
  <CalcRow eq="f_α = (98 - 50)/(98 - 15) = 48/83" result="= 0.578 (57.8% α phase)" color={T.eo_e} />
  <CalcRow eq="f_β = (50 - 15)/(98 - 15) = 35/83" result="= 0.422 (42.2% β phase)" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At 200°C the alloy is a mushy mix of liquid and α solid. At 183°C, the remaining liquid undergoes the eutectic reaction, solidifying into fine α+β lamellae. By 150°C, the microstructure contains primary α grains surrounded by eutectic α+β. The eutectic composition (61.9% Sn) is used in traditional solder because it has the lowest melting point (183°C) -- ideal for electronics assembly.</div>
  </div>
@@ -10435,7 +10424,7 @@ function PhaseDiagramSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Apply the Gibbs phase rule to three scenarios in the Cu-Ni system: (a) single-phase liquid at 1500°C, (b) two-phase liquid+solid at 1300°C, and (c) the melting point of pure Ni. How many variables can you independently control in each case?
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The phase rule is like counting "knobs" on a control panel. Each component (C) adds a composition knob. Each phase (P) imposes an equilibrium constraint that removes a knob. The +2 accounts for temperature and pressure knobs. At a eutectic point (C=2, P=3), F=1, meaning if you set pressure, temperature and compositions are all fixed -- a unique point on the phase diagram.</div>
  </div>
@@ -10453,7 +10442,7 @@ function PhaseDiagramSection() {
  <CalcRow eq="(b) F = 2 − 2 + 1 = 1" result="→ Fix T, compositions are determined" color={T.eo_e} />
  <CalcRow eq="(c) F = 1 − 2 + 1 = 0" result="→ Invariant point: T = 1455°C (fixed)" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>In the single-phase region, you have 2 degrees of freedom -- a 2D area on the phase diagram. In the two-phase region (F=1), choosing T fixes both liquid and solid compositions via the tie line -- a 1D line. For pure Ni melting (F=0), the melting point is a unique invariant point. The phase rule is the deepest constraint in thermodynamics: it tells you the dimensionality of every region on any phase diagram, no matter how complex.</div>
  </div>
@@ -10463,7 +10452,7 @@ function PhaseDiagramSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> A plain carbon steel with 0.40 wt% C is slowly cooled from 900°C. Using the Fe-C phase diagram, determine the phases and their fractions at 726°C (just below the eutectoid temperature). The eutectoid composition is 0.76% C, and the maximum solubility of C in ferrite (α) is 0.022% at 727°C.
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The eutectoid reaction is the solid-state analog of a eutectic. Austenite (γ, FCC) transforms into a lamellar mixture of ferrite (α, BCC, soft) and cementite (Fe₃C, hard). A hypoeutectoid steel (less than 0.76% C) first precipitates proeutectoid ferrite at grain boundaries as it cools through the two-phase region, then the remaining austenite transforms to pearlite at 727°C.</div>
  </div>
@@ -10482,7 +10471,7 @@ function PhaseDiagramSection() {
  <CalcRow eq="Total α (in pearlite + proeutectoid): lever in α+Fe₃C" result="" color={T.eo_e} />
  <CalcRow eq="f_α(total) = (6.67 − 0.40)/(6.67 − 0.022)" result="= 94.3% ferrite" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A 0.40% C steel is about half proeutectoid ferrite (soft, ductile) and half pearlite (hard, strong lamellar α+Fe₃C). This gives a good balance of strength and ductility, which is why medium-carbon steels (0.3-0.5% C) are used for axles, gears, and rails. Rapid cooling (quenching) bypasses the eutectoid and forms martensite instead -- much harder but brittle. The entire art of heat-treating steel is controlling these transformations.</div>
  </div>
@@ -10492,7 +10481,7 @@ function PhaseDiagramSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> For the ideal Cu-Ni system, estimate the solidus temperature at x_Ni = 0.4 using the melting points T_Cu = 1358 K, T_Ni = 1728 K, and the approximation that ΔS_fus ≈ R (Richards' rule) for both elements.
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The solidus and liquidus curves arise from the competition between liquid and solid free energies. Richards' rule says ΔS<sub>fus</sub> ≈ R for most metals (about 8.3 J/(mol·K)), which gives ΔH<sub>fus</sub> ≈ RT<sub>m</sub>. The solidus temperature can be estimated by finding where the solid free energy curve first touches the liquid free energy curve as you cool an alloy.</div>
  </div>
@@ -10511,7 +10500,7 @@ function PhaseDiagramSection() {
  <CalcRow eq="T_sol = 1/6.733×10⁻⁴" result="T_sol ≈ 1485 K (1212°C)" color={T.eo_e} />
  <CalcRow eq="Experimental solidus at x_Ni=0.4:" result="≈ 1480 K -- excellent agreement" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The ideal solution model predicts T_sol ≈ 1485 K for Cu-60Ni-40, very close to the experimental ~1480 K. This works well for Cu-Ni because the two metals have similar atomic radii (128 vs 125 pm) and form a complete solid solution (isomorphous system). The harmonic-mean formula gives a solidus that curves below the straight line connecting the two melting points -- the "lens-shaped" two-phase region characteristic of ideal isomorphous systems.</div>
  </div>
@@ -10521,7 +10510,7 @@ function PhaseDiagramSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In the Cu-Sn system, a peritectic reaction occurs at 798°C: liquid (13.5 wt% Sn) + α (15.8 wt% Sn) → β (22.0 wt% Sn). An alloy with 20 wt% Sn (tin bronze) is cooled slowly through 798°C. What happens?
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A peritectic is the opposite of a eutectic. In a eutectic, one phase (liquid) splits into two solids. In a peritectic, two phases (liquid + solid α) combine to form a new solid (β). It is like mixing two ingredients to bake a cake -- both reactants are consumed to make something new. The peritectic reaction is notoriously slow because it requires diffusion through the newly formed β shell surrounding the α grains.</div>
  </div>
@@ -10541,7 +10530,7 @@ function PhaseDiagramSection() {
  <CalcRow eq="At 798°C: peritectic → α transforms to β" result="L + α → β" color={T.eo_e} />
  <CalcRow eq="Just below 798°C: α + β (since 15.8 < 20 < 22)" result="f_β = (20−15.8)/(22−15.8) = 67.7%" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At the peritectic, α grains react with surrounding liquid to form β. With 20 wt% Sn, the alloy ends up as 68% β + 32% α just below 798°C. In practice, β forms a shell around α cores, blocking further reaction (coring). This makes Cu-Sn bronzes heterogeneous unless annealed for long times. Ancient bronze-smiths unknowingly dealt with peritectic kinetics -- their prolonged annealing at ~700°C homogenized the microstructure, producing the strong, corrosion-resistant bronze that defined an era.</div>
  </div>
@@ -10652,7 +10641,7 @@ function PhaseDiagramSection() {
  <CalcRow eq="ΔE₃ = 2E(CuS) + E(ZnS) + E(SnS) − E(CZTS)" result="+0.38 eV (CZTS wins)" color={T.accent} />
  </div>
 
- <div style={{ background: T.accent + "08", border: `1px solid ${T.accent}22`, borderRadius: 8, padding: "10px 12px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.accent, fontWeight: 500, marginBottom: 4 }}>Result</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
  All decomposition reactions have positive ΔE, so CZTS sits on the convex hull and is thermodynamically stable.
@@ -10809,7 +10798,7 @@ function PhaseDiagramSection() {
  <InfoRow label="Best efficiency" value="12.6% (IBM, 2013) — limited by secondary phases" />
  </div>
 
- <div style={{ background: T.accent + "08", border: `1px solid ${T.accent}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.accent, fontWeight: 500, marginBottom: 4 }}>Key takeaway</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
  Building a phase diagram for a real quaternary material requires:
@@ -11114,7 +11103,7 @@ function ChemicalPotentialSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> You are growing ZnTe thin films by MBE. The chemical potentials of Zn and Te must be controlled to avoid forming competing phases (pure Zn metal or pure Te). What is the allowed range of chemical potentials?
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Chemical potential is like the "willingness" of an atom to leave its source. Too much Zn pressure (Zn-rich) and you get Zn droplets. Too much Te (Te-rich) and Te precipitates form. The stability window is the narrow "Goldilocks zone" where only ZnTe is thermodynamically favored.</div>
  </div>
@@ -11131,7 +11120,7 @@ function ChemicalPotentialSection() {
  <CalcRow eq="Te-rich: μ_Te = 0 → μ_Zn = -1.23 - 0 = -1.23 eV" result="" color={T.eo_e} />
  <CalcRow eq="Allowed range: -1.23 eV ≤ μ_Zn ≤ 0 eV" result="Window = 1.23 eV" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The allowed chemical potential window is only 1.23 eV wide. Under Zn-rich conditions (μ<sub>Zn</sub> near 0), Te is starved (μ<sub>Te</sub> = -1.23 eV), favoring Te vacancies (V<sub>Te</sub>) which act as n-type donors. Under Te-rich conditions, Zn vacancies (V<sub>Zn</sub>) dominate, giving p-type behavior. This is why MBE flux ratios directly control doping in ZnTe.</div>
  </div>
@@ -11141,7 +11130,7 @@ function ChemicalPotentialSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Copper has a vacancy formation energy E_v = 1.0 eV. How many vacancies exist per atom at room temperature (300K) versus at 1000K near the melting point?
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A vacancy is a missing atom in the crystal lattice -- like an empty seat in a stadium. At low temperature, the energy cost is too high and almost no seats are empty. But as temperature rises, entropy favors disorder, and exponentially more vacancies appear. The Boltzmann factor exp(-E<sub>v</sub>/kT) controls this exponential.</div>
  </div>
@@ -11157,7 +11146,7 @@ function ChemicalPotentialSection() {
  <CalcRow eq="At 300K: n_v/N = exp(-1.0 / 0.02585) = exp(-38.7)" result="≈ 1.6 × 10⁻¹⁷" color={T.eo_e} />
  <CalcRow eq="At 1000K: n_v/N = exp(-1.0 / 0.08617) = exp(-11.6)" result="≈ 9.1 × 10⁻⁶" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At room temperature, only about 1 in 10<sup>17</sup> sites is vacant -- essentially zero. At 1000K, about 1 in 100,000 sites is empty. This 12-orders-of-magnitude increase shows the dramatic effect of temperature on defect concentration. High-temperature annealing equilibrates defects, and quenching "freezes in" the high-temperature vacancy population.</div>
  </div>
@@ -11167,7 +11156,7 @@ function ChemicalPotentialSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> A DFT supercell calculation for CdTe gives: E(perfect 64-atom cell) = -372.68 eV, E(cell with V_Cd) = -367.21 eV. Under Te-rich conditions, μ_Cd = -1.23 eV (referenced to bulk Cd). Calculate the Cd vacancy formation energy and the equilibrium concentration at 600°C.
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>To form a Cd vacancy, you remove a Cd atom and place it in a "reservoir" at chemical potential μ<sub>Cd</sub>. The energy cost is the total energy difference, offset by the energy gained by putting the atom in the reservoir. Under Te-rich conditions, μ<sub>Cd</sub> is low (Cd is scarce), making vacancies cheaper to form. This is why Te-rich growth produces more Cd vacancies and stronger p-type doping.</div>
  </div>
@@ -11186,7 +11175,7 @@ function ChemicalPotentialSection() {
  <CalcRow eq="With charge q=−2: E_f reduces by ~2×(E_F − E_VBM)" result="E_f(V_Cd²⁻) ≈ 1.5 eV at midgap" color={T.eo_e} />
  <CalcRow eq="[V_Cd] at 873K = N exp(−1.5/0.0752)" result="≈ 3.2 × 10¹³ cm⁻³" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The neutral V_Cd has E_f = 3.33 eV -- too high for significant concentrations. But in p-type CdTe, V_Cd accepts two electrons (charge −2), lowering E_f to ~1.5 eV. This gives ~3 × 10¹³ cm⁻³ vacancies at growth temperature -- enough for measurable p-type conductivity. The strong dependence on chemical potential means that switching from Te-rich to Cd-rich conditions increases E_f by 1.23 eV, reducing [V_Cd] by 10⁷×. This is why growth stoichiometry is the primary knob for controlling doping.</div>
  </div>
@@ -11196,7 +11185,7 @@ function ChemicalPotentialSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> During CdTe sublimation, the dominant Te-containing species is Te₂ (diatomic tellurium). The sublimation enthalpy for CdTe → Cd(g) + ½Te₂(g) gives ΔH ≈ 170 kJ/mol for the Te₂ component. If P(Te₂) = 0.5 Pa at 900 K, calculate P(Te₂) at 1000 K and determine the Cd/Te flux ratio.
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>CdTe does not evaporate as CdTe molecules. It dissociates into atomic Cd and molecular Te₂. The ratio of Cd to Te₂ pressures determines whether the growth surface is Cd-rich or Te-rich. Because Cd is more volatile than Te₂, Cd pressure rises faster with temperature, and at very high T, excess Cd escapes, leaving the film Te-rich. This is why high-temperature CdTe growth tends toward intrinsic p-type.</div>
  </div>
@@ -11215,7 +11204,7 @@ function ChemicalPotentialSection() {
  <CalcRow eq="P₂ = 0.5 × exp(2.272) = 0.5 × 9.70" result="P(Te₂) at 1000K = 4.85 Pa" color={T.eo_e} />
  <CalcRow eq="CdTe stoichiometry: P(Cd) ≈ 2×P(Te₂)" result="Cd/Te₂ flux ratio ≈ 2:1" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Te₂ pressure increases ~10× from 900 K to 1000 K. For stoichiometric sublimation, P(Cd) = 2P(Te₂) because each CdTe unit produces one Cd atom but only half a Te₂ molecule. If the substrate is cooler than the source, excess Cd re-evaporates preferentially (lower sticking coefficient), making the film slightly Te-rich. Precise control of source temperature (±2°C) is critical for reproducible CdTe solar cell fabrication.</div>
  </div>
@@ -11225,7 +11214,7 @@ function ChemicalPotentialSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> In CdTe, the Schottky pair (V_Cd + V_Te) has combined formation energy E_S = 3.0 eV, while the Cd Frenkel pair (V_Cd + Cd_i) has E_F = 4.5 eV. Which defect type dominates at 600°C? Calculate the concentration ratio.
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Schottky defects are like removing a brick from a wall -- an atom leaves its site and goes to the surface, creating a vacancy. Frenkel defects are like displacing a brick to squeeze between other bricks -- the atom goes to an interstitial site. In CdTe, Schottky pairs are cheaper because the large Te atoms make interstitial sites energetically expensive. The exponential Boltzmann factor amplifies even small energy differences into huge concentration ratios.</div>
  </div>
@@ -11244,7 +11233,7 @@ function ChemicalPotentialSection() {
  <CalcRow eq="= exp(−29.92)" result="= 1.11 × 10⁻¹³" color={T.eo_e} />
  <CalcRow eq="Ratio: [Schottky]/[Frenkel] = 2.17×10⁻⁹ / 1.11×10⁻¹³" result="≈ 19,500×" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Schottky defects outnumber Frenkel defects by nearly 20,000× at 600°C. The 1.5 eV energy difference translates to an enormous concentration ratio because of the exponential dependence. This means CdTe is dominated by vacancy pairs, not interstitials. The V_Cd acts as a double acceptor (p-type) and V_Te as a double donor (n-type). Under Te-rich conditions, V_Cd dominates and CdTe is p-type; under Cd-rich conditions, V_Te dominates and CdTe tends n-type.</div>
  </div>
@@ -11254,7 +11243,7 @@ function ChemicalPotentialSection() {
  <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7, marginBottom: 14 }}>
  <strong>The Experiment:</strong> Copper doping of CdTe creates two competing defects: Cu_Cd (Cu on Cd site, acceptor, E_f = 0.8 eV under Te-rich) and Cu_i (interstitial Cu, donor, E_f = 1.2 eV). Calculate the concentrations at 200°C (back-contact annealing temperature) for a Cu chemical potential μ_Cu = 0 (Cu-rich).
  </div>
- <div style={{ background: T.eo_e + "06", border: `1px solid ${T.eo_e}18`, borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
+ <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Cu is the essential back-contact dopant in CdTe solar cells -- it must substitute on Cd sites (acceptor, p-type) to improve the contact. But Cu is a fast interstitial diffuser, and interstitial Cu is a donor (compensates the desired p-type doping). The competition between Cu_Cd and Cu_i determines whether Cu helps or hurts the device. Too much Cu → interstitials dominate → device degradation over time.</div>
  </div>
@@ -11274,7 +11263,7 @@ function ChemicalPotentialSection() {
  <CalcRow eq="= 1.48×10²² × 1.67×10⁻¹³" result="[Cu_i] = 2.47 × 10⁹ cm⁻³" color={T.eo_e} />
  <CalcRow eq="Ratio: [Cu_Cd]/[Cu_i] = 4.45×10¹³ / 2.47×10⁹" result="≈ 18,000× more substitutional" color={T.eo_e} />
  </div>
- <div style={{ background: T.eo_e + "08", border: `1px solid ${T.eo_e}22`, borderRadius: 8, padding: "10px 12px" }}>
+ <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_e, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>At 200°C, substitutional Cu_Cd outnumbers interstitial Cu_i by 18,000×, meaning Cu predominantly acts as an acceptor -- good for the back contact. However, Cu_i is a fast diffuser (D ~ 10⁻⁸ cm²/s at 200°C). Over years of solar panel operation, interstitial Cu migrates toward the junction, gradually compensating p-type doping and reducing efficiency. This Cu instability is the primary long-term degradation mechanism in CdTe solar cells, motivating research into Cu-free back contacts.</div>
  </div>
@@ -11452,12 +11441,7 @@ function DefectSection() {
 
  {/* Info */}
  <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 12 }}>
- <div style={{
- background: cs.color + "11",
- border: `1px solid ${cs.color}44`,
- borderRadius: 10,
- padding: 14
- }}>
+ <div style={{ padding: 14 }}>
  <div style={{ fontSize: 18, fontWeight: 500, color: cs.color, marginBottom: 8 }}>
  {cs.label} — {cs.nelect}
  </div>
