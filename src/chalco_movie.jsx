@@ -10,22 +10,22 @@ const P = {
   surface: "#0f2428",
   border:  "#18393f",
   ink:     "#f0f5f6",
-  muted:   "#3f94a5",
+  muted:   "#60a9b8",
   dim:     "#1f4a53",
 
-  solar:   "#71adb9",
-  crystal: "#91bfc9",
-  defect:  "#388392",
-  electron:"#78b1bd",
-  hole:    "#5299a7",
-  dft:     "#62a5b2",
-  mlff:    "#96c2cb",
-  heat:    "#93c1ca",
+  solar:   "#98bec5",
+  crystal: "#b4cfd5",
+  defect:  "#4993a1",
+  electron:"#9dc1c8",
+  hole:    "#71b2bf",
+  dft:     "#7eb9c5",
+  mlff:    "#b8d2d7",
+  heat:    "#b5d0d5",
   photon:  "#bfd3d7",
-  ok:      "#a5cbd2",
-  warn:    "#539aa8",
-  chalco:  "#77b1bc",
-  teal:    "#9bc5ce"
+  ok:      "#bcd5da",
+  warn:    "#73b3c0",
+  chalco:  "#9cc0c7",
+  teal:    "#b9d3d8"
 };
 
 // ── Scenes ──

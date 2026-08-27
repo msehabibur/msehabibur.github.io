@@ -338,6 +338,9 @@ body{background:var(--paper); color:var(--ink)}
 .cs-stage div[style*="display: flex"]:not([style*="flex-direction: column"]):not([style*="flex-direction: row-reverse"]) {
   flex-wrap: wrap !important;
 }
+/* panels inside a chapter sit on white; the rail and the references column
+   keep the recessed tone, since they are chrome rather than content */
+.cs-stage { --sunk: var(--panel); }
 .cs-stage svg { max-width: 100%; height: auto; }
 /* a quiet halo keeps any label that still grazes another one legible */
 .cs-stage svg text { paint-order: stroke fill; stroke: var(--panel); stroke-width: 3px; stroke-linejoin: round; }

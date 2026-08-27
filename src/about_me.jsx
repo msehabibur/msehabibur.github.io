@@ -8,14 +8,14 @@ const LIGHT = {
   border:  "#dee9eb",
   ink:     "#0f2428",
   muted:   "#6c7b7e",
-  dim:     "#abced6",
-  accent:  "#2e6d79",
-  blue:    "#317481",
-  green:   "#2c6773",
-  amber:   "#2c6975",
-  red:     "#285e69",
-  teal:    "#2e6d79",
-  pink:    "#2f6f7c"
+  dim:     "#c1d7dc",
+  accent:  "#2f7380",
+  blue:    "#358190",
+  green:   "#2c6b77",
+  amber:   "#2e707d",
+  red:     "#275f6a",
+  teal:    "#2f7380",
+  pink:    "#317583"
 };
 const DARK = {
   bg:      "#0f2428",
@@ -23,15 +23,15 @@ const DARK = {
   surface: "#0f2428",
   border:  "#17353b",
   ink:     "#e8f0f1",
-  muted:   "#79b2bd",
+  muted:   "#9fc2c9",
   dim:     "#214e57",
-  accent:  "#8ebec7",
-  blue:    "#88bac4",
-  green:   "#7fb5c0",
-  amber:   "#93c1ca",
-  red:     "#539aa8",
-  teal:    "#aaced5",
-  pink:    "#84b8c2"
+  accent:  "#b2ced4",
+  blue:    "#afccd2",
+  green:   "#a5c6cd",
+  amber:   "#b5d0d5",
+  red:     "#73b3c0",
+  teal:    "#bfd6db",
+  pink:    "#accad0"
 };
 
 // Mutable theme ref — set at render time

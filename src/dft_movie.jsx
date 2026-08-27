@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import fx from "./fx.jsx";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // DFT BASICS MOVIE — Density Functional Theory walkthrough (detailed v2)
@@ -10,17 +11,17 @@ const P = {
   surface: "#0f2428",
   border:  "#18393f",
   ink:     "#f0f5f6",
-  muted:   "#3f94a5",
+  muted:   "#60a9b8",
   dim:     "#1f4a53",
-  blue:    "#91bfc9",
-  purple:  "#62a5b2",
-  green:   "#96c2cb",
-  amber:   "#71adb9",
-  pink:    "#84b8c2",
-  teal:    "#9bc5ce",
-  red:     "#539aa8",
-  ok:      "#a5cbd2",
-  warn:    "#539aa8"
+  blue:    "#b4cfd5",
+  purple:  "#7eb9c5",
+  green:   "#b8d2d7",
+  amber:   "#98bec5",
+  pink:    "#accad0",
+  teal:    "#b9d3d8",
+  red:     "#73b3c0",
+  ok:      "#bcd5da",
+  warn:    "#73b3c0"
 };
 
 const SCENES = [
@@ -181,7 +182,7 @@ export default function DFTMovieModule() {
           <text x={W/2} y={260} textAnchor="middle" fill={P.purple} fontSize="12" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={eqOp}>Kohn-Sham Equation — The Heart of DFT</text>
           <text x={W/2} y={292} textAnchor="middle" fill={P.green} fontSize="16" fontWeight="500"
-            fontFamily="'Fira Code','Consolas',monospace" opacity={eqOp}>{"[-½∇² + v_ext(r) + v_H(r) + v_xc(r)] φᵢ(r) = εᵢ φᵢ(r)"}</text>
+            fontFamily="'Fira Code','Consolas',monospace" opacity={eqOp}>{fx("[-½∇² + v_ext(r) + v_H(r) + v_xc(r)] φᵢ(r) = εᵢ φᵢ(r)")}</text>
           <line x1={W/2-220} y1={308} x2={W/2+220} y2={308} stroke={P.border} strokeWidth="0.8" opacity={eqOp * 0.5} />
           <text x={W/2-150} y={326} fill={P.amber} fontSize="9.5" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={eqOp * 0.9}>v_ext = nuclear pull</text>

@@ -89,11 +89,11 @@
 // └─────────────────────────────────────────────────────────────────────────────
 //
 // COLORS:
-//   - ONE accent color only: purple #327785
+//   - ONE accent color only: purple #378695
 //   - No multi-color schemes. No blue for electrons, red for gaps, etc.
 //   - All T.eo_* aliases resolve to the same purple
 //   - Neutrals: bg (#f0f4f5), panel (#fff), surface (#f6f8f9),
-//               border (#d4e2e5), ink (#0f2428), muted (#6b7280), dim (#bad1d5)
+//               border (#d4e2e5), ink (#0f2428), muted (#6b7280), dim (#c5dade)
 //
 // FONTS:
 //   - All text: monospace font family
@@ -147,7 +147,7 @@
 //   - ResultBox for final highlighted answers
 //
 // BUTTONS:
-//   - Active state: purple background (#327785), white text
+//   - Active state: purple background (#378695), white text
 //   - Inactive state: white background, dark text, gray border
 //   - Use BUTTON.toggle(isActive) helper — never inline different colors
 //   - Font: monospace, 11px, padding 5px 8px
@@ -191,7 +191,7 @@
 
 
 // ── Single accent color ──────────────────────────────────────────────────────
-const ACCENT = "#2e6d79"; // teal — matches the shell accent token
+const ACCENT = "#2f7380"; // teal — matches the shell accent token
 
 // ══════════════════════════════════════════════════════════════════════════════
 // 1. THEME COLORS

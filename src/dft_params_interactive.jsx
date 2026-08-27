@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
+import fx from "./fx.jsx";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // DFT PARAMETERS — Interactive step-by-step (MLFF Pipeline style)
@@ -9,7 +10,7 @@ class ParamErrorBoundary extends React.Component {
   static getDerivedStateFromError(error) { return { error }; }
   render() {
     if (this.state.error) return (
-      <div style={{ padding: 20, color: "#30717f", fontSize: 13, fontFamily: "monospace", whiteSpace: "pre-wrap", background: "#f2f5f6", borderRadius: 10, border: "1.5px solid #30717f30" }}>
+      <div style={{ padding: 20, color: "#347d8b", fontSize: 13, fontFamily: "monospace", whiteSpace: "pre-wrap", background: "#f2f5f6", borderRadius: 10, border: "1.5px solid #347d8b30" }}>
         <div style={{ fontSize: 16, fontWeight: 500, marginBottom: 8 }}>Error in Worked Example:</div>
         {this.state.error.toString()}
         <div style={{ marginTop: 8, color: "#999", fontSize: 11 }}>{this.state.error.stack}</div>
@@ -22,8 +23,8 @@ class ParamErrorBoundary extends React.Component {
 const T = {
   bg: "var(--paper)", surface: "#ffffff", ink: "var(--ink)", muted: "var(--muted)",
   border: "#e0e0e0", dim: "var(--muted)",
-  main: "#347a89", eqn: "#327785", xc: "#3c8e9f", basis: "#5094a1",
-  warn: "#30717f", accent: "#3d90a1", warm: "#2f6f7c"
+  main: "#398a9a", eqn: "#378695", xc: "#50a1b1", basis: "#63aab9",
+  warn: "#347d8b", accent: "#56a3b3", warm: "#317583"
 };
 
 const mathBlock = {
@@ -150,8 +151,8 @@ function SecBZ() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       {/* Simple analogy first */}
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In a crystal, atoms repeat in a pattern (unit cell). Electrons are waves, and their wave behaviors also repeat.
           The <strong>Brillouin Zone</strong> is the smallest box that captures all <em>unique</em> wave behaviors — anything outside is just a copy. Think of it as the <strong>unit cell for electron waves</strong>.
@@ -212,9 +213,9 @@ function SecBZ() {
             </div>
           ))}
         </div>
-        <div style={{ marginTop: 10, background: "#f0f4f5", borderRadius: 8, padding: "10px 14px", border: "1px solid #71adb922" }}>
+        <div style={{ marginTop: 10, background: "#f0f4f5", borderRadius: 8, padding: "10px 14px", border: "1px solid #98bec522" }}>
           <div style={{ fontSize: 12, lineHeight: 1.7, color: T.ink }}>
-            <strong style={{ color: "#2f6f7c" }}>Room analogy:</strong> The BZ is a room. <strong>{"\u0393"}</strong> = center of the room. <strong>X</strong> = middle of a wall. <strong>M</strong> = where two walls meet at the floor. <strong>K</strong> = corner where walls meet. Band structure = walking from {"\u0393"}{"\u2192"}X{"\u2192"}M{"\u2192"}{"\u0393"} and measuring electron energy at each step.
+            <strong style={{ color: "#317583" }}>Room analogy:</strong> The BZ is a room. <strong>{"\u0393"}</strong> = center of the room. <strong>X</strong> = middle of a wall. <strong>M</strong> = where two walls meet at the floor. <strong>K</strong> = corner where walls meet. Band structure = walking from {"\u0393"}{"\u2192"}X{"\u2192"}M{"\u2192"}{"\u0393"} and measuring electron energy at each step.
           </div>
         </div>
       </Card>
@@ -328,8 +329,8 @@ function SecKpoints() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Imagine you want to know the average temperature in a room. You could measure at just one spot (fast but inaccurate) or place thermometers on a grid across the room (slower but accurate). <strong>KPOINTS</strong> is that grid of measurement points inside the Brillouin Zone. More points = more accurate electron energies, but each point costs computation time. For metals (complex temperature landscape), you need a dense grid. For semiconductors (smooth landscape), a coarse grid works fine.
         </div>
@@ -372,7 +373,7 @@ function SecKpoints() {
           <strong style={{ color: T.eqn }}> Monkhorst-Pack</strong> scheme creates a uniform
           Γ-centered grid of N×N×N points.
         </div>
-        <div style={{ marginTop: 8, fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center",
+        <div style={{ marginTop: 8, fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, textAlign: "center",
           background: T.eqn + "08", padding: "12px 16px", borderRadius: 10, color: T.eqn }}>
           E<sub>total</sub> = (1/N<sub>k</sub>) Σ<sub>k</sub> Σ<sub>n</sub> f<sub>nk</sub> ε<sub>nk</sub>
           &nbsp;&nbsp;→&nbsp;&nbsp; converges as N<sub>k</sub> → ∞
@@ -521,8 +522,8 @@ function SecEncut() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Electron wavefunctions are built from plane waves (simple sine waves added together), like building any sound from musical notes. <strong>ENCUT</strong> sets the highest note you allow. Low ENCUT = only bass notes = blurry picture of the electron. High ENCUT = bass + treble = sharp, detailed picture. But more notes means more computation. You increase ENCUT until the total energy stops changing {"\u2014"} that means you have enough detail.
         </div>
@@ -565,7 +566,7 @@ function SecEncut() {
           plane waves are used to expand the Kohn-Sham orbitals. Only plane waves with
           kinetic energy <strong>|k+G|²/2 ≤ ENCUT</strong> are included.
         </div>
-        <div style={{ marginTop: 10, fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center",
+        <div style={{ marginTop: 10, fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, textAlign: "center",
           background: T.basis + "08", padding: "12px 16px", borderRadius: 10, color: T.basis }}>
           ψ<sub>nk</sub>(r) = Σ<sub>G</sub> c<sub>nk</sub>(G) e<sup>i(k+G)·r</sup>
           &nbsp;&nbsp;where&nbsp;&nbsp; |k+G|²/2 {"<"} E<sub>cut</sub>
@@ -599,12 +600,12 @@ function SecEncut() {
           {"  G\u2080 = 0, G\u2081 = 2.094, G\u208B\u2081 = -2.094, G\u2082 = 4.189, ..."}<br /><br />
 
           <span style={{ color: T.basis, fontWeight: 500 }}>Step 3: The plane wave basis function</span><br />
-          {"  Each basis function is: \u03C6_G(r) = (1/\u221A\u03A9) \u00D7 e^(i(k+G)\u00B7r)"}<br />
+          {fx("  Each basis function is: \u03C6_G(r) = (1/\u221A\u03A9) \u00D7 e^(i(k+G)\u00B7r)")}<br />
           {"  For k = 0.5, G\u2080 = 0:  \u03C6\u2080(r) = (1/\u221A\u03A9) \u00D7 e^(i \u00D7 0.5 \u00D7 r)"}<br />
           {"  For k = 0.5, G\u2081 = 2.094:  \u03C6\u2081(r) = (1/\u221A\u03A9) \u00D7 e^(i \u00D7 2.594 \u00D7 r)"}<br /><br />
 
           <span style={{ color: T.accent, fontWeight: 500 }}>Step 4: Which G's survive at ENCUT = 5 eV?</span><br />
-          {"  Kinetic energy of plane wave: E_kin = \u210F\u00B2|k+G|\u00B2/(2m\u2091)"}<br />
+          {fx("  Kinetic energy of plane wave: E_kin = \u210F\u00B2|k+G|\u00B2/(2m\u2091)")}<br />
           {"  Convert: E(eV) = 7.62 \u00D7 |k+G|\u00B2  (with k+G in \u00C5\u207B\u00B9)"}<br /><br />
 
           {"  G\u2080:  |k+G| = |0.5 + 0| = 0.500 \u00C5\u207B\u00B9  \u2192  E = 7.62 \u00D7 0.25 = "}<span style={{ color: T.basis, fontWeight: 500 }}>{"1.91 eV \u2713"}</span><br />
@@ -612,7 +613,7 @@ function SecEncut() {
           {"  G\u208B\u2081: |k+G| = |0.5 - 2.094| = 1.594 \u00C5\u207B\u00B9  \u2192  E = 7.62 \u00D7 2.54 = "}<span style={{ color: T.warn, fontWeight: 500 }}>{"19.4 eV \u2717 (> 5 eV)"}</span><br /><br />
 
           <span style={{ color: T.eqn, fontWeight: 500 }}>Result: At ENCUT = 5 eV, ONLY G\u2080 survives! The wavefunction is just:</span><br />
-          {"  \u03C8_k(r) = c\u2080 \u00D7 e^(i \u00D7 0.5 \u00D7 r)"}<br />
+          {fx("  \u03C8_k(r) = c\u2080 \u00D7 e^(i \u00D7 0.5 \u00D7 r)")}<br />
           {"  This is terrible \u2014 just one sine wave, no detail at all."}<br /><br />
 
           <span style={{ color: T.basis, fontWeight: 500 }}>At ENCUT = 400 eV:</span><br />
@@ -637,15 +638,15 @@ function SecEncut() {
           {"  +5  |  +10.470     |  +10.970       | 120.34     |  917.0     | \u2718"}<br /><br />
           <span style={{ color: T.basis, fontWeight: 500 }}>{"Result: n = -3 to +3 survive \u2192 7 plane waves (1D at this k-point)"}</span><br /><br />
           {"  The 7 plane waves are:"}<br />
-          {"  \u03C6\u2083(r) = (1/\u221A\u03A9) e^(i\u00D7(-5.782)\u00D7r)   [high-freq, leftward]"}<br />
-          {"  \u03C6\u2082(r) = (1/\u221A\u03A9) e^(i\u00D7(-3.688)\u00D7r)"}<br />
-          {"  \u03C6\u2081(r) = (1/\u221A\u03A9) e^(i\u00D7(-1.594)\u00D7r)"}<br />
-          {"  \u03C6\u2080(r) = (1/\u221A\u03A9) e^(i\u00D7(+0.500)\u00D7r)   [lowest energy, 1.9 eV]"}<br />
-          {"  \u03C6\u2081(r) = (1/\u221A\u03A9) e^(i\u00D7(+2.594)\u00D7r)"}<br />
-          {"  \u03C6\u2082(r) = (1/\u221A\u03A9) e^(i\u00D7(+4.688)\u00D7r)"}<br />
-          {"  \u03C6\u2083(r) = (1/\u221A\u03A9) e^(i\u00D7(+6.782)\u00D7r)   [high-freq, rightward]"}<br /><br />
-          {"  The KS orbital is then: \u03C8_k(r) = c\u2083\u03C6\u2083 + c\u2082\u03C6\u2082 + ... + c\u2083\u03C6\u2083"}<br />
-          {"  DFT finds the coefficients c_n by diagonalizing a 7\u00D77 Hamiltonian matrix."}<br /><br />
+          {fx("  \u03C6\u2083(r) = (1/\u221A\u03A9) e^(i\u00D7(-5.782)\u00D7r)   [high-freq, leftward]")}<br />
+          {fx("  \u03C6\u2082(r) = (1/\u221A\u03A9) e^(i\u00D7(-3.688)\u00D7r)")}<br />
+          {fx("  \u03C6\u2081(r) = (1/\u221A\u03A9) e^(i\u00D7(-1.594)\u00D7r)")}<br />
+          {fx("  \u03C6\u2080(r) = (1/\u221A\u03A9) e^(i\u00D7(+0.500)\u00D7r)   [lowest energy, 1.9 eV]")}<br />
+          {fx("  \u03C6\u2081(r) = (1/\u221A\u03A9) e^(i\u00D7(+2.594)\u00D7r)")}<br />
+          {fx("  \u03C6\u2082(r) = (1/\u221A\u03A9) e^(i\u00D7(+4.688)\u00D7r)")}<br />
+          {fx("  \u03C6\u2083(r) = (1/\u221A\u03A9) e^(i\u00D7(+6.782)\u00D7r)   [high-freq, rightward]")}<br /><br />
+          {fx("  The KS orbital is then: \u03C8_k(r) = c\u2083\u03C6\u2083 + c\u2082\u03C6\u2082 + ... + c\u2083\u03C6\u2083")}<br />
+          {fx("  DFT finds the coefficients c_n by diagonalizing a 7\u00D77 Hamiltonian matrix.")}<br /><br />
           {"  In 3D: each direction gets ~7 G-values \u2192 7\u00D77\u00D77 = 343 G-vectors"}<br />
           {"  (inside a sphere, not a cube: actual count \u2248 "}<span style={{ color: T.basis, fontWeight: 500 }}>{"~2,700"}</span>{" for Si at 400 eV)"}<br /><br />
 
@@ -794,8 +795,8 @@ function SecIsmear() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In a metal, some electron energy levels are right at the boundary between occupied and empty (the Fermi level). At exactly T = 0 K, the occupation jumps sharply from 1 to 0 {"\u2014"} like a light switch. This sharp jump makes the math unstable. <strong>Smearing</strong> turns the light switch into a dimmer {"\u2014"} a smooth transition. For insulators (big gap between occupied and empty), the switch is already far from the action, so a tiny smear (SIGMA = 0.05) works. For metals, you need more smoothing (SIGMA = 0.1{"\u2013"}0.2).
         </div>
@@ -838,7 +839,7 @@ function SecIsmear() {
           exactly 0 or 1. This causes problems for numerical integration (especially in metals where
           bands cross E<sub>F</sub>). <strong style={{ color: T.xc }}>Smearing</strong> replaces the step with a smooth function.
         </div>
-        <div style={{ marginTop: 10, fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center",
+        <div style={{ marginTop: 10, fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, textAlign: "center",
           background: T.xc + "08", padding: "12px 16px", borderRadius: 10, color: T.xc }}>
           f(ε) = ½ [1 − erf((ε − E<sub>F</sub>) / (σ√2))] &nbsp;&nbsp;← Gaussian smearing
         </div>
@@ -970,8 +971,8 @@ function SecAlgo() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       {/* Simple analogy */}
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           DFT solves equations by guessing an answer, checking how wrong it is, and improving — over and over. <strong>ALGO</strong> controls <em>how</em> it improves each guess. Think of finding the lowest point in a valley while blindfolded:
         </div>
@@ -1270,8 +1271,8 @@ function SecEdiff() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           DFT has two nested loops, like focusing a camera on a moving target. <strong>EDIFF</strong> (inner loop): how sharp the focus needs to be each time you take a photo {"\u2014"} 10{"\u207B\u2076"} eV means the energy must settle to within a millionth of an eV before you trust it. <strong>EDIFFG</strong> (outer loop): how still the target needs to be before you stop {"\u2014"} it controls when the atoms have relaxed enough. Tighter values = sharper results but more computation steps.
         </div>
@@ -1426,8 +1427,8 @@ function SecIbrion() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           After solving for electrons (SCF), you need to move the atoms to their lowest-energy positions. <strong>IBRION</strong> controls how atoms move. Think of placing a ball on a hilly surface: <strong>IBRION = 2</strong> (Conjugate Gradient) rolls the ball downhill step by step {"\u2014"} always works, standard choice. <strong>IBRION = 1</strong> (Quasi-Newton) remembers the shape of the hill from previous steps and takes smarter jumps {"\u2014"} faster near the bottom but can overshoot. <strong>IBRION = 5/6</strong> don{"'"}t relax at all {"\u2014"} they wiggle each atom slightly to measure the hill{"'"}s curvature (phonons, elastic constants). <strong>NSW</strong> = maximum number of steps allowed.
         </div>
@@ -1589,8 +1590,8 @@ function SecIbrion() {
 function SecPrec() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Think of PREC as choosing between a low-resolution and high-resolution camera. <strong>Normal</strong> is like a 720p camera — fine for viewing the big picture but blurs fine details. <strong>Accurate</strong> is 4K — every detail is sharp. The FFT grid is the pixel count: more grid points = more pixels = no aliasing artifacts. For forces and phonons, you need every pixel to be right.
         </div>
@@ -1631,8 +1632,8 @@ function SecPrec() {
           {"  Experiment:      ω(Γ₂₅') = 15.53 THz"}<br /><br />
           {"  PREC = Normal gives "}<span style={{ color: T.warn, fontWeight: 500 }}>{"2.1% error"}</span>{" — entirely from aliasing!"}<br /><br />
           <span style={{ color: T.warn, fontWeight: 500 }}>CdTe formation energy:</span><br />
-          {"  PREC = Normal:   ΔH_f = -0.48 eV/atom"}<br />
-          {"  PREC = Accurate: ΔH_f = -0.52 eV/atom"}<br />
+          {fx("  PREC = Normal:   ΔH_f = -0.48 eV/atom")}<br />
+          {fx("  PREC = Accurate: ΔH_f = -0.52 eV/atom")}<br />
           {"  The 40 meV/atom difference can flip stability predictions on the convex hull!"}
         </div>
       </Card>
@@ -1651,8 +1652,8 @@ function SecPrec() {
 function SecLreal() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           PAW projections compute how much of each atomic orbital is "inside" each atom. <strong>Lreal = .false.</strong> does this calculation exactly using all plane waves (reciprocal space). <strong>LREAL = Auto</strong> approximates the same thing by only looking within a sphere around each atom (real space) — much faster for big cells, but the sphere has a finite radius, so you miss contributions from the edges. For small cells, the sphere overlaps with its own periodic image, causing errors.
         </div>
@@ -1720,8 +1721,8 @@ function SecLreal() {
 function SecReciprocal() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Why Reciprocal Space?</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Why Reciprocal Space?</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In a periodic crystal, the electron density repeats every unit cell. Computing anything in real space means dealing with an infinite crystal. But in reciprocal space (Fourier space), periodicity becomes a discrete set of G-vectors — turning an infinite problem into a finite sum. This is why DFT codes like VASP work in reciprocal space: convolutions become multiplications, derivatives become multiplications by ik, and the Kohn-Sham equations become a matrix eigenvalue problem you can solve on a computer.
         </div>
@@ -1731,7 +1732,7 @@ function SecReciprocal() {
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           Any periodic function f(r) (like electron density) can be written as a sum of plane waves:
         </div>
-        <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center",
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, textAlign: "center",
           background: T.basis + "08", padding: "14px 18px", borderRadius: 10, color: T.basis, marginBottom: 12 }}>
           f(r) = Σ<sub>G</sub> f̃(G) e<sup>iG·r</sup>
           &nbsp;&nbsp;&nbsp;⟺&nbsp;&nbsp;&nbsp;
@@ -1802,7 +1803,7 @@ function SecReciprocal() {
           {"  G(1,0,0) = (−1.157, 1.157, 1.157)  →  |G|² = 4.02 Å⁻²"}<br />
           {"  G(1,1,0) = (0, 0, 2.314)  →  |G|² = 5.35 Å⁻²"}<br />
           {"  G(1,1,1) = (1.157, 1.157, 1.157)  →  |G|² = 4.02 Å⁻²"}<br /><br />
-          {"  Kinetic energy: E_G = ℏ²|G|²/(2mₑ) = 7.62 × |G|² (eV, with G in Å⁻¹)"}<br /><br />
+          {fx("  Kinetic energy: E_G = ℏ²|G|²/(2mₑ) = 7.62 × |G|² (eV, with G in Å⁻¹)")}<br /><br />
           {"  G(0,0,0): E = 0 eV           ✓ always included"}<br />
           {"  G(1,0,0): E = 7.62 × 4.02 = "}<span style={{ color: T.basis, fontWeight: 500 }}>{"30.6 eV  ✓ (< ENCUT=400)"}</span><br />
           {"  G(1,1,0): E = 7.62 × 5.35 = "}<span style={{ color: T.basis, fontWeight: 500 }}>{"40.8 eV  ✓"}</span><br />
@@ -1813,7 +1814,7 @@ function SecReciprocal() {
           {"  All G's inside a sphere of radius 10.25 Å⁻¹ are included"}<br />
           {"  Volume of G-sphere: (4π/3)(10.25)³ = 4510 ų⁻³"}<br />
           {"  G-points per unit volume: 1/Ω* = Ω/(2π)³ = 40.03/248.05 = 0.161"}<br />
-          {"  N_PW ≈ 4510 × 0.161 = "}<span style={{ color: T.basis, fontWeight: 500 }}>{"~726 G-vectors"}</span><br />
+          {fx("  N_PW ≈ 4510 × 0.161 = ")}<span style={{ color: T.basis, fontWeight: 500 }}>{"~726 G-vectors"}</span><br />
           {"  With 2 atoms/cell and 2 k-points spin: "}<span style={{ color: T.basis, fontWeight: 500 }}>{"~2,700 plane waves per k-point"}</span>
         </div>
       </Card>
@@ -1821,7 +1822,7 @@ function SecReciprocal() {
       <Card title="Why Reciprocal Space Makes DFT Efficient" color={T.accent}>
         <div style={mathBlock}>
           <span style={{ color: T.accent, fontWeight: 500 }}>The Hartree potential: real space vs reciprocal space</span><br /><br />
-          {"  Real space: V_H(r) = ∫ n(r')/|r−r'| dr'"}<br />
+          {fx("  Real space: V_H(r) = ∫ n(r')/|r−r'| dr'")}<br />
           {"  This is a 6D integral (3D for r, 3D for r')!"}<br />
           {"  On an N-point grid: O(N²) operations"}<br />
           {"  For N = 64³ = 262,144: that's 6.9 × 10¹⁰ operations — impossibly slow"}<br /><br />
@@ -1849,10 +1850,10 @@ function SecReciprocal() {
           <span style={{ color: T.eqn, fontWeight: 500 }}>Real space kinetic energy:</span><br />
           {"  T̂ψ = −(ℏ²/2m)∇²ψ   (second derivative — needs finite differences)"}<br /><br />
           <span style={{ color: T.eqn, fontWeight: 500 }}>Reciprocal space kinetic energy:</span><br />
-          {"  T̂ψ_G = (ℏ²/2m)|k+G|² × c_G   (just multiply by a number!)"}<br /><br />
+          {fx("  T̂ψ_G = (ℏ²/2m)|k+G|² × c_G   (just multiply by a number!)")}<br /><br />
           {"  The kinetic energy operator is DIAGONAL in the plane wave basis."}<br />
           {"  This means the kinetic part of the Hamiltonian matrix is:"}<br /><br />
-          {"  H_GG'(kinetic) = (ℏ²/2m)|k+G|² × δ_GG'"}<br /><br />
+          {fx("  H_GG'(kinetic) = (ℏ²/2m)|k+G|² × δ_GG'")}<br /><br />
           {"  For Si at k=Γ with ENCUT=400:"}<br />
           {"  H is 2700×2700 but the kinetic part has only 2700 nonzero entries"}<br />
           {"  (on the diagonal). In real space, ∇² couples all grid points — dense matrix!"}
@@ -1908,13 +1909,13 @@ function SecReciprocal() {
 
 // ──── Section 11: CdTe Full DFT Walkthrough ────
 function SecCdTeWalkthrough() {
-  const eq = { fontFamily: "Georgia, serif", fontSize: 14, color: T.ink };
+  const eq = { fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, color: T.ink };
   const eqc = (color) => ({ ...eq, color, fontWeight: 500 });
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>What This Section Does</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>What This Section Does</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           We take <strong>one CdTe unit cell (2 atoms)</strong> and walk through the <em>entire</em> DFT calculation with real numbers at every step — from choosing which electrons to treat, to the final converged energy. Nothing is skipped.
         </div>
@@ -2006,7 +2007,7 @@ function SecCdTeWalkthrough() {
 
       {/* ── STEP 2: K-POINTS ── */}
       <Card title="Step 2 — Choose k-point Mesh" color={T.eqn}>
-        <div style={{ fontSize: 14, fontWeight: 500, color: T.eqn, textAlign: "center", marginBottom: 12, fontFamily: "Georgia, serif" }}>
+        <div style={{ fontSize: 14, fontWeight: 500, color: T.eqn, textAlign: "center", marginBottom: 12, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>
           Monkhorst–Pack grid: 8 × 8 × 8
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 3, marginBottom: 14 }}>
@@ -2037,7 +2038,7 @@ function SecCdTeWalkthrough() {
 
       {/* ── STEP 3: PLANE WAVES ── */}
       <Card title="Step 3 — Build Plane Wave Basis (ENCUT = 400 eV)" color={T.basis}>
-        <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center", background: T.basis + "08", padding: "12px 16px", borderRadius: 10, color: T.basis, marginBottom: 12 }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, textAlign: "center", background: T.basis + "08", padding: "12px 16px", borderRadius: 10, color: T.basis, marginBottom: 12 }}>
           |<strong>G</strong>|<sub>max</sub> = √(<sup>2 m<sub>e</sub> × E<sub>cut</sub></sup>&frasl;<sub>ℏ²</sub>) = √(<sup>2 × 400</sup>&frasl;<sub>7.62</sub>) = <strong>10.24 Å⁻¹</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 3, marginBottom: 14 }}>
@@ -2062,7 +2063,7 @@ function SecCdTeWalkthrough() {
             <span style={eq}><strong>1233 × 1233</strong> per <strong>k</strong></span>
           </div>
         </div>
-        <div style={{ fontFamily: "Georgia, serif", fontSize: 13, textAlign: "center", background: T.basis + "06", padding: "10px 14px", borderRadius: 8, color: T.ink, lineHeight: 2.0 }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 13, textAlign: "center", background: T.basis + "06", padding: "10px 14px", borderRadius: 8, color: T.ink, lineHeight: 2.0 }}>
           Each plane wave: &nbsp; φ<sub><strong>G</strong></sub>(<strong>r</strong>) = <sup>1</sup>&frasl;<sub>√Ω</sub> · e<sup>i(<strong>k</strong>+<strong>G</strong>)·<strong>r</strong></sup><br />
           KS orbital: &nbsp; ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>) = Σ<sub><strong>G</strong></sub> c<sub>n<strong>k</strong></sub>(<strong>G</strong>) · φ<sub><strong>G</strong></sub>(<strong>r</strong>)<br />
           Eigenvalue problem: &nbsp; <strong>H</strong> · <strong>c</strong> = ε · <strong>c</strong>
@@ -2071,7 +2072,7 @@ function SecCdTeWalkthrough() {
 
       {/* ── STEP 4: INITIAL GUESS ── */}
       <Card title="Step 4 — Initial Density Guess" color={T.main}>
-        <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center", background: T.main + "08", padding: "12px 16px", borderRadius: 10, color: T.main, marginBottom: 12 }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, textAlign: "center", background: T.main + "08", padding: "12px 16px", borderRadius: 10, color: T.main, marginBottom: 12 }}>
           n⁰(<strong>r</strong>) = n<sub>Cd</sub><sup>atom</sup>(<strong>r</strong> − <strong>R</strong><sub>Cd</sub>) + n<sub>Te</sub><sup>atom</sup>(<strong>r</strong> − <strong>R</strong><sub>Te</sub>)
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -2090,23 +2091,23 @@ function SecCdTeWalkthrough() {
 
         <div style={{ background: T.accent + "06", border: `1px solid ${T.accent}18`, borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
           <div style={{ fontSize: 12, fontWeight: 500, color: T.accent, marginBottom: 8 }}>5a. Build the effective potential from n⁰(<strong>r</strong>)</div>
-          <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.2 }}>
+          <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.2 }}>
             V<sub>eff</sub>(<strong>r</strong>) = V<sub>ext</sub>(<strong>r</strong>) + V<sub>H</sub>(<strong>r</strong>) + V<sub>xc</sub>(<strong>r</strong>)
           </div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
             <strong style={{ color: T.accent }}>V<sub>ext</sub>(<strong>r</strong>)</strong> — PAW pseudopotential (read from POTCAR, not computed)<br /><br />
             <strong style={{ color: T.accent }}>V<sub>H</sub>(<strong>r</strong>)</strong> — Hartree potential (e⁻–e⁻ Coulomb):<br />
             &nbsp;&nbsp;FFT: n⁰(<strong>r</strong>) → ñ⁰(<strong>G</strong>)<br />
-            &nbsp;&nbsp;<span style={{ fontFamily: "Georgia, serif", fontSize: 13 }}>Ṽ<sub>H</sub>(<strong>G</strong>) = <sup>4π ñ⁰(<strong>G</strong>)</sup>&frasl;<sub>|<strong>G</strong>|²</sub></span> &nbsp;for each of 1,233 <strong>G</strong>-vectors<br />
+            &nbsp;&nbsp;<span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 13 }}>Ṽ<sub>H</sub>(<strong>G</strong>) = <sup>4π ñ⁰(<strong>G</strong>)</sup>&frasl;<sub>|<strong>G</strong>|²</sub></span> &nbsp;for each of 1,233 <strong>G</strong>-vectors<br />
             &nbsp;&nbsp;FFT: Ṽ<sub>H</sub>(<strong>G</strong>) → V<sub>H</sub>(<strong>r</strong>) on 48³ = 110,592 grid points<br /><br />
             <strong style={{ color: T.accent }}>V<sub>xc</sub>(<strong>r</strong>)</strong> — PBE exchange-correlation:<br />
-            &nbsp;&nbsp;At each of 110,592 grid points: <span style={{ fontFamily: "Georgia, serif" }}>V<sub>xc</sub> = <sup>δE<sub>xc</sub></sup>&frasl;<sub>δn</sub></span>
+            &nbsp;&nbsp;At each of 110,592 grid points: <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>V<sub>xc</sub> = <sup>δE<sub>xc</sub></sup>&frasl;<sub>δn</sub></span>
           </div>
         </div>
 
         <div style={{ background: T.eqn + "06", border: `1px solid ${T.eqn}18`, borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
           <div style={{ fontSize: 12, fontWeight: 500, color: T.eqn, marginBottom: 8 }}>5b. Solve Kohn–Sham equations (Davidson algorithm)</div>
-          <div style={{ fontFamily: "Georgia, serif", fontSize: 13, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.0 }}>
+          <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 13, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.0 }}>
             H<sub><strong>GG</strong>′</sub>(<strong>k</strong>) = <sup>ℏ²</sup>&frasl;<sub>2m<sub>e</sub></sub> |<strong>k</strong>+<strong>G</strong>|² δ<sub><strong>GG</strong>′</sub> + Ṽ<sub>eff</sub>(<strong>G</strong>−<strong>G</strong>′)
           </div>
           <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>For each of 60 irreducible <strong>k</strong>-points, diagonalize the 1233×1233 matrix → lowest 16 eigenvalues:</div>
@@ -2129,7 +2130,7 @@ function SecCdTeWalkthrough() {
 
         <div style={{ background: T.main + "06", border: `1px solid ${T.main}18`, borderRadius: 10, padding: "12px 16px", marginBottom: 12 }}>
           <div style={{ fontSize: 12, fontWeight: 500, color: T.main, marginBottom: 8 }}>5c. Compute new electron density</div>
-          <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.0 }}>
+          <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.0 }}>
             n<sup>(1)</sup>(<strong>r</strong>) = <sup>2</sup>&frasl;<sub>N<sub>k</sub></sub> Σ<sub><strong>k</strong></sub> Σ<sub>n=1</sub><sup>9</sup> |ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>)|²
           </div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
@@ -2144,31 +2145,31 @@ function SecCdTeWalkthrough() {
 
         <div style={{ background: T.xc + "06", border: `1px solid ${T.xc}18`, borderRadius: 10, padding: "12px 16px" }}>
           <div style={{ fontSize: 12, fontWeight: 500, color: T.xc, marginBottom: 8 }}>5d. Total energy (iteration 1)</div>
-          <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.0 }}>
+          <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, textAlign: "center", color: T.ink, marginBottom: 10, lineHeight: 2.0 }}>
             E<sub>total</sub> = E<sub>kin</sub> + E<sub>ext</sub> + E<sub>H</sub> + E<sub>xc</sub> + E<sub>ion-ion</sub>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
             <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: `1px solid ${T.border}44` }}>
-              <span style={{ fontFamily: "Georgia, serif" }}>E<sub>kin</sub> = Σ<sub>n<strong>k</strong></sub> f<sub>n<strong>k</strong></sub> ⟨ψ<sub>n<strong>k</strong></sub>| −<sup>∇²</sup>&frasl;<sub>2</sub> |ψ<sub>n<strong>k</strong></sub>⟩</span>
+              <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>E<sub>kin</sub> = Σ<sub>n<strong>k</strong></sub> f<sub>n<strong>k</strong></sub> ⟨ψ<sub>n<strong>k</strong></sub>| −<sup>∇²</sup>&frasl;<sub>2</sub> |ψ<sub>n<strong>k</strong></sub>⟩</span>
               <span style={{ color: T.basis, fontWeight: 500 }}>+28.34 eV</span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: `1px solid ${T.border}44` }}>
-              <span style={{ fontFamily: "Georgia, serif" }}>E<sub>ext</sub> = ∫ n(<strong>r</strong>) V<sub>ext</sub>(<strong>r</strong>) d<strong>r</strong></span>
+              <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>E<sub>ext</sub> = ∫ n(<strong>r</strong>) V<sub>ext</sub>(<strong>r</strong>) d<strong>r</strong></span>
               <span style={{ color: T.warn, fontWeight: 500 }}>−142.56 eV</span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: `1px solid ${T.border}44` }}>
-              <span style={{ fontFamily: "Georgia, serif" }}>E<sub>H</sub> = <sup>1</sup>&frasl;<sub>2</sub> ∫∫ <sup>n(<strong>r</strong>) n(<strong>r</strong>′)</sup>&frasl;<sub>|<strong>r</strong>−<strong>r</strong>′|</sub> d<strong>r</strong> d<strong>r</strong>′</span>
+              <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>E<sub>H</sub> = <sup>1</sup>&frasl;<sub>2</sub> ∫∫ <sup>n(<strong>r</strong>) n(<strong>r</strong>′)</sup>&frasl;<sub>|<strong>r</strong>−<strong>r</strong>′|</sub> d<strong>r</strong> d<strong>r</strong>′</span>
               <span style={{ color: T.basis, fontWeight: 500 }}>+63.21 eV</span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: `1px solid ${T.border}44` }}>
-              <span style={{ fontFamily: "Georgia, serif" }}>E<sub>xc</sub> = ∫ ε<sub>xc</sub>[n] · n(<strong>r</strong>) d<strong>r</strong></span>
+              <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>E<sub>xc</sub> = ∫ ε<sub>xc</sub>[n] · n(<strong>r</strong>) d<strong>r</strong></span>
               <span style={{ color: T.warn, fontWeight: 500 }}>−18.45 eV</span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "4px 0", borderBottom: `1px solid ${T.border}44` }}>
-              <span style={{ fontFamily: "Georgia, serif" }}>E<sub>ion-ion</sub> (Ewald, Cd²⁺–Te²⁻)</span>
+              <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>E<sub>ion-ion</sub> (Ewald, Cd²⁺–Te²⁻)</span>
               <span style={{ color: T.warn, fontWeight: 500 }}>−24.82 eV</span>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, padding: "8px 0", fontWeight: 500, fontFamily: "Georgia, serif" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, padding: "8px 0", fontWeight: 500, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>
               <span style={{ color: T.xc }}>E<sub>total</sub><sup>(1)</sup></span>
               <span style={{ color: T.xc }}>−94.280 eV</span>
             </div>
@@ -2181,7 +2182,7 @@ function SecCdTeWalkthrough() {
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 8 }}>
           The density from iteration 1 is mixed with the guess, then we repeat.
         </div>
-        <div style={{ fontFamily: "Georgia, serif", fontSize: 14, textAlign: "center", background: T.accent + "08", padding: "12px 16px", borderRadius: 10, color: T.ink, marginBottom: 12 }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, textAlign: "center", background: T.accent + "08", padding: "12px 16px", borderRadius: 10, color: T.ink, marginBottom: 12 }}>
           n<sub>in</sub><sup>(2)</sup> = 0.4 × n<sub>out</sub><sup>(1)</sup> + 0.6 × n<sub>in</sub><sup>(1)</sup> &nbsp;&nbsp; (Pulay mixing, AMIX = 0.4)
         </div>
         <div style={{ overflowX: "auto", marginBottom: 14 }}>
@@ -2216,8 +2217,8 @@ function SecCdTeWalkthrough() {
           </table>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-          <span style={{ fontFamily: "Georgia, serif", fontSize: 14, color: T.basis, fontWeight: 500 }}>Converged: E = −94.7100 eV</span> per unit cell<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>= <sup>−94.7100</sup>&frasl;<sub>2</sub> = −47.355 eV per atom</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, color: T.basis, fontWeight: 500 }}>Converged: E = −94.7100 eV</span> per unit cell<br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>= <sup>−94.7100</sup>&frasl;<sub>2</sub> = −47.355 eV per atom</span><br />
           Wall time: ~45 seconds on 4 cores
         </div>
       </Card>
@@ -2227,7 +2228,7 @@ function SecCdTeWalkthrough() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
           <div style={{ background: T.basis + "08", border: `1px solid ${T.basis}22`, borderRadius: 10, padding: "12px 14px" }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: T.basis, marginBottom: 6 }}>Energies</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 2, fontFamily: "Georgia, serif", fontSize: 12 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 2, fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 12 }}>
               {[
                 { l: "E_total", v: "−94.710 eV" },
                 { l: "E / atom", v: "−47.355 eV" },
@@ -2258,7 +2259,7 @@ function SecCdTeWalkthrough() {
         </div>
         <div style={{ background: T.main + "08", border: `1px solid ${T.main}22`, borderRadius: 10, padding: "12px 14px" }}>
           <div style={{ fontSize: 12, fontWeight: 500, color: T.main, marginBottom: 6 }}>Formation Energy</div>
-          <div style={{ fontFamily: "Georgia, serif", fontSize: 13, lineHeight: 2.2, color: T.ink }}>
+          <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 13, lineHeight: 2.2, color: T.ink }}>
             ΔH<sub>f</sub>(CdTe) = E(CdTe) − E(Cd<sub>bulk</sub>) − E(Te<sub>bulk</sub>)<br />
             &nbsp;&nbsp;= −94.710 − (−46.380) − (−47.780)<br />
             &nbsp;&nbsp;= <strong style={{ color: T.main }}>−0.550 eV/f.u.</strong> = −53.1 kJ/mol<br />
@@ -2281,7 +2282,7 @@ function SecCdTeWalkthrough() {
           ].map(r => (
             <div key={r.l} style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", borderBottom: `1px solid ${T.border}44` }}>
               <span style={{ color: T.muted }}>{r.l}</span>
-              <span style={{ fontFamily: "Georgia, serif", fontWeight: 500 }}>{r.v}</span>
+              <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontWeight: 500 }}>{r.v}</span>
             </div>
           ))}
         </div>
@@ -2358,8 +2359,8 @@ function SecIncar() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The <strong>INCAR</strong> file is the instruction sheet you give VASP before it starts calculating. It{"'"}s like a recipe card: you tell it what ingredients to use (ENCUT, KPOINTS), how to cook (ALGO, IBRION), and when to stop (EDIFF, EDIFFG). Different dishes (relaxation, band structure, phonons) need different recipes. This builder picks the right recipe for your system.
         </div>

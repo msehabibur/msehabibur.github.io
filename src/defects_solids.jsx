@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 const T = {
   bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
   ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)",
-  df_primary: "#30717f", df_vacancy: "#388392", df_interstitial: "#5299a7",
-  df_schottky: "#327785", df_frenkel: "#347a89", df_disloc: "#3c8f9f", df_grain: "#5095a3"
+  df_primary: "#123c44", df_vacancy: "#4993a1", df_interstitial: "#71b2bf",
+  df_schottky: "#1d5b67", df_frenkel: "#398a9a", df_disloc: "#53a2b2", df_grain: "#68adbb"
 };
 
 function Tag({ color, children }) {

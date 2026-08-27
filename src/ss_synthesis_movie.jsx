@@ -12,18 +12,18 @@ const P = {
   surface: "#0f2428",
   border:  "#18393f",
   ink:     "#f0f5f6",
-  muted:   "#3f94a5",
+  muted:   "#60a9b8",
   dim:     "#1f4a53",
-  lit:     "#91bfc9",   // literature / pipeline
-  bert:    "#62a5b2",   // MatBERT
-  gpt:     "#96c2cb",   // GPT-4o
-  data:    "#71adb9",   // dataset
-  pure:    "#5094a2",   // phase-pure
-  impure:  "#388392",   // phase-impure
-  ok:      "#a5cbd2",
-  warn:    "#539aa8",
-  thermo:  "#77b1bc",   // thermodynamics
-  target:  "#9bc5ce"
+  lit:     "#b4cfd5",   // literature / pipeline
+  bert:    "#7eb9c5",   // MatBERT
+  gpt:     "#b8d2d7",   // GPT-4o
+  data:    "#98bec5",   // dataset
+  pure:    "#65acba",   // phase-pure
+  impure:  "#4993a1",   // phase-impure
+  ok:      "#bcd5da",
+  warn:    "#73b3c0",
+  thermo:  "#9cc0c7",   // thermodynamics
+  target:  "#b9d3d8"
 };
 
 const SCENES = [

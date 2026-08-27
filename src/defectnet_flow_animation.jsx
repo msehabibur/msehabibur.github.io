@@ -5,23 +5,23 @@ const T = {
   bg: "#f7f9fa",
   card: "#ffffff",
   border: "#d4e2e4",
-  accent: "#3b8c9c",
+  accent: "#4e9dad",
   accentLight: "#eef4f5",
-  highlight: "#71adb9",
+  highlight: "#98bec5",
   highlightLight: "#f2f6f6",
   text: "#1d444c",
-  textMid: "#337886",
-  textLight: "#65a6b3",
-  green: "#62a4b2",
+  textMid: "#388898",
+  textLight: "#82bcc7",
+  green: "#7cb8c4",
   greenLight: "#f0f4f5",
-  purple: "#3d91a2",
+  purple: "#5ba6b5",
   purpleLight: "#f7fafa",
-  red: "#3a8999",
+  red: "#4c9aa9",
   redLight: "#cedee1",
-  node: "#7ab2bd",
+  node: "#a1c3ca",
   nodeLight: "#ebf1f3",
-  edge: "#accfd6",
-  particle: "#71adb9"
+  edge: "#c3d9de",
+  particle: "#98bec5"
 };
 
 // ─── PIPELINE STAGES ───────────────────────────────────────────────
@@ -70,14 +70,14 @@ const STAGES = [
 
 // ─── CRYSTAL LATTICE DATA ──────────────────────────────────────────
 const LATTICE_ATOMS = [
-  { x: 40, y: 30, el: "Cd", color: "#7ab2bd" },
-  { x: 100, y: 30, el: "Te", color: "#6facb8" },
-  { x: 160, y: 30, el: "Cd", color: "#7ab2bd" },
-  { x: 70, y: 70, el: "Te", color: "#6facb8" },
-  { x: 130, y: 70, el: "Cd", color: "#7ab2bd" },
-  { x: 40, y: 110, el: "Cd", color: "#7ab2bd" },
-  { x: 100, y: 110, el: "V", color: "#317481" }, // vacancy
-  { x: 160, y: 110, el: "Te", color: "#6facb8" },
+  { x: 40, y: 30, el: "Cd", color: "#a1c3ca" },
+  { x: 100, y: 30, el: "Te", color: "#96bdc4" },
+  { x: 160, y: 30, el: "Cd", color: "#a1c3ca" },
+  { x: 70, y: 70, el: "Te", color: "#96bdc4" },
+  { x: 130, y: 70, el: "Cd", color: "#a1c3ca" },
+  { x: 40, y: 110, el: "Cd", color: "#a1c3ca" },
+  { x: 100, y: 110, el: "V", color: "#358190" }, // vacancy
+  { x: 160, y: 110, el: "Te", color: "#96bdc4" },
 ];
 
 const LATTICE_BONDS = [
@@ -659,19 +659,19 @@ export default function DefectNetFlowAnimation() {
                 title: "Energy E",
                 eq: "ε_i = MLP(h_i) → E = Σ_i ε_i",
                 desc: "Per-atom energies summed\nto total system energy",
-                x: 60, color: "#3a8999"
+                x: 60, color: "#4c9aa9"
               },
               {
                 title: "Forces F",
                 eq: "F_i = −∂E / ∂r_i  (autograd)",
                 desc: "Analytical gradients via\nautomatic differentiation",
-                x: 350, color: "#3e93a4"
+                x: 350, color: "#5ea8b7"
               },
               {
                 title: "Stress σ",
                 eq: "σ = (1/V) ∂E/∂ε |_{ε=0}",
                 desc: "Strain derivative for\nlattice optimization",
-                x: 640, color: "#5196a4"
+                x: 640, color: "#6aaebc"
               },
             ].map((out, i) => {
               const isHighlighted = Math.floor(t % 3) === i;

@@ -10,17 +10,17 @@ const P = {
   surface: "#0f2428",
   border:  "#18393f",
   ink:     "#f0f5f6",
-  muted:   "#3f94a5",
+  muted:   "#60a9b8",
   dim:     "#1f4a53",
-  blue:    "#91bfc9",
-  purple:  "#62a5b2",
-  green:   "#96c2cb",
-  amber:   "#71adb9",
-  pink:    "#84b8c2",
-  teal:    "#9bc5ce",
-  red:     "#539aa8",
-  ok:      "#a5cbd2",
-  warn:    "#539aa8"
+  blue:    "#b4cfd5",
+  purple:  "#7eb9c5",
+  green:   "#b8d2d7",
+  amber:   "#98bec5",
+  pink:    "#accad0",
+  teal:    "#b9d3d8",
+  red:     "#73b3c0",
+  ok:      "#bcd5da",
+  warn:    "#73b3c0"
 };
 
 const SCENES = [

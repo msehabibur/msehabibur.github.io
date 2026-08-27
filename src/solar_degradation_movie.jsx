@@ -16,22 +16,22 @@ const T = {
 };
 
 const C = {
-  glass:   "#aaced5",
+  glass:   "#bfd6db",
   tco:     "#d2e0e3",
   cds:     "#bfd3d7",
-  cdte:    "#77b1bc",
-  buffer:  "#3d90a1",
+  cdte:    "#9cc0c7",
+  buffer:  "#56a3b3",
   contact: "var(--muted)",
-  cu:      "#71adb9",
-  defect:  "#388392",
-  electron:"#5094a2",
-  hole:    "#5299a7",
-  moisture:"#7fb5c0",
-  crack:   "#30717f",
-  healthy: "#7eb5bf",
-  degrad:  "#388392",
-  accent:  "#327785",
-  mitigation: "#3c8e9f"
+  cu:      "#98bec5",
+  defect:  "#4993a1",
+  electron:"#65acba",
+  hole:    "#71b2bf",
+  moisture:"#a5c6cd",
+  crack:   "#347d8b",
+  healthy: "#a4c5cc",
+  degrad:  "#4993a1",
+  accent:  "#378695",
+  mitigation: "#50a1b1"
 };
 
 function Card({ children, style }) {
@@ -78,11 +78,11 @@ function HealthyDeviceSection() {
 
   const W = 520, H = 340;
   const layers = [
-    { y: 30,  h: 28, color: C.glass,   label: "Glass Superstrate", labelColor: "#24545e" },
-    { y: 62,  h: 22, color: C.tco,     label: "TCO (SnO₂:F)", labelColor: "#337886" },
-    { y: 88,  h: 14, color: C.cds,     label: "CdS Window (~100 nm)", labelColor: "#255862" },
-    { y: 106, h: 80, color: C.cdte,    label: "CdTe Absorber (3–5 µm)", labelColor: "#24555f" },
-    { y: 190, h: 18, color: C.buffer,  label: "Buffer / ZnTe", labelColor: "#255862" },
+    { y: 30,  h: 28, color: C.glass,   label: "Glass Superstrate", labelColor: "#1e4851" },
+    { y: 62,  h: 22, color: C.tco,     label: "TCO (SnO₂:F)", labelColor: "#388898" },
+    { y: 88,  h: 14, color: C.cds,     label: "CdS Window (~100 nm)", labelColor: "#23545e" },
+    { y: 106, h: 80, color: C.cdte,    label: "CdTe Absorber (3–5 µm)", labelColor: "#204c55" },
+    { y: 190, h: 18, color: C.buffer,  label: "Buffer / ZnTe", labelColor: "#23545e" },
     { y: 212, h: 28, color: C.contact, label: "Back Contact (Cu/Au)", labelColor: "#1f4951" },
   ];
 
@@ -214,7 +214,7 @@ function CuMigrationSection() {
 
           {/* CdTe absorber */}
           <rect x={50} y={60} width={420} height={130} rx={6} fill={C.cdte} opacity={0.3} stroke={C.cdte} strokeWidth={1} />
-          <text x={60} y={78} fontSize={10} fill="#24555f" fontWeight={500}>CdTe Absorber</text>
+          <text x={60} y={78} fontSize={10} fill="#204c55" fontWeight={500}>CdTe Absorber</text>
 
           {/* Back contact */}
           <rect x={50} y={200} width={420} height={40} rx={6} fill={C.contact} opacity={0.4} stroke={C.contact} strokeWidth={1} />
@@ -223,7 +223,7 @@ function CuMigrationSection() {
           {/* Cu atoms migrating */}
           {cuAtoms.map((a, i) => (
             <g key={i} opacity={a.opacity}>
-              <circle cx={a.x} cy={a.y} r={7} fill={C.cu} stroke="#2f6f7c" strokeWidth={1} />
+              <circle cx={a.x} cy={a.y} r={7} fill={C.cu} stroke="#317583" strokeWidth={1} />
               <text x={a.x} y={a.y + 3.5} textAnchor="middle" fontSize={7} fill="#fff" fontWeight={500}>Cu</text>
             </g>
           ))}
@@ -320,11 +320,11 @@ function ThermalStressSection() {
           {/* Mixing zone */}
           {(() => {
             const mixW = Math.min(100, interLength * 2);
-            return <rect x={220 - mixW / 2} y={50} width={mixW} height={50} rx={4} fill="#71adb9" opacity={0.3} />;
+            return <rect x={220 - mixW / 2} y={50} width={mixW} height={50} rx={4} fill="#98bec5" opacity={0.3} />;
           })()}
           <text x={220} y={70} textAnchor="middle" fontSize={9} fill={C.cu} fontWeight={500}>CdS₁₋ₓTeₓ mixing zone</text>
-          <text x={120} y={90} textAnchor="middle" fontSize={9} fill="#255862">CdS</text>
-          <text x={340} y={90} textAnchor="middle" fontSize={9} fill="#24555f">CdTe</text>
+          <text x={120} y={90} textAnchor="middle" fontSize={9} fill="#23545e">CdS</text>
+          <text x={340} y={90} textAnchor="middle" fontSize={9} fill="#204c55">CdTe</text>
 
           {/* Stress bar */}
           <text x={20} y={125} fontSize={9} fill={T.ink} fontWeight={500}>Thermal Stress</text>
@@ -401,7 +401,7 @@ function MoistureSection() {
 
           {/* Device cross-section */}
           <rect x={50} y={40} width={420} height={60} rx={4} fill={C.cdte} opacity={0.3} stroke={C.cdte} strokeWidth={1} />
-          <text x={260} y={65} textAnchor="middle" fontSize={10} fill="#24555f" fontWeight={500}>CdTe Absorber</text>
+          <text x={260} y={65} textAnchor="middle" fontSize={10} fill="#204c55" fontWeight={500}>CdTe Absorber</text>
           <rect x={50} y={104} width={420} height={30} rx={4} fill={C.contact} opacity={0.3} stroke={C.contact} strokeWidth={1} />
           <text x={260} y={123} textAnchor="middle" fontSize={10} fill="#1f4951" fontWeight={500}>Back Contact</text>
 
@@ -475,12 +475,12 @@ function DefectEvolutionSection() {
   const pw = W - pad.l - pad.r, ph = H - pad.t - pad.b;
 
   const defects = [
-    { label: "VCd²⁻", E0: 2.1, q: -2, color: "#327785", type: "acceptor", desc: "Dominant p-type dopant" },
-    { label: "VCd⁻", E0: 1.8, q: -1, color: "#3c8e9f", type: "acceptor", desc: "Shallow acceptor" },
-    { label: "TeCd²⁺", E0: 1.4, q: 2, color: "#30717f", type: "deep", desc: "Deep trap at Ev+0.6 eV" },
+    { label: "VCd²⁻", E0: 2.1, q: -2, color: "#378695", type: "acceptor", desc: "Dominant p-type dopant" },
+    { label: "VCd⁻", E0: 1.8, q: -1, color: "#50a1b1", type: "acceptor", desc: "Shallow acceptor" },
+    { label: "TeCd²⁺", E0: 1.4, q: 2, color: "#347d8b", type: "deep", desc: "Deep trap at Ev+0.6 eV" },
     { label: "Cui⁺", E0: 0.8, q: 1, color: C.cu, type: "donor", desc: "Fast-diffusing donor (harmful)" },
-    { label: "CuCd⁰", E0: 1.0, q: 0, color: "#3c8e9f", type: "shallow", desc: "Shallow acceptor (beneficial)" },
-    { label: "ClTe⁺", E0: 1.5, q: 1, color: "#3b8d9d", type: "donor", desc: "Shallow donor from CdCl₂ treatment" },
+    { label: "CuCd⁰", E0: 1.0, q: 0, color: "#50a1b1", type: "shallow", desc: "Shallow acceptor (beneficial)" },
+    { label: "ClTe⁺", E0: 1.5, q: 1, color: "#4f9faf", type: "donor", desc: "Shallow donor from CdCl₂ treatment" },
   ];
 
   const toX = ef => pad.l + (ef / Eg) * pw;
@@ -721,7 +721,7 @@ function MechanicalSection() {
 
           {/* CdTe absorber */}
           <rect x={40} y={50} width={420} height={120} rx={6} fill={C.cdte} opacity={0.3} stroke={C.cdte} strokeWidth={1} />
-          <text x={50} y={68} fontSize={10} fill="#24555f" fontWeight={500}>CdTe Absorber</text>
+          <text x={50} y={68} fontSize={10} fill="#204c55" fontWeight={500}>CdTe Absorber</text>
 
           {/* Grain boundaries */}
           {[120, 200, 280, 360].map(x => (
@@ -830,7 +830,7 @@ function MitigationSection() {
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 14 }}>
         {toggleBtn("Cu-Free Back Contact", cuFree, setCuFree, C.mitigation, "ZnTe or MoOₓ replaces Cu/Au")}
-        {toggleBtn("CdSeTe Graded Absorber", seAlloy, setSeAlloy, "#347a89", "Lower Voc deficit, better stability")}
+        {toggleBtn("CdSeTe Graded Absorber", seAlloy, setSeAlloy, "#398a9a", "Lower Voc deficit, better stability")}
         {toggleBtn("Group V Doping (As/P)", groupV, setGroupV, C.accent, "Stable p-type without Cu")}
         {toggleBtn("Glass-Glass Encapsulation", glassGlass, setGlassGlass, C.moisture, "Superior moisture barrier")}
         {toggleBtn("MgZnO Window Layer", mgzno, setMgzno, C.cu, "Replaces CdS — wider gap, no intermixing")}

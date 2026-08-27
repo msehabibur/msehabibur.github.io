@@ -28,8 +28,8 @@ Replace all 3 color objects (`C`, `P`, `C`) with one `T` object:
 | border | #d4e2e5 | Medium gray borders |
 | ink | #0f2428 | Dark text (replaces text/ink) |
 | muted | #6b7280 | Secondary text |
-| dim | #bad1d5 | Faint elements |
-| gold | #3c8e9f | Marker accent |
+| dim | #c5dade | Faint elements |
+| gold | #50a1b1 | Marker accent |
 | dn1-dn6 | darkened accent colors | DefectNet semantic colors |
 | eo_e, eo_hole, etc. | darkened physics colors | Electron Origins colors |
 | ff_bond, ff_angle, etc. | darkened term colors | Force Field colors |
@@ -115,7 +115,7 @@ function Card({ color, title, formula, children }) {
     }}>
       <div style={{ display:"flex", alignItems:"baseline", gap:12, marginBottom:10 }}>
         <div style={{ fontSize:13, fontWeight:500, color, letterSpacing:0.5 }}>{fx(title)}</div>
-        <div style={{ fontFamily:"'Georgia',serif", fontSize:14, color:C.ink, background:color+"11",
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize:14, color:C.ink, background:color+"11",
           padding:"2px 10px", borderRadius:4, border:`1px solid ${color}33` }}>{fx(formula)}</div>
       </div>
       {children}
@@ -762,7 +762,7 @@ function CompareSection() {
             {rows.map((row,i)=>(
               <tr key={i} style={{ borderBottom:`1px solid ${C.border}`, background: i%2===0?C.light:C.panel }}>
                 <td style={{ padding:"8px 10px", color:row.color, fontWeight:500 }}>{row.name}</td>
-                <td style={{ padding:"8px 10px", fontFamily:"'Georgia',serif", color:C.ink, fontSize:11 }}>{row.formula}</td>
+                <td style={{ padding:"8px 10px", fontFamily: "'IBM Plex Mono', ui-monospace, monospace", color:C.ink, fontSize:11 }}>{row.formula}</td>
                 <td style={{ padding:"8px 10px", color:C.muted }}>{row.atoms}</td>
                 <td style={{ padding:"8px 10px", color:C.ink }}>{row.captures}</td>
                 <td style={{ padding:"8px 10px", color:C.muted, fontStyle:"italic" }}>{row.fails}</td>
@@ -776,7 +776,7 @@ function CompareSection() {
         <div style={{ fontSize:12, fontWeight:500, color:C.ink, marginBottom:8 }}>
           Total energy of a molecule = sum of ALL applicable terms:
         </div>
-        <div style={{ fontFamily:"'Georgia',serif", fontSize:14, color:C.ink, lineHeight:2 }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize:14, color:C.ink, lineHeight:2 }}>
           U<sub>total</sub> = U<sub style={{color:C.bond}}>bonds</sub> + U<sub style={{color:C.angle}}>angles</sub> + U<sub style={{color:C.dih}}>dihedrals</sub> + U<sub style={{color:C.vdw}}>vdW</sub> + U<sub style={{color:C.coul}}>Coulomb</sub>
         </div>
         <div style={{ marginTop:10, fontSize:11, color:C.muted, lineHeight:1.8 }}>
@@ -824,7 +824,7 @@ export default function ForceFieldTerms() {
     <div style={{
       minHeight:"100vh",
       background: C.bg,
-      fontFamily:"'Georgia', 'Times New Roman', serif",
+      fontFamily: "'IBM Plex Mono', ui-monospace, monospace",
       color:C.ink,
       display:"flex",
       flexDirection:"column"

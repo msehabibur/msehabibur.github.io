@@ -13,9 +13,9 @@ const LIGHT = {
   ink:     "var(--ink)",
   muted:   "var(--muted)",
   dim:     "var(--line)",
-  accent:  "#327785",
-  blue:    "#347a89",
-  green:   "#3c8e9f"
+  accent:  "#378695",
+  blue:    "#398a9a",
+  green:   "#50a1b1"
 };
 
 const BLOG_CHAPTERS = [

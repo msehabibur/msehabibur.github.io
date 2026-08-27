@@ -26,7 +26,7 @@ class ErrorBoundary extends React.Component {
   static getDerivedStateFromError(error) { return { error }; }
   render() {
     if (this.state.error) return (
-      <div style={{ padding: 40, color: "#30717f", fontSize: 14, fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
+      <div style={{ padding: 40, color: "#347d8b", fontSize: 14, fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
         <div style={{ fontSize: 18, fontWeight: 500, marginBottom: 12 }}>Runtime Error:</div>
         {this.state.error.toString()}
         <div style={{ marginTop: 12, color: "#999" }}>{this.state.error.stack}</div>
@@ -243,78 +243,78 @@ const T = {
   ink:     "var(--ink)",
   muted:   "var(--muted)",
   dim:     "var(--line)",
-  gold:    "#3c8e9f",
+  gold:    "#50a1b1",
 
   // DefectNet accents (darkened for light bg)
-  dn1: "#3b8d9d",
-  dn2: "#3d90a1",
-  dn3: "#3c8e9f",
-  dn4: "#30717f",
-  dn5: "#327785",
-  dn6: "#398797",
+  dn1: "#123c44",
+  dn2: "#1d5b67",
+  dn3: "#2b7c8b",
+  dn4: "#4e9dab",
+  dn5: "#7cbcc7",
+  dn6: "#a9d3db",
 
   // Electron Origins accents
-  eo_e:       "#347a89",
-  eo_hole:    "#398797",
-  eo_photon:  "#5095a3",
-  eo_valence: "#3c8e9f",
-  eo_core:    "#327785",
-  eo_gap:     "#30717f",
-  eo_cond:    "#3b8d9d",
+  eo_e:       "#2b7c8b",
+  eo_hole:    "#4e9dab",
+  eo_photon:  "#7cbcc7",
+  eo_valence: "#a9d3db",
+  eo_core:    "#1d5b67",
+  eo_gap:     "#2b7c8b",
+  eo_cond:    "#123c44",
 
   // Convex Hull accents
-  ch_main:   "#337886",
-  ch_stable: "#3c8e9f",
-  ch_unstab: "#3b8a9a",
-  ch_hull:   "#398695",
-  ch_accent: "#3c8e9f",
-  ch_warm:   "#71adb9",
+  ch_main:   "#2b7c8b",
+  ch_stable: "#4e9dab",
+  ch_unstab: "#7cbcc7",
+  ch_hull:   "#1d5b67",
+  ch_accent: "#123c44",
+  ch_warm:   "#a9d3db",
 
   // FNV Correction accents
-  fnv_main:   "#327785",
-  fnv_elec:   "#347a89",
-  fnv_align:  "#3c8e9f",
-  fnv_warn:   "#30717f",
-  fnv_accent: "#5094a1",
-  fnv_warm:   "#3d90a1",
+  fnv_main:   "#4e9dab",
+  fnv_elec:   "#2b7c8b",
+  fnv_align:  "#1d5b67",
+  fnv_warn:   "#a9d3db",
+  fnv_accent: "#123c44",
+  fnv_warm:   "#7cbcc7",
 
   // Force Field accents
-  ff_bond:  "#285e69",
-  ff_angle: "#2c6773",
-  ff_vdw:   "#337886",
-  ff_coul:  "#2c6874",
-  ff_dih:   "#2e6d79",
-  ff_morse: "#30727f",
-  ff_fit:   "#347b8a",
-  ff_mlff:  "#2f707d",
+  ff_bond:  "#1d5b67",
+  ff_angle: "#123c44",
+  ff_vdw:   "#a9d3db",
+  ff_coul:  "#1d5b67",
+  ff_dih:   "#2b7c8b",
+  ff_morse: "#7cbcc7",
+  ff_fit:   "#4e9dab",
+  ff_mlff:  "#7cbcc7",
 
   // DFT Basics accents
-  dft_main:   "#337886",
-  dft_eqn:    "#2c6773",
-  dft_xc:     "#327785",
-  dft_basis:  "#3c8e9f",
-  dft_warn:   "#30717f",
-  dft_accent: "#5094a1",
-  dft_warm:   "#3d90a1",
+  dft_main:   "#2b7c8b",
+  dft_eqn:    "#2b7c8b",
+  dft_xc:     "#a9d3db",
+  dft_basis:  "#1d5b67",
+  dft_warn:   "#7cbcc7",
+  dft_accent: "#123c44",
+  dft_warm:   "#4e9dab",
 
   // Molecular Dynamics accents
-  md_main:    "#3c8e9f",
-  md_newton:  "#347a89",
-  md_thermo:  "#327785",
-  md_aimd:    "#30717f",
-  md_class:   "#3d90a1",
-  md_prop:    "#5094a1",
-  md_warn:    "#398797",
+  md_main:    "#2b7c8b",
+  md_newton:  "#2b7c8b",
+  md_thermo:  "#7cbcc7",
+  md_aimd:    "#123c44",
+  md_class:   "#1d5b67",
+  md_prop:    "#4e9dab",
+  md_warn:    "#a9d3db",
 
   // Monte Carlo accents
-  mc_main:    "#398695",
-  mc_metro:   "#347a89",
-  mc_moves:   "#3c8e9f",
-  mc_ising:   "#30717f",
-  mc_ce:      "#327785",
-  mc_kmc:     "#3d90a1",
-  mc_accent:  "#5094a1",
-  mc_warn:    "#398797"
+  mc_main:    "#4e9dab",
+  mc_metro:   "#7cbcc7",
+  mc_moves:   "#a9d3db",
+  mc_ising:   "#2b7c8b",
+  mc_ce:      "#1d5b67",
+  mc_kmc:     "#2b7c8b",
+  mc_accent:  "#123c44",
+  mc_warn:    "#4b98a7"
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -358,7 +358,7 @@ function Card({ title, color, formula, collapsible, defaultOpen, children }) {
         <div onClick={isCollapsible ? () => setOpen(!open) : undefined} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: open ? 10 : 0, cursor: isCollapsible ? "pointer" : "default", padding: isCollapsible && !open ? "12px 18px" : 0, userSelect: isCollapsible ? "none" : "auto" }}>
           {isCollapsible && <span style={{ fontSize: 14, color: open ? color || T.dn1 : T.muted, fontWeight: 500, transition: "transform 0.2s", transform: open ? "rotate(90deg)" : "rotate(0deg)" }}>▶</span>}
           {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || T.dn1, textTransform: "none", fontWeight: 500, flex: 1 }}>{fx(title)}</div>}
-          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || T.dn1) + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || T.dn1)}33` }}>{fx(formula)}</div>}
+          {formula && <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, color: T.ink, background: (color || T.dn1) + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || T.dn1)}33` }}>{fx(formula)}</div>}
         </div>
       )}
       {(!isCollapsible || open) && children}
@@ -1813,9 +1813,9 @@ function SecPredict({ atoms, gnn, mol }) {
                 <div style={{ marginBottom: 4, color: T.dn5, fontWeight: 500 }}>{"          Force direction →"}</div>
                 <div>{"           Fx       Fy       Fz"}</div>
                 <div>{"        ┌────────┬────────┬────────┐"}</div>
-                <div>{"   x    │  σ_xx  │  σ_xy  │  σ_xz  │  ← tension/compression in x + shear"}</div>
-                <div>{"   y    │  σ_yx  │  σ_yy  │  σ_yz  │"}</div>
-                <div>{"   z    │  σ_zx  │  σ_zy  │  σ_zz  │"}</div>
+                <div>{fx("   x    │  σ_xx  │  σ_xy  │  σ_xz  │  ← tension/compression in x + shear")}</div>
+                <div>{fx("   y    │  σ_yx  │  σ_yy  │  σ_yz  │")}</div>
+                <div>{fx("   z    │  σ_zx  │  σ_zy  │  σ_zz  │")}</div>
                 <div>{"        └────────┴────────┴────────┘"}</div>
                 <div style={{ marginTop: 4, color: T.muted }}>{"   ↑ plane normal"}</div>
               </div>
@@ -2791,8 +2791,8 @@ function SecEquivariance() {
   const [showType, setShowType] = useState("invariant");
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Imagine spinning a globe. The names of cities (energy) stay the same no matter how you rotate it — that is <strong>invariance</strong>. But the compass needle (force) rotates along with the globe — that is <strong>equivariance</strong>. A good MLFF must get both right: the energy should not change when you rotate a crystal, but the forces must rotate with it.
         </div>
@@ -2908,8 +2908,8 @@ function SecEquivariance() {
               }}>
                 <div style={{ fontWeight: 500, color: a.color }}>{a.approach}</div>
                 <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
-                  <div style={{ flex: 1 }}><span style={{ color: "#5298a6" }}>+</span> {a.pros}</div>
-                  <div style={{ flex: 1 }}><span style={{ color: "#30717f" }}>−</span> {a.cons}</div>
+                  <div style={{ flex: 1 }}><span style={{ color: "#6fb1be" }}>+</span> {a.pros}</div>
+                  <div style={{ flex: 1 }}><span style={{ color: "#347d8b" }}>−</span> {a.cons}</div>
                 </div>
                 <div style={{ fontSize: 10, color: T.muted }}>{a.examples}</div>
               </div>
@@ -2942,8 +2942,8 @@ function SecLongRange() {
   const [method, setMethod] = useState("ewald");
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Think of a classroom where students whisper to their neighbors (short-range). An MLFF with a local cutoff is like only hearing whispers within arm{"'"}s reach. But in an ionic crystal, atoms shout across the entire room via Coulomb forces (long-range). If you only listen to whispers, you miss the shouting — and your energy predictions for NaCl, TiO₂, and perovskites will be systematically wrong.
         </div>
@@ -3073,9 +3073,9 @@ function SecLongRange() {
                     <tr key={row.prop} style={{ borderBottom: `1px solid ${T.border}` }}>
                       <td style={{ padding: "4px 6px", fontWeight: 500 }}>{row.prop}</td>
                       <td style={{ padding: "4px 6px", fontFamily: "monospace" }}>{row.dft}</td>
-                      <td style={{ padding: "4px 6px", fontFamily: "monospace", color: "#30717f" }}>{row.ml5}</td>
+                      <td style={{ padding: "4px 6px", fontFamily: "monospace", color: "#347d8b" }}>{row.ml5}</td>
                       <td style={{ padding: "4px 6px", fontFamily: "monospace", color: T.dn4 }}>{row.ml7}</td>
-                      <td style={{ padding: "4px 6px", fontFamily: "monospace", color: "#5298a6" }}>{row.mle}</td>
+                      <td style={{ padding: "4px 6px", fontFamily: "monospace", color: "#6fb1be" }}>{row.mle}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -3124,8 +3124,8 @@ function SecUncertainty() {
   const [mcSample, setMcSample] = useState(5);
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Imagine a weather forecast that says {"\""}72°F tomorrow{"\""} with no uncertainty. Is that reliable? Now compare {"\""}72 ± 2°F{"\""} (very confident) vs. {"\""}72 ± 15°F{"\""} (very uncertain). MC Dropout works like asking 20 different meteorologists the same question — if they all agree, you are confident. If they disagree wildly, something is off. The spread of their answers IS the uncertainty.
         </div>
@@ -3227,8 +3227,8 @@ function SecUncertainty() {
                 <div style={{ fontWeight: 500, color: m.color }}>{m.method}</div>
                 <div style={{ fontSize: 10, color: T.ink }}>{m.how}</div>
                 <div style={{ display: "flex", gap: 10, fontSize: 10 }}>
-                  <span><span style={{ color: "#5298a6" }}>+</span> {m.pros}</span>
-                  <span><span style={{ color: "#30717f" }}>−</span> {m.cons}</span>
+                  <span><span style={{ color: "#6fb1be" }}>+</span> {m.pros}</span>
+                  <span><span style={{ color: "#347d8b" }}>−</span> {m.cons}</span>
                 </div>
               </div>
             ))}
@@ -3263,8 +3263,8 @@ function SecDefectNet() {
   const [layer, setLayer] = useState("overview");
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Think of DefectNet like a specialized medical scanner built for one job: finding tumors. A general-purpose MRI can image any body part, but a dedicated breast cancer AI trained on thousands of mammograms beats it every time for that specific task. Similarly, general MLFFs (M3GNet, CHGNet) work for any material, but DefectNet is purpose-built for point defects in semiconductors — it knows about charge states, handles both HSE and PBE functionals, and uses dual-path forces to get the physics right where it matters most.
         </div>
@@ -3610,8 +3610,8 @@ function BondSection() {
 
   return (
     <Card color={T.ff_bond} title="Bond (Harmonic)" formula="U = ½ kᵦ(r − r₀)²">
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Imagine two balls connected by a spring. Push them together or pull them apart — the spring always fights back toward its natural length. The stiffer the spring (higher k), the harder it resists. That is exactly what the <strong>harmonic bond potential</strong> does: it treats every chemical bond as a tiny spring. Stretch a C–C bond beyond its resting length and it pulls back; compress it and it pushes out. The catch? A real spring can snap, but this formula says the energy rises forever — the bond never breaks.
         </div>
@@ -3684,8 +3684,8 @@ function AngleSection() {
 
   return (
     <Card color={T.ff_angle} title="Angle (Harmonic)" formula="U = ½ kθ(θ − θ₀)²">
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Think of a door hinge with a built-in return spring. Open the door past its resting angle and the spring pulls it back; push it the other way and it resists equally. The <strong>angle potential</strong> works the same way: three atoms form a hinge, and the middle atom is the pivot. A stiff hinge (high kθ) means the molecule is rigid like diamond; a loose hinge means it is floppy like a polymer chain. The formula is identical to the bond spring — just swap distance for angle.
         </div>
@@ -3797,8 +3797,8 @@ function VdwSection() {
 
   return (
     <Card color={T.ff_vdw} title="van der Waals (Lennard-Jones 12-6)" formula="U = 4ε[(σ/r)¹² − (σ/r)⁶]">
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Imagine two people on a dance floor. From far away they gently attract each other (want to socialize). As they get close there is a comfortable personal-space distance where both are happiest — that is the <strong>energy minimum</strong> (σ). But if you shove them even closer, they push back hard because nobody likes their personal bubble invaded. The <strong>Lennard-Jones potential</strong> captures exactly this: gentle long-range attraction (London dispersion, the r⁶ term) and violent short-range repulsion when electron clouds overlap (the r¹² wall).
         </div>
@@ -3878,8 +3878,8 @@ function CoulombSection() {
 
   return (
     <Card color={T.ff_coul} title="Coulomb (Electrostatic)" formula="U = qᵢqⱼ / (4πε₀ rᵢⱼ)">
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Think of two magnets. Opposite poles snap together from across the table; same poles push each other away. <strong>Coulomb’s law</strong> is the atomic version: positive meets negative → attraction (Na⁺ and Cl⁻ in table salt). Positive meets positive → repulsion. The key difference from van der Waals? This force is like someone <strong>shouting</strong> across a room (1/r, slow decay) rather than whispering to a neighbor (1/r⁶, fast decay). Even atoms 100 Å apart still feel the Coulomb pull, which is why ionic crystals are so strongly bound.
         </div>
@@ -3983,8 +3983,8 @@ function DihedralSection() {
 
   return (
     <Card color={T.ff_dih} title="Dihedral (Torsion)" formula="U = Σₙ kₙ[1 + cos(nϕ − δₙ)]">
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Picture a revolving door with notches. As you spin it, the door clicks into preferred positions (staggered) and resists stopping at awkward positions (eclipsed). The <strong>dihedral potential</strong> does the same for four atoms in a chain: it creates energy hills and valleys as one end rotates relative to the other around the central bond. The number of “notches” per full rotation is n — for a C–C bond n=3 gives three comfortable staggered positions and three uncomfortable eclipsed positions per 360°.
         </div>
@@ -4114,8 +4114,8 @@ function MorseSection() {
 
   return (
     <Card color={T.ff_morse} title="Morse Potential (Anharmonic Bond)" formula="U = Dₑ[1 − e^{−a(r−r₀)}]²">
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Imagine stretching a rubber band. A little stretch — it snaps back easily (like the harmonic spring). But keep pulling and eventually it <strong>snaps</strong>: the bond breaks and costs a fixed amount of energy (Dₑ). Compressing it is much harder — like trying to squeeze two bowling balls together. The <strong>Morse potential</strong> captures this real-world asymmetry: compression is a steep wall, stretching is a gentle slope that flattens out when the bond breaks. Unlike the harmonic spring, Morse knows that bonds can actually break — the energy plateaus at Dₑ instead of rising to infinity.
         </div>
@@ -4232,8 +4232,8 @@ function FittingSection() {
 
   return (
     <Card color={T.ff_fit} title="Fitting Empirical Force Fields" formula="min Σᵢ [U_LJ(rᵢ; ε,σ) − E_DFT(rᵢ)]²">
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Imagine fitting a curved ruler to a set of dots on a graph. You can slide the ruler up/down (ε) and stretch it left/right (σ), but its <strong>shape is fixed</strong> — it is always the same S-curve. If the dots actually follow that shape, great — you get a perfect fit. But if the real data has a bump or kink the ruler cannot bend to match, no amount of sliding will fix it. That is the fundamental limitation of empirical force field fitting: the <strong>functional form is chosen by humans</strong>, and the optimizer can only adjust the knobs (parameters) within that rigid template.
         </div>
@@ -4368,8 +4368,8 @@ function MLFFSection() {
 
   return (
     <Card color={T.ff_mlff} title="Machine Learning Force Fields (MLFF)" formula="E = NN(descriptors({rᵢ}))   F = −∂E/∂rᵢ">
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           If empirical force fields are like fitting data with a <strong>pre-shaped ruler</strong>, MLFFs are like giving an artist a <strong>flexible spline</strong> that can bend into any shape. The neural network has no fixed formula — it learns the energy surface from thousands of DFT examples, automatically discovering complex patterns that no human-designed equation could capture. The trade-off? The artist needs to see many examples to learn (thousands of DFT calculations), and drawing with a spline is slower than stamping with a ruler (10–100× slower than classical FF). But the result is near-DFT accuracy at a fraction of DFT’s computational cost.
         </div>
@@ -4575,8 +4575,8 @@ function EAMSection() {
 
   return (
     <Card color={T.eo_core} title="Embedded Atom Method (EAM)" formula="E_total = Σᵢ F(ρ̄ᵢ) + ½ Σᵢ Σⱼ≠ᵢ φ(rᵢⱼ)">
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Imagine you are at a crowded party. Standing alone in a corner feels lonely (high energy). Walking into a group of 12 friends feels great (low energy). But notice: the happiness boost from friend #2 is huge, while friend #12 barely adds anything — <strong>diminishing returns</strong>. That is exactly how EAM works for metals: each atom is “embedded” in the electron cloud of its neighbors. More neighbors = more stable, but with a square-root law (√ρ) so the benefit of each additional neighbor shrinks. This is why a surface atom (fewer neighbors) pulls inward to get closer to more friends — surface relaxation.
         </div>
@@ -4585,7 +4585,7 @@ function EAMSection() {
       {/* ── MASTER EQUATION BREAKDOWN ── */}
       <div style={{ background:T.surface, borderRadius:8, padding:14, border:`1px solid ${T.border}`, marginBottom:16 }}>
         <div style={{ fontSize:12, fontWeight:500, color:T.ink, marginBottom:10 }}>EAM Total Energy — Every Term Explained</div>
-        <div style={{ fontFamily:"'Georgia',serif", fontSize:13, color:T.ink, lineHeight:2.2 }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize:13, color:T.ink, lineHeight:2.2 }}>
           E<sub>total</sub> = <span style={{color:T.eo_core, fontWeight:500}}>Σ<sub>i</sub> F(ρ̄<sub>i</sub>)</span> + <span style={{color:T.eo_e, fontWeight:500}}>½ Σ<sub>i</sub> Σ<sub>j≠i</sub> φ(r<sub>ij</sub>)</span>
         </div>
         <div style={{ fontSize:10, color:T.muted, lineHeight:1.6, marginTop:6, marginBottom:10 }}>
@@ -4596,7 +4596,7 @@ function EAMSection() {
             { term:"F(ρ̄ᵢ)", color:T.eo_core, what:"Embedding Function", desc:"The energy to embed atom i into the electron gas created by all its neighbors. F is a function of the total electron density ρ̄ at the site of atom i. This is the many-body term — it depends on ALL neighbors simultaneously, not just pairs. For Finnis-Sinclair: F(ρ̄) = −A√ρ̄. The negative square root means: more neighbors = lower (more stable) energy, but with diminishing returns." },
             { term:"φ(rᵢⱼ)", color:T.eo_e, what:"Pair Potential", desc:"A short-range repulsive-attractive interaction between atoms i and j separated by distance rᵢⱼ. Similar to Lennard-Jones but typically uses exponential forms. At short range: strong repulsion (Pauli exclusion). At equilibrium: slight attraction. At long range: decays to zero. The ½ factor avoids double-counting (i-j and j-i)." },
             { term:"ρ̄ᵢ", color:T.eo_valence, what:"Host Electron Density", desc:"The total electron density at the site of atom i, contributed by ALL neighboring atoms j. Calculated as: ρ̄ᵢ = Σⱼ f(rᵢⱼ), where f(r) is the electron density contribution from one neighbor at distance r. Typically: f(r) = f₀ × exp(−β(r − r₀)). More neighbors or closer neighbors = higher ρ̄." },
-            { term:"f(rᵢⱼ)", color:"#2f6f7c", what:"Atomic Density Function", desc:"The electron density contribution from a single neighbor atom j at distance rᵢⱼ. Decays exponentially with distance — nearby atoms contribute much more density than distant ones. This function is element-specific: Cu and Al have different f(r). Beyond the cutoff distance (typically 5-6 Å), f(r) = 0." },
+            { term:"f(rᵢⱼ)", color:"#317583", what:"Atomic Density Function", desc:"The electron density contribution from a single neighbor atom j at distance rᵢⱼ. Decays exponentially with distance — nearby atoms contribute much more density than distant ones. This function is element-specific: Cu and Al have different f(r). Beyond the cutoff distance (typically 5-6 Å), f(r) = 0." },
           ].map((item, i) => (
             <div key={i} style={{ background:T.panel, border:`1px solid ${item.color}33`,  borderRadius:6, padding:"8px 10px" }}>
               <div style={{ fontSize:11, fontWeight:500, color:item.color, marginBottom:2 }}>{item.what} — {item.term}</div>
@@ -4658,7 +4658,7 @@ function EAMSection() {
               ].map((row, i) => (
                 <tr key={i} style={{ borderBottom:`1px solid ${T.border}`, background: i%2===0?T.panel:T.surface }}>
                   <td style={{ padding:"6px 8px", color:row.color, fontWeight:500, fontSize:10 }}>{row.name}</td>
-                  <td style={{ padding:"6px 8px", fontFamily:"'Georgia',serif", color:T.ink }}>{row.F}</td>
+                  <td style={{ padding:"6px 8px", fontFamily: "'IBM Plex Mono', ui-monospace, monospace", color:T.ink }}>{row.F}</td>
                   <td style={{ padding:"6px 8px", color:T.muted }}>{row.phi}</td>
                   <td style={{ padding:"6px 8px", color:T.muted }}>{row.f}</td>
                   <td style={{ padding:"6px 8px", color:T.ink }}>{row.best}</td>
@@ -4782,8 +4782,8 @@ function ReaxFFSection() {
 
   return (
     <Card color={T.eo_e} title="ReaxFF (Reactive Force Field)" formula="E_system = E_bond + E_over + E_under + E_lp + E_val + E_tor + E_vdW + E_Coul">
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Classical force fields are like <strong>Lego instructions</strong> — fixed connections that never change. ReaxFF is like <strong>magnetic building blocks</strong>: pieces snap together and pull apart dynamically based on how close they are. The secret is <strong>bond order</strong>, a smooth number from 0 (no bond) to 3 (triple bond) that updates every timestep based on distance. Bring two atoms close → bond order rises → bond forms. Pull them apart → bond order falls to zero → bond breaks. No predefined topology needed. This lets ReaxFF simulate chemical reactions — combustion, corrosion, explosions — that would be impossible with fixed-bond force fields.
         </div>
@@ -4792,19 +4792,19 @@ function ReaxFFSection() {
       {/* ── MASTER EQUATION BREAKDOWN ── */}
       <div style={{ background:T.surface, borderRadius:8, padding:14, border:`1px solid ${T.border}`, marginBottom:16 }}>
         <div style={{ fontSize:12, fontWeight:500, color:T.ink, marginBottom:10 }}>ReaxFF Total Energy — Every Term Explained</div>
-        <div style={{ fontFamily:"'Georgia',serif", fontSize:13, color:T.ink, lineHeight:2.2 }}>
-          E<sub>system</sub> = <span style={{color:T.eo_core, fontWeight:500}}>E<sub>bond</sub></span> + <span style={{color:T.eo_gap, fontWeight:500}}>E<sub>over</sub></span> + <span style={{color:"#2f6f7c", fontWeight:500}}>E<sub>under</sub></span> + <span style={{color:T.eo_valence, fontWeight:500}}>E<sub>lp</sub></span> + <span style={{color:T.eo_cond, fontWeight:500}}>E<sub>val</sub></span> + <span style={{color:"#347b8a", fontWeight:500}}>E<sub>tor</sub></span> + <span style={{color:T.eo_e, fontWeight:500}}>E<sub>vdW</sub></span> + <span style={{color:"#398797", fontWeight:500}}>E<sub>Coul</sub></span>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize:13, color:T.ink, lineHeight:2.2 }}>
+          E<sub>system</sub> = <span style={{color:T.eo_core, fontWeight:500}}>E<sub>bond</sub></span> + <span style={{color:T.eo_gap, fontWeight:500}}>E<sub>over</sub></span> + <span style={{color:"#317583", fontWeight:500}}>E<sub>under</sub></span> + <span style={{color:T.eo_valence, fontWeight:500}}>E<sub>lp</sub></span> + <span style={{color:T.eo_cond, fontWeight:500}}>E<sub>val</sub></span> + <span style={{color:"#3a8c9c", fontWeight:500}}>E<sub>tor</sub></span> + <span style={{color:T.eo_e, fontWeight:500}}>E<sub>vdW</sub></span> + <span style={{color:"#4b98a7", fontWeight:500}}>E<sub>Coul</sub></span>
         </div>
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8, marginTop:10 }}>
           {[
             { term:"E_bond", color:T.eo_core, what:"Bond Energy", desc:"Energy from chemical bonds. Depends on bond order (BO). Stronger bond = more negative energy. When BO = 0, E_bond = 0 (no bond)." },
             { term:"E_over", color:T.eo_gap, what:"Overcoordination Penalty", desc:"Penalty when an atom has MORE bonds than its valence allows. Example: carbon forming 5 bonds. Forces atoms to respect their maximum valence." },
-            { term:"E_under", color:"#2f6f7c", what:"Undercoordination Stabilization", desc:"Stabilization when an atom has FEWER bonds than expected. Captures the energy gain from pi-bonding in unsaturated molecules (double/triple bonds)." },
+            { term:"E_under", color:"#317583", what:"Undercoordination Stabilization", desc:"Stabilization when an atom has FEWER bonds than expected. Captures the energy gain from pi-bonding in unsaturated molecules (double/triple bonds)." },
             { term:"E_lp", color:T.eo_valence, what:"Lone Pair Energy", desc:"Energy from non-bonding electron pairs. Oxygen has 2 lone pairs, nitrogen has 1. Lone pairs affect geometry (bent H2O vs linear CO2) and reactivity." },
             { term:"E_val", color:T.eo_cond, what:"Valence Angle Energy", desc:"Energy cost of bending bond angles. Like classical angle term BUT depends on BO. When a bond breaks (BO = 0), the angle term smoothly vanishes." },
-            { term:"E_tor", color:"#347b8a", what:"Torsion Angle Energy", desc:"Energy barrier to rotation around a bond. Also depends on BO. Captures the difference between eclipsed and staggered conformations in organic molecules." },
+            { term:"E_tor", color:"#3a8c9c", what:"Torsion Angle Energy", desc:"Energy barrier to rotation around a bond. Also depends on BO. Captures the difference between eclipsed and staggered conformations in organic molecules." },
             { term:"E_vdW", color:T.eo_e, what:"van der Waals Energy", desc:"Non-bonded attraction/repulsion between ALL atom pairs. Uses a Morse-like potential. Critically: calculated for EVERY pair, even bonded ones (BO-independent)." },
-            { term:"E_Coul", color:"#398797", what:"Coulomb Energy", desc:"Electrostatic interaction between charged atoms. Charges are NOT fixed — ReaxFF uses the EEM (Electronegativity Equalization Method) to dynamically compute charges at each step." },
+            { term:"E_Coul", color:"#4b98a7", what:"Coulomb Energy", desc:"Electrostatic interaction between charged atoms. Charges are NOT fixed — ReaxFF uses the EEM (Electronegativity Equalization Method) to dynamically compute charges at each step." },
           ].map((item, i) => (
             <div key={i} style={{ background:T.panel, border:`1px solid ${item.color}33`,  borderRadius:6, padding:"8px 10px" }}>
               <div style={{ fontSize:11, fontWeight:500, color:item.color, marginBottom:2 }}>{item.what} ({item.term})</div>
@@ -4893,12 +4893,12 @@ function ReaxFFSection() {
             <strong style={{color:T.ink}}>Why ReaxFF needs ALL these terms:</strong>
             <br/><span style={{color:T.eo_core}}>E<sub>bond</sub>:</span> Without it, atoms would not form molecules at all. The bond order makes bonds form/break smoothly.
             <br/><span style={{color:T.eo_gap}}>E<sub>over</sub>:</span> Without it, carbon could form 6 bonds. The penalty enforces correct valence (C=4, O=2, N=3).
-            <br/><span style={{color:"#2f6f7c"}}>E<sub>under</sub>:</span> Without it, C=C double bonds would not be stabilized over two C−C single bonds.
+            <br/><span style={{color:"#317583"}}>E<sub>under</sub>:</span> Without it, C=C double bonds would not be stabilized over two C−C single bonds.
             <br/><span style={{color:T.eo_valence}}>E<sub>lp</sub>:</span> Without it, water would be linear instead of bent (105°). Lone pairs control molecular shape.
             <br/><span style={{color:T.eo_cond}}>E<sub>val</sub>:</span> Without it, molecules would have no preferred geometry. H−O−H must be 105°, not 180°.
-            <br/><span style={{color:"#347b8a"}}>E<sub>tor</sub>:</span> Without it, ethane would have no barrier to rotation (eclipsed = staggered).
+            <br/><span style={{color:"#3a8c9c"}}>E<sub>tor</sub>:</span> Without it, ethane would have no barrier to rotation (eclipsed = staggered).
             <br/><span style={{color:T.eo_e}}>E<sub>vdW</sub>:</span> Without it, molecules would pass through each other. Pauli repulsion keeps atoms apart.
-            <br/><span style={{color:"#398797"}}>E<sub>Coul</sub>:</span> Without it, NaCl would not be ionic. Dynamic charges capture charge transfer in reactions.
+            <br/><span style={{color:"#4b98a7"}}>E<sub>Coul</sub>:</span> Without it, NaCl would not be ionic. Dynamic charges capture charge transfer in reactions.
           </div>
         </div>
       </div>
@@ -4949,8 +4949,8 @@ function ReaxFFTrainingSection() {
 
   return (
     <Card color={T.eo_cond} title="ReaxFF Training" formula="min Σᵢ wᵢ [E_ReaxFF − E_DFT]²">
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Training ReaxFF is like <strong>tuning a piano with 1000 strings</strong>. Each string (parameter) affects the sound (energy prediction). You play a reference piece (DFT data) and compare it to what the piano produces — every wrong note is an error. The optimizer tightens and loosens strings until the piano sounds as close as possible to the reference. The tricky part? Tightening one string can detune three others (parameter correlation). And if you only practice classical music (hydrocarbons), the piano will sound terrible playing jazz (ionic crystals) — that is the <strong>transferability problem</strong>.
         </div>
@@ -4959,15 +4959,15 @@ function ReaxFFTrainingSection() {
       {/* ── TRAINING OBJECTIVE EXPLAINED ── */}
       <div style={{ background:T.surface, borderRadius:8, padding:14, border:`1px solid ${T.border}`, marginBottom:16 }}>
         <div style={{ fontSize:12, fontWeight:500, color:T.ink, marginBottom:10 }}>The Training Objective — Every Term Explained</div>
-        <div style={{ fontFamily:"'Georgia',serif", fontSize:13, color:T.ink, lineHeight:2.2 }}>
-          Error = <span style={{color:T.eo_e, fontWeight:500}}>Σ w<sub>E</sub>(E<sub>ReaxFF</sub> − E<sub>DFT</sub>)²</span> + <span style={{color:T.eo_core, fontWeight:500}}>Σ w<sub>F</sub>(F<sub>ReaxFF</sub> − F<sub>DFT</sub>)²</span> + <span style={{color:T.eo_valence, fontWeight:500}}>Σ w<sub>q</sub>(q<sub>ReaxFF</sub> − q<sub>DFT</sub>)²</span> + <span style={{color:"#347b8a", fontWeight:500}}>Σ w<sub>geo</sub>(r<sub>ReaxFF</sub> − r<sub>DFT</sub>)²</span>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize:13, color:T.ink, lineHeight:2.2 }}>
+          Error = <span style={{color:T.eo_e, fontWeight:500}}>Σ w<sub>E</sub>(E<sub>ReaxFF</sub> − E<sub>DFT</sub>)²</span> + <span style={{color:T.eo_core, fontWeight:500}}>Σ w<sub>F</sub>(F<sub>ReaxFF</sub> − F<sub>DFT</sub>)²</span> + <span style={{color:T.eo_valence, fontWeight:500}}>Σ w<sub>q</sub>(q<sub>ReaxFF</sub> − q<sub>DFT</sub>)²</span> + <span style={{color:"#3a8c9c", fontWeight:500}}>Σ w<sub>geo</sub>(r<sub>ReaxFF</sub> − r<sub>DFT</sub>)²</span>
         </div>
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginTop:10 }}>
           {[
             { term:"w_E × (E_ReaxFF − E_DFT)²", color:T.eo_e, what:"Energy Errors", desc:"Compare ReaxFF energies to DFT for bond scans (stretch C−C from 1.2 to 3.0 Å), angle scans (bend C−C−C from 90° to 180°), equation of state (compress/expand crystal), reaction barriers (e.g., H₂ + O₂ → H₂O transition state), and heats of formation. Typical weight w_E = 1.0 to 10.0." },
             { term:"w_F × (F_ReaxFF − F_DFT)²", color:T.eo_core, what:"Force Errors", desc:"Compare forces (−dE/dr) at each atom position. Forces must be accurate for molecular dynamics — wrong forces mean wrong trajectories. DFT gives forces at every atomic position in a snapshot. Typical weight w_F = 0.1 to 1.0 (forces are noisier than energies)." },
             { term:"w_q × (q_ReaxFF − q_DFT)²", color:T.eo_valence, what:"Charge Errors", desc:"Compare ReaxFF partial charges (from EEM) to DFT Mulliken/Bader charges. Critical for ionic systems: NaCl must show q_Na ≈ +0.9, q_Cl ≈ −0.9. Also controls dipole moments and electrostatic interactions. Typical weight w_q = 0.5 to 5.0." },
-            { term:"w_geo × (r_ReaxFF − r_DFT)²", color:"#347b8a", what:"Geometry Errors", desc:"Compare optimized bond lengths, angles, and cell parameters. After minimization, does ReaxFF predict the same equilibrium structure as DFT? Includes lattice constants (a, b, c), bond lengths (C−C = 1.54 Å), and angles (O−H−O = 104.5°). Typical weight w_geo = 1.0 to 5.0." },
+            { term:"w_geo × (r_ReaxFF − r_DFT)²", color:"#3a8c9c", what:"Geometry Errors", desc:"Compare optimized bond lengths, angles, and cell parameters. After minimization, does ReaxFF predict the same equilibrium structure as DFT? Includes lattice constants (a, b, c), bond lengths (C−C = 1.54 Å), and angles (O−H−O = 104.5°). Typical weight w_geo = 1.0 to 5.0." },
           ].map((item, i) => (
             <div key={i} style={{ background:T.panel, border:`1px solid ${item.color}33`,  borderRadius:6, padding:"8px 10px" }}>
               <div style={{ fontSize:11, fontWeight:500, color:item.color, marginBottom:2 }}>{item.what}</div>
@@ -4998,11 +4998,11 @@ function ReaxFFTrainingSection() {
               {[
                 { type:"Bond Scans", calc:"E vs r for each bond type (C−C, C=O, O−H)", setup:"Dimer in box, fix r, relax rest", pts:"15-30 per pair", why:"Determines bond order parameters, De, r₀", color:T.eo_e },
                 { type:"Angle Scans", calc:"E vs θ for each angle type (C−C−C, H−O−H)", setup:"Trimer, fix angle, relax bonds", pts:"10-20 per triplet", why:"Sets equilibrium angles, force constants", color:T.eo_core },
-                { type:"Dihedral Scans", calc:"E vs φ for rotations (H−C−C−H in ethane)", setup:"Fix torsion angle, relax all else", pts:"12-36 per type", why:"Barrier heights, conformational preferences", color:"#347b8a" },
+                { type:"Dihedral Scans", calc:"E vs φ for rotations (H−C−C−H in ethane)", setup:"Fix torsion angle, relax all else", pts:"12-36 per type", why:"Barrier heights, conformational preferences", color:"#3a8c9c" },
                 { type:"Equation of State", calc:"E vs V for crystal (compress/expand ±20%)", setup:"Bulk crystal, vary cell, relax atoms", pts:"7-15 per phase", why:"Bulk modulus, lattice constant, phase stability", color:T.eo_valence },
                 { type:"Reaction Barriers", calc:"E along reaction path (NEB/CI-NEB)", setup:"Transition state search", pts:"7-20 per reaction", why:"Activation energies for combustion, oxidation", color:T.eo_gap },
                 { type:"Charges", calc:"Partial charges (Mulliken/Bader) on each atom", setup:"Molecule/crystal at equilibrium", pts:"1 per structure", why:"EEM parameters for electrostatics", color:T.eo_cond },
-                { type:"Heats of Formation", calc:"Energy of molecule vs isolated atoms", setup:"Optimized molecule + atomic refs", pts:"1 per molecule", why:"Overall energy scale validation", color:"#2f6f7c" },
+                { type:"Heats of Formation", calc:"Energy of molecule vs isolated atoms", setup:"Optimized molecule + atomic refs", pts:"1 per molecule", why:"Overall energy scale validation", color:"#317583" },
                 { type:"Surface Energies", calc:"E(slab) − n×E(bulk) / 2A", setup:"Slab model with vacuum", pts:"2-5 per surface", why:"Surface reactivity, adsorption accuracy", color:T.eo_e },
               ].map((row, i) => (
                 <tr key={i} style={{ borderBottom:`1px solid ${T.border}`, background: i%2===0?T.panel:T.surface }}>
@@ -5044,8 +5044,8 @@ function ReaxFFTrainingSection() {
       </div>
 
       {/* ── PARAMETER CATEGORIES ── */}
-      <div style={{ background:"#f7f9fa", border:`1px solid #2f6f7c`, borderRadius:8, padding:14, marginBottom:16 }}>
-        <div style={{ fontSize:12, fontWeight:500, color:"#2f6f7c", marginBottom:8 }}>ReaxFF Parameters — What Gets Optimized</div>
+      <div style={{ background:"#f7f9fa", border:`1px solid #317583`, borderRadius:8, padding:14, marginBottom:16 }}>
+        <div style={{ fontSize:12, fontWeight:500, color:"#317583", marginBottom:8 }}>ReaxFF Parameters — What Gets Optimized</div>
         <div style={{ fontSize:10, color:T.ink, lineHeight:1.8, marginBottom:8 }}>
           A typical ReaxFF force field has <strong>500-3000+ parameters</strong> organized into categories:
         </div>
@@ -5054,7 +5054,7 @@ function ReaxFFTrainingSection() {
             { cat:"General Parameters (39)", color:T.eo_core, params:"Overcoordination penalties, valence angle conjugation weights, torsion conjugation, hydrogen bond strength, and global cutoffs. These affect ALL atom types." },
             { cat:"Atom Parameters (32 per element)", color:T.eo_e, params:"r_σ, r_π, r_ππ (bond radii), electronegativity χ, hardness η (for EEM charges), valence, mass, lone pair energy, and over/undercoordination parameters. Example: C has Val=4, r_σ=1.54 Å." },
             { cat:"Bond Parameters (16 per pair)", color:T.eo_valence, params:"D_e (dissociation energy), p_be1, p_be2 (bond energy exponents), p_bo1-p_bo6 (bond order parameters for σ, π, ππ), p_over (overcoordination), and 1/3-body conjugation." },
-            { cat:"Off-diagonal (6 per pair)", color:"#347b8a", params:"D_ij, r_vdW, α_ij, r_σ, r_π, r_ππ for heterogeneous pairs (C-O, C-N). Override combination rules when element-specific interactions are needed." },
+            { cat:"Off-diagonal (6 per pair)", color:"#3a8c9c", params:"D_ij, r_vdW, α_ij, r_σ, r_π, r_ππ for heterogeneous pairs (C-O, C-N). Override combination rules when element-specific interactions are needed." },
             { cat:"Angle Parameters (7 per triplet)", color:T.eo_gap, params:"θ₀ (equilibrium angle), p_val1-p_val7 (angle energy shape, penalty, conjugation). Example: C−C−C has θ₀=109.5° for sp³, 120° for sp²." },
             { cat:"Torsion Parameters (7 per quartet)", color:T.eo_cond, params:"V₁, V₂, V₃ (barrier heights for 1-fold, 2-fold, 3-fold), p_tor1 (BO dependence), p_cot1 (conjugation). Controls rotation barriers in molecules." },
           ].map((item, i) => (
@@ -5158,7 +5158,7 @@ function ReaxFFTrainingSection() {
             <br/><span style={{color:T.eo_e}}>Weight imbalance:</span> Setting w_bond too high makes angles/charges inaccurate. Setting w_charge too high makes energies wrong. Start with w=1.0 for all, then adjust based on which properties matter most for your application.
             <br/><span style={{color:T.eo_core}}>Missing data:</span> If you never include surface DFT data, surface chemistry will be wrong. If you never include high-pressure data, the equation of state extrapolates poorly.
             <br/><span style={{color:T.eo_valence}}>Parameter correlation:</span> Bond order parameters (p_bo) are strongly correlated with bond energy parameters (D_e). Changing one requires re-optimizing the other. This is why global optimizers outperform single-parameter methods.
-            <br/><span style={{color:"#347b8a"}}>Transferability:</span> A C/H/O force field trained on hydrocarbons may fail for carbohydrates. Each new chemistry requires new training data and re-fitting.
+            <br/><span style={{color:"#3a8c9c"}}>Transferability:</span> A C/H/O force field trained on hydrocarbons may fail for carbohydrates. Each new chemistry requires new training data and re-fitting.
           </div>
 
           {/* ── TOOLS ── */}
@@ -5196,9 +5196,9 @@ function SNAPMTPACESection() {
   }, []);
 
   const tabs = [
-    { id: "snap", label: "SNAP", color: "#347a89", full: "Spectral Neighbor Analysis Potential" },
-    { id: "mtp",  label: "MTP",  color: "#327785", full: "Moment Tensor Potential" },
-    { id: "ace",  label: "ACE",  color: "#3c8e9f", full: "Atomic Cluster Expansion" },
+    { id: "snap", label: "SNAP", color: "#398a9a", full: "Spectral Neighbor Analysis Potential" },
+    { id: "mtp",  label: "MTP",  color: "#378695", full: "Moment Tensor Potential" },
+    { id: "ace",  label: "ACE",  color: "#50a1b1", full: "Atomic Cluster Expansion" },
   ];
   const activeInfo = tabs.find(t => t.id === activeTab);
 
@@ -5320,8 +5320,8 @@ function SNAPMTPACESection() {
       </div>
 
       {/* Per-tab analogy */}
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           {activeTab === "snap" && (<>
             SNAP is like describing a neighborhood using a <strong>sound fingerprint</strong>. Imagine standing at an atom and clapping — the echoes from all neighbors create a unique acoustic signature. SNAP does this mathematically: it projects the 3D neighbor arrangement onto a <strong>4D hypersphere</strong> and records the “frequency spectrum” (bispectrum). Just as a fingerprint uniquely identifies a person regardless of which way they face, the bispectrum uniquely identifies a local atomic environment regardless of how the crystal is rotated. Energy is then just a <strong>weighted sum</strong> of these spectral components — simple linear regression from DFT data.
@@ -5384,9 +5384,9 @@ function SNAPMTPACESection() {
 
           {/* Parity plot */}
           <div style={{ marginTop: 10 }}>
-            {activeTab === "snap" && <ParityPlot pred={snapPred} color="#347a89" label="SNAP" rmse={snapRmse} />}
-            {activeTab === "mtp" && <ParityPlot pred={mtpPred} color="#327785" label="MTP" rmse={mtpRmse} />}
-            {activeTab === "ace" && <ParityPlot pred={acePred} color="#3c8e9f" label="ACE" rmse={aceRmse} />}
+            {activeTab === "snap" && <ParityPlot pred={snapPred} color="#398a9a" label="SNAP" rmse={snapRmse} />}
+            {activeTab === "mtp" && <ParityPlot pred={mtpPred} color="#378695" label="MTP" rmse={mtpRmse} />}
+            {activeTab === "ace" && <ParityPlot pred={acePred} color="#50a1b1" label="ACE" rmse={aceRmse} />}
           </div>
         </div>
 
@@ -5395,21 +5395,21 @@ function SNAPMTPACESection() {
 
           {/* ==================== SNAP TAB ==================== */}
           {activeTab === "snap" && (<>
-            <div style={{ background: "#347a8911", border: "1px solid #347a8933", borderRadius: 8, padding: 12, marginBottom: 12 }}>
-              <div style={{ fontSize: 12, fontWeight: 500, color: "#347a89", marginBottom: 6 }}>SNAP — Spectral Neighbor Analysis Potential</div>
+            <div style={{ background: "#398a9a11", border: "1px solid #398a9a33", borderRadius: 8, padding: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 12, fontWeight: 500, color: "#398a9a", marginBottom: 6 }}>SNAP — Spectral Neighbor Analysis Potential</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
                 Energy is a <strong>linear function</strong> of bispectrum descriptors B<sub>k</sub>:
               </div>
-              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#347a89", marginTop: 6, lineHeight: 2 }}>
+              <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 13, color: "#398a9a", marginTop: 6, lineHeight: 2 }}>
                 E<sub>i</sub> = β<sub>0</sub> + Σ<sub>k</sub> β<sub>k</sub> B<sub>k</sub>(ρ<sub>i</sub>)
               </div>
             </div>
-            <SliderRow label="J_max (angular resolution)" value={snapJ} min={1} max={6} step={1} onChange={setSnapJ} color="#347a89" unit="" format={v => v.toFixed(0)} />
-            <SliderRow label="Training progress (%)" value={snapTrainProg} min={0} max={100} step={1} onChange={setSnapTrainProg} color="#347a89" unit="%" format={v => v.toFixed(0)} />
+            <SliderRow label="J_max (angular resolution)" value={snapJ} min={1} max={6} step={1} onChange={setSnapJ} color="#398a9a" unit="" format={v => v.toFixed(0)} />
+            <SliderRow label="Training progress (%)" value={snapTrainProg} min={0} max={100} step={1} onChange={setSnapTrainProg} color="#398a9a" unit="%" format={v => v.toFixed(0)} />
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 4, marginBottom: 12 }}>
-              <ResultBox label="Bispectrum" value={nSnap} color="#347a89" sub="components" />
-              <ResultBox label="Parameters" value={nSnap + 1} color="#347a89" sub={`$β coefficients`} />
-              <ResultBox label="E RMSE" value={`${snapRmse.toFixed(1)} meV`} color={snapRmse < 10 ? "#3c8e9f" : "#347a89"} sub={snapRmse < 10 ? "converged" : "training..."} />
+              <ResultBox label="Bispectrum" value={nSnap} color="#398a9a" sub="components" />
+              <ResultBox label="Parameters" value={nSnap + 1} color="#398a9a" sub={`$β coefficients`} />
+              <ResultBox label="E RMSE" value={`${snapRmse.toFixed(1)} meV`} color={snapRmse < 10 ? "#50a1b1" : "#398a9a"} sub={snapRmse < 10 ? "converged" : "training..."} />
             </div>
 
             {/* Numerical training example */}
@@ -5432,13 +5432,13 @@ function SNAPMTPACESection() {
                       const err = (snapPred[i] - c.eDft) * 1000;
                       return (
                         <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
-                          <td style={{ padding: "3px 5px", color: "#347a89", fontWeight: 500, textAlign: "left", fontSize: 8 }}>{c.label}</td>
+                          <td style={{ padding: "3px 5px", color: "#398a9a", fontWeight: 500, textAlign: "left", fontSize: 8 }}>{c.label}</td>
                           {snapB[i].map((b, k) => (
                             <td key={k} style={{ padding: "3px 5px", textAlign: "right", fontFamily: "monospace", color: T.ink }}>{b.toFixed(2)}</td>
                           ))}
                           <td style={{ padding: "3px 5px", textAlign: "right", fontFamily: "monospace", color: T.eo_e, fontWeight: 500 }}>{c.eDft.toFixed(3)}</td>
-                          <td style={{ padding: "3px 5px", textAlign: "right", fontFamily: "monospace", color: "#347a89", fontWeight: 500 }}>{snapPred[i].toFixed(3)}</td>
-                          <td style={{ padding: "3px 5px", textAlign: "right", fontFamily: "monospace", color: Math.abs(err) < 10 ? "#3c8e9f" : T.eo_gap }}>{err.toFixed(1)} meV</td>
+                          <td style={{ padding: "3px 5px", textAlign: "right", fontFamily: "monospace", color: "#398a9a", fontWeight: 500 }}>{snapPred[i].toFixed(3)}</td>
+                          <td style={{ padding: "3px 5px", textAlign: "right", fontFamily: "monospace", color: Math.abs(err) < 10 ? "#50a1b1" : T.eo_gap }}>{err.toFixed(1)} meV</td>
                         </tr>
                       );
                     })}
@@ -5460,29 +5460,29 @@ function SNAPMTPACESection() {
                 <br/>5. Solve E = B·β by least squares → <strong>one-shot training, no iterations</strong>
               </div>
             </div>
-            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, background: "#347a8908", padding: 10, borderRadius: 8, border: "1px solid #347a8933" }}>
-              <strong style={{ color: "#347a89" }}>Key strengths:</strong> Linear model → fast training (least squares), fast evaluation (~10× slower than EAM). Built into LAMMPS. Used for W, Ta, Mo, Be, InP by Thompson et al. (Sandia).
-              <br/><strong style={{ color: "#347a89" }}>Limitation:</strong> Increasing J<sub>max</sub> adds many components ({nSnap} at J={snapJ}). High body-order effects captured implicitly but not systematically.
+            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, background: "#398a9a08", padding: 10, borderRadius: 8, border: "1px solid #398a9a33" }}>
+              <strong style={{ color: "#398a9a" }}>Key strengths:</strong> Linear model → fast training (least squares), fast evaluation (~10× slower than EAM). Built into LAMMPS. Used for W, Ta, Mo, Be, InP by Thompson et al. (Sandia).
+              <br/><strong style={{ color: "#398a9a" }}>Limitation:</strong> Increasing J<sub>max</sub> adds many components ({nSnap} at J={snapJ}). High body-order effects captured implicitly but not systematically.
             </div>
           </>)}
 
           {/* ==================== MTP TAB ==================== */}
           {activeTab === "mtp" && (<>
-            <div style={{ background: "#32778511", border: "1px solid #32778533", borderRadius: 8, padding: 12, marginBottom: 12 }}>
-              <div style={{ fontSize: 12, fontWeight: 500, color: "#327785", marginBottom: 6 }}>MTP — Moment Tensor Potential</div>
+            <div style={{ background: "#37869511", border: "1px solid #37869533", borderRadius: 8, padding: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 12, fontWeight: 500, color: "#378695", marginBottom: 6 }}>MTP — Moment Tensor Potential</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
                 Energy is linear in <strong>moment tensor invariants</strong>:
               </div>
-              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#327785", marginTop: 6, lineHeight: 2 }}>
+              <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 13, color: "#378695", marginTop: 6, lineHeight: 2 }}>
                 E<sub>i</sub> = Σ<sub>α</sub> c<sub>α</sub> B<sub>α</sub>(M<sub>μ,ν</sub>)
               </div>
             </div>
-            <SliderRow label="MTP level (complexity)" value={mtpLevel} min={6} max={28} step={2} onChange={setMtpLevel} color="#327785" unit="" format={v => v.toFixed(0)} />
-            <SliderRow label="Training progress (%)" value={mtpTrainProg} min={0} max={100} step={1} onChange={setMtpTrainProg} color="#327785" unit="%" format={v => v.toFixed(0)} />
+            <SliderRow label="MTP level (complexity)" value={mtpLevel} min={6} max={28} step={2} onChange={setMtpLevel} color="#378695" unit="" format={v => v.toFixed(0)} />
+            <SliderRow label="Training progress (%)" value={mtpTrainProg} min={0} max={100} step={1} onChange={setMtpTrainProg} color="#378695" unit="%" format={v => v.toFixed(0)} />
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 4, marginBottom: 12 }}>
-              <ResultBox label="Basis" value={mtpBasis} color="#327785" sub="functions" />
-              <ResultBox label="Body order" value={mtpLevel <= 10 ? "2-3" : mtpLevel <= 20 ? "2-4" : "2-5"} color="#327785" sub="interactions" />
-              <ResultBox label="E RMSE" value={`${mtpRmse.toFixed(1)} meV`} color={mtpRmse < 10 ? "#3c8e9f" : "#327785"} sub={mtpRmse < 10 ? "converged" : "training..."} />
+              <ResultBox label="Basis" value={mtpBasis} color="#378695" sub="functions" />
+              <ResultBox label="Body order" value={mtpLevel <= 10 ? "2-3" : mtpLevel <= 20 ? "2-4" : "2-5"} color="#378695" sub="interactions" />
+              <ResultBox label="E RMSE" value={`${mtpRmse.toFixed(1)} meV`} color={mtpRmse < 10 ? "#50a1b1" : "#378695"} sub={mtpRmse < 10 ? "converged" : "training..."} />
             </div>
 
             {/* Numerical training example */}
@@ -5505,13 +5505,13 @@ function SNAPMTPACESection() {
                       const err = (mtpPred[i] - c.eDft) * 1000;
                       return (
                         <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
-                          <td style={{ padding: "3px 4px", color: "#327785", fontWeight: 500, textAlign: "left", fontSize: 8 }}>{c.label}</td>
+                          <td style={{ padding: "3px 4px", color: "#378695", fontWeight: 500, textAlign: "left", fontSize: 8 }}>{c.label}</td>
                           {mtpM[i].map((m, k) => (
                             <td key={k} style={{ padding: "3px 4px", textAlign: "right", fontFamily: "monospace", color: T.ink }}>{m.toFixed(2)}</td>
                           ))}
                           <td style={{ padding: "3px 4px", textAlign: "right", fontFamily: "monospace", color: T.eo_e, fontWeight: 500 }}>{c.eDft.toFixed(3)}</td>
-                          <td style={{ padding: "3px 4px", textAlign: "right", fontFamily: "monospace", color: "#327785", fontWeight: 500 }}>{mtpPred[i].toFixed(3)}</td>
-                          <td style={{ padding: "3px 4px", textAlign: "right", fontFamily: "monospace", color: Math.abs(err) < 10 ? "#3c8e9f" : T.eo_gap }}>{err.toFixed(1)} meV</td>
+                          <td style={{ padding: "3px 4px", textAlign: "right", fontFamily: "monospace", color: "#378695", fontWeight: 500 }}>{mtpPred[i].toFixed(3)}</td>
+                          <td style={{ padding: "3px 4px", textAlign: "right", fontFamily: "monospace", color: Math.abs(err) < 10 ? "#50a1b1" : T.eo_gap }}>{err.toFixed(1)} meV</td>
                         </tr>
                       );
                     })}
@@ -5530,36 +5530,36 @@ function SNAPMTPACESection() {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 6, marginTop: 8 }}>
                 {["Run MD", "Detect\nextrapolation", "Run DFT", "Retrain\nMTP"].map((step, i) => (
-                  <div key={i} style={{ background: "#32778511", border: "1px solid #32778533", borderRadius: 6, padding: "6px 4px", textAlign: "center" }}>
-                    <div style={{ fontSize: 9, fontWeight: 500, color: "#327785", whiteSpace: "pre-line" }}>{step}</div>
+                  <div key={i} style={{ background: "#37869511", border: "1px solid #37869533", borderRadius: 6, padding: "6px 4px", textAlign: "center" }}>
+                    <div style={{ fontSize: 9, fontWeight: 500, color: "#378695", whiteSpace: "pre-line" }}>{step}</div>
                     {i < 3 && <div style={{ fontSize: 14, color: T.dim, marginTop: 2 }}>→</div>}
                   </div>
                 ))}
               </div>
             </div>
-            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, background: "#32778508", padding: 10, borderRadius: 8, border: "1px solid #32778533" }}>
-              <strong style={{ color: "#327785" }}>Key strengths:</strong> Very fast (competitive with EAM). Built-in active learning. Systematically improvable via level parameter. MLIP package + LAMMPS.
-              <br/><strong style={{ color: "#327785" }}>Used for:</strong> Li, Al, Cu, W, organic molecules, alloys. Shapeev group (Skoltech).
+            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, background: "#37869508", padding: 10, borderRadius: 8, border: "1px solid #37869533" }}>
+              <strong style={{ color: "#378695" }}>Key strengths:</strong> Very fast (competitive with EAM). Built-in active learning. Systematically improvable via level parameter. MLIP package + LAMMPS.
+              <br/><strong style={{ color: "#378695" }}>Used for:</strong> Li, Al, Cu, W, organic molecules, alloys. Shapeev group (Skoltech).
             </div>
           </>)}
 
           {/* ==================== ACE TAB ==================== */}
           {activeTab === "ace" && (<>
-            <div style={{ background: "#3c8e9f11", border: "1px solid #3c8e9f33", borderRadius: 8, padding: 12, marginBottom: 12 }}>
-              <div style={{ fontSize: 12, fontWeight: 500, color: "#3c8e9f", marginBottom: 6 }}>ACE — Atomic Cluster Expansion</div>
+            <div style={{ background: "#50a1b111", border: "1px solid #50a1b133", borderRadius: 8, padding: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 12, fontWeight: 500, color: "#50a1b1", marginBottom: 6 }}>ACE — Atomic Cluster Expansion</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
                 Energy is a sum over <strong>N-body correlation basis</strong> functions A:
               </div>
-              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: "#3c8e9f", marginTop: 6, lineHeight: 2 }}>
+              <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 13, color: "#50a1b1", marginTop: 6, lineHeight: 2 }}>
                 E<sub>i</sub> = Σ<sub>ν</sub> c<sub>ν</sub> A<sub>i,ν</sub>
               </div>
             </div>
-            <SliderRow label="Correlation order (body order)" value={aceCorr} min={2} max={5} step={1} onChange={setAceCorr} color="#3c8e9f" unit="" format={v => v.toFixed(0)} />
-            <SliderRow label="Training progress (%)" value={aceTrainProg} min={0} max={100} step={1} onChange={setAceTrainProg} color="#3c8e9f" unit="%" format={v => v.toFixed(0)} />
+            <SliderRow label="Correlation order (body order)" value={aceCorr} min={2} max={5} step={1} onChange={setAceCorr} color="#50a1b1" unit="" format={v => v.toFixed(0)} />
+            <SliderRow label="Training progress (%)" value={aceTrainProg} min={0} max={100} step={1} onChange={setAceTrainProg} color="#50a1b1" unit="%" format={v => v.toFixed(0)} />
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 4, marginBottom: 12 }}>
-              <ResultBox label="Correlation" value={aceCorr} color="#3c8e9f" sub={aceDesc} />
-              <ResultBox label="Basis size" value={`~${aceBasis}`} color="#3c8e9f" sub="per element" />
-              <ResultBox label="E RMSE" value={`${aceRmse.toFixed(1)} meV`} color={aceRmse < 10 ? "#3c8e9f" : "#2f6f7c"} sub={aceRmse < 10 ? "converged" : "training..."} />
+              <ResultBox label="Correlation" value={aceCorr} color="#50a1b1" sub={aceDesc} />
+              <ResultBox label="Basis size" value={`~${aceBasis}`} color="#50a1b1" sub="per element" />
+              <ResultBox label="E RMSE" value={`${aceRmse.toFixed(1)} meV`} color={aceRmse < 10 ? "#50a1b1" : "#317583"} sub={aceRmse < 10 ? "converged" : "training..."} />
             </div>
 
             {/* Numerical training example */}
@@ -5582,13 +5582,13 @@ function SNAPMTPACESection() {
                       const err = (acePred[i] - c.eDft) * 1000;
                       return (
                         <tr key={i} style={{ borderBottom: `1px solid ${T.border}`, background: i % 2 === 0 ? T.bg : T.panel }}>
-                          <td style={{ padding: "3px 3px", color: "#3c8e9f", fontWeight: 500, textAlign: "left", fontSize: 8 }}>{c.label}</td>
+                          <td style={{ padding: "3px 3px", color: "#50a1b1", fontWeight: 500, textAlign: "left", fontSize: 8 }}>{c.label}</td>
                           {aceA[i].map((a, k) => (
                             <td key={k} style={{ padding: "3px 3px", textAlign: "right", fontFamily: "monospace", color: T.ink }}>{a.toFixed(2)}</td>
                           ))}
                           <td style={{ padding: "3px 3px", textAlign: "right", fontFamily: "monospace", color: T.eo_e, fontWeight: 500 }}>{c.eDft.toFixed(3)}</td>
-                          <td style={{ padding: "3px 3px", textAlign: "right", fontFamily: "monospace", color: "#3c8e9f", fontWeight: 500 }}>{acePred[i].toFixed(3)}</td>
-                          <td style={{ padding: "3px 3px", textAlign: "right", fontFamily: "monospace", color: Math.abs(err) < 10 ? "#3c8e9f" : T.eo_gap }}>{err.toFixed(1)} meV</td>
+                          <td style={{ padding: "3px 3px", textAlign: "right", fontFamily: "monospace", color: "#50a1b1", fontWeight: 500 }}>{acePred[i].toFixed(3)}</td>
+                          <td style={{ padding: "3px 3px", textAlign: "right", fontFamily: "monospace", color: Math.abs(err) < 10 ? "#50a1b1" : T.eo_gap }}>{err.toFixed(1)} meV</td>
                         </tr>
                       );
                     })}
@@ -5607,20 +5607,20 @@ function SNAPMTPACESection() {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 8 }}>
                 {[
-                  { label: "Complete", desc: "Any invariant can be represented with enough basis functions", color: "#3c8e9f" },
-                  { label: "Systematic", desc: "Increase correlation order to add higher body-order interactions", color: "#3c8e9f" },
-                  { label: "Efficient", desc: "N-correlations computed as products of 1-particle basis", color: "#3c8e9f" },
-                  { label: "Unifying", desc: "SNAP, MTP are subsets of the ACE framework", color: "#3c8e9f" },
+                  { label: "Complete", desc: "Any invariant can be represented with enough basis functions", color: "#50a1b1" },
+                  { label: "Systematic", desc: "Increase correlation order to add higher body-order interactions", color: "#50a1b1" },
+                  { label: "Efficient", desc: "N-correlations computed as products of 1-particle basis", color: "#50a1b1" },
+                  { label: "Unifying", desc: "SNAP, MTP are subsets of the ACE framework", color: "#50a1b1" },
                 ].map(item => (
-                  <div key={item.label} style={{ padding: "6px 8px", borderRadius: 6, background: "#3c8e9f11", border: "1px solid #3c8e9f33" }}>
+                  <div key={item.label} style={{ padding: "6px 8px", borderRadius: 6, background: "#50a1b111", border: "1px solid #50a1b133" }}>
                     <div style={{ fontSize: 10, fontWeight: 500, color: item.color }}>{item.label}</div>
                     <div style={{ fontSize: 9, color: T.muted, lineHeight: 1.5, marginTop: 2 }}>{item.desc}</div>
                   </div>
                 ))}
               </div>
             </div>
-            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, background: "#3c8e9f08", padding: 10, borderRadius: 8, border: "1px solid #3c8e9f33" }}>
-              <strong style={{ color: "#3c8e9f" }}>Implementations:</strong> PACE (Julia/C++), pacemaker (Python), integrated into LAMMPS. Drautz (Bochum), Ortner group.
+            <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.8, background: "#50a1b108", padding: 10, borderRadius: 8, border: "1px solid #50a1b133" }}>
+              <strong style={{ color: "#50a1b1" }}>Implementations:</strong> PACE (Julia/C++), pacemaker (Python), integrated into LAMMPS. Drautz (Bochum), Ortner group.
             </div>
           </>)}
         </div>
@@ -5683,9 +5683,9 @@ function CompareSection() {
     { name: "Stillinger-Weber", type: "Many-body", body: "3", speed: "~10× slower", accuracy: "Semi-quantitative", reactive: "Partial", systems: "Si, Ge, GaAs (tetrahedral)", color: T.ff_angle },
     { name: "EAM", type: "Many-body", body: "N-body (density)", speed: "Fast", accuracy: "Good for metals", reactive: "No", systems: "FCC/BCC metals, alloys", color: T.eo_valence },
     { name: "ReaxFF", type: "Bond-order", body: "N-body", speed: "~50× slower", accuracy: "Semi-quantitative", reactive: "Yes", systems: "C/H/O/N, metals + oxides", color: T.eo_gap },
-    { name: "SNAP", type: "ML (linear)", body: "All (bispectrum)", speed: "~100× slower", accuracy: "Near-DFT", reactive: "Yes", systems: "W, Ta, Mo, InP", color: "#347a89" },
-    { name: "MTP", type: "ML (linear)", body: "≤4", speed: "~100× slower", accuracy: "Near-DFT", reactive: "Yes", systems: "Li, Cu, Al, organics", color: "#327785" },
-    { name: "ACE", type: "ML (linear/NN)", body: "Systematic", speed: "~200× slower", accuracy: "Near-DFT", reactive: "Yes", systems: "Multi-element, alloys", color: "#3c8e9f" },
+    { name: "SNAP", type: "ML (linear)", body: "All (bispectrum)", speed: "~100× slower", accuracy: "Near-DFT", reactive: "Yes", systems: "W, Ta, Mo, InP", color: "#398a9a" },
+    { name: "MTP", type: "ML (linear)", body: "≤4", speed: "~100× slower", accuracy: "Near-DFT", reactive: "Yes", systems: "Li, Cu, Al, organics", color: "#378695" },
+    { name: "ACE", type: "ML (linear/NN)", body: "Systematic", speed: "~200× slower", accuracy: "Near-DFT", reactive: "Yes", systems: "Multi-element, alloys", color: "#50a1b1" },
     { name: "NNP (Behler)", type: "ML (NN)", body: "2-body desc.", speed: "~500× slower", accuracy: "Near-DFT", reactive: "Yes", systems: "Water, Cu, ZnO", color: T.ff_mlff },
     { name: "GNN (MACE)", type: "ML (equivariant)", body: "Message passing", speed: "~1000× slower", accuracy: "DFT-level", reactive: "Yes", systems: "Universal, defects", color: T.ff_fit },
   ];
@@ -5697,8 +5697,8 @@ function CompareSection() {
 
   return (
     <div style={{ background:T.panel, border:`1.5px solid ${T.border}`, borderRadius:10, padding:18 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Building a force field is like assembling a <strong>toolkit for a mechanic</strong>. Bond stretching is the wrench (handles pull/push along a shaft). Angle bending is the protractor (measures and resists bending). vdW is the bumper (keeps non-touching parts from colliding). Coulomb is the magnet (long-range pull or push). Dihedral is the ratchet (controls rotation). Morse is the upgraded wrench that knows when a bolt snaps. No single tool does everything — you need the whole toolkit together. And if you need to handle something exotic (like a chemical reaction), you upgrade to the power-tool version: ReaxFF or MLFF.
         </div>
@@ -5736,7 +5736,7 @@ function CompareSection() {
               {termRows.map((row,i)=>(
                 <tr key={i} style={{ borderBottom:`1px solid ${T.border}`, background: i%2===0?T.surface:T.panel }}>
                   <td style={{ padding:"8px 10px", color:row.color, fontWeight:500 }}>{row.name}</td>
-                  <td style={{ padding:"8px 10px", fontFamily:"'Georgia',serif", color:T.ink, fontSize:11 }}>{row.formula}</td>
+                  <td style={{ padding:"8px 10px", fontFamily: "'IBM Plex Mono', ui-monospace, monospace", color:T.ink, fontSize:11 }}>{row.formula}</td>
                   <td style={{ padding:"8px 10px", color:T.muted }}>{row.atoms}</td>
                   <td style={{ padding:"8px 10px", color:T.ink }}>{row.captures}</td>
                   <td style={{ padding:"8px 10px", color:T.muted, fontStyle:"italic" }}>{row.fails}</td>
@@ -5768,7 +5768,7 @@ function CompareSection() {
                   <td style={{ padding:"6px 8px", color:T.muted, fontSize:10 }}>{row.body}</td>
                   <td style={{ padding:"6px 8px", color:T.ink, fontSize:10 }}>{row.speed}</td>
                   <td style={{ padding:"6px 8px", color:T.ink, fontSize:10 }}>{row.accuracy}</td>
-                  <td style={{ padding:"6px 8px", color: row.reactive === "Yes" ? "#3c8e9f" : row.reactive === "No" ? T.muted : "#2f6f7c", fontSize:10 }}>{row.reactive}</td>
+                  <td style={{ padding:"6px 8px", color: row.reactive === "Yes" ? "#50a1b1" : row.reactive === "No" ? T.muted : "#317583", fontSize:10 }}>{row.reactive}</td>
                   <td style={{ padding:"6px 8px", color:T.muted, fontSize:10 }}>{row.systems}</td>
                 </tr>
               ))}
@@ -5792,9 +5792,9 @@ function CompareSection() {
               { x: 170, y: 50,  label: "Tersoff",    color: T.ff_bond },
               { x: 160, y: 55,  label: "SW",          color: T.ff_angle },
               { x: 230, y: 80,  label: "ReaxFF",     color: T.eo_gap },
-              { x: 360, y: 90,  label: "SNAP",       color: "#347a89" },
-              { x: 370, y: 85,  label: "MTP",        color: "#327785" },
-              { x: 400, y: 100, label: "ACE",        color: "#3c8e9f" },
+              { x: 360, y: 90,  label: "SNAP",       color: "#398a9a" },
+              { x: 370, y: 85,  label: "MTP",        color: "#378695" },
+              { x: 400, y: 100, label: "ACE",        color: "#50a1b1" },
               { x: 410, y: 110, label: "NNP",        color: T.ff_mlff },
               { x: 440, y: 130, label: "GNN",        color: T.ff_fit },
               { x: 470, y: 145, label: "DFT",        color: T.eo_e },
@@ -5814,7 +5814,7 @@ function CompareSection() {
         <div style={{ fontSize:12, fontWeight:500, color:T.ink, marginBottom:8 }}>
           Total energy of a molecule = sum of ALL applicable terms:
         </div>
-        <div style={{ fontFamily:"'Georgia',serif", fontSize:14, color:T.ink, lineHeight:2 }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize:14, color:T.ink, lineHeight:2 }}>
           U<sub>total</sub> = U<sub style={{color:T.ff_bond}}>bonds</sub> + U<sub style={{color:T.ff_angle}}>angles</sub> + U<sub style={{color:T.ff_dih}}>dihedrals</sub> + U<sub style={{color:T.ff_vdw}}>vdW</sub> + U<sub style={{color:T.ff_coul}}>Coulomb</sub>
         </div>
         <div style={{ marginTop:10, fontSize:11, color:T.muted, lineHeight:1.8 }}>
@@ -5898,7 +5898,7 @@ const D = {
 };
 
 const mathBlock = {
-  fontFamily: "'Georgia', 'Times New Roman', serif", fontSize: 15, lineHeight: 2.0,
+  fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 13, lineHeight: 1.85,
   background: T.surface, borderRadius: 12, padding: "18px 22px",
   border: `1px solid ${T.border}40`, marginBottom: 10
 };
@@ -5919,7 +5919,7 @@ const Bracket = ({ children, color }) => (
 );
 
 const EqRow = ({ children, style: s }) => (
-  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: 4, padding: "10px 0", fontFamily: "'Georgia', 'Times New Roman', serif", fontSize: 17, ...s }}>
+  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: 4, padding: "10px 0", fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 17, ...s }}>
     {children}
   </div>
 );
@@ -5930,8 +5930,8 @@ const Sup = ({ children }) => <sup style={{ fontSize: "0.65em", verticalAlign: "
 const hl = (text, color) => <span style={{ color, fontWeight: 500 }}>{text}</span>;
 
 const DFT_ANALOGY_BOX = ({ text }) => (
-  <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-    <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}> Simple Analogy</div>
+  <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+    <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}> Simple Analogy</div>
     <div style={{ fontSize: 12, lineHeight: 1.7, color: T.ink }}>{text}</div>
   </div>
 );
@@ -6056,16 +6056,15 @@ function DFTFAQSection() {
       {/* 2. What is an orbital */}
       <FAQAccordion title={"Q2. What actually IS an electron orbital?"} color={D.eqn} isOpen={openQ === "Q2"} onClick={() => toggle("Q2")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>An orbital is like a rain probability map: it doesn't tell you where the next raindrop will fall, but shows where rain is most likely. Denser shading = higher probability of finding the electron.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>An orbital is like a rain probability map: it doesn't tell you where the next raindrop will fall, but shows where rain is most likely. Denser shading = higher probability of finding the electron.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>An orbital is just a map showing where an electron is most likely to be found. It's NOT a path or orbit. Think of spraying perfume — the orbital shows where the scent is strongest. Different orbitals (s, p, d) have different shapes.</div>
           </div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Think of it like a ball on a hill: the electron wants to roll toward the nucleus (attraction), but quantum mechanics says the closer it gets, the more it bounces around (kinetic energy). It finds a sweet spot where these balance — that's the atom's size.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a long-exposure photo of a firefly: the bright spots show where the firefly spent the most time. The orbital is the long-exposure photo of an electron's position.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           An orbital is a probability map — it tells you the likelihood of finding the electron at each point. The 1s orbital is a fuzzy sphere, densest at the nucleus. Higher orbitals have nodes (zero-probability surfaces).
@@ -6156,16 +6155,15 @@ function DFTFAQSection() {
       {/* 4. What is a wavefunction */}
       <FAQAccordion title={"Q4. What is a wavefunction, really?"} color={D.xc} isOpen={openQ === "Q4"} onClick={() => toggle("Q4")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a musical note: the wavefunction is the sound wave (can be positive or negative), while |Ψ|² is the loudness (always positive). You hear loudness, but the wave carries the full information.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a musical note: the wavefunction is the sound wave (can be positive or negative), while |Ψ|² is the loudness (always positive). You hear loudness, but the wave carries the full information.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>It's a mathematical description of a quantum particle. The key idea: square it (|Ψ|²) and you get the probability of finding the particle at that spot. DFT's big insight is that you don't even need the full wavefunction — just the total electron density (how much charge is at each point) is enough.</div>
           </div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>With 1 electron, the math is simple. With 2, it gets hard. With 100, it's impossible — you'd need more numbers than atoms in the universe. Every electron pushes on every other electron, and they all move at once. That's why we need tricks like DFT.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like ocean waves: the height can be positive (crest) or negative (trough), but the energy (|Ψ|²) is always positive. Waves can interfere — constructive (amplify) or destructive (cancel).</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           A mathematical object Ψ(r) encoding everything about a quantum particle. Its square |Ψ|² gives the probability density. DFT’s key insight: you don’t need Ψ directly — the electron density n(r) contains all ground-state physics.
@@ -6221,12 +6219,11 @@ function DFTFAQSection() {
       {/* 5. Electron spin */}
       <FAQAccordion title={"Q5. What is electron spin and why does it matter?"} color={D.basis} isOpen={openQ === "Q5"} onClick={() => toggle("Q5")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like seats on a bus: each seat (orbital) holds exactly 2 people, but they must face opposite directions (↑ and ↓ spin). Once a seat is full, the next person must take a higher-energy seat further back.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like seats on a bus: each seat (orbital) holds exactly 2 people, but they must face opposite directions (↑ and ↓ spin). Once a seat is full, the next person must take a higher-energy seat further back.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Every electron spins like a tiny top — either 'up' or 'down'. Two electrons can share the same orbital ONLY if they spin in opposite directions. This is why atoms have structure: electrons are forced into higher energy levels once lower ones are full.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a security clearance: two identical-spin electrons can never be at the same place (Pauli exclusion). This 'quantum lock' is why matter has volume — electrons can't all collapse to the lowest orbital.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Electrons have intrinsic spin: ↑ (up) or ↓ (down). The Pauli exclusion principle says no two electrons can have the same quantum numbers. This forces electrons into higher orbitals, building the periodic table.
@@ -6262,12 +6259,11 @@ function DFTFAQSection() {
       {/* 6. Band gaps */}
       <FAQAccordion title={"Q6. Why does DFT underestimate band gaps?"} color={D.warm} isOpen={openQ === "Q6"} onClick={() => toggle("Q6")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like measuring a doorway with a bent ruler: DFT's approximate exchange-correlation systematically bends the ruler, making every gap look smaller. HSE06 straightens the ruler with exact exchange.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like measuring a doorway with a bent ruler: DFT's approximate exchange-correlation systematically bends the ruler, making every gap look smaller. HSE06 straightens the ruler with exact exchange.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>DFT's approximations have a built-in error that makes band gaps too small. It's like a ruler that always measures 30% short. The error comes from 'self-interaction' — electrons partially repelling themselves in the calculation. Better methods (HSE06, GW) fix this.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a scale that always reads 2 kg too light: PBE consistently underweighs band gaps. You can recalibrate (use HSE06/GW), but you must know the scale is off.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           DFT is for ground-state properties. Band gaps involve excited states. Self-interaction error in LDA/GGA pushes occupied states up and empty states down, shrinking the gap. Hybrid functionals or GW correct this.
@@ -6312,12 +6308,11 @@ function DFTFAQSection() {
       {/* 6b. Ground state but band gaps? */}
       <FAQAccordion title={"Q7. DFT is for ground states — so why do we calculate band gaps?"} color={D.eqn} isOpen={openQ === "Q7"} onClick={() => toggle("Q7")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like appraising a house: DFT knows the exact value of the house you own (ground state). The cost to buy the next house (excited state) isn't guaranteed, but the neighbourhood price (KS eigenvalues) gives a useful estimate.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like appraising a house: DFT knows the exact value of the house you own (ground state). The cost to buy the next house (excited state) isn't guaranteed, but the neighbourhood price (KS eigenvalues) gives a useful estimate.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Strictly speaking, DFT is only guaranteed to give you ground-state properties (total energy, density). Band gaps are about adding or removing electrons — that's an excited-state thing. But DFT eigenvalues give useful estimates, and corrections (HSE06, GW) make them accurate.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like knowing the temperature of an ice cube (ground state) and estimating the heat needed to melt it (excitation). The estimate is useful but not exact — you need calorimetry (GW) for precision.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The Hohenberg-Kohn theorems rigorously guarantee that DFT yields exact <strong>ground-state</strong> properties:
@@ -6338,7 +6333,7 @@ function DFTFAQSection() {
           </div>
           <div style={{ background: D.xc + "06", borderRadius: 10, padding: "12px 14px", border: `1px solid ${D.xc}15` }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: D.xc, marginBottom: 4 }}>Reason 3: Hybrid functionals partially fix it</div>
-            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>HSE06 mixes in 25% Hartree-Fock exact exchange. This doesn't make DFT handle excited states — rather, the exact exchange has a natural discontinuity that partially mimics Δ_xc. That's why HSE06 band gaps agree with experiment to within ~0.2 eV for most semiconductors. It's a pragmatic fix, not a fundamental solution.</div>
+            <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>HSE06 mixes in 25% Hartree-Fock exact exchange. This doesn't make DFT handle excited states — rather, the exact exchange has a natural discontinuity that partially mimics Δ<sub>xc</sub>. That's why HSE06 band gaps agree with experiment to within ~0.2 eV for most semiconductors. It's a pragmatic fix, not a fundamental solution.</div>
           </div>
           <div style={{ background: D.warm + "06", borderRadius: 10, padding: "12px 14px", border: `1px solid ${D.warm}15` }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: D.warm, marginBottom: 4 }}>Reason 4: For rigorous gaps, go beyond DFT</div>
@@ -6387,12 +6382,11 @@ function DFTFAQSection() {
 
       <FAQAccordion title={"Q8. What is an eigenvalue? What are Kohn-Sham eigenvalues?"} color={D.basis} isOpen={openQ === "Q8"} onClick={() => toggle("Q8")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a bell: when struck, it vibrates at specific natural frequencies (eigenvalues). You can't make a bell ring at arbitrary frequencies — only its characteristic ones. Energy eigenvalues are the 'natural frequencies' of quantum systems.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a bell: when struck, it vibrates at specific natural frequencies (eigenvalues). You can't make a bell ring at arbitrary frequencies — only its characteristic ones. Energy eigenvalues are the 'natural frequencies' of quantum systems.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>An eigenvalue is just a special number that pops out when you apply a mathematical operation to a function and get the same function back, multiplied by that number. In DFT, eigenvalues are the energies of the Kohn-Sham orbitals — but they're energies of a FAKE system, not the real one.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like rungs on a ladder: electrons can only stand on specific rungs (eigenvalues), never between them. KS eigenvalues are the rungs of a fictitious ladder that gives the right density but not necessarily the right rung spacing.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           An <strong style={{ color: D.basis }}>eigenvalue</strong> comes from the mathematical equation
@@ -6458,12 +6452,11 @@ function DFTFAQSection() {
 
       <FAQAccordion title={"Q9. What is a quasiparticle?"} color={D.xc} isOpen={openQ === "Q9"} onClick={() => toggle("Q9")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a running back in football: the player (electron) plus the pocket of blockers around him (screening cloud) move as one unit. The 'quasiparticle' is the player + entourage, with different effective speed (mass) than the bare player.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a running back in football: the player (electron) plus the pocket of blockers around him (screening cloud) move as one unit. The 'quasiparticle' is the player + entourage, with different effective speed (mass) than the bare player.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>When you add an electron to a solid, it doesn't just sit there — nearby electrons rearrange around it, creating a 'screening cloud'. The electron plus its cloud acts as one entity called a quasiparticle. It behaves like a particle but with different mass and energy than a bare electron.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a bubble in water: it's not just empty space — it's the air plus the water surface tension around it, moving as one entity with its own effective properties.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In a real solid, when you add an electron, it doesn{"'"}t just sit there. It repels nearby
@@ -6474,7 +6467,7 @@ function DFTFAQSection() {
         <DFT_ANALOGY_BOX text={"Imagine dropping a bowling ball onto a trampoline full of marbles. The ball sinks in, pushing marbles aside, creating a dimple. The ball + dimple moves as one unit — that’s the quasiparticle. Its effective mass differs from the bare ball (heavier because it drags the dimple). And it has a finite lifetime — eventually the dimple collapses. In solids, the ‘ball’ is an electron, the ‘trampoline’ is the electron sea, and the ‘dimple’ is the polarisation cloud."} />
         <div style={mathBlock}>
           <span style={{ color: D.xc, fontWeight: 500 }}>Quasiparticle equation:</span><br />
-          <span style={{ color: D.xc }}>{"[{-½∇² + v_ext + v_H}] ψ_i(r) + ∫ Σ(r,r’,ε_i) ψ_i(r’) dr’ = ε_i^QP ψ_i(r)"}</span><br /><br />
+          <span style={{ color: D.xc }}>{fx("[{-½∇² + v_ext + v_H}] ψ_i(r) + ∫ Σ(r,r’,ε_i) ψ_i(r’) dr’ = ε_i^QP ψ_i(r)")}</span><br /><br />
           <span style={{ color: T.muted }}>Σ(r,r’,ω) = self-energy (non-local, energy-dependent, complex)</span><br />
           <span style={{ color: T.muted }}>Re(Σ) shifts energy levels (quasiparticle correction)</span><br />
           <span style={{ color: T.muted }}>Im(Σ) gives finite lifetime (broadening)</span><br /><br />
@@ -6499,12 +6492,11 @@ function DFTFAQSection() {
 
       <FAQAccordion title={"Q10. The GW Approximation — getting band gaps right"} color={D.accent} isOpen={openQ === "Q10"} onClick={() => toggle("Q10")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like upgrading from AM to FM radio: DFT (AM) gives you the song but with static. GW (FM) computes the exact screening environment, removing the static to give crisp quasiparticle energies.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like upgrading from AM to FM radio: DFT (AM) gives you the song but with static. GW (FM) computes the exact screening environment, removing the static to give crisp quasiparticle energies.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>GW is a method that fixes DFT's band gap problem by computing how electrons screen each other. G describes how an electron travels through the solid, W describes how the other electrons react. Together, GW gives accurate band gaps but costs ~1000× more than basic DFT.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like switching from a magnifying glass (DFT) to an electron microscope (GW): much more expensive, much sharper image. You use the magnifying glass to scan, then the microscope for the important spots.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The <strong style={{ color: D.accent }}>GW approximation</strong> (Hedin, 1965) computes quasiparticle
@@ -6553,12 +6545,11 @@ function DFTFAQSection() {
 
       <FAQAccordion title={"Q11. The derivative discontinuity — why LDA/GGA gaps are wrong"} color={D.warn} isOpen={openQ === "Q11"} onClick={() => toggle("Q11")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a turnstile that should click when the Nth person passes: the exact XC potential 'clicks' (jumps) when the electron count crosses an integer. LDA/GGA turnstiles are smooth — they don't click, so they miscount (underestimate the gap).</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a turnstile that should click when the Nth person passes: the exact XC potential 'clicks' (jumps) when the electron count crosses an integer. LDA/GGA turnstiles are smooth — they don't click, so they miscount (underestimate the gap).</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>When you add one more electron to a system, the exchange-correlation potential should jump suddenly (a 'discontinuity'). Standard DFT functionals (LDA, GGA) are too smooth — they miss this jump, which is exactly why they underestimate band gaps.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a tax bracket: your tax rate jumps discontinuously when your income crosses a threshold. LDA/GGA use a smooth tax curve instead, systematically undertaxing (underestimating the gap).</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The <strong style={{ color: D.warn }}>fundamental gap</strong> of a solid is the energy difference between
@@ -6610,12 +6601,11 @@ function DFTFAQSection() {
       {/* 7. Exchange and correlation */}
       <FAQAccordion title={"Q12. What is exchange and correlation in plain English?"} color={D.accent} isOpen={openQ === "Q12"} onClick={() => toggle("Q12")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Exchange: like same-gender bathroom rules — same-spin electrons avoid each other's space (Pauli exclusion), lowering repulsion. Correlation: all electrons dynamically dodge each other, like dancers avoiding collisions on a crowded floor.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Exchange: like same-gender bathroom rules — same-spin electrons avoid each other's space (Pauli exclusion), lowering repulsion. Correlation: all electrons dynamically dodge each other, like dancers avoiding collisions on a crowded floor.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Exchange: same-spin electrons avoid each other (like people who don't want to sit next to someone wearing the same outfit). Correlation: ALL electrons dodge each other because of charge repulsion. Together, these quantum effects reduce the total electron-electron repulsion.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Exchange is quantum avoidance (identity-based). Correlation is classical avoidance (charge-based). Together they reduce the electron-electron repulsion below the naive classical estimate.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Exchange: same-spin electrons avoid each other (Pauli), carving an “exchange hole”. Correlation: ALL electrons avoid each other dynamically. Together, XC is the quantum correction to classical repulsion.
@@ -6655,12 +6645,11 @@ function DFTFAQSection() {
       {/* 8. System size */}
       <FAQAccordion title={"Q13. How big a system can DFT handle?"} color={D.main} isOpen={openQ === "Q13"} onClick={() => toggle("Q13")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like building with LEGO: 100 bricks (atoms) takes minutes. 1,000 takes hours. 10,000 takes days. Beyond that, you need prefab modules (machine-learned potentials) instead of brick-by-brick (DFT).</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like building with LEGO: 100 bricks (atoms) takes minutes. 1,000 takes hours. 10,000 takes days. Beyond that, you need prefab modules (machine-learned potentials) instead of brick-by-brick (DFT).</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>PBE-DFT can handle about 100-1000 atoms on a modern computer. HSE06 handles ~100 atoms. Beyond that, you need machine learning force fields or simpler methods. The cost grows as the cube of the number of atoms — double the atoms, 8× the compute time.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like multiplying matrices: doubling the atoms means 8× more computation (N³). A 200-atom HSE06 calculation can take weeks on a supercomputer — that's why screening uses PBE first.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Standard DFT scales as O(N³) with electrons. ~100 atoms is routine, ~1,000 feasible, beyond that you need MLFF or classical potentials.
@@ -6704,12 +6693,11 @@ function DFTFAQSection() {
       {/* 9. Atoms empty space */}
       <FAQAccordion title={"Q14. Why are atoms mostly empty space?"} color={D.eqn} isOpen={openQ === "Q14"} onClick={() => toggle("Q14")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>If the nucleus were a marble at the center of a football stadium, the nearest electron would be in the upper deck. Everything in between is the quantum probability cloud that DFT computes.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>If the nucleus were a marble at the center of a football stadium, the nearest electron would be in the upper deck. Everything in between is the quantum probability cloud that DFT computes.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>A nucleus is incredibly tiny — if it were a marble, the atom would be a football stadium. The space between is filled with the electron probability cloud. It's not truly 'empty' — it's where the electron density lives, and that's exactly what DFT calculates.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like the solar system: the sun (nucleus) is tiny compared to the orbits of planets (electron cloud). Yet the electron cloud determines all of chemistry, just as gravity shapes the solar system.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The nucleus is ~10⁻¹⁵ m, the electron cloud ~10⁻¹⁰ m. That’s a factor of 100,000. If the nucleus were a marble, the atom would be a football stadium. DFT computes this cloud.
@@ -6725,12 +6713,11 @@ function DFTFAQSection() {
       {/* 10. Metal vs insulator */}
       <FAQAccordion title={"Q15. What is the difference between a metal and an insulator?"} color={D.basis} isOpen={openQ === "Q15"} onClick={() => toggle("Q15")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Metal = open highway (electrons flow freely). Semiconductor = toll road (need a bit of energy to enter). Insulator = brick wall (electrons can't get through without enormous energy).</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Metal = open highway (electrons flow freely). Semiconductor = toll road (need a bit of energy to enter). Insulator = brick wall (electrons can't get through without enormous energy).</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Metal: electrons flow freely (no gap between filled and empty energy levels). Insulator: big gap blocks electron flow. Semiconductor: small gap that electrons can jump across with a little energy (heat, light). DFT calculates these energy levels and gaps.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a theater: metal = standing room only (partially filled, people can move). Insulator = sold-out seated show (all seats full, nobody can move). Semiconductor = one empty row if someone stands up (small gap).</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           It’s all about the band gap. Metals have partially filled bands (electrons move freely). Insulators have a large gap. Semiconductors have a small gap crossable by heat or light.
@@ -6787,12 +6774,11 @@ function DFTFAQSection() {
       {/* 11. Element properties */}
       <FAQAccordion title={"Q16. Why do different elements have different properties?"} color={D.warm} isOpen={openQ === "Q16"} onClick={() => toggle("Q16")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a parking garage: electrons fill levels from bottom up. Na has 1 car on the top floor (reactive metal). Si has 4 (semiconductor). Ar's top floor is completely full (noble gas — inert). The top-floor arrangement dictates everything.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a parking garage: electrons fill levels from bottom up. Na has 1 car on the top floor (reactive metal). Si has 4 (semiconductor). Ar's top floor is completely full (noble gas — inert). The top-floor arrangement dictates everything.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Each element has a different number of electrons filling orbitals in a specific order. The outermost electrons (valence) determine chemistry. Na has 1 valence electron (reactive metal), Si has 4 (semiconductor), Ar has a full shell (inert gas).</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like piano keys: each element adds one more proton and electron, filling orbitals like pressing the next key. The pattern of filled/empty keys determines the 'chord' (properties).</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Each element has a different number of protons → different electrons → different orbital filling. Valence electrons determine bonding and properties. DFT solves for these configurations self-consistently.
@@ -6809,12 +6795,11 @@ function DFTFAQSection() {
       {/* 12. Crystal periodicity */}
       <FAQAccordion title={"Q17. What is a crystal, and why does periodicity matter for DFT?"} color={D.xc} isOpen={openQ === "Q17"} onClick={() => toggle("Q17")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like wallpaper: you only need to design one tile, then repeat it infinitely. DFT exploits this — solve one unit cell, and Bloch's theorem gives you the entire infinite crystal for free.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like wallpaper: you only need to design one tile, then repeat it infinitely. DFT exploits this — solve one unit cell, and Bloch's theorem gives you the entire infinite crystal for free.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>A crystal is atoms arranged in a repeating pattern, like tiles on a floor. The huge advantage: you only need to calculate one tile (unit cell) and the pattern repeats forever. This makes DFT calculations on crystals enormously cheaper than on random arrangements.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like sheet music with a repeating pattern: instead of writing every note for an infinite symphony, you write one bar and say 'repeat forever'. That's what periodicity does for DFT.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           A crystal repeats atoms in a regular 3D pattern. Instead of solving for 10²³ atoms, you solve for one unit cell. Bloch’s theorem exploits this periodicity.
@@ -6844,16 +6829,15 @@ function DFTFAQSection() {
       {/* 14. Phonons */}
       <FAQAccordion title={"Q19. What is a phonon and why should I care?"} color={D.main} isOpen={openQ === "Q19"} onClick={() => toggle("Q19")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like vibrations in a bell: atoms in a crystal jiggle at specific frequencies (phonons). The vibration pattern tells you if the structure is stable (real frequencies) or unstable (imaginary = will collapse).</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like vibrations in a bell: atoms in a crystal jiggle at specific frequencies (phonons). The vibration pattern tells you if the structure is stable (real frequencies) or unstable (imaginary = will collapse).</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>A phonon is atoms vibrating in a crystal — like a wave passing through a chain of connected balls. Phonons carry heat, determine if a structure is stable, and affect superconductivity. If DFT finds imaginary phonon frequencies, the structure will collapse.</div>
           </div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Yes! You can build any crystal structure on a computer, run DFT, and predict its properties before making it in a lab. The Materials Project database has computed data for over 150,000 materials, many predicted before they were ever synthesized.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like heat flowing through a chain of people passing buckets: phonons carry thermal energy. More phonon modes = higher heat capacity. Fast phonons = high thermal conductivity (diamond).</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           A phonon is a quantum of lattice vibration. Phonons determine thermal conductivity, heat capacity, and structural stability. Imaginary frequencies = unstable structure.
@@ -6904,12 +6888,11 @@ function DFTFAQSection() {
       {/* 15. Pseudopotential */}
       <FAQAccordion title={"Q20. What is a pseudopotential and why do we need one?"} color={D.eqn} isOpen={openQ === "Q20"} onClick={() => toggle("Q20")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like CliffsNotes for a novel: core electrons are the predictable backstory (1s, 2s of heavy atoms). The pseudopotential summarizes them so you only read the exciting chapters (valence electrons).</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like CliffsNotes for a novel: core electrons are the predictable backstory (1s, 2s of heavy atoms). The pseudopotential summarizes them so you only read the exciting chapters (valence electrons).</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Core electrons (inner shells) barely participate in chemistry but are expensive to compute because they oscillate wildly near the nucleus. A pseudopotential replaces them with a smooth approximation, cutting computation by 100× while barely affecting accuracy.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.eqn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like compressing a photo: the core region has wild oscillations (huge file). The pseudopotential smooths them out (compressed file) while keeping the important features (valence physics) intact.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Core electrons barely participate in chemistry but oscillate wildly near nuclei. A pseudopotential replaces them with a smooth effective potential, reducing computation by orders of magnitude.
@@ -6973,16 +6956,15 @@ function DFTFAQSection() {
       {/* A2. v-representability */}
       <FAQAccordion title={"Q22. What is v-representability and why does it matter?"} color={D.xc} isOpen={openQ === "Q22"} onClick={() => toggle("Q22")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like asking: can every possible height map (density) correspond to a real landscape (potential)? Some theoretical density profiles might not come from any physical potential — a subtle mathematical trap.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like asking: can every possible height map (density) correspond to a real landscape (potential)? Some theoretical density profiles might not come from any physical potential — a subtle mathematical trap.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>A technical question about whether every possible electron density can actually come from some real physical system. Levy's constrained search sidesteps this by minimising over all wavefunctions that produce a given density, without asking if a matching potential exists.</div>
           </div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>In Hartree-Fock theory, the orbital energy exactly equals the cost to remove that electron. In DFT, this is NOT exactly true — KS eigenvalues are mathematical tools, not true removal energies. Only the HOMO energy of the exact functional equals the ionization energy.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like checking if a jigsaw puzzle piece actually belongs to the puzzle: Levy's constrained search sidesteps the issue by minimizing over all wavefunctions giving a density, without asking if a potential exists.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The HK theorem says every ground-state density n(r) comes from some external potential v(r).
@@ -6995,7 +6977,7 @@ function DFTFAQSection() {
           <span style={{ color: D.xc, fontWeight: 500 }}>HK: n(r) → v<sub>ext</sub>(r) → Ψ → E</span><br /><br />
           <span style={{ color: T.muted }}>Question: for any trial n(r), does a v<sub>ext</sub> exist?</span><br />
           <span style={{ color: D.xc }}>Constrained search (Levy, 1979): avoids this issue</span><br />
-          <span style={{ color: D.xc }}>{"E[n] = min_{Ψ→n} <Ψ|T+V_ee|Ψ> + ∫ v_ext n dr"}</span><br /><br />
+          <span style={{ color: D.xc }}>{fx("E[n] = min_{Ψ→n} <Ψ|T+V_ee|Ψ> + ∫ v_ext n dr")}</span><br /><br />
           <span style={{ color: T.muted }}>Minimise over all wavefunctions that give density n — no v-representability needed!</span>
         </div>
       </FAQAccordion>
@@ -7003,12 +6985,11 @@ function DFTFAQSection() {
       {/* A3. DFT vs wavefunction methods */}
       <FAQAccordion title={"Q23. When should you use wavefunction methods instead of DFT?"} color={D.basis} isOpen={openQ === "Q23"} onClick={() => toggle("Q23")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>DFT is a Swiss Army knife — great for most jobs. But for precision surgery (chemical accuracy), you need a scalpel (CCSD(T)). For tangled systems (strong correlation), you need specialized tools (CASSCF/DMRG).</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>DFT is a Swiss Army knife — great for most jobs. But for precision surgery (chemical accuracy), you need a scalpel (CCSD(T)). For tangled systems (strong correlation), you need specialized tools (CASSCF/DMRG).</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>DFT is great for most materials. But for some problems you need more expensive wavefunction methods: CCSD(T) for chemical accuracy (~1 kcal/mol), CASSCF for bond-breaking and diradicals, DMRG for strongly correlated systems.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like architecture: DFT is the quick 3D model (good enough for most). Wavefunction methods are the full engineering blueprint (exact but 1000× more expensive). Use the blueprint only for critical structures.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           DFT is fast but approximate. Wavefunction methods (CCSD(T), CASSCF, DMRG) are systematically
@@ -7034,12 +7015,11 @@ function DFTFAQSection() {
       {/* A4. Charge transfer */}
       <FAQAccordion title={"Q24. Why does DFT struggle with charge-transfer states?"} color={D.warm} isOpen={openQ === "Q24"} onClick={() => toggle("Q24")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like sending mail: the cost depends on distance. LDA/GGA charge the same postage regardless of distance (local). Real charge-transfer costs depend on donor-acceptor separation (−1/R). Range-separated hybrids fix the postage.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like sending mail: the cost depends on distance. LDA/GGA charge the same postage regardless of distance (local). Real charge-transfer costs depend on donor-acceptor separation (−1/R). Range-separated hybrids fix the postage.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>When an electron jumps from one molecule to another (charge transfer), the energy depends on the distance between them (−1/R). Standard DFT can't see this distance dependence because its exchange is local. Range-separated hybrid functionals fix this.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a battery: moving charge across a distance costs energy proportional to 1/R. Standard DFT can't see this distance-dependence because its exchange is local.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Charge-transfer (CT) excitations involve moving an electron from a donor to an acceptor
@@ -7078,16 +7058,15 @@ function DFTFAQSection() {
       {/* A6. Strongly correlated */}
       <FAQAccordion title={"Q26. What are strongly correlated systems and why does DFT fail?"} color={D.warn} isOpen={openQ === "Q26"} onClick={() => toggle("Q26")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a traffic jam: when cars (electrons) are sparse, they move independently (DFT works). In a jam (strong correlation), every car's movement depends on all others simultaneously — the independent-particle picture collapses.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a traffic jam: when cars (electrons) are sparse, they move independently (DFT works). In a jam (strong correlation), every car's movement depends on all others simultaneously — the independent-particle picture collapses.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>In some materials (like iron oxide), electrons are so strongly interacting that they can't be treated as independent particles anymore. DFT's trick of replacing interacting electrons with non-interacting ones breaks down. You need methods like DFT+U or DMFT.</div>
           </div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Van der Waals forces are weak attractions between molecules caused by synchronized electron fluctuations. Standard DFT is 'nearsighted' — it only looks at the local density and misses these long-range attractions. Add-on corrections (DFT-D3) fix this.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like basketball vs. solo sports: DFT treats electrons as solo runners on adjacent tracks. Strongly correlated systems are like basketball — every player's move depends on all teammates and opponents.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In most materials, electrons behave somewhat independently (weakly correlated) — DFT works.
@@ -7127,16 +7106,15 @@ function DFTFAQSection() {
       {/* A8. Hellmann-Feynman */}
       <FAQAccordion title={"Q28. What is the Hellmann-Feynman theorem and why do forces matter?"} color={D.basis} isOpen={openQ === "Q28"} onClick={() => toggle("Q28")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a charged ball in an electric field: you don't need to know the ball's internal structure — just the external field and the charge distribution. Similarly, nuclear forces depend only on electron density and nuclear positions.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a charged ball in an electric field: you don't need to know the ball's internal structure — just the external field and the charge distribution. Similarly, nuclear forces depend only on electron density and nuclear positions.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Forces on atoms in DFT come from a simple classical formula: the electron density pulls/pushes nuclei electrostatically. Forces = 0 means equilibrium structure. Forces drive structure relaxation, molecular dynamics, and phonon calculations.</div>
           </div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
-            <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Janak's theorem says the orbital energy equals the rate of energy change when you partially fill or empty that orbital. It connects KS eigenvalues to ionization energies. If the energy varies linearly with filling (it should), then ε_HOMO = −IP exactly.</div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
+            <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Janak's theorem says the orbital energy equals the rate of energy change when you partially fill or empty that orbital. It connects KS eigenvalues to ionization energies. If the energy varies linearly with filling (it should), then ε<sub>HOMO</sub> = −IP exactly.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.basis + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a compass pointing downhill: forces tell atoms which direction lowers the energy. Follow the forces to zero = equilibrium structure. Shake atoms and track forces = phonons and molecular dynamics.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The Hellmann-Feynman theorem says the force on a nucleus equals the classical electrostatic
@@ -7157,12 +7135,11 @@ function DFTFAQSection() {
       {/* A9. Brillouin zone sampling */}
       <FAQAccordion title={"Q29. Why do we need k-point sampling and how does it affect results?"} color={D.main} isOpen={openQ === "Q29"} onClick={() => toggle("Q29")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like polling voters: you can't ask everyone in the Brillouin zone, so you sample at representative k-points. Too few samples = biased results. More k-points = more accurate but slower, like a larger poll.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like polling voters: you can't ask everyone in the Brillouin zone, so you sample at representative k-points. Too few samples = biased results. More k-points = more accurate but slower, like a larger poll.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>In a crystal, you need to sample electron states at different k-points (crystal momenta) across the Brillouin zone. Too few k-points = wrong energies. Metals need dense sampling (complex Fermi surface), semiconductors need less. Always test convergence.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like pixel resolution: 1×1 k-mesh = 1 pixel (useless). 8×8×8 = decent photo. 20×20×20 = HD. Metals need HD (complex Fermi surface). Semiconductors are fine with decent resolution.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In a periodic crystal, electron states are labelled by crystal momentum <strong>k</strong>.
@@ -7183,12 +7160,11 @@ function DFTFAQSection() {
       {/* A10. DFT+TDDFT */}
       <FAQAccordion title={"Q30. What is TDDFT and when do you need it?"} color={D.xc} isOpen={openQ === "Q30"} onClick={() => toggle("Q30")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>DFT is a photograph (ground state snapshot). TDDFT is a video — it captures how the electron density evolves in time when hit by light, giving you absorption spectra and excitation energies.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>DFT is a photograph (ground state snapshot). TDDFT is a video — it captures how the electron density evolves in time when hit by light, giving you absorption spectra and excitation energies.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Regular DFT gives you a snapshot (ground state). TDDFT gives you a movie — how the electron density responds to light over time. It predicts absorption spectra, excitation energies, and optical properties. Think: DFT tells you what the material looks like; TDDFT tells you what colour it is.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like plucking a guitar string: DFT tells you the string's rest position. TDDFT tells you how it vibrates after plucking — the frequencies (excitation energies) and amplitudes (oscillator strengths).</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Time-Dependent DFT extends DFT to excited states and optical properties. Instead of
@@ -7209,12 +7185,11 @@ function DFTFAQSection() {
       {/* A11. Convergence */}
       <FAQAccordion title={"Q31. What convergence tests are essential before trusting DFT results?"} color={D.accent} isOpen={openQ === "Q31"} onClick={() => toggle("Q31")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like calibrating a microscope: you must adjust focus (E<sub>cut</sub>), zoom (k-mesh), and exposure (SCF tolerance) until the image stops changing. Publishing uncoverged results is like publishing a blurry photo as 'evidence'.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like calibrating a microscope: you must adjust focus (E<sub>cut</sub>), zoom (k-mesh), and exposure (SCF tolerance) until the image stops changing. Publishing uncoverged results is like publishing a blurry photo as 'evidence'.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Every DFT calculation has numerical knobs (energy cutoff, k-mesh, SCF tolerance) that must be tightened until results stop changing. Reporting unconverged results is like publishing a blurry photo as evidence — scientifically unacceptable.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like titration in chemistry: you add more k-points drop by drop until the endpoint (energy convergence) is reached. Stopping too early gives the wrong answer.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           This is a critical interview question. Every DFT calculation has numerical parameters that
@@ -7243,12 +7218,11 @@ function DFTFAQSection() {
       {/* A12. Spin-orbit coupling */}
       <FAQAccordion title={"Q32. What is spin-orbit coupling and when do you need it?"} color={D.warm} isOpen={openQ === "Q32"} onClick={() => toggle("Q32")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a spinning top in a magnetic field: the top's spin axis precesses around the field direction. Similarly, an electron's spin interacts with the magnetic field created by its own orbital motion around the nucleus.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a spinning top in a magnetic field: the top's spin axis precesses around the field direction. Similarly, an electron's spin interacts with the magnetic field created by its own orbital motion around the nucleus.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>In heavy atoms (Pb, Bi, W), an electron's spin interacts strongly with its orbital motion — this is spin-orbit coupling. It scales as Z⁴ (atomic number to the 4th power). It's crucial for topological insulators, magnetic anisotropy, and halide perovskites.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like weight classes in boxing: for light elements (C, N, O), SOC is a featherweight effect (meV). For heavy elements (Bi, Pb, W), it's a heavyweight (eV) that completely changes the electronic structure.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Spin-orbit coupling (SOC) is a relativistic effect where an electron’s spin interacts
@@ -7278,12 +7252,11 @@ function DFTFAQSection() {
       {/* A13. DFT limitations summary */}
       <FAQAccordion title={"Q33. What are the fundamental limitations of DFT?"} color={D.warn} isOpen={openQ === "Q33"} onClick={() => toggle("Q33")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Every map has limits: DFT is an incredibly detailed city map but it can't show you the weather (excited states), air quality (strong correlation), or the view from a satellite (long-range dispersion). You need different tools for different questions.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Every map has limits: DFT is an incredibly detailed city map but it can't show you the weather (excited states), air quality (strong correlation), or the view from a satellite (long-range dispersion). You need different tools for different questions.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>DFT has clear limits: gaps too small (fix: HSE/GW), no van der Waals (fix: DFT-D3), self-interaction error (fix: hybrid/DFT+U), can't do strong correlation (fix: DMFT), T=0 only (fix: DFT-MD). Knowing these limits is as important as knowing what DFT can do.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warn + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a Swiss Army knife: incredibly versatile, but you wouldn't use it for brain surgery (strong correlation) or satellite imagery (van der Waals). Knowing the limits is as important as knowing the capabilities.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           An interviewer asking this wants to know you understand where DFT ends and other methods begin.
@@ -7311,12 +7284,11 @@ function DFTFAQSection() {
       {/* Q34. Optical properties */}
       <FAQAccordion title={"Q34. How does DFT calculate optical properties (dielectric function, absorption)?"} color={D.xc} isOpen={openQ === "Q34"} onClick={() => toggle("Q34")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like shining a flashlight through coloured glass: the glass absorbs certain wavelengths (colours) and transmits others. The dielectric function tells you exactly which wavelengths get absorbed and how strongly — it is the optical fingerprint of the material.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like shining a flashlight through coloured glass: the glass absorbs certain wavelengths (colours) and transmits others. The dielectric function tells you exactly which wavelengths get absorbed and how strongly — it is the optical fingerprint of the material.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>DFT calculates how a material absorbs light by computing the dielectric function ε(ω). The imaginary part tells you which wavelengths are absorbed (and how strongly), the real part tells you refraction. From these you get the absorption coefficient, reflectivity, and refractive index.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like tuning a radio: each frequency (photon energy) either resonates with an electronic transition (absorption peak) or passes through (transparent). The imaginary part of the dielectric function ε₂(ω) maps out all the resonances.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Optical properties are computed from the <strong style={{ color: D.xc }}>frequency-dependent dielectric function</strong> ε(ω) = ε₁(ω) + iε₂(ω).
@@ -7361,12 +7333,11 @@ function DFTFAQSection() {
       {/* Q35. SLME */}
       <FAQAccordion title={"Q35. What is SLME and how do you calculate solar cell efficiency from DFT?"} color={D.accent} isOpen={openQ === "Q35"} onClick={() => toggle("Q35")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like rating a sponge by how much water it can absorb and squeeze out: SLME rates a solar cell material by how much sunlight it absorbs (from ε₂) and how much useful electrical energy it can deliver (from the band gap). A perfect sponge absorbs everything — real materials have thickness-dependent losses.</span></div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like rating a sponge by how much water it can absorb and squeeze out: SLME rates a solar cell material by how much sunlight it absorbs (from ε₂) and how much useful electrical energy it can deliver (from the band gap). A perfect sponge absorbs everything — real materials have thickness-dependent losses.</span></div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>SLME predicts how good a material would be as a solar cell. It uses the DFT-computed band gap and absorption spectrum to calculate the maximum efficiency. Unlike the simple Shockley-Queisser limit (which only uses the gap), SLME accounts for how strongly the material actually absorbs light.</div>
           </div>
-            <div style={{ display: "flex", gap: 10, background: D.accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.accent + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a figure skating score: the Shockley-Queisser limit is the maximum possible score (depends only on band gap). SLME is the actual score (depends on absorption strength and recombination). A material with a perfect gap but weak absorption still scores poorly.</span></div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The <strong style={{ color: D.accent }}>Spectroscopic Limited Maximum Efficiency (SLME)</strong> (Yu & Zunger, 2012)
@@ -7450,11 +7421,10 @@ function DFTFAQSection() {
       {/* Q36. Long-range interactions */}
       <FAQAccordion title={"Q36. How does DFT handle long-range interactions (Coulomb, dipole-dipole)?"} color={D.main} isOpen={openQ === "Q36"} onClick={() => toggle("Q36")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a radio tower: the signal (Coulomb interaction) reaches infinitely far, getting weaker with distance but never truly zero. DFT must sum this infinite-range interaction carefully — you can't just cut it off at some radius.</span></div>
-            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like magnets in a row: each magnet feels every other magnet. Nearby ones are strong (short-range), distant ones are weak but there are MANY of them. The sum of infinite weak interactions can be as important as a few strong nearby ones.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.main + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a radio tower: the signal (Coulomb interaction) reaches infinitely far, getting weaker with distance but never truly zero. DFT must sum this infinite-range interaction carefully — you can't just cut it off at some radius.</span></div>
           </div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>The Coulomb interaction (charge-charge repulsion/attraction) reaches infinitely far. In a periodic crystal, every electron interacts with every other electron in every copy of the unit cell — that's an infinite sum. DFT handles this using Ewald summation, which splits the sum into a short-range part (computed in real space) and a long-range part (computed in reciprocal space using Fourier transforms). For van der Waals (dispersion), DFT needs add-on corrections because standard functionals are nearsighted.</div>
           </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
@@ -7553,11 +7523,10 @@ function DFTFAQSection() {
       {/* Q37. What does "25% exact exchange" in HSE06 actually mean? */}
       <FAQAccordion title={"Q37. In HSE06, what does '25% exact exchange from HF' actually mean? Isn't Hartree already in KS?"} color={D.xc} isOpen={openQ === "Q37"} onClick={() => toggle("Q37")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Think of making scrambled eggs: v_H (Hartree) is the pan — it's always there in both KS-DFT and HF. The 'exact exchange' HSE06 adds is a specific SPICE (how you handle the quantum avoidance between electrons). PBE uses pre-made spice mix (approximate). HSE06 replaces 25% of that mix with freshly ground spice (exact, from HF theory). The pan (v_H) stays the same.</span></div>
-            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like mixing paint colours: KS-DFT uses a pre-mixed 'exchange-correlation' paint (v_xc from PBE). HSE06 says 'the exchange part of that paint is slightly wrong — let me replace 25% of it with the exact colour (from HF)'. The Hartree part (v_H) is a completely separate layer underneath — it doesn't change.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.xc + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Think of making scrambled eggs: v<sub>H</sub> (Hartree) is the pan — it's always there in both KS-DFT and HF. The 'exact exchange' HSE06 adds is a specific SPICE (how you handle the quantum avoidance between electrons). PBE uses pre-made spice mix (approximate). HSE06 replaces 25% of that mix with freshly ground spice (exact, from HF theory). The pan (v<sub>H</sub>) stays the same.</span></div>
           </div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>This is a really common confusion! The Hartree potential v_H and exact exchange E_x^HF are completely different things. v_H is the classical Coulomb repulsion of the electron cloud with itself — it's in BOTH regular DFT and HSE06 (nothing changes). The 'exact exchange' that HSE06 adds comes from the EXCHANGE part of the potential, which is about quantum mechanical avoidance between same-spin electrons. In regular PBE, this exchange is approximated. In HSE06, 25% of that approximation is replaced with the exact formula from Hartree-Fock theory.</div>
           </div>
 
@@ -7666,11 +7635,10 @@ function DFTFAQSection() {
       {/* Q38. Classical vs quantum avoidance */}
       <FAQAccordion title={"Q38. Electrons already avoid each other classically (Coulomb). So why do we need exchange AND correlation on top?"} color={D.warm} isOpen={openQ === "Q38"} onClick={() => toggle("Q38")}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine a stadium with assigned seats. Classical avoidance = 'don't sit on someone's lap' (charge repulsion, handled by v_H). Exchange = 'identical twins refuse to sit next to each other' (Pauli, quantum). Correlation = 'even non-twins shift apart slightly because they don't like being close' (dynamic quantum dodging). Three separate effects!</span></div>
-            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Think of cars on a highway. Classical Coulomb = cars take up physical space (you can't overlap). Exchange = identical cars (same spin) keep an extra-large following distance (quantum rule). Correlation = ALL cars dynamically adjust speed to avoid being too close, beyond what the 'average traffic density' model predicts.</span></div>
+            <div style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + D.warm + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine a stadium with assigned seats. Classical avoidance = 'don't sit on someone's lap' (charge repulsion, handled by v<sub>H</sub>). Exchange = 'identical twins refuse to sit next to each other' (Pauli, quantum). Correlation = 'even non-twins shift apart slightly because they don't like being close' (dynamic quantum dodging). Three separate effects!</span></div>
           </div>
-          <div style={{ background: "#f8fafa", border: "1.5px solid #7eb5bf30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
-            <div style={{ fontSize: 11, fontWeight: 500, color: "#5298a6", marginBottom: 4 }}>Simple English</div>
+          <div style={{ background: "#f8fafa", border: "1.5px solid #a4c5cc30", borderRadius: 10, padding: "12px 16px", marginBottom: 10 }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: "#6fb1be", marginBottom: 4 }}>Simple English</div>
             <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>Yes, electrons DO repel each other classically via Coulomb's law, and the Hartree term v_H captures this. But v_H treats electrons as a smooth, average charge cloud — it doesn't know that electrons are discrete particles that actively dodge each other in real time. Exchange and correlation capture the EXTRA avoidance that the classical average misses. v_H says "the average traffic density here is 50 cars/km, so expect some resistance." Exchange and correlation say "but actually, there's a specific car right in front of you that you need to dodge RIGHT NOW."</div>
           </div>
 
@@ -7764,18 +7732,9 @@ function DFTManyBodySection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card collapsible defaultOpen title="The Fundamental Problem" color={D.main}>
-        <DFT_ANALOGY_BOX text={"Consider just 3 electrons around a lithium atom. Electron 1 repels electron 2, which shifts electron 2's position, which changes how electron 3 is repelled, which loops back to electron 1. Even with just 3 electrons you need a wavefunction Ψ(r₁, r₂, r₃) in 9 dimensions. A 64-atom crystal has ~1,920 electrons — that's 5,760 dimensions. The exact solution is mathematically impossible beyond a handful of electrons."} />
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
-          {[
-            { text: "Imagine choreographing a dance for 100 dancers where every dancer’s move depends on all other dancers simultaneously. With 3 coordinates per dancer, you need a script written in 300-dimensional space — that’s the many-body problem." },
-            { text: "Think of waves in a crowded pool: each swimmer creates ripples that affect all other swimmers. Solving for all wave patterns simultaneously is exponentially harder as you add more swimmers. Two swimmers? Manageable. Twenty? Supercomputer. Two hundred? Impossible." },
-            { text: "Like a chess game where every piece changes the rules for every other piece on every turn. You can’t just think about one piece at a time — they’re all entangled." },
-          ].map((a, i) => (
-            <div key={i} style={{ display: "flex", gap: 10, background: D.main + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.main}12` }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
-              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
-            </div>
-          ))}
+        <DFT_ANALOGY_BOX text={"Imagine choreographing a dance for 100 dancers where every dancer’s move depends on all other dancers simultaneously. With 3 coordinates per dancer, you need a script written in 300-dimensional space — that’s the many-body problem."} />
+        <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Consider just 3 electrons around a lithium atom. Electron 1 repels electron 2, which shifts electron 2's position, which changes how electron 3 is repelled, which loops back to electron 1. Even with just 3 electrons you need a wavefunction Ψ(r₁, r₂, r₃) in 9 dimensions. A 64-atom crystal has ~1,920 electrons — that's 5,760 dimensions. The exact solution is mathematically impossible beyond a handful of electrons.
         </div>
         <div style={{
           background: D.main + "0a", border: `1.5px solid ${D.main}30`,
@@ -7801,31 +7760,31 @@ function DFTManyBodySection() {
           </div>
 
           <EqRow>
-            <Bracket color="#398695">
+            <Bracket color="#4994a3">
               <span style={{ display: "inline-flex", alignItems: "center", gap: 3 }}>
-                <span style={{ color: "#398695" }}>−</span>
-                <Frac n={<>ħ<Sup>2</Sup></>} d="2m" color="#398695" />
-                <span style={{ color: "#398695" }}>∑<Sub>i</Sub> ∇<Sub>i</Sub><Sup>2</Sup></span>
+                <span style={{ color: "#4994a3" }}>−</span>
+                <Frac n={<>ħ<Sup>2</Sup></>} d="2m" color="#4994a3" />
+                <span style={{ color: "#4994a3" }}>∑<Sub>i</Sub> ∇<Sub>i</Sub><Sup>2</Sup></span>
               </span>
-              <span style={{ color: "#3c8e9f", marginLeft: 6 }}>+ ∑<Sub>i,I</Sub> V(r<Sub>i</Sub>, R<Sub>I</Sub>)</span>
-              <span style={{ color: "#30717f", marginLeft: 6, display: "inline-flex", alignItems: "center" }}>
+              <span style={{ color: "#50a1b1", marginLeft: 6 }}>+ ∑<Sub>i,I</Sub> V(r<Sub>i</Sub>, R<Sub>I</Sub>)</span>
+              <span style={{ color: "#347d8b", marginLeft: 6, display: "inline-flex", alignItems: "center" }}>
                 + ∑<Sub>{"i<j"}</Sub>
-                <Frac n="1" d={<>|r<Sub>i</Sub> − r<Sub>j</Sub>|</>} color="#30717f" />
+                <Frac n="1" d={<>|r<Sub>i</Sub> − r<Sub>j</Sub>|</>} color="#347d8b" />
               </span>
             </Bracket>
-            <span style={{ color: "#327785", fontWeight: 500, marginLeft: 4 }}>Ψ(r<Sub>1</Sub>, ... r<Sub>N</Sub>)</span>
+            <span style={{ color: "#378695", fontWeight: 500, marginLeft: 4 }}>Ψ(r<Sub>1</Sub>, ... r<Sub>N</Sub>)</span>
             <span style={{ margin: "0 6px" }}>=</span>
-            <span style={{ color: "#2f6f7c", fontWeight: 500 }}>E</span>
-            <span style={{ color: "#327785", fontWeight: 500, marginLeft: 4 }}>Ψ</span>
+            <span style={{ color: "#317583", fontWeight: 500 }}>E</span>
+            <span style={{ color: "#378695", fontWeight: 500, marginLeft: 4 }}>Ψ</span>
           </EqRow>
 
           <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 12, flexWrap: "wrap" }}>
             {[
-              { label: "T̂", text: "Kinetic energy", color: "#398695", icon: "−ħ²/2m ∇²" },
-              { label: "Vₑₙ", text: "Electron-nucleus", color: "#3c8e9f", icon: "attraction" },
-              { label: "Vₑₑ", text: "Electron-electron", color: "#30717f", icon: "repulsion" },
-              { label: "Ψ", text: "3N-dim wavefunction", color: "#327785", icon: "" },
-              { label: "E", text: "Total energy", color: "#2f6f7c", icon: "eigenvalue" },
+              { label: "T̂", text: "Kinetic energy", color: "#4994a3", icon: "−ħ²/2m ∇²" },
+              { label: "Vₑₙ", text: "Electron-nucleus", color: "#50a1b1", icon: "attraction" },
+              { label: "Vₑₑ", text: "Electron-electron", color: "#347d8b", icon: "repulsion" },
+              { label: "Ψ", text: "3N-dim wavefunction", color: "#378695", icon: "" },
+              { label: "E", text: "Total energy", color: "#317583", icon: "eigenvalue" },
             ].map(item => (
               <div key={item.label} style={{
                 background: item.color + "0c", border: `1px solid ${item.color}25`,
@@ -7843,25 +7802,25 @@ function DFTManyBodySection() {
           borderRadius: 10, padding: "12px 16px", fontSize: 12, lineHeight: 1.7, color: T.ink
         }}>
           <strong style={{ color: D.warn }}>Why this is impossible:</strong> The electron-electron term
-          {" "}<Frac n="1" d={<>|r<Sub>i</Sub> − r<Sub>j</Sub>|</>} color="#30717f" size={13} /> couples
+          {" "}<Frac n="1" d={<>|r<Sub>i</Sub> − r<Sub>j</Sub>|</>} color="#347d8b" size={13} /> couples
           ALL electrons together. You cannot separate Ψ into individual electron functions.
           For N electrons, Ψ lives in a 3N-dimensional space — a 64-atom solid has ~6000 dimensions.
         </div>
       </Card>
 
-      <Card collapsible title="The Hartree-Fock Approach" color="#327785">
+      <Card collapsible title="The Hartree-Fock Approach" color="#378695">
         <DFT_ANALOGY_BOX text={"In a helium atom, HF gives each electron its own orbital and says: 'feel the average repulsion from the other electron.' This captures exchange (two same-spin electrons can't be in the same state) and gets 99% of the energy right. But in reality, when electron 1 moves left, electron 2 instantly shifts right to stay away — this dynamic avoidance (correlation) is missed entirely by HF."} />
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 12 }}>
-          Before DFT, the main approach was <strong style={{ color: "#327785" }}>Hartree-Fock (HF)</strong> theory.
+          Before DFT, the main approach was <strong style={{ color: "#378695" }}>Hartree-Fock (HF)</strong> theory.
           The idea: approximate the many-body wavefunction as a single <em>Slater determinant</em> of one-electron orbitals.
         </div>
         <div style={mathBlock}>
           <EqRow>
-            <span style={{ color: "#327785", fontWeight: 500 }}>Ψ<Sub>HF</Sub></span>
+            <span style={{ color: "#378695", fontWeight: 500 }}>Ψ<Sub>HF</Sub></span>
             <span style={{ margin: "0 6px" }}>=</span>
-            <Frac n="1" d={<>√<span style={{ textDecoration: "overline" }}>N!</span></>} color="#327785" />
-            <span style={{ color: "#327785", fontSize: 15, marginLeft: 4 }}>det</span>
-            <Bracket color="#327785">
+            <Frac n="1" d={<>√<span style={{ textDecoration: "overline" }}>N!</span></>} color="#378695" />
+            <span style={{ color: "#378695", fontSize: 15, marginLeft: 4 }}>det</span>
+            <Bracket color="#378695">
               <span style={{ fontSize: 15 }}>φ<Sub>1</Sub>(r<Sub>1</Sub>) φ<Sub>2</Sub>(r<Sub>2</Sub>) … φ<Sub>N</Sub>(r<Sub>N</Sub>)</span>
             </Bracket>
           </EqRow>
@@ -7869,14 +7828,14 @@ function DFTManyBodySection() {
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 12 }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#327785", marginBottom: 2 }}>What HF gets right:</div>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#378695", marginBottom: 2 }}>What HF gets right:</div>
           {[
             "Exchange interaction — Pauli exclusion between same-spin electrons",
             "~99% of total energy for atoms and molecules",
             "Good qualitative picture of chemical bonding",
           ].map((t, i) => (
             <div key={i} style={{ display: "flex", gap: 8, fontSize: 12, color: T.ink, lineHeight: 1.5 }}>
-              <span style={{ color: "#3c8e9f", fontWeight: 500 }}>✓</span> {t}
+              <span style={{ color: "#50a1b1", fontWeight: 500 }}>✓</span> {t}
             </div>
           ))}
         </div>
@@ -7897,10 +7856,10 @@ function DFTManyBodySection() {
         </div>
 
         <div style={{
-          marginTop: 14, background: "#3277850a", border: `1.5px solid #32778525`,
+          marginTop: 14, background: "#3786950a", border: `1.5px solid #37869525`,
           borderRadius: 10, padding: "12px 16px"
         }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#327785", marginBottom: 6 }}>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#378695", marginBottom: 6 }}>
             HF → DFT: The missing piece is correlation
           </div>
           <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
@@ -7988,7 +7947,7 @@ function DFTManyBodySection() {
         <div style={{ fontSize: 12, fontWeight: 500, color: D.eqn, marginBottom: 10, marginTop: 14 }}>Example 4: Wavefunction vs density — dimensionality savings</div>
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 500 }}>Compare storage for Ψ vs n(r) on a 100-point grid per axis</span><br /><br />
-          {"  System       | N_e  | Ψ dimensions | Ψ grid pts     | n(r) grid pts"}<br />
+          {fx("  System       | N_e  | Ψ dimensions | Ψ grid pts     | n(r) grid pts")}<br />
           {"  ─────────────┼──────┼──────────────┼────────────────┼──────────────"}<br />
           {"  H            |  1   | 3            | 10⁶            | 10⁶"}<br />
           {"  He           |  2   | 6            | 10¹²           | 10⁶"}<br />
@@ -8006,22 +7965,13 @@ function DFTHohenbergKohnSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card collapsible defaultOpen title="Hohenberg-Kohn Theorem 1 - Existence" color={D.eqn}>
-        <DFT_ANALOGY_BOX text={"Picture a neon atom with 10 electrons. Instead of tracking all 10 electron positions simultaneously (30 coordinates!), measure just the electron cloud density n(r) — how much charge is at each point in 3D space. Hohenberg-Kohn proves that this single 3D function contains ALL the same physics as the full 30-dimensional wavefunction. Two different atoms cannot have the same electron density, so n(r) uniquely determines everything."} />
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
-          {[
-            { text: "Like a terrain map: if you know the elevation at every point, you can reconstruct the gravitational field that shaped it. The density is the terrain map of the quantum world — it encodes everything." },
-            { text: "Like a fingerprint uniquely identifying a person: every external potential (arrangement of nuclei) produces a unique electron density. The density IS the system’s fingerprint." },
-            { text: "Imagine compressing a 300-dimensional video into a 3D hologram that contains all the same information. HK says nature already did this compression — the density is the hologram." },
-          ].map((a, i) => (
-            <div key={i} style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.eqn}12` }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
-              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
-            </div>
-          ))}
+        <DFT_ANALOGY_BOX text={"Like a terrain map: if you know the elevation at every point, you can reconstruct the gravitational field that shaped it. The density is the terrain map of the quantum world — it encodes everything."} />
+        <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Picture a neon atom with 10 electrons. Instead of tracking all 10 electron positions simultaneously (30 coordinates!), measure just the electron cloud density n(r) — how much charge is at each point in 3D space. Hohenberg-Kohn proves that this single 3D function contains ALL the same physics as the full 30-dimensional wavefunction. Two different atoms cannot have the same electron density, so n(r) uniquely determines everything.
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 500 }}>The ground-state energy E is a unique functional of n(r)</span><br /><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>E = E[n(<strong>r</strong>)]</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>E = E[n(<strong>r</strong>)]</span><br /><br />
           <span style={{ color: T.muted }}>Two different external potentials cannot produce the same n(<strong>r</strong>).</span><br />
           <span style={{ color: T.muted }}>Therefore n(<strong>r</strong>) uniquely determines everything: V<sub>ext</sub>, Ψ, and E.</span>
         </div>
@@ -8035,7 +7985,7 @@ function DFTHohenbergKohnSection() {
       <Card collapsible title="Hohenberg-Kohn Theorem 2 - Variational Principle" color={D.basis}>
         <div style={mathBlock}>
           <span style={{ color: D.basis, fontWeight: 500 }}>The true ground-state n(r) minimizes E[n]</span><br /><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>E[n<sub>true</sub>] ≤ E[n<sub>trial</sub>]  for any trial density n<sub>trial</sub></span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>E[n<sub>true</sub>] ≤ E[n<sub>trial</sub>]  for any trial density n<sub>trial</sub></span><br /><br />
           <span style={{ color: T.muted }}>This gives us a strategy: search over densities to find the minimum.</span>
         </div>
       </Card>
@@ -8081,12 +8031,12 @@ function DFTHohenbergKohnSection() {
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 500 }}>Both H and He⁺ have 1 electron, but different nuclei (Z=1 vs Z=2)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Hydrogen (Z=1) ground-state density:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>H</sub>(<strong>r</strong>) = (<sup>1</sup>&frasl;<sub>πa₀³</sub>) e<sup>−2r/a₀</sup>,  a₀ = 0.529 Å</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}n<sub>H</sub>(<strong>r</strong>) = (<sup>1</sup>&frasl;<sub>πa₀³</sub>) e<sup>−2r/a₀</sup>,  a₀ = 0.529 Å</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> He⁺ (Z=2) ground-state density:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>He⁺</sub>(<strong>r</strong>) = (<sup>8</sup>&frasl;<sub>πa₀³</sub>) e<sup>−4r/a₀</sup>  — much tighter!</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}n<sub>He⁺</sub>(<strong>r</strong>) = (<sup>8</sup>&frasl;<sub>πa₀³</sub>) e<sup>−4r/a₀</sup>  — much tighter!</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Compare at r = a₀:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>H</sub>(a₀)   = (<sup>1</sup>&frasl;<sub>πa₀³</sub>) e⁻² = 0.0585/a₀³</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>He⁺</sub>(a₀) = (<sup>8</sup>&frasl;<sub>πa₀³</sub>) e⁻⁴ = 0.0467/a₀³</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}n<sub>H</sub>(a₀)   = (<sup>1</sup>&frasl;<sub>πa₀³</sub>) e⁻² = 0.0585/a₀³</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}n<sub>He⁺</sub>(a₀) = (<sup>8</sup>&frasl;<sub>πa₀³</sub>) e⁻⁴ = 0.0467/a₀³</span><br /><br />
           <span style={{ color: D.basis, fontWeight: 500 }}>Different V<sub>ext</sub> → different n(<strong>r</strong>). HK Theorem 1 confirmed: the mapping is unique.</span>
         </div>
 
@@ -8094,14 +8044,14 @@ function DFTHohenbergKohnSection() {
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 500 }}>Use HK Theorem 2: the true density minimizes E[n]</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Try a hydrogenic density with variational Z_eff:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>trial</sub>(<strong>r</strong>) = 2 × (Z<sub>eff</sub>³&frasl;πa₀³) e<sup>−2Z<sub>eff</sub> r/a₀</sup></span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}n<sub>trial</sub>(<strong>r</strong>) = 2 × (Z<sub>eff</sub>³&frasl;πa₀³) e<sup>−2Z<sub>eff</sub> r/a₀</sup></span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Compute E[n] for different Z_eff (atomic units):<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Z<sub>eff</sub> = 2.00: E = −2.750 Ha  (no screening)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Z<sub>eff</sub> = 1.80: E = −2.847 Ha  (getting better)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Z<sub>eff</sub> = 1.6875: E = −2.848 Ha  ← </span><span style={{ color: D.basis, fontWeight: 500 }}>{"minimum!"}</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Z<sub>eff</sub> = 1.50: E = −2.840 Ha  (overscreened)</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Z<sub>eff</sub> = 2.00: E = −2.750 Ha  (no screening)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Z<sub>eff</sub> = 1.80: E = −2.847 Ha  (getting better)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Z<sub>eff</sub> = 1.6875: E = −2.848 Ha  ← </span><span style={{ color: D.basis, fontWeight: 500 }}>{"minimum!"}</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Z<sub>eff</sub> = 1.50: E = −2.840 Ha  (overscreened)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Compare to exact: E<sub>exact</sub> = −2.9037 Ha<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Error = |−2.848 − (−2.9037)| = 0.056 Ha = 1.5 eV</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Error = |−2.848 − (−2.9037)| = 0.056 Ha = 1.5 eV</span><br /><br />
           <span style={{ color: D.basis }}>The variational minimum at Z<sub>eff</sub> = 27/16 ≈ 1.6875 means each electron {'"'}sees{'"'} an effective nuclear charge of 1.69, not 2.0 — the other electron screens the nucleus.</span>
         </div>
 
@@ -8109,14 +8059,14 @@ function DFTHohenbergKohnSection() {
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 500 }}>Li (Z=3, 3 electrons: 1s² 2s¹) — PBE functional decomposition</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Kinetic energy (non-interacting KS electrons):<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}T<sub>s</sub>[n] = +7.4327 Ha</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}T<sub>s</sub>[n] = +7.4327 Ha</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> External potential (Z=3 nucleus):<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}V<sub>ext</sub>[n] = ∫ n(<strong>r</strong>)(−3/r) d<strong>r</strong> = −17.1546 Ha</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}V<sub>ext</sub>[n] = ∫ n(<strong>r</strong>)(−3/r) d<strong>r</strong> = −17.1546 Ha</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Hartree energy (classical e⁻-e⁻ repulsion):<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>H</sub>[n] = ½∫∫ n(<strong>r</strong>)n(<strong>r</strong>′)/|<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>d<strong>r</strong>′ = +4.1173 Ha</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>H</sub>[n] = ½∫∫ n(<strong>r</strong>)n(<strong>r</strong>′)/|<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>d<strong>r</strong>′ = +4.1173 Ha</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 4:</span> Exchange-correlation:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>x</sub>[n] = −1.7810 Ha  (exchange: same-spin avoidance)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>c</sub>[n] = −0.0455 Ha  (correlation: dynamic avoidance)</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>x</sub>[n] = −1.7810 Ha  (exchange: same-spin avoidance)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>c</sub>[n] = −0.0455 Ha  (correlation: dynamic avoidance)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 5:</span> Total:<br />
           {"  E = 7.433 − 17.155 + 4.117 − 1.781 − 0.046 = "}<span style={{ color: D.basis, fontWeight: 500 }}>{"-7.431 Ha = -202.2 eV"}</span><br />
           {"  Experiment: -203.5 eV (error: 0.6%)"}<br /><br />
@@ -8131,17 +8081,9 @@ function DFTKohnShamSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card collapsible defaultOpen title="The Kohn-Sham Trick" color={D.eqn}>
-        <DFT_ANALOGY_BOX text={"Take carbon with 6 interacting electrons. Solving all 6 together is a nightmare — every electron pushes on every other. Kohn-Sham's trick: replace these 6 interacting electrons with 6 independent electrons, each moving in a cleverly designed effective potential V_eff(r). This potential is tuned so the 6 independent electrons produce exactly the same total density n(r) as the real interacting ones. Now you solve 6 simple one-electron equations instead of one impossible 6-electron equation."} />
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
-          {[
-            { text: "Like playing a complex chord: instead of solving for all string vibrations coupled together, KS finds independent notes (orbitals) that, when combined, reproduce the same sound (density)." },
-            { text: "Building a house: instead of calculating every load simultaneously, engineers solve for each beam independently using an effective load. Same idea — single-particle equations with an effective potential that accounts for all the others." },
-          ].map((a, i) => (
-            <div key={i} style={{ display: "flex", gap: 10, background: D.eqn + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.eqn}12` }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
-              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
-            </div>
-          ))}
+        <DFT_ANALOGY_BOX text={"Like playing a complex chord: instead of solving for all string vibrations coupled together, KS finds independent notes (orbitals) that, when combined, reproduce the same sound (density)."} />
+        <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Take carbon with 6 interacting electrons. Solving all 6 together is a nightmare — every electron pushes on every other. Kohn-Sham's trick: replace these 6 interacting electrons with 6 independent electrons, each moving in a cleverly designed effective potential V_eff(r). This potential is tuned so the 6 independent electrons produce exactly the same total density n(r) as the real interacting ones. Now you solve 6 simple one-electron equations instead of one impossible 6-electron equation.
         </div>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           Replace the interacting many-electron problem with <strong style={{ color: D.eqn }}>non-interacting
@@ -8238,14 +8180,14 @@ function DFTKohnShamSection() {
         <div style={mathBlock}>
           <span style={{ color: D.accent, fontWeight: 500 }}>Construct V<sub>eff</sub>(<strong>r</strong>) at r = 1 bohr from the nucleus</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> External potential (nucleus Z=4):<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}V<sub>ext</sub>(r=1) = −Z/r = −4/1 = −4.000 Ha</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}V<sub>ext</sub>(r=1) = −Z/r = −4/1 = −4.000 Ha</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Hartree potential (electron density at r=1):<br />
           {"  n(r=1) ≈ 0.85 e⁻/bohr³ (from initial guess)"}<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}V<sub>H</sub>(r=1) = ∫ n(<strong>r</strong>′)/|<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>′ ≈ +2.37 Ha</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}V<sub>H</sub>(r=1) = ∫ n(<strong>r</strong>′)/|<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>′ ≈ +2.37 Ha</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> XC potential (LDA):<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}V<sub>xc</sub>(r=1) = δE<sub>xc</sub>/δn = −(3/π)<sup>1/3</sup> n<sup>1/3</sup> ≈ −0.72 Ha</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}V<sub>xc</sub>(r=1) = δE<sub>xc</sub>/δn = −(3/π)<sup>1/3</sup> n<sup>1/3</sup> ≈ −0.72 Ha</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 4:</span> Total effective potential:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}V<sub>eff</sub>(1) = −4.000 + 2.37 + (−0.72) = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"-2.35 Ha"}</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}V<sub>eff</sub>(1) = −4.000 + 2.37 + (−0.72) = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"-2.35 Ha"}</span><br /><br />
           <span style={{ color: T.muted }}>The electron at r=1 bohr "feels" −2.35 Ha, not −4.0 Ha. Other electrons screen the nucleus by 41%!</span>
         </div>
 
@@ -8256,14 +8198,14 @@ function DFTKohnShamSection() {
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Solve KS → output density: n<sub>out</sub> = 0.068 e⁻/ų<br />
           {"  (Big change: Δn = 0.023)"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> If we use n<sub>out</sub> directly → SCF might oscillate!<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Instead, mix with α = 0.3:</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>mix</sub> = α × n<sub>out</sub> + (1−α) × n<sub>in</sub></span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n<sub>mix</sub> = 0.3 × 0.068 + 0.7 × 0.045 = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"0.0519 e⁻/ų"}</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Instead, mix with α = 0.3:</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}n<sub>mix</sub> = α × n<sub>out</sub> + (1−α) × n<sub>in</sub></span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}n<sub>mix</sub> = 0.3 × 0.068 + 0.7 × 0.045 = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"0.0519 e⁻/ų"}</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 4:</span> Next iterations (same point):<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Iter 2: n<sub>in</sub>=0.0519, n<sub>out</sub>=0.0557, n<sub>mix</sub>=0.0530</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Iter 3: n<sub>in</sub>=0.0530, n<sub>out</sub>=0.0541, n<sub>mix</sub>=0.0533</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Iter 4: n<sub>in</sub>=0.0533, n<sub>out</sub>=0.0536, n<sub>mix</sub>=0.0534</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Iter 5: n<sub>in</sub>=0.0534, n<sub>out</sub>=0.0534 ← </span><span style={{ color: D.basis, fontWeight: 500 }}>{"converged!"}</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Iter 2: n<sub>in</sub>=0.0519, n<sub>out</sub>=0.0557, n<sub>mix</sub>=0.0530</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Iter 3: n<sub>in</sub>=0.0530, n<sub>out</sub>=0.0541, n<sub>mix</sub>=0.0533</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Iter 4: n<sub>in</sub>=0.0533, n<sub>out</sub>=0.0536, n<sub>mix</sub>=0.0534</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Iter 5: n<sub>in</sub>=0.0534, n<sub>out</sub>=0.0534 ← </span><span style={{ color: D.basis, fontWeight: 500 }}>{"converged!"}</span><br /><br />
           <span style={{ color: T.muted }}>Without mixing (α=1), this would oscillate between 0.045 and 0.068 forever.</span>
         </div>
 
@@ -8275,18 +8217,18 @@ function DFTKohnShamSection() {
           {"  ε(2s) = −13.6 eV   (inner valence)"}<br />
           {"  ε(2p) = −5.4 eV    (outer valence, HOMO)"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Build density from occupied orbitals:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n(<strong>r</strong>) = 2|ψ<sub>1s</sub>|² + 2|ψ<sub>2s</sub>|² + 2|ψ<sub>2p</sub>|²</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}n(<strong>r</strong>) = 2|ψ<sub>1s</sub>|² + 2|ψ<sub>2s</sub>|² + 2|ψ<sub>2p</sub>|²</span><br />
           {"  ∫ n(r) dr = 2 + 2 + 2 = 6 electrons ✓"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Check Koopmans' theorem:<br />
           {"  −ε(2p) = 5.4 eV ≈ ionization energy"}<br />
           {"  Experiment: IE(C) = 11.26 eV"}<br />
           {"  PBE underestimates due to SIE (typical!)"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 4:</span> Total energy decomposition:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}T<sub>s</sub> = +37.64 Ha    (kinetic)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}V<sub>ext</sub> = −88.90 Ha  (nuclear attraction)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>H</sub> = +20.67 Ha    (Hartree)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>xc</sub> = −5.07 Ha    (exchange-correlation)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>total</sub> = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"-37.79 Ha = -1028.4 eV"}</span>
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}T<sub>s</sub> = +37.64 Ha    (kinetic)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}V<sub>ext</sub> = −88.90 Ha  (nuclear attraction)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>H</sub> = +20.67 Ha    (Hartree)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>xc</sub> = −5.07 Ha    (exchange-correlation)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>total</sub> = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"-37.79 Ha = -1028.4 eV"}</span>
         </div>
       </Card>
     </div>
@@ -8297,7 +8239,7 @@ function DFTXCFunctionalsSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card collapsible defaultOpen title="Jacob's Ladder of XC Functionals" color={D.xc}>
-        <DFT_ANALOGY_BOX text={"In a beryllium atom (4 electrons), we know the kinetic energy, the nuclear attraction, and the classical electron-electron repulsion exactly. What's left? Two quantum effects bundled into E_xc: (1) Exchange — two same-spin electrons carve out an 'exchange hole' around each other (Pauli exclusion), lowering their repulsion. (2) Correlation — opposite-spin electrons also avoid each other dynamically, but this is harder to capture. LDA approximates E_xc using a uniform electron gas. GGA adds how fast n(r) varies. HSE06 computes 25% of exchange exactly from the orbitals."} />
+        <DFT_ANALOGY_BOX text={fx("In a beryllium atom (4 electrons), we know the kinetic energy, the nuclear attraction, and the classical electron-electron repulsion exactly. What's left? Two quantum effects bundled into E_xc: (1) Exchange — two same-spin electrons carve out an 'exchange hole' around each other (Pauli exclusion), lowering their repulsion. (2) Correlation — opposite-spin electrons also avoid each other dynamically, but this is harder to capture. LDA approximates E_xc using a uniform electron gas. GGA adds how fast n(r) varies. HSE06 computes 25% of exchange exactly from the orbitals.")} />
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           Each rung adds more information about the density, improving accuracy but increasing cost.
         </div>
@@ -8371,17 +8313,9 @@ function DFTLDASection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card collapsible defaultOpen title="LDA - Local Density Approximation" color={D.warm}>
-        <DFT_ANALOGY_BOX text={"Imagine estimating the average income of a neighbourhood by assuming every house earns the national average for its postcode density. You only look at how many people live at each spot, ignoring whether they're near a city centre or farmland. That's LDA: at every point in space it asks 'what would a uniform electron gas of this density do?' and uses that answer. It's crude — real materials are far from uniform — but surprisingly useful for trends, especially in metals where the density is fairly smooth."} />
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
-          {[
-            { text: "Like measuring temperature: LDA checks the thermometer at each point and assumes the whole room is at that temperature. It ignores that there’s a heater nearby creating a gradient — that’s what GGA adds." },
-            { text: "Like a flat-Earth approximation: if you’re building a house, the ground looks flat (LDA works). But if you’re launching a rocket, the curvature matters (you need GGA or beyond)." },
-          ].map((a, i) => (
-            <div key={i} style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.warm}12` }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
-              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
-            </div>
-          ))}
+        <DFT_ANALOGY_BOX text={"Like measuring temperature: LDA checks the thermometer at each point and assumes the whole room is at that temperature. It ignores that there’s a heater nearby creating a gradient — that’s what GGA adds."} />
+        <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Imagine estimating the average income of a neighbourhood by assuming every house earns the national average for its postcode density. You only look at how many people live at each spot, ignoring whether they're near a city centre or farmland. That's LDA: at every point in space it asks 'what would a uniform electron gas of this density do?' and uses that answer. It's crude — real materials are far from uniform — but surprisingly useful for trends, especially in metals where the density is fairly smooth.
         </div>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           LDA is the simplest XC approximation. At each point <strong>r</strong>, it treats the electrons
@@ -8389,7 +8323,7 @@ function DFTLDASection() {
           The XC energy per electron is taken from exact quantum Monte Carlo simulations of that gas.
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.warm, fontWeight: 500, fontFamily: "Georgia, serif" }}>E<sub>xc</sub>[n] = ∫ n(<strong>r</strong>) ε<sub>xc</sub>(n(<strong>r</strong>)) d<strong>r</strong></span><br /><br />
+          <span style={{ color: D.warm, fontWeight: 500, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>E<sub>xc</sub>[n] = ∫ n(<strong>r</strong>) ε<sub>xc</sub>(n(<strong>r</strong>)) d<strong>r</strong></span><br /><br />
           <span style={{ color: T.muted }}>ε<sub>xc</sub>(n) = exact result for a uniform gas at density n</span><br />
           <span style={{ color: T.muted }}>Known numerically from quantum Monte Carlo (Ceperley-Alder, 1980)</span>
         </div>
@@ -8467,17 +8401,17 @@ function DFTLDASection() {
       <Card collapsible title="Worked Examples — LDA Calculations Step by Step" color={D.warm}>
         <div style={{ fontSize: 12, fontWeight: 500, color: D.warm, marginBottom: 10 }}>Example 1: LDA exchange energy for a uniform electron gas</div>
         <div style={mathBlock}>
-          <span style={{ color: D.warm, fontWeight: 500, fontFamily: "Georgia, serif" }}>Calculate ε<sub>x</sub> for metallic Na (r<sub>s</sub> = 3.93 bohr)</span><br /><br />
+          <span style={{ color: D.warm, fontWeight: 500, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>Calculate ε<sub>x</sub> for metallic Na (r<sub>s</sub> = 3.93 bohr)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> The Wigner-Seitz radius r<sub>s</sub> relates to density:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}n = 3/(4π r<sub>s</sub>³) = 3/(4π × 3.93³) = 0.00393 e⁻/bohr³</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}n = 3/(4π r<sub>s</sub>³) = 3/(4π × 3.93³) = 0.00393 e⁻/bohr³</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> LDA exchange energy per electron (Dirac formula):<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub>(n) = −(3/4)(3n/π)<sup>1/3</sup></span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub> = −(3/4)(3 × 0.00393/π)<sup>1/3</sup></span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub> = −(3/4)(0.00375)<sup>1/3</sup></span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub> = −(3/4)(0.1554) = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"-0.1165 Ha = -3.17 eV"}</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}ε<sub>x</sub>(n) = −(3/4)(3n/π)<sup>1/3</sup></span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}ε<sub>x</sub> = −(3/4)(3 × 0.00393/π)<sup>1/3</sup></span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}ε<sub>x</sub> = −(3/4)(0.00375)<sup>1/3</sup></span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}ε<sub>x</sub> = −(3/4)(0.1554) = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"-0.1165 Ha = -3.17 eV"}</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Total exchange energy (per electron in Na bulk):<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>x</sub> = ∫ n(<strong>r</strong>) ε<sub>x</sub>(n(<strong>r</strong>)) d<strong>r</strong> ≈ 0.00393 × (−0.1165) × Ω</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Per atom: E<sub>x</sub> ≈ −0.1165 Ha = −3.17 eV</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>x</sub> = ∫ n(<strong>r</strong>) ε<sub>x</sub>(n(<strong>r</strong>)) d<strong>r</strong> ≈ 0.00393 × (−0.1165) × Ω</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Per atom: E<sub>x</sub> ≈ −0.1165 Ha = −3.17 eV</span><br /><br />
           <span style={{ color: T.muted }}>For Na metal, LDA exchange captures ~97% of the exact exchange energy.</span>
         </div>
 
@@ -8490,26 +8424,26 @@ function DFTLDASection() {
           {"  a = 5.40 Å: E = −7.8712 eV/atom ← minimum"}<br />
           {"  a = 5.50 Å: E = −7.8583 eV/atom"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Fit to Birch-Murnaghan equation of state:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}a<sub>LDA</sub> = </span><span style={{ color: D.warm, fontWeight: 500 }}>{"5.40 Å"}</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}a<sub>expt</sub> = 5.43 Å</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}a<sub>LDA</sub> = </span><span style={{ color: D.warm, fontWeight: 500 }}>{"5.40 Å"}</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}a<sub>expt</sub> = 5.43 Å</span><br />
           {"  Error  = (5.40 − 5.43)/5.43 = "}<span style={{ color: D.warn, fontWeight: 500 }}>{"-0.55% (underestimates)"}</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Also get bulk modulus from curvature:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}B<sub>LDA</sub>  = 97 GPa</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}B<sub>expt</sub> = 99 GPa</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}B<sub>LDA</sub>  = 97 GPa</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}B<sub>expt</sub> = 99 GPa</span><br />
           {"  Error  = −2%   (excellent for LDA!)"}<br /><br />
           <span style={{ color: T.muted }}>LDA consistently underestimates lattice constants by ~1% (overbinding).</span>
         </div>
 
         <div style={{ fontSize: 12, fontWeight: 500, color: D.warm, marginBottom: 10, marginTop: 14 }}>Example 3: LDA cohesive energy of Cu metal</div>
         <div style={mathBlock}>
-          <span style={{ color: D.warm, fontWeight: 500, fontFamily: "Georgia, serif" }}>Cohesive energy = E<sub>atom</sub> − E<sub>bulk</sub> (per atom)</span><br /><br />
+          <span style={{ color: D.warm, fontWeight: 500, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>Cohesive energy = E<sub>atom</sub> − E<sub>bulk</sub> (per atom)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Calculate isolated Cu atom energy (in large box):<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>atom</sub> = −1.312 eV  (PBE-PAW, spin-polarized)</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>atom</sub> = −1.312 eV  (PBE-PAW, spin-polarized)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Calculate Cu FCC bulk energy per atom:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>bulk</sub> = −4.947 eV/atom  (12×12×12 k-mesh)</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>bulk</sub> = −4.947 eV/atom  (12×12×12 k-mesh)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Cohesive energy:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>coh</sub>(LDA) = |E<sub>bulk</sub> − E<sub>atom</sub>| = |−4.947 − (−1.312)| = </span><span style={{ color: D.warm, fontWeight: 500 }}>{"3.635 eV"}</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>coh</sub>(expt) = 3.49 eV</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>coh</sub>(LDA) = |E<sub>bulk</sub> − E<sub>atom</sub>| = |−4.947 − (−1.312)| = </span><span style={{ color: D.warm, fontWeight: 500 }}>{"3.635 eV"}</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>coh</sub>(expt) = 3.49 eV</span><br />
           {"  Error = (3.635 − 3.49)/3.49 = "}<span style={{ color: D.warn, fontWeight: 500 }}>{"+4.2% (overbinds)"}</span><br /><br />
           <span style={{ color: T.muted }}>LDA systematically overbinds: cohesive energies are 5-20% too large.</span><br />
           <span style={{ color: T.muted }}>PBE gives 3.51 eV — much closer to experiment.</span>
@@ -8520,11 +8454,11 @@ function DFTLDASection() {
           <span style={{ color: D.warm, fontWeight: 500 }}>Compute GaAs band gap at Γ point</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Run SCF with LDA, 8×8×8 k-mesh, ENCUT = 400 eV<br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Extract KS eigenvalues at Γ:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Valence band maximum (VBM): ε<sub>VBM</sub> = 0.000 eV (reference)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Conduction band min (CBM):  ε<sub>CBM</sub> = 0.300 eV</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Valence band maximum (VBM): ε<sub>VBM</sub> = 0.000 eV (reference)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Conduction band min (CBM):  ε<sub>CBM</sub> = 0.300 eV</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> LDA band gap = CBM − VBM:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>gap</sub>(LDA) = </span><span style={{ color: D.warn, fontWeight: 500 }}>{"0.30 eV"}</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>gap</sub>(expt) = 1.42 eV</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>gap</sub>(LDA) = </span><span style={{ color: D.warn, fontWeight: 500 }}>{"0.30 eV"}</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>gap</sub>(expt) = 1.42 eV</span><br />
           {"  Underestimate: 0.30/1.42 = "}<span style={{ color: D.warn, fontWeight: 500 }}>{"79% too small!"}</span><br /><br />
           <span style={{ color: T.muted }}>This massive error is the #1 failure of LDA/GGA.</span><br />
           <span style={{ color: T.muted }}>HSE06 gives 1.32 eV — much closer to the 1.42 eV experiment.</span>
@@ -8538,18 +8472,9 @@ function DFTGGASection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card collapsible defaultOpen title="GGA - Generalized Gradient Approximation" color={D.basis}>
-        <DFT_ANALOGY_BOX text={"In an oxygen molecule O₂, the electron density changes dramatically — high near nuclei, dropping off into the bonding region, then vanishing in vacuum. LDA pretends each point is a uniform electron gas with that local density, ignoring these steep changes. PBE (GGA) says: 'wait, the density at this point is also rapidly increasing toward the nucleus — I should adjust E_xc for that gradient.' This gradient correction makes PBE much better for bond lengths, atomization energies, and surface properties."} />
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
-          {[
-            { text: "LDA is a blurry photo (just local colour). GGA adds edge detection — it notices where the colour is changing rapidly and adjusts. The result: sharper, more accurate picture of the electron landscape." },
-            { text: "Like a weather forecast: LDA checks the barometer at your location. GGA also checks which direction the pressure is changing (the gradient). Knowing the trend makes a much better forecast." },
-            { text: "Building a bridge: LDA measures the load at each point. GGA also measures how the load is shifting — catching stress concentrations that a uniform analysis misses." },
-          ].map((a, i) => (
-            <div key={i} style={{ display: "flex", gap: 10, background: D.basis + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.basis}12` }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
-              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
-            </div>
-          ))}
+        <DFT_ANALOGY_BOX text={"LDA is a blurry photo (just local colour). GGA adds edge detection — it notices where the colour is changing rapidly and adjusts. The result: sharper, more accurate picture of the electron landscape."} />
+        <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          In an oxygen molecule O₂, the electron density changes dramatically — high near nuclei, dropping off into the bonding region, then vanishing in vacuum. LDA pretends each point is a uniform electron gas with that local density, ignoring these steep changes. PBE (GGA) says: 'wait, the density at this point is also rapidly increasing toward the nucleus — I should adjust E_xc for that gradient.' This gradient correction makes PBE much better for bond lengths, atomization energies, and surface properties.
         </div>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           LDA uses only n(r) at each point. GGA adds the <strong style={{ color: D.basis }}>gradient ∇n(r)</strong>,
@@ -8557,7 +8482,7 @@ function DFTGGASection() {
           the most widely used GGA.
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.basis, fontWeight: 500, fontFamily: "Georgia, serif" }}>E<sub>xc</sub>[n] = ∫ n(<strong>r</strong>) ε<sub>xc</sub>(n, ∇n) d<strong>r</strong></span><br /><br />
+          <span style={{ color: D.basis, fontWeight: 500, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>E<sub>xc</sub>[n] = ∫ n(<strong>r</strong>) ε<sub>xc</sub>(n, ∇n) d<strong>r</strong></span><br /><br />
           <span style={{ color: T.muted }}>LDA: ε<sub>xc</sub> depends only on n(<strong>r</strong>)</span><br />
           <span style={{ color: D.basis }}>GGA: ε<sub>xc</sub> depends on n(<strong>r</strong>) AND |∇n(<strong>r</strong>)|</span><br /><br />
           <span style={{ color: T.muted }}>The gradient captures inhomogeneity - real materials are not uniform electron gas!</span>
@@ -8602,11 +8527,11 @@ function DFTGGASection() {
           <span style={{ color: D.basis, fontWeight: 500 }}>Calculate s(r) = |∇n|/(2k_F n) at two points in Si crystal</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> At the Si-Si bond center (smooth density):<br />
           {"  n = 0.044 e⁻/bohr³,  |∇n| = 0.012 e⁻/bohr⁴"}<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}k<sub>F</sub> = (3π²n)<sup>1/3</sup> = (3π² × 0.044)<sup>1/3</sup> = 1.08 bohr⁻¹</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}k<sub>F</sub> = (3π²n)<sup>1/3</sup> = (3π² × 0.044)<sup>1/3</sup> = 1.08 bohr⁻¹</span><br />
           {"  s = 0.012/(2 × 1.08 × 0.044) = "}<span style={{ color: D.basis, fontWeight: 500 }}>{"0.126  (small → LDA is OK here)"}</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Near the Si nucleus (rapidly varying):<br />
           {"  n = 2.8 e⁻/bohr³,  |∇n| = 18.5 e⁻/bohr⁴"}<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}k<sub>F</sub> = (3π² × 2.8)<sup>1/3</sup> = 4.34 bohr⁻¹</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}k<sub>F</sub> = (3π² × 2.8)<sup>1/3</sup> = 4.34 bohr⁻¹</span><br />
           {"  s = 18.5/(2 × 4.34 × 2.8) = "}<span style={{ color: D.warn, fontWeight: 500 }}>{"0.762  (large → GGA correction is essential!)"}</span><br /><br />
           <span style={{ color: T.muted }}>Where s is large, LDA and GGA give very different E<sub>xc</sub>. Near nuclei and in tails, GGA matters most.</span>
         </div>
@@ -8620,11 +8545,11 @@ function DFTGGASection() {
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Calculate H₂O molecule energy:<br />
           {"  E(H₂O) = −14.219 eV"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Atomization energy:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>at</sub> = 2×E(H) + E(O) − E(H₂O)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>at</sub> = 2(−1.116) + (−4.570) − (−14.219)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>at</sub>(PBE) = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"9.51 eV = 219.3 kcal/mol"}</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>at</sub> = 2×E(H) + E(O) − E(H₂O)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>at</sub> = 2(−1.116) + (−4.570) − (−14.219)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>at</sub>(PBE) = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"9.51 eV = 219.3 kcal/mol"}</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 4:</span> Compare to experiment:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>at</sub>(expt) = 9.51 eV = 219.3 kcal/mol</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>at</sub>(expt) = 9.51 eV = 219.3 kcal/mol</span><br />
           {"  Error = "}<span style={{ color: D.basis, fontWeight: 500 }}>{"< 0.1% — PBE is excellent for covalent bonds!"}</span><br /><br />
           <span style={{ color: T.muted }}>PBE atomization energies are typically within ±0.1 eV/bond for strong covalent bonds.</span>
         </div>
@@ -8633,17 +8558,17 @@ function DFTGGASection() {
         <div style={mathBlock}>
           <span style={{ color: D.basis, fontWeight: 500 }}>How much energy to remove one Si atom from the crystal?</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Calculate perfect 64-atom Si supercell:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>perfect</sub> = −346.472 eV  (PBE, 3×3×3 k-mesh)</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>perfect</sub> = −346.472 eV  (PBE, 3×3×3 k-mesh)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Remove 1 atom, relax remaining 63 atoms:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>vacancy</sub> = −340.821 eV  (63 atoms + 1 vacancy)</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>vacancy</sub> = −340.821 eV  (63 atoms + 1 vacancy)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Chemical potential of Si (bulk energy per atom):<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}μ<sub>Si</sub> = E<sub>perfect</sub>/64 = −346.472/64 = −5.414 eV/atom</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}μ<sub>Si</sub> = E<sub>perfect</sub>/64 = −346.472/64 = −5.414 eV/atom</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 4:</span> Vacancy formation energy:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>f</sub> = E<sub>vacancy</sub> − (63/64) × E<sub>perfect</sub></span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>f</sub> = −340.821 − (63 × −5.414)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>f</sub> = −340.821 + 341.082 = </span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>f</sub>(PBE) = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"3.67 eV"}</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>f</sub>(expt) ≈ 3.6 ± 0.5 eV</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>f</sub> = E<sub>vacancy</sub> − (63/64) × E<sub>perfect</sub></span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>f</sub> = −340.821 − (63 × −5.414)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>f</sub> = −340.821 + 341.082 = </span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>f</sub>(PBE) = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"3.67 eV"}</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>f</sub>(expt) ≈ 3.6 ± 0.5 eV</span><br /><br />
           <span style={{ color: T.muted }}>PBE gives good defect formation energies for neutral defects in semiconductors.</span>
         </div>
       </Card>
@@ -8655,24 +8580,16 @@ function DFTHSESection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card collapsible defaultOpen title="HSE06 - Heyd-Scuseria-Ernzerhof Hybrid" color={D.xc}>
-        <DFT_ANALOGY_BOX text={"Consider silicon: PBE predicts a band gap of 0.6 eV, but experiment shows 1.12 eV. Why? PBE's approximate exchange lets each electron partially repel itself (self-interaction error), spreading orbitals too far and shrinking gaps. HSE06 replaces 25% of PBE exchange with exact Hartree-Fock exchange at short range (within ~5 Å). This removes most self-interaction locally, giving Si a gap of 1.14 eV — nearly perfect. The trade-off: HSE06 costs 10-100× more than PBE."} />
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
-          {[
-            { text: "Like seasoning food: PBE uses only pre-made spice mix (approximate exchange). HSE06 adds 25% freshly ground spice (exact exchange) for a more accurate flavour. But fresh grinding takes 100× longer." },
-            { text: "Like corrective lenses: PBE sees the electronic structure blurry. HSE06 adds a precise lens (exact exchange) for nearby objects (short range) while accepting blurriness for far-off things (long range). The result: sharp band gaps at manageable cost." },
-          ].map((a, i) => (
-            <div key={i} style={{ display: "flex", gap: 10, background: D.xc + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.xc}12` }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
-              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
-            </div>
-          ))}
+        <DFT_ANALOGY_BOX text={"Like seasoning food: PBE uses only pre-made spice mix (approximate exchange). HSE06 adds 25% freshly ground spice (exact exchange) for a more accurate flavour. But fresh grinding takes 100× longer."} />
+        <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Consider silicon: PBE predicts a band gap of 0.6 eV, but experiment shows 1.12 eV. Why? PBE's approximate exchange lets each electron partially repel itself (self-interaction error), spreading orbitals too far and shrinking gaps. HSE06 replaces 25% of PBE exchange with exact Hartree-Fock exchange at short range (within ~5 Å). This removes most self-interaction locally, giving Si a gap of 1.14 eV — nearly perfect. The trade-off: HSE06 costs 10-100× more than PBE.
         </div>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           The key idea: mix <strong style={{ color: D.xc }}>25% exact (Hartree-Fock) exchange</strong> with
           75% PBE exchange, but only at <strong>short range</strong>. Long-range exchange stays pure PBE.
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.xc, fontWeight: 500, fontSize: 14, fontFamily: "Georgia, serif" }}>E<sub>xc</sub> = α E<sub>x</sub><sup>HF,SR</sup> + (1−α) E<sub>x</sub><sup>PBE,SR</sup> + E<sub>x</sub><sup>PBE,LR</sup> + E<sub>c</sub><sup>PBE</sup></span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 500, fontSize: 14, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>E<sub>xc</sub> = α E<sub>x</sub><sup>HF,SR</sup> + (1−α) E<sub>x</sub><sup>PBE,SR</sup> + E<sub>x</sub><sup>PBE,LR</sup> + E<sub>c</sub><sup>PBE</sup></span><br /><br />
           α = 0.25  (mixing parameter - 25% exact exchange)<br />
           ω = 0.2 Å⁻¹  (range-separation parameter)<br /><br />
           <span style={{ color: D.xc }}>SR = short range (exact exchange here)</span><br />
@@ -8688,9 +8605,9 @@ function DFTHSESection() {
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.xc, fontWeight: 500 }}>CuInSe₂ band gap:</span><br /><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}PBE:    E<sub>gap</sub> = 0.01 eV  (essentially zero — metallic!)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}HSE06:  E<sub>gap</sub> = </span><span style={{ color: D.xc, fontWeight: 500 }}>{"1.04 eV"}</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}Expt:   E<sub>gap</sub> = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"1.04 eV"}</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}PBE:    E<sub>gap</sub> = 0.01 eV  (essentially zero — metallic!)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}HSE06:  E<sub>gap</sub> = </span><span style={{ color: D.xc, fontWeight: 500 }}>{"1.04 eV"}</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}Expt:   E<sub>gap</sub> = </span><span style={{ color: D.basis, fontWeight: 500 }}>{"1.04 eV"}</span><br /><br />
           <span style={{ color: T.muted }}>HSE nails it. PBE predicts CuInSe₂ is a metal (it is not!).</span>
         </div>
       </Card>
@@ -8724,17 +8641,17 @@ function DFTHSESection() {
         <div style={mathBlock}>
           <span style={{ color: D.xc, fontWeight: 500 }}>Decompose E<sub>xc</sub> at a point in the Si bond region</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> PBE exchange energy density at bond center:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub><sup>PBE</sup> = −0.437 Ha/e⁻</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}ε<sub>x</sub><sup>PBE</sup> = −0.437 Ha/e⁻</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Exact (HF) exchange at same point:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub><sup>HF</sup> = −0.512 Ha/e⁻  (larger magnitude)</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}ε<sub>x</sub><sup>HF</sup> = −0.512 Ha/e⁻  (larger magnitude)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> HSE06 splits by range (ω = 0.2 Å⁻¹):<br />
           {"  Short-range: mix 25% HF + 75% PBE"}<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub><sup>SR</sup>(HSE) = 0.25 × (−0.485) + 0.75 × (−0.410) = −0.429 Ha/e⁻</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}ε<sub>x</sub><sup>SR</sup>(HSE) = 0.25 × (−0.485) + 0.75 × (−0.410) = −0.429 Ha/e⁻</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 4:</span> Long-range: 100% PBE<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>x</sub><sup>LR</sup>(HSE) = −0.027 Ha/e⁻  (PBE long-range part)</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}ε<sub>x</sub><sup>LR</sup>(HSE) = −0.027 Ha/e⁻  (PBE long-range part)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 5:</span> Add PBE correlation (unchanged):<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>c</sub><sup>PBE</sup> = −0.031 Ha/e⁻</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}ε<sub>xc</sub><sup>HSE</sup> = −0.429 + (−0.027) + (−0.031) = </span><span style={{ color: D.xc, fontWeight: 500 }}>{"-0.487 Ha/e⁻"}</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}ε<sub>c</sub><sup>PBE</sup> = −0.031 Ha/e⁻</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}ε<sub>xc</sub><sup>HSE</sup> = −0.429 + (−0.027) + (−0.031) = </span><span style={{ color: D.xc, fontWeight: 500 }}>{"-0.487 Ha/e⁻"}</span><br /><br />
           <span style={{ color: T.muted }}>The 25% HF exchange removes part of the self-interaction, opening the gap.</span>
         </div>
 
@@ -8756,9 +8673,9 @@ function DFTHSESection() {
           {"  L        | −1.35    |  2.08       | 2.08"}<br />
           {"  Indirect gap (Γ→X): "}<span style={{ color: D.xc, fontWeight: 500 }}>{"1.14 eV"}</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Compare to experiment:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>gap</sub>(expt) = 1.17 eV</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}PBE error:  |0.61 − 1.17| = 0.56 eV (48% too low)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}HSE error:  |1.14 − 1.17| = 0.03 eV (</span><span style={{ color: D.xc, fontWeight: 500 }}>{"2.6% error — excellent!"}</span>{")"}<br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>gap</sub>(expt) = 1.17 eV</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}PBE error:  |0.61 − 1.17| = 0.56 eV (48% too low)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}HSE error:  |1.14 − 1.17| = 0.03 eV (</span><span style={{ color: D.xc, fontWeight: 500 }}>{"2.6% error — excellent!"}</span>{")"}<br /><br />
           <span style={{ color: T.muted }}>HSE06 shifts conduction bands up by ~0.5 eV uniformly (scissor-like correction).</span>
         </div>
 
@@ -8788,17 +8705,9 @@ function DFTDFTUSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card collapsible defaultOpen title="The Problem with d and f Electrons" color={D.warm}>
-        <DFT_ANALOGY_BOX text={"In iron oxide (FeO), the Fe 3d electrons are tightly bound to each iron atom. PBE incorrectly delocalizes them across the crystal, predicting FeO is a metal when it's actually an insulator. DFT+U adds a Hubbard U penalty (~4-5 eV) that says: 'it costs extra energy to put two d-electrons on the same Fe atom.' This on-site repulsion forces d-electrons to localize properly on individual Fe atoms, correctly opening the insulating gap. U is typically fitted to experiment or computed from linear response."} />
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
-          {[
-            { text: "Like hotel room pricing: without DFT+U, electrons crowd into the cheapest room (delocalize). Adding U is like raising the price of double-occupancy rooms — electrons prefer their own room (localize on individual atoms)." },
-            { text: "Like a congestion charge: driving into the city centre (putting two d-electrons on the same atom) costs extra. This penalty forces electrons to spread to neighbouring atoms, correctly describing correlated materials." },
-          ].map((a, i) => (
-            <div key={i} style={{ display: "flex", gap: 10, background: D.warm + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.warm}12` }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
-              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
-            </div>
-          ))}
+        <DFT_ANALOGY_BOX text={"Like hotel room pricing: without DFT+U, electrons crowd into the cheapest room (delocalize). Adding U is like raising the price of double-occupancy rooms — electrons prefer their own room (localize on individual atoms)."} />
+        <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          In iron oxide (FeO), the Fe 3d electrons are tightly bound to each iron atom. PBE incorrectly delocalizes them across the crystal, predicting FeO is a metal when it's actually an insulator. DFT+U adds a Hubbard U penalty (~4-5 eV) that says: 'it costs extra energy to put two d-electrons on the same Fe atom.' This on-site repulsion forces d-electrons to localize properly on individual Fe atoms, correctly opening the insulating gap. U is typically fitted to experiment or computed from linear response.
         </div>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           Standard GGA fails for systems with <strong style={{ color: D.warm }}>localized d or f electrons</strong>:
@@ -8820,7 +8729,7 @@ function DFTDFTUSection() {
           forces electrons to either fully occupy or fully vacate, localizing them correctly.
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.xc, fontWeight: 500, fontSize: 14, fontFamily: "Georgia, serif" }}>E<sub>DFT+U</sub> = E<sub>DFT</sub> + <sup>(U−J)</sup>&frasl;<sub>2</sub> Σ<sub>i</sub> n<sub>i</sub>(1 − n<sub>i</sub>)</span><br /><br />
+          <span style={{ color: D.xc, fontWeight: 500, fontSize: 14, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>E<sub>DFT+U</sub> = E<sub>DFT</sub> + <sup>(U−J)</sup>&frasl;<sub>2</sub> Σ<sub>i</sub> n<sub>i</sub>(1 − n<sub>i</sub>)</span><br /><br />
           <span style={{ color: D.xc }}>U</span> = on-site Coulomb repulsion (2-8 eV typical)<br />
           <span style={{ color: D.accent }}>J</span> = exchange parameter (~0.5-1 eV, often set to 0)<br />
           <span style={{ color: D.warm }}>n<sub>i</sub></span> = occupation of orbital i (0 to 1)<br /><br />
@@ -8867,24 +8776,24 @@ function DFTDFTUSection() {
       <Card collapsible title="Worked Examples — DFT+U in Practice" color={D.warm}>
         <div style={{ fontSize: 12, fontWeight: 500, color: D.warm, marginBottom: 10 }}>Example 1: The U penalty function — FeO d-electrons</div>
         <div style={mathBlock}>
-          <span style={{ color: D.warm, fontWeight: 500, fontFamily: "Georgia, serif" }}>E<sub>U</sub> = <sup>(U−J)</sup>&frasl;<sub>2</sub> × Σ<sub>i</sub> n<sub>i</sub>(1 − n<sub>i</sub>), with U=4 eV, J=0</span><br /><br />
+          <span style={{ color: D.warm, fontWeight: 500, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>E<sub>U</sub> = <sup>(U−J)</sup>&frasl;<sub>2</sub> × Σ<sub>i</sub> n<sub>i</sub>(1 − n<sub>i</sub>), with U=4 eV, J=0</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> PBE without U — Fe 3d occupations (delocalized):<br />
-          {"  d_xy: n = 0.72,  d_xz: n = 0.68,  d_yz: n = 0.70"}<br />
-          {"  d_z²: n = 0.65,  d_x²-y²: n = 0.63"}<br />
+          {fx("  d_xy: n = 0.72,  d_xz: n = 0.68,  d_yz: n = 0.70")}<br />
+          {fx("  d_z²: n = 0.65,  d_x²-y²: n = 0.63")}<br />
           {"  (All partially occupied → delocalized → PBE says metal!)"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> U penalty for each orbital:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>U</sub>(d<sub>xy</sub>)    = 4/2 × 0.72 × (1−0.72) = 0.403 eV</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>U</sub>(d<sub>xz</sub>)    = 4/2 × 0.68 × (1−0.68) = 0.435 eV</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>U</sub>(d<sub>yz</sub>)    = 4/2 × 0.70 × (1−0.70) = 0.420 eV</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>U</sub>(d<sub>z²</sub>)    = 4/2 × 0.65 × (1−0.65) = 0.455 eV</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>U</sub>(d<sub>x²−y²</sub>) = 4/2 × 0.63 × (1−0.63) = 0.466 eV</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>U</sub>(d<sub>xy</sub>)    = 4/2 × 0.72 × (1−0.72) = 0.403 eV</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>U</sub>(d<sub>xz</sub>)    = 4/2 × 0.68 × (1−0.68) = 0.435 eV</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>U</sub>(d<sub>yz</sub>)    = 4/2 × 0.70 × (1−0.70) = 0.420 eV</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>U</sub>(d<sub>z²</sub>)    = 4/2 × 0.65 × (1−0.65) = 0.455 eV</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>U</sub>(d<sub>x²−y²</sub>) = 4/2 × 0.63 × (1−0.63) = 0.466 eV</span><br />
           {"  Total penalty: "}<span style={{ color: D.warn, fontWeight: 500 }}>{"2.18 eV per Fe atom"}</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> With U=4 — Fe 3d re-converged occupations:<br />
-          {"  d_xy: n = 0.98,  d_xz: n = 0.97,  d_yz: n = 0.97"}<br />
-          {"  d_z²: n = 0.95,  d_x²-y²: n = 0.12"}<br />
+          {fx("  d_xy: n = 0.98,  d_xz: n = 0.97,  d_yz: n = 0.97")}<br />
+          {fx("  d_z²: n = 0.95,  d_x²-y²: n = 0.12")}<br />
           {"  (Nearly integer → localized → insulator!)"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 4:</span> New penalty is much smaller:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>U</sub>(d<sub>xy</sub>) = 4/2 × 0.98 × 0.02 = 0.039 eV</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>U</sub>(d<sub>xy</sub>) = 4/2 × 0.98 × 0.02 = 0.039 eV</span><br />
           {"  Total penalty: "}<span style={{ color: D.basis, fontWeight: 500 }}>{"0.25 eV (10× smaller — electrons localized)"}</span>
         </div>
 
@@ -8902,8 +8811,8 @@ function DFTDFTUSection() {
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Experiment: gap = 2.4 eV<br />
           {"  Best U ≈ 4.5-5.0 eV for Fe 3d in FeO"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Also check magnetic moment:<br />
-          {"  U = 0 eV:  μ = 3.3 μ_B  (too low)"}<br />
-          {"  U = 5 eV:  μ = 3.7 μ_B  (expt: 3.6-4.2 μ_B ✓)"}<br /><br />
+          {fx("  U = 0 eV:  μ = 3.3 μ_B  (too low)")}<br />
+          {fx("  U = 5 eV:  μ = 3.7 μ_B  (expt: 3.6-4.2 μ_B ✓)")}<br /><br />
           <span style={{ color: T.muted }}>U should reproduce BOTH gap AND magnetic moment. If not, the method may not be appropriate.</span>
         </div>
 
@@ -8916,7 +8825,7 @@ function DFTDFTUSection() {
           {"  Non-interacting: χ₀ = −0.82 (bare response)"}<br />
           {"  Self-consistent:  χ  = −0.35 (screened response)"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Compute U from inverse responses:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}U = χ₀⁻¹ − χ⁻¹</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}U = χ₀⁻¹ − χ⁻¹</span><br />
           {"  U = (−1/0.82) − (−1/0.35)"}<br />
           {"  U = −1.22 + 2.86 = "}<span style={{ color: D.basis, fontWeight: 500 }}>{"1.64 eV"}</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 4:</span> Iterate (U changes the response):<br />
@@ -8935,17 +8844,9 @@ function DFTSelfInteractionSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card collapsible defaultOpen title="Self-Interaction Error (SIE)" color={D.warn}>
-        <DFT_ANALOGY_BOX text={"Take a single hydrogen atom — one electron, one proton. The Hartree potential V_H computes the repulsion of the electron density with itself, giving a spurious +13.6 eV self-repulsion. In HF, the exact exchange cancels this perfectly: E_x = -E_self. But in DFT, the approximate E_xc only partially cancels it. The leftover self-interaction makes the electron cloud spread out too much, lowers ionization energies, and shrinks band gaps. This is why PBE gets H's energy slightly wrong and Si's gap very wrong."} />
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 14 }}>
-          {[
-            { text: "Imagine punching yourself in the face and counting it as an external attack. That’s what the Hartree term does — each electron repels its own charge cloud. In exact theory, exchange perfectly cancels this self-punch. In PBE, the cancellation is only ~95% complete." },
-            { text: "Like a tax system where you’re taxed on your own salary twice: once as income and again as if someone else earned it. The ‘self-tax’ spreads your wealth (electron density) too thin, and you look poorer (smaller band gap) than you really are." },
-          ].map((a, i) => (
-            <div key={i} style={{ display: "flex", gap: 10, background: D.warn + "06", borderRadius: 8, padding: "8px 12px", border: `1px solid ${D.warn}12` }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>{a.icon}</span>
-              <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>{a.text}</span>
-            </div>
-          ))}
+        <DFT_ANALOGY_BOX text={"Imagine punching yourself in the face and counting it as an external attack. That’s what the Hartree term does — each electron repels its own charge cloud. In exact theory, exchange perfectly cancels this self-punch. In PBE, the cancellation is only ~95% complete."} />
+        <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
+          Take a single hydrogen atom — one electron, one proton. The Hartree potential V_H computes the repulsion of the electron density with itself, giving a spurious +13.6 eV self-repulsion. In HF, the exact exchange cancels this perfectly: E_x = -E_self. But in DFT, the approximate E_xc only partially cancels it. The leftover self-interaction makes the electron cloud spread out too much, lowers ionization energies, and shrinks band gaps. This is why PBE gets H's energy slightly wrong and Si's gap very wrong.
         </div>
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           In exact DFT, a single electron{"'"}s Hartree repulsion is exactly cancelled by exchange.
@@ -8953,8 +8854,8 @@ function DFTSelfInteractionSection() {
           <strong style={{ color: D.warn }}> the electron repels itself</strong>.
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.warn, fontWeight: 500, fontFamily: "Georgia, serif" }}>Exact: E<sub>H</sub>[n<sub>i</sub>] + E<sub>x</sub>[n<sub>i</sub>] = 0  (for one electron)</span><br /><br />
-          <span style={{ color: D.warn, fontFamily: "Georgia, serif" }}>LDA/GGA: E<sub>H</sub>[n<sub>i</sub>] + E<sub>x</sub>[n<sub>i</sub>] ≠ 0  (incomplete cancellation!)</span><br /><br />
+          <span style={{ color: D.warn, fontWeight: 500, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>Exact: E<sub>H</sub>[n<sub>i</sub>] + E<sub>x</sub>[n<sub>i</sub>] = 0  (for one electron)</span><br /><br />
+          <span style={{ color: D.warn, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>LDA/GGA: E<sub>H</sub>[n<sub>i</sub>] + E<sub>x</sub>[n<sub>i</sub>] ≠ 0  (incomplete cancellation!)</span><br /><br />
           <span style={{ color: T.muted }}>This residual = self-interaction error</span>
         </div>
       </Card>
@@ -9008,17 +8909,17 @@ function DFTSelfInteractionSection() {
       <Card collapsible title="Worked Examples — Quantifying Self-Interaction Error" color={D.warn}>
         <div style={{ fontSize: 12, fontWeight: 500, color: D.warn, marginBottom: 10 }}>Example 1: SIE in hydrogen atom — the exact test</div>
         <div style={mathBlock}>
-          <span style={{ color: D.warn, fontWeight: 500, fontFamily: "Georgia, serif" }}>For 1 electron, E<sub>H</sub> + E<sub>x</sub> must exactly cancel (no self-repulsion)</span><br /><br />
+          <span style={{ color: D.warn, fontWeight: 500, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>For 1 electron, E<sub>H</sub> + E<sub>x</sub> must exactly cancel (no self-repulsion)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Hartree self-repulsion of H 1s density:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>H</sub> = ½∫∫ n(<strong>r</strong>)n(<strong>r</strong>′)/|<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>d<strong>r</strong>′ = <sup>5</sup>&frasl;<sub>16</sub> Ha = </span><span style={{ color: D.warn, fontWeight: 500 }}>{"+0.3125 Ha"}</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>H</sub> = ½∫∫ n(<strong>r</strong>)n(<strong>r</strong>′)/|<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>d<strong>r</strong>′ = <sup>5</sup>&frasl;<sub>16</sub> Ha = </span><span style={{ color: D.warn, fontWeight: 500 }}>{"+0.3125 Ha"}</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Exact exchange must cancel this:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>x</sub>(exact) = −0.3125 Ha  → E<sub>H</sub> + E<sub>x</sub> = 0 ✓</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>x</sub>(exact) = −0.3125 Ha  → E<sub>H</sub> + E<sub>x</sub> = 0 ✓</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> LDA exchange gives:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>x</sub>(LDA) = −(3/4)(3/π)<sup>1/3</sup> ∫ n<sup>4/3</sup> d<strong>r</strong> = −0.2680 Ha</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}SIE(LDA) = E<sub>H</sub> + E<sub>x</sub>(LDA) = 0.3125 − 0.2680 = </span><span style={{ color: D.warn, fontWeight: 500 }}>{"+0.0445 Ha = +1.21 eV"}</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>x</sub>(LDA) = −(3/4)(3/π)<sup>1/3</sup> ∫ n<sup>4/3</sup> d<strong>r</strong> = −0.2680 Ha</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}SIE(LDA) = E<sub>H</sub> + E<sub>x</sub>(LDA) = 0.3125 − 0.2680 = </span><span style={{ color: D.warn, fontWeight: 500 }}>{"+0.0445 Ha = +1.21 eV"}</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 4:</span> PBE exchange gives:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}E<sub>x</sub>(PBE) = −0.2943 Ha  (gradient correction helps)</span><br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}SIE(PBE) = 0.3125 − 0.2943 = </span><span style={{ color: D.warn, fontWeight: 500 }}>{"+0.0182 Ha = +0.50 eV"}</span><br /><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}E<sub>x</sub>(PBE) = −0.2943 Ha  (gradient correction helps)</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}SIE(PBE) = 0.3125 − 0.2943 = </span><span style={{ color: D.warn, fontWeight: 500 }}>{"+0.0182 Ha = +0.50 eV"}</span><br /><br />
           <span style={{ color: T.muted }}>PBE halves the SIE vs LDA, but +0.50 eV is still chemically significant!</span>
         </div>
 
@@ -9032,11 +8933,11 @@ function DFTSelfInteractionSection() {
           {"  Exact: H₂⁺ → H + H⁺ (electron localizes on ONE proton)"}<br />
           {"  E(exact) = −0.500 Ha"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> PBE at R = 10 Å:<br />
-          {"  PBE: H₂⁺ → H^(0.5) + H^(0.5) (electron splits equally!)"}<br />
+          {fx("  PBE: H₂⁺ → H^(0.5) + H^(0.5) (electron splits equally!)")}<br />
           {"  E(PBE) = "}<span style={{ color: D.warn, fontWeight: 500 }}>{"-0.535 Ha"}</span><br />
           {"  Error: 0.035 Ha = 0.95 eV (huge!)"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 4:</span> Why? SIE stabilizes fractional charges:<br />
-          {"  Each H^(0.5) has half an electron"}<br />
+          {fx("  Each H^(0.5) has half an electron")}<br />
           {"  SIE makes half-integer occupation artificially stable"}<br />
           {"  The electron refuses to localize → wrong dissociation limit"}<br /><br />
           <span style={{ color: D.warn }}>This is the classic SIE demonstration — PBE gives qualitatively wrong physics!</span>
@@ -9056,7 +8957,7 @@ function DFTSelfInteractionSection() {
           {"  sp semiconductors: ~50% error (tolerable)"}<br />
           {"  d-electron systems: ~75-100% error (catastrophic)"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Why? SIE is proportional to orbital self-overlap:<br />
-          <span style={{ fontFamily: "Georgia, serif" }}>{"  "}SIE ∝ ∫∫ |ψ<sub>i</sub>(<strong>r</strong>)|² |ψ<sub>i</sub>(<strong>r</strong>′)|² / |<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>d<strong>r</strong>′</span><br />
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>{"  "}SIE ∝ ∫∫ |ψ<sub>i</sub>(<strong>r</strong>)|² |ψ<sub>i</sub>(<strong>r</strong>′)|² / |<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>d<strong>r</strong>′</span><br />
           {"  Localized d-orbitals have large self-overlap → large SIE"}<br />
           {"  Delocalized sp-bands spread out → smaller SIE"}<br /><br />
           <span style={{ color: D.basis }}>Rule of thumb: if your system has d or f electrons, expect PBE gaps to be very wrong.</span>
@@ -9077,7 +8978,7 @@ function DFTBasisIntroSection() {
           finite set of known functions (the basis set):
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.eqn, fontWeight: 500, fontFamily: "Georgia, serif" }}>φ<sub>i</sub>(<strong>r</strong>) = Σ<sub>j</sub> c<sub>ij</sub> χ<sub>j</sub>(<strong>r</strong>)</span><br /><br />
+          <span style={{ color: D.eqn, fontWeight: 500, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>φ<sub>i</sub>(<strong>r</strong>) = Σ<sub>j</sub> c<sub>ij</sub> χ<sub>j</sub>(<strong>r</strong>)</span><br /><br />
           <span style={{ color: T.muted }}>χ<sub>j</sub> = basis functions (known shapes)</span><br />
           <span style={{ color: T.muted }}>c<sub>ij</sub> = expansion coefficients (what DFT solves for)</span><br /><br />
           <span style={{ color: D.eqn }}>Larger basis → more accurate → more expensive</span>
@@ -9125,7 +9026,7 @@ function DFTBasisIntroSection() {
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 500 }}>Approximate the exact 1s = e<sup>−r</sup> with 3 Gaussians</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> The STO-3G basis uses 3 primitive Gaussians:<br />
-          {"  χ(r) = c₁ e^(−α₁r²) + c₂ e^(−α₂r²) + c₃ e^(−α₃r²)"}<br /><br />
+          {fx("  χ(r) = c₁ e^(−α₁r²) + c₂ e^(−α₂r²) + c₃ e^(−α₃r²)")}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Optimized exponents and coefficients:<br />
           {"  α₁ = 3.4253,  c₁ = 0.1543  (tight, captures cusp)"}<br />
           {"  α₂ = 0.6239,  c₂ = 0.5353  (medium range)"}<br />
@@ -9144,7 +9045,7 @@ function DFTBasisIntroSection() {
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 500 }}>H₂ bond energy with increasing Gaussian basis quality</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Calculate E(H₂) and E(H) at each basis level:<br /><br />
-          {"  Basis     | # funcs/atom | E(H₂)      | E(H)      | D_e"}<br />
+          {fx("  Basis     | # funcs/atom | E(H₂)      | E(H)      | D_e")}<br />
           {"  ──────────┼──────────────┼────────────┼───────────┼──────"}<br />
           {"  STO-3G    |    1         | −1.117 Ha  | −0.467 Ha | 5.0 eV"}<br />
           {"  6-31G*    |    5         | −1.127 Ha  | −0.499 Ha | 3.5 eV"}<br />
@@ -9153,7 +9054,7 @@ function DFTBasisIntroSection() {
           {"  cc-pVQZ   |   30         | −1.134 Ha  | −0.500 Ha | "}<span style={{ color: D.basis, fontWeight: 500 }}>{"3.6 eV"}</span><br />
           {"  CBS limit |    ∞         | −1.134 Ha  | −0.500 Ha | 3.6 eV"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Experiment: D_e = 4.75 eV (includes zero-point)<br />
-          {"  D_0(expt) = 4.48 eV, D_e(expt) = 4.75 eV"}<br /><br />
+          {fx("  D_0(expt) = 4.48 eV, D_e(expt) = 4.75 eV")}<br /><br />
           <span style={{ color: T.muted }}>STO-3G is terrible. DZ gets you most of the way. TZ/QZ differences are small.</span><br />
           <span style={{ color: T.muted }}>Note: remaining error is from PBE functional, not basis incompleteness.</span>
         </div>
@@ -9246,7 +9147,7 @@ function DFTGaussianSection() {
         <div style={mathBlock}>
           <span style={{ color: D.accent, fontWeight: 500 }}>PBE total energy of water molecule at experimental geometry</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Run PBE with increasing basis sets:<br />
-          {"  Basis       | # functions | E_total (Ha)   | ΔE vs CBS"}<br />
+          {fx("  Basis       | # functions | E_total (Ha)   | ΔE vs CBS")}<br />
           {"  ─────────────┼─────────────┼────────────────┼──────────"}<br />
           {"  STO-3G       |     7       | −75.5606       | +489 mHa"}<br />
           {"  6-31G*       |    19       | −76.0119       | +38 mHa"}<br />
@@ -9266,9 +9167,9 @@ function DFTGaussianSection() {
           <span style={{ color: D.accent, fontWeight: 500 }}>(H₂O)₂ binding energy — the ghost orbital problem</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Naive binding energy (cc-pVDZ, PBE):<br />
           {"  E(dimer) = −152.0712 Ha"}<br />
-          {"  E(mono_A) = −76.0267 Ha"}<br />
-          {"  E(mono_B) = −76.0267 Ha"}<br />
-          {"  ΔE_bind = E(dimer) − 2×E(mono) = "}<span style={{ color: D.warn, fontWeight: 500 }}>{"-0.0178 Ha = -11.2 kcal/mol"}</span><br /><br />
+          {fx("  E(mono_A) = −76.0267 Ha")}<br />
+          {fx("  E(mono_B) = −76.0267 Ha")}<br />
+          {fx("  ΔE_bind = E(dimer) − 2×E(mono) = ")}<span style={{ color: D.warn, fontWeight: 500 }}>{"-0.0178 Ha = -11.2 kcal/mol"}</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> The BSSE problem:<br />
           {"  In the dimer, each monomer 'borrows' basis functions from its partner"}<br />
           {"  This artificially lowers E(dimer) → overbinds!"}<br /><br />
@@ -9278,7 +9179,7 @@ function DFTGaussianSection() {
           {"  E(B in dimer basis) = −76.0289 Ha"}<br />
           {"  BSSE = 2 × 0.0022 = 0.0044 Ha = 2.8 kcal/mol"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 4:</span> Corrected binding energy:<br />
-          {"  ΔE_CP = −0.0178 + 0.0044 = "}<span style={{ color: D.basis, fontWeight: 500 }}>{"-0.0134 Ha = -8.4 kcal/mol"}</span><br />
+          {fx("  ΔE_CP = −0.0178 + 0.0044 = ")}<span style={{ color: D.basis, fontWeight: 500 }}>{"-0.0134 Ha = -8.4 kcal/mol"}</span><br />
           {"  Expt: ~5.0 kcal/mol (remaining error from PBE missing dispersion)"}<br /><br />
           <span style={{ color: T.muted }}>BSSE is 25% of binding energy with DZ! With TZ it drops to ~5%. Always check.</span>
         </div>
@@ -9450,7 +9351,7 @@ function DFTPlaneWavesSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Card collapsible defaultOpen title="Plane Waves & Bloch's Theorem" color={D.eqn}>
-        <DFT_ANALOGY_BOX text={"In a silicon crystal, the electron density is periodic — it repeats every unit cell. Any periodic function can be expanded in plane waves e^(iG·r), just like any repeating sound wave is a sum of pure frequencies (Fourier series). ENCUT controls the highest frequency: 400 eV captures the smooth valence density well, but near Si nuclei the 1s electrons oscillate wildly and would need ENCUT > 10,000 eV. PAW solves this by analytically reconstructing the sharp nuclear wiggles from smooth pseudo-wavefunctions — giving all-electron accuracy at pseudopotential cost."} />
+        <DFT_ANALOGY_BOX text={fx("In a silicon crystal, the electron density is periodic — it repeats every unit cell. Any periodic function can be expanded in plane waves e^(iG·r), just like any repeating sound wave is a sum of pure frequencies (Fourier series). ENCUT controls the highest frequency: 400 eV captures the smooth valence density well, but near Si nuclei the 1s electrons oscillate wildly and would need ENCUT > 10,000 eV. PAW solves this by analytically reconstructing the sharp nuclear wiggles from smooth pseudo-wavefunctions — giving all-electron accuracy at pseudopotential cost.")} />
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           For periodic crystals, <strong style={{ color: D.eqn }}>Bloch{"'"}s theorem</strong> says every
           electron orbital can be written as a plane wave times a periodic function:
@@ -9458,7 +9359,7 @@ function DFTPlaneWavesSection() {
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 500 }}>ψ<sub>nk</sub>(r) = eⁱᵏ·ʳ u<sub>nk</sub>(r)</span><br /><br />
           <span style={{ color: T.muted }}>u<sub>nk</sub>(r) is periodic - expand in plane waves:</span><br />
-          {"  u_nk(r) = Σ_G  c_nk(G) eⁱᴳ·ʳ"}<br /><br />
+          {fx("  u_nk(r) = Σ_G  c_nk(G) eⁱᴳ·ʳ")}<br /><br />
           <span style={{ color: D.eqn }}>Truncate at |k+G|²/2 {"<"} E_cut (the energy cutoff parameter)</span><br />
           <span style={{ color: T.muted }}>Larger ENCUT = more plane waves = more accurate = more expensive</span>
         </div>
@@ -9472,10 +9373,10 @@ function DFTPlaneWavesSection() {
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.accent, fontWeight: 500 }}>Typical convergence pattern:</span><br /><br />
-          {"  E_cut = 200 eV:  E not converged (large basis set error)"}<br />
-          {"  E_cut = 300 eV:  ΔE ~ tens of meV (improving)"}<br />
-          {"  E_cut = 400 eV:  ΔE ~ few meV (nearly converged)"}<br />
-          {"  E_cut = 500 eV:  ΔE < 1 meV "}<span style={{ color: D.basis, fontWeight: 500 }}>{"✓ converged"}</span><br /><br />
+          {fx("  E_cut = 200 eV:  E not converged (large basis set error)")}<br />
+          {fx("  E_cut = 300 eV:  ΔE ~ tens of meV (improving)")}<br />
+          {fx("  E_cut = 400 eV:  ΔE ~ few meV (nearly converged)")}<br />
+          {fx("  E_cut = 500 eV:  ΔE < 1 meV ")}<span style={{ color: D.basis, fontWeight: 500 }}>{"✓ converged"}</span><br /><br />
           <span style={{ color: D.basis }}>The required cutoff depends on the elements (heavier atoms with harder pseudopotentials need higher cutoffs)</span>
         </div>
       </Card>
@@ -9511,13 +9412,13 @@ function DFTPlaneWavesSection() {
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Si FCC lattice constant a = 5.43 Å<br />
           {"  Unit cell volume: Ω = a³/4 = 40.0 ų"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 2:</span> Maximum |G| from energy cutoff:<br />
-          {"  |k+G|²/2 < E_cut  (atomic units)"}<br />
-          {"  E_cut = 400 eV = 14.70 Ha"}<br />
+          {fx("  |k+G|²/2 < E_cut  (atomic units)")}<br />
+          {fx("  E_cut = 400 eV = 14.70 Ha")}<br />
           {"  |G|_max = √(2 × 14.70) = 5.42 bohr⁻¹"}<br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 3:</span> Number of G-vectors inside the sphere:<br />
-          {"  N_PW = (4π/3)|G_max|³ × Ω/(2π)³"}<br />
-          {"  N_PW ≈ (4π/3)(5.42)³ × 40.0/(2π)³"}<br />
-          {"  N_PW ≈ "}<span style={{ color: D.basis, fontWeight: 500 }}>{"~2,700 plane waves per k-point"}</span><br /><br />
+          {fx("  N_PW = (4π/3)|G_max|³ × Ω/(2π)³")}<br />
+          {fx("  N_PW ≈ (4π/3)(5.42)³ × 40.0/(2π)³")}<br />
+          {fx("  N_PW ≈ ")}<span style={{ color: D.basis, fontWeight: 500 }}>{"~2,700 plane waves per k-point"}</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 4:</span> Matrix to diagonalize: 2700 × 2700<br />
           {"  With 4 occupied bands (8 valence electrons / 2):"}<br />
           {"  Only need lowest 4 eigenvalues → iterative solvers (Davidson)"}<br /><br />
@@ -9528,7 +9429,7 @@ function DFTPlaneWavesSection() {
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 500 }}>Find the converged ENCUT for CdTe (PAW-PBE, 6×6×6 k-mesh)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Run total energy at increasing ENCUT:<br />
-          {"  ENCUT (eV) | E_total (eV/atom) | ΔE vs 600 eV"}<br />
+          {fx("  ENCUT (eV) | E_total (eV/atom) | ΔE vs 600 eV")}<br />
           {"  ────────────┼───────────────────┼─────────────"}<br />
           {"  200         | −3.8142           | +58.2 meV"}<br />
           {"  250         | −3.8583           | +14.1 meV"}<br />
@@ -9549,7 +9450,7 @@ function DFTPlaneWavesSection() {
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 500 }}>Cu FCC: find the converged k-mesh (PAW-PBE, ENCUT=400 eV)</span><br /><br />
           <span style={{ fontWeight: 500, color: D.main }}>Step 1:</span> Run total energy at increasing k-mesh density:<br />
-          {"  k-mesh   | k-points (IBZ) | E_total (eV/atom) | ΔE vs 20³"}<br />
+          {fx("  k-mesh   | k-points (IBZ) | E_total (eV/atom) | ΔE vs 20³")}<br />
           {"  ──────────┼────────────────┼───────────────────┼──────────"}<br />
           {"  4×4×4     |     10         | −3.7284           | +32.1 meV"}<br />
           {"  6×6×6     |     28         | −3.7541           | +6.4 meV"}<br />
@@ -9619,53 +9520,53 @@ function DFTHHeExampleSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
 
       {/* HYDROGEN ATOM */}
-      <Card collapsible defaultOpen title="Hydrogen Atom (Z=1, 1 electron) — Exact DFT" color="#398695">
-        <DFT_ANALOGY_BOX text={"Hydrogen (1 electron): the Schrödinger equation is exactly solvable — E₁ = -13.6 eV, orbital = (1/√π)a₀^(-3/2) e^(-r/a₀). DFT must reproduce this exactly if E_xc is perfect. Helium (2 electrons): no exact solution exists, but very accurate benchmarks from variational methods give E = -2.9037 hartree. Comparing DFT approximations against these two atoms reveals exactly how much error each functional introduces — LDA overbinds He by ~40 mHa, PBE by ~20 mHa, exact exchange gets it right."} />
+      <Card collapsible defaultOpen title="Hydrogen Atom (Z=1, 1 electron) — Exact DFT" color="#4994a3">
+        <DFT_ANALOGY_BOX text={fx("Hydrogen (1 electron): the Schrödinger equation is exactly solvable — E₁ = -13.6 eV, orbital = (1/√π)a₀^(-3/2) e^(-r/a₀). DFT must reproduce this exactly if E_xc is perfect. Helium (2 electrons): no exact solution exists, but very accurate benchmarks from variational methods give E = -2.9037 hartree. Comparing DFT approximations against these two atoms reveals exactly how much error each functional introduces — LDA overbinds He by ~40 mHa, PBE by ~20 mHa, exact exchange gets it right.")} />
         <div style={{
-          background: "#398695" + "0a", border: `1.5px solid #39869530`,
+          background: "#4994a3" + "0a", border: `1.5px solid #4994a330`,
           borderRadius: 10, padding: "14px 18px", marginBottom: 14,
-          fontSize: 14, fontWeight: 500, color: "#398695", textAlign: "center", lineHeight: 1.6
+          fontSize: 14, fontWeight: 500, color: "#4994a3", textAlign: "center", lineHeight: 1.6
         }}>
           H is the only atom where DFT is exact — because there{"'"}s only 1 electron!<br />
           No electron-electron interaction → no exchange-correlation needed.
         </div>
 
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
-          <strong style={{ color: "#398695" }}>Step 1: The exact Schrödinger equation for H</strong>
+          <strong style={{ color: "#4994a3" }}>Step 1: The exact Schrödinger equation for H</strong>
         </div>
         <div style={mathBlock}>
           <EqRow>
-            <Bracket color="#398695">
-              <span style={{ color: "#398695", display: "inline-flex", alignItems: "center" }}>
-                −<Frac n={<>ħ<Sup>2</Sup></>} d="2m" color="#398695" />
+            <Bracket color="#4994a3">
+              <span style={{ color: "#4994a3", display: "inline-flex", alignItems: "center" }}>
+                −<Frac n={<>ħ<Sup>2</Sup></>} d="2m" color="#4994a3" />
                 ∇<Sup>2</Sup>
               </span>
-              <span style={{ color: "#3c8e9f", marginLeft: 6, display: "inline-flex", alignItems: "center" }}>
-                − <Frac n={<>e<Sup>2</Sup></>} d="r" color="#3c8e9f" />
+              <span style={{ color: "#50a1b1", marginLeft: 6, display: "inline-flex", alignItems: "center" }}>
+                − <Frac n={<>e<Sup>2</Sup></>} d="r" color="#50a1b1" />
               </span>
             </Bracket>
-            <span style={{ color: "#327785", marginLeft: 4 }}>ψ(r)</span>
+            <span style={{ color: "#378695", marginLeft: 4 }}>ψ(r)</span>
             <span style={{ margin: "0 6px" }}>=</span>
-            <span style={{ color: "#2f6f7c", fontWeight: 500 }}>E</span>
-            <span style={{ color: "#327785", marginLeft: 4 }}>ψ(r)</span>
+            <span style={{ color: "#317583", fontWeight: 500 }}>E</span>
+            <span style={{ color: "#378695", marginLeft: 4 }}>ψ(r)</span>
           </EqRow>
           <div style={{ color: T.muted, fontSize: 12, textAlign: "center" }}>Only 1 electron, so Ψ = ψ(r) — no many-body problem at all!</div>
         </div>
 
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10, marginTop: 10 }}>
-          <strong style={{ color: "#398695" }}>Step 2: Exact analytic solution (1s orbital)</strong>
+          <strong style={{ color: "#4994a3" }}>Step 2: Exact analytic solution (1s orbital)</strong>
         </div>
         <div style={mathBlock}>
           <EqRow>
-            <span style={{ color: "#398695", fontWeight: 500 }}>ψ<Sub>1s</Sub>(r)</span>
+            <span style={{ color: "#4994a3", fontWeight: 500 }}>ψ<Sub>1s</Sub>(r)</span>
             <span style={{ margin: "0 6px" }}>=</span>
-            <Frac n="1" d={<>√π</>} color="#398695" />
-            <span style={{ display: "inline-flex", alignItems: "center", color: "#398695" }}>
-              <Frac n="1" d={<>a<Sub>0</Sub></>} color="#398695" />
+            <Frac n="1" d={<>√π</>} color="#4994a3" />
+            <span style={{ display: "inline-flex", alignItems: "center", color: "#4994a3" }}>
+              <Frac n="1" d={<>a<Sub>0</Sub></>} color="#4994a3" />
               <Sup>3/2</Sup>
             </span>
-            <span style={{ color: "#398695", marginLeft: 4 }}>e</span>
-            <Sup><span style={{ color: "#398695" }}>−r/a<Sub>0</Sub></span></Sup>
+            <span style={{ color: "#4994a3", marginLeft: 4 }}>e</span>
+            <Sup><span style={{ color: "#4994a3" }}>−r/a<Sub>0</Sub></span></Sup>
           </EqRow>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 10 }}>
             <EqRow style={{ fontSize: 14, color: T.muted }}>
@@ -9673,9 +9574,9 @@ function DFTHHeExampleSection() {
               <Frac n={<>ħ<Sup>2</Sup></>} d={<>me<Sup>2</Sup></>} color={T.muted} />
             </EqRow>
             <EqRow style={{ fontSize: 16 }}>
-              <span style={{ color: "#2f6f7c", fontWeight: 500 }}>E<Sub>1s</Sub></span>
+              <span style={{ color: "#317583", fontWeight: 500 }}>E<Sub>1s</Sub></span>
               <span style={{ margin: "0 6px" }}>=</span>
-              <span style={{ color: "#2f6f7c", fontWeight: 500 }}>−13.606 eV</span>
+              <span style={{ color: "#317583", fontWeight: 500 }}>−13.606 eV</span>
               <span style={{ margin: "0 6px" }}>=</span>
               <span style={{ color: T.muted }}>−</span>
               <Frac n={<>me<Sup>4</Sup></>} d={<>2ħ<Sup>2</Sup></>} color={T.muted} />
@@ -9686,19 +9587,19 @@ function DFTHHeExampleSection() {
         </div>
 
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10, marginTop: 10 }}>
-          <strong style={{ color: "#398695" }}>Step 3: DFT for H — why it{"'"}s trivially exact</strong>
+          <strong style={{ color: "#4994a3" }}>Step 3: DFT for H — why it{"'"}s trivially exact</strong>
         </div>
         <div style={mathBlock}>
-          <div style={{ fontWeight: 500, color: "#398695", marginBottom: 6, fontSize: 14 }}>Electron density:</div>
+          <div style={{ fontWeight: 500, color: "#4994a3", marginBottom: 6, fontSize: 14 }}>Electron density:</div>
           <EqRow style={{ fontSize: 15 }}>
             <span>n(r) = |ψ<Sub>1s</Sub>(r)|<Sup>2</Sup></span>
             <span style={{ margin: "0 6px" }}>=</span>
-            <Frac n="1" d={<>πa<Sub>0</Sub><Sup>3</Sup></>} color="#398695" />
+            <Frac n="1" d={<>πa<Sub>0</Sub><Sup>3</Sup></>} color="#4994a3" />
             <span style={{ marginLeft: 4 }}>e</span>
             <Sup>−2r/a<Sub>0</Sub></Sup>
           </EqRow>
 
-          <div style={{ fontWeight: 500, color: "#398695", marginBottom: 6, marginTop: 14, fontSize: 14 }}>Kohn-Sham equation:</div>
+          <div style={{ fontWeight: 500, color: "#4994a3", marginBottom: 6, marginTop: 14, fontSize: 14 }}>Kohn-Sham equation:</div>
           <EqRow>
             <Bracket color={D.eqn}>
               <span style={{ display: "inline-flex", alignItems: "center" }}>
@@ -9711,7 +9612,7 @@ function DFTHHeExampleSection() {
             <span>ε ψ<Sub>KS</Sub>(r)</span>
           </EqRow>
 
-          <div style={{ fontWeight: 500, color: "#3c8e9f", marginBottom: 8, marginTop: 14, fontSize: 14 }}>V<Sub>eff</Sub> breakdown:</div>
+          <div style={{ fontWeight: 500, color: "#50a1b1", marginBottom: 8, marginTop: 14, fontSize: 14 }}>V<Sub>eff</Sub> breakdown:</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingLeft: 8 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <span style={{ color: D.warm, fontWeight: 500, fontFamily: "serif", fontSize: 15, minWidth: 65 }}>V<Sub>ext</Sub>(r)</span>
@@ -9730,20 +9631,20 @@ function DFTHHeExampleSection() {
             </div>
           </div>
 
-          <div style={{ marginTop: 14, background: "#30717f08", borderRadius: 8, padding: "10px 14px", border: "1px solid #30717f15" }}>
-            <div style={{ color: "#30717f", fontWeight: 500, fontSize: 12 }}>Key insight: For 1 electron, V<Sub>xc</Sub> must exactly cancel the Hartree self-interaction.</div>
-            <div style={{ color: "#30717f", fontSize: 12, marginTop: 2 }}>An electron cannot repel itself! This is the self-interaction error test.</div>
+          <div style={{ marginTop: 14, background: "#347d8b08", borderRadius: 8, padding: "10px 14px", border: "1px solid #347d8b15" }}>
+            <div style={{ color: "#347d8b", fontWeight: 500, fontSize: 12 }}>Key insight: For 1 electron, V<Sub>xc</Sub> must exactly cancel the Hartree self-interaction.</div>
+            <div style={{ color: "#347d8b", fontSize: 12, marginTop: 2 }}>An electron cannot repel itself! This is the self-interaction error test.</div>
           </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 12 }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#398695", marginBottom: 2 }}>Energy decomposition (atomic units):</div>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#4994a3", marginBottom: 2 }}>Energy decomposition (atomic units):</div>
           {[
-            { term: "T[n]", val: "+0.5000 Ha", desc: "Kinetic energy = ⟨ψ|−½∇²|ψ⟩", color: "#398695" },
+            { term: "T[n]", val: "+0.5000 Ha", desc: "Kinetic energy = ⟨ψ|−½∇²|ψ⟩", color: "#4994a3" },
             { term: "V_ext[n]", val: "−1.0000 Ha", desc: "Electron-nucleus: ∫ n(r)(−1/r) dr", color: D.warm },
             { term: "V_H[n]", val: "+0.3125 Ha", desc: "Hartree: ½ ∫∫ n(r)n(r′)/|r−r′| drdr′ = 5/16 Ha", color: D.basis },
             { term: "E_xc[n]", val: "−0.3125 Ha", desc: "Exact xc: must cancel V_H for 1 electron", color: D.xc },
-            { term: "E_total", val: "−0.5000 Ha = −13.606 eV", desc: "Exact ground state energy!", color: "#2f6f7c" },
+            { term: "E_total", val: "−0.5000 Ha = −13.606 eV", desc: "Exact ground state energy!", color: "#317583" },
           ].map(item => (
             <div key={item.term} style={{
               display: "flex", alignItems: "center", gap: 10,
@@ -9758,54 +9659,54 @@ function DFTHHeExampleSection() {
         </div>
 
         <div style={{
-          marginTop: 14, background: "#3c8e9f" + "0a", border: `1.5px solid #3c8e9f20`,
+          marginTop: 14, background: "#50a1b1" + "0a", border: `1.5px solid #50a1b120`,
           borderRadius: 10, padding: "12px 16px", fontSize: 12, lineHeight: 1.7, color: T.ink
         }}>
-          <strong style={{ color: "#3c8e9f" }}>Result:</strong> DFT with the <em>exact</em> E<sub>xc</sub> gives
+          <strong style={{ color: "#50a1b1" }}>Result:</strong> DFT with the <em>exact</em> E<sub>xc</sub> gives
           E = −13.606 eV — <strong>exactly matches</strong> the analytic Schrödinger solution.
           Any approximate functional (LDA, PBE) will have a small self-interaction error for H.
         </div>
       </Card>
 
       {/* HELIUM ATOM */}
-      <Card collapsible title="Helium Atom (Z=2, 2 electrons) — The Simplest Many-Body Problem" color="#3c8e9f">
+      <Card collapsible title="Helium Atom (Z=2, 2 electrons) — The Simplest Many-Body Problem" color="#50a1b1">
         <div style={{
-          background: "#3c8e9f" + "0a", border: `1.5px solid #3c8e9f30`,
+          background: "#50a1b1" + "0a", border: `1.5px solid #50a1b130`,
           borderRadius: 10, padding: "14px 18px", marginBottom: 14,
-          fontSize: 14, fontWeight: 500, color: "#3c8e9f", textAlign: "center", lineHeight: 1.6
+          fontSize: 14, fontWeight: 500, color: "#50a1b1", textAlign: "center", lineHeight: 1.6
         }}>
           He is the simplest atom where DFT is NOT trivially exact.<br />
           2 electrons → electron-electron repulsion → correlation matters!
         </div>
 
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
-          <strong style={{ color: "#3c8e9f" }}>Step 1: Exact Schrödinger equation for He</strong>
+          <strong style={{ color: "#50a1b1" }}>Step 1: Exact Schrödinger equation for He</strong>
         </div>
         <div style={mathBlock}>
           <EqRow>
-            <Bracket color="#3c8e9f">
-              <span style={{ color: "#398695", display: "inline-flex", alignItems: "center" }}>
-                −<Frac n="1" d="2" color="#398695" />∇<Sub>1</Sub><Sup>2</Sup>
-                {" "}− <Frac n="1" d="2" color="#398695" />∇<Sub>2</Sub><Sup>2</Sup>
+            <Bracket color="#50a1b1">
+              <span style={{ color: "#4994a3", display: "inline-flex", alignItems: "center" }}>
+                −<Frac n="1" d="2" color="#4994a3" />∇<Sub>1</Sub><Sup>2</Sup>
+                {" "}− <Frac n="1" d="2" color="#4994a3" />∇<Sub>2</Sub><Sup>2</Sup>
               </span>
               <span style={{ color: D.warm, marginLeft: 6, display: "inline-flex", alignItems: "center" }}>
                 − <Frac n="2" d={<>r<Sub>1</Sub></>} color={D.warm} />
                 {" "}− <Frac n="2" d={<>r<Sub>2</Sub></>} color={D.warm} />
               </span>
-              <span style={{ color: "#30717f", marginLeft: 6, display: "inline-flex", alignItems: "center" }}>
-                + <Frac n="1" d={<>|r<Sub>1</Sub> − r<Sub>2</Sub>|</>} color="#30717f" />
+              <span style={{ color: "#347d8b", marginLeft: 6, display: "inline-flex", alignItems: "center" }}>
+                + <Frac n="1" d={<>|r<Sub>1</Sub> − r<Sub>2</Sub>|</>} color="#347d8b" />
               </span>
             </Bracket>
-            <span style={{ color: "#327785", marginLeft: 4 }}>Ψ(r<Sub>1</Sub>,r<Sub>2</Sub>)</span>
+            <span style={{ color: "#378695", marginLeft: 4 }}>Ψ(r<Sub>1</Sub>,r<Sub>2</Sub>)</span>
             <span style={{ margin: "0 6px" }}>=</span>
-            <span style={{ color: "#2f6f7c", fontWeight: 500 }}>E</span>
-            <span style={{ color: "#327785", marginLeft: 4 }}>Ψ</span>
+            <span style={{ color: "#317583", fontWeight: 500 }}>E</span>
+            <span style={{ color: "#378695", marginLeft: 4 }}>Ψ</span>
           </EqRow>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 10 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
-              <span style={{ color: "#398695", fontWeight: 500, minWidth: 14 }}>•</span>
-              <span style={{ color: "#398695" }}>−<Frac n="1" d="2" color="#398695" size={13} />∇<Sub>1</Sub><Sup>2</Sup> − <Frac n="1" d="2" color="#398695" size={13} />∇<Sub>2</Sub><Sup>2</Sup></span>
+              <span style={{ color: "#4994a3", fontWeight: 500, minWidth: 14 }}>•</span>
+              <span style={{ color: "#4994a3" }}>−<Frac n="1" d="2" color="#4994a3" size={13} />∇<Sub>1</Sub><Sup>2</Sup> − <Frac n="1" d="2" color="#4994a3" size={13} />∇<Sub>2</Sub><Sup>2</Sup></span>
               <span style={{ color: T.ink, marginLeft: 6 }}>kinetic energy of 2 electrons</span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
@@ -9814,8 +9715,8 @@ function DFTHHeExampleSection() {
               <span style={{ color: T.ink, marginLeft: 6 }}>nucleus (Z=2) attracts both electrons</span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
-              <span style={{ color: "#30717f", fontWeight: 500, minWidth: 14 }}>•</span>
-              <span style={{ color: "#30717f" }}>+<Frac n="1" d={<>|r<Sub>1</Sub> − r<Sub>2</Sub>|</>} color="#30717f" size={13} /></span>
+              <span style={{ color: "#347d8b", fontWeight: 500, minWidth: 14 }}>•</span>
+              <span style={{ color: "#347d8b" }}>+<Frac n="1" d={<>|r<Sub>1</Sub> − r<Sub>2</Sub>|</>} color="#347d8b" size={13} /></span>
               <span style={{ color: T.ink, marginLeft: 6 }}>electron-electron repulsion (the hard part!)</span>
             </div>
           </div>
@@ -9823,22 +9724,22 @@ function DFTHHeExampleSection() {
         </div>
 
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10, marginTop: 10 }}>
-          <strong style={{ color: "#3c8e9f" }}>Step 2: Approximate solutions (historical progression)</strong>
+          <strong style={{ color: "#50a1b1" }}>Step 2: Approximate solutions (historical progression)</strong>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           {[
             { method: "No e-e repulsion", approx: "Ψ = ψ₁(r₁)ψ₂(r₂), ignore 1/|r₁−r₂|", E: "−108.8 eV", err: "38%", color: T.muted,
               detail: "Each electron sees only Z=2 nucleus. ψ = (Z³/π)½ e^(−Zr/a₀). E = −2Z² × 13.6 eV" },
-            { method: "Variational (Z_eff)", approx: "Ψ same form, optimize Z_eff", E: "−77.5 eV", err: "1.9%", color: "#2f6f7c",
+            { method: "Variational (Z_eff)", approx: "Ψ same form, optimize Z_eff", E: "−77.5 eV", err: "1.9%", color: "#317583",
               detail: "Replace Z=2 with Z_eff=27/16=1.6875. Electron screening! E = −2(Z_eff)² × 13.6 eV" },
-            { method: "Hartree-Fock", approx: "Ψ = det[ψ₁ψ₂], optimized orbitals", E: "−77.87 eV", err: "1.5%", color: "#327785",
+            { method: "Hartree-Fock", approx: "Ψ = det[ψ₁ψ₂], optimized orbitals", E: "−77.87 eV", err: "1.5%", color: "#378695",
               detail: "Self-consistent field with exchange. Missing correlation energy = −1.14 eV" },
             { method: "DFT (LDA)", approx: "n(r) = 2|ψ_KS(r)|², local xc", E: "−77.36 eV", err: "2.2%", color: D.xc,
               detail: "Homogeneous electron gas xc. Overbinds slightly due to self-interaction error" },
             { method: "DFT (PBE/GGA)", approx: "n(r) + ∇n(r) gradient correction", E: "−79.02 eV", err: "0.5%", color: D.main,
               detail: "Gradient correction improves on LDA. Close to exact but still has SIE" },
-            { method: "Exact (Hylleraas)", approx: "Ψ(r₁,r₂,r₁₂) with 1000s of terms", E: "−79.015 eV", err: "0%", color: "#3c8e9f",
+            { method: "Exact (Hylleraas)", approx: "Ψ(r₁,r₂,r₁₂) with 1000s of terms", E: "−79.015 eV", err: "0%", color: "#50a1b1",
               detail: "Variational with interelectronic coordinate r₁₂ = |r₁−r₂|. Converged to μeV accuracy" },
           ].map(item => (
             <div key={item.method} style={{
@@ -9848,7 +9749,7 @@ function DFTHHeExampleSection() {
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 4 }}>
                 <div style={{ fontSize: 12, fontWeight: 500, color: item.color, minWidth: 130 }}>{item.method}</div>
                 <div style={{ fontFamily: "monospace", fontSize: 13, fontWeight: 500, color: T.ink, minWidth: 90 }}>{item.E}</div>
-                <div style={{ fontSize: 11, color: item.err === "0%" ? "#3c8e9f" : D.warn, fontWeight: 500 }}>err: {item.err}</div>
+                <div style={{ fontSize: 11, color: item.err === "0%" ? "#50a1b1" : D.warn, fontWeight: 500 }}>err: {item.err}</div>
               </div>
               <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>{item.detail}</div>
               <div style={{ fontSize: 10, fontFamily: "monospace", color: item.color, marginTop: 2 }}>{item.approx}</div>
@@ -9857,10 +9758,10 @@ function DFTHHeExampleSection() {
         </div>
 
         <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10, marginTop: 14 }}>
-          <strong style={{ color: "#3c8e9f" }}>Step 3: DFT (PBE) for He — step by step</strong>
+          <strong style={{ color: "#50a1b1" }}>Step 3: DFT (PBE) for He — step by step</strong>
         </div>
         <div style={mathBlock}>
-          <div style={{ fontWeight: 500, color: "#3c8e9f", marginBottom: 8, fontSize: 14 }}>Kohn-Sham equation for He:</div>
+          <div style={{ fontWeight: 500, color: "#50a1b1", marginBottom: 8, fontSize: 14 }}>Kohn-Sham equation for He:</div>
           <EqRow>
             <Bracket color={D.eqn}>
               <span style={{ display: "inline-flex", alignItems: "center" }}>
@@ -9874,13 +9775,13 @@ function DFTHHeExampleSection() {
           </EqRow>
           <div style={{ color: T.muted, fontSize: 12, textAlign: "center", marginTop: 4 }}>Both electrons occupy the SAME orbital ψ<Sub>KS</Sub>(r) (with opposite spins ↑↓)</div>
 
-          <div style={{ fontWeight: 500, color: "#3c8e9f", marginBottom: 6, marginTop: 14, fontSize: 14 }}>Density:</div>
+          <div style={{ fontWeight: 500, color: "#50a1b1", marginBottom: 6, marginTop: 14, fontSize: 14 }}>Density:</div>
           <EqRow style={{ fontSize: 16 }}>
             <span>n(r) = 2|ψ<Sub>KS</Sub>(r)|<Sup>2</Sup></span>
             <span style={{ color: T.muted, fontSize: 13, marginLeft: 10 }}>(factor 2 for spin)</span>
           </EqRow>
 
-          <div style={{ fontWeight: 500, color: "#3c8e9f", marginBottom: 8, marginTop: 14, fontSize: 14 }}>V<Sub>eff</Sub> components:</div>
+          <div style={{ fontWeight: 500, color: "#50a1b1", marginBottom: 8, marginTop: 14, fontSize: 14 }}>V<Sub>eff</Sub> components:</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingLeft: 8 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <span style={{ color: D.warm, fontWeight: 500, fontFamily: "serif", fontSize: 15, minWidth: 65 }}>V<Sub>ext</Sub>(r)</span>
@@ -9899,21 +9800,21 @@ function DFTHHeExampleSection() {
             </div>
           </div>
 
-          <div style={{ marginTop: 14, background: "#30717f08", borderRadius: 8, padding: "10px 14px", border: "1px solid #30717f15" }}>
-            <div style={{ color: "#30717f", fontWeight: 500, fontSize: 12 }}>Unlike H: V<Sub>xc</Sub> ≠ −V<Sub>H</Sub> because there are 2 electrons.</div>
-            <div style={{ color: "#30717f", fontSize: 12, marginTop: 2 }}>V<Sub>xc</Sub> contains exchange (same-spin Pauli) + correlation (opposite-spin avoidance).</div>
+          <div style={{ marginTop: 14, background: "#347d8b08", borderRadius: 8, padding: "10px 14px", border: "1px solid #347d8b15" }}>
+            <div style={{ color: "#347d8b", fontWeight: 500, fontSize: 12 }}>Unlike H: V<Sub>xc</Sub> ≠ −V<Sub>H</Sub> because there are 2 electrons.</div>
+            <div style={{ color: "#347d8b", fontSize: 12, marginTop: 2 }}>V<Sub>xc</Sub> contains exchange (same-spin Pauli) + correlation (opposite-spin avoidance).</div>
           </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 12 }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#3c8e9f", marginBottom: 2 }}>He energy decomposition (PBE functional):</div>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#50a1b1", marginBottom: 2 }}>He energy decomposition (PBE functional):</div>
           {[
-            { term: "T_s[n]", val: "+2.8343 Ha", desc: "KS kinetic energy of non-interacting electrons", color: "#398695" },
+            { term: "T_s[n]", val: "+2.8343 Ha", desc: "KS kinetic energy of non-interacting electrons", color: "#4994a3" },
             { term: "V_ext[n]", val: "−6.7372 Ha", desc: "Nucleus (Z=2) attraction: ∫ n(r)(−2/r) dr", color: D.warm },
             { term: "E_H[n]", val: "+2.0490 Ha", desc: "Hartree: ½∫∫ n(r)n(r′)/|r−r′| drdr′", color: D.basis },
-            { term: "E_x[n]", val: "−1.0174 Ha", desc: "Exchange: Pauli exclusion (same-spin avoidance)", color: "#327785" },
+            { term: "E_x[n]", val: "−1.0174 Ha", desc: "Exchange: Pauli exclusion (same-spin avoidance)", color: "#378695" },
             { term: "E_c[n]", val: "−0.0420 Ha", desc: "Correlation: opposite-spin dynamic avoidance", color: D.xc },
-            { term: "E_total", val: "−2.9133 Ha = −79.02 eV", desc: "PBE result (exact: −2.9037 Ha = −79.015 eV)", color: "#3c8e9f" },
+            { term: "E_total", val: "−2.9133 Ha = −79.02 eV", desc: "PBE result (exact: −2.9037 Ha = −79.015 eV)", color: "#50a1b1" },
           ].map(item => (
             <div key={item.term} style={{
               display: "flex", alignItems: "center", gap: 10,
@@ -9932,10 +9833,10 @@ function DFTHHeExampleSection() {
       <Card collapsible title="H vs He — What DFT Teaches Us" color={D.main}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
           <div style={{
-            background: "#398695" + "06", borderRadius: 12, padding: "14px",
-            border: `1.5px solid #39869520`
+            background: "#4994a3" + "06", borderRadius: 12, padding: "14px",
+            border: `1.5px solid #4994a320`
           }}>
-            <div style={{ fontSize: 14, fontWeight: 500, color: "#398695", marginBottom: 8, textAlign: "center" }}>H (1 electron)</div>
+            <div style={{ fontSize: 14, fontWeight: 500, color: "#4994a3", marginBottom: 8, textAlign: "center" }}>H (1 electron)</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
               <div>• Exact Schrödinger solution exists</div>
               <div>• Ψ(r) = single orbital, 3 variables</div>
@@ -9946,10 +9847,10 @@ function DFTHHeExampleSection() {
             </div>
           </div>
           <div style={{
-            background: "#3c8e9f" + "06", borderRadius: 12, padding: "14px",
-            border: `1.5px solid #3c8e9f20`
+            background: "#50a1b1" + "06", borderRadius: 12, padding: "14px",
+            border: `1.5px solid #50a1b120`
           }}>
-            <div style={{ fontSize: 14, fontWeight: 500, color: "#3c8e9f", marginBottom: 8, textAlign: "center" }}>He (2 electrons)</div>
+            <div style={{ fontSize: 14, fontWeight: 500, color: "#50a1b1", marginBottom: 8, textAlign: "center" }}>He (2 electrons)</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 11, color: T.ink, lineHeight: 1.6 }}>
               <div>• No closed-form solution</div>
               <div>• Ψ(r<sub>1</sub>,r<sub>2</sub>) = 6 variables, coupled</div>
@@ -10020,7 +9921,7 @@ function DFTNaExampleSection() {
 
       {/* Na Atom Overview */}
       <Card collapsible defaultOpen title={"Sodium Atom — DFT Step by Step"} color={D.main}>
-        <DFT_ANALOGY_BOX text={"Sodium (Na, 11 electrons): Start with a guess density from superposed atomic orbitals. Iteration 1 builds V_eff, solves 11 KS equations, gets new orbitals 1s² 2s² 2p⁶ 3s¹. The new density differs from the guess, so mix old and new (Pulay mixing) and repeat. By iteration 5-8, the energy changes by less than 10⁻⁶ eV between steps — self-consistency is reached. The final 3s eigenvalue (-5.14 eV with PBE) closely matches Na's ionization energy (5.14 eV experimental)."} />
+        <DFT_ANALOGY_BOX text={fx("Sodium (Na, 11 electrons): Start with a guess density from superposed atomic orbitals. Iteration 1 builds V_eff, solves 11 KS equations, gets new orbitals 1s² 2s² 2p⁶ 3s¹. The new density differs from the guess, so mix old and new (Pulay mixing) and repeat. By iteration 5-8, the energy changes by less than 10⁻⁶ eV between steps — self-consistency is reached. The final 3s eigenvalue (-5.14 eV with PBE) closely matches Na's ionization energy (5.14 eV experimental).")} />
         <div style={{
           background: D.main + "0a", border: `1.5px solid ${D.main}30`,
           borderRadius: 10, padding: "14px 18px", marginBottom: 14,
@@ -10227,9 +10128,9 @@ function DFTNaExampleSection() {
           {scfData.map((s, i) => (
             <button key={i} onClick={() => setScfStep(i)} style={{
               padding: "6px 12px", borderRadius: 8, fontSize: 11, cursor: "pointer",
-              background: scfStep === i ? (s.conv ? "#3c8e9f" + "20" : D.accent + "15") : T.bg,
-              border: `1.5px solid ${scfStep === i ? (s.conv ? "#3c8e9f" : D.accent) : T.border}`,
-              color: scfStep === i ? (s.conv ? "#3c8e9f" : D.accent) : T.muted,
+              background: scfStep === i ? (s.conv ? "#50a1b1" + "20" : D.accent + "15") : T.bg,
+              border: `1.5px solid ${scfStep === i ? (s.conv ? "#50a1b1" : D.accent) : T.border}`,
+              color: scfStep === i ? (s.conv ? "#50a1b1" : D.accent) : T.muted,
               fontWeight: scfStep === i ? 500 : 400, fontFamily: "inherit"
             }}>
               {s.conv ? "✔ " : ""}{i === 0 ? "Guess" : `Iter ${i}`}
@@ -10241,7 +10142,7 @@ function DFTNaExampleSection() {
           {/* Density visualization */}
           <div style={{
             background: T.surface, borderRadius: 14, padding: "16px",
-            border: `1px solid ${step.conv ? "#3c8e9f" + "40" : T.border}`,
+            border: `1px solid ${step.conv ? "#50a1b1" + "40" : T.border}`,
             textAlign: "center"
           }}>
             <div style={{ fontSize: 11, color: T.muted, marginBottom: 10, letterSpacing: 2, textTransform: "none" }}>
@@ -10271,13 +10172,13 @@ function DFTNaExampleSection() {
                 position: "absolute", top: "50%", left: "50%",
                 transform: "translate(-50%, -50%)",
                 width: 12, height: 12, borderRadius: "50%",
-                background: step.conv ? "#3c8e9f" : D.main,
-                boxShadow: `0 0 ${step.conv ? 12 : 6}px ${step.conv ? "#3c8e9f" : D.main}60`,
+                background: step.conv ? "#50a1b1" : D.main,
+                boxShadow: `0 0 ${step.conv ? 12 : 6}px ${step.conv ? "#50a1b1" : D.main}60`,
                 transition: "all 0.5s ease"
               }} />
             </div>
 
-            <div style={{ fontSize: 10, color: step.conv ? "#3c8e9f" : D.accent, fontWeight: 500, marginTop: 8 }}>
+            <div style={{ fontSize: 10, color: step.conv ? "#50a1b1" : D.accent, fontWeight: 500, marginTop: 8 }}>
               {step.n_desc}
             </div>
           </div>
@@ -10285,11 +10186,11 @@ function DFTNaExampleSection() {
           {/* Energy & info */}
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <div style={{
-              background: step.conv ? "#3c8e9f" + "10" : D.accent + "08",
-              border: `1.5px solid ${step.conv ? "#3c8e9f" + "30" : D.accent + "20"}`,
+              background: step.conv ? "#50a1b1" + "10" : D.accent + "08",
+              border: `1.5px solid ${step.conv ? "#50a1b1" + "30" : D.accent + "20"}`,
               borderRadius: 10, padding: "12px 14px"
             }}>
-              <div style={{ fontSize: 14, fontWeight: 500, color: step.conv ? "#3c8e9f" : D.accent, marginBottom: 6 }}>
+              <div style={{ fontSize: 14, fontWeight: 500, color: step.conv ? "#50a1b1" : D.accent, marginBottom: 6 }}>
                 {step.label}
               </div>
               <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.6 }}>{step.desc}</div>
@@ -10298,9 +10199,9 @@ function DFTNaExampleSection() {
             <div style={mathBlock}>
               <span style={{ color: D.eqn, fontWeight: 500 }}>E</span>
               <sub style={{ fontSize: 10 }}>total</sub>
-              {" = "}<span style={{ fontWeight: 500, color: step.conv ? "#3c8e9f" : T.ink }}>{step.E.toFixed(3)} eV</span><br />
+              {" = "}<span style={{ fontWeight: 500, color: step.conv ? "#50a1b1" : T.ink }}>{step.E.toFixed(3)} eV</span><br />
               ΔE = {step.dE} eV<br /><br />
-              {"Convergence: "}<span style={{ color: step.conv ? "#3c8e9f" : D.warn, fontWeight: 500 }}>
+              {"Convergence: "}<span style={{ color: step.conv ? "#50a1b1" : D.warn, fontWeight: 500 }}>
                 {step.conv ? "YES ✔ (ΔE < 10⁻⁶ eV)" : `NO (need ΔE < 10⁻⁶ eV)`}
               </span>
             </div>
@@ -10311,7 +10212,7 @@ function DFTNaExampleSection() {
                 <div style={{
                   height: "100%", borderRadius: 4,
                   width: `${Math.min(100, (scfStep / 5) * 100)}%`,
-                  background: step.conv ? "#3c8e9f" : `linear-gradient(90deg, ${D.accent}, ${D.main})`,
+                  background: step.conv ? "#50a1b1" : `linear-gradient(90deg, ${D.accent}, ${D.main})`,
                   transition: "width 0.5s ease"
                 }} />
               </div>
@@ -10331,7 +10232,7 @@ function DFTNaExampleSection() {
           <tbody>
             {scfData.map((s, i) => (
               <tr key={i} style={{
-                background: i === scfStep ? (s.conv ? "#3c8e9f" + "10" : D.accent + "10") : i % 2 === 0 ? D.accent + "04" : "transparent",
+                background: i === scfStep ? (s.conv ? "#50a1b1" + "10" : D.accent + "10") : i % 2 === 0 ? D.accent + "04" : "transparent",
                 borderBottom: `1px solid ${T.border}55`,
                 fontWeight: i === scfStep ? 500 : 400,
                 cursor: "pointer"
@@ -10339,7 +10240,7 @@ function DFTNaExampleSection() {
                 <td style={{ padding: "6px 8px", color: T.ink }}>{i === 0 ? "Guess" : i}</td>
                 <td style={{ padding: "6px 8px", fontFamily: "monospace", color: i <= scfStep ? T.ink : T.dim }}>{i <= scfStep ? s.E.toFixed(3) : "—"}</td>
                 <td style={{ padding: "6px 8px", fontFamily: "monospace", color: i <= scfStep ? T.ink : T.dim }}>{i <= scfStep ? s.dE : "—"}</td>
-                <td style={{ padding: "6px 8px", color: s.conv && i <= scfStep ? "#3c8e9f" : T.muted }}>{i <= scfStep ? (s.conv ? "✔ Converged" : "Iterating...") : "—"}</td>
+                <td style={{ padding: "6px 8px", color: s.conv && i <= scfStep ? "#50a1b1" : T.muted }}>{i <= scfStep ? (s.conv ? "✔ Converged" : "Iterating...") : "—"}</td>
               </tr>
             ))}
           </tbody>
@@ -10422,17 +10323,17 @@ function BrillouinZoneAnalogy() {
   const [step, setStep] = useState(0);
 
   const steps = [
-    { title: "Step 1: You Know Unit Cells", color: "#347a89" },
-    { title: "Step 2: Brillouin Zone = Unit Cell of k-Space", color: "#3c8e9f" },
-    { title: "Step 3: Special Points — Γ, K, M, X, L", color: "#2f6f7c" },
-    { title: "Step 4: Band Structure = Walking Through the Room", color: "#327785" },
+    { title: "Step 1: You Know Unit Cells", color: "#398a9a" },
+    { title: "Step 2: Brillouin Zone = Unit Cell of k-Space", color: "#50a1b1" },
+    { title: "Step 3: Special Points — Γ, K, M, X, L", color: "#317583" },
+    { title: "Step 4: Band Structure = Walking Through the Room", color: "#378695" },
   ];
 
   const s = steps[step];
 
   return (
-    <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "16px 18px", marginBottom: 14 }}>
-      <div style={{ fontSize: 13, fontWeight: 500, color: "#2f6f7c", marginBottom: 10 }}> Simple Analogy — What is the Brillouin Zone?</div>
+    <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "16px 18px", marginBottom: 14 }}>
+      <div style={{ fontSize: 13, fontWeight: 500, color: "#317583", marginBottom: 10 }}> Simple Analogy — What is the Brillouin Zone?</div>
 
       {/* Step tabs */}
       <div style={{ display: "flex", gap: 6, marginBottom: 14, flexWrap: "wrap" }}>
@@ -10460,21 +10361,21 @@ function BrillouinZoneAnalogy() {
             {[0,1,2,3,4].map(i => (
               <g key={i}>
                 <rect x={20 + i * 75} y={20} width={65} height={65} rx={4}
-                  fill={i === 2 ? "#347a8915" : "#f8fafa"} stroke={i === 2 ? "#347a89" : "#d0dfe2"} strokeWidth={i === 2 ? 2.5 : 1} />
+                  fill={i === 2 ? "#398a9a15" : "#f8fafa"} stroke={i === 2 ? "#398a9a" : "#d0dfe2"} strokeWidth={i === 2 ? 2.5 : 1} />
                 {/* 4 atoms in each cell */}
-                <circle cx={30 + i * 75} cy={30} r={6} fill={i === 2 ? "#347a89" : "#77b1bc"} />
-                <circle cx={55 + i * 75} cy={30} r={6} fill={i === 2 ? "#347a89" : "#77b1bc"} />
-                <circle cx={30 + i * 75} cy={65} r={6} fill={i === 2 ? "#347a89" : "#77b1bc"} />
-                <circle cx={55 + i * 75} cy={65} r={6} fill={i === 2 ? "#347a89" : "#77b1bc"} />
+                <circle cx={30 + i * 75} cy={30} r={6} fill={i === 2 ? "#398a9a" : "#9cc0c7"} />
+                <circle cx={55 + i * 75} cy={30} r={6} fill={i === 2 ? "#398a9a" : "#9cc0c7"} />
+                <circle cx={30 + i * 75} cy={65} r={6} fill={i === 2 ? "#398a9a" : "#9cc0c7"} />
+                <circle cx={55 + i * 75} cy={65} r={6} fill={i === 2 ? "#398a9a" : "#9cc0c7"} />
               </g>
             ))}
-            <text x={52 + 2 * 75} y={105} textAnchor="middle" fontSize={11} fontWeight="500" fill="#347a89" fontFamily="monospace">Unit Cell</text>
-            <text x={52 + 0 * 75} y={105} textAnchor="middle" fontSize={9} fill="#77b1bc">repeat</text>
-            <text x={52 + 4 * 75} y={105} textAnchor="middle" fontSize={9} fill="#77b1bc">repeat</text>
+            <text x={52 + 2 * 75} y={105} textAnchor="middle" fontSize={11} fontWeight="500" fill="#398a9a" fontFamily="monospace">Unit Cell</text>
+            <text x={52 + 0 * 75} y={105} textAnchor="middle" fontSize={9} fill="#9cc0c7">repeat</text>
+            <text x={52 + 4 * 75} y={105} textAnchor="middle" fontSize={9} fill="#9cc0c7">repeat</text>
           </svg>
-          <div style={{ marginTop: 10, background: "#f2f6f7", borderRadius: 8, padding: "10px 14px", border: "1px solid #347a8922" }}>
+          <div style={{ marginTop: 10, background: "#f2f6f7", borderRadius: 8, padding: "10px 14px", border: "1px solid #398a9a22" }}>
             <div style={{ fontSize: 12, lineHeight: 1.7, color: T.ink }}>
-              <strong style={{ color: "#347a89" }}>Key idea:</strong> Because the crystal repeats, you only study <strong>one box</strong> (the unit cell). Everything outside is just a copy.
+              <strong style={{ color: "#398a9a" }}>Key idea:</strong> Because the crystal repeats, you only study <strong>one box</strong> (the unit cell). Everything outside is just a copy.
             </div>
           </div>
         </div>
@@ -10487,16 +10388,16 @@ function BrillouinZoneAnalogy() {
             Electrons in a crystal are <strong>waves</strong>. Each wave has a direction and wavelength described by a vector <strong>k</strong>. Just like atom positions repeat, <strong>electron wave behaviors also repeat</strong>. The <strong>Brillouin Zone</strong> is the one box in k-space that contains all unique wave behaviors.
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-            <div style={{ background: "#f2f6f7", borderRadius: 10, padding: "14px", border: "1.5px solid #347a8922", textAlign: "center" }}>
-              <div style={{ fontSize: 13, fontWeight: 500, color: "#347a89", marginBottom: 8 }}>Real Space</div>
+            <div style={{ background: "#f2f6f7", borderRadius: 10, padding: "14px", border: "1.5px solid #398a9a22", textAlign: "center" }}>
+              <div style={{ fontSize: 13, fontWeight: 500, color: "#398a9a", marginBottom: 8 }}>Real Space</div>
               <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7 }}>
                 Atoms repeat every <strong>a</strong> angstroms<br/>
                 Unit cell = smallest repeating box<br/>
                 Contains: <strong>atom positions</strong>
               </div>
             </div>
-            <div style={{ background: "#f7f9fa", borderRadius: 10, padding: "14px", border: "1.5px solid #3c8e9f22", textAlign: "center" }}>
-              <div style={{ fontSize: 13, fontWeight: 500, color: "#3c8e9f", marginBottom: 8 }}>k-Space (Momentum Space)</div>
+            <div style={{ background: "#f7f9fa", borderRadius: 10, padding: "14px", border: "1.5px solid #50a1b122", textAlign: "center" }}>
+              <div style={{ fontSize: 13, fontWeight: 500, color: "#50a1b1", marginBottom: 8 }}>k-Space (Momentum Space)</div>
               <div style={{ fontSize: 12, color: T.ink, lineHeight: 1.7 }}>
                 Wave behaviors repeat every <strong>2π/a</strong><br/>
                 Brillouin Zone = smallest repeating box<br/>
@@ -10504,9 +10405,9 @@ function BrillouinZoneAnalogy() {
               </div>
             </div>
           </div>
-          <div style={{ marginTop: 10, background: "#f0f4f5", borderRadius: 8, padding: "10px 14px", border: "1px solid #71adb922" }}>
+          <div style={{ marginTop: 10, background: "#f0f4f5", borderRadius: 8, padding: "10px 14px", border: "1px solid #98bec522" }}>
             <div style={{ fontSize: 12, lineHeight: 1.7, color: T.ink }}>
-              <strong style={{ color: "#2f6f7c" }}>Think of it this way:</strong> Unit cell is the smallest box for <em>where atoms are</em>. Brillouin Zone is the smallest box for <em>how electrons behave</em>. Same idea, different space.
+              <strong style={{ color: "#317583" }}>Think of it this way:</strong> Unit cell is the smallest box for <em>where atoms are</em>. Brillouin Zone is the smallest box for <em>how electrons behave</em>. Same idea, different space.
             </div>
           </div>
         </div>
@@ -10521,11 +10422,11 @@ function BrillouinZoneAnalogy() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {[
-              { label: "Γ (Gamma)", where: "Dead center of the BZ", meaning: "Longest possible wavelength. All unit cells in the crystal do the same thing simultaneously. Like all atoms breathing in and out together.", color: "#347a89", icon: "●" },
-              { label: "X", where: "Center of a face (square face edge)", meaning: "Wavelength = 2a (twice the lattice spacing). The wave flips sign between neighboring cells in one direction. In Si, the conduction band minimum is near X — determines if bandgap is indirect.", color: "#3c8e9f", icon: "■" },
-              { label: "M", where: "Center of an edge", meaning: "Wave flips in TWO directions. Neighboring cells along both x and y have opposite signs. Short wavelength, high energy region. Important in 2D materials like graphene.", color: "#2f6f7c", icon: "◆" },
-              { label: "K", where: "Corner of hexagonal face", meaning: "Highest symmetry corner point. In graphene, the famous Dirac cones (zero bandgap) occur exactly at K. This is where graphene gets its special electronic properties.", color: "#327785", icon: "▲" },
-              { label: "L", where: "Center of hexagonal face (FCC)", meaning: "Wave flips along the body diagonal (111 direction). In GaAs and many III-V semiconductors, L-point valleys affect high-field transport.", color: "#30717f", icon: "●" },
+              { label: "Γ (Gamma)", where: "Dead center of the BZ", meaning: "Longest possible wavelength. All unit cells in the crystal do the same thing simultaneously. Like all atoms breathing in and out together.", color: "#398a9a", icon: "●" },
+              { label: "X", where: "Center of a face (square face edge)", meaning: "Wavelength = 2a (twice the lattice spacing). The wave flips sign between neighboring cells in one direction. In Si, the conduction band minimum is near X — determines if bandgap is indirect.", color: "#50a1b1", icon: "■" },
+              { label: "M", where: "Center of an edge", meaning: "Wave flips in TWO directions. Neighboring cells along both x and y have opposite signs. Short wavelength, high energy region. Important in 2D materials like graphene.", color: "#317583", icon: "◆" },
+              { label: "K", where: "Corner of hexagonal face", meaning: "Highest symmetry corner point. In graphene, the famous Dirac cones (zero bandgap) occur exactly at K. This is where graphene gets its special electronic properties.", color: "#378695", icon: "▲" },
+              { label: "L", where: "Center of hexagonal face (FCC)", meaning: "Wave flips along the body diagonal (111 direction). In GaAs and many III-V semiconductors, L-point valleys affect high-field transport.", color: "#347d8b", icon: "●" },
             ].map(pt => (
               <div key={pt.label} style={{ background: pt.color + "08", border: `1.5px solid ${pt.color}20`,  borderRadius: 10, padding: "10px 14px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
@@ -10538,9 +10439,9 @@ function BrillouinZoneAnalogy() {
             ))}
           </div>
 
-          <div style={{ marginTop: 10, background: "#f0f4f5", borderRadius: 8, padding: "10px 14px", border: "1px solid #71adb922" }}>
+          <div style={{ marginTop: 10, background: "#f0f4f5", borderRadius: 8, padding: "10px 14px", border: "1px solid #98bec522" }}>
             <div style={{ fontSize: 12, lineHeight: 1.7, color: T.ink }}>
-              <strong style={{ color: "#2f6f7c" }}>Room analogy:</strong> The BZ is a room. <strong>Γ</strong> is the center of the room. <strong>X</strong> is the middle of a wall. <strong>M</strong> is where two walls meet at the floor. <strong>K</strong> is a corner where three walls meet. <strong>L</strong> is the middle of a slanted wall. Each location tells you something different about how electrons behave.
+              <strong style={{ color: "#317583" }}>Room analogy:</strong> The BZ is a room. <strong>Γ</strong> is the center of the room. <strong>X</strong> is the middle of a wall. <strong>M</strong> is where two walls meet at the floor. <strong>K</strong> is a corner where three walls meet. <strong>L</strong> is the middle of a slanted wall. Each location tells you something different about how electrons behave.
             </div>
           </div>
         </div>
@@ -10561,36 +10462,36 @@ function BrillouinZoneAnalogy() {
 
             {/* K-point labels */}
             {[{x: 50, l: "Γ"}, {x: 130, l: "X"}, {x: 210, l: "M"}, {x: 290, l: "K"}, {x: 370, l: "Γ"}].map(p => (
-              <text key={p.l + p.x} x={p.x} y={175} textAnchor="middle" fontSize={12} fontWeight="500" fill="#2f6f7c">{p.l}</text>
+              <text key={p.l + p.x} x={p.x} y={175} textAnchor="middle" fontSize={12} fontWeight="500" fill="#317583">{p.l}</text>
             ))}
 
             {/* Valence band (parabola going up) */}
-            <path d="M50,110 Q90,95 130,90 Q170,85 210,100 Q250,80 290,75 Q330,85 370,110" fill="none" stroke="#347a89" strokeWidth={2.5} />
-            <text x={360} y={105} fontSize={9} fill="#347a89" fontWeight="500">VB</text>
+            <path d="M50,110 Q90,95 130,90 Q170,85 210,100 Q250,80 290,75 Q330,85 370,110" fill="none" stroke="#398a9a" strokeWidth={2.5} />
+            <text x={360} y={105} fontSize={9} fill="#398a9a" fontWeight="500">VB</text>
 
             {/* Conduction band */}
-            <path d="M50,60 Q90,50 130,45 Q170,55 210,50 Q250,40 290,35 Q330,45 370,60" fill="none" stroke="#30717f" strokeWidth={2.5} />
-            <text x={360} y={55} fontSize={9} fill="#30717f" fontWeight="500">CB</text>
+            <path d="M50,60 Q90,50 130,45 Q170,55 210,50 Q250,40 290,35 Q330,45 370,60" fill="none" stroke="#347d8b" strokeWidth={2.5} />
+            <text x={360} y={55} fontSize={9} fill="#347d8b" fontWeight="500">CB</text>
 
             {/* Bandgap arrow */}
-            <line x1={130} y1={90} x2={130} y2={45} stroke="#3c8e9f" strokeWidth={1.5} strokeDasharray="4,3" />
-            <text x={145} y={70} fontSize={9} fill="#3c8e9f" fontWeight="500">Bandgap</text>
+            <line x1={130} y1={90} x2={130} y2={45} stroke="#50a1b1" strokeWidth={1.5} strokeDasharray="4,3" />
+            <text x={145} y={70} fontSize={9} fill="#50a1b1" fontWeight="500">Bandgap</text>
 
             {/* Walking person emoji at current step */}
             <text x={210} y={155} textAnchor="middle" fontSize={14}></text>
           </svg>
 
           <div style={{ marginTop: 10, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-            <div style={{ background: "#f2f6f7", borderRadius: 8, padding: "10px 14px", border: "1px solid #347a8922" }}>
-              <div style={{ fontSize: 11, fontWeight: 500, color: "#347a89", marginBottom: 4 }}>What you learn from the walk:</div>
+            <div style={{ background: "#f2f6f7", borderRadius: 8, padding: "10px 14px", border: "1px solid #398a9a22" }}>
+              <div style={{ fontSize: 11, fontWeight: 500, color: "#398a9a", marginBottom: 4 }}>What you learn from the walk:</div>
               <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
                 • Where the bandgap is smallest<br/>
                 • Whether it{"'"}s direct (Γ→Γ) or indirect (Γ→X)<br/>
                 • How heavy/light the electrons are (curve shape)
               </div>
             </div>
-            <div style={{ background: "#f0f4f5", borderRadius: 8, padding: "10px 14px", border: "1px solid #71adb922" }}>
-              <div style={{ fontSize: 11, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>KPOINTS = Resolution</div>
+            <div style={{ background: "#f0f4f5", borderRadius: 8, padding: "10px 14px", border: "1px solid #98bec522" }}>
+              <div style={{ fontSize: 11, fontWeight: 500, color: "#317583", marginBottom: 4 }}>KPOINTS = Resolution</div>
               <div style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>
                 KPOINTS is how many steps you take on this walk.<br/>
                 More steps = smoother curve = more accurate energies.<br/>
@@ -10651,17 +10552,17 @@ function DFTSCFWalkthroughSection() {
           From n⁰(<strong>r</strong>), compute the three pieces of v<sub>KS</sub>:
         </div>
         <div style={mathBlock}>
-          <span style={{ color: D.basis, fontWeight: 500, fontFamily: "Georgia, serif" }}>v<sub>ext</sub>(<strong>r</strong>) = −Z/r = −2/r</span><br />
+          <span style={{ color: D.basis, fontWeight: 500, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>v<sub>ext</sub>(<strong>r</strong>) = −Z/r = −2/r</span><br />
           <span style={{ color: T.muted }}>Nuclear attraction (known exactly, never changes)</span><br /><br />
-          <span style={{ color: D.main, fontWeight: 500, fontFamily: "Georgia, serif" }}>v<sub>H</sub>(<strong>r</strong>) = ∫ n⁰(<strong>r</strong>′)/|<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>′</span><br />
+          <span style={{ color: D.main, fontWeight: 500, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>v<sub>H</sub>(<strong>r</strong>) = ∫ n⁰(<strong>r</strong>′)/|<strong>r</strong>−<strong>r</strong>′| d<strong>r</strong>′</span><br />
           <span style={{ color: T.muted }}>Hartree potential from guess density (solve Poisson equation)</span><br />
           <span style={{ color: T.muted }}>At r = 0: v<sub>H</sub>(0) = 1.985 hartree (numerical integration)</span><br />
           <span style={{ color: T.muted }}>At r = 1: v<sub>H</sub>(1) = 0.573 hartree</span><br /><br />
-          <span style={{ color: D.xc, fontWeight: 500, fontFamily: "Georgia, serif" }}>v<sub>xc</sub>(<strong>r</strong>) = δE<sub>xc</sub>[n⁰]/δn (from LDA formula)</span><br />
-          <span style={{ color: T.muted, fontFamily: "Georgia, serif" }}>Using Slater exchange: v<sub>x</sub>(<strong>r</strong>) = −(3/π)<sup>1/3</sup> × n(<strong>r</strong>)<sup>1/3</sup> × (4/3)</span><br />
+          <span style={{ color: D.xc, fontWeight: 500, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>v<sub>xc</sub>(<strong>r</strong>) = δE<sub>xc</sub>[n⁰]/δn (from LDA formula)</span><br />
+          <span style={{ color: T.muted, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>Using Slater exchange: v<sub>x</sub>(<strong>r</strong>) = −(3/π)<sup>1/3</sup> × n(<strong>r</strong>)<sup>1/3</sup> × (4/3)</span><br />
           <span style={{ color: T.muted }}>At r = 0: v<sub>xc</sub>(0) = −1.376 hartree</span><br />
           <span style={{ color: T.muted }}>At r = 1: v<sub>xc</sub>(1) = −0.548 hartree</span><br /><br />
-          <span style={{ color: D.accent, fontWeight: 500, fontFamily: "Georgia, serif" }}>v<sub>KS</sub>(<strong>r</strong>) = v<sub>ext</sub> + v<sub>H</sub> + v<sub>xc</sub></span><br />
+          <span style={{ color: D.accent, fontWeight: 500, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>v<sub>KS</sub>(<strong>r</strong>) = v<sub>ext</sub> + v<sub>H</sub> + v<sub>xc</sub></span><br />
           <span style={{ color: D.accent }}>At r = 0: v<sub>KS</sub>(0) = −∞ + 1.985 − 1.376 (dominated by −Z/r)</span><br />
           <span style={{ color: D.accent }}>At r = 1: v<sub>KS</sub>(1) = −2.0 + 0.573 − 0.548 = −1.975 hartree</span>
         </div>
@@ -10783,7 +10684,7 @@ function DFTBandsDOSSection() {
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.eqn, fontWeight: 500 }}>From the KS equations, at each k-point:</span><br /><br />
-          <span style={{ color: D.eqn, fontFamily: "Georgia, serif" }}>[−<sup>1</sup>&frasl;<sub>2</sub> ∇² + v<sub>KS</sub>(<strong>r</strong>)] ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>) = ε<sub>n<strong>k</strong></sub> ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>)</span><br /><br />
+          <span style={{ color: D.eqn, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>[−<sup>1</sup>&frasl;<sub>2</sub> ∇² + v<sub>KS</sub>(<strong>r</strong>)] ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>) = ε<sub>n<strong>k</strong></sub> ψ<sub>n<strong>k</strong></sub>(<strong>r</strong>)</span><br /><br />
           <span style={{ color: T.muted }}>n = band index (1, 2, 3, ... for each orbital)</span><br />
           <span style={{ color: T.muted }}><strong>k</strong> = crystal momentum vector (point in the Brillouin zone)</span><br />
           <span style={{ color: T.muted }}>ε<sub>n<strong>k</strong></sub> = KS eigenvalue = energy of band n at k-point <strong>k</strong></span><br />
@@ -10818,16 +10719,16 @@ function DFTBandsDOSSection() {
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.xc, fontWeight: 500 }}>Total DOS:</span><br /><br />
-          <span style={{ color: D.xc, fontFamily: "Georgia, serif" }}>g(E) = Σ<sub>n</sub> ∫<sub>BZ</sub> δ(E − ε<sub>n<strong>k</strong></sub>) d<strong>k</strong> / (2π)³</span><br /><br />
+          <span style={{ color: D.xc, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>g(E) = Σ<sub>n</sub> ∫<sub>BZ</sub> δ(E − ε<sub>n<strong>k</strong></sub>) d<strong>k</strong> / (2π)³</span><br /><br />
           <span style={{ color: T.muted }}>g(E) = number of states per unit energy per unit volume</span><br />
           <span style={{ color: T.muted }}>δ(E − ε<sub>n<strong>k</strong></sub>) = Dirac delta (counts states at energy E)</span><br />
           <span style={{ color: T.muted }}>The integral runs over the entire Brillouin zone</span><br />
           <span style={{ color: T.muted }}>The sum runs over all bands n</span><br /><br />
           <span style={{ color: D.xc, fontWeight: 500 }}>In practice (discrete k-mesh):</span><br /><br />
-          <span style={{ color: D.xc, fontFamily: "Georgia, serif" }}>g(E) = (<sup>1</sup>&frasl;<sub>N<sub>k</sub></sub>) Σ<sub>n</sub> Σ<sub><strong>k</strong></sub> δ(E − ε<sub>n<strong>k</strong></sub>)</span><br /><br />
+          <span style={{ color: D.xc, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>g(E) = (<sup>1</sup>&frasl;<sub>N<sub>k</sub></sub>) Σ<sub>n</sub> Σ<sub><strong>k</strong></sub> δ(E − ε<sub>n<strong>k</strong></sub>)</span><br /><br />
           <span style={{ color: T.muted }}>N<sub>k</sub> = total number of k-points in the mesh</span><br />
           <span style={{ color: T.muted }}>The delta function is broadened (Gaussian or Lorentzian) for smooth plots:</span><br /><br />
-          <span style={{ color: D.accent, fontFamily: "Georgia, serif" }}>δ(x) → (<sup>1</sup>&frasl;<sub>σ√(2π)</sub>) × exp(−x² / 2σ²)</span><br />
+          <span style={{ color: D.accent, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>δ(x) → (<sup>1</sup>&frasl;<sub>σ√(2π)</sub>) × exp(−x² / 2σ²)</span><br />
           <span style={{ color: T.muted }}>sigma = smearing width (typically 0.05-0.2 eV)</span><br />
           <span style={{ color: T.muted }}>Too small sigma = noisy. Too large = features washed out.</span>
         </div>
@@ -10840,7 +10741,7 @@ function DFTBandsDOSSection() {
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.accent, fontWeight: 500 }}>Projected DOS onto atom A, orbital l:</span><br /><br />
-          <span style={{ color: D.accent, fontFamily: "Georgia, serif" }}>g<sub>Al</sub>(E) = (<sup>1</sup>&frasl;<sub>N<sub>k</sub></sub>) Σ<sub>n</sub> Σ<sub><strong>k</strong></sub> |⟨Y<sub>lm</sub><sup>A</sup> | ψ<sub>n<strong>k</strong></sub>⟩|² × δ(E − ε<sub>n<strong>k</strong></sub>)</span><br /><br />
+          <span style={{ color: D.accent, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>g<sub>Al</sub>(E) = (<sup>1</sup>&frasl;<sub>N<sub>k</sub></sub>) Σ<sub>n</sub> Σ<sub><strong>k</strong></sub> |⟨Y<sub>lm</sub><sup>A</sup> | ψ<sub>n<strong>k</strong></sub>⟩|² × δ(E − ε<sub>n<strong>k</strong></sub>)</span><br /><br />
           <span style={{ color: T.muted }}>Y<sub>lm</sub><sup>A</sup> = spherical harmonic centred on atom A</span><br />
           <span style={{ color: T.muted }}>l = 0 (s), 1 (p), 2 (d), 3 (f)</span><br />
           <span style={{ color: T.muted }}>|⟨Y<sub>lm</sub> | ψ<sub>n<strong>k</strong></sub>⟩|² = weight of orbital character in state n<strong>k</strong></span><br /><br />
@@ -11020,7 +10921,7 @@ function DFTBandsDOSSection() {
         </div>
         <div style={mathBlock}>
           <span style={{ color: D.xc, fontWeight: 500 }}>Step 1: Sample many k-points (20 evenly spaced)</span><br /><br />
-          <span style={{ color: T.muted }}>{"k_i = i × π/(20a), for i = 0, 1, 2, ..., 19"}</span><br />
+          <span style={{ color: T.muted }}>{fx("k_i = i × π/(20a), for i = 0, 1, 2, ..., 19")}</span><br />
           <span style={{ color: T.muted }}>At each k, compute ε(k) = -13.6 + 2(-3.0)cos(ka)</span><br /><br />
           <span style={{ color: D.xc, fontWeight: 500 }}>Step 2: All 20 eigenvalues:</span><br /><br />
           <span style={{ color: T.muted }}>{"ε₁  = -19.60 eV (k=0)"}</span><br />
@@ -11123,13 +11024,13 @@ function DFTBandsDOSSection() {
           <span style={{ color: D.warm, fontWeight: 500 }}>Projected DOS:</span><br />
           <span style={{ color: D.accent }}>g_Al(E) = (1/V_BZ) sum_n integral_BZ |{"<"}phi_Al | psi_nk{">"}|^2 delta(E - epsilon_nk) dk</span><br /><br />
           <span style={{ color: D.warm, fontWeight: 500 }}>Number of electrons (check):</span><br />
-          <span style={{ color: D.basis }}>N_e = integral_{"{-inf}"}^{"{E_F}"} g(E) dE</span><br />
+          <span style={{ color: D.basis }}>N_e = integral_{"{-inf}"}^{fx("{E_F}")} g(E) dE</span><br />
           <span style={{ color: T.muted }}>Must equal the total number of electrons in the cell!</span><br /><br />
           <span style={{ color: D.warm, fontWeight: 500 }}>Effective mass:</span><br />
           <span style={{ color: D.eqn }}>m*_ij = hbar<sup>2</sup> / (d<sup>2E</sup> / dk<sub>i</sub> dk<sub>j</sub>)</span><br />
           <span style={{ color: T.muted }}>Tensor: different in different directions (anisotropic)</span><br /><br />
           <span style={{ color: D.warm, fontWeight: 500 }}>Carrier concentration (semiconductors):</span><br />
-          <span style={{ color: D.main }}>n = integral_{"{E_c}"}^{"{inf}"} g(E) f(E) dE</span><br />
+          <span style={{ color: D.main }}>n = integral_{fx("{E_c}")}^{"{inf}"} g(E) f(E) dE</span><br />
           <span style={{ color: T.muted }}>f(E) = 1 / (1 + exp((E - E<sub>F</sub>)/k<sub>BT</sub>))  (Fermi-Dirac distribution)</span><br />
           <span style={{ color: T.muted }}>At T = 0: f = 1 below E<sub>F</sub>, f = 0 above E<sub>F</sub> (sharp step)</span><br />
           <span style={{ color: T.muted }}>At T {">"} 0: thermal tail populates conduction band</span>
@@ -11249,7 +11150,7 @@ function MDIntroSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <FAQAccordion title="What is Molecular Dynamics?" color={MD.main} isOpen={openItem === "intro_what"} onClick={() => toggle("intro_what")}>
-          <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine you have a box of 1000 atoms. You know every atom{"'"}s position and the forces between them. MD is like pressing {"'"}play{"'"} — Newton{"'"}s laws tell each atom where to move next. You advance time in tiny steps (femtoseconds), and watch the atoms bounce, vibrate, diffuse, and melt.</span></div>
+          <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine you have a box of 1000 atoms. You know every atom{"'"}s position and the forces between them. MD is like pressing {"'"}play{"'"} — Newton{"'"}s laws tell each atom where to move next. You advance time in tiny steps (femtoseconds), and watch the atoms bounce, vibrate, diffuse, and melt.</span></div>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink }}>
             DFT gives you the ground state at T = 0 K. But real materials exist at finite temperature: atoms vibrate, diffuse, and undergo phase transitions. MD simulates this by propagating atomic trajectories forward in time.
           </div>
@@ -11340,18 +11241,18 @@ function MDIntroSection() {
           <div style={mdMathBlock}>
             <span style={{ color: MD.main, fontWeight: 500 }}>Initialize velocities from Gaussian distribution</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 1:</span> RMS velocity from equipartition:<br />
-            {"  ½ m v² = ³⁄₂ k_B T  →  v_rms = √(3 k_B T / m)"}<br />
+            {fx("  ½ m v² = ³⁄₂ k_B T  →  v_rms = √(3 k_B T / m)")}<br />
             {"  m(Cu) = 63.546 amu = 63.546 × 1.661×10⁻²⁷ = 1.056×10⁻²⁵ kg"}<br />
-            {"  k_B T = 1.381×10⁻²³ × 300 = 4.143×10⁻²¹ J"}<br />
-            {"  v_rms = √(3 × 4.143×10⁻²¹ / 1.056×10⁻²⁵) = "}<span style={{ color: MD.main, fontWeight: 500 }}>{"343 m/s"}</span><br /><br />
+            {fx("  k_B T = 1.381×10⁻²³ × 300 = 4.143×10⁻²¹ J")}<br />
+            {fx("  v_rms = √(3 × 4.143×10⁻²¹ / 1.056×10⁻²⁵) = ")}<span style={{ color: MD.main, fontWeight: 500 }}>{"343 m/s"}</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 2:</span> Each velocity component drawn from Gaussian:<br />
-            {"  σ_v = √(k_B T / m) = 343/√3 = 198 m/s"}<br />
-            {"  v_x ~ N(0, 198²),  v_y ~ N(0, 198²),  v_z ~ N(0, 198²)"}<br /><br />
+            {fx("  σ_v = √(k_B T / m) = 343/√3 = 198 m/s")}<br />
+            {fx("  v_x ~ N(0, 198²),  v_y ~ N(0, 198²),  v_z ~ N(0, 198²)")}<br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 3:</span> Sample 3 components for atom #1:<br />
-            {"  v_x = +142 m/s,  v_y = −231 m/s,  v_z = +87 m/s"}<br />
+            {fx("  v_x = +142 m/s,  v_y = −231 m/s,  v_z = +87 m/s")}<br />
             {"  |v| = √(142² + 231² + 87²) = 286 m/s"}<br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 4:</span> Remove center-of-mass velocity:<br />
-            {"  v_COM = (1/N) Σ v_i → subtract from all atoms"}<br />
+            {fx("  v_COM = (1/N) Σ v_i → subtract from all atoms")}<br />
             {"  This ensures the crystal doesn't drift through space"}<br /><br />
             <span style={{ color: T.muted }}>At 300 K, Cu atoms move at ~343 m/s ≈ 0.034 Å/fs — tiny per timestep!</span>
           </div>
@@ -11360,9 +11261,9 @@ function MDIntroSection() {
           <div style={mdMathBlock}>
             <span style={{ color: MD.main, fontWeight: 500 }}>Si atom at 1000 K, Δt = 2 fs</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 1:</span> Thermal velocity:<br />
-            {"  v_rms = √(3 k_B T / m_Si) = √(3 × 8.617×10⁻⁵ × 1000 / 28) eV/amu"}<br />
-            {"  Convert: v_rms = √(3 × 1.381×10⁻²³ × 1000 / (28 × 1.661×10⁻²⁷))"}<br />
-            {"  v_rms = "}<span style={{ color: MD.main, fontWeight: 500 }}>{"944 m/s"}</span><br /><br />
+            {fx("  v_rms = √(3 k_B T / m_Si) = √(3 × 8.617×10⁻⁵ × 1000 / 28) eV/amu")}<br />
+            {fx("  Convert: v_rms = √(3 × 1.381×10⁻²³ × 1000 / (28 × 1.661×10⁻²⁷))")}<br />
+            {fx("  v_rms = ")}<span style={{ color: MD.main, fontWeight: 500 }}>{"944 m/s"}</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 2:</span> Displacement in one step (no force):<br />
             {"  Δr ≈ v × Δt = 944 × 2×10⁻¹⁵ = 1.89×10⁻¹² m = "}<span style={{ color: MD.main, fontWeight: 500 }}>{"0.019 Å"}</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 3:</span> Compare to bond length:<br />
@@ -11381,7 +11282,7 @@ function MDIntroSection() {
             {"  t = MSD / (6D) = 6.25×10⁻¹⁶ / (6 × 10⁻⁹)"}<br />
             {"  t = 1.04×10⁻⁷ s = "}<span style={{ color: MD.main, fontWeight: 500 }}>{"104 ns"}</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 3:</span> MD steps needed (Δt = 2 fs):<br />
-            {"  N_steps = 104×10⁻⁹ / 2×10⁻¹⁵ = "}<span style={{ color: MD.warn, fontWeight: 500 }}>{"52 million steps!"}</span><br /><br />
+            {fx("  N_steps = 104×10⁻⁹ / 2×10⁻¹⁵ = ")}<span style={{ color: MD.warn, fontWeight: 500 }}>{"52 million steps!"}</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 4:</span> AIMD at ~60 s/step: 52M × 60 = 3.1 billion seconds ≈ 100 years<br />
             {"  MLFF at ~0.01 s/step: 52M × 0.01 = 520,000 s ≈ "}<span style={{ color: MD.main, fontWeight: 500 }}>{"6 days"}</span><br /><br />
             <span style={{ color: T.muted }}>Slow diffusion processes REQUIRE MLFF or classical MD — AIMD is far too expensive.</span>
@@ -11408,7 +11309,7 @@ function MDNewtonSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <FAQAccordion title="Newton's Second Law for Atoms" color={MD.newton} isOpen={openItem === "newton_fma"} onClick={() => toggle("newton_fma")}>
-          <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Every atom feels forces from its neighbors — attractions from bonds, repulsions when too close. F = ma tells you the acceleration. If a Cu atom feels 2 eV/Å of force and weighs 63.5 amu, you can calculate exactly how fast it accelerates. Multiply by a tiny time step, and you know where it moves next. Do this for every atom simultaneously, and you have MD.</span></div>
+          <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Every atom feels forces from its neighbors — attractions from bonds, repulsions when too close. F = ma tells you the acceleration. If a Cu atom feels 2 eV/Å of force and weighs 63.5 amu, you can calculate exactly how fast it accelerates. Multiply by a tiny time step, and you know where it moves next. Do this for every atom simultaneously, and you have MD.</span></div>
           <div style={mdMathBlock}>
             <div style={{ textAlign: "center", marginBottom: 12 }}>
               <span style={{ color: MD.newton, fontWeight: 500, fontSize: 18, letterSpacing: 1 }}>F</span>
@@ -11530,7 +11431,7 @@ function MDVerletSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <FAQAccordion title="Velocity Verlet Algorithm (Most Used)" color={MD.newton} isOpen={openItem === "verlet_algo"} onClick={() => toggle("verlet_algo")}>
-          <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>You can{"'"}t solve F = ma analytically for 1000 interacting atoms. Instead, you take tiny time steps: know where the atom is now, know its velocity, compute the force {"→"} predict where it will be 1 fs later. The Velocity Verlet algorithm does this while perfectly conserving total energy — like a perfectly elastic billiards table where no energy is ever lost.</span></div>
+          <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>You can{"'"}t solve F = ma analytically for 1000 interacting atoms. Instead, you take tiny time steps: know where the atom is now, know its velocity, compute the force {"→"} predict where it will be 1 fs later. The Velocity Verlet algorithm does this while perfectly conserving total energy — like a perfectly elastic billiards table where no energy is ever lost.</span></div>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             The standard integration algorithm in almost all MD codes. Time-reversible, symplectic
             (conserves energy), and simple to implement.
@@ -11775,7 +11676,7 @@ function MDEnsemblesSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <FAQAccordion title="Ensemble Selector & Animation" color={MD.newton} isOpen={openItem === "ens_selector"} onClick={() => toggle("ens_selector")}>
-          <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Basic MD conserves total energy (NVE) — like a perfectly insulated box. But real experiments happen at constant temperature (NVT) or pressure (NPT). A thermostat acts like the lab{"'"}s temperature controller — it adds or removes kinetic energy so atoms maintain the right average speed. A barostat adjusts the box size to maintain constant pressure.</span></div>
+          <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Basic MD conserves total energy (NVE) — like a perfectly insulated box. But real experiments happen at constant temperature (NVT) or pressure (NPT). A thermostat acts like the lab{"'"}s temperature controller — it adds or removes kinetic energy so atoms maintain the right average speed. A barostat adjusts the box size to maintain constant pressure.</span></div>
 
           {/* Ensemble selector */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
@@ -11897,14 +11798,14 @@ function MDEnsemblesSection() {
           <div style={mdMathBlock}>
             <span style={{ color: MD.thermo, fontWeight: 500 }}>64-atom Cu at T<sub>target</sub> = 300 K, current T<sub>inst</sub> = 450 K, τ = 100 fs, Δt = 2 fs</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 1:</span> Rescaling factor:<br />
-            {"  λ = √(1 + Δt/τ × (T_target/T_inst − 1))"}<br />
+            {fx("  λ = √(1 + Δt/τ × (T_target/T_inst − 1))")}<br />
             {"  λ = √(1 + 2/100 × (300/450 − 1))"}<br />
             {"  λ = √(1 + 0.02 × (−0.333))"}<br />
             {"  λ = √(1 − 0.00667) = √0.9933 = "}<span style={{ color: MD.thermo, fontWeight: 500 }}>{"0.9967"}</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 2:</span> Scale all velocities:<br />
-            {"  v_new = 0.9967 × v_old  (slow atoms down by 0.33%)"}<br /><br />
+            {fx("  v_new = 0.9967 × v_old  (slow atoms down by 0.33%)")}<br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 3:</span> New temperature:<br />
-            {"  T_new ≈ λ² × T_old = 0.9933 × 450 = "}<span style={{ color: MD.thermo, fontWeight: 500 }}>{"447 K"}</span><br />
+            {fx("  T_new ≈ λ² × T_old = 0.9933 × 450 = ")}<span style={{ color: MD.thermo, fontWeight: 500 }}>{"447 K"}</span><br />
             {"  After 50 steps: T → ~390 K"}<br />
             {"  After 150 steps: T → ~310 K"}<br />
             {"  After 300 steps: T → ~301 K  ← equilibrated"}<br /><br />
@@ -11951,7 +11852,7 @@ function MDAimdSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <FAQAccordion title="Ab Initio Molecular Dynamics (AIMD)" color={MD.aimd} isOpen={openItem === "aimd_intro"} onClick={() => toggle("aimd_intro")}>
-          <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>In classical MD, you use a pre-built force field (a formula). In AIMD, you run a DFT calculation at every single time step to get exact quantum forces. It{"'"}s like hiring a quantum mechanic to compute forces fresh every femtosecond instead of using an approximate recipe. Incredibly accurate but extremely expensive — limited to ~100 atoms for ~10 picoseconds.</span></div>
+          <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>In classical MD, you use a pre-built force field (a formula). In AIMD, you run a DFT calculation at every single time step to get exact quantum forces. It{"'"}s like hiring a quantum mechanic to compute forces fresh every femtosecond instead of using an approximate recipe. Incredibly accurate but extremely expensive — limited to ~100 atoms for ~10 picoseconds.</span></div>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             At every MD step, run a full DFT calculation to get forces. No force field needed -
             forces come directly from quantum mechanics. This is the most accurate but most expensive MD.
@@ -11959,7 +11860,7 @@ function MDAimdSection() {
           <div style={mdMathBlock}>
             <span style={{ color: MD.aimd, fontWeight: 500 }}>Born-Oppenheimer MD (BOMD):</span><br />
             {"  For each timestep:"}<br />
-            {"    1. Solve KS equations → get E[n] and F_i = -∇_i E"}<br />
+            {fx("    1. Solve KS equations → get E[n] and F_i = -∇_i E")}<br />
             {"    2. Propagate atoms with Velocity Verlet"}<br />
             {"    3. Repeat"}<br /><br />
             <span style={{ color: T.muted }}>Each step requires a full SCF cycle (5-20 iterations)</span><br />
@@ -12056,7 +11957,7 @@ NELMIN  = 4       # Minimum SCF steps`}</pre>
             {"  1600 K: sharp peaks at 2.35, 3.84, 4.50 Å → crystalline ✓"}<br />
             {"  1800 K: first peak broadened, no second peak → liquid ✓"}<br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 3:</span> T_melt(AIMD-PBE) ≈ 1700 ± 100 K<br />
-            {"  Experiment: T_melt(Si) = 1687 K"}<br />
+            {fx("  Experiment: T_melt(Si) = 1687 K")}<br />
             {"  Error: ~1% — "}<span style={{ color: MD.aimd, fontWeight: 500 }}>{"excellent agreement!"}</span><br /><br />
             <span style={{ color: T.muted }}>Cost: 5 temperatures × 2500 steps × 60 s/step = ~210 hours on 32 cores.</span>
           </div>
@@ -12076,8 +11977,8 @@ NELMIN  = 4       # Minimum SCF steps`}</pre>
             {"  D = 0.53/6 = 0.088 Å²/ps = "}<span style={{ color: MD.aimd, fontWeight: 500 }}>{"8.8 × 10⁻⁶ cm²/s"}</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 4:</span> Extrapolate to room temperature using Arrhenius:<br />
             {"  Run also at 800 K, 1000 K → fit ln(D) vs 1/T"}<br />
-            {"  E_a = 0.25 eV (activation energy)"}<br />
-            {"  D(300K) = D(600K) × exp(−E_a/k_B × (1/300 − 1/600))"}<br />
+            {fx("  E_a = 0.25 eV (activation energy)")}<br />
+            {fx("  D(300K) = D(600K) × exp(−E_a/k_B × (1/300 − 1/600))")}<br />
             {"  D(300K) ≈ "}<span style={{ color: MD.aimd, fontWeight: 500 }}>{"1.2 × 10⁻⁸ cm²/s"}</span><br /><br />
             <span style={{ color: T.muted }}>This is a superionic conductor — D {">"} 10⁻⁸ cm²/s means good Li battery electrolyte!</span>
           </div>
@@ -12094,7 +11995,7 @@ NELMIN  = 4       # Minimum SCF steps`}</pre>
             {"  C(100 fs) ≈ −0.1 (oscillatory)"}<br />
             {"  C(500 fs) ≈ 0.0 (decorrelated)"}<br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 3:</span> Fourier transform → phonon DOS:<br />
-            {"  g(ω) = ∫ C(t) e^(iωt) dt"}<br />
+            {fx("  g(ω) = ∫ C(t) e^(iωt) dt")}<br />
             {"  Peak at ~5 THz: Se-Cu stretching mode (149 cm⁻¹)"}<br />
             {"  Peak at ~6.5 THz: In-Se stretching (195 cm⁻¹)"}<br />
             {"  Broad band 2-8 THz: acoustic + optical modes"}<br /><br />
@@ -12119,7 +12020,7 @@ function MDClassicalSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <FAQAccordion title="Classical MD - Force Fields" color={MD.cls} isOpen={openItem === "cls_forcefields"} onClick={() => toggle("cls_forcefields")}>
-          <div style={{ display: "flex", gap: 10, background: MD.cls + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.cls + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Classical MD uses pre-fitted mathematical formulas (force fields like EAM for metals, Tersoff for covalent systems) instead of solving quantum mechanics at each step. This makes it fast enough to simulate millions of atoms for nanoseconds — the scale needed to see grain boundaries move, cracks propagate, or materials melt.</span></div>
+          <div style={{ display: "flex", gap: 10, background: MD.cls + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.cls + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Classical MD uses pre-fitted mathematical formulas (force fields like EAM for metals, Tersoff for covalent systems) instead of solving quantum mechanics at each step. This makes it fast enough to simulate millions of atoms for nanoseconds — the scale needed to see grain boundaries move, cracks propagate, or materials melt.</span></div>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             Instead of DFT at each step, use analytical force fields (Lennard-Jones, EAM, Tersoff, etc.)
             to compute forces. Orders of magnitude faster - can simulate millions of atoms for nanoseconds.
@@ -12233,9 +12134,9 @@ function MDClassicalSection() {
           <div style={mdMathBlock}>
             <span style={{ color: MD.cls, fontWeight: 500 }}>Two Ar atoms: ε = 0.0104 eV, σ = 3.40 Å</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 1:</span> Equilibrium distance:<br />
-            {"  r_min = 2^(1/6) × σ = 1.1225 × 3.40 = "}<span style={{ color: MD.cls, fontWeight: 500 }}>{"3.816 Å"}</span><br /><br />
+            {fx("  r_min = 2^(1/6) × σ = 1.1225 × 3.40 = ")}<span style={{ color: MD.cls, fontWeight: 500 }}>{"3.816 Å"}</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 2:</span> At r = 3.816 Å (equilibrium):<br />
-            {"  V(r_min) = −ε = "}<span style={{ color: MD.cls, fontWeight: 500 }}>{"-0.0104 eV"}</span>{", F = 0"}<br /><br />
+            {fx("  V(r_min) = −ε = ")}<span style={{ color: MD.cls, fontWeight: 500 }}>{"-0.0104 eV"}</span>{", F = 0"}<br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 3:</span> At r = 3.0 Å (compressed):<br />
             {"  (σ/r)⁶ = (3.40/3.0)⁶ = (1.133)⁶ = 2.197"}<br />
             {"  (σ/r)¹² = 2.197² = 4.826"}<br />
@@ -12250,8 +12151,8 @@ function MDClassicalSection() {
           <div style={mdMathBlock}>
             <span style={{ color: MD.cls, fontWeight: 500 }}>EAM energy: E<sub>i</sub> = F(ρ<sub>i</sub>) + ½ Σ<sub>j</sub> φ(r<sub>ij</sub>)</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 1:</span> Cu FCC with 12 nearest neighbors at r = 2.556 Å:<br />
-            {"  Each neighbor contributes electron density: ρ_j(r) = 0.302 e⁻"}<br />
-            {"  Total host density: ρ_i = 12 × 0.302 = "}<span style={{ color: MD.cls, fontWeight: 500 }}>{"3.624 e⁻"}</span><br /><br />
+            {fx("  Each neighbor contributes electron density: ρ_j(r) = 0.302 e⁻")}<br />
+            {fx("  Total host density: ρ_i = 12 × 0.302 = ")}<span style={{ color: MD.cls, fontWeight: 500 }}>{"3.624 e⁻"}</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 2:</span> Embedding energy (energy to place atom in electron gas):<br />
             {"  F(ρ) = −√ρ × 1.554 eV  (Foiles-Baskes-Daw fit)"}<br />
             {"  F(3.624) = −√3.624 × 1.554 = −1.904 × 1.554 = "}<span style={{ color: MD.cls, fontWeight: 500 }}>{"-2.959 eV"}</span><br /><br />
@@ -12259,8 +12160,8 @@ function MDClassicalSection() {
             {"  φ(2.556) = 0.093 eV per pair"}<br />
             {"  ½ × 12 × 0.093 = +0.558 eV (repulsive)"}<br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 4:</span> Total energy per atom:<br />
-            {"  E_i = −2.959 + 0.558 = "}<span style={{ color: MD.cls, fontWeight: 500 }}>{"-2.401 eV/atom"}</span><br />
-            {"  Cohesive energy = |E_i| = 2.40 eV  → not bad!"}<br />
+            {fx("  E_i = −2.959 + 0.558 = ")}<span style={{ color: MD.cls, fontWeight: 500 }}>{"-2.401 eV/atom"}</span><br />
+            {fx("  Cohesive energy = |E_i| = 2.40 eV  → not bad!")}<br />
             {"  Experimental: 3.49 eV  (EAM is approximate)"}<br /><br />
             <span style={{ color: T.muted }}>EAM captures metallic bonding qualitatively — embedding in electron gas mimics band structure.</span>
           </div>
@@ -12269,7 +12170,7 @@ function MDClassicalSection() {
           <div style={mdMathBlock}>
             <span style={{ color: MD.cls, fontWeight: 500 }}>Run 10 ps MD on 1000-atom Cu at 600 K</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 1:</span> Number of steps (Δt = 2 fs):<br />
-            {"  N_steps = 10,000 fs / 2 fs = 5,000 steps"}<br /><br />
+            {fx("  N_steps = 10,000 fs / 2 fs = 5,000 steps")}<br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 2:</span> AIMD (VASP, 32 cores):<br />
             {"  sec/step ≈ (1000/64)² × 60 = 14,648 s/step"}<br />
             {"  Total: 5000 × 14,648 = 73M seconds ≈ "}<span style={{ color: MD.warn, fontWeight: 500 }}>{"2.3 years (impossible!)"}</span><br /><br />
@@ -12303,7 +12204,7 @@ function MDPropertiesSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <FAQAccordion title="Radial Distribution Function g(r)" color={MD.main} isOpen={openItem === "prop_rdf"} onClick={() => toggle("prop_rdf")}>
-          <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>MD generates atomic trajectories — positions and velocities at every time step. From these trajectories you extract real physical properties: how atoms are arranged (RDF), how fast they diffuse (MSD), what temperature the system is at (kinetic energy), and vibrational frequencies (velocity autocorrelation). The trajectory is raw data; properties are the physics.</span></div>
+          <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>MD generates atomic trajectories — positions and velocities at every time step. From these trajectories you extract real physical properties: how atoms are arranged (RDF), how fast they diffuse (MSD), what temperature the system is at (kinetic energy), and vibrational frequencies (velocity autocorrelation). The trajectory is raw data; properties are the physics.</span></div>
           <div style={mdMathBlock}>
             <div style={{ textAlign: "center", marginBottom: 14, padding: "12px 0", background: MD.main + "08", borderRadius: 8 }}>
               <span style={{ fontSize: 18, fontWeight: 500, color: MD.main }}>g</span>
@@ -12395,7 +12296,7 @@ function MDPracticeSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <FAQAccordion title="MD Workflow" color={MD.main} isOpen={openItem === "prac_workflow"} onClick={() => toggle("prac_workflow")}>
-          <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Running MD is like cooking — the recipe matters. Choose a time step small enough to capture the fastest vibration (~1 fs). Equilibrate long enough for the system to forget its initial configuration. Run production long enough to get good statistics. Check that energy is conserved and temperature is stable. Cut corners and your results are garbage.</span></div>
+          <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Running MD is like cooking — the recipe matters. Choose a time step small enough to capture the fastest vibration (~1 fs). Equilibrate long enough for the system to forget its initial configuration. Run production long enough to get good statistics. Check that energy is conserved and temperature is stable. Cut corners and your results are garbage.</span></div>
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             {[
               { text: "Build initial structure (POSCAR, relaxed from static DFT)", color: MD.newton },
@@ -12495,8 +12396,8 @@ function MDPracticeSection() {
             {"  D = slope / (6) = 0.0765 / 6 = 0.01275 Å²/ps"}<br />
             {"  D = "}<span style={{ color: MD.main, fontWeight: 500 }}>{"1.275 × 10⁻⁵ cm²/s"}</span><br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 4:</span> Vacancy diffusivity (accounts for dilution):<br />
-            {"  D_vacancy = D × N_atoms / N_vacancies = 1.275×10⁻⁵ × 255/1"}<br />
-            {"  D_vacancy = "}<span style={{ color: MD.main, fontWeight: 500 }}>{"3.25 × 10⁻³ cm²/s"}</span><br /><br />
+            {fx("  D_vacancy = D × N_atoms / N_vacancies = 1.275×10⁻⁵ × 255/1")}<br />
+            {fx("  D_vacancy = ")}<span style={{ color: MD.main, fontWeight: 500 }}>{"3.25 × 10⁻³ cm²/s"}</span><br /><br />
             <span style={{ color: T.muted }}>Experimental D<sub>vacanc</sub>y(Cu, 900K) ≈ 10⁻³ cm²/s — good agreement!</span>
           </div>
 
@@ -12534,7 +12435,7 @@ function MDPracticeSection() {
             {"  No clear 2nd/3rd peaks — oscillates toward g(r) = 1"}<br />
             {"  g(r) never reaches 0 between peaks (liquid disorder)"}<br /><br />
             <span style={{ fontWeight: 500, color: MD.newton }}>Step 3:</span> Coordination number from g(r):<br />
-            {"  N_coord = 4π ρ ∫₀^r_min r² g(r) dr"}<br />
+            {fx("  N_coord = 4π ρ ∫₀^r_min r² g(r) dr")}<br />
             {"  Solid (integrate to first minimum at 3.1 Å): N = "}<span style={{ color: MD.main, fontWeight: 500 }}>{"12.0"}</span><br />
             {"  Liquid (integrate to first minimum at 3.5 Å): N = "}<span style={{ color: MD.main, fontWeight: 500 }}>{"12.8"}</span><br /><br />
             <span style={{ color: T.muted }}>g(r) is the fingerprint of structure — sharp peaks = crystal, broad = liquid, split = amorphous.</span>
@@ -12547,8 +12448,8 @@ function MDPracticeSection() {
 function MDExample16Section() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}> Simple Analogy</div>
+        <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}> Simple Analogy</div>
           <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
             Here we walk through a complete MD simulation of 16 copper atoms in an FCC box: set up initial positions on the lattice, assign random velocities matching 300 K, compute forces from the EAM potential, integrate with Velocity Verlet, equilibrate for 1000 steps, then analyze the radial distribution function. Every number is real.
           </div>
@@ -12697,7 +12598,7 @@ function MDExample16Section() {
             {"     = "}<span style={{ color: MD.thermo, fontWeight: 500 }}>{"197.9 m/s = 0.01979 Å/fs"}</span><br /><br />
 
             <span style={{ color: MD.thermo, fontWeight: 500, fontSize: 14 }}>Sample velocities for first 4 atoms (Å/fs)</span><br />
-            <span style={{ color: T.muted, fontSize: 11 }}>{"  #   v_x       v_y       v_z"}</span><br />
+            <span style={{ color: T.muted, fontSize: 11 }}>{fx("  #   v_x       v_y       v_z")}</span><br />
             {"  1  +0.0152  −0.0087  +0.0213"}<br />
             {"  2  −0.0098  +0.0176  −0.0034"}<br />
             {"  3  +0.0201  +0.0045  −0.0189"}<br />
@@ -12960,7 +12861,7 @@ function MDExample16Section() {
 
             {"  Thermal expansion: Δa/a = (7.244 − 7.230)/7.230 = "}<span style={{ color: MD.thermo, fontWeight: 500 }}>{"0.19%"}</span><br />
             {"  α"}<sub>L</sub>{" = Δa/(a·ΔT) ≈ "}<span style={{ color: MD.thermo, fontWeight: 500 }}>{"16.5 × 10⁻⁶ K⁻¹"}</span><br />
-            <span style={{ color: T.muted, fontSize: 11 }}>{"  Experiment: α_L(Cu) = 16.5 × 10⁻⁶ K⁻¹ — excellent agreement!"}</span>
+            <span style={{ color: T.muted, fontSize: 11 }}>{fx("  Experiment: α_L(Cu) = 16.5 × 10⁻⁶ K⁻¹ — excellent agreement!")}</span>
           </div>
         </Card>
 
@@ -13079,8 +12980,8 @@ Direct
 function MDMovieSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}> Simple Analogy</div>
+        <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}> Simple Analogy</div>
           <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
             Watch atoms in action — this animated visualization shows the full MD workflow: initialization, force computation, integration, and property extraction, all playing out frame by frame with real atomic trajectories.
           </div>
@@ -13101,8 +13002,8 @@ function MDFAQSection() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}> Big Questions</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}> Big Questions</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           40+ deep questions that probe real understanding of Molecular Dynamics. These are the questions a thesis committee would ask. If you can answer them all, you truly understand MD.
         </div>
@@ -13111,14 +13012,14 @@ function MDFAQSection() {
       {/* MQ1 */}
       <FAQAccordion title={"MQ1. Why can’t we just solve the Schrödinger equation for atomic motion?"} color={MD.newton} isOpen={openQ === "MQ1"} onClick={() => toggle("MQ1")}>
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-          <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12" }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like trying to choreograph every person on Earth simultaneously — quantum mechanics for nuclei + electrons is exponentially intractable.</span></div>
+          <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12" }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like trying to choreograph every person on Earth simultaneously — quantum mechanics for nuclei + electrons is exponentially intractable.</span></div>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The full quantum problem requires solving a 3(N_e + N_n)-dimensional Schrödinger equation where N_e is the number of electrons and N_n the number of nuclei. For even 10 atoms with 100 electrons, this is a ~330-dimensional PDE — impossible to solve directly.
         </div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.newton, fontWeight: 500 }}>The Born-Oppenheimer approximation saves us:</span><br /><br />
-          {"  m_proton / m_electron = 1836"}<br />
+          {fx("  m_proton / m_electron = 1836")}<br />
           {"  Nuclei are ~2000× heavier than electrons"}<br />
           {"  → Electrons adjust instantly to nuclear positions"}<br />
           {"  → Nuclei move classically on the electronic energy surface"}<br /><br />
@@ -13129,7 +13030,6 @@ function MDFAQSection() {
 
       {/* MQ2 */}
       <FAQAccordion title={"MQ2. What exactly is the ‘potential energy surface’ that MD runs on?"} color={MD.main} isOpen={openQ === "MQ2"} onClick={() => toggle("MQ2")}>
-        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine a landscape of mountains and valleys in 3N dimensions. Each point is one arrangement of all atoms. The height is the total energy. MD is a ball rolling on this landscape, following Newton{"’"}s laws.</span></div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The PES is E(R₁, R₂, ..., R_N) — the total electronic energy as a function of ALL nuclear positions. It{"’"}s a single scalar function on a 3N-dimensional space. Forces are the negative gradient: F_i = −∂E/∂R_i. In AIMD, E comes from DFT at each step. In classical MD, E comes from a force field (analytical formula). In MLFF-MD, E comes from a neural network trained on DFT data.
         </div>
@@ -13144,7 +13044,7 @@ function MDFAQSection() {
 
       {/* MQ3 */}
       <FAQAccordion title={"MQ3. Why does Velocity Verlet conserve energy but Euler’s method doesn’t?"} color={MD.newton} isOpen={openQ === "MQ3"} onClick={() => toggle("MQ3")}>
-        <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a Ferris wheel vs. a spiral staircase. Verlet maps a circle back to a circle (symplectic). Euler maps it to a slowly expanding spiral — energy creeps up every step.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a Ferris wheel vs. a spiral staircase. Verlet maps a circle back to a circle (symplectic). Euler maps it to a slowly expanding spiral — energy creeps up every step.</span></div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Velocity Verlet is <strong>symplectic</strong> — it preserves the geometric structure (phase space volume) of Hamilton{"’"}s equations. This means it conserves a "shadow Hamiltonian" H{"’"} = H + O(Δt²) that is very close to the true Hamiltonian. Energy oscillates around the true value but never drifts. Euler{"’"}s method is NOT symplectic — it systematically adds energy every step, causing exponential drift.
         </div>
@@ -13183,7 +13083,6 @@ function MDFAQSection() {
 
       {/* MQ5 */}
       <FAQAccordion title={"MQ5. Why does temperature fluctuate in NVE? Isn’t energy conserved?"} color={MD.thermo} isOpen={openQ === "MQ5"} onClick={() => toggle("MQ5")}>
-        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like water sloshing in a bathtub. Total water (energy) is constant, but the level (KE=temperature) at any point rises and falls as water sloshes between kinetic and potential.</span></div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Total energy E = KE + PE is constant in NVE. But KE and PE individually fluctuate as atoms vibrate — when atoms are compressed (high PE), they slow down (low KE), and vice versa. Since T ∝ KE, temperature fluctuates even though total energy is exactly conserved.
         </div>
@@ -13200,7 +13099,7 @@ function MDFAQSection() {
 
       {/* MQ6 */}
       <FAQAccordion title={"MQ6. How does the Nosé-Hoover thermostat actually work?"} color={MD.main} isOpen={openQ === "MQ6"} onClick={() => toggle("MQ6")}>
-        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a shower with a feedback thermostat. If the water (atoms) gets too hot, the thermostat turns on cold water (friction). Too cold? Hot water. The key insight: the thermostat has inertia (mass Q) so it overshoots and oscillates, creating natural fluctuations — exactly the right canonical distribution.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a shower with a feedback thermostat. If the water (atoms) gets too hot, the thermostat turns on cold water (friction). Too cold? Hot water. The key insight: the thermostat has inertia (mass Q) so it overshoots and oscillates, creating natural fluctuations — exactly the right canonical distribution.</span></div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Nosé-Hoover extends the system with a fictional variable ξ (friction coefficient) that has its own equation of motion. When instantaneous T {">"} T_target, ξ increases → atoms are slowed → T decreases. The "thermostat mass" Q controls the coupling strength — it{"’"}s the inertia of the feedback loop.
         </div>
@@ -13209,8 +13108,8 @@ function MDFAQSection() {
           {"  mᵢ·aᵢ = Fᵢ − ξ·mᵢ·vᵢ    (modified Newton’s law)"}<br />
           {"  dξ/dt = (1/Q)[Σ mᵢvᵢ² − 3NkBT_target]  (ξ evolves)"}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>Choosing Q (thermostat mass):</span><br />
-          {"  Q = 3NkBT × (τ_thermo)²"}<br />
-          {"  τ_thermo ~ 50-200 Δt is typical"}<br /><br />
+          {fx("  Q = 3NkBT × (τ_thermo)²")}<br />
+          {fx("  τ_thermo ~ 50-200 Δt is typical")}<br /><br />
           {"  Q too small → T oscillates wildly (thermostat overcorrects)"}<br />
           {"  Q too large → T drifts slowly (thermostat too sluggish)"}<br />
           {"  Q optimal → T fluctuates naturally around target"}<br /><br />
@@ -13220,7 +13119,7 @@ function MDFAQSection() {
 
       {/* MQ7 */}
       <FAQAccordion title={"MQ7. Why is the Berendsen thermostat ‘wrong’ for production runs?"} color={MD.warn} isOpen={openQ === "MQ7"} onClick={() => toggle("MQ7")}>
-        <div style={{ display: "flex", gap: 10, background: MD.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.warn + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a strict parent who forces the temperature to be EXACTLY 300 K every step. In reality, temperature should naturally fluctuate. By suppressing fluctuations, Berendsen gives the wrong statistical mechanics — it doesn{"’"}t sample the canonical ensemble.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.warn + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a strict parent who forces the temperature to be EXACTLY 300 K every step. In reality, temperature should naturally fluctuate. By suppressing fluctuations, Berendsen gives the wrong statistical mechanics — it doesn{"’"}t sample the canonical ensemble.</span></div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Berendsen rescales velocities every step: v_new = v × √(1 + Δt/τ × (T_target/T_inst − 1)). This drives T toward the target exponentially fast (great for equilibration!) but suppresses the natural fluctuations that the canonical ensemble requires. Properties that depend on fluctuations (heat capacity, free energy) will be wrong.
         </div>
@@ -13237,7 +13136,6 @@ function MDFAQSection() {
 
       {/* MQ8 */}
       <FAQAccordion title={"MQ8. What is the virial pressure and how is it computed in MD?"} color={MD.thermo} isOpen={openQ === "MQ8"} onClick={() => toggle("MQ8")}>
-        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Pressure has two parts: atoms bouncing off walls (kinetic, like gas pressure) and atoms pulling/pushing each other (virial, from interatomic forces). The virial part is unique to condensed matter — it{"’"}s the force contribution to pressure.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.thermo, fontWeight: 500 }}>Full pressure formula:</span><br />
           {"  P = (1/V) × [NkBT + (1/3) Σᵢ<ⱼ rᵢⱼ · Fᵢⱼ]"}<br /><br />
@@ -13256,7 +13154,7 @@ function MDFAQSection() {
 
       {/* MQ9 */}
       <FAQAccordion title={"MQ9. Why do we need periodic boundary conditions (PBC) in MD?"} color={MD.prop} isOpen={openQ === "MQ9"} onClick={() => toggle("MQ9")}>
-        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a video game screen that wraps around — walk off the right edge and reappear on the left. PBC makes your 64-atom box behave as if it{"’"}s an infinite crystal. Without PBC, half your atoms would be surface atoms with wrong coordination.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like a video game screen that wraps around — walk off the right edge and reappear on the left. PBC makes your 64-atom box behave as if it{"’"}s an infinite crystal. Without PBC, half your atoms would be surface atoms with wrong coordination.</span></div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           We can only simulate 10-10,000 atoms, but bulk materials have ~10²³. PBC replicates the simulation box infinitely in all directions. An atom leaving the right face re-enters the left. This eliminates surface effects and mimics an infinite crystal.
         </div>
@@ -13268,22 +13166,21 @@ function MDFAQSection() {
           {"  If rᵢⱼ.x < −L/2, add L"}<br />
           {"  (same for y, z)"}<br /><br />
           <span style={{ color: MD.warn, fontWeight: 500 }}>The cutoff constraint:</span><br />
-          {"  r_cut < L/2  (must not interact with own periodic image)"}<br />
-          {"  For 64-atom Cu cell: L = 7.23 Å → r_cut < 3.6 Å"}<br />
+          {fx("  r_cut < L/2  (must not interact with own periodic image)")}<br />
+          {fx("  For 64-atom Cu cell: L = 7.23 Å → r_cut < 3.6 Å")}<br />
           {"  This is WHY you need large supercells for long-range potentials!"}
         </div>
       </FAQAccordion>
 
       {/* MQ10 */}
       <FAQAccordion title={"MQ10. What is the ‘flying ice cube’ artifact and how do you prevent it?"} color={MD.warn} isOpen={openQ === "MQ10"} onClick={() => toggle("MQ10")}>
-        <div style={{ display: "flex", gap: 10, background: MD.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.warn + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine all atoms slowly freezing into a rigid block that flies through space at high speed. The center-of-mass velocity contains all the kinetic energy, but no atom is vibrating. Temperature reads as "300 K" but the material is effectively at 0 K. The ice cube flies — but it{"’"}s dead inside.</span></div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           In NVE with certain thermostats (especially velocity rescaling), kinetic energy can slowly leak from internal vibrations into center-of-mass translation. The system appears hot (high KE) but is internally cold (no vibration). Fix: remove COM velocity every 10-100 steps.
         </div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.warn, fontWeight: 500 }}>Fix: remove center-of-mass drift</span><br />
-          {"  v_COM = (1/N) Σ mᵢvᵢ / Σ mᵢ"}<br />
-          {"  v_corrected = vᵢ − v_COM  (every 10-100 steps)"}<br /><br />
+          {fx("  v_COM = (1/N) Σ mᵢvᵢ / Σ mᵢ")}<br />
+          {fx("  v_corrected = vᵢ − v_COM  (every 10-100 steps)")}<br /><br />
           <span style={{ color: MD.main }}>Also remove COM angular momentum for finite systems (non-PBC).</span><br />
           <span style={{ color: T.muted }}>VASP does this automatically. LAMMPS: fix momentum all linear 100 1 1 1</span>
         </div>
@@ -13291,15 +13188,15 @@ function MDFAQSection() {
 
       {/* MQ11 */}
       <FAQAccordion title={"MQ11. How do you initialize velocities and why does the method matter?"} color={MD.thermo} isOpen={openQ === "MQ11"} onClick={() => toggle("MQ11")}>
-        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like dealing cards to players at the start of a poker game. Each atom gets a random velocity drawn from the Maxwell-Boltzmann distribution at your target temperature. The randomness ensures each simulation explores different parts of phase space.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like dealing cards to players at the start of a poker game. Each atom gets a random velocity drawn from the Maxwell-Boltzmann distribution at your target temperature. The randomness ensures each simulation explores different parts of phase space.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.thermo, fontWeight: 500 }}>Maxwell-Boltzmann distribution:</span><br />
-          {"  Each velocity component vₓ, v_y, v_z drawn from:"}<br />
+          {fx("  Each velocity component vₓ, v_y, v_z drawn from:")}<br />
           {"  P(vₓ) = √(m/2πkBT) × exp(−mvₓ²/2kBT)"}<br /><br />
-          {"  Standard deviation: σ_v = √(kBT/m)"}<br /><br />
+          {fx("  Standard deviation: σ_v = √(kBT/m)")}<br /><br />
           <span style={{ color: MD.thermo, fontWeight: 500 }}>After drawing random velocities:</span><br />
-          {"  1. Remove COM velocity: vᵢ → vᵢ − v_COM"}<br />
-          {"  2. Rescale to exact target T: vᵢ → vᵢ × √(T_target/T_actual)"}<br />
+          {fx("  1. Remove COM velocity: vᵢ → vᵢ − v_COM")}<br />
+          {fx("  2. Rescale to exact target T: vᵢ → vᵢ × √(T_target/T_actual)")}<br />
           {"  3. Check T: should be within ~1% of target"}<br /><br />
           <span style={{ color: MD.warn, fontWeight: 500 }}>Why the random seed matters:</span><br />
           {"  Different seeds → different initial velocities → different trajectories"}<br />
@@ -13310,7 +13207,6 @@ function MDFAQSection() {
 
       {/* MQ12 */}
       <FAQAccordion title={"MQ12. What is equilibration and how do you know when the system is equilibrated?"} color={MD.main} isOpen={openQ === "MQ12"} onClick={() => toggle("MQ12")}>
-        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>⏳</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like preheating an oven — you don{"’"}t put the cake in until the temperature is stable. Equilibration lets the system "forget" its artificial initial conditions. Only AFTER equilibration do you start collecting data.</span></div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Initial conditions are artificial (perfect lattice, random velocities). The system needs time to relax to thermal equilibrium. During equilibration, properties drift. After equilibration, they fluctuate around a stable mean. Equilibration data must be DISCARDED — never included in property averages.
         </div>
@@ -13331,7 +13227,7 @@ function MDFAQSection() {
 
       {/* MQ13 */}
       <FAQAccordion title={"MQ13. What is the radial distribution function g(r) and what does each peak mean?"} color={MD.main} isOpen={openQ === "MQ13"} onClick={() => toggle("MQ13")}>
-        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like counting how many people are standing at each distance from you at a concert. The first peak = your friends right next to you (nearest neighbors). Second peak = people one row back. For a crystal, peaks are sharp. For a liquid, they{"’"}re broad and fade to uniform.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like counting how many people are standing at each distance from you at a concert. The first peak = your friends right next to you (nearest neighbors). Second peak = people one row back. For a crystal, peaks are sharp. For a liquid, they{"’"}re broad and fade to uniform.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.main, fontWeight: 500 }}>g(r) = (V/N²) × ⟨Σᵢ Σⱼ≠ᵢ δ(r − rᵢⱼ)⟩ / (4πr²dr)</span><br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>What g(r) tells you:</span><br />
@@ -13352,7 +13248,7 @@ function MDFAQSection() {
 
       {/* MQ14 */}
       <FAQAccordion title={"MQ14. How do you extract diffusion coefficients from MD trajectories?"} color={MD.prop} isOpen={openQ === "MQ14"} onClick={() => toggle("MQ14")}>
-        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like tracking a drunk person walking randomly. After time t, they{"’"}ve wandered a distance ~ √(Dt) from their start. Plot their squared distance vs time — the slope gives the diffusion coefficient. In MD, track every atom and average.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like tracking a drunk person walking randomly. After time t, they{"’"}ve wandered a distance ~ √(Dt) from their start. Plot their squared distance vs time — the slope gives the diffusion coefficient. In MD, track every atom and average.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.prop, fontWeight: 500 }}>Einstein relation:</span><br />
           {"  MSD(t) = ⟨|r(t) − r(0)|²⟩ = 2dDt   (d = 3 for 3D)"}<br />
@@ -13371,14 +13267,13 @@ function MDFAQSection() {
 
       {/* MQ15 */}
       <FAQAccordion title={"MQ15. What is the difference between AIMD and classical MD at the deepest level?"} color={MD.aimd} isOpen={openQ === "MQ15"} onClick={() => toggle("MQ15")}>
-        <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Classical MD: forces come from a pre-written recipe (force field). AIMD: forces come from solving quantum mechanics (DFT) at every single time step. It{"’"}s the difference between following a cookbook and having a professional chef taste and adjust the dish 5000 times.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.aimd, fontWeight: 500 }}>Classical MD loop:</span><br />
           {"  F = −∇V(r₁...rN)         ← analytical formula, 0.001 s"}<br />
           {"  r(t+Δt) = Verlet(r, v, F) ← integration, instant"}<br /><br />
           <span style={{ color: MD.aimd, fontWeight: 500 }}>AIMD (Born-Oppenheimer) loop:</span><br />
-          {"  1. Solve KS-DFT: (−½∇² + v_eff)ψᵢ = εᵢψᵢ  ← 5-20 SCF cycles"}<br />
-          {"  2. F = −∂E_DFT/∂Rᵢ (Hellmann-Feynman)       ← from converged density"}<br />
+          {fx("  1. Solve KS-DFT: (−½∇² + v_eff)ψᵢ = εᵢψᵢ  ← 5-20 SCF cycles")}<br />
+          {fx("  2. F = −∂E_DFT/∂Rᵢ (Hellmann-Feynman)       ← from converged density")}<br />
           {"  3. r(t+Δt) = Verlet(r, v, F)                 ← same integrator"}<br /><br />
           <span style={{ color: MD.warn, fontWeight: 500 }}>Cost comparison for 64 atoms:</span><br />
           {"  Classical: ~10⁻³ s/step → 10⁷ steps/day → 100 ns/day"}<br />
@@ -13390,12 +13285,12 @@ function MDFAQSection() {
 
       {/* MQ16 */}
       <FAQAccordion title={"MQ16. What are Hellmann-Feynman forces and why do they matter for AIMD?"} color={MD.aimd} isOpen={openQ === "MQ16"} onClick={() => toggle("MQ16")}>
-        <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>A beautiful shortcut: you don{"’"}t need to differentiate the wavefunction to get forces! Just differentiate the Hamiltonian and evaluate with the converged wavefunction. This makes AIMD forces computationally cheap once the SCF is converged.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>A beautiful shortcut: you don{"’"}t need to differentiate the wavefunction to get forces! Just differentiate the Hamiltonian and evaluate with the converged wavefunction. This makes AIMD forces computationally cheap once the SCF is converged.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.aimd, fontWeight: 500 }}>Hellmann-Feynman theorem:</span><br />
-          {"  F_I = −dE/dR_I = −⟨ψ|∂Ĥ/∂R_I|ψ⟩"}<br /><br />
-          {"  No need for ∂ψ/∂R_I terms (they vanish at SCF convergence)"}<br />
-          {"  Force = expectation value of ∂V_ext/∂R_I only"}<br /><br />
+          {fx("  F_I = −dE/dR_I = −⟨ψ|∂Ĥ/∂R_I|ψ⟩")}<br /><br />
+          {fx("  No need for ∂ψ/∂R_I terms (they vanish at SCF convergence)")}<br />
+          {fx("  Force = expectation value of ∂V_ext/∂R_I only")}<br /><br />
           <span style={{ color: MD.warn, fontWeight: 500 }}>Pulay forces (correction for incomplete basis):</span><br />
           {"  In plane-wave codes (VASP): no Pulay forces (basis is position-independent)"}<br />
           {"  In atom-centered codes (GAUSSIAN): Pulay corrections needed"}<br /><br />
@@ -13406,7 +13301,6 @@ function MDFAQSection() {
 
       {/* MQ17 */}
       <FAQAccordion title={"MQ17. What is Car-Parrinello MD and how does it differ from Born-Oppenheimer MD?"} color={MD.aimd} isOpen={openQ === "MQ17"} onClick={() => toggle("MQ17")}>
-        <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>BOMD: stop the car, get out, take a photo (full SCF), get back in, drive 1 step. Repeat. CPMD: attach the camera to the car with a spring — it bounces along taking continuous shots. Faster, but the camera might fly off (adiabaticity violation).</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.aimd, fontWeight: 500 }}>Born-Oppenheimer MD (BOMD):</span><br />
           {"  At each step: fully converge SCF → exact ground state → exact forces"}<br />
@@ -13426,11 +13320,11 @@ function MDFAQSection() {
 
       {/* MQ18 */}
       <FAQAccordion title={"MQ18. How large must the supercell be and why?"} color={MD.prop} isOpen={openQ === "MQ18"} onClick={() => toggle("MQ18")}>
-        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>If your simulation box is too small, an atom can "see" itself through the periodic boundary — like shouting in a small room and hearing your own echo. The box must be large enough that no atom interacts with its own periodic image.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>If your simulation box is too small, an atom can "see" itself through the periodic boundary — like shouting in a small room and hearing your own echo. The box must be large enough that no atom interacts with its own periodic image.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.prop, fontWeight: 500 }}>Rule 1: L/2 {">"} r_cutoff</span><br />
           {"  Minimum image convention requires this"}<br />
-          {"  For r_cut = 6 Å: need L > 12 Å (at least 3×3×3 for most materials)"}<br /><br />
+          {fx("  For r_cut = 6 Å: need L > 12 Å (at least 3×3×3 for most materials)")}<br /><br />
           <span style={{ color: MD.prop, fontWeight: 500 }}>Rule 2: finite-size effects on properties</span><br />
           {"  g(r): affected beyond L/2 (can’t see further than half the box)"}<br />
           {"  MSD: affected when √(6Dt) > L/2 (atom diffuses across box)"}<br />
@@ -13445,7 +13339,6 @@ function MDFAQSection() {
 
       {/* MQ19 */}
       <FAQAccordion title={"MQ19. What is ergodicity and why does MD assume it?"} color={MD.thermo} isOpen={openQ === "MQ19"} onClick={() => toggle("MQ19")}>
-        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like shuffling a deck of cards. If you shuffle long enough, every possible arrangement appears. Ergodicity says: a sufficiently long MD trajectory visits every accessible configuration. So time averages = ensemble averages. If it doesn{"’"}t hold (e.g., system is stuck), your results are wrong.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.thermo, fontWeight: 500 }}>Ergodic hypothesis:</span><br />
           {"  ⟨A⟩_time = lim(τ→∞) (1/τ) ∫₀ᵗ A(t) dt = ⟨A⟩_ensemble"}<br /><br />
@@ -13463,7 +13356,7 @@ function MDFAQSection() {
 
       {/* MQ20 */}
       <FAQAccordion title={"MQ20. How do you compute the heat capacity from an MD trajectory?"} color={MD.thermo} isOpen={openQ === "MQ20"} onClick={() => toggle("MQ20")}>
-        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>How much does the temperature change when you add a bit of energy? That{"’"}s heat capacity. In MD, you don{"’"}t add energy directly — you measure how much energy FLUCTUATES. Bigger fluctuations = higher heat capacity.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>How much does the temperature change when you add a bit of energy? That{"’"}s heat capacity. In MD, you don{"’"}t add energy directly — you measure how much energy FLUCTUATES. Bigger fluctuations = higher heat capacity.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.thermo, fontWeight: 500 }}>From energy fluctuations (NVT ensemble):</span><br />
           {"  Cv = ⟨(ΔE)²⟩ / (kBT²)"}<br />
@@ -13480,7 +13373,6 @@ function MDFAQSection() {
 
       {/* MQ21 */}
       <FAQAccordion title={"MQ21. What is the velocity autocorrelation function and how does it give vibrational spectra?"} color={MD.prop} isOpen={openQ === "MQ21"} onClick={() => toggle("MQ21")}>
-        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>If an atom vibrates at 500 cm⁻¹, its velocity oscillates at that frequency. The VACF measures "does the atom remember which direction it was moving?" Fourier transform the VACF → you get the vibrational spectrum (phonon DOS). It{"’"}s MD{"’"}s version of IR/Raman spectroscopy.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.prop, fontWeight: 500 }}>Velocity autocorrelation function:</span><br />
           {"  C(t) = ⟨v(0) · v(t)⟩ / ⟨v(0) · v(0)⟩"}<br /><br />
@@ -13497,29 +13389,28 @@ function MDFAQSection() {
 
       {/* MQ22 */}
       <FAQAccordion title={"MQ22. What is the Green-Kubo relation and how does it connect to transport properties?"} color={MD.prop} isOpen={openQ === "MQ22"} onClick={() => toggle("MQ22")}>
-        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The Green-Kubo relations are a deep result of statistical mechanics: ANY transport coefficient (diffusion, viscosity, thermal conductivity) can be written as the time integral of an autocorrelation function. It{"’"}s a bridge from microscopic fluctuations to macroscopic transport.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The Green-Kubo relations are a deep result of statistical mechanics: ANY transport coefficient (diffusion, viscosity, thermal conductivity) can be written as the time integral of an autocorrelation function. It{"’"}s a bridge from microscopic fluctuations to macroscopic transport.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.prop, fontWeight: 500 }}>General form:</span><br />
           {"  L = (1/kBT) ∫₀^∞ ⟨J(0)·J(t)⟩ dt"}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>Specific transport coefficients:</span><br />
           {"  Diffusion:       D = (1/3) ∫₀^∞ ⟨v(0)·v(t)⟩ dt"}<br />
-          {"  Viscosity:       η = (V/kBT) ∫₀^∞ ⟨σ_xy(0)·σ_xy(t)⟩ dt"}<br />
-          {"  Thermal cond:    κ = (V/kBT²) ∫₀^∞ ⟨J_q(0)·J_q(t)⟩ dt"}<br /><br />
-          {"  σ_xy = off-diagonal stress tensor component"}<br />
-          {"  J_q = heat current vector"}<br /><br />
+          {fx("  Viscosity:       η = (V/kBT) ∫₀^∞ ⟨σ_xy(0)·σ_xy(t)⟩ dt")}<br />
+          {fx("  Thermal cond:    κ = (V/kBT²) ∫₀^∞ ⟨J_q(0)·J_q(t)⟩ dt")}<br /><br />
+          {fx("  σ_xy = off-diagonal stress tensor component")}<br />
+          {fx("  J_q = heat current vector")}<br /><br />
           <span style={{ color: T.muted }}>Alternative: Einstein relation (MSD method) — equivalent but sometimes noisier.</span>
         </div>
       </FAQAccordion>
 
       {/* MQ23 */}
       <FAQAccordion title={"MQ23. Why can’t classical MD correctly describe heat capacity below the Debye temperature?"} color={MD.warn} isOpen={openQ === "MQ23"} onClick={() => toggle("MQ23")}>
-        <div style={{ display: "flex", gap: 10, background: MD.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.warn + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Classical MD treats every vibration mode as having energy kBT. But quantum mechanics says modes with ℏω {">"} kBT are "frozen" — they don{"’"}t contribute. At low T, most modes are frozen, so Cv → 0. Classical MD can{"’"}t capture this and always gives Cv = 3NkB.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.warn, fontWeight: 500 }}>Classical equipartition (WRONG at low T):</span><br />
-          {"  ⟨E_mode⟩ = kBT  for every mode"}<br />
+          {fx("  ⟨E_mode⟩ = kBT  for every mode")}<br />
           {"  Cv = 3NkB  (Dulong-Petit, always)"}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>Quantum (CORRECT):</span><br />
-          {"  ⟨E_mode⟩ = ℏω × [½ + 1/(exp(ℏω/kBT) − 1)]"}<br />
+          {fx("  ⟨E_mode⟩ = ℏω × [½ + 1/(exp(ℏω/kBT) − 1)]")}<br />
           {"  At T << ℏω/kB: mode frozen, ⟨E⟩ → ½ℏω (zero-point only)"}<br />
           {"  At T >> ℏω/kB: mode active, ⟨E⟩ → kBT (classical limit)"}<br /><br />
           <span style={{ color: MD.thermo, fontWeight: 500 }}>Cu example (Debye T = 343 K):</span><br />
@@ -13531,15 +13422,15 @@ function MDFAQSection() {
 
       {/* MQ24 */}
       <FAQAccordion title={"MQ24. What is the Parrinello-Rahman barostat and how does it differ from Berendsen?"} color={MD.thermo} isOpen={openQ === "MQ24"} onClick={() => toggle("MQ24")}>
-        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Berendsen barostat: a pump that rigidly pushes the walls to hit the target pressure. Parrinello-Rahman: the walls are elastic membranes with inertia — they overshoot, bounce back, and naturally fluctuate. PR gives the correct NPT ensemble; Berendsen does not.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Berendsen barostat: a pump that rigidly pushes the walls to hit the target pressure. Parrinello-Rahman: the walls are elastic membranes with inertia — they overshoot, bounce back, and naturally fluctuate. PR gives the correct NPT ensemble; Berendsen does not.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.thermo, fontWeight: 500 }}>Parrinello-Rahman: cell matrix h becomes a dynamic variable</span><br />
-          {"  W × d²h/dt² = V × (P_int − P_ext)  + thermostat coupling"}<br />
+          {fx("  W × d²h/dt² = V × (P_int − P_ext)  + thermostat coupling")}<br />
           {"  W = fictitious cell mass (controls coupling speed)"}<br /><br />
           {"  Cell can change volume AND shape (all 6 strain components)"}<br />
           {"  Correct NPT ensemble (proper fluctuations)"}<br /><br />
           <span style={{ color: MD.warn, fontWeight: 500 }}>Berendsen barostat (for equilibration only):</span><br />
-          {"  Scale cell by factor μ = [1 − (βΔt/τ_P)(P_target − P)]^(1/3)"}<br />
+          {fx("  Scale cell by factor μ = [1 − (βΔt/τ_P)(P_target − P)]^(1/3)")}<br />
           {"  Drives P toward target exponentially fast"}<br />
           {"  But suppresses pressure fluctuations → wrong ensemble"}<br /><br />
           <span style={{ color: MD.main }}>VASP: ISIF=3 activates cell relaxation. SMASS controls thermostat.</span>
@@ -13548,16 +13439,15 @@ function MDFAQSection() {
 
       {/* MQ25 */}
       <FAQAccordion title={"MQ25. How do you detect a phase transition in an MD simulation?"} color={MD.cls} isOpen={openQ === "MQ25"} onClick={() => toggle("MQ25")}>
-        <div style={{ display: "flex", gap: 10, background: MD.cls + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.cls + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like watching ice melt: the g(r) peaks suddenly broaden, the MSD jumps from near-zero to linear, and the volume changes discontinuously. Phase transitions leave clear fingerprints in MD observables.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.cls, fontWeight: 500 }}>Signatures of melting in MD:</span><br />
           {"  1. g(r): sharp peaks → broad peaks (long-range order lost)"}<br />
           {"  2. MSD: plateau → linear (atoms start diffusing)"}<br />
           {"  3. Lindemann criterion: √⟨u²⟩/a > 0.1 (atoms vibrate > 10% of lattice spacing)"}<br />
           {"  4. Volume: discontinuous jump (latent heat of fusion)"}<br />
-          {"  5. PE: jump at T_melt (latent heat)"}<br /><br />
+          {fx("  5. PE: jump at T_melt (latent heat)")}<br /><br />
           <span style={{ color: MD.warn, fontWeight: 500 }}>Superheating artifact:</span><br />
-          {"  In MD, perfect crystals often superheat (melt at T >> T_melt)"}<br />
+          {fx("  In MD, perfect crystals often superheat (melt at T >> T_melt)")}<br />
           {"  Because there’s no nucleation site for the liquid phase"}<br />
           {"  Fix: introduce a liquid-solid interface or use coexistence methods"}<br /><br />
           <span style={{ color: T.muted }}>Cu melting: exp = 1358 K. MD with EAM typically gives 1300-1400 K.</span>
@@ -13566,7 +13456,7 @@ function MDFAQSection() {
 
       {/* MQ26 */}
       <FAQAccordion title={"MQ26. What is the Langevin thermostat and when would you choose it over Nosé-Hoover?"} color={MD.main} isOpen={openQ === "MQ26"} onClick={() => toggle("MQ26")}>
-        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Nosé-Hoover: a deterministic feedback controller. Langevin: atoms are buffeted by random kicks (like Brownian motion) plus a drag force. Langevin is stochastic — every run gives a different trajectory. Good for sampling, but it disturbs dynamical properties (diffusion, VACF).</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Nosé-Hoover: a deterministic feedback controller. Langevin: atoms are buffeted by random kicks (like Brownian motion) plus a drag force. Langevin is stochastic — every run gives a different trajectory. Good for sampling, but it disturbs dynamical properties (diffusion, VACF).</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.main, fontWeight: 500 }}>Langevin equation of motion:</span><br />
           {"  m·a = F − γ·m·v + R(t)"}<br /><br />
@@ -13587,15 +13477,14 @@ function MDFAQSection() {
 
       {/* MQ27 */}
       <FAQAccordion title={"MQ27. How do you compute thermal conductivity from MD?"} color={MD.prop} isOpen={openQ === "MQ27"} onClick={() => toggle("MQ27")}>
-        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Two approaches: (1) Apply a temperature gradient and measure heat flow (NEMD — like putting one end of a rod on a stove). (2) Watch spontaneous heat fluctuations at equilibrium and use Green-Kubo (EMD — like measuring how quickly a hot spot dissipates).</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.prop, fontWeight: 500 }}>Method 1: Green-Kubo (equilibrium MD)</span><br />
           {"  κ = (V/3kBT²) ∫₀^∞ ⟨J(0)·J(t)⟩ dt"}<br />
           {"  J = heat current = Σᵢ eᵢvᵢ + ½ Σᵢⱼ (Fᵢⱼ·vᵢ)rᵢⱼ"}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>Method 2: NEMD (non-equilibrium MD)</span><br />
-          {"  Apply T gradient: T_hot on one side, T_cold on other"}<br />
-          {"  Measure heat flux J_q in steady state"}<br />
-          {"  κ = −J_q / (dT/dx)  (Fourier’s law)"}<br /><br />
+          {fx("  Apply T gradient: T_hot on one side, T_cold on other")}<br />
+          {fx("  Measure heat flux J_q in steady state")}<br />
+          {fx("  κ = −J_q / (dT/dx)  (Fourier’s law)")}<br /><br />
           <span style={{ color: MD.warn, fontWeight: 500 }}>Challenges:</span><br />
           {"  • Needs VERY long simulations (100+ ps) for convergence"}<br />
           {"  • Finite-size effects: κ depends on box length (1/κ ∝ 1/L)"}<br />
@@ -13605,18 +13494,18 @@ function MDFAQSection() {
 
       {/* MQ28 */}
       <FAQAccordion title={"MQ28. What is the neighbor list and why does it make MD scale as O(N) instead of O(N²)?"} color={MD.newton} isOpen={openQ === "MQ28"} onClick={() => toggle("MQ28")}>
-        <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Checking every atom pair is O(N²). But with a cutoff, each atom only interacts with ~50 neighbors. A neighbor list pre-computes who{"’"}s nearby (rebuilt every 10-20 steps). This makes force computation O(N) — essential for million-atom simulations.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Checking every atom pair is O(N²). But with a cutoff, each atom only interacts with ~50 neighbors. A neighbor list pre-computes who{"’"}s nearby (rebuilt every 10-20 steps). This makes force computation O(N) — essential for million-atom simulations.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.newton, fontWeight: 500 }}>Without neighbor list: O(N²)</span><br />
           {"  Check all N(N-1)/2 pairs"}<br />
           {"  N = 10⁶ → 5×10¹¹ pair checks per step → impossible"}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>With Verlet neighbor list: O(N)</span><br />
-          {"  Build list of neighbors within r_cut + r_skin"}<br />
-          {"  r_skin ~ 2 Å buffer (so list stays valid 10-20 steps)"}<br />
+          {fx("  Build list of neighbors within r_cut + r_skin")}<br />
+          {fx("  r_skin ~ 2 Å buffer (so list stays valid 10-20 steps)")}<br />
           {"  Each atom has ~50 neighbors (constant, independent of N)"}<br />
-          {"  Rebuild when any atom moves > r_skin/2"}<br /><br />
+          {fx("  Rebuild when any atom moves > r_skin/2")}<br /><br />
           <span style={{ color: MD.prop, fontWeight: 500 }}>Cell list (linked-cell method):</span><br />
-          {"  Divide space into cells of size r_cut"}<br />
+          {fx("  Divide space into cells of size r_cut")}<br />
           {"  Only check atoms in neighboring cells (27 cells in 3D)"}<br />
           {"  Building the list itself is O(N), not O(N²)"}<br /><br />
           <span style={{ color: T.muted }}>LAMMPS uses cell lists. VASP uses direct N² (only ~100 atoms).</span>
@@ -13625,12 +13514,11 @@ function MDFAQSection() {
 
       {/* MQ29 */}
       <FAQAccordion title={"MQ29. What is the Ewald summation and why is it needed for charged systems?"} color={MD.thermo} isOpen={openQ === "MQ29"} onClick={() => toggle("MQ29")}>
-        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Coulomb forces (1/r) decay SO slowly that you can{"’"}t just cut them off — the error is huge. Ewald splits 1/r into a short-range part (real space) and long-range part (Fourier space), each converging exponentially fast. Without Ewald, ionic systems give garbage energies.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.thermo, fontWeight: 500 }}>The problem:</span><br />
           {"  Coulomb: V = qᵢqⱼ/r  decays as 1/r"}<br />
           {"  In 3D periodic system: sum over ALL images → conditionally convergent"}<br />
-          {"  Truncation at r_cut introduces ~10% error for ionic systems"}<br /><br />
+          {fx("  Truncation at r_cut introduces ~10% error for ionic systems")}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>Ewald splits 1/r:</span><br />
           {"  1/r = erfc(αr)/r + erf(αr)/r"}<br />
           {"  erfc part: short-range, sum in real space (few terms)"}<br />
@@ -13643,31 +13531,30 @@ function MDFAQSection() {
 
       {/* MQ30 */}
       <FAQAccordion title={"MQ30. What is the Arrhenius equation and how does MD verify it?"} color={MD.cls} isOpen={openQ === "MQ30"} onClick={() => toggle("MQ30")}>
-        <div style={{ display: "flex", gap: 10, background: MD.cls + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.cls + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Run MD at several temperatures (e.g., 800, 1000, 1200 K), measure diffusion D at each T, plot ln(D) vs 1/T. If it{"’"}s a straight line → Arrhenius behavior. The slope gives the activation energy E_a. This is how you extract energy barriers from MD without ever finding the transition state.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.cls + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.cls + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Run MD at several temperatures (e.g., 800, 1000, 1200 K), measure diffusion D at each T, plot ln(D) vs 1/T. If it{"’"}s a straight line → Arrhenius behavior. The slope gives the activation energy E_a. This is how you extract energy barriers from MD without ever finding the transition state.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.cls, fontWeight: 500 }}>Arrhenius equation:</span><br />
-          {"  D(T) = D₀ × exp(−E_a / kBT)"}<br />
-          {"  ln(D) = ln(D₀) − E_a/(kBT)"}<br /><br />
+          {fx("  D(T) = D₀ × exp(−E_a / kBT)")}<br />
+          {fx("  ln(D) = ln(D₀) − E_a/(kBT)")}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>MD procedure:</span><br />
           {"  1. Run NVT MD at T₁=800K, T₂=1000K, T₃=1200K, T₄=1500K"}<br />
           {"  2. Compute D from MSD at each T"}<br />
           {"  3. Plot ln(D) vs 1/T"}<br />
-          {"  4. Slope = −E_a/kB → E_a"}<br /><br />
+          {fx("  4. Slope = −E_a/kB → E_a")}<br /><br />
           <span style={{ color: MD.cls, fontWeight: 500 }}>Example — Cu vacancy in CuInSe₂:</span><br />
           {"  D(800K) = 6.9×10⁻⁸ cm²/s"}<br />
           {"  D(1000K) = 2.1×10⁻⁶ cm²/s"}<br />
-          {"  Slope → E_a ≈ 0.72 eV (matches NEB calculation!)"}<br /><br />
+          {fx("  Slope → E_a ≈ 0.72 eV (matches NEB calculation!)")}<br /><br />
           <span style={{ color: T.muted }}>Need at least 4 temperature points for a reliable fit.</span>
         </div>
       </FAQAccordion>
 
       {/* MQ31 */}
       <FAQAccordion title={"MQ31. What is enhanced sampling and why can’t regular MD access rare events?"} color={MD.aimd} isOpen={openQ === "MQ31"} onClick={() => toggle("MQ31")}>
-        <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Imagine a ball in a deep valley with a 1 eV wall. At 300 K (kBT = 0.026 eV), the probability of jumping over is exp(−1/0.026) = 10⁻¹⁷. That{"’"}s once every 10⁹ seconds — but MD can only simulate 10⁻⁹ seconds. The event is "rare" — it{"’"}ll never happen in brute-force MD.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.aimd, fontWeight: 500 }}>The timescale problem:</span><br />
-          {"  Barrier E_a = 1 eV at T = 300 K"}<br />
-          {"  Rate = ν₀ × exp(−E_a/kBT) = 10¹³ × exp(−38.7) = 10¹³ × 10⁻¹⁷"}<br />
+          {fx("  Barrier E_a = 1 eV at T = 300 K")}<br />
+          {fx("  Rate = ν₀ × exp(−E_a/kBT) = 10¹³ × exp(−38.7) = 10¹³ × 10⁻¹⁷")}<br />
           {"       = 10⁻⁴ /s → one event every 10,000 seconds"}<br />
           {"  MD can simulate ~10⁻⁹ s → will NEVER see this event"}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>Enhanced sampling methods:</span><br />
@@ -13681,7 +13568,7 @@ function MDFAQSection() {
 
       {/* MQ32 */}
       <FAQAccordion title={"MQ32. How does an MLFF (machine learning force field) fit into the MD framework?"} color={MD.main} isOpen={openQ === "MQ32"} onClick={() => toggle("MQ32")}>
-        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>MLFF replaces the force calculator in the MD loop. Instead of DFT (slow, exact) or classical FF (fast, approximate), use a neural network trained on DFT data. It{"’"}s DFT accuracy at classical speed — the best of both worlds, if you trust the training data.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>MLFF replaces the force calculator in the MD loop. Instead of DFT (slow, exact) or classical FF (fast, approximate), use a neural network trained on DFT data. It{"’"}s DFT accuracy at classical speed — the best of both worlds, if you trust the training data.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.main, fontWeight: 500 }}>MD loop with MLFF:</span><br />
           {"  1. Compute descriptors from atomic positions (ACE, SOAP, etc.)"}<br />
@@ -13701,7 +13588,6 @@ function MDFAQSection() {
 
       {/* MQ33 */}
       <FAQAccordion title={"MQ33. How do you handle bond breaking/formation in MD?"} color={MD.aimd} isOpen={openQ === "MQ33"} onClick={() => toggle("MQ33")}>
-        <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Classical force fields with fixed bonds CAN{"’"}T break bonds — the harmonic spring just stretches to infinity. For chemistry (catalysis, corrosion, combustion), you need either AIMD, reactive force fields (ReaxFF), or MLFFs trained on bond-breaking DFT data.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.aimd, fontWeight: 500 }}>Options for reactive MD:</span><br /><br />
           {"  1. AIMD: always correct (DFT handles electrons explicitly)"}<br />
@@ -13723,11 +13609,11 @@ function MDFAQSection() {
         <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}>⏰</span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Consecutive MD frames are NOT independent samples — atom 1{"’"}s position at t=100 fs is nearly the same as at t=101 fs. The correlation time τ_c tells you how long you must wait between INDEPENDENT samples. Your effective sample size is N_eff = t_total / τ_c, not t_total / Δt.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.prop, fontWeight: 500 }}>Autocorrelation function of observable A:</span><br />
-          {"  C_A(t) = ⟨δA(0)·δA(t)⟩ / ⟨δA²⟩"}<br />
+          {fx("  C_A(t) = ⟨δA(0)·δA(t)⟩ / ⟨δA²⟩")}<br />
           {"  δA = A − ⟨A⟩"}<br /><br />
-          {"  Correlation time: τ_c = ∫₀^∞ C_A(t) dt"}<br /><br />
+          {fx("  Correlation time: τ_c = ∫₀^∞ C_A(t) dt")}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>Statistical error with correlations:</span><br />
-          {"  σ²(⟨A⟩) = (⟨δA²⟩ / N_frames) × 2τ_c/Δt"}<br />
+          {fx("  σ²(⟨A⟩) = (⟨δA²⟩ / N_frames) × 2τ_c/Δt")}<br />
           {"  Error is √(2τ_c/Δt) times LARGER than naive estimate"}<br /><br />
           <span style={{ color: MD.warn, fontWeight: 500 }}>Typical correlation times:</span><br />
           {"  Velocity:     ~0.1-0.5 ps (fast)"}<br />
@@ -13739,17 +13625,16 @@ function MDFAQSection() {
 
       {/* MQ35 */}
       <FAQAccordion title={"MQ35. What is the Maxwell-Boltzmann speed distribution and how do you verify it?"} color={MD.thermo} isOpen={openQ === "MQ35"} onClick={() => toggle("MQ35")}>
-        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>If your NVT simulation is correctly sampling the canonical ensemble, the SPEED distribution of atoms must follow the Maxwell-Boltzmann curve — a specific bell-like shape that depends only on T and m. Plotting this is a simple but powerful sanity check.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.thermo, fontWeight: 500 }}>Maxwell-Boltzmann speed distribution:</span><br />
           {"  f(v) = 4π (m/2πkBT)^{3/2} × v² × exp(−mv²/2kBT)"}<br /><br />
-          {"  Most probable speed: v_p = √(2kBT/m)"}<br />
+          {fx("  Most probable speed: v_p = √(2kBT/m)")}<br />
           {"  Mean speed:          ⟨v⟩ = √(8kBT/πm)"}<br />
-          {"  RMS speed:           v_rms = √(3kBT/m)"}<br /><br />
+          {fx("  RMS speed:           v_rms = √(3kBT/m)")}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>Cu atoms at 300 K:</span><br />
-          {"  v_p = √(2 × 0.02585 eV / 63.546 amu) = 280 m/s"}<br />
+          {fx("  v_p = √(2 × 0.02585 eV / 63.546 amu) = 280 m/s")}<br />
           {"  ⟨v⟩ = 316 m/s"}<br />
-          {"  v_rms = 343 m/s"}<br /><br />
+          {fx("  v_rms = 343 m/s")}<br /><br />
           <span style={{ color: T.muted }}>Histogram v from your NVT trajectory and overlay the analytic curve.</span><br />
           <span style={{ color: T.muted }}>If they don{"’"}t match → thermostat is broken or system not equilibrated.</span>
         </div>
@@ -13757,7 +13642,7 @@ function MDFAQSection() {
 
       {/* MQ36 */}
       <FAQAccordion title={"MQ36. What is the difference between microcanonical (NVE) and canonical (NVT) averages?"} color={MD.newton} isOpen={openQ === "MQ36"} onClick={() => toggle("MQ36")}>
-        <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>NVE samples states at EXACTLY one energy (a thin shell on the energy surface). NVT samples states at all energies weighted by exp(−E/kBT) (a broad distribution). For large N they{"’"}re equivalent, but for small cells (N{"<"}100), the difference matters.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>NVE samples states at EXACTLY one energy (a thin shell on the energy surface). NVT samples states at all energies weighted by exp(−E/kBT) (a broad distribution). For large N they{"’"}re equivalent, but for small cells (N{"<"}100), the difference matters.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.newton, fontWeight: 500 }}>NVE (microcanonical):</span><br />
           {"  All states with energy E are equally probable"}<br />
@@ -13776,7 +13661,6 @@ function MDFAQSection() {
 
       {/* MQ37 */}
       <FAQAccordion title={"MQ37. How do constraints (SHAKE/RATTLE) allow larger time steps?"} color={MD.warn} isOpen={openQ === "MQ37"} onClick={() => toggle("MQ37")}>
-        <div style={{ display: "flex", gap: 10, background: MD.warn + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.warn + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The fastest vibrations (O-H stretches at ~3600 cm⁻¹) force Δt {"<"} 0.5 fs. But these high-frequency modes rarely matter for the properties you care about. SHAKE freezes these bond lengths → the fastest remaining vibration is slower → you can use Δt = 2 fs. 4× speed boost for free!</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.warn, fontWeight: 500 }}>SHAKE algorithm:</span><br />
           {"  Constrain specific bond lengths: |rᵢ − rⱼ|² = d²"}<br />
@@ -13795,13 +13679,13 @@ function MDFAQSection() {
 
       {/* MQ38 */}
       <FAQAccordion title={"MQ38. What is the stress tensor in MD and how does it relate to elastic constants?"} color={MD.prop} isOpen={openQ === "MQ38"} onClick={() => toggle("MQ38")}>
-        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The stress tensor σ has 6 independent components (3 normal + 3 shear). In MD, it comes from the virial: kinetic contribution (atoms moving) + force contribution (atoms pushing/pulling). By applying small strains and measuring stress changes, you get elastic constants.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.prop + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.prop + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The stress tensor σ has 6 independent components (3 normal + 3 shear). In MD, it comes from the virial: kinetic contribution (atoms moving) + force contribution (atoms pushing/pulling). By applying small strains and measuring stress changes, you get elastic constants.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.prop, fontWeight: 500 }}>Stress tensor from MD:</span><br />
           {"  σ_αβ = (1/V) [Σᵢ mᵢ vᵢα vᵢβ + ½ Σᵢⱼ Fᵢⱼα rᵢⱼβ]"}<br /><br />
           {"  α,β = x,y,z (9 components, 6 independent by symmetry)"}<br />
-          {"  Diagonal: σ_xx, σ_yy, σ_zz (normal stresses → pressure)"}<br />
-          {"  Off-diag: σ_xy, σ_xz, σ_yz (shear stresses)"}<br /><br />
+          {fx("  Diagonal: σ_xx, σ_yy, σ_zz (normal stresses → pressure)")}<br />
+          {fx("  Off-diag: σ_xy, σ_xz, σ_yz (shear stresses)")}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>Elastic constants from stress-strain:</span><br />
           {"  Apply small strain ε_αβ → measure σ_αβ → Cᵢⱼ = ∂σᵢ/∂εⱼ"}<br /><br />
           <span style={{ color: MD.thermo, fontWeight: 500 }}>From fluctuations (Born-Huang relation):</span><br />
@@ -13811,8 +13695,7 @@ function MDFAQSection() {
       </FAQAccordion>
 
       {/* MQ39 */}
-      <FAQAccordion title={"MQ39. How do you compute free energy from MD? Why can’t you just use E_total?"} color={MD.thermo} isOpen={openQ === "MQ39"} onClick={() => toggle("MQ39")}>
-        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Free energy G = H − TS includes entropy. MD gives you E and H easily, but entropy is the VOLUME of accessible phase space — you can{"’"}t measure a volume by visiting points one at a time (MD trajectory). You need special techniques like thermodynamic integration or free energy perturbation.</span></div>
+      <FAQAccordion title={fx("MQ39. How do you compute free energy from MD? Why can’t you just use E_total?")} color={MD.thermo} isOpen={openQ === "MQ39"} onClick={() => toggle("MQ39")}>
         <div style={mdMathBlock}>
           <span style={{ color: MD.thermo, fontWeight: 500 }}>The entropy problem:</span><br />
           {"  G = H − TS = E + PV − TS"}<br />
@@ -13831,7 +13714,7 @@ function MDFAQSection() {
 
       {/* MQ40 */}
       <FAQAccordion title={"MQ40. What determines whether you should use AIMD, MLFF-MD, or classical MD?"} color={MD.main} isOpen={openQ === "MQ40"} onClick={() => toggle("MQ40")}>
-        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The decision tree is: Do you need quantum accuracy? (yes → AIMD or MLFF). Can you afford AIMD? (if N{"<"}100 and t{"<"}10ps → yes). Do you have good training data? (yes → MLFF). Is there a validated classical FF? (yes → classical). Otherwise → you have a research problem.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.main + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.main + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The decision tree is: Do you need quantum accuracy? (yes → AIMD or MLFF). Can you afford AIMD? (if N{"<"}100 and t{"<"}10ps → yes). Do you have good training data? (yes → MLFF). Is there a validated classical FF? (yes → classical). Otherwise → you have a research problem.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.main, fontWeight: 500 }}>Decision matrix:</span><br /><br />
           {"  ┌─────────────────┬──────────┬───────────┬──────────┐"}<br />
@@ -13855,45 +13738,44 @@ function MDFAQSection() {
 
       {/* MQ41 */}
       <FAQAccordion title={"MQ41. What is the minimum image convention and why can it cause artifacts?"} color={MD.newton} isOpen={openQ === "MQ41"} onClick={() => toggle("MQ41")}>
-        <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>With PBC, atom j has infinite copies. The minimum image convention says: only interact with the CLOSEST copy. But if r_cut {">"} L/2, an atom sees multiple copies of the same atom — double counting forces and producing nonsense. This is why r_cut must be less than half the box length.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.newton + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.newton + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>With PBC, atom j has infinite copies. The minimum image convention says: only interact with the CLOSEST copy. But if r_cut {">"} L/2, an atom sees multiple copies of the same atom — double counting forces and producing nonsense. This is why r_cut must be less than half the box length.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.newton, fontWeight: 500 }}>Minimum image: for pair (i,j), use closest periodic copy</span><br />
           {"  Δx = xⱼ − xᵢ"}<br />
           {"  if Δx > L/2: Δx -= L"}<br />
           {"  if Δx < -L/2: Δx += L"}<br /><br />
-          <span style={{ color: MD.warn, fontWeight: 500 }}>{"Artifact when r_cut > L/2:"}</span><br />
+          <span style={{ color: MD.warn, fontWeight: 500 }}>{fx("Artifact when r_cut > L/2:")}</span><br />
           {"  Atom i interacts with atom j AND its image j’"}<br />
           {"  Forces are double-counted → energy is wrong"}<br />
           {"  For long-range potentials (Coulomb): ALWAYS use Ewald, never truncate"}<br /><br />
-          <span style={{ color: T.muted }}>{"Safe check: in your MD output, verify r_cut < L_min/2 where L_min is the"}</span><br />
+          <span style={{ color: T.muted }}>{fx("Safe check: in your MD output, verify r_cut < L_min/2 where L_min is the")}</span><br />
           <span style={{ color: T.muted }}>shortest box dimension.</span>
         </div>
       </FAQAccordion>
 
       {/* MQ42 */}
       <FAQAccordion title={"MQ42. How do you compute the melting temperature from MD?"} color={MD.cls} isOpen={openQ === "MQ42"} onClick={() => toggle("MQ42")}>
-        <div style={{ display: "flex", gap: 10, background: MD.cls + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.cls + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The most reliable method: create a slab with half solid and half liquid at the interface. Run NPT and find the temperature where neither phase grows. That{"’"}s T_melt. Simply heating a perfect crystal gives the wrong answer (superheating by 20-30%).</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.cls, fontWeight: 500 }}>Method 1: Coexistence method (most reliable)</span><br />
           {"  1. Create slab: solid | liquid | solid (periodic)"}<br />
           {"  2. Run NPT at trial temperature"}<br />
-          {"  3. If solid grows → T < T_melt (raise T)"}<br />
-          {"  4. If liquid grows → T > T_melt (lower T)"}<br />
-          {"  5. Bracket and iterate → T_melt ± 10 K"}<br /><br />
+          {fx("  3. If solid grows → T < T_melt (raise T)")}<br />
+          {fx("  4. If liquid grows → T > T_melt (lower T)")}<br />
+          {fx("  5. Bracket and iterate → T_melt ± 10 K")}<br /><br />
           <span style={{ color: MD.warn, fontWeight: 500 }}>Method 2: Heating (WRONG for accurate T<sub>melt</sub>)</span><br />
-          {"  Heat perfect crystal → melts at T_superheat >> T_melt"}<br />
-          {"  Superheating can be 20-30% above true T_melt"}<br />
+          {fx("  Heat perfect crystal → melts at T_superheat >> T_melt")}<br />
+          {fx("  Superheating can be 20-30% above true T_melt")}<br />
           {"  OK for qualitative estimate, not for publication"}<br /><br />
           <span style={{ color: MD.main, fontWeight: 500 }}>Method 3: Free energy crossing</span><br />
           {"  Compute G(T) for solid and liquid phases separately"}<br />
-          {"  T_melt = T where G_solid = G_liquid"}<br />
+          {fx("  T_melt = T where G_solid = G_liquid")}<br />
           {"  Most accurate but requires thermodynamic integration"}
         </div>
       </FAQAccordion>
 
       {/* MQ43 */}
       <FAQAccordion title={"MQ43. What is the Nosé-Hoover chain and why is a single thermostat sometimes insufficient?"} color={MD.thermo} isOpen={openQ === "MQ43"} onClick={() => toggle("MQ43")}>
-        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>A single Nosé-Hoover thermostat can get "stuck" for small systems or stiff harmonic systems — it doesn{"’"}t properly sample the canonical ensemble. The fix: chain multiple thermostats together. Thermostat 1 controls the atoms, thermostat 2 controls thermostat 1, thermostat 3 controls thermostat 2... This ensures proper ergodic sampling.</span></div>
+        <div style={{ display: "flex", gap: 10, background: MD.thermo + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.thermo + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>A single Nosé-Hoover thermostat can get "stuck" for small systems or stiff harmonic systems — it doesn{"’"}t properly sample the canonical ensemble. The fix: chain multiple thermostats together. Thermostat 1 controls the atoms, thermostat 2 controls thermostat 1, thermostat 3 controls thermostat 2... This ensures proper ergodic sampling.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.thermo, fontWeight: 500 }}>Nosé-Hoover chain (length M):</span><br />
           {"  dξ₁/dt = (1/Q₁)[Σ mᵢvᵢ² − 3NkBT] − ξ₁ξ₂"}<br />
@@ -13911,7 +13793,6 @@ function MDFAQSection() {
 
       {/* MQ44 */}
       <FAQAccordion title={"MQ44. How do you handle quantum nuclear effects (tunneling, zero-point energy) in MD?"} color={MD.aimd} isOpen={openQ === "MQ44"} onClick={() => toggle("MQ44")}>
-        <div style={{ display: "flex", gap: 10, background: MD.aimd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + MD.aimd + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Classical MD treats nuclei as point particles obeying Newton{"’"}s laws. But light nuclei (H, Li, He) exhibit quantum effects: zero-point energy (atoms vibrate even at 0 K) and tunneling (atoms pass through energy barriers). Path integral MD treats nuclei as quantum "rings" of beads, capturing these effects.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: MD.aimd, fontWeight: 500 }}>When quantum nuclear effects matter:</span><br />
           {"  ℏω_max >> kBT (when highest vibrational frequency >> thermal energy)"}<br /><br />
@@ -14158,8 +14039,8 @@ const CHHullPlot = ({ showAbove = false, highlightPoint = null }) => {
 function CHOverviewSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           A computational phase diagram is like a GPS map for materials scientists. Just as a GPS map shows all the roads, cities, and terrain so you can plan the best route, a phase diagram maps all possible compounds that can form from a set of elements and shows which ones are stable under different conditions. Without this map, synthesizing a new material is like driving blindfolded.
         </div>
@@ -14274,8 +14155,8 @@ function CHOverviewSection() {
 function CHIntroSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
           <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
             Imagine you want to find which recipes for a cake use the least energy to bake. You list every recipe (compound) and plot their baking energy. The <strong>convex hull</strong> is like drawing a string tightly around the lowest-energy recipes — any recipe above the string wastes energy and the cake will fall apart into the simpler, lower-energy recipes below it.
           </div>
@@ -14339,8 +14220,8 @@ function CHIntroSection() {
 function CHSetupSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
           <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
             Before comparing cake recipes, you need the raw ingredient costs. DFT total energies are like the total grocery bill for each recipe — but different recipes use different amounts of ingredients. You can{"'"}t compare a recipe for 12 cupcakes with one for a single layer cake without normalizing to {"'"}cost per serving.{"'"} That{"'"}s why we convert to formation energy per atom.
           </div>
@@ -14397,15 +14278,15 @@ function CHSetupSection() {
 function CHFormSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
           <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
             Formation energy is like asking: {"'"}How much cheaper is this cake compared to just eating the raw flour and sugar separately?{"'"} You subtract the cost of raw ingredients (pure elements) from the total cost (compound energy). If the result is negative, the cake is worth making — the combined product is more stable than the raw parts.
           </div>
         </div>
         <Card collapsible defaultOpen title="Formation Energy Formula" color={CH.hull}>
           <div style={chMathBlock}>
-            {"ΔHᶠ = E(compound) − [n_Cu × E(Cu)] − [n_S × E(S)]"}<br />
+            {fx("ΔHᶠ = E(compound) − [n_Cu × E(Cu)] − [n_S × E(S)]")}<br />
             <span style={{ color: T.muted }}>then divide by total atoms to get per-atom value</span>
           </div>
           <div style={{ fontSize: 12, color: T.muted, lineHeight: 1.6 }}>
@@ -14507,8 +14388,8 @@ function CHFormSection() {
 function CHHullSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
           <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
             Building the convex hull is like stretching a rubber band under all the data points on a plot. The rubber band snaps tight to the lowest points — those are the stable phases. Any point the rubber band doesn{"'"}t touch is floating above it — those compounds are unstable and will decompose into the phases the band does touch.
           </div>
@@ -14568,8 +14449,8 @@ function CHHullSection() {
 function CHAboveSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
           <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
             Energy above hull is like measuring how high a ball sits above the valley floor. A ball ON the floor (on the hull) stays put — it{"'"}s stable. A ball perched on a ledge above the floor (above the hull) will eventually roll down. The higher it sits, the stronger the driving force to decompose into the stable valley-floor phases.
           </div>
@@ -14598,7 +14479,7 @@ function CHAboveSection() {
             {"           = -0.663 + 0.168"}<br />
             {"           = "}<span style={{ color: CH.hull, fontWeight: 500 }}>-0.495 eV/atom</span><br /><br />
             <div style={{ color: CH.unstab, fontWeight: 500, marginBottom: 4 }}>Energy above hull:</div>
-            {"E_above_hull = E_actual − E_hull"}<br />
+            {fx("E_above_hull = E_actual − E_hull")}<br />
             {"             = -0.025 − (-0.495)"}<br />
             {"             = "}<span style={{ color: CH.unstab, fontWeight: 500, fontSize: 15 }}>+0.470 eV/atom</span>
           </div>
@@ -14615,12 +14496,12 @@ function CHAboveSection() {
         <Card collapsible title={"CuS₂ (x = 0.67) — Energy Above Hull"} color={CH.unstab}>
           <div style={chMathBlock}>
             <div style={{ color: CH.hull, fontWeight: 500, marginBottom: 4 }}>Hull energy at x = 0.67:</div>
-            {"E_hull(0.67) = -0.663 + 0.990 × (0.67 − 0.33)"}<br />
+            {fx("E_hull(0.67) = -0.663 + 0.990 × (0.67 − 0.33)")}<br />
             {"           = -0.663 + 0.990 × 0.34"}<br />
             {"           = -0.663 + 0.337"}<br />
             {"           = "}<span style={{ color: CH.hull, fontWeight: 500 }}>-0.326 eV/atom</span><br /><br />
             <div style={{ color: CH.unstab, fontWeight: 500, marginBottom: 4 }}>Energy above hull:</div>
-            {"E_above_hull = -0.017 − (-0.326)"}<br />
+            {fx("E_above_hull = -0.017 − (-0.326)")}<br />
             {"             = "}<span style={{ color: CH.unstab, fontWeight: 500, fontSize: 15 }}>+0.309 eV/atom</span>
           </div>
           <div style={{
@@ -14644,8 +14525,8 @@ function CHAboveSection() {
 function CHResultsSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
           <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
             The final results table is like a scoreboard after a tournament. Each compound gets rated: ON the hull = winner (thermodynamically stable, will exist in nature). ABOVE the hull = eliminated (will decompose into winners). The energy above hull tells you how badly each loser lost — small gaps mean they might survive with a bit of luck (kinetic trapping).
           </div>
@@ -14741,8 +14622,8 @@ function CHResultsSection() {
 function CHThermoSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
           <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
             The 0 K hull is like a frozen lake — the surface is rigid and only the lowest-energy phases sit on it. Heating up (adding temperature) is like thawing the lake — the surface becomes flexible. Entropy (disorder) acts like waves that can lift previously submerged phases to the surface. Some compounds that were unstable at 0 K become stable at high temperature because their atoms vibrate more freely (higher entropy).
           </div>
@@ -14841,11 +14722,11 @@ function CHThermoSection() {
           <div style={chMathBlock}>
             <div style={{ color: CH.accent, fontWeight: 500, marginBottom: 8 }}>Example 1: Vibrational entropy stabilization of anatase TiO₂</div>
             <span style={{ fontWeight: 500, color: CH.main }}>Step 1:</span> 0 K hull energies:<br />
-            {"  ΔH_f(rutile) = −3.46 eV/atom (ON the hull — stable)"}<br />
-            {"  ΔH_f(anatase) = −3.44 eV/atom (20 meV ABOVE hull)"}<br /><br />
+            {fx("  ΔH_f(rutile) = −3.46 eV/atom (ON the hull — stable)")}<br />
+            {fx("  ΔH_f(anatase) = −3.44 eV/atom (20 meV ABOVE hull)")}<br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 2:</span> Compute phonon entropy from phonon DOS:<br />
-            {"  S_vib(rutile, 300K) = 48.2 J/mol/K = 0.500 meV/atom/K"}<br />
-            {"  S_vib(anatase, 300K) = 49.1 J/mol/K = 0.509 meV/atom/K"}<br />
+            {fx("  S_vib(rutile, 300K) = 48.2 J/mol/K = 0.500 meV/atom/K")}<br />
+            {fx("  S_vib(anatase, 300K) = 49.1 J/mol/K = 0.509 meV/atom/K")}<br />
             {"  ΔS = 0.009 meV/atom/K (anatase has higher entropy)"}<br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 3:</span> At what T does −TΔS overcome the 20 meV gap?<br />
             {"  T × ΔS = 20 meV → T = 20/0.009 = "}<span style={{ color: CH.accent, fontWeight: 500 }}>{"~2200 K"}</span><br /><br />
@@ -14855,9 +14736,9 @@ function CHThermoSection() {
           <div style={chMathBlock}>
             <div style={{ color: CH.accent, fontWeight: 500, marginBottom: 8 }}>Example 2: Configurational entropy in a high-entropy alloy</div>
             <span style={{ fontWeight: 500, color: CH.main }}>Step 1:</span> 5-component equimolar HEA: CrMnFeCoNi<br />
-            {"  S_config = −k_B Σ x_i ln(x_i) = −k_B × 5 × (0.2 × ln 0.2)"}<br />
-            {"  S_config = −k_B × 5 × (0.2 × −1.609) = k_B × 1.609"}<br />
-            {"  S_config = "}<span style={{ color: CH.accent, fontWeight: 500 }}>{"1.609 k_B = 0.139 meV/atom/K"}</span><br /><br />
+            {fx("  S_config = −k_B Σ x_i ln(x_i) = −k_B × 5 × (0.2 × ln 0.2)")}<br />
+            {fx("  S_config = −k_B × 5 × (0.2 × −1.609) = k_B × 1.609")}<br />
+            {fx("  S_config = ")}<span style={{ color: CH.accent, fontWeight: 500 }}>{fx("1.609 k_B = 0.139 meV/atom/K")}</span><br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 2:</span> −TS at T = 1000 K:<br />
             {"  −TS = −1000 × 0.139 = "}<span style={{ color: CH.accent, fontWeight: 500 }}>{"-139 meV/atom"}</span><br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 3:</span> If HEA is 100 meV/atom above hull at 0 K:<br />
@@ -14869,15 +14750,15 @@ function CHThermoSection() {
           <div style={chMathBlock}>
             <div style={{ color: CH.accent, fontWeight: 500, marginBottom: 8 }}>Example 3: Zero-point energy correction for light elements</div>
             <span style={{ fontWeight: 500, color: CH.main }}>Step 1:</span> LiH formation energy without ZPE:<br />
-            {"  ΔH_f(DFT) = E(LiH) − E(Li) − ½E(H₂)"}<br />
-            {"  ΔH_f(DFT) = −0.912 eV/atom"}<br /><br />
+            {fx("  ΔH_f(DFT) = E(LiH) − E(Li) − ½E(H₂)")}<br />
+            {fx("  ΔH_f(DFT) = −0.912 eV/atom")}<br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 2:</span> ZPE from phonon calculations:<br />
             {"  ZPE(LiH) = ½ Σ ħω_i = 0.195 eV/f.u."}<br />
             {"  ZPE(Li) = 0.032 eV/atom"}<br />
             {"  ZPE(½H₂) = 0.132 eV"}<br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 3:</span> Corrected formation energy:<br />
             {"  ΔZPE = 0.195 − 0.032 − 0.132 = +0.031 eV/f.u."}<br />
-            {"  ΔH_f(corrected) = −0.912 + 0.031 = "}<span style={{ color: CH.accent, fontWeight: 500 }}>{"-0.881 eV/atom"}</span><br />
+            {fx("  ΔH_f(corrected) = −0.912 + 0.031 = ")}<span style={{ color: CH.accent, fontWeight: 500 }}>{"-0.881 eV/atom"}</span><br />
             {"  Experiment: −0.870 eV/atom"}<br /><br />
             <span style={{ color: T.muted }}>ZPE correction is 3% here — small but important for accurate hull positions involving H, Li, Be.</span>
           </div>
@@ -14889,8 +14770,8 @@ function CHThermoSection() {
 function CHChemPotSection() {
   return (
       <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-          <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+        <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+          <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
           <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
             Chemical potential is like the price of individual ingredients at the grocery store. If copper is cheap (Cu-rich conditions, high {'μ'}_Cu), you get compounds with lots of copper. If sulfur is cheap (S-rich), sulfur-heavy phases win. By adjusting these {"'"}prices{"'"} (partial pressures in the lab), experimentalists control which phase actually grows — it{"'"}s the bridge between the theoretical hull and the real experiment.
           </div>
@@ -15009,47 +14890,47 @@ function CHChemPotSection() {
           <div style={chMathBlock}>
             <div style={{ color: CH.warm, fontWeight: 500, marginBottom: 8 }}>Example 1: Chemical potential bounds for Cu₂S</div>
             <span style={{ fontWeight: 500, color: CH.main }}>Step 1:</span> Formation energy of Cu₂S:<br />
-            {"  ΔH_f(Cu₂S) = −1.99 eV per formula unit"}<br />
-            {"  Constraint: 2μ_Cu + μ_S = −1.99 eV"}<br /><br />
+            {fx("  ΔH_f(Cu₂S) = −1.99 eV per formula unit")}<br />
+            {fx("  Constraint: 2μ_Cu + μ_S = −1.99 eV")}<br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 2:</span> Cu-rich limit (μ_Cu = 0, pure Cu stable):<br />
-            {"  μ_S = −1.99 − 2(0) = "}<span style={{ color: CH.warm, fontWeight: 500 }}>{"-1.99 eV"}</span><br />
+            {fx("  μ_S = −1.99 − 2(0) = ")}<span style={{ color: CH.warm, fontWeight: 500 }}>{"-1.99 eV"}</span><br />
             {"  (S is very unfavorable — deeply S-poor conditions)"}<br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 3:</span> S-rich limit (μ_S = 0, pure S stable):<br />
-            {"  2μ_Cu = −1.99 − 0 → μ_Cu = "}<span style={{ color: CH.warm, fontWeight: 500 }}>{"-0.995 eV"}</span><br />
+            {fx("  2μ_Cu = −1.99 − 0 → μ_Cu = ")}<span style={{ color: CH.warm, fontWeight: 500 }}>{"-0.995 eV"}</span><br />
             {"  (Cu is unfavorable — deeply Cu-poor conditions)"}<br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 4:</span> Allowed range for Cu₂S stability:<br />
-            {"  −0.995 ≤ μ_Cu ≤ 0  (width = 0.995 eV)"}<br />
-            {"  −1.99 ≤ μ_S ≤ 0   (width = 1.99 eV)"}<br /><br />
+            {fx("  −0.995 ≤ μ_Cu ≤ 0  (width = 0.995 eV)")}<br />
+            {fx("  −1.99 ≤ μ_S ≤ 0   (width = 1.99 eV)")}<br /><br />
             <span style={{ color: T.muted }}>Wide stability window → Cu₂S is easy to synthesize. Narrow windows → difficult to stabilize.</span>
           </div>
 
           <div style={chMathBlock}>
             <div style={{ color: CH.warm, fontWeight: 500, marginBottom: 8 }}>Example 2: Defect formation energy depends on μ</div>
             <span style={{ fontWeight: 500, color: CH.main }}>Step 1:</span> Cu vacancy in Cu₂S:<br />
-            {"  E_f[V_Cu] = E[Cu₂S + V_Cu] − E[Cu₂S] + μ_Cu"}<br />
-            {"  E_f[V_Cu] = (−12.20) − (−13.55) + μ_Cu"}<br />
-            {"  E_f[V_Cu] = 1.35 + μ_Cu"}<br /><br />
+            {fx("  E_f[V_Cu] = E[Cu₂S + V_Cu] − E[Cu₂S] + μ_Cu")}<br />
+            {fx("  E_f[V_Cu] = (−12.20) − (−13.55) + μ_Cu")}<br />
+            {fx("  E_f[V_Cu] = 1.35 + μ_Cu")}<br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 2:</span> Cu-rich conditions (μ_Cu = 0):<br />
-            {"  E_f[V_Cu] = 1.35 + 0 = "}<span style={{ color: CH.stable, fontWeight: 500 }}>{"1.35 eV (high — few vacancies)"}</span><br /><br />
+            {fx("  E_f[V_Cu] = 1.35 + 0 = ")}<span style={{ color: CH.stable, fontWeight: 500 }}>{"1.35 eV (high — few vacancies)"}</span><br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 3:</span> Cu-poor conditions (μ_Cu = −0.995 eV):<br />
-            {"  E_f[V_Cu] = 1.35 + (−0.995) = "}<span style={{ color: CH.unstab, fontWeight: 500 }}>{"0.36 eV (low — many vacancies!)"}</span><br /><br />
+            {fx("  E_f[V_Cu] = 1.35 + (−0.995) = ")}<span style={{ color: CH.unstab, fontWeight: 500 }}>{"0.36 eV (low — many vacancies!)"}</span><br /><br />
             <span style={{ color: T.muted }}>Cu-poor growth creates Cu vacancies — this is how p-type doping works in Cu₂S and CuInSe₂!</span>
           </div>
 
           <div style={chMathBlock}>
             <div style={{ color: CH.warm, fontWeight: 500, marginBottom: 8 }}>Example 3: Sulfur partial pressure to chemical potential</div>
             <span style={{ fontWeight: 500, color: CH.main }}>Step 1:</span> Relate μ_S to experimental S₂ partial pressure:<br />
-            {"  μ_S(T,P) = ½[E(S₂) + μ°(T) + k_BT ln(P_S₂/P°)]"}<br /><br />
+            {fx("  μ_S(T,P) = ½[E(S₂) + μ°(T) + k_BT ln(P_S₂/P°)]")}<br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 2:</span> At T = 800 K, standard state S₂:<br />
             {"  μ°(800K) includes zero-point, translational, rotational, vibrational entropy"}<br />
             {"  μ°(800K) ≈ −1.27 eV (from JANAF tables)"}<br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 3:</span> At P_S₂ = 10⁻⁵ atm (typical CVD):<br />
-            {"  k_BT ln(P/P°) = 8.617×10⁻⁵ × 800 × ln(10⁻⁵)"}<br />
+            {fx("  k_BT ln(P/P°) = 8.617×10⁻⁵ × 800 × ln(10⁻⁵)")}<br />
             {"  = 0.0689 × (−11.51) = −0.793 eV"}<br /><br />
             <span style={{ fontWeight: 500, color: CH.main }}>Step 4:</span> Total:<br />
-            {"  μ_S(800K, 10⁻⁵ atm) = ½[−4.12 + (−1.27) + (−0.793)]"}<br />
-            {"  μ_S ≈ "}<span style={{ color: CH.warm, fontWeight: 500 }}>{"-3.09 eV"}</span><br />
-            {"  Δμ_S = μ_S − E(S_ref) = −3.09 − (−4.12) = "}<span style={{ color: CH.warm, fontWeight: 500 }}>{"-0.97 eV"}</span><br /><br />
+            {fx("  μ_S(800K, 10⁻⁵ atm) = ½[−4.12 + (−1.27) + (−0.793)]")}<br />
+            {fx("  μ_S ≈ ")}<span style={{ color: CH.warm, fontWeight: 500 }}>{"-3.09 eV"}</span><br />
+            {fx("  Δμ_S = μ_S − E(S_ref) = −3.09 − (−4.12) = ")}<span style={{ color: CH.warm, fontWeight: 500 }}>{"-0.97 eV"}</span><br /><br />
             <span style={{ color: T.muted }}>This Δμ_S value can be plotted on the chemical potential diagram to find which phase is stable at these CVD conditions.</span>
           </div>
         </Card>
@@ -15060,8 +14941,8 @@ function CHChemPotSection() {
 function CHChemDiagramSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           A chemical potential diagram is like a weather map for crystal growth. Just as a weather map shows where it rains, snows, or stays dry based on temperature and humidity, a chemical potential diagram shows which crystal phase forms based on how much of each element is available. The axes are the {"\""}prices{"\""} of each element, and each colored region is a different phase that {"\""}wins{"\""} at those conditions.
         </div>
@@ -15176,10 +15057,10 @@ function CZTSSynthesisAnimation() {
 
   // Conditions map to chemical potentials and outcomes
   const conditions = {
-    cuRich:  { label: "Cu-rich", muCu: -0.10, muZn: -1.25, muS: -0.43, outcome: "Cu₂S forms", color: "#30717f", products: ["Cu₂S", "CZTS", "Cu₂S"], efficiency: "3%", icon: "" },
-    optimal: { label: "Optimal (Cu-poor, Zn-rich)", muCu: -0.32, muZn: -0.70, muS: -0.45, outcome: "Pure CZTS", color: "#5298a6", products: ["CZTS", "CZTS", "CZTS"], efficiency: "12.6%", icon: "✔" },
-    znRich:  { label: "Zn-rich extreme", muCu: -0.55, muZn: -0.15, muS: -0.48, outcome: "ZnS inclusions", color: "#3d90a1", products: ["CZTS", "ZnS", "CZTS"], efficiency: "8%", icon: "○" },
-    snPoor:  { label: "Sn-poor (no SnS₂ cap)", muCu: -0.20, muZn: -0.60, muS: -0.55, outcome: "SnS evaporates", color: "#347b8a", products: ["CZTS", "SnS↑", "Cu₂S"], efficiency: "2%", icon: "" }
+    cuRich:  { label: "Cu-rich", muCu: -0.10, muZn: -1.25, muS: -0.43, outcome: "Cu₂S forms", color: "#347d8b", products: ["Cu₂S", "CZTS", "Cu₂S"], efficiency: "3%", icon: "" },
+    optimal: { label: "Optimal (Cu-poor, Zn-rich)", muCu: -0.32, muZn: -0.70, muS: -0.45, outcome: "Pure CZTS", color: "#6fb1be", products: ["CZTS", "CZTS", "CZTS"], efficiency: "12.6%", icon: "✔" },
+    znRich:  { label: "Zn-rich extreme", muCu: -0.55, muZn: -0.15, muS: -0.48, outcome: "ZnS inclusions", color: "#56a3b3", products: ["CZTS", "ZnS", "CZTS"], efficiency: "8%", icon: "○" },
+    snPoor:  { label: "Sn-poor (no SnS₂ cap)", muCu: -0.20, muZn: -0.60, muS: -0.55, outcome: "SnS evaporates", color: "#3a8c9c", products: ["CZTS", "SnS↑", "Cu₂S"], efficiency: "2%", icon: "" }
   };
   const cond = conditions[condition];
 
@@ -15199,7 +15080,7 @@ function CZTSSynthesisAnimation() {
   const polyStr = polyPts.map(p => `${toX(p.cu)},${toY(p.zn)}`).join(" ");
 
   // Atom colors
-  const atomColors = { Cu: "#378392", Zn: "#7f8c8d", Sn: "#95a5a6", S: "#94c1ca" };
+  const atomColors = { Cu: "#48919f", Zn: "#7f8c8d", Sn: "#95a5a6", S: "#b7d1d6" };
 
   // Animated atoms in the furnace
   const furnaceAtoms = [];
@@ -15221,8 +15102,8 @@ function CZTSSynthesisAnimation() {
 
   // Product crystals after reaction
   const productColors = {
-    "CZTS": "#5298a6", "Cu₂S": "#30717f", "ZnS": "#3d90a1",
-    "SnS↑": "#347b8a", "Cu": "#378392"
+    "CZTS": "#6fb1be", "Cu₂S": "#347d8b", "ZnS": "#56a3b3",
+    "SnS↑": "#3a8c9c", "Cu": "#48919f"
   };
 
   return (
@@ -15265,11 +15146,11 @@ function CZTSSynthesisAnimation() {
               </g>
             ))}
             {/* CZTS stability polygon */}
-            <polygon points={polyStr} fill="#5298a618" stroke="#5298a6" strokeWidth={1.5} />
-            <text x={toX(-0.35)} y={toY(-0.65)} textAnchor="middle" fill="#5298a6" fontSize={8} fontWeight={500}>CZTS</text>
+            <polygon points={polyStr} fill="#6fb1be18" stroke="#6fb1be" strokeWidth={1.5} />
+            <text x={toX(-0.35)} y={toY(-0.65)} textAnchor="middle" fill="#6fb1be" fontSize={8} fontWeight={500}>CZTS</text>
             {/* Competing phase labels */}
-            <text x={toX(-0.05)} y={toY(-1.35)} fill="#30717f" fontSize={7} opacity={0.7}>Cu₂S</text>
-            <text x={toX(-0.65)} y={toY(-0.05)} fill="#3d90a1" fontSize={7} opacity={0.7}>ZnS</text>
+            <text x={toX(-0.05)} y={toY(-1.35)} fill="#347d8b" fontSize={7} opacity={0.7}>Cu₂S</text>
+            <text x={toX(-0.65)} y={toY(-0.05)} fill="#56a3b3" fontSize={7} opacity={0.7}>ZnS</text>
             {/* Current operating point - pulsing */}
             <circle cx={toX(cond.muCu)} cy={toY(cond.muZn)} r={6 + Math.sin(animFrame * 0.06) * 2}
               fill={cond.color} opacity={0.7} />
@@ -15289,12 +15170,12 @@ function CZTSSynthesisAnimation() {
           <div style={{ fontSize: 10, color: T.muted, marginBottom: 4, letterSpacing: 1 }}>ANNEALING FURNACE (550°C)</div>
           <svg viewBox="0 0 300 160" style={{ display: "block", background: T.surface, borderRadius: 8, border: `1px solid ${T.border}`, width: "100%" }}>
             {/* Furnace walls */}
-            <rect x={5} y={5} width={290} height={150} rx={10} fill="none" stroke="#2f6f7c33" strokeWidth={3} />
-            <rect x={5} y={5} width={290} height={150} rx={10} fill="#2f6f7c08" />
+            <rect x={5} y={5} width={290} height={150} rx={10} fill="none" stroke="#31758333" strokeWidth={3} />
+            <rect x={5} y={5} width={290} height={150} rx={10} fill="#31758308" />
             {/* Temperature gradient */}
             <linearGradient id="heatGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#388392" stopOpacity={0.05} />
-              <stop offset="100%" stopColor="#388392" stopOpacity={0.15} />
+              <stop offset="0%" stopColor="#4993a1" stopOpacity={0.05} />
+              <stop offset="100%" stopColor="#4993a1" stopOpacity={0.15} />
             </linearGradient>
             <rect x={8} y={8} width={284} height={144} rx={8} fill="url(#heatGrad)" />
             {/* Atmosphere label */}
@@ -15305,7 +15186,7 @@ function CZTSSynthesisAnimation() {
             {furnaceAtoms.map((a, i) => (
               <g key={i}>
                 <circle cx={a.x} cy={a.y} r={a.r} fill={atomColors[a.species]} opacity={a.opacity}
-                  stroke={a.species === "S" ? "#83b8c2" : "none"} strokeWidth={0.5} />
+                  stroke={a.species === "S" ? "#aac9cf" : "none"} strokeWidth={0.5} />
                 <text x={a.x} y={a.y + 3} textAnchor="middle" fill="white" fontSize={5} fontWeight="500">
                   {a.species}
                 </text>
@@ -15314,11 +15195,11 @@ function CZTSSynthesisAnimation() {
             {/* Evaporation arrows for Sn-poor */}
             {condition === "snPoor" && animFrame > 200 && (
               <g>
-                <text x={150} y={18} textAnchor="middle" fill="#347b8a" fontSize={9} fontWeight={500}>SnS evaporating ↑</text>
+                <text x={150} y={18} textAnchor="middle" fill="#3a8c9c" fontSize={9} fontWeight={500}>SnS evaporating ↑</text>
                 {[0, 1, 2].map(i => {
                   const ax = 100 + i * 50;
                   const ay = 25 - Math.sin(animFrame * 0.05 + i) * 5;
-                  return <text key={i} x={ax} y={ay} textAnchor="middle" fill="#347b8a" fontSize={12} opacity={0.5 + Math.sin(animFrame * 0.03 + i) * 0.3}>↑</text>;
+                  return <text key={i} x={ax} y={ay} textAnchor="middle" fill="#3a8c9c" fontSize={12} opacity={0.5 + Math.sin(animFrame * 0.03 + i) * 0.3}>↑</text>;
                 })}
               </g>
             )}
@@ -15327,8 +15208,8 @@ function CZTSSynthesisAnimation() {
               <g>
                 {[{ x: 60, y: 80 }, { x: 200, y: 60 }, { x: 250, y: 100 }].map((p, i) => (
                   <g key={i}>
-                    <rect x={p.x - 12} y={p.y - 8} width={24} height={16} rx={3} fill="#30717f44" stroke="#30717f" strokeWidth={1} />
-                    <text x={p.x} y={p.y + 3} textAnchor="middle" fill="#30717f" fontSize={6} fontWeight={500}>Cu₂S</text>
+                    <rect x={p.x - 12} y={p.y - 8} width={24} height={16} rx={3} fill="#347d8b44" stroke="#347d8b" strokeWidth={1} />
+                    <text x={p.x} y={p.y + 3} textAnchor="middle" fill="#347d8b" fontSize={6} fontWeight={500}>Cu₂S</text>
                   </g>
                 ))}
               </g>
@@ -15338,8 +15219,8 @@ function CZTSSynthesisAnimation() {
               <g>
                 {[{ x: 130, y: 70 }, { x: 220, y: 100 }].map((p, i) => (
                   <g key={i}>
-                    <rect x={p.x - 10} y={p.y - 7} width={20} height={14} rx={3} fill="#3d90a144" stroke="#3d90a1" strokeWidth={1} />
-                    <text x={p.x} y={p.y + 3} textAnchor="middle" fill="#3d90a1" fontSize={6} fontWeight={500}>ZnS</text>
+                    <rect x={p.x - 10} y={p.y - 7} width={20} height={14} rx={3} fill="#56a3b344" stroke="#56a3b3" strokeWidth={1} />
+                    <text x={p.x} y={p.y + 3} textAnchor="middle" fill="#56a3b3" fontSize={6} fontWeight={500}>ZnS</text>
                   </g>
                 ))}
               </g>
@@ -15347,9 +15228,9 @@ function CZTSSynthesisAnimation() {
             {/* Perfect CZTS crystal for optimal */}
             {condition === "optimal" && animFrame > 200 && (
               <g>
-                <rect x={115} y={55} width={70} height={50} rx={6} fill="#5298a622" stroke="#5298a6" strokeWidth={2} />
-                <text x={150} y={75} textAnchor="middle" fill="#5298a6" fontSize={10} fontWeight={500}>CZTS</text>
-                <text x={150} y={90} textAnchor="middle" fill="#5298a6" fontSize={7}>kesterite</text>
+                <rect x={115} y={55} width={70} height={50} rx={6} fill="#6fb1be22" stroke="#6fb1be" strokeWidth={2} />
+                <text x={150} y={75} textAnchor="middle" fill="#6fb1be" fontSize={10} fontWeight={500}>CZTS</text>
+                <text x={150} y={90} textAnchor="middle" fill="#6fb1be" fontSize={7}>kesterite</text>
               </g>
             )}
           </svg>
@@ -15445,18 +15326,18 @@ function CZTSSynthesisAnimation() {
 function CHCZTSSection() {
   const [selectedRegion, setSelectedRegion] = useState("czts");
   const regions = {
-    czts: { label: "Cu₂ZnSnS₄", color: "#347a89", desc: "Target kesterite phase — narrow stability window" },
-    cu2s: { label: "Cu₂S", color: "#30717f", desc: "Cu-rich secondary phase — shunts solar cell" },
-    zns:  { label: "ZnS", color: "#5298a6", desc: "Zn-rich secondary phase — high bandgap insulator" },
-    sns:  { label: "SnS", color: "#3d90a1", desc: "Sn-poor decomposition product" },
-    sns2: { label: "SnS₂", color: "#347b8a", desc: "Sn-rich secondary phase" },
+    czts: { label: "Cu₂ZnSnS₄", color: "#398a9a", desc: "Target kesterite phase — narrow stability window" },
+    cu2s: { label: "Cu₂S", color: "#347d8b", desc: "Cu-rich secondary phase — shunts solar cell" },
+    zns:  { label: "ZnS", color: "#6fb1be", desc: "Zn-rich secondary phase — high bandgap insulator" },
+    sns:  { label: "SnS", color: "#56a3b3", desc: "Sn-poor decomposition product" },
+    sns2: { label: "SnS₂", color: "#3a8c9c", desc: "Sn-rich secondary phase" },
     cu:   { label: "Cu", color: "var(--muted)", desc: "Metallic Cu precipitates" }
   };
   const r = regions[selectedRegion];
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Making CZTS is like baking a soufflé — the recipe needs exactly the right proportions and conditions. Too much butter (Cu-rich) and it collapses into Cu₂S. Too much flour (Zn-rich) and you get a dry ZnS brick. The chemical potential diagram shows you the tiny sweet spot where the perfect soufflé (CZTS) forms.
         </div>
@@ -15713,8 +15594,8 @@ function CHChemConstructSection() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Constructing a chemical potential diagram is like drawing a zoning map for a city. Each ordinance (stability constraint) draws a boundary line. The final map is the intersection of all boundaries — each zone represents where a particular phase {"\""}wins{"\""} the competition. You draw one line at a time, and the zones emerge naturally.
         </div>
@@ -15806,10 +15687,10 @@ function CHChemConstructSection() {
               {/* Step 2+: Elemental bounds - shade forbidden region */}
               {step >= 2 && (
                 <>
-                  <rect x={toX(0)} y={toY(0.05)} width={toX(0.05) - toX(0)} height={toY(-1) - toY(0.05)} fill="#30717f15" />
-                  <rect x={toX(-1)} y={toY(0.05)} width={toX(0.05) - toX(-1)} height={toY(0) - toY(0.05)} fill="#30717f15" />
-                  <text x={toX(0.03)} y={toY(-0.5)} fontSize={9} fill="#30717f" fontWeight={500}>μ_Cu ≤ 0</text>
-                  <text x={toX(-0.5)} y={toY(0.03)} fontSize={9} fill="#30717f" fontWeight={500}>μ_S ≤ 0</text>
+                  <rect x={toX(0)} y={toY(0.05)} width={toX(0.05) - toX(0)} height={toY(-1) - toY(0.05)} fill="#347d8b15" />
+                  <rect x={toX(-1)} y={toY(0.05)} width={toX(0.05) - toX(-1)} height={toY(0) - toY(0.05)} fill="#347d8b15" />
+                  <text x={toX(0.03)} y={toY(-0.5)} fontSize={9} fill="#347d8b" fontWeight={500}>μ_Cu ≤ 0</text>
+                  <text x={toX(-0.5)} y={toY(0.03)} fontSize={9} fill="#347d8b" fontWeight={500}>μ_S ≤ 0</text>
                 </>
               )}
 
@@ -15817,12 +15698,12 @@ function CHChemConstructSection() {
               {step >= 3 && (
                 <>
                   <line x1={toX(cu2sA.cu)} y1={toY(cu2sA.s)} x2={toX(cu2sB.cu)} y2={toY(cu2sB.s)}
-                    stroke="#347a89" strokeWidth={2.5} />
-                  <text x={toX(-0.18)} y={toY(-0.60)} fontSize={10} fill="#347a89" fontWeight={500}>Cu₂S line</text>
-                  <circle cx={toX(cu2sA.cu)} cy={toY(cu2sA.s)} r={4} fill="#347a89" />
-                  <text x={toX(cu2sA.cu) + 6} y={toY(cu2sA.s) + 3} fontSize={8} fill="#347a89">(0, -0.90)</text>
-                  <circle cx={toX(cu2sB.cu)} cy={toY(cu2sB.s)} r={4} fill="#347a89" />
-                  <text x={toX(cu2sB.cu) - 50} y={toY(cu2sB.s) - 6} fontSize={8} fill="#347a89">(-0.45, 0)</text>
+                    stroke="#398a9a" strokeWidth={2.5} />
+                  <text x={toX(-0.18)} y={toY(-0.60)} fontSize={10} fill="#398a9a" fontWeight={500}>Cu₂S line</text>
+                  <circle cx={toX(cu2sA.cu)} cy={toY(cu2sA.s)} r={4} fill="#398a9a" />
+                  <text x={toX(cu2sA.cu) + 6} y={toY(cu2sA.s) + 3} fontSize={8} fill="#398a9a">(0, -0.90)</text>
+                  <circle cx={toX(cu2sB.cu)} cy={toY(cu2sB.s)} r={4} fill="#398a9a" />
+                  <text x={toX(cu2sB.cu) - 50} y={toY(cu2sB.s) - 6} fontSize={8} fill="#398a9a">(-0.45, 0)</text>
                 </>
               )}
 
@@ -15830,13 +15711,13 @@ function CHChemConstructSection() {
               {step >= 4 && (
                 <>
                   <line x1={toX(-0.53)} y1={toY(0)} x2={toX(0)} y2={toY(-0.53)}
-                    stroke="#30717f" strokeWidth={1.5} strokeDasharray="6,3" />
-                  <circle cx={toX(cusB.cu)} cy={toY(cusB.s)} r={5} fill="#30717f" stroke="#fff" strokeWidth={1} />
-                  <text x={toX(cusB.cu) - 55} y={toY(cusB.s) + 4} fontSize={8} fill="#30717f" fontWeight={500}>CuS boundary</text>
-                  <text x={toX(cusB.cu) - 55} y={toY(cusB.s) + 14} fontSize={8} fill="#30717f">(-0.37, -0.16)</text>
+                    stroke="#347d8b" strokeWidth={1.5} strokeDasharray="6,3" />
+                  <circle cx={toX(cusB.cu)} cy={toY(cusB.s)} r={5} fill="#347d8b" stroke="#fff" strokeWidth={1} />
+                  <text x={toX(cusB.cu) - 55} y={toY(cusB.s) + 4} fontSize={8} fill="#347d8b" fontWeight={500}>CuS boundary</text>
+                  <text x={toX(cusB.cu) - 55} y={toY(cusB.s) + 14} fontSize={8} fill="#347d8b">(-0.37, -0.16)</text>
                   {/* Shade CuS forbidden region on Cu₂S line (Cu-poor side) */}
                   <line x1={toX(cusB.cu)} y1={toY(cusB.s)} x2={toX(cu2sB.cu)} y2={toY(cu2sB.s)}
-                    stroke="#30717f" strokeWidth={4} opacity={0.2} />
+                    stroke="#347d8b" strokeWidth={4} opacity={0.2} />
                 </>
               )}
 
@@ -15844,13 +15725,13 @@ function CHChemConstructSection() {
               {step >= 5 && (
                 <>
                   <line x1={toX(0)} y1={toY(-0.85 / 2)} x2={toX(-0.85)} y2={toY(0)}
-                    stroke="#347b8a" strokeWidth={1.5} strokeDasharray="6,3" />
-                  <circle cx={toX(cus2B.cu)} cy={toY(cus2B.s)} r={5} fill="#347b8a" stroke="#fff" strokeWidth={1} />
-                  <text x={toX(cus2B.cu) + 8} y={toY(cus2B.s) + 4} fontSize={8} fill="#347b8a" fontWeight={500}>CuS₂ boundary</text>
-                  <text x={toX(cus2B.cu) + 8} y={toY(cus2B.s) + 14} fontSize={8} fill="#347b8a">(-0.14, -0.62)</text>
+                    stroke="#3a8c9c" strokeWidth={1.5} strokeDasharray="6,3" />
+                  <circle cx={toX(cus2B.cu)} cy={toY(cus2B.s)} r={5} fill="#3a8c9c" stroke="#fff" strokeWidth={1} />
+                  <text x={toX(cus2B.cu) + 8} y={toY(cus2B.s) + 4} fontSize={8} fill="#3a8c9c" fontWeight={500}>CuS₂ boundary</text>
+                  <text x={toX(cus2B.cu) + 8} y={toY(cus2B.s) + 14} fontSize={8} fill="#3a8c9c">(-0.14, -0.62)</text>
                   {/* Shade CuS₂ forbidden region on Cu₂S line (Cu-rich side) */}
                   <line x1={toX(cu2sA.cu)} y1={toY(cu2sA.s)} x2={toX(cus2B.cu)} y2={toY(cus2B.s)}
-                    stroke="#347b8a" strokeWidth={4} opacity={0.2} />
+                    stroke="#3a8c9c" strokeWidth={4} opacity={0.2} />
                 </>
               )}
 
@@ -15858,12 +15739,12 @@ function CHChemConstructSection() {
               {step >= 6 && (
                 <>
                   <line x1={toX(cusB.cu)} y1={toY(cusB.s)} x2={toX(cus2B.cu)} y2={toY(cus2B.s)}
-                    stroke="#5298a6" strokeWidth={5} opacity={0.9} />
-                  <text x={toX(-0.25)} y={toY(-0.35)} fontSize={11} fill="#5298a6" fontWeight={500}>Cu₂S STABLE</text>
-                  <text x={toX(-0.25)} y={toY(-0.35) + 14} fontSize={9} fill="#5298a6">μ_Cu ∈ [-0.37, -0.14]</text>
+                    stroke="#6fb1be" strokeWidth={5} opacity={0.9} />
+                  <text x={toX(-0.25)} y={toY(-0.35)} fontSize={11} fill="#6fb1be" fontWeight={500}>Cu₂S STABLE</text>
+                  <text x={toX(-0.25)} y={toY(-0.35) + 14} fontSize={9} fill="#6fb1be">μ_Cu ∈ [-0.37, -0.14]</text>
                   {/* Phase labels in forbidden regions */}
-                  <text x={toX(-0.42)} y={toY(-0.04)} fontSize={10} fill="#30717f" opacity={0.6}>CuS region</text>
-                  <text x={toX(0)} y={toY(-0.80) - 4} fontSize={10} fill="#347b8a" opacity={0.6}>CuS₂ region</text>
+                  <text x={toX(-0.42)} y={toY(-0.04)} fontSize={10} fill="#347d8b" opacity={0.6}>CuS region</text>
+                  <text x={toX(0)} y={toY(-0.80) - 4} fontSize={10} fill="#3a8c9c" opacity={0.6}>CuS₂ region</text>
                 </>
               )}
             </svg>
@@ -15902,9 +15783,9 @@ function CHChemConstructSection() {
               <div>
                 <strong style={{ color: CH.warm }}>Step 3: Cu₂S Target Line</strong>
                 <div style={{
-                  fontFamily: "monospace", fontSize: 11, background: "#347a8910",
-                  border: `1px solid #347a8922`, borderRadius: 6, padding: "8px 12px", margin: "6px 0",
-                  color: "#347a89"
+                  fontFamily: "monospace", fontSize: 11, background: "#398a9a10",
+                  border: `1px solid #398a9a22`, borderRadius: 6, padding: "8px 12px", margin: "6px 0",
+                  color: "#398a9a"
                 }}>
                   2μ_Cu + μ_S = -0.90 eV<br/>
                   ⇒ μ_S = -0.90 - 2μ_Cu
@@ -15923,9 +15804,9 @@ function CHChemConstructSection() {
               <div>
                 <strong style={{ color: CH.warm }}>Step 4: CuS Competing Phase</strong>
                 <div style={{
-                  fontFamily: "monospace", fontSize: 11, background: "#30717f10",
-                  border: `1px solid #30717f22`, borderRadius: 6, padding: "8px 12px", margin: "6px 0",
-                  color: "#30717f"
+                  fontFamily: "monospace", fontSize: 11, background: "#347d8b10",
+                  border: `1px solid #347d8b22`, borderRadius: 6, padding: "8px 12px", margin: "6px 0",
+                  color: "#347d8b"
                 }}>
                   CuS: μ_Cu + μ_S ≤ -0.53 eV<br/><br/>
                   On Cu₂S line, substitute:<br/>
@@ -15942,9 +15823,9 @@ function CHChemConstructSection() {
               <div>
                 <strong style={{ color: CH.warm }}>Step 5: CuS₂ Competing Phase</strong>
                 <div style={{
-                  fontFamily: "monospace", fontSize: 11, background: "#347b8a10",
-                  border: `1px solid #347b8a22`, borderRadius: 6, padding: "8px 12px", margin: "6px 0",
-                  color: "#347b8a"
+                  fontFamily: "monospace", fontSize: 11, background: "#3a8c9c10",
+                  border: `1px solid #3a8c9c22`, borderRadius: 6, padding: "8px 12px", margin: "6px 0",
+                  color: "#3a8c9c"
                 }}>
                   CuS₂: μ_Cu + 2μ_S ≤ -0.85 eV<br/><br/>
                   On Cu₂S line, substitute:<br/>
@@ -15958,12 +15839,12 @@ function CHChemConstructSection() {
             )}
             {step === 6 && (
               <div>
-                <strong style={{ color: "#5298a6" }}>Step 6: Final Result</strong>
+                <strong style={{ color: "#6fb1be" }}>Step 6: Final Result</strong>
                 <div style={{
-                  background: "#5298a610", border: `1.5px solid #5298a622`,
+                  background: "#6fb1be10", border: `1.5px solid #6fb1be22`,
                   borderRadius: 8, padding: "10px 14px", margin: "6px 0"
                 }}>
-                  <strong style={{ color: "#5298a6" }}>Cu₂S stability window:</strong><br/>
+                  <strong style={{ color: "#6fb1be" }}>Cu₂S stability window:</strong><br/>
                   μ_Cu ∈ [-0.37, -0.14] eV<br/>
                   μ_S  ∈ [-0.62, -0.16] eV<br/>
                   <strong>Width: 0.23 eV</strong>
@@ -16104,10 +15985,10 @@ function CHKineticsSection() {
   // k_eff = A * exp(-Ea/kT) * (1 - exp(ΔG/kT))
   // At high T, the large |ΔG| of CZTS drives it to dominate eventually
   const phases = {
-    czts:  { label: "Cu₂ZnSnS₄", ea: 0.95, dG: -3.47, color: "#5298a6", desc: "Kesterite (target)", prefactor: 1e3 },
-    cu2s:  { label: "Cu₂S",          ea: 0.55, dG: -0.90, color: "#30717f", desc: "Forms fast (low barrier)", prefactor: 1.0 },
-    zns:   { label: "ZnS",             ea: 0.65, dG: -1.75, color: "#3d90a1", desc: "Moderate barrier", prefactor: 1.0 },
-    sns:   { label: "SnS",             ea: 0.45, dG: -1.04, color: "#347b8a", desc: "Nucleates easily, volatile", prefactor: 0.5 }
+    czts:  { label: "Cu₂ZnSnS₄", ea: 0.95, dG: -3.47, color: "#6fb1be", desc: "Kesterite (target)", prefactor: 1e3 },
+    cu2s:  { label: "Cu₂S",          ea: 0.55, dG: -0.90, color: "#347d8b", desc: "Forms fast (low barrier)", prefactor: 1.0 },
+    zns:   { label: "ZnS",             ea: 0.65, dG: -1.75, color: "#56a3b3", desc: "Moderate barrier", prefactor: 1.0 },
+    sns:   { label: "SnS",             ea: 0.45, dG: -1.04, color: "#3a8c9c", desc: "Nucleates easily, volatile", prefactor: 0.5 }
   };
   const ph = phases[selectedBarrier];
 
@@ -16186,8 +16067,8 @@ function CHKineticsSection() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Thermodynamics is like a <strong>map showing which valleys exist</strong> — it tells you the lowest-energy states. But kinetics is about <strong>how high the mountains are between valleys</strong>. A ball (your system) can get stuck in a shallow valley (metastable phase like Cu₂S) if the mountain pass to the deeper valley (CZTS) is higher. Heating gives the ball more energy to hop over barriers. Cu₂S forms first (lower barrier, E_a = 0.55 eV), but given enough time and temperature, the system finds the deepest valley — CZTS (ΔG = -3.47 eV, the most stable phase).
         </div>
@@ -16244,14 +16125,14 @@ function CHKineticsSection() {
             <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
               <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>WHY Kinetics matters</div>
               <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
-                <strong style={{ color: "#30717f" }}>Cu₂S</strong> has E_a = 0.55 eV (low barrier) → nucleates <strong>first</strong>
-                <br/><strong style={{ color: "#5298a6" }}>CZTS</strong> has E_a = 0.95 eV (higher barrier) but ΔG = -3.47 eV → <strong>dominates at long times</strong>
+                <strong style={{ color: "#347d8b" }}>Cu₂S</strong> has E_a = 0.55 eV (low barrier) → nucleates <strong>first</strong>
+                <br/><strong style={{ color: "#6fb1be" }}>CZTS</strong> has E_a = 0.95 eV (higher barrier) but ΔG = -3.47 eV → <strong>dominates at long times</strong>
                 <br/><br/>At low T or short times, Cu₂S and SnS form first (lower barriers). But CZTS has a much larger thermodynamic driving force (ΔG = -3.47 eV). At 550°C and sufficient time, CZTS overtakes and becomes the dominant phase.
               </div>
             </div>
             <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
               <div style={{ fontSize: 10, color: T.muted, marginBottom: 6, letterSpacing: 2 }}>Arrhenius rate</div>
-              <div style={{ fontFamily: "'Georgia',serif", fontSize: 13, color: CH.accent, lineHeight: 2 }}>
+              <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 13, color: CH.accent, lineHeight: 2 }}>
                 k = A · exp(−E<sub>a</sub> / k<sub>B</sub>T)
               </div>
               <div style={{ fontSize: 10, color: T.ink, lineHeight: 1.6, marginTop: 6 }}>
@@ -16269,7 +16150,7 @@ function CHKineticsSection() {
       <Card collapsible title="Phase Evolution: Avrami (JMAK) Transformation Kinetics" color={CH.hull}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
           The <strong>Johnson-Mehl-Avrami-Kolmogorov</strong> equation models how phase fractions evolve during annealing:
-          <span style={{ fontFamily: "'Georgia',serif", color: CH.hull }}> f(t) = 1 − exp(−k·t<sup>n</sup>)</span>, where n = 2 for 2D nucleation + growth in thin films. Press <strong>Play</strong> to watch CZTS grow over time.
+          <span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", color: CH.hull }}> f(t) = 1 − exp(−k·t<sup>n</sup>)</span>, where n = 2 for 2D nucleation + growth in thin films. Press <strong>Play</strong> to watch CZTS grow over time.
         </div>
 
         <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
@@ -16280,9 +16161,9 @@ function CHKineticsSection() {
               <button onClick={() => { if (time >= 50) setTime(0); setPlaying(!playing); }} style={{
                 flex: 1, padding: "8px", borderRadius: 8, fontSize: 12, fontWeight: 500,
                 cursor: "pointer", fontFamily: "inherit",
-                background: playing ? "#30717f18" : "#5298a618",
-                border: `1.5px solid ${playing ? "#30717f" : "#5298a6"}`,
-                color: playing ? "#30717f" : "#5298a6"
+                background: playing ? "#347d8b18" : "#6fb1be18",
+                border: `1.5px solid ${playing ? "#347d8b" : "#6fb1be"}`,
+                color: playing ? "#347d8b" : "#6fb1be"
               }}>{playing ? "⏸ Pause" : "▶ Play Annealing"}</button>
               <button onClick={() => { setTime(0); setPlaying(false); }} style={{
                 padding: "8px 16px", borderRadius: 8, fontSize: 12, fontWeight: 500,
@@ -16312,7 +16193,7 @@ function CHKineticsSection() {
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
               <ResultBox label="Dominant phase" value={normalizedFractions.sort((a, b) => b.norm - a.norm)[0]?.label || "?"} color={normalizedFractions.sort((a, b) => b.norm - a.norm)[0]?.color || T.muted} sub={time < 5 ? "early stage" : time < 20 ? "transforming" : "approaching eq."} />
-              <ResultBox label="CZTS fraction" value={`${(normalizedFractions.find(p => p.id === "czts")?.norm * 100 || 0).toFixed(1)}%`} color={normalizedFractions.find(p => p.id === "czts")?.norm > 0.5 ? "#5298a6" : "#30717f"} sub={normalizedFractions.find(p => p.id === "czts")?.norm > 0.5 ? "majority phase" : "minority"} />
+              <ResultBox label="CZTS fraction" value={`${(normalizedFractions.find(p => p.id === "czts")?.norm * 100 || 0).toFixed(1)}%`} color={normalizedFractions.find(p => p.id === "czts")?.norm > 0.5 ? "#6fb1be" : "#347d8b"} sub={normalizedFractions.find(p => p.id === "czts")?.norm > 0.5 ? "majority phase" : "minority"} />
             </div>
           </div>
 
@@ -16339,7 +16220,7 @@ function CHKineticsSection() {
               {/* Animated precursor atoms (early stage) */}
               {time < 15 && Array.from({ length: 16 }, (_, i) => {
                 const species = ["Cu", "Cu", "Zn", "Sn", "S", "S", "S", "S"][i % 8];
-                const colors = { Cu: "#378392", Zn: "#7f8c8d", Sn: "#95a5a6", S: "#94c1ca" };
+                const colors = { Cu: "#48919f", Zn: "#7f8c8d", Sn: "#95a5a6", S: "#b7d1d6" };
                 const bx = 20 + (i % 8) * 35;
                 const by = 70 + Math.floor(i / 8) * 50;
                 const dx = Math.sin(animFrame * 0.025 + i * 1.7) * 10;
@@ -16366,7 +16247,7 @@ function CHKineticsSection() {
                   { x: 250, y: 140, phase: "czts", delay: 15 },
                   { x: 120, y: 170, phase: "czts", delay: 18 },
                 ];
-                const grainColors = { czts: "#5298a6", cu2s: "#30717f", zns: "#3d90a1", sns: "#347b8a" };
+                const grainColors = { czts: "#6fb1be", cu2s: "#347d8b", zns: "#56a3b3", sns: "#3a8c9c" };
                 const grainLabels = { czts: "CZTS", cu2s: "Cu₂S", zns: "ZnS", sns: "SnS" };
                 return grains.map((g, i) => {
                   const t = Math.max(0, time - g.delay);
@@ -16389,7 +16270,7 @@ function CHKineticsSection() {
                         const ax = g.x + (k % 2 - 0.5) * 8;
                         const ay = g.y + (Math.floor(k / 2) - 0.5) * 8 - 4;
                         const sp = ["Cu", "Zn", "Sn", "S"][k];
-                        const sc = { Cu: "#378392", Zn: "#7f8c8d", Sn: "#95a5a6", S: "#94c1ca" }[sp];
+                        const sc = { Cu: "#48919f", Zn: "#7f8c8d", Sn: "#95a5a6", S: "#b7d1d6" }[sp];
                         return <circle key={k} cx={ax} cy={ay} r={2} fill={sc} opacity={0.6} />;
                       })}
                     </g>
@@ -16444,10 +16325,10 @@ function CHKineticsSection() {
       <Card collapsible title="Metastability: When Kinetics Overrules Thermodynamics" color={CH.warm}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
           {[
-            { title: "Diamond vs Graphite", example: "Diamond is metastable (graphite is lower energy), but persists for billions of years because the barrier to transform is ~5 eV. Room temperature kT = 25 meV — no chance.", color: "#347a89", icon: "◇" },
-            { title: "Amorphous Si", example: "Sputtered Si thin films are amorphous (metastable). Crystallization requires ~3 eV barrier. Below 500°C, amorphous Si persists indefinitely.", color: "#347b8a", icon: "○" },
-            { title: "CZTS Disorder", example: "Cu-Zn disorder in kesterite CZTS has a barrier of only ~0.2 eV. Even at 200°C, Cu/Zn swap freely → always disordered. This limits V_oc in solar cells.", color: "#3d90a1", icon: "□" },
-            { title: "Quenching Strategy", example: "Anneal at 550°C long enough for CZTS to form, then QUENCH rapidly to freeze the structure before Cu₂S can nucleate during cooldown. Cooling rate matters!", color: "#5298a6", icon: "▲" },
+            { title: "Diamond vs Graphite", example: "Diamond is metastable (graphite is lower energy), but persists for billions of years because the barrier to transform is ~5 eV. Room temperature kT = 25 meV — no chance.", color: "#398a9a", icon: "◇" },
+            { title: "Amorphous Si", example: "Sputtered Si thin films are amorphous (metastable). Crystallization requires ~3 eV barrier. Below 500°C, amorphous Si persists indefinitely.", color: "#3a8c9c", icon: "○" },
+            { title: "CZTS Disorder", example: "Cu-Zn disorder in kesterite CZTS has a barrier of only ~0.2 eV. Even at 200°C, Cu/Zn swap freely → always disordered. This limits V_oc in solar cells.", color: "#56a3b3", icon: "□" },
+            { title: "Quenching Strategy", example: "Anneal at 550°C long enough for CZTS to form, then QUENCH rapidly to freeze the structure before Cu₂S can nucleate during cooldown. Cooling rate matters!", color: "#6fb1be", icon: "▲" },
           ].map(item => (
             <div key={item.title} style={{ background: item.color + "08", border: `1px solid ${item.color}22`, borderRadius: 8, padding: "10px 12px" }}>
               <div style={{ fontSize: 11, fontWeight: 500, color: item.color, marginBottom: 4 }}>{item.icon} {item.title}</div>
@@ -16504,14 +16385,14 @@ function CHKineticsSection() {
         <div style={chMathBlock}>
           <div style={{ color: CH.unstab, fontWeight: 500, marginBottom: 8 }}>Example 1: Arrhenius rate — can Cu₂S form at 200°C?</div>
           <span style={{ fontWeight: 500, color: CH.main }}>Step 1:</span> Activation energy for Cu₂S nucleation: E_a = 0.8 eV<br />
-          {"  Rate = A × exp(−E_a / k_BT)"}<br /><br />
+          {fx("  Rate = A × exp(−E_a / k_BT)")}<br /><br />
           <span style={{ fontWeight: 500, color: CH.main }}>Step 2:</span> At T = 200°C = 473 K:<br />
-          {"  k_BT = 8.617×10⁻⁵ × 473 = 0.0408 eV"}<br />
-          {"  E_a / k_BT = 0.8 / 0.0408 = 19.6"}<br />
+          {fx("  k_BT = 8.617×10⁻⁵ × 473 = 0.0408 eV")}<br />
+          {fx("  E_a / k_BT = 0.8 / 0.0408 = 19.6")}<br />
           {"  exp(−19.6) = "}<span style={{ color: CH.unstab, fontWeight: 500 }}>{"3.4 × 10⁻⁹"}</span><br /><br />
           <span style={{ fontWeight: 500, color: CH.main }}>Step 3:</span> At T = 550°C = 823 K:<br />
-          {"  k_BT = 0.0709 eV"}<br />
-          {"  E_a / k_BT = 0.8 / 0.0709 = 11.3"}<br />
+          {fx("  k_BT = 0.0709 eV")}<br />
+          {fx("  E_a / k_BT = 0.8 / 0.0709 = 11.3")}<br />
           {"  exp(−11.3) = "}<span style={{ color: CH.stable, fontWeight: 500 }}>{"1.2 × 10⁻⁵"}</span><br /><br />
           <span style={{ fontWeight: 500, color: CH.main }}>Step 4:</span> Rate ratio:<br />
           {"  k(550°C) / k(200°C) = 1.2×10⁻⁵ / 3.4×10⁻⁹ = "}<span style={{ color: CH.warm, fontWeight: 500 }}>{"~3500× faster"}</span><br /><br />
@@ -16521,10 +16402,10 @@ function CHKineticsSection() {
         <div style={chMathBlock}>
           <div style={{ color: CH.unstab, fontWeight: 500, marginBottom: 8 }}>Example 2: Diamond metastability — lifetime calculation</div>
           <span style={{ fontWeight: 500, color: CH.main }}>Step 1:</span> Diamond → graphite: E_above_hull = 0.020 eV/atom<br />
-          {"  Activation barrier: E_a ≈ 5.0 eV (sp³→sp² bond breaking)"}<br /><br />
+          {fx("  Activation barrier: E_a ≈ 5.0 eV (sp³→sp² bond breaking)")}<br /><br />
           <span style={{ fontWeight: 500, color: CH.main }}>Step 2:</span> Rate at room temperature (300 K):<br />
-          {"  k_BT = 0.0259 eV"}<br />
-          {"  E_a / k_BT = 5.0 / 0.0259 = 193"}<br />
+          {fx("  k_BT = 0.0259 eV")}<br />
+          {fx("  E_a / k_BT = 5.0 / 0.0259 = 193")}<br />
           {"  exp(−193) = 10⁻⁸⁴"}<br /><br />
           <span style={{ fontWeight: 500, color: CH.main }}>Step 3:</span> Attempt frequency ν₀ ≈ 10¹³ Hz (Debye frequency):<br />
           {"  Rate = 10¹³ × 10⁻⁸⁴ = 10⁻⁷¹ s⁻¹"}<br />
@@ -16537,7 +16418,7 @@ function CHKineticsSection() {
         <div style={chMathBlock}>
           <div style={{ color: CH.unstab, fontWeight: 500, marginBottom: 8 }}>Example 3: Avrami equation — CZTS crystallization kinetics</div>
           <span style={{ fontWeight: 500, color: CH.main }}>Step 1:</span> Avrami equation for phase transformation:<br />
-          {"  f(t) = 1 − exp(−k × t^n)"}<br />
+          {fx("  f(t) = 1 − exp(−k × t^n)")}<br />
           {"  f = fraction transformed, k = rate constant, n = Avrami exponent"}<br /><br />
           <span style={{ fontWeight: 500, color: CH.main }}>Step 2:</span> For CZTS at 550°C: k = 0.003 min⁻³, n = 3 (3D nucleation + growth)<br />
           {"  t = 5 min:   f = 1 − exp(−0.003 × 125) = 1 − exp(−0.375) = 31%"}<br />
@@ -16563,8 +16444,8 @@ function CHBigQuestionsSection() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}> Big Questions</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}> Big Questions</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           40+ deep questions about phase diagrams, convex hulls, thermodynamics, and chemical potentials.
         </div>
@@ -16722,7 +16603,7 @@ function CHBigQuestionsSection() {
           Chemical potential μᵢ is the partial molar Gibbs free energy — the change in G when you add one mole of species i, holding T, P, and all other compositions constant. At equilibrium, μᵢ must be equal in every phase.
         </div>
         <div style={mb}>
-          <span style={{ color: T.ch_warm, fontWeight: 500 }}>μᵢ = (∂G/∂nᵢ)_{"{T,P,n_j}"}</span><br /><br />
+          <span style={{ color: T.ch_warm, fontWeight: 500 }}>μᵢ = (∂G/∂nᵢ)_{fx("{T,P,n_j}")}</span><br /><br />
           <span style={{ color: T.ch_main }}>Physical meaning:</span><br />
           <span style={{ color: T.ink }}>• μ<sub>Cu</sub> = "how much does G change if I add one Cu atom?"</span><br />
           <span style={{ color: T.ink }}>• High μ<sub>Cu</sub> → Cu wants to leave</span><br />
@@ -16819,7 +16700,7 @@ function CHBigQuestionsSection() {
         </div>
       </FAQAccordion>
 
-      <FAQAccordion title={"PQ15. What if ΔH_f > 0? Is the compound always unstable?"} color={T.ch_unstab} isOpen={openQ === "PQ15"} onClick={() => toggle("PQ15")}>
+      <FAQAccordion title={fx("PQ15. What if ΔH_f > 0? Is the compound always unstable?")} color={T.ch_unstab} isOpen={openQ === "PQ15"} onClick={() => toggle("PQ15")}>
         <div style={{ background: T.ch_unstab + "10", border: `1px solid ${T.ch_unstab}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_unstab }}> <b>Analogy:</b> A ball balanced on a hilltop has positive potential energy vs. the valley, but it stays put unless something pushes it. Some "unstable" compounds persist for millennia because they can't find a path downhill.</span>
         </div>
@@ -16873,7 +16754,7 @@ function CHBigQuestionsSection() {
         </div>
       </FAQAccordion>
 
-      <FAQAccordion title={"PQ18. What does 'energy above hull' (E_hull) mean?"} color={T.ch_unstab} isOpen={openQ === "PQ18"} onClick={() => toggle("PQ18")}>
+      <FAQAccordion title={fx("PQ18. What does 'energy above hull' (E_hull) mean?")} color={T.ch_unstab} isOpen={openQ === "PQ18"} onClick={() => toggle("PQ18")}>
         <div style={{ background: T.ch_unstab + "10", border: `1px solid ${T.ch_unstab}30`, borderRadius: 8, padding: "8px 12px", marginBottom: 10 }}>
           <span style={{ fontSize: 12, color: T.ch_unstab }}> <b>Analogy:</b> E_hull is like altitude above the valley floor. Zero = on the ground (stable). 10 meV = standing on a curb (barely metastable). 200 meV = on the roof (very unstable, will decompose quickly).</span>
         </div>
@@ -17351,8 +17232,8 @@ const CH_SECTIONS = [
 function CHTempHullSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           The 0 K convex hull is like a frozen lake — only the lowest-energy structures sit on the rigid ice surface. Heating up is like thawing: the surface becomes flexible. Entropy (disorder) acts like waves that can lift previously sunken phases to the surface. Some compounds unstable at 0 K become stable at high temperature because their atoms vibrate more freely (higher vibrational entropy) or can mix randomly (configurational entropy).
         </div>
@@ -17363,10 +17244,10 @@ function CHTempHullSection() {
           Standard DFT gives total energies at <strong style={{ color: CH.accent }}>T = 0 K</strong>. The convex hull built from these energies identifies phases that minimize enthalpy H. But real synthesis happens at 300-1500 K, where the relevant quantity is the <strong style={{ color: CH.accent }}>Gibbs free energy</strong> G = H - TS. The entropy term -TS can shift the hull significantly.
         </div>
         <div style={chMathBlock}>
-          <span style={{ color: CH.accent, fontWeight: 500 }}>{"At 0 K: G = H ≈ E_DFT (entropy is zero)"}</span><br />
-          <span style={{ color: CH.warm, fontWeight: 500 }}>{"At T > 0: G(T) = E_DFT + E_ZPE + ∫₀ᵀ Cᵥ dT' − T×S(T)"}</span><br /><br />
-          <span style={{ color: T.muted }}>{"E_DFT = DFT total energy (what we already have)"}</span><br />
-          <span style={{ color: T.muted }}>{"E_ZPE = zero-point energy = ½ Σᵢ ℏωᵢ (quantum vibrations even at 0 K)"}</span><br />
+          <span style={{ color: CH.accent, fontWeight: 500 }}>{fx("At 0 K: G = H ≈ E_DFT (entropy is zero)")}</span><br />
+          <span style={{ color: CH.warm, fontWeight: 500 }}>{fx("At T > 0: G(T) = E_DFT + E_ZPE + ∫₀ᵀ Cᵥ dT' − T×S(T)")}</span><br /><br />
+          <span style={{ color: T.muted }}>{fx("E_DFT = DFT total energy (what we already have)")}</span><br />
+          <span style={{ color: T.muted }}>{fx("E_ZPE = zero-point energy = ½ Σᵢ ℏωᵢ (quantum vibrations even at 0 K)")}</span><br />
           <span style={{ color: T.muted }}>{"∫Cᵥ dT = enthalpy gained from heating (heat capacity integral)"}</span><br />
           <span style={{ color: T.muted }}>{"T×S(T) = entropy contribution (this is the big one at high T)"}</span>
         </div>
@@ -17380,10 +17261,10 @@ function CHTempHullSection() {
               Atoms vibrate around their equilibrium positions. Each vibrational mode (phonon) contributes to entropy. Phases with softer bonds (lower phonon frequencies) have higher vibrational entropy and are favoured at high T.
             </div>
             <div style={chMathBlock}>
-              {"S_vib(T) = k_B Σᵢ [ (ℏωᵢ/k_BT) / (exp(ℏωᵢ/k_BT) − 1) − ln(1 − exp(−ℏωᵢ/k_BT)) ]"}<br /><br />
+              {fx("S_vib(T) = k_B Σᵢ [ (ℏωᵢ/k_BT) / (exp(ℏωᵢ/k_BT) − 1) − ln(1 − exp(−ℏωᵢ/k_BT)) ]")}<br /><br />
               <span style={{ color: T.muted }}>{"ωᵢ = phonon frequencies (from DFT phonon calculation)"}</span><br />
               <span style={{ color: T.muted }}>{"Need: full phonon dispersion → supercell + force constants → diagonalise"}</span><br />
-              <span style={{ color: CH.hull }}>{"Typical magnitude: 0.5−2.0 k_B/atom at 1000 K"}</span>
+              <span style={{ color: CH.hull }}>{fx("Typical magnitude: 0.5−2.0 k_B/atom at 1000 K")}</span>
             </div>
           </div>
 
@@ -17393,9 +17274,9 @@ function CHTempHullSection() {
               In solid solutions and disordered alloys, atoms can randomly occupy lattice sites. The number of possible arrangements gives configurational entropy. This is why high-entropy alloys (5+ elements) and disordered rock-salt oxides become stable only at high T.
             </div>
             <div style={chMathBlock}>
-              {"S_config = −k_B Σᵢ xᵢ ln(xᵢ)"}<br /><br />
+              {fx("S_config = −k_B Σᵢ xᵢ ln(xᵢ)")}<br /><br />
               <span style={{ color: T.muted }}>{"xᵢ = fraction of species i on the sublattice"}</span><br />
-              <span style={{ color: CH.accent }}>{"For equimolar 5-component alloy: S = −5 × 0.2 × ln(0.2) × k_B = 1.61 k_B/site"}</span><br />
+              <span style={{ color: CH.accent }}>{fx("For equimolar 5-component alloy: S = −5 × 0.2 × ln(0.2) × k_B = 1.61 k_B/site")}</span><br />
               <span style={{ color: T.muted }}>{"At 1000 K: −TS = −1000 × 8.617e-5 × 1.61 = −0.139 eV/site"}</span><br />
               <span style={{ color: CH.accent }}>{"That's 139 meV — enough to stabilise phases 100+ meV above the 0 K hull!"}</span>
             </div>
@@ -17407,9 +17288,9 @@ function CHTempHullSection() {
               In metals, electrons near the Fermi level get thermally excited. This contributes a small electronic entropy proportional to T and the DOS at E_F. Negligible for semiconductors/insulators, but can matter for metals at very high T.
             </div>
             <div style={chMathBlock}>
-              {"S_elec ≈ (π²/3) k_B² T × g(E_F)"}<br /><br />
-              <span style={{ color: T.muted }}>{"g(E_F) = electronic density of states at Fermi level"}</span><br />
-              <span style={{ color: CH.warm }}>{"For metals: ~0.01−0.05 k_B/atom at 1000 K (usually ignore for semiconductors)"}</span>
+              {fx("S_elec ≈ (π²/3) k_B² T × g(E_F)")}<br /><br />
+              <span style={{ color: T.muted }}>{fx("g(E_F) = electronic density of states at Fermi level")}</span><br />
+              <span style={{ color: CH.warm }}>{fx("For metals: ~0.01−0.05 k_B/atom at 1000 K (usually ignore for semiconductors)")}</span>
             </div>
           </div>
         </div>
@@ -17421,20 +17302,20 @@ function CHTempHullSection() {
         </div>
         <div style={chMathBlock}>
           <span style={{ color: CH.main, fontWeight: 500 }}>{"Step 1: 0 K formation energies (from DFT)"}</span><br /><br />
-          {"CuS  (covellite):  ΔH_f = −0.53 eV/atom  [on hull]"}<br />
-          {"Cu₂S (chalcocite): ΔH_f = −0.30 eV/atom  [on hull]"}<br />
-          {"CuS₂ (pyrite):    ΔH_f = −0.41 eV/atom  [above hull by 12 meV]"}<br /><br />
+          {fx("CuS  (covellite):  ΔH_f = −0.53 eV/atom  [on hull]")}<br />
+          {fx("Cu₂S (chalcocite): ΔH_f = −0.30 eV/atom  [on hull]")}<br />
+          {fx("CuS₂ (pyrite):    ΔH_f = −0.41 eV/atom  [above hull by 12 meV]")}<br /><br />
           <span style={{ color: CH.main, fontWeight: 500 }}>{"Step 2: Compute phonon free energies at 800 K"}</span><br /><br />
           {"Run DFT phonon calculations (supercell + finite displacements) for each phase."}<br />
-          {"Compute F_vib(800K) = E_ZPE + ∫Cᵥ dT − T×S_vib for each:"}<br /><br />
-          {"CuS:  F_vib(800K) = +0.045 − 0.183 = −0.138 eV/atom"}<br />
-          {"Cu₂S: F_vib(800K) = +0.038 − 0.210 = −0.172 eV/atom  (softer bonds!)"}<br />
-          {"CuS₂: F_vib(800K) = +0.052 − 0.225 = −0.173 eV/atom  (also soft)"}<br /><br />
+          {fx("Compute F_vib(800K) = E_ZPE + ∫Cᵥ dT − T×S_vib for each:")}<br /><br />
+          {fx("CuS:  F_vib(800K) = +0.045 − 0.183 = −0.138 eV/atom")}<br />
+          {fx("Cu₂S: F_vib(800K) = +0.038 − 0.210 = −0.172 eV/atom  (softer bonds!)")}<br />
+          {fx("CuS₂: F_vib(800K) = +0.052 − 0.225 = −0.173 eV/atom  (also soft)")}<br /><br />
           <span style={{ color: CH.main, fontWeight: 500 }}>{"Step 3: New formation energies at 800 K"}</span><br /><br />
-          {"ΔG_f(T) = ΔH_f(0K) + ΔF_vib(T) − ΔF_vib,references(T)"}<br /><br />
-          {"CuS:  ΔG_f(800K) = −0.53 + (−0.138 − (−0.155)) = −0.53 + 0.017 = −0.513 eV/atom"}<br />
-          {"Cu₂S: ΔG_f(800K) = −0.30 + (−0.172 − (−0.160)) = −0.30 − 0.012 = −0.312 eV/atom"}<br />
-          <span style={{ color: CH.stable, fontWeight: 500 }}>{"CuS₂: ΔG_f(800K) = −0.41 + (−0.173 − (−0.145)) = −0.41 − 0.028 = −0.438 eV/atom"}</span><br /><br />
+          {fx("ΔG_f(T) = ΔH_f(0K) + ΔF_vib(T) − ΔF_vib,references(T)")}<br /><br />
+          {fx("CuS:  ΔG_f(800K) = −0.53 + (−0.138 − (−0.155)) = −0.53 + 0.017 = −0.513 eV/atom")}<br />
+          {fx("Cu₂S: ΔG_f(800K) = −0.30 + (−0.172 − (−0.160)) = −0.30 − 0.012 = −0.312 eV/atom")}<br />
+          <span style={{ color: CH.stable, fontWeight: 500 }}>{fx("CuS₂: ΔG_f(800K) = −0.41 + (−0.173 − (−0.145)) = −0.41 − 0.028 = −0.438 eV/atom")}</span><br /><br />
           <span style={{ color: CH.stable }}>{"CuS₂ dropped by 28 meV/atom → it's now only 2 meV above the hull!"}</span><br />
           <span style={{ color: CH.warm }}>{"At 800 K, CuS₂ is essentially on the hull — synthesizable!"}</span>
         </div>
@@ -17498,8 +17379,8 @@ function CHTempHullSection() {
 function CHChemPotExptSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ background: "#fafbfb", border: "1.5px solid #71adb933", borderRadius: 10, padding: "12px 16px" }}>
-        <div style={{ fontSize: 12, fontWeight: 500, color: "#2f6f7c", marginBottom: 4 }}>Simple Analogy</div>
+      <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
+        <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           Chemical potentials in DFT are like coordinates on a map. But the map uses abstract units. To actually GO somewhere (do an experiment), you need to convert those coordinates to GPS readings (temperature and pressure). This section is the GPS converter — it translates abstract chemical potential values into real lab conditions you can set on your furnace and gas flow controllers.
         </div>
@@ -17511,12 +17392,12 @@ function CHChemPotExptSection() {
           The connection is through the thermodynamic chemical potential of an ideal gas:
         </div>
         <div style={chMathBlock}>
-          {"μ(T, P) = μ_DFT(0K) + ΔH(T) − TΔS(T) + k_BT ln(P/P⁰)"}<br /><br />
-          <span style={{ color: CH.main }}>{"μ_DFT(0K) = DFT total energy of the reference (e.g. O₂ molecule)"}</span><br />
+          {fx("μ(T, P) = μ_DFT(0K) + ΔH(T) − TΔS(T) + k_BT ln(P/P⁰)")}<br /><br />
+          <span style={{ color: CH.main }}>{fx("μ_DFT(0K) = DFT total energy of the reference (e.g. O₂ molecule)")}</span><br />
           <span style={{ color: CH.accent }}>{"ΔH(T) = enthalpy change from 0 K to T (from thermodynamic tables or phonons)"}</span><br />
           <span style={{ color: CH.hull }}>{"TΔS(T) = entropy contribution (translational + rotational + vibrational)"}</span><br />
-          <span style={{ color: CH.warm }}>{"k_BT ln(P/P⁰) = pressure dependence (P⁰ = 1 atm reference)"}</span><br /><br />
-          <span style={{ color: T.muted }}>{"k_B = 8.617 × 10⁻⁵ eV/K (Boltzmann constant)"}</span>
+          <span style={{ color: CH.warm }}>{fx("k_BT ln(P/P⁰) = pressure dependence (P⁰ = 1 atm reference)")}</span><br /><br />
+          <span style={{ color: T.muted }}>{fx("k_B = 8.617 × 10⁻⁵ eV/K (Boltzmann constant)")}</span>
         </div>
       </Card>
 
@@ -17526,8 +17407,8 @@ function CHChemPotExptSection() {
           is the critical experimental knob. It connects directly to the oxygen partial pressure in the growth atmosphere.
         </div>
         <div style={chMathBlock}>
-          {"Δμ_O(T, P_O₂) = ½[μ_O₂(T, P_O₂) − E_O₂^DFT]"}<br /><br />
-          {"= ½[ΔH_O₂(T) − TΔS_O₂(T) + k_BT ln(P_O₂/P⁰)]"}<br /><br />
+          {fx("Δμ_O(T, P_O₂) = ½[μ_O₂(T, P_O₂) − E_O₂^DFT]")}<br /><br />
+          {fx("= ½[ΔH_O₂(T) − TΔS_O₂(T) + k_BT ln(P_O₂/P⁰)]")}<br /><br />
           <span style={{ color: CH.accent }}>{"The factor ½ is because O₂ has 2 oxygen atoms."}</span>
         </div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink, marginTop: 10, marginBottom: 10 }}>
@@ -17538,7 +17419,7 @@ function CHChemPotExptSection() {
           {"ΔH(1000K) − ΔH(0K) = 0.272 eV/molecule"}<br />
           {"S(1000K) = 2.43 × 10⁻³ eV/K/molecule"}<br />
           {"TΔS = 1000 × 2.43 × 10⁻³ = 2.43 eV"}<br /><br />
-          {"So: Δμ_O₂(1000K, P) = 0.272 − 2.43 + k_BT ln(P/P⁰)"}<br />
+          {fx("So: Δμ_O₂(1000K, P) = 0.272 − 2.43 + k_BT ln(P/P⁰)")}<br />
           {"= −2.158 + 0.0862 × ln(P/P⁰) eV"}<br /><br />
           <span style={{ color: CH.accent, fontWeight: 500 }}>{"Plug in pressures:"}</span><br />
           {"P = 1 atm:     Δμ_O = ½(−2.158 + 0)      = −1.079 eV"}<br />
@@ -17556,14 +17437,14 @@ function CHChemPotExptSection() {
         </div>
         <div style={chMathBlock}>
           {"H₂S(g) ⇌ H₂(g) + S  (equilibrium)"}<br /><br />
-          {"μ_S = μ_H₂S − μ_H₂"}<br />
-          {"= ΔG°_f(H₂S) + k_BT ln(P_H₂S / P_H₂)"}<br /><br />
+          {fx("μ_S = μ_H₂S − μ_H₂")}<br />
+          {fx("= ΔG°_f(H₂S) + k_BT ln(P_H₂S / P_H₂)")}<br /><br />
           {"ΔG°_f(H₂S, 800K) = −0.36 eV"}<br /><br />
           <span style={{ color: CH.hull, fontWeight: 500 }}>{"Example at T = 800 K:"}</span><br />
-          {"H₂S/H₂ = 0.1:   μ_S = −0.36 + 0.069 × ln(0.1) = −0.52 eV"}<br />
-          {"H₂S/H₂ = 0.01:  μ_S = −0.36 + 0.069 × ln(0.01) = −0.68 eV"}<br />
-          {"H₂S/H₂ = 0.001: μ_S = −0.36 + 0.069 × ln(0.001) = −0.84 eV"}<br /><br />
-          <span style={{ color: T.muted }}>{"More H₂S → less negative μ_S → sulfur-rich conditions"}</span>
+          {fx("H₂S/H₂ = 0.1:   μ_S = −0.36 + 0.069 × ln(0.1) = −0.52 eV")}<br />
+          {fx("H₂S/H₂ = 0.01:  μ_S = −0.36 + 0.069 × ln(0.01) = −0.68 eV")}<br />
+          {fx("H₂S/H₂ = 0.001: μ_S = −0.36 + 0.069 × ln(0.001) = −0.84 eV")}<br /><br />
+          <span style={{ color: T.muted }}>{fx("More H₂S → less negative μ_S → sulfur-rich conditions")}</span>
         </div>
       </Card>
 
@@ -17572,9 +17453,9 @@ function CHChemPotExptSection() {
           Metal chemical potentials (Cu, Zn, Sn in CZTS) are controlled by the evaporation rate (flux) from effusion cells in MBE, or by precursor concentration in solution growth. These connect to the vapour pressure above the source:
         </div>
         <div style={chMathBlock}>
-          {"μ_metal(T) = μ_metal^bulk + k_BT ln(P_metal / P_sat(T))"}<br /><br />
-          <span style={{ color: T.muted }}>{"P_sat(T) = saturated vapour pressure at source temperature T"}</span><br />
-          <span style={{ color: T.muted }}>{"P_metal = actual partial pressure at substrate"}</span><br /><br />
+          {fx("μ_metal(T) = μ_metal^bulk + k_BT ln(P_metal / P_sat(T))")}<br /><br />
+          <span style={{ color: T.muted }}>{fx("P_sat(T) = saturated vapour pressure at source temperature T")}</span><br />
+          <span style={{ color: T.muted }}>{fx("P_metal = actual partial pressure at substrate")}</span><br /><br />
           <span style={{ color: CH.warm, fontWeight: 500 }}>{"Practical control:"}</span><br />
           {"MBE: control flux by source temperature (higher T → higher P → more metal-rich)"}<br />
           {"Sputtering: control by power and target composition"}<br />
@@ -17613,7 +17494,7 @@ function CHChemPotExptSection() {
         </div>
         <div style={chMathBlock}>
           <span style={{ color: CH.main, fontWeight: 500 }}>{"Step 1: DFT stability constraints for CZTS"}</span><br /><br />
-          {"ΔH_f(Cu₂ZnSnS₄) = −4.56 eV/f.u. (from DFT-PBE)"}<br /><br />
+          {fx("ΔH_f(Cu₂ZnSnS₄) = −4.56 eV/f.u. (from DFT-PBE)")}<br /><br />
           {"Stability requires all of these simultaneously:"}<br />
           {"  2Δμ_Cu + Δμ_Zn + Δμ_Sn + 4Δμ_S = −4.56 eV"}<br />
           {"  Δμ_Cu < 0  (no Cu metal precipitation)"}<br />
@@ -17638,26 +17519,26 @@ function CHChemPotExptSection() {
         </div>
         <div style={chMathBlock}>
           <span style={{ color: CH.hull, fontWeight: 500 }}>{"Step 3: Convert Δμ_S to H₂S/H₂ pressure ratio"}</span><br /><br />
-          {"Using: Δμ_S = ΔG°_f(H₂S, T) + k_BT × ln(P_H₂S / P_H₂)"}<br /><br />
+          {fx("Using: Δμ_S = ΔG°_f(H₂S, T) + k_BT × ln(P_H₂S / P_H₂)")}<br /><br />
           {"At growth temperature T = 823 K (550°C):"}<br />
-          {"  k_BT = 8.617×10⁻⁵ × 823 = 0.0709 eV"}<br />
+          {fx("  k_BT = 8.617×10⁻⁵ × 823 = 0.0709 eV")}<br />
           {"  ΔG°_f(H₂S, 823K) = −0.34 eV (from NIST-JANAF)"}<br /><br />
-          {"Solve for P_H₂S/P_H₂:"}<br />
-          {"  −0.87 = −0.34 + 0.0709 × ln(P_H₂S/P_H₂)"}<br />
-          {"  ln(P_H₂S/P_H₂) = (−0.87 + 0.34) / 0.0709 = −7.47"}<br />
-          <span style={{ color: CH.hull, fontWeight: 500 }}>{"  P_H₂S/P_H₂ = exp(−7.47) = 5.7 × 10⁻⁴"}</span><br /><br />
+          {fx("Solve for P_H₂S/P_H₂:")}<br />
+          {fx("  −0.87 = −0.34 + 0.0709 × ln(P_H₂S/P_H₂)")}<br />
+          {fx("  ln(P_H₂S/P_H₂) = (−0.87 + 0.34) / 0.0709 = −7.47")}<br />
+          <span style={{ color: CH.hull, fontWeight: 500 }}>{fx("  P_H₂S/P_H₂ = exp(−7.47) = 5.7 × 10⁻⁴")}</span><br /><br />
           <span style={{ color: CH.stable }}>{"→ Use about 0.06% H₂S in H₂ carrier gas at 550°C"}</span>
         </div>
         <div style={chMathBlock}>
           <span style={{ color: CH.warm, fontWeight: 500 }}>{"Step 4: Convert Δμ_metals to MBE source temperatures"}</span><br /><br />
           {"For Cu effusion cell:"}<br />
-          {"  Δμ_Cu = k_BT × ln(P_Cu / P_sat,Cu(T_source))"}<br />
+          {fx("  Δμ_Cu = k_BT × ln(P_Cu / P_sat,Cu(T_source))")}<br />
           {"  At substrate T = 823K: Δμ_Cu = −0.20 eV"}<br /><br />
           {"  Using Clausius-Clapeyron for Cu vapour pressure:"}<br />
-          {"  ln(P_sat) = A − B/T, with A = 17.7, B = 40,000 K for Cu"}<br /><br />
-          {"  P_Cu = P_sat × exp(Δμ_Cu / k_BT)"}<br />
-          {"  = P_sat × exp(−0.20/0.0709) = P_sat × exp(−2.82)"}<br />
-          {"  = P_sat × 0.060"}<br /><br />
+          {fx("  ln(P_sat) = A − B/T, with A = 17.7, B = 40,000 K for Cu")}<br /><br />
+          {fx("  P_Cu = P_sat × exp(Δμ_Cu / k_BT)")}<br />
+          {fx("  = P_sat × exp(−0.20/0.0709) = P_sat × exp(−2.82)")}<br />
+          {fx("  = P_sat × 0.060")}<br /><br />
           <span style={{ color: CH.warm }}>{"→ Cu flux should be ~6% of saturated vapour pressure"}</span><br />
           <span style={{ color: T.muted }}>{"This translates to a Cu cell temperature of ~1050°C for typical MBE geometry"}</span><br /><br />
           {"Similarly for Zn (Δμ_Zn = −0.30 eV) and Sn (Δμ_Sn = −0.40 eV):"}<br />
@@ -18323,15 +18204,15 @@ function FNVCorrectionModule() {
             <span style={{ color: F.warn }}>E<sub>recip</sub> = (q² / 2εΩ) Σ<sub>G</sub>≠0  (4π/G²) exp(−G²σ²/2)</span><br /><br />
             <span style={{ color: T.muted }}>Smallest G vector: G<sub>min</sub> = 2π/L = 0.546 Å⁻¹</span><br />
             <span style={{ color: T.muted }}>G²_min = 0.298 Å⁻²</span><br /><br />
-            {"For G = G_min (6 equivalent vectors along ±x, ±y, ±z):"}<br />
+            {fx("For G = G_min (6 equivalent vectors along ±x, ±y, ±z):")}<br />
             {"  term = 6 × (4π/0.298) × exp(−0.298 × 1.0²/2)"}<br />
             {"       = 6 × 42.19 × 0.862"}<br />
             {"       = 218.2"}<br /><br />
-            {"Next shell: G = √2 × G_min (12 vectors):"}<br />
+            {fx("Next shell: G = √2 × G_min (12 vectors):")}<br />
             {"  term = 12 × (4π/0.596) × exp(−0.596/2)"}<br />
             {"       = 12 × 21.09 × 0.742"}<br />
             {"       = 187.8"}<br /><br />
-            {"Sum converges fast: E_recip ≈ "}<span style={{ color: F.warn, fontWeight: 500 }}>{"(1 / (2 × 13.6 × 1520.9)) × ~580"}</span><br />
+            {fx("Sum converges fast: E_recip ≈ ")}<span style={{ color: F.warn, fontWeight: 500 }}>{"(1 / (2 × 13.6 × 1520.9)) × ~580"}</span><br />
             {"                           = "}<span style={{ color: F.warn, fontWeight: 500 }}>{"0.0140 Ha ≈ 0.381 eV"}</span>
           </div>
 
@@ -18402,15 +18283,15 @@ function FNVCorrectionModule() {
           <div style={mathBlock}>
             <span style={{ color: F.align, fontWeight: 500 }}>pydefect example (handles all of this for you):</span><br />
             {"  from pydefect.analyzer.efnv_correction import \\"}<br />
-            {"      make_efnv_correction"}<br /><br />
+            {fx("      make_efnv_correction")}<br /><br />
             {"  # Reads LOCPOT_host, LOCPOT_defect, dielectric tensor"}<br />
-            {"  correction = make_efnv_correction("}<br />
+            {fx("  correction = make_efnv_correction(")}<br />
             {"      charge=−1,"}<br />
-            {"      calc_results=defect_entry,"}<br />
+            {fx("      calc_results=defect_entry,")}<br />
             {"      perfect_calc_results=perfect_entry,"}<br />
             {"      dielectric_tensor=dielectric"}<br />
             {"  )"}<br /><br />
-            {"  # Outputs: ΔE_elec, ΔV, and E_FNV"}
+            {fx("  # Outputs: ΔE_elec, ΔV, and E_FNV")}
           </div>
         </Card>
 
@@ -18458,7 +18339,7 @@ function FNVCorrectionModule() {
       </FAQAccordion>
 
       <FAQAccordion title="Electrostatic Correction" color={F.elec} isOpen={openItem === "elec"} onClick={() => toggle("elec")}>
-        <Card title={"E_periodic (Lattice Sum)"} color={F.warn}>
+        <Card title={fx("E_periodic (Lattice Sum)")} color={F.warn}>
           <div style={{ fontSize: 13, lineHeight: 1.8, color: T.ink, marginBottom: 10 }}>
             For the Gaussian charge repeated periodically (like your supercell), calculate the
             electrostatic energy using an <strong style={{ color: F.warn }}>Ewald summation</strong>:
@@ -18592,8 +18473,8 @@ function FNVCorrectionModule() {
           </div>
           <div style={mathBlock}>
             <span style={{ color: T.muted }}>VASP outputs V(r) on a 48 x 48 x 96 FFT grid</span><br />
-            {"  LOCPOT_host   : V_host(r)   at each grid point"}<br />
-            {"  LOCPOT_defect : V_defect(r)  at each grid point (charge = -1)"}
+            {fx("  LOCPOT_host   : V_host(r)   at each grid point")}<br />
+            {fx("  LOCPOT_defect : V_defect(r)  at each grid point (charge = -1)")}
           </div>
 
           <div style={{ fontSize: 12, fontWeight: 500, color: F.elec, marginBottom: 6, marginTop: 14 }}>
@@ -18602,11 +18483,11 @@ function FNVCorrectionModule() {
           <div style={mathBlock}>
             ΔV_DFT(r) = V_defect(r) - V_host(r)<br /><br />
             <span style={{ color: T.muted }}>At defect site (0, 0, 0):</span><br />
-            {"  V_defect = -3.82 eV,  V_host = -4.15 eV"}<br />
-            {"  ΔV_DFT  = -3.82 - (-4.15) = "}<span style={{ color: F.elec, fontWeight: 500 }}>+0.33 eV</span><br /><br />
+            {fx("  V_defect = -3.82 eV,  V_host = -4.15 eV")}<br />
+            {fx("  ΔV_DFT  = -3.82 - (-4.15) = ")}<span style={{ color: F.elec, fontWeight: 500 }}>+0.33 eV</span><br /><br />
             <span style={{ color: T.muted }}>Far from defect (corner of cell, r = 8.1 Å):</span><br />
-            {"  V_defect = -4.03 eV,  V_host = -4.15 eV"}<br />
-            {"  ΔV_DFT  = -4.03 - (-4.15) = "}<span style={{ color: F.elec, fontWeight: 500 }}>+0.12 eV</span>
+            {fx("  V_defect = -4.03 eV,  V_host = -4.15 eV")}<br />
+            {fx("  ΔV_DFT  = -4.03 - (-4.15) = ")}<span style={{ color: F.elec, fontWeight: 500 }}>+0.12 eV</span>
           </div>
 
           <div style={{ fontSize: 12, fontWeight: 500, color: F.main, marginBottom: 6, marginTop: 14 }}>
@@ -18614,9 +18495,9 @@ function FNVCorrectionModule() {
           </div>
           <div style={mathBlock}>
             <span style={{ color: T.muted }}>Solve Poisson for Gaussian charge (σ = 1.0 Å, ε = 13.6) in periodic cell:</span><br /><br />
-            {"  V_model(r) = (q/ε) × Σ_G (4π/G²) exp(-G²σ²/2) exp(iG·r)"}<br /><br />
-            <span style={{ color: T.muted }}>At defect site:</span>{"  V_model(0) = "}<span style={{ color: F.main, fontWeight: 500 }}>+0.21 eV</span><br />
-            <span style={{ color: T.muted }}>Far from defect:</span>{"  V_model(8.1 Å) = "}<span style={{ color: F.main, fontWeight: 500 }}>+0.00 eV</span>
+            {fx("  V_model(r) = (q/ε) × Σ_G (4π/G²) exp(-G²σ²/2) exp(iG·r)")}<br /><br />
+            <span style={{ color: T.muted }}>At defect site:</span>{fx("  V_model(0) = ")}<span style={{ color: F.main, fontWeight: 500 }}>+0.21 eV</span><br />
+            <span style={{ color: T.muted }}>Far from defect:</span>{fx("  V_model(8.1 Å) = ")}<span style={{ color: F.main, fontWeight: 500 }}>+0.00 eV</span>
           </div>
 
           <div style={{ fontSize: 12, fontWeight: 500, color: F.align, marginBottom: 6, marginTop: 14 }}>
@@ -18655,17 +18536,17 @@ function FNVCorrectionModule() {
         </Card>
       </FAQAccordion>
 
-      <FAQAccordion title={"Numerical Example — V_Cu in CuInSe₂"} color={F.accent} isOpen={openItem === "example"} onClick={() => toggle("example")}>
+      <FAQAccordion title={fx("Numerical Example — V_Cu in CuInSe₂")} color={F.accent} isOpen={openItem === "example"} onClick={() => toggle("example")}>
         <Card title={"Cu Vacancy (q = −1) in 64-atom CuInSe₂"} color={F.main}>
           <div style={{ fontSize: 13, color: T.muted, marginBottom: 14, lineHeight: 1.6 }}>
             V_Cu with charge q = {hl("-1", F.warn)} in a 64-atom CuInSe₂ supercell ({"ε ≈"} 13.6)
           </div>
           <div style={mathBlock}>
             <span style={{ color: T.muted }}>DFT total energy (uncorrected):</span><br />
-            {"  E_DFT(defect, q=-1) = "}{hl("-450.23 eV", F.elec)}<br /><br />
+            {fx("  E_DFT(defect, q=-1) = ")}{hl("-450.23 eV", F.elec)}<br /><br />
             <span style={{ color: F.elec, fontWeight: 500 }}>FNV correction components:</span><br />
-            {"  E_iso      = +0.38 eV"}<br />
-            {"  E_periodic = +0.95 eV"}<br /><br />
+            {fx("  E_iso      = +0.38 eV")}<br />
+            {fx("  E_periodic = +0.95 eV")}<br /><br />
             <span style={{ color: F.elec, fontWeight: 500 }}>ΔE<sub>elec</sub> = E<sub>iso</sub> − E<sub>period</sub>ic</span><br />
             {"         = 0.38 − 0.95"}<br />
             {"         = "}{hl("-0.57 eV", F.elec)}{"  ← image charges over-stabilized the defect"}<br /><br />
@@ -18682,7 +18563,7 @@ function FNVCorrectionModule() {
             {"      = -0.57 + (-0.12)"}<br />
             {"      = "}<span style={{ color: F.main, fontWeight: 500, fontSize: 15 }}>-0.69 eV</span><br /><br />
             <span style={{ color: T.muted }}>Corrected energy:</span><br />
-            {"  E_corrected = -450.23 + (-0.69) = "}<span style={{ color: F.main, fontWeight: 500 }}>-450.92 eV</span>
+            {fx("  E_corrected = -450.23 + (-0.69) = ")}<span style={{ color: F.main, fontWeight: 500 }}>-450.92 eV</span>
           </div>
           <div style={{
             background: F.warn + "0c", border: `1px solid ${F.warn}25`,
@@ -18942,7 +18823,7 @@ function GibbsBalanceSection() {
 
       {/* Equation breakdown */}
       <div style={{ background:T.panel, borderRadius:8, padding:14, border:`1px solid ${T.eo_core}33`, marginBottom:16 }}>
-        <div style={{ fontFamily:"'Georgia',serif", fontSize:14, color:T.ink, lineHeight:2.4, textAlign:"center" }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize:14, color:T.ink, lineHeight:2.4, textAlign:"center" }}>
           G<sub>d</sub> = <span style={{color:T.muted}}>G<sub>b</sub></span> + <span style={{color:T.eo_gap, fontWeight:500}}>n·g<sub>f</sub></span> − <span style={{color:T.eo_valence, fontWeight:500}}>T·S<sup>conf</sup></span>
         </div>
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:8, marginTop:10 }}>
@@ -19054,7 +18935,7 @@ function EqConcentrationSection() {
           captures all non-configurational entropy contributions. This is the <strong>master equation</strong> of
           defect thermodynamics — everything in this chapter feeds into it.
         </div>
-        <div style={{ fontFamily:"'Georgia',serif", fontSize:13, color:T.ink, lineHeight:2.2 }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize:13, color:T.ink, lineHeight:2.2 }}>
           c<sub>eq</sub> = <span style={{color:T.eo_valence, fontWeight:500}}>(Z<sub>d</sub>/Z<sub>b</sub>)</span> × exp(<span style={{color:T.eo_gap, fontWeight:500}}>−h<sub>f,P</sub></span> / <span style={{color:T.eo_core, fontWeight:500}}>k<sub>B</sub>T</span>)
         </div>
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:8, marginTop:8 }}>
@@ -19174,7 +19055,7 @@ function ConfigEntropySection() {
           Boltzmann's entropy formula S = k<sub>B</sub> ln(W) converts this combinatorial count into a thermodynamic quantity
           that drives defect formation.
         </div>
-        <div style={{ fontFamily:"'Georgia',serif", fontSize:14, color:T.ink, lineHeight:2.4, marginTop:10, textAlign:"center", background:T.panel, borderRadius:8, padding:"8px 14px", border:`1px solid ${T.border}` }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize:14, color:T.ink, lineHeight:2.4, marginTop:10, textAlign:"center", background:T.panel, borderRadius:8, padding:"8px 14px", border:`1px solid ${T.border}` }}>
           W = <sup style={{color:T.eo_valence}}>N</sup>C<sub style={{color:T.eo_core}}>n<sub>d</sub></sub> = <span style={{color:T.eo_valence}}>N</span>! / (<span style={{color:T.eo_core}}>n<sub>d</sub></span>! × (<span style={{color:T.eo_valence}}>N</span> − <span style={{color:T.eo_core}}>n<sub>d</sub></span>)!) &nbsp;&nbsp;→&nbsp;&nbsp; S<sup>conf</sup> = k<sub>B</sub> ln(W)
         </div>
         <div style={{ fontSize:14, color:T.muted, lineHeight:1.7, marginTop:6, fontFamily:'"IBM Plex Sans", -apple-system, sans-serif' }}>
@@ -19280,7 +19161,7 @@ function DefectFormationSection() {
           to create a specific defect in a specific charge state, under specific chemical conditions. Every prediction of
           defect concentrations, carrier densities, and device performance starts here.
         </div>
-        <div style={{ fontFamily:"'Georgia',serif", fontSize:13, color:T.ink, lineHeight:2.2, textAlign:"center", background:T.panel, borderRadius:8, padding:"8px 14px", border:`1px solid ${T.border}` }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize:13, color:T.ink, lineHeight:2.2, textAlign:"center", background:T.panel, borderRadius:8, padding:"8px 14px", border:`1px solid ${T.border}` }}>
           u<sub>f</sub> = <span style={{color:T.eo_core, fontWeight:500}}>U<sub>d</sub></span> − <span style={{color:T.eo_e, fontWeight:500}}>U<sub>b</sub></span> − Σ<span style={{color:T.eo_valence, fontWeight:500}}>n<sub>i</sub>·μ<sub>i</sub></span> + <span style={{color:T.eo_gap, fontWeight:500}}>q(E<sub>F</sub> + E<sub>VBM</sub>)</span> + <span style={{color:T.eo_cond, fontWeight:500}}>E<sub>corr</sub></span>
         </div>
       </div>
@@ -19624,7 +19505,7 @@ function VibrationalEntropySection() {
           Lower frequencies → more accessible vibrational states → <strong>higher vibrational entropy</strong>.
           In the high-temperature (classical) limit, the entropy change for each softened mode is:
         </div>
-        <div style={{ fontFamily:"'Georgia',serif", fontSize:13, color:T.ink, lineHeight:2.4, marginTop:6, textAlign:"center" }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize:13, color:T.ink, lineHeight:2.4, marginTop:6, textAlign:"center" }}>
           ΔS<sub>vib</sub> = k<sub>B</sub> Σ<sub>i</sub> ln(<span style={{color:T.eo_e}}>ω<sub>bulk,i</sub></span> / <span style={{color:T.eo_gap}}>ω<sub>defect,i</sub></span>)
         </div>
         <div style={{ fontSize:14, color:T.muted, lineHeight:1.7, fontFamily:'"IBM Plex Sans", -apple-system, sans-serif', marginTop:6 }}>
@@ -19887,7 +19768,7 @@ function ChargeTransitionSection() {
 
   const charges = [
     { q:2,  color:T.eo_gap,     uf: ef => uf0 + 2*ef - 2*0.3 },
-    { q:1,  color:"#398797",    uf: ef => uf0 + ef - 0.3 },
+    { q:1,  color:"#4b98a7",    uf: ef => uf0 + ef - 0.3 },
     { q:0,  color:T.eo_core,    uf: () => uf0 },
     { q:-1, color:T.eo_e,       uf: ef => uf0 - ef + eps_01 },
     { q:-2, color:T.eo_valence, uf: ef => uf0 - 2*ef + eps_01 + eps_12 },
@@ -19901,7 +19782,7 @@ function ChargeTransitionSection() {
           Defects can trap or release electrons, existing in multiple <strong>charge states</strong> q. The formation energy
           depends <strong>linearly</strong> on the Fermi level E<sub>F</sub> with slope q:
         </div>
-        <div style={{ fontFamily:"'Georgia',serif", fontSize:14, color:T.ink, lineHeight:2.4, marginTop:6, textAlign:"center", background:T.panel, borderRadius:8, padding:"6px 14px", border:`1px solid ${T.border}` }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize:14, color:T.ink, lineHeight:2.4, marginTop:6, textAlign:"center", background:T.panel, borderRadius:8, padding:"6px 14px", border:`1px solid ${T.border}` }}>
           u<sub>f</sub>(q) = u<sub>f</sub>(0) + <span style={{color:T.eo_gap, fontWeight:500}}>q</span>·<span style={{color:T.eo_photon, fontWeight:500}}>E<sub>F</sub></span>
         </div>
         <div style={{ fontSize:14, color:T.ink, lineHeight:1.9, fontFamily:'"IBM Plex Sans", -apple-system, sans-serif', marginTop:8 }}>
@@ -19996,7 +19877,7 @@ function EntropySummarySection() {
     <Card color={T.eo_cond} title="All Entropy Contributions — Summary">
       <div style={{ background:T.surface, borderRadius:8, padding:14, border:`1px solid ${T.border}`, marginBottom:16 }}>
         <div style={{ fontSize:11, fontWeight:500, color:T.ink, marginBottom:8, fontFamily:"'IBM Plex Mono',monospace" }}>The Complete Picture</div>
-        <div style={{ fontFamily:"'Georgia',serif", fontSize:14, color:T.ink, lineHeight:2.4, textAlign:"center", marginBottom:8 }}>
+        <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize:14, color:T.ink, lineHeight:2.4, textAlign:"center", marginBottom:8 }}>
           s<sub>f</sub> = s<sub>f</sub><sup style={{color:T.eo_cond}}>elec</sup> + s<sub>f</sub><sup style={{color:T.eo_e}}>spin</sup> + s<sub>f</sub><sup style={{color:T.eo_valence}}>vib</sup> + s<sub>f</sub><sup style={{color:T.eo_photon}}>orient</sup>
         </div>
         <div style={{ fontSize:14, color:T.ink, lineHeight:1.9, fontFamily:'"IBM Plex Sans", -apple-system, sans-serif' }}>
@@ -20056,7 +19937,7 @@ function EntropySummarySection() {
             ].map((row, i) => (
               <tr key={i} style={{ borderBottom:`1px solid ${T.border}`, background: i%2===0?T.panel:T.surface }}>
                 <td style={{ padding:"6px 8px", color:row.color, fontWeight:500 }}>{row.name}</td>
-                <td style={{ padding:"6px 8px", fontFamily:"'Georgia',serif", color:T.ink }}>{row.formula}</td>
+                <td style={{ padding:"6px 8px", fontFamily: "'IBM Plex Mono', ui-monospace, monospace", color:T.ink }}>{row.formula}</td>
                 <td style={{ padding:"6px 8px", color:T.muted }}>{row.time}</td>
                 <td style={{ padding:"6px 8px", color:T.ink }}>{row.range}</td>
                 <td style={{ padding:"6px 8px", color:T.muted }}>{row.when}</td>
@@ -20954,18 +20835,18 @@ function DLTSSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is DLTS? (Deep Level Transient Spectroscopy)" color={T.fnv_warm} isOpen={openItem === "dlts_what"} onClick={() => toggle("dlts_what")}>
-        <div style={{ display: "flex", gap: 10, background: T.fnv_warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.fnv_warm + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like fishing for defects in a semiconductor. You fill a trap with a pulse (bait), then watch how fast it empties (the fish escapes). The emission rate depends on temperature — scan T and you get a peak at a characteristic temperature for each defect. The peak position gives the trap depth E_t, and the peak height gives the trap density N_t.</span></div>
+        <div style={{ display: "flex", gap: 10, background: T.fnv_warm + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.fnv_warm + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like fishing for defects in a semiconductor. You fill a trap with a pulse (bait), then watch how fast it empties (the fish escapes). The emission rate depends on temperature — scan T and you get a peak at a characteristic temperature for each defect. The peak position gives the trap depth E<sub>t</sub>, and the peak height gives the trap density N<sub>t</sub>.</span></div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
           DLTS measures the thermal emission rate of carriers from deep traps in a semiconductor junction. A voltage pulse fills the traps, then the capacitance transient is monitored as traps emit carriers. By scanning temperature, each defect produces a peak at its characteristic temperature.
         </div>
         <div style={mdMathBlock}>
           <span style={{ color: T.fnv_elec, fontWeight: 500 }}>Thermal emission rate:</span><br />
-          {"  eₙ = σₙ · v_th · N_c · exp(−E_t / k_BT)"}<br /><br />
+          {fx("  eₙ = σₙ · v_th · N_c · exp(−E_t / k_BT)")}<br /><br />
           {"  σₙ = capture cross-section (cm²) — how 'big' the trap looks to an electron"}<br />
-          {"  v_th = √(3k_BT/m*) — thermal velocity (~10⁷ cm/s)"}<br />
-          {"  N_c = effective density of states in CB (~10¹⁸-10¹⁹ cm⁻³)"}<br />
-          {"  E_t = trap depth below CB (eV) — the quantity we want!"}<br />
-          {"  k_BT = thermal energy (25.8 meV at 300 K)"}
+          {fx("  v_th = √(3k_BT/m*) — thermal velocity (~10⁷ cm/s)")}<br />
+          {fx("  N_c = effective density of states in CB (~10¹⁸-10¹⁹ cm⁻³)")}<br />
+          {fx("  E_t = trap depth below CB (eV) — the quantity we want!")}<br />
+          {fx("  k_BT = thermal energy (25.8 meV at 300 K)")}
         </div>
         <div style={{ background: T.fnv_elec + "08", borderRadius: 10, padding: "10px 14px", border: `1px solid ${T.fnv_elec}18`, marginTop: 12 }}>
           <div style={{ fontSize: 13, fontWeight: 500, color: T.fnv_elec, marginBottom: 6 }}>What is a Rate Window?</div>
@@ -20980,7 +20861,7 @@ function DLTSSection() {
             <span style={{ color: T.fnv_warm, fontWeight: 500 }}>The emission rate at the peak is fixed by the rate window:</span><br />
             {"  eₙ(peak) = ln(t₂/t₁) / (t₂ − t₁)"}<br /><br />
             {"  Example: t₁ = 1 ms, t₂ = 10 ms  →  eₙ = ln(10) / 0.009 = 256 s⁻¹"}<br /><br />
-            <span style={{ color: T.fnv_elec, fontWeight: 500 }}>Key insight:</span>{" Different rate windows shift the peak to different temperatures. By repeating the temperature scan with 3–4 rate windows, you get multiple (T_peak, eₙ) pairs — enough to build an Arrhenius plot and extract the trap depth E_t."}
+            <span style={{ color: T.fnv_elec, fontWeight: 500 }}>Key insight:</span>{fx(" Different rate windows shift the peak to different temperatures. By repeating the temperature scan with 3–4 rate windows, you get multiple (T_peak, eₙ) pairs — enough to build an Arrhenius plot and extract the trap depth E_t.")}
           </div>
         </div>
       </FAQAccordion>
@@ -21141,10 +21022,10 @@ function DLTSSection() {
             <b>Irradiation:</b> 1.5 MeV electrons, fluence Φ = 5×10¹⁵ e⁻/cm², at room temperature (simulates 10 years in space).<br/>
             <b>Goal:</b> Identify radiation-induced defect levels and measure their concentrations.<br/><br/>
             <b>DLTS setup:</b><br/>
-            {"  • Reverse bias V_R = −1 V, fill pulse V_P = +0.3 V, pulse width t_P = 1 ms"}<br/>
+            {fx("  • Reverse bias V_R = −1 V, fill pulse V_P = +0.3 V, pulse width t_P = 1 ms")}<br/>
             {"  • Rate windows: (t₁, t₂) = (1, 10), (2, 20), (5, 50), (10, 100) ms"}<br/>
             {"  • Temperature sweep: 80 K → 400 K at 2 K/min"}<br/>
-            {"  • C-V profiling at 1 MHz gives N_A − N_D = 2×10¹⁴ cm⁻³"}
+            {fx("  • C-V profiling at 1 MHz gives N_A − N_D = 2×10¹⁴ cm⁻³")}
           </div>
         </div>
 
@@ -21195,7 +21076,7 @@ function DLTSSection() {
           </div>
           <div style={mdMathBlock}>
             <span style={{ color: T.fnv_accent, fontWeight: 500, fontSize: 13 }}>Measured data for peak E2 (4 rate windows):</span><br/><br/>
-            {"  Rate window (ms)  │  T_peak (K)  │  eₙ at peak (s⁻¹)  │  1000/T  │  ln(eₙ/T²)"}<br/>
+            {fx("  Rate window (ms)  │  T_peak (K)  │  eₙ at peak (s⁻¹)  │  1000/T  │  ln(eₙ/T²)")}<br/>
             {"  ─────────────────────────────────────────────────────────────────────────────"}<br/>
             {"  t₁=1,  t₂=10      │    230        │    256              │  4.348   │  −7.34"}<br/>
             {"  t₁=2,  t₂=20      │    238        │    128              │  4.202   │  −7.99"}<br/>
@@ -21212,13 +21093,13 @@ function DLTSSection() {
             {"  Slope = "}<span style={{ color: T.fnv_elec, fontWeight: 500 }}>{"+4.34 (×10³ K)"}</span><br/><br/>
 
             <span style={{ color: T.fnv_warm, fontWeight: 500, fontSize: 13 }}>Step 3: Extract activation energy</span><br/>
-            {"  ln(eₙ/T²) = const − E_t / (k_B · T)"}<br/>
-            {"  slope = −E_t / k_B  →  E_t = |slope| × k_B"}<br/>
-            {"  E_t = 4.34 × 10³ × 8.617×10⁻⁵ eV/K"}<br/>
-            {"  "}<span style={{ fontSize: 15, color: T.fnv_elec, fontWeight: 500 }}>{"E_t = 0.374 eV below E_C"}</span><br/><br/>
+            {fx("  ln(eₙ/T²) = const − E_t / (k_B · T)")}<br/>
+            {fx("  slope = −E_t / k_B  →  E_t = |slope| × k_B")}<br/>
+            {fx("  E_t = 4.34 × 10³ × 8.617×10⁻⁵ eV/K")}<br/>
+            {"  "}<span style={{ fontSize: 15, color: T.fnv_elec, fontWeight: 500 }}>{fx("E_t = 0.374 eV below E_C")}</span><br/><br/>
 
             <span style={{ color: T.fnv_warm, fontWeight: 500, fontSize: 13 }}>Step 4: Extract capture cross-section from intercept</span><br/>
-            {"  Intercept = ln(σ · γ_n), where γ_n ≈ 3.25×10²¹ cm⁻²s⁻¹K⁻² for CdTe"}<br/>
+            {fx("  Intercept = ln(σ · γ_n), where γ_n ≈ 3.25×10²¹ cm⁻²s⁻¹K⁻² for CdTe")}<br/>
             {"  From fit: intercept = 12.0"}<br/>
             {"  σ = exp(12.0) / 3.25×10²¹ = 1.63×10⁵ / 3.25×10²¹"}<br/>
             {"  "}<span style={{ fontSize: 14, color: T.fnv_elec, fontWeight: 500 }}>{"σ = 5.0×10⁻¹⁷ cm²"}</span>
@@ -21273,13 +21154,13 @@ function DLTSSection() {
           <div style={{ fontSize: 13, fontWeight: 500, color: T.fnv_main, marginBottom: 6 }}>D. Trap Concentration from Peak Height</div>
           <div style={mdMathBlock}>
             <span style={{ color: T.fnv_main, fontWeight: 500, fontSize: 13 }}>From the DLTS peak amplitude:</span><br/><br/>
-            {"  Measured: ΔC_peak = 0.45 pF,  C₀ = 38 pF (zero-bias capacitance)"}<br/>
-            {"  N_A − N_D = 2×10¹⁴ cm⁻³ (from C-V)"}<br/><br/>
-            {"  N_T = 2 × (N_A − N_D) × (ΔC_peak / C₀)"}<br/>
+            {fx("  Measured: ΔC_peak = 0.45 pF,  C₀ = 38 pF (zero-bias capacitance)")}<br/>
+            {fx("  N_A − N_D = 2×10¹⁴ cm⁻³ (from C-V)")}<br/><br/>
+            {fx("  N_T = 2 × (N_A − N_D) × (ΔC_peak / C₀)")}<br/>
             {"      = 2 × 2×10¹⁴ × (0.45 / 38)"}<br/>
             {"      = 2 × 2×10¹⁴ × 0.01184"}<br/>
-            {"      "}<span style={{ fontSize: 15, color: T.fnv_main, fontWeight: 500 }}>{"N_T = 4.7×10¹² cm⁻³"}</span><br/><br/>
-            {"  Introduction rate = N_T / Φ = 4.7×10¹² / 5×10¹⁵ = "}<span style={{ color: T.fnv_main, fontWeight: 500 }}>{"0.94 cm⁻¹"}</span><br/>
+            {"      "}<span style={{ fontSize: 15, color: T.fnv_main, fontWeight: 500 }}>{fx("N_T = 4.7×10¹² cm⁻³")}</span><br/><br/>
+            {fx("  Introduction rate = N_T / Φ = 4.7×10¹² / 5×10¹⁵ = ")}<span style={{ color: T.fnv_main, fontWeight: 500 }}>{"0.94 cm⁻¹"}</span><br/>
             <span style={{ color: T.muted, fontSize: 11 }}>{"  (≈1 defect created per cm of electron path — typical for CdTe)"}</span>
           </div>
         </div>
@@ -21358,7 +21239,7 @@ function PLSection() {
   const defectY = 45 + (Et_pl / Eg_pl) * 165;
 
   const plSteps = [
-    { title: "Step 1: Laser Excitation", color: "#347b8a",
+    { title: "Step 1: Laser Excitation", color: "#3a8c9c",
       analogy: "Like throwing a ball to the top floor of a building. The laser photon (hν > E_g) gives the electron enough energy to jump from VB to CB. The electron is now 'free' in the conduction band." },
     { title: "Step 2: Thermalization", color: T.fnv_accent,
       analogy: "Like a ball bouncing down stairs. The excited electron quickly loses excess energy to phonons (heat) and settles at the CB bottom. This happens in ~100 femtoseconds — too fast to measure with PL." },
@@ -21371,16 +21252,16 @@ function PLSection() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is Photoluminescence (PL) Spectroscopy?" color={T.fnv_accent} isOpen={openItem === "pl_what"} onClick={() => toggle("pl_what")}>
-        <div style={{ display: "flex", gap: 10, background: T.fnv_accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.fnv_accent + "12", marginBottom: 12 }}><span style={{ fontSize: 16, flexShrink: 0 }}></span><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Shine a laser on a semiconductor — electrons get excited to the conduction band. When they fall back down, they emit light. If they fall to a defect level first, the light has LESS energy than the band gap. By measuring the emitted light spectrum, you identify which defects are present and how deep they are.</span></div>
+        <div style={{ display: "flex", gap: 10, background: T.fnv_accent + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.fnv_accent + "12", marginBottom: 12 }}><span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Shine a laser on a semiconductor — electrons get excited to the conduction band. When they fall back down, they emit light. If they fall to a defect level first, the light has LESS energy than the band gap. By measuring the emitted light spectrum, you identify which defects are present and how deep they are.</span></div>
         <div style={mdMathBlock}>
           <span style={{ color: T.fnv_accent, fontWeight: 500 }}>PL transitions:</span><br /><br />
-          {"  Band-to-band (BB):        hν = E_g              (brightest peak)"}<br />
-          {"  Free-to-bound (FB):       hν = E_g − E_t        (defect fingerprint)"}<br />
-          {"  Donor-acceptor pair (DAP): hν = E_g − E_D − E_A + e²/4πεr"}<br />
-          {"  Bound exciton (BX):       hν = E_g − E_x        (sharp, low T only)"}<br /><br />
+          {fx("  Band-to-band (BB):        hν = E_g              (brightest peak)")}<br />
+          {fx("  Free-to-bound (FB):       hν = E_g − E_t        (defect fingerprint)")}<br />
+          {fx("  Donor-acceptor pair (DAP): hν = E_g − E_D − E_A + e²/4πεr")}<br />
+          {fx("  Bound exciton (BX):       hν = E_g − E_x        (sharp, low T only)")}<br /><br />
           <span style={{ color: T.fnv_warm, fontWeight: 500 }}>Why low temperature matters:</span><br />
-          {"  10 K:  k_BT = 0.9 meV → peaks are sharp (~1-5 meV wide)"}<br />
-          {"  300 K: k_BT = 26 meV → peaks broaden, thermal quenching kills weak peaks"}<br />
+          {fx("  10 K:  k_BT = 0.9 meV → peaks are sharp (~1-5 meV wide)")}<br />
+          {fx("  300 K: k_BT = 26 meV → peaks broaden, thermal quenching kills weak peaks")}<br />
           {"  Always measure PL at 4-10 K for best resolution!"}
         </div>
       </FAQAccordion>
@@ -21418,11 +21299,11 @@ function PLSection() {
 
           {/* Step 1: Laser excitation */}
           {plStep === 0 && <>
-            <line x1={130} y1={218} x2={130} y2={52} stroke="#347b8a" strokeWidth={3} />
-            <polygon points="126,55 134,55 130,47" fill="#347b8a" />
+            <line x1={130} y1={218} x2={130} y2={52} stroke="#3a8c9c" strokeWidth={3} />
+            <polygon points="126,55 134,55 130,47" fill="#3a8c9c" />
             <circle cx={130} cy={218} r={6} fill={T.fnv_warn + "cc"} />
-            <text x={148} y={135} fill="#347b8a" fontSize={13} fontWeight={500}>{"hν > E"}<tspan fontSize={10} dy={3}>{"g"}</tspan></text>
-            <text x={148} y={155} fill="#347b8a" fontSize={11}>(laser photon)</text>
+            <text x={148} y={135} fill="#3a8c9c" fontSize={13} fontWeight={500}>{"hν > E"}<tspan fontSize={10} dy={3}>{"g"}</tspan></text>
+            <text x={148} y={155} fill="#3a8c9c" fontSize={11}>(laser photon)</text>
             <text x={240} y={250} textAnchor="middle" fill={T.muted} fontSize={12}>Electron absorbs photon, jumps VB → CB</text>
           </>}
 
@@ -21504,26 +21385,26 @@ function PLSection() {
       <FAQAccordion title="Step-by-Step Numerical Example: PL of CdTe with V_Cd" color={T.fnv_main} isOpen={openItem === "pl_example"} onClick={() => toggle("pl_example")}>
         <div style={mdMathBlock}>
           <span style={{ color: T.fnv_main, fontWeight: 500, fontSize: 14 }}>Given: CdTe with Cd vacancy</span><br />
-          {"  E_g(CdTe) = 1.50 eV at 10 K"}<br />
-          {"  V_Cd creates acceptor level at E_VB + 0.15 eV"}<br />
+          {fx("  E_g(CdTe) = 1.50 eV at 10 K")}<br />
+          {fx("  V_Cd creates acceptor level at E_VB + 0.15 eV")}<br />
           {"  Measurement at T = 10 K, laser λ = 532 nm (2.33 eV)"}<br /><br />
 
           <span style={{ color: T.fnv_elec, fontWeight: 500, fontSize: 14 }}>Step 1: Identify expected PL peaks</span><br />
           <span style={{ color: T.muted, fontSize: 11 }}>Analogy: What colors of light will the crystal glow?</span><br />
-          {"  Band-to-band:    hν_BB = E_g = 1.50 eV → λ = 1240/1.50 = 827 nm (NIR)"}<br />
-          {"  Free-to-bound:   hν_FB = E_g − E_A = 1.50 − 0.15 = 1.35 eV → λ = 919 nm"}<br />
-          {"  Bound exciton:   hν_BX = E_g − E_x = 1.50 − 0.01 = 1.49 eV → λ = 832 nm"}<br /><br />
+          {fx("  Band-to-band:    hν_BB = E_g = 1.50 eV → λ = 1240/1.50 = 827 nm (NIR)")}<br />
+          {fx("  Free-to-bound:   hν_FB = E_g − E_A = 1.50 − 0.15 = 1.35 eV → λ = 919 nm")}<br />
+          {fx("  Bound exciton:   hν_BX = E_g − E_x = 1.50 − 0.01 = 1.49 eV → λ = 832 nm")}<br /><br />
 
           <span style={{ color: T.fnv_warm, fontWeight: 500, fontSize: 14 }}>Step 2: Peak linewidth at 10 K</span><br />
           <span style={{ color: T.muted, fontSize: 11 }}>Analogy: How sharp is each spectral "fingerprint line"?</span><br />
-          {"  k_BT = 8.617×10⁻⁵ × 10 = 0.86 meV"}<br />
-          {"  Thermal broadening: ~1.8 k_BT ≈ 1.6 meV (very sharp!)"}<br />
+          {fx("  k_BT = 8.617×10⁻⁵ × 10 = 0.86 meV")}<br />
+          {fx("  Thermal broadening: ~1.8 k_BT ≈ 1.6 meV (very sharp!)")}<br />
           {"  Phonon replica spacing: ℏω_LO(CdTe) = 21 meV"}<br />
           {"  → Expect sharp zero-phonon line + sidebands at 21 meV intervals"}<br /><br />
 
           <span style={{ color: T.fnv_accent, fontWeight: 500, fontSize: 14 }}>Step 3: Temperature-dependent quenching</span><br />
           <span style={{ color: T.muted, fontSize: 11 }}>Analogy: At what T does the defect peak "turn off"?</span><br />
-          {"  I(T) = I₀ / [1 + A·exp(−E_a/k_BT)],  A = 50, E_a = 0.15 eV"}<br /><br />
+          {fx("  I(T) = I₀ / [1 + A·exp(−E_a/k_BT)],  A = 50, E_a = 0.15 eV")}<br /><br />
           {"  T = 10 K:  I = I₀ / 1.000 → 100% intensity"}<br />
           {"  T = 100 K: I = I₀ / 1.000 → ~100% (still cold)"}<br />
           {"  T = 200 K: I = I₀ / 1.008 → 99% (barely quenched)"}<br />
@@ -21531,9 +21412,9 @@ function PLSection() {
 
           <span style={{ color: T.fnv_main, fontWeight: 500, fontSize: 14 }}>Step 4: Defect identification</span><br />
           <span style={{ color: T.muted, fontSize: 11 }}>Analogy: Matching the crime scene fingerprint to the suspect</span><br />
-          {"  Observed: 1.35 eV peak → E_g − hν = 1.50 − 1.35 = 0.15 eV above VB"}<br />
-          {"  DFT predicts: V_Cd(2−/−) CTL at E_VB + 0.14 eV"}<br />
-          {"  → "}<span style={{ color: T.fnv_main, fontWeight: 500 }}>{"Match! The 1.35 eV PL peak is V_Cd"}</span>
+          {fx("  Observed: 1.35 eV peak → E_g − hν = 1.50 − 1.35 = 0.15 eV above VB")}<br />
+          {fx("  DFT predicts: V_Cd(2−/−) CTL at E_VB + 0.14 eV")}<br />
+          {"  → "}<span style={{ color: T.fnv_main, fontWeight: 500 }}>{fx("Match! The 1.35 eV PL peak is V_Cd")}</span>
         </div>
       </FAQAccordion>
     </div>
@@ -21624,9 +21505,9 @@ const MODULE_TABS = [
 function LLMDataMiningModule() {
   const [activeMovie, setActiveMovie] = useState("langgraph");
   const movies = [
-    { id: "langgraph",  label: "LangGraph Architecture", color: "#91bfc9" },
-    { id: "synthesis",  label: "Synthesis Pipeline",      color: "#96c2cb" },
-    { id: "mongodb",    label: "MongoDB Management",      color: "#62a5b2" },
+    { id: "langgraph",  label: "LangGraph Architecture", color: "#b4cfd5" },
+    { id: "synthesis",  label: "Synthesis Pipeline",      color: "#b8d2d7" },
+    { id: "mongodb",    label: "MongoDB Management",      color: "#7eb9c5" },
   ];
 
   return (
@@ -21670,7 +21551,7 @@ const T_DARK = {
   surface: "#132c32",
   border:  "#193b41",
   ink:     "#e8f0f1",
-  muted:   "#79b2bd"
+  muted:   "#9fc2c9"
 };
 
 export default function MicroLab({ initialModule = null, blogMode = false }) {

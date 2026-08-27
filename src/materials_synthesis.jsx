@@ -5,8 +5,8 @@ import fx from "./fx.jsx";
 const T = {
   bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
   ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)",
-  syn_main: "#3c8e9f", syn_cvd: "#347a89", syn_pvd: "#327785", syn_sol: "#3d90a1",
-  syn_spin: "#5094a1", syn_ald: "#30717f", syn_mbe: "#5095a3", syn_hydro: "#3b8d9d"
+  syn_main: "#123c44", syn_cvd: "#398a9a", syn_pvd: "#378695", syn_sol: "#56a3b3",
+  syn_spin: "#1d5b67", syn_ald: "#347d8b", syn_mbe: "#68adbb", syn_hydro: "#4f9faf"
 };
 
 function FAQAccordion({ title, color, isOpen, onClick, children }) {
@@ -50,8 +50,8 @@ function Card({ title, color, formula, children }) {
     <div style={{ background: T.panel, border: `1.5px solid ${(color || T.border)}44`,  borderRadius: 10, padding: "16px 18px", marginBottom: 10 }}>
       {(title || formula) && (
         <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 10, flexWrap: "wrap" }}>
-          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#347a89", textTransform: "none", fontWeight: 500 }}>{fx(title)}</div>}
-          {formula && <div style={{ fontFamily: "'Georgia',serif", fontSize: 14, color: T.ink, background: (color || "#347a89") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#347a89")}33` }}>{fx(formula)}</div>}
+          {title && <div style={{ fontSize: 12, letterSpacing: 2, color: color || "#398a9a", textTransform: "none", fontWeight: 500 }}>{fx(title)}</div>}
+          {formula && <div style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 14, color: T.ink, background: (color || "#398a9a") + "11", padding: "2px 10px", borderRadius: 4, border: `1px solid ${(color || "#398a9a")}33` }}>{fx(formula)}</div>}
         </div>
       )}
       {children}
@@ -162,7 +162,6 @@ function CVDSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is CVD? (Chemical Vapor Deposition)" color={T.syn_cvd} isOpen={openItem === "cvd_what"} onClick={() => toggle("cvd_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_cvd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_cvd + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like invisible spray painting with chemistry. Gas-phase precursors flow over a hot substrate, decompose, and deposit a thin film atom by atom. The substrate never sees a liquid or solid source — everything arrives as vapor. CVD is the workhorse of the semiconductor industry: Si wafers, SiO₂ insulators, Si₃N₄ passivation, III-V LEDs, and diamond coatings.</span>
         </div>
         <div style={mb}>
@@ -467,7 +466,6 @@ function PVDSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is PVD? (Physical Vapor Deposition)" color={T.syn_pvd} isOpen={openItem === "pvd_what"} onClick={() => toggle("pvd_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_pvd + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_pvd + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Like spray painting with individual atoms. PVD physically moves material from a solid/liquid source to the substrate through vacuum — no chemical reactions involved. The source is vaporized (by heat, electron beam, or ion bombardment), and atoms condense on the cool substrate to form a thin film.</span>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 12 }}>
@@ -696,7 +694,6 @@ function SolGelSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is Sol-Gel?" color={T.syn_sol} isOpen={openItem === "sg_what"} onClick={() => toggle("sg_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_sol + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_sol + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Chemistry in a beaker that becomes a solid film. Start with a liquid solution of metal compounds, trigger polymerization reactions, coat it on a substrate, and bake. No vacuum needed! Sol-gel is the cheapest way to make oxide thin films (TiO₂, SiO₂, ZnO, ITO) and the backbone of many coating industries.</span>
         </div>
         <div style={mb}>
@@ -935,7 +932,6 @@ function ALDSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is ALD? (Atomic Layer Deposition)" color={T.syn_ald} isOpen={openItem === "ald_what"} onClick={() => toggle("ald_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_ald + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_ald + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The most precise thin-film technique — deposits exactly ONE atomic layer per cycle. ALD alternates between two self-limiting surface reactions. No matter how much precursor you flow, only one monolayer reacts. Repeat 100 times → exactly 10 nm. Used for gate oxides in every modern transistor (HfO₂), barrier layers, and passivation coatings.</span>
         </div>
         <div style={mb}>
@@ -1214,7 +1210,6 @@ function MBESection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is MBE? (Molecular Beam Epitaxy)" color={T.syn_mbe} isOpen={openItem === "mbe_what"} onClick={() => toggle("mbe_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_mbe + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_mbe + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The Rolls-Royce of thin-film deposition. Ultra-high vacuum (10⁻¹⁰ Torr), molecular beams of pure elements directed at a heated crystal substrate. Atoms land one at a time in perfect registry with the substrate lattice. Used for quantum wells, superlattices, 2D electron gases, and the highest-quality semiconductor heterostructures.</span>
         </div>
         <div style={mb}>
@@ -1430,12 +1425,11 @@ function SpinCoatingSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is Spin Coating?" color={T.syn_spin} isOpen={openItem === "sc_what"} onClick={() => toggle("sc_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_spin + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_spin + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>The simplest thin-film method: drop solution on substrate, spin fast, centrifugal force spreads it into a uniform thin film. The final thickness depends on spin speed, solution viscosity, and concentration. Used everywhere: photoresist in lithography, perovskite solar cells, organic electronics, sol-gel coatings. Cost: ~$5,000 for a spin coater vs ~$1M for a CVD system.</span>
         </div>
         <div style={mb}>
           <span style={{ color: T.syn_spin, fontWeight: 500 }}>Film thickness formula (empirical):</span><br />
-          {"  t ∝ η^(1/2) · ω^(-1/2) · c"}<br /><br />
+          {fx("  t ∝ η^(1/2) · ω^(-1/2) · c")}<br /><br />
           {"  t = film thickness (nm)"}<br />
           {"  η = solution viscosity (cP)"}<br />
           {"  ω = spin speed (RPM)"}<br />
@@ -1733,7 +1727,6 @@ function HydrothermalSection() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <FAQAccordion title="What is Hydrothermal Synthesis?" color={T.syn_hydro} isOpen={openItem === "ht_what"} onClick={() => toggle("ht_what")}>
         <div style={{ display: "flex", gap: 10, background: T.syn_hydro + "06", borderRadius: 8, padding: "8px 12px", border: "1px solid " + T.syn_hydro + "12", marginBottom: 12 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}></span>
           <span style={{ fontSize: 11, lineHeight: 1.7, color: T.ink }}>Nature{"'"}s own crystal growth method — like how quartz crystals form deep underground. Dissolve precursors in water, seal in a high-pressure vessel (autoclave), heat to 100-300°C. The supercritical water dissolves things that normal water can{"'"}t, and crystals grow slowly from solution. Perfect for ZnO nanowires, TiO₂ nanoparticles, and zeolites.</span>
         </div>
         <div style={mb}>

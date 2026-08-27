@@ -4,9 +4,9 @@ import fx from "./fx.jsx";
 const T = {
   bg: "var(--paper)", panel: "#ffffff", surface: "var(--sunk)", border: "var(--line)",
   ink: "var(--ink)", muted: "var(--muted)", dim: "var(--line)",
-  cs_primary: "#337886", cs_accent: "#7fb5c0", cs_lattice: "#5094a1",
-  cs_symmetry: "#29616d", cs_miller: "#22515b", cs_cell: "#3c8f9f",
-  cs_pack: "#30727f", cs_struct: "#265b65"
+  cs_primary: "#1d5b67", cs_accent: "#a5c6cd", cs_lattice: "#63aab9",
+  cs_symmetry: "#2b7c8b", cs_miller: "#22515b", cs_cell: "#53a2b2",
+  cs_pack: "#123c44", cs_struct: "#265b66"
 };
 
 function Tag({ color, children }) {

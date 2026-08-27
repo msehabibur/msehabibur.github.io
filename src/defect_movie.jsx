@@ -10,20 +10,20 @@ const P = {
   surface: "#0f2428",
   border:  "#18393f",
   ink:     "#f0f5f6",
-  muted:   "#3f94a5",
+  muted:   "#60a9b8",
   dim:     "#1f4a53",
 
-  solar:   "#71adb9",
-  crystal: "#91bfc9",
-  defect:  "#388392",
-  electron:"#78b1bd",
-  hole:    "#5299a7",
-  dft:     "#62a5b2",
-  mlff:    "#96c2cb",
-  heat:    "#93c1ca",
+  solar:   "#98bec5",
+  crystal: "#b4cfd5",
+  defect:  "#4993a1",
+  electron:"#9dc1c8",
+  hole:    "#71b2bf",
+  dft:     "#7eb9c5",
+  mlff:    "#b8d2d7",
+  heat:    "#b5d0d5",
   photon:  "#bfd3d7",
-  ok:      "#a5cbd2",
-  warn:    "#539aa8"
+  ok:      "#bcd5da",
+  warn:    "#73b3c0"
 };
 
 // ── Scenes ──
@@ -382,11 +382,11 @@ export default function DefectMovieModule() {
     case "compare": {
       const titleT = ease(clamp01(t * 3));
       const cells = [
-        { name: "Perovskite/Si tandem", eff: 33.9, color: "#80b6c1" },
-        { name: "Crystalline Si (single)", eff: 27.9, color: "#5094a2" },
-        { name: "Perovskite", eff: 26.1, color: "#388392" },
-        { name: "CIGS", eff: 23.6, color: "#7eb5bf" },
-        { name: "CdTe", eff: 22.5, color: "#5299a7" },
+        { name: "Perovskite/Si tandem", eff: 33.9, color: "#a7c7ce" },
+        { name: "Crystalline Si (single)", eff: 27.9, color: "#65acba" },
+        { name: "Perovskite", eff: 26.1, color: "#4993a1" },
+        { name: "CIGS", eff: 23.6, color: "#a4c5cc" },
+        { name: "CdTe", eff: 22.5, color: "#71b2bf" },
         { name: "CZTSSe", eff: 13.0, color: "#214e57" },
       ];
       const maxEff = 40;
@@ -781,11 +781,11 @@ export default function DefectMovieModule() {
             const cx = 185, cw = 235, cy0 = 70;
             const layers = [
               { h: 14, fill: P.ink + "12",     stroke: P.ink + "30",     label: "Glass substrate",       role: "Mechanical support",       lc: P.muted },
-              { h: 12, fill: "#3c8e9f" + "12", stroke: "#3c8e9f" + "30", label: "ITO / FTO",              role: "Transparent conductor",    lc: "#3c8e9f" },
-              { h: 12, fill: "#7fb5c0" + "12", stroke: "#7fb5c0" + "30", label: "ZnO buffer",             role: "High-R shunt prevention",  lc: "#7fb5c0" },
+              { h: 12, fill: "#50a1b1" + "12", stroke: "#50a1b1" + "30", label: "ITO / FTO",              role: "Transparent conductor",    lc: "#50a1b1" },
+              { h: 12, fill: "#a5c6cd" + "12", stroke: "#a5c6cd" + "30", label: "ZnO buffer",             role: "High-R shunt prevention",  lc: "#a5c6cd" },
               { h: 16, fill: P.electron + "12", stroke: P.electron + "30", label: "n-CdS window",          role: "n-type junction partner",  lc: P.electron },
               { h: 65, fill: P.solar + "10",   stroke: P.solar + "30",   label: "p-CdTe absorber",       role: "Photon absorption (1.5 eV)", lc: P.solar },
-              { h: 14, fill: "#7eb5bf" + "10", stroke: "#7eb5bf" + "30", label: "ZnTe:Cu back buffer",   role: "Ohmic contact / barrier",  lc: "#7eb5bf" },
+              { h: 14, fill: "#a4c5cc" + "10", stroke: "#a4c5cc" + "30", label: "ZnTe:Cu back buffer",   role: "Ohmic contact / barrier",  lc: "#a4c5cc" },
               { h: 12, fill: P.dim + "25",     stroke: P.dim + "50",     label: "Cu / Mo back contact",  role: "Current collection",       lc: P.dim },
             ];
             let yy = cy0;

@@ -80,9 +80,9 @@ function spColor(prob) {
 }
 
 function spBadge(prob) {
-  if (prob >= 0.85) return { text: "High", bg: "#f1f5f6", color: "#285f6a" };
-  if (prob >= 0.6) return { text: "Medium", bg: "#f4f7f8", color: "#265a64" };
-  if (prob >= 0.3) return { text: "Low", bg: "#f0f4f5", color: "#245660" };
+  if (prob >= 0.85) return { text: "High", bg: "#f1f5f6", color: "#28626d" };
+  if (prob >= 0.6) return { text: "Medium", bg: "#f4f7f8", color: "#245862" };
+  if (prob >= 0.3) return { text: "Low", bg: "#f0f4f5", color: "#21505a" };
   return { text: "Very Low", bg: "#c9dade", color: "#214e57" };
 }
 
@@ -224,9 +224,9 @@ export default function PyrochloreScatter() {
           {/* TBC region annotation */}
           <rect x={toX(9.0)} y={toY(2.0)}
             width={toX(12.5) - toX(9.0)} height={toY(1.2) - toY(2.0)}
-            rx={6} fill="#32778508" stroke="#327785" strokeWidth={1.2} strokeDasharray="5,3" opacity={0.6} />
+            rx={6} fill="#37869508" stroke="#378695" strokeWidth={1.2} strokeDasharray="5,3" opacity={0.6} />
           <text x={(toX(9.0) + toX(12.5)) / 2} y={toY(2.0) - 5} textAnchor="middle"
-            fill="#327785" fontSize={9} fontWeight={500} opacity={0.7}>
+            fill="#378695" fontSize={9} fontWeight={500} opacity={0.7}>
             TBC design space (low κ, high CTE)
           </text>
 
@@ -361,8 +361,8 @@ export default function PyrochloreScatter() {
             <div style={{ padding: "12px 16px", flex: 1 }}>
               {/* Property cards */}
               {[
-                { label: "Thermal Conductivity", val: `${active.tc.toFixed(2)} W/m·K`, sub: "κ (LLM-predicted)", color: "#3b8d9d" },
-                { label: "Coeff. Thermal Expansion", val: `${active.cte.toFixed(1)} ×10⁻⁶ K⁻¹`, sub: "CTE (LLM-predicted)", color: "#3d90a1" },
+                { label: "Thermal Conductivity", val: `${active.tc.toFixed(2)} W/m·K`, sub: "κ (LLM-predicted)", color: "#4f9faf" },
+                { label: "Coeff. Thermal Expansion", val: `${active.cte.toFixed(1)} ×10⁻⁶ K⁻¹`, sub: "CTE (LLM-predicted)", color: "#56a3b3" },
                 { label: "Synthesis Probability", val: active.sp.toFixed(2), sub: active.sp >= 0.85 ? "Literature-confirmed stable" : active.sp >= 0.5 ? "Partially explored" : "Novel / hypothetical", color: spColor(active.sp) },
               ].map((p, i) => (
                 <div key={i} style={{
@@ -383,8 +383,8 @@ export default function PyrochloreScatter() {
               {active.tc <= 2.0 && active.cte >= 9.0 && (
                 <div style={{
                   padding: "8px 12px", borderRadius: 8,
-                  background: "#f7fafa", border: "1px solid #7cb3be",
-                  fontSize: 11, color: "#255862", fontWeight: 500
+                  background: "#f7fafa", border: "1px solid #a2c4cb",
+                  fontSize: 11, color: "#23545e", fontWeight: 500
                 }}>
                   ✓ In TBC design space (low κ + high CTE)
                 </div>

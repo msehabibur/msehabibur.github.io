@@ -23,17 +23,17 @@ const P = {
   surface: "#0f2428",
   border:  "#18393f",
   ink:     "#f0f5f6",
-  muted:   "#3f94a5",
+  muted:   "#60a9b8",
   dim:     "#1f4a53",
-  rag:     "#91bfc9",
-  agent:   "#62a5b2",
-  llm:     "#96c2cb",
-  data:    "#71adb9",
-  vector:  "#84b8c2",
-  ok:      "#a5cbd2",
-  warn:    "#539aa8",
-  chunk:   "#78b1bd",
-  mongo:   "#62a5b2"
+  rag:     "#b4cfd5",
+  agent:   "#7eb9c5",
+  llm:     "#b8d2d7",
+  data:    "#98bec5",
+  vector:  "#accad0",
+  ok:      "#bcd5da",
+  warn:    "#73b3c0",
+  chunk:   "#9dc1c8",
+  mongo:   "#7eb9c5"
 };
 
 export default function MongoDBMovieModule() {
@@ -353,7 +353,7 @@ export default function MongoDBMovieModule() {
       const LH = 19;
       const lc = (ln) => {
         if (!ln||ln.trim()==="") return P.muted;
-        if (ln.trimStart().startsWith("#")) return "#317482";
+        if (ln.trimStart().startsWith("#")) return "#368393";
         if (ln.startsWith("from ")||ln.startsWith("import ")) return P.chunk;
         if (ln.trimStart().startsWith('"$')) return P.data;
         return P.ink;
@@ -731,7 +731,7 @@ export default function MongoDBMovieModule() {
       const LH = 19;
       const lc = (ln) => {
         if (!ln||ln.trim()==="") return P.muted;
-        if (ln.trimStart().startsWith("#")) return "#317482";
+        if (ln.trimStart().startsWith("#")) return "#368393";
         if (ln.startsWith("from ")||ln.startsWith("import ")) return P.chunk;
         return P.ink;
       };
