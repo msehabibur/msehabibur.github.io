@@ -4,8 +4,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
 import MicroLab from './micro_lab.jsx'
 import ScientificBlog from './scientific_blog.jsx'
-import WbgExplorer from './wbg_explorer.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode><BrowserRouter><Routes><Route path="/" element={<MicroLab />} /><Route path="/blog" element={<ScientificBlog />} /><Route path="/blog/:chapterId" element={<ScientificBlog />} /><Route path="/wbg" element={<WbgExplorer />} /></Routes></BrowserRouter></StrictMode>
+  <StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MicroLab />} />
+        <Route path="/blog" element={<ScientificBlog />} />
+        <Route path="/blog/:chapterId" element={<ScientificBlog />} />
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>
 )
