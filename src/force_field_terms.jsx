@@ -669,7 +669,7 @@ function MorseSection() {
           </div>
           {/* Asymmetry highlight */}
           <div style={{ marginTop:10, background:C.light, borderRadius:8, padding:10, border:`1px solid ${C.border}` }}>
-            <div style={{ fontSize:10, color:C.muted, marginBottom:6, letterSpacing:2 }}>ASYMMETRY at ±0.5Å from r₀</div>
+            <div style={{ fontSize:10, color:C.muted, marginBottom:6, letterSpacing:2 }}>Asymmetry at ±0.5Å from r₀</div>
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(280px, 1fr))", gap:6 }}>
               <div style={{ textAlign:"center", padding:8, background:C.bond+"11", borderRadius:6, border:`1px solid ${C.bond}33` }}>
                 <div style={{ fontSize:10, color:C.muted }}>Compress 0.5Å</div>
@@ -777,7 +777,7 @@ function CompareSection() {
           U<sub>total</sub> = U<sub style={{color:C.bond}}>bonds</sub> + U<sub style={{color:C.angle}}>angles</sub> + U<sub style={{color:C.dih}}>dihedrals</sub> + U<sub style={{color:C.vdw}}>vdW</sub> + U<sub style={{color:C.coul}}>Coulomb</sub>
         </div>
         <div style={{ marginTop:10, fontSize:11, color:C.muted, lineHeight:1.8 }}>
-          <strong style={{color:C.morse}}>DefectNet replaces ALL of this</strong> with a single GNN that learns the true
+          <strong style={{color:C.morse}}>DefectNet replaces all of this</strong> with a single GNN that learns the true
           energy surface directly from DFT — no assumed formulas, no manual parameter fitting.
           It automatically captures bonding, angles, long-range effects, and charge state dependence
           that classical force fields cannot handle.

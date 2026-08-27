@@ -628,7 +628,7 @@ function XRDSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step 2 -- Set Up the Rietveld Refinement (GSAS-II):</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- Set Up the Rietveld Refinement (gsas-II):</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="Input crystal structures" value="C₃S (monoclinic), C₂S (monoclinic), C₃A (cubic), C₄AF (orthorhombic)" />
@@ -978,7 +978,7 @@ function EBSDSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step 2 -- CSL Classification Using Brandon Criterion:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- csl Classification Using Brandon Criterion:</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
           <CalcRow eq="Brandon criterion: Δθ ≤ 15°/√Σ" result="" color={C.struct} />
@@ -1920,7 +1920,7 @@ function XPSSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Raw Data -- Ti 2p Region Shows TWO Doublets:</strong>
+          <strong style={{ color: T.ink }}>Raw Data -- Ti 2p Region Shows two Doublets:</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="Ti⁴⁺ (TiO₂) 2p₃/₂" value="458.8 eV" />
@@ -2626,7 +2626,7 @@ function SIMSSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step 4 -- Convert Counts to Concentration (Using RSF):</strong>
+          <strong style={{ color: T.ink }}>Step 4 -- Convert Counts to Concentration (Using rsf):</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
           <CalcRow eq="[B] = (B counts × RSF) / Si matrix counts" result="" color={C.surface} />
@@ -3033,7 +3033,7 @@ function EDSSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step 4 -- Apply ZAF Corrections:</strong>
+          <strong style={{ color: T.ink }}>Step 4 -- Apply zaf Corrections:</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
           <CalcRow eq="Z correction (atomic number effect on e⁻ penetration)" result="Applied" color={C.surface} />
@@ -3047,7 +3047,7 @@ function EDSSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Full Results vs AISI 304 Specification:</strong>
+          <strong style={{ color: T.ink }}>Full Results vs aisi 304 Specification:</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="Cr: 17.5 wt%" value="Spec: 17-20 wt% ✓ (passes)" />
@@ -3105,7 +3105,7 @@ function EDSSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>ZAF-Corrected Composition and Formula Calculation:</strong>
+          <strong style={{ color: T.ink }}>Zaf-Corrected Composition and Formula Calculation:</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
           <CalcRow eq="ZAF-corrected: O = 46.2, Si = 20.1, Al = 18.6, Ca = 14.4 wt%" result="" color={C.surface} />
@@ -3430,7 +3430,7 @@ function XANESSection() {
                 {/* Pre-edge feature */}
                 <text x={80} y={155} fontSize={7} fill={T.muted}>pre-edge</text>
                 <text x={50 + (30 / 120) * 420 - 15} y={65} fontSize={7} fill={col}>white line</text>
-                <text x={350} y={60} fontSize={7} fill={T.muted}>post-edge (EXAFS)</text>
+                <text x={350} y={60} fontSize={7} fill={T.muted}>post-edge (exafs)</text>
               </g>
             );
           })()}
@@ -3570,7 +3570,7 @@ function XANESSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Full XANES Fingerprinting:</strong>
+          <strong style={{ color: T.ink }}>Full xanes Fingerprinting:</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="Edge position" value="7126 eV → Fe³⁺" />
@@ -3675,7 +3675,7 @@ function XANESSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Calculations -- EXAFS Fitting:</strong>
+          <strong style={{ color: T.ink }}>Calculations -- exafs Fitting:</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
           <CalcRow eq="Edge position change after 100 hr" result="+0.2 eV (within error)" color={C.spec} />
@@ -4067,7 +4067,7 @@ function RamanSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step 5 -- Assess Crystallinity from FWHM:</strong>
+          <strong style={{ color: T.ink }}>Step 5 -- Assess Crystallinity from fwhm:</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
           <CalcRow eq="FWHM of 144 cm⁻¹ peak" result="8 cm⁻¹" color={C.spec} />
@@ -5742,7 +5742,7 @@ function SEMSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Line Profile Through CIGS Absorber:</strong>
+          <strong style={{ color: T.ink }}>Line Profile Through cigs Absorber:</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
           <CalcRow eq="Ga/(Ga+In) at Mo interface (back)" result="0.45" color={C.micro} />
@@ -5833,12 +5833,12 @@ function TEMImagingSection() {
 
             {/* Screen */}
             <rect x={10} y={228} width={60} height={5} fill={C.accent + "22"} stroke={C.accent} strokeWidth={1} />
-            <text x={72} y={234} fontSize={6} fill={T.muted}>screen/CCD</text>
+            <text x={72} y={234} fontSize={6} fill={T.muted}>screen/ccd</text>
           </g>
 
           {/* HRTEM lattice image simulation */}
           <g transform="translate(210, 20)">
-            <text x={90} y={0} textAnchor="middle" fontSize={9} fill={C.micro} fontWeight={500}>HRTEM Image (simulated)</text>
+            <text x={90} y={0} textAnchor="middle" fontSize={9} fill={C.micro} fontWeight={500}>Hrtem Image (simulated)</text>
             <rect x={0} y={8} width={180} height={120} fill="#111" stroke={T.border} strokeWidth={1} rx={4} />
             {/* Lattice fringes */}
             {Array.from({ length: 15 }, (_, i) =>
@@ -5944,7 +5944,7 @@ function TEMImagingSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step 3 -- Measure from FFT (Digital Diffraction Pattern):</strong>
+          <strong style={{ color: T.ink }}>Step 3 -- Measure from fft (Digital Diffraction Pattern):</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="Perform FFT of the HR-TEM image" value="Spots appear (like a diffraction pattern)" />
@@ -6501,7 +6501,7 @@ function AFMSection() {
             Rq = 0.18 nm is exceptional -- this is less than the diameter of a single silicon atom (0.22 nm). The visible atomic steps confirm the CMP (chemical mechanical polishing) achieved an epi-ready surface. The wafer passes the &lt; 0.5 nm specification with large margin and is approved for epitaxial growth.
           </div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
-            <strong>What would cause a FAIL?</strong> Rq &gt; 0.5 nm could come from CMP scratches (linear features in the height map), slurry particle contamination (bright spots 5-50 nm tall), or inadequate final cleaning (organic residue creating ~1 nm bumps). If any of these were present, you would send the wafer back for re-polishing or re-cleaning before loading it into the expensive epitaxy reactor.
+            <strong>What would cause a fail?</strong> Rq &gt; 0.5 nm could come from CMP scratches (linear features in the height map), slurry particle contamination (bright spots 5-50 nm tall), or inadequate final cleaning (organic residue creating ~1 nm bumps). If any of these were present, you would send the wafer back for re-polishing or re-cleaning before loading it into the expensive epitaxy reactor.
           </div>
         </div>
       </Card>
@@ -6789,7 +6789,7 @@ function STMSection() {
             <text x={85} y={50} textAnchor="middle" fontSize={7} fill={C.micro}>Constant current → topography</text>
 
             {/* dI/dV */}
-            <text x={85} y={75} textAnchor="middle" fontSize={7} fill={C.accent}>dI/dV spectroscopy → LDOS</text>
+            <text x={85} y={75} textAnchor="middle" fontSize={7} fill={C.accent}>dI/dV spectroscopy → ldos</text>
           </g>
 
           {/* Energy diagram */}
@@ -6990,7 +6990,7 @@ function STMSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step 5 -- Check the DAS Model Features:</strong>
+          <strong style={{ color: T.ink }}>Step 5 -- Check the das Model Features:</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
           <CalcRow eq="12 adatoms per unit cell" result="✓ matches DAS model" color={C.micro} />
@@ -7381,7 +7381,7 @@ function SynchrotronSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Full SAXS Results:</strong>
+          <strong style={{ color: T.ink }}>Full saxs Results:</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="Radius of gyration Rg" value="13.0 ± 0.2 nm" />
@@ -7397,7 +7397,7 @@ function SynchrotronSection() {
             The SAXS-derived diameter of 33.6 nm agrees well with the DLS value of 35 nm -- the 1.4 nm difference is the solvation shell that DLS sees but SAXS does not. The clean linear Guinier region and visible form factor fringes at higher q confirm the particles are monodisperse spheres, exactly what the Stöber process should produce.
           </div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7, marginTop: 8 }}>
-            <strong>Why synchrotron SAXS?</strong> A lab SAXS instrument could do this measurement too, but would need ~30 minutes of exposure instead of 1 second, and the data would be noisier. The synchrotron advantage is speed and data quality -- critical if you are doing time-resolved studies (watching nanoparticle growth in real time) or have limited sample volume.
+            <strong>Why synchrotron saxs?</strong> A lab SAXS instrument could do this measurement too, but would need ~30 minutes of exposure instead of 1 second, and the data would be noisier. The synchrotron advantage is speed and data quality -- critical if you are doing time-resolved studies (watching nanoparticle growth in real time) or have limited sample volume.
           </div>
         </div>
       </Card>
@@ -7534,7 +7534,7 @@ function SynchrotronSection() {
         </div>
 
         <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}>
-          <strong style={{ color: T.ink }}>Step 2 -- Raw XAS and XMCD Spectra:</strong>
+          <strong style={{ color: T.ink }}>Step 2 -- Raw xas and xmcd Spectra:</strong>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
           <InfoRow label="XAS (average µ⁺ + µ⁻)" value="L₃ peak at 708.2 eV, L₂ at 721.0 eV" />

@@ -61,7 +61,7 @@ function SliderRow({ label, value, min, max, step, onChange, color, unit = "", f
 function EqnBlock({ equations, color }) {
   return (
     <div style={{ marginTop: 12, padding: "10px 14px", borderRadius: 8, background: (color || C.accent) + "08", border: `1px solid ${(color || C.accent)}22` }}>
-      <div style={{ fontSize: 10, fontWeight: 500, color: color || C.accent, marginBottom: 6, letterSpacing: 1 }}>KEY Equations</div>
+      <div style={{ fontSize: 10, fontWeight: 500, color: color || C.accent, marginBottom: 6, letterSpacing: 1 }}>Key Equations</div>
       {equations.map((eq, i) => (
         <div key={i} style={{ fontSize: 11, fontFamily: "'IBM Plex Mono', monospace", color: T.ink, lineHeight: 1.8, paddingLeft: 8,  marginBottom: 4 }}>
           {eq}

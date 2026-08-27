@@ -654,7 +654,7 @@ function AtomicModelsSection() {
  </div>
  <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
- <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Thomson's value of 1.76 × 10¹¹ C/kg was ~1800× larger than the e/m for hydrogen ions, proving the electron is far lighter than any atom. This was the first measurement of a subatomic particle's property. The same crossed-field geometry is still used in mass spectrometers (SIMS) that analyze the composition of semiconductor wafers.</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Thomson's value of 1.76 × 10¹¹ C/kg was ~1800× larger than the e/m for hydrogen ions, proving the electron is far lighter than any atom. This was the first measurement of a subatomic particle's property. The same crossed-field geometry is still used in mass spectrometers (sims) that analyze the composition of semiconductor wafers.</div>
  </div>
  </NCard>
 
@@ -1160,7 +1160,7 @@ function AufbauPrincipleSection() {
  </div>
  <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_core, marginBottom: 6 }}>Think of it this way:</div>
- <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Each Group III atom brings exactly 3 gifts (valence electrons) to the bonding party. But for the heaviest member (Tl), the two innermost gifts (6s²) are wrapped so tightly by relativistic effects that they're hard to give away — this is the "inert pair effect."</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Each Group iii atom brings exactly 3 gifts (valence electrons) to the bonding party. But for the heaviest member (Tl), the two innermost gifts (6s²) are wrapped so tightly by relativistic effects that they're hard to give away — this is the "inert pair effect."</div>
  </div>
  <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 1 — Build Electron Configurations:</strong></div>
  <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
@@ -1168,7 +1168,7 @@ function AufbauPrincipleSection() {
  <InfoRow label="In (Z=49)" value="[Kr] 4d¹⁰ 5s² 5p¹ → 3 valence e⁻" />
  <InfoRow label="Tl (Z=81)" value="[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹ → 3 valence e⁻" />
  </div>
- <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 2 — Bonding in III-V Compounds:</strong></div>
+ <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 2 — Bonding in iii-V Compounds:</strong></div>
  <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 14 }}>
  <CalcRow eq="GaAs: 3(Ga) + 5(As) = 8 valence e⁻ per pair" result="4 sp³ bonds" color={T.eo_core} />
  <CalcRow eq="InP: 3(In) + 5(P) = 8 valence e⁻ per pair" result="4 sp³ bonds" color={T.eo_core} />
@@ -2075,7 +2075,7 @@ function WaveDualitySection() {
  </div>
  <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_core, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
- <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Our calculated 50.9° matches the experimentally observed peak at 50° almost exactly! This was the smoking gun that proved de Broglie right: electrons have wavelengths. This same principle underlies electron diffraction techniques (RHEED, LEED, TEM diffraction) used daily to characterize thin-film solar cell materials like CdTe and CIGS.</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Our calculated 50.9° matches the experimentally observed peak at 50° almost exactly! This was the smoking gun that proved de Broglie right: electrons have wavelengths. This same principle underlies electron diffraction techniques (rheed, leed, TEM diffraction) used daily to characterize thin-film solar cell materials like CdTe and cigs.</div>
  </div>
  </NCard>
 
@@ -5045,7 +5045,7 @@ function MolecularOrbitalSection() {
  </div>
  <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
- <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The conjugated π electrons are like a ball rolling in a trough. The longer the trough (more double bonds), the lower the energy needed to jump to the next level. With 11 double bonds, the box is long enough that the HOMO→LUMO gap falls right in the blue-violet range — the molecule absorbs blue light and we see the complementary color: orange.</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The conjugated π electrons are like a ball rolling in a trough. The longer the trough (more double bonds), the lower the energy needed to jump to the next level. With 11 double bonds, the box is long enough that the homo→lumo gap falls right in the blue-violet range — the molecule absorbs blue light and we see the complementary color: orange.</div>
  </div>
  <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 1 -- Set up the particle-in-a-box:</strong></div>
  <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
@@ -5067,7 +5067,7 @@ function MolecularOrbitalSection() {
  </div>
  <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_cond, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
- <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>β-carotene absorbs at ~450 nm (experimental), and our simple box model gives ~431 nm — remarkably close. The molecule absorbs blue-violet light, so we see the transmitted/reflected orange. This same HOMO-LUMO concept maps directly to band gaps in semiconductors: the valence band is the collection of all filled HOMOs, and the conduction band is the collection of all empty LUMOs.</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>β-carotene absorbs at ~450 nm (experimental), and our simple box model gives ~431 nm — remarkably close. The molecule absorbs blue-violet light, so we see the transmitted/reflected orange. This same homo-lumo concept maps directly to band gaps in semiconductors: the valence band is the collection of all filled HOMOs, and the conduction band is the collection of all empty LUMOs.</div>
  </div>
  </NCard>
 
@@ -5137,7 +5137,7 @@ function MolecularOrbitalSection() {
  </div>
  <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
- <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>You might expect the more electronegative O to hog all the electrons (making C⁺O⁻). But the lone pair on carbon in the σ HOMO sticks out far from the molecule, creating a large opposing dipole that actually wins. It is like a tug-of-war where the losing side has a longer lever arm.</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>You might expect the more electronegative O to hog all the electrons (making C⁺O⁻). But the lone pair on carbon in the σ homo sticks out far from the molecule, creating a large opposing dipole that actually wins. It is like a tug-of-war where the losing side has a longer lever arm.</div>
  </div>
  <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 1 -- MO filling (14 electrons):</strong></div>
  <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
@@ -6107,7 +6107,7 @@ function ReciprocalSpaceSection() {
  </div>
  <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_cond, marginBottom: 6 }}>Think of it this way:</div>
- <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>ARPES is like shining light on a pinball machine and catching the balls that fly out. The speed of each ball tells you its energy inside the machine, and the angle tells you which direction it was moving. Together, you reconstruct the full energy-momentum map of the electrons.</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Arpes is like shining light on a pinball machine and catching the balls that fly out. The speed of each ball tells you its energy inside the machine, and the angle tells you which direction it was moving. Together, you reconstruct the full energy-momentum map of the electrons.</div>
  </div>
  <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 1 -- Measurement parameters:</strong></div>
  <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
@@ -6473,7 +6473,7 @@ function BandSection() {
  </div>
  <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
- <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Biaxial compression widens the GaAs gap from 1.42 eV to about 1.69 eV -- a 19% increase. This strain engineering is used in strained-Si transistors (Intel's 90 nm node onward) to boost mobility and in III-V quantum wells to tune laser wavelengths. The large 4.1% mismatch with Si makes thick coherent GaAs-on-Si films impossible; beyond a critical thickness, misfit dislocations relieve the strain.</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Biaxial compression widens the GaAs gap from 1.42 eV to about 1.69 eV -- a 19% increase. This strain engineering is used in strained-Si transistors (Intel's 90 nm node onward) to boost mobility and in iii-V quantum wells to tune laser wavelengths. The large 4.1% mismatch with Si makes thick coherent GaAs-on-Si films impossible; beyond a critical thickness, misfit dislocations relieve the strain.</div>
  </div>
  </NCard>
 
@@ -8049,7 +8049,7 @@ function MaterialClassesSection() {
  </div>
  <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_photon, marginBottom: 6 }}>Think of it this way:</div>
- <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Piezoelectricity means "pressure electricity." In PZT, the crystal structure lacks a center of symmetry, so squeezing it shifts positive and negative ion sublattices in opposite directions, creating a voltage. It is like squeezing a lemon -- the harder you press, the more juice (voltage) comes out. PZT is the champion piezoelectric because its ions are especially easy to displace.</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>Piezoelectricity means "pressure electricity." In pzt, the crystal structure lacks a center of symmetry, so squeezing it shifts positive and negative ion sublattices in opposite directions, creating a voltage. It is like squeezing a lemon -- the harder you press, the more juice (voltage) comes out. pzt is the champion piezoelectric because its ions are especially easy to displace.</div>
  </div>
  <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 1 -- Given:</strong></div>
  <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
@@ -8064,7 +8064,7 @@ function MaterialClassesSection() {
  </div>
  <div style={{ padding: "3px 0" }}>
  <div style={{ fontSize: 9, letterSpacing: 2, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Interpretation</div>
- <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A modest 10 MPa stress on a 1 mm PZT disc generates 250 V -- enough to create a spark. This is exactly how lighters and gas igniters work: a spring-loaded hammer strikes a PZT crystal, generating kilovolts. PZT is also used in ultrasonic transducers (medical imaging), fuel injectors (diesel engines), and energy harvesters (harvesting vibrations from footsteps or machinery).</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>A modest 10 MPa stress on a 1 mm pzt disc generates 250 V -- enough to create a spark. This is exactly how lighters and gas igniters work: a spring-loaded hammer strikes a pzt crystal, generating kilovolts. pzt is also used in ultrasonic transducers (medical imaging), fuel injectors (diesel engines), and energy harvesters (harvesting vibrations from footsteps or machinery).</div>
  </div>
  </NCard>
 
@@ -9740,7 +9740,7 @@ function KineticsSection() {
  </div>
  </div>
  <div style={{ flex: 1, minWidth: 260, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
- <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>JMA / Avrami Equation</div>
+ <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_valence, marginBottom: 6 }}>Jma / Avrami Equation</div>
  <div style={{ fontSize: 13, fontWeight: 500, color: T.ink, marginBottom: 6, fontFamily: "'IBM Plex Mono', ui-monospace, monospace" }}>
  f(t) = 1 − exp(−kt<sup>n</sup>)
  </div>
@@ -9787,8 +9787,8 @@ function KineticsSection() {
  <div style={{ fontSize: 11, fontWeight: 500, color: T.eo_gap, marginBottom: 6 }}> Where DFT Struggles</div>
  <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
  • <strong>Pre-exponential factor</strong> — Requires phonon calculations (expensive) + harmonic approximation breaks down at high T<br />
- • <strong>Entropic contributions</strong> — GGA-DFT gives 0 K energies; finite-T entropy needs AIMD or quasi-harmonic approx<br />
- • <strong>Long timescales</strong> — AIMD limited to ~ps-ns; real diffusion/nucleation occurs on µs-s timescales<br />
+ • <strong>Entropic contributions</strong> — GGA-DFT gives 0 K energies; finite-T entropy needs aimd or quasi-harmonic approx<br />
+ • <strong>Long timescales</strong> — aimd limited to ~ps-ns; real diffusion/nucleation occurs on µs-s timescales<br />
  • <strong>Strongly correlated systems</strong> — Transition metal oxides, f-electron systems: barriers can be off by 0.5+ eV<br />
  • <strong>Van der Waals</strong> — Standard DFT misses dispersion; need vdW-DF or DFT-D3 corrections for layered materials<br />
  • <strong>Band gap errors</strong> — PBE underestimates gaps by 30–50%, affecting charged defect barriers; HSE06 helps but is 10–100× more expensive
@@ -10371,7 +10371,7 @@ function PhaseDiagramSection() {
  </div>
  <div style={{ padding: "3px 0", marginBottom: 14 }}>
  <div style={{ fontSize: 10, fontWeight: 500, color: T.eo_e, marginBottom: 6 }}>Think of it this way:</div>
- <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The lever rule works like a seesaw. The overall composition is the fulcrum. The liquid and solid compositions are at opposite ends. The fraction of each phase is proportional to the distance from the fulcrum to the OTHER end -- just like balancing a seesaw where a heavier kid sits closer to the pivot.</div>
+ <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>The lever rule works like a seesaw. The overall composition is the fulcrum. The liquid and solid compositions are at opposite ends. The fraction of each phase is proportional to the distance from the fulcrum to the other end -- just like balancing a seesaw where a heavier kid sits closer to the pivot.</div>
  </div>
  <div style={{ fontSize: 11, color: T.muted, marginBottom: 8 }}><strong style={{ color: T.ink }}>Step 1 -- Identify phase diagram data at T = 1300°C:</strong></div>
  <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
@@ -11664,7 +11664,7 @@ function DefectThermodynamicsSection() {
  </div>
 
  <div style={{ background: T.panel, padding: 14, borderRadius: 8, border: `1px solid ${T.border}` }}>
- <div style={{ fontWeight: "500", fontSize: 13, marginBottom: 6 }}>Charge Transition Level (CTL)</div>
+ <div style={{ fontWeight: "500", fontSize: 13, marginBottom: 6 }}>Charge Transition Level (ctl)</div>
  <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.5 }}>
  ε(q/q') = Fermi level where charge state changes from q to q'. Lines cross → lower energy state becomes stable.
  </div>
@@ -12078,7 +12078,7 @@ function OpticalPropertiesSection() {
  </div>
 
  <div style={{ background: T.panel, padding: 14, borderRadius: 8, border: `1px solid ${T.border}` }}>
- <div style={{ fontWeight: "500", fontSize: 12, marginBottom: 4 }}>SLME Connection</div>
+ <div style={{ fontWeight: "500", fontSize: 12, marginBottom: 4 }}>Slme Connection</div>
  <div style={{ fontSize: 10, color: T.muted, lineHeight: 1.6 }}>
  Spectroscopic Limited Maximum Efficiency uses α(E) to predict solar cell efficiency. Better absorption → higher SLME.
  </div>
@@ -12779,7 +12779,7 @@ function AtomsBigQuestionsSection() {
  <div style={{ background: T.eo_core + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
  <b> Analogy:</b> Think of a musical note. A pure tone (single frequency) goes on forever in time — you know the frequency perfectly but cannot say "when" the note is. A sharp clap is perfectly localized in time but contains ALL frequencies. You cannot have both a perfectly defined pitch and a perfectly defined moment. This is exactly the uncertainty principle for waves.
  </div>
- <p><b>Simple English:</b> The uncertainty principle is NOT about measurement clumsiness or instrument limitations. It is a fundamental property of waves. Position and momentum are "conjugate variables" — their operators do not commute. A state with well-defined position is a superposition of many momenta, and vice versa. This is mathematically identical to the bandwidth theorem in signal processing.</p>
+ <p><b>Simple English:</b> The uncertainty principle is not about measurement clumsiness or instrument limitations. It is a fundamental property of waves. Position and momentum are "conjugate variables" — their operators do not commute. A state with well-defined position is a superposition of many momenta, and vice versa. This is mathematically identical to the bandwidth theorem in signal processing.</p>
  <div style={mb}>
  ΔxΔp ≥ ℏ/2 (position-momentum){"\n"}
  ΔEΔt ≥ ℏ/2 (energy-time){"\n"}
@@ -13077,7 +13077,7 @@ function AtomsBigQuestionsSection() {
  <div style={{ background: T.eo_cond + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
  <b> Analogy:</b> HOMO is the highest occupied rung of a ladder (where the most energetic electron stands). LUMO is the next empty rung above. The gap between them determines how much energy is needed to "step up" — i.e., excite the molecule. A small gap means the molecule absorbs low-energy visible light (colored). A large gap means it is transparent.
  </div>
- <p><b>Simple English:</b> HOMO = Highest Occupied Molecular Orbital. LUMO = Lowest Unoccupied Molecular Orbital. The HOMO-LUMO gap determines the molecule's color (light absorption), chemical reactivity (small gap = more reactive), and electrical conductivity. In solids, this extends to the band gap between valence and conduction bands. The HOMO-LUMO gap is the molecular analogue of the semiconductor band gap.</p>
+ <p><b>Simple English:</b> homo = Highest Occupied Molecular Orbital. lumo = Lowest Unoccupied Molecular Orbital. The homo-lumo gap determines the molecule's color (light absorption), chemical reactivity (small gap = more reactive), and electrical conductivity. In solids, this extends to the band gap between valence and conduction bands. The homo-lumo gap is the molecular analogue of the semiconductor band gap.</p>
  <div style={mb}>
  Small HOMO-LUMO gap → colored, reactive, conductive{"\n"}
  Large HOMO-LUMO gap → colorless, stable, insulating{"\n"}
@@ -13271,7 +13271,7 @@ function AtomsBigQuestionsSection() {
  <div style={{ background: T.eo_photon + "10", borderRadius: 10, padding: 14, marginBottom: 10 }}>
  <b> Analogy:</b> An electron in a crystal is like a swimmer in a pool. In vacuum, the swimmer moves freely with their true mass. In a pool with currents (the periodic potential of the crystal), the swimmer seems lighter (moves faster, as if the current helps) or heavier (current fights them). The effective mass encodes how the crystal potential modifies the electron's response to forces.
  </div>
- <p><b>Simple English:</b> In a crystal, an electron is not truly free — it interacts with all the ions. But remarkably, we can describe it as a FREE particle with a modified mass, called the effective mass m*. This m* comes from the band curvature: a sharply curved band means small m* (light, fast carrier), a flat band means large m* (heavy, slow carrier). Near the band edge, m* = ℏ²/(d²E/dk²).</p>
+ <p><b>Simple English:</b> In a crystal, an electron is not truly free — it interacts with all the ions. But remarkably, we can describe it as a free particle with a modified mass, called the effective mass m*. This m* comes from the band curvature: a sharply curved band means small m* (light, fast carrier), a flat band means large m* (heavy, slow carrier). Near the band edge, m* = ℏ²/(d²E/dk²).</p>
  <div style={mb}>
  m* = ℏ² / (d²E/dk²){"\n"}
  Sharply curved band → small m* → fast carrier{"\n"}
@@ -13403,7 +13403,7 @@ const ELECTRON_SECTIONS = [
  { id: "atomToDevice", block: "design", label: "From Atom to Device", color: T.eo_e, Component: AtomToDeviceSection },
 
  // ── Act 6: Big Questions ──
- { id: "bigQuestions", block: "bigq", label: "Big Questions", color: T.eo_gap, Component: AtomsBigQuestionsSection },
+ { id: "bigQuestions", block: "design", label: "Big Questions", color: T.eo_gap, Component: AtomsBigQuestionsSection },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════

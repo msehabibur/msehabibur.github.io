@@ -166,7 +166,7 @@ export default function MongoDBMovieModule() {
           <g opacity={ease(clamp01((t-0.05)*5))}>
             <rect x={20} y={46} width={170} height={80} rx="8" fill={P.surface} stroke={P.dim+"60"} strokeWidth="1.5"/>
             <text x={105} y={62} textAnchor="middle" fill={P.muted} fontSize="9" fontWeight="500"
-              fontFamily="'Inter',sans-serif">Relational (SQL)</text>
+              fontFamily="'Inter',sans-serif">Relational (sql)</text>
             {sqlCols.map((c, ci) => (
               <g key={ci}>
                 <rect x={tX+ci*colW} y={tY} width={colW} height={18} fill={P.dim+"20"}
@@ -904,7 +904,7 @@ export default function MongoDBMovieModule() {
               <text x={DX+16} y={PY2+45} fill={P.llm} fontSize="7.5" fontWeight="500"
                 fontFamily="monospace">Filter: material="ZnTe" AND conf{"\u2265"}0.85</text>
               <text x={DX+16} y={PY2+58} fill={P.muted} fontSize="7"
-                fontFamily="monospace">Sort: confidence DESC</text>
+                fontFamily="monospace">Sort: confidence desc</text>
               {[
                 { mat:"ZnTe", conf:"0.920", route:"HIGH", match:true },
                 { mat:"ZnTe", conf:"0.888", route:"HIGH", match:true },

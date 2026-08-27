@@ -408,7 +408,7 @@ export default function PyrochloreScatter() {
                 All values predicted by LLM.<br /><br />
                 <strong style={{ color: "var(--ink)" }}>Synthesis Probability</strong><br />
                 Calibrated from literature: confirmed-stable pyrochlores → prob ≈ 1.0<br /><br />
-                <strong style={{ color: "var(--ink)" }}>TBC Design Space</strong><br />
+                <strong style={{ color: "var(--ink)" }}>Tbc Design Space</strong><br />
                 Low thermal conductivity + high CTE is ideal for thermal barrier coatings.
               </div>
             </div>

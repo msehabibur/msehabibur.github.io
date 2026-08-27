@@ -256,7 +256,7 @@ function WhatIsMLSection() {
           </div>
 
           <div style={{ marginTop: 10, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ML Finds THE pattern</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ML Finds the pattern</div>
             <CalcRow eq="Mean EN (Semiconductors)" result={((1.90 + 2.01 + 2.18) / 3).toFixed(2)} color="#398a9a" />
             <CalcRow eq="Mean EN (Metals)" result={((1.83 + 1.90 + 1.61) / 3).toFixed(2)} color="#4b98a7" />
             <CalcRow eq="Mean Radius (Semiconductors)" result={((1.17 + 1.22 + 1.26) / 3).toFixed(2) + " Å"} color="#398a9a" />
@@ -706,7 +706,7 @@ function CrossValidationSection() {
 
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>K-FOLD validation scores (K=5)</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>K-fold validation scores (K=5)</div>
             <CalcRow eq="Total data points" result="10" color={C} />
             <CalcRow eq="Points per fold = 10 / 5" result="2" color={C} />
             {foldMAEs.map((mae, i) => (
@@ -1133,7 +1133,7 @@ function SVMSection() {
             onChange={setEpsilon} color={C} />
 
           <div style={{ marginTop: 4, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ε-INSENSITIVE LOSS</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>ε-INSENSITIVE loss</div>
             {losses.map((m, i) => (
               <CalcRow key={i} eq={`${m.name}: |${m.bg.toFixed(2)} − ${m.yhat.toFixed(2)}| = ${m.residual.toFixed(2)}, loss = max(0, ${m.residual.toFixed(2)} − ${epsilon.toFixed(2)})`}
                 result={m.loss.toFixed(3) + (m.isSV ? " (SV)" : "")} color={m.isSV ? "#347d8b" : "#50a1b1"} />
@@ -1274,7 +1274,7 @@ function PCASection() {
 
           {/* Covariance matrix */}
           <div style={{ marginTop: 8, background: T.surface, borderRadius: 8, padding: 8, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 4, letterSpacing: 2 }}>COVARIANCE MATRIX (standardized)</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 4, letterSpacing: 2 }}>COVARIANCE matrix (standardized)</div>
             <div style={{ fontFamily: "monospace", fontSize: 10, lineHeight: 1.6 }}>
               {cov.map((row, i) => (
                 <div key={i} style={{ display: "flex", gap: 4 }}>
@@ -2017,7 +2017,7 @@ function TransformerSection() {
           </div>
 
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>Step 4: softmax (each ROW)</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>Step 4: softmax (each row)</div>
             {attnWeights.map((row, i) => (
               <CalcRow key={i} eq={`softmax(row ${i + 1})`}
                 result={`[${row.map(v => v.toFixed(3)).join(", ")}]`} color={C} />
@@ -2580,7 +2580,7 @@ function DiffusionModelSection() {
         <div style={{ flex: "0 0 510px" }}>
           {/* Diffusion visualization */}
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>FORWARD PROCESS: NOISING Cu₂ZnSnS₄-LIKE VECTOR</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>Forward process: noising Cu₂ZnSnS₄-like vector</div>
             <div style={{ fontSize: 13, lineHeight: 2.0, color: T.ink, marginBottom: 8 }}>
               Starting composition vector x₀ = [0.50, 0.25, 0.25] representing (Cu, Zn, Sn) fractions.
             </div>
@@ -2683,7 +2683,7 @@ function DiffusionModelSection() {
 
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}`, marginBottom: 10 }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>COMPARISON: VAE vs GAN vs DIFFUSION</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>COMPARISON: VAE vs GAN vs diffusion</div>
             <table style={{ width: "100%", fontSize: 11, borderCollapse: "collapse" }}>
               <thead>
                 <tr style={{ borderBottom: `2px solid ${T.border}` }}>
@@ -3290,7 +3290,7 @@ function InterpretabilitySection() {
 
         <div style={{ flex: 1, minWidth: 200 }}>
           <div style={{ marginTop: 0, background: T.surface, borderRadius: 8, padding: 12, border: `1px solid ${T.border}` }}>
-            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>SHAP Decomposition</div>
+            <div style={{ fontSize: 11, color: T.muted, marginBottom: 8, letterSpacing: 2 }}>Shap Decomposition</div>
             <CalcRow eq={`Base value (population mean)`} result={m.base.toFixed(2) + " eV"} color={C} />
             {m.features.map((f, i) => (
               <CalcRow key={i}
@@ -3403,7 +3403,7 @@ function MLSummarySection() {
               <div>• <strong>{'< 100'} data points:</strong> Linear Reg, Decision Tree, SVM</div>
               <div>• <strong>100–1000 points:</strong> Random Forest, GP</div>
               <div>• <strong>{'> 1000'} points:</strong> Neural Networks</div>
-              <div>• <strong>Need explanations:</strong> Linear Reg, Decision Tree + SHAP</div>
+              <div>• <strong>Need explanations:</strong> Linear Reg, Decision Tree + shap</div>
               <div>• <strong>Design new materials:</strong> VAE, Active Learning</div>
             </div>
           </div>

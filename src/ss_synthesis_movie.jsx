@@ -133,7 +133,7 @@ export default function SSSynthesisMovieModule() {
           <text x={W/2} y={195} textAnchor="middle" fill={P.gpt} fontSize="11" fontWeight="500"
             fontFamily="'Fira Code',monospace" opacity={sOp}>80,806 reactions extracted via LLM</text>
           <text x={W/2} y={215} textAnchor="middle" fill={P.muted} fontSize="10"
-            fontFamily="'Inter',sans-serif" opacity={sOp}>MatBERT classification + GPT-4o extraction</text>
+            fontFamily="'Inter',sans-serif" opacity={sOp}>MatBERT classification + gpt-4o extraction</text>
 
           {/* Paper citation */}
           <text x={W/2} y={260} textAnchor="middle" fill={P.muted} fontSize="8.5"
@@ -462,7 +462,7 @@ export default function SSSynthesisMovieModule() {
         <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }}>
           <rect width={W} height={H} fill={P.bg} />
           <text x={W/2} y={22} textAnchor="middle" fill={P.ink} fontSize="13" fontWeight="500"
-            fontFamily="'Inter',sans-serif" opacity={tOp}>Step 2: GPT-4o Reaction Extraction</text>
+            fontFamily="'Inter',sans-serif" opacity={tOp}>Step 2: gpt-4o Reaction Extraction</text>
           <line x1={280} y1={32} x2={280} y2={415} stroke={P.border} strokeWidth="1" opacity={tOp*0.6} />
 
           {/* LEFT — paper input */}
@@ -517,7 +517,7 @@ export default function SSSynthesisMovieModule() {
             fill={P.surface} stroke={P.border} strokeWidth="1" opacity={tOp*0.4} />
 
           <text x={420} y={55} textAnchor="middle" fill={P.gpt} fontSize="9.5" fontWeight="500"
-            fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.35)*4))}>GPT-4o Output (JSON)</text>
+            fontFamily="'Inter',sans-serif" opacity={ease(clamp01((t-0.35)*4))}>Gpt-4o Output (JSON)</text>
 
           {/* JSON output */}
           <g opacity={ease(clamp01((t-0.4)*4))}>
@@ -877,7 +877,7 @@ export default function SSSynthesisMovieModule() {
             <g opacity={ease(clamp01((t-0.8)*4))}>
               <rect x={40} y={365} width={W-80} height={24} rx="5" fill={P.ok+"12"} stroke={P.ok+"30"} strokeWidth="1"/>
               <text x={W/2} y={381} textAnchor="middle" fill={P.ok} fontSize="9" fontWeight="500"
-                fontFamily="'Inter',sans-serif">GPT-4o captures long-range context: impurity info often in Discussion, not Recipe</text>
+                fontFamily="'Inter',sans-serif">Gpt-4o captures long-range context: impurity info often in Discussion, not Recipe</text>
             </g>
           </g>
         </svg>

@@ -662,7 +662,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
               <li>3+ years of developing and deploying AI models and open science tools (e.g., nanoHUB).</li>
               <li>Recipient of the 2025 MRS Graduate Student Award, Boston.</li>
               <li>Recipient of the Vashti L. Magoon Research Excellence Award from Purdue University.</li>
-              <li>Recipient of high-performance computing allocations from NSF ACCESS and Argonne National Laboratory.</li>
+              <li>Recipient of high-performance computing allocations from NSF access and Argonne National Laboratory.</li>
               <li>Recipient of the Materials Informatics Fellowship from GE Aerospace for Summer 2025 internship.</li>
               <li>Winner of the 2025 AI & ML for Microscopy Hackathon — Toyota Research Institute Prize.</li>
               <li>Winner of the 2025 LLM Hackathon for Applications in Materials Science and Engineering — Abstrax Prize.</li>
@@ -739,7 +739,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
                 <strong style={{ fontSize: 15 }}>Purdue University</strong>
                 <span style={{ fontSize: 12, color: T.muted }}>Aug 2022 – May 2026</span>
               </div>
-              <div style={{ fontSize: 13, color: T.muted }}>West Lafayette, Indiana, USA</div>
+              <div style={{ fontSize: 13, color: T.muted }}>West Lafayette, Indiana, usa</div>
               <div style={{ fontSize: 14, marginTop: 4 }}>
                 PhD in Materials Engineering
               </div>
@@ -764,7 +764,7 @@ export default function AboutMeModule({ onNavigate, dark, onToggleDark }) {
             </div>
             <div style={{ borderTop: `1px solid ${T.border}`, paddingTop: 16 }}>
               <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
-                <strong style={{ fontSize: 15 }}>Bangladesh University of Engineering and Technology (BUET)</strong>
+                <strong style={{ fontSize: 15 }}>Bangladesh University of Engineering and Technology (buet)</strong>
                 <span style={{ fontSize: 12, color: T.muted }}>Mar 2016 – Mar 2021</span>
               </div>
               <div style={{ fontSize: 13, color: T.muted }}>Dhaka, Bangladesh</div>

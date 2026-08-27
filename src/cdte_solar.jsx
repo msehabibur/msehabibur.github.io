@@ -562,7 +562,7 @@ function SupercellSection() {
         </div>
 
         <div style={sectionPanel}>
-          <div style={labelUpper}>Periodic Boundary Conditions (PBC)</div>
+          <div style={labelUpper}>Periodic Boundary Conditions (pbc)</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8, marginBottom: 8 }}>
             The 64-atom box is replicated infinitely in all 3 directions. An atom near the right edge "sees" atoms
             on the left edge as neighbors. This simulates an <b>infinite crystal</b> using a finite number of atoms.
@@ -3211,7 +3211,7 @@ function SolarCellDeviceSection() {
           }}>
             <div style={{ fontSize: 11, color: T.eo_photon, fontWeight: 500, marginBottom: 4 }}>Record Efficiency</div>
             <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.7 }}>
-              <b style={{ color: T.eo_photon }}>22.1%</b> (First Solar, NREL certified) vs. Shockley-Queisser limit of 32.1% for 1.44 eV.<br />
+              <b style={{ color: T.eo_photon }}>22.1%</b> (First Solar, nrel certified) vs. Shockley-Queisser limit of 32.1% for 1.44 eV.<br />
               <b>Key loss:</b> V_Cd recombination + CdS parasitic absorption + back-contact barrier.<br />
               <b>CdCl{"\u2082"} treatment</b> at ~400{"\u00B0"}C is the critical activation step {"\u2014"} recrystallizes CdTe grains, passivates grain boundaries, and enables {">"}20% efficiency.
             </div>

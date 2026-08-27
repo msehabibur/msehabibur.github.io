@@ -320,7 +320,7 @@ export default function LLMMovieModule() {
           <rect x={24} y={56} width={230} height={60} rx="6" fill={P.data + "12"}
             stroke={P.data + "50"} strokeWidth="1.5" opacity={chunkOp} />
           <text x={139} y={74} textAnchor="middle" fill={P.data} fontSize="9" fontWeight="500"
-            fontFamily="'Inter',sans-serif" opacity={chunkOp}>Source Paper (PDF / HTML)</text>
+            fontFamily="'Inter',sans-serif" opacity={chunkOp}>Source Paper (PDF / html)</text>
           {[84,94,104].map((ly,i) => (
             <rect key={i} x={36} y={ly} width={lerp(130,190,(i%2))} height={4} rx="2"
               fill={P.data} opacity={chunkOp * 0.2} />
@@ -378,7 +378,7 @@ export default function LLMMovieModule() {
           <rect x={284} y={378} width={246} height={36} rx="6"
             fill={P.rag+"14"} stroke={P.rag+"50"} strokeWidth="1.5" opacity={embedOp}/>
           <text x={407} y={393} textAnchor="middle" fill={P.rag} fontSize="9" fontWeight="500"
-            fontFamily="'Inter',sans-serif" opacity={embedOp}>Indexed in FAISS</text>
+            fontFamily="'Inter',sans-serif" opacity={embedOp}>Indexed in faiss</text>
           <text x={407} y={407} textAnchor="middle" fill={P.muted} fontSize="8"
             fontFamily="'Inter',sans-serif" opacity={embedOp}>O(log n) cosine similarity search</text>
         </svg>
@@ -410,7 +410,7 @@ export default function LLMMovieModule() {
           <text x={280} y={51} textAnchor="middle" fill={P.data} fontSize="9" fontWeight="500"
             fontFamily="'Inter',sans-serif" opacity={searchOp}>Query: "What is the bandgap and synthesis method for ZnTe?"</text>
           <text x={280} y={65} textAnchor="middle" fill={P.muted} fontSize="8"
-            fontFamily="'Inter',sans-serif" opacity={searchOp}>→ embedded to 1536-d vector → FAISS search → top-5 chunks ranked by cosine similarity</text>
+            fontFamily="'Inter',sans-serif" opacity={searchOp}>→ embedded to 1536-d vector → faiss search → top-5 chunks ranked by cosine similarity</text>
 
           {/* Retrieved chunks with scores */}
           <text x={18} y={96} fill={P.rag} fontSize="9" fontWeight="500"
@@ -478,7 +478,7 @@ export default function LLMMovieModule() {
           <rect x={18} y={36} width={524} height={46} rx="6"
             fill={P.agent+"10"} stroke={P.agent+"50"} strokeWidth="1.5" opacity={genOp}/>
           <text x={280} y={53} textAnchor="middle" fill={P.agent} fontSize="9" fontWeight="500"
-            fontFamily="'Inter',sans-serif" opacity={genOp}>Prompt → LLM (GPT-4 / Llama)</text>
+            fontFamily="'Inter',sans-serif" opacity={genOp}>Prompt → LLM (gpt-4 / Llama)</text>
           <text x={280} y={67} textAnchor="middle" fill={P.muted} fontSize="8"
             fontFamily="'Inter',sans-serif" opacity={genOp}>
             System: "Answer using ONLY the provided context. Cite chunk IDs."  |  Context: 3 graded chunks
@@ -563,7 +563,7 @@ export default function LLMMovieModule() {
           <text x={220} y={69} fill={P.muted} fontSize="8"
             fontFamily="'Inter',sans-serif" opacity={srcOp}>sim = 0.91 · groundedness = 0.87</text>
           <text x={28} y={84} fill={P.warn} fontSize="8" fontWeight="500"
-            fontFamily="'Inter',sans-serif" opacity={srcOp}>σ = UNKNOWN — cannot compute std dev from n=1 paper</text>
+            fontFamily="'Inter',sans-serif" opacity={srcOp}>σ = unknown — cannot compute std dev from n=1 paper</text>
 
           {/* ② Confidence breakdown */}
           <text x={18} y={110} fill={P.chunk} fontSize="9" fontWeight="500"
@@ -637,7 +637,7 @@ export default function LLMMovieModule() {
           <rect x={18} y={308} width={524} height={98} rx="7"
             fill={P.data+"10"} stroke={P.data+"50"} strokeWidth="1.5" opacity={outOp}/>
           <text x={280} y={326} textAnchor="middle" fill={P.data} fontSize="10" fontWeight="500"
-            fontFamily="'Inter',sans-serif" opacity={outOp}>Output (MEDIUM — single source)</text>
+            fontFamily="'Inter',sans-serif" opacity={outOp}>Output (medium — single source)</text>
           {[
             { label: "Value",      val: "Eg = 2.30 eV  [Paper A, Chunk 7]",              c: P.ink  },
             { label: "Uncertainty",val: "σ = unknown (n=1) — no cross-paper σ available", c: P.warn },
@@ -1095,7 +1095,7 @@ export default function LLMMovieModule() {
             return (
               <g opacity={op}>
                 <text x={DX+8} y={PY+24} fill={P.muted} fontSize="8" fontWeight="500"
-                  fontFamily="'Inter',sans-serif">FAISS top-5 results — grade filter</text>
+                  fontFamily="'Inter',sans-serif">Faiss top-5 results — grade filter</text>
                 {/* threshold line — between pass/fail rows */}
                 <line x1={DX+8} y1={PY+105} x2={DX+DW-10} y2={PY+105}
                   stroke={P.warn} strokeWidth="1.2" strokeDasharray="4,3"/>
@@ -1198,7 +1198,7 @@ export default function LLMMovieModule() {
                 <text x={DX+16} y={PY+175} fill={P.muted} fontSize="7"
                   fontFamily="'Inter',sans-serif">Stricter prompt: "only cite provided text"</text>
                 <text x={DX+16} y={PY+184} fill={P.dim} fontSize="6.5"
-                  fontFamily="'Inter',sans-serif">Max 2 retries → flag LOW if still failing</text>
+                  fontFamily="'Inter',sans-serif">Max 2 retries → flag low if still failing</text>
               </g>
             </g>
           )

@@ -606,7 +606,7 @@ function SecEncut() {
           {"  G\u2081:  |k+G| = |0.5 + 2.094| = 2.594 \u00C5\u207B\u00B9  \u2192  E = 7.62 \u00D7 6.73 = "}<span style={{ color: T.warn, fontWeight: 500 }}>{"51.3 eV \u2717 (> 5 eV)"}</span><br />
           {"  G\u208B\u2081: |k+G| = |0.5 - 2.094| = 1.594 \u00C5\u207B\u00B9  \u2192  E = 7.62 \u00D7 2.54 = "}<span style={{ color: T.warn, fontWeight: 500 }}>{"19.4 eV \u2717 (> 5 eV)"}</span><br /><br />
 
-          <span style={{ color: T.eqn, fontWeight: 500 }}>Result: At ENCUT = 5 eV, ONLY G\u2080 survives! The wavefunction is just:</span><br />
+          <span style={{ color: T.eqn, fontWeight: 500 }}>Result: At ENCUT = 5 eV, only G\u2080 survives! The wavefunction is just:</span><br />
           {fx("  \u03C8_k(r) = c\u2080 \u00D7 e^(i \u00D7 0.5 \u00D7 r)")}<br />
           {"  This is terrible \u2014 just one sine wave, no detail at all."}<br /><br />
 
@@ -797,7 +797,7 @@ function SecIsmear() {
       </div>
 
       <Card title="Step Function vs Smooth Smearing" color={T.xc}>
-        <div style={{ fontSize: 11, color: T.muted, marginBottom: 6 }}>Watch the sharp step (T=0) smoothly transition to Gaussian smearing as SIGMA increases</div>
+        <div style={{ fontSize: 11, color: T.muted, marginBottom: 6 }}>Watch the sharp step (T=0) smoothly transition to Gaussian smearing as sigma increases</div>
         <svg viewBox="0 0 400 140" style={{ width: "100%", maxWidth: 440, display: "block", background: "#fafafa", borderRadius: 10, border: "1px solid #e9f0f2" }}>
           {(() => {
             const animSigma = 0.01 + 0.3 * (0.5 + 0.5 * Math.sin(smFrame * 0.04));
@@ -1210,7 +1210,7 @@ function SecAlgo() {
         </div>
 
         <div style={mathBlock}>
-          <span style={{ color: T.accent, fontWeight: 500 }}>ALGO = VeryFast (RMM-DIIS)</span><br />
+          <span style={{ color: T.accent, fontWeight: 500 }}>ALGO = VeryFast (rmm-diis)</span><br />
           {"  Same H, same guess v\u2081 = [1, 0, 0]"}<br /><br />
           {"  Uses residual minimization: minimize |Hv - \u03B5v|\u00B2 directly"}<br />
           {"  Keeps last 4-5 trial vectors, fits a polynomial to predict the next"}<br /><br />
@@ -1218,7 +1218,7 @@ function SecAlgo() {
           {"  Iteration 2: \u03C1 = 2.15 (jumps aggressively!), |r| = 0.35"}<br />
           {"  Iteration 3: \u03C1 = 2.31 (overshot, oscillating), |r| = 0.18"}<br />
           {"  Iteration 4: \u03C1 = 2.27, |r| = 0.01 \u2192 "}<span style={{ color: T.basis, fontWeight: 500 }}>{"converged \u2713"}</span><br /><br />
-          <span style={{ color: T.muted }}>RMM-DIIS can overshoot but uses constant memory. Don't use from random start!</span>
+          <span style={{ color: T.muted }}>Rmm-diis can overshoot but uses constant memory. Don't use from random start!</span>
         </div>
 
         <div style={mathBlock}>
@@ -1359,7 +1359,7 @@ function SecEdiff() {
 
       <Card title="EDIFFG — Ionic Convergence" color={T.accent}>
         <div style={{ fontSize: 12, lineHeight: 1.7, color: T.ink, marginBottom: 10 }}>
-          <strong style={{ color: T.accent }}>EDIFFG {"<"} 0:</strong> converge on <em>forces</em> (recommended) — |EDIFFG| = max force (eV/Å)<br />
+          <strong style={{ color: T.accent }}>EDIFFG {"<"} 0:</strong> converge on <em>forces</em> (recommended) — |ediffg| = max force (eV/Å)<br />
           <strong style={{ color: T.accent }}>EDIFFG {">"} 0:</strong> converge on <em>energy change</em> — less reliable
         </div>
 
@@ -1631,7 +1631,7 @@ function SecPrec() {
 
       <Card title="Recommendation" color={T.basis}>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-          <strong style={{ color: T.basis }}>Always use PREC = Accurate</strong> for production calculations. The ~10% speed cost is negligible compared to the risk of publishing wrong phonon frequencies or incorrect phase stability.
+          <strong style={{ color: T.basis }}>Always use prec = Accurate</strong> for production calculations. The ~10% speed cost is negligible compared to the risk of publishing wrong phonon frequencies or incorrect phase stability.
           The only exception: quick pre-relaxations where you just need atoms roughly in place before a final Accurate run.
         </div>
       </Card>
@@ -1646,7 +1646,7 @@ function SecLreal() {
       <div style={{ background: "#fafbfb", border: "1.5px solid #98bec533", borderRadius: 10, padding: "12px 16px" }}>
         <div style={{ fontSize: 12, fontWeight: 500, color: "#317583", marginBottom: 4 }}>Simple Analogy</div>
         <div style={{ fontSize: 12, lineHeight: 1.8, color: T.ink }}>
-          PAW projections compute how much of each atomic orbital is "inside" each atom. <strong>Lreal = .false.</strong> does this calculation exactly using all plane waves (reciprocal space). <strong>LREAL = Auto</strong> approximates the same thing by only looking within a sphere around each atom (real space) — much faster for big cells, but the sphere has a finite radius, so you miss contributions from the edges. For small cells, the sphere overlaps with its own periodic image, causing errors.
+          PAW projections compute how much of each atomic orbital is "inside" each atom. <strong>Lreal = .false.</strong> does this calculation exactly using all plane waves (reciprocal space). <strong>Lreal = Auto</strong> approximates the same thing by only looking within a sphere around each atom (real space) — much faster for big cells, but the sphere has a finite radius, so you miss contributions from the edges. For small cells, the sphere overlaps with its own periodic image, causing errors.
         </div>
       </div>
 
@@ -1671,7 +1671,7 @@ function SecLreal() {
 
       <Card title="Numerical Impact" color={T.eqn}>
         <div style={mathBlock}>
-          <span style={{ color: T.eqn, fontWeight: 500 }}>8-atom Si cell (small — LREAL matters!):</span><br /><br />
+          <span style={{ color: T.eqn, fontWeight: 500 }}>8-atom Si cell (small — lreal matters!):</span><br /><br />
           {"  LREAL = .FALSE.: E = -43.3847 eV  (exact)"}<br />
           {"  LREAL = Auto:    E = -43.3812 eV  (real-space)"}<br />
           {"  Error: "}<span style={{ color: T.warn, fontWeight: 500 }}>{"3.5 meV/atom"}</span><br />
@@ -1681,7 +1681,7 @@ function SecLreal() {
           {"  LREAL = Auto:    E = -347.074 eV, time = 3.1 min/SCF"}<br />
           {"  Error: "}<span style={{ color: T.basis, fontWeight: 500 }}>{"0.03 meV/atom — negligible"}</span><br />
           {"  Speedup: "}<span style={{ color: T.basis, fontWeight: 500 }}>{"2.6×"}</span><br /><br />
-          <span style={{ color: T.eqn, fontWeight: 500 }}>216-atom CdTe supercell (large — LREAL essential):</span><br /><br />
+          <span style={{ color: T.eqn, fontWeight: 500 }}>216-atom CdTe supercell (large — lreal essential):</span><br /><br />
           {"  LREAL = .FALSE.: 12 min/SCF step"}<br />
           {"  LREAL = Auto:    4 min/SCF step"}<br />
           {"  Error: 0.2 meV/atom"}<br />
@@ -1754,7 +1754,7 @@ function SecReciprocal() {
         <div style={{ padding: "3px 0" }}>
           <div style={{ fontSize: 11, fontWeight: 500, color: T.accent, marginBottom: 4 }}>The Key Insight</div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.7 }}>
-            VASP switches between real and reciprocal space using the <strong>Fast Fourier Transform (FFT)</strong> — O(N log N) cost. It computes V_xc in real space (local), V_Hartree in reciprocal space (convolution → multiplication), and kinetic energy in reciprocal space (diagonal). This dual approach is the engine of every plane-wave DFT code.
+            VASP switches between real and reciprocal space using the <strong>Fast Fourier Transform (fft)</strong> — O(N log N) cost. It computes V_xc in real space (local), V_Hartree in reciprocal space (convolution → multiplication), and kinetic energy in reciprocal space (diagonal). This dual approach is the engine of every plane-wave DFT code.
           </div>
         </div>
       </Card>
@@ -1950,10 +1950,10 @@ function SecCdTeWalkthrough() {
             <div style={{ fontSize: 13, fontWeight: 500, color: T.xc, marginBottom: 6 }}>Cadmium (Z = 48)</div>
             <div style={{ fontSize: 11, lineHeight: 2.0, color: T.ink }}>
               <span style={eq}>Full: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰ 5s²</span><br /><br />
-              <span style={{ color: T.muted, fontWeight: 500 }}>CORE (frozen):</span><br />
+              <span style={{ color: T.muted, fontWeight: 500 }}>Core (frozen):</span><br />
               <span style={eq}>1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶</span><br />
               = <span style={{ color: T.warn, fontWeight: 500, fontSize: 13 }}>36 electrons frozen</span><br /><br />
-              <span style={{ color: T.xc, fontWeight: 500 }}>VALENCE (DFT solves):</span><br />
+              <span style={{ color: T.xc, fontWeight: 500 }}>Valence (DFT solves):</span><br />
               <span style={eq}>4d¹⁰ 5s²</span> = <span style={{ color: T.xc, fontWeight: 500, fontSize: 13 }}>12 valence e⁻</span>
             </div>
           </div>
@@ -1961,10 +1961,10 @@ function SecCdTeWalkthrough() {
             <div style={{ fontSize: 13, fontWeight: 500, color: T.eqn, marginBottom: 6 }}>Tellurium (Z = 52)</div>
             <div style={{ fontSize: 11, lineHeight: 2.0, color: T.ink }}>
               <span style={eq}>Full: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰ 5s² 5p⁴</span><br /><br />
-              <span style={{ color: T.muted, fontWeight: 500 }}>CORE (frozen):</span><br />
+              <span style={{ color: T.muted, fontWeight: 500 }}>Core (frozen):</span><br />
               <span style={eq}>1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s² 4p⁶ 4d¹⁰</span><br />
               = <span style={{ color: T.warn, fontWeight: 500, fontSize: 13 }}>46 electrons frozen</span><br /><br />
-              <span style={{ color: T.eqn, fontWeight: 500 }}>VALENCE (DFT solves):</span><br />
+              <span style={{ color: T.eqn, fontWeight: 500 }}>Valence (DFT solves):</span><br />
               <span style={eq}>5s² 5p⁴</span> = <span style={{ color: T.eqn, fontWeight: 500, fontSize: 13 }}>6 valence e⁻</span>
             </div>
           </div>
@@ -2086,7 +2086,7 @@ function SecCdTeWalkthrough() {
             V<sub>eff</sub>(<strong>r</strong>) = V<sub>ext</sub>(<strong>r</strong>) + V<sub>H</sub>(<strong>r</strong>) + V<sub>xc</sub>(<strong>r</strong>)
           </div>
           <div style={{ fontSize: 11, color: T.ink, lineHeight: 1.8 }}>
-            <strong style={{ color: T.accent }}>V<sub>ext</sub>(<strong>r</strong>)</strong> — PAW pseudopotential (read from POTCAR, not computed)<br /><br />
+            <strong style={{ color: T.accent }}>V<sub>ext</sub>(<strong>r</strong>)</strong> — PAW pseudopotential (read from potcar, not computed)<br /><br />
             <strong style={{ color: T.accent }}>V<sub>H</sub>(<strong>r</strong>)</strong> — Hartree potential (e⁻–e⁻ Coulomb):<br />
             &nbsp;&nbsp;FFT: n⁰(<strong>r</strong>) → ñ⁰(<strong>G</strong>)<br />
             &nbsp;&nbsp;<span style={{ fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: 13 }}>Ṽ<sub>H</sub>(<strong>G</strong>) = <sup>4π ñ⁰(<strong>G</strong>)</sup>&frasl;<sub>|<strong>G</strong>|²</sub></span> &nbsp;for each of 1,233 <strong>G</strong>-vectors<br />
@@ -2113,7 +2113,7 @@ function SecCdTeWalkthrough() {
             Band 7: &nbsp; ε<sub>7</sub> = −1.24 eV &nbsp; (bonding <em>sp</em>³) &nbsp; ← 2e⁻<br />
             Band 8: &nbsp; ε<sub>8</sub> = −1.24 eV &nbsp; (bonding <em>sp</em>³) &nbsp; ← 2e⁻<br />
             Band 9: &nbsp; ε<sub>9</sub> = −1.24 eV &nbsp; (bonding <em>sp</em>³) &nbsp; ← 2e⁻<br />
-            <span style={{ color: T.warn }}>════════ BAND GAP ≈ 0.6 eV ════════</span><br />
+            <span style={{ color: T.warn }}>════════ band gap ≈ 0.6 eV ════════</span><br />
             Band 10: ε<sub>10</sub> = −0.62 eV &nbsp; (antibonding, <em>empty</em>)
           </div>
           <div style={{ fontSize: 11, color: T.muted, marginTop: 8 }}>Bands 1–9 occupied → 9 × 2 = 18 electrons ✓ &nbsp; Repeat for all 60 <strong>k</strong>-points.</div>
